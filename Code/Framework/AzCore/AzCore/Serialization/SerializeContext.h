@@ -77,10 +77,12 @@ namespace AZ
         template<class T>
         struct StaticInstance
         {
-            static T s_instance;
+            static T& GetInstance()
+            {
+                static T s_instance;
+                return s_instance;
+            }
         };
-        template<class T>
-        T StaticInstance<T>::s_instance;
 
         namespace Attributes
         {
@@ -1186,7 +1188,7 @@ namespace AZ
             template<typename SerializerImplementation>
             ClassBuilder* Serializer()
             {
-                return Serializer(&Serialize::StaticInstance<SerializerImplementation>::s_instance);
+                return Serializer(&Serialize::StaticInstance<SerializerImplementation>::GetInstance());
             }
 
             /// For class type that are empty, we want the serializer to create on load, but have no child elements.
@@ -1203,7 +1205,7 @@ namespace AZ
             template<typename EventHandlerImplementation>
             ClassBuilder* EventHandler()
             {
-                return EventHandler(&Serialize::StaticInstance<EventHandlerImplementation>::s_instance);
+                return EventHandler(&Serialize::StaticInstance<EventHandlerImplementation>::GetInstance());
             }
 
             /// Adds a DataContainer structure for manipulating contained data in custom ways
@@ -1213,7 +1215,7 @@ namespace AZ
             template<typename DataContainerType>
             ClassBuilder* DataContainer()
             {
-                return DataContainer(&Serialize::StaticInstance<DataContainerType>::s_instance);
+                return DataContainer(&Serialize::StaticInstance<DataContainerType>::GetInstance());
             }
 
             /**
@@ -1871,7 +1873,7 @@ namespace AZ
     SerializeContext::ClassBuilder
     SerializeContext::Class()
     {
-        return Class<T, TBaseClasses...>(&Serialize::StaticInstance<Serialize::InstanceFactory<T> >::s_instance);
+        return Class<T, TBaseClasses...>(&Serialize::StaticInstance<Serialize::InstanceFactory<T>>::GetInstance());
     }
 
     //=========================================================================
@@ -2491,9 +2493,10 @@ namespace AZ
         template <typename T>
         AZ::GenericClassInfo* FindGenericClassInfo() const;
         AZ::GenericClassInfo* FindGenericClassInfo(const AZ::TypeId& genericTypeId) const;
-    private:
+
         void Cleanup();
 
+    private:
         GenericInfoModuleMap m_moduleLocalGenericClassInfos;
         using SerializeContextSet = AZStd::unordered_set<SerializeContext*, AZStd::hash<SerializeContext*>, AZStd::equal_to<SerializeContext*>, AZ::AllocatorPointerWrapper>;
         SerializeContextSet m_serializeContextSet;

@@ -481,6 +481,7 @@ namespace AZ
         {
             module->UnregisterSerializeContext(this);
         }
+        GetCurrentSerializeContextModule().Cleanup();
     }
 
     void SerializeContext::CleanupModuleGenericClassInfo()
@@ -1726,7 +1727,7 @@ namespace AZ
         {
             return this; // we have already removed the class data.
         }
-        m_classData->second.m_serializer = IDataSerializerPtr(&Serialize::StaticInstance<EmptySerializer>::s_instance, IDataSerializer::CreateNoDeleteDeleter());
+        m_classData->second.m_serializer = IDataSerializerPtr(&Serialize::StaticInstance<EmptySerializer>::GetInstance(), IDataSerializer::CreateNoDeleteDeleter());
         return this;
     }
 

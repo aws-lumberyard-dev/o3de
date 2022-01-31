@@ -763,7 +763,7 @@ namespace AZ
         SerializeContext* serializeContext = azrtti_cast<SerializeContext*>(reflection);
         if (serializeContext)
         {
-            serializeContext->Class<Entity>(&Serialize::StaticInstance<SerializeEntityFactory>::s_instance)
+            serializeContext->Class<Entity>(&Serialize::StaticInstance<SerializeEntityFactory>::GetInstance())
                 ->PersistentId([](const void* instance) -> u64 { return static_cast<u64>(reinterpret_cast<const Entity*>(instance)->GetId()); })
                 ->Version(2, &ConvertOldData)
                 ->Field("Id", &Entity::m_id)

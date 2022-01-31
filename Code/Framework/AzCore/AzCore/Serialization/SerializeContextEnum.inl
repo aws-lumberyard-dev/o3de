@@ -128,7 +128,7 @@ namespace AZ
     template<typename EnumType>
     SerializeContext::EnumBuilder SerializeContext::Enum()
     {
-        return Enum<EnumType>(&Serialize::StaticInstance<Serialize::InstanceFactory<EnumType>>::s_instance);
+        return Enum<EnumType>(&Serialize::StaticInstance<Serialize::InstanceFactory<EnumType>>::GetInstance());
     }
 
     template<typename EnumType>

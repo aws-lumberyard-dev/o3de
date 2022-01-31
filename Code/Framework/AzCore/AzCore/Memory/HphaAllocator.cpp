@@ -1507,7 +1507,7 @@ namespace AZ
         HPPA_ASSERT(ptr);
 
         const size_t allocSize = AZ::SizeAlignUp(size, OS_VIRTUAL_PAGE_SIZE);
-        m_subAllocator.deallocate(ptr, allocSize);
+        m_subAllocator.deallocate(ptr, allocSize, m_treePageAlignment);
 #if defined(AZ_ENABLE_TRACING)
         RemoveAllocatedSize(allocSize);
 #endif
@@ -2123,6 +2123,7 @@ namespace AZ
         if (address)
         {
             AddRequestedSize(byteSize);
+            AddAllocationRecord(address, byteSize, get_allocated_size(address), alignment, 1);
         }
 #endif
         return address;
@@ -2138,6 +2139,7 @@ namespace AZ
         {
 #if defined(AZ_ENABLE_TRACING)
             RemoveRequestedSize(size(ptr));
+            RemoveAllocationRecord(ptr);
 #endif
             free(ptr);
         }
@@ -2145,6 +2147,7 @@ namespace AZ
         {
 #if defined(AZ_ENABLE_TRACING)
             RemoveRequestedSize(byteSize);
+            RemoveAllocationRecord(ptr);
 #endif
             free(ptr, byteSize);
         }
@@ -2152,6 +2155,7 @@ namespace AZ
         {
 #if defined(AZ_ENABLE_TRACING)
             RemoveRequestedSize(byteSize);
+            RemoveAllocationRecord(ptr);
 #endif
             free(ptr, byteSize, alignment);
         }
@@ -2161,6 +2165,7 @@ namespace AZ
     {
 #if defined(AZ_ENABLE_TRACING)
         RemoveRequestedSize(size(ptr));
+        RemoveAllocationRecord(ptr);
 #endif
         pointer address = realloc(ptr, newSize, static_cast<size_t>(newAlignment));
         if (address == nullptr && newSize > 0)
@@ -2172,6 +2177,7 @@ namespace AZ
         if (address)
         {
             AddRequestedSize(newSize);
+            AddAllocationRecord(address, newSize, get_allocated_size(address), newAlignment, 1);
         }
 #endif
         return address;
