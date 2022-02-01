@@ -492,7 +492,7 @@ namespace AZ
     }
 
     AZStd::string JsonDeserializer::ReportAvailableEnumOptions(AZStd::string_view message,
-        const AZStd::vector<AttributeSharedPair, AZ::AllocatorPointerWrapper>& attributes, bool signedValues)
+        const AZStd::vector<AttributeSharedPair>& attributes, bool signedValues)
     {
         AZStd::string result = message;
         result += " Available options are: ";
