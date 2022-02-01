@@ -47,7 +47,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     template<> 
     struct Reflect<{{fullStructName}}>
     {
-    private:
+    public:
         auto GetAttributesFor{{struct.attrib['name']}}()
         {
             return AZ::Reflection::BuildAttributes(
@@ -61,6 +61,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 {%-  call(variable, name, type, codeName) Macros.ListVariablesInOrder(struct)                        %}
         auto GetAttributesForVariable{{name}}()
         {
+            // "{{name}} {{type}} {{codeName}}"
             return AZ::Reflection::BuildAttributes(
                 AZ::Reflection::AttributeArgument( AZ_CRC_CE("Variable"), AZ_CRC_CE("Name"), "{{name}}")
 {%      call(group, name, value) Attrib.ListAllAttributes(variable)                                  %}

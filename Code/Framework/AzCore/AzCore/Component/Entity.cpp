@@ -34,6 +34,8 @@
 #include <AzCore/Debug/Profiler.h>
 #include <AzCore/Reflection/Reflection.h>
 
+//#include <../../../../o3de/build/windows_vs2019/External/LmbrCentral-0ed94143/Code/Azcg/Generated/Source/Editor/EditorCommentComponent.reflection.h>
+
 namespace AZ
 {
     class SerializeEntityFactory
@@ -344,6 +346,7 @@ namespace AZ
         m_components.push_back(component);
 
         /**************************************************************/
+        //mgwynn
         bool trigger = false;
         if (trigger)
         {
@@ -352,24 +355,26 @@ namespace AZ
             AZ_Assert(serializeContext, "No serialize context");
             auto classData = serializeContext->FindClassData(component->RTTI_GetType());
 
-            using AttributeVisitorFunction = AttributeFunction<void(AZ::Reflection::IVisitor& visitor, void* intance)>;
-            Attribute* attribute = FindAttribute(AZ_CRC_CE("Visitor"), classData->m_attributes);//classData->FindAttribute(AZ_CRC_CE("Visitor"));
-            //auto attributeFunction_v = azrtti_cast < AttributeVisitorFunction*>(attribute);
-            auto attributeFunction_v = azdynamic_cast<AttributeFunction<void(AZ::Reflection::IVisitor)>*>(attribute);
-            //azdynamic_cast < AZ::Edit::AttributeFunction < void(size_t)>*>(reader.GetAttribute());
+            //AZ::Reflection::Reflect<LmbrCentral::Proto_EditorCommentComponentData> proto;
+            //AZ::Reflection::Attributes atts = proto.GetAttributesForProto_EditorCommentComponentData();
 
-            if (attributeFunction_v)
+            Attribute* attribute = FindAttribute(AZ_CRC_CE("Visitor"), classData->m_attributes);
+            AZ_Assert(attribute, "Visitor Attribute shouldn't be nullptr");
+            auto attributeInvocable = azrtti_cast<AttributeInvocable<void(AZ::Reflection::IVisitor&, void*)>*>(attribute);
+            AZ_Assert(attributeInvocable, "Visitor Attribute should be invocable");
+            AZ::Reflection::IVisitor v2;
+            attributeInvocable->operator()(v2, component);
+
+            /*
+            AZ::AttributeInvoker<void> invoker(nullptr, attributeInvocable);
+            if (!invoker.Invoke<void, AZ::Reflection::IVisitor&, void*>(v2, &component))
             {
-                AZ::Reflection::IVisitor v2;
-                attributeFunction_v->Invoke(component, v2);
+                AZ_Error("Entity", false, "Failed to Invoke Visitor Functor");
             }
 
-            AZ::Edit::AttributeFunction<void()>* funcVoid =
-                azdynamic_cast<AZ::Edit::AttributeFunction<void()>*>(classData->FindAttribute(AZ_CRC_CE("ref_test")));
-            if (funcVoid)
-            {
-                funcVoid->Invoke(component);
-            }
+            AZ::AttributeInvoker<void> testInvoker(nullptr, FindAttribute(AZ_CRC_CE("ref_test"), classData->m_attributes));
+            testInvoker.Invoke<void>();
+            */
         }
         /**************************************************************/
 

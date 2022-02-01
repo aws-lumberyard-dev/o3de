@@ -56,6 +56,13 @@ namespace AZ
                 invocable->operator()(AZStd::forward<InstType>(instance), AZStd::forward<Args>(args)...);
                 return true;
             }
+            // try an invocable function without the instance type
+            if (auto invocable = azrtti_cast<AttributeInvocable<RetType(Args...)>*>(attr); invocable != nullptr)
+            {
+                printf("mgwynn - casting attribute without instance type.");
+                invocable->operator()(AZStd::forward<Args>(args)...);
+                return true;
+            }
             return false;
         }
 

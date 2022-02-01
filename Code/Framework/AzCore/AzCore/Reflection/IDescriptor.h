@@ -22,19 +22,31 @@ namespace AZ::Reflection
     public:
         AZ_RTTI(IDescriber, "{16F46700-7B05-45DE-8DC0-8C3E9A36C5B0}");
         virtual ~IDescriber() = default;
-        virtual void DescribeBool([[maybe_unused]] const IAttributes& attributes){};
-        virtual void DescribeInt8([[maybe_unused]] const IAttributes& attributes){};
-        virtual void DescribeString([[maybe_unused]] const IAttributes& attributes){};
+        virtual void DescribeBool([[maybe_unused]] const IAttributes& attributes) = 0;
+        virtual void DescribeInt8([[maybe_unused]] const IAttributes& attributes) = 0;
+        virtual void DescribeString([[maybe_unused]] const IAttributes& attributes) = 0;
 
         virtual void DescribeObjectBegin(
             [[maybe_unused]] AZStd::string_view type,
             [[maybe_unused]] const AZ::TypeId& typeId,
             [[maybe_unused]] const IAttributes& attributes){};
-        virtual void DescribeObjectEnd(){};
+        virtual void DescribeObjectEnd() = 0;
 
-        template<typename>
+        template<typename T>
         void Describe([[maybe_unused]] const IAttributes& attributes)
         {
+            if constexpr (AZStd::is_same_v<int, T>)
+            {
+                DescribeInt8(attributes);
+            }
+            else if constexpr (AZStd::is_same_v<bool, T>)
+            {
+                DescribeBool(attributes);
+            }
+            else if constexpr (AZStd::is_same_v<AZStd::string, T>)
+            {
+                DescribeString(attributes);
+            }
             return;
         }
     };

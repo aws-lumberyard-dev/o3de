@@ -142,17 +142,17 @@ namespace AZ::Reflection
 
     bool AttributeReader::GetBool(const IAttributes& attributes, Hash name, bool defaultValue)
     {
-        return GetBool(attributes.Find(name), defaultValue);
+        return GetBool(attributes.Find(name, AZ_CRC("group")), defaultValue);
     }
 
     int64_t AttributeReader::GetInt(const IAttributes& attributes, Hash name, int64_t defaultValue)
     {
-        return GetInt(attributes.Find(name), defaultValue);
+        return GetInt(attributes.Find(name, AZ_CRC("group")), defaultValue);
     }
 
     AZStd::string_view AttributeReader::GetString(const IAttributes& attributes, Hash name, AZStd::string_view defaultValue)
     {
-        return GetString(attributes.Find(name), defaultValue);
+        return GetString(attributes.Find(name, AZ_CRC("group")), defaultValue);
     }
 
     AZ::Uuid AttributeReader::GetUuid(
@@ -224,14 +224,22 @@ namespace AZ::Reflection
         m_first.ListAttributes(callback);
     }
 
+    #pragma optimize("", off)
+    /*
     const AttributeDataType* IAttributes::Find([[maybe_unused]] Hash name) const
     {
+        //return pointer that can be sent to reader
         return NULL;
     }
+
     const AttributeDataType* IAttributes::Find([[maybe_unused]] Hash group, [[maybe_unused]] Hash name) const
     {
+        // return pointer that can be sent to reader
         return NULL;
     }
+    */
+    #pragma optimize("", on)
+
     void IAttributes::ListAttributes([[maybe_unused]] const IterationCallback& callback) const
     {
 

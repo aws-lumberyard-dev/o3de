@@ -12,6 +12,7 @@
 #include <AzCore/std/typetraits/typetraits.h>
 #include <AzCore/Name/Name.h>
 #include "Attributes.h"
+#include <AzCore/std/string/conversions.h>
 
 namespace AZ::Reflection
 {

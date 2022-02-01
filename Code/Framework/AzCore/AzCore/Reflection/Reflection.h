@@ -18,6 +18,7 @@
 #include <AzCore/std/typetraits/typetraits.h>
 #include <AzCore/RTTI/ReflectContext.h>
 
+#pragma optimize("", off)
 namespace AZ::Reflection
 {
     template<typename T>
@@ -37,13 +38,20 @@ namespace AZ::Reflection
         class Description
         {
         public:
-            virtual AZStd::string_view GetName() const = 0;
-            virtual const AZ::IRttiHelper* GetRtti() const = 0;
-            virtual AZStd::any CreateInstance() const = 0;
+            AZStd::string_view GetName() const;
+            const AZ::IRttiHelper* GetRtti() const;
+            AZStd::any CreateInstance() const;
 
-            virtual void Describe(IDescriber& describer) const = 0;
-            virtual void Visit(const void*, IVisitor::IRead& visitor) const = 0;
-            virtual void Visit(void*, IVisitor::IReadWrite& visitor) const = 0;
+            void Describe(IDescriber& describer) const;
+            void Visit(const void*, IVisitor& visitor);
+
+            //virtual AZStd::string_view GetName() const = 0;
+            //virtual const AZ::IRttiHelper* GetRtti() const = 0;
+            //virtual AZStd::any CreateInstance() const = 0;
+
+            //virtual void Describe(IDescriber& describer) const = 0;
+            //virtual void Visit(const void*, IVisitor& visitor) const = 0;
+            //virtual void Visit(void*, IVisitor::IReadWrite& visitor) const = 0;
         };
 
         using ListCallback = AZStd::function<bool(const Description*)>;
@@ -57,9 +65,26 @@ namespace AZ::Reflection
     };
 
     template<typename T>
+    void Visit(IVisitor& visitor, T& value, const IAttributes& attributes = Attributes<0>())
+    {
+        Reflect<T>{}(visitor, value, attributes);
+    }
+
+    template<typename T>
+    void Describe(IDescriber& describer, const IAttributes& attributes = Attributes<0>())
+    {
+        Reflect<T>{}(describer, attributes);
+    }
+
+    /*
+    template<typename T>
     void Visit([[maybe_unused]] IVisitor& visitor, T t)
     {
-        printf("reflection - visit");
+        AZ_Printf("reflect", "Visitor function 2\n");
+        AZ::Reflection::IAttributes attributes;
+        bool test = false;
+        visitor.Visit(test, attributes);
+
         return;
     }
 
@@ -69,5 +94,7 @@ namespace AZ::Reflection
         printf("reflection - describe");
         return;
     }
+    */
 }//namespace AZ::Reflection
+#pragma optimize("", on)
 #endif // AZ_REFLECTION_PROTOTYPE_ENABLED

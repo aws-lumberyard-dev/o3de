@@ -20,6 +20,7 @@
 #include <AzFramework/CommandLine/CommandLine.h>
 #include <AzFramework/API/ApplicationAPI.h>
 
+#include <AzCore/ReflectionDemo/ReflectionDemo.h>
 
 namespace AZ
 {
@@ -181,7 +182,9 @@ namespace AzFramework
         bool m_ownsConsole = false;
 
         bool m_exitMainLoopRequested = false;
-        
+
+        AZ::Reflection::demo m_demo;
+
         enum class RootPathType
         {
             AppRoot,

@@ -109,6 +109,7 @@ void AssetTreeEntry::Insert(const AZStd::string& path, const AZStd::string& menu
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
+#pragma warning(disable : 4267)
 AssetTreeEntry* AssetTreeEntry::BuildAssetTree(const AZ::Data::AssetType& assetType, const AZStd::string& pathToSearch)
 {
     using namespace AzToolsFramework::AssetBrowser;
@@ -139,5 +140,6 @@ AssetTreeEntry* AssetTreeEntry::BuildAssetTree(const AZ::Data::AssetType& assetT
         int pos = AzFramework::StringFunc::Find(path.c_str(), pathToSearch.c_str()) + pathToSearch.length();
         assetTree->Insert(path.substr(pos), name, product->GetAssetId());
     }
+    #pragma warning(default : 4267)
     return assetTree;
 }

@@ -57,6 +57,7 @@ public:
         return size;
     }
     virtual bool IsEmpty() const { return m_undoObjects.empty(); };
+#pragma warning(disable : 4267)
     virtual void Undo(bool bUndo)
     {
         for (int i = m_undoObjects.size() - 1; i >= 0; i--)
@@ -64,6 +65,7 @@ public:
             m_undoObjects[i]->Undo(bUndo);
         }
     }
+#pragma warning(default : 4267)
     virtual void Redo()
     {
         for (int i = 0; i < m_undoObjects.size(); i++)

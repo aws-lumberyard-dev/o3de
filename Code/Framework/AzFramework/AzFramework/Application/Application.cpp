@@ -152,6 +152,7 @@ namespace AzFramework
     Application::Application()
         : Application(nullptr, nullptr)
     {
+        m_demo = AZ::Reflection::demo();
     }
 
     Application::Application(int* argc, char*** argv)
@@ -585,6 +586,15 @@ namespace AzFramework
     void Application::Tick(float deltaOverride /*= -1.f*/)
     {
         ComponentApplication::Tick((t_frameTimeOverride > 0.0f) ? t_frameTimeOverride : deltaOverride);
+
+        if (!m_demo.IsInit())
+        {
+            AZ::Entity entity = AZ::Entity("demoEntity");
+            AZ::EntityId id = entity.MakeId();
+            AZ_Printf("reflect", id.ToString().c_str());
+            AZ_Printf("reflect", "demo test");
+            m_demo.AssignEntity(&entity);
+        }
     }
 
     ////////////////////////////////////////////////////////////////////////////
