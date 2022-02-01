@@ -138,16 +138,15 @@ namespace AZ
         }
     }
 
-    void IAllocatorWithTracking::RemoveAllocationRecord(void* address)
+    void IAllocatorWithTracking::RemoveAllocationRecord(void* address, [[maybe_unused]] AZStd::size_t requestedSize, [[maybe_unused]] AZStd::size_t allocatedSize)
     {
         AllocationRecord record(address, 0, 0, 0); // those other values do not matter because the set just compares the address
         AZStd::scoped_lock lock(m_data->m_allocationRecordsMutex);
-        AZStd::size_t count = m_data->m_allocationRecords.erase(record);
-        if (count != 1)
-        {
-            AZ_Assert(count == 0, "Only option should be that it didnt delete any records");
-            AZ_Assert(false, "Allocation with address 0%p was not found");
-        }
+        auto it = m_data->m_allocationRecords.find(record);
+        AZ_Assert(it != m_data->m_allocationRecords.end(), "Allocation with address 0%p was not found");
+        AZ_Assert(it->m_requestedSize == requestedSize, "Mismatch on requested size")
+        AZ_Assert(it->m_allocatedSize == allocatedSize, "Mismatch on allocated size")
+        m_data->m_allocationRecords.erase(it);
     }
 
 #endif // defined(AZ_ENABLE_TRACING)

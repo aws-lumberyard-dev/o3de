@@ -93,7 +93,7 @@ namespace AZ
         void RemoveAllocatedSize(AZStd::size_t allocatedSize);
 
         void AddAllocationRecord(void* address, AZStd::size_t requestedSize, AZStd::size_t allocatedSize, AZStd::size_t alignmentSize, AZStd::size_t stackFramesToSkip = 0);
-        void RemoveAllocationRecord(void* address);
+        void RemoveAllocationRecord(void* address, AZStd::size_t requestedSize, AZStd::size_t allocatedSize);
 
         // we need to keep this header clean of includes since this will be included by allocators
         // we can end up with include loops where we cannot find definitions

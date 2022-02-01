@@ -29,9 +29,10 @@ namespace AZ
     {
 #if defined(AZ_ENABLE_TRACING)
         const size_type allocatedSize = get_allocated_size(ptr, alignment);
-        RemoveRequestedSize(byteSize ? byteSize : allocatedSize); // if not passed, assume same as allocated
+        const size_t requestedSize = byteSize ? byteSize : allocatedSize;
+        RemoveRequestedSize(requestedSize); // if not passed, assume same as allocated
         RemoveAllocatedSize(allocatedSize);
-        RemoveAllocationRecord(ptr);
+        RemoveAllocationRecord(ptr, requestedSize, allocatedSize);
 #endif
         AZ_OS_FREE(ptr);
     }
@@ -42,7 +43,7 @@ namespace AZ
         const size_type previouslyRequestedSize = get_allocated_size(ptr, newAlignment); // assume same alignment
         RemoveAllocatedSize(previouslyRequestedSize);
         RemoveRequestedSize(previouslyRequestedSize);
-        RemoveAllocationRecord(ptr);
+        RemoveAllocationRecord(ptr, previouslyRequestedSize, previouslyRequestedSize);
 #endif
         // Realloc in most platforms doesnt support allocating from a nulltpr
         pointer newPtr = ptr ? AZ_OS_REALLOC(ptr, newSize, static_cast<AZStd::size_t>(newAlignment))

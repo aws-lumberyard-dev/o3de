@@ -2122,8 +2122,14 @@ namespace AZ
 #if defined(AZ_ENABLE_TRACING)
         if (address)
         {
-            AddRequestedSize(byteSize);
-            AddAllocationRecord(address, byteSize, get_allocated_size(address), alignment, 1);
+            // Cannot store the actual requested size because that size is no longer knowable. This
+            // allocator will size-up certain allocations and loose track of the original size.
+            // In order to keep this counter sane, we will not be tracking this small size-up, which
+            // will under-report fragmentation. If needed, fragmentation can be tracked separately
+            // through the allocation record.
+            const size_t sizedUpSize = get_allocated_size(address);
+            AddRequestedSize(sizedUpSize);
+            AddAllocationRecord(address, sizedUpSize, sizedUpSize, alignment, 1);
         }
 #endif
         return address;
@@ -2135,28 +2141,21 @@ namespace AZ
         {
             return;
         }
+#if defined(AZ_ENABLE_TRACING)
+        const size_type originalRequest = get_allocated_size(ptr);
+        RemoveRequestedSize(originalRequest);
+        RemoveAllocationRecord(ptr, originalRequest, originalRequest);
+#endif
         if (byteSize == 0)
         {
-#if defined(AZ_ENABLE_TRACING)
-            RemoveRequestedSize(size(ptr));
-            RemoveAllocationRecord(ptr);
-#endif
             free(ptr);
         }
         else if (alignment == 0)
         {
-#if defined(AZ_ENABLE_TRACING)
-            RemoveRequestedSize(byteSize);
-            RemoveAllocationRecord(ptr);
-#endif
             free(ptr, byteSize);
         }
         else
         {
-#if defined(AZ_ENABLE_TRACING)
-            RemoveRequestedSize(byteSize);
-            RemoveAllocationRecord(ptr);
-#endif
             free(ptr, byteSize, alignment);
         }
     }
@@ -2164,8 +2163,9 @@ namespace AZ
     HphaAllocatorPimpl::pointer HphaAllocatorPimpl::reallocate(pointer ptr, size_type newSize, align_type newAlignment)
     {
 #if defined(AZ_ENABLE_TRACING)
-        RemoveRequestedSize(size(ptr));
-        RemoveAllocationRecord(ptr);
+        const size_type originalRequest = get_allocated_size(ptr);
+        RemoveRequestedSize(originalRequest);
+        RemoveAllocationRecord(ptr, originalRequest, originalRequest);
 #endif
         pointer address = realloc(ptr, newSize, static_cast<size_t>(newAlignment));
         if (address == nullptr && newSize > 0)
@@ -2176,8 +2176,9 @@ namespace AZ
 #if defined(AZ_ENABLE_TRACING)
         if (address)
         {
-            AddRequestedSize(newSize);
-            AddAllocationRecord(address, newSize, get_allocated_size(address), newAlignment, 1);
+            const size_t sizedUpSize = get_allocated_size(address);
+            AddRequestedSize(sizedUpSize);
+            AddAllocationRecord(address, sizedUpSize, sizedUpSize, newAlignment, 1);
         }
 #endif
         return address;
