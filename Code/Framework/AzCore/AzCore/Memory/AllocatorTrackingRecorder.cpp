@@ -155,7 +155,7 @@ namespace AZ
     IAllocatorWithTracking::IAllocatorWithTracking()
     {
 #if defined(AZ_ENABLE_TRACING)
-        m_data = new(AZ::Debug::DebugAllocator().allocate(sizeof(IAllocatorTrackingRecorderData), AZStd::alignment_of<IAllocatorTrackingRecorderData>::value)) IAllocatorTrackingRecorderData();
+        m_data = new (AZ::Debug::DebugAllocator().allocate(sizeof(IAllocatorTrackingRecorderData), alignof(IAllocatorTrackingRecorderData))) IAllocatorTrackingRecorderData();
 #endif()
     }
 
@@ -163,7 +163,7 @@ namespace AZ
     {
 #if defined(AZ_ENABLE_TRACING)
         m_data->~IAllocatorTrackingRecorderData();
-        AZ::Debug::DebugAllocator().deallocate(m_data, sizeof(IAllocatorTrackingRecorderData), AZStd::alignment_of<IAllocatorTrackingRecorderData>::value);
+        AZ::Debug::DebugAllocator().deallocate(m_data, sizeof(IAllocatorTrackingRecorderData), alignof(IAllocatorTrackingRecorderData));
 #endif
     }
 

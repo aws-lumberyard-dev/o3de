@@ -123,7 +123,7 @@ namespace AZ::Internal
             void Create()
             {
                 m_data.reset(
-                    new (reinterpret_cast<Data*>(AZStd::stateless_allocator().allocate(sizeof(Data), AZStd::alignment_of<Data>::value))) Data(),
+                    new (reinterpret_cast<Data*>(AZStd::stateless_allocator().allocate(sizeof(Data), alignof(Data)))) Data(),
                     [](Data* pi) { pi->~Data(); },
                     AZStd::stateless_allocator());
             }
@@ -159,7 +159,7 @@ namespace AZ::Internal
             }
 
         private:
-                using AllocatorStorage = typename AZStd::aligned_storage<sizeof(AllocatorType), AZStd::alignment_of<AllocatorType>::value>::type;
+                using AllocatorStorage = typename AZStd::aligned_storage<sizeof(AllocatorType), alignof(AllocatorType)>::type;
                 AllocatorStorage m_allocatorStorage; // memory storage for the environment allocator
             };
             AZStd::shared_ptr<Data> m_data;
@@ -249,14 +249,11 @@ namespace AZ::Internal
         // callback from AZ::Environment during attachment/detachment of the environment.
         void Attached() override
         {
-            if (m_cachedStaticAllocator)
-            {
-                InternalGet(); // calling this will move the allocator from static to environment variable
-            }
+            Created();
         }
         void Created() override
         {
-            if (m_cachedStaticAllocator)
+            if (!m_cachedEnvironmentAllocator)
             {
                 InternalGet(); // calling this will move the allocator from static to environment variable
             }

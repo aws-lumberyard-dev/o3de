@@ -71,13 +71,13 @@ namespace AZ
         /*template<typename TType>
         pointer allocate()
         {
-            return allocate(sizeof(TType), static_cast<align_type>(AZStd::alignment_of<TType>::value));
+            return allocate(sizeof(TType), alignof(TType));
         }
 
         template<typename TType>
         void deallocate(pointer ptr)
         {
-            return deallocate(ptr, sizeof(TType), static_cast<align_type>(AZStd::alignment_of<TType>::value));
+            return deallocate(ptr, sizeof(TType), alignof(TType)));
         }*/
 
         AZ_DISABLE_COPY_MOVE(IAllocator)

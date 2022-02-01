@@ -2209,7 +2209,7 @@ namespace AZ
         // We use the AZStd::stateless_allocator for the allocation of this object to prevent it from showing up as a leak
         // in other allocators.
         HphaAllocatorPimpl* allocatorMemory = reinterpret_cast<HphaAllocatorPimpl*>(
-            AZStd::stateless_allocator().allocate(sizeof(HphaAllocatorPimpl), AZStd::alignment_of<HphaAllocatorPimpl>::value));
+            AZStd::stateless_allocator().allocate(sizeof(HphaAllocatorPimpl), alignof(HphaAllocatorPimpl)));
         return new(allocatorMemory)HphaAllocatorPimpl(subAllocator);
     }
 

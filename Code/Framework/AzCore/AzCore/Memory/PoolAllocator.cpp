@@ -101,7 +101,7 @@ namespace AZ
         m_numBuckets = m_maxAllocationSize / m_minAllocationSize;
         AZ_Assert(m_numBuckets <= 0xffff, "You can't have more than 65535 number of buckets! We need to increase the index size!");
         m_buckets = reinterpret_cast<BucketType*>(
-            m_allocator->m_pageAllocator->allocate(sizeof(BucketType) * m_numBuckets, static_cast<align_type>(AZStd::alignment_of<BucketType>::value)));
+            m_allocator->m_pageAllocator->allocate(sizeof(BucketType) * m_numBuckets,  alignof(BucketType)));
         for (size_t i = 0; i < m_numBuckets; ++i)
         {
             new (m_buckets + i) BucketType();
@@ -476,7 +476,7 @@ namespace AZ
     IAllocator* CreatePoolAllocatorPimpl(IAllocator& subAllocator)
     {
         PoolSchemaPimpl* allocatorMemory =
-            reinterpret_cast<PoolSchemaPimpl*>(subAllocator.allocate(sizeof(PoolSchemaPimpl), AZStd::alignment_of<PoolSchemaPimpl>::value));
+            reinterpret_cast<PoolSchemaPimpl*>(subAllocator.allocate(sizeof(PoolSchemaPimpl), alignof(PoolSchemaPimpl)));
         return new (allocatorMemory) PoolSchemaPimpl(&subAllocator);
     }
 
