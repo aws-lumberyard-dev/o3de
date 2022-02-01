@@ -2511,20 +2511,15 @@ namespace AZ
         using GenericClassInfoType = typename SerializeGenericTypeInfo<T>::ClassInfoType;
         static_assert(AZStd::is_base_of<AZ::GenericClassInfo, GenericClassInfoType>::value, "GenericClassInfoType must be be derived from AZ::GenericClassInfo");
 
-        const AZ::TypeId& canonicalTypeId = AzTypeInfo<T>::Uuid();
-        auto findIt = m_moduleLocalGenericClassInfos.find(canonicalTypeId);
+        auto findIt = m_moduleLocalGenericClassInfos.find(GenericClassInfoType().GetSpecializedTypeId());
         if (findIt != m_moduleLocalGenericClassInfos.end())
         {
             return static_cast<GenericClassInfoType*>(findIt->second.m_classInfo);
-        }
+        }      
 
-        void* rawMemory = AZ::AllocatorInstance<AZ::SystemAllocator>::Get().Allocate(sizeof(GenericClassInfoType), alignof(GenericClassInfoType));
-        new (rawMemory) GenericClassInfoType();
-        auto genericClassInfo = static_cast<GenericClassInfoType*>(rawMemory);
-        if (genericClassInfo)
-        {
-            AddGenericClassInfo(genericClassInfo, sizeof(GenericClassInfoType), alignof(GenericClassInfoType));
-        }
+        void* rawMemory = AZ::AllocatorInstance<AZ::SystemAllocator>::Get().allocate(sizeof(GenericClassInfoType), alignof(GenericClassInfoType));
+        GenericClassInfoType* genericClassInfo = new (rawMemory) GenericClassInfoType();
+        AddGenericClassInfo(genericClassInfo, sizeof(GenericClassInfoType), alignof(GenericClassInfoType));
         return genericClassInfo;
     }
 

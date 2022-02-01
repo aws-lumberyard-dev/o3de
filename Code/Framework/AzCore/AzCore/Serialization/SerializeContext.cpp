@@ -3167,11 +3167,11 @@ namespace AZ
 
     void SerializeContext::PerModuleGenericClassInfo::Cleanup()
     {
-        decltype(m_moduleLocalGenericClassInfos) genericClassInfoContainer = AZStd::move(m_moduleLocalGenericClassInfos);
-        decltype(m_serializeContextSet) serializeContextSet = AZStd::move(m_serializeContextSet);
+        GenericInfoModuleMap genericClassInfoContainer = AZStd::move(m_moduleLocalGenericClassInfos);
+        SerializeContextSet serializeContextSet = AZStd::move(m_serializeContextSet);
+
         // Un-reflect GenericClassInfo from each serialize context registered with the module
-        // The SerailizeContext uses the SystemAllocator so it is required to be ready in order to remove the data
-        
+        // The SerailizeContext uses the SystemAllocator so it is required to be ready in order to remove the data       
         for (AZ::SerializeContext* serializeContext : serializeContextSet)
         {
             for (const GenericInfoModuleMap::value_type& moduleGenericClassInfoPair : genericClassInfoContainer)
@@ -3183,7 +3183,6 @@ namespace AZ
         }
 
         // Cleanup the memory for the GenericClassInfo objects.
-        // This isn't explicitly needed as the OSAllocator owned by this class will take the memory with it.
         for (const GenericInfoModuleMap::value_type& moduleGenericClassInfoPair : genericClassInfoContainer)
         {
             GenericInfoModuleMapItem genericClassInfoItem = moduleGenericClassInfoPair.second;
@@ -3217,8 +3216,9 @@ namespace AZ
             return;
         }
 
-        m_moduleLocalGenericClassInfos.emplace(
+        [[maybe_unused]] auto it = m_moduleLocalGenericClassInfos.emplace(
             genericClassInfo->GetSpecializedTypeId(), GenericInfoModuleMapItem{ genericClassInfo, allocationSize, allocationAlignment });
+        AZ_Assert(it.second, "GenericClassInfo \"%s\" already exists in per-module information", genericClassInfo->GetClassData()->m_name);
     }
 
     void SerializeContext::PerModuleGenericClassInfo::RemoveGenericClassInfo(const AZ::TypeId& genericTypeId)
