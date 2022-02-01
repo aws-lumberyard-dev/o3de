@@ -224,22 +224,6 @@ namespace AZ::Reflection
         m_first.ListAttributes(callback);
     }
 
-    #pragma optimize("", off)
-    /*
-    const AttributeDataType* IAttributes::Find([[maybe_unused]] Hash name) const
-    {
-        //return pointer that can be sent to reader
-        return NULL;
-    }
-
-    const AttributeDataType* IAttributes::Find([[maybe_unused]] Hash group, [[maybe_unused]] Hash name) const
-    {
-        // return pointer that can be sent to reader
-        return NULL;
-    }
-    */
-    #pragma optimize("", on)
-
     void IAttributes::ListAttributes([[maybe_unused]] const IterationCallback& callback) const
     {
 

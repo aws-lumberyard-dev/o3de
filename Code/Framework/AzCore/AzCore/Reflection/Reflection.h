@@ -18,7 +18,6 @@
 #include <AzCore/std/typetraits/typetraits.h>
 #include <AzCore/RTTI/ReflectContext.h>
 
-#pragma optimize("", off)
 namespace AZ::Reflection
 {
     template<typename T>
@@ -44,14 +43,6 @@ namespace AZ::Reflection
 
             void Describe(IDescriber& describer) const;
             void Visit(const void*, IVisitor& visitor);
-
-            //virtual AZStd::string_view GetName() const = 0;
-            //virtual const AZ::IRttiHelper* GetRtti() const = 0;
-            //virtual AZStd::any CreateInstance() const = 0;
-
-            //virtual void Describe(IDescriber& describer) const = 0;
-            //virtual void Visit(const void*, IVisitor& visitor) const = 0;
-            //virtual void Visit(void*, IVisitor::IReadWrite& visitor) const = 0;
         };
 
         using ListCallback = AZStd::function<bool(const Description*)>;
@@ -76,25 +67,6 @@ namespace AZ::Reflection
         Reflect<T>{}(describer, attributes);
     }
 
-    /*
-    template<typename T>
-    void Visit([[maybe_unused]] IVisitor& visitor, T t)
-    {
-        AZ_Printf("reflect", "Visitor function 2\n");
-        AZ::Reflection::IAttributes attributes;
-        bool test = false;
-        visitor.Visit(test, attributes);
-
-        return;
-    }
-
-    template<typename>
-    void Describe([[maybe_unused]] IDescriber& describer)
-    {
-        printf("reflection - describe");
-        return;
-    }
-    */
 }//namespace AZ::Reflection
-#pragma optimize("", on)
+
 #endif // AZ_REFLECTION_PROTOTYPE_ENABLED

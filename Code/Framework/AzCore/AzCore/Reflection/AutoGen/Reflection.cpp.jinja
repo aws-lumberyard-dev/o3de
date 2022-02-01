@@ -36,7 +36,6 @@ AZ_CRC_CE({{value}})
 {% endcall                                                                                   %}
                 ->Attribute(AZ_CRC_CE("Visitor"), [](AZ::Reflection::IVisitor& visitor, void* instance)
                     { 
-                        AZ_Printf("reflect", "Visitor function\n");
                         AZ::Reflection::Visit(visitor, *reinterpret_cast<{{structure.attrib['name']}}*>(instance));
                     })
                 ->Attribute(AZ_CRC_CE("Describer"), [](AZ::Reflection::IDescriber& describer)

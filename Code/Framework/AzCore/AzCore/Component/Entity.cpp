@@ -34,8 +34,6 @@
 #include <AzCore/Debug/Profiler.h>
 #include <AzCore/Reflection/Reflection.h>
 
-//#include <../../../../o3de/build/windows_vs2019/External/LmbrCentral-0ed94143/Code/Azcg/Generated/Source/Editor/EditorCommentComponent.reflection.h>
-
 namespace AZ
 {
     class SerializeEntityFactory
@@ -344,39 +342,6 @@ namespace AZ
         }
         component->SetEntity(this);
         m_components.push_back(component);
-
-        /**************************************************************/
-        //mgwynn
-        bool trigger = false;
-        if (trigger)
-        {
-            AZ::SerializeContext* serializeContext = nullptr;
-            EBUS_EVENT_RESULT(serializeContext, AZ::ComponentApplicationBus, GetSerializeContext);
-            AZ_Assert(serializeContext, "No serialize context");
-            auto classData = serializeContext->FindClassData(component->RTTI_GetType());
-
-            //AZ::Reflection::Reflect<LmbrCentral::Proto_EditorCommentComponentData> proto;
-            //AZ::Reflection::Attributes atts = proto.GetAttributesForProto_EditorCommentComponentData();
-
-            Attribute* attribute = FindAttribute(AZ_CRC_CE("Visitor"), classData->m_attributes);
-            AZ_Assert(attribute, "Visitor Attribute shouldn't be nullptr");
-            auto attributeInvocable = azrtti_cast<AttributeInvocable<void(AZ::Reflection::IVisitor&, void*)>*>(attribute);
-            AZ_Assert(attributeInvocable, "Visitor Attribute should be invocable");
-            AZ::Reflection::IVisitor v2;
-            attributeInvocable->operator()(v2, component);
-
-            /*
-            AZ::AttributeInvoker<void> invoker(nullptr, attributeInvocable);
-            if (!invoker.Invoke<void, AZ::Reflection::IVisitor&, void*>(v2, &component))
-            {
-                AZ_Error("Entity", false, "Failed to Invoke Visitor Functor");
-            }
-
-            AZ::AttributeInvoker<void> testInvoker(nullptr, FindAttribute(AZ_CRC_CE("ref_test"), classData->m_attributes));
-            testInvoker.Invoke<void>();
-            */
-        }
-        /**************************************************************/
 
         if (m_state == State::Init)
         {
