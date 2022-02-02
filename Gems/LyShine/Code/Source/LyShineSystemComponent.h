@@ -30,7 +30,6 @@ namespace LyShine
         : public AZ::Component
         , protected UiSystemBus::Handler
         , protected UiSystemToolsBus::Handler
-        , protected LyShineAllocatorScope
         , protected UiFrameworkBus::Handler
         , protected CrySystemEventBus::Handler
         , public ILevelSystemListener

@@ -10,6 +10,7 @@
 
 #if !defined(Q_MOC_RUN)
 #include <Editor/PropertyWidgets/ActorJointHandler.h>
+#include <AzCore/Memory/Memory.h>
 #endif
 
 

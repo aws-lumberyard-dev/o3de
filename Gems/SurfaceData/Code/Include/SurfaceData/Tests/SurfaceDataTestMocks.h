@@ -29,7 +29,6 @@ namespace UnitTest
         void SetUp() override
         {
             AZ::ComponentApplication::Descriptor appDesc;
-            appDesc.m_memoryBlocksByteSize = 128 * 1024 * 1024;
             m_systemEntity = m_app.Create(appDesc);
             m_app.AddEntity(m_systemEntity);
         }

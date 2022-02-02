@@ -104,10 +104,12 @@ namespace Blast
             static const size_t alignment = 16;
 
             void* allocate(
-                size_t size, const char* typeName, [[maybe_unused]] const char* filename,
+                size_t size,
+                [[maybe_unused]] const char* typeName,
+                [[maybe_unused]] const char* filename,
                 [[maybe_unused]] int line) override
             {
-                return azmalloc_4(size, alignment, AZ::SystemAllocator, typeName);
+                return azmalloc_3(size, alignment, AZ::SystemAllocator);
             }
 
             void deallocate(void* ptr) override

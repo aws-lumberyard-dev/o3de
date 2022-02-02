@@ -91,12 +91,10 @@ namespace LmbrCentral
 
         void Activate() override
         {
-            LmbrCentralAllocatorScope::ActivateAllocators();
         }
 
         void Deactivate() override
         {
-            LmbrCentralAllocatorScope::DeactivateAllocators();
         }
 
         static void GetProvidedServices(AZ::ComponentDescriptor::DependencyArrayType& provided)

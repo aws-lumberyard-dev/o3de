@@ -8,23 +8,14 @@
 
 #include <Launcher.h>
 
-#include <AzCore/Casting/numeric_cast.h>
 #include <AzCore/Component/ComponentApplicationLifecycle.h>
 #include <AzCore/Console/IConsole.h>
-#include <AzCore/Debug/BudgetTracker.h>
-#include <AzCore/Debug/Trace.h>
-#include <AzCore/Interface/Interface.h>
-#include <AzCore/IO/Path/Path.h>
-#include <AzCore/IO/SystemFile.h>
+#include <AzCore/Math/Vector2.h>
 #include <AzCore/Settings/SettingsRegistryMergeUtils.h>
-#include <AzCore/std/smart_ptr/make_shared.h>
-#include <AzCore/StringFunc/StringFunc.h>
-#include <AzCore/Utils/Utils.h>
 
 #include <AzFramework/Asset/AssetSystemBus.h>
-#include <AzFramework/IO/RemoteStorageDrive.h>
+#include <AzFramework/IO/RemoteFileIO.h>
 #include <AzFramework/Windowing/NativeWindow.h>
-#include <AzFramework/Windowing/WindowBus.h>
 
 #include <AzGameFramework/Application/GameApplication.h>
 
@@ -412,23 +403,12 @@ namespace O3DELauncher
                 pathToAssets.c_str());
         }
 
-        CryAllocatorsRAII cryAllocatorsRAII;
-
         // System Init Params ("Legacy" Open 3D Engine)
         SSystemInitParams systemInitParams;
         memset(&systemInitParams, 0, sizeof(SSystemInitParams));
 
         {
             AzGameFramework::GameApplication::StartupParameters gameApplicationStartupParams;
-
-            if (mainInfo.m_allocator)
-            {
-                gameApplicationStartupParams.m_allocator = mainInfo.m_allocator;
-            }
-            else if (AZ::AllocatorInstance<AZ::OSAllocator>::IsReady())
-            {
-                gameApplicationStartupParams.m_allocator = &AZ::AllocatorInstance<AZ::OSAllocator>::Get();
-            }
 
         #if defined(AZ_MONOLITHIC_BUILD)
             gameApplicationStartupParams.m_createStaticModulesCallback = CreateStaticModules;

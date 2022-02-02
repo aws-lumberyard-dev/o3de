@@ -10,6 +10,7 @@
 
 #include <AzCore/Memory/Memory.h>
 #include <AzCore/Memory/SystemAllocator.h>
+#include <AzCore/Memory/AllocatorWrappers.h>
 
 namespace EMotionFX
 {

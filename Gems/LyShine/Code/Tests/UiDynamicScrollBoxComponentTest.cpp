@@ -71,7 +71,7 @@ namespace UnitTest
         void SetUp() override
         {
             // start application
-            AZ::AllocatorInstance<AZ::SystemAllocator>::Create(AZ::SystemAllocator::Descriptor());
+            AZ::AllocatorInstance<AZ::SystemAllocator>::Create();
             AZ::ComponentApplication::Descriptor appDescriptor;
 
             m_application = aznew UiDynamicScrollBoxTestApplication();

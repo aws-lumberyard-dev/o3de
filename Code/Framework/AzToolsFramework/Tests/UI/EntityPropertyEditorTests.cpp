@@ -53,8 +53,6 @@ namespace UnitTest
 
         ToolsApplication::Descriptor desc;
         ToolsApplication::StartupParameters startupParams;
-        startupParams.m_allocator = &AZ::AllocatorInstance<AZ::SystemAllocator>::Get();
-
         Entity* systemEntity = app.Create(desc, startupParams);
 
         // Need to reflect the components so that edit attribute used for sorting, such as FixedComponentListIndex, get set.

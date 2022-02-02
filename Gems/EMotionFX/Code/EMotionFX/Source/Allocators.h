@@ -9,6 +9,7 @@
 #pragma once
 
 #include <AzCore/Preprocessor/Sequences.h>
+#include <AzCore/Memory/AllocatorWrappers.h>
 #include <AzCore/Memory/SystemAllocator.h>
 #include <AzCore/Memory/PoolAllocator.h>
 
@@ -110,7 +111,7 @@ namespace EMotionFX
     };
 
     class AnimGraphObjectDataAllocator final
-        : publicAZ::ThreadPoolAllocator
+        : public AZ::ThreadPoolAllocator
     {
     public:
         AZ_CLASS_ALLOCATOR(AnimGraphObjectDataAllocator, AZ::SystemAllocator, 0)

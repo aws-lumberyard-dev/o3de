@@ -39,7 +39,6 @@ namespace UnitTest
         void SetUp() override
         {        
             ComponentApplication::Descriptor appDesc;
-            appDesc.m_memoryBlocksByteSize = 100 * 1024 * 1024;
             Entity* systemEntity = m_app.Create(appDesc);
 
             systemEntity->CreateComponent<MemoryComponent>();

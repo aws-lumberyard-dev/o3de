@@ -37,6 +37,8 @@ namespace AZ
             return m_allocators[index];
         }
 
+        void GarbageCollect();
+
         // Called from IAllocator
         void RegisterAllocator(IAllocator* alloc);
         void UnRegisterAllocator(IAllocator* alloc);

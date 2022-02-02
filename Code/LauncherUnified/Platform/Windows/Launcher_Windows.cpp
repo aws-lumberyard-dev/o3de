@@ -22,12 +22,7 @@ int APIENTRY WinMain([[maybe_unused]] HINSTANCE hInstance, [[maybe_unused]] HINS
 
     mainInfo.CopyCommandLine(__argc, __argv);
 
-    // Prevent allocator from growing in small chunks
-    // Pre-create our system allocator and configure it to ask for larger chunks from the OS
-    // Creating this here to be consistent with other platforms
-    AZ::SystemAllocator::Descriptor sysHeapDesc;
-    sysHeapDesc.m_heap.m_systemChunkSize = 64 * 1024 * 1024;
-    AZ::AllocatorInstance<AZ::SystemAllocator>::Create(sysHeapDesc);
+    AZ::AllocatorInstance<AZ::SystemAllocator>::Create();
 
     ReturnCode status = Run(mainInfo);
 
@@ -42,8 +37,6 @@ int APIENTRY WinMain([[maybe_unused]] HINSTANCE hInstance, [[maybe_unused]] HINS
         MessageBoxA(0, GetReturnCodeString(status), "Error", MB_OK | MB_DEFAULT_DESKTOP_ONLY | MB_ICONERROR);
     }
 
-    // there is no way to transfer ownership of the allocator to the component application
-    // without altering the app descriptor, so it must be destroyed here
     AZ::AllocatorInstance<AZ::SystemAllocator>::Destroy();
 
     return static_cast<int>(status);

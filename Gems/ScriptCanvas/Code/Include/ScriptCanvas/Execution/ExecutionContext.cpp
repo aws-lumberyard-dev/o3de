@@ -102,7 +102,7 @@ namespace ScriptCanvas
                 for (auto& entityId : activationData.variableOverrides.m_entityIds)
                 {
                     destVariableIter->m_typeId = entityIdTypeId;
-                    destVariableIter->m_value = destVariableIter->m_tempData.allocate(sizeof(Data::EntityIDType), AZStd::alignment_of<Data::EntityIDType>::value, 0);
+                    destVariableIter->m_value = destVariableIter->m_tempData.allocate(sizeof(Data::EntityIDType), AZStd::alignment_of<Data::EntityIDType>::value);
                     auto entityIdValuePtr = reinterpret_cast<AZStd::decay_t<Data::EntityIDType>*>(destVariableIter->m_value);
                     *entityIdValuePtr = entityId;
                     ++destVariableIter;

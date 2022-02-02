@@ -12,6 +12,7 @@
 #include <AzCore/RTTI/RTTI.h>
 #include <AzCore/std/parallel/thread.h>
 #include <AzCore/Asset/AssetCommon.h>
+#include <AzCore/Math/Crc.h>
 
 /**
  * ObjectStream provides load/save functionality of structured object data.

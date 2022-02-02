@@ -8,16 +8,14 @@
 #pragma once
 
 #include <AzCore/PlatformDef.h> // for AZ_COMMAND_LINE_LEN
-#include <AzCore/Debug/Trace.h>
-#include <AzCore/IO/SystemFile.h>
-#include <AzCore/Memory/Memory.h>
-#include <CryCommon/platform.h>
+#include <AzCore/std/string/string_view.h>
 
 struct IOutputPrintSink;
 
 #define COMMAND_LINE_ARG_COUNT_LIMIT (AZ_COMMAND_LINE_LEN+1) / 2        // Assume that the limit to how many arguments we can maintain is the max buffer size divided by 2
                                                                         // to account for an argument and a spec in between each argument (with the worse case scenario being
-
+namespace O3DELauncher
+{
     struct PlatformMainInfo
     {
         typedef bool (*ResourceLimitUpdater)();
@@ -43,7 +41,6 @@ struct IOutputPrintSink;
 
         ResourceLimitUpdater m_updateResourceLimits = nullptr; //!< callback for updating system resources, if necessary
         OnPostApplicationStart m_onPostAppStart = nullptr;  //!< callback notifying the platform specific entry point that AzGameFramework::GameApplication::Start has been called
-        AZ::IAllocator* m_allocator = nullptr; //!< Used to allocate the temporary bootstrap memory, as well as the main \ref SystemAllocator heap. If null, OSAllocator will be used
 
         const char* m_appResourcesPath = "."; //!< Path to the device specific assets, default is equivalent to blank path in ParseEngineConfig
         const char* m_appWriteStoragePath = nullptr; //!< Path to writeable storage if different than assets path, used to override userPath and logPath

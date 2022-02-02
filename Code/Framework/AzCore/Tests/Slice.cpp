@@ -832,7 +832,6 @@ namespace Benchmark
         AZ::ComponentApplication::Descriptor desc;
 
         AZ::ComponentApplication::StartupParameters startupParams;
-        startupParams.m_allocator = &AZ::AllocatorInstance<AZ::SystemAllocator>::Get();
 
         componentApp.Create(desc, startupParams);
 

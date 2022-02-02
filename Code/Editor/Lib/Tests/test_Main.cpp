@@ -25,7 +25,7 @@ protected:
     {
         ::UnitTest::TraceBusHook::SetupEnvironment();
 
-        AZ::Environment::Create(nullptr);
+        AZ::Environment::Create();
         AZ::AllocatorInstance<AZ::SystemAllocator>::Create();
         AttachEditorAZEnvironment(AZ::Environment::GetInstance());
     }

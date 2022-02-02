@@ -13,6 +13,7 @@
 #include <AzCore/Math/Vector4.h>
 #include <AzCore/Math/Quaternion.h>
 #include <AzCore/Math/MathUtils.h>
+#include <AzCore/RTTI/TypeInfoSimple.h>
 
 namespace AZ
 {

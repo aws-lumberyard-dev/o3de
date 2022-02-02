@@ -438,11 +438,11 @@ static_assert(__cpp_aligned_new);
     {                                                                                                                                      \
     }                                                                                                                                      \
     /* ========== AZ_CLASS_ALLOCATOR API ========== */                                                                                     \
-    void* _Class::AZ_CLASS_ALLOCATOR_Allocate()                                                                                            \
+    _Template void* _Class::AZ_CLASS_ALLOCATOR_Allocate()                                                                                  \
     {                                                                                                                                      \
         return AZ::AllocatorInstance<_Allocator>::Get().allocate(sizeof(_Class), alignof(_Class));                                         \
     }                                                                                                                                      \
-    void _Class::AZ_CLASS_ALLOCATOR_DeAllocate(void* object)                                                                               \
+    _Template void _Class::AZ_CLASS_ALLOCATOR_DeAllocate(void* object)                                                                     \
     {                                                                                                                                      \
         AZ::AllocatorInstance<_Allocator>::Get().deallocate(object, sizeof(_Class), alignof(_Class));                                      \
     }                                                                                                                                      \

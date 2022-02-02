@@ -40,7 +40,7 @@ protected:
     void SetupEnvironment() override
     {
         // Setup code
-        AZ::Environment::Create(nullptr);
+        AZ::Environment::Create();
         qInstallMessageHandler(UnitTestMessageHandler);
     }
 

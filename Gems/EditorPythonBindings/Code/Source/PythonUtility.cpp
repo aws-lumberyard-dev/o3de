@@ -173,7 +173,7 @@ namespace EditorPythonBindings
         {
             if (underlyingTypeId == AZ::AzTypeInfo<T>::Uuid())
             {
-                void* value = parameter.m_tempData.allocate(sizeof(T), AZStd::alignment_of<T>::value, 0);
+                void* value = parameter.m_tempData.allocate(sizeof(T), AZStd::alignment_of<T>::value);
                 *reinterpret_cast<T*>(value) = pybind11::cast<T>(obj);
 
                 if (parameter.m_traits & AZ::BehaviorParameter::TR_POINTER)

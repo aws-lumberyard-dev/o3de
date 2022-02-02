@@ -68,7 +68,6 @@ namespace UnitTest
             }
 
             AZ::AllocatorInstance<AZ::SystemAllocator>::Destroy();
-            AZ::AllocatorManager::Instance().ExitProfilingMode();
         }
 
         void Update()

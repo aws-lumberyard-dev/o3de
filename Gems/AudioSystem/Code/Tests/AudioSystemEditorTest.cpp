@@ -59,21 +59,16 @@ class AudioControlsEditorTestEnvironment
 public:
     AZ_TEST_CLASS_ALLOCATOR(AudioControlsEditorTestEnvironment)
 
-    ~AudioControlsEditorTestEnvironment() override = default;
-
 protected:
     void SetupEnvironment() override
     {
-        m_allocatorScope.ActivateAllocators();
     }
 
     void TeardownEnvironment() override
     {
-        m_allocatorScope.DeactivateAllocators();
     }
 
-private:
-    AZ::AllocatorScope<AZ::OSAllocator, AZ::SystemAllocator> m_allocatorScope;
+    ~AudioControlsEditorTestEnvironment() override = default;
 };
 
 AZ_UNIT_TEST_HOOK(new AudioControlsEditorTestEnvironment);

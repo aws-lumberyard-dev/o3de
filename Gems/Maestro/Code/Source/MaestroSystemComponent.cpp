@@ -19,12 +19,10 @@ namespace Maestro
 {
     void MaestroAllocatorComponent::Activate()
     {
-        MaestroAllocatorScope::ActivateAllocators();
     }
 
     void MaestroAllocatorComponent::Deactivate()
     {
-        MaestroAllocatorScope::DeactivateAllocators();
     }
 
     void MaestroAllocatorComponent::GetProvidedServices(AZ::ComponentDescriptor::DependencyArrayType& provided)
@@ -88,7 +86,6 @@ namespace Maestro
 
     void MaestroSystemComponent::Activate()
     {
-        MaestroAllocatorScope::ActivateAllocators();
         MaestroRequestBus::Handler::BusConnect();
         CrySystemEventBus::Handler::BusConnect();
     }
@@ -97,8 +94,7 @@ namespace Maestro
     {
         MaestroRequestBus::Handler::BusDisconnect();
         CrySystemEventBus::Handler::BusDisconnect();
-        MaestroAllocatorScope::DeactivateAllocators();
-    }
+   }
 
     ///////////////////////////////////////////////////////////////////////////////////////////////
     void MaestroSystemComponent::OnCrySystemInitialized(ISystem& system, const SSystemInitParams& startupParams)

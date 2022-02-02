@@ -39,6 +39,22 @@ namespace AZ
         return *s_allocManager;
     }
 
+    void AllocatorManager::GarbageCollect()
+    {
+        size_t numAllocators;
+        AZStd::array<IAllocator*, s_maxNumAllocators> allocators;
+        {
+            AZStd::lock_guard<AZStd::mutex> lock(m_allocatorListMutex);
+            numAllocators = m_numAllocators;
+            allocators = m_allocators;
+        }
+        for (size_t i = 0; i < numAllocators; ++i)
+        {
+            IAllocator* allocator = allocators[i];
+            allocator->GarbageCollect();
+        }
+    }
+
     void AllocatorManager::RegisterAllocator(IAllocator* alloc)
     {
         AZStd::lock_guard<AZStd::mutex> lock(m_allocatorListMutex);

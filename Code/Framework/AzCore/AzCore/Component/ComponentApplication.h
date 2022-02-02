@@ -135,10 +135,6 @@ namespace AZ
         {
             StartupParameters() {}
 
-            //! If set, this allocator is used to allocate the temporary bootstrap memory, as well as the main \ref SystemAllocator heap.
-            //! If it's left nullptr (default), the \ref OSAllocator will be used.
-            IAllocator* m_allocator = nullptr;
-
             //! Callback to create AZ::Modules for the static libraries linked by this application.
             //! Leave null if the application uses no static AZ::Modules.
             //! \note Dynamic AZ::Modules are specified in the ComponentApplication::Descriptor.

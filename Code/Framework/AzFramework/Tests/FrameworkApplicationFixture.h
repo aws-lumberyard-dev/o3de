@@ -51,8 +51,6 @@ namespace UnitTest
 
         void SetUp() override
         {            
-            m_appDescriptor.m_allocationRecords = true;
-            m_appDescriptor.m_allocationRecordsSaveNames = true;
             m_application = new (AZStd::addressof(m_applicationBuffer)) NoUserSettingsApplication();
             m_application->Start(m_appDescriptor, m_appStartupParams);
         }

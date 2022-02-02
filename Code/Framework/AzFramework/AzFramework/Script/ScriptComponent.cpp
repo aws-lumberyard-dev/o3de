@@ -184,7 +184,7 @@ namespace AzFramework
 
         if (!outputStream.Open(request.m_destPath.c_str(), OpenMode::ModeWrite | OpenMode::ModeBinary))
         {
-            return AZ::Failure(AZStd::string("Failed to open output file %s", request.m_destPath.data()));
+            return AZ::Failure(AZStd::string::format("Failed to open output file %s", request.m_destPath.data()));
         }
 
         request.m_output = &outputStream;

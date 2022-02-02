@@ -10,6 +10,8 @@
 
 #include <AzCore/Debug/Trace.h>
 #include <AzCore/Memory/SystemAllocator.h>
+#include <AzCore/Memory/AllocatorWrappers.h>
+
 #define AUDIO_MEMORY_ALIGNMENT  AZCORE_GLOBAL_NEW_ALIGNMENT
 
 namespace Audio
@@ -23,7 +25,7 @@ namespace Audio
     using AudioImplStdAllocator = AudioImplAllocator;
 
     ///////////////////////////////////////////////////////////////////////////////////////////////
-    AZ_ALLOCATOR_DEFAULT_GLOBAL_WRAPPER(AudioBankAllocator, AZ::SystemAllocatorm, "{19E89718-400F-42F9-92C3-E7F0DC1CCC1F}")
+    AZ_ALLOCATOR_DEFAULT_GLOBAL_WRAPPER(AudioBankAllocator, AZ::SystemAllocator, "{19E89718-400F-42F9-92C3-E7F0DC1CCC1F}")
 
 } // namespace Audio
 

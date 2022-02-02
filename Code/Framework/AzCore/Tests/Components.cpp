@@ -171,7 +171,6 @@ namespace UnitTest
         ComponentApplication componentApp;
         ComponentApplication::Descriptor desc;
         ComponentApplication::StartupParameters startupParams;
-        startupParams.m_allocator = &AZ::AllocatorInstance<AZ::SystemAllocator>::Get();
         Entity* systemEntity = componentApp.Create(desc, startupParams);
         AZ_TEST_ASSERT(systemEntity);
         systemEntity->Init();
@@ -626,7 +625,6 @@ namespace UnitTest
             ComponentApplication::Descriptor desc;
 
             ComponentApplication::StartupParameters startupParams;
-            startupParams.m_allocator = &AZ::AllocatorInstance<AZ::SystemAllocator>::Get();
 
             Entity* systemEntity = m_componentApp->Create(desc, startupParams);
             systemEntity->Init();
@@ -1970,8 +1968,6 @@ namespace Benchmark
         ComponentApplication::Descriptor desc;
 
         ComponentApplication::StartupParameters startupParams;
-        startupParams.m_allocator = &AZ::AllocatorInstance<AZ::SystemAllocator>::Get();
-
         Entity* systemEntity = componentApp.Create(desc, startupParams);
         systemEntity->Init();
 

@@ -428,34 +428,22 @@ namespace UnitTest
                 {
                     size_t nextIndex = 1;
                     size_t slices = 0;
-                    size_t liveAllocs = 0;
-                    [[maybe_unused]] size_t totalAllocs = 0;
+                    size_t currentAllocCount = 0;
 
-                    auto cb = [&liveAllocs](void*, const AZ::Debug::AllocationInfo&, unsigned char)
-                        {
-                            ++liveAllocs;
-                            return true;
-                        };
-
-                    AZ::AllocatorInstance<AZ::SystemAllocator>::GetAllocator().GetRecords()->EnumerateAllocations(cb);
-                    totalAllocs = AZ::AllocatorInstance<AZ::SystemAllocator>::GetAllocator().GetRecords()->RequestedAllocs();
-                    AZ_TracePrintf("StressTest", "Allocs Before Inst: %u live, %u total\n", liveAllocs, totalAllocs);
+                    currentAllocCount = AZ::AllocatorInstance<AZ::SystemAllocator>::Get().GetAllocationCount();
+                    AZ_TracePrintf("StressTest", "Allocs Before Inst: %u\n", currentAllocCount);
 
                     const AZStd::chrono::system_clock::time_point startTime = AZStd::chrono::system_clock::now();
                     StressInstDrill(baseSliceAsset, nextIndex, 1, slices);
                     const AZStd::chrono::system_clock::time_point instantiateFinishTime = AZStd::chrono::system_clock::now();
 
-                    liveAllocs = 0;
-                    totalAllocs = 0;
-                    AZ::AllocatorInstance<AZ::SystemAllocator>::GetAllocator().GetRecords()->EnumerateAllocations(cb);
-                    totalAllocs = AZ::AllocatorInstance<AZ::SystemAllocator>::GetAllocator().GetRecords()->RequestedAllocs();
-                    AZ_TracePrintf("StressTest", "Allocs AfterInst: %u live, %u total\n", liveAllocs, totalAllocs);
+                    currentAllocCount = AZ::AllocatorInstance<AZ::SystemAllocator>::Get().GetAllocationCount();
+                    AZ_TracePrintf("StressTest", "Allocs AfterInst: %u\n", currentAllocCount);
                     // 1023 slices, 2046 entities
-                    // Before         -> After          = Delta
-                    // (Live)|(Total) -> (Live)|(Total) = (Live)|(Total)
-                    // 28626 | 171792 -> 53157 | 533638 = 24531 | 361846
-                    // 38842 | 533654 -> 53157 | 716707 = 14315 | 183053
-                    // 38842 | 716723 -> 53157 | 899776 = 14315 | 183053
+                    // Before -> After  = Delta
+                    // 28626  -> 53157  = 24531 
+                    // 38842  -> 53157  = 14315 
+                    // 38842  -> 53157  = 14315 
                     AZ::SliceComponent* rootSlice;
                     AzToolsFramework::SliceEditorEntityOwnershipServiceRequestBus::BroadcastResult(
                         rootSlice, &AzToolsFramework::SliceEditorEntityOwnershipServiceRequestBus::Events::GetEditorRootSlice);
