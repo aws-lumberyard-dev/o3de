@@ -44,6 +44,9 @@ namespace AZ
 
         // Prints all allocations that have been recorded
         virtual void PrintAllocations() const = 0;
+
+        // Gets the amount of allocations (used in some tests)
+        virtual AZStd::size_t GetAllocationCount() const = 0;
     };
 
     /// Default implementation of IAllocatorTrackingRecorder.
@@ -75,6 +78,8 @@ namespace AZ
 
         void PrintAllocations() const override;
 
+        AZStd::size_t GetAllocationCount() const override;
+
         // Kept for backwards-compatibility reasons
         /////////////////////////////////////////////
         AZ_DEPRECATED_MESSAGE("Use GetAllocatedSize instead")
@@ -86,9 +91,6 @@ namespace AZ
 
     protected:
 #if defined(AZ_ENABLE_TRACING)
-        void AddRequestedSize(AZStd::size_t requestedSize);
-        void RemoveRequestedSize(AZStd::size_t requestedSize);
-
         void AddAllocatedSize(AZStd::size_t allocatedSize);
         void RemoveAllocatedSize(AZStd::size_t allocatedSize);
 

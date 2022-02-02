@@ -92,6 +92,11 @@ namespace AZ
             m_allocatorPimpl->PrintAllocations();
         }
 
+        AZStd::size_t GetAllocationCount() const override
+        {
+            return m_allocatorPimpl->GetAllocationCount();
+        }
+
     protected:
         void RecordingsMove(IAllocatorTrackingRecorder* aOther) override
         {

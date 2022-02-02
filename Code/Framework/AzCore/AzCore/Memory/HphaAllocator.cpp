@@ -2128,7 +2128,6 @@ namespace AZ
             // will under-report fragmentation. If needed, fragmentation can be tracked separately
             // through the allocation record.
             const size_t sizedUpSize = get_allocated_size(address);
-            AddRequestedSize(sizedUpSize);
             AddAllocationRecord(address, sizedUpSize, sizedUpSize, alignment, 1);
         }
 #endif
@@ -2142,9 +2141,8 @@ namespace AZ
             return;
         }
 #if defined(AZ_ENABLE_TRACING)
-        const size_type originalRequest = get_allocated_size(ptr);
-        RemoveRequestedSize(originalRequest);
-        RemoveAllocationRecord(ptr, originalRequest, originalRequest);
+        const size_type originalAllocation = get_allocated_size(ptr);
+        RemoveAllocationRecord(ptr, originalAllocation, originalAllocation);
 #endif
         if (byteSize == 0)
         {
@@ -2163,9 +2161,8 @@ namespace AZ
     HphaAllocatorPimpl::pointer HphaAllocatorPimpl::reallocate(pointer ptr, size_type newSize, align_type alignment)
     {
 #if defined(AZ_ENABLE_TRACING)
-        const size_type originalRequest = get_allocated_size(ptr, alignment);
-        RemoveRequestedSize(originalRequest);
-        RemoveAllocationRecord(ptr, originalRequest, alignment);
+        const size_type originalAllocation = get_allocated_size(ptr);
+        RemoveAllocationRecord(ptr, originalAllocation, originalAllocation);
 #endif
         pointer address = realloc(ptr, newSize, static_cast<size_t>(alignment));
         if (address == nullptr && newSize > 0)
@@ -2176,8 +2173,7 @@ namespace AZ
 #if defined(AZ_ENABLE_TRACING)
         if (address)
         {
-            const size_t sizedUpSize = get_allocated_size(address, alignment);
-            AddRequestedSize(sizedUpSize);
+            const size_t sizedUpSize = get_allocated_size(address);
             AddAllocationRecord(address, sizedUpSize, sizedUpSize, alignment, 1);
         }
 #endif

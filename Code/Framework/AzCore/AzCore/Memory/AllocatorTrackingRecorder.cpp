@@ -67,8 +67,7 @@ namespace AZ
 
     struct IAllocatorTrackingRecorderData 
     {
-        AZStd::atomic_size_t m_requestedSize; // Total amount of requested bytes to the allocator
-        AZStd::atomic_size_t m_allocatedSize; // Total amount of bytes allocated (i.e. requested to the OS)
+        AZStd::atomic_size_t m_allocatedSize; // Total amount of bytes allocated (i.e. requested to the OS, assuming 1-alignment)
 
         AZStd::spin_mutex m_allocationRecordsMutex;
         using AllocationRecords = AZStd::set<AllocationRecord, AZStd::less<AllocationRecord>, AZ::Debug::DebugAllocator>;
@@ -103,16 +102,6 @@ namespace AZ
         }
     }
 
-    void IAllocatorWithTracking::AddRequestedSize(AZStd::size_t requestedSize)
-    {
-        m_data->m_requestedSize += requestedSize;
-    }
-
-    void IAllocatorWithTracking::RemoveRequestedSize(AZStd::size_t requestedSize)
-    {
-        m_data->m_requestedSize -= requestedSize;
-    }
-
     void IAllocatorWithTracking::AddAllocatedSize(AZStd::size_t allocatedSize)
     {
         m_data->m_allocatedSize += allocatedSize;
@@ -123,7 +112,7 @@ namespace AZ
         m_data->m_allocatedSize -= allocatedSize;
     }
 
-    void IAllocatorWithTracking::AddAllocation(void* address, AZStd::size_t requestedSize, AZStd::size_t allocatedSize, AZStd::size_t alignmentSize, AZStd::size_t stackFramesToSkip)
+    void IAllocatorWithTracking::AddAllocationRecord(void* address, AZStd::size_t requestedSize, AZStd::size_t allocatedSize, AZStd::size_t alignmentSize, AZStd::size_t stackFramesToSkip)
     {
         AllocationRecord record = AllocationRecord::Create(address, requestedSize, allocatedSize, alignmentSize, stackFramesToSkip + 1);
         AZStd::scoped_lock lock(m_data->m_allocationRecordsMutex);
@@ -138,7 +127,7 @@ namespace AZ
         }
     }
 
-    void IAllocatorWithTracking::RemoveAllocation(void* address, [[maybe_unused]] AZStd::size_t requestedSize, [[maybe_unused]] AZStd::size_t allocatedSize)
+    void IAllocatorWithTracking::RemoveAllocationRecord(void* address, [[maybe_unused]] AZStd::size_t requestedSize, [[maybe_unused]] AZStd::size_t allocatedSize)
     {
         AllocationRecord record(address, 0, 0, 0); // those other values do not matter because the set just compares the address
         AZStd::scoped_lock lock(m_data->m_allocationRecordsMutex);
@@ -171,9 +160,7 @@ namespace AZ
 #if defined(AZ_ENABLE_TRACING)
         IAllocatorWithTracking* other = azrtti_cast<IAllocatorWithTracking*>(aOther);
         AZ_Assert(other, "Unexpected conversion, RecordingsMove should be reimplmented if IAllocatorTrackingRecorder is being used");
-        m_data->m_requestedSize += other->m_data->m_requestedSize;
         m_data->m_allocatedSize += other->m_data->m_allocatedSize;
-        other->m_data->m_requestedSize = 0;
         other->m_data->m_allocatedSize = 0;
 
         AZStd::scoped_lock lock(m_data->m_allocationRecordsMutex);
@@ -186,7 +173,17 @@ namespace AZ
     AZStd::size_t IAllocatorWithTracking::GetRequestedSize() const
     {
 #if defined(AZ_ENABLE_TRACING)
-        return m_data->m_requestedSize;
+        // Because the requested size is mostly lost on deallocations (byteSize is usually not passed to the deallocate function),
+        // we rely on the allocation records to get that information
+        AZStd::size_t requestedSize = 0;
+        {
+            AZStd::scoped_lock lock(m_data->m_allocationRecordsMutex);
+            for (const AllocationRecord& record : m_data->m_allocationRecords)
+            {
+                requestedSize += record.m_requestedSize;
+            }
+        }
+        return requestedSize;
 #else
         return 0;
 #endif
@@ -204,7 +201,7 @@ namespace AZ
     AZStd::size_t IAllocatorWithTracking::GetFragmentedSize() const
     {
 #if defined(AZ_ENABLE_TRACING)
-        return m_data->m_allocatedSize - m_data->m_requestedSize;
+        return m_data->m_allocatedSize - GetRequestedSize();
 #else
         return 0;
 #endif
@@ -234,6 +231,15 @@ namespace AZ
         }
 #else
         AZ_Printf("Memory", "Allocation recording is disabled, AZ_ENABLE_TRACING needs to be enabled.");
+#endif
+    }
+
+    AZStd::size_t IAllocatorWithTracking::GetAllocationCount() const
+    {
+#if defined(AZ_ENABLE_TRACING)
+        return m_data->m_allocationRecords.size();
+#else
+        return 0;
 #endif
     }
 
