@@ -23,8 +23,8 @@ namespace AZStd
         return AZ::AllocatorInstance<AZ::SystemAllocator>::Get().deallocate(ptr, byteSize, alignment);
     }
 
-    allocator::pointer allocator::reallocate(pointer ptr, size_type newSize, align_type newAlignment)
+    allocator::pointer allocator::reallocate(pointer ptr, size_type newSize, align_type alignment)
     {
-        return AZ::AllocatorInstance<AZ::SystemAllocator>::Get().reallocate(ptr, newSize, newAlignment);
+        return AZ::AllocatorInstance<AZ::SystemAllocator>::Get().reallocate(ptr, newSize, alignment);
     }
 }

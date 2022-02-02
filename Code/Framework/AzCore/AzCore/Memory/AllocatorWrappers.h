@@ -48,9 +48,9 @@ namespace AZ
             m_allocator->deallocate(ptr, byteSize);
         }
 
-        pointer reallocate(pointer ptr, size_type newSize, align_type newAlignment = 1) override
+        pointer reallocate(pointer ptr, size_type newSize, align_type alignment = 1) override
         {
-            return m_allocator->reallocate(ptr, newSize, newAlignment);
+            return m_allocator->reallocate(ptr, newSize, alignment);
         }
 
         size_type get_allocated_size(pointer ptr, align_type alignment = 1) const override
@@ -118,9 +118,9 @@ namespace AZ
             AllocatorInstance<Allocator>::Get().deallocate(ptr, byteSize, alignment);
         }
 
-        pointer reallocate(pointer ptr, size_type newSize, align_type newAlignment = 1) override
+        pointer reallocate(pointer ptr, size_type newSize, align_type alignment = 1) override
         {
-            return AllocatorInstance<Allocator>::Get().reallocate(ptr, newSize, newAlignment);
+            return AllocatorInstance<Allocator>::Get().reallocate(ptr, newSize, alignment);
         }
 
         size_type get_allocated_size(pointer ptr, align_type alignment = 1) const override

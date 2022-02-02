@@ -48,9 +48,9 @@ namespace AZ
             m_allocatorPimpl->deallocate(ptr, byteSize, alignment);
         }
 
-        pointer reallocate(pointer ptr, size_type newSize, align_type newAlignment = 1) override
+        pointer reallocate(pointer ptr, size_type newSize, align_type alignment = 1) override
         {
-            return m_allocatorPimpl->reallocate(ptr, newSize, newAlignment);
+            return m_allocatorPimpl->reallocate(ptr, newSize, alignment);
         }
 
         size_type get_allocated_size(pointer ptr, align_type alignment = 1) const override
@@ -108,9 +108,9 @@ namespace AZ
             m_allocatorPimpl->deallocate(ptr, byteSize, alignment);
         }
 
-        pointer reallocate(pointer ptr, size_type newSize, align_type newAlignment = 1) override
+        pointer reallocate(pointer ptr, size_type newSize, align_type alignment = 1) override
         {
-            return m_allocatorPimpl->reallocate(ptr, newSize, newAlignment);
+            return m_allocatorPimpl->reallocate(ptr, newSize, alignment);
         }
 
         size_type get_allocated_size(pointer ptr, align_type alignment = 1) const override

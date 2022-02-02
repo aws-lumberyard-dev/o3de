@@ -28,7 +28,7 @@ namespace AZ
     void OSAllocator::deallocate(pointer ptr, size_type byteSize, align_type alignment)
     {
 #if defined(AZ_ENABLE_TRACING)
-        const size_type allocatedSize = get_allocated_size(ptr, alignment);
+        const size_type allocatedSize = get_allocated_size(ptr, alignment ? alignment : 1); // we use 1 as alignment here to get the full size of the allocation
         const size_t requestedSize = byteSize ? byteSize : allocatedSize;
         RemoveRequestedSize(requestedSize); // if not passed, assume same as allocated
         RemoveAllocatedSize(allocatedSize);
@@ -37,24 +37,27 @@ namespace AZ
         AZ_OS_FREE(ptr);
     }
 
-    OSAllocator::pointer OSAllocator::reallocate(pointer ptr, size_type newSize, align_type newAlignment)
+    OSAllocator::pointer OSAllocator::reallocate(pointer ptr, size_type newSize, align_type alignment)
     {
 #if defined(AZ_ENABLE_TRACING)
-        const size_type previouslyRequestedSize = get_allocated_size(ptr, newAlignment); // assume same alignment
-        RemoveAllocatedSize(previouslyRequestedSize);
-        RemoveRequestedSize(previouslyRequestedSize);
-        RemoveAllocationRecord(ptr, previouslyRequestedSize, previouslyRequestedSize);
+        if (ptr)
+        {
+            const size_type previouslyRequestedSize = get_allocated_size(ptr, alignment);
+            RemoveAllocatedSize(previouslyRequestedSize);
+            RemoveRequestedSize(previouslyRequestedSize);
+            RemoveAllocationRecord(ptr, previouslyRequestedSize, previouslyRequestedSize);
+        }
 #endif
         // Realloc in most platforms doesnt support allocating from a nulltpr
-        pointer newPtr = ptr ? AZ_OS_REALLOC(ptr, newSize, static_cast<AZStd::size_t>(newAlignment))
-                             : AZ_OS_MALLOC(newSize, static_cast<AZStd::size_t>(newAlignment));
+        pointer newPtr = ptr ? AZ_OS_REALLOC(ptr, newSize, static_cast<AZStd::size_t>(alignment))
+                             : AZ_OS_MALLOC(newSize, static_cast<AZStd::size_t>(alignment));
 #if defined(AZ_ENABLE_TRACING)
         AddRequestedSize(newSize);
-        const size_type allocatedSize = get_allocated_size(newPtr, newAlignment);
+        const size_type allocatedSize = get_allocated_size(newPtr, alignment);
         AddRequestedSize(allocatedSize);
-        AddAllocationRecord(ptr, newSize, allocatedSize, newAlignment, 1);
+        AddAllocationRecord(newPtr, newSize, allocatedSize, alignment, 1);
 #endif
-        return ptr;
+        return newPtr;
     }
 
     OSAllocator::size_type OSAllocator::get_allocated_size(pointer ptr, align_type alignment) const

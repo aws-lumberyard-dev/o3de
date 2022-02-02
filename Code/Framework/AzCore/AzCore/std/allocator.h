@@ -72,7 +72,7 @@ namespace AZStd
 
         pointer allocate(size_type byteSize, align_type alignment = 1);
         void deallocate(pointer ptr, size_type byteSize = 0, align_type alignment = 0);
-        pointer reallocate(pointer ptr, size_type newSize, align_type newAlignment = 1);
+        pointer reallocate(pointer ptr, size_type newSize, align_type alignment = 1);
 
         size_type max_size() const
         {
@@ -133,7 +133,7 @@ namespace AZStd
         AZ_FORCE_INLINE allocator& operator=(const allocator& rhs);
         AZ_FORCE_INLINE pointer allocate(size_type byteSize, align_type alignment = 1);
         AZ_FORCE_INLINE void deallocate(pointer ptr, size_type byteSize = 0, align_type alignment = 0);
-        AZ_FORCE_INLINE pointer reallocate(pointer ptr, size_type newSize, align_type newAlignment = 1);
+        AZ_FORCE_INLINE pointer reallocate(pointer ptr, size_type newSize, align_type alignment = 1);
         AZ_FORCE_INLINE size_type max_size() const;
     };
 }

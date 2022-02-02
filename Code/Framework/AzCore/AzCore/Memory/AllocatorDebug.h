@@ -51,7 +51,7 @@ namespace AZ::Debug
 
         pointer allocate(size_type byteSize, align_type alignment = 1);
         void deallocate(pointer ptr, size_type byteSize = 0, align_type alignment = 0);
-        pointer reallocate(pointer ptr, size_type newSize, align_type newAlignment = 1);
+        pointer reallocate(pointer ptr, size_type newSize, align_type alignment = 1);
     };
 
     AZ_FORCE_INLINE bool operator==(const DebugAllocator&, const DebugAllocator&)

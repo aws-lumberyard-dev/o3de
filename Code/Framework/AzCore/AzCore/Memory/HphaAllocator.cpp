@@ -1007,7 +1007,7 @@ namespace AZ
 
         pointer allocate(size_type byteSize, align_type alignment = 1) override;
         void deallocate(pointer ptr, size_type byteSize = 0, align_type alignment = 0) override;
-        pointer reallocate(pointer ptr, size_type newSize, align_type newAlignment = 1) override;
+        pointer reallocate(pointer ptr, size_type newSize, align_type alignment = 1) override;
         size_type get_allocated_size(pointer ptr, align_type alignment = 1) const override;
 
         void Merge(IAllocator* aOther) override;
@@ -2160,25 +2160,25 @@ namespace AZ
         }
     }
 
-    HphaAllocatorPimpl::pointer HphaAllocatorPimpl::reallocate(pointer ptr, size_type newSize, align_type newAlignment)
+    HphaAllocatorPimpl::pointer HphaAllocatorPimpl::reallocate(pointer ptr, size_type newSize, align_type alignment)
     {
 #if defined(AZ_ENABLE_TRACING)
-        const size_type originalRequest = get_allocated_size(ptr);
+        const size_type originalRequest = get_allocated_size(ptr, alignment);
         RemoveRequestedSize(originalRequest);
-        RemoveAllocationRecord(ptr, originalRequest, originalRequest);
+        RemoveAllocationRecord(ptr, originalRequest, alignment);
 #endif
-        pointer address = realloc(ptr, newSize, static_cast<size_t>(newAlignment));
+        pointer address = realloc(ptr, newSize, static_cast<size_t>(alignment));
         if (address == nullptr && newSize > 0)
         {
             purge();
-            address = realloc(ptr, newSize, static_cast<size_t>(newAlignment));
+            address = realloc(ptr, newSize, static_cast<size_t>(alignment));
         }
 #if defined(AZ_ENABLE_TRACING)
         if (address)
         {
-            const size_t sizedUpSize = get_allocated_size(address);
+            const size_t sizedUpSize = get_allocated_size(address, alignment);
             AddRequestedSize(sizedUpSize);
-            AddAllocationRecord(address, sizedUpSize, sizedUpSize, newAlignment, 1);
+            AddAllocationRecord(address, sizedUpSize, sizedUpSize, alignment, 1);
         }
 #endif
         return address;

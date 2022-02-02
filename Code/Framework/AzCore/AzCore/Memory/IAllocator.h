@@ -42,7 +42,16 @@ namespace AZ
 
         virtual pointer allocate(size_type byteSize, align_type alignment = 1) = 0;
         virtual void deallocate(pointer ptr, size_type byteSize = 0, align_type alignment = 0) = 0;
-        virtual pointer reallocate(pointer ptr, size_type newSize, align_type newAlignment = 1) = 0;
+
+        // Reallocates a bigger block. Allocators will do best effort to maintain the same pointer,
+        // but they can return a new pointer if is not possible or the allocator doesnt support it.
+        // Alignment cannot change, it will be the same before/after, but needs to be specified if different
+        // than 1.
+        // Memory pointed by ptr is copied to the returned pointer if the returned pointer is different
+        // than the passed ptr
+        // Memory pointed by ptr is freed if the returned pointer is different than the passed ptr
+        virtual pointer reallocate(pointer ptr, size_type newSize, align_type aignment = 1) = 0;
+
         virtual size_type max_size() const
         {
             // default, max the OS can allocate

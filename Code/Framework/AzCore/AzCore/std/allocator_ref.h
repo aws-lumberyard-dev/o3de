@@ -57,9 +57,9 @@ namespace AZStd
             m_allocator->deallocate(ptr, byteSize, alignment);
         }
 
-        AZ_FORCE_INLINE size_type reallocate(pointer ptr, size_type newSize, align_type newAlignment = 1)
+        AZ_FORCE_INLINE size_type reallocate(pointer ptr, size_type newSize, align_type alignment = 1)
         {
-            return m_allocator->reallocate(ptr, newSize, newAlignment);
+            return m_allocator->reallocate(ptr, newSize, alignment);
         }
 
         AZ_FORCE_INLINE allocator_reference get_allocator() const { return *m_allocator; }

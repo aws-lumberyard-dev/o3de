@@ -46,7 +46,7 @@ namespace AZ
 
         pointer allocate(size_type byteSize, align_type alignment = 1);
         void deallocate(pointer ptr, size_type byteSize = 0, align_type alignment = 0);
-        pointer reallocate(pointer ptr, size_type newSize, align_type newAlignment = 1);
+        pointer reallocate(pointer ptr, size_type newSize, align_type alignment = 1);
         size_type get_allocated_size(pointer ptr, align_type alignment = 1) const;
 
         void Merge([[maybe_unused]] IAllocator* aOther)
@@ -254,7 +254,7 @@ namespace AZ
     }
 
     template<class Allocator>
-    typename PoolAllocation<Allocator>::pointer PoolAllocation<Allocator>::reallocate([[maybe_unused]] pointer ptr, [[maybe_unused]] size_type newSize, [[maybe_unused]] align_type newAlignment)
+    typename PoolAllocation<Allocator>::pointer PoolAllocation<Allocator>::reallocate([[maybe_unused]] pointer ptr, [[maybe_unused]] size_type newSize, [[maybe_unused]] align_type alignment)
     {
         return nullptr;
     }
@@ -301,7 +301,7 @@ namespace AZ
 
         pointer allocate(size_type byteSize, align_type alignment = 1) override;
         void deallocate(pointer ptr, size_type byteSize = 0, align_type alignment = 0) override;
-        pointer reallocate(pointer ptr, size_type newSize, align_type newAlignment = 1) override;
+        pointer reallocate(pointer ptr, size_type newSize, align_type alignment = 1) override;
         size_type get_allocated_size(pointer ptr, align_type alignment = 1) const override;
 
         void Merge([[maybe_unused]] IAllocator* aOther) override
@@ -418,9 +418,9 @@ namespace AZ
         m_allocator.deallocate(ptr, byteSize, alignment);
     }
 
-    PoolSchemaPimpl::pointer PoolSchemaPimpl::reallocate(pointer ptr, size_type newSize, align_type newAlignment)
+    PoolSchemaPimpl::pointer PoolSchemaPimpl::reallocate(pointer ptr, size_type newSize, align_type alignment)
     {
-        return m_allocator.reallocate(ptr, newSize, newAlignment);
+        return m_allocator.reallocate(ptr, newSize, alignment);
     }
 
     PoolSchemaPimpl::size_type PoolSchemaPimpl::get_allocated_size(pointer ptr, align_type alignment) const
@@ -543,7 +543,7 @@ namespace AZ
 
         pointer allocate(size_type byteSize, align_type alignment = 1) override;
         void deallocate(pointer ptr, size_type byteSize = 0, align_type alignment = 0) override;
-        pointer reallocate(pointer ptr, size_type newSize, align_type newAlignment = 1) override;
+        pointer reallocate(pointer ptr, size_type newSize, align_type alignment = 1) override;
         size_type get_allocated_size(pointer ptr, align_type alignment = 1) const override;
 
         void Merge([[maybe_unused]] IAllocator* aOther) override
@@ -741,7 +741,7 @@ namespace AZ
         }
     }
 
-    ThreadPoolSchemaPimpl::pointer ThreadPoolSchemaPimpl::reallocate([[maybe_unused]] pointer ptr, [[maybe_unused]] size_type newSize, [[maybe_unused]] align_type newAlignment)
+    ThreadPoolSchemaPimpl::pointer ThreadPoolSchemaPimpl::reallocate([[maybe_unused]] pointer ptr, [[maybe_unused]] size_type newSize, [[maybe_unused]] align_type alignment)
     {
         return nullptr;
     }

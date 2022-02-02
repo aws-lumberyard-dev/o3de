@@ -22,9 +22,9 @@ namespace AZStd
         AZ_OS_FREE(ptr);
     }
 
-    stateless_allocator::pointer stateless_allocator::reallocate(pointer ptr, size_type newSize, align_type newAlignment)
+    stateless_allocator::pointer stateless_allocator::reallocate(pointer ptr, size_type newSize, align_type alignment)
     {
-        return AZ_OS_REALLOC(ptr, newSize, newAlignment);
+        return AZ_OS_REALLOC(ptr, newSize, alignment);
     }
 
     bool stateless_allocator::is_lock_free()

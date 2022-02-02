@@ -21,8 +21,8 @@ namespace AZ::Debug
         AZ_OS_FREE(ptr);
     }
 
-    DebugAllocator::pointer DebugAllocator::reallocate(pointer ptr, size_type newSize, align_type newAlignment)
+    DebugAllocator::pointer DebugAllocator::reallocate(pointer ptr, size_type newSize, align_type alignment)
     {
-        return AZ_OS_REALLOC(ptr, newSize, newAlignment);
+        return AZ_OS_REALLOC(ptr, newSize, alignment);
     }
 }

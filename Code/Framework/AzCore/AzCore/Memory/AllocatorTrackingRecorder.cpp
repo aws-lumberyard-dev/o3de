@@ -90,7 +90,7 @@ namespace AZ
 
     void AllocationRecord::Print() const
     {
-        AZ_Printf("Memory", "Allocation Addr: 0%p, Requested Size: %zu, Allocated Size: %zu, Alignment: %zu\n", m_address, m_requestedSize, m_allocatedSize, m_alignmentSize);
+        AZ_Printf("Memory", "  Allocation Addr: 0%p, Requested Size: %zu, Allocated Size: %zu, Alignment: %zu\n", m_address, m_requestedSize, m_allocatedSize, m_alignmentSize);
 
         // We wont have more entries than STACK_TRACE_DEPTH_RECORDING
         Debug::SymbolStorage::StackLine lines[STACK_TRACE_DEPTH_RECORDING];
@@ -99,7 +99,7 @@ namespace AZ
         
         for (AZStd::size_t i = 0; i < stackSize; ++i)
         {
-            AZ_Printf("Memory", "\t%s\n", lines[i]);
+            AZ_Printf("Memory", "    %s\n", lines[i]);
         }
     }
 
@@ -123,7 +123,7 @@ namespace AZ
         m_data->m_allocatedSize -= allocatedSize;
     }
 
-    void IAllocatorWithTracking::AddAllocationRecord(void* address, AZStd::size_t requestedSize, AZStd::size_t allocatedSize, AZStd::size_t alignmentSize, AZStd::size_t stackFramesToSkip)
+    void IAllocatorWithTracking::AddAllocation(void* address, AZStd::size_t requestedSize, AZStd::size_t allocatedSize, AZStd::size_t alignmentSize, AZStd::size_t stackFramesToSkip)
     {
         AllocationRecord record = AllocationRecord::Create(address, requestedSize, allocatedSize, alignmentSize, stackFramesToSkip + 1);
         AZStd::scoped_lock lock(m_data->m_allocationRecordsMutex);
@@ -138,14 +138,14 @@ namespace AZ
         }
     }
 
-    void IAllocatorWithTracking::RemoveAllocationRecord(void* address, [[maybe_unused]] AZStd::size_t requestedSize, [[maybe_unused]] AZStd::size_t allocatedSize)
+    void IAllocatorWithTracking::RemoveAllocation(void* address, [[maybe_unused]] AZStd::size_t requestedSize, [[maybe_unused]] AZStd::size_t allocatedSize)
     {
         AllocationRecord record(address, 0, 0, 0); // those other values do not matter because the set just compares the address
         AZStd::scoped_lock lock(m_data->m_allocationRecordsMutex);
         auto it = m_data->m_allocationRecords.find(record);
         AZ_Assert(it != m_data->m_allocationRecords.end(), "Allocation with address 0%p was not found");
-        AZ_Assert(it->m_requestedSize == requestedSize, "Mismatch on requested size")
-        AZ_Assert(it->m_allocatedSize == allocatedSize, "Mismatch on allocated size")
+        AZ_Assert(requestedSize ? it->m_requestedSize == requestedSize : true, "Mismatch on requested size");
+        AZ_Assert(allocatedSize ? it->m_allocatedSize == allocatedSize : true, "Mismatch on allocated size");
         m_data->m_allocationRecords.erase(it);
     }
 
@@ -226,7 +226,7 @@ namespace AZ
         }
         else
         {
-            AZ_Printf("Memory", "There are %d allocations in allocator 0%p (%s):\n", allocations.size(), this, GetName());
+            AZ_Error("Memory", false, "There are %d allocations in allocator 0%p (%s):\n", allocations.size(), this, GetName());
             for (const AllocationRecord& record : allocations)
             {
                 record.Print();
