@@ -38,21 +38,23 @@ namespace UnitTest
         }
 
         // Deallocate memory
-        for (auto record : records)
+        for (size_t i = 0; i < AZ_ARRAY_SIZE(sizeAndAlignments); ++i)
         {
-            osAllocator.deallocate(record);
+            osAllocator.deallocate(records[i], sizeAndAlignments[i].first, sizeAndAlignments[i].second);
         }
     }
 
     TEST(OSAllocatorTest, TestReallocation)
     {
         AZ::OSAllocator osAllocator;
+
+        // Alignments have to be the same across reallocations
         static const AZStd::pair<size_t, size_t> sizeAndAlignments[] =
         {
             { 16, 8 },
-            { 1024, 16 },
+            { 1024, 8 },
             { 32, 8 },
-            { 0, 1 }
+            { 0, 8 }
         };
 
         void* p = nullptr;

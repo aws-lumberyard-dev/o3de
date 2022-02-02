@@ -189,11 +189,15 @@ namespace UnitTest
 
         bool OnPrintf(const char* window, const char* message) override
         {
+            if (UnitTest::TestRunner::Instance().m_suppressPrintf)
+            {
+                return true;
+            }
             if (AZStd::string_view(window) == "Memory") // We want to print out the memory leak's stack traces
             {
                 ColoredPrintf(COLOR_RED, "[  MEMORY  ] %s", message);
             }
-            return UnitTest::TestRunner::Instance().m_suppressPrintf;
+            return false;
         }
     };
 

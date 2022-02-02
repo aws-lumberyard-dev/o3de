@@ -9,7 +9,6 @@
 #include <AzCore/Memory/PoolAllocator.h>
 #include <AzTest/TestTypes.h>
 
-
 namespace UnitTest
 {
     // Dummy test class
@@ -35,20 +34,40 @@ namespace UnitTest
         }
         void TearDown() override
         {
-            AllocatorsTestFixture::TearDown();
-
+            UnitTest::TestRunner::Instance().m_suppressPrintf = true;
+            AZ::AllocatorManager& allocatorManager = AZ::AllocatorManager::Instance();
+            const size_t numAllocators = allocatorManager.GetNumAllocators();
+            for (int i = 0; i < numAllocators; ++i)
+            {
+                AZ::IAllocator* allocator = allocatorManager.GetAllocator(i);
+                allocator->GarbageCollect();
+                AZ::IAllocatorTrackingRecorder* allocatorWithTracking = azrtti_cast<AZ::IAllocatorTrackingRecorder*>(allocator);
+                if (allocatorWithTracking)
+                {
+                    allocatorWithTracking->PrintAllocations();
+                }
+            }
+            UnitTest::TestRunner::Instance().m_suppressPrintf = false;
+            
             EXPECT_EQ(m_leakExpected, m_leakDetected);
             AZ::Debug::TraceMessageBus::Handler::BusDisconnect();
 
             if (m_leakExpected)
             {
-                AZ_TEST_STOP_TRACE_SUPPRESSION(1);
+                AZ_TEST_STOP_TRACE_SUPPRESSION(2); // one for the SystemAllocator and one for the OSAllocator
             }
+            if (m_leakyObject)
+            {
+                delete m_leakyObject;
+                m_leakyObject = nullptr;
+            }
+
+            AllocatorsTestFixture::TearDown();
         }
 
         void SetLeakExpected() { AZ_TEST_START_TRACE_SUPPRESSION; m_leakExpected = true; }
 
-    private:
+    protected:
         bool OnPreError(const char* window, const char* file, int line, const char* func, const char* message) override
         {
             AZ_UNUSED(file);
@@ -56,7 +75,7 @@ namespace UnitTest
             AZ_UNUSED(func);
 
             if (AZStd::string_view(window) == "Memory"
-                && AZStd::string_view(message) == "We still have 1 allocations on record! They must be freed prior to destroy!")
+                && AZStd::string_view(message).starts_with("There are 1 allocations in allocator"))
             {
                 // Leak detected, flag it so we validate on tear down that this happened. We also will 
                 // mark this test since it will assert
@@ -77,6 +96,7 @@ namespace UnitTest
 
         bool m_leakDetected = false;
         bool m_leakExpected = false;
+        TestClass* m_leakyObject = nullptr;
     };
 
 #if AZ_TRAIT_DISABLE_FAILED_ALLOCATOR_LEAK_DETECTION_TESTS
@@ -87,8 +107,7 @@ namespace UnitTest
     {
         SetLeakExpected();
 
-        TestClass* leakyObject = aznew TestClass();
-        AZ_UNUSED(leakyObject);
+        m_leakyObject = aznew TestClass();
     }
 
     TEST_F(AllocatorsTestFixtureLeakDetectionTest, NoLeak)
@@ -104,13 +123,20 @@ namespace UnitTest
     // Create a dummy allocator so unit tests can leak it
     AZ_ALLOCATOR_DEFAULT_GLOBAL_WRAPPER(LeakDetection_TestAllocator, AZ::SystemAllocator, "{186B6E32-344D-4322-820A-4C3E4F30650B}")
 
+    // Dummy test class
+    class TestClassLeakDetection_TestAllocator
+    {
+    public:
+        AZ_CLASS_ALLOCATOR(TestClass, LeakDetection_TestAllocator, 0);
+    };
+
     class AllocatorsTestFixtureLeakDetectionDeathTest_SKIPCODECOVERAGE
         : public ::testing::Test
     {
     public:
         void TestAllocatorLeak()
         {
-            AZ::AllocatorInstance<LeakDetection_TestAllocator>::Create();
+            [[maybe_unused]] TestClassLeakDetection_TestAllocator* object = new TestClassLeakDetection_TestAllocator();
 
             // In regular unit test operation, the environment will be teardown at the end and thats where the validation will happen. Here, we need
             // to do a teardown before the test ends so gtest detects the death before it starts to teardown.
@@ -168,8 +194,8 @@ namespace UnitTest
                 AZ_UNUSED(line);
                 AZ_UNUSED(func);
 
-                if (AZStd::string_view(window) == "Memory"
-                    && AZStd::string_view(message) == "We still have 1 allocations on record! They must be freed prior to destroy!")
+                if (AZStd::string_view(window) == "Memory" &&
+                    AZStd::string_view(message).starts_with("There are 1 allocations in allocator"))
                 {
                     // Leak detected, flag it so we validate on tear down that this happened. We also will 
                     // mark this test since it will assert
