@@ -9,13 +9,18 @@
 #pragma once
 
 #include <AzCore/RTTI/TypeInfo.h>
+#include <AzCore/RTTI/ReflectContext.h>
+#include <AzCore/Outcome/Outcome.h>
 #include <AzCore/Memory/SystemAllocator.h>
+#include <AzCore/Asset/AssetCommon.h>
 #include <AzCore/std/containers/map.h>
 #include <AzCore/std/containers/span.h>
 //#include <Atom/RPI.Reflect/Base.h>
 //#include <Atom/RPI.Reflect/Material/MaterialPropertyDescriptor.h>
 //#include <Atom/RPI.Edit/Material/MaterialFunctorSourceData.h>
 //#include <Atom/RPI.Edit/Material/MaterialPropertyId.h>
+
+#include <PhysXMaterial/PhysXMaterialPropertyValue.h>
 
 namespace PhysX
 {
