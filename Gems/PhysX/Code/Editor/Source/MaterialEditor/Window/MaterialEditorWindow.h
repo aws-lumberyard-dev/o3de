@@ -1,19 +1,45 @@
+/*
+ * Copyright (c) Contributors to the Open 3D Engine Project.
+ * For complete copyright and license terms please see the LICENSE at the root of this distribution.
+ *
+ * SPDX-License-Identifier: Apache-2.0 OR MIT
+ *
+ */
 
 #pragma once
 
 #if !defined(Q_MOC_RUN)
-#include <AzToolsFramework/API/ToolsApplicationAPI.h>
-
-#include <QWidget>
+#include <AtomToolsFramework/Document/AtomToolsDocumentMainWindow.h>
 #endif
 
 namespace PhysX
 {
+    //! MaterialEditorWindow is the main class. Its responsibility is limited to initializing and connecting
+    //! its panels, managing selection of assets, and performing high-level actions like saving. It contains...
+    //! 2) MaterialViewport        - The user can see the selected Material applied to a model.
+    //! 3) MaterialPropertyInspector  - The user edits the properties of the selected Material.
     class MaterialEditorWindow
-        : public QWidget
+        : public AtomToolsFramework::AtomToolsDocumentMainWindow
     {
         Q_OBJECT
     public:
-        explicit MaterialEditorWindow(QWidget* parent = nullptr);
+        AZ_CLASS_ALLOCATOR(MaterialEditorWindow, AZ::SystemAllocator, 0);
+
+        using Base = AtomToolsFramework::AtomToolsDocumentMainWindow;
+
+        MaterialEditorWindow(QWidget* parent = 0);
+
+    protected:
+        void ResizeViewportRenderTarget(uint32_t width, uint32_t height) override;
+        void LockViewportRenderTargetSize(uint32_t width, uint32_t height) override;
+        void UnlockViewportRenderTargetSize() override;
+
+        bool GetCreateDocumentParams(AZStd::string& openPath, AZStd::string& savePath) override;
+        bool GetOpenDocumentParams(AZStd::string& openPath) override;
+        void OpenSettings() override;
+        void OpenHelp() override;
+        void OpenAbout() override;
+
+        void closeEvent(QCloseEvent* closeEvent) override;
     };
-}
+} // namespace PhysX

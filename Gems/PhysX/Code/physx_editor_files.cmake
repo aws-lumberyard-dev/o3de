@@ -131,9 +131,36 @@ set(FILES
     Editor/Source/ComponentModes/Joints/JointsSubComponentModeTranslate.cpp
     Editor/Source/Configuration/PhysXEditorSettingsRegistryManager.h
     Editor/Source/Configuration/PhysXEditorSettingsRegistryManager.cpp
+
+    #Editor/Source/PhysXMaterial/PhysXMaterialSourceData.cpp
+    Editor/Source/PhysXMaterial/PhysXMaterialSourceData.h
+    #Editor/Source/PhysXMaterial/PhysXMaterialTypeSourceData.cpp
+    Editor/Source/PhysXMaterial/PhysXMaterialTypeSourceData.h
+    #Editor/Source/PhysXMaterial/PhysXMaterialUtils.cpp
+    Editor/Source/PhysXMaterial/PhysXMaterialUtils.h
     
     Editor/Source/MaterialEditor/PhysXMaterialEditorSystemComponent.cpp
     Editor/Source/MaterialEditor/PhysXMaterialEditorSystemComponent.h
+    Editor/Source/MaterialEditor/Document/MaterialDocumentRequestBus.h
+    Editor/Source/MaterialEditor/Document/MaterialDocumentSettings.h
+    Editor/Source/MaterialEditor/Document/MaterialDocument.cpp
+    Editor/Source/MaterialEditor/Document/MaterialDocument.h
+    Editor/Source/MaterialEditor/Document/MaterialDocumentSettings.cpp
+    Editor/Source/MaterialEditor/Window/MaterialEditorWindowSettings.h
+    Editor/Source/MaterialEditor/Window/MaterialEditorBrowserInteractions.h
+    Editor/Source/MaterialEditor/Window/MaterialEditorBrowserInteractions.cpp
     Editor/Source/MaterialEditor/Window/MaterialEditorWindow.h
     Editor/Source/MaterialEditor/Window/MaterialEditorWindow.cpp
+    Editor/Source/MaterialEditor/Window/MaterialEditorWindowSettings.cpp
+    Editor/Source/MaterialEditor/Window/MaterialEditor.qrc
+    Editor/Source/MaterialEditor/Window/MaterialEditor.qss
+    Editor/Source/MaterialEditor/Window/SettingsDialog/MaterialEditorSettingsDialog.cpp
+    Editor/Source/MaterialEditor/Window/SettingsDialog/MaterialEditorSettingsDialog.h
+    Editor/Source/MaterialEditor/Window/SettingsDialog/MaterialEditorSettingsWidget.cpp
+    Editor/Source/MaterialEditor/Window/SettingsDialog/MaterialEditorSettingsWidget.h
+    Editor/Source/MaterialEditor/Window/CreateMaterialDialog/CreateMaterialDialog.cpp
+    Editor/Source/MaterialEditor/Window/CreateMaterialDialog/CreateMaterialDialog.h
+    Editor/Source/MaterialEditor/Window/CreateMaterialDialog/CreateMaterialDialog.ui
+    Editor/Source/MaterialEditor/Window/MaterialInspector/MaterialInspector.h
+    Editor/Source/MaterialEditor/Window/MaterialInspector/MaterialInspector.cpp
 )

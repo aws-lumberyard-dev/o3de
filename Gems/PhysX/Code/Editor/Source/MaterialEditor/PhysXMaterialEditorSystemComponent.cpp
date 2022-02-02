@@ -1,9 +1,13 @@
 
 #include <AzCore/Serialization/SerializeContext.h>
 
+#include <AtomToolsFramework/Document/AtomToolsDocumentSystemRequestBus.h>
+
 #include <Editor/Source/MaterialEditor/PhysXMaterialEditorSystemComponent.h>
 
+#include <Editor/Source/MaterialEditor/Window/MaterialEditorBrowserInteractions.h>
 #include <Editor/Source/MaterialEditor/Window/MaterialEditorWindow.h>
+#include <Editor/Source/MaterialEditor/Document/MaterialDocument.h>
 
 namespace PhysX
 {
@@ -17,7 +21,7 @@ namespace PhysX
     }
 
     PhysXMaterialEditorSystemComponent::PhysXMaterialEditorSystemComponent()
-        : m_notifyRegisterViewsEventHandler([this]() { RegisterAtomWindow(); })
+        : m_notifyRegisterViewsEventHandler([this]() { RegisterPhysXWindow(); })
     {
     }
 
@@ -35,6 +39,7 @@ namespace PhysX
 
     void PhysXMaterialEditorSystemComponent::GetRequiredServices([[maybe_unused]] AZ::ComponentDescriptor::DependencyArrayType& required)
     {
+        required.push_back(AZ_CRC_CE("AtomToolsDocumentSystemService"));
         required.push_back(AZ_CRC_CE("O3DEMaterialEditorService"));
     }
 
@@ -55,8 +60,14 @@ namespace PhysX
         m_notifyRegisterViewsEventHandler.Disconnect();
     }
 
-    void PhysXMaterialEditorSystemComponent::RegisterAtomWindow()
+    void PhysXMaterialEditorSystemComponent::RegisterPhysXWindow()
     {
+        AtomToolsFramework::AtomToolsDocumentSystemRequestBus::Broadcast(
+            &AtomToolsFramework::AtomToolsDocumentSystemRequestBus::Handler::RegisterDocumentType,
+            []() { return aznew MaterialDocument(); });
+
+        m_materialEditorBrowserInteractions.reset(aznew MaterialEditorBrowserInteractions);
+
         O3DEMaterialEditor::RegisterViewPane<MaterialEditorWindow>("PhysX");
     }
 

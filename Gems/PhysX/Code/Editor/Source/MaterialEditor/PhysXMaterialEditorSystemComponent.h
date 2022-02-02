@@ -6,6 +6,8 @@
 
 namespace PhysX
 {
+    class MaterialEditorBrowserInteractions;
+
     /// System component for MaterialEditor editor
     class PhysXMaterialEditorSystemComponent
         : public AZ::Component
@@ -27,8 +29,10 @@ namespace PhysX
         void Activate() override;
         void Deactivate() override;
 
-        void RegisterAtomWindow();
+        void RegisterPhysXWindow();
 
         O3DEMaterialEditor::O3DEMaterialEditorRequests::NotifyRegisterViewsEvent::Handler m_notifyRegisterViewsEventHandler;
+
+        AZStd::unique_ptr<MaterialEditorBrowserInteractions> m_materialEditorBrowserInteractions;
     };
 } // namespace PhysX
