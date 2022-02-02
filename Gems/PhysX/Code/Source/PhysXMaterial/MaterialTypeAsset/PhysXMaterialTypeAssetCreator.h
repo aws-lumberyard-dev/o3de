@@ -8,7 +8,7 @@
 #pragma once
 
 #include <Atom/RPI.Reflect/AssetCreator.h>
-#include <Editor/Source/PhysXMaterial/MaterialTypeAsset/MaterialTypeAsset.h>
+#include <PhysXMaterial/MaterialTypeAsset/PhysXMaterialTypeAsset.h>
 #include <AzCore/std/containers/span.h>
 
 namespace PhysX
@@ -20,7 +20,7 @@ namespace PhysX
     //! The MaterialAsset may optionally inherit from another 'parent' MaterialAsset,
     //! which provides the MaterialTypeAsset and default property values.
     class PhysXMaterialTypeAssetCreator
-        : public AZ::RHI::AssetCreator<PhysXMaterialTypeAsset>
+        : public AZ::RPI::AssetCreator<PhysXMaterialTypeAsset>
     {
     public:
         //! Begin creating a MaterialTypeAsset
@@ -42,12 +42,12 @@ namespace PhysX
 
         //! Sets a property value using data in AZStd::variant-based MaterialPropertyValue. The contained data must match
         //! the data type of the property. For type Image, the value must be a Data::Asset<ImageAsset>.
-        void SetPropertyValue(const Name& name, const PhysXMaterialPropertyValue& value);
+        void SetPropertyValue(const AZ::Name& name, const PhysXMaterialPropertyValue& value);
 
         bool End(AZ::Data::Asset<PhysXMaterialTypeAsset>& result);
 
     private:
-        bool PropertyCheck(AZ::TypeId typeId, const Name& name);
+        bool PropertyCheck(AZ::TypeId typeId, const AZ::Name& name);
             
         bool ValidateMaterialVersion();
         bool ValidateBeginMaterialProperty();

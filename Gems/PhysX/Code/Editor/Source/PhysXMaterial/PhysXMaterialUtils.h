@@ -10,6 +10,7 @@
 
 #include <PhysXMaterial/PhysXMaterialPropertyValue.h>
 #include <AzCore/Serialization/Json/JsonSerialization.h>
+#include <AzCore/Name/Name.h>
 
 namespace AZ
 {
@@ -48,5 +49,16 @@ namespace PhysX
         //! Finalizing during asset processing reduces load times and obfuscates the material data.
         //! Waiting to finalize at load time reduces dependencies on the material type data, resulting in fewer asset rebuilds and less time spent processing assets.
         bool BuildersShouldFinalizeMaterialAssets();
+
+        //! Convert the property value into the format that will be stored in the source data
+        //! This is primarily needed to support conversions of special types like enums and images
+        //! @param exportPath absolute path of the file being saved
+        //! @param propertyDefinition describes type information and other details about propertyValue
+        //! @param propertyValue the value being converted before saving
+        bool ConvertToExportFormat(
+            const AZStd::string& exportPath,
+            [[maybe_unused]] const AZ::Name& propertyId,
+            const PhysXMaterialTypeSourceData::PropertyDefinition& propertyDefinition,
+            PhysXMaterialPropertyValue& propertyValue);
     }
 }

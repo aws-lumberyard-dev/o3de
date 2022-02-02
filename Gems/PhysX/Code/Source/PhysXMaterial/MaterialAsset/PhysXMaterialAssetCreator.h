@@ -8,7 +8,7 @@
 #pragma once
 
 #include <Atom/RPI.Reflect/AssetCreator.h>
-#include <PhysXMaterial/PhysXMaterialAsset.h>
+#include <PhysXMaterial/MaterialAsset/PhysXMaterialAsset.h>
 
 namespace PhysX
 {
@@ -18,7 +18,7 @@ namespace PhysX
     //!  - Finalized now: This requires the MaterialTypeAsset to be fully populated so it can read the property layout.
     //!  - Deferred finalize: This only requires the MaterialTypeAsset to have a valid AssetId; the data inside will not be used. MaterialAsset::Finalize()
     //!                       will need to be called later when the final MaterialTypeAsset is available, presumably after loading the MaterialAsset at runtime.
-    class MaterialAssetCreator  
+    class PhysXMaterialAssetCreator  
         : public AZ::RPI::AssetCreator<PhysXMaterialAsset>
     {
     public:

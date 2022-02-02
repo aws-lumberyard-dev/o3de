@@ -132,12 +132,18 @@ set(FILES
     Editor/Source/Configuration/PhysXEditorSettingsRegistryManager.h
     Editor/Source/Configuration/PhysXEditorSettingsRegistryManager.cpp
 
-    #Editor/Source/PhysXMaterial/PhysXMaterialSourceData.cpp
+    Editor/Source/PhysXMaterial/PhysXMaterialSourceData.cpp
     Editor/Source/PhysXMaterial/PhysXMaterialSourceData.h
-    #Editor/Source/PhysXMaterial/PhysXMaterialTypeSourceData.cpp
+    Editor/Source/PhysXMaterial/PhysXMaterialTypeSourceData.cpp
     Editor/Source/PhysXMaterial/PhysXMaterialTypeSourceData.h
-    #Editor/Source/PhysXMaterial/PhysXMaterialUtils.cpp
+    Editor/Source/PhysXMaterial/PhysXMaterialUtils.cpp
     Editor/Source/PhysXMaterial/PhysXMaterialUtils.h
+    #Editor/Source/PhysXMaterial/Serializer/PhysXMaterialPropertyValueSerializer.cpp
+    Editor/Source/PhysXMaterial/Serializer/PhysXMaterialPropertyValueSerializer.h
+    #Editor/Source/PhysXMaterial/Serializer/PhysXMaterialPropertySerializer.cpp
+    Editor/Source/PhysXMaterial/Serializer/PhysXMaterialPropertySerializer.h
+    #Editor/Source/PhysXMaterial/Serializer/PhysXMaterialPropertyGroupSerializer.cpp
+    Editor/Source/PhysXMaterial/Serializer/PhysXMaterialPropertyGroupSerializer.h
     
     Editor/Source/MaterialEditor/PhysXMaterialEditorSystemComponent.cpp
     Editor/Source/MaterialEditor/PhysXMaterialEditorSystemComponent.h

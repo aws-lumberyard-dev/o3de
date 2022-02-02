@@ -11,6 +11,7 @@
 #include <AzCore/std/containers/vector.h>
 #include <AzCore/std/any.h>
 #include <AzCore/EBus/Event.h>
+#include <AzCore/Name/Name.h>
 #include <AzCore/std/containers/span.h>
 
 #include <Atom/RPI.Public/AssetInitBus.h>

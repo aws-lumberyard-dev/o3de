@@ -7,18 +7,18 @@
  */
 
 #include <Editor/Source/PhysXMaterial/PhysXMaterialSourceData.h>
-//#include <Atom/RPI.Edit/Material/MaterialPropertyValueSerializer.h>
 #include <Editor/Source/PhysXMaterial/PhysXMaterialTypeSourceData.h>
-//#include <Atom/RPI.Edit/Material/MaterialPropertyId.h>
-//#include <Atom/RPI.Edit/Material/MaterialUtils.h>
+#include <Editor/Source/PhysXMaterial/Serializer/PhysXMaterialPropertyValueSerializer.h>
+#include <Editor/Source/PhysXMaterial/PhysXMaterialUtils.h>
 //#include <Atom/RPI.Edit/Material/MaterialConverterBus.h>
 
-//#include <Atom/RPI.Edit/Common/AssetUtils.h>
+#include <Atom/RPI.Edit/Material/MaterialPropertyId.h>
+#include <Atom/RPI.Edit/Common/AssetUtils.h>
 //#include <Atom/RPI.Edit/Common/JsonFileLoadContext.h>
 //#include <Atom/RPI.Edit/Common/JsonReportingHelper.h>
-//#include <Atom/RPI.Edit/Common/JsonUtils.h>
+#include <Atom/RPI.Edit/Common/JsonUtils.h>
 
-#include <PhysXMaterial/PhysXMaterialAssetCreator.h>
+#include <PhysXMaterial/MaterialAsset/PhysXMaterialAssetCreator.h>
 //#include <Atom/RPI.Reflect/Material/MaterialPropertiesLayout.h>
 //#include <Atom/RPI.Reflect/Image/StreamingImageAsset.h>
 //#include <Atom/RPI.Public/Image/StreamingImage.h>
@@ -38,27 +38,27 @@
 
 namespace PhysX
 {
-    void PhysXMaterialSourceData::Reflect(ReflectContext* context)
+    void PhysXMaterialSourceData::Reflect(AZ::ReflectContext* context)
     {
-        if (JsonRegistrationContext* jsonContext = azrtti_cast<JsonRegistrationContext*>(context))
+        if (AZ::JsonRegistrationContext* jsonContext = azrtti_cast<AZ::JsonRegistrationContext*>(context))
         {
-            jsonContext->Serializer<JsonMaterialPropertyValueSerializer>()->HandlesType<MaterialSourceData::Property>();
+            jsonContext->Serializer<JsonPhysXMaterialPropertyValueSerializer>()->HandlesType<PhysXMaterialSourceData::Property>();
         }
-        else if (auto* serializeContext = azrtti_cast<SerializeContext*>(context))
+        else if (auto* serializeContext = azrtti_cast<AZ::SerializeContext*>(context))
         {
-            serializeContext->Class<MaterialSourceData>()
+            serializeContext->Class<PhysXMaterialSourceData>()
                 ->Version(2)
-                ->Field("description", &MaterialSourceData::m_description)
-                ->Field("materialType", &MaterialSourceData::m_materialType)
-                ->Field("materialTypeVersion", &MaterialSourceData::m_materialTypeVersion)
-                ->Field("parentMaterial", &MaterialSourceData::m_parentMaterial)
-                ->Field("properties", &MaterialSourceData::m_properties)
+                ->Field("description", &PhysXMaterialSourceData::m_description)
+                ->Field("materialType", &PhysXMaterialSourceData::m_materialType)
+                ->Field("materialTypeVersion", &PhysXMaterialSourceData::m_materialTypeVersion)
+                ->Field("parentMaterial", &PhysXMaterialSourceData::m_parentMaterial)
+                ->Field("properties", &PhysXMaterialSourceData::m_properties)
                 ;
 
             serializeContext->RegisterGenericType<PropertyMap>();
             serializeContext->RegisterGenericType<PropertyGroupMap>();
 
-            serializeContext->Class<MaterialSourceData::Property>()
+            serializeContext->Class<PhysXMaterialSourceData::Property>()
                 ->Version(1)
                 ;
         }
@@ -66,17 +66,17 @@ namespace PhysX
 
     // Helper function for CreateMaterialAsset, for applying basic material property values
     template<typename T>
-    void ApplyMaterialValues(PhysXMaterialAssetCreator& materialAssetCreator, const AZStd::map<Name, T>& values)
+    void ApplyMaterialValues(PhysXMaterialAssetCreator& materialAssetCreator, const AZStd::map<AZ::Name, T>& values)
     {
         for (auto& entry : values)
         {
-            const Name& propertyId = entry.first;
+            const AZ::Name& propertyId = entry.first;
             materialAssetCreator.SetPropertyValue(propertyId, entry.second);
         }
     }
         
-    Outcome<Data::Asset<PhysXMaterialAsset>> PhysXMaterialSourceData::CreateMaterialAsset(
-        Data::AssetId assetId, AZStd::string_view materialSourceFilePath, PhysXMaterialAssetProcessingMode processingMode, bool elevateWarnings) const
+    AZ::Outcome<AZ::Data::Asset<PhysXMaterialAsset>> PhysXMaterialSourceData::CreateMaterialAsset(
+        AZ::Data::AssetId assetId, AZStd::string_view materialSourceFilePath, PhysXMaterialAssetProcessingMode processingMode, bool elevateWarnings) const
     {
         PhysXMaterialAssetCreator materialAssetCreator;
         materialAssetCreator.SetElevateWarnings(elevateWarnings);
@@ -84,32 +84,32 @@ namespace PhysX
         if (m_materialType.empty())
         {
             AZ_Error("MaterialSourceData", false, "materialType was not specified");
-            return Failure();
+            return AZ::Failure();
         }
 
-        Outcome<Data::AssetId> materialTypeAssetId = AssetUtils::MakeAssetId(materialSourceFilePath, m_materialType, 0);
+        AZ::Outcome<AZ::Data::AssetId> materialTypeAssetId = AZ::RPI::AssetUtils::MakeAssetId(materialSourceFilePath, m_materialType, 0);
         if (!materialTypeAssetId)
         {
-            return Failure();
+            return AZ::Failure();
         }
 
-        Data::Asset<PhysXMaterialTypeAsset> materialTypeAsset;
+        AZ::Data::Asset<PhysXMaterialTypeAsset> materialTypeAsset;
             
         switch (processingMode)
         {
             case PhysXMaterialAssetProcessingMode::DeferredBake:
             {
                     // Don't load the material type data, just create a reference to it
-                    materialTypeAsset = Data::Asset<MaterialTypeAsset>{ materialTypeAssetId.GetValue(), azrtti_typeid<MaterialTypeAsset>(), m_materialType };
+                    materialTypeAsset = AZ::Data::Asset<PhysXMaterialTypeAsset>{ materialTypeAssetId.GetValue(), azrtti_typeid<PhysXMaterialTypeAsset>(), m_materialType };
                     break;
             }
             case PhysXMaterialAssetProcessingMode::PreBake:
             {
                 // In this case we need to load the material type data in preparation for the material->Finalize() step below.
-                auto materialTypeAssetOutcome = AssetUtils::LoadAsset<MaterialTypeAsset>(materialTypeAssetId.GetValue());
+                auto materialTypeAssetOutcome = AZ::RPI::AssetUtils::LoadAsset<PhysXMaterialTypeAsset>(materialTypeAssetId.GetValue());
                 if (!materialTypeAssetOutcome)
                 {
-                    return Failure();
+                    return AZ::Failure();
                 }
                 materialTypeAsset = materialTypeAssetOutcome.GetValue();
                 break;
@@ -117,7 +117,7 @@ namespace PhysX
             default:
             {
                 AZ_Assert(false, "Unhandled MaterialAssetProcessingMode");
-                return Failure();
+                return AZ::Failure();
             }
         }
 
@@ -125,20 +125,20 @@ namespace PhysX
 
         if (!m_parentMaterial.empty())
         {
-            auto parentMaterialAsset = AssetUtils::LoadAsset<PhysXMaterialAsset>(materialSourceFilePath, m_parentMaterial);
+            auto parentMaterialAsset = AZ::RPI::AssetUtils::LoadAsset<PhysXMaterialAsset>(materialSourceFilePath, m_parentMaterial);
             if (!parentMaterialAsset.IsSuccess())
             {
-                return Failure();
+                return AZ::Failure();
             }
 
             // Make sure the parent material has the same material type
             {
-                Data::AssetId parentsMaterialTypeId = parentMaterialAsset.GetValue()->GetMaterialTypeAsset().GetId();
+                AZ::Data::AssetId parentsMaterialTypeId = parentMaterialAsset.GetValue()->GetMaterialTypeAsset().GetId();
 
                 if (materialTypeAssetId.GetValue() != parentsMaterialTypeId)
                 {
                     AZ_Error("MaterialSourceData", false, "This material and its parent material do not share the same material type.");
-                    return Failure();
+                    return AZ::Failure();
                 }
             }
 
@@ -156,13 +156,15 @@ namespace PhysX
                 }
                 case PhysXMaterialAssetProcessingMode::PreBake:
                 {
+                    // TODO: Try to bring back properties layout
+                    /*
                     const PhysXMaterialPropertiesLayout* propertiesLayout = parentMaterialAsset.GetValue()->GetMaterialPropertiesLayout();
 
                     if (parentMaterialAsset.GetValue()->GetPropertyValues().size() != propertiesLayout->GetPropertyCount())
                     {
                         AZ_Assert(false, "The parent material should have been finalized with %zu properties but it has %zu. Something is out of sync.",
                             propertiesLayout->GetPropertyCount(), parentMaterialAsset.GetValue()->GetPropertyValues().size());
-                        return Failure();
+                        return AZ::Failure();
                     }
 
                     for (size_t propertyIndex = 0; propertyIndex < propertiesLayout->GetPropertyCount(); ++propertyIndex)
@@ -171,32 +173,32 @@ namespace PhysX
                             propertiesLayout->GetPropertyDescriptor(PhysXMaterialPropertyIndex{propertyIndex})->GetName(),
                             parentMaterialAsset.GetValue()->GetPropertyValues()[propertyIndex]);
                     }
-
+                    */
                     break;
                 }
                 default:
                 {
                     AZ_Assert(false, "Unhandled MaterialAssetProcessingMode");
-                    return Failure();
+                    return AZ::Failure();
                 }
             }
         }
 
         ApplyPropertiesToAssetCreator(materialAssetCreator, materialSourceFilePath);
 
-        Data::Asset<PhysXMaterialAsset> material;
+        AZ::Data::Asset<PhysXMaterialAsset> material;
         if (materialAssetCreator.End(material))
         {
-            return Success(material);
+            return AZ::Success(material);
         }
         else
         {
-            return Failure();
+            return AZ::Failure();
         }
     }
 
-    Outcome<Data::Asset<PhysXMaterialAsset>> PhysXMaterialSourceData::CreateMaterialAssetFromSourceData(
-        Data::AssetId assetId,
+    AZ::Outcome<AZ::Data::Asset<PhysXMaterialAsset>> PhysXMaterialSourceData::CreateMaterialAssetFromSourceData(
+        AZ::Data::AssetId assetId,
         AZStd::string_view materialSourceFilePath,
         bool elevateWarnings,
         AZStd::unordered_set<AZStd::string>* sourceDependencies) const
@@ -204,22 +206,22 @@ namespace PhysX
         if (m_materialType.empty())
         {
             AZ_Error("MaterialSourceData", false, "materialType was not specified");
-            return Failure();
+            return AZ::Failure();
         }
 
-        const auto materialTypeSourcePath = AssetUtils::ResolvePathReference(materialSourceFilePath, m_materialType);
-        const auto materialTypeAssetId = AssetUtils::MakeAssetId(materialTypeSourcePath, 0);
+        const auto materialTypeSourcePath = AZ::RPI::AssetUtils::ResolvePathReference(materialSourceFilePath, m_materialType);
+        const auto materialTypeAssetId = AZ::RPI::AssetUtils::MakeAssetId(materialTypeSourcePath, 0);
         if (!materialTypeAssetId.IsSuccess())
         {
             AZ_Error("MaterialSourceData", false, "Failed to create material type asset ID: '%s'.", materialTypeSourcePath.c_str());
-            return Failure();
+            return AZ::Failure();
         }
 
-        auto materialTypeLoadOutcome = MaterialUtils::LoadMaterialTypeSourceData(materialTypeSourcePath);
+        auto materialTypeLoadOutcome = PhysX::MaterialUtils::LoadMaterialTypeSourceData(materialTypeSourcePath);
         if (!materialTypeLoadOutcome)
         {
             AZ_Error("MaterialSourceData", false, "Failed to load MaterialTypeSourceData: '%s'.", materialTypeSourcePath.c_str());
-            return Failure();
+            return AZ::Failure();
         }
 
         PhysXMaterialTypeSourceData materialTypeSourceData = materialTypeLoadOutcome.TakeValue();
@@ -229,7 +231,7 @@ namespace PhysX
         if (!materialTypeAsset.IsSuccess())
         {
             AZ_Error("MaterialSourceData", false, "Failed to create material type asset from source data: '%s'.", materialTypeSourcePath.c_str());
-            return Failure();
+            return AZ::Failure();
         }
 
         // Track all of the material and material type assets loaded while trying to create a material asset from source data. This will
@@ -243,39 +245,39 @@ namespace PhysX
         AZStd::vector<PhysXMaterialSourceData> parentSourceDataStack;
 
         AZStd::string parentSourceRelPath = m_parentMaterial;
-        AZStd::string parentSourceAbsPath = AssetUtils::ResolvePathReference(materialSourceFilePath, parentSourceRelPath);
+        AZStd::string parentSourceAbsPath = AZ::RPI::AssetUtils::ResolvePathReference(materialSourceFilePath, parentSourceRelPath);
         while (!parentSourceRelPath.empty())
         {
             if (!dependencies.insert(parentSourceAbsPath).second)
             {
                 AZ_Error("MaterialSourceData", false, "Detected circular dependency between materials: '%s' and '%s'.", materialSourceFilePath.data(), parentSourceAbsPath.c_str());
-                return Failure();
+                return AZ::Failure();
             }
 
             PhysXMaterialSourceData parentSourceData;
             if (!AZ::RPI::JsonUtils::LoadObjectFromFile(parentSourceAbsPath, parentSourceData))
             {
                 AZ_Error("MaterialSourceData", false, "Failed to load MaterialSourceData for parent material: '%s'.", parentSourceAbsPath.c_str());
-                return Failure();
+                return AZ::Failure();
             }
 
             // Make sure that all materials in the hierarchy share the same material type
-            const auto parentTypeAssetId = AssetUtils::MakeAssetId(parentSourceAbsPath, parentSourceData.m_materialType, 0);
+            const auto parentTypeAssetId = AZ::RPI::AssetUtils::MakeAssetId(parentSourceAbsPath, parentSourceData.m_materialType, 0);
             if (!parentTypeAssetId)
             {
                 AZ_Error("MaterialSourceData", false, "Parent material asset ID wasn't found: '%s'.", parentSourceAbsPath.c_str());
-                return Failure();
+                return AZ::Failure();
             }
 
             if (parentTypeAssetId.GetValue() != materialTypeAssetId.GetValue())
             {
                 AZ_Error("MaterialSourceData", false, "This material and its parent material do not share the same material type.");
-                return Failure();
+                return AZ::Failure();
             }
 
             // Get the location of the next parent material and push the source data onto the stack 
             parentSourceRelPath = parentSourceData.m_parentMaterial;
-            parentSourceAbsPath = AssetUtils::ResolvePathReference(parentSourceAbsPath, parentSourceRelPath);
+            parentSourceAbsPath = AZ::RPI::AssetUtils::ResolvePathReference(parentSourceAbsPath, parentSourceRelPath);
             parentSourceDataStack.emplace_back(AZStd::move(parentSourceData));
         }
             
@@ -299,7 +301,7 @@ namespace PhysX
 
         ApplyPropertiesToAssetCreator(materialAssetCreator, materialSourceFilePath);
 
-        Data::Asset<PhysXMaterialAsset> material;
+        AZ::Data::Asset<PhysXMaterialAsset> material;
         if (materialAssetCreator.End(material))
         {
             if (sourceDependencies)
@@ -307,43 +309,23 @@ namespace PhysX
                 sourceDependencies->insert(dependencies.begin(), dependencies.end());
             }
 
-            return Success(material);
+            return AZ::Success(material);
         }
 
-        return Failure();
+        return AZ::Failure();
     }
 
     void PhysXMaterialSourceData::ApplyPropertiesToAssetCreator(
-        AZ::RPI::MaterialAssetCreator& materialAssetCreator, const AZStd::string_view& materialSourceFilePath) const
+        PhysXMaterialAssetCreator& materialAssetCreator, [[maybe_unused]] const AZStd::string_view& materialSourceFilePath) const
     {
         for (auto& group : m_properties)
         {
             for (auto& property : group.second)
             {
-                MaterialPropertyId propertyId{ group.first, property.first };
+                AZ::RPI::MaterialPropertyId propertyId{ group.first, property.first };
                 if (!property.second.m_value.IsValid())
                 {
                     materialAssetCreator.ReportWarning("Source data for material property value is invalid.");
-                }
-                // If the source value type is a string, there are two possible property types: Image and Enum. If there is a "." in
-                // the string (for the extension) we assume it's an Image and look up the referenced Asset. Otherwise, we can assume
-                // it's an Enum value and just preserve the original string.
-                else if (property.second.m_value.Is<AZStd::string>() && AzFramework::StringFunc::Contains(property.second.m_value.GetValue<AZStd::string>(), "."))
-                {
-                    Data::Asset<ImageAsset> imageAsset;
-
-                    MaterialUtils::GetImageAssetResult result = MaterialUtils::GetImageAssetReference(
-                        imageAsset, materialSourceFilePath, property.second.m_value.GetValue<AZStd::string>());
-                                    
-                    if (result == MaterialUtils::GetImageAssetResult::Missing)
-                    {
-                        materialAssetCreator.ReportWarning(
-                            "Material property '%s': Could not find the image '%s'", propertyId.GetCStr(),
-                            property.second.m_value.GetValue<AZStd::string>().data());
-                    }
-                                    
-                    imageAsset.SetAutoLoadBehavior(Data::AssetLoadBehavior::PreLoad);
-                    materialAssetCreator.SetPropertyValue(propertyId, imageAsset);
                 }
                 else
                 {

@@ -336,7 +336,8 @@ namespace PhysX
                 PhysXMaterialPropertyValue propertyValue = PhysXMaterialPropertyValue::FromAny(it->second.GetValue());
                 if (propertyValue.IsValid())
                 {
-                    if (!AtomToolsFramework::ConvertToExportFormat(m_savePathNormalized, propertyId, *propertyDefinition, propertyValue))
+                    //(if (!AtomToolsFramework::ConvertToExportFormat(m_savePathNormalized, propertyId, *propertyDefinition, propertyValue))
+                    if (!MaterialUtils::ConvertToExportFormat(m_savePathNormalized, propertyId, *propertyDefinition, propertyValue))
                     {
                         AZ_Error("MaterialDocument", false, "Document property could not be converted: '%s' in '%s'.", propertyId.GetCStr(), m_absolutePath.c_str());
                         addPropertiesResult = false;
@@ -500,7 +501,7 @@ namespace PhysX
         // Populate the property map from a combination of source data and assets
         // Assets must still be used for now because they contain the final accumulated value after all other materials
         // in the hierarchy are applied
-        // TODO: This uses the material property layout, is this needed for just properties (no shaders, no srg, etc.)?
+        // TODO: This uses the material property layout, is this needed for just properties (no shaders, no srg, no descriptors, no layout)?
         /*m_materialTypeSourceData.EnumeratePropertyGroups([this, &parentPropertyValues](const AZStd::string& propertyIdContext, const AZ::RPI::MaterialTypeSourceData::PropertyGroup* propertyGroup)
             {
                 AtomToolsFramework::DynamicPropertyConfig propertyConfig;

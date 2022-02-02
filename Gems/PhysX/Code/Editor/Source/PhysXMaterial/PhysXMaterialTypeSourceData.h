@@ -49,7 +49,7 @@ namespace PhysX
 
         struct PropertyDefinition
         {
-            friend class JsonMaterialPropertySerializer;
+            friend class JsonPhysXMaterialPropertySerializer;
 
             AZ_CLASS_ALLOCATOR(PropertyDefinition, AZ::SystemAllocator, 0);
             AZ_TYPE_INFO(PhysX::PhysXMaterialTypeSourceData::PropertyDefinition, "{F57816CB-C3B7-48CC-9EC0-65A8A18F6DFF}");
@@ -93,7 +93,7 @@ namespace PhysX
 
         struct PropertyGroup
         {
-            friend class MaterialTypeSourceData;
+            friend class PhysXMaterialTypeSourceData;
                 
             AZ_CLASS_ALLOCATOR(PropertyGroup, AZ::SystemAllocator, 0);
             AZ_TYPE_INFO(PhysX::PhysXMaterialTypeSourceData::PropertyGroup, "{8CB6180C-5C99-4BF3-B334-A51D383314AB}");
