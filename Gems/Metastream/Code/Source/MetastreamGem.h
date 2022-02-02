@@ -9,7 +9,6 @@
 
 #include <AzCore/Component/Component.h>
 #include <Metastream/MetastreamBus.h>
-#include <AzCore/Memory/AllocatorScope.h>
 #include <CryCommon/IConsole.h>
 
 #include <IGem.h>
@@ -32,7 +31,6 @@ namespace Metastream
     class MetastreamGem
         : public CryHooksModule
         , public MetastreamRequestBus::Handler
-        , public MetastreamAllocatorScope
     {
         AZ_RTTI(MetastreamGem, "{0BACF38B-9774-4771-89E2-B099EA9E3FE7}", CryHooksModule);
         

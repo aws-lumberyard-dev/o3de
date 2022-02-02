@@ -9,7 +9,6 @@
 
 #include <AzCore/std/smart_ptr/unique_ptr.h>
 #include <AzCore/Component/Component.h>
-#include <AzCore/Memory/AllocatorScope.h>
 #include <CrySystemBus.h>
 
 #include "Cinematics/Movie.h"

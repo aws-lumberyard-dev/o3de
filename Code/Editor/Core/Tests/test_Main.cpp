@@ -10,9 +10,6 @@
 // AzTest
 #include <AzTest/AzTest.h>
 
-// AzCore
-#include <AzCore/Memory/AllocatorScope.h>
-
 // AzFramework
 #include <AzFramework/IO/LocalFileIO.h>
 
@@ -34,7 +31,6 @@ protected:
     void SetupEnvironment() override
     {
         AttachEditorCoreAZEnvironment(AZ::Environment::GetInstance());
-        m_allocatorScope.ActivateAllocators();
         m_cryPak = new NiceMock<CryPakMock>();
 
         // Initialize the fileIO
@@ -49,12 +45,10 @@ protected:
     void TeardownEnvironment() override
     {
         delete m_cryPak;
-        m_allocatorScope.DeactivateAllocators();
         DetachEditorCoreAZEnvironment();
     }
 
 private:
-    AZ::AllocatorScope<AZ::OSAllocator, AZ::SystemAllocator> m_allocatorScope;
     SSystemGlobalEnvironment m_stubEnv;
     AZ::IO::LocalFileIO m_fileIO;
     NiceMock<CryPakMock>* m_cryPak;

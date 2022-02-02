@@ -370,7 +370,6 @@ set(FILES
     Memory/AllocatorManager.cpp
     Memory/AllocatorManager.h
     Memory/AllocatorWrappers.h
-    Memory/AllocatorScope.h
     Memory/dlmalloc.inl
     Memory/HphaAllocator.cpp
     Memory/HphaAllocator.h

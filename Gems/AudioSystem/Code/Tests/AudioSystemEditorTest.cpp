@@ -8,7 +8,6 @@
 
 #include <AzTest/AzTest.h>
 #include <AzCore/base.h>
-#include <AzCore/Memory/AllocatorScope.h>
 
 #include <AzTest/Mocks/MockFileIOBase.h>
 
