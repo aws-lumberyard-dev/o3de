@@ -48,6 +48,7 @@ ly_add_target(
             Legacy::CryCommon
         PRIVATE
             Gem::LmbrCentral
+            Gem::Atom_RPI.Public
 )
 
 ly_add_target(
@@ -116,9 +117,21 @@ if(PAL_TRAIT_BUILD_HOST_TOOLS)
                 Gem::PhysX.NumericalMethods
                 Gem::PhysX.Static
                 Gem::AtomLyIntegration_CommonFeatures.Static
+                
+                #AZ::AtomCore
+                #Gem::AtomToolsFramework.Static
+                Gem::AtomToolsFramework.Editor
+                #Gem::Atom_RHI.Public
+                #Gem::Atom_RHI.Reflect
+                #Gem::Atom_RPI.Edit
+                Gem::Atom_RPI.Public
+                #Gem::Atom_Feature_Common.Public
+                #Gem::Atom_Component_DebugCamera.Static
+                #Gem::AtomLyIntegration_CommonFeatures.Static
                 Gem::O3DEMaterialEditor
         RUNTIME_DEPENDENCIES
             AZ::SceneCore
+            Gem::AtomToolsFramework.Editor
             Gem::O3DEMaterialEditor
     )
 
