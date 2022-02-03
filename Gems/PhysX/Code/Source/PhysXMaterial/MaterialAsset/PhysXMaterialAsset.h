@@ -82,10 +82,6 @@ namespace PhysX
         //! MaterialTypeAsset must be valid before this is called.
         void Finalize(AZStd::function<void(const char*)> reportWarning = nullptr, AZStd::function<void(const char*)> reportError = nullptr);
 
-        //! Checks the material type version and potentially applies a series of property changes (most common are simple property renames)
-        //! based on the MaterialTypeAsset's version update procedure.
-        void ApplyVersionUpdates();
-
         //! Called by asset creators to assign the asset to a ready state.
         void SetReady();
 

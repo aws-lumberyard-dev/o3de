@@ -140,12 +140,12 @@ set(FILES
     Source/PhysXMaterial/PhysXMaterial.h
     Source/PhysXMaterial/PhysXMaterialPropertyValue.cpp
     Source/PhysXMaterial/PhysXMaterialPropertyValue.h
-    #Source/PhysXMaterial/MaterialAsset/PhysXMaterialAsset.cpp
+    Source/PhysXMaterial/MaterialAsset/PhysXMaterialAsset.cpp
     Source/PhysXMaterial/MaterialAsset/PhysXMaterialAsset.h
-    #Source/PhysXMaterial/MaterialAsset/PhysXMaterialAssetCreator.cpp
+    Source/PhysXMaterial/MaterialAsset/PhysXMaterialAssetCreator.cpp
     Source/PhysXMaterial/MaterialAsset/PhysXMaterialAssetCreator.h
-    #Source/PhysXMaterial/MaterialTypeAsset/PhysXMaterialTypeAsset.cpp
+    Source/PhysXMaterial/MaterialTypeAsset/PhysXMaterialTypeAsset.cpp
     Source/PhysXMaterial/MaterialTypeAsset/PhysXMaterialTypeAsset.h
-    #Source/PhysXMaterial/MaterialTypeAsset/PhysXMaterialTypeAssetCreator.cpp
+    Source/PhysXMaterial/MaterialTypeAsset/PhysXMaterialTypeAssetCreator.cpp
     Source/PhysXMaterial/MaterialTypeAsset/PhysXMaterialTypeAssetCreator.h
 )

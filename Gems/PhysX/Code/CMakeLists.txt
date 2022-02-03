@@ -120,7 +120,7 @@ if(PAL_TRAIT_BUILD_HOST_TOOLS)
                 Gem::AtomLyIntegration_CommonFeatures.Static
                 
                 #AZ::AtomCore
-                #Gem::AtomToolsFramework.Static
+                Gem::AtomToolsFramework.Static
                 Gem::AtomToolsFramework.Editor
                 #Gem::Atom_RHI.Public
                 #Gem::Atom_RHI.Reflect
@@ -132,7 +132,6 @@ if(PAL_TRAIT_BUILD_HOST_TOOLS)
                 Gem::O3DEMaterialEditor
         RUNTIME_DEPENDENCIES
             AZ::SceneCore
-            Gem::AtomToolsFramework.Editor
             Gem::O3DEMaterialEditor
     )
 

@@ -6,106 +6,87 @@
  *
  */
 
-#include <Atom/RPI.Reflect/Material/MaterialAssetCreator.h>
-#include <Atom/RPI.Reflect/Image/StreamingImageAsset.h>
-#include <Atom/RPI.Reflect/Image/AttachmentImageAsset.h>
+#include <PhysXMaterial/MaterialAsset/PhysXMaterialAssetCreator.h>
+//#include <Atom/RPI.Reflect/Image/StreamingImageAsset.h>
+//#include <Atom/RPI.Reflect/Image/AttachmentImageAsset.h>
 #include <AzCore/std/sort.h>
 #include <AzCore/std/bind/bind.h>
 
-namespace AZ
+namespace PhysX
 {
-    namespace RPI
+    void PhysXMaterialAssetCreator::Begin(const AZ::Data::AssetId& assetId, const AZ::Data::Asset<PhysXMaterialTypeAsset>& materialType, bool shouldFinalize)
     {
-        void MaterialAssetCreator::Begin(const Data::AssetId& assetId, const Data::Asset<MaterialTypeAsset>& materialType, bool shouldFinalize)
+        BeginCommon(assetId);
+
+        if (ValidateIsReady())
         {
-            BeginCommon(assetId);
+            m_shouldFinalize = shouldFinalize;
 
-            if (ValidateIsReady())
-            {
-                m_shouldFinalize = shouldFinalize;
-
-                m_asset->m_materialTypeAsset = materialType;
-                m_asset->m_materialTypeAsset.SetAutoLoadBehavior(AZ::Data::AssetLoadBehavior::PreLoad);
+            m_asset->m_materialTypeAsset = materialType;
+            m_asset->m_materialTypeAsset.SetAutoLoadBehavior(AZ::Data::AssetLoadBehavior::PreLoad);
                 
-                if (shouldFinalize && !m_asset->m_materialTypeAsset)
+            if (shouldFinalize && !m_asset->m_materialTypeAsset)
+            {
+                ReportError("MaterialTypeAsset is null, the MaterialAsset cannot be finalized");
+            }
+        }
+    }
+        
+    bool PhysXMaterialAssetCreator::End(AZ::Data::Asset<PhysXMaterialAsset>& result)
+    {
+        if (!ValidateIsReady())
+        {
+            return false;
+        }
+
+        m_asset->SetReady();
+
+        if (m_shouldFinalize)
+        {
+            m_asset->Finalize(
+                [this](const char* message) { ReportWarning("%s", message); },
+                [this](const char* message) { ReportError("%s", message); });
+
+            m_asset->m_wasPreFinalized = true;
+
+            // Finalize() doesn't clear the raw property data because that's the same function used at runtime, which does need to maintain the raw data
+            // to support hot reload. But here we are pre-baking with the assumption that AP build dependencies will keep the material type
+            // and material asset in sync, so we can discard the raw property data and just rely on the data in the material type asset.
+            m_asset->m_rawPropertyValues.clear();
+        }
+
+        return EndCommon(result);
+    }
+        
+    void PhysXMaterialAssetCreator::SetMaterialTypeVersion(uint32_t version)
+    {
+        if (ValidateIsReady())
+        {
+            m_asset->m_materialTypeVersion = version;
+        }
+    }
+        
+    void PhysXMaterialAssetCreator::SetPropertyValue(const AZ::Name& name, const PhysXMaterialPropertyValue& value)
+    {
+        if (ValidateIsReady())
+        {
+            // Here we are careful to keep the properties in the same order they were encountered. When the MaterialAsset
+            // is later finalized with a MaterialTypeAsset, there could be a version update procedure that includes renamed
+            // properties. So it's possible that the same property could be encountered twice but with two different names.
+            // Preserving the original order will ensure that the later properties still overwrite the earlier ones even after
+            // renames have been applied.
+
+            auto iter = AZStd::find_if(m_asset->m_rawPropertyValues.begin(), m_asset->m_rawPropertyValues.end(), [&name](const AZStd::pair<AZ::Name, PhysXMaterialPropertyValue>& pair)
                 {
-                    ReportError("MaterialTypeAsset is null, the MaterialAsset cannot be finalized");
-                }
-            }
-        }
-        
-        bool MaterialAssetCreator::End(Data::Asset<MaterialAsset>& result)
-        {
-            if (!ValidateIsReady())
-            {
-                return false;
-            }
-
-            m_asset->SetReady();
-
-            if (m_shouldFinalize)
-            {
-                m_asset->Finalize(
-                    [this](const char* message) { ReportWarning("%s", message); },
-                    [this](const char* message) { ReportError("%s", message); });
-
-                m_asset->m_wasPreFinalized = true;
-
-                // Finalize() doesn't clear the raw property data because that's the same function used at runtime, which does need to maintain the raw data
-                // to support hot reload. But here we are pre-baking with the assumption that AP build dependencies will keep the material type
-                // and material asset in sync, so we can discard the raw property data and just rely on the data in the material type asset.
-                m_asset->m_rawPropertyValues.clear();
-            }
-
-            return EndCommon(result);
-        }
-        
-        void MaterialAssetCreator::SetMaterialTypeVersion(uint32_t version)
-        {
-            if (ValidateIsReady())
-            {
-                m_asset->m_materialTypeVersion = version;
-            }
-        }
-        
-        void MaterialAssetCreator::SetPropertyValue(const Name& name, const MaterialPropertyValue& value)
-        {
-            if (ValidateIsReady())
-            {
-                // Here we are careful to keep the properties in the same order they were encountered. When the MaterialAsset
-                // is later finalized with a MaterialTypeAsset, there could be a version update procedure that includes renamed
-                // properties. So it's possible that the same property could be encountered twice but with two different names.
-                // Preserving the original order will ensure that the later properties still overwrite the earlier ones even after
-                // renames have been applied.
-
-                auto iter = AZStd::find_if(m_asset->m_rawPropertyValues.begin(), m_asset->m_rawPropertyValues.end(), [&name](const AZStd::pair<Name, MaterialPropertyValue>& pair)
-                    {
-                        return pair.first == name;
-                    });
+                    return pair.first == name;
+                });
                 
-                if (iter != m_asset->m_rawPropertyValues.end())
-                {
-                    m_asset->m_rawPropertyValues.erase(iter);
-                }
-                
-                m_asset->m_rawPropertyValues.emplace_back(name, value);
+            if (iter != m_asset->m_rawPropertyValues.end())
+            {
+                m_asset->m_rawPropertyValues.erase(iter);
             }
+                
+            m_asset->m_rawPropertyValues.emplace_back(name, value);
         }
-        
-        void MaterialAssetCreator::SetPropertyValue(const Name& name, const Data::Asset<ImageAsset>& imageAsset)
-        {
-            SetPropertyValue(name, MaterialPropertyValue{imageAsset});
-        }
-
-        void MaterialAssetCreator::SetPropertyValue(const Name& name, const Data::Asset<StreamingImageAsset>& imageAsset)
-        {
-            SetPropertyValue(name, Data::Asset<ImageAsset>(imageAsset));
-        }
-
-        void MaterialAssetCreator::SetPropertyValue(const Name& name, const Data::Asset<AttachmentImageAsset>& imageAsset)
-        {
-            SetPropertyValue(name, Data::Asset<ImageAsset>(imageAsset));
-        }
-
-    } // namespace RPI
-} // namespace AZ
+    }
+} // namespace PhysX
