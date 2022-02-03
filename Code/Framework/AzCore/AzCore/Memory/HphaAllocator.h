@@ -71,20 +71,20 @@ namespace AZ
 
         // IAllocatorTrackingRecorder
         
-        AZStd::size_t GetRequestedSize() const override
+        AZStd::size_t GetRequested() const override
         {
-            return m_allocatorPimpl->GetRequestedSize();
+            return m_allocatorPimpl->GetRequested();
         }
 
         // Total amount of bytes allocated (i.e. requested to the OS)
-        AZStd::size_t GetAllocatedSize() const override
+        AZStd::size_t GetAllocated() const override
         {
-            return m_allocatorPimpl->GetAllocatedSize();
+            return m_allocatorPimpl->GetAllocated();
         }
 
-        AZStd::size_t GetFragmentedSize() const override
+        AZStd::size_t GetFragmented() const override
         {
-            return m_allocatorPimpl->GetFragmentedSize();
+            return m_allocatorPimpl->GetFragmented();
         }
 
         void PrintAllocations() const override
@@ -96,6 +96,13 @@ namespace AZ
         {
             return m_allocatorPimpl->GetAllocationCount();
         }
+
+#if defined(AZ_ENABLE_TRACING)
+        AllocationRecordVector GetAllocationRecords() const
+        {
+            return m_allocatorPimpl->GetAllocationRecords();
+        }
+#endif
 
     protected:
         void RecordingsMove(IAllocatorTrackingRecorder* aOther) override

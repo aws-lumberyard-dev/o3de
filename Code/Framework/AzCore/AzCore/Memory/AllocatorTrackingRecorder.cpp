@@ -10,11 +10,8 @@
 
 #if defined(AZ_ENABLE_TRACING)
 
-#include <AzCore/Debug/StackTracer.h>
-#include <AzCore/Memory/AllocatorDebug.h>
 #include <AzCore/Memory/Memory.h>
 #include <AzCore/std/parallel/scoped_lock.h>
-#include <AzCore/std/containers/vector.h>
 #include <AzCore/std/containers/set.h>
 #include <AzCore/std/parallel/atomic.h>
 #include <AzCore/std/parallel/spin_mutex.h>
@@ -27,56 +24,18 @@
 namespace AZ
 {
 #if defined(AZ_ENABLE_TRACING)
-    class AllocationRecord
-    {
-    public:
-        AllocationRecord(void* address, AZStd::size_t requestedSize, AZStd::size_t allocatedSize, AZStd::size_t alignmentSize)
-            : m_address(address)
-            , m_requestedSize(requestedSize)
-            , m_allocatedSize(allocatedSize)
-            , m_alignmentSize(alignmentSize)
-        {
-        }
-
-        static AllocationRecord Create(
-            void* address,
-            AZStd::size_t requestedSize,
-            AZStd::size_t allocatedSize,
-            AZStd::size_t alignmentSize,
-            const AZStd::size_t stackFramesToSkip);
-
-        void Print() const;
-
-        bool operator<(const AllocationRecord& other) const
-        {
-            return this->m_address < other.m_address;
-        }
-
-        bool operator==(const AllocationRecord& other) const
-        {
-            return this->m_address == other.m_address;
-        }
-
-        void* m_address;
-        AZStd::size_t m_requestedSize;
-        AZStd::size_t m_allocatedSize;
-        AZStd::size_t m_alignmentSize;
-        using StackTrace = AZStd::vector<AZ::Debug::StackFrame, AZ::Debug::DebugAllocator>;
-        StackTrace m_allocationStackTrace;
-    };
-
     struct IAllocatorTrackingRecorderData 
     {
-        AZStd::atomic_size_t m_allocatedSize; // Total amount of bytes allocated (i.e. requested to the OS, assuming 1-alignment)
+        AZStd::atomic_size_t m_allocated; // Total amount of bytes allocated (i.e. requested to the OS, assuming 1-alignment)
 
         AZStd::spin_mutex m_allocationRecordsMutex;
         using AllocationRecords = AZStd::set<AllocationRecord, AZStd::less<AllocationRecord>, AZ::Debug::DebugAllocator>;
         AllocationRecords m_allocationRecords;
     };
 
-    AllocationRecord AllocationRecord::Create(void* address, AZStd::size_t requestedSize, AZStd::size_t allocatedSize, AZStd::size_t alignmentSize, const AZStd::size_t stackFramesToSkip)
+    AllocationRecord AllocationRecord::Create(void* address, AZStd::size_t requested, AZStd::size_t allocated, AZStd::size_t alignment, const AZStd::size_t stackFramesToSkip)
     {
-        AllocationRecord record(address, requestedSize, allocatedSize, alignmentSize);
+        AllocationRecord record(address, requested, allocated, alignment);
         record.m_allocationStackTrace.resize(STACK_TRACE_DEPTH_RECORDING); // make enough room for the recording
         unsigned int numOfFrames = Debug::StackRecorder::Record(record.m_allocationStackTrace.begin(), STACK_TRACE_DEPTH_RECORDING, static_cast<unsigned int>(stackFramesToSkip + 1));
         if (numOfFrames < STACK_TRACE_DEPTH_RECORDING)
@@ -89,7 +48,7 @@ namespace AZ
 
     void AllocationRecord::Print() const
     {
-        AZ_Printf("Memory", "  Allocation Addr: 0%p, Requested Size: %zu, Allocated Size: %zu, Alignment: %zu\n", m_address, m_requestedSize, m_allocatedSize, m_alignmentSize);
+        AZ_Printf("Memory", "  Allocation Addr: 0%p, Requested: %zu, Allocated: %zu, Alignment: %zu\n", m_address, m_requested, m_allocated, m_alignment);
 
         // We wont have more entries than STACK_TRACE_DEPTH_RECORDING
         Debug::SymbolStorage::StackLine lines[STACK_TRACE_DEPTH_RECORDING];
@@ -102,19 +61,19 @@ namespace AZ
         }
     }
 
-    void IAllocatorWithTracking::AddAllocatedSize(AZStd::size_t allocatedSize)
+    void IAllocatorWithTracking::AddAllocated(AZStd::size_t allocated)
     {
-        m_data->m_allocatedSize += allocatedSize;
+        m_data->m_allocated += allocated;
     }
 
-    void IAllocatorWithTracking::RemoveAllocatedSize(AZStd::size_t allocatedSize)
+    void IAllocatorWithTracking::RemoveAllocated(AZStd::size_t allocated)
     {
-        m_data->m_allocatedSize -= allocatedSize;
+        m_data->m_allocated -= allocated;
     }
 
-    void IAllocatorWithTracking::AddAllocationRecord(void* address, AZStd::size_t requestedSize, AZStd::size_t allocatedSize, AZStd::size_t alignmentSize, AZStd::size_t stackFramesToSkip)
+    void IAllocatorWithTracking::AddAllocationRecord(void* address, AZStd::size_t requested, AZStd::size_t allocated, AZStd::size_t alignment, AZStd::size_t stackFramesToSkip)
     {
-        AllocationRecord record = AllocationRecord::Create(address, requestedSize, allocatedSize, alignmentSize, stackFramesToSkip + 1);
+        AllocationRecord record = AllocationRecord::Create(address, requested, allocated, alignment, stackFramesToSkip + 1);
         AZStd::scoped_lock lock(m_data->m_allocationRecordsMutex);
         auto it = m_data->m_allocationRecords.emplace(AZStd::move(record));
         if (!it.second)
@@ -127,14 +86,14 @@ namespace AZ
         }
     }
 
-    void IAllocatorWithTracking::RemoveAllocationRecord(void* address, [[maybe_unused]] AZStd::size_t requestedSize, [[maybe_unused]] AZStd::size_t allocatedSize)
+    void IAllocatorWithTracking::RemoveAllocationRecord(void* address, [[maybe_unused]] AZStd::size_t requested, [[maybe_unused]] AZStd::size_t allocated)
     {
         AllocationRecord record(address, 0, 0, 0); // those other values do not matter because the set just compares the address
         AZStd::scoped_lock lock(m_data->m_allocationRecordsMutex);
         auto it = m_data->m_allocationRecords.find(record);
         AZ_Assert(it != m_data->m_allocationRecords.end(), "Allocation with address 0%p was not found");
-        AZ_Assert(requestedSize ? it->m_requestedSize == requestedSize : true, "Mismatch on requested size");
-        AZ_Assert(allocatedSize ? it->m_allocatedSize == allocatedSize : true, "Mismatch on allocated size");
+        AZ_Assert(requested ? it->m_requested == requested : true, "Mismatch on requested size");
+        AZ_Assert(allocated ? it->m_allocated == allocated : true, "Mismatch on allocated size");
         m_data->m_allocationRecords.erase(it);
     }
 
@@ -160,8 +119,8 @@ namespace AZ
 #if defined(AZ_ENABLE_TRACING)
         IAllocatorWithTracking* other = azrtti_cast<IAllocatorWithTracking*>(aOther);
         AZ_Assert(other, "Unexpected conversion, RecordingsMove should be reimplmented if IAllocatorTrackingRecorder is being used");
-        m_data->m_allocatedSize += other->m_data->m_allocatedSize;
-        other->m_data->m_allocatedSize = 0;
+        m_data->m_allocated += other->m_data->m_allocated;
+        other->m_data->m_allocated = 0;
 
         AZStd::scoped_lock lock(m_data->m_allocationRecordsMutex);
         AZStd::scoped_lock lockOther(other->m_data->m_allocationRecordsMutex);
@@ -170,38 +129,38 @@ namespace AZ
 #endif
     }
 
-    AZStd::size_t IAllocatorWithTracking::GetRequestedSize() const
+    AZStd::size_t IAllocatorWithTracking::GetRequested() const
     {
 #if defined(AZ_ENABLE_TRACING)
         // Because the requested size is mostly lost on deallocations (byteSize is usually not passed to the deallocate function),
         // we rely on the allocation records to get that information
-        AZStd::size_t requestedSize = 0;
+        AZStd::size_t requested = 0;
         {
             AZStd::scoped_lock lock(m_data->m_allocationRecordsMutex);
             for (const AllocationRecord& record : m_data->m_allocationRecords)
             {
-                requestedSize += record.m_requestedSize;
+                requested += record.m_requested;
             }
         }
-        return requestedSize;
+        return requested;
 #else
         return 0;
 #endif
     }
 
-    AZStd::size_t IAllocatorWithTracking::GetAllocatedSize() const
+    AZStd::size_t IAllocatorWithTracking::GetAllocated() const
     {
 #if defined(AZ_ENABLE_TRACING)
-        return m_data->m_allocatedSize;
+        return m_data->m_allocated;
 #else
         return 0;
 #endif
     }
 
-    AZStd::size_t IAllocatorWithTracking::GetFragmentedSize() const
+    AZStd::size_t IAllocatorWithTracking::GetFragmented() const
     {
 #if defined(AZ_ENABLE_TRACING)
-        return m_data->m_allocatedSize - GetRequestedSize();
+        return m_data->m_allocated - GetRequested();
 #else
         return 0;
 #endif
@@ -242,6 +201,19 @@ namespace AZ
         return 0;
 #endif
     }
+
+#if defined(AZ_ENABLE_TRACING)
+    AllocationRecordVector IAllocatorWithTracking::GetAllocationRecords() const
+    {
+        AZStd::vector<AllocationRecord, AZ::Debug::DebugAllocator> allocationRecords;
+        allocationRecords.reserve(m_data->m_allocationRecords.size());
+        {
+            AZStd::scoped_lock lock(m_data->m_allocationRecordsMutex);
+            AZStd::copy(m_data->m_allocationRecords.begin(), m_data->m_allocationRecords.end(), AZStd::back_inserter(allocationRecords));
+        }
+        return AZStd::move(allocationRecords);
+    }
+#endif
 
 } // namespace AZ
 

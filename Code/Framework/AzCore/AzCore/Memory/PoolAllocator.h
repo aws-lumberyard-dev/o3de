@@ -14,7 +14,7 @@
 
 namespace AZ
 {
-    IAllocator* CreatePoolAllocatorPimpl(IAllocator& subAllocator);
+    IAllocatorWithTracking* CreatePoolAllocatorPimpl(IAllocator& subAllocator);
     void DestroyPoolAllocatorPimpl(IAllocator& subAllocator, IAllocator* allocator);
 
     /*!
@@ -24,7 +24,9 @@ namespace AZ
      * use PoolAllocatorThreadSafe or do the sync yourself.
      */
     template<typename SubAllocatorType = OSAllocator>
-    class PoolAllocatorType : public IAllocator
+    class PoolAllocatorType
+        : public IAllocator
+        , public IAllocatorTrackingRecorder
     {
     public:
         PoolAllocatorType()
@@ -63,18 +65,64 @@ namespace AZ
             m_allocatorPimpl->Merge(aOther);
         }
 
+        void GarbageCollect() override
+        {
+            m_allocatorPimpl->GarbageCollect();
+        }
+
+        // IAllocatorTrackingRecorder
+
+        AZStd::size_t GetRequested() const override
+        {
+            return m_allocatorPimpl->GetRequested();
+        }
+
+        // Total amount of bytes allocated (i.e. requested to the OS)
+        AZStd::size_t GetAllocated() const override
+        {
+            return m_allocatorPimpl->GetAllocated();
+        }
+
+        AZStd::size_t GetFragmented() const override
+        {
+            return m_allocatorPimpl->GetFragmented();
+        }
+
+        void PrintAllocations() const override
+        {
+            m_allocatorPimpl->PrintAllocations();
+        }
+
+        AZStd::size_t GetAllocationCount() const override
+        {
+            return m_allocatorPimpl->GetAllocationCount();
+        }
+
+#if defined(AZ_ENABLE_TRACING)
+        AllocationRecordVector GetAllocationRecords() const
+        {
+            return m_allocatorPimpl->GetAllocationRecords();
+        }
+#endif
+
+    protected:
+        void RecordingsMove(IAllocatorTrackingRecorder* aOther) override
+        {
+            m_allocatorPimpl->RecordingsMove(aOther);
+        }
+
     private:
         AZ_DISABLE_COPY_MOVE(PoolAllocatorType)
 
         // Due the complexity of this allocator, we create a pimpl implementation
-        IAllocator* m_allocatorPimpl;
+        IAllocatorWithTracking* m_allocatorPimpl;
     };
 
     AZ_TYPE_INFO_TEMPLATE(PoolAllocatorType, "{D3DC61AF-0949-4BFA-87E0-62FA03A4C025}", AZ_TYPE_INFO_TYPENAME);
 
     using PoolAllocator = PoolAllocatorType<SystemAllocator>;
 
-    IAllocator* CreateThreadPoolAllocatorPimpl(IAllocator& subAllocator);
+    IAllocatorWithTracking* CreateThreadPoolAllocatorPimpl(IAllocator& subAllocator);
     void DestroyThreadPoolAllocatorPimpl(IAllocator& subAllocator, IAllocator* allocator);
 
     /*!
@@ -82,7 +130,9 @@ namespace AZ
      * inherit from ThreadPoolBase, as we need unique static variable for allocator type.
      */
     template<typename SubAllocatorType = OSAllocator>
-    class ThreadPoolAllocatorType : public IAllocator
+    class ThreadPoolAllocatorType
+        : public IAllocator
+        , public IAllocatorTrackingRecorder
     {
     public:
         AZ_TYPE_INFO(ThreadPoolAllocator, "{05B4857F-CD06-4942-99FD-CA6A7BAE855A}")
@@ -123,11 +173,57 @@ namespace AZ
             m_allocatorPimpl->Merge(aOther);
         }
 
+        void GarbageCollect() override
+        {
+            m_allocatorPimpl->GarbageCollect();
+        }
+
+        // IAllocatorTrackingRecorder
+
+        AZStd::size_t GetRequested() const override
+        {
+            return m_allocatorPimpl->GetRequested();
+        }
+
+        // Total amount of bytes allocated (i.e. requested to the OS)
+        AZStd::size_t GetAllocated() const override
+        {
+            return m_allocatorPimpl->GetAllocated();
+        }
+
+        AZStd::size_t GetFragmented() const override
+        {
+            return m_allocatorPimpl->GetFragmented();
+        }
+
+        void PrintAllocations() const override
+        {
+            m_allocatorPimpl->PrintAllocations();
+        }
+
+        AZStd::size_t GetAllocationCount() const override
+        {
+            return m_allocatorPimpl->GetAllocationCount();
+        }
+
+#if defined(AZ_ENABLE_TRACING)
+        AllocationRecordVector GetAllocationRecords() const
+        {
+            return m_allocatorPimpl->GetAllocationRecords();
+        }
+#endif
+
+    protected:
+        void RecordingsMove(IAllocatorTrackingRecorder* aOther) override
+        {
+            m_allocatorPimpl->RecordingsMove(aOther);
+        }
+
     private:
         AZ_DISABLE_COPY_MOVE(ThreadPoolAllocatorType)
 
         // Due the complexity of this allocator, we create a pimpl implementation
-        IAllocator* m_allocatorPimpl;
+        IAllocatorWithTracking* m_allocatorPimpl;
     };
 
     AZ_TYPE_INFO_TEMPLATE(ThreadPoolAllocatorType, "{05B4857F-CD06-4942-99FD-CA6A7BAE855A}", AZ_TYPE_INFO_TYPENAME);

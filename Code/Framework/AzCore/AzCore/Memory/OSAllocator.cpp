@@ -21,7 +21,7 @@ namespace AZ
         // for cases where alignment != 1 and the OS could not find a block specifically for that alignment (the OS will give use a
         // block that is byteSize+(alignment-1) and place the ptr in the first address that satisfies the alignment). 
         const size_type allocatedSize = get_allocated_size(ptr, 1); 
-        AddAllocatedSize(allocatedSize);
+        AddAllocated(allocatedSize);
         AddAllocationRecord(ptr, byteSize, allocatedSize, alignment, 1);
 #endif
         return ptr;
@@ -31,7 +31,7 @@ namespace AZ
     {
 #if defined(AZ_ENABLE_TRACING)
         const size_type allocatedSize = get_allocated_size(ptr, 1);
-        RemoveAllocatedSize(allocatedSize);
+        RemoveAllocated(allocatedSize);
         RemoveAllocationRecord(ptr, byteSize, allocatedSize);
 #endif
         AZ_OS_FREE(ptr);
@@ -43,7 +43,7 @@ namespace AZ
         if (ptr)
         {
             const size_type previouslyAllocatedSize = get_allocated_size(ptr, 1);
-            RemoveAllocatedSize(previouslyAllocatedSize);
+            RemoveAllocated(previouslyAllocatedSize);
             RemoveAllocationRecord(ptr, 0, previouslyAllocatedSize);
         }
 #endif
@@ -52,7 +52,7 @@ namespace AZ
                              : AZ_OS_MALLOC(newSize, static_cast<AZStd::size_t>(alignment));
 #if defined(AZ_ENABLE_TRACING)
         const size_type allocatedSize = get_allocated_size(newPtr, 1);
-        AddAllocatedSize(allocatedSize);
+        AddAllocated(allocatedSize);
         AddAllocationRecord(newPtr, newSize, allocatedSize, alignment, 1);
 #endif
         return newPtr;

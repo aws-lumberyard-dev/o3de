@@ -78,7 +78,7 @@ namespace UnitTest
             for (AZ::IAllocator* allocator : allocators)
             {
                 AZ::IAllocatorTrackingRecorder* allocatorWithTracking = azrtti_cast<AZ::IAllocatorTrackingRecorder*>(allocator);
-                if (allocatorWithTracking && (allocatorWithTracking->GetRequestedSize() > 0 || allocatorWithTracking->GetAllocatedSize() > 0))
+                if (allocatorWithTracking && (allocatorWithTracking->GetRequested() > 0 || allocatorWithTracking->GetAllocated() > 0))
                 {
                     if (!allocationsLeft)
                     {
@@ -87,7 +87,7 @@ namespace UnitTest
                     }
                     ColoredPrintf(
                         COLOR_RED, "\t\t%s, Request size left: %zu bytes, Allocated size left: %zu bytes\n", allocator->GetName(),
-                        allocatorWithTracking->GetRequestedSize(), allocatorWithTracking->GetAllocatedSize());
+                        allocatorWithTracking->GetRequested(), allocatorWithTracking->GetAllocated());
                     allocatorWithTracking->PrintAllocations();
                 }
             }

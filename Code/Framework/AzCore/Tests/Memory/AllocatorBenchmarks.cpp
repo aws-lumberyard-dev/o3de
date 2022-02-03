@@ -75,10 +75,9 @@ namespace Benchmark
             AZ::AllocatorInstance<TAllocator>::Get().GarbageCollect();
         }
 
-        static size_t NumAllocatedBytes()
+        static size_t GetAllocated()
         {
-            return AZ::AllocatorInstance<TAllocator>::Get().NumAllocatedBytes() +
-                AZ::AllocatorInstance<TAllocator>::Get().GetUnAllocatedMemory();
+            return AZ::AllocatorInstance<TAllocator>::Get().GetAllocated();
         }
 
         static size_t GetSize(void* ptr)
@@ -142,7 +141,7 @@ namespace Benchmark
 
         static void GarbageCollect() {}
 
-        static size_t NumAllocatedBytes()
+        static size_t GetAllocated()
         {
             return s_numAllocatedBytes;
         }
@@ -267,7 +266,7 @@ namespace Benchmark
                     state.PauseTiming();
                 }
 
-                state.counters[s_counterAllocatorMemory] = benchmark::Counter(static_cast<double>(TestAllocatorType::NumAllocatedBytes()), benchmark::Counter::kDefaults);
+                state.counters[s_counterAllocatorMemory] = benchmark::Counter(static_cast<double>(TestAllocatorType::GetAllocated()), benchmark::Counter::kDefaults);
                 state.counters[s_counterBenchmarkMemory] = benchmark::Counter(static_cast<double>(totalAllocationSize), benchmark::Counter::kDefaults);
 
                 for (size_t allocationIndex = 0; allocationIndex < numberOfAllocations; ++allocationIndex)
@@ -319,7 +318,7 @@ namespace Benchmark
                     perThreadAllocations[allocationIndex] = nullptr;
                 }
 
-                state.counters[s_counterAllocatorMemory] = benchmark::Counter(static_cast<double>(TestAllocatorType::NumAllocatedBytes()), benchmark::Counter::kDefaults);
+                state.counters[s_counterAllocatorMemory] = benchmark::Counter(static_cast<double>(TestAllocatorType::GetAllocated()), benchmark::Counter::kDefaults);
                 state.counters[s_counterBenchmarkMemory] = benchmark::Counter(static_cast<double>(totalAllocationSize), benchmark::Counter::kDefaults);
 
                 state.SetItemsProcessed(numberOfAllocations);
@@ -474,7 +473,7 @@ namespace Benchmark
                     pointerRemapping.clear();
                 }
 
-                state.counters[s_counterAllocatorMemory] = benchmark::Counter(static_cast<double>(TestAllocatorType::NumAllocatedBytes()), benchmark::Counter::kDefaults);
+                state.counters[s_counterAllocatorMemory] = benchmark::Counter(static_cast<double>(TestAllocatorType::GetAllocated()), benchmark::Counter::kDefaults);
                 state.counters[s_counterBenchmarkMemory] = benchmark::Counter(static_cast<double>(totalAllocationSize), benchmark::Counter::kDefaults);
 
                 state.SetItemsProcessed(itemsProcessed);
@@ -532,7 +531,7 @@ namespace Benchmark
     BM_REGISTER_ALLOCATOR(WarmUpAllocator, RawMallocAllocator);
 
     BM_REGISTER_ALLOCATOR(RawMallocAllocator, RawMallocAllocator);
-    BM_REGISTER_ALLOCATOR(HphaAllocator, AZ::AllocatorGlobalWrapper<AZ::HphaAllocator<AZ::OSAllocator>>);
+    BM_REGISTER_ALLOCATOR(HphaAllocator, AZ::HphaAllocator<AZ::OSAllocator>);
     BM_REGISTER_ALLOCATOR(SystemAllocator, AZ::SystemAllocator);
     
     // BM_REGISTER_ALLOCATOR(OSAllocator, OSAllocator); // Requires special treatment to initialize since it will be already initialized, maybe creating a different instance?

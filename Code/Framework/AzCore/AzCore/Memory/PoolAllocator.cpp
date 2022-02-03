@@ -345,7 +345,7 @@ namespace AZ
         // Functions used by PoolAllocation template
         AZ_INLINE Page* PopFreePage();
         AZ_INLINE void PushFreePage(Page* page);
-        void GarbageCollect();
+        void GarbageCollect() override;
         inline Page* ConstructPage(size_t elementSize)
         {
             // We store the page struct at the end of the block
@@ -473,10 +473,9 @@ namespace AZ
         }
     }
 
-    IAllocator* CreatePoolAllocatorPimpl(IAllocator& subAllocator)
+    IAllocatorWithTracking* CreatePoolAllocatorPimpl(IAllocator& subAllocator)
     {
-        PoolSchemaPimpl* allocatorMemory =
-            reinterpret_cast<PoolSchemaPimpl*>(subAllocator.allocate(sizeof(PoolSchemaPimpl), alignof(PoolSchemaPimpl)));
+        PoolSchemaPimpl* allocatorMemory = reinterpret_cast<PoolSchemaPimpl*>(subAllocator.allocate(sizeof(PoolSchemaPimpl), alignof(PoolSchemaPimpl)));
         return new (allocatorMemory) PoolSchemaPimpl(&subAllocator);
     }
 
@@ -492,7 +491,7 @@ namespace AZ
     /**
      * Thread safe pool allocator.
      */
-    class ThreadPoolSchemaPimpl : public IAllocator
+    class ThreadPoolSchemaPimpl : public IAllocatorWithTracking
     {
     public:
         AZ_RTTI(ThreadPoolSchemaPimpl, "{DCC37F0A-7D5D-410E-BF83-74912D8CE6A6}", IAllocator)
@@ -551,7 +550,7 @@ namespace AZ
         }
 
         /// Return unused memory to the OS. Don't call this too often because you will force unnecessary allocations.
-        void GarbageCollect();
+        void GarbageCollect() override;
         //////////////////////////////////////////////////////////////////////////
 
         // Functions used by PoolAllocation template
@@ -833,10 +832,9 @@ namespace AZ
         }
     }
 
-    IAllocator* CreateThreadPoolAllocatorPimpl(IAllocator& subAllocator)
+    IAllocatorWithTracking* CreateThreadPoolAllocatorPimpl(IAllocator& subAllocator)
     {
-        ThreadPoolSchemaPimpl* allocatorMemory = reinterpret_cast<ThreadPoolSchemaPimpl*>(
-            subAllocator.allocate(sizeof(ThreadPoolSchemaPimpl), AZStd::alignment_of<ThreadPoolSchemaPimpl>::value));
+        ThreadPoolSchemaPimpl* allocatorMemory = reinterpret_cast<ThreadPoolSchemaPimpl*>(subAllocator.allocate(sizeof(ThreadPoolSchemaPimpl), AZStd::alignment_of<ThreadPoolSchemaPimpl>::value));
         return new (allocatorMemory) ThreadPoolSchemaPimpl(&subAllocator);
     }
 

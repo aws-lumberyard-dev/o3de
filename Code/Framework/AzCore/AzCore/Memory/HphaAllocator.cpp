@@ -1194,7 +1194,7 @@ namespace AZ
 #if defined(AZ_ENABLE_TRACING)
         if (ptr)
         {
-            AddAllocatedSize(m_poolPageSize);
+            AddAllocated(m_poolPageSize);
         }
 #endif
         HPPA_ASSERT(((size_t)ptr & (m_poolPageSize - 1)) == 0); // checks alignment
@@ -1205,7 +1205,7 @@ namespace AZ
     {
         HPPA_ASSERT(ptr);
 #if defined(AZ_ENABLE_TRACING)
-        RemoveAllocatedSize(m_poolPageSize);
+        RemoveAllocated(m_poolPageSize);
 #endif
         m_subAllocator.deallocate(ptr, m_poolPageSize, m_poolPageSize);
     }
@@ -1496,7 +1496,7 @@ namespace AZ
 #if defined(AZ_ENABLE_TRACING)
         if (ptr)
         {
-            AddAllocatedSize(allocSize);
+            AddAllocated(allocSize);
         }
 #endif
         return ptr;
@@ -1509,7 +1509,7 @@ namespace AZ
         const size_t allocSize = AZ::SizeAlignUp(size, OS_VIRTUAL_PAGE_SIZE);
         m_subAllocator.deallocate(ptr, allocSize, m_treePageAlignment);
 #if defined(AZ_ENABLE_TRACING)
-        RemoveAllocatedSize(allocSize);
+        RemoveAllocated(allocSize);
 #endif
     }
 
