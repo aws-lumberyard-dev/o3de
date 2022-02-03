@@ -12,6 +12,8 @@ namespace O3DEMaterialEditor
     O3DEMaterialEditorWidget::O3DEMaterialEditorWidget(QWidget* parent)
         : AzQtComponents::TabWidget(parent)
     {
+        AzQtComponents::TabWidget::applySecondaryStyle(this, false/*bordered*/);
+
         setMovable(true);
 
         if (auto* o3deMaterialEditorSystem = GetO3DEMaterialEditorSystem())
@@ -22,7 +24,16 @@ namespace O3DEMaterialEditor
                 const AZStd::string& tabName = registeredTab.first;
                 const WidgetCreationFunc& widgetCreationFunc = registeredTab.second;
 
-                addTab(widgetCreationFunc(nullptr), tabName.c_str());
+                // Have render material tab first
+                if (tabName == "Render Materials")
+                {
+                    insertTab(0, widgetCreationFunc(nullptr), tabName.c_str());
+                    setCurrentIndex(0);
+                }
+                else
+                {
+                    addTab(widgetCreationFunc(nullptr), tabName.c_str());
+                }
             }
         }
 
@@ -33,12 +44,12 @@ namespace O3DEMaterialEditor
             {
                 QVBoxLayout* mainLayout = new QVBoxLayout(noWindowsTab);
 
-                QLabel* introLabel = new QLabel("No material editors registered. Enable gems that include material editors.", noWindowsTab);
-                mainLayout->addWidget(introLabel, 0, Qt::AlignCenter);
+                QLabel* introLabel = new QLabel("No material editors registered. Enable gems that provide material editors.", noWindowsTab);
+                mainLayout->addWidget(introLabel, 0/*stretch*/, Qt::AlignCenter);
 
                 noWindowsTab->setLayout(mainLayout);
             }
-            addTab(noWindowsTab, "No Material Editors");
+            addTab(noWindowsTab, "No Materials");
         }
     }
 }

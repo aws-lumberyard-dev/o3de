@@ -68,7 +68,7 @@ namespace PhysX
 
         m_materialEditorBrowserInteractions.reset(aznew MaterialEditorBrowserInteractions);
 
-        O3DEMaterialEditor::RegisterViewPane<MaterialEditorWindow>("PhysX");
+        O3DEMaterialEditor::RegisterViewPane<MaterialEditorWindow>("PhysX Materials");
     }
 
 } // namespace PhysX
