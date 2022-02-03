@@ -150,7 +150,7 @@ namespace AZ
         }
 
         /// Returns max allocation size if possible. If not returned value is 0
-        //AZ_DEPRECATED_MESSAGE("Unused and not really useful")
+        AZ_DEPRECATED_MESSAGE("Unused and not really useful")
         size_type GetMaxAllocationSize() const
         {
             return 0;
