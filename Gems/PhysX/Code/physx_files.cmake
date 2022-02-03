@@ -136,9 +136,9 @@ set(FILES
     Source/System/PhysXSdkCallbacks.cpp
     Source/System/PhysXSystem.h
     Source/System/PhysXSystem.cpp
-    #Source/PhysXMaterial/PhysXMaterial.cpp
+    Source/PhysXMaterial/PhysXMaterial.cpp
     Source/PhysXMaterial/PhysXMaterial.h
-    #Source/PhysXMaterial/PhysXMaterialPropertyValue.cpp
+    Source/PhysXMaterial/PhysXMaterialPropertyValue.cpp
     Source/PhysXMaterial/PhysXMaterialPropertyValue.h
     #Source/PhysXMaterial/MaterialAsset/PhysXMaterialAsset.cpp
     Source/PhysXMaterial/MaterialAsset/PhysXMaterialAsset.h

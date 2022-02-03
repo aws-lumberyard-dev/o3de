@@ -21,6 +21,8 @@
 //#include <Atom/RPI.Reflect/Material/MaterialFunctor.h>
 //#include <Atom/RPI.Reflect/Material/MaterialVersionUpdate.h>
 
+#include <PhysXMaterial/PhysXMaterialPropertyValue.h>
+
 namespace PhysX
 {
     class PhysXMaterialTypeAssetHandler;

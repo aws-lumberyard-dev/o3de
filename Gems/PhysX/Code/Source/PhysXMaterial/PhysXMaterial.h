@@ -26,7 +26,11 @@ namespace PhysX
 {
     class PhysXMaterialPropertiesLayout;
 
-    using PhysXMaterialPropertyFlags = AZStd::bitset<256>;
+    namespace Material
+    {
+        constexpr uint32_t PropertyCountMax = 256;
+    }
+    using PhysXMaterialPropertyFlags = AZStd::bitset<Material::PropertyCountMax>;
 
     struct PhysXMaterialPropertyIndexType {
         AZ_TYPE_INFO(MaterialPropertyIndexType, "{44881C42-E006-4970-A391-35487271C7BF}");
@@ -154,7 +158,7 @@ namespace PhysX
         AZ::Data::Asset<PhysXMaterialAsset> m_materialAsset;
 
         //! Provides a description of the set of available material properties, cached locally so we don't have to keep fetching it from the MaterialTypeSourceData.
-        AZStd::intrusive_ptr<const PhysXMaterialPropertiesLayout> m_layout;
+        //AZStd::intrusive_ptr<const PhysXMaterialPropertiesLayout> m_layout;
 
         //! Values for all properties in MaterialPropertiesLayout
         AZStd::vector<PhysXMaterialPropertyValue> m_propertyValues;

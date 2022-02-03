@@ -48,6 +48,7 @@ ly_add_target(
             Legacy::CryCommon
         PRIVATE
             Gem::LmbrCentral
+            AZ::AtomCore
             Gem::Atom_RPI.Public
 )
 
