@@ -582,12 +582,12 @@ namespace PhysXMaterialEditor
 
         propertyConfig = {};
         propertyConfig.m_dataType = AtomToolsFramework::DynamicPropertyType::Asset;
-        propertyConfig.m_id = "overview.physxParentMaterial";
-        propertyConfig.m_name = "physxParentMaterial";
-        propertyConfig.m_displayName = "PhysX Parent Material";
+        propertyConfig.m_id = "overview.parentPhysXMaterial";
+        propertyConfig.m_name = "parentPhysXMaterial";
+        propertyConfig.m_displayName = "Parent PhysX Material";
         propertyConfig.m_groupName = "Overview";
         propertyConfig.m_description =
-            "The parent material provides an initial configuration whose properties are inherited and overriden by a derived material.";
+            "The parent physx material provides an initial configuration whose properties are inherited and overriden by a derived material.";
         propertyConfig.m_defaultValue = AZStd::any(parentMaterialAsset);
         propertyConfig.m_originalValue = propertyConfig.m_defaultValue;
         propertyConfig.m_parentValue = propertyConfig.m_defaultValue;

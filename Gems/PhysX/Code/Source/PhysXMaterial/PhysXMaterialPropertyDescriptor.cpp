@@ -6,7 +6,7 @@
  *
  */
 
-#include <Atom/RPI.Reflect/Material/MaterialPropertyDescriptor.h>
+#include <PhysXMaterial/PhysXMaterialPropertyDescriptor.h>
 #include <AzCore/RTTI/BehaviorContext.h>
 #include <AzCore/Math/Vector2.h>
 #include <AzCore/Math/Vector3.h>
@@ -15,9 +15,9 @@
 
 namespace AZ
 {
-    namespace RPI
+    namespace PhysX
     {
-        const char* ToString(MaterialPropertyOutputType materialPropertyOutputType)
+        /*const char* ToString(MaterialPropertyOutputType materialPropertyOutputType)
         {
             switch (materialPropertyOutputType)
             {
@@ -27,26 +27,26 @@ namespace AZ
                 AZ_Assert(false, "Unhandled type");
                 return "<Unknown>";
             }
-        }
+        }*/
 
         const char* ToString(MaterialPropertyDataType materialPropertyDataType)
         {
             switch (materialPropertyDataType)
             {
-                case MaterialPropertyDataType::Bool:    return "Bool";
-                case MaterialPropertyDataType::Int:     return "Int";
-                case MaterialPropertyDataType::UInt:    return "UInt";
-                case MaterialPropertyDataType::Float:   return "Float";
-                case MaterialPropertyDataType::Vector2: return "Vector2";
-                case MaterialPropertyDataType::Vector3: return "Vector3";
-                case MaterialPropertyDataType::Vector4: return "Vector4";
-                case MaterialPropertyDataType::Color:   return "Color";
-                case MaterialPropertyDataType::Image:   return "Image";
-                case MaterialPropertyDataType::Enum:    return "Enum";
-                case MaterialPropertyDataType::Invalid: return "Invalid";
-                default: 
-                    AZ_Assert(false, "Unhandled type");
-                    return "<Unknown>";
+            case MaterialPropertyDataType::Bool:    return "Bool";
+            case MaterialPropertyDataType::Int:     return "Int";
+            case MaterialPropertyDataType::UInt:    return "UInt";
+            case MaterialPropertyDataType::Float:   return "Float";
+            case MaterialPropertyDataType::Vector2: return "Vector2";
+            case MaterialPropertyDataType::Vector3: return "Vector3";
+            case MaterialPropertyDataType::Vector4: return "Vector4";
+            case MaterialPropertyDataType::Color:   return "Color";
+            //case MaterialPropertyDataType::Image:   return "Image";
+            case MaterialPropertyDataType::Enum:    return "Enum";
+            case MaterialPropertyDataType::Invalid: return "Invalid";
+            default:
+                AZ_Assert(false, "Unhandled type");
+                return "<Unknown>";
             }
         }
 
@@ -88,16 +88,16 @@ namespace AZ
             {
                 return ToString(MaterialPropertyDataType::Color);
             }
-            else if (typeId == azrtti_typeid<Data::Instance<Image>>())
+            /*else if (typeId == azrtti_typeid<Data::Instance<Image>>())
             {
                 return ToString(MaterialPropertyDataType::Image);
-            }
+            }*/
             else
             {
                 return AZStd::string::format("<Unkonwn type %s>", typeId.ToString<AZStd::string>().c_str());
             }
         }
-        
+
         bool ValidateMaterialPropertyDataType(TypeId typeId, const Name& propertyName, const MaterialPropertyDescriptor* materialPropertyDescriptor, AZStd::function<void(const char*)> onError)
         {
             auto toMaterialPropertyDataType = [](TypeId typeId)
@@ -110,7 +110,7 @@ namespace AZ
                 if (typeId == azrtti_typeid<Vector3>()) { return MaterialPropertyDataType::Vector3; }
                 if (typeId == azrtti_typeid<Vector4>()) { return MaterialPropertyDataType::Vector4; }
                 if (typeId == azrtti_typeid<Color>()) { return MaterialPropertyDataType::Color; }
-                if (typeId == azrtti_typeid<Data::Asset<ImageAsset>>()) { return MaterialPropertyDataType::Image; }
+                //if (typeId == azrtti_typeid<Data::Asset<ImageAsset>>()) { return MaterialPropertyDataType::Image; }
                 else
                 {
                     return MaterialPropertyDataType::Invalid;
@@ -149,7 +149,7 @@ namespace AZ
             return true;
         }
 
-        void MaterialPropertyOutputId::Reflect(ReflectContext* context)
+        /*void MaterialPropertyOutputId::Reflect(ReflectContext* context)
         {
             if (auto* serializeContext = azrtti_cast<SerializeContext*>(context))
             {
@@ -160,16 +160,16 @@ namespace AZ
                     ->Field("m_itemIndex", &MaterialPropertyOutputId::m_itemIndex)
                     ;
             }
-        }
+        }*/
 
         void MaterialPropertyDescriptor::Reflect(ReflectContext* context)
         {
             if (auto* serializeContext = azrtti_cast<SerializeContext*>(context))
             {
-                serializeContext->Enum<MaterialPropertyOutputType>()
-                    ->Value(ToString(MaterialPropertyOutputType::ShaderInput), MaterialPropertyOutputType::ShaderInput)
-                    ->Value(ToString(MaterialPropertyOutputType::ShaderOption), MaterialPropertyOutputType::ShaderOption)
-                    ;
+                //serializeContext->Enum<MaterialPropertyOutputType>()
+                //    ->Value(ToString(MaterialPropertyOutputType::ShaderInput), MaterialPropertyOutputType::ShaderInput)
+                //    ->Value(ToString(MaterialPropertyOutputType::ShaderOption), MaterialPropertyOutputType::ShaderOption)
+                //    ;
 
                 serializeContext->Enum<MaterialPropertyDataType>()
                     ->Value(ToString(MaterialPropertyDataType::Invalid), MaterialPropertyDataType::Invalid)
@@ -181,7 +181,7 @@ namespace AZ
                     ->Value(ToString(MaterialPropertyDataType::Vector3), MaterialPropertyDataType::Vector3)
                     ->Value(ToString(MaterialPropertyDataType::Vector4), MaterialPropertyDataType::Vector4)
                     ->Value(ToString(MaterialPropertyDataType::Color), MaterialPropertyDataType::Color)
-                    ->Value(ToString(MaterialPropertyDataType::Image), MaterialPropertyDataType::Image)
+                    //->Value(ToString(MaterialPropertyDataType::Image), MaterialPropertyDataType::Image)
                     ->Value(ToString(MaterialPropertyDataType::Enum), MaterialPropertyDataType::Enum)
                     ;
 
@@ -189,14 +189,14 @@ namespace AZ
                     ->Version(2)
                     ->Field("Name", &MaterialPropertyDescriptor::m_nameId)
                     ->Field("DataType", &MaterialPropertyDescriptor::m_dataType)
-                    ->Field("OutputConnections", &MaterialPropertyDescriptor::m_outputConnections)
+                    //->Field("OutputConnections", &MaterialPropertyDescriptor::m_outputConnections)
                     ->Field("EnumNames", &MaterialPropertyDescriptor::m_enumNames)
                     ;
             }
 
             MaterialPropertyIndex::Reflect(context);
         }
-        
+
         MaterialPropertyDataType MaterialPropertyDescriptor::GetDataType() const
         {
             return m_dataType;
@@ -207,10 +207,10 @@ namespace AZ
             return m_nameId;
         }
 
-        const MaterialPropertyDescriptor::OutputList& MaterialPropertyDescriptor::GetOutputConnections() const
+        /*const MaterialPropertyDescriptor::OutputList& MaterialPropertyDescriptor::GetOutputConnections() const
         {
             return m_outputConnections;
-        }
+        }*/
 
         AZ::TypeId MaterialPropertyDescriptor::GetStorageDataTypeId() const
         {
@@ -233,7 +233,7 @@ namespace AZ
             case MaterialPropertyDataType::Color:
                 return azrtti_typeid<Color>();
             case MaterialPropertyDataType::Enum:
-            case MaterialPropertyDataType::Image:
+            //case MaterialPropertyDataType::Image:
                 return azrtti_typeid<AZStd::string>();
             default:
                 AZ_Error("MaterialPropertyValueSourceData", false, "Unhandle material property type %s.", ToString(m_dataType));
@@ -254,7 +254,7 @@ namespace AZ
 
             return InvalidEnumValue;
         }
-        
+
         const AZ::Name& MaterialPropertyDescriptor::GetEnumName(uint32_t enumValue) const
         {
             if (enumValue < m_enumNames.size())
@@ -265,5 +265,5 @@ namespace AZ
             return EmptyName;
         }
 
-    } // namespace RPI
+    } // namespace PhysX
 } // namespace AZ

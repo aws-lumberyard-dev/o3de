@@ -6,15 +6,15 @@
  *
  */
 
-#include <Atom/RPI.Reflect/Material/MaterialPropertiesLayout.h>
+#include <PhysXMaterial/PhysXMaterialPropertiesLayout.h>
 #include <AzCore/Serialization/SerializeContext.h>
 
 namespace AZ
 {
-    namespace RPI
+    namespace PhysX
     {
         void MaterialPropertiesLayout::Reflect(ReflectContext* context)
-        {            
+        {
             if (auto* serializeContext = azrtti_cast<SerializeContext*>(context))
             {
                 serializeContext->Class<MaterialPropertiesLayout>()
@@ -25,7 +25,7 @@ namespace AZ
             }
 
             IdReflectionMapForMaterialProperties::Reflect(context);
-            MaterialPropertyOutputId::Reflect(context);
+            //MaterialPropertyOutputId::Reflect(context);
             MaterialPropertyDescriptor::Reflect(context);
         }
 
@@ -51,5 +51,5 @@ namespace AZ
             }
         }
 
-    } // namespace RPI
+    } // namespace PhysX
 } // namespace AZ

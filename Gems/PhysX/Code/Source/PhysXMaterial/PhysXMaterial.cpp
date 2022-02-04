@@ -6,8 +6,8 @@
  *
  */
 
+ #include <PhysXMaterial/PhysXMaterial.h>
 //#include <Atom/RPI.Public/ColorManagement/TransformColor.h>
-//#include <Atom/RPI.Public/Material/Material.h>
 //#include <Atom/RPI.Public/Image/StreamingImage.h>
 //#include <Atom/RPI.Public/Shader/ShaderResourceGroup.h>
 //#include <Atom/RPI.Public/Shader/ShaderReloadDebugTracker.h>
@@ -18,437 +18,751 @@
 //#include <Atom/RPI.Reflect/Asset/AssetUtils.h>
 //#include <Atom/RPI.Reflect/Material/MaterialFunctor.h>
 
-#include <PhysXMaterial/PhysXMaterial.h>
-
 #include <AtomCore/Instance/InstanceDatabase.h>
 #include <AtomCore/Utils/ScopedValue.h>
 
-namespace PhysX
+namespace AZ
 {
-    const char* PhysXMaterial::s_debugTraceName = "Material";
-
-    AZ::Data::Instance<PhysXMaterial> PhysXMaterial::FindOrCreate(const AZ::Data::Asset<PhysXMaterialAsset>& materialAsset)
+    namespace PhysX
     {
-        return AZ::Data::InstanceDatabase<PhysXMaterial>::Instance().FindOrCreate(
-            AZ::Data::InstanceId::CreateFromAssetId(materialAsset.GetId()),
-            materialAsset);
-    }
+        const char* Material::s_debugTraceName = "PhysXMaterial";
 
-    AZ::Data::Instance<PhysXMaterial> PhysXMaterial::Create(const AZ::Data::Asset<PhysXMaterialAsset>& materialAsset)
-    {
-        return AZ::Data::InstanceDatabase<PhysXMaterial>::Instance().FindOrCreate(
-            AZ::Data::InstanceId::CreateRandom(),
-            materialAsset);
-    }
-
-    AZ::Data::Instance<PhysXMaterial> PhysXMaterial::CreateInternal(PhysXMaterialAsset& materialAsset)
-    {
-        AZ::Data::Instance<PhysXMaterial> material = aznew PhysXMaterial();
-        const ResultCode resultCode = material->Init(materialAsset);
-
-        if (resultCode == ResultCode::Success)
+        Data::Instance<Material> Material::FindOrCreate(const Data::Asset<MaterialAsset>& materialAsset)
         {
-            return material;
+            return Data::InstanceDatabase<Material>::Instance().FindOrCreate(
+                Data::InstanceId::CreateFromAssetId(materialAsset.GetId()),
+                materialAsset);
         }
 
-        return nullptr;
-    }
-
-    ResultCode PhysXMaterial::Init(PhysXMaterialAsset& materialAsset)
-    {
-        //AZ_PROFILE_FUNCTION(RPI);
-
-        AZ::ScopedValue isInitializing(&m_isInitializing, true, false);
-
-        m_materialAsset = { &materialAsset, AZ::Data::AssetLoadBehavior::PreLoad };
-
-        /*
-        m_layout = m_materialAsset->GetMaterialPropertiesLayout();
-        if (!m_layout)
+        Data::Instance<Material> Material::Create(const Data::Asset<MaterialAsset>& materialAsset)
         {
-            AZ_Error(s_debugTraceName, false, "MaterialAsset did not have a valid MaterialPropertiesLayout");
-            return ResultCode::Fail;
+            return Data::InstanceDatabase<Material>::Instance().FindOrCreate(
+                Data::InstanceId::CreateRandom(),
+                materialAsset);
         }
-        */
 
-        // If this Init() is actually a re-initialize, we need to re-apply any overridden property values
-        // after loading the property values from the asset, so we save that data here.
-        PhysXMaterialPropertyFlags prevOverrideFlags = m_propertyOverrideFlags;
-        AZStd::vector<PhysXMaterialPropertyValue> prevPropertyValues = m_propertyValues;
-
-        // The property values are cleared to their default state to ensure that SetPropertyValue() does not early-return
-        // when called below. This is important when Init() is actually a re-initialize.
-        m_propertyValues.clear();
-
-        // Initialize the shader runtime data like shader constant buffers and shader variants by applying the 
-        // material's property values. This will feed through the normal runtime material value-change data flow, which may
-        // include custom property change handlers provided by the material type.
-        //
-        // This baking process could be more efficient by doing it at build-time rather than run-time. However, the 
-        // architectural complexity of supporting separate asset/runtime paths for assigning buffers/images is prohibitive.
+        AZ::Data::Instance<Material> Material::CreateInternal(MaterialAsset& materialAsset)
         {
-            m_propertyValues.resize(materialAsset.GetPropertyValues().size());
-            //AZ_Assert(m_propertyValues.size() == m_layout->GetPropertyCount(), "The number of properties in this material doesn't match the property layout");
+            Data::Instance<Material> material = aznew Material();
+            const ResultCode resultCode = material->Init(materialAsset);
 
-            for (size_t i = 0; i < materialAsset.GetPropertyValues().size(); ++i)
+            if (resultCode == ResultCode::Success)
             {
-                const PhysXMaterialPropertyValue& value = materialAsset.GetPropertyValues()[i];
-                PhysXMaterialPropertyIndex propertyIndex{i};
-                if (!SetPropertyValue(propertyIndex, value))
+                return material;
+            }
+
+            return nullptr;
+        }
+
+        ResultCode Material::Init(MaterialAsset& materialAsset)
+        {
+            //AZ_PROFILE_FUNCTION(RPI);
+
+            ScopedValue isInitializing(&m_isInitializing, true, false);
+
+            m_materialAsset = { &materialAsset, AZ::Data::AssetLoadBehavior::PreLoad };
+
+            // Cache off pointers to some key data structures from the material type...
+            /*auto srgLayout = m_materialAsset->GetMaterialSrgLayout();
+            if (srgLayout)
+            {
+                auto shaderAsset = m_materialAsset->GetMaterialTypeAsset()->GetShaderAssetForMaterialSrg();
+                m_shaderResourceGroup = ShaderResourceGroup::Create(shaderAsset, srgLayout->GetName());
+
+                if (m_shaderResourceGroup)
                 {
+                    m_rhiShaderResourceGroup = m_shaderResourceGroup->GetRHIShaderResourceGroup();
+                }
+                else
+                {
+                    // No need to report an error message here, ShaderResourceGroup::Create() will have reported.
                     return ResultCode::Fail;
+                }
+            }*/
+
+            m_layout = m_materialAsset->GetMaterialPropertiesLayout();
+            if (!m_layout)
+            {
+                AZ_Error(s_debugTraceName, false, "MaterialAsset did not have a valid MaterialPropertiesLayout");
+                return ResultCode::Fail;
+            }
+
+            // Copy the shader collection because the material will make changes, like updating the ShaderVariantId.
+            //m_shaderCollection = materialAsset.GetShaderCollection();
+
+            // Register for update events related to Shader instances that own the ShaderAssets inside
+            // the shader collection.
+            /*ShaderReloadNotificationBus::MultiHandler::BusDisconnect();
+            for (auto& shaderItem : m_shaderCollection)
+            {
+                ShaderReloadDebugTracker::Printf("(Material has ShaderAsset %p)", shaderItem.GetShaderAsset().Get());
+                ShaderReloadNotificationBus::MultiHandler::BusConnect(shaderItem.GetShaderAsset().GetId());
+            }*/
+
+            // If this Init() is actually a re-initialize, we need to re-apply any overridden property values
+            // after loading the property values from the asset, so we save that data here.
+            MaterialPropertyFlags prevOverrideFlags = m_propertyOverrideFlags;
+            AZStd::vector<MaterialPropertyValue> prevPropertyValues = m_propertyValues;
+
+            // The property values are cleared to their default state to ensure that SetPropertyValue() does not early-return
+            // when called below. This is important when Init() is actually a re-initialize.
+            m_propertyValues.clear();
+
+            // Initialize the shader runtime data like shader constant buffers and shader variants by applying the 
+            // material's property values. This will feed through the normal runtime material value-change data flow, which may
+            // include custom property change handlers provided by the material type.
+            //
+            // This baking process could be more efficient by doing it at build-time rather than run-time. However, the 
+            // architectural complexity of supporting separate asset/runtime paths for assigning buffers/images is prohibitive.
+            {
+                m_propertyValues.resize(materialAsset.GetPropertyValues().size());
+                AZ_Assert(m_propertyValues.size() == m_layout->GetPropertyCount(), "The number of properties in this material doesn't match the property layout");
+
+                for (size_t i = 0; i < materialAsset.GetPropertyValues().size(); ++i)
+                {
+                    const MaterialPropertyValue& value = materialAsset.GetPropertyValues()[i];
+                    MaterialPropertyIndex propertyIndex{ i };
+                    if (!SetPropertyValue(propertyIndex, value))
+                    {
+                        return ResultCode::Fail;
+                    }
+                }
+
+                AZ_Assert(materialAsset.GetPropertyValues().size() <= Limits::Material::PropertyCountMax,
+                    "Too many material properties. Max is %d.", Limits::Material::PropertyCountMax);
+            }
+
+            // Clear all override flags because we just loaded properties from the asset
+            m_propertyOverrideFlags.reset();
+
+            // Now apply any properties that were overridden before
+            for (size_t i = 0; i < prevPropertyValues.size(); ++i)
+            {
+                if (prevOverrideFlags[i])
+                {
+                    SetPropertyValue(MaterialPropertyIndex{ i }, prevPropertyValues[i]);
                 }
             }
 
-            AZ_Assert(materialAsset.GetPropertyValues().size() <= Material::PropertyCountMax,
-                "Too many material properties. Max is %d.", Material::PropertyCountMax);
+            // Usually SetProperties called above will increment this change ID to invalidate
+            // the material, but some materials might not have any properties, and we need
+            // the material to be invalidated particularly when hot-reloading.
+            ++m_currentChangeId;
+            // Set all dirty for the first use.
+            m_propertyDirtyFlags.set();
+
+
+
+            Compile();
+
+            Data::AssetBus::Handler::BusConnect(m_materialAsset.GetId());
+            //MaterialReloadNotificationBus::Handler::BusConnect(m_materialAsset.GetId());
+
+            return ResultCode::Success;
         }
 
-        // Clear all override flags because we just loaded properties from the asset
-        m_propertyOverrideFlags.reset();
-
-        // Now apply any properties that were overridden before
-        for (size_t i = 0; i < prevPropertyValues.size(); ++i)
+        Material::~Material()
         {
-            if (prevOverrideFlags[i])
+            //ShaderReloadNotificationBus::MultiHandler::BusDisconnect();
+            //MaterialReloadNotificationBus::Handler::BusDisconnect();
+            Data::AssetBus::Handler::BusDisconnect();
+        }
+
+        /*const ShaderCollection& Material::GetShaderCollection() const
+        {
+            return m_shaderCollection;
+        }
+
+        AZ::Outcome<uint32_t> Material::SetSystemShaderOption(const Name& shaderOptionName, RPI::ShaderOptionValue value)
+        {
+            uint32_t appliedCount = 0;
+
+            // We won't set any shader options if the shader option is owned by any of the other shaders in this material.
+            // If the material uses an option in any shader, then it owns that option for all its shaders.
+            for (auto& shaderItem : m_shaderCollection)
             {
-                SetPropertyValue(PhysXMaterialPropertyIndex{i}, prevPropertyValues[i]);
+                const ShaderOptionGroupLayout* layout = shaderItem.GetShaderOptions()->GetShaderOptionLayout();
+                ShaderOptionIndex index = layout->FindShaderOptionIndex(shaderOptionName);
+                if (index.IsValid())
+                {
+                    if (shaderItem.MaterialOwnsShaderOption(index))
+                    {
+                        return AZ::Failure();
+                    }
+                }
+            }
+
+            for (auto& shaderItem : m_shaderCollection)
+            {
+                const ShaderOptionGroupLayout* layout = shaderItem.GetShaderOptions()->GetShaderOptionLayout();
+                ShaderOptionIndex index = layout->FindShaderOptionIndex(shaderOptionName);
+                if (index.IsValid())
+                {
+                    shaderItem.GetShaderOptions()->SetValue(index, value);
+                    appliedCount++;
+                }
+            }
+
+            return AZ::Success(appliedCount);
+        }
+
+        void Material::SetPsoHandlingOverride(MaterialPropertyPsoHandling psoHandlingOverride)
+        {
+            m_psoHandling = psoHandlingOverride;
+        }
+
+        const RHI::ShaderResourceGroup* Material::GetRHIShaderResourceGroup() const
+        {
+            return m_rhiShaderResourceGroup;
+        }*/
+
+        const Data::Asset<MaterialAsset>& Material::GetAsset() const
+        {
+            return m_materialAsset;
+        }
+
+        bool Material::CanCompile() const
+        {
+            //return !m_shaderResourceGroup || !m_shaderResourceGroup->IsQueuedForCompile();
+            return true;
+        }
+
+
+        ///////////////////////////////////////////////////////////////////
+        // AssetBus overrides...
+        void Material::OnAssetReloaded(Data::Asset<Data::AssetData> asset)
+        {
+            //ShaderReloadDebugTracker::ScopedSection reloadSection("{%p}->Material::OnAssetReloaded %s", this, asset.GetHint().c_str());
+
+            Data::Asset<MaterialAsset> newMaterialAsset = Data::static_pointer_cast<MaterialAsset>(asset);
+
+            if (newMaterialAsset)
+            {
+                Init(*newMaterialAsset);
+                //MaterialReloadNotificationBus::Event(newMaterialAsset.GetId(), &MaterialReloadNotifications::OnMaterialReinitialized, this);
             }
         }
 
-        // Usually SetProperties called above will increment this change ID to invalidate
-        // the material, but some materials might not have any properties, and we need
-        // the material to be invalidated particularly when hot-reloading.
-        ++m_currentChangeId;
-        // Set all dirty for the first use.
-        m_propertyDirtyFlags.set();
-
-
-
-        Compile();
-
-        AZ::Data::AssetBus::Handler::BusConnect(m_materialAsset.GetId());
-        //MaterialReloadNotificationBus::Handler::BusConnect(m_materialAsset.GetId());
-
-        return ResultCode::Success;
-    }
-
-    PhysXMaterial::~PhysXMaterial()
-    {
-        //MaterialReloadNotificationBus::Handler::BusDisconnect();
-        AZ::Data::AssetBus::Handler::BusDisconnect();
-    }
-
-    const AZ::Data::Asset<PhysXMaterialAsset>& PhysXMaterial::GetAsset() const
-    {
-        return m_materialAsset;
-    }
-
-    bool PhysXMaterial::CanCompile() const
-    {
-        //return !m_shaderResourceGroup || !m_shaderResourceGroup->IsQueuedForCompile();
-        return true;
-    }
-
-
-    ///////////////////////////////////////////////////////////////////
-    // AssetBus overrides...
-    void PhysXMaterial::OnAssetReloaded(AZ::Data::Asset<AZ::Data::AssetData> asset)
-    {
-        AZ::Data::Asset<PhysXMaterialAsset> newMaterialAsset = AZ::Data::static_pointer_cast<PhysXMaterialAsset>(asset);
-
-        if (newMaterialAsset)
+        ///////////////////////////////////////////////////////////////////
+        // MaterialReloadNotificationBus overrides...
+        /*void Material::OnMaterialAssetReinitialized(const Data::Asset<MaterialAsset>& materialAsset)
         {
-            Init(*newMaterialAsset);
-            //MaterialReloadNotificationBus::Event(newMaterialAsset.GetId(), &MaterialReloadNotifications::OnMaterialReinitialized, this);
-        }
-    }
+            // It's important that we don't just pass materialAsset to Init() because when reloads occur,
+            // it's possible for old Asset objects to hang around and report reinitialization, so materialAsset
+            // might be stale data.
 
-    ///////////////////////////////////////////////////////////////////
-    // MaterialReloadNotificationBus overrides...
-    /*
-    void PhysXMaterial::OnMaterialAssetReinitialized(const AZ::Data::Asset<PhysXMaterialAsset>& materialAsset)
-    {
-        // It's important that we don't just pass materialAsset to Init() because when reloads occur,
-        // it's possible for old Asset objects to hang around and report reinitialization, so materialAsset
-        // might be stale data.
+            if (materialAsset.Get() == m_materialAsset.Get())
+            {
+                ShaderReloadDebugTracker::ScopedSection reloadSection("{%p}->Material::OnMaterialAssetReinitialized %s", this, materialAsset.GetHint().c_str());
 
-        if (materialAsset.Get() == m_materialAsset.Get())
+                OnAssetReloaded(m_materialAsset);
+            }
+        }*/
+
+        ///////////////////////////////////////////////////////////////////
+        // ShaderReloadNotificationBus overrides...
+        /*void Material::OnShaderReinitialized([[maybe_unused]] const Shader& shader)
         {
+            ShaderReloadDebugTracker::ScopedSection reloadSection("{%p}->Material::OnShaderReinitialized %s", this, shader.GetAsset().GetHint().c_str());
+            // Note that it might not be strictly necessary to reinitialize the entire material, we might be able to get away with
+            // just bumping the m_currentChangeId or some other minor updates. But it's pretty hard to know what exactly needs to be
+            // updated to correctly handle the reload, so it's safer to just reinitialize the whole material.
             OnAssetReloaded(m_materialAsset);
         }
-    }
-    */
 
-    const PhysXMaterialPropertyValue& PhysXMaterial::GetPropertyValue(PhysXMaterialPropertyIndex index) const
-    {
-        static const PhysXMaterialPropertyValue emptyValue;
-        if (m_propertyValues.size() <= index.GetIndex())
+        void Material::OnShaderAssetReinitialized(const Data::Asset<ShaderAsset>& shaderAsset)
         {
-            AZ_Error("Material", false, "Property index out of range.");
-            return emptyValue;
+            ShaderReloadDebugTracker::ScopedSection reloadSection("{%p}->Material::OnShaderAssetReinitialized %s", this, shaderAsset.GetHint().c_str());
+            // Note that it might not be strictly necessary to reinitialize the entire material, we might be able to get away with
+            // just bumping the m_currentChangeId or some other minor updates. But it's pretty hard to know what exactly needs to be
+            // updated to correctly handle the reload, so it's safer to just reinitialize the whole material.
+            OnAssetReloaded(m_materialAsset);
         }
-        return m_propertyValues[index.GetIndex()];
-    }
 
-    const AZStd::vector<PhysXMaterialPropertyValue>& PhysXMaterial::GetPropertyValues() const
-    {
-        return m_propertyValues;
-    }
-
-    bool PhysXMaterial::NeedsCompile() const
-    {
-        return m_compiledChangeId != m_currentChangeId;
-    }
-
-    bool PhysXMaterial::Compile()
-    {
-        //AZ_PROFILE_FUNCTION(RPI);
-
-        if (NeedsCompile() && CanCompile())
+        void Material::OnShaderVariantReinitialized(const ShaderVariant& shaderVariant)
         {
-            m_propertyDirtyFlags.reset();
+            ShaderReloadDebugTracker::ScopedSection reloadSection("{%p}->Material::OnShaderVariantReinitialized %s", this, shaderVariant.GetShaderVariantAsset().GetHint().c_str());
 
-            m_compiledChangeId = m_currentChangeId;
+            // Note that it would be better to check the shaderVariantId to see if that variant is relevant to this particular material before reinitializing it.
+            // There could be hundreds or even thousands of variants for a shader, but only one of those variants will be used by any given material. So we could
+            // get better reload performance by only reinitializing the material when a relevant shader variant is updated.
+            //
+            // But it isn't always possible to know the exact ShaderVariantId that this material is using. For example, some of the shader options might not be
+            // owned by the material and could be set externally *later* in the frame (see SetSystemShaderOption). We could probably check the shader option ownership
+            // and mask out the parts of the ShaderVariantId that aren't owned by the material, but that would be premature optimization at this point, adding
+            // potentially unnecessary complexity. There may also be more edge cases I haven't thought of. In short, it's much safer to just reinitialize every time
+            // this callback happens.
+
+            OnAssetReloaded(m_materialAsset);
+        }*/
+        ///////////////////////////////////////////////////////////////////
+
+        const MaterialPropertyValue& Material::GetPropertyValue(MaterialPropertyIndex index) const
+        {
+            static const MaterialPropertyValue emptyValue;
+            if (m_propertyValues.size() <= index.GetIndex())
+            {
+                AZ_Error("Material", false, "Property index out of range.");
+                return emptyValue;
+            }
+            return m_propertyValues[index.GetIndex()];
+        }
+
+        const AZStd::vector<MaterialPropertyValue>& Material::GetPropertyValues() const
+        {
+            return m_propertyValues;
+        }
+
+        bool Material::NeedsCompile() const
+        {
+            return m_compiledChangeId != m_currentChangeId;
+        }
+
+        bool Material::Compile()
+        {
+            //AZ_PROFILE_FUNCTION(RPI);
+
+            if (NeedsCompile() && CanCompile())
+            {
+                // On some platforms, PipelineStateObjects must be pre-compiled and shipped with the game; they cannot be compiled at runtime. So at some
+                // point the material system needs to be smart about when it allows PSO changes and when it doesn't. There is a task scheduled to
+                // thoroughly address this in 2022, but for now we just report a warning to alert users who are using the engine in a way that might
+                // not be supported for much longer. PSO changes should only be allowed in developer tools (though we could also expose a way for users to
+                // enable dynamic PSO changes if their project only targets platforms that support this).
+                // PSO modifications are allowed during initialization because that's using the stored asset data, which the asset system can
+                // access to pre-compile the necessary PSOs.
+                //MaterialPropertyPsoHandling psoHandling = m_isInitializing ? MaterialPropertyPsoHandling::Allowed : m_psoHandling;
+
+
+                //AZ_PROFILE_BEGIN(RPI, "Material::Compile() Processing Functors");
+                /*for (const Ptr<MaterialFunctor>& functor : m_materialAsset->GetMaterialFunctors())
+                {
+                    if (functor)
+                    {
+                        const MaterialPropertyFlags& materialPropertyDependencies = functor->GetMaterialPropertyDependencies();
+                        // None covers case that the client code doesn't register material properties to dependencies,
+                        // which will later get caught in Process() when trying to access a property.
+                        if (materialPropertyDependencies.none() || functor->NeedsProcess(m_propertyDirtyFlags))
+                        {
+                            MaterialFunctor::RuntimeContext processContext = MaterialFunctor::RuntimeContext(
+                                m_propertyValues,
+                                m_layout,
+                                &m_shaderCollection,
+                                m_shaderResourceGroup.get(),
+                                &materialPropertyDependencies,
+                                psoHandling
+                            );
+
+
+                            functor->Process(processContext);
+                        }
+                    }
+                    else
+                    {
+                        // This could happen when the dll containing the functor class is missing. There will likely be more errors
+                        // preceding this one, from the serialization system when loading the material asset.
+                        AZ_Error(s_debugTraceName, false, "Material functor is null.");
+                    }
+                }*/
+                //AZ_PROFILE_END(RPI);
+
+                m_propertyDirtyFlags.reset();
+
+                //if (m_shaderResourceGroup)
+                //{
+                //    m_shaderResourceGroup->Compile();
+                //}
+
+                m_compiledChangeId = m_currentChangeId;
+
+                return true;
+            }
+
+            return false;
+        }
+
+        Material::ChangeId Material::GetCurrentChangeId() const
+        {
+            return m_currentChangeId;
+        }
+
+        MaterialPropertyIndex Material::FindPropertyIndex(const Name& propertyId, bool* wasRenamed, Name* newName) const
+        {
+            if (wasRenamed)
+            {
+                *wasRenamed = false;
+            }
+
+            MaterialPropertyIndex index = m_layout->FindPropertyIndex(propertyId);
+            if (!index.IsValid())
+            {
+                Name renamedId = propertyId;
+
+                if (m_materialAsset->GetMaterialTypeAsset()->ApplyPropertyRenames(renamedId))
+                {
+                    index = m_layout->FindPropertyIndex(renamedId);
+
+                    if (wasRenamed)
+                    {
+                        *wasRenamed = true;
+                    }
+
+                    if (newName)
+                    {
+                        *newName = renamedId;
+                    }
+
+                    AZ_Warning("Material", false,
+                        "Material property '%s' has been renamed to '%s'. Consider updating the corresponding source data.",
+                        propertyId.GetCStr(),
+                        renamedId.GetCStr());
+                }
+            }
+            return index;
+        }
+
+        template<typename Type>
+        bool Material::ValidatePropertyAccess(const MaterialPropertyDescriptor* propertyDescriptor) const
+        {
+            // Note that we have warnings here instead of errors because this can happen while materials are hot reloading
+            // after a material property layout changes in the MaterialTypeAsset, as there's a brief time when the data
+            // might be out of sync between MaterialAssets and MaterialTypeAssets.
+
+            if (!propertyDescriptor)
+            {
+                AZ_Warning(s_debugTraceName, false, "MaterialPropertyDescriptor is null");
+                return false;
+            }
+
+            AZ::TypeId accessDataType = azrtti_typeid<Type>();
+
+            // Must align with the order in MaterialPropertyDataType
+            static const AZStd::array<AZ::TypeId, MaterialPropertyDataTypeCount> types =
+            { {
+                AZ::TypeId{}, // Invalid
+                azrtti_typeid<bool>(),
+                azrtti_typeid<int32_t>(),
+                azrtti_typeid<uint32_t>(),
+                azrtti_typeid<float>(),
+                azrtti_typeid<Vector2>(),
+                azrtti_typeid<Vector3>(),
+                azrtti_typeid<Vector4>(),
+                azrtti_typeid<Color>(),
+                //azrtti_typeid<Data::Instance<Image>>(),
+                azrtti_typeid<uint32_t>()
+            } };
+
+            AZ::TypeId actualDataType = types[static_cast<size_t>(propertyDescriptor->GetDataType())];
+
+            if (accessDataType != actualDataType)
+            {
+                AZ_Warning(s_debugTraceName, false, "Material property '%s': Accessed as type %s but is type %s",
+                    propertyDescriptor->GetName().GetCStr(),
+                    GetMaterialPropertyDataTypeString(accessDataType).c_str(),
+                    ToString(propertyDescriptor->GetDataType()));
+                return false;
+            }
 
             return true;
         }
 
-        return false;
-    }
-
-    PhysXMaterial::ChangeId PhysXMaterial::GetCurrentChangeId() const
-    {
-        return m_currentChangeId;
-    }
-
-    PhysXMaterialPropertyIndex PhysXMaterial::FindPropertyIndex(
-        [[maybe_unused]] const AZ::Name& propertyId, bool* wasRenamed, [[maybe_unused]] AZ::Name* newName) const
-    {
-        if (wasRenamed)
+        /*template<typename Type>
+        void Material::SetShaderConstant(RHI::ShaderInputConstantIndex shaderInputIndex, const Type& value)
         {
-            *wasRenamed = false;
+            m_shaderResourceGroup->SetConstant(shaderInputIndex, value);
         }
 
-        /*PhysXMaterialPropertyIndex index = m_layout->FindPropertyIndex(propertyId);
-        if (!index.IsValid())
+        template<>
+        void Material::SetShaderConstant<Vector3>(RHI::ShaderInputConstantIndex shaderInputIndex, const Vector3& value)
         {
-            AZ::Name renamedId = propertyId;
-                
-            if (m_materialAsset->GetMaterialTypeAsset()->ApplyPropertyRenames(renamedId))
-            {                                
-                index = m_layout->FindPropertyIndex(renamedId);
+            // Vector3 is actually 16 bytes, not 12, so ShaderResourceGroup::SetConstant won't work. We
+            // have to pass the raw data instead.
+            m_shaderResourceGroup->SetConstantRaw(shaderInputIndex, &value, 3 * sizeof(float));
+        }
 
-                if (wasRenamed)
-                {
-                    *wasRenamed = true;
-                }
+        template<>
+        void Material::SetShaderConstant<Color>(RHI::ShaderInputConstantIndex shaderInputIndex, const Color& value)
+        {
+            auto transformedColor = AZ::RPI::TransformColor(value, ColorSpaceId::LinearSRGB, ColorSpaceId::ACEScg);
 
-                if (newName)
-                {
-                    *newName = renamedId;
-                }
-
-                AZ_Warning("Material", false,
-                    "Material property '%s' has been renamed to '%s'. Consider updating the corresponding source data.",
-                    propertyId.GetCStr(),
-                    renamedId.GetCStr());
+            // Color is special because it could map to either a float3 or a float4
+            auto descriptor = m_shaderResourceGroup->GetLayout()->GetShaderInput(shaderInputIndex);
+            if (descriptor.m_constantByteCount == 3 * sizeof(float))
+            {
+                m_shaderResourceGroup->SetConstantRaw(shaderInputIndex, &transformedColor, 3 * sizeof(float));
+            }
+            else
+            {
+                m_shaderResourceGroup->SetConstantRaw(shaderInputIndex, &transformedColor, 4 * sizeof(float));
             }
         }
-        return index;*/
-        return {};
-    }
 
-    template<typename Type>
-    bool PhysXMaterial::SetPropertyValue(PhysXMaterialPropertyIndex index, const Type& value)
-    {
-        if (!index.IsValid())
+        template<typename Type>
+        bool Material::SetShaderOption([[maybe_unused]] ShaderOptionGroup& options, [[maybe_unused]] ShaderOptionIndex shaderOptionIndex, [[maybe_unused]] Type value)
         {
-            AZ_Assert(false, "SetPropertyValue: Invalid MaterialPropertyIndex");
+            AZ_Assert(false, "MaterialProperty is incorrectly mapped to a shader option. Data type is incompatible.");
             return false;
         }
 
-        /*const PhysXMaterialPropertyDescriptor* propertyDescriptor = m_layout->GetPropertyDescriptor(index);
-
-        if (!ValidatePropertyAccess<Type>(propertyDescriptor))
+        template<>
+        bool Material::SetShaderOption<bool>(ShaderOptionGroup& options, ShaderOptionIndex shaderOptionIndex, bool value)
         {
-            return false;
+            return options.SetValue(shaderOptionIndex, ShaderOptionValue{ value });
+        }
+
+        template<>
+        bool Material::SetShaderOption<uint32_t>(ShaderOptionGroup& options, ShaderOptionIndex shaderOptionIndex, uint32_t value)
+        {
+            return options.SetValue(shaderOptionIndex, ShaderOptionValue{ value });
+        }
+
+        template<>
+        bool Material::SetShaderOption<int32_t>(ShaderOptionGroup& options, ShaderOptionIndex shaderOptionIndex, int32_t value)
+        {
+            return options.SetValue(shaderOptionIndex, ShaderOptionValue{ value });
         }*/
 
-        PhysXMaterialPropertyValue& savedPropertyValue = m_propertyValues[index.GetIndex()];
-
-        // If the property value didn't actually change, don't waste time running functors and compiling the changes.
-        if (savedPropertyValue == value)
-        {
-            return false;
-        }
-
-        savedPropertyValue = value;
-        m_propertyDirtyFlags.set(index.GetIndex());
-        m_propertyOverrideFlags.set(index.GetIndex());
-
-        // TODO: Is this function still needed? with descriptor out it seems to do nothing
-        /*
-        for(auto& outputId : propertyDescriptor->GetOutputConnections())
-        {
-            if (outputId.m_type == MaterialPropertyOutputType::ShaderInput)
-            {
-                if (propertyDescriptor->GetDataType() == MaterialPropertyDataType::Image)
-                {
-                    const Data::Instance<Image>& image = savedPropertyValue.GetValue<Data::Instance<Image>>();
-
-                    RHI::ShaderInputImageIndex shaderInputIndex(outputId.m_itemIndex.GetIndex());
-                    m_shaderResourceGroup->SetImage(shaderInputIndex, image);
-                }
-                else
-                {
-                    RHI::ShaderInputConstantIndex shaderInputIndex(outputId.m_itemIndex.GetIndex());
-                    SetShaderConstant(shaderInputIndex, value);
-                }
-            }
-            else if (outputId.m_type == MaterialPropertyOutputType::ShaderOption)
-            {
-                ShaderCollection::Item& shaderReference = m_shaderCollection[outputId.m_containerIndex.GetIndex()];
-                if (!SetShaderOption(*shaderReference.GetShaderOptions(), ShaderOptionIndex{outputId.m_itemIndex.GetIndex()}, value))
-                {
-                    return false;
-                }
-            }
-            else
-            {
-                AZ_Assert(false, "Unhandled MaterialPropertyOutputType");
-                return false;
-            }
-        }
-        */
-
-        ++m_currentChangeId;
-
-        return true;
-    }
-
-    // Using explicit instantiation to restrict SetPropertyValue to the set of types that we support
-
-    template bool PhysXMaterial::SetPropertyValue<bool>     (PhysXMaterialPropertyIndex index, const bool&     value);
-    template bool PhysXMaterial::SetPropertyValue<int32_t>  (PhysXMaterialPropertyIndex index, const int32_t&  value);
-    template bool PhysXMaterial::SetPropertyValue<uint32_t> (PhysXMaterialPropertyIndex index, const uint32_t& value);
-    template bool PhysXMaterial::SetPropertyValue<float>    (PhysXMaterialPropertyIndex index, const float&    value);
-    template bool PhysXMaterial::SetPropertyValue<AZ::Vector2>  (PhysXMaterialPropertyIndex index, const AZ::Vector2&  value);
-    template bool PhysXMaterial::SetPropertyValue<AZ::Vector3>  (PhysXMaterialPropertyIndex index, const AZ::Vector3&  value);
-    template bool PhysXMaterial::SetPropertyValue<AZ::Vector4>  (PhysXMaterialPropertyIndex index, const AZ::Vector4&  value);
-    template bool PhysXMaterial::SetPropertyValue<AZ::Color>    (PhysXMaterialPropertyIndex index, const AZ::Color&    value);
-
-    bool PhysXMaterial::SetPropertyValue(PhysXMaterialPropertyIndex propertyIndex, const PhysXMaterialPropertyValue& value)
-    {
-        if (!value.IsValid())
-        {
-            /*
-            auto descriptor = m_layout->GetPropertyDescriptor(propertyIndex);
-            if (descriptor)
-            {
-                AZ_Assert(false, "Empty value found for material property '%s'", descriptor->GetName().GetCStr());
-            }
-            else
-            {
-                AZ_Assert(false, "Empty value found for material property [%d], and this property does not have a descriptor.");
-            }
-            */
-            return false;
-        }
-        if (value.Is<bool>())
-        {
-            return SetPropertyValue(propertyIndex, value.GetValue<bool>());
-        }
-        else if (value.Is<int32_t>())
-        {
-            return SetPropertyValue(propertyIndex, value.GetValue<int32_t>());
-        }
-        else if (value.Is<uint32_t>())
-        {
-            return SetPropertyValue(propertyIndex, value.GetValue<uint32_t>());
-        }
-        else if (value.Is<float>())
-        {
-            return SetPropertyValue(propertyIndex, value.GetValue<float>());
-        }
-        else if (value.Is<AZ::Vector2>())
-        {
-            return SetPropertyValue(propertyIndex, value.GetValue<AZ::Vector2>());
-        }
-        else if (value.Is<AZ::Vector3>())
-        {
-            return SetPropertyValue(propertyIndex, value.GetValue<AZ::Vector3>());
-        }
-        else if (value.Is<AZ::Vector4>())
-        {
-            return SetPropertyValue(propertyIndex, value.GetValue<AZ::Vector4>());
-        }
-        else if (value.Is<AZ::Color>())
-        {
-            return SetPropertyValue(propertyIndex, value.GetValue<AZ::Color>());
-        }
-        else
-        {
-            AZ_Assert(false, "Unhandled material property value type");
-            return false;
-        }
-    }
-
-    template<typename Type>
-    const Type& PhysXMaterial::GetPropertyValue(PhysXMaterialPropertyIndex index) const
-    {
-        static const Type defaultValue{};
-
-        /*
-        const PhysXMaterialPropertyDescriptor* propertyDescriptor = nullptr;
-        if (Validation::IsEnabled())
+        template<typename Type>
+        bool Material::SetPropertyValue(MaterialPropertyIndex index, const Type& value)
         {
             if (!index.IsValid())
             {
-                AZ_Assert(false, "GetPropertyValue: Invalid MaterialPropertyIndex");
-                return defaultValue;
+                AZ_Assert(false, "SetPropertyValue: Invalid MaterialPropertyIndex");
+                return false;
             }
 
-            propertyDescriptor = m_layout->GetPropertyDescriptor(index);
+            const MaterialPropertyDescriptor* propertyDescriptor = m_layout->GetPropertyDescriptor(index);
 
             if (!ValidatePropertyAccess<Type>(propertyDescriptor))
             {
+                return false;
+            }
+
+            MaterialPropertyValue& savedPropertyValue = m_propertyValues[index.GetIndex()];
+
+            // If the property value didn't actually change, don't waste time running functors and compiling the changes.
+            if (savedPropertyValue == value)
+            {
+                return false;
+            }
+
+            savedPropertyValue = value;
+            m_propertyDirtyFlags.set(index.GetIndex());
+            m_propertyOverrideFlags.set(index.GetIndex());
+
+            /*for (auto& outputId : propertyDescriptor->GetOutputConnections())
+            {
+                if (outputId.m_type == MaterialPropertyOutputType::ShaderInput)
+                {
+                    if (propertyDescriptor->GetDataType() == MaterialPropertyDataType::Image)
+                    {
+                        const Data::Instance<Image>& image = savedPropertyValue.GetValue<Data::Instance<Image>>();
+
+                        RHI::ShaderInputImageIndex shaderInputIndex(outputId.m_itemIndex.GetIndex());
+                        m_shaderResourceGroup->SetImage(shaderInputIndex, image);
+                    }
+                    else
+                    {
+                        RHI::ShaderInputConstantIndex shaderInputIndex(outputId.m_itemIndex.GetIndex());
+                        SetShaderConstant(shaderInputIndex, value);
+                    }
+                }
+                else if (outputId.m_type == MaterialPropertyOutputType::ShaderOption)
+                {
+                    ShaderCollection::Item& shaderReference = m_shaderCollection[outputId.m_containerIndex.GetIndex()];
+                    if (!SetShaderOption(*shaderReference.GetShaderOptions(), ShaderOptionIndex{ outputId.m_itemIndex.GetIndex() }, value))
+                    {
+                        return false;
+                    }
+                }
+                else
+                {
+                    AZ_Assert(false, "Unhandled MaterialPropertyOutputType");
+                    return false;
+                }
+            }*/
+
+            ++m_currentChangeId;
+
+            return true;
+        }
+
+        /*template<>
+        bool Material::SetPropertyValue<Data::Asset<ImageAsset>>(MaterialPropertyIndex index, const Data::Asset<ImageAsset>& value)
+        {
+            Data::Asset<ImageAsset> imageAsset = value;
+
+            if (!imageAsset.GetId().IsValid())
+            {
+                // The image asset reference is null so set the property to an empty Image instance so the AZStd::any will not be empty.
+                return SetPropertyValue(index, Data::Instance<Image>());
+            }
+            else
+            {
+                if (!imageAsset.IsReady())
+                {
+                    imageAsset = Data::AssetManager::Instance().GetAsset<StreamingImageAsset>(imageAsset.GetId(), AZ::Data::AssetLoadBehavior::PreLoad);
+                    imageAsset.BlockUntilLoadComplete();
+                    if (!imageAsset.IsReady())
+                    {
+                        AZ_Error(s_debugTraceName, false, "Image asset could not be loaded");
+                        return false;
+                    }
+                }
+
+                if (Data::Asset<StreamingImageAsset> streamingImageAsset = Data::static_pointer_cast<StreamingImageAsset>(imageAsset))
+                {
+                    Data::Instance<Image> image = StreamingImage::FindOrCreate(streamingImageAsset);
+                    if (!image)
+                    {
+                        AZ_Error(s_debugTraceName, false, "Could not create StreamingImage");
+                        return false;
+                    }
+
+                    return SetPropertyValue(index, image);
+                }
+                else
+                {
+                    AZ_Error(s_debugTraceName, false, "Unsupported image asset type");
+                    return false;
+                }
+            }
+        }*/
+
+        // Using explicit instantiation to restrict SetPropertyValue to the set of types that we support
+
+        template bool Material::SetPropertyValue<bool>(MaterialPropertyIndex index, const bool& value);
+        template bool Material::SetPropertyValue<int32_t>(MaterialPropertyIndex index, const int32_t& value);
+        template bool Material::SetPropertyValue<uint32_t>(MaterialPropertyIndex index, const uint32_t& value);
+        template bool Material::SetPropertyValue<float>(MaterialPropertyIndex index, const float& value);
+        template bool Material::SetPropertyValue<Vector2>(MaterialPropertyIndex index, const Vector2& value);
+        template bool Material::SetPropertyValue<Vector3>(MaterialPropertyIndex index, const Vector3& value);
+        template bool Material::SetPropertyValue<Vector4>(MaterialPropertyIndex index, const Vector4& value);
+        template bool Material::SetPropertyValue<Color>(MaterialPropertyIndex index, const Color& value);
+        //template bool Material::SetPropertyValue<Data::Instance<Image>>(MaterialPropertyIndex index, const Data::Instance<Image>& value);
+
+        bool Material::SetPropertyValue(MaterialPropertyIndex propertyIndex, const MaterialPropertyValue& value)
+        {
+            if (!value.IsValid())
+            {
+                auto descriptor = m_layout->GetPropertyDescriptor(propertyIndex);
+                if (descriptor)
+                {
+                    AZ_Assert(false, "Empty value found for material property '%s'", descriptor->GetName().GetCStr());
+                }
+                else
+                {
+                    AZ_Assert(false, "Empty value found for material property [%d], and this property does not have a descriptor.");
+                }
+                return false;
+            }
+            if (value.Is<bool>())
+            {
+                return SetPropertyValue(propertyIndex, value.GetValue<bool>());
+            }
+            else if (value.Is<int32_t>())
+            {
+                return SetPropertyValue(propertyIndex, value.GetValue<int32_t>());
+            }
+            else if (value.Is<uint32_t>())
+            {
+                return SetPropertyValue(propertyIndex, value.GetValue<uint32_t>());
+            }
+            else if (value.Is<float>())
+            {
+                return SetPropertyValue(propertyIndex, value.GetValue<float>());
+            }
+            else if (value.Is<Vector2>())
+            {
+                return SetPropertyValue(propertyIndex, value.GetValue<Vector2>());
+            }
+            else if (value.Is<Vector3>())
+            {
+                return SetPropertyValue(propertyIndex, value.GetValue<Vector3>());
+            }
+            else if (value.Is<Vector4>())
+            {
+                return SetPropertyValue(propertyIndex, value.GetValue<Vector4>());
+            }
+            else if (value.Is<Color>())
+            {
+                return SetPropertyValue(propertyIndex, value.GetValue<Color>());
+            }
+            /*else if (value.Is<Data::Instance<Image>>())
+            {
+                return SetPropertyValue(propertyIndex, value.GetValue<Data::Instance<Image>>());
+            }
+            else if (value.Is<Data::Asset<ImageAsset>>())
+            {
+                return SetPropertyValue(propertyIndex, value.GetValue<Data::Asset<ImageAsset>>());
+            }*/
+            else
+            {
+                AZ_Assert(false, "Unhandled material property value type");
+                return false;
+            }
+        }
+
+        template<typename Type>
+        const Type& Material::GetPropertyValue(MaterialPropertyIndex index) const
+        {
+            static const Type defaultValue{};
+
+            const MaterialPropertyDescriptor* propertyDescriptor = nullptr;
+            if (Validation::IsEnabled())
+            {
+                if (!index.IsValid())
+                {
+                    AZ_Assert(false, "GetPropertyValue: Invalid MaterialPropertyIndex");
+                    return defaultValue;
+                }
+
+                propertyDescriptor = m_layout->GetPropertyDescriptor(index);
+
+                if (!ValidatePropertyAccess<Type>(propertyDescriptor))
+                {
+                    return defaultValue;
+                }
+            }
+
+            const MaterialPropertyValue& value = m_propertyValues[index.GetIndex()];
+            if (value.Is<Type>())
+            {
+                return value.GetValue<Type>();
+            }
+            else
+            {
+                if (Validation::IsEnabled())
+                {
+                    AZ_Assert(false, "Material property '%s': Stored property value has the wrong data type. Expected %s but is %s.",
+                        propertyDescriptor->GetName().GetCStr(),
+                        azrtti_typeid<Type>().template ToString<AZStd::string>().data(), // 'template' because clang says "error: use 'template' keyword to treat 'ToString' as a dependent template name"
+                        value.GetTypeId().ToString<AZStd::string>().data());
+                }
                 return defaultValue;
             }
         }
-        */
 
-        const PhysXMaterialPropertyValue& value = m_propertyValues[index.GetIndex()];
-        if (value.Is<Type>())
+        // Using explicit instantiation to restrict GetPropertyValue to the set of types that we support
+
+        template const bool& Material::GetPropertyValue<bool>(MaterialPropertyIndex index) const;
+        template const int32_t& Material::GetPropertyValue<int32_t>(MaterialPropertyIndex index) const;
+        template const uint32_t& Material::GetPropertyValue<uint32_t>(MaterialPropertyIndex index) const;
+        template const float& Material::GetPropertyValue<float>(MaterialPropertyIndex index) const;
+        template const Vector2& Material::GetPropertyValue<Vector2>(MaterialPropertyIndex index) const;
+        template const Vector3& Material::GetPropertyValue<Vector3>(MaterialPropertyIndex index) const;
+        template const Vector4& Material::GetPropertyValue<Vector4>(MaterialPropertyIndex index) const;
+        template const Color& Material::GetPropertyValue<Color>(MaterialPropertyIndex index) const;
+        //template const Data::Instance<Image>& Material::GetPropertyValue<Data::Instance<Image>>(MaterialPropertyIndex index) const;
+
+        const MaterialPropertyFlags& Material::GetPropertyDirtyFlags() const
         {
-            return value.GetValue<Type>();
+            return m_propertyDirtyFlags;
         }
-        else
+
+        AZStd::intrusive_ptr<const MaterialPropertiesLayout> Material::GetMaterialPropertiesLayout() const
         {
-            /*if (Validation::IsEnabled())
-            {
-                AZ_Assert(false, "Material property '%s': Stored property value has the wrong data type. Expected %s but is %s.",
-                propertyDescriptor->GetName().GetCStr(),
-                    azrtti_typeid<Type>().template ToString<AZStd::string>().data(), // 'template' because clang says "error: use 'template' keyword to treat 'ToString' as a dependent template name"
-                    value.GetTypeId().ToString<AZStd::string>().data());
-            }*/
-            return defaultValue;
+            return m_layout;
         }
-    }
-
-    // Using explicit instantiation to restrict GetPropertyValue to the set of types that we support
-
-    template const bool&     PhysXMaterial::GetPropertyValue<bool>     (PhysXMaterialPropertyIndex index) const;
-    template const int32_t&  PhysXMaterial::GetPropertyValue<int32_t>  (PhysXMaterialPropertyIndex index) const;
-    template const uint32_t& PhysXMaterial::GetPropertyValue<uint32_t> (PhysXMaterialPropertyIndex index) const;
-    template const float&    PhysXMaterial::GetPropertyValue<float>    (PhysXMaterialPropertyIndex index) const;
-    template const AZ::Vector2&  PhysXMaterial::GetPropertyValue<AZ::Vector2>  (PhysXMaterialPropertyIndex index) const;
-    template const AZ::Vector3&  PhysXMaterial::GetPropertyValue<AZ::Vector3>  (PhysXMaterialPropertyIndex index) const;
-    template const AZ::Vector4&  PhysXMaterial::GetPropertyValue<AZ::Vector4>  (PhysXMaterialPropertyIndex index) const;
-    template const AZ::Color&    PhysXMaterial::GetPropertyValue<AZ::Color>    (PhysXMaterialPropertyIndex index) const;
-
-    const PhysXMaterialPropertyFlags& PhysXMaterial::GetPropertyDirtyFlags() const
-    {
-        return m_propertyDirtyFlags;
-    }
-} // namespace PhysX
+    } // namespace PhysX
+} // namespace AZ

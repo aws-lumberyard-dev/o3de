@@ -125,7 +125,7 @@ namespace AZ
             //! Saves the per-material SRG layout in m_shaderResourceGroupLayout for easier access
             //void CacheMaterialSrgLayout();
 
-            bool ValidateMaterialVersion();
+            //bool ValidateMaterialVersion();
             bool ValidateBeginMaterialProperty();
             bool ValidateEndMaterialProperty();
 

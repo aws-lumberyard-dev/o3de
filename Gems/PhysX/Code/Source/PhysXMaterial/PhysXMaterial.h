@@ -70,6 +70,17 @@ namespace AZ
             NotReady
         };
 
+        class Validation
+        {
+        public:
+            static bool IsEnabled()
+            {
+                return s_isEnabled;
+            }
+        private:
+            inline static bool s_isEnabled = true;
+        };
+
         //! Provides runtime material functionality based on a MaterialAsset. The material operates on a
         //! set of properties, which are configured primarily at build-time through the MaterialAsset. 
         //! These properties are used to configure shader system inputs at runtime.
