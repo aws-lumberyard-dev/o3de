@@ -17,7 +17,7 @@
 #include <Editor/Source/MaterialEditor/Window/MaterialEditorWindowSettings.h>
 #endif
 
-namespace PhysX
+namespace PhysXMaterialEditor
 {
     //! Provides controls for viewing and editing document settings.
     class MaterialInspector
@@ -46,6 +46,7 @@ namespace PhysX
         const char* GetInstanceNodePropertyIndicator(const AzToolsFramework::InstanceDataNode* node) const;
 
         void AddOverviewGroup();
+        //void AddUvNamesGroup();
         void AddPropertiesGroup();
 
         // AtomToolsDocumentNotificationBus::Handler implementation
@@ -71,4 +72,4 @@ namespace PhysX
         AZStd::unordered_map<AZStd::string, AtomToolsFramework::DynamicPropertyGroup> m_groups;
         AZStd::intrusive_ptr<MaterialEditorWindowSettings> m_windowSettings;
     };
-} // namespace PhysX
+} // namespace PhysXMaterialEditor

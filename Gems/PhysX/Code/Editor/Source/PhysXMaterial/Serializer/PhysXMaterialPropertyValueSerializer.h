@@ -8,27 +8,33 @@
 
 #pragma once
 
-#include <PhysXMaterial/PhysXMaterialPropertyValue.h>
+#include <Editor/Source/PhysXMaterial/PhysXMaterialSourceData.h>
 #include <AzCore/Serialization/Json/BaseJsonSerializer.h>
 
-namespace PhysX
+namespace AZ
 {
-    class JsonPhysXMaterialPropertyValueSerializer
-        : public AZ::BaseJsonSerializer
+    class ReflectContext;
+
+    namespace PhysX
     {
-    public:
-        AZ_RTTI(PhysX::JsonPhysXMaterialPropertyValueSerializer, "{B1C82FEF-DAEB-45FC-BD76-69D07FB87BCE}", AZ::BaseJsonSerializer);
-        AZ_CLASS_ALLOCATOR_DECL;
+        class JsonMaterialPropertyValueSerializer
+            : public BaseJsonSerializer
+        {
+        public:
+            AZ_RTTI(AZ::PhysX::JsonMaterialPropertyValueSerializer, "{53FCA077-6B3E-48EB-BA8B-945A48E0AD5C}", BaseJsonSerializer);
+            AZ_CLASS_ALLOCATOR_DECL;
 
-        AZ::JsonSerializationResult::Result Load(void* outputValue, const AZ::Uuid& outputValueTypeId, const rapidjson::Value& inputValue,
-            AZ::JsonDeserializerContext& context) override;
+            JsonSerializationResult::Result Load(void* outputValue, const Uuid& outputValueTypeId, const rapidjson::Value& inputValue,
+                JsonDeserializerContext& context) override;
 
-        AZ::JsonSerializationResult::Result Store(rapidjson::Value& outputValue, const void* inputValue,
-            const void* defaultValue, const AZ::Uuid& valueTypeId, AZ::JsonSerializerContext& context) override;
+            JsonSerializationResult::Result Store(rapidjson::Value& outputValue, const void* inputValue,
+                const void* defaultValue, const Uuid& valueTypeId, JsonSerializerContext& context) override;
 
-    private:
-        //! Loads a JSON value into AZStd::variant-based MaterialPropertyValue, using the template data type T
-        template<typename T>
-        AZ::JsonSerializationResult::ResultCode LoadVariant(PhysXMaterialPropertyValue& intoValue, const T& defaultValue, const rapidjson::Value& inputValue, AZ::JsonDeserializerContext& context);
-    };
-} // namespace PhysX
+        private:
+            //! Loads a JSON value into AZStd::variant-based MaterialPropertyValue, using the template data type T
+            template<typename T>
+            JsonSerializationResult::ResultCode LoadVariant(MaterialPropertyValue& intoValue, const T& defaultValue, const rapidjson::Value& inputValue, JsonDeserializerContext& context);
+        };
+
+    } // namespace PhysX
+} // namespace AZ

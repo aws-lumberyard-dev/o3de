@@ -10,7 +10,7 @@
 #include <AzCore/Serialization/EditContext.h>
 #include <Editor/Source/MaterialEditor/Window/MaterialEditorWindowSettings.h>
 
-namespace PhysX
+namespace PhysXMaterialEditor
 {
     void MaterialEditorWindowSettings::Reflect(AZ::ReflectContext* context)
     {
@@ -43,4 +43,4 @@ namespace PhysX
                 ;
         }
     }
-} // namespace PhysX
+} // namespace PhysXMaterialEditor

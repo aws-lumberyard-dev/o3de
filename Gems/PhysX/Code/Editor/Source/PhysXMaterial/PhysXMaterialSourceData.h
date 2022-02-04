@@ -14,86 +14,99 @@
 #include <AzCore/std/containers/vector.h>
 #include <AzCore/std/string/string.h>
 #include <AzCore/JSON/document.h>
-#include <AzCore/Asset/AssetCommon.h>
+#include <AzCore/Outcome/Outcome.h>
 
 #include <PhysXMaterial/PhysXMaterialPropertyValue.h>
+//#include <PhysXMaterial/PhysXMaterialPropertyDescriptor.h>
+//#include <Editor/Source/PhysXMaterial/PhysXMaterialTypeSourceData.h>
 
-namespace PhysX
+namespace AZ
 {
-    class PhysXMaterialAsset;
-    class PhysXMaterialAssetCreator;
+    class ReflectContext;
 
-    enum class PhysXMaterialAssetProcessingMode
+    namespace PhysX
     {
-        PreBake,      //!< all material asset processing is done in the Asset Processor, producing a finalized material asset
-        DeferredBake  //!< some material asset processing is deferred, and the material asset is finalized at runtime after loading
-    };
+        //! A reserved name used in material inspectors.
+        //! In the source data, properties and UV names are loaded separately.
+        //! However, treating UV names as a special property group can greatly simplify the editor code.
+        //! See MaterialInspector::AddUvNamesGroup() for more details.
+        //static constexpr const char UvGroupName[] = "uvSets";
 
-    //! This is a simple data structure for serializing in/out material source files.
-    class PhysXMaterialSourceData final
-    {
-    public:
-        AZ_TYPE_INFO(PhysX::PhysXMaterialSourceData, "{FA8F0ED4-6BEA-4327-9294-C519D6766A79}");
+        class MaterialAsset;
+        class MaterialAssetCreator;
 
-        static constexpr const char Extension[] = "physxmaterial";
-
-        static void Reflect(AZ::ReflectContext* context);
-
-        PhysXMaterialSourceData() = default;
-            
-        AZStd::string m_description;
-            
-        AZStd::string m_materialType; //!< The material type that defines the interface and behavior of the material
-            
-        AZStd::string m_parentMaterial; //!< The immediate parent of this material
-
-        uint32_t m_materialTypeVersion = 0; //!< The version of the material type that was used to configure this material
-
-        struct Property
+        enum class MaterialAssetProcessingMode
         {
-            AZ_TYPE_INFO(PhysX::PhysXMaterialSourceData::Property, "{71EACA5F-003D-4BBD-A119-26A545234FE6}");
-
-            PhysXMaterialPropertyValue m_value;
+            PreBake,      //!< all material asset processing is done in the Asset Processor, producing a finalized material asset
+            DeferredBake  //!< some material asset processing is deferred, and the material asset is finalized at runtime after loading
         };
 
-        using PropertyMap = AZStd::map<AZStd::string, Property>;
-        using PropertyGroupMap = AZStd::map<AZStd::string, PropertyMap>;
-
-        PropertyGroupMap m_properties;
-
-        enum class ApplyVersionUpdatesResult
+        //! This is a simple data structure for serializing in/out material source files.
+        class MaterialSourceData final
         {
-            Failed,
-            NoUpdates,
-            UpdatesApplied
+        public:
+            AZ_TYPE_INFO(AZ::PhysX::MaterialSourceData, "{B9AB4297-EBA2-4052-A6CD-EAFBC7ABA812}");
+
+            static constexpr const char Extension[] = "physxmaterial";
+
+            static void Reflect(ReflectContext* context);
+
+            MaterialSourceData() = default;
+
+            AZStd::string m_description;
+
+            AZStd::string m_materialType; //!< The material type that defines the interface and behavior of the material
+
+            AZStd::string m_parentMaterial; //!< The immediate parent of this material
+
+            uint32_t m_materialTypeVersion = 0; //!< The version of the material type that was used to configure this material
+
+            struct Property
+            {
+                AZ_TYPE_INFO(AZ::PhysX::MaterialSourceData::Property, "{E6E20957-B256-4218-A8CC-44FFF5161673}");
+
+                MaterialPropertyValue m_value;
+            };
+
+            using PropertyMap = AZStd::map<AZStd::string, Property>;
+            using PropertyGroupMap = AZStd::map<AZStd::string, PropertyMap>;
+
+            PropertyGroupMap m_properties;
+
+            enum class ApplyVersionUpdatesResult
+            {
+                Failed,
+                NoUpdates,
+                UpdatesApplied
+            };
+
+            //! Creates a MaterialAsset from the MaterialSourceData content.
+            //! @param assetId ID for the MaterialAsset
+            //! @param materialSourceFilePath Indicates the path of the .material file that the MaterialSourceData represents. Used for
+            //! resolving file-relative paths.
+            //! @param processingMode Indicates whether to finalize the material asset using data from the MaterialTypeAsset.
+            //! @param elevateWarnings Indicates whether to treat warnings as errors
+            Outcome<Data::Asset<MaterialAsset>> CreateMaterialAsset(
+                Data::AssetId assetId,
+                AZStd::string_view materialSourceFilePath,
+                MaterialAssetProcessingMode processingMode,
+                bool elevateWarnings = true) const;
+
+            //! Creates a MaterialAsset from the MaterialSourceData content.
+            //! @param assetId ID for the MaterialAsset
+            //! @param materialSourceFilePath Indicates the path of the .material file that the MaterialSourceData represents. Used for
+            //! resolving file-relative paths.
+            //! @param elevateWarnings Indicates whether to treat warnings as errors
+            //! @param sourceDependencies if not null, will be populated with a set of all of the loaded material and material type paths
+            Outcome<Data::Asset<MaterialAsset>> CreateMaterialAssetFromSourceData(
+                Data::AssetId assetId,
+                AZStd::string_view materialSourceFilePath = "",
+                bool elevateWarnings = true,
+                AZStd::unordered_set<AZStd::string>* sourceDependencies = nullptr) const;
+
+        private:
+            void ApplyPropertiesToAssetCreator(
+                AZ::PhysX::MaterialAssetCreator& materialAssetCreator, const AZStd::string_view& materialSourceFilePath) const;
         };
-
-        //! Creates a PhysXMaterialAsset from the PhysXMaterialSourceData content.
-        //! @param assetId ID for the MaterialAsset
-        //! @param materialSourceFilePath Indicates the path of the .material file that the MaterialSourceData represents. Used for
-        //! resolving file-relative paths.
-        //! @param processingMode Indicates whether to finalize the material asset using data from the MaterialTypeAsset.
-        //! @param elevateWarnings Indicates whether to treat warnings as errors
-        AZ::Outcome<AZ::Data::Asset<PhysXMaterialAsset>> CreateMaterialAsset(
-            AZ::Data::AssetId assetId,
-            AZStd::string_view materialSourceFilePath,
-            PhysXMaterialAssetProcessingMode processingMode,
-            bool elevateWarnings = true) const;
-
-        //! Creates a PhysXMaterialAsset from the PhysXMaterialSourceData content.
-        //! @param assetId ID for the MaterialAsset
-        //! @param materialSourceFilePath Indicates the path of the .material file that the MaterialSourceData represents. Used for
-        //! resolving file-relative paths.
-        //! @param elevateWarnings Indicates whether to treat warnings as errors
-        //! @param sourceDependencies if not null, will be populated with a set of all of the loaded material and material type paths
-        AZ::Outcome<AZ::Data::Asset<PhysXMaterialAsset>> CreateMaterialAssetFromSourceData(
-            AZ::Data::AssetId assetId,
-            AZStd::string_view materialSourceFilePath = "",
-            bool elevateWarnings = true,
-            AZStd::unordered_set<AZStd::string>* sourceDependencies = nullptr) const;
-
-    private:
-        void ApplyPropertiesToAssetCreator(
-            PhysXMaterialAssetCreator& materialAssetCreator, const AZStd::string_view& materialSourceFilePath) const;
-    };
-} // namespace PhysX
+    } // namespace PhysX
+} // namespace AZ

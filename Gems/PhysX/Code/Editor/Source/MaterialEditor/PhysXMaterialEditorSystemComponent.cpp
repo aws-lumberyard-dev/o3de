@@ -9,7 +9,7 @@
 #include <Editor/Source/MaterialEditor/Window/MaterialEditorWindow.h>
 #include <Editor/Source/MaterialEditor/Document/MaterialDocument.h>
 
-namespace PhysX
+namespace PhysXMaterialEditor
 {
     void PhysXMaterialEditorSystemComponent::Reflect(AZ::ReflectContext* context)
     {
@@ -64,11 +64,11 @@ namespace PhysX
     {
         AtomToolsFramework::AtomToolsDocumentSystemRequestBus::Broadcast(
             &AtomToolsFramework::AtomToolsDocumentSystemRequestBus::Handler::RegisterDocumentType,
-            []() { return aznew MaterialDocument(); });
+            []() { return aznew PhysXMaterialEditor::MaterialDocument(); });
 
         m_materialEditorBrowserInteractions.reset(aznew MaterialEditorBrowserInteractions);
 
         O3DEMaterialEditor::RegisterViewPane<MaterialEditorWindow>("PhysX Materials");
     }
 
-} // namespace PhysX
+} // namespace PhysXMaterialEditor

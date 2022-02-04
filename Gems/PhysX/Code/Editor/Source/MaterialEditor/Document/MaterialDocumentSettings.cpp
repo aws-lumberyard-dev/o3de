@@ -10,7 +10,7 @@
 #include <AzCore/Serialization/EditContext.h>
 #include <Editor/Source/MaterialEditor/Document/MaterialDocumentSettings.h>
 
-namespace PhysX
+namespace PhysXMaterialEditor
 {
     void MaterialDocumentSettings::Reflect(AZ::ReflectContext* context)
     {
@@ -19,7 +19,7 @@ namespace PhysX
             serializeContext->Class<MaterialDocumentSettings, AZ::UserSettings>()
                 ->Version(1)
                 ->Field("defaultMaterialTypeName", &MaterialDocumentSettings::m_defaultMaterialTypeName)
-            ;
+                ;
 
             if (auto editContext = serializeContext->GetEditContext())
             {
@@ -44,4 +44,4 @@ namespace PhysX
                 ;
         }
     }
-} // namespace PhysX
+} // namespace PhysXMaterialEditor

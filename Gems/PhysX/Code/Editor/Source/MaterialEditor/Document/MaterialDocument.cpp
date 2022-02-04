@@ -11,13 +11,15 @@
 //#include <Atom/RPI.Edit/Material/MaterialFunctorSourceData.h>
 //#include <Atom/RPI.Edit/Material/MaterialPropertyId.h>
 #include <Editor/Source/PhysXMaterial/PhysXMaterialUtils.h>
+//#include <Atom/RPI.Public/Material/Material.h>
 //#include <Atom/RPI.Reflect/Material/MaterialFunctor.h>
 //#include <Atom/RPI.Reflect/Material/MaterialPropertiesLayout.h>
+#include <AtomCore/Instance/Instance.h>
 #include <AtomToolsFramework/Document/AtomToolsDocumentNotificationBus.h>
 #include <AtomToolsFramework/Util/MaterialPropertyUtil.h>
 #include <Editor/Source/MaterialEditor/Document/MaterialDocument.h>
 
-namespace PhysX
+namespace PhysXMaterialEditor
 {
     MaterialDocument::MaterialDocument()
         : AtomToolsFramework::AtomToolsDocument()
@@ -31,22 +33,22 @@ namespace PhysX
         AZ::TickBus::Handler::BusDisconnect();
     }
 
-    AZ::Data::Asset<PhysXMaterialAsset> MaterialDocument::GetAsset() const
+    AZ::Data::Asset<AZ::PhysX::MaterialAsset> MaterialDocument::GetAsset() const
     {
         return m_materialAsset;
     }
 
-    AZ::Data::Instance<PhysXMaterial> MaterialDocument::GetInstance() const
+    AZ::Data::Instance<AZ::PhysX::Material> MaterialDocument::GetInstance() const
     {
         return m_materialInstance;
     }
 
-    const PhysXMaterialSourceData* MaterialDocument::GetMaterialSourceData() const
+    const AZ::PhysX::MaterialSourceData* MaterialDocument::GetMaterialSourceData() const
     {
         return &m_materialSourceData;
     }
 
-    const PhysXMaterialTypeSourceData* MaterialDocument::GetMaterialTypeSourceData() const
+    const AZ::PhysX::MaterialTypeSourceData* MaterialDocument::GetMaterialTypeSourceData() const
     {
         return &m_materialTypeSourceData;
     }
@@ -123,17 +125,33 @@ namespace PhysX
         }
 
         // This first converts to an acceptable runtime type in case the value came from script
-        const PhysXMaterialPropertyValue propertyValue = PhysXMaterialPropertyValue::FromAny(value);
+        const AZ::PhysX::MaterialPropertyValue propertyValue = AZ::PhysX::MaterialUtils::ConvertToRuntimeType(value);
 
         AtomToolsFramework::DynamicProperty& property = it->second;
-        property.SetValue(PhysXMaterialPropertyValue::ToAny(propertyValue));
+        property.SetValue(AZ::PhysX::MaterialUtils::ConvertToEditableType(propertyValue));
 
         const auto propertyIndex = m_materialInstance->FindPropertyIndex(propertyId);
         if (!propertyIndex.IsNull())
         {
             if (m_materialInstance->SetPropertyValue(propertyIndex, propertyValue))
             {
+                AZ::PhysX::MaterialPropertyFlags dirtyFlags = m_materialInstance->GetPropertyDirtyFlags();
+
                 Recompile();
+
+                /*EditorMaterialFunctorResult result = RunEditorMaterialFunctors(dirtyFlags);
+                for (const AZ::Name& changedPropertyGroupName : result.m_updatedPropertyGroups)
+                {
+                    AtomToolsFramework::AtomToolsDocumentNotificationBus::Broadcast(
+                        &AtomToolsFramework::AtomToolsDocumentNotificationBus::Events::OnDocumentPropertyGroupVisibilityChanged, m_id,
+                        changedPropertyGroupName, IsPropertyGroupVisible(changedPropertyGroupName));
+                }
+                for (const AZ::Name& changedPropertyName : result.m_updatedProperties)
+                {
+                    AtomToolsFramework::AtomToolsDocumentNotificationBus::Broadcast(
+                        &AtomToolsFramework::AtomToolsDocumentNotificationBus::Events::OnDocumentPropertyConfigModified, m_id,
+                        GetProperty(changedPropertyName));
+                }*/
             }
         }
 
@@ -153,7 +171,7 @@ namespace PhysX
         }
 
         // populate sourceData with modified or overridden properties and save object
-        PhysXMaterialSourceData sourceData;
+        AZ::PhysX::MaterialSourceData sourceData;
         sourceData.m_materialTypeVersion = m_materialAsset->GetMaterialTypeAsset()->GetVersion();
         sourceData.m_materialType = AtomToolsFramework::GetExteralReferencePath(m_absolutePath, m_materialSourceData.m_materialType);
         sourceData.m_parentMaterial = AtomToolsFramework::GetExteralReferencePath(m_absolutePath, m_materialSourceData.m_parentMaterial);
@@ -188,7 +206,7 @@ namespace PhysX
         }
 
         // populate sourceData with modified or overridden properties and save object
-        PhysXMaterialSourceData sourceData;
+        AZ::PhysX::MaterialSourceData sourceData;
         sourceData.m_materialTypeVersion = m_materialAsset->GetMaterialTypeAsset()->GetVersion();
         sourceData.m_materialType = AtomToolsFramework::GetExteralReferencePath(m_savePathNormalized, m_materialSourceData.m_materialType);
         sourceData.m_parentMaterial = AtomToolsFramework::GetExteralReferencePath(m_savePathNormalized, m_materialSourceData.m_parentMaterial);
@@ -220,12 +238,12 @@ namespace PhysX
         }
 
         // populate sourceData with modified or overridden properties and save object
-        PhysXMaterialSourceData sourceData;
+        AZ::PhysX::MaterialSourceData sourceData;
         sourceData.m_materialTypeVersion = m_materialAsset->GetMaterialTypeAsset()->GetVersion();
         sourceData.m_materialType = AtomToolsFramework::GetExteralReferencePath(m_savePathNormalized, m_materialSourceData.m_materialType);
 
         // Only assign a parent path if the source was a .material
-        if (AzFramework::StringFunc::Path::IsExtension(m_absolutePath.c_str(), PhysXMaterialSourceData::Extension))
+        if (AzFramework::StringFunc::Path::IsExtension(m_absolutePath.c_str(), AZ::PhysX::MaterialSourceData::Extension))
         {
             sourceData.m_parentMaterial = AtomToolsFramework::GetExteralReferencePath(m_savePathNormalized, m_absolutePath);
         }
@@ -265,7 +283,7 @@ namespace PhysX
 
     bool MaterialDocument::IsSavable() const
     {
-        return AzFramework::StringFunc::Path::IsExtension(m_absolutePath.c_str(), PhysXMaterialSourceData::Extension);
+        return AzFramework::StringFunc::Path::IsExtension(m_absolutePath.c_str(), AZ::PhysX::MaterialSourceData::Extension);
     }
 
     bool MaterialDocument::BeginEdit()
@@ -321,7 +339,7 @@ namespace PhysX
         }
     }
 
-    bool MaterialDocument::SaveSourceData(PhysXMaterialSourceData& sourceData, PropertyFilterFunction propertyFilter) const
+    bool MaterialDocument::SaveSourceData(AZ::PhysX::MaterialSourceData& sourceData, PropertyFilterFunction propertyFilter) const
     {
         bool addPropertiesResult = true;
 
@@ -333,11 +351,10 @@ namespace PhysX
             const auto it = m_properties.find(propertyId);
             if (it != m_properties.end() && propertyFilter(it->second))
             {
-                PhysXMaterialPropertyValue propertyValue = PhysXMaterialPropertyValue::FromAny(it->second.GetValue());
+                AZ::PhysX::MaterialPropertyValue propertyValue = AZ::PhysX::MaterialUtils::ConvertToRuntimeType(it->second.GetValue());
                 if (propertyValue.IsValid())
                 {
-                    //(if (!AtomToolsFramework::ConvertToExportFormat(m_savePathNormalized, propertyId, *propertyDefinition, propertyValue))
-                    if (!MaterialUtils::ConvertToExportFormat(m_savePathNormalized, propertyId, *propertyDefinition, propertyValue))
+                    if (!AZ::PhysX::MaterialUtils::ConvertToExportFormat(m_savePathNormalized, propertyId, *propertyDefinition, propertyValue))
                     {
                         AZ_Error("MaterialDocument", false, "Document property could not be converted: '%s' in '%s'.", propertyId.GetCStr(), m_absolutePath.c_str());
                         addPropertiesResult = false;
@@ -375,7 +392,7 @@ namespace PhysX
         }
 
         // The material document and inspector are constructed from source data
-        if (AzFramework::StringFunc::Path::IsExtension(m_absolutePath.c_str(), PhysXMaterialSourceData::Extension))
+        if (AzFramework::StringFunc::Path::IsExtension(m_absolutePath.c_str(), AZ::PhysX::MaterialSourceData::Extension))
         {
             // Load the material source data so that we can check properties and create a material asset from it
             if (!AZ::RPI::JsonUtils::LoadObjectFromFile(m_absolutePath, m_materialSourceData))
@@ -399,7 +416,7 @@ namespace PhysX
             }
 
             // Load the material type source data which provides the layout and default values of all of the properties
-            auto materialTypeOutcome = MaterialUtils::LoadMaterialTypeSourceData(m_materialSourceData.m_materialType);
+            auto materialTypeOutcome = AZ::PhysX::MaterialUtils::LoadMaterialTypeSourceData(m_materialSourceData.m_materialType);
             if (!materialTypeOutcome.IsSuccess())
             {
                 AZ_Error("MaterialDocument", false, "Material type source data could not be loaded: '%s'.", m_materialSourceData.m_materialType.c_str());
@@ -407,12 +424,12 @@ namespace PhysX
             }
             m_materialTypeSourceData = materialTypeOutcome.TakeValue();
         }
-        else if (AzFramework::StringFunc::Path::IsExtension(m_absolutePath.c_str(), AZ::RPI::MaterialTypeSourceData::Extension))
+        else if (AzFramework::StringFunc::Path::IsExtension(m_absolutePath.c_str(), AZ::PhysX::MaterialTypeSourceData::Extension))
         {
             // A material document can be created or loaded from material or material type source data. If we are attempting to load
             // material type source data then the material source data object can be created just by referencing the document path as the
             // material type path.
-            auto materialTypeOutcome = MaterialUtils::LoadMaterialTypeSourceData(m_absolutePath);
+            auto materialTypeOutcome = AZ::PhysX::MaterialUtils::LoadMaterialTypeSourceData(m_absolutePath);
             if (!materialTypeOutcome.IsSuccess())
             {
                 AZ_Error("MaterialDocument", false, "Material type source data could not be loaded: '%s'.", m_absolutePath.c_str());
@@ -460,11 +477,11 @@ namespace PhysX
             return OpenFailed();
         }
 
-        AZStd::span<const PhysXMaterialPropertyValue> parentPropertyValues = materialTypeAsset->GetDefaultPropertyValues();
-        AZ::Data::Asset<PhysXMaterialAsset> parentMaterialAsset;
+        AZStd::span<const AZ::PhysX::MaterialPropertyValue> parentPropertyValues = materialTypeAsset->GetDefaultPropertyValues();
+        AZ::Data::Asset<AZ::PhysX::MaterialAsset> parentMaterialAsset;
         if (!m_materialSourceData.m_parentMaterial.empty())
         {
-            PhysXMaterialSourceData parentMaterialSourceData;
+            AZ::PhysX::MaterialSourceData parentMaterialSourceData;
             if (!AZ::RPI::JsonUtils::LoadObjectFromFile(m_materialSourceData.m_parentMaterial, parentMaterialSourceData))
             {
                 AZ_Error("MaterialDocument", false, "Material parent source data could not be loaded for: '%s'.", m_materialSourceData.m_parentMaterial.c_str());
@@ -491,18 +508,21 @@ namespace PhysX
         }
 
         // Creating a material from a material asset will fail if a texture is referenced but not loaded 
-        m_materialInstance = PhysXMaterial::Create(m_materialAsset);
+        m_materialInstance = AZ::PhysX::Material::Create(m_materialAsset);
         if (!m_materialInstance)
         {
             AZ_Error("MaterialDocument", false, "Material instance could not be created: '%s'.", m_absolutePath.c_str());
             return OpenFailed();
         }
 
+        // Pipeline State Object changes are always allowed in the material editor because it only runs on developer systems
+        // where such changes are supported at runtime.
+        //m_materialInstance->SetPsoHandlingOverride(AZ::PhysX::MaterialPropertyPsoHandling::Allowed);
+
         // Populate the property map from a combination of source data and assets
         // Assets must still be used for now because they contain the final accumulated value after all other materials
         // in the hierarchy are applied
-        // TODO: This uses the material property layout, is this needed for just properties (no shaders, no srg, no descriptors, no layout)?
-        /*m_materialTypeSourceData.EnumeratePropertyGroups([this, &parentPropertyValues](const AZStd::string& propertyIdContext, const AZ::RPI::MaterialTypeSourceData::PropertyGroup* propertyGroup)
+        /*m_materialTypeSourceData.EnumeratePropertyGroups([this, &parentPropertyValues](const AZStd::string& propertyIdContext, const AZ::PhysX::MaterialTypeSourceData::PropertyGroup* propertyGroup)
             {
                 AtomToolsFramework::DynamicPropertyConfig propertyConfig;
 
@@ -534,7 +554,7 @@ namespace PhysX
 
         // Populate the property group visibility map
         // TODO: Support populating the Material Editor with nested property groups, not just the top level.
-        for (const AZStd::unique_ptr<PhysXMaterialTypeSourceData::PropertyGroup>& propertyGroup : m_materialTypeSourceData.GetPropertyLayout().m_propertyGroups)
+        for (const AZStd::unique_ptr<AZ::PhysX::MaterialTypeSourceData::PropertyGroup>& propertyGroup : m_materialTypeSourceData.GetPropertyLayout().m_propertyGroups)
         {
             m_propertyGroupVisibility[AZ::Name{ propertyGroup->GetName() }] = true;
         }
@@ -547,7 +567,7 @@ namespace PhysX
         // is implemented.
         AtomToolsFramework::DynamicPropertyConfig propertyConfig;
         propertyConfig.m_dataType = AtomToolsFramework::DynamicPropertyType::Asset;
-        propertyConfig.m_id = "overview.physxMaterialType";
+        propertyConfig.m_id = "overview.physxmaterialType";
         propertyConfig.m_name = "physxMaterialType";
         propertyConfig.m_displayName = "PhysX Material Type";
         propertyConfig.m_groupName = "Overview";
@@ -567,7 +587,7 @@ namespace PhysX
         propertyConfig.m_displayName = "PhysX Parent Material";
         propertyConfig.m_groupName = "Overview";
         propertyConfig.m_description =
-            "The physx parent material provides an initial configuration whose properties are inherited and overriden by a derived material.";
+            "The parent material provides an initial configuration whose properties are inherited and overriden by a derived material.";
         propertyConfig.m_defaultValue = AZStd::any(parentMaterialAsset);
         propertyConfig.m_originalValue = propertyConfig.m_defaultValue;
         propertyConfig.m_parentValue = propertyConfig.m_defaultValue;
@@ -575,6 +595,88 @@ namespace PhysX
         propertyConfig.m_showThumbnail = true;
 
         m_properties[propertyConfig.m_id] = AtomToolsFramework::DynamicProperty(propertyConfig);
+
+        //Add UV name customization properties
+        /*const AZ::PhysX::MaterialUvNameMap& uvNameMap = materialTypeAsset->GetUvNameMap();
+        for (const AZ::RPI::UvNamePair& uvNamePair : uvNameMap)
+        {
+            const AZStd::string shaderInput = uvNamePair.m_shaderInput.ToString();
+            const AZStd::string uvName = uvNamePair.m_uvName.GetStringView();
+
+            propertyConfig = {};
+            propertyConfig.m_dataType = AtomToolsFramework::DynamicPropertyType::String;
+            propertyConfig.m_id = AZ::RPI::MaterialPropertyId(UvGroupName, shaderInput);
+            propertyConfig.m_name = shaderInput;
+            propertyConfig.m_displayName = shaderInput;
+            propertyConfig.m_groupName = "UV Sets";
+            propertyConfig.m_description = shaderInput;
+            propertyConfig.m_defaultValue = uvName;
+            propertyConfig.m_originalValue = uvName;
+            propertyConfig.m_parentValue = uvName;
+            propertyConfig.m_readOnly = true;
+
+            m_properties[propertyConfig.m_id] = AtomToolsFramework::DynamicProperty(propertyConfig);
+        }*/
+
+        // Add material functors that are in the top-level functors list.
+        /*const AZ::PhysX::MaterialFunctorSourceData::EditorContext editorContext =
+            AZ::PhysX::MaterialFunctorSourceData::EditorContext(m_materialSourceData.m_materialType, m_materialAsset->GetMaterialPropertiesLayout());
+        for (AZStd::intrusive_ptr<AZ::PhysX::MaterialFunctorSourceDataHolder> functorData : m_materialTypeSourceData.m_materialFunctorSourceData)
+        {
+            AZ::PhysX::MaterialFunctorSourceData::FunctorResult result2 = functorData->CreateFunctor(editorContext);
+
+            if (result2.IsSuccess())
+            {
+                AZStd::intrusive_ptr<AZ::PhysX::MaterialFunctor>& functor = result2.GetValue();
+                if (functor != nullptr)
+                {
+                    m_editorFunctors.push_back(functor);
+                }
+            }
+            else
+            {
+                AZ_Error("MaterialDocument", false, "Material functors were not created: '%s'.", m_absolutePath.c_str());
+                return OpenFailed();
+            }
+        }*/
+
+        // Add any material functors that are located inside each property group.
+        /*bool enumerateResult = m_materialTypeSourceData.EnumeratePropertyGroups(
+            [this](const AZStd::string&, const AZ::PhysX::MaterialTypeSourceData::PropertyGroup* propertyGroup)
+            {
+                const AZ::PhysX::MaterialFunctorSourceData::EditorContext editorContext = AZ::PhysX::MaterialFunctorSourceData::EditorContext(
+                    m_materialSourceData.m_materialType, m_materialAsset->GetMaterialPropertiesLayout());
+
+                for (AZStd::intrusive_ptr<AZ::PhysX::MaterialFunctorSourceDataHolder> functorData : propertyGroup->GetFunctors())
+                {
+                    AZ::PhysX::MaterialFunctorSourceData::FunctorResult result = functorData->CreateFunctor(editorContext);
+
+                    if (result.IsSuccess())
+                    {
+                        AZStd::intrusive_ptr<AZ::PhysX::MaterialFunctor>& functor = result.GetValue();
+                        if (functor != nullptr)
+                        {
+                            m_editorFunctors.push_back(functor);
+                        }
+                    }
+                    else
+                    {
+                        AZ_Error("MaterialDocument", false, "Material functors were not created: '%s'.", m_absolutePath.c_str());
+                        return false;
+                    }
+                }
+
+                return true;
+            });
+
+        if (!enumerateResult)
+        {
+            return OpenFailed();
+        }*/
+
+        AZ::PhysX::MaterialPropertyFlags dirtyFlags;
+        dirtyFlags.set(); // Mark all properties as dirty since we just loaded the material and need to initialize property visibility
+        //RunEditorMaterialFunctors(dirtyFlags);
 
         return OpenSucceeded();
     }
@@ -619,8 +721,9 @@ namespace PhysX
         m_materialInstance = {};
         m_compilePending = {};
         m_properties.clear();
-        m_materialTypeSourceData = PhysXMaterialTypeSourceData();
-        m_materialSourceData = PhysXMaterialSourceData();
+        //m_editorFunctors.clear();
+        m_materialTypeSourceData = AZ::PhysX::MaterialTypeSourceData();
+        m_materialSourceData = AZ::PhysX::MaterialSourceData();
         m_propertyValuesBeforeEdit.clear();
     }
 
@@ -633,4 +736,61 @@ namespace PhysX
             SetPropertyValue(propertyName, propertyValue);
         }
     }
-} // namespace PhysX
+
+    /*MaterialDocument::EditorMaterialFunctorResult MaterialDocument::RunEditorMaterialFunctors(AZ::PhysX::MaterialPropertyFlags dirtyFlags)
+    {
+        EditorMaterialFunctorResult result;
+
+        AZStd::unordered_map<AZ::Name, AZ::PhysX::MaterialPropertyDynamicMetadata> propertyDynamicMetadata;
+        AZStd::unordered_map<AZ::Name, AZ::PhysX::MaterialPropertyGroupDynamicMetadata> propertyGroupDynamicMetadata;
+        for (auto& propertyPair : m_properties)
+        {
+            AtomToolsFramework::DynamicProperty& property = propertyPair.second;
+            AtomToolsFramework::ConvertToPropertyMetaData(propertyDynamicMetadata[property.GetId()], property.GetConfig());
+        }
+        for (auto& groupPair : m_propertyGroupVisibility)
+        {
+            AZ::PhysX::MaterialPropertyGroupDynamicMetadata& metadata = propertyGroupDynamicMetadata[AZ::Name{ groupPair.first }];
+
+            bool visible = groupPair.second;
+            metadata.m_visibility = visible ?
+                AZ::PhysX::MaterialPropertyGroupVisibility::Enabled : AZ::PhysX::MaterialPropertyGroupVisibility::Hidden;
+        }
+
+        for (AZStd::intrusive_ptr<AZ::PhysX::MaterialFunctor>& functor : m_editorFunctors)
+        {
+            const AZ::PhysX::MaterialPropertyFlags& materialPropertyDependencies = functor->GetMaterialPropertyDependencies();
+            // None also covers case that the client code doesn't register material properties to dependencies,
+            // which will later get caught in Process() when trying to access a property.
+            if (materialPropertyDependencies.none() || functor->NeedsProcess(dirtyFlags))
+            {
+                AZ::PhysX::MaterialFunctor::EditorContext context = AZ::PhysX::MaterialFunctor::EditorContext(
+                    m_materialInstance->GetPropertyValues(),
+                    m_materialInstance->GetMaterialPropertiesLayout(),
+                    propertyDynamicMetadata,
+                    propertyGroupDynamicMetadata,
+                    result.m_updatedProperties,
+                    result.m_updatedPropertyGroups,
+                    &materialPropertyDependencies
+                );
+                functor->Process(context);
+            }
+        }
+
+        for (auto& propertyPair : m_properties)
+        {
+            AtomToolsFramework::DynamicProperty& property = propertyPair.second;
+            AtomToolsFramework::DynamicPropertyConfig propertyConfig = property.GetConfig();
+            AtomToolsFramework::ConvertToPropertyConfig(propertyConfig, propertyDynamicMetadata[property.GetId()]);
+            property.SetConfig(propertyConfig);
+        }
+
+        for (auto& updatedPropertyGroup : result.m_updatedPropertyGroups)
+        {
+            bool visible = propertyGroupDynamicMetadata[updatedPropertyGroup].m_visibility == AZ::PhysX::MaterialPropertyGroupVisibility::Enabled;
+            m_propertyGroupVisibility[updatedPropertyGroup] = visible;
+        }
+
+        return result;
+    }*/
+} // namespace PhysXMaterialEditor

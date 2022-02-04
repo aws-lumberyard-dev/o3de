@@ -43,7 +43,7 @@ namespace PhysX
             EditorRigidBodyComponent::CreateDescriptor(),
             EditorShapeColliderComponent::CreateDescriptor(),
             EditorSystemComponent::CreateDescriptor(),
-            PhysXMaterialEditorSystemComponent::CreateDescriptor(),
+            PhysXMaterialEditor::PhysXMaterialEditorSystemComponent::CreateDescriptor(),
             Pipeline::MeshBehavior::CreateDescriptor(),
             Pipeline::MeshExporter::CreateDescriptor()
         };

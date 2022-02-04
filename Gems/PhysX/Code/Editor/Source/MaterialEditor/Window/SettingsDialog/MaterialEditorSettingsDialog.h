@@ -10,7 +10,7 @@
 
 #include <QDialog>
 
-namespace PhysX
+namespace PhysXMaterialEditor
 {
     class SettingsDialog
         : public QDialog
@@ -20,4 +20,4 @@ namespace PhysX
         SettingsDialog(QWidget* parent = nullptr);
         ~SettingsDialog() = default;
     };
-} // namespace PhysX
+} // namespace PhysXMaterialEditor

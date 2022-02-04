@@ -7,8 +7,8 @@
  */
 
 //#include <Atom/RPI.Edit/Common/AssetUtils.h>
-//#include <Atom/RPI.Edit/Material/MaterialPropertyId.h>
-//#include <Atom/RPI.Edit/Material/MaterialTypeSourceData.h>
+#include <Atom/RPI.Edit/Material/MaterialPropertyId.h>
+#include <Editor/Source/PhysXMaterial/PhysXMaterialTypeSourceData.h>
 //#include <Atom/RPI.Edit/Material/MaterialUtils.h>
 #include <AtomToolsFramework/Document/AtomToolsDocumentRequestBus.h>
 #include <AtomToolsFramework/DynamicProperty/DynamicPropertyGroup.h>
@@ -17,7 +17,7 @@
 #include <Editor/Source/MaterialEditor/Document/MaterialDocumentRequestBus.h>
 #include <Editor/Source/MaterialEditor/Window/MaterialInspector/MaterialInspector.h>
 
-namespace PhysX
+namespace PhysXMaterialEditor
 {
     MaterialInspector::MaterialInspector(QWidget* parent)
         : AtomToolsFramework::InspectorWidget(parent)
@@ -75,6 +75,8 @@ namespace PhysX
         {
             // Create the top group for displaying overview info about the material
             AddOverviewGroup();
+            // Create groups for displaying editable UV names
+            //AddUvNamesGroup();
             // Create groups for displaying editable properties
             AddPropertiesGroup();
 
@@ -106,7 +108,7 @@ namespace PhysX
 
     void MaterialInspector::AddOverviewGroup()
     {
-        const PhysXMaterialTypeSourceData* materialTypeSourceData = nullptr;
+        const AZ::PhysX::MaterialTypeSourceData* materialTypeSourceData = nullptr;
         MaterialDocumentRequestBus::EventResult(
             materialTypeSourceData, m_documentId, &MaterialDocumentRequestBus::Events::GetMaterialTypeSourceData);
 
@@ -117,12 +119,12 @@ namespace PhysX
 
         AtomToolsFramework::DynamicProperty property;
         AtomToolsFramework::AtomToolsDocumentRequestBus::EventResult(
-            property, m_documentId, &AtomToolsFramework::AtomToolsDocumentRequestBus::Events::GetProperty, AZ::Name("overview.physxMaterialType"));
+            property, m_documentId, &AtomToolsFramework::AtomToolsDocumentRequestBus::Events::GetProperty, AZ::Name("overview.materialType"));
         group.m_properties.push_back(property);
 
         property = {};
         AtomToolsFramework::AtomToolsDocumentRequestBus::EventResult(
-            property, m_documentId, &AtomToolsFramework::AtomToolsDocumentRequestBus::Events::GetProperty, AZ::Name("overview.physxParentMaterial"));
+            property, m_documentId, &AtomToolsFramework::AtomToolsDocumentRequestBus::Events::GetProperty, AZ::Name("overview.parentMaterial"));
         group.m_properties.push_back(property);
 
         // Passing in same group as main and comparison instance to enable custom value comparison for highlighting modified properties
@@ -132,14 +134,45 @@ namespace PhysX
         AddGroup(groupName, groupDisplayName, groupDescription, propertyGroupWidget);
     }
 
+    /*void MaterialInspector::AddUvNamesGroup()
+    {
+        AZ::Data::Asset<AZ::PhysX::MaterialAsset> materialAsset;
+        MaterialDocumentRequestBus::EventResult(materialAsset, m_documentId, &MaterialDocumentRequestBus::Events::GetAsset);
+
+        const AZStd::string groupName = UvGroupName;
+        const AZStd::string groupDisplayName = "UV Sets";
+        const AZStd::string groupDescription = "UV set names in this material, which can be renamed to match those in the model.";
+        auto& group = m_groups[groupName];
+
+        const auto& uvNameMap = materialAsset->GetMaterialTypeAsset()->GetUvNameMap();
+        group.m_properties.reserve(uvNameMap.size());
+
+        for (const auto& uvNamePair : uvNameMap)
+        {
+            AtomToolsFramework::DynamicProperty property;
+            AtomToolsFramework::AtomToolsDocumentRequestBus::EventResult(
+                property, m_documentId, &AtomToolsFramework::AtomToolsDocumentRequestBus::Events::GetProperty,
+                AZ::RPI::MaterialPropertyId(groupName, uvNamePair.m_shaderInput.ToString()));
+            group.m_properties.push_back(property);
+
+            property.SetValue(property.GetConfig().m_parentValue);
+        }
+
+        // Passing in same group as main and comparison instance to enable custom value comparison for highlighting modified properties
+        auto propertyGroupWidget = new AtomToolsFramework::InspectorPropertyGroupWidget(
+            &group, &group, group.TYPEINFO_Uuid(), this, this, GetGroupSaveStateKey(groupName), {},
+            [this](const auto node) { return GetInstanceNodePropertyIndicator(node); }, 0);
+        AddGroup(groupName, groupDisplayName, groupDescription, propertyGroupWidget);
+    }*/
+
     void MaterialInspector::AddPropertiesGroup()
     {
-        const PhysXMaterialTypeSourceData* materialTypeSourceData = nullptr;
+        const AZ::PhysX::MaterialTypeSourceData* materialTypeSourceData = nullptr;
         MaterialDocumentRequestBus::EventResult(
             materialTypeSourceData, m_documentId, &MaterialDocumentRequestBus::Events::GetMaterialTypeSourceData);
-        
+
         // TODO: Support populating the Material Editor with nested property groups, not just the top level.
-        for (const AZStd::unique_ptr<PhysXMaterialTypeSourceData::PropertyGroup>& propertyGroup : materialTypeSourceData->GetPropertyLayout().m_propertyGroups)
+        for (const AZStd::unique_ptr<AZ::PhysX::MaterialTypeSourceData::PropertyGroup>& propertyGroup : materialTypeSourceData->GetPropertyLayout().m_propertyGroups)
         {
             const AZStd::string& groupName = propertyGroup->GetName();
             const AZStd::string& groupDisplayName = !propertyGroup->GetDisplayName().empty() ? propertyGroup->GetDisplayName() : groupName;
@@ -161,10 +194,10 @@ namespace PhysX
                 &group, &group, group.TYPEINFO_Uuid(), this, this, GetGroupSaveStateKey(groupName), {},
                 [this](const auto node) { return GetInstanceNodePropertyIndicator(node); }, 0);
             AddGroup(groupName, groupDisplayName, groupDescription, propertyGroupWidget);
-            
+
             bool isGroupVisible = false;
             AtomToolsFramework::AtomToolsDocumentRequestBus::EventResult(
-                isGroupVisible, m_documentId, &AtomToolsFramework::AtomToolsDocumentRequestBus::Events::IsPropertyGroupVisible, AZ::Name{groupName});
+                isGroupVisible, m_documentId, &AtomToolsFramework::AtomToolsDocumentRequestBus::Events::IsPropertyGroupVisible, AZ::Name{ groupName });
             SetGroupVisible(groupName, isGroupVisible);
         }
     }
@@ -213,7 +246,7 @@ namespace PhysX
             }
         }
     }
-    
+
     void MaterialInspector::OnDocumentPropertyGroupVisibilityChanged(const AZ::Uuid&, const AZ::Name& groupId, bool visible)
     {
         SetGroupVisible(groupId.GetStringView(), visible);
@@ -267,6 +300,6 @@ namespace PhysX
             }
         }
     }
-} // namespace PhysX
+} // namespace PhysXMaterialEditor
 
 #include <Editor/Source/MaterialEditor/Window/MaterialInspector/moc_MaterialInspector.cpp>

@@ -9,249 +9,368 @@
 #pragma once
 
 #include <AzCore/RTTI/TypeInfo.h>
-#include <AzCore/RTTI/ReflectContext.h>
-#include <AzCore/Outcome/Outcome.h>
-#include <AzCore/Memory/SystemAllocator.h>
-#include <AzCore/Asset/AssetCommon.h>
 #include <AzCore/std/containers/map.h>
 #include <AzCore/std/containers/span.h>
 //#include <Atom/RPI.Reflect/Base.h>
-//#include <Atom/RPI.Reflect/Material/MaterialPropertyDescriptor.h>
+#include <PhysXMaterial/PhysXMaterialPropertyDescriptor.h>
 //#include <Atom/RPI.Edit/Material/MaterialFunctorSourceData.h>
 //#include <Atom/RPI.Edit/Material/MaterialPropertyId.h>
 
-#include <PhysXMaterial/PhysXMaterialPropertyValue.h>
-
-namespace PhysX
+namespace AZ
 {
-    class PhysXMaterialTypeAsset;
-    class PhysXMaterialTypeAssetCreator;
-    class JsonMaterialPropertySerializer;
+    class ReflectContext;
 
-    //! This is a simple data structure for serializing in/out material type source files.
-    //! Note that there may be a mixture of public and private members, as we are gradually introducing a proper API.
-    class PhysXMaterialTypeSourceData final
+    namespace PhysX
     {
-    public:
-        AZ_TYPE_INFO(PhysX::PhysXMaterialTypeSourceData, "{BD0E1448-8918-455E-B4F6-E84A35925E8F}");
-        AZ_CLASS_ALLOCATOR(PhysXMaterialTypeSourceData, AZ::SystemAllocator, 0);
+        class MaterialTypeAsset;
+        class MaterialTypeAssetCreator;
+        class MaterialFunctorSourceDataHolder;
+        class JsonMaterialPropertySerializer;
 
-        static constexpr const char Extension[] = "physxmaterialtype";
-
-        static void Reflect(AZ::ReflectContext* context);
-
-        struct GroupDefinition
+        //! This is a simple data structure for serializing in/out material type source files.
+        //! Note that there may be a mixture of public and private members, as we are gradually introducing a proper API.
+        class MaterialTypeSourceData final
         {
-            AZ_TYPE_INFO(PhysX::MaterialTypeSourceData::GroupDefinition, "{19C47E43-619B-4B10-9266-246EC82E08F2}");
+        public:
+            AZ_TYPE_INFO(AZ::PhysX::MaterialTypeSourceData, "{7EE2A841-030D-427C-A6B3-E23CDE7E05D1}");
+            AZ_CLASS_ALLOCATOR(MaterialTypeSourceData, SystemAllocator, 0);
 
-            //! The unique name of the property group. The full property ID will be groupName.propertyName
-            AZStd::string m_name;
+            static constexpr const char Extension[] = "physxmaterialtype";
 
-            // Editor metadata ...
-            AZStd::string m_displayName;
-            AZStd::string m_description;
-        };
+            static void Reflect(ReflectContext* context);
 
-        struct PropertyDefinition
-        {
-            friend class JsonPhysXMaterialPropertySerializer;
-
-            AZ_CLASS_ALLOCATOR(PropertyDefinition, AZ::SystemAllocator, 0);
-            AZ_TYPE_INFO(PhysX::PhysXMaterialTypeSourceData::PropertyDefinition, "{F57816CB-C3B7-48CC-9EC0-65A8A18F6DFF}");
-                
-            static const float DefaultMin;
-            static const float DefaultMax;
-            static const float DefaultStep;
-                
-            PropertyDefinition() = default;
-
-            explicit PropertyDefinition(AZStd::string_view name) : m_name(name)
+            /*struct PropertyConnection
             {
-            }
+            public:
+                AZ_TYPE_INFO(AZ::PhysX::MaterialTypeSourceData::PropertyConnection, "{2B0C7934-A130-4D60-AE0A-F6C6C47BFABC}");
 
-            const AZStd::string& GetName() const { return m_name; }
+                PropertyConnection() = default;
+                PropertyConnection(MaterialPropertyOutputType type, AZStd::string_view fieldName, int32_t shaderIndex = -1);
 
-            PhysXMaterialPropertyDataType m_dataType = PhysXMaterialPropertyDataType::Invalid;
+                MaterialPropertyOutputType m_type = MaterialPropertyOutputType::Invalid;
 
-            PhysXMaterialPropertyValue m_value; //!< Value for the property. The type must match the MaterialPropertyDataType.
+                //! The name of a specific shader setting. This will either be a ShaderResourceGroup input or a ShaderOption, depending on m_type
+                AZStd::string m_fieldName;
 
-            AZStd::vector<AZStd::string> m_enumValues; //!< Only used if property is Enum type
+                //! For m_type==ShaderOption, this is either the index of a specific shader in m_shaderCollection, or -1 which means every shader in m_shaderCollection.
+                //! For m_type==ShaderInput, this field is not used.
+                int32_t m_shaderIndex = -1;
+            };*/
 
-            // Editor metadata ...
-            AZStd::string m_displayName;
+            //using PropertyConnectionList = AZStd::vector<PropertyConnection>;
+
+            struct GroupDefinition
+            {
+                AZ_TYPE_INFO(AZ::PhysX::MaterialTypeSourceData::GroupDefinition, "{2F1811ED-E5D3-4A47-9A8F-3E01CBC6810A}");
+
+                //! The unique name of the property group. The full property ID will be groupName.propertyName
+                AZStd::string m_name;
+
+                // Editor metadata ...
+                AZStd::string m_displayName;
+                AZStd::string m_description;
+            };
+
+            struct PropertyDefinition
+            {
+                friend class JsonMaterialPropertySerializer;
+
+                AZ_CLASS_ALLOCATOR(PropertyDefinition, SystemAllocator, 0);
+                AZ_TYPE_INFO(AZ::PhysX::MaterialTypeSourceData::PropertyDefinition, "{4024A4C8-229D-4450-9867-450E023953EB}");
+
+                static const float DefaultMin;
+                static const float DefaultMax;
+                static const float DefaultStep;
+
+                PropertyDefinition() = default;
+
+                explicit PropertyDefinition(AZStd::string_view name) : m_name(name)
+                {
+                }
+
+                const AZStd::string& GetName() const { return m_name; }
+
+                //MaterialPropertyVisibility m_visibility = MaterialPropertyVisibility::Default;
+
+                MaterialPropertyDataType m_dataType = MaterialPropertyDataType::Invalid;
+
+                //PropertyConnectionList m_outputConnections; //!< List of connections from material property to shader settings
+
+                MaterialPropertyValue m_value; //!< Value for the property. The type must match the MaterialPropertyDataType.
+
+                AZStd::vector<AZStd::string> m_enumValues; //!< Only used if property is Enum type
+                //bool m_enumIsUv = false;  //!< Indicates if the enum value should use m_enumValues or those extracted from m_uvNameMap.
+
+                // Editor metadata ...
+                AZStd::string m_displayName;
+                AZStd::string m_description;
+                AZStd::vector<AZStd::string> m_vectorLabels;
+                MaterialPropertyValue m_min;
+                MaterialPropertyValue m_max;
+                MaterialPropertyValue m_softMin;
+                MaterialPropertyValue m_softMax;
+                MaterialPropertyValue m_step;
+
+            private:
+
+                // We are gradually moving toward having a more proper API for MaterialTypeSourceData code, but we still some public members
+                // like above. However, it's important for m_name to be private because it is used as the key for lookups, collision validation, etc.
+                AZStd::string m_name; //!< The name of the property within the property group. The full property ID will be groupName.propertyName.
+            };
+
+            using PropertyList = AZStd::vector<AZStd::unique_ptr<PropertyDefinition>>;
+
+            struct PropertyGroup
+            {
+                friend class MaterialTypeSourceData;
+
+                AZ_CLASS_ALLOCATOR(PropertyGroup, SystemAllocator, 0);
+                AZ_TYPE_INFO(AZ::PhysX::MaterialTypeSourceData::PropertyGroup, "{E86D0EFD-68D9-4415-8290-F39AF208E26E}");
+
+            public:
+
+                PropertyGroup() = default;
+                AZ_DISABLE_COPY(PropertyGroup)
+
+                    const AZStd::string& GetName() const { return m_name; }
+                const AZStd::string& GetDisplayName() const { return m_displayName; }
+                const AZStd::string& GetDescription() const { return m_description; }
+                const PropertyList& GetProperties() const { return m_properties; }
+                const AZStd::vector<AZStd::unique_ptr<PropertyGroup>>& GetPropertyGroups() const { return m_propertyGroups; }
+                //const AZStd::vector<AZStd::intrusive_ptr<MaterialFunctorSourceDataHolder>>& GetFunctors() const { return m_materialFunctorSourceData; }
+
+                void SetDisplayName(AZStd::string_view displayName) { m_displayName = displayName; }
+                void SetDescription(AZStd::string_view description) { m_description = description; }
+
+                //! Add a new property to this PropertyGroup.
+                //! @param name a unique for the property. Must be a C-style identifier.
+                //! @return the new PropertyDefinition, or null if the name was not valid.
+                PropertyDefinition* AddProperty(AZStd::string_view name);
+
+                //! Add a new nested PropertyGroup to this PropertyGroup.
+                //! @param name a unique for the property group. Must be a C-style identifier.
+                //! @return the new PropertyGroup, or null if the name was not valid.
+                PropertyGroup* AddPropertyGroup(AZStd::string_view name);
+
+            private:
+
+                static PropertyGroup* AddPropertyGroup(AZStd::string_view name, AZStd::vector<AZStd::unique_ptr<PropertyGroup>>& toPropertyGroupList);
+
+                AZStd::string m_name;
+                AZStd::string m_displayName;
+                AZStd::string m_description;
+                PropertyList m_properties;
+                AZStd::vector<AZStd::unique_ptr<PropertyGroup>> m_propertyGroups;
+                //AZStd::vector<AZStd::intrusive_ptr<MaterialFunctorSourceDataHolder>> m_materialFunctorSourceData;
+            };
+
+            /*struct ShaderVariantReferenceData
+            {
+                AZ_TYPE_INFO(AZ::PhysX::MaterialTypeSourceData::ShaderVariantReferenceData, "{DCE5F157-C865-469F-A481-B9F6ECD787E2}");
+
+                ShaderVariantReferenceData() = default;
+                explicit ShaderVariantReferenceData(AZStd::string_view shaderFilePath) : m_shaderFilePath(shaderFilePath) {}
+
+                //! Path to a ".shader" file, relative to the asset root
+                AZStd::string m_shaderFilePath;
+
+                //! Unique tag to identify the shader
+                AZ::Name m_shaderTag;
+
+                //! This list provides a way for users to set shader option values in a 'hard-coded' way rather than connecting them to material properties.
+                //! These are optional and the list will usually be empty; most options will either get set from a material property connection,
+                //! or will use the default value from the shader. 
+                AZStd::unordered_map<Name, Name> m_shaderOptionValues;
+            };*/
+
+            struct VersionUpdatesRenameOperationDefinition
+            {
+                AZ_TYPE_INFO(AZ::PhysX::MaterialTypeSourceData::VersionUpdatesRenameOperationDefinition, "{51B19F24-67DC-4BA1-B08D-3087E7F1170B}");
+
+                AZStd::string m_operation;
+
+                AZStd::string m_renameFrom;
+                AZStd::string m_renameTo;
+            };
+
+            // TODO: Support script operations--At that point, we'll likely need to replace VersionUpdatesRenameOperationDefinition with a more generic
+            // data structure that has a custom JSON serialize. We will only be supporting rename for now.
+            using VersionUpdateActions = AZStd::vector<VersionUpdatesRenameOperationDefinition>;
+
+            struct VersionUpdateDefinition
+            {
+                AZ_TYPE_INFO(AZ::PhysX::MaterialTypeSourceData::VersionUpdateDefinition, "{5DC6DC57-AA6C-404E-84B3-514212BFD775}");
+
+                uint32_t m_toVersion;
+                VersionUpdateActions m_actions;
+            };
+
+            using VersionUpdates = AZStd::vector<VersionUpdateDefinition>;
+
+            struct PropertyLayout
+            {
+                AZ_TYPE_INFO(AZ::PhysX::MaterialTypeSourceData::PropertyLayout, "{ABD857BB-8BE8-40C2-904C-7D9ABEFE95EC}");
+
+                PropertyLayout() = default;
+                AZ_DISABLE_COPY(PropertyLayout)
+
+                    //! This field is unused, and has been replaced by MaterialTypeSourceData::m_version below. It is kept for legacy file compatibility to suppress warnings and errors.
+                    uint32_t m_versionOld = 0;
+
+                //! [Deprecated] Use m_propertyGroups instead
+                //! List of groups that will contain the available properties
+                AZStd::vector<GroupDefinition> m_groupsOld;
+
+                //! [Deprecated] Use m_propertyGroups instead
+                AZStd::map<AZStd::string /*group name*/, AZStd::vector<PropertyDefinition>> m_propertiesOld;
+
+                //! Collection of all available user-facing properties
+                AZStd::vector<AZStd::unique_ptr<PropertyGroup>> m_propertyGroups;
+            };
+
             AZStd::string m_description;
-            AZStd::vector<AZStd::string> m_vectorLabels;
-            PhysXMaterialPropertyValue m_min;
-            PhysXMaterialPropertyValue m_max;
-            PhysXMaterialPropertyValue m_softMin;
-            PhysXMaterialPropertyValue m_softMax;
-            PhysXMaterialPropertyValue m_step;
+
+            //! Version 1 is the default and should not contain any version update.
+            uint32_t m_version = 1;
+
+            VersionUpdates m_versionUpdates;
+
+            //! A list of shader variants that are always used at runtime; they cannot be turned off
+            //AZStd::vector<ShaderVariantReferenceData> m_shaderCollection;
+
+            //! Material functors provide custom logic and calculations to configure shaders, render states, and more. See MaterialFunctor.h for details.
+            //AZStd::vector<AZStd::intrusive_ptr<MaterialFunctorSourceDataHolder>> m_materialFunctorSourceData;
+
+            //! Override names for UV input in the shaders of this material type.
+            //! Using ordered map to sort names on loading.
+            //using UvNameMap = AZStd::map<AZStd::string, AZStd::string>;
+            //UvNameMap m_uvNameMap;
+
+            //! Copy over UV custom names to the properties enum values.
+            //void ResolveUvEnums();
+
+            //! Add a new PropertyGroup for containing properties or other PropertyGroups.
+            //! @param propertyGroupId The ID of the new property group. To add as a nested PropertyGroup, use a full path ID like "levelA.levelB.levelC"; in this case a property group "levelA.levelB" must already exist.
+            //! @return a pointer to the new PropertyGroup or null if there was a problem (an AZ_Error will be reported).
+            PropertyGroup* AddPropertyGroup(AZStd::string_view propertyGroupId);
+
+            //! Add a new property to a PropertyGroup.
+            //! @param propertyId The ID of the new property, like "layerBlend.factor" or "layer2.roughness.texture". The indicated property group must already exist.
+            //! @return a pointer to the new PropertyDefinition or null if there was a problem (an AZ_Error will be reported).
+            PropertyDefinition* AddProperty(AZStd::string_view propertyId);
+
+            //! Return the PropertyLayout containing the tree of property groups and property definitions.
+            const PropertyLayout& GetPropertyLayout() const { return m_propertyLayout; }
+
+            //! Find the PropertyGroup with the given ID.
+            //! @param propertyGroupId The full ID of a property group to find, like "levelA.levelB.levelC".
+            //! @return the found PropertyGroup or null if it doesn't exist.
+            const PropertyGroup* FindPropertyGroup(AZStd::string_view propertyGroupId) const;
+            PropertyGroup* FindPropertyGroup(AZStd::string_view propertyGroupId);
+
+            //! Find the definition for a property with the given ID.
+            //! @param propertyId The full ID of a property to find, like "baseColor.texture".
+            //! @return the found PropertyDefinition or null if it doesn't exist.
+            const PropertyDefinition* FindProperty(AZStd::string_view propertyId) const;
+            PropertyDefinition* FindProperty(AZStd::string_view propertyId);
+
+            //! Tokenizes an ID string like "itemA.itemB.itemC" into a vector like ["itemA", "itemB", "itemC"].
+            static AZStd::vector<AZStd::string_view> TokenizeId(AZStd::string_view id);
+
+            //! Splits an ID string like "itemA.itemB.itemC" into a vector like ["itemA.itemB", "itemC"].
+            static AZStd::vector<AZStd::string_view> SplitId(AZStd::string_view id);
+
+            //! Call back function type used with the enumeration functions.
+            //! Return false to terminate the traversal.
+            using EnumeratePropertyGroupsCallback = AZStd::function<bool(
+                const AZStd::string&, // The property ID context (i.e. "levelA.levelB.")
+                const PropertyGroup* // the next property group in the tree
+                )>;
+
+            //! Recursively traverses all of the property groups contained in the material type, executing a callback function for each.
+            //! @return false if the enumeration was terminated early by the callback returning false.
+            bool EnumeratePropertyGroups(const EnumeratePropertyGroupsCallback& callback) const;
+
+            //! Call back function type used with the numeration functions.
+            //! Return false to terminate the traversal.
+            using EnumeratePropertiesCallback = AZStd::function<bool(
+                const AZStd::string&, // The property ID context (i.e. "levelA.levelB."
+                const PropertyDefinition* // the property definition object 
+                )>;
+
+            //! Recursively traverses all of the properties contained in the material type, executing a callback function for each.
+            //! @return false if the enumeration was terminated early by the callback returning false.
+            bool EnumerateProperties(const EnumeratePropertiesCallback& callback) const;
+
+            Outcome<Data::Asset<MaterialTypeAsset>> CreateMaterialTypeAsset(Data::AssetId assetId, AZStd::string_view materialTypeSourceFilePath = "", bool elevateWarnings = true) const;
+
+            //! If the data was loaded from an old format file (i.e. where "groups" and "properties" were separate sections),
+            //! this converts to the new format where properties are listed inside property groups.
+            bool ConvertToNewDataFormat();
 
         private:
 
-            // We are gradually moving toward having a more proper API for MaterialTypeSourceData code, but we still some public members
-            // like above. However, it's important for m_name to be private because it is used as the key for lookups, collision validation, etc.
-            AZStd::string m_name; //!< The name of the property within the property group. The full property ID will be groupName.propertyName.
-        };
-            
-        using PropertyList = AZStd::vector<AZStd::unique_ptr<PropertyDefinition>>;
+            const PropertyGroup* FindPropertyGroup(AZStd::span<const AZStd::string_view> parsedPropertyGroupId, AZStd::span<const AZStd::unique_ptr<PropertyGroup>> inPropertyGroupList) const;
+            PropertyGroup* FindPropertyGroup(AZStd::span<AZStd::string_view> parsedPropertyGroupId, AZStd::span<AZStd::unique_ptr<PropertyGroup>> inPropertyGroupList);
 
-        struct PropertyGroup
+            const PropertyDefinition* FindProperty(AZStd::span<const AZStd::string_view> parsedPropertyId, AZStd::span<const AZStd::unique_ptr<PropertyGroup>> inPropertyGroupList) const;
+            PropertyDefinition* FindProperty(AZStd::span<AZStd::string_view> parsedPropertyId, AZStd::span<AZStd::unique_ptr<PropertyGroup>> inPropertyGroupList);
+
+            // Function overloads for recursion, returns false to indicate that recursion should end.
+            bool EnumeratePropertyGroups(const EnumeratePropertyGroupsCallback& callback, AZStd::string propertyIdContext, const AZStd::vector<AZStd::unique_ptr<PropertyGroup>>& inPropertyGroupList) const;
+            bool EnumerateProperties(const EnumeratePropertiesCallback& callback, AZStd::string propertyIdContext, const AZStd::vector<AZStd::unique_ptr<PropertyGroup>>& inPropertyGroupList) const;
+
+            //! Recursively populates a material asset with properties from the tree of material property groups.
+            //! @param materialTypeSourceFilePath path to the material type file that is being processed, used to look up relative paths
+            //! @param propertyNameContext the accumulated prefix that should be applied to any property names encountered in the current @propertyGroup
+            //! @param propertyGroup the current PropertyGroup that is being processed
+            //! @return false if errors are detected and processing should abort
+            bool BuildPropertyList(
+                const AZStd::string& materialTypeSourceFilePath,
+                MaterialTypeAssetCreator& materialTypeAssetCreator,
+                AZStd::vector<AZStd::string>& propertyNameContext,
+                const MaterialTypeSourceData::PropertyGroup* propertyGroup) const;
+
+            //! Construct a complete list of group definitions, including implicit groups, arranged in the same order as the source data.
+            //! Groups with the same name will be consolidated into a single entry.
+            //! Operates on the old format PropertyLayout::m_groups, used for conversion to the new format.
+            AZStd::vector<GroupDefinition> GetOldFormatGroupDefinitionsInDisplayOrder() const;
+
+            PropertyLayout m_propertyLayout;
+        };
+
+        /*
+        //! The wrapper class for derived material functors.
+        //! It is used in deserialization so that derived material functors can be deserialized by name.
+        class MaterialFunctorSourceDataHolder final
+            : public AZStd::intrusive_base
         {
-            friend class PhysXMaterialTypeSourceData;
-                
-            AZ_CLASS_ALLOCATOR(PropertyGroup, AZ::SystemAllocator, 0);
-            AZ_TYPE_INFO(PhysX::PhysXMaterialTypeSourceData::PropertyGroup, "{8CB6180C-5C99-4BF3-B334-A51D383314AB}");
+            friend class JsonMaterialFunctorSourceDataSerializer;
 
         public:
+            AZ_RTTI(MaterialFunctorSourceDataHolder, "{6B379141-38C3-4E08-B6AC-230268267E57}");
+            AZ_CLASS_ALLOCATOR(MaterialFunctorSourceDataHolder, AZ::SystemAllocator, 0);
 
-            PropertyGroup() = default;
-            AZ_DISABLE_COPY(PropertyGroup)
+            MaterialFunctorSourceDataHolder() = default;
+            MaterialFunctorSourceDataHolder(AZStd::intrusive_ptr<MaterialFunctorSourceData> actualSourceData);
+            ~MaterialFunctorSourceDataHolder() = default;
 
-            const AZStd::string& GetName() const { return m_name; }
-            const AZStd::string& GetDisplayName() const { return m_displayName; }
-            const AZStd::string& GetDescription() const { return m_description; }
-            const PropertyList& GetProperties() const { return m_properties; }
-            const AZStd::vector<AZStd::unique_ptr<PropertyGroup>>& GetPropertyGroups() const { return m_propertyGroups; }
-                
-            void SetDisplayName(AZStd::string_view displayName) { m_displayName = displayName; }
-            void SetDescription(AZStd::string_view description) { m_description = description; }
+            static void Reflect(AZ::ReflectContext* context);
 
-            //! Add a new property to this PropertyGroup.
-            //! @param name a unique for the property. Must be a C-style identifier.
-            //! @return the new PropertyDefinition, or null if the name was not valid.
-            PropertyDefinition* AddProperty(AZStd::string_view name);
-                
-            //! Add a new nested PropertyGroup to this PropertyGroup.
-            //! @param name a unique for the property group. Must be a C-style identifier.
-            //! @return the new PropertyGroup, or null if the name was not valid.
-            PropertyGroup* AddPropertyGroup(AZStd::string_view name);
-                
+            MaterialFunctorSourceData::FunctorResult CreateFunctor(const MaterialFunctorSourceData::RuntimeContext& runtimeContext) const
+            {
+                return m_actualSourceData ? m_actualSourceData->CreateFunctor(runtimeContext) : Failure();
+            }
+            MaterialFunctorSourceData::FunctorResult CreateFunctor(const MaterialFunctorSourceData::EditorContext& editorContext) const
+            {
+                return m_actualSourceData ? m_actualSourceData->CreateFunctor(editorContext) : Failure();
+            }
+
+            AZStd::intrusive_ptr<MaterialFunctorSourceData> GetActualSourceData() const { return m_actualSourceData; }
         private:
-
-            static PropertyGroup* AddPropertyGroup(AZStd::string_view name, AZStd::vector<AZStd::unique_ptr<PropertyGroup>>& toPropertyGroupList);
-
-            AZStd::string m_name;
-            AZStd::string m_displayName;
-            AZStd::string m_description;
-            PropertyList m_properties;
-            AZStd::vector<AZStd::unique_ptr<PropertyGroup>> m_propertyGroups;
+            AZStd::intrusive_ptr<MaterialFunctorSourceData> m_actualSourceData = nullptr; // The derived material functor instance.
         };
+        */
+    } // namespace PhysX
 
-        struct PropertyLayout
-        {
-            AZ_TYPE_INFO(PhysX::PhysXMaterialTypeSourceData::PropertyLayout, "{1F5CDA41-E0DE-4322-8D23-9DDC445F303F}");
-
-            PropertyLayout() = default;
-            AZ_DISABLE_COPY(PropertyLayout)
-
-            //! This field is unused, and has been replaced by MaterialTypeSourceData::m_version below. It is kept for legacy file compatibility to suppress warnings and errors.
-            uint32_t m_versionOld = 0;
-
-            //! [Deprecated] Use m_propertyGroups instead
-            //! List of groups that will contain the available properties
-            AZStd::vector<GroupDefinition> m_groupsOld;
-
-            //! [Deprecated] Use m_propertyGroups instead
-            AZStd::map<AZStd::string /*group name*/, AZStd::vector<PropertyDefinition>> m_propertiesOld;
-                
-            //! Collection of all available user-facing properties
-            AZStd::vector<AZStd::unique_ptr<PropertyGroup>> m_propertyGroups;
-        };
-            
-        AZStd::string m_description;
-
-        //! Version 1 is the default and should not contain any version update.
-        uint32_t m_version = 1;
-
-        //! Add a new PropertyGroup for containing properties or other PropertyGroups.
-        //! @param propertyGroupId The ID of the new property group. To add as a nested PropertyGroup, use a full path ID like "levelA.levelB.levelC"; in this case a property group "levelA.levelB" must already exist.
-        //! @return a pointer to the new PropertyGroup or null if there was a problem (an AZ_Error will be reported).
-        PropertyGroup* AddPropertyGroup(AZStd::string_view propertyGroupId);
-
-        //! Add a new property to a PropertyGroup.
-        //! @param propertyId The ID of the new property, like "layerBlend.factor" or "layer2.roughness.texture". The indicated property group must already exist.
-        //! @return a pointer to the new PropertyDefinition or null if there was a problem (an AZ_Error will be reported).
-        PropertyDefinition* AddProperty(AZStd::string_view propertyId);
-
-        //! Return the PropertyLayout containing the tree of property groups and property definitions.
-        const PropertyLayout& GetPropertyLayout() const { return m_propertyLayout; }
-
-        //! Find the PropertyGroup with the given ID.
-        //! @param propertyGroupId The full ID of a property group to find, like "levelA.levelB.levelC".
-        //! @return the found PropertyGroup or null if it doesn't exist.
-        const PropertyGroup* FindPropertyGroup(AZStd::string_view propertyGroupId) const;
-        PropertyGroup* FindPropertyGroup(AZStd::string_view propertyGroupId);
-            
-        //! Find the definition for a property with the given ID.
-        //! @param propertyId The full ID of a property to find, like "baseColor.texture".
-        //! @return the found PropertyDefinition or null if it doesn't exist.
-        const PropertyDefinition* FindProperty(AZStd::string_view propertyId) const;
-        PropertyDefinition* FindProperty(AZStd::string_view propertyId);
-
-        //! Tokenizes an ID string like "itemA.itemB.itemC" into a vector like ["itemA", "itemB", "itemC"].
-        static AZStd::vector<AZStd::string_view> TokenizeId(AZStd::string_view id);
-            
-        //! Splits an ID string like "itemA.itemB.itemC" into a vector like ["itemA.itemB", "itemC"].
-        static AZStd::vector<AZStd::string_view> SplitId(AZStd::string_view id);
-
-        //! Call back function type used with the enumeration functions.
-        //! Return false to terminate the traversal.
-        using EnumeratePropertyGroupsCallback = AZStd::function<bool(
-            const AZStd::string&, // The property ID context (i.e. "levelA.levelB.")
-            const PropertyGroup* // the next property group in the tree
-            )>;
-
-        //! Recursively traverses all of the property groups contained in the material type, executing a callback function for each.
-        //! @return false if the enumeration was terminated early by the callback returning false.
-        bool EnumeratePropertyGroups(const EnumeratePropertyGroupsCallback& callback) const;
-
-        //! Call back function type used with the numeration functions.
-        //! Return false to terminate the traversal.
-        using EnumeratePropertiesCallback = AZStd::function<bool(
-            const AZStd::string&, // The property ID context (i.e. "levelA.levelB."
-            const PropertyDefinition* // the property definition object 
-            )>;
-            
-        //! Recursively traverses all of the properties contained in the material type, executing a callback function for each.
-        //! @return false if the enumeration was terminated early by the callback returning false.
-        bool EnumerateProperties(const EnumeratePropertiesCallback& callback) const;
-
-        AZ::Outcome<AZ::Data::Asset<PhysXMaterialTypeAsset>> CreateMaterialTypeAsset(AZ::Data::AssetId assetId, AZStd::string_view materialTypeSourceFilePath = "", bool elevateWarnings = true) const;
-
-        //! If the data was loaded from an old format file (i.e. where "groups" and "properties" were separate sections),
-        //! this converts to the new format where properties are listed inside property groups.
-        bool ConvertToNewDataFormat();
-
-    private:
-                
-        const PropertyGroup* FindPropertyGroup(AZStd::span<const AZStd::string_view> parsedPropertyGroupId, AZStd::span<const AZStd::unique_ptr<PropertyGroup>> inPropertyGroupList) const;
-        PropertyGroup* FindPropertyGroup(AZStd::span<AZStd::string_view> parsedPropertyGroupId, AZStd::span<AZStd::unique_ptr<PropertyGroup>> inPropertyGroupList);
-            
-        const PropertyDefinition* FindProperty(AZStd::span<const AZStd::string_view> parsedPropertyId, AZStd::span<const AZStd::unique_ptr<PropertyGroup>> inPropertyGroupList) const;
-        PropertyDefinition* FindProperty(AZStd::span<AZStd::string_view> parsedPropertyId, AZStd::span<AZStd::unique_ptr<PropertyGroup>> inPropertyGroupList);
-            
-        // Function overloads for recursion, returns false to indicate that recursion should end.
-        bool EnumeratePropertyGroups(const EnumeratePropertyGroupsCallback& callback, AZStd::string propertyIdContext, const AZStd::vector<AZStd::unique_ptr<PropertyGroup>>& inPropertyGroupList) const;
-        bool EnumerateProperties(const EnumeratePropertiesCallback& callback, AZStd::string propertyIdContext, const AZStd::vector<AZStd::unique_ptr<PropertyGroup>>& inPropertyGroupList) const;
-
-        //! Recursively populates a material asset with properties from the tree of material property groups.
-        //! @param materialTypeSourceFilePath path to the material type file that is being processed, used to look up relative paths
-        //! @param propertyNameContext the accumulated prefix that should be applied to any property names encountered in the current @propertyGroup
-        //! @param propertyGroup the current PropertyGroup that is being processed
-        //! @return false if errors are detected and processing should abort
-        bool BuildPropertyList(
-            const AZStd::string& materialTypeSourceFilePath,
-            PhysXMaterialTypeAssetCreator& materialTypeAssetCreator,
-            AZStd::vector<AZStd::string>& propertyNameContext,
-            const PhysXMaterialTypeSourceData::PropertyGroup* propertyGroup) const;
-                            
-        //! Construct a complete list of group definitions, including implicit groups, arranged in the same order as the source data.
-        //! Groups with the same name will be consolidated into a single entry.
-        //! Operates on the old format PropertyLayout::m_groups, used for conversion to the new format.
-        AZStd::vector<GroupDefinition> GetOldFormatGroupDefinitionsInDisplayOrder() const;
-            
-        PropertyLayout m_propertyLayout;
-    };
-
-} // namespace PhysX
+} // namespace AZ

@@ -16,12 +16,12 @@
 #include <AzCore/UserSettings/UserSettings.h>
 #endif
 
-namespace PhysX
+namespace PhysXMaterialEditor
 {
     struct MaterialEditorWindowSettings
         : public AZ::UserSettings
     {
-        AZ_RTTI(MaterialEditorWindowSettings, "{44CD34DE-E14F-4A30-A3BF-883D1E33F903}", AZ::UserSettings);
+        AZ_RTTI(MaterialEditorWindowSettings, "{3E9D2CED-3AAA-4492-8F6F-A1BA45B15853}", AZ::UserSettings);
         AZ_CLASS_ALLOCATOR(MaterialEditorWindowSettings, AZ::SystemAllocator, 0);
 
         static void Reflect(AZ::ReflectContext* context);
@@ -29,4 +29,4 @@ namespace PhysX
         AZStd::vector<char> m_mainWindowState;
         AZStd::unordered_set<AZ::u32> m_inspectorCollapsedGroups;
     };
-} // namespace PhysX
+} // namespace PhysXMaterialEditor

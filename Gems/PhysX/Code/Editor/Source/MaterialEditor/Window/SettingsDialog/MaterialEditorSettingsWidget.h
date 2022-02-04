@@ -15,7 +15,7 @@
 #include <Editor/Source/MaterialEditor/Document/MaterialDocumentSettings.h>
 #endif
 
-namespace PhysX
+namespace PhysXMaterialEditor
 {
     //! Provides controls for viewing and editing settings.
     class SettingsWidget
@@ -50,4 +50,4 @@ namespace PhysX
         AZStd::intrusive_ptr<MaterialDocumentSettings> m_documentSettings;
         AZStd::intrusive_ptr<AtomToolsFramework::AtomToolsDocumentSystemSettings> m_documentSystemSettings;
     };
-} // namespace PhysX
+} // namespace PhysXMaterialEditor

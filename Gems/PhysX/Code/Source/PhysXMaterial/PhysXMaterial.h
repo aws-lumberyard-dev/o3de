@@ -9,174 +9,236 @@
 
 #include <AzCore/Asset/AssetCommon.h>
 
-// These classes are not directly referenced in this header only because the Set/GetPropertyValue()
-// functions are templatized. But the API is still specific to these data types so we include them here.
+ // These classes are not directly referenced in this header only because the Set/GetPropertyValue()
+ // functions are templatized. But the API is still specific to these data types so we include them here.
 #include <AzCore/Math/Vector2.h>
 #include <AzCore/Math/Vector3.h>
 #include <AzCore/Math/Vector4.h>
 #include <AzCore/Math/Color.h>
 
-//#include <Atom/RPI.Public/Material/MaterialReloadNotificationBus.h>
 #include <PhysXMaterial/MaterialAsset/PhysXMaterialAsset.h>
+#include <PhysXMaterial/PhysXMaterialPropertyDescriptor.h>
+//#include <Atom/RPI.Public/Material/MaterialReloadNotificationBus.h>
+//#include <Atom/RPI.Public/Shader/ShaderReloadNotificationBus.h>
 
 #include <AtomCore/Instance/InstanceData.h>
-#include <Atom/RHI.Reflect/Handle.h> // <=== move to AtomCore?
 
-namespace PhysX
+namespace AZ
 {
-    class PhysXMaterialPropertiesLayout;
-
-    namespace Material
+    /*namespace RHI
     {
-        constexpr uint32_t PropertyCountMax = 256;
-    }
-    using PhysXMaterialPropertyFlags = AZStd::bitset<Material::PropertyCountMax>;
+        class ShaderResourceGroup;
+    }*/
 
-    struct PhysXMaterialPropertyIndexType {
-        AZ_TYPE_INFO(MaterialPropertyIndexType, "{44881C42-E006-4970-A391-35487271C7BF}");
-    };
-
-    using PhysXMaterialPropertyIndex = AZ::RHI::Handle<uint32_t, PhysXMaterialPropertyIndexType>;
-
-    enum class ResultCode : uint32_t
+    namespace PhysX
     {
-        // The operation succeeded.
-        Success = 0,
+        //class Shader;
+        //class ShaderResourceGroup;
+        class MaterialPropertyDescriptor;
+        class MaterialPropertiesLayout;
 
-        // The operation failed with an unknown error.
-        Fail,
+        namespace Limits::Material
+        {
+            constexpr uint32_t PropertyCountMax = 256;
+        }
+        using MaterialPropertyFlags = AZStd::bitset<Limits::Material::PropertyCountMax>;
 
-        // The operation failed due being out of memory.
-        OutOfMemory,
+        /**
+         * A set of general result codes used by methods which may fail.
+         */
+        enum class ResultCode : uint32_t
+        {
+            // The operation succeeded.
+            Success = 0,
 
-        // The operation failed because the feature is unimplemented on the particular platform.
-        Unimplemented,
+            // The operation failed with an unknown error.
+            Fail,
 
-        // The operation failed because the API object is not in a state to accept the call.
-        InvalidOperation,
+            // The operation failed due being out of memory.
+            OutOfMemory,
 
-        // The operation failed due to invalid arguments.
-        InvalidArgument,
+            // The operation failed because the feature is unimplemented on the particular platform.
+            Unimplemented,
 
-        // The operation is not ready
-        NotReady
-    };
+            // The operation failed because the API object is not in a state to accept the call.
+            InvalidOperation,
 
-    //! Provides runtime material functionality based on a MaterialAsset. The material operates on a
-    //! set of properties, which are configured primarily at build-time through the MaterialAsset. 
-    //! These properties are used to configure shader system inputs at runtime.
-    //! 
-    //! Material property values can be accessed at runtime, using the SetPropertyValue() and GetPropertyValue().
-    //! After applying all property changes, Compile() must be called to apply those changes to the shader system.
-    //! 
-    //! If RPI validation is enabled, the class will perform additional error checking. If a setter method fails
-    //! an error is emitted and the call returns false without performing the requested operation. Likewise, if 
-    //! a getter method fails, an error is emitted and an empty value is returned. If validation is disabled, the 
-    //! operation is always performed.
-    class PhysXMaterial
-        : public AZ::Data::InstanceData
-        , public AZ::Data::AssetBus::Handler
-        //, public AZ::RPI::MaterialReloadNotificationBus::Handler
-    {
-    public:
-        AZ_INSTANCE_DATA(PhysXMaterial, "{CDB38D9B-6D75-4D2C-A195-0F7B233DE881}");
-        AZ_CLASS_ALLOCATOR(PhysXMaterial, AZ::SystemAllocator, 0);
+            // The operation failed due to invalid arguments.
+            InvalidArgument,
 
-        //! Material objects use a ChangeId to track when changes have been made to the material at runtime. See GetCurrentChangeId()
-        using ChangeId = size_t;
+            // The operation is not ready
+            NotReady
+        };
 
-        //! GetCurrentChangeId() will never return this value, so client code can use this to initialize a ChangeId that is immediately dirty
-        static const ChangeId DEFAULT_CHANGE_ID = 0;
+        //! Provides runtime material functionality based on a MaterialAsset. The material operates on a
+        //! set of properties, which are configured primarily at build-time through the MaterialAsset. 
+        //! These properties are used to configure shader system inputs at runtime.
+        //! 
+        //! Material property values can be accessed at runtime, using the SetPropertyValue() and GetPropertyValue().
+        //! After applying all property changes, Compile() must be called to apply those changes to the shader system.
+        //! 
+        //! If RPI validation is enabled, the class will perform additional error checking. If a setter method fails
+        //! an error is emitted and the call returns false without performing the requested operation. Likewise, if 
+        //! a getter method fails, an error is emitted and an empty value is returned. If validation is disabled, the 
+        //! operation is always performed.
+        class Material
+            : public Data::InstanceData
+            , public Data::AssetBus::Handler
+            //, public ShaderReloadNotificationBus::MultiHandler
+            //, public MaterialReloadNotificationBus::Handler
+        {
+            friend class MaterialSystem;
+        public:
+            AZ_INSTANCE_DATA(Material, "{ECAE404B-2010-4C76-B01D-846DA364E10F}");
+            AZ_CLASS_ALLOCATOR(Material, SystemAllocator, 0);
 
-        static AZ::Data::Instance<PhysXMaterial> FindOrCreate(const AZ::Data::Asset<PhysXMaterialAsset>& materialAsset);
-        static AZ::Data::Instance<PhysXMaterial> Create(const AZ::Data::Asset<PhysXMaterialAsset>& materialAsset);
+            //! Material objects use a ChangeId to track when changes have been made to the material at runtime. See GetCurrentChangeId()
+            using ChangeId = size_t;
 
-        virtual ~PhysXMaterial();
+            //! GetCurrentChangeId() will never return this value, so client code can use this to initialize a ChangeId that is immediately dirty
+            static const ChangeId DEFAULT_CHANGE_ID = 0;
 
-        //! Finds the material property index from the material property ID
-        //! @param wasRenamed optional parameter that is set to true if @propertyId is an old name and an automatic rename was applied to find the index.
-        //! @param newName optional parameter that is set to the new property name, if the property was renamed.
-        PhysXMaterialPropertyIndex FindPropertyIndex(const AZ::Name& propertyId, bool* wasRenamed = nullptr, AZ::Name* newName = nullptr) const;
+            static Data::Instance<Material> FindOrCreate(const Data::Asset<MaterialAsset>& materialAsset);
+            static Data::Instance<Material> Create(const Data::Asset<MaterialAsset>& materialAsset);
 
-        //! Sets the value of a material property. The template data type must match the property's data type.
-        //! @return true if property value was changed
-        template<typename Type>
-        bool SetPropertyValue(PhysXMaterialPropertyIndex index, const Type& value);
+            virtual ~Material();
 
-        //! Gets the value of a material property. The template data type must match the property's data type.
-        template<typename Type>
-        const Type& GetPropertyValue(PhysXMaterialPropertyIndex index) const;
+            //! Finds the material property index from the material property ID
+            //! @param wasRenamed optional parameter that is set to true if @propertyId is an old name and an automatic rename was applied to find the index.
+            //! @param newName optional parameter that is set to the new property name, if the property was renamed.
+            MaterialPropertyIndex FindPropertyIndex(const Name& propertyId, bool* wasRenamed = nullptr, Name* newName = nullptr) const;
 
-        //! Sets the value of a material property. The @value data type must match the property's data type.
-        //! @return true if property value was changed
-        bool SetPropertyValue(PhysXMaterialPropertyIndex index, const PhysXMaterialPropertyValue& value);
+            //! Sets the value of a material property. The template data type must match the property's data type.
+            //! @return true if property value was changed
+            template<typename Type>
+            bool SetPropertyValue(MaterialPropertyIndex index, const Type& value);
 
-        const PhysXMaterialPropertyValue& GetPropertyValue(PhysXMaterialPropertyIndex index) const;
-        const AZStd::vector<PhysXMaterialPropertyValue>& GetPropertyValues() const;
-            
-        //! Gets flags indicating which properties have been modified.
-        const PhysXMaterialPropertyFlags& GetPropertyDirtyFlags() const;
+            //! Gets the value of a material property. The template data type must match the property's data type.
+            template<typename Type>
+            const Type& GetPropertyValue(MaterialPropertyIndex index) const;
 
-        //! Gets the material properties layout.
-        AZStd::intrusive_ptr<const PhysXMaterialPropertiesLayout> GetMaterialPropertiesLayout() const;
+            //! Sets the value of a material property. The @value data type must match the property's data type.
+            //! @return true if property value was changed
+            bool SetPropertyValue(MaterialPropertyIndex index, const MaterialPropertyValue& value);
 
-        //! Must be called after changing any material property values in order to apply those changes to the shader.
-        //! Does nothing if NeedsCompile() is false or CanCompile() is false.
-        //! @return whether compilation occurred
-        bool Compile();
-            
-        //! Returns an ID that can be used to track whether the material has changed since the last time client code read it.
-        //! This gets incremented every time a change is made, like by calling SetPropertyValue().
-        ChangeId GetCurrentChangeId() const;
+            const MaterialPropertyValue& GetPropertyValue(MaterialPropertyIndex index) const;
+            const AZStd::vector<MaterialPropertyValue>& GetPropertyValues() const;
 
-        const AZ::Data::Asset<PhysXMaterialAsset>& GetAsset() const;
+            //! Gets flags indicating which properties have been modified.
+            const MaterialPropertyFlags& GetPropertyDirtyFlags() const;
 
-        //! Returns whether the material is ready to compile pending changes. (Materials can only be compiled once per frame because SRGs can only be compiled once per frame).
-        bool CanCompile() const;
+            //! Gets the material properties layout.
+            AZStd::intrusive_ptr<const MaterialPropertiesLayout> GetMaterialPropertiesLayout() const;
 
-        //! Returns whether the material has property changes that have not been compiled yet.
-        bool NeedsCompile() const;
+            //! Must be called after changing any material property values in order to apply those changes to the shader.
+            //! Does nothing if NeedsCompile() is false or CanCompile() is false.
+            //! @return whether compilation occurred
+            bool Compile();
 
-    private:
-        PhysXMaterial() = default;
+            //! Returns an ID that can be used to track whether the material has changed since the last time client code read it.
+            //! This gets incremented every time a change is made, like by calling SetPropertyValue().
+            ChangeId GetCurrentChangeId() const;
 
-        //! Standard init path from asset data.
-        static AZ::Data::Instance<PhysXMaterial> CreateInternal(PhysXMaterialAsset& materialAsset);
-        ResultCode Init(PhysXMaterialAsset& materialAsset);
+            //! Return the set of shaders to be run by this material.
+            //const ShaderCollection& GetShaderCollection() const;
 
-        ///////////////////////////////////////////////////////////////////
-        // AssetBus overrides...
-        void OnAssetReloaded(AZ::Data::Asset<AZ::Data::AssetData> asset) override;
+            //! Attempts to set the value of a system-level shader option that is controlled by this material.
+            //! This applies to all shaders in the material's ShaderCollection.
+            //! Note, this may only be used to set shader options that are not "owned" by the material.
+            //! @param shaderOptionName the name of the shader option(s) to set
+            //! @param value the new value for the shader option(s)
+            //! @param return the number of shader options that were updated, or Failure if the material owns the indicated shader option.
+            //AZ::Outcome<uint32_t> SetSystemShaderOption(const Name& shaderOptionName, RPI::ShaderOptionValue value);
 
-        ///////////////////////////////////////////////////////////////////
-        // MaterialReloadNotificationBus overrides...
-        //void OnMaterialAssetReinitialized(const AZ::Data::Asset<PhysXMaterialAsset>& materialAsset) override;
+            //! Override the material's default PSO handling setting.
+            //! This is normally used in tools like Asset Processor or Material Editor to allow changes that impact
+            //! Pipeline State Objects which is not allowed at runtime. See MaterialPropertyPsoHandling for more details.
+            //! Do not set this in the shipping runtime unless you know what you are doing.
+            //void SetPsoHandlingOverride(MaterialPropertyPsoHandling psoHandlingOverride);
 
-        static const char* s_debugTraceName;
+            //const RHI::ShaderResourceGroup* GetRHIShaderResourceGroup() const;
 
-        //! The corresponding material asset that provides material type data and initial property values.
-        AZ::Data::Asset<PhysXMaterialAsset> m_materialAsset;
+            const Data::Asset<MaterialAsset>& GetAsset() const;
 
-        //! Provides a description of the set of available material properties, cached locally so we don't have to keep fetching it from the MaterialTypeSourceData.
-        //AZStd::intrusive_ptr<const PhysXMaterialPropertiesLayout> m_layout;
+            //! Returns whether the material is ready to compile pending changes. (Materials can only be compiled once per frame because SRGs can only be compiled once per frame).
+            bool CanCompile() const;
 
-        //! Values for all properties in MaterialPropertiesLayout
-        AZStd::vector<PhysXMaterialPropertyValue> m_propertyValues;
+            //! Returns whether the material has property changes that have not been compiled yet.
+            bool NeedsCompile() const;
 
-        //! Flags indicate which properties have been modified so that related functors will update.
-        PhysXMaterialPropertyFlags m_propertyDirtyFlags;
+        private:
+            Material() = default;
 
-        //! Used to track which properties have been modified at runtime so they can be preserved if the material has to reinitialiize.
-        PhysXMaterialPropertyFlags m_propertyOverrideFlags;
+            //! Standard init path from asset data.
+            static Data::Instance<Material> CreateInternal(MaterialAsset& materialAsset);
+            ResultCode Init(MaterialAsset& materialAsset);
 
-        //! Tracks each change made to material properties.
-        //! Initialized to DEFAULT_CHANGE_ID+1 to ensure that GetCurrentChangeId() will not return DEFAULT_CHANGE_ID (a value that client 
-        //! code can use to initialize a ChangeId that is immediately dirty).
-        ChangeId m_currentChangeId = DEFAULT_CHANGE_ID + 1;
+            ///////////////////////////////////////////////////////////////////
+            // AssetBus overrides...
+            void OnAssetReloaded(Data::Asset<Data::AssetData> asset) override;
 
-        //! Records the m_currentChangeId when the material was last compiled.
-        ChangeId m_compiledChangeId = DEFAULT_CHANGE_ID;
+            ///////////////////////////////////////////////////////////////////
+            // MaterialReloadNotificationBus overrides...
+            //void OnMaterialAssetReinitialized(const Data::Asset<MaterialAsset>& materialAsset) override;
 
-        bool m_isInitializing = false;
-    };
+            ///////////////////////////////////////////////////////////////////
+            // ShaderReloadNotificationBus overrides...
+            //void OnShaderReinitialized(const Shader& shader) override;
+            //void OnShaderAssetReinitialized(const Data::Asset<ShaderAsset>& shaderAsset) override;
+            //void OnShaderVariantReinitialized(const ShaderVariant& shaderVariant) override;
+            ///////////////////////////////////////////////////////////////////
+
+            template<typename Type>
+            bool ValidatePropertyAccess(const MaterialPropertyDescriptor* propertyDescriptor) const;
+
+            //! Helper function for setting the value of a shader constant input, allowing for specialized handling of specific types.
+            //! This template is explicitly specialized in the cpp file.
+            //template<typename Type>
+            //void SetShaderConstant(RHI::ShaderInputConstantIndex shaderInputIndex, const Type& value);
+
+            //! Helper function for setting the value of a shader option, allowing for specialized handling of specific types.
+            //! This template is explicitly specialized in the cpp file.
+            //template<typename Type>
+            //bool SetShaderOption(ShaderOptionGroup& options, ShaderOptionIndex shaderOptionIndex, Type value);
+
+            static const char* s_debugTraceName;
+
+            //! The corresponding material asset that provides material type data and initial property values.
+            Data::Asset<MaterialAsset> m_materialAsset;
+
+            //! Holds all runtime data for the shader resource group, and provides functions to easily manipulate that data
+            //Data::Instance<RPI::ShaderResourceGroup> m_shaderResourceGroup;
+
+            //! The RHI shader resource group owned by m_shaderResourceGroup. Held locally to avoid an indirection.
+            //const RHI::ShaderResourceGroup* m_rhiShaderResourceGroup = nullptr;
+
+            //! Provides a description of the set of available material properties, cached locally so we don't have to keep fetching it from the MaterialTypeSourceData.
+            AZStd::intrusive_ptr<const MaterialPropertiesLayout> m_layout;
+
+            //! Values for all properties in MaterialPropertiesLayout
+            AZStd::vector<MaterialPropertyValue> m_propertyValues;
+
+            //! Flags indicate which properties have been modified so that related functors will update.
+            MaterialPropertyFlags m_propertyDirtyFlags;
+
+            //! Used to track which properties have been modified at runtime so they can be preserved if the material has to reinitialiize.
+            MaterialPropertyFlags m_propertyOverrideFlags;
+
+            //! A copy of the MaterialAsset's ShaderCollection is stored here to allow material-specific changes to the default collection.
+            //ShaderCollection m_shaderCollection;
+
+            //! Tracks each change made to material properties.
+            //! Initialized to DEFAULT_CHANGE_ID+1 to ensure that GetCurrentChangeId() will not return DEFAULT_CHANGE_ID (a value that client 
+            //! code can use to initialize a ChangeId that is immediately dirty).
+            ChangeId m_currentChangeId = DEFAULT_CHANGE_ID + 1;
+
+            //! Records the m_currentChangeId when the material was last compiled.
+            ChangeId m_compiledChangeId = DEFAULT_CHANGE_ID;
+
+            bool m_isInitializing = false;
+
+            //MaterialPropertyPsoHandling m_psoHandling = MaterialPropertyPsoHandling::Warning;
+        };
+
+    } // namespace PhysX
 } // namespace AZ

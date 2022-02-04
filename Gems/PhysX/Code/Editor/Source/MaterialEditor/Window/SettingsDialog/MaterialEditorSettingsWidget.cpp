@@ -9,7 +9,7 @@
 #include <Editor/Source/MaterialEditor/Window/SettingsDialog/MaterialEditorSettingsWidget.h>
 #include <AtomToolsFramework/Inspector/InspectorPropertyGroupWidget.h>
 
-namespace PhysX
+namespace PhysXMaterialEditor
 {
     SettingsWidget::SettingsWidget(QWidget* parent)
         : AtomToolsFramework::InspectorWidget(parent)
@@ -79,4 +79,6 @@ namespace PhysX
     {
         AZ_UNUSED(pNode);
     }
-} // namespace PhysX
+} // namespace PhysXMaterialEditor
+
+//#include <Editor/Source/MaterialEditor/Window/SettingsWidget/moc_SettingsWidget.cpp>

@@ -17,7 +17,7 @@
 #include <Editor/Source/MaterialEditor/Document/MaterialDocumentSettings.h>
 #include <Editor/Source/MaterialEditor/Window/CreateMaterialDialog/CreateMaterialDialog.h>
 
-namespace PhysX
+namespace PhysXMaterialEditor
 {
     CreateMaterialDialog::CreateMaterialDialog(QWidget* parent)
         : CreateMaterialDialog(QString(AZ::Utils::GetProjectPath().c_str()) + AZ_CORRECT_FILESYSTEM_SEPARATOR + "Assets", parent)
@@ -46,7 +46,7 @@ namespace PhysX
         //Locate all material type files and add them to the combo box
         AZ::Data::AssetCatalogRequests::AssetEnumerationCB enumerateCB = [this]([[maybe_unused]] const AZ::Data::AssetId id, const AZ::Data::AssetInfo& info)
         {
-            if (AzFramework::StringFunc::EndsWith(info.m_relativePath.c_str(), PhysXMaterialTypeSourceData::Extension))
+            if (AzFramework::StringFunc::EndsWith(info.m_relativePath.c_str(), AZ::PhysX::MaterialTypeSourceData::Extension))
             {
                 const AZStd::string& sourcePath = AZ::RPI::AssetUtils::GetSourcePathByAssetId(info.m_assetId);
                 if (!sourcePath.empty())
@@ -63,7 +63,7 @@ namespace PhysX
         QObject::connect(m_ui->m_materialTypeComboBox, static_cast<void (QComboBox::*)(const int)>(&QComboBox::currentIndexChanged), this, [this]() { UpdateMaterialTypeSelection(); });
         QObject::connect(m_ui->m_materialTypeComboBox, &QComboBox::currentTextChanged, this, [this]() { UpdateMaterialTypeSelection(); });
 
-        m_ui->m_materialTypeComboBox->model()->sort(0, Qt::AscendingOrder); 
+        m_ui->m_materialTypeComboBox->model()->sort(0, Qt::AscendingOrder);
 
         // Select the default material type from settings
         auto settings =
@@ -84,7 +84,7 @@ namespace PhysX
         m_materialFileInfo = AtomToolsFramework::GetUniqueFileInfo(
             m_path +
             AZ_CORRECT_FILESYSTEM_SEPARATOR + "untitled." +
-            PhysXMaterialSourceData::Extension).absoluteFilePath();
+            AZ::PhysX::MaterialSourceData::Extension).absoluteFilePath();
 
         m_ui->m_materialFilePicker->setLineEditReadOnly(true);
         m_ui->m_materialFilePicker->setText(m_materialFileInfo.fileName());
@@ -92,9 +92,9 @@ namespace PhysX
         //When the file selection button is pressed, open a file dialog to select where the material will be saved
         QObject::connect(m_ui->m_materialFilePicker, &AzQtComponents::BrowseEdit::attachedButtonTriggered, m_ui->m_materialFilePicker, [this]() {
             QFileInfo fileInfo = AzQtComponents::FileDialog::GetSaveFileName(this,
-                QString("Select PhysX Material Filename"),
+                QString("Select Material Filename"),
                 m_materialFileInfo.absoluteFilePath(),
-                QString("PhysX Material (*.physxmaterial)"));
+                QString("Material (*.physxmaterial)"));
 
             // Reject empty or invalid filenames which indicate user cancellation
             if (!fileInfo.absoluteFilePath().isEmpty())
@@ -102,7 +102,7 @@ namespace PhysX
                 m_materialFileInfo = fileInfo;
                 m_ui->m_materialFilePicker->setText(m_materialFileInfo.fileName());
             }
-        });
+            });
     }
 
     void CreateMaterialDialog::UpdateMaterialTypeSelection()
@@ -114,6 +114,6 @@ namespace PhysX
             m_materialTypeFileInfo = QFileInfo(itemData.toString());
         }
     }
-} // namespace PhysX
+} // namespace PhysXMaterialEditor
 
 #include <Editor/Source/MaterialEditor/Window/CreateMaterialDialog/moc_CreateMaterialDialog.cpp>

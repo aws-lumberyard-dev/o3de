@@ -10,9 +10,14 @@
 
 #if !defined(Q_MOC_RUN)
 #include <AtomToolsFramework/Document/AtomToolsDocumentMainWindow.h>
+
+AZ_PUSH_DISABLE_WARNING(4251 4800, "-Wunknown-warning-option") // disable warnings spawned by QT
+//#include <Editor/Source/MaterialEditor/Viewport/MaterialViewportWidget.h>
+//#include <Editor/Source/MaterialEditor/Window/ToolBar/MaterialEditorToolBar.h>
+AZ_POP_DISABLE_WARNING
 #endif
 
-namespace PhysX
+namespace PhysXMaterialEditor
 {
     //! MaterialEditorWindow is the main class. Its responsibility is limited to initializing and connecting
     //! its panels, managing selection of assets, and performing high-level actions like saving. It contains...
@@ -41,5 +46,8 @@ namespace PhysX
         void OpenAbout() override;
 
         void closeEvent(QCloseEvent* closeEvent) override;
+
+        //MaterialViewportWidget* m_materialViewport = {};
+        //MaterialEditorToolBar* m_toolBar = {};
     };
-} // namespace PhysX
+} // namespace PhysXMaterialEditor

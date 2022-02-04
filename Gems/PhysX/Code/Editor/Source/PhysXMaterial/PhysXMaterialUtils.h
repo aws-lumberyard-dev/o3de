@@ -8,9 +8,10 @@
 
 #pragma once
 
+//#include <Atom/RPI.Reflect/Image/StreamingImageAsset.h>
+#include <PhysXMaterial/PhysXMaterialPropertyDescriptor.h>
 #include <PhysXMaterial/PhysXMaterialPropertyValue.h>
 #include <AzCore/Serialization/Json/JsonSerialization.h>
-#include <AzCore/Name/Name.h>
 
 namespace AZ
 {
@@ -20,45 +21,68 @@ namespace AZ
     {
         union ResultCode;
     }
-}
 
-namespace PhysX
-{
-    class PhysXMaterialTypeSourceData;
-
-    namespace MaterialUtils
+    namespace PhysX
     {
-        //! Load material type from a json file. If the file path is relative, the loaded json document must be provided.
-        //! Otherwise, it will use the passed in document first if not null, or load the json document from the path.
-        //! @param filePath a relative path if document is provided, an absolute path if document is not provided.
-        //! @param document the loaded json document.
-        AZ::Outcome<PhysXMaterialTypeSourceData> LoadMaterialTypeSourceData(const AZStd::string& filePath, const rapidjson::Value* document = nullptr);
+        class MaterialTypeSourceData;
 
-        //! Utility function for custom JSON serializers to report results as "Skipped" when encountering keys that aren't recognized
-        //! as part of the custom format.
-        //! @param acceptedFieldNames an array of names that are recognized by the custom format
-        //! @param acceptedFieldNameCount the number of elements in @acceptedFieldNames
-        //! @param object the JSON object being loaded
-        //! @param context the common JsonDeserializerContext that is central to the serialization process
-        //! @param result the ResultCode that well be updated with the Outcomes "Skipped" if an unrecognized field is encountered
-        void CheckForUnrecognizedJsonFields(
-            const AZStd::string_view* acceptedFieldNames, uint32_t acceptedFieldNameCount,
-            const rapidjson::Value& object, AZ::JsonDeserializerContext& context, AZ::JsonSerializationResult::ResultCode& result);
+        namespace MaterialUtils
+        {
+            //enum class GetImageAssetResult
+            //{
+            //    Empty,             //! No image was actually requested, the path was empty
+            //    Found,             //! The requested asset was found
+            //    Missing            //! The requested asset was not found, and a placeholder asset was used instead
+            //};
 
-        //! Materials assets can either be finalized during asset-processing time or when materials are loaded at runtime.
-        //! Finalizing during asset processing reduces load times and obfuscates the material data.
-        //! Waiting to finalize at load time reduces dependencies on the material type data, resulting in fewer asset rebuilds and less time spent processing assets.
-        bool BuildersShouldFinalizeMaterialAssets();
+            //! Finds an ImageAsset referenced by a material file (or a placeholder)
+            //! @param imageAsset the resulting ImageAsset
+            //! @param materialSourceFilePath the full path to a material source file that is referenfing an image file
+            //! @param imageFilePath the path to an image source file, which could be relative to the asset root or relative to the material file
+            //GetImageAssetResult GetImageAssetReference(Data::Asset<ImageAsset>& imageAsset, AZStd::string_view materialSourceFilePath, const AZStd::string imageFilePath);
 
-        //! Convert the property value into the format that will be stored in the source data
-        //! This is primarily needed to support conversions of special types like enums and images
-        //! @param exportPath absolute path of the file being saved
-        //! @param propertyDefinition describes type information and other details about propertyValue
-        //! @param propertyValue the value being converted before saving
-        bool ConvertToExportFormat(
-            const AZStd::string& exportPath,
-            [[maybe_unused]] const AZ::Name& propertyId,
-            const PhysXMaterialTypeSourceData::PropertyDefinition& propertyDefinition,
-            PhysXMaterialPropertyValue& propertyValue);
+            //! Resolve an enum to a uint32_t given its name and definition array (in MaterialPropertyDescriptor).
+            //! @param propertyDescriptor it contains the definition of all enum names in an array.
+            //! @param enumName the name of an enum to be converted into a uint32_t.
+            //! @param outResolvedValue where the correct resolved value will be set into as a uint32_t.
+            //! @return if resolving is successful. An error will be reported if it fails.
+            bool ResolveMaterialPropertyEnumValue(const MaterialPropertyDescriptor* propertyDescriptor, const AZ::Name& enumName, MaterialPropertyValue& outResolvedValue);
+
+            //! Load material type from a json file. If the file path is relative, the loaded json document must be provided.
+            //! Otherwise, it will use the passed in document first if not null, or load the json document from the path.
+            //! @param filePath a relative path if document is provided, an absolute path if document is not provided.
+            //! @param document the loaded json document.
+            AZ::Outcome<MaterialTypeSourceData> LoadMaterialTypeSourceData(const AZStd::string& filePath, const rapidjson::Value* document = nullptr);
+
+            //! Utility function for custom JSON serializers to report results as "Skipped" when encountering keys that aren't recognized
+            //! as part of the custom format.
+            //! @param acceptedFieldNames an array of names that are recognized by the custom format
+            //! @param acceptedFieldNameCount the number of elements in @acceptedFieldNames
+            //! @param object the JSON object being loaded
+            //! @param context the common JsonDeserializerContext that is central to the serialization process
+            //! @param result the ResultCode that well be updated with the Outcomes "Skipped" if an unrecognized field is encountered
+            void CheckForUnrecognizedJsonFields(
+                const AZStd::string_view* acceptedFieldNames, uint32_t acceptedFieldNameCount,
+                const rapidjson::Value& object, JsonDeserializerContext& context, JsonSerializationResult::ResultCode& result);
+
+            //! Materials assets can either be finalized during asset-processing time or when materials are loaded at runtime.
+            //! Finalizing during asset processing reduces load times and obfuscates the material data.
+            //! Waiting to finalize at load time reduces dependencies on the material type data, resulting in fewer asset rebuilds and less time spent processing assets.
+            bool BuildersShouldFinalizeMaterialAssets();
+
+            // -------------------------------
+            // From MaterialPropertyUtils.h
+            // -------------------------------
+
+            AZ::PhysX::MaterialPropertyValue ConvertToRuntimeType(const AZStd::any& value);
+
+            AZStd::any ConvertToEditableType(const AZ::PhysX::MaterialPropertyValue& value);
+
+            bool ConvertToExportFormat(
+                const AZStd::string& exportPath,
+                const AZ::Name& propertyId,
+                const AZ::PhysX::MaterialTypeSourceData::PropertyDefinition& propertyDefinition,
+                AZ::PhysX::MaterialPropertyValue& propertyValue);
+        }
     }
 }

@@ -4,7 +4,7 @@
 #include <AzCore/Component/Component.h>
 #include <O3DEMaterialEditor/O3DEMaterialEditorBus.h>
 
-namespace PhysX
+namespace PhysXMaterialEditor
 {
     class MaterialEditorBrowserInteractions;
 
@@ -33,6 +33,6 @@ namespace PhysX
 
         O3DEMaterialEditor::O3DEMaterialEditorRequests::NotifyRegisterViewsEvent::Handler m_notifyRegisterViewsEventHandler;
 
-        AZStd::unique_ptr<MaterialEditorBrowserInteractions> m_materialEditorBrowserInteractions;
+        AZStd::unique_ptr<PhysXMaterialEditor::MaterialEditorBrowserInteractions> m_materialEditorBrowserInteractions;
     };
 } // namespace PhysX

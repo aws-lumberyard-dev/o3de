@@ -18,7 +18,7 @@
 #include <AtomToolsFramework/Document/AtomToolsDocument.h>
 #include <Editor/Source/MaterialEditor/Document/MaterialDocumentRequestBus.h>
 
-namespace PhysX
+namespace PhysXMaterialEditor
 {
     /**
      * MaterialDocument provides an API for modifying and saving material document properties.
@@ -29,7 +29,7 @@ namespace PhysX
         , private AZ::TickBus::Handler
     {
     public:
-        AZ_RTTI(MaterialDocument, "{D878130A-DFE4-4B23-956A-FC78A408401B}");
+        AZ_RTTI(MaterialDocument, "{CC43009C-05BA-4A72-A359-86178EE0FD84}");
         AZ_CLASS_ALLOCATOR(MaterialDocument, AZ::SystemAllocator, 0);
         AZ_DISABLE_COPY(MaterialDocument);
 
@@ -52,10 +52,10 @@ namespace PhysX
         bool EndEdit() override;
 
         // MaterialDocumentRequestBus::Handler overrides...
-        AZ::Data::Asset<PhysXMaterialAsset> GetAsset() const override;
-        AZ::Data::Instance<PhysXMaterial> GetInstance() const override;
-        const PhysXMaterialSourceData* GetMaterialSourceData() const override;
-        const PhysXMaterialTypeSourceData* GetMaterialTypeSourceData() const override;
+        AZ::Data::Asset<AZ::PhysX::MaterialAsset> GetAsset() const override;
+        AZ::Data::Instance<AZ::PhysX::Material> GetInstance() const override;
+        const AZ::PhysX::MaterialSourceData* GetMaterialSourceData() const override;
+        const AZ::PhysX::MaterialTypeSourceData* GetMaterialTypeSourceData() const override;
 
     private:
 
@@ -67,14 +67,14 @@ namespace PhysX
 
         // Map of raw property values for undo/redo comparison and storage
         using PropertyValueMap = AZStd::unordered_map<AZ::Name, AZStd::any>;
-
+        
         // Map of document's property group visibility flags
         using PropertyGroupVisibilityMap = AZStd::unordered_map<AZ::Name, bool>;
 
         // AZ::TickBus overrides...
         void OnTick(float deltaTime, AZ::ScriptTimePoint time) override;
 
-        bool SaveSourceData(PhysXMaterialSourceData& sourceData, PropertyFilterFunction propertyFilter) const;
+        bool SaveSourceData(AZ::PhysX::MaterialSourceData& sourceData, PropertyFilterFunction propertyFilter) const;
 
         // AtomToolsFramework::AtomToolsDocument overrides...
         void Clear() override;
@@ -86,26 +86,40 @@ namespace PhysX
 
         void RestorePropertyValues(const PropertyValueMap& propertyValues);
 
+        struct EditorMaterialFunctorResult
+        {
+            AZStd::unordered_set<AZ::Name> m_updatedProperties;
+            AZStd::unordered_set<AZ::Name> m_updatedPropertyGroups;
+        };
+
+        // Run editor material functor to update editor metadata.
+        // @param dirtyFlags indicates which properties have changed, and thus which MaterialFunctors need to be run.
+        // @return names for the set of properties and groups that have been changed or need update.
+        //EditorMaterialFunctorResult RunEditorMaterialFunctors(AZ::PhysX::MaterialPropertyFlags dirtyFlags);
+
         // Underlying material asset
-        AZ::Data::Asset<PhysXMaterialAsset> m_materialAsset;
+        AZ::Data::Asset<AZ::PhysX::MaterialAsset> m_materialAsset;
 
         // Material instance being edited
-        AZ::Data::Instance<PhysXMaterial> m_materialInstance;
+        AZ::Data::Instance<AZ::PhysX::Material> m_materialInstance;
 
         // If material instance value(s) were modified, do we need to recompile on next tick?
         bool m_compilePending = false;
 
         // Collection of all material's properties
         PropertyMap m_properties;
-
+        
         // Collection of all material's property groups
         PropertyGroupVisibilityMap m_propertyGroupVisibility;
 
+        // Material functors that run in editor. See MaterialFunctor.h for details.
+        //AZStd::vector<AZ::RPI::Ptr<AZ::PhysX::MaterialFunctor>> m_editorFunctors;
+
         // Source data for material type
-        PhysXMaterialTypeSourceData m_materialTypeSourceData;
+        AZ::PhysX::MaterialTypeSourceData m_materialTypeSourceData;
 
         // Source data for material
-        PhysXMaterialSourceData m_materialSourceData;
+        AZ::PhysX::MaterialSourceData m_materialSourceData;
 
         // State of property values prior to an edit, used for restoration during undo
         PropertyValueMap m_propertyValuesBeforeEdit;
@@ -113,4 +127,4 @@ namespace PhysX
         // State of property values prior to reopen
         PropertyValueMap m_propertyValuesBeforeReopen;
     };
-} // namespace PhysX
+} // namespace PhysXMaterialEditor

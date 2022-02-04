@@ -25,7 +25,7 @@ namespace AzToolsFramework
     }
 }
 
-namespace PhysX
+namespace PhysXMaterialEditor
 {
     class MaterialEditorBrowserInteractions
         : public AzToolsFramework::AssetBrowser::AssetBrowserInteractionNotificationBus::Handler
@@ -55,4 +55,4 @@ namespace PhysX
         QAction* m_undoCheckOutAction = nullptr;
         QAction* m_getLatestAction = nullptr;
     };
-} // namespace PhysX
+} // namespace PhysXMaterialEditor

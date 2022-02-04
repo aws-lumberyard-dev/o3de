@@ -23,111 +23,216 @@
 
 #include <AzCore/std/string/string.h>
 
-namespace PhysX
+namespace AZ
 {
-    namespace MaterialUtils
+    namespace PhysX
     {
-        AZ::Outcome<PhysXMaterialTypeSourceData> LoadMaterialTypeSourceData(const AZStd::string& filePath, const rapidjson::Value* document)
+        namespace MaterialUtils
         {
-            AZ::Outcome<rapidjson::Document, AZStd::string> loadOutcome;
-            if (document == nullptr)
+            /*GetImageAssetResult GetImageAssetReference(Data::Asset<ImageAsset>& imageAsset, AZStd::string_view materialSourceFilePath, const AZStd::string imageFilePath)
             {
-                loadOutcome = AZ::JsonSerializationUtils::ReadJsonFile(filePath, AZ::RPI::JsonUtils::DefaultMaxFileSize);
-                if (!loadOutcome.IsSuccess())
+                imageAsset = {};
+
+                if (imageFilePath.empty())
                 {
-                    AZ_Error("AZ::RPI::JsonUtils", false, "%s", loadOutcome.GetError().c_str());
-                    return AZ::Failure();
+                    // The image value was present but specified an empty string, meaning the texture asset should be explicitly cleared.
+                    return GetImageAssetResult::Empty;
                 }
-
-                document = &loadOutcome.GetValue();
-            }
-
-            PhysXMaterialTypeSourceData materialType;
-
-            AZ::JsonDeserializerSettings settings;
-
-            AZ::RPI::JsonReportingHelper reportingHelper;
-            reportingHelper.Attach(settings);
-
-            // This is required by some custom material serializers to support relative path references.
-            AZ::RPI::JsonFileLoadContext fileLoadContext;
-            fileLoadContext.PushFilePath(filePath);
-            settings.m_metadata.Add(fileLoadContext);
-
-            AZ::JsonSerialization::Load(materialType, *document, settings);
-            materialType.ConvertToNewDataFormat();
-
-            if (reportingHelper.ErrorsReported())
-            {
-                return AZ::Failure();
-            }
-            else
-            {
-                return AZ::Success(AZStd::move(materialType));
-            }
-        }
-
-        void CheckForUnrecognizedJsonFields(
-            const AZStd::string_view* acceptedFieldNames,
-            uint32_t acceptedFieldNameCount,
-            const rapidjson::Value& object, AZ::JsonDeserializerContext& context,
-            AZ::JsonSerializationResult::ResultCode &result)
-        {
-            for (auto iter = object.MemberBegin(); iter != object.MemberEnd(); ++iter)
-            {
-                bool matched = false;
-
-                for (uint32_t i = 0; i < acceptedFieldNameCount; ++i)
+                else
                 {
-                    if (iter->name.GetString() == acceptedFieldNames[i])
+                    // We use TraceLevel::None because fallback textures are available and we'll return GetImageAssetResult::Missing below in that case.
+                    // Callers of GetImageAssetReference will be responsible for logging warnings or errors as needed.
+
+                    Outcome<Data::AssetId> imageAssetId = AssetUtils::MakeAssetId(materialSourceFilePath, imageFilePath, StreamingImageAsset::GetImageAssetSubId(), AssetUtils::TraceLevel::None);
+
+                    if (!imageAssetId.IsSuccess())
                     {
-                        matched = true;
-                        break;
+                        // When the AssetId cannot be found, we don't want to outright fail, because the runtime has mechanisms for displaying fallback textures which gives the
+                        // user a better recovery workflow. On the other hand we can't just provide an empty/invalid Asset<ImageAsset> because that would be interpreted as simply
+                        // no value was present and result in using no texture, and this would amount to a silent failure.
+                        // So we use a randomly generated (well except for the "BADA55E7" bit ;) UUID which the runtime and tools will interpret as a missing asset and represent
+                        // it as such.
+                        static const Uuid InvalidAssetPlaceholderId = "{BADA55E7-1A1D-4940-B655-9D08679BD62F}";
+                        imageAsset = Data::Asset<ImageAsset>{ InvalidAssetPlaceholderId, azrtti_typeid<StreamingImageAsset>(), imageFilePath };
+                        return GetImageAssetResult::Missing;
                     }
+
+                    imageAsset = Data::Asset<ImageAsset>{ imageAssetId.GetValue(), azrtti_typeid<StreamingImageAsset>(), imageFilePath };
+                    return GetImageAssetResult::Found;
                 }
+            }*/
 
-                if (!matched)
-                {
-                    AZ::ScopedContextPath subPath{context, iter->name.GetString()};
-                    result.Combine(context.Report(AZ::JsonSerializationResult::Tasks::ReadField, AZ::JsonSerializationResult::Outcomes::Skipped, "Skipping unrecognized field"));
-                }
-            }
-        }
-            
-        bool BuildersShouldFinalizeMaterialAssets()
-        {
-            // We default to the faster workflow for developers. Enable this registry setting when releasing the
-            // game for faster load times and obfuscation of material assets.
-            bool shouldFinalize = false;
-
-            if (auto settingsRegistry = AZ::SettingsRegistry::Get(); settingsRegistry != nullptr)
+            bool ResolveMaterialPropertyEnumValue(const MaterialPropertyDescriptor* propertyDescriptor, const AZ::Name& enumName, MaterialPropertyValue& outResolvedValue)
             {
-                settingsRegistry->Get(shouldFinalize, "/O3DE/PhysX/MaterialBuilder/FinalizeMaterialAssets");
-            }
-
-            return shouldFinalize;
-        }
-
-        bool ConvertToExportFormat(
-            [[maybe_unused]] const AZStd::string& exportPath,
-            [[maybe_unused]] const AZ::Name& propertyId,
-            const PhysXMaterialTypeSourceData::PropertyDefinition& propertyDefinition,
-            PhysXMaterialPropertyValue& propertyValue)
-        {
-            if (propertyDefinition.m_dataType == PhysXMaterialPropertyDataType::Enum && propertyValue.Is<uint32_t>())
-            {
-                const uint32_t index = propertyValue.GetValue<uint32_t>();
-                if (index >= propertyDefinition.m_enumValues.size())
+                uint32_t enumValue = propertyDescriptor->GetEnumValue(enumName);
+                if (enumValue == MaterialPropertyDescriptor::InvalidEnumValue)
                 {
-                    AZ_Error("AtomToolsFramework", false, "Invalid value for material enum property: '%s'.", propertyId.GetCStr());
+                    AZ_Error("Material", false, "Enum name \"%s\" can't be found in property \"%s\".", enumName.GetCStr(), propertyDescriptor->GetName().GetCStr());
                     return false;
                 }
-
-                propertyValue = propertyDefinition.m_enumValues[index];
+                outResolvedValue = enumValue;
                 return true;
             }
 
-            return true;
+            AZ::Outcome<MaterialTypeSourceData> LoadMaterialTypeSourceData(const AZStd::string& filePath, const rapidjson::Value* document)
+            {
+                AZ::Outcome<rapidjson::Document, AZStd::string> loadOutcome;
+                if (document == nullptr)
+                {
+                    loadOutcome = AZ::JsonSerializationUtils::ReadJsonFile(filePath, AZ::RPI::JsonUtils::DefaultMaxFileSize);
+                    if (!loadOutcome.IsSuccess())
+                    {
+                        AZ_Error("AZ::RPI::JsonUtils", false, "%s", loadOutcome.GetError().c_str());
+                        return AZ::Failure();
+                    }
+
+                    document = &loadOutcome.GetValue();
+                }
+
+                MaterialTypeSourceData materialType;
+
+                JsonDeserializerSettings settings;
+
+                RPI::JsonReportingHelper reportingHelper;
+                reportingHelper.Attach(settings);
+
+                // This is required by some custom material serializers to support relative path references.
+                RPI::JsonFileLoadContext fileLoadContext;
+                fileLoadContext.PushFilePath(filePath);
+                settings.m_metadata.Add(fileLoadContext);
+
+                JsonSerialization::Load(materialType, *document, settings);
+                materialType.ConvertToNewDataFormat();
+                //materialType.ResolveUvEnums();
+
+                if (reportingHelper.ErrorsReported())
+                {
+                    return AZ::Failure();
+                }
+                else
+                {
+                    return AZ::Success(AZStd::move(materialType));
+                }
+            }
+
+            void CheckForUnrecognizedJsonFields(const AZStd::string_view* acceptedFieldNames, uint32_t acceptedFieldNameCount, const rapidjson::Value& object, JsonDeserializerContext& context, JsonSerializationResult::ResultCode& result)
+            {
+                for (auto iter = object.MemberBegin(); iter != object.MemberEnd(); ++iter)
+                {
+                    bool matched = false;
+
+                    for (uint32_t i = 0; i < acceptedFieldNameCount; ++i)
+                    {
+                        if (iter->name.GetString() == acceptedFieldNames[i])
+                        {
+                            matched = true;
+                            break;
+                        }
+                    }
+
+                    if (!matched)
+                    {
+                        ScopedContextPath subPath{ context, iter->name.GetString() };
+                        result.Combine(context.Report(JsonSerializationResult::Tasks::ReadField, JsonSerializationResult::Outcomes::Skipped, "Skipping unrecognized field"));
+                    }
+                }
+            }
+
+            bool BuildersShouldFinalizeMaterialAssets()
+            {
+                // We default to the faster workflow for developers. Enable this registry setting when releasing the
+                // game for faster load times and obfuscation of material assets.
+                bool shouldFinalize = false;
+
+                if (auto settingsRegistry = AZ::SettingsRegistry::Get(); settingsRegistry != nullptr)
+                {
+                    settingsRegistry->Get(shouldFinalize, "/O3DE/Atom/RPI/MaterialBuilder/FinalizeMaterialAssets");
+                }
+
+                return shouldFinalize;
+            }
+
+            // -------------------------------
+            // From MaterialPropertyUtils.cpp
+            // -------------------------------
+
+            AZ::PhysX::MaterialPropertyValue ConvertToRuntimeType(const AZStd::any& value)
+            {
+                return MaterialPropertyValue::FromAny(value);
+            }
+
+            AZStd::any ConvertToEditableType(const AZ::PhysX::MaterialPropertyValue& value)
+            {
+                /*if (value.Is<AZ::Data::Asset<AZ::RPI::ImageAsset>>())
+                {
+                    const auto& imageAsset = value.GetValue<AZ::Data::Asset<AZ::RPI::ImageAsset>>();
+                    return AZStd::any(AZ::Data::Asset<AZ::RPI::StreamingImageAsset>(imageAsset.GetId(), azrtti_typeid<AZ::RPI::StreamingImageAsset>(), imageAsset.GetHint()));
+                }
+                else if (value.Is<AZ::Data::Instance<AZ::RPI::Image>>())
+                {
+                    const auto& image = value.GetValue<AZ::Data::Instance<AZ::RPI::Image>>();
+                    return AZStd::any(AZ::Data::Asset<AZ::RPI::StreamingImageAsset>(image->GetAssetId(), azrtti_typeid<AZ::RPI::StreamingImageAsset>()));
+                }*/
+
+                return AZ::PhysX::MaterialPropertyValue::ToAny(value);
+            }
+
+            bool ConvertToExportFormat(
+                [[maybe_unused]] const AZStd::string& exportPath,
+                [[maybe_unused]] const AZ::Name& propertyId,
+                const AZ::PhysX::MaterialTypeSourceData::PropertyDefinition& propertyDefinition,
+                AZ::PhysX::MaterialPropertyValue& propertyValue)
+            {
+                if (propertyDefinition.m_dataType == AZ::PhysX::MaterialPropertyDataType::Enum && propertyValue.Is<uint32_t>())
+                {
+                    const uint32_t index = propertyValue.GetValue<uint32_t>();
+                    if (index >= propertyDefinition.m_enumValues.size())
+                    {
+                        AZ_Error("AtomToolsFramework", false, "Invalid value for material enum property: '%s'.", propertyId.GetCStr());
+                        return false;
+                    }
+
+                    propertyValue = propertyDefinition.m_enumValues[index];
+                    return true;
+                }
+
+                // Image asset references must be converted from asset IDs to a relative source file path
+                /*if (propertyDefinition.m_dataType == AZ::PhysX::MaterialPropertyDataType::Image)
+                {
+                    AZStd::string imagePath;
+                    AZ::Data::AssetId imageAssetId;
+
+                    if (propertyValue.Is<AZ::Data::Asset<AZ::RPI::ImageAsset>>())
+                    {
+                        const auto& imageAsset = propertyValue.GetValue<AZ::Data::Asset<AZ::RPI::ImageAsset>>();
+                        imageAssetId = imageAsset.GetId();
+                    }
+
+                    if (propertyValue.Is<AZ::Data::Instance<AZ::RPI::Image>>())
+                    {
+                        const auto& image = propertyValue.GetValue<AZ::Data::Instance<AZ::RPI::Image>>();
+                        if (image)
+                        {
+                            imageAssetId = image->GetAssetId();
+                        }
+                    }
+
+                    imagePath = AZ::RPI::AssetUtils::GetSourcePathByAssetId(imageAssetId);
+
+                    if (imageAssetId.IsValid() && imagePath.empty())
+                    {
+                        AZ_Error("AtomToolsFramework", false, "Image asset could not be found for property: '%s'.", propertyId.GetCStr());
+                        return false;
+                    }
+                    else
+                    {
+                        propertyValue = GetExteralReferencePath(exportPath, imagePath);
+                        return true;
+                    }
+                }*/
+
+                return true;
+            }
         }
     }
 }

@@ -12,7 +12,7 @@
 #include <QDialogButtonBox>
 #include <QVBoxLayout>
 
-namespace PhysX
+namespace PhysXMaterialEditor
 {
     SettingsDialog::SettingsDialog(QWidget* parent)
         : QDialog(parent)
@@ -34,4 +34,6 @@ namespace PhysX
 
         setModal(true);
     }
-} // namespace PhysX
+} // namespace PhysXMaterialEditor
+
+//#include <Editor/Source/MaterialEditor/Window/SettingsDialog/moc_SettingsDialog.cpp>

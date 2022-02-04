@@ -8,14 +8,23 @@
 #pragma once
 
 #include <PhysXMaterial/PhysXMaterial.h>
+#include <PhysXMaterial/PhysXMaterialPropertyDescriptor.h>
 #include <PhysXMaterial/MaterialAsset/PhysXMaterialAsset.h>
 #include <AzCore/Asset/AssetCommon.h>
-#include <AtomCore/Instance/Instance.h>
 
-namespace PhysX
+namespace AZ
 {
-    class PhysXMaterialSourceData;
-    class PhysXMaterialTypeSourceData;
+    namespace PhysX
+    {
+        class MaterialSourceData;
+        class MaterialTypeSourceData;
+    } // namespace PhysX
+} // namespace AZ
+
+namespace PhysXMaterialEditor
+{
+    //! UVs are processed in a property group but will be handled differently.
+    //static constexpr const char UvGroupName[] = "uvSets";
 
     class MaterialDocumentRequests
         : public AZ::EBusTraits
@@ -26,17 +35,17 @@ namespace PhysX
         typedef AZ::Uuid BusIdType;
 
         //! Get material asset created by MaterialDocument
-        virtual AZ::Data::Asset<PhysXMaterialAsset> GetAsset() const = 0;
+        virtual AZ::Data::Asset<AZ::PhysX::MaterialAsset> GetAsset() const = 0;
 
         //! Get material instance created from asset loaded by MaterialDocument
-        virtual AZ::Data::Instance<PhysXMaterial> GetInstance() const = 0;
+        virtual AZ::Data::Instance<AZ::PhysX::Material> GetInstance() const = 0;
 
         //! Get the internal material source data
-        virtual const PhysXMaterialSourceData* GetMaterialSourceData() const = 0;
+        virtual const AZ::PhysX::MaterialSourceData* GetMaterialSourceData() const = 0;
 
         //! Get the internal material type source data
-        virtual const PhysXMaterialTypeSourceData* GetMaterialTypeSourceData() const = 0;
+        virtual const AZ::PhysX::MaterialTypeSourceData* GetMaterialTypeSourceData() const = 0;
     };
 
     using MaterialDocumentRequestBus = AZ::EBus<MaterialDocumentRequests>;
-} // namespace PhysX
+} // namespace PhysXMaterialEditor

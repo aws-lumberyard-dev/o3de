@@ -15,16 +15,16 @@
 #include <AzCore/UserSettings/UserSettings.h>
 #endif
 
-namespace PhysX
+namespace PhysXMaterialEditor
 {
     struct MaterialDocumentSettings
         : public AZ::UserSettings
     {
-        AZ_RTTI(MaterialDocumentSettings, "{CE3EEE6A-233F-452B-A033-7120D5AF2CF2}", AZ::UserSettings);
+        AZ_RTTI(MaterialDocumentSettings, "{444C3BE5-62E6-4C6C-9DDB-167DE86A1EF1}", AZ::UserSettings);
         AZ_CLASS_ALLOCATOR(MaterialDocumentSettings, AZ::SystemAllocator, 0);
 
         static void Reflect(AZ::ReflectContext* context);
 
         AZStd::string m_defaultMaterialTypeName = "PhysX";
     };
-} // namespace PhysX
+} // namespace PhysXMaterialEditor

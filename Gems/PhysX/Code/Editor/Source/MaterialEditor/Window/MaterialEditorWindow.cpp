@@ -7,18 +7,20 @@
  */
 
 //#include <Atom/RHI/Factory.h>
-#include <Editor/Source/PhysXMaterial/PhysXMaterialSourceData.h>
-#include <Editor/Source/PhysXMaterial/PhysXMaterialTypeSourceData.h>
-#include <AtomToolsFramework/Document/AtomToolsDocumentSystemRequestBus.h>
-#include <AtomToolsFramework/Util/Util.h>
+//#include <Atom/RPI.Edit/Material/MaterialSourceData.h>
+//#include <Atom/RPI.Edit/Material/MaterialTypeSourceData.h>
+//#include <AtomToolsFramework/Document/AtomToolsDocumentSystemRequestBus.h>
+//#include <AtomToolsFramework/Util/Util.h>
 #include <AzQtComponents/Components/StyleManager.h>
 #include <AzQtComponents/Components/WindowDecorationWrapper.h>
 #include <Editor/Source/MaterialEditor/Document/MaterialDocumentRequestBus.h>
+//#include <Editor/Source/MaterialEditor/Viewport/MaterialViewportWidget.h>
 #include <Editor/Source/MaterialEditor/Window/CreateMaterialDialog/CreateMaterialDialog.h>
 #include <Editor/Source/MaterialEditor/Window/MaterialEditorWindow.h>
 #include <Editor/Source/MaterialEditor/Window/MaterialEditorWindowSettings.h>
 #include <Editor/Source/MaterialEditor/Window/MaterialInspector/MaterialInspector.h>
 #include <Editor/Source/MaterialEditor/Window/SettingsDialog/MaterialEditorSettingsDialog.h>
+//#include <Editor/Source/MaterialEditor/Window/ViewportSettingsInspector/ViewportSettingsInspector.h>
 
 AZ_PUSH_DISABLE_WARNING(4251 4800, "-Wunknown-warning-option") // disable warnings spawned by QT
 #include <QApplication>
@@ -32,7 +34,7 @@ AZ_PUSH_DISABLE_WARNING(4251 4800, "-Wunknown-warning-option") // disable warnin
 #include <QWindow>
 AZ_POP_DISABLE_WARNING
 
-namespace PhysX
+namespace PhysXMaterialEditor
 {
     MaterialEditorWindow::MaterialEditorWindow(QWidget* parent /* = 0 */)
         : Base(parent)
@@ -65,17 +67,26 @@ namespace PhysX
 
         setObjectName("PhysXMaterialEditorWindow");
 
+        //m_toolBar = new MaterialEditorToolBar(this);
+        //m_toolBar->setObjectName("ToolBar");
+        //addToolBar(m_toolBar);
+
+        //m_materialViewport = new MaterialViewportWidget(centralWidget());
+        //m_materialViewport->setObjectName("Viewport");
+        //m_materialViewport->setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::MinimumExpanding);
+        //centralWidget()->layout()->addWidget(m_materialViewport);
+
         //m_assetBrowser->SetFilterState("", AZ::RPI::StreamingImageAsset::Group, true);
-        m_assetBrowser->SetFilterState("", PhysXMaterialAsset::Group, true);
+        m_assetBrowser->SetFilterState("", AZ::PhysX::MaterialAsset::Group, true);
         m_assetBrowser->SetOpenHandler([](const AZStd::string& absolutePath) {
-            if (AzFramework::StringFunc::Path::IsExtension(absolutePath.c_str(), PhysXMaterialSourceData::Extension))
+            if (AzFramework::StringFunc::Path::IsExtension(absolutePath.c_str(), AZ::PhysX::MaterialSourceData::Extension))
             {
                 AtomToolsFramework::AtomToolsDocumentSystemRequestBus::Broadcast(
                     &AtomToolsFramework::AtomToolsDocumentSystemRequestBus::Events::OpenDocument, absolutePath);
                 return;
             }
 
-            if (AzFramework::StringFunc::Path::IsExtension(absolutePath.c_str(), PhysXMaterialTypeSourceData::Extension))
+            if (AzFramework::StringFunc::Path::IsExtension(absolutePath.c_str(), AZ::PhysX::MaterialTypeSourceData::Extension))
             {
                 return;
             }
@@ -84,6 +95,8 @@ namespace PhysX
         });
 
         AddDockWidget("Inspector", new MaterialInspector, Qt::RightDockWidgetArea, Qt::Vertical);
+        //AddDockWidget("Viewport Settings", new ViewportSettingsInspector, Qt::LeftDockWidgetArea, Qt::Vertical);
+        //SetDockWidgetVisible("Viewport Settings", false);
 
         // Restore geometry and show the window
         mainWindowWrapper->showFromSettings();
@@ -101,16 +114,39 @@ namespace PhysX
         OnDocumentOpened(AZ::Uuid::CreateNull());
     }
 
-    void MaterialEditorWindow::ResizeViewportRenderTarget([[maybe_unused]] uint32_t width, [[maybe_unused]] uint32_t height)
+    void MaterialEditorWindow::ResizeViewportRenderTarget(
+        [[maybe_unused]] uint32_t width, [[maybe_unused]] uint32_t height)
     {
+        /*
+        QSize requestedViewportSize = QSize(width, height) / devicePixelRatioF();
+        QSize currentViewportSize = m_materialViewport->size();
+        QSize offset = requestedViewportSize - currentViewportSize;
+        QSize requestedWindowSize = size() + offset;
+        resize(requestedWindowSize);
+
+        AZ_Assert(
+            m_materialViewport->size() == requestedViewportSize,
+            "Resizing the window did not give the expected viewport size. Requested %d x %d but got %d x %d.",
+            requestedViewportSize.width(), requestedViewportSize.height(), m_materialViewport->size().width(),
+            m_materialViewport->size().height());
+
+        [[maybe_unused]] QSize newDeviceSize = m_materialViewport->size();
+        AZ_Warning(
+            "Material Editor", static_cast<uint32_t>(newDeviceSize.width()) == width && static_cast<uint32_t>(newDeviceSize.height()) == height,
+            "Resizing the window did not give the expected frame size. Requested %d x %d but got %d x %d.", width, height,
+            newDeviceSize.width(), newDeviceSize.height());
+        */
     }
 
-    void MaterialEditorWindow::LockViewportRenderTargetSize([[maybe_unused]] uint32_t width, [[maybe_unused]] uint32_t height)
+    void MaterialEditorWindow::LockViewportRenderTargetSize(
+        [[maybe_unused]] uint32_t width, [[maybe_unused]] uint32_t height)
     {
+        //m_materialViewport->LockRenderTargetSize(width, height);
     }
 
     void MaterialEditorWindow::UnlockViewportRenderTargetSize()
     {
+        //m_materialViewport->UnlockRenderTargetSize();
     }
 
     bool MaterialEditorWindow::GetCreateDocumentParams(AZStd::string& openPath, AZStd::string& savePath)
@@ -131,7 +167,7 @@ namespace PhysX
 
     bool MaterialEditorWindow::GetOpenDocumentParams(AZStd::string& openPath)
     {
-        const AZStd::vector<AZ::Data::AssetType> assetTypes = { azrtti_typeid<PhysXMaterialAsset>() };
+        const AZStd::vector<AZ::Data::AssetType> assetTypes = { azrtti_typeid<AZ::PhysX::MaterialAsset>() };
         openPath = AtomToolsFramework::GetOpenFileInfo(assetTypes).absoluteFilePath().toUtf8().constData();
         return !openPath.empty();
     }
@@ -147,7 +183,13 @@ namespace PhysX
         QMessageBox::information(
             this, windowTitle(),
             R"(<html><head/><body>
-            <p><h3><u>PhysX Material Editor Controls</u></h3></p>
+            <p><h3><u>Material Editor Controls</u></h3></p>
+            <p><b>LMB</b> - pan camera</p>
+            <p><b>RMB</b> or <b>Alt+LMB</b> - orbit camera around target</p>
+            <p><b>MMB</b> or <b>Alt+MMB</b> - move camera on its xy plane</p>
+            <p><b>Alt+RMB</b> or <b>LMB+RMB</b> - dolly camera on its z axis</p>
+            <p><b>Ctrl+LMB</b> - rotate model</p>
+            <p><b>Shift+LMB</b> - rotate environment</p>
             </body></html>)");
     }
 
@@ -167,6 +209,6 @@ namespace PhysX
 
         Base::closeEvent(closeEvent);
     }
-} // namespace PhysX
+} // namespace PhysXMaterialEditor
 
 #include <Editor/Source/MaterialEditor/Window/moc_MaterialEditorWindow.cpp>

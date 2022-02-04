@@ -8,25 +8,31 @@
 
 #pragma once
 
-//#include <Atom/RPI.Edit/Material/MaterialTypeSourceData.h>
+#include <Editor/Source/PhysXMaterial/PhysXMaterialTypeSourceData.h>
 #include <AzCore/Serialization/Json/BaseJsonSerializer.h>
 
-namespace PhysX
+namespace AZ
 {
-    //! The property group itself is rather simple, but we need this custom serializer to provide backward compatibility
-    //! for when the "id" key was changed to "name". If the JSON serialization system is ever updated to provide built-in
-    //! support for versioning, then we can probably remove this class.
-    class JsonPhysXMaterialPropertyGroupSerializer
-        : public AZ::BaseJsonSerializer
+    class ReflectContext;
+
+    namespace PhysX
     {
-    public:
-        AZ_RTTI(JsonPhysXMaterialPropertyGroupSerializer, "{C653D97A-EBEF-4840-9D83-49D4DF7FB32F}", AZ::BaseJsonSerializer);
-        AZ_CLASS_ALLOCATOR_DECL;
+        //! The property group itself is rather simple, but we need this custom serializer to provide backward compatibility
+        //! for when the "id" key was changed to "name". If the JSON serialization system is ever updated to provide built-in
+        //! support for versioning, then we can probably remove this class.
+        class JsonMaterialPropertyGroupSerializer
+            : public BaseJsonSerializer
+        {
+        public:
+            AZ_RTTI(JsonMaterialPropertyGroupSerializer, "{C559A9DB-CD37-4AF6-AE71-C72C1D6D0EA9}", BaseJsonSerializer);
+            AZ_CLASS_ALLOCATOR_DECL;
 
-        AZ::JsonSerializationResult::Result Load(void* outputValue, const AZ::Uuid& outputValueTypeId, const rapidjson::Value& inputValue,
-            AZ::JsonDeserializerContext& context) override;
+            JsonSerializationResult::Result Load(void* outputValue, const Uuid& outputValueTypeId, const rapidjson::Value& inputValue,
+                JsonDeserializerContext& context) override;
 
-        AZ::JsonSerializationResult::Result Store(rapidjson::Value& outputValue, const void* inputValue,
-            const void* defaultValue, const AZ::Uuid& valueTypeId, AZ::JsonSerializerContext& context) override;
-    };
+            JsonSerializationResult::Result Store(rapidjson::Value& outputValue, const void* inputValue,
+                const void* defaultValue, const Uuid& valueTypeId, JsonSerializerContext& context) override;
+        };
+
+    } // namespace PhysX
 } // namespace AZ

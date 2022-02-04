@@ -30,7 +30,7 @@
 #include <QMenu>
 #include <QMessageBox>
 
-namespace PhysX
+namespace PhysXMaterialEditor
 {
     MaterialEditorBrowserInteractions::MaterialEditorBrowserInteractions()
     {
@@ -63,11 +63,11 @@ namespace PhysX
         if (entry->GetEntryType() == AssetBrowserEntry::AssetEntryType::Source)
         {
             const auto source = azalias_cast<const SourceAssetBrowserEntry*>(entry);
-            if (AzFramework::StringFunc::Path::IsExtension(entry->GetFullPath().c_str(), PhysXMaterialSourceData::Extension))
+            if (AzFramework::StringFunc::Path::IsExtension(entry->GetFullPath().c_str(), AZ::PhysX::MaterialSourceData::Extension))
             {
                 AddContextMenuActionsForMaterialSource(caller, menu, source);
             }
-            else if (AzFramework::StringFunc::Path::IsExtension(entry->GetFullPath().c_str(), PhysXMaterialTypeSourceData::Extension))
+            else if (AzFramework::StringFunc::Path::IsExtension(entry->GetFullPath().c_str(), AZ::PhysX::MaterialTypeSourceData::Extension))
             {
                 AddContextMenuActionsForMaterialTypeSource(caller, menu, source);
             }
@@ -82,7 +82,7 @@ namespace PhysX
             AddContextMenuActionsForFolder(caller, menu, folder);
         }
     }
-    
+
     void MaterialEditorBrowserInteractions::AddGenericContextMenuActions([[maybe_unused]] QWidget* caller, QMenu* menu, const AzToolsFramework::AssetBrowser::AssetBrowserEntry* entry)
     {
         menu->addAction(QObject::tr("Copy Name To Clipboard"), [=]()
@@ -104,13 +104,13 @@ namespace PhysX
 
         menu->addSeparator();
 
-        menu->addAction("Create PhysX Material...", [entry]()
+        menu->addAction("Create Material...", [entry]()
             {
                 const QString defaultPath = AtomToolsFramework::GetUniqueFileInfo(
                     QString(AZ::Utils::GetProjectPath().c_str()) +
                     AZ_CORRECT_FILESYSTEM_SEPARATOR + "Assets" +
                     AZ_CORRECT_FILESYSTEM_SEPARATOR + "untitled." +
-                    PhysXMaterialSourceData::Extension).absoluteFilePath();
+                    AZ::PhysX::MaterialSourceData::Extension).absoluteFilePath();
 
                 AtomToolsFramework::AtomToolsDocumentSystemRequestBus::Broadcast(&AtomToolsFramework::AtomToolsDocumentSystemRequestBus::Events::CreateDocumentFromFile,
                     entry->GetFullPath(), AtomToolsFramework::GetSaveFileInfo(defaultPath).absoluteFilePath().toUtf8().constData());
@@ -180,13 +180,13 @@ namespace PhysX
 
         menu->addSeparator();
 
-        menu->addAction("Create PhysX Child Material...", [entry]()
+        menu->addAction("Create Child Material...", [entry]()
             {
                 const QString defaultPath = AtomToolsFramework::GetUniqueFileInfo(
                     QString(AZ::Utils::GetProjectPath().c_str()) +
                     AZ_CORRECT_FILESYSTEM_SEPARATOR + "Assets" +
                     AZ_CORRECT_FILESYSTEM_SEPARATOR + "untitled." +
-                    PhysXMaterialSourceData::Extension).absoluteFilePath();
+                    AZ::PhysX::MaterialSourceData::Extension).absoluteFilePath();
 
                 AtomToolsFramework::AtomToolsDocumentSystemRequestBus::Broadcast(&AtomToolsFramework::AtomToolsDocumentSystemRequestBus::Events::CreateDocumentFromFile,
                     entry->GetFullPath(), AtomToolsFramework::GetSaveFileInfo(defaultPath).absoluteFilePath().toUtf8().constData());
@@ -194,7 +194,7 @@ namespace PhysX
 
         menu->addSeparator();
 
-        QAction* openParentAction = menu->addAction("Open PhysX Parent Material", [entry]()
+        QAction* openParentAction = menu->addAction("Open Parent Material", [entry]()
             {
                 AZ_UNUSED(entry);
                 // ToDo
@@ -245,7 +245,7 @@ namespace PhysX
 
         menu->addSeparator();
 
-        QAction* createMaterialAction = menu->addAction(QObject::tr("Create PhysX Material..."));
+        QAction* createMaterialAction = menu->addAction(QObject::tr("Create Material..."));
         QObject::connect(createMaterialAction, &QAction::triggered, caller, [caller, entry]()
             {
                 CreateMaterialDialog createDialog(entry->GetFullPath().c_str(), caller);
@@ -367,4 +367,4 @@ namespace PhysX
             m_undoCheckOutAction->setEnabled(info.IsManaged() && !info.IsReadOnly());
         }
     }
-} // namespace PhysX
+} // namespace PhysXMaterialEditor

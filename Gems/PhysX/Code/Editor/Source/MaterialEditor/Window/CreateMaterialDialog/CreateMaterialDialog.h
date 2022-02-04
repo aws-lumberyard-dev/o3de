@@ -14,7 +14,7 @@
 
 #include <QFileInfo>
 
-namespace PhysX
+namespace PhysXMaterialEditor
 {
     //! Dialog sets up creation of a new material by prompting to select a source material type and target file
     class CreateMaterialDialog
@@ -37,4 +37,4 @@ namespace PhysX
         void InitMaterialFileSelection();
         void UpdateMaterialTypeSelection();
     };
-} // namespace PhysX
+} // namespace PhysXMaterialEditor

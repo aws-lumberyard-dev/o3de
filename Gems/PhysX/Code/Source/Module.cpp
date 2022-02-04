@@ -65,7 +65,7 @@ namespace PhysX
                 azrtti_typeid<SystemComponent>()
 #if defined(PHYSX_EDITOR)
                 , azrtti_typeid<EditorSystemComponent>()
-                , azrtti_typeid<PhysXMaterialEditorSystemComponent>()
+                , azrtti_typeid<PhysXMaterialEditor::PhysXMaterialEditorSystemComponent>()
 #endif
             };
         }
