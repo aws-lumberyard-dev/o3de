@@ -497,15 +497,16 @@ namespace AZ
 
     IAllocatorWithTracking* CreatePoolAllocatorPimpl(IAllocator& subAllocator)
     {
-        PoolSchemaPimpl* allocatorMemory = reinterpret_cast<PoolSchemaPimpl*>(subAllocator.allocate(sizeof(PoolSchemaPimpl), alignof(PoolSchemaPimpl)));
+        PoolSchemaPimpl* allocatorMemory =
+            reinterpret_cast<PoolSchemaPimpl*>(AZStd::stateless_allocator().allocate(sizeof(PoolSchemaPimpl), alignof(PoolSchemaPimpl)));
         return new (allocatorMemory) PoolSchemaPimpl(&subAllocator);
     }
 
-    void DestroyPoolAllocatorPimpl(IAllocator& subAllocator, IAllocator* allocator)
+    void DestroyPoolAllocatorPimpl([[maybe_unused]] IAllocator& subAllocator, IAllocator* allocator)
     {
         PoolSchemaPimpl* allocatorImpl = azrtti_cast<PoolSchemaPimpl*>(allocator);
         allocatorImpl->~PoolSchemaPimpl();
-        subAllocator.deallocate(allocatorImpl, sizeof(PoolSchemaPimpl));
+        AZStd::stateless_allocator().deallocate(allocatorImpl, sizeof(PoolSchemaPimpl));
     }
 
     struct ThreadPoolData;
@@ -843,6 +844,8 @@ namespace AZ
             }
 
             /// reset the variable for the owner thread.
+            m_threads.clear();
+            m_threads.shrink_to_fit();
             m_threadData = nullptr;
         }
         while (!m_freePages.empty())
@@ -888,15 +891,18 @@ namespace AZ
 
     IAllocatorWithTracking* CreateThreadPoolAllocatorPimpl(IAllocator& subAllocator)
     {
-        ThreadPoolSchemaPimpl* allocatorMemory = reinterpret_cast<ThreadPoolSchemaPimpl*>(subAllocator.allocate(sizeof(ThreadPoolSchemaPimpl), AZStd::alignment_of<ThreadPoolSchemaPimpl>::value));
+        // We use the AZStd::stateless_allocator for the allocation of this object to prevent it from showing up as a leak
+        // in other allocators.
+        ThreadPoolSchemaPimpl* allocatorMemory = reinterpret_cast<ThreadPoolSchemaPimpl*>(
+            AZStd::stateless_allocator().allocate(sizeof(ThreadPoolSchemaPimpl), AZStd::alignment_of<ThreadPoolSchemaPimpl>::value));
         return new (allocatorMemory) ThreadPoolSchemaPimpl(&subAllocator);
     }
 
-    void DestroyThreadPoolAllocatorPimpl(IAllocator& subAllocator, IAllocator* allocator)
+    void DestroyThreadPoolAllocatorPimpl([[maybe_unused]] IAllocator& subAllocator, IAllocator* allocator)
     {
         ThreadPoolSchemaPimpl* allocatorImpl = azrtti_cast<ThreadPoolSchemaPimpl*>(allocator);
         allocatorImpl->~ThreadPoolSchemaPimpl();
-        subAllocator.deallocate(allocatorImpl, sizeof(ThreadPoolSchemaPimpl));
+        AZStd::stateless_allocator().deallocate(allocatorImpl, sizeof(ThreadPoolSchemaPimpl));
     }
 
 } // namespace AZ

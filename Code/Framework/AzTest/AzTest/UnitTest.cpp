@@ -41,8 +41,10 @@ namespace UnitTest
             AZStd::vector<AZ::IAllocator*, AZStd::stateless_allocator> allocators;
             {
                 AZ::AllocatorManager& allocatorManager = AZ::AllocatorManager::Instance();
-                const size_t numAllocators = allocatorManager.GetNumAllocators();
-                for (int i = 0; i < numAllocators; ++i)
+                const int numAllocators = static_cast<int>(allocatorManager.GetNumAllocators());
+                // Iterate in reverse order since some allocators could depend on others to do garbage collection.
+                // If allocatorB depends on allocatorA, allocatorA will be registered before into the allocator manager.
+                for (int i = numAllocators - 1; i >= 0; --i)
                 {
                     AZ::IAllocator* allocator = allocatorManager.GetAllocator(i);
                     allocator->GarbageCollect();
