@@ -268,9 +268,9 @@ namespace AZ
                 AZStd::stateless_allocator().deallocate(this);
             }
 
-            static AZStd::vector<Environment::EnvironmentCallback*, AZ::AllocatorGlobalWrapper<OSAllocator>> &GetEnvironmentCallbacks()
+            static AZStd::vector<Environment::EnvironmentCallback*, AZStd::stateless_allocator> &GetEnvironmentCallbacks()
             {
-                static AZStd::vector<Environment::EnvironmentCallback*, AZ::AllocatorGlobalWrapper<OSAllocator>> s_environmentCallbacks;
+                static AZStd::vector<Environment::EnvironmentCallback*, AZStd::stateless_allocator> s_environmentCallbacks;
                 return s_environmentCallbacks;
             }
 
@@ -412,12 +412,19 @@ namespace AZ
 
         void AddCallback(EnvironmentCallback* callback)
         {
-            Internal::EnvironmentImpl::GetEnvironmentCallbacks().emplace_back(callback);
+            auto& environmentCallbacks = Internal::EnvironmentImpl::GetEnvironmentCallbacks();
+            AZ_Assert(
+                AZStd::find(environmentCallbacks.begin(), environmentCallbacks.end(), callback) == environmentCallbacks.end(),
+                "Environment callback already added");
+            environmentCallbacks.emplace_back(callback);
         }
 
         void RemoveCallback(EnvironmentCallback* callback)
         {
             auto& environmentCallbacks = Internal::EnvironmentImpl::GetEnvironmentCallbacks();
+            AZ_Assert(
+                AZStd::find(environmentCallbacks.begin(), environmentCallbacks.end(), callback) != environmentCallbacks.end(),
+                "Environment callback being removed is not in the list");
             environmentCallbacks.erase(
                 AZStd::remove(environmentCallbacks.begin(), environmentCallbacks.end(), callback), environmentCallbacks.end());
         }

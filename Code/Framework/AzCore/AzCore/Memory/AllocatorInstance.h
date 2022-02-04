@@ -75,6 +75,9 @@ namespace AZ
 
         static void Destroy()
         {
+            // To prevent leaks, we are going to garbage collect on destruction
+            // Once we deprecate this function, we should 
+            Get().GarbageCollect();
         }
         ////////////////////////////////////////////
     };
@@ -156,7 +159,7 @@ namespace AZ::Internal
                 AllocatorType* GetAllocator()
                 {
                     return reinterpret_cast<AllocatorType*>(&m_allocatorStorage);
-            }
+                }
 
         private:
                 using AllocatorStorage = typename AZStd::aligned_storage<sizeof(AllocatorType), alignof(AllocatorType)>::type;
@@ -195,11 +198,12 @@ namespace AZ::Internal
                     currentLifetime.Reset(); // we reset here because we are reusing the allocator from the static case
 
                     AZ::AllocatorManager::Instance().RegisterAllocator(m_cachedEnvironmentAllocator);
+                    // In this case we dont add to the environment because we already did when we created the static version
                 }
                 else
                 {
                     // We currently dont have an allocator, the environment is ready so create it
-                    AZ_Assert(m_cachedStaticAllocator == nullptr, "Didn't expect to have a static allocator")
+                    AZ_Assert(m_cachedStaticAllocator == nullptr, "Didn't expect to have a static allocator");
                     m_allocatorLifetime.Create();
 
                     m_environmentAllocator = AZ::Environment::CreateVariable<AllocatorLifetime>(AZ::AzTypeInfo<AllocatorType>::Name());
@@ -207,6 +211,7 @@ namespace AZ::Internal
                     m_cachedEnvironmentAllocator = m_allocatorLifetime.GetAllocator();
 
                     AZ::AllocatorManager::Instance().RegisterAllocator(m_cachedEnvironmentAllocator);
+                    AZ::Environment::AddCallback(this);
                 }
 
                 // If we reach this point is because we had a static allocator and when the environment became available, we
@@ -240,7 +245,6 @@ namespace AZ::Internal
             AZ_Assert(!m_allocatorLifetime.IsValid(), "Allocator lifetime should be invalid");
             m_allocatorLifetime.Create();
             m_cachedStaticAllocator = m_allocatorLifetime.GetAllocator(); // cache it for the next time
-
             AZ::Environment::AddCallback(this);
 
             return *m_cachedStaticAllocator;
@@ -265,7 +269,6 @@ namespace AZ::Internal
         }
         void WillDetach() override
         {
-            m_cachedEnvironmentAllocator = nullptr;
             if (!m_cachedStaticAllocator)
             {
                 if (m_allocatorLifetime.IsValid())
@@ -277,12 +280,18 @@ namespace AZ::Internal
                     m_cachedStaticAllocator = nullptr;
                 }
             }
+            if (m_cachedEnvironmentAllocator)
+            {
+                AZ::AllocatorManager::Instance().UnRegisterAllocator(m_cachedEnvironmentAllocator);
+                m_cachedEnvironmentAllocator = nullptr;
+                m_environmentAllocator.Reset();
+            }
         }
 
         AllocatorType* m_cachedEnvironmentAllocator; // pointer to the allocator after it was obtained/created in the environment variable
         AllocatorType* m_cachedStaticAllocator; // pointer to the allocator it was created in static memory
 
-        AllocatorLifetime m_allocatorLifetime; // variable that defines the lifetime of the allocator
+        AllocatorLifetime m_allocatorLifetime; // variable that defines the lifetime of the allocator (tied
         AZ::EnvironmentVariable<AllocatorLifetime> m_environmentAllocator; // environment variable that contains the allocator's instance
     };
 }

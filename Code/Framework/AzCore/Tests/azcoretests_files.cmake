@@ -175,7 +175,6 @@ set(FILES
     Memory/AllocatorInstance.cpp
     Memory/AllocatorManager.cpp
     Memory/HphaAllocator.cpp
-    Memory/HphaAllocatorErrorDetection.cpp
     Memory/LeakDetection.cpp
     Memory/OSAllocator.cpp
     AZStd/Algorithms.cpp
@@ -232,5 +231,4 @@ set(FILES
 # Prevent the following files from being grouped in UNITY builds
 set(SKIP_UNITY_BUILD_INCLUSION_FILES
     Memory/HphaAllocator.cpp
-    Memory/HphaAllocatorErrorDetection.cpp
 )

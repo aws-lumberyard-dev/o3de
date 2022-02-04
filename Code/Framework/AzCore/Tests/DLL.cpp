@@ -40,6 +40,8 @@ namespace UnitTest
 
         void LoadModule()
         {
+            AZ::AllocatorInstance<AZ::SystemAllocator>::Get(); // Make sure the SystemAllocator is initialized and not initialized within the module that we are loading/unloading
+
             m_handle = DynamicModuleHandle::Create("AzCoreTestDLL");
             bool isLoaded = m_handle->Load(true);
             ASSERT_TRUE(isLoaded) << "Could not load required test module: " << m_handle->GetFilename().c_str(); // failed to load the DLL, please check the output paths

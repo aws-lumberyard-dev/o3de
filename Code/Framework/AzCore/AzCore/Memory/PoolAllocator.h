@@ -29,6 +29,8 @@ namespace AZ
         , public IAllocatorTrackingRecorder
     {
     public:
+        AZ_RTTI(PoolAllocatorType, "{D3DC61AF-0949-4BFA-87E0-62FA03A4C025}", IAllocator, IAllocatorTrackingRecorder)
+
         PoolAllocatorType()
         {
             m_allocatorPimpl = CreatePoolAllocatorPimpl(AZ::AllocatorInstance<SubAllocatorType>::Get());
@@ -118,9 +120,16 @@ namespace AZ
         IAllocatorWithTracking* m_allocatorPimpl;
     };
 
-    AZ_TYPE_INFO_TEMPLATE(PoolAllocatorType, "{D3DC61AF-0949-4BFA-87E0-62FA03A4C025}", AZ_TYPE_INFO_TYPENAME);
+    class PoolAllocator : public PoolAllocatorType<SystemAllocator>
+    {
+    public:
+        AZ_RTTI(PoolAllocator, "{A53272C9-0869-41AF-A7A8-A46DEDEC9A54}", PoolAllocatorType<SystemAllocator>)
 
-    using PoolAllocator = PoolAllocatorType<SystemAllocator>;
+        PoolAllocator() = default;
+        virtual ~PoolAllocator() = default;
+
+        AZ_DISABLE_COPY_MOVE(PoolAllocator)
+    };
 
     IAllocatorWithTracking* CreateThreadPoolAllocatorPimpl(IAllocator& subAllocator);
     void DestroyThreadPoolAllocatorPimpl(IAllocator& subAllocator, IAllocator* allocator);
@@ -135,7 +144,7 @@ namespace AZ
         , public IAllocatorTrackingRecorder
     {
     public:
-        AZ_TYPE_INFO(ThreadPoolAllocator, "{05B4857F-CD06-4942-99FD-CA6A7BAE855A}")
+        AZ_RTTI(ThreadPoolAllocator, "{05B4857F-CD06-4942-99FD-CA6A7BAE855A}", IAllocator, IAllocatorTrackingRecorder)
 
         ThreadPoolAllocatorType()
         {
@@ -226,7 +235,14 @@ namespace AZ
         IAllocatorWithTracking* m_allocatorPimpl;
     };
 
-    AZ_TYPE_INFO_TEMPLATE(ThreadPoolAllocatorType, "{05B4857F-CD06-4942-99FD-CA6A7BAE855A}", AZ_TYPE_INFO_TYPENAME);
+    class ThreadPoolAllocator : public ThreadPoolAllocatorType<SystemAllocator>
+    {
+    public:
+        AZ_RTTI(ThreadPoolAllocator, "{DF859CAE-9FBD-463B-954B-F9C42C443A05}", ThreadPoolAllocatorType<SystemAllocator>)
 
-    using ThreadPoolAllocator = ThreadPoolAllocatorType<SystemAllocator>;
+        ThreadPoolAllocator() = default;
+        virtual ~ThreadPoolAllocator() = default;
+
+        AZ_DISABLE_COPY_MOVE(ThreadPoolAllocator)
+    };
 }

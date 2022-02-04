@@ -98,7 +98,7 @@ namespace UnitTest
             }
             //////////////////////////////////////////////////////////////////////////
 
-            EXPECT_GE(m_sysAlloc->GetAllocated(), totalAllocSize);
+            EXPECT_GE(m_sysAlloc->GetRequested(), totalAllocSize);
 
             //////////////////////////////////////////////////////////////////////////
             // Deallocate
@@ -123,7 +123,7 @@ namespace UnitTest
                     EXPECT_GE(m_sysAlloc->get_allocated_size(address[i]), 1000); // check allocation size
                 }
 
-                EXPECT_GE(m_sysAlloc->GetAllocated(), 100000); // we requested 100 * 1000 so we should have at least this much allocated
+                EXPECT_GE(m_sysAlloc->GetRequested(), 100000); // we requested 100 * 1000 so we should have at least this much allocated
 
                 for (int i = 0; i < 100; ++i)
                 {
@@ -164,7 +164,7 @@ namespace UnitTest
                 EXPECT_GE(m_sysAlloc->get_allocated_size(address[i]), 1000); // check allocation size
             }
 
-            EXPECT_GE(m_sysAlloc->GetAllocated(), 100000); // we requested 100 * 1000 so we should have at least this much allocated
+            EXPECT_GE(m_sysAlloc->GetRequested(), 100000); // we requested 100 * 1000 so we should have at least this much allocated
 
 // If tracking and recording is enabled, we can verify that the alloc info is valid
 #if defined(AZ_ENABLE_TRACING)
@@ -213,7 +213,7 @@ namespace UnitTest
             }
 
             m_sysAlloc->GarbageCollect();
-            EXPECT_LT(m_sysAlloc->GetAllocated(), 1024);
+            EXPECT_LT(m_sysAlloc->GetRequested(), 1024);
 
             //////////////////////////////////////////////////////////////////////////
             // realloc test
@@ -320,8 +320,6 @@ namespace UnitTest
             // Allocate different pool sizes
             memset(address, 0, AZ_ARRAY_SIZE(address)*sizeof(void*));
 
-            const size_t initialAllocated = m_poolAllocator->GetAllocated();
-
             // try any size from 8 to 256 (which are supported pool sizes)
             int i = 0;
             for (int size = 8; size <= 256; ++i, size += 8)
@@ -331,7 +329,7 @@ namespace UnitTest
                 memset(address[i], 1, size);
             }
 
-            EXPECT_GE(m_poolAllocator->GetAllocated() - initialAllocated, 0);
+            EXPECT_GE(m_poolAllocator->GetRequested(), 0);
             EXPECT_EQ(32, m_poolAllocator->GetAllocationCount());
             
             for (i = 0; address[i] != nullptr; ++i)
@@ -341,7 +339,7 @@ namespace UnitTest
             //////////////////////////////////////////////////////////////////////////
 
             m_poolAllocator->GarbageCollect();
-            EXPECT_EQ(0, m_poolAllocator->GetAllocated() - initialAllocated);
+            EXPECT_EQ(0, m_poolAllocator->GetRequested());
             EXPECT_EQ(0, m_poolAllocator->GetAllocationCount());
             
             //////////////////////////////////////////////////////////////////////////
@@ -354,7 +352,7 @@ namespace UnitTest
                 memset(address[j], 1, 256);
             }
 
-            EXPECT_GE(m_poolAllocator->GetAllocated() - initialAllocated, AZ_ARRAY_SIZE(address) * 256);
+            EXPECT_GE(m_poolAllocator->GetRequested(), AZ_ARRAY_SIZE(address) * 256);
             EXPECT_EQ(AZ_ARRAY_SIZE(address), m_poolAllocator->GetAllocationCount());
  
             for (unsigned int j = 0; j < AZ_ARRAY_SIZE(address); ++j)
@@ -364,7 +362,7 @@ namespace UnitTest
             //////////////////////////////////////////////////////////////////////////
 
             m_poolAllocator->GarbageCollect();
-            EXPECT_EQ(0, m_poolAllocator->GetAllocated() - initialAllocated);
+            EXPECT_EQ(0, m_poolAllocator->GetRequested());
             EXPECT_EQ(0, m_poolAllocator->GetAllocationCount());
         }
     };
@@ -548,7 +546,7 @@ namespace UnitTest
             // 64 should be the max number of different pool sizes we can allocate.
             void* address[64];
 
-            const size_t initialAllocated = m_poolAllocator->GetAllocated();
+            m_poolAllocator->GarbageCollect();
 
             //////////////////////////////////////////////////////////////////////////
             // Allocate different pool sizes
@@ -563,7 +561,7 @@ namespace UnitTest
                 memset(address[j], 1, size);
             }
 
-            EXPECT_GE(m_poolAllocator->GetAllocated() - initialAllocated, 4126);
+            EXPECT_GE(m_poolAllocator->GetRequested(), 4126);
             EXPECT_EQ(32, m_poolAllocator->GetAllocationCount());
 
             for (int i = 0; address[i] != nullptr; ++i)
@@ -573,7 +571,7 @@ namespace UnitTest
             //////////////////////////////////////////////////////////////////////////
 
             m_poolAllocator->GarbageCollect();
-            EXPECT_EQ(0, m_poolAllocator->GetAllocated() - initialAllocated);
+            EXPECT_EQ(0, m_poolAllocator->GetRequested());
             EXPECT_EQ(0, m_poolAllocator->GetAllocationCount());
             
             //////////////////////////////////////////////////////////////////////////
@@ -586,7 +584,7 @@ namespace UnitTest
                 memset(address[i], 1, 256);
             }
 
-            EXPECT_GE(m_poolAllocator->GetAllocated() - initialAllocated, AZ_ARRAY_SIZE(address) * 256);
+            EXPECT_GE(m_poolAllocator->GetRequested(), AZ_ARRAY_SIZE(address) * 256);
             EXPECT_EQ(AZ_ARRAY_SIZE(address), m_poolAllocator->GetAllocationCount());
 
             for (unsigned int i = 0; i < AZ_ARRAY_SIZE(address); ++i)
@@ -596,7 +594,7 @@ namespace UnitTest
             //////////////////////////////////////////////////////////////////////////
 
             m_poolAllocator->GarbageCollect();
-            EXPECT_EQ(0, m_poolAllocator->GetAllocated() - initialAllocated);
+            EXPECT_EQ(0, m_poolAllocator->GetRequested());
             EXPECT_EQ(0, m_poolAllocator->GetAllocationCount());
 
             //////////////////////////////////////////////////////////////////////////

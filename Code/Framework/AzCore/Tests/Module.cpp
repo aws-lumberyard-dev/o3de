@@ -125,8 +125,8 @@ namespace UnitTest
     TEST(ModuleManager, Test)
 #endif // AZ_TRAIT_DISABLE_FAILED_MODULE_TESTS
     {
-        AZ::AllocatorInstance<AZ::SystemAllocator>::Get(); // Make sure the system allocator is created in this module
-
+        AZ::AllocatorInstance<AZ::SystemAllocator>::Get(); // Make sure the SystemAllocator is initialized and not initialized within the
+                                                           // module that we are loading/unloading
         {
             ComponentApplication app;
 
@@ -232,6 +232,8 @@ namespace UnitTest
     TEST(ModuleManager, SequentialLoadTest)
 #endif
     {
+        AZ::AllocatorInstance<AZ::SystemAllocator>::Get(); // Make sure the SystemAllocator is initialized and not initialized within the
+                                                           // module that we are loading/unloading
         {
             ComponentApplication app;
 
@@ -353,6 +355,9 @@ namespace UnitTest
 
     TEST(ModuleManager, OwnerInitializesAndDeinitializesTest)
     {
+        AZ::AllocatorInstance<AZ::SystemAllocator>::Get(); // Make sure the SystemAllocator is initialized and not initialized within the
+                                                           // module that we are loading/unloading
+
         // in this test, we make sure that a module is always initialized even if the operating
         // system previously loaded it (due to static linkage or other reason)
         // and that when it is initialized in this manner, it is also deinitialized when the owner
