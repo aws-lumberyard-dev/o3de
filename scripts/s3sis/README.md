@@ -1,0 +1,2 @@
+# S3 Single Instance Storage (S3SIS)
+S3 Single Instance Storage (S3SIS) is a platform independent multi-threading tool to share files on S3. It maintains a single shared object of each file to eliminate duplicate copies of files and increase file transfer efficiency. It works as a S3 diff uploader and downloader, only differences between local files and S3 files are transferred when uploading or downloading.

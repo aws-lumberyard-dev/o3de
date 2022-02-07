@@ -484,12 +484,12 @@ def PostBuildCommonSteps(String workspace, Map params, boolean mount = true) {
             palMkdir("Testing/Gtest")
         }
     }
-    
+    palSh(command, "Uploading test screenshots for ${jobName}")
     if (mount) {
         def pythonCmd = ''
         if(env.IS_UNIX) pythonCmd = 'sudo -E python3 -u '
         else pythonCmd = 'python3 -u '
-
+        palSh("${pythonCmd} scripts/s3sis/s3sis.py upload --label test", 'S3SIS upload')
         try {
             timeout(5) {
                 palSh("${pythonCmd} ${INCREMENTAL_BUILD_SCRIPT_PATH} --action unmount", 'Unmounting volume')
