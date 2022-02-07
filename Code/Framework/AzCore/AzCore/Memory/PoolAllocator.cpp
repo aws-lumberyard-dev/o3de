@@ -53,8 +53,7 @@ namespace AZ
         {
         }
 
-        // if isForceFreeAllPages is true we will free all pages even if they have allocations in them.
-        void GarbageCollect(bool isForceFreeAllPages = false);
+        void GarbageCollect();
 
         Allocator* m_allocator;
         size_t m_pageSize;
@@ -105,9 +104,18 @@ namespace AZ
     template<class Allocator>
     PoolAllocation<Allocator>::~PoolAllocation()
     {
-        GarbageCollect(true);
-
-        m_allocator->DeAllocateBuckets(m_buckets, m_numBuckets);
+#if defined(AZ_ENABLE_TRACING)
+        // Check all pages in buckets are empty
+        if (m_buckets)
+        {
+            for (unsigned int i = 0; i < (unsigned int)m_numBuckets; ++i)
+            {
+                typename BucketType::PageListType& pages = m_buckets[i].m_pages;
+                AZ_Assert(pages.empty(), "Found page for bucket %i", i);
+            }
+        }
+#endif
+        GarbageCollect();
     }
 
     template<class Allocator>
@@ -128,6 +136,10 @@ namespace AZ
             return nullptr;
         }
 
+        if (!m_buckets)
+        {
+            m_buckets = m_allocator->AllocateBuckets(m_numBuckets);
+        }
         u32 bucketIndex = static_cast<u32>((byteSize >> m_minAllocationShift) - 1);
         BucketType& bucket = m_buckets[bucketIndex];
         PageType* page = nullptr;
@@ -201,6 +213,7 @@ namespace AZ
         typename PageType::FakeNode* node = new (ptr) typename PageType::FakeNode();
         page->m_freeList.push_front(*node);
 
+        AZ_Assert(m_buckets, "Expected to have buckets during deallocations, we should not have removed the buckets if we have allocations left");
         if (numFreeNodes == 0)
         {
             // if the page was full before sort at the front
@@ -253,25 +266,25 @@ namespace AZ
     }
 
     template<class Allocator>
-    void PoolAllocation<Allocator>::GarbageCollect(bool isForceFreeAllPages)
+    void PoolAllocation<Allocator>::GarbageCollect()
     {
-        // Free empty pages in the buckets (or better be empty)
-        for (unsigned int i = 0; i < (unsigned int)m_numBuckets; ++i)
+        if (m_buckets)
         {
-            // (pageSize - info struct at the end) / (element size)
-            size_t maxElementsPerBucket = (m_pageSize - sizeof(PageType)) / ((i + 1) << m_minAllocationShift);
-
-            typename BucketType::PageListType& pages = m_buckets[i].m_pages;
-            while (!pages.empty())
+            bool canDeallocateBuckets = true;
+            for (size_t i = 0; i < m_numBuckets; ++i)
             {
-                PageType& page = pages.front();
-                pages.pop_front();
-                if (page.m_freeList.size() == maxElementsPerBucket || isForceFreeAllPages)
+                if (!m_buckets[i].m_pages.empty())
                 {
-                    m_allocator->FreePage(&page);
+                    canDeallocateBuckets = false;
+                    break;
                 }
             }
-        }
+            if (canDeallocateBuckets)
+            {
+                m_allocator->DeAllocateBuckets(m_buckets, m_numBuckets);
+                m_buckets = nullptr;
+            }
+        }        
     }
 
     /**
@@ -410,9 +423,6 @@ namespace AZ
 
     PoolSchemaPimpl::~PoolSchemaPimpl()
     {
-        // Force free all pages
-        m_allocator.GarbageCollect(true);
-
         // Free all unused memory
         GarbageCollect();
     }
@@ -468,17 +478,13 @@ namespace AZ
 
     void PoolSchemaPimpl::GarbageCollect()
     {
-        // if( m_ownerThread == AZStd::this_thread::get_id() )
+        while (!m_freePages.empty())
         {
-            m_allocator.GarbageCollect();
-
-            while (!m_freePages.empty())
-            {
-                Page* page = &m_freePages.front();
-                m_freePages.pop_front();
-                FreePage(page);
-            }
+            Page* page = &m_freePages.front();
+            m_freePages.pop_front();
+            FreePage(page);
         }
+        m_allocator.GarbageCollect();
     }
 
     AZ_FORCE_INLINE void PoolSchemaPimpl::Page::SetupFreeList(size_t elementSize, size_t pageDataBlockSize)
@@ -704,6 +710,33 @@ namespace AZ
     ThreadPoolSchemaPimpl::~ThreadPoolSchemaPimpl()
     {
         GarbageCollect();
+
+        AZStd::lock_guard<AZStd::recursive_mutex> lock(m_mutex);
+        // clean up all the thread data.
+        // IMPORTANT: We assume/rely that all threads (except the calling one) are or will
+        // destroyed before you create another instance of the pool allocation.
+        // This should generally be ok since the all allocators are singletons.
+        if (!m_threads.empty())
+        {
+            for (size_t i = 0; i < m_threads.size(); ++i)
+            {
+                if (m_threads[i])
+                {
+                    // Force free all pages
+                    ThreadPoolData* threadData = m_threads[i];
+                    threadData->~ThreadPoolData();
+                    RemoveAllocated(sizeof(ThreadPoolData));
+                    m_pageAllocator->deallocate(
+                        threadData, sizeof(ThreadPoolData), static_cast<align_type>(AZStd::alignment_of<ThreadPoolData>::value));
+                    m_threads[i] = nullptr;
+                }
+            }
+
+            /// reset the variable for the owner thread.
+            m_threads.clear();
+            m_threads.shrink_to_fit();
+            m_threadData = nullptr;
+        }
     }
 
     ThreadPoolSchemaPimpl::pointer ThreadPoolSchemaPimpl::allocate(size_type byteSize, align_type alignment)
@@ -824,36 +857,48 @@ namespace AZ
     void ThreadPoolSchemaPimpl::GarbageCollect()
     {
         AZStd::lock_guard<AZStd::recursive_mutex> lock(m_mutex);
-        // clean up all the thread data.
-        // IMPORTANT: We assume/rely that all threads (except the calling one) are or will
-        // destroyed before you create another instance of the pool allocation.
-        // This should generally be ok since the all allocators are singletons.
-        if (!m_threads.empty())
-        {
-            for (size_t i = 0; i < m_threads.size(); ++i)
-            {
-                if (m_threads[i])
-                {
-                    // Force free all pages
-                    ThreadPoolData* threadData = m_threads[i];
-                    threadData->~ThreadPoolData();
-                    RemoveAllocated(sizeof(ThreadPoolData));
-                    m_pageAllocator->deallocate(threadData, sizeof(ThreadPoolData), static_cast<align_type>(AZStd::alignment_of<ThreadPoolData>::value));
-                    m_threads[i] = nullptr;
-                }
-            }
-
-            /// reset the variable for the owner thread.
-            m_threads.clear();
-            m_threads.shrink_to_fit();
-            m_threadData = nullptr;
-        }
         while (!m_freePages.empty())
         {
             Page* page = &m_freePages.front();
             m_freePages.pop_front();
             FreePage(page);
         }
+        auto itThreads = m_threads.begin();
+        while (itThreads != m_threads.end())
+        {
+            if (*itThreads)
+            {
+                ThreadPoolData* threadData = *itThreads;
+                ThreadPoolSchemaPimpl::Page::FakeNodeLF* fakeLFNode;
+                while ((fakeLFNode = threadData->m_freedElements.pop()) != nullptr)
+                {
+                    threadData->m_allocator.deallocate(fakeLFNode, 0);
+                }
+                threadData->m_allocator.GarbageCollect();
+                if (!threadData->m_allocator.m_buckets)
+                {
+                    threadData->~ThreadPoolData();
+                    RemoveAllocated(sizeof(ThreadPoolData));
+                    m_pageAllocator->deallocate(
+                        threadData, sizeof(ThreadPoolData), static_cast<align_type>(AZStd::alignment_of<ThreadPoolData>::value));
+                    *itThreads = nullptr;
+                    if (m_threadData == threadData)
+                    {
+                        m_threadData = nullptr;
+                    }
+                    itThreads = m_threads.erase(itThreads);
+                }
+                else
+                {
+                    ++itThreads;
+                }
+            }
+            else
+            {
+                itThreads = m_threads.erase(itThreads);
+            }
+        }
+        m_threads.shrink_to_fit();
     }
 
     inline void ThreadPoolSchemaPimpl::Page::SetupFreeList(size_t elementSize, size_t pageDataBlockSize)
@@ -881,12 +926,7 @@ namespace AZ
     //=========================================================================
     ThreadPoolData::~ThreadPoolData()
     {
-        // deallocate elements if they were freed from other threads
-        ThreadPoolSchemaPimpl::Page::FakeNodeLF* fakeLFNode;
-        while ((fakeLFNode = m_freedElements.pop()) != nullptr)
-        {
-            m_allocator.deallocate(fakeLFNode, 0);
-        }
+        AZ_Assert(m_freedElements.empty(), "Expected to have no freed elements at this point");
     }
 
     IAllocatorWithTracking* CreateThreadPoolAllocatorPimpl(IAllocator& subAllocator)

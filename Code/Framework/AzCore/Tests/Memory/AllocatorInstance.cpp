@@ -60,5 +60,7 @@ namespace UnitTest
         AZ::Environment::Destroy(); // Destroy the environment, the allocators should still be available
 
         EXPECT_TRUE(allocatorStatic1.m_hasAllocations); // Still valid after environment is destroyed (will be in static memory)
+
+        AZ::Environment::Create(); // restore it for other tests
     }
 }
