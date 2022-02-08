@@ -484,7 +484,6 @@ def PostBuildCommonSteps(String workspace, Map params, boolean mount = true) {
             palMkdir("Testing/Gtest")
         }
     }
-    palSh(command, "Uploading test screenshots for ${jobName}")
     if (mount) {
         def pythonCmd = ''
         if(env.IS_UNIX) pythonCmd = 'sudo -E python3 -u '
