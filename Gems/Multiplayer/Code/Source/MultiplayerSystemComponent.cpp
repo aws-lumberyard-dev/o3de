@@ -309,6 +309,25 @@ namespace Multiplayer
 
     void MultiplayerSystemComponent::OnCreateSessionEnd()
     {
+        // Check if session manager has a certificate for us and pass it along if so
+        if (AZ::Interface<ISessionHandlingProviderRequests>::Get() != nullptr)
+        {
+            AZ::CVarFixedString externalCertPath =
+                AZ::CVarFixedString(AZ::Interface<ISessionHandlingProviderRequests>::Get()->GetExternalSessionCertificate().c_str());
+            if (!externalCertPath.empty())
+            {
+                AZ::CVarFixedString commandString = "net_SslExternalCertificateFile " + externalCertPath;
+                AZ::Interface<AZ::IConsole>::Get()->PerformCommand(commandString.c_str());
+            }
+
+            AZ::CVarFixedString internalCertPath =
+                AZ::CVarFixedString(AZ::Interface<ISessionHandlingProviderRequests>::Get()->GetInternalSessionCertificate().c_str());
+            if (!internalCertPath.empty())
+            {
+                AZ::CVarFixedString commandString = "net_SslInternalCertificateFile " + internalCertPath;
+                AZ::Interface<AZ::IConsole>::Get()->PerformCommand(commandString.c_str());
+            }
+        }
     }
 
     bool MultiplayerSystemComponent::OnDestroySessionBegin()

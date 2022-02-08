@@ -406,8 +406,16 @@ namespace AWSGameLift
 
     AZ::IO::Path AWSGameLiftServerManager::GetExternalSessionCertificate()
     {
-        // TODO: Add support to get TLS cert file path
-        return AZ::IO::Path();
+        auto certificateOutcome = m_gameLiftServerSDKWrapper->GetInstanceCertificate();
+        if (certificateOutcome.IsSuccess())
+        {
+            return AZ::IO::Path(certificateOutcome.GetResult().GetCertificatePath().c_str());
+        }
+        else
+        {
+            AZ_Warning(AWSGameLiftServerManagerName, false, "Failed to fetch server cert file.");
+            return AZ::IO::Path();
+        }
     }
 
     AZ::IO::Path AWSGameLiftServerManager::GetInternalSessionCertificate()

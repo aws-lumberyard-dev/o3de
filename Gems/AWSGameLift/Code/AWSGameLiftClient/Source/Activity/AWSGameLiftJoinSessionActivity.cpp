@@ -44,14 +44,24 @@ namespace AWSGameLift
         {
             Multiplayer::SessionConnectionConfig sessionConnectionConfig;
             auto createPlayerSessionResult = createPlayerSessionOutcome.GetResult();
-            // TODO: AWSNativeSDK needs to be updated to support this attribute, and it is a must have for TLS certificate enabled fleet
-            //sessionConnectionConfig.m_dnsName = createPlayerSessionResult.GetPlayerSession().GetDnsName().c_str();
-            sessionConnectionConfig.m_ipAddress = createPlayerSessionResult.GetPlayerSession().GetIpAddress().c_str();
+            AZStd::string_view dnsName = createPlayerSessionResult.GetPlayerSession().GetDnsName().c_str();
+            AZStd::string_view ipAddress = createPlayerSessionResult.GetPlayerSession().GetIpAddress().c_str();
+            AZ_TracePrintf(AWSGameLiftJoinSessionActivityName,
+                "Original request with DnsName = %s and IpAddress=%s", dnsName, ipAddress);
+            if (dnsName.ends_with(".amazongamelift.com"))
+            {
+                sessionConnectionConfig.m_dnsName = dnsName;
+            }
+            else
+            {
+                sessionConnectionConfig.m_ipAddress = createPlayerSessionResult.GetPlayerSession().GetIpAddress().c_str();
+            }
             sessionConnectionConfig.m_playerSessionId = createPlayerSessionResult.GetPlayerSession().GetPlayerSessionId().c_str();
             sessionConnectionConfig.m_port = static_cast<uint16_t>(createPlayerSessionResult.GetPlayerSession().GetPort());
 
             AZ_TracePrintf(AWSGameLiftJoinSessionActivityName,
-                "Built SessionConnectionConfig with IpAddress=%s, PlayerSessionId=%s and Port=%d",
+                "Built SessionConnectionConfig with DnsName = %s, IpAddress=%s, PlayerSessionId=%s and Port=%d",
+                sessionConnectionConfig.m_dnsName.c_str(),
                 sessionConnectionConfig.m_ipAddress.c_str(),
                 sessionConnectionConfig.m_playerSessionId.c_str(),
                 sessionConnectionConfig.m_port);
