@@ -16,6 +16,7 @@
 namespace AZ
 {
     class JsonDeserializerContext;
+    class ReflectContext;
 
     namespace JsonSerializationResult
     {
@@ -35,6 +36,8 @@ namespace AZ
                 Found,             //! The requested asset was found
                 Missing            //! The requested asset was not found, and a placeholder asset was used instead
             };
+
+            void Reflect(AZ::ReflectContext* context);
 
             //! Finds an ImageAsset referenced by a material file (or a placeholder)
             //! @param imageAsset the resulting ImageAsset
@@ -68,6 +71,9 @@ namespace AZ
             void CheckForUnrecognizedJsonFields(
                 const AZStd::string_view* acceptedFieldNames, uint32_t acceptedFieldNameCount,
                 const rapidjson::Value& object, JsonDeserializerContext& context, JsonSerializationResult::ResultCode& result);
+
+            //! Loads and then saves a .material file, making any necessary format changes along the way.
+            bool UpgradeMaterialFile(const AZStd::string& filePath);
 
             //! Materials assets can either be finalized during asset-processing time or when materials are loaded at runtime.
             //! Finalizing during asset processing reduces load times and obfuscates the material data.

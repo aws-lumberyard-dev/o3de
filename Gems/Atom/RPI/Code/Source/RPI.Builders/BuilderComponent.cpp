@@ -15,6 +15,7 @@
 #include <Atom/RPI.Edit/Material/MaterialSourceData.h>
 #include <Atom/RPI.Edit/Material/MaterialPropertyValueSourceData.h>
 #include <Atom/RPI.Edit/Material/LuaMaterialFunctorSourceData.h>
+#include <Atom/RPI.Edit/Material/MaterialUtils.h>
 #include <Atom/RPI.Edit/Shader/ShaderSourceData.h>
 #include <Atom/RPI.Edit/Shader/ShaderVariantListSourceData.h>
 #include <Atom/RPI.Edit/Common/AssetAliasesSourceData.h>
@@ -62,6 +63,8 @@ namespace AZ
             AssetAliasesSourceData::Reflect(context);
             ShaderSourceData::Reflect(context);
             ShaderVariantListSourceData::Reflect(context);
+
+            MaterialUtils::Reflect(context);
         }
 
         BuilderComponent::BuilderComponent()

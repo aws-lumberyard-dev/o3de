@@ -30,6 +30,17 @@ namespace AZ
     {
         namespace MaterialUtils
         {
+            void Reflect(AZ::ReflectContext* context)
+            {
+                if (auto behaviorContext = azrtti_cast<AZ::BehaviorContext*>(context))
+                {
+                    behaviorContext->Method("UpgradeMaterialFile", &UpgradeMaterialFile)
+                        ->Attribute(AZ::Script::Attributes::Scope, AZ::Script::Attributes::ScopeFlags::Common)
+                        ->Attribute(AZ::Script::Attributes::Category, "Editor")
+                        ->Attribute(AZ::Script::Attributes::Module, "atomtools.materialutils");
+                }
+            }
+
             GetImageAssetResult GetImageAssetReference(Data::Asset<ImageAsset>& imageAsset, AZStd::string_view materialSourceFilePath, const AZStd::string imageFilePath)
             {
                 imageAsset = {};
@@ -178,7 +189,23 @@ namespace AZ
                     }
                 }
             }
-            
+
+            bool UpgradeMaterialFile(const AZStd::string& filePath)
+            {
+                Outcome<MaterialSourceData> material = LoadMaterialSourceData(filePath);
+                if (!material)
+                {
+                    return false;
+                }
+
+                if (AZ::RPI::JsonUtils::SaveObjectToFile(filePath, material.TakeValue()))
+                {
+                    return true;
+                }
+
+                return true;
+            }
+
             bool BuildersShouldFinalizeMaterialAssets()
             {
                 // We default to the faster workflow for developers. Enable this registry setting when releasing the

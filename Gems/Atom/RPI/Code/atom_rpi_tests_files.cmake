@@ -40,6 +40,7 @@ set(FILES
     Tests/Material/MaterialPropertyIdTests.cpp
     Tests/Material/MaterialPropertyValueSourceDataTests.cpp
     Tests/Material/MaterialTests.cpp
+    Tests/Material/MaterialUtilsTests.cpp
     Tests/Model/ModelTests.cpp
     Tests/Pass/PassTests.cpp
     Tests/Shader/ShaderTests.cpp

@@ -62,6 +62,9 @@ namespace AtomToolsFramework
         QMenu* m_menuView = {};
         QMenu* m_menuHelp = {};
 
+        QAction* m_runLastScriptAction = nullptr;
+        AZStd::string m_lastPythonScript;
+
         AtomToolsFramework::AtomToolsAssetBrowser* m_assetBrowser = {};
 
         AZStd::unordered_map<AZStd::string, AzQtComponents::StyledDockWidget*> m_dockWidgets;

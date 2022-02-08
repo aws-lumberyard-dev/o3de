@@ -16,6 +16,7 @@
 #include <QMenuBar>
 #include <QStatusBar>
 #include <QVBoxLayout>
+#include <QMessageBox>
 
 namespace AtomToolsFramework
 {
@@ -159,13 +160,29 @@ namespace AtomToolsFramework
         m_menuView = menuBar()->addMenu("&View");
         m_menuHelp = menuBar()->addMenu("&Help");
 
-        m_menuFile->addAction("Run &Python...", [this]() {
+        m_menuFile->addAction("Run &Python Script...", [this]() {
             const QString script = QFileDialog::getOpenFileName(this, "Run Script", QString(), QString("*.py"));
             if (!script.isEmpty())
             {
                 AzToolsFramework::EditorPythonRunnerRequestBus::Broadcast(&AzToolsFramework::EditorPythonRunnerRequestBus::Events::ExecuteByFilename, script.toUtf8().constData());
+                
+                m_lastPythonScript = script.toUtf8().constData();
+                m_runLastScriptAction->setEnabled(true);
             }
         });
+        
+        m_runLastScriptAction = m_menuFile->addAction("Re-run last &Python Script", [this]() {
+            if (!m_lastPythonScript.empty())
+            {
+                int confirm = QMessageBox::question(this, "Re-run Python Script",
+                    AZStd::string::format("Re-run '%s'?", m_lastPythonScript.c_str()).c_str(), QMessageBox::Yes, QMessageBox::No);
+                if (confirm == QMessageBox::Yes)
+                {
+                    AzToolsFramework::EditorPythonRunnerRequestBus::Broadcast(&AzToolsFramework::EditorPythonRunnerRequestBus::Events::ExecuteByFilename, m_lastPythonScript.c_str());
+                }
+            }
+        });
+        m_runLastScriptAction->setEnabled(!m_lastPythonScript.empty());
 
         m_menuFile->addSeparator();
 
