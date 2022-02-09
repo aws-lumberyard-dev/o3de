@@ -109,7 +109,7 @@ class Manifest:
         file_info = FileInfo(relpath, str(self.workspace))
         return file_info.info()
 
-    def file_info_list(self) -> list[FileInfo]:
+    def file_info_list(self) -> list:
         """
         Generate a list of FileInfo object stored in manifest file.
         :return: A list of FileInfo object stored in manifest file.
