@@ -73,7 +73,7 @@ class S3Client:
             warn(f'Failed to upload file {filename}')
             raise e
 
-    def upload_multi_files(self, files_to_upload: list[FileInfo], extra_args: dict = None) -> None:
+    def upload_multi_files(self, files_to_upload: list, extra_args: dict = None) -> None:
         """
         Upload multiple files to S3.
         :param files_to_upload: A list of FileInfo object that stores the info of files to upload
@@ -105,7 +105,7 @@ class S3Client:
             warn(f'Failed to download file {filename}')
             raise e
 
-    def download_multi_files(self, files_to_download: list[FileInfo], extra_args: dict = None) -> None:
+    def download_multi_files(self, files_to_download: list, extra_args: dict = None) -> None:
         """
         Download multiple files from S3.
         :param files_to_download: A list of FileInfo object that stores the info of files to download
