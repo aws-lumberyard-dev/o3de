@@ -104,6 +104,12 @@ namespace AZ::Internal
             , m_cachedStaticAllocator(nullptr)
             , m_allocatorLifetime()
         {
+            // This type is used to initialize a static variable, which ensures that the destruction order of
+            // allocators is the reverse of the construction order. If an allocator uses another allocator, the
+            // construction of the sub-allocator must finish completely before the construction of the parent allocator
+            // is finished, so that the destruction order is maintained. To ensure this, the AllocatorType must be
+            // instantiated, which happens in InternalGet().
+            InternalGet();
         }
 
         virtual ~AllocatorInstanceStaticMembers() = default;
