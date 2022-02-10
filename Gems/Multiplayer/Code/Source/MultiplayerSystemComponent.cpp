@@ -39,9 +39,6 @@
 #include <AzNetworking/Framework/INetworking.h>
 
 #include <cmath>
-#include <AzCore/Debug/Profiler.h>
-
-AZ_DEFINE_BUDGET(MULTIPLAYER);
 
 namespace AZ::ConsoleTypeHelpers
 {
@@ -352,8 +349,6 @@ namespace Multiplayer
 
     void MultiplayerSystemComponent::OnTick(float deltaTime, [[maybe_unused]] AZ::ScriptTimePoint time)
     {
-        AZ_PROFILE_SCOPE(MULTIPLAYER, "MultiplayerTick");
-
         if (bg_multiplayerDebugDraw)
         {
             m_networkEntityManager.DebugDraw();
@@ -380,12 +375,9 @@ namespace Multiplayer
         // Handle deferred local rpc messages that were generated during the updates
         m_networkEntityManager.DispatchLocalDeferredRpcMessages();
 
-        {
-            AZ_PROFILE_SCOPE(MULTIPLAYER, "ClearRewoundEntities");
-            // INetworking ticks immediately before IMultiplayer, so all our pending RPC's and network property updates have now been processed
-            // Restore any entities that were rewound during input processing so that normal gameplay updates have the correct state
-            Multiplayer::GetNetworkTime()->ClearRewoundEntities();
-        }
+        // INetworking ticks immediately before IMultiplayer, so all our pending RPC's and network property updates have now been processed
+        // Restore any entities that were rewound during input processing so that normal gameplay updates have the correct state
+        Multiplayer::GetNetworkTime()->ClearRewoundEntities();
 
         // Let the network system know the frame is done and we can collect dirty bits
         m_networkEntityManager.NotifyEntitiesChanged();
@@ -398,27 +390,24 @@ namespace Multiplayer
         stats.m_clientConnectionCount = 0;
 
         // Send out the game state update to all connections
+        auto sendNetworkUpdates = [&stats](IConnection& connection)
         {
-            AZ_PROFILE_SCOPE(MULTIPLAYER, "SendOutGameStateToAllConnections");
-            auto sendNetworkUpdates = [&stats](IConnection& connection)
+            if (connection.GetUserData() != nullptr)
             {
-                if (connection.GetUserData() != nullptr)
+                IConnectionData* connectionData = reinterpret_cast<IConnectionData*>(connection.GetUserData());
+                connectionData->Update();
+                if (connectionData->GetConnectionDataType() == ConnectionDataType::ServerToClient)
                 {
-                    IConnectionData* connectionData = reinterpret_cast<IConnectionData*>(connection.GetUserData());
-                    connectionData->Update();
-                    if (connectionData->GetConnectionDataType() == ConnectionDataType::ServerToClient)
-                    {
-                        stats.m_clientConnectionCount++;
-                    }
-                    else
-                    {
-                        stats.m_serverConnectionCount++;
-                    }
+                    stats.m_clientConnectionCount++;
                 }
-            };
+                else
+                {
+                    stats.m_serverConnectionCount++;
+                }
+            }
+        };
 
-            m_networkInterface->GetConnectionSet().VisitConnections(sendNetworkUpdates);
-        }
+        m_networkInterface->GetConnectionSet().VisitConnections(sendNetworkUpdates);
 
         MultiplayerPackets::SyncConsole packet;
         AZ::ThreadSafeDeque<AZStd::string>::DequeType cvarUpdates;
@@ -432,24 +421,20 @@ namespace Multiplayer
             }
         };
 
+        while (cvarUpdates.size() > 0)
         {
-            AZ_PROFILE_SCOPE(MULTIPLAYER, "SendReliablePackets");
-
-            while (cvarUpdates.size() > 0)
-            {
-                packet.ModifyCommandSet().emplace_back(cvarUpdates.front());
-                if (packet.GetCommandSet().full())
-                {
-                    m_networkInterface->GetConnectionSet().VisitConnections(visitor);
-                    packet.ModifyCommandSet().clear();
-                }
-                cvarUpdates.pop_front();
-            }
-
-            if (!packet.GetCommandSet().empty())
+            packet.ModifyCommandSet().emplace_back(cvarUpdates.front());
+            if (packet.GetCommandSet().full())
             {
                 m_networkInterface->GetConnectionSet().VisitConnections(visitor);
+                packet.ModifyCommandSet().clear();
             }
+            cvarUpdates.pop_front();
+        }
+
+        if (!packet.GetCommandSet().empty())
+        {
+            m_networkInterface->GetConnectionSet().VisitConnections(visitor);
         }
     }
 
@@ -1032,8 +1017,6 @@ namespace Multiplayer
 
     void MultiplayerSystemComponent::TickVisibleNetworkEntities(float deltaTime, float serverRateSeconds)
     {
-        AZ_PROFILE_SCOPE(MULTIPLAYER, "TickVisibleNetworkEntities");
-
         m_tickFactor += deltaTime / serverRateSeconds;
         // Linear close to the origin, but asymptote at y = 1
         m_renderBlendFactor = AZStd::clamp(1.0f - (std::pow(cl_renderTickBlendBase, m_tickFactor)), 0.0f, m_tickFactor);
