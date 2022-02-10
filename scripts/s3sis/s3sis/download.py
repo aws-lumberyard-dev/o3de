@@ -55,7 +55,7 @@ def run(args):
         # Overwrite file info of downloaded files in manifest file
         local_manifest.filelist[str(file_info.relpath)] = file_info.info()
         # Always create folders if parameter --preserve-empty-folders is provided.
-        if args.preserver_empty_folders and not file_info.isfile:
+        if args.preserve_empty_folders and not file_info.isfile:
             os.makedirs(file_info.abspath, exist_ok=True)
 
     # Modify timestamp if parameter --preserve-timestamp is provided.
