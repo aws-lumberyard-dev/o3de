@@ -80,7 +80,6 @@ class S3Client:
         :param extra_args: Extra upload args
         :return: None
         """
-        print(f'uploading {[file.relpath for file in files_to_upload]}')
         with ThreadPoolExecutor(max_workers=self.thread_pool_size) as executor:
             futures = {
                 executor.submit(self.upload_file, str(file_info.abspath), self.object_key(file_info), extra_args):
@@ -101,7 +100,7 @@ class S3Client:
         """
         try:
             filepath = Path(filename)
-            filepath.parent.mkdir(exist_ok=True)
+            filepath.parent.mkdir(parents=True, exist_ok=True)
             self.client.download_file(self.bucket, object_key, filename, ExtraArgs=extra_args)
         except ClientError as e:
             warn(f'Failed to download file {filename}')
@@ -114,7 +113,6 @@ class S3Client:
         :param extra_args: Extra upload args
         :return:
         """
-        print(f'downloading {[file.relpath for file in files_to_download]}')
         with ThreadPoolExecutor(max_workers=self.thread_pool_size) as executor:
             futures = {
                 executor.submit(self.download_file, self.object_key(file_info), str(file_info.abspath), extra_args):
