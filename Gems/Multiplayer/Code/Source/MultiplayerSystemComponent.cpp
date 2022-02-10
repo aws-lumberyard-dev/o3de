@@ -390,24 +390,26 @@ namespace Multiplayer
         stats.m_clientConnectionCount = 0;
 
         // Send out the game state update to all connections
-        auto sendNetworkUpdates = [&stats](IConnection& connection)
         {
-            if (connection.GetUserData() != nullptr)
+            auto sendNetworkUpdates = [&stats](IConnection& connection)
             {
-                IConnectionData* connectionData = reinterpret_cast<IConnectionData*>(connection.GetUserData());
-                connectionData->Update();
-                if (connectionData->GetConnectionDataType() == ConnectionDataType::ServerToClient)
+                if (connection.GetUserData() != nullptr)
                 {
-                    stats.m_clientConnectionCount++;
+                    IConnectionData* connectionData = reinterpret_cast<IConnectionData*>(connection.GetUserData());
+                    connectionData->Update();
+                    if (connectionData->GetConnectionDataType() == ConnectionDataType::ServerToClient)
+                    {
+                        stats.m_clientConnectionCount++;
+                    }
+                    else
+                    {
+                        stats.m_serverConnectionCount++;
+                    }
                 }
-                else
-                {
-                    stats.m_serverConnectionCount++;
-                }
-            }
-        };
+            };
 
-        m_networkInterface->GetConnectionSet().VisitConnections(sendNetworkUpdates);
+            m_networkInterface->GetConnectionSet().VisitConnections(sendNetworkUpdates);
+        }
 
         MultiplayerPackets::SyncConsole packet;
         AZ::ThreadSafeDeque<AZStd::string>::DequeType cvarUpdates;
@@ -990,6 +992,11 @@ namespace Multiplayer
     bool MultiplayerSystemComponent::IsShuttingDown() const
     {
         return m_isShuttingDown;
+    }
+
+    void MultiplayerSystemComponent::OnApplicationAboutToStop()
+    {
+        m_isShuttingDown = true;
     }
 
     void MultiplayerSystemComponent::DumpStats([[maybe_unused]] const AZ::ConsoleCommandContainer& arguments)
