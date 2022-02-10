@@ -94,19 +94,16 @@ namespace AZ::Dom
         return AZStd::visit(
             [&](auto&& lhsValue)
             {
-                if constexpr (AZStd::is_same_v<decltype(lhsValue), size_t>)
+                using CurrentType = AZStd::decay_t<decltype(lhsValue)>;
+                if constexpr (AZStd::is_same_v<CurrentType, size_t>)
                 {
-                    size_t* rhsValue = AZStd::get_if<size_t>(&rhs.m_value);
-                    return rhsValue == nullptr ? false : lhsValue < *rhsValue;
+                    const size_t* rhsValue = AZStd::get_if<size_t>(&rhs.m_value);
+                    return rhsValue == nullptr ? true : lhsValue < *rhsValue;
                 }
-                else if constexpr (AZStd::is_same_v<decltype(lhsValue), AZ::Name>)
+                else if constexpr (AZStd::is_same_v<CurrentType, AZ::Name>)
                 {
-                    AZ::Name* rhsValue = AZStd::get_if<Name>(&rhs.m_value);
-                    return rhsValue == nullptr ? true : lhsValue.GetStringView() < rhsValue->GetStringView();
-                }
-                else
-                {
-                    return false;
+                    const AZ::Name* rhsValue = AZStd::get_if<Name>(&rhs.m_value);
+                    return rhsValue == nullptr ? false : lhsValue.GetStringView() < rhsValue->GetStringView();
                 }
             },
             m_value);
