@@ -46,32 +46,29 @@ namespace UnitTest
                 AZ::Interface<AzToolsFramework::PrefabEditorEntityOwnershipInterface>::Get();
             ASSERT_TRUE(prefabEditorEntityOwnershipInterface);
 
-            // Create a car prefab from the passenger1 entity. The container entity will be created as part of the process.
-            AZStd::unique_ptr<AzToolsFramework::Prefab::Instance> carInstance =
-                m_prefabSystemComponent->CreatePrefab({ m_entityMap[Passenger1EntityName] }, {}, "test/car");
-            ASSERT_TRUE(carInstance);
-            m_instanceMap[CarEntityName] = carInstance.get();
-
-            // Create a sportscar prefab from the passenger2 entity. The container entity will be created as part of the process.
-            AZStd::unique_ptr<AzToolsFramework::Prefab::Instance> sportsCarInstance =
-                m_prefabSystemComponent->CreatePrefab({ m_entityMap[Passenger2EntityName] }, {}, "test/sportsCar");
-            ASSERT_TRUE(sportsCarInstance);
-            m_instanceMap[SportsCarEntityName] = sportsCarInstance.get();
-
-            // Create a street prefab that nests the car and sportscar instances created above. The container entity will be created as part of the process.
-            AZStd::unique_ptr<AzToolsFramework::Prefab::Instance> streetInstance =
-                m_prefabSystemComponent->CreatePrefab({}, MakeInstanceList(AZStd::move(carInstance), AZStd::move(sportsCarInstance)), "test/street");
-            ASSERT_TRUE(streetInstance);
-            m_instanceMap[StreetEntityName] = streetInstance.get();
-
             // Use the Prefab EOS root instance as the City instance. This will ensure functions that go through the EOS work in these tests too.
             m_rootInstance = prefabEditorEntityOwnershipInterface->GetRootPrefabInstance();
             ASSERT_TRUE(m_rootInstance.has_value());
 
             m_rootInstance->get().AddEntity(*m_entityMap[CityEntityName]);
-            m_rootInstance->get().AddInstance(AZStd::move(streetInstance));
-
             m_instanceMap[CityEntityName] = &m_rootInstance->get();
+
+            // Create a street prefab. The container entity will be created as part of the process.
+            InstanceOptionalReference streetInstance = prefabEditorEntityOwnershipInterface->CreatePrefab({}, {}, "test/street", m_rootInstance);
+            ASSERT_TRUE(streetInstance);
+            m_instanceMap[StreetEntityName] = &streetInstance->get();
+
+            // Create a car prefab from the passenger1 entity. The container entity will be created as part of the process.
+            InstanceOptionalReference carInstance =
+                prefabEditorEntityOwnershipInterface->CreatePrefab({ m_entityMap[Passenger1EntityName] }, {}, "test/car", streetInstance);
+            ASSERT_TRUE(carInstance);
+            m_instanceMap[CarEntityName] = &carInstance->get();
+
+            // Create a sportscar prefab from the passenger2 entity. The container entity will be created as part of the process.
+            InstanceOptionalReference sportsCarInstance = prefabEditorEntityOwnershipInterface->CreatePrefab(
+                { m_entityMap[Passenger2EntityName] }, {}, "test/sportsCar", streetInstance);
+            ASSERT_TRUE(sportsCarInstance);
+            m_instanceMap[SportsCarEntityName] = &sportsCarInstance->get();
         }
 
         void SetUpEditorFixtureImpl() override
@@ -253,6 +250,29 @@ namespace UnitTest
             EXPECT_FALSE(m_prefabFocusPublicInterface->IsOwningPrefabBeingFocused(m_instanceMap[CarEntityName]->GetContainerEntityId()));
             EXPECT_FALSE(m_prefabFocusPublicInterface->IsOwningPrefabBeingFocused(m_entityMap[Passenger1EntityName]->GetId()));
         }
+    }
+
+    TEST_F(PrefabFocusTests, SomeVerySpecificTestName)
+    {
+        m_prefabFocusPublicInterface->FocusOnOwningPrefab(m_instanceMap[CityEntityName]->GetContainerEntityId());
+
+
+        AzToolsFramework::SelectEntity(m_entityMap[CityEntityName]->GetId());
+
+
+
+        using AzToolsFramework::EditorTransformComponentSelectionRequestBus;
+
+        EditorTransformComponentSelectionRequestBus::Event(
+            AzToolsFramework::GetEntityContextId(), &EditorTransformComponentSelectionRequestBus::Events::RefreshManipulators,
+            EditorTransformComponentSelectionRequestBus::Events::RefreshType::All);
+
+        AZStd::optional<AZ::Transform> manipulatorTransform;
+        EditorTransformComponentSelectionRequestBus::EventResult(
+            manipulatorTransform, AzToolsFramework::GetEntityContextId(),
+            &EditorTransformComponentSelectionRequestBus::Events::GetManipulatorTransform);
+
+        EXPECT_TRUE(manipulatorTransform.has_value());
     }
 
 }
