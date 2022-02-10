@@ -39,6 +39,9 @@
 #include <AzNetworking/Framework/INetworking.h>
 
 #include <cmath>
+#include <AzCore/Debug/Profiler.h>
+
+AZ_DEFINE_BUDGET(MULTIPLAYER);
 
 namespace AZ::ConsoleTypeHelpers
 {
@@ -174,10 +177,12 @@ namespace Multiplayer
         , m_autonomousEntityReplicatorCreatedHandler([this]([[maybe_unused]] NetEntityId netEntityId) { OnAutonomousEntityReplicatorCreated(); })
     {
         AZ::Interface<IMultiplayer>::Register(this);
+        AzFramework::ApplicationLifecycleEvents::Bus::Handler::BusConnect();
     }
 
     MultiplayerSystemComponent::~MultiplayerSystemComponent()
     {
+        AzFramework::ApplicationLifecycleEvents::Bus::Handler::BusDisconnect();
         AZ::Interface<IMultiplayer>::Unregister(this);
     }
 
@@ -347,6 +352,8 @@ namespace Multiplayer
 
     void MultiplayerSystemComponent::OnTick(float deltaTime, [[maybe_unused]] AZ::ScriptTimePoint time)
     {
+        AZ_PROFILE_SCOPE(MULTIPLAYER, "MultiplayerTick");
+
         if (bg_multiplayerDebugDraw)
         {
             m_networkEntityManager.DebugDraw();
@@ -373,9 +380,12 @@ namespace Multiplayer
         // Handle deferred local rpc messages that were generated during the updates
         m_networkEntityManager.DispatchLocalDeferredRpcMessages();
 
-        // INetworking ticks immediately before IMultiplayer, so all our pending RPC's and network property updates have now been processed
-        // Restore any entities that were rewound during input processing so that normal gameplay updates have the correct state
-        Multiplayer::GetNetworkTime()->ClearRewoundEntities();
+        {
+            AZ_PROFILE_SCOPE(MULTIPLAYER, "ClearRewoundEntities");
+            // INetworking ticks immediately before IMultiplayer, so all our pending RPC's and network property updates have now been processed
+            // Restore any entities that were rewound during input processing so that normal gameplay updates have the correct state
+            Multiplayer::GetNetworkTime()->ClearRewoundEntities();
+        }
 
         // Let the network system know the frame is done and we can collect dirty bits
         m_networkEntityManager.NotifyEntitiesChanged();
@@ -389,6 +399,7 @@ namespace Multiplayer
 
         // Send out the game state update to all connections
         {
+            AZ_PROFILE_SCOPE(MULTIPLAYER, "SendOutGameStateToAllConnections");
             auto sendNetworkUpdates = [&stats](IConnection& connection)
             {
                 if (connection.GetUserData() != nullptr)
@@ -421,20 +432,24 @@ namespace Multiplayer
             }
         };
 
-        while (cvarUpdates.size() > 0)
         {
-            packet.ModifyCommandSet().emplace_back(cvarUpdates.front());
-            if (packet.GetCommandSet().full())
+            AZ_PROFILE_SCOPE(MULTIPLAYER, "SendReliablePackets");
+
+            while (cvarUpdates.size() > 0)
+            {
+                packet.ModifyCommandSet().emplace_back(cvarUpdates.front());
+                if (packet.GetCommandSet().full())
+                {
+                    m_networkInterface->GetConnectionSet().VisitConnections(visitor);
+                    packet.ModifyCommandSet().clear();
+                }
+                cvarUpdates.pop_front();
+            }
+
+            if (!packet.GetCommandSet().empty())
             {
                 m_networkInterface->GetConnectionSet().VisitConnections(visitor);
-                packet.ModifyCommandSet().clear();
             }
-            cvarUpdates.pop_front();
-        }
-
-        if (!packet.GetCommandSet().empty())
-        {
-            m_networkInterface->GetConnectionSet().VisitConnections(visitor);
         }
     }
 
@@ -987,6 +1002,11 @@ namespace Multiplayer
         return m_spawnNetboundEntities;
     }
 
+    bool MultiplayerSystemComponent::IsShuttingDown() const
+    {
+        return m_isShuttingDown;
+    }
+
     void MultiplayerSystemComponent::DumpStats([[maybe_unused]] const AZ::ConsoleCommandContainer& arguments)
     {
         const MultiplayerStats& stats = GetStats();
@@ -1012,6 +1032,8 @@ namespace Multiplayer
 
     void MultiplayerSystemComponent::TickVisibleNetworkEntities(float deltaTime, float serverRateSeconds)
     {
+        AZ_PROFILE_SCOPE(MULTIPLAYER, "TickVisibleNetworkEntities");
+
         m_tickFactor += deltaTime / serverRateSeconds;
         // Linear close to the origin, but asymptote at y = 1
         m_renderBlendFactor = AZStd::clamp(1.0f - (std::pow(cl_renderTickBlendBase, m_tickFactor)), 0.0f, m_tickFactor);

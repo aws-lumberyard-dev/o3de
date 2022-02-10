@@ -322,6 +322,7 @@ namespace Multiplayer
         void CompleteClientMigration(uint64_t, AzNetworking::ConnectionId, const HostId&, ClientInputId) override {}
         void SetShouldSpawnNetworkEntities([[maybe_unused]] bool value) override {}
         bool GetShouldSpawnNetworkEntities() const override { return true; }
+        bool IsShuttingDown() const override { return false; }
 
         BenchmarkNetworkEntityManager& m_manager;
     };

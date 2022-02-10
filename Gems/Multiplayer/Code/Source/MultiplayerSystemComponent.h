@@ -23,6 +23,7 @@
 #include <AzCore/IO/ByteContainerStream.h>
 #include <AzCore/Threading/ThreadSafeDeque.h>
 #include <AzCore/std/string/string.h>
+#include <AzFramework/API/ApplicationAPI.h>
 #include <AzNetworking/ConnectionLayer/IConnectionListener.h>
 
 namespace AzFramework
@@ -45,6 +46,7 @@ namespace Multiplayer
         , public ISessionHandlingClientRequests
         , public AzNetworking::IConnectionListener
         , public IMultiplayer
+        , public AzFramework::ApplicationLifecycleEvents::Bus::Handler
     {
     public:
         AZ_COMPONENT(MultiplayerSystemComponent, "{7C99C4C1-1103-43F9-AD62-8B91CF7C1981}");
@@ -134,6 +136,7 @@ namespace Multiplayer
         void CompleteClientMigration(uint64_t temporaryUserIdentifier, AzNetworking::ConnectionId connectionId, const HostId& publicHostId, ClientInputId migratedClientInputId) override;
         void SetShouldSpawnNetworkEntities(bool value) override;
         bool GetShouldSpawnNetworkEntities() const override;
+        bool IsShuttingDown() const override;
         //! @}
 
         //! Console commands.
@@ -185,6 +188,7 @@ namespace Multiplayer
         float m_renderBlendFactor = 0.0f;
         float m_tickFactor = 0.0f;
         bool m_spawnNetboundEntities = false;
+        bool m_isShuttingDown = false;
 
 #if !defined(AZ_RELEASE_BUILD)
         MultiplayerEditorConnection m_editorConnectionListener;

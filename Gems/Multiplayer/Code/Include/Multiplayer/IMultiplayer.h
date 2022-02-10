@@ -206,6 +206,9 @@ namespace Multiplayer
         //! @return boolean true if netbound entities should be auto instantiated, false if not
         virtual bool GetShouldSpawnNetworkEntities() const = 0;
 
+        //! Returns true if the Application layer is shutting down.
+        virtual bool IsShuttingDown() const = 0;
+
         //! Retrieve the stats object bound to this multiplayer instance.
         //! @return the stats object bound to this multiplayer instance
         MultiplayerStats& GetStats() { return m_stats; }

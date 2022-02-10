@@ -46,6 +46,7 @@ namespace UnitTest
         MOCK_METHOD4(CompleteClientMigration, void(uint64_t, AzNetworking::ConnectionId, const Multiplayer::HostId&, Multiplayer::ClientInputId));
         MOCK_METHOD1(SetShouldSpawnNetworkEntities, void(bool));
         MOCK_CONST_METHOD0(GetShouldSpawnNetworkEntities, bool());
+        MOCK_CONST_METHOD0(IsShuttingDown, bool());
     };
 
     class MockNetworkEntityManager : public Multiplayer::INetworkEntityManager
