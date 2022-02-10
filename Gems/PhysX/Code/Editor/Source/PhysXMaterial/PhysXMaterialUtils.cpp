@@ -12,6 +12,7 @@
 //#include <Atom/RPI.Reflect/Image/StreamingImageAsset.h>
 //#include <Atom/RPI.Reflect/Material/MaterialAsset.h>
 //#include <Atom/RPI.Reflect/Material/MaterialTypeAsset.h>
+//#include <Atom/RPI.Edit/Material/MaterialSourceData.h>
 //#include <Atom/RPI.Edit/Material/MaterialTypeSourceData.h>
 #include <Atom/RPI.Edit/Common/JsonReportingHelper.h>
 #include <Atom/RPI.Edit/Common/JsonFileLoadContext.h>
@@ -82,7 +83,7 @@ namespace AZ
                     loadOutcome = AZ::JsonSerializationUtils::ReadJsonFile(filePath, AZ::RPI::JsonUtils::DefaultMaxFileSize);
                     if (!loadOutcome.IsSuccess())
                     {
-                        AZ_Error("AZ::RPI::JsonUtils", false, "%s", loadOutcome.GetError().c_str());
+                        AZ_Error("MaterialUtils", false, "%s", loadOutcome.GetError().c_str());
                         return AZ::Failure();
                     }
 
@@ -114,8 +115,48 @@ namespace AZ
                     return AZ::Success(AZStd::move(materialType));
                 }
             }
+            
+            AZ::Outcome<MaterialSourceData> LoadMaterialSourceData(const AZStd::string& filePath, const rapidjson::Value* document, bool warningsAsErrors)
+            {
+                AZ::Outcome<rapidjson::Document, AZStd::string> loadOutcome;
+                if (document == nullptr)
+                {
+                    loadOutcome = AZ::JsonSerializationUtils::ReadJsonFile(filePath, AZ::RPI::JsonUtils::DefaultMaxFileSize);
+                    if (!loadOutcome.IsSuccess())
+                    {
+                        AZ_Error("MaterialUtils", false, "%s", loadOutcome.GetError().c_str());
+                        return AZ::Failure();
+                    }
 
-            void CheckForUnrecognizedJsonFields(const AZStd::string_view* acceptedFieldNames, uint32_t acceptedFieldNameCount, const rapidjson::Value& object, JsonDeserializerContext& context, JsonSerializationResult::ResultCode& result)
+                    document = &loadOutcome.GetValue();
+                }
+
+                MaterialSourceData material;
+
+                JsonDeserializerSettings settings;
+
+                RPI::JsonReportingHelper reportingHelper;
+                reportingHelper.Attach(settings);
+
+                JsonSerialization::Load(material, *document, settings);
+                material.ConvertToNewDataFormat();
+
+                if (reportingHelper.ErrorsReported())
+                {
+                    return AZ::Failure();
+                }
+                else if (warningsAsErrors && reportingHelper.WarningsReported())
+                {
+                    AZ_Error("MaterialUtils", false, "Warnings reported while loading '%s'", filePath.c_str());
+                    return AZ::Failure();
+                }
+                else
+                {
+                    return AZ::Success(AZStd::move(material));
+                }
+            }
+
+            void CheckForUnrecognizedJsonFields(const AZStd::string_view* acceptedFieldNames, uint32_t acceptedFieldNameCount, const rapidjson::Value& object, JsonDeserializerContext& context, JsonSerializationResult::ResultCode &result)
             {
                 for (auto iter = object.MemberBegin(); iter != object.MemberEnd(); ++iter)
                 {
@@ -132,12 +173,12 @@ namespace AZ
 
                     if (!matched)
                     {
-                        ScopedContextPath subPath{ context, iter->name.GetString() };
+                        ScopedContextPath subPath{context, iter->name.GetString()};
                         result.Combine(context.Report(JsonSerializationResult::Tasks::ReadField, JsonSerializationResult::Outcomes::Skipped, "Skipping unrecognized field"));
                     }
                 }
             }
-
+            
             bool BuildersShouldFinalizeMaterialAssets()
             {
                 // We default to the faster workflow for developers. Enable this registry setting when releasing the

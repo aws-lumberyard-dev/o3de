@@ -148,13 +148,9 @@ set(FILES
     Editor/Source/MaterialEditor/PhysXMaterialEditorSystemComponent.cpp
     Editor/Source/MaterialEditor/PhysXMaterialEditorSystemComponent.h
     Editor/Source/MaterialEditor/Document/MaterialDocumentRequestBus.h
-    Editor/Source/MaterialEditor/Document/MaterialDocumentSettings.h
     Editor/Source/MaterialEditor/Document/MaterialDocument.cpp
     Editor/Source/MaterialEditor/Document/MaterialDocument.h
-    Editor/Source/MaterialEditor/Document/MaterialDocumentSettings.cpp
     Editor/Source/MaterialEditor/Window/MaterialEditorWindowSettings.h
-    Editor/Source/MaterialEditor/Window/MaterialEditorBrowserInteractions.h
-    Editor/Source/MaterialEditor/Window/MaterialEditorBrowserInteractions.cpp
     Editor/Source/MaterialEditor/Window/MaterialEditorWindow.h
     Editor/Source/MaterialEditor/Window/MaterialEditorWindow.cpp
     Editor/Source/MaterialEditor/Window/MaterialEditorWindowSettings.cpp

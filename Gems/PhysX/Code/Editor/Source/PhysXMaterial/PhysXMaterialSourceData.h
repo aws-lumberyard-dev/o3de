@@ -10,6 +10,7 @@
 
 #include <AzCore/Memory/SystemAllocator.h>
 #include <AzCore/RTTI/RTTI.h>
+#include <AzCore/Name/Name.h>
 #include <AzCore/std/containers/map.h>
 #include <AzCore/std/containers/vector.h>
 #include <AzCore/std/string/string.h>
@@ -52,26 +53,14 @@ namespace AZ
             static void Reflect(ReflectContext* context);
 
             MaterialSourceData() = default;
-
+            
             AZStd::string m_description;
-
+            
             AZStd::string m_materialType; //!< The material type that defines the interface and behavior of the material
-
+            
             AZStd::string m_parentMaterial; //!< The immediate parent of this material
 
             uint32_t m_materialTypeVersion = 0; //!< The version of the material type that was used to configure this material
-
-            struct Property
-            {
-                AZ_TYPE_INFO(AZ::PhysX::MaterialSourceData::Property, "{E6E20957-B256-4218-A8CC-44FFF5161673}");
-
-                MaterialPropertyValue m_value;
-            };
-
-            using PropertyMap = AZStd::map<AZStd::string, Property>;
-            using PropertyGroupMap = AZStd::map<AZStd::string, PropertyMap>;
-
-            PropertyGroupMap m_properties;
 
             enum class ApplyVersionUpdatesResult
             {
@@ -79,6 +68,19 @@ namespace AZ
                 NoUpdates,
                 UpdatesApplied
             };
+            
+            //! If the data was loaded from an old format file (i.e. where "properties" was a tree with property values nested under groups),
+            //! this converts to the new format where properties are stored in a flat list.
+            void ConvertToNewDataFormat();
+
+            // Note that even though we use an unordered map, the JSON serialization system is nice enough to sort the data when saving to JSON.
+            using PropertyValueMap = AZStd::unordered_map<Name, MaterialPropertyValue>;
+
+            void SetPropertyValue(const Name& propertyId, const MaterialPropertyValue& value);
+            const MaterialPropertyValue& GetPropertyValue(const Name& propertyId) const;
+            const PropertyValueMap& GetPropertyValues() const;
+            bool HasPropertyValue(const Name& propertyId) const;
+            void RemovePropertyValue(const Name& propertyId);
 
             //! Creates a MaterialAsset from the MaterialSourceData content.
             //! @param assetId ID for the MaterialAsset
@@ -107,6 +109,13 @@ namespace AZ
         private:
             void ApplyPropertiesToAssetCreator(
                 AZ::PhysX::MaterialAssetCreator& materialAssetCreator, const AZStd::string_view& materialSourceFilePath) const;
+
+            // @deprecated: Don't use "properties" in JSON, use "propertyValues" instead.
+            using PropertyGroupMap = AZStd::unordered_map<Name, PropertyValueMap>;
+            PropertyGroupMap m_propertiesOld;
+
+            PropertyValueMap m_propertyValues;
+            MaterialPropertyValue m_invalidValue;
         };
     } // namespace PhysX
 } // namespace AZ

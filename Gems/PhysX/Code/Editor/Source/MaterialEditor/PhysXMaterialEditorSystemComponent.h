@@ -4,10 +4,13 @@
 #include <AzCore/Component/Component.h>
 #include <O3DEMaterialEditor/O3DEMaterialEditorBus.h>
 
+namespace AtomToolsFramework
+{
+    class AtomToolsAssetBrowserInteractions;
+}
+
 namespace PhysXMaterialEditor
 {
-    class MaterialEditorBrowserInteractions;
-
     /// System component for MaterialEditor editor
     class PhysXMaterialEditorSystemComponent
         : public AZ::Component
@@ -31,8 +34,10 @@ namespace PhysXMaterialEditor
 
         void RegisterPhysXWindow();
 
+        void SetupAssetBrowserInteractions();
+
         O3DEMaterialEditor::O3DEMaterialEditorRequests::NotifyRegisterViewsEvent::Handler m_notifyRegisterViewsEventHandler;
 
-        AZStd::unique_ptr<PhysXMaterialEditor::MaterialEditorBrowserInteractions> m_materialEditorBrowserInteractions;
+        AZStd::unique_ptr<AtomToolsFramework::AtomToolsAssetBrowserInteractions> m_assetBrowserInteractions;
     };
 } // namespace PhysX

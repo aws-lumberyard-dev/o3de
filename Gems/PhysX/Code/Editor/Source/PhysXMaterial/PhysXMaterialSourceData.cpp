@@ -45,7 +45,7 @@ namespace AZ
         {
             if (JsonRegistrationContext* jsonContext = azrtti_cast<JsonRegistrationContext*>(context))
             {
-                jsonContext->Serializer<JsonMaterialPropertyValueSerializer>()->HandlesType<MaterialSourceData::Property>();
+                jsonContext->Serializer<JsonMaterialPropertyValueSerializer>()->HandlesType<MaterialPropertyValue>();
             }
             else if (auto* serializeContext = azrtti_cast<SerializeContext*>(context))
             {
@@ -55,15 +55,12 @@ namespace AZ
                     ->Field("materialType", &MaterialSourceData::m_materialType)
                     ->Field("materialTypeVersion", &MaterialSourceData::m_materialTypeVersion)
                     ->Field("parentMaterial", &MaterialSourceData::m_parentMaterial)
-                    ->Field("properties", &MaterialSourceData::m_properties)
+                    ->Field("properties", &MaterialSourceData::m_propertiesOld)
+                    ->Field("propertyValues", &MaterialSourceData::m_propertyValues)
                     ;
 
-                serializeContext->RegisterGenericType<PropertyMap>();
+                serializeContext->RegisterGenericType<PropertyValueMap>();
                 serializeContext->RegisterGenericType<PropertyGroupMap>();
-
-                serializeContext->Class<MaterialSourceData::Property>()
-                    ->Version(1)
-                    ;
             }
         }
 
@@ -76,6 +73,55 @@ namespace AZ
                 const Name& propertyId = entry.first;
                 materialAssetCreator.SetPropertyValue(propertyId, entry.second);
             }
+        }
+        
+        void MaterialSourceData::SetPropertyValue(const Name& propertyId, const MaterialPropertyValue& value)
+        {
+            if (!propertyId.IsEmpty())
+            {
+                m_propertyValues[propertyId] = value;
+            }
+        }
+
+        const MaterialPropertyValue& MaterialSourceData::GetPropertyValue(const Name& propertyId) const
+        {
+            auto iter = m_propertyValues.find(propertyId);
+            if (iter == m_propertyValues.end())
+            {
+                return m_invalidValue;
+            }
+            else
+            {
+                return iter->second;
+            }
+        }
+        
+        void MaterialSourceData::RemovePropertyValue(const Name& propertyId)
+        {
+            m_propertyValues.erase(propertyId);
+        }
+        
+        const MaterialSourceData::PropertyValueMap& MaterialSourceData::GetPropertyValues() const
+        {
+            return m_propertyValues;
+        }
+
+        bool MaterialSourceData::HasPropertyValue(const Name& propertyId) const
+        {
+            return m_propertyValues.find(propertyId) != m_propertyValues.end();
+        }
+        
+        void MaterialSourceData::ConvertToNewDataFormat()
+        {
+            for (const auto& [groupName, propertyList] : m_propertiesOld)
+            {
+                for (const auto& [propertyName, propertyValue] : propertyList)
+                {
+                    SetPropertyValue(RPI::MaterialPropertyId{groupName, propertyName}, propertyValue);
+                }
+            }
+
+            m_propertiesOld.clear();
         }
 
         Outcome<Data::Asset<MaterialAsset>> MaterialSourceData::CreateMaterialAsset(
@@ -97,31 +143,31 @@ namespace AZ
             }
 
             Data::Asset<MaterialTypeAsset> materialTypeAsset;
-
+            
             switch (processingMode)
             {
-            case MaterialAssetProcessingMode::DeferredBake:
-            {
-                // Don't load the material type data, just create a reference to it
-                materialTypeAsset = Data::Asset<MaterialTypeAsset>{ materialTypeAssetId.GetValue(), azrtti_typeid<MaterialTypeAsset>(), m_materialType };
-                break;
-            }
-            case MaterialAssetProcessingMode::PreBake:
-            {
-                // In this case we need to load the material type data in preparation for the material->Finalize() step below.
-                auto materialTypeAssetOutcome = RPI::AssetUtils::LoadAsset<MaterialTypeAsset>(materialTypeAssetId.GetValue());
-                if (!materialTypeAssetOutcome)
+                case MaterialAssetProcessingMode::DeferredBake:
                 {
+                     // Don't load the material type data, just create a reference to it
+                     materialTypeAsset = Data::Asset<MaterialTypeAsset>{ materialTypeAssetId.GetValue(), azrtti_typeid<MaterialTypeAsset>(), m_materialType };
+                     break;
+                }
+                case MaterialAssetProcessingMode::PreBake:
+                {
+                    // In this case we need to load the material type data in preparation for the material->Finalize() step below.
+                    auto materialTypeAssetOutcome = RPI::AssetUtils::LoadAsset<MaterialTypeAsset>(materialTypeAssetId.GetValue());
+                    if (!materialTypeAssetOutcome)
+                    {
+                        return Failure();
+                    }
+                    materialTypeAsset = materialTypeAssetOutcome.GetValue();
+                    break;
+                }
+                default:
+                {
+                    AZ_Assert(false, "Unhandled MaterialAssetProcessingMode");
                     return Failure();
                 }
-                materialTypeAsset = materialTypeAssetOutcome.GetValue();
-                break;
-            }
-            default:
-            {
-                AZ_Assert(false, "Unhandled MaterialAssetProcessingMode");
-                return Failure();
-            }
             }
 
             materialAssetCreator.Begin(assetId, materialTypeAsset, processingMode == MaterialAssetProcessingMode::PreBake);
@@ -148,40 +194,40 @@ namespace AZ
                 // Inherit the parent's property values...
                 switch (processingMode)
                 {
-                case MaterialAssetProcessingMode::DeferredBake:
-                {
-                    for (auto& property : parentMaterialAsset.GetValue()->GetRawPropertyValues())
+                    case MaterialAssetProcessingMode::DeferredBake:
                     {
-                        materialAssetCreator.SetPropertyValue(property.first, property.second);
+                        for (auto& property : parentMaterialAsset.GetValue()->GetRawPropertyValues())
+                        {
+                            materialAssetCreator.SetPropertyValue(property.first, property.second);
+                        }
+
+                        break;
                     }
-
-                    break;
-                }
-                case MaterialAssetProcessingMode::PreBake:
-                {
-                    const MaterialPropertiesLayout* propertiesLayout = parentMaterialAsset.GetValue()->GetMaterialPropertiesLayout();
-
-                    if (parentMaterialAsset.GetValue()->GetPropertyValues().size() != propertiesLayout->GetPropertyCount())
+                    case MaterialAssetProcessingMode::PreBake:
                     {
-                        AZ_Assert(false, "The parent material should have been finalized with %zu properties but it has %zu. Something is out of sync.",
-                            propertiesLayout->GetPropertyCount(), parentMaterialAsset.GetValue()->GetPropertyValues().size());
+                        const MaterialPropertiesLayout* propertiesLayout = parentMaterialAsset.GetValue()->GetMaterialPropertiesLayout();
+
+                        if (parentMaterialAsset.GetValue()->GetPropertyValues().size() != propertiesLayout->GetPropertyCount())
+                        {
+                            AZ_Assert(false, "The parent material should have been finalized with %zu properties but it has %zu. Something is out of sync.",
+                                propertiesLayout->GetPropertyCount(), parentMaterialAsset.GetValue()->GetPropertyValues().size());
+                            return Failure();
+                        }
+
+                        for (size_t propertyIndex = 0; propertyIndex < propertiesLayout->GetPropertyCount(); ++propertyIndex)
+                        {
+                            materialAssetCreator.SetPropertyValue(
+                                propertiesLayout->GetPropertyDescriptor(MaterialPropertyIndex{propertyIndex})->GetName(),
+                                parentMaterialAsset.GetValue()->GetPropertyValues()[propertyIndex]);
+                        }
+
+                        break;
+                    }
+                    default:
+                    {
+                        AZ_Assert(false, "Unhandled MaterialAssetProcessingMode");
                         return Failure();
                     }
-
-                    for (size_t propertyIndex = 0; propertyIndex < propertiesLayout->GetPropertyCount(); ++propertyIndex)
-                    {
-                        materialAssetCreator.SetPropertyValue(
-                            propertiesLayout->GetPropertyDescriptor(MaterialPropertyIndex{ propertyIndex })->GetName(),
-                            parentMaterialAsset.GetValue()->GetPropertyValues()[propertyIndex]);
-                    }
-
-                    break;
-                }
-                default:
-                {
-                    AZ_Assert(false, "Unhandled MaterialAssetProcessingMode");
-                    return Failure();
-                }
                 }
             }
 
@@ -255,12 +301,14 @@ namespace AZ
                     return Failure();
                 }
 
-                MaterialSourceData parentSourceData;
-                if (!AZ::RPI::JsonUtils::LoadObjectFromFile(parentSourceAbsPath, parentSourceData))
+                auto loadParentResult = MaterialUtils::LoadMaterialSourceData(parentSourceAbsPath);
+                if (!loadParentResult)
                 {
                     AZ_Error("MaterialSourceData", false, "Failed to load MaterialSourceData for parent material: '%s'.", parentSourceAbsPath.c_str());
                     return Failure();
                 }
+                
+                MaterialSourceData parentSourceData = loadParentResult.TakeValue();
 
                 // Make sure that all materials in the hierarchy share the same material type
                 const auto parentTypeAssetId = RPI::AssetUtils::MakeAssetId(parentSourceAbsPath, parentSourceData.m_materialType, 0);
@@ -281,7 +329,7 @@ namespace AZ
                 parentSourceAbsPath = RPI::AssetUtils::ResolvePathReference(parentSourceAbsPath, parentSourceRelPath);
                 parentSourceDataStack.emplace_back(AZStd::move(parentSourceData));
             }
-
+            
             // Unlike CreateMaterialAsset(), we can always finalize the material here because we loaded created the MaterialTypeAsset from
             // the source .materialtype file, so the necessary data is always available.
             // (In case you are wondering why we don't use CreateMaterialAssetFromSourceData in MaterialBuilder: that would require a
@@ -319,38 +367,37 @@ namespace AZ
         void MaterialSourceData::ApplyPropertiesToAssetCreator(
             AZ::PhysX::MaterialAssetCreator& materialAssetCreator, [[maybe_unused]] const AZStd::string_view& materialSourceFilePath) const
         {
-            for (auto& group : m_properties)
+            for (auto& [propertyId, propertyValue] : m_propertyValues)
             {
-                for (auto& property : group.second)
+                if (!propertyValue.IsValid())
                 {
-                    RPI::MaterialPropertyId propertyId{ group.first, property.first };
-                    if (!property.second.m_value.IsValid())
-                    {
-                        materialAssetCreator.ReportWarning("Source data for material property value is invalid.");
-                    }
+                    materialAssetCreator.ReportWarning("Source data for material property value is invalid.");
+                }
+                else
+                {
                     // If the source value type is a string, there are two possible property types: Image and Enum. If there is a "." in
                     // the string (for the extension) we assume it's an Image and look up the referenced Asset. Otherwise, we can assume
                     // it's an Enum value and just preserve the original string.
-                    /*else if (property.second.m_value.Is<AZStd::string>() && AzFramework::StringFunc::Contains(property.second.m_value.GetValue<AZStd::string>(), "."))
+                    /*if (propertyValue.Is<AZStd::string>() && AzFramework::StringFunc::Contains(propertyValue.GetValue<AZStd::string>(), "."))
                     {
                         Data::Asset<ImageAsset> imageAsset;
 
                         MaterialUtils::GetImageAssetResult result = MaterialUtils::GetImageAssetReference(
-                            imageAsset, materialSourceFilePath, property.second.m_value.GetValue<AZStd::string>());
-
+                            imageAsset, materialSourceFilePath, propertyValue.GetValue<AZStd::string>());
+                                    
                         if (result == MaterialUtils::GetImageAssetResult::Missing)
                         {
                             materialAssetCreator.ReportWarning(
                                 "Material property '%s': Could not find the image '%s'", propertyId.GetCStr(),
-                                property.second.m_value.GetValue<AZStd::string>().data());
+                                propertyValue.GetValue<AZStd::string>().data());
                         }
-
+                                    
                         imageAsset.SetAutoLoadBehavior(Data::AssetLoadBehavior::PreLoad);
                         materialAssetCreator.SetPropertyValue(propertyId, imageAsset);
-                    }*/
-                    else
+                    }
+                    else*/
                     {
-                        materialAssetCreator.SetPropertyValue(propertyId, property.second.m_value);
+                        materialAssetCreator.SetPropertyValue(propertyId, propertyValue);
                     }
                 }
             }
