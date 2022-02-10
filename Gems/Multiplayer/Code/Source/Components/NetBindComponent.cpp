@@ -170,10 +170,10 @@ namespace Multiplayer
         // Temporary work-around until AZ_Assert no longer deadlock during application shutdown
         if (!GetMultiplayer()->IsShuttingDown())
         {
-        AZ_Assert(
-            m_needsToBeStopped == false,
-            "Entity (%s) appears to have been improperly deleted. Use MarkForRemoval to correctly clean up a networked entity.",
-            GetEntity() ? GetEntity()->GetName().c_str() : "null");
+            AZ_Assert(
+                m_needsToBeStopped == false,
+                "Entity (%s) appears to have been improperly deleted. Use MarkForRemoval to correctly clean up a networked entity.",
+                GetEntity() ? GetEntity()->GetName().c_str() : "null");
         }
 
         m_handleLocalServerRpcMessageEventHandle.Disconnect();

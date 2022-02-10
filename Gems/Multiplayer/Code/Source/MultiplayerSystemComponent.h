@@ -139,6 +139,11 @@ namespace Multiplayer
         bool IsShuttingDown() const override;
         //! @}
 
+        //! AzFramework::ApplicationLifecycleEvents::Bus::Handler overrides.
+        //! @{
+        void OnApplicationAboutToStop() override;
+        //! @}
+
         //! Console commands.
         //! @{
         void DumpStats(const AZ::ConsoleCommandContainer& arguments);
