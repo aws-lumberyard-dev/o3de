@@ -13,7 +13,7 @@ from s3sis.s3sislib.config import Config
 from s3sis.s3sislib.manifest import Manifest
 from s3sis.s3sislib.fileinfo import FileInfo
 from s3sis.s3sislib.util import error, warn
-
+from pathlib import Path
 
 class S3Client:
     def __init__(self, profile: str = 'default'):
@@ -100,6 +100,8 @@ class S3Client:
         :return: True if file was downloaded, else False
         """
         try:
+            filepath = Path(filename)
+            filepath.parent.mkdir(exist_ok=True)
             self.client.download_file(self.bucket, object_key, filename, ExtraArgs=extra_args)
         except ClientError as e:
             warn(f'Failed to download file {filename}')
