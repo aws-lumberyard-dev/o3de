@@ -47,6 +47,8 @@ namespace AZ::Dom
         bool operator!=(const AZ::Name& key) const;
         bool operator!=(AZStd::string_view key) const;
 
+        bool operator<(const PathEntry& rhs) const;
+
         void SetEndOfArray();
 
         bool IsEndOfArray() const;
