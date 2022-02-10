@@ -98,7 +98,8 @@ namespace AZ
             //, public ShaderReloadNotificationBus::MultiHandler
             //, public MaterialReloadNotificationBus::Handler
         {
-            friend class MaterialSystem;
+            //friend class MaterialSystem;
+            friend class MaterialCreator;
         public:
             AZ_INSTANCE_DATA(Material, "{ECAE404B-2010-4C76-B01D-846DA364E10F}");
             AZ_CLASS_ALLOCATOR(Material, SystemAllocator, 0);

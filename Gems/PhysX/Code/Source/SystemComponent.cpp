@@ -24,6 +24,25 @@
 #include <PhysX/Debug/PhysXDebugInterface.h>
 #include <System/PhysXSystem.h>
 
+#include <AtomCore/Instance/InstanceDatabase.h>
+#include <PhysXMaterial/MaterialAsset/PhysXMaterialAsset.h>
+#include <PhysXMaterial/MaterialTypeAsset/PhysXMaterialTypeAsset.h>
+#include <PhysXMaterial/PhysXMaterial.h>
+#include <PhysXMaterial/PhysXMaterialPropertyValue.h>
+#include <PhysXMaterial/PhysXMaterialPropertiesLayout.h>
+
+namespace AZ::PhysX
+{
+    class MaterialCreator
+    {
+    public:
+        static AZ::Data::Instance<Material> Create(AZ::PhysX::MaterialAsset& materialAsset)
+        {
+            return AZ::PhysX::Material::CreateInternal(materialAsset);
+        }
+    };
+}
+
 namespace PhysX
 {
     bool SystemComponent::VersionConverter(AZ::SerializeContext& context,
@@ -88,6 +107,12 @@ namespace PhysX
     void SystemComponent::Reflect(AZ::ReflectContext* context)
     {
         Pipeline::MeshAsset::Reflect(context);
+
+        // Reflect material classes
+        AZ::PhysX::MaterialAsset::Reflect(context);
+        AZ::PhysX::MaterialTypeAsset::Reflect(context);
+        AZ::PhysX::MaterialPropertyValue::Reflect(context);
+        AZ::PhysX::MaterialPropertiesLayout::Reflect(context);
 
         PhysX::ReflectionUtils::ReflectPhysXOnlyApi(context);
 
@@ -201,6 +226,19 @@ namespace PhysX
         // Add asset types and extensions to AssetCatalog. Uses "AssetCatalogService".
         RegisterAsset<Pipeline::MeshAssetHandler, Pipeline::MeshAsset>(m_assetHandlers);
         RegisterAsset<Pipeline::HeightFieldAssetHandler, Pipeline::HeightFieldAsset>(m_assetHandlers);
+
+        // Register material asset handlers and create functions
+        m_assetHandlers.emplace_back(AZ::RPI::MakeAssetHandler<AZ::PhysX::MaterialTypeAssetHandler>());
+        m_assetHandlers.emplace_back(AZ::RPI::MakeAssetHandler<AZ::PhysX::MaterialAssetHandler>());
+
+        // TODO: There is a problem that instance database is confusing atom material asset and physx material asset
+        // and it crashes at start up
+        /*AZ::Data::InstanceHandler<AZ::PhysX::Material> handler;
+        handler.m_createFunction = [](AZ::Data::AssetData* materialAsset)
+        {
+            return AZ::PhysX::MaterialCreator::Create(*(azrtti_cast<AZ::PhysX::MaterialAsset*>(materialAsset)));
+        };
+        AZ::Data::InstanceDatabase<AZ::PhysX::Material>::Create(azrtti_typeid<AZ::PhysX::MaterialAsset>(), handler);*/
 
         // Connect to relevant buses
         Physics::SystemRequestBus::Handler::BusConnect();
