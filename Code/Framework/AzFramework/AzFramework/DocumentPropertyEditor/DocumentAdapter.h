@@ -8,8 +8,8 @@
 
 #pragma once
 
-#include <AzCore/DOM/DomValue.h>
 #include <AzCore/DOM/DomPatch.h>
+#include <AzCore/DOM/DomValue.h>
 #include <AzCore/EBus/Event.h>
 
 namespace AZ::DocumentPropertyEditor
@@ -23,15 +23,22 @@ namespace AZ::DocumentPropertyEditor
         virtual ~DocumentAdapter() = default;
         virtual Dom::Value GetContents() const = 0;
 
+        using PatchOutcome = AZ::Outcome<void, AZStd::fixed_string<1024>>;
+        virtual void ApplyPatchFromView(const AZ::Dom::Patch& patch) = 0;
+
         void ConnectResetHandler(ResetEvent::Handler& handler);
         void ConnectChangedHandler(ChangedEvent::Handler& handler);
 
+        static Dom::Value CreateRow();
+        static Dom::Value CreateLabel(AZStd::string_view text, bool copy = true);
+        static Dom::Value CreatePropertyEditor(AZ::Name editorType);
+
     protected:
         void ResetDocument();
-        void ApplyPatchToContents(const AZ::Dom::Patch& patch);
+        virtual void SendPatchToView(const AZ::Dom::Patch& patch) = 0;
 
     private:
         ResetEvent m_resetEvent;
         ChangedEvent m_changedEvent;
     };
-}
+} // namespace AZ::DocumentPropertyEditor
