@@ -316,18 +316,19 @@ def PreBuildCommonSteps(Map pipelineConfig, String snapshot, String repositoryNa
 
     // Cleanup previous repo location, we are currently at the root of the workspace, if we have a .git folder
     // we need to cleanup. Once all branches take this relocation, we can remove this
-    //if(env.CLEAN_WORKSPACE?.toBoolean() || fileExists("${workspace}/.git")) {
-    if(fileExists(workspace)) {
-        palRmDir(workspace)
+    if(env.CLEAN_WORKSPACE?.toBoolean() || fileExists("${workspace}/.git")) {
+        if(fileExists(workspace)) {
+            palRmDir(workspace)
+        }
     }
-    //}
 
     def pythonCmd = ''
     if(env.IS_UNIX) pythonCmd = 'sudo -E python3 -u '
     else pythonCmd = 'python3 -u '
     dir("${workspace}/${ENGINE_REPOSITORY_NAME}") {
         unstash name: 's3sis'
-        palSh("${pythonCmd} scripts/s3sis/s3sis.py download --label test", 'S3SIS upload')
+        palSh("${pythonCmd} scripts/s3sis/s3sis.py manifest --regenerate", 'S3SIS upload')
+        palSh("${pythonCmd} scripts/s3sis/s3sis.py download --label ${buildType} --preserve-timestamp --preserve-attributes --cleanup", 'S3SIS upload')
     }
 
     dir(workspace) {
@@ -365,6 +366,8 @@ def PreBuildCommonSteps(Map pipelineConfig, String snapshot, String repositoryNa
 
 def Build(Map pipelineConfig, String platform, String type, String workspace) {
     timeout(time: env.TIMEOUT, unit: 'MINUTES', activity: true) {
+        echo 'building'
+        return
         def command = "${pipelineConfig.PYTHON_DIR}/python"
         if(env.IS_UNIX) command += '.sh'
         else command += '.cmd'
@@ -483,7 +486,7 @@ def UploadTestArtifacts(String workspace, String outputDirectory) {
     }
 }
 
-def PostBuildCommonSteps(String workspace, Map params, boolean mount = true) {
+def PostBuildCommonSteps(String workspace, String build_job_name, Map params, boolean mount = true) {
     echo 'Starting post-build common steps...'
     if (params && params.containsKey('OUTPUT_DIRECTORY')){
         dir([workspace, ENGINE_REPOSITORY_NAME, params.OUTPUT_DIRECTORY].join('/')){
@@ -499,7 +502,7 @@ def PostBuildCommonSteps(String workspace, Map params, boolean mount = true) {
         if(env.IS_UNIX) pythonCmd = 'sudo -E python3 -u '
         else pythonCmd = 'python3 -u '
         dir("${workspace}/${ENGINE_REPOSITORY_NAME}") {
-            palSh("${pythonCmd} scripts/s3sis/s3sis.py upload --label test", 'S3SIS upload')
+            palSh("${pythonCmd} scripts/s3sis/s3sis.py upload --label ${build_job_name}", 'S3SIS upload')
         }
 
         try {
@@ -586,10 +589,10 @@ def CreateUploadTestArtifactStage(String jobName, String workspace, String outpu
     }
 }
 
-def CreateTeardownStage(Map environmentVars, Map params) {
+def CreateTeardownStage(Map environmentVars, String build_job_name, Map params) {
     return {
         stage('Teardown') {
-            PostBuildCommonSteps(environmentVars['WORKSPACE'], params, environmentVars['MOUNT_VOLUME'])
+            PostBuildCommonSteps(environmentVars['WORKSPACE'], build_job_name, params, environmentVars['MOUNT_VOLUME'])
         }
     }
 }
@@ -669,7 +672,7 @@ def CreateSingleNode(Map pipelineConfig, def platform, def build_job, Map envVar
                         if (params && params.containsKey('TEST_SCREENSHOTS') && params.TEST_SCREENSHOTS == 'True' && currentResult == 'FAILURE') {
                             CreateExportTestScreenshotsStage(pipelineConfig, branchName, platform.key, build_job_name, envVars, params).call()
                         }
-                        CreateTeardownStage(envVars, params).call()
+                        CreateTeardownStage(envVars, build_job.key, params).call()
                         if (envVars['CREATE_SNAPSHOT']?.toBoolean()) {
                             CreateSnapshotStage(repositoryName, projectName, pipelineName, branchName, platform.key, build_job.key, build_job_name).call()
                         }
