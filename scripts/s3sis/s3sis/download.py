@@ -79,7 +79,9 @@ def run(args):
         for file_info in manifest_diff.deleted:
             # Overwrite file info of downloaded files in manifest file
             local_manifest.filelist.pop(str(file_info.relpath))
-            file_info.abspath.unlink(missing_ok=True)
+            # missing_ok parameter was added to Path.unlink() from Python 3.8
+            if file_info.abspath.exists():
+                file_info.abspath.unlink()
 
     # Update local manifest file on disk.
     local_manifest.write()
