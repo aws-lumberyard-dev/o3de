@@ -8,6 +8,7 @@
 
 #pragma once
 
+#include <AtomToolsFramework/DynamicProperty/DynamicProperty.h>
 //#include <Atom/RPI.Reflect/Image/StreamingImageAsset.h>
 #include <PhysXMaterial/PhysXMaterialPropertyDescriptor.h>
 #include <PhysXMaterial/PhysXMaterialPropertyValue.h>
@@ -29,6 +30,8 @@ namespace AZ
 
         namespace MaterialUtils
         {
+            using ImportedJsonFiles = AZStd::unordered_set<AZStd::string>;
+
             //enum class GetImageAssetResult
             //{
             //    Empty,             //! No image was actually requested, the path was empty
@@ -49,12 +52,13 @@ namespace AZ
             //! @return if resolving is successful. An error will be reported if it fails.
             bool ResolveMaterialPropertyEnumValue(const MaterialPropertyDescriptor* propertyDescriptor, const AZ::Name& enumName, MaterialPropertyValue& outResolvedValue);
 
-            //! Load a material type from a json file. If the file path is relative, the loaded json document must be provided.
+            //! Load a material type from a json file or document.
             //! Otherwise, it will use the passed in document first if not null, or load the json document from the path.
-            //! @param filePath a relative path if document is provided, an absolute path if document is not provided.
-            //! @param document the loaded json document.
-            AZ::Outcome<MaterialTypeSourceData> LoadMaterialTypeSourceData(const AZStd::string& filePath, const rapidjson::Value* document = nullptr);
-            
+            //! @param filePath path to the JSON file to load, unless the @document is already provided. In either case, this path will be used to resolve any relative file references.
+            //! @param document an optional already loaded json document.
+            //! @param importedFiles receives the list of files that were imported by the JSON serializer
+            AZ::Outcome<MaterialTypeSourceData> LoadMaterialTypeSourceData(const AZStd::string& filePath, rapidjson::Document* document = nullptr, ImportedJsonFiles* importedFiles = nullptr);
+
             //! Load a material from a json file.
             AZ::Outcome<MaterialSourceData> LoadMaterialSourceData(const AZStd::string& filePath, const rapidjson::Value* document = nullptr, bool warningsAsErrors = false);
 
@@ -78,10 +82,23 @@ namespace AZ
             // From MaterialPropertyUtils.h
             // -------------------------------
 
+            //! Convert an editor property stored in a AZStd::any into a material property value
             AZ::PhysX::MaterialPropertyValue ConvertToRuntimeType(const AZStd::any& value);
 
+            //! Convert a material property value into a AZStd::any that can be used as a dynamic property
             AZStd::any ConvertToEditableType(const AZ::PhysX::MaterialPropertyValue& value);
 
+            //! Convert from a material system property type enumeration into the corresponding dynamic property type 
+            AtomToolsFramework::DynamicPropertyType ConvertToEditableType(const AZ::PhysX::MaterialPropertyDataType dataType);
+
+            //! Convert and assign material type source data property definition fields to editor dynamic property configuration 
+            void ConvertToPropertyConfig(AtomToolsFramework::DynamicPropertyConfig& propertyConfig, const AZ::PhysX::MaterialTypeSourceData::PropertyDefinition& propertyDefinition);
+
+            //! Convert the property value into the format that will be stored in the source data
+            //! This is primarily needed to support conversions of special types like enums and images
+            //! @param exportPath absolute path of the file being saved
+            //! @param propertyDefinition describes type information and other details about propertyValue
+            //! @param propertyValue the value being converted before saving
             bool ConvertToExportFormat(
                 const AZStd::string& exportPath,
                 const AZ::Name& propertyId,

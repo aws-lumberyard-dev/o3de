@@ -15,9 +15,10 @@
 //#include <Atom/RPI.Edit/Material/MaterialSourceData.h>
 //#include <Atom/RPI.Edit/Material/MaterialTypeSourceData.h>
 #include <Atom/RPI.Edit/Common/JsonReportingHelper.h>
-#include <Atom/RPI.Edit/Common/JsonFileLoadContext.h>
+//#include <Atom/RPI.Edit/Common/JsonFileLoadContext.h>
 //#include <Atom/RPI.Edit/Common/JsonUtils.h>
 #include <AzCore/Serialization/Json/JsonUtils.h>
+#include <AzCore/Serialization/Json/JsonImporter.h>
 #include <AzCore/Serialization/Json/BaseJsonSerializer.h>
 #include <AzCore/Serialization/Json/JsonSerializationResult.h>
 #include <AzCore/Settings/SettingsRegistry.h>
@@ -74,20 +75,38 @@ namespace AZ
                 outResolvedValue = enumValue;
                 return true;
             }
-
-            AZ::Outcome<MaterialTypeSourceData> LoadMaterialTypeSourceData(const AZStd::string& filePath, const rapidjson::Value* document)
+            
+            AZ::Outcome<MaterialTypeSourceData> LoadMaterialTypeSourceData(const AZStd::string& filePath, rapidjson::Document* document, ImportedJsonFiles* importedFiles)
             {
-                AZ::Outcome<rapidjson::Document, AZStd::string> loadOutcome;
+                rapidjson::Document localDocument;
+
                 if (document == nullptr)
                 {
-                    loadOutcome = AZ::JsonSerializationUtils::ReadJsonFile(filePath, AZ::RPI::JsonUtils::DefaultMaxFileSize);
+                    AZ::Outcome<rapidjson::Document, AZStd::string> loadOutcome = AZ::JsonSerializationUtils::ReadJsonFile(filePath, AZ::RPI::JsonUtils::DefaultMaxFileSize);
                     if (!loadOutcome.IsSuccess())
                     {
                         AZ_Error("MaterialUtils", false, "%s", loadOutcome.GetError().c_str());
                         return AZ::Failure();
                     }
 
-                    document = &loadOutcome.GetValue();
+                    localDocument = loadOutcome.TakeValue();
+                    document = &localDocument;
+                }
+                
+                AZ::BaseJsonImporter jsonImporter;
+                AZ::JsonImportSettings importSettings;
+                importSettings.m_importer = &jsonImporter;
+                importSettings.m_loadedJsonPath = filePath;
+                AZ::JsonSerializationResult::ResultCode result = AZ::JsonSerialization::ResolveImports(document->GetObject(), document->GetAllocator(), importSettings);
+                if (result.GetProcessing() != AZ::JsonSerializationResult::Processing::Completed)
+                {
+                    AZ_Error("MaterialUtils", false, "%s", result.ToString(filePath).c_str());
+                    return AZ::Failure();
+                }
+
+                if (importedFiles)
+                {
+                    *importedFiles = importSettings.m_importer->GetImportedFiles();
                 }
 
                 MaterialTypeSourceData materialType;
@@ -96,11 +115,6 @@ namespace AZ
 
                 RPI::JsonReportingHelper reportingHelper;
                 reportingHelper.Attach(settings);
-
-                // This is required by some custom material serializers to support relative path references.
-                RPI::JsonFileLoadContext fileLoadContext;
-                fileLoadContext.PushFilePath(filePath);
-                settings.m_metadata.Add(fileLoadContext);
 
                 JsonSerialization::Load(materialType, *document, settings);
                 materialType.ConvertToNewDataFormat();
@@ -216,6 +230,61 @@ namespace AZ
                 }*/
 
                 return AZ::PhysX::MaterialPropertyValue::ToAny(value);
+            }
+
+            AtomToolsFramework::DynamicPropertyType ConvertToEditableType(const AZ::PhysX::MaterialPropertyDataType dataType)
+            {
+                switch (dataType)
+                {
+                case AZ::PhysX::MaterialPropertyDataType::Bool:
+                    return AtomToolsFramework::DynamicPropertyType::Bool;
+                case AZ::PhysX::MaterialPropertyDataType::Int:
+                    return AtomToolsFramework::DynamicPropertyType::Int;
+                case AZ::PhysX::MaterialPropertyDataType::UInt:
+                    return AtomToolsFramework::DynamicPropertyType::UInt;
+                case AZ::PhysX::MaterialPropertyDataType::Float:
+                    return AtomToolsFramework::DynamicPropertyType::Float;
+                case AZ::PhysX::MaterialPropertyDataType::Vector2:
+                    return AtomToolsFramework::DynamicPropertyType::Vector2;
+                case AZ::PhysX::MaterialPropertyDataType::Vector3:
+                    return AtomToolsFramework::DynamicPropertyType::Vector3;
+                case AZ::PhysX::MaterialPropertyDataType::Vector4:
+                    return AtomToolsFramework::DynamicPropertyType::Vector4;
+                case AZ::PhysX::MaterialPropertyDataType::Color:
+                    return AtomToolsFramework::DynamicPropertyType::Color;
+                //case AZ::PhysX::MaterialPropertyDataType::Image:
+                //    return AtomToolsFramework::DynamicPropertyType::Asset;
+                case AZ::PhysX::MaterialPropertyDataType::Enum:
+                    return AtomToolsFramework::DynamicPropertyType::Enum;
+                }
+
+                AZ_Assert(false, "Attempting to convert an unsupported property type.");
+                return AtomToolsFramework::DynamicPropertyType::Invalid;
+            }
+
+            void ConvertToPropertyConfig(AtomToolsFramework::DynamicPropertyConfig& propertyConfig, const AZ::PhysX::MaterialTypeSourceData::PropertyDefinition& propertyDefinition)
+            {
+                propertyConfig.m_dataType = ConvertToEditableType(propertyDefinition.m_dataType);
+                propertyConfig.m_name = propertyDefinition.GetName();
+                propertyConfig.m_displayName = propertyDefinition.m_displayName;
+                propertyConfig.m_description = propertyDefinition.m_description;
+                propertyConfig.m_defaultValue = ConvertToEditableType(propertyDefinition.m_value);
+                propertyConfig.m_min = ConvertToEditableType(propertyDefinition.m_min);
+                propertyConfig.m_max = ConvertToEditableType(propertyDefinition.m_max);
+                propertyConfig.m_softMin = ConvertToEditableType(propertyDefinition.m_softMin);
+                propertyConfig.m_softMax = ConvertToEditableType(propertyDefinition.m_softMax);
+                propertyConfig.m_step = ConvertToEditableType(propertyDefinition.m_step);
+                propertyConfig.m_enumValues = propertyDefinition.m_enumValues;
+                propertyConfig.m_vectorLabels = propertyDefinition.m_vectorLabels;
+                //propertyConfig.m_visible = propertyDefinition.m_visibility != AZ::PhysX::MaterialPropertyVisibility::Hidden;
+                //propertyConfig.m_readOnly = propertyDefinition.m_visibility == AZ::PhysX::MaterialPropertyVisibility::Disabled;
+
+                // Update the description for material properties to include script name assuming id is set beforehand
+                propertyConfig.m_description = AZStd::string::format(
+                    "%s%s(Script Name = '%s')",
+                    propertyConfig.m_description.c_str(),
+                    propertyConfig.m_description.empty() ? "" : "\n",
+                    propertyConfig.m_id.GetCStr());
             }
 
             bool ConvertToExportFormat(

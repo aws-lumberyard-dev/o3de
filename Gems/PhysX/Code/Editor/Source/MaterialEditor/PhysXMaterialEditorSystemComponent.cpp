@@ -24,7 +24,7 @@ namespace PhysXMaterialEditor
         return "PhysXMaterialEditor";
     }
 
-    void AtomMaterialEditorSystemComponent::Reflect(AZ::ReflectContext* context)
+    void PhysXMaterialEditorSystemComponent::Reflect(AZ::ReflectContext* context)
     {
         AtomToolsFramework::AtomToolsDocumentSystem::Reflect(context); // TODO: How to solve this.
         MaterialEditorWindowSettings::Reflect(context);
@@ -130,9 +130,9 @@ namespace PhysXMaterialEditor
             [this]([[maybe_unused]] QWidget* caller, QMenu* menu, const AtomToolsFramework::AtomToolsAssetBrowserInteractions::AssetBrowserEntryVector& entries)
             {
                 const bool isMaterial = AzFramework::StringFunc::Path::IsExtension(
-                    entries.front()->GetFullPath().c_str(), AZ::RPI::MaterialSourceData::Extension);
+                    entries.front()->GetFullPath().c_str(), AZ::PhysX::MaterialSourceData::Extension);
                 const bool isMaterialType = AzFramework::StringFunc::Path::IsExtension(
-                    entries.front()->GetFullPath().c_str(), AZ::RPI::MaterialTypeSourceData::Extension);
+                    entries.front()->GetFullPath().c_str(), AZ::PhysX::MaterialTypeSourceData::Extension);
                 if (isMaterial || isMaterialType)
                 {
                     menu->addAction(QObject::tr("Open"), [entries, this]()
@@ -151,7 +151,7 @@ namespace PhysXMaterialEditor
                                 QString(AZ::Utils::GetProjectPath().c_str()) +
                                 AZ_CORRECT_FILESYSTEM_SEPARATOR + "Assets" +
                                 AZ_CORRECT_FILESYSTEM_SEPARATOR + "untitled." +
-                                AZ::RPI::MaterialSourceData::Extension).absoluteFilePath();
+                                AZ::PhysX::MaterialSourceData::Extension).absoluteFilePath();
 
                             AtomToolsFramework::AtomToolsDocumentSystemRequestBus::Event(
                                 m_toolId, &AtomToolsFramework::AtomToolsDocumentSystemRequestBus::Events::CreateDocumentFromFile,
@@ -177,7 +177,7 @@ namespace PhysXMaterialEditor
             {
                 menu->addAction(QObject::tr("Create Material..."), [caller, entries, this]()
                     {
-                        MaterialEditor::CreateMaterialDialog createDialog(entries.front()->GetFullPath().c_str(), caller);
+                        PhysXMaterialEditor::CreateMaterialDialog createDialog(entries.front()->GetFullPath().c_str(), caller);
                         createDialog.adjustSize();
 
                         if (createDialog.exec() == QDialog::Accepted &&

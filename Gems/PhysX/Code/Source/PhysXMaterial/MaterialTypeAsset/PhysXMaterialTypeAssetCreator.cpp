@@ -6,6 +6,7 @@
  *
  */
 #include <PhysXMaterial/MaterialTypeAsset/PhysXMaterialTypeAssetCreator.h>
+#include <PhysXMaterial/PhysXMaterial.h>
 //#include <Atom/RPI.Reflect/Material/MaterialPropertiesLayout.h>
 //#include <Atom/RPI.Reflect/Material/MaterialFunctor.h>
 //#include <Atom/RPI.Reflect/Limits.h>

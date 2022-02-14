@@ -14,6 +14,7 @@
 //#include <Atom/RPI.Public/Material/Material.h>
 //#include <Atom/RPI.Reflect/Material/MaterialFunctor.h>
 //#include <Atom/RPI.Reflect/Material/MaterialPropertiesLayout.h>
+#include <PhysXMaterial/PhysXMaterialNameContext.h>
 #include <AtomCore/Instance/Instance.h>
 #include <AtomToolsFramework/Document/AtomToolsDocumentNotificationBus.h>
 #include <AtomToolsFramework/Util/MaterialPropertyUtil.h>
@@ -335,7 +336,7 @@ namespace PhysXMaterialEditor
         bool addPropertiesResult = true;
 
         // populate sourceData with properties that meet the filter
-        m_materialTypeSourceData.EnumerateProperties([&](const auto& propertyDefinition, const AZ::RPI::MaterialNameContext& nameContext) {
+        m_materialTypeSourceData.EnumerateProperties([&](const auto& propertyDefinition, const AZ::PhysX::MaterialNameContext& nameContext) {
 
             AZ::Name propertyId{propertyDefinition->GetName()};
             nameContext.ContextualizeProperty(propertyId);
@@ -343,10 +344,10 @@ namespace PhysXMaterialEditor
             const auto property = FindProperty(propertyId);
             if (property && propertyFilter(*property))
             {
-                AZ::RPI::MaterialPropertyValue propertyValue = AtomToolsFramework::ConvertToRuntimeType(property->GetValue());
+                AZ::PhysX::MaterialPropertyValue propertyValue = AZ::PhysX::MaterialUtils::ConvertToRuntimeType(property->GetValue());
                 if (propertyValue.IsValid())
                 {
-                    if (!AtomToolsFramework::ConvertToExportFormat(m_savePathNormalized, propertyId, *propertyDefinition, propertyValue))
+                    if (!AZ::PhysX::MaterialUtils::ConvertToExportFormat(m_savePathNormalized, propertyId, *propertyDefinition, propertyValue))
                     {
                         AZ_Error("MaterialDocument", false, "Document property could not be converted: '%s' in '%s'.", propertyId.GetCStr(), m_absolutePath.c_str());
                         addPropertiesResult = false;
@@ -550,18 +551,18 @@ namespace PhysXMaterialEditor
         // Assets must still be used for now because they contain the final accumulated value after all other materials
         // in the hierarchy are applied
         bool enumerateResult = m_materialTypeSourceData.EnumeratePropertyGroups(
-            [this, &parentPropertyValues](const AZ::RPI::MaterialTypeSourceData::PropertyGroupStack& propertyGroupStack)
+            [this, &parentPropertyValues](const AZ::PhysX::MaterialTypeSourceData::PropertyGroupStack& propertyGroupStack)
             {
-                using namespace AZ::RPI;
+                using namespace AZ::PhysX;
 
                 const MaterialTypeSourceData::PropertyGroup* propertyGroup = propertyGroupStack.back();
                 
                 MaterialNameContext groupNameContext = MaterialTypeSourceData::MakeMaterialNameContext(propertyGroupStack);
 
-                if (!AddEditorMaterialFunctors(propertyGroup->GetFunctors(), groupNameContext))
+                /*if (!AddEditorMaterialFunctors(propertyGroup->GetFunctors(), groupNameContext))
                 {
                     return false;
-                }
+                }*/
 
                 AZStd::vector<AZStd::string> groupNameVector;
                 AZStd::vector<AZStd::string> groupDisplayNameVector;
@@ -597,16 +598,16 @@ namespace PhysXMaterialEditor
 
                     if (propertyIndexInBounds)
                     {
-                        AtomToolsFramework::ConvertToPropertyConfig(propertyConfig, *propertyDefinition);
+                        MaterialUtils::ConvertToPropertyConfig(propertyConfig, *propertyDefinition);
                         
                         // (Does DynamicPropertyConfig really even need m_groupName? It doesn't seem to be used anywhere)
                         propertyConfig.m_groupName = m_groups.back()->m_name;
                         propertyConfig.m_groupDisplayName = m_groups.back()->m_displayName;
                         propertyConfig.m_showThumbnail = true;
                         propertyConfig.m_originalValue =
-                            AtomToolsFramework::ConvertToEditableType(m_materialAsset->GetPropertyValues()[propertyIndex.GetIndex()]);
+                            MaterialUtils::ConvertToEditableType(m_materialAsset->GetPropertyValues()[propertyIndex.GetIndex()]);
                         propertyConfig.m_parentValue =
-                            AtomToolsFramework::ConvertToEditableType(parentPropertyValues[propertyIndex.GetIndex()]);
+                            MaterialUtils::ConvertToEditableType(parentPropertyValues[propertyIndex.GetIndex()]);
                         propertyConfig.m_dataChangeCallback = [documentId = m_id, propertyId = propertyConfig.m_id](const AZStd::any& value)
                         {
                             MaterialDocumentRequestBus::Event(
@@ -627,15 +628,15 @@ namespace PhysXMaterialEditor
         }
 
         // Add material functors that are in the top-level functors list.
-        AZ::RPI::MaterialNameContext materialNameContext; // There is no name context for top-level functors, only functors inside PropertyGroups
+        /*AZ::PhysX::MaterialNameContext materialNameContext; // There is no name context for top-level functors, only functors inside PropertyGroups
         if (!AddEditorMaterialFunctors(m_materialTypeSourceData.m_materialFunctorSourceData, materialNameContext))
         {
             return OpenFailed();
-        }
+        }*/
 
-        AZ::RPI::MaterialPropertyFlags dirtyFlags;
+        AZ::PhysX::MaterialPropertyFlags dirtyFlags;
         dirtyFlags.set(); // Mark all properties as dirty since we just loaded the material and need to initialize property visibility
-        RunEditorMaterialFunctors(dirtyFlags);
+        //RunEditorMaterialFunctors(dirtyFlags);
 
         return OpenSucceeded();
     }
@@ -755,7 +756,7 @@ namespace PhysXMaterialEditor
         }
     }
 
-    bool MaterialDocument::AddEditorMaterialFunctors(
+    /*bool MaterialDocument::AddEditorMaterialFunctors(
         const AZStd::vector<AZ::RPI::Ptr<AZ::RPI::MaterialFunctorSourceDataHolder>>& functorSourceDataHolders,
         const AZ::RPI::MaterialNameContext& nameContext)
     {
@@ -850,7 +851,7 @@ namespace PhysXMaterialEditor
             }
             return true;
         });
-    }
+    }*/
 
     AtomToolsFramework::DocumentObjectInfo MaterialDocument::GetObjectInfoFromDynamicPropertyGroup(
         const AtomToolsFramework::DynamicPropertyGroup* group) const

@@ -17,6 +17,7 @@
 //#include <Atom/RPI.Reflect/Base.h>
 //#include <Atom/RPI.Reflect/Material/ShaderCollection.h>
 #include <PhysXMaterial/PhysXMaterialPropertiesLayout.h>
+#include <Atom/RPI.Reflect/Asset/AssetHandler.h>
 //#include <Atom/RPI.Reflect/Material/MaterialFunctor.h>
 //#include <Atom/RPI.Reflect/Material/MaterialVersionUpdate.h>
 

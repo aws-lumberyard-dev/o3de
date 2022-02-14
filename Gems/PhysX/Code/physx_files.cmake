@@ -144,6 +144,8 @@ set(FILES
     Source/PhysXMaterial/PhysXMaterialPropertyDescriptor.h
     Source/PhysXMaterial/PhysXMaterialPropertiesLayout.cpp
     Source/PhysXMaterial/PhysXMaterialPropertiesLayout.h
+    Source/PhysXMaterial/PhysXMaterialNameContext.cpp
+    Source/PhysXMaterial/PhysXMaterialNameContext.h
     Source/PhysXMaterial/MaterialAsset/PhysXMaterialAsset.cpp
     Source/PhysXMaterial/MaterialAsset/PhysXMaterialAsset.h
     Source/PhysXMaterial/MaterialAsset/PhysXMaterialAssetCreator.cpp

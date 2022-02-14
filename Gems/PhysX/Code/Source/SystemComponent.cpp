@@ -30,6 +30,7 @@
 #include <PhysXMaterial/PhysXMaterial.h>
 #include <PhysXMaterial/PhysXMaterialPropertyValue.h>
 #include <PhysXMaterial/PhysXMaterialPropertiesLayout.h>
+#include <PhysXMaterial/PhysXMaterialNameContext.h>
 
 namespace AZ::PhysX
 {
@@ -113,6 +114,7 @@ namespace PhysX
         AZ::PhysX::MaterialTypeAsset::Reflect(context);
         AZ::PhysX::MaterialPropertyValue::Reflect(context);
         AZ::PhysX::MaterialPropertiesLayout::Reflect(context);
+        AZ::PhysX::MaterialNameContext::Reflect(context);
 
         PhysX::ReflectionUtils::ReflectPhysXOnlyApi(context);
 
@@ -233,12 +235,12 @@ namespace PhysX
 
         // TODO: There is a problem that instance database is confusing atom material asset and physx material asset
         // and it crashes at start up
-        /*AZ::Data::InstanceHandler<AZ::PhysX::Material> handler;
+        AZ::Data::InstanceHandler<AZ::PhysX::Material> handler;
         handler.m_createFunction = [](AZ::Data::AssetData* materialAsset)
         {
             return AZ::PhysX::MaterialCreator::Create(*(azrtti_cast<AZ::PhysX::MaterialAsset*>(materialAsset)));
         };
-        AZ::Data::InstanceDatabase<AZ::PhysX::Material>::Create(azrtti_typeid<AZ::PhysX::MaterialAsset>(), handler);*/
+        AZ::Data::InstanceDatabase<AZ::PhysX::Material>::Create(azrtti_typeid<AZ::PhysX::MaterialAsset>(), handler);
 
         // Connect to relevant buses
         Physics::SystemRequestBus::Handler::BusConnect();
