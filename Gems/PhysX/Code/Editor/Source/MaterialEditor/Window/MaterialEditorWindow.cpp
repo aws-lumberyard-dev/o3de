@@ -36,11 +36,9 @@ AZ_POP_DISABLE_WARNING
 
 namespace PhysXMaterialEditor
 {
-    MaterialEditorWindow::MaterialEditorWindow(QWidget* parent /* = 0 */)
-        : Base(parent)
+    MaterialEditorWindow::MaterialEditorWindow(const AZ::Crc32& toolId, QWidget* parent)
+        : Base(toolId, parent)
     {
-        resize(1280, 1024);
-
         // Among other things, we need the window wrapper to save the main window size, position, and state
         auto mainWindowWrapper =
             new AzQtComponents::WindowDecorationWrapper(AzQtComponents::WindowDecorationWrapper::OptionAutoTitleBarButtons);
@@ -52,41 +50,28 @@ namespace PhysXMaterialEditor
 
         QApplication::setWindowIcon(QIcon(":/Icons/materialeditor.svg"));
 
-        /*AZ::Name apiName = AZ::RHI::Factory::Get().GetName();
-        if (!apiName.IsEmpty())
-        {
-            QString title = QString{ "%1 (%2)" }.arg(QApplication::applicationName()).arg(apiName.GetCStr());
-            setWindowTitle(title);
-        }
-        else
-        {
-            AZ_Assert(false, "Render API name not found");
-            setWindowTitle(QApplication::applicationName());
-        }*/
-        setWindowTitle(QApplication::applicationName());
+        setObjectName("MaterialEditorWindow");
 
-        setObjectName("PhysXMaterialEditorWindow");
+        m_toolBar = new MaterialEditorToolBar(this);
+        m_toolBar->setObjectName("ToolBar");
+        addToolBar(m_toolBar);
 
-        //m_toolBar = new MaterialEditorToolBar(this);
-        //m_toolBar->setObjectName("ToolBar");
-        //addToolBar(m_toolBar);
+        m_materialViewport = new MaterialViewportWidget(m_toolId, centralWidget());
+        m_materialViewport->setObjectName("Viewport");
+        m_materialViewport->setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::MinimumExpanding);
+        centralWidget()->layout()->addWidget(m_materialViewport);
 
-        //m_materialViewport = new MaterialViewportWidget(centralWidget());
-        //m_materialViewport->setObjectName("Viewport");
-        //m_materialViewport->setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::MinimumExpanding);
-        //centralWidget()->layout()->addWidget(m_materialViewport);
-
-        //m_assetBrowser->SetFilterState("", AZ::RPI::StreamingImageAsset::Group, true);
-        m_assetBrowser->SetFilterState("", AZ::PhysX::MaterialAsset::Group, true);
-        m_assetBrowser->SetOpenHandler([](const AZStd::string& absolutePath) {
-            if (AzFramework::StringFunc::Path::IsExtension(absolutePath.c_str(), AZ::PhysX::MaterialSourceData::Extension))
+        m_assetBrowser->SetFilterState("", AZ::RPI::StreamingImageAsset::Group, true);
+        m_assetBrowser->SetFilterState("", AZ::RPI::MaterialAsset::Group, true);
+        m_assetBrowser->SetOpenHandler([this](const AZStd::string& absolutePath) {
+            if (AzFramework::StringFunc::Path::IsExtension(absolutePath.c_str(), AZ::RPI::MaterialSourceData::Extension))
             {
-                AtomToolsFramework::AtomToolsDocumentSystemRequestBus::Broadcast(
-                    &AtomToolsFramework::AtomToolsDocumentSystemRequestBus::Events::OpenDocument, absolutePath);
+                AtomToolsFramework::AtomToolsDocumentSystemRequestBus::Event(
+                    m_toolId, &AtomToolsFramework::AtomToolsDocumentSystemRequestBus::Events::OpenDocument, absolutePath);
                 return;
             }
 
-            if (AzFramework::StringFunc::Path::IsExtension(absolutePath.c_str(), AZ::PhysX::MaterialTypeSourceData::Extension))
+            if (AzFramework::StringFunc::Path::IsExtension(absolutePath.c_str(), AZ::RPI::MaterialTypeSourceData::Extension))
             {
                 return;
             }
@@ -94,9 +79,9 @@ namespace PhysXMaterialEditor
             QDesktopServices::openUrl(QUrl::fromLocalFile(absolutePath.c_str()));
         });
 
-        AddDockWidget("Inspector", new MaterialInspector, Qt::RightDockWidgetArea, Qt::Vertical);
-        //AddDockWidget("Viewport Settings", new ViewportSettingsInspector, Qt::LeftDockWidgetArea, Qt::Vertical);
-        //SetDockWidgetVisible("Viewport Settings", false);
+        AddDockWidget("Inspector", new MaterialInspector(m_toolId), Qt::RightDockWidgetArea, Qt::Vertical);
+        AddDockWidget("Viewport Settings", new ViewportSettingsInspector, Qt::LeftDockWidgetArea, Qt::Vertical);
+        SetDockWidgetVisible("Viewport Settings", false);
 
         // Restore geometry and show the window
         mainWindowWrapper->showFromSettings();
@@ -114,10 +99,8 @@ namespace PhysXMaterialEditor
         OnDocumentOpened(AZ::Uuid::CreateNull());
     }
 
-    void MaterialEditorWindow::ResizeViewportRenderTarget(
-        [[maybe_unused]] uint32_t width, [[maybe_unused]] uint32_t height)
+    void MaterialEditorWindow::ResizeViewportRenderTarget(uint32_t width, uint32_t height)
     {
-        /*
         QSize requestedViewportSize = QSize(width, height) / devicePixelRatioF();
         QSize currentViewportSize = m_materialViewport->size();
         QSize offset = requestedViewportSize - currentViewportSize;
@@ -135,18 +118,16 @@ namespace PhysXMaterialEditor
             "Material Editor", static_cast<uint32_t>(newDeviceSize.width()) == width && static_cast<uint32_t>(newDeviceSize.height()) == height,
             "Resizing the window did not give the expected frame size. Requested %d x %d but got %d x %d.", width, height,
             newDeviceSize.width(), newDeviceSize.height());
-        */
     }
 
-    void MaterialEditorWindow::LockViewportRenderTargetSize(
-        [[maybe_unused]] uint32_t width, [[maybe_unused]] uint32_t height)
+    void MaterialEditorWindow::LockViewportRenderTargetSize(uint32_t width, uint32_t height)
     {
-        //m_materialViewport->LockRenderTargetSize(width, height);
+        m_materialViewport->LockRenderTargetSize(width, height);
     }
 
     void MaterialEditorWindow::UnlockViewportRenderTargetSize()
     {
-        //m_materialViewport->UnlockRenderTargetSize();
+        m_materialViewport->UnlockRenderTargetSize();
     }
 
     bool MaterialEditorWindow::GetCreateDocumentParams(AZStd::string& openPath, AZStd::string& savePath)

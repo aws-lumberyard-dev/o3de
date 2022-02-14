@@ -7,6 +7,7 @@
 namespace AtomToolsFramework
 {
     class AtomToolsAssetBrowserInteractions;
+    class AtomToolsDocumentSystem;
 }
 
 namespace PhysXMaterialEditor
@@ -33,11 +34,14 @@ namespace PhysXMaterialEditor
         void Deactivate() override;
 
         void RegisterPhysXWindow();
-
         void SetupAssetBrowserInteractions();
+
+        const AZStd::string m_targetName;
+        const AZ::Crc32 m_toolId = {};
 
         O3DEMaterialEditor::O3DEMaterialEditorRequests::NotifyRegisterViewsEvent::Handler m_notifyRegisterViewsEventHandler;
 
+        AZStd::unique_ptr<AtomToolsFramework::AtomToolsDocumentSystem> m_documentSystem;
         AZStd::unique_ptr<AtomToolsFramework::AtomToolsAssetBrowserInteractions> m_assetBrowserInteractions;
     };
 } // namespace PhysX

@@ -100,7 +100,7 @@ namespace PhysXMaterialEditor
                 m_materialFileInfo = fileInfo;
                 m_ui->m_materialFilePicker->setText(m_materialFileInfo.fileName());
             }
-            });
+        });
     }
 
     void CreateMaterialDialog::UpdateMaterialTypeSelection()

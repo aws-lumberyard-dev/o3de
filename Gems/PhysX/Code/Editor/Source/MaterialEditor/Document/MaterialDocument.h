@@ -31,9 +31,9 @@ namespace PhysXMaterialEditor
     public:
         AZ_RTTI(MaterialDocument, "{CC43009C-05BA-4A72-A359-86178EE0FD84}");
         AZ_CLASS_ALLOCATOR(MaterialDocument, AZ::SystemAllocator, 0);
-        AZ_DISABLE_COPY(MaterialDocument);
+        AZ_DISABLE_COPY_MOVE(MaterialDocument);
 
-        MaterialDocument();
+        MaterialDocument(const AZ::Crc32& toolId);
         virtual ~MaterialDocument();
 
         // AtomToolsFramework::AtomToolsDocument overrides...
@@ -82,11 +82,12 @@ namespace PhysXMaterialEditor
         void RestorePropertyValues(const PropertyValueMap& propertyValues);
 
         //bool AddEditorMaterialFunctors(
-        //    const AZStd::vector<AZ::RPI::Ptr<AZ::RPI::MaterialFunctorSourceDataHolder>>& functorSourceDataHolders);
+        //    const AZStd::vector<AZ::RPI::Ptr<AZ::RPI::MaterialFunctorSourceDataHolder>>& functorSourceDataHolders,
+        //    const AZ::RPI::MaterialNameContext& nameContext);
 
         // Run editor material functor to update editor metadata.
         // @param dirtyFlags indicates which properties have changed, and thus which MaterialFunctors need to be run.
-        //void RunEditorMaterialFunctors(AZ::PhysX::MaterialPropertyFlags dirtyFlags);
+        //void RunEditorMaterialFunctors(AZ::RPI::MaterialPropertyFlags dirtyFlags);
 
         // Convert a dynamic property group pointer into generic document object info used to populate the inspector
         AtomToolsFramework::DocumentObjectInfo GetObjectInfoFromDynamicPropertyGroup(
