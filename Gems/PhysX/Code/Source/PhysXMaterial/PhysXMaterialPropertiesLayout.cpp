@@ -17,7 +17,7 @@ namespace AZ
         {
             if (auto* serializeContext = azrtti_cast<SerializeContext*>(context))
             {
-                serializeContext->Class<MaterialPropertiesLayout>()
+                serializeContext->Class<AZ::PhysX::MaterialPropertiesLayout>()
                     ->Version(1)
                     ->Field("Indexes", &MaterialPropertiesLayout::m_materialPropertyIndexes)
                     ->Field("Properties", &MaterialPropertiesLayout::m_materialPropertyDescriptors)

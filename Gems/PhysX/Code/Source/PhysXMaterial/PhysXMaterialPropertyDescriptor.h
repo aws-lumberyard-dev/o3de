@@ -20,10 +20,10 @@ namespace AZ
         class MaterialPropertyDescriptor;
 
         struct MaterialPropertyIndexType {
-            AZ_TYPE_INFO(MaterialPropertyIndexType, "{897C62BC-4BA1-454D-8573-98BCAAF73D01}");
+            AZ_TYPE_INFO(AZ::PhysX::MaterialPropertyIndexType, "{897C62BC-4BA1-454D-8573-98BCAAF73D01}");
         };
 
-        using MaterialPropertyIndex = RHI::Handle<uint32_t, MaterialPropertyIndexType>;
+        using MaterialPropertyIndex = RHI::Handle<uint32_t, AZ::PhysX::MaterialPropertyIndexType>;
 
         /*enum class MaterialPropertyOutputType
         {
@@ -95,7 +95,7 @@ namespace AZ
         {
             friend class MaterialTypeAssetCreator;
         public:
-            AZ_TYPE_INFO(MaterialPropertyDescriptor, "{571E97E5-EFDE-40AB-B3AB-903F241898A8}");
+            AZ_TYPE_INFO(AZ::PhysX::MaterialPropertyDescriptor, "{571E97E5-EFDE-40AB-B3AB-903F241898A8}");
 
             //using OutputList = AZStd::vector<MaterialPropertyOutputId>;
 
@@ -128,7 +128,7 @@ namespace AZ
         };
     } // namespace PhysX
 
-    //AZ_TYPE_INFO_SPECIALIZE(PhysX::MaterialPropertyOutputType, "{571E97E5-EFDE-40AB-B3AB-903F241898A8}");
-    AZ_TYPE_INFO_SPECIALIZE(PhysX::MaterialPropertyDataType, "{E2D3CE4E-2EEC-44EC-B4CC-A4FEF42C16E7}");
+    //AZ_TYPE_INFO_SPECIALIZE(AZ::PhysX::MaterialPropertyOutputType, "{571E97E5-EFDE-40AB-B3AB-903F241898A8}");
+    AZ_TYPE_INFO_SPECIALIZE(AZ::PhysX::MaterialPropertyDataType, "{E2D3CE4E-2EEC-44EC-B4CC-A4FEF42C16E7}");
 } // namespace AZ
 

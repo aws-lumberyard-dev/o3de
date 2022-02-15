@@ -57,31 +57,31 @@ namespace AZ
             else if (auto* serializeContext = azrtti_cast<SerializeContext*>(context))
             {
                 //serializeContext->Class<PropertyConnection>()->Version(3);
-                serializeContext->Class<GroupDefinition>()->Version(4);
-                serializeContext->Class<PropertyDefinition>()->Version(1);
+                serializeContext->Class<AZ::PhysX::MaterialTypeSourceData::GroupDefinition>()->Version(4);
+                serializeContext->Class<AZ::PhysX::MaterialTypeSourceData::PropertyDefinition>()->Version(1);
 
-                serializeContext->RegisterGenericType<AZStd::unique_ptr<PropertyGroup>>();
-                serializeContext->RegisterGenericType<AZStd::unique_ptr<PropertyDefinition>>();
-                serializeContext->RegisterGenericType<AZStd::vector<AZStd::unique_ptr<PropertyGroup>>>();
-                serializeContext->RegisterGenericType<AZStd::vector<AZStd::unique_ptr<PropertyDefinition>>>();
+                serializeContext->RegisterGenericType<AZStd::unique_ptr<AZ::PhysX::MaterialTypeSourceData::PropertyGroup>>();
+                serializeContext->RegisterGenericType<AZStd::unique_ptr<AZ::PhysX::MaterialTypeSourceData::PropertyDefinition>>();
+                serializeContext->RegisterGenericType<AZStd::vector<AZStd::unique_ptr<AZ::PhysX::MaterialTypeSourceData::PropertyGroup>>>();
+                serializeContext->RegisterGenericType<AZStd::vector<AZStd::unique_ptr<AZ::PhysX::MaterialTypeSourceData::PropertyDefinition>>>();
                 //serializeContext->RegisterGenericType<PropertyConnectionList>();
 
-                serializeContext->Class<VersionUpdatesRenameOperationDefinition>()
+                serializeContext->Class<AZ::PhysX::MaterialTypeSourceData::VersionUpdatesRenameOperationDefinition>()
                     ->Version(1)
                     ->Field("op", &VersionUpdatesRenameOperationDefinition::m_operation)
                     ->Field("from", &VersionUpdatesRenameOperationDefinition::m_renameFrom)
                     ->Field("to", &VersionUpdatesRenameOperationDefinition::m_renameTo)
                     ;
 
-                serializeContext->RegisterGenericType<VersionUpdateActions>();
+                serializeContext->RegisterGenericType<AZ::PhysX::MaterialTypeSourceData::VersionUpdateActions>();
 
-                serializeContext->Class<VersionUpdateDefinition>()
+                serializeContext->Class<AZ::PhysX::MaterialTypeSourceData::VersionUpdateDefinition>()
                     ->Version(1)
                     ->Field("toVersion", &VersionUpdateDefinition::m_toVersion)
                     ->Field("actions", &VersionUpdateDefinition::m_actions)
                     ;
 
-                serializeContext->RegisterGenericType<VersionUpdates>();
+                serializeContext->RegisterGenericType<AZ::PhysX::MaterialTypeSourceData::VersionUpdates>();
 
                 /*serializeContext->Class<ShaderVariantReferenceData>()
                     ->Version(2)
@@ -90,7 +90,7 @@ namespace AZ
                     ->Field("options", &ShaderVariantReferenceData::m_shaderOptionValues)
                     ;*/
 
-                serializeContext->Class<PropertyGroup>()
+                serializeContext->Class<AZ::PhysX::MaterialTypeSourceData::PropertyGroup>()
                     ->Version(2)
                     ->Field("name", &PropertyGroup::m_name)
                     ->Field("displayName", &PropertyGroup::m_displayName)
@@ -102,7 +102,7 @@ namespace AZ
                     //->Field("functors", &PropertyGroup::m_materialFunctorSourceData)
                     ;
 
-                serializeContext->Class<PropertyLayout>()
+                serializeContext->Class<AZ::PhysX::MaterialTypeSourceData::PropertyLayout>()
                     ->Version(3) // Added propertyGroups
                     ->Field("version", &PropertyLayout::m_versionOld)       //< @deprecated: preserved for backward compatibility, replaced by MaterialTypeSourceData::version
                     ->Field("groups", &PropertyLayout::m_groupsOld)         //< @deprecated: preserved for backward compatibility, replaced by propertyGroups
@@ -112,7 +112,7 @@ namespace AZ
 
                 //serializeContext->RegisterGenericType<UvNameMap>();
 
-                serializeContext->Class<MaterialTypeSourceData>()
+                serializeContext->Class<AZ::PhysX::MaterialTypeSourceData>()
                     ->Version(4) // Material Version Update
                     ->Field("description", &MaterialTypeSourceData::m_description)
                     ->Field("version", &MaterialTypeSourceData::m_version)

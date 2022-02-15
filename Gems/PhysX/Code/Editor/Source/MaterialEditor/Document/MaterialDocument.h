@@ -29,7 +29,7 @@ namespace PhysXMaterialEditor
         , private AZ::TickBus::Handler
     {
     public:
-        AZ_RTTI(MaterialDocument, "{CC43009C-05BA-4A72-A359-86178EE0FD84}");
+        AZ_RTTI(PhysXMaterialEditor::MaterialDocument, "{CC43009C-05BA-4A72-A359-86178EE0FD84}");
         AZ_CLASS_ALLOCATOR(MaterialDocument, AZ::SystemAllocator, 0);
         AZ_DISABLE_COPY_MOVE(MaterialDocument);
 

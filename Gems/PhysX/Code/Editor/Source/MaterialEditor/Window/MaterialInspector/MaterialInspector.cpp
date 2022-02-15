@@ -24,7 +24,7 @@ namespace PhysXMaterialEditor
         , m_toolId(toolId)
     {
         m_windowSettings = AZ::UserSettings::CreateFind<MaterialEditorWindowSettings>(
-            AZ::Crc32("MaterialEditorWindowSettings"), AZ::UserSettings::CT_GLOBAL);
+            AZ::Crc32("PhysXMaterialEditorWindowSettings"), AZ::UserSettings::CT_GLOBAL);
 
         AtomToolsFramework::AtomToolsDocumentNotificationBus::Handler::BusConnect(m_toolId);
     }

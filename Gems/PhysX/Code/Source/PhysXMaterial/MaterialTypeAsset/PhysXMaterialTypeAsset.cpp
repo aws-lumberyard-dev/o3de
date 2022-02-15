@@ -44,7 +44,7 @@ namespace AZ
             {
                 //serializeContext->RegisterGenericType<MaterialUvNameMap>();
 
-                serializeContext->Class<MaterialTypeAsset, AZ::Data::AssetData>()
+                serializeContext->Class<AZ::PhysX::MaterialTypeAsset, AZ::Data::AssetData>()
                     ->Version(5) // Material version update
                     ->Field("Version", &MaterialTypeAsset::m_version)
                     //->Field("VersionUpdates", &MaterialTypeAsset::m_materialVersionUpdates)

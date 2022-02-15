@@ -24,7 +24,7 @@ namespace AZ
             : public BaseJsonSerializer
         {
         public:
-            AZ_RTTI(JsonMaterialPropertyGroupSerializer, "{C559A9DB-CD37-4AF6-AE71-C72C1D6D0EA9}", BaseJsonSerializer);
+            AZ_RTTI(AZ::PhysX::JsonMaterialPropertyGroupSerializer, "{C559A9DB-CD37-4AF6-AE71-C72C1D6D0EA9}", BaseJsonSerializer);
             AZ_CLASS_ALLOCATOR_DECL;
 
             JsonSerializationResult::Result Load(void* outputValue, const Uuid& outputValueTypeId, const rapidjson::Value& inputValue,

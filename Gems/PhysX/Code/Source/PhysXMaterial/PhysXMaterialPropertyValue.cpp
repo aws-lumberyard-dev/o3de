@@ -36,7 +36,7 @@ namespace AZ
             {
                 serializeContext->RegisterGenericType<ValueType>();
 
-                serializeContext->Class<MaterialPropertyValue>()
+                serializeContext->Class<AZ::PhysX::MaterialPropertyValue>()
                     ->Version(1)
                     ->Field("Value", &MaterialPropertyValue::m_value)
                     ;

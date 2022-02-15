@@ -171,7 +171,7 @@ namespace AZ
                 //    ->Value(ToString(MaterialPropertyOutputType::ShaderOption), MaterialPropertyOutputType::ShaderOption)
                 //    ;
 
-                serializeContext->Enum<MaterialPropertyDataType>()
+                serializeContext->Enum<AZ::PhysX::MaterialPropertyDataType>()
                     ->Value(ToString(MaterialPropertyDataType::Invalid), MaterialPropertyDataType::Invalid)
                     ->Value(ToString(MaterialPropertyDataType::Bool), MaterialPropertyDataType::Bool)
                     ->Value(ToString(MaterialPropertyDataType::Int), MaterialPropertyDataType::Int)
@@ -185,7 +185,7 @@ namespace AZ
                     ->Value(ToString(MaterialPropertyDataType::Enum), MaterialPropertyDataType::Enum)
                     ;
 
-                serializeContext->Class<MaterialPropertyDescriptor>()
+                serializeContext->Class<AZ::PhysX::MaterialPropertyDescriptor>()
                     ->Version(2)
                     ->Field("Name", &MaterialPropertyDescriptor::m_nameId)
                     ->Field("DataType", &MaterialPropertyDescriptor::m_dataType)

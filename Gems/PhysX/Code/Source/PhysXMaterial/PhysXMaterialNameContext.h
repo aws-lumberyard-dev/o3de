@@ -25,7 +25,7 @@ namespace AZ
         class MaterialNameContext
         {
         public:
-            AZ_TYPE_INFO(MaterialNameContext, "{EA0640D3-31AC-405E-8054-1CDB686F3393}")
+            AZ_TYPE_INFO(AZ::PhysX::MaterialNameContext, "{EA0640D3-31AC-405E-8054-1CDB686F3393}")
                 
             static void Reflect(ReflectContext* context);
 

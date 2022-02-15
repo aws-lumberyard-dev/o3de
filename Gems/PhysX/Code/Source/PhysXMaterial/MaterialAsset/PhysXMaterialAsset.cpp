@@ -32,7 +32,7 @@ namespace AZ
         {
             if (auto* serializeContext = azrtti_cast<SerializeContext*>(context))
             {
-                serializeContext->Class<MaterialAsset, AZ::Data::AssetData>()
+                serializeContext->Class<AZ::PhysX::MaterialAsset, AZ::Data::AssetData>()
                     ->Version(14) // added m_rawPropertyValues
                     ->Field("materialTypeAsset", &MaterialAsset::m_materialTypeAsset)
                     ->Field("materialTypeVersion", &MaterialAsset::m_materialTypeVersion)

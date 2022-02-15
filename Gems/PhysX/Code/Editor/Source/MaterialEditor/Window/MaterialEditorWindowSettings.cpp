@@ -16,7 +16,7 @@ namespace PhysXMaterialEditor
     {
         if (auto serializeContext = azrtti_cast<AZ::SerializeContext*>(context))
         {
-            serializeContext->Class<MaterialEditorWindowSettings, AZ::UserSettings>()
+            serializeContext->Class<PhysXMaterialEditor::MaterialEditorWindowSettings, AZ::UserSettings>()
                 ->Version(1)
                 ->Field("mainWindowState", &MaterialEditorWindowSettings::m_mainWindowState)
                 ->Field("inspectorCollapsedGroups", &MaterialEditorWindowSettings::m_inspectorCollapsedGroups)
@@ -24,8 +24,8 @@ namespace PhysXMaterialEditor
 
             if (auto editContext = serializeContext->GetEditContext())
             {
-                editContext->Class<MaterialEditorWindowSettings>(
-                    "MaterialEditorWindowSettings", "")
+                editContext->Class<PhysXMaterialEditor::MaterialEditorWindowSettings>(
+                    "PhysXMaterialEditorWindowSettings", "")
                     ->ClassElement(AZ::Edit::ClassElements::EditorData, "")
                     ->Attribute(AZ::Edit::Attributes::AutoExpand, true)
                     ;
@@ -34,7 +34,7 @@ namespace PhysXMaterialEditor
 
         if (auto behaviorContext = azrtti_cast<AZ::BehaviorContext*>(context))
         {
-            behaviorContext->Class<MaterialEditorWindowSettings>("MaterialEditorWindowSettings")
+            behaviorContext->Class<PhysXMaterialEditor::MaterialEditorWindowSettings>("PhysXMaterialEditorWindowSettings")
                 ->Attribute(AZ::Script::Attributes::Scope, AZ::Script::Attributes::ScopeFlags::Common)
                 ->Attribute(AZ::Script::Attributes::Category, "Editor")
                 ->Attribute(AZ::Script::Attributes::Module, "materialeditor")

@@ -233,8 +233,6 @@ namespace PhysX
         m_assetHandlers.emplace_back(AZ::RPI::MakeAssetHandler<AZ::PhysX::MaterialTypeAssetHandler>());
         m_assetHandlers.emplace_back(AZ::RPI::MakeAssetHandler<AZ::PhysX::MaterialAssetHandler>());
 
-        // TODO: There is a problem that instance database is confusing atom material asset and physx material asset
-        // and it crashes at start up
         AZ::Data::InstanceHandler<AZ::PhysX::Material> handler;
         handler.m_createFunction = [](AZ::Data::AssetData* materialAsset)
         {

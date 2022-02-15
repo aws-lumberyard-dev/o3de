@@ -26,31 +26,34 @@ namespace PhysXMaterialEditor
 
     void PhysXMaterialEditorSystemComponent::Reflect(AZ::ReflectContext* context)
     {
-        AtomToolsFramework::AtomToolsDocumentSystem::Reflect(context); // TODO: How to solve this.
+        // TODO: AtomToolsDocumentSystem is reflected by AtomMaterialEditorSystemComponent, it needs to
+        // be reflected somewhere common and not be dependant on each subsystem material editor.
+        //AtomToolsFramework::AtomToolsDocumentSystem::Reflect(context);
         MaterialEditorWindowSettings::Reflect(context);
 
-        if (AZ::SerializeContext* serialize = azrtti_cast<AZ::SerializeContext*>(context))
-        {
-            serialize->Class<PhysXMaterialEditorSystemComponent, AZ::Component>()
-                ->Version(0);
-
-            if (AZ::EditContext* ec = serialize->GetEditContext())
-            {
-                ec->Class<PhysXMaterialEditorSystemComponent>("PhysXMaterialEditorSystemComponent", "System component that manages launching and maintaining connections the material editor.")
-                    ->ClassElement(AZ::Edit::ClassElements::EditorData, "")
-                    ->Attribute(AZ::Edit::Attributes::AppearsInAddComponentMenu, AZ_CRC_CE("System"))
-                    ->Attribute(AZ::Edit::Attributes::AutoExpand, true)
-                    ;
-            }
-        }
         if (AZ::BehaviorContext* behaviorContext = azrtti_cast<AZ::BehaviorContext*>(context))
         {
-            behaviorContext->EBus<MaterialDocumentRequestBus>("MaterialDocumentRequestBus")
+            behaviorContext->EBus<PhysXMaterialEditor::MaterialDocumentRequestBus>("PhysXMaterialDocumentRequestBus")
                 ->Attribute(AZ::Script::Attributes::Scope, AZ::Script::Attributes::ScopeFlags::Common)
                 ->Attribute(AZ::Script::Attributes::Category, "Editor")
                 ->Attribute(AZ::Script::Attributes::Module, "physxmaterialeditor")
                 ->Event("SetPropertyValue", &MaterialDocumentRequestBus::Events::SetPropertyValue)
                 ->Event("GetPropertyValue", &MaterialDocumentRequestBus::Events::GetPropertyValue);
+        }
+
+        if (AZ::SerializeContext* serialize = azrtti_cast<AZ::SerializeContext*>(context))
+        {
+            serialize->Class<PhysXMaterialEditor::PhysXMaterialEditorSystemComponent, AZ::Component>()
+                ->Version(0);
+
+            if (AZ::EditContext* ec = serialize->GetEditContext())
+            {
+                ec->Class<PhysXMaterialEditor::PhysXMaterialEditorSystemComponent>("PhysXMaterialEditorSystemComponent", "System component that manages launching and maintaining connections the material editor.")
+                    ->ClassElement(AZ::Edit::ClassElements::EditorData, "")
+                    ->Attribute(AZ::Edit::Attributes::AppearsInAddComponentMenu, AZ_CRC_CE("System"))
+                    ->Attribute(AZ::Edit::Attributes::AutoExpand, true)
+                    ;
+            }
         }
     }
 
@@ -114,7 +117,7 @@ namespace PhysXMaterialEditor
                 return new MaterialEditorWindow(toolId, parent);
             };
 
-            o3deMaterialEditor->RegisterViewPane("Render Materials", AZStd::move(windowCreationFunc));
+            o3deMaterialEditor->RegisterViewPane("PhysX Materials", AZStd::move(windowCreationFunc));
         }
     }
 

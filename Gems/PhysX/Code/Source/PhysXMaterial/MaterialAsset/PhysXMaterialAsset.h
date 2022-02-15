@@ -49,7 +49,7 @@ namespace AZ
             //friend class UnitTest::MaterialAssetTests;
 
         public:
-            AZ_RTTI(MaterialAsset, "{30EE6F04-C74E-405D-95F0-E392E8A3337B}", AZ::Data::AssetData);
+            AZ_RTTI(AZ::PhysX::MaterialAsset, "{30EE6F04-C74E-405D-95F0-E392E8A3337B}", AZ::Data::AssetData);
             AZ_CLASS_ALLOCATOR(MaterialAsset, SystemAllocator, 0);
 
             static const char* DisplayName;
@@ -190,9 +190,9 @@ namespace AZ
 
         class MaterialAssetHandler : public RPI::AssetHandler<MaterialAsset>
         {
-            using Base = RPI::AssetHandler<MaterialAsset>;
+            using Base = RPI::AssetHandler<AZ::PhysX::MaterialAsset>;
         public:
-            AZ_RTTI(MaterialAssetHandler, "{00955772-EC3A-4D15-9ED0-DAA2C0D290B9}", Base);
+            AZ_RTTI(AZ::PhysX::MaterialAssetHandler, "{00955772-EC3A-4D15-9ED0-DAA2C0D290B9}", Base);
 
             Data::AssetHandler::LoadResult LoadAssetData(
                 const AZ::Data::Asset<AZ::Data::AssetData>& asset,

@@ -101,7 +101,7 @@ namespace AZ
             //friend class MaterialSystem;
             friend class MaterialCreator;
         public:
-            AZ_INSTANCE_DATA(Material, "{ECAE404B-2010-4C76-B01D-846DA364E10F}");
+            AZ_INSTANCE_DATA(AZ::PhysX::Material, "{ECAE404B-2010-4C76-B01D-846DA364E10F}");
             AZ_CLASS_ALLOCATOR(Material, SystemAllocator, 0);
 
             //! Material objects use a ChangeId to track when changes have been made to the material at runtime. See GetCurrentChangeId()

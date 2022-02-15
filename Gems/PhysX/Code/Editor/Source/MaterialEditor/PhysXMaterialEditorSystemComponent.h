@@ -17,7 +17,7 @@ namespace PhysXMaterialEditor
         : public AZ::Component
     {
     public:
-        AZ_COMPONENT(PhysXMaterialEditorSystemComponent, "{6710C447-ED80-48BF-887D-89DEF461AFB5}");
+        AZ_COMPONENT(PhysXMaterialEditor::PhysXMaterialEditorSystemComponent, "{6710C447-ED80-48BF-887D-89DEF461AFB5}");
         static void Reflect(AZ::ReflectContext* context);
 
         PhysXMaterialEditorSystemComponent();

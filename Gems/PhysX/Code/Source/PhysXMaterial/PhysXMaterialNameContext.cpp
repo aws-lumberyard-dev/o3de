@@ -19,7 +19,7 @@ namespace AZ
         {
             if (auto* serializeContext = azrtti_cast<SerializeContext*>(context))
             {
-                serializeContext->Class<MaterialNameContext>()
+                serializeContext->Class<AZ::PhysX::MaterialNameContext>()
                     ->Version(1) 
                     ->Field("propertyIdContext", &MaterialNameContext::m_propertyIdContext)
                     //->Field("srgInputNameContext", &MaterialNameContext::m_srgInputNameContext)

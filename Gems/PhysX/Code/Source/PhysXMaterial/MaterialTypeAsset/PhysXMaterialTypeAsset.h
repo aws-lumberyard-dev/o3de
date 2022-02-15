@@ -57,7 +57,7 @@ namespace AZ
             friend class MaterialTypeAssetHandler;
 
         public:
-            AZ_RTTI(MaterialTypeAsset, "{D3379C18-9260-4DAC-A265-3FCDAC5587A1}", AZ::Data::AssetData);
+            AZ_RTTI(AZ::PhysX::MaterialTypeAsset, "{D3379C18-9260-4DAC-A265-3FCDAC5587A1}", AZ::Data::AssetData);
             AZ_CLASS_ALLOCATOR(MaterialTypeAsset, SystemAllocator, 0);
 
             static const char* DisplayName;
@@ -182,9 +182,9 @@ namespace AZ
 
         class MaterialTypeAssetHandler : public RPI::AssetHandler<MaterialTypeAsset>
         {
-            using Base = RPI::AssetHandler<MaterialTypeAsset>;
+            using Base = RPI::AssetHandler<AZ::PhysX::MaterialTypeAsset>;
         public:
-            AZ_RTTI(MaterialTypeAssetHandler, "{61A8D024-B674-4CCC-A918-DF0B90103983}", Base);
+            AZ_RTTI(AZ::PhysX::MaterialTypeAssetHandler, "{61A8D024-B674-4CCC-A918-DF0B90103983}", Base);
 
             AZ::Data::AssetHandler::LoadResult LoadAssetData(
                 const AZ::Data::Asset<AZ::Data::AssetData>& asset,

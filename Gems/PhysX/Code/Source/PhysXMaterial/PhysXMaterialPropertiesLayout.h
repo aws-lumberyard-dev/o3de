@@ -24,7 +24,7 @@ namespace AZ
         {
             friend class MaterialTypeAssetCreator;
         public:
-            AZ_TYPE_INFO(MaterialPropertiesLayout, "{E6A0CB3A-8340-48E0-A13F-F2AD7CB419E1}");
+            AZ_TYPE_INFO(AZ::PhysX::MaterialPropertiesLayout, "{E6A0CB3A-8340-48E0-A13F-F2AD7CB419E1}");
             AZ_CLASS_ALLOCATOR(MaterialPropertiesLayout, SystemAllocator, 0);
 
             using PropertyList = AZStd::vector<MaterialPropertyDescriptor>;

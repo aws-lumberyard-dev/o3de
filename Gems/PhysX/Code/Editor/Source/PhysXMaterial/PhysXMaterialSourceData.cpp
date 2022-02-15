@@ -49,7 +49,7 @@ namespace AZ
             }
             else if (auto* serializeContext = azrtti_cast<SerializeContext*>(context))
             {
-                serializeContext->Class<MaterialSourceData>()
+                serializeContext->Class<AZ::PhysX::MaterialSourceData>()
                     ->Version(2)
                     ->Field("description", &MaterialSourceData::m_description)
                     ->Field("materialType", &MaterialSourceData::m_materialType)
@@ -59,8 +59,8 @@ namespace AZ
                     ->Field("propertyValues", &MaterialSourceData::m_propertyValues)
                     ;
 
-                serializeContext->RegisterGenericType<PropertyValueMap>();
-                serializeContext->RegisterGenericType<PropertyGroupMap>();
+                serializeContext->RegisterGenericType<AZ::PhysX::MaterialSourceData::PropertyValueMap>();
+                serializeContext->RegisterGenericType<AZ::PhysX::MaterialSourceData::PropertyGroupMap>();
             }
         }
 

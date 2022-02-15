@@ -30,6 +30,16 @@ namespace AtomMaterialEditor
         AtomToolsFramework::AtomToolsDocumentSystem::Reflect(context);
         MaterialEditor::MaterialEditorWindowSettings::Reflect(context);
 
+        if (AZ::BehaviorContext* behaviorContext = azrtti_cast<AZ::BehaviorContext*>(context))
+        {
+            behaviorContext->EBus<MaterialEditor::MaterialDocumentRequestBus>("MaterialDocumentRequestBus")
+                ->Attribute(AZ::Script::Attributes::Scope, AZ::Script::Attributes::ScopeFlags::Common)
+                ->Attribute(AZ::Script::Attributes::Category, "Editor")
+                ->Attribute(AZ::Script::Attributes::Module, "materialeditor")
+                ->Event("SetPropertyValue", &MaterialEditor::MaterialDocumentRequestBus::Events::SetPropertyValue)
+                ->Event("GetPropertyValue", &MaterialEditor::MaterialDocumentRequestBus::Events::GetPropertyValue);
+        }
+
         if (AZ::SerializeContext* serialize = azrtti_cast<AZ::SerializeContext*>(context))
         {
             serialize->Class<AtomMaterialEditorSystemComponent, AZ::Component>()
@@ -43,16 +53,6 @@ namespace AtomMaterialEditor
                     ->Attribute(AZ::Edit::Attributes::AutoExpand, true)
                     ;
             }
-        }
-
-        if (AZ::BehaviorContext* behaviorContext = azrtti_cast<AZ::BehaviorContext*>(context))
-        {
-            behaviorContext->EBus<MaterialEditor::MaterialDocumentRequestBus>("MaterialDocumentRequestBus")
-                ->Attribute(AZ::Script::Attributes::Scope, AZ::Script::Attributes::ScopeFlags::Common)
-                ->Attribute(AZ::Script::Attributes::Category, "Editor")
-                ->Attribute(AZ::Script::Attributes::Module, "materialeditor")
-                ->Event("SetPropertyValue", &MaterialEditor::MaterialDocumentRequestBus::Events::SetPropertyValue)
-                ->Event("GetPropertyValue", &MaterialEditor::MaterialDocumentRequestBus::Events::GetPropertyValue);
         }
     }
 
