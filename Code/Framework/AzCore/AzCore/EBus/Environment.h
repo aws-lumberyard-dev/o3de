@@ -8,6 +8,7 @@
 #pragma once
 
 #include <AzCore/Module/Environment.h>
+#include <AzCore/Memory/Memory.h>
 
 #include <AzCore/Memory/OSAllocator_Platform.h> // Needed for Context allocation from the OS
 #include <AzCore/Memory/OSStdAllocator.h>

@@ -7,7 +7,9 @@
  */
 
 #include <AzCore/Component/ComponentApplication.h>
+#include <AzCore/Jobs/JobManagerComponent.h>
 #include <AzCore/Memory/MemoryComponent.h>
+#include <AzCore/std/parallel/semaphore.h>
 
 #include <AzTest/AzTest.h>
 
@@ -64,6 +66,7 @@ namespace UnitTest
         };
 
         AZ::ComponentApplication m_app;
+        AZStd::unique_ptr<AZ::Entity> m_jobManagerEntity = nullptr;
 
         AZStd::unique_ptr<NiceMock<UnitTest::MockBoxShapeComponentRequests>> m_boxShapeRequests;
         AZStd::unique_ptr<NiceMock<UnitTest::MockShapeComponentRequests>> m_shapeRequests;
@@ -72,8 +75,16 @@ namespace UnitTest
 
         void SetUp() override
         {
+            AZ::AllocatorInstance<AZ::PoolAllocator>::Create();
+            AZ::AllocatorInstance<AZ::ThreadPoolAllocator>::Create();
+
             AZ::ComponentApplication::Descriptor appDesc;
             m_app.Create(appDesc);
+
+            // Create the global job manager.
+            m_jobManagerEntity = CreateEntity();
+            CreateComponent<AZ::JobManagerComponent>(m_jobManagerEntity.get());
+            ActivateEntity(m_jobManagerEntity.get());
         }
 
         void TearDown() override
@@ -82,7 +93,15 @@ namespace UnitTest
             m_shapeRequests.reset();
             m_terrainAreaHeightRequests.reset();
             m_terrainAreaSurfaceRequests.reset();
+
+            // Destroy the global job manager.
+            m_jobManagerEntity->Deactivate();
+            m_jobManagerEntity.reset();
+
             m_app.Destroy();
+
+            AZ::AllocatorInstance<AZ::ThreadPoolAllocator>::Destroy();
+            AZ::AllocatorInstance<AZ::PoolAllocator>::Destroy();
         }
 
         AZStd::unique_ptr<AZ::Entity> CreateEntity()
@@ -116,7 +135,7 @@ namespace UnitTest
         // Create a terrain system with reasonable defaults for testing, but with the ability to override the defaults
         // on a test-by-test basis.
         AZStd::unique_ptr<Terrain::TerrainSystem> CreateAndActivateTerrainSystem(
-            AZ::Vector2 queryResolution = AZ::Vector2(1.0f),
+            float queryResolution = 1.0f,
             AZ::Aabb worldBounds = AZ::Aabb::CreateFromMinMax(AZ::Vector3(-128.0f), AZ::Vector3(128.0f)))
         {
             // Create the terrain system and give it one tick to fully initialize itself.
@@ -154,6 +173,15 @@ namespace UnitTest
                         // Let the test function modify these values based on the needs of the specific test.
                         mockHeights(outPosition, terrainExists);
                     });
+            ON_CALL(*m_terrainAreaHeightRequests, GetHeights)
+                .WillByDefault(
+                    [mockHeights](AZStd::span<AZ::Vector3> inOutPositionList, AZStd::span<bool> terrainExistsList)
+                    {
+                        for (int i = 0; i < inOutPositionList.size(); i++)
+                        {
+                            mockHeights(inOutPositionList[i], terrainExistsList[i]);
+                        }
+                    });
 
             ActivateEntity(entity.get());
             return entity;
@@ -180,9 +208,9 @@ namespace UnitTest
             tagWeight3.m_weight = 0.3f;
             expectedTags.push_back(tagWeight3);
 
-            m_terrainAreaSurfaceRequests = AZStd::make_unique<NiceMock<UnitTest::MockTerrainAreaSurfaceRequestBus>>(entity->GetId());
-            ON_CALL(*m_terrainAreaSurfaceRequests, GetSurfaceWeights).WillByDefault(
-                [tagWeight1, tagWeight2, tagWeight3](const AZ::Vector3& position, AzFramework::SurfaceData::SurfaceTagWeightList& surfaceWeights)
+            auto mockGetSurfaceWeights = [tagWeight1, tagWeight2, tagWeight3](
+                const AZ::Vector3& position,
+                AzFramework::SurfaceData::SurfaceTagWeightList& surfaceWeights)
                 {
                     surfaceWeights.clear();
                     float absYPos = fabsf(position.GetY());
@@ -197,6 +225,19 @@ namespace UnitTest
                     else
                     {
                         surfaceWeights.push_back(tagWeight3);
+                    }
+                };
+
+            m_terrainAreaSurfaceRequests = AZStd::make_unique<NiceMock<UnitTest::MockTerrainAreaSurfaceRequestBus>>(entity->GetId());
+            ON_CALL(*m_terrainAreaSurfaceRequests, GetSurfaceWeights).WillByDefault(mockGetSurfaceWeights);
+            ON_CALL(*m_terrainAreaSurfaceRequests, GetSurfaceWeightsFromList).WillByDefault(
+                [mockGetSurfaceWeights](
+                    AZStd::span<const AZ::Vector3> inPositionList,
+                    AZStd::span<AzFramework::SurfaceData::SurfaceTagWeightList> outSurfaceWeightsList)
+                {
+                    for (size_t i = 0; i < inPositionList.size(); i++)
+                    {
+                        mockGetSurfaceWeights(inPositionList[i], outSurfaceWeightsList[i]);
                     }
                 }
             );
@@ -359,8 +400,7 @@ namespace UnitTest
 
         // Create and activate the terrain system with our testing defaults for world bounds, and a query resolution that exactly matches
         // the frequency of our sine wave.  If our height queries rely on the query resolution, we should always get a value of 0.
-        const AZ::Vector2 queryResolution(frequencyMeters);
-        auto terrainSystem = CreateAndActivateTerrainSystem(queryResolution);
+        auto terrainSystem = CreateAndActivateTerrainSystem(frequencyMeters);
 
         // Test an arbitrary set of points that should all produce non-zero heights with the EXACT sampler.  They're not aligned with the
         // query resolution, or with the 0 points on the sine wave.
@@ -410,7 +450,7 @@ namespace UnitTest
 
         // Create and activate the terrain system with our testing defaults for world bounds, and a query resolution at 0.25 meter
         // intervals.
-        const AZ::Vector2 queryResolution(0.25f);
+        const float queryResolution = 0.25f;
         auto terrainSystem = CreateAndActivateTerrainSystem(queryResolution);
 
         // Test some points and verify that the results always go "downward", whether they're in positive or negative space.
@@ -472,8 +512,7 @@ namespace UnitTest
             });
 
         // Create and activate the terrain system with our testing defaults for world bounds, and a query resolution at 1 meter intervals.
-        const AZ::Vector2 queryResolution(frequencyMeters);
-        auto terrainSystem = CreateAndActivateTerrainSystem(queryResolution);
+        auto terrainSystem = CreateAndActivateTerrainSystem(frequencyMeters);
 
         // Test some points and verify that the results are the expected bilinear filtered result,
         // whether they're in positive or negative space.
@@ -660,8 +699,7 @@ namespace UnitTest
             });
 
         // Create and activate the terrain system with our testing defaults for world bounds, and a query resolution at 1 meter intervals.
-        const AZ::Vector2 queryResolution(frequencyMeters);
-        auto terrainSystem = CreateAndActivateTerrainSystem(queryResolution);
+        auto terrainSystem = CreateAndActivateTerrainSystem(frequencyMeters);
 
         // Test some points and verify that the results are the expected bilinear filtered result,
         // whether they're in positive or negative space.
@@ -758,8 +796,7 @@ namespace UnitTest
             });
 
         // Create and activate the terrain system with our testing defaults for world bounds, and a query resolution at 1 meter intervals.
-        const AZ::Vector2 queryResolution(frequencyMeters);
-        auto terrainSystem = CreateAndActivateTerrainSystem(queryResolution);
+        auto terrainSystem = CreateAndActivateTerrainSystem(frequencyMeters);
 
         const NormalTestPoint testPoints[] = {
 
@@ -848,8 +885,7 @@ namespace UnitTest
             });
 
         // Create and activate the terrain system with our testing defaults for world bounds, and a query resolution at 1 meter intervals.
-        const AZ::Vector2 queryResolution(frequencyMeters);
-        auto terrainSystem = CreateAndActivateTerrainSystem(queryResolution);
+        auto terrainSystem = CreateAndActivateTerrainSystem(frequencyMeters);
 
         const AZ::Aabb testRegionBox = AZ::Aabb::CreateFromMinMaxValues(-1.0f, -1.0f, -1.0f, 1.0f, 1.0f, 1.0f);
         const AZ::Vector2 stepSize(1.0f);
@@ -907,8 +943,7 @@ namespace UnitTest
             });
 
         // Create and activate the terrain system with our testing defaults for world bounds, and a query resolution at 1 meter intervals.
-        const AZ::Vector2 queryResolution(frequencyMeters);
-        auto terrainSystem = CreateAndActivateTerrainSystem(queryResolution);
+        auto terrainSystem = CreateAndActivateTerrainSystem(frequencyMeters);
 
         const AZ::Aabb testRegionBox = AZ::Aabb::CreateFromMinMaxValues(-1.0f, -1.0f, -1.0f, 1.0f, 1.0f, 1.0f);
         const AZ::Vector2 stepSize(1.0f);
@@ -956,7 +991,7 @@ namespace UnitTest
             });
 
         // Create and activate the terrain system with our testing defaults for world bounds, and a query resolution at 1 meter intervals.
-        const AZ::Vector2 queryResolution(1.0f);
+        const float queryResolution = 1.0f;
         auto terrainSystem = CreateAndActivateTerrainSystem(queryResolution);
 
         const AZ::Aabb testRegionBox = AZ::Aabb::CreateFromMinMaxValues(-3.0f, -3.0f, -1.0f, 3.0f, 3.0f, 1.0f);
@@ -1002,7 +1037,7 @@ namespace UnitTest
             });
 
         // Create and activate the terrain system with our testing defaults for world bounds, and a query resolution at 1 meter intervals.
-        const AZ::Vector2 queryResolution(1.0f);
+        const float queryResolution = 1.0f;
         auto terrainSystem = CreateAndActivateTerrainSystem(queryResolution);
 
         const AZ::Aabb testRegionBox = AZ::Aabb::CreateFromMinMaxValues(-3.0f, -3.0f, -1.0f, 3.0f, 3.0f, 1.0f);
@@ -1038,5 +1073,71 @@ namespace UnitTest
         };
 
         terrainSystem->ProcessSurfacePointsFromRegion(testRegionBox, stepSize, perPositionCallback, AzFramework::Terrain::TerrainDataRequests::Sampler::EXACT);
+    }
+
+    TEST_F(TerrainSystemTest, TerrainProcessAsyncCancellation)
+    {
+        // Tests cancellation of the asynchronous terrain API.
+
+        const AZ::Aabb spawnerBox = AZ::Aabb::CreateFromMinMaxValues(-10.0f, -10.0f, -5.0f, 10.0f, 10.0f, 15.0f);
+        auto entity = CreateAndActivateMockTerrainLayerSpawner(
+            spawnerBox,
+            [](AZ::Vector3& position, bool& terrainExists)
+            {
+                // Our generated height will be X + Y.
+                position.SetZ(position.GetX() + position.GetY());
+                terrainExists = true;
+            });
+
+        // Create and activate the terrain system with our testing defaults for world bounds, and a query resolution at 1 meter intervals.
+        auto terrainSystem = CreateAndActivateTerrainSystem();
+
+        // Generate some input positions.
+        AZStd::vector<AZ::Vector3> inPositions;
+        for (int i = 0; i < 16; ++i)
+        {
+            inPositions.push_back({1.0f, 1.0f, 1.0f});
+        }
+
+        // Setup the per position callback so that we can cancel the entire request when it is first invoked.
+        AZStd::atomic_bool asyncRequestCancelled = false;
+        AZStd::semaphore asyncRequestStartedEvent;
+        AZStd::semaphore asyncRequestCancelledEvent;
+        auto perPositionCallback = [&asyncRequestCancelled, &asyncRequestStartedEvent, &asyncRequestCancelledEvent]([[maybe_unused]] const AzFramework::SurfaceData::SurfacePoint& surfacePoint, [[maybe_unused]] bool terrainExists)
+        {
+            if (!asyncRequestCancelled)
+            {
+                // Indicate that the async request has started.
+                asyncRequestStartedEvent.release();
+
+                // Wait until the async request has been cancelled before allowing it to continue.
+                asyncRequestCancelledEvent.acquire();
+                asyncRequestCancelled = true;
+            }
+        };
+
+        // Setup the completion callback so we can check that the entire request was cancelled.
+        AZStd::semaphore asyncRequestCompletedEvent;
+        auto completionCallback = [&asyncRequestCompletedEvent](AZStd::shared_ptr<AzFramework::Terrain::TerrainDataRequests::TerrainJobContext> terrainJobContext)
+        {
+            EXPECT_TRUE(terrainJobContext->IsCancelled());
+            asyncRequestCompletedEvent.release();
+        };
+
+        // Invoke the async request.
+        AZStd::shared_ptr<AzFramework::Terrain::TerrainDataRequests::ProcessAsyncParams> asyncParams
+            = AZStd::make_shared<AzFramework::Terrain::TerrainDataRequests::ProcessAsyncParams>();
+        asyncParams->m_completionCallback = completionCallback;
+        AZStd::shared_ptr<AzFramework::Terrain::TerrainDataRequests::TerrainJobContext> terrainJobContext
+            = terrainSystem->ProcessHeightsFromListAsync(inPositions, perPositionCallback, AzFramework::Terrain::TerrainDataRequests::Sampler::BILINEAR, asyncParams);
+
+        // Wait until the async request has started before cancelling it.
+        asyncRequestStartedEvent.acquire();
+        terrainJobContext->Cancel();
+        asyncRequestCancelled = true;
+        asyncRequestCancelledEvent.release();
+
+        // Now wait until the async request has completed after being cancelled.
+        asyncRequestCompletedEvent.acquire();
     }
 } // namespace UnitTest

@@ -7,28 +7,13 @@
  */
 
 #include <AzTest/UnitTest.h>
+#include <AzTest/TestTypes.h>
 #include <AzTest/AzTest.h>
 
 
 #if defined(HAVE_BENCHMARK)
 
-namespace AzCore
-{
-    class AzCoreBenchmarkEnvironment
-        : public AZ::Test::BenchmarkEnvironmentBase
-    {
-        void SetUpBenchmark() override
-        {
-            AZ::AllocatorInstance<AZ::SystemAllocator>::Create();
-        }
-        void TearDownBenchmark() override
-        {
-            AZ::AllocatorInstance<AZ::SystemAllocator>::Destroy();
-        }
-    };
-}
-
-AZ_UNIT_TEST_HOOK(DEFAULT_UNIT_TEST_ENV, AzCore::AzCoreBenchmarkEnvironment)
+AZ_UNIT_TEST_HOOK(DEFAULT_UNIT_TEST_ENV, UnitTest::ScopedAllocatorBenchmarkEnvironment)
 
 #else
 

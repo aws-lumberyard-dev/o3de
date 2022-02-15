@@ -12,6 +12,7 @@
 #include <AzCore/PlatformIncl.h>
 #include <AzCore/std/containers/fixed_vector.h>
 #include <AzCore/std/parallel/mutex.h>
+#include <AzCore/std/parallel/lock.h>
 
 #include <tchar.h>
 #include <stdio.h>
@@ -129,7 +130,7 @@ namespace AZ {
     SymRegisterCallback64_t     g_SymRegisterCallback64;
     HMODULE                     g_dbgHelpDll;
 
-#define LOAD_FUNCTION(A)    { g_##A = (A##_t)GetProcAddress(g_dbgHelpDll, #A); AZ_Assert(g_##A != 0, ("Can not load %s function!",#A)); }
+#define LOAD_FUNCTION(A)    { g_##A = (A##_t)GetProcAddress(g_dbgHelpDll, #A); AZ_Assert(g_##A != 0, "Can not load %s function!",#A); }
 
     using namespace AZ::Debug;
 
@@ -585,7 +586,7 @@ namespace AZ {
                 result = GetLastError();
             }
             ULONGLONG fileVersion = 0;
-            if (szImg != NULL)
+            if (szImg[0]) // !szImg.empty()
             {
                 // try to retrieve the file-version:
                 VS_FIXEDFILEINFO* fInfo = NULL;
@@ -610,43 +611,6 @@ namespace AZ {
                             }
                         }
                         free(vData);
-                    }
-                }
-
-                // Retrive some additional-infos about the module
-                IMAGEHLP_MODULE64 Module;
-                const char* szSymType = "-unknown-";
-                if (GetModuleInfo(hProcess, baseAddr, &Module) != FALSE)
-                {
-                    switch (Module.SymType)
-                    {
-                    case SymNone:
-                        szSymType = "-nosymbols-";
-                        break;
-                    case SymCoff:
-                        szSymType = "COFF";
-                        break;
-                    case SymCv:
-                        szSymType = "CV";
-                        break;
-                    case SymPdb:
-                        szSymType = "PDB";
-                        break;
-                    case SymExport:
-                        szSymType = "-exported-";
-                        break;
-                    case SymDeferred:
-                        szSymType = "-deferred-";
-                        break;
-                    case SymSym:
-                        szSymType = "SYM";
-                        break;
-                    case 8: //SymVirtual:
-                        szSymType = "Virtual";
-                        break;
-                    case 9: // SymDia:
-                        szSymType = "DIA";
-                        break;
                     }
                 }
 
@@ -1062,7 +1026,7 @@ cleanup:
             }
 
             HANDLE hThread = nativeThread;
-            CONTEXT alignas(8) context; // Without this alignment the function randomly crashes in release.
+            alignas(alignof(CONTEXT)) CONTEXT context; // Without this alignment the function randomly crashes in release.
             context.ContextFlags = CONTEXT_ALL;
             GetThreadContext(hThread, &context);
 

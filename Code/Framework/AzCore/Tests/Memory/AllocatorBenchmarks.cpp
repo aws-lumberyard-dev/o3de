@@ -248,10 +248,10 @@ namespace Benchmark
     public:
         void Benchmark(benchmark::State& state)
         {
-            for (auto _ : state)
+            for ([[maybe_unused]] auto _ : state)
             {
                 state.PauseTiming();
-                
+
                 AZStd::vector<void*>& perThreadAllocations = base::GetPerThreadAllocations(state.thread_index);
                 const size_t numberOfAllocations = perThreadAllocations.size();
                 size_t totalAllocationSize = 0;
@@ -260,7 +260,7 @@ namespace Benchmark
                     const AllocationSizeArray& allocationArray = s_allocationSizes[TAllocationSize];
                     const size_t allocationSize = allocationArray[allocationIndex % allocationArray.size()];
                     totalAllocationSize += allocationSize;
-                    
+
                     state.ResumeTiming();
                     perThreadAllocations[allocationIndex] = TestAllocatorType::Allocate(allocationSize, 0);
                     state.PauseTiming();
@@ -279,6 +279,8 @@ namespace Benchmark
                 TestAllocatorType::GarbageCollect();
 
                 state.SetItemsProcessed(numberOfAllocations);
+
+                state.ResumeTiming();
             }
         }
     };
@@ -293,7 +295,7 @@ namespace Benchmark
     public:
         void Benchmark(benchmark::State& state)
         {
-            for (auto _ : state)
+            for ([[maybe_unused]] auto _ : state)
             {
                 state.PauseTiming();
                 AZStd::vector<void*>& perThreadAllocations = base::GetPerThreadAllocations(state.thread_index);
@@ -324,6 +326,8 @@ namespace Benchmark
                 state.SetItemsProcessed(numberOfAllocations);
 
                 TestAllocatorType::GarbageCollect();
+
+                state.ResumeTiming();
             }
         }
     };
@@ -380,7 +384,7 @@ namespace Benchmark
 
         void Benchmark(benchmark::State& state)
         {
-            for (auto _ : state)
+            for ([[maybe_unused]] auto _ : state)
             {
                 state.PauseTiming();
 
@@ -479,6 +483,8 @@ namespace Benchmark
                 state.SetItemsProcessed(itemsProcessed);
 
                 TestAllocatorType::GarbageCollect();
+
+                state.ResumeTiming();
             }
         }
     };

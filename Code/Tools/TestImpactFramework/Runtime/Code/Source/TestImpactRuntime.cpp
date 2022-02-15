@@ -6,6 +6,8 @@
  *
  */
 
+#include <AzCore/std/parallel/thread.h>
+
 #include <TestImpactFramework/TestImpactUtils.h>
 #include <TestImpactFramework/TestImpactRuntime.h>
 #include <TestImpactFramework/TestImpactRuntimeException.h>
