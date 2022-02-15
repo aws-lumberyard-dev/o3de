@@ -50,16 +50,16 @@ namespace PhysXMaterialEditor
 
         QApplication::setWindowIcon(QIcon(":/Icons/materialeditor.svg"));
 
-        setObjectName("MaterialEditorWindow");
+        setObjectName("PhysXMaterialEditorWindow");
 
         //m_toolBar = new MaterialEditorToolBar(this);
         //m_toolBar->setObjectName("ToolBar");
         //addToolBar(m_toolBar);
 
-        //m_materialViewport = new MaterialViewportWidget(m_toolId, centralWidget());
-        //m_materialViewport->setObjectName("Viewport");
-        //m_materialViewport->setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::MinimumExpanding);
-        //centralWidget()->layout()->addWidget(m_materialViewport);
+        m_materialViewport = new MaterialViewportWidget(m_toolId, centralWidget());
+        m_materialViewport->setObjectName("Viewport");
+        m_materialViewport->setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::MinimumExpanding);
+        centralWidget()->layout()->addWidget(m_materialViewport);
 
         //m_assetBrowser->SetFilterState("", AZ::RPI::StreamingImageAsset::Group, true);
         m_assetBrowser->SetFilterState("", AZ::PhysX::MaterialAsset::Group, true);
@@ -99,9 +99,8 @@ namespace PhysXMaterialEditor
         OnDocumentOpened(AZ::Uuid::CreateNull());
     }
 
-    void MaterialEditorWindow::ResizeViewportRenderTarget([[maybe_unused]] uint32_t width, [[maybe_unused]] uint32_t height)
+    void MaterialEditorWindow::ResizeViewportRenderTarget(uint32_t width, uint32_t height)
     {
-        /*
         QSize requestedViewportSize = QSize(width, height) / devicePixelRatioF();
         QSize currentViewportSize = m_materialViewport->size();
         QSize offset = requestedViewportSize - currentViewportSize;
@@ -119,17 +118,16 @@ namespace PhysXMaterialEditor
             "Material Editor", static_cast<uint32_t>(newDeviceSize.width()) == width && static_cast<uint32_t>(newDeviceSize.height()) == height,
             "Resizing the window did not give the expected frame size. Requested %d x %d but got %d x %d.", width, height,
             newDeviceSize.width(), newDeviceSize.height());
-        */
     }
 
-    void MaterialEditorWindow::LockViewportRenderTargetSize([[maybe_unused]] uint32_t width, [[maybe_unused]] uint32_t height)
+    void MaterialEditorWindow::LockViewportRenderTargetSize(uint32_t width, uint32_t height)
     {
-        //m_materialViewport->LockRenderTargetSize(width, height);
+        m_materialViewport->LockRenderTargetSize(width, height);
     }
 
     void MaterialEditorWindow::UnlockViewportRenderTargetSize()
     {
-        //m_materialViewport->UnlockRenderTargetSize();
+        m_materialViewport->UnlockRenderTargetSize();
     }
 
     bool MaterialEditorWindow::GetCreateDocumentParams(AZStd::string& openPath, AZStd::string& savePath)

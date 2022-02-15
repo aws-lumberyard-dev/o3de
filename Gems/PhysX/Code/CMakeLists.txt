@@ -127,7 +127,7 @@ if(PAL_TRAIT_BUILD_HOST_TOOLS)
                 #Gem::Atom_RPI.Edit
                 Gem::Atom_RPI.Public
                 #Gem::Atom_Feature_Common.Public
-                #Gem::Atom_Component_DebugCamera.Static
+                Gem::Atom_Component_DebugCamera.Static
                 #Gem::AtomLyIntegration_CommonFeatures.Static
                 Gem::O3DEMaterialEditor
         RUNTIME_DEPENDENCIES

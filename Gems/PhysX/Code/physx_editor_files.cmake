@@ -155,6 +155,9 @@ set(FILES
     Editor/Source/MaterialEditor/Document/MaterialDocumentRequestBus.h
     Editor/Source/MaterialEditor/Document/MaterialDocument.cpp
     Editor/Source/MaterialEditor/Document/MaterialDocument.h
+    Editor/Source/MaterialEditor/Viewport/MaterialViewportWidget.cpp
+    Editor/Source/MaterialEditor/Viewport/MaterialViewportWidget.h
+    Editor/Source/MaterialEditor/Viewport/MaterialViewportWidget.ui
     Editor/Source/MaterialEditor/Window/MaterialEditorWindowSettings.h
     Editor/Source/MaterialEditor/Window/MaterialEditorWindow.h
     Editor/Source/MaterialEditor/Window/MaterialEditorWindow.cpp
