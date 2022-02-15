@@ -145,6 +145,11 @@ set(FILES
     Editor/Source/PhysXMaterial/Serializer/PhysXMaterialPropertyGroupSerializer.cpp
     Editor/Source/PhysXMaterial/Serializer/PhysXMaterialPropertyGroupSerializer.h
     
+    Editor/Source/PhysXMaterialBuilder/PhysXMaterialBuilder.cpp
+    Editor/Source/PhysXMaterialBuilder/PhysXMaterialBuilder.h
+    Editor/Source/PhysXMaterialBuilder/PhysXMaterialBuilderComponent.cpp
+    Editor/Source/PhysXMaterialBuilder/PhysXMaterialBuilderComponent.h
+    
     Editor/Source/MaterialEditor/PhysXMaterialEditorSystemComponent.cpp
     Editor/Source/MaterialEditor/PhysXMaterialEditorSystemComponent.h
     Editor/Source/MaterialEditor/Document/MaterialDocumentRequestBus.h

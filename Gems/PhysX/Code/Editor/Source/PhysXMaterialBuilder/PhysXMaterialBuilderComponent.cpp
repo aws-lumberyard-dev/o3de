@@ -1,0 +1,107 @@
+/*
+ * Copyright (c) Contributors to the Open 3D Engine Project.
+ * For complete copyright and license terms please see the LICENSE at the root of this distribution.
+ *
+ * SPDX-License-Identifier: Apache-2.0 OR MIT
+ *
+ */
+
+//#include <AzCore/Component/Entity.h>
+#include <AssetBuilderSDK/AssetBuilderSDK.h>
+#include <AzCore/Serialization/EditContext.h>
+#include <AzCore/Serialization/SerializeContext.h>
+//#include <AzCore/Script/ScriptAsset.h>
+
+#include <Editor/Source/PhysXMaterial/PhysXMaterialTypeSourceData.h>
+#include <Editor/Source/PhysXMaterial/PhysXMaterialSourceData.h>
+//#include <Atom/RPI.Edit/Material/MaterialPropertyValueSourceData.h>
+//#include <Atom/RPI.Edit/Material/LuaMaterialFunctorSourceData.h>
+//#include <Atom/RPI.Edit/Shader/ShaderSourceData.h>
+//#include <Atom/RPI.Edit/Shader/ShaderVariantListSourceData.h>
+//#include <Atom/RPI.Edit/Common/AssetAliasesSourceData.h>
+
+//#include <Atom/RPI.Reflect/Asset/AssetHandler.h>
+//#include <Atom/RPI.Reflect/Material/MaterialAsset.h>
+//#include <Atom/RPI.Reflect/Shader/ShaderAsset.h>
+//#include <Atom/RPI.Reflect/Image/StreamingImagePoolAsset.h>
+//#include <Atom/RPI.Reflect/Buffer/BufferAsset.h>
+//#include <Atom/RPI.Reflect/Model/ModelLodAsset.h>
+//#include <Atom/RPI.Reflect/Model/ModelAsset.h>
+//#include <Atom/RPI.Reflect/Model/MorphTargetMetaAsset.h>
+//#include <Atom/RPI.Reflect/Model/SkinMetaAsset.h>
+//#include <Atom/RPI.Reflect/Pass/PassAsset.h>
+//#include <Atom/RPI.Reflect/Shader/ShaderVariantAsset.h>
+//#include <Atom/RPI.Reflect/Shader/ShaderVariantTreeAsset.h>
+
+#include <Editor/Source/PhysXMaterialBuilder/PhysXMaterialBuilderComponent.h>
+//#include <Common/AnyAssetBuilder.h>
+#include <Editor/Source/PhysXMaterialBuilder/PhysXMaterialBuilder.h>
+//#include <ResourcePool/ResourcePoolBuilder.h>
+//#include <Pass/PassBuilder.h>
+
+namespace AZ
+{
+    namespace PhysX
+    {
+        void MaterialBuilderComponent::Reflect(AZ::ReflectContext* context)
+        {
+            if (auto* serialize = azrtti_cast<AZ::SerializeContext*>(context))
+            {
+                serialize->Class<AZ::PhysX::MaterialBuilderComponent, AZ::Component>()
+                    ->Version(0)
+                    ->Attribute(AZ::Edit::Attributes::SystemComponentTags, AZStd::vector<AZ::Crc32>({ AssetBuilderSDK::ComponentTags::AssetBuilder }))
+                ;
+            }
+
+            MaterialTypeSourceData::Reflect(context);
+            MaterialSourceData::Reflect(context);
+            //MaterialPropertyValueSourceData::Reflect(context);
+            //MaterialFunctorSourceDataHolder::Reflect(context);
+            //LuaMaterialFunctorSourceData::Reflect(context);
+            //ResourcePoolSourceData::Reflect(context);
+            //ConvertibleSource::Reflect(context);
+            //AssetAliasesSourceData::Reflect(context);
+            //ShaderSourceData::Reflect(context);
+            //ShaderVariantListSourceData::Reflect(context);
+        }
+
+        MaterialBuilderComponent::MaterialBuilderComponent()
+        {
+            //m_materialFunctorRegistration.Init();
+        }
+
+        MaterialBuilderComponent::~MaterialBuilderComponent()
+        {
+            //m_materialFunctorRegistration.Shutdown();
+        }
+
+        void MaterialBuilderComponent::Activate()
+        {
+            // Register asset workers
+            m_assetWorkers.emplace_back(MakeAssetBuilder<MaterialBuilder>());
+            //m_assetWorkers.emplace_back(MakeAssetBuilder<ResourcePoolBuilder>());
+            //m_assetWorkers.emplace_back(MakeAssetBuilder<AnyAssetBuilder>());
+            //m_assetWorkers.emplace_back(MakeAssetBuilder<PassBuilder>());
+
+            //m_assetHandlers.emplace_back(MakeAssetHandler<ShaderAssetHandler>());
+            //m_assetHandlers.emplace_back(MakeAssetHandler<MaterialTypeAssetHandler>());
+            //m_assetHandlers.emplace_back(MakeAssetHandler<MaterialAssetHandler>());
+            //m_assetHandlers.emplace_back(MakeAssetHandler<ResourcePoolAssetHandler>());
+            //m_assetHandlers.emplace_back(MakeAssetHandler<StreamingImagePoolAssetHandler>());
+            //m_assetHandlers.emplace_back(MakeAssetHandler<BufferAssetHandler>());
+            //m_assetHandlers.emplace_back(MakeAssetHandler<ModelLodAssetHandler>());
+            //m_assetHandlers.emplace_back(MakeAssetHandler<ModelAssetHandler>());
+            //m_assetHandlers.emplace_back(MakeAssetHandler<PassAssetHandler>());
+            //m_assetHandlers.emplace_back(MakeAssetHandler<ShaderVariantAssetHandler>());
+            //m_assetHandlers.emplace_back(MakeAssetHandler<ShaderVariantTreeAssetHandler>());
+            //m_assetHandlers.emplace_back(MakeAssetHandler<SkinMetaAssetHandler>());
+            //m_assetHandlers.emplace_back(MakeAssetHandler<MorphTargetMetaAssetHandler>());
+        }
+
+        void MaterialBuilderComponent::Deactivate()
+        {
+            m_assetHandlers.clear();
+            m_assetWorkers.clear();
+        }
+    } // namespace PhysX
+} // namespace AZ

@@ -1,0 +1,64 @@
+{
+    "description": "PhysX Material with properties that describe how a collider should behave physically.",
+    "version": 1,
+    "propertyLayout": {
+        "propertyGroups": [
+            {
+                "name": "physXProperties",
+                "displayName": "PhysX Properties",
+                "properties": [
+                    {
+                        "name": "dynamicFriction",
+                        "displayName": "Dynamic Friction",
+                        "type": "Float",
+                        "min": 0.0,
+                        "defaultValue": 0.5
+                    },
+                    {
+                        "name": "staticFriction",
+                        "displayName": "Static Friction",
+                        "type": "Float",
+                        "min": 0.0,
+                        "defaultValue": 0.5
+                    },
+                    {
+                        "name": "restitution",
+                        "displayName": "Restitution",
+                        "type": "Float",
+                        "min": 0.0,
+                        "max": 1.0,
+                        "defaultValue": 0.5
+                    },
+                    {
+                        "name": "frictionCombine",
+                        "displayName": "Friction Combine",
+                        "type": "Enum",
+                        "enumValues": [ "Average", "Minimum", "Maximum", "Multiply" ],
+                        "defaultValue": "Average"
+                    },
+                    {
+                        "name": "restitutionCombine",
+                        "displayName": "Restitution Combine",
+                        "type": "Enum",
+                        "enumValues": [ "Average", "Minimum", "Maximum", "Multiply" ],
+                        "defaultValue": "Average"
+                    },
+                    {
+                        "name": "density",
+                        "displayName": "Density",
+                        "type": "Float",
+                        "min": 0.01,
+                        "max": 100000.0,
+                        "defaultValue": 1000.0
+                    },
+                    {
+                        "name": "debugColor",
+                        "displayName": "Debug Color",
+                        "type": "Color",
+                        "defaultValue": [ 1.0, 1.0, 1.0 ]
+                    }
+                ]
+            }
+        ]
+    }
+}

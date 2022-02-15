@@ -1,0 +1,16 @@
+{
+    "materialType": "PhysX/PhysX.physxmaterialtype",
+    "materialTypeVersion": 1,
+    "propertyValues": {
+        "physXProperties.debugColor": [
+            0.22999924421310425,
+            0.22999924421310425,
+            0.22999924421310425,
+            1.0
+        ],
+        "physXProperties.density": 8050.0,
+        "physXProperties.dynamicFriction": 0.41999998688697815,
+        "physXProperties.restitution": 0.4000000059604645,
+        "physXProperties.staticFriction": 0.7799999713897705
+    }
+}
