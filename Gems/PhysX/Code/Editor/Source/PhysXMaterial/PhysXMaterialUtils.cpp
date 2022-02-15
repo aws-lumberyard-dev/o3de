@@ -201,7 +201,7 @@ namespace AZ
 
                 if (auto settingsRegistry = AZ::SettingsRegistry::Get(); settingsRegistry != nullptr)
                 {
-                    settingsRegistry->Get(shouldFinalize, "/O3DE/Atom/RPI/MaterialBuilder/FinalizeMaterialAssets");
+                    settingsRegistry->Get(shouldFinalize, "/O3DE/PhysX/MaterialBuilder/FinalizeMaterialAssets");
                 }
 
                 return shouldFinalize;
