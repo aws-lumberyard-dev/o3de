@@ -72,9 +72,6 @@ namespace UnitTest
             }
             return pixelArray;
         }
-
-    private:
-        void* m_memBlock = nullptr;
     };
 
     // no shadowmap
