@@ -189,7 +189,7 @@ static_assert(__cpp_aligned_new);
         /* The >= is necessary because this is used to allocate multiple objects as well, a better check would be */                       \
         /* size % sizeof(_Class) == 0, however, more expensive */                                                                          \
         AZ_Assert(size >= sizeof(_Class), "Size mismatch trying to allocate. Size: %d sizeof(%s): %d", size, #_Class, sizeof(_Class));     \
-        return AZ::AllocatorInstance<_Allocator>::Get().allocate(size, static_cast<_Allocator::align_type>(al));                           \
+        return AZ::AllocatorInstance<_Allocator>::Get().allocate(size, static_cast<typename _Allocator::align_type>(al));                  \
     }                                                                                                                                      \
     [[nodiscard]] AZ_FORCE_INLINE void* operator new[](AZStd::size_t size, AZStd::align_val_t al)                                          \
     {                                                                                                                                      \
@@ -249,7 +249,7 @@ static_assert(__cpp_aligned_new);
     }                                                                                                                                      \
     AZ_FORCE_INLINE void operator delete(void* ptr, AZStd::size_t sz, AZStd::align_val_t al) noexcept                                      \
     {                                                                                                                                      \
-        AZ::AllocatorInstance<_Allocator>::Get().deallocate(ptr, sz, static_cast<_Allocator::align_type>(al));                             \
+        AZ::AllocatorInstance<_Allocator>::Get().deallocate(ptr, sz, static_cast<typename _Allocator::align_type>(al));                    \
     }                                                                                                                                      \
     AZ_FORCE_INLINE void operator delete[](void* ptr, AZStd::size_t sz, AZStd::align_val_t al) noexcept                                    \
     {                                                                                                                                      \
@@ -336,13 +336,13 @@ static_assert(__cpp_aligned_new);
     /* replaceable allocation functions */                                                                                                 \
     _Template [[nodiscard]] void* _Class::operator new(AZStd::size_t size, AZStd::align_val_t al)                                          \
     {                                                                                                                                      \
-        return AZ::AllocatorInstance<_Allocator>::Get().allocate(size, static_cast<_Allocator::align_type>(al));                           \
+        return AZ::AllocatorInstance<_Allocator>::Get().allocate(size, static_cast<typename _Allocator::align_type>(al));                  \
     }                                                                                                                                      \
     _Template [[nodiscard]] void* _Class::operator new(AZStd::size_t size)                                                                 \
     {                                                                                                                                      \
         /* The >= is necessary because this is used to allocate multiple objects as well, a better check would be */                       \
         /* size % sizeof(_Class) == 0, however, more expensive */                                                                          \
-        AZ_Assert(size >= sizeof(_Class), "Size mismatch trying to allocate. Size: %d sizeof(%s): %d", size, #_Class, sizeof(_Class));     \
+        /*AZ_Assert(size >= sizeof(_Class), "Size mismatch trying to allocate. Size: %d sizeof(%s): %d", size, #_Class, sizeof(_Class));     */\
         return operator new(size, static_cast<AZStd::align_val_t>(alignof(_Class)));                                                       \
     }                                                                                                                                      \
     _Template [[nodiscard]] void* _Class::operator new[](AZStd::size_t size)                                                               \
@@ -383,7 +383,7 @@ static_assert(__cpp_aligned_new);
     /* replaceable usual deallocation functions */                                                                                         \
     _Template void _Class::operator delete(void* ptr, AZStd::size_t sz, AZStd::align_val_t al) noexcept                                    \
     {                                                                                                                                      \
-        AZ::AllocatorInstance<_Allocator>::Get().deallocate(ptr, sz, static_cast<_Allocator::align_type>(al));                             \
+        AZ::AllocatorInstance<_Allocator>::Get().deallocate(ptr, sz, static_cast<typename _Allocator::align_type>(al));                    \
     }                                                                                                                                      \
     _Template void _Class::operator delete(void* ptr) noexcept                                                                             \
     {                                                                                                                                      \
