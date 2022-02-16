@@ -66,6 +66,11 @@ namespace PhysX
             dependent.push_back(AZ_CRC("PhysXColliderService", 0x4ff43f7c));
         }
 
+        void SetScene(AzPhysics::SceneHandle sceneHandle)
+        {
+            m_attachedSceneHandle = sceneHandle;
+        }
+
         // RigidBodyRequests + WorldBodyRequests
         void EnablePhysics() override;
         void DisablePhysics() override;

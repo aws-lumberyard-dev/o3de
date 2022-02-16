@@ -18,6 +18,7 @@
 #include <AtomToolsFramework/Viewport/ViewportInputBehaviorController/ViewportInputBehaviorController.h>
 #include <AzCore/Component/TransformBus.h>
 #include <AzFramework/Windowing/WindowBus.h>
+#include <AzFramework/Physics/Common/PhysicsTypes.h>
 //#include <Viewport/MaterialViewportNotificationBus.h>
 #include <PhysXMaterial/PhysXMaterial.h>
 
@@ -65,6 +66,7 @@ namespace PhysXMaterialEditor
         AZ::Entity* CreateEntity(const AZStd::string& name, const AZStd::vector<AZ::Uuid>& componentTypeIds);
         void DestroyEntity(AZ::Entity*& entity);
         void SetupInputController();
+        void SetupModel();
 
         // AtomToolsFramework::AtomToolsDocumentNotificationBus::Handler interface overrides...
         void OnDocumentOpened(const AZ::Uuid& documentId) override;
@@ -102,6 +104,8 @@ namespace PhysXMaterialEditor
 
         AZStd::unique_ptr<AzFramework::EntityContext> m_entityContext;
         AZStd::shared_ptr<AzFramework::Scene> m_frameworkScene;
+
+        AzPhysics::SceneHandle m_physicsSceneHandle = AzPhysics::InvalidSceneHandle;
 
         AZ::Entity* m_cameraEntity = {};
         //AZ::Entity* m_postProcessEntity = {};

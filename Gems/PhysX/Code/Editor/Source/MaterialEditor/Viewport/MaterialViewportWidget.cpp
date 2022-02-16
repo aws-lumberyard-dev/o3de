@@ -36,7 +36,7 @@
 #include <AtomLyIntegration/CommonFeatures/ImageBasedLights/ImageBasedLightComponentConstants.h>
 //#include <AtomLyIntegration/CommonFeatures/Material/MaterialComponentBus.h>
 #include <AtomLyIntegration/CommonFeatures/Material/MaterialComponentConstants.h>
-//#include <AtomLyIntegration/CommonFeatures/Mesh/MeshComponentBus.h>
+#include <AtomLyIntegration/CommonFeatures/Mesh/MeshComponentBus.h>
 #include <AtomLyIntegration/CommonFeatures/Mesh/MeshComponentConstants.h>
 //#include <AtomLyIntegration/CommonFeatures/PostProcess/ExposureControl/ExposureControlBus.h>
 //#include <AtomLyIntegration/CommonFeatures/PostProcess/ExposureControl/ExposureControlComponentConstants.h>
@@ -53,11 +53,13 @@
 #include <AzFramework/Components/TransformComponent.h>
 #include <AzFramework/Entity/GameEntityContextBus.h>
 #include <AzFramework/Viewport/ViewportControllerList.h>
+#include <AzFramework/Physics/PhysicsSystem.h>
 #include <Editor/Source/MaterialEditor/Document/MaterialDocumentRequestBus.h>
 //#include <Viewport/MaterialViewportRequestBus.h>
 //#include <Viewport/MaterialViewportSettings.h>
 #include <Editor/Source/MaterialEditor/Viewport/MaterialViewportWidget.h>
 #include <Editor/Source/MaterialEditor/Viewport/ui_MaterialViewportWidget.h>
+#include <RigidBodyComponent.h>
 
 AZ_PUSH_DISABLE_WARNING(4251 4800, "-Wunknown-warning-option") // disable warnings spawned by QT
 #include <QWindow>
@@ -73,6 +75,13 @@ namespace PhysXMaterialEditor
         , m_toolId(toolId)
     {
         m_ui->setupUi(this);
+
+        if (auto* physicsSystem = AZ::Interface<AzPhysics::SystemInterface>::Get())
+        {
+            AzPhysics::SceneConfiguration physicsSceneConfiguration;
+            physicsSceneConfiguration.m_sceneName = "PhysXMaterialViewportScene";
+            m_physicsSceneHandle = physicsSystem->AddScene(physicsSceneConfiguration);
+        }
 
         // Create a new entity context
         m_entityContext = AZStd::make_unique<AzFramework::EntityContext>();
@@ -183,7 +192,8 @@ namespace PhysXMaterialEditor
         // Create model
         m_modelEntity = CreateEntity(
             "ViewportModel",
-            { AZ::Render::MeshComponentTypeId, AZ::Render::MaterialComponentTypeId, azrtti_typeid<AzFramework::TransformComponent>() });
+            { AZ::Render::MeshComponentTypeId, AZ::Render::MaterialComponentTypeId, azrtti_typeid<AzFramework::TransformComponent>(),
+              azrtti_typeid<PhysX::RigidBodyComponent>() });
 
         /*
         // Create shadow catcher
@@ -236,6 +246,8 @@ namespace PhysXMaterialEditor
         m_gridEntity->Activate();
 
         SetupInputController();
+
+        SetupModel();
 
         OnDocumentOpened(AZ::Uuid::CreateNull());
 
@@ -307,6 +319,11 @@ namespace PhysXMaterialEditor
         m_swapChainPass = nullptr;
         AZ::RPI::RPISystemInterface::Get()->UnregisterScene(m_scene);
         m_scene = nullptr;
+
+        if (auto* physicsSystem = AZ::Interface<AzPhysics::SystemInterface>::Get())
+        {
+            physicsSystem->RemoveScene(m_physicsSceneHandle);
+        }
     }
 
     AZ::Entity* MaterialViewportWidget::CreateEntity(const AZStd::string& name, const AZStd::vector<AZ::Uuid>& componentTypeIds)
@@ -378,6 +395,22 @@ namespace PhysXMaterialEditor
             AZStd::make_shared<RotateEnvironmentBehavior>(m_viewportController.get()));
 
         GetControllerList()->Add(m_viewportController);
+    }
+
+    void MaterialViewportWidget::SetupModel()
+    {
+        // Set initial position and attach to physics scene
+        m_modelEntity->Deactivate();
+        m_modelEntity->FindComponent<AzFramework::TransformComponent>()->SetWorldTM(AZ::Transform::CreateTranslation(AZ::Vector3(0.0f, 0.0f, 0.5f)));
+        m_modelEntity->FindComponent<PhysX::RigidBodyComponent>()->SetScene(m_physicsSceneHandle);
+        m_modelEntity->Activate();
+
+        // Use the cube model for now
+        m_modelAssetId = AZ::RPI::AssetUtils::GetAssetIdForProductPath(
+            "materialeditor/viewportmodels/cube.azmodel", AZ::RPI::AssetUtils::TraceLevel::Error);
+        AZ::Render::MeshComponentRequestBus::Event(
+            m_modelEntity->GetId(), &AZ::Render::MeshComponentRequestBus::Events::SetModelAssetId, m_modelAssetId);
+        AZ::Data::AssetBus::Handler::BusConnect(m_modelAssetId);
     }
 
     void MaterialViewportWidget::OnDocumentOpened(const AZ::Uuid& documentId)
@@ -529,6 +562,17 @@ namespace PhysXMaterialEditor
 
     void MaterialViewportWidget::OnTick(float deltaTime, AZ::ScriptTimePoint time)
     {
+        static float timer = 0.0f;
+        timer += deltaTime;
+        if (timer >= 1.0f)
+        {
+            timer -= 1.0f;
+
+            Physics::RigidBodyRequestBus::Event(m_modelEntity->GetId(), &Physics::RigidBodyRequests::DisablePhysics);
+            AZ::TransformBus::Event(m_modelEntity->GetId(), &AZ::TransformInterface::SetWorldTM, AZ::Transform::CreateTranslation(AZ::Vector3(0.0f, 0.0f, 0.5f)));
+            Physics::RigidBodyRequestBus::Event(m_modelEntity->GetId(), &Physics::RigidBodyRequests::EnablePhysics);
+        }
+
         AtomToolsFramework::RenderViewportWidget::OnTick(deltaTime, time);
 
         m_renderPipeline->AddToRenderTickOnce();
