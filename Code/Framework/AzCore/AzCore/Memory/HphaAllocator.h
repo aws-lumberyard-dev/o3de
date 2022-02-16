@@ -11,7 +11,7 @@
 #include <AzCore/Memory/IAllocator.h>
 #include <AzCore/Memory/AllocatorTrackingRecorder.h>
 #include <AzCore/Memory/OSAllocator.h>
-#include <AzCore/memory/AllocatorInstance.h>
+#include <AzCore/Memory/AllocatorInstance.h>
 
 namespace AZ
 {
