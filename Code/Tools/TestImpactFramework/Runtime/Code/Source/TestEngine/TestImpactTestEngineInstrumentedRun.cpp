@@ -6,8 +6,6 @@
  *
  */
 
-#pragma once
-
 #include <TestEngine/TestImpactTestEngineInstrumentedRun.h>
 
 namespace TestImpact

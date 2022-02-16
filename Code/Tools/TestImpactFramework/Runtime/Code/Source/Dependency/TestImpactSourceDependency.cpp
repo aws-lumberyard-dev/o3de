@@ -6,8 +6,6 @@
  *
  */
 
-#pragma once
-
 #include <Dependency/TestImpactSourceDependency.h>
 #include <Target/TestImpactBuildTarget.h>
 #include <Target/TestImpactProductionTarget.h>
