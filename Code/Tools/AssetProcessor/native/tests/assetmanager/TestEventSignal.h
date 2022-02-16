@@ -8,6 +8,7 @@
 
 #pragma once
 
+#include <AzCore/std/parallel/atomic.h>
 #include <AzCore/std/parallel/binary_semaphore.h>
 
 namespace UnitTests

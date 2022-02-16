@@ -9,6 +9,7 @@
 #pragma once
 
 #include <AzCore/Outcome/Outcome.h>
+#include <AzCore/Memory/Memory.h>
 #include <AzCore/RTTI/TypeInfo.h>
 #include <AzCore/std/containers/vector.h>
 #include <AzCore/std/smart_ptr/shared_ptr.h>
