@@ -103,7 +103,7 @@ namespace AZ
     {
 #if defined(AZ_ENABLE_TRACING)
         m_data = new (AZ::Debug::DebugAllocator().allocate(sizeof(IAllocatorTrackingRecorderData), alignof(IAllocatorTrackingRecorderData))) IAllocatorTrackingRecorderData();
-#endif()
+#endif
     }
 
     IAllocatorWithTracking::~IAllocatorWithTracking()
