@@ -208,8 +208,8 @@ namespace AZ
 
                     auto& variantData = document;
 
-                    const char* const materialTypeField = "physxMaterialType";
-                    const char* const parentMaterialField = "parentPhysXMaterial";
+                    const char* const materialTypeField = "materialType";
+                    const char* const parentMaterialField = "parentMaterial";
 
                     if (variantData.IsObject() && variantData.HasMember(materialTypeField) && variantData[materialTypeField].IsString())
                     {

@@ -488,12 +488,12 @@ namespace PhysXMaterialEditor
 
         AtomToolsFramework::DynamicPropertyConfig propertyConfig;
         propertyConfig.m_dataType = AtomToolsFramework::DynamicPropertyType::Asset;
-        propertyConfig.m_id = "overview.physxMaterialType";
-        propertyConfig.m_name = "physxMaterialType";
-        propertyConfig.m_displayName = "PhysX Material Type";
+        propertyConfig.m_id = "overview.materialType";
+        propertyConfig.m_name = "materialType";
+        propertyConfig.m_displayName = "Material Type";
         propertyConfig.m_groupName = "overview";
         propertyConfig.m_groupDisplayName = "Overview";
-        propertyConfig.m_description = "The physx material type defines the layout, properties, default values, shader connections, and other "
+        propertyConfig.m_description = "The material type defines the layout, properties, default values, shader connections, and other "
                                        "data needed to create and edit a derived material.";
         propertyConfig.m_defaultValue = AZStd::any(materialTypeAsset);
         propertyConfig.m_originalValue = propertyConfig.m_defaultValue;
@@ -504,13 +504,13 @@ namespace PhysXMaterialEditor
 
         propertyConfig = {};
         propertyConfig.m_dataType = AtomToolsFramework::DynamicPropertyType::Asset;
-        propertyConfig.m_id = "overview.parentPhysXMaterial";
-        propertyConfig.m_name = "parentPhysXMaterial";
-        propertyConfig.m_displayName = "Parent PhysX Material";
+        propertyConfig.m_id = "overview.parentMaterial";
+        propertyConfig.m_name = "parentMaterial";
+        propertyConfig.m_displayName = "Parent Material";
         propertyConfig.m_groupName = "overview";
         propertyConfig.m_groupDisplayName = "Overview";
         propertyConfig.m_description =
-            "The parent physx material provides an initial configuration whose properties are inherited and overriden by a derived material.";
+            "The parent material provides an initial configuration whose properties are inherited and overriden by a derived material.";
         propertyConfig.m_defaultValue = AZStd::any(parentMaterialAsset);
         propertyConfig.m_originalValue = propertyConfig.m_defaultValue;
         propertyConfig.m_parentValue = propertyConfig.m_defaultValue;
