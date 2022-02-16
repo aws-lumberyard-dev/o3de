@@ -20,7 +20,6 @@ namespace AZ
 {
     Name::Name()
     {
-        SetEmptyString();
     }
 
     Name::Name(AZStd::string_view name)
@@ -35,7 +34,7 @@ namespace AZ
 
     Name::Name(Internal::NameData* data)
         : m_data{data}
-        , m_view{data->GetName()}
+        , m_view{data->GetName().data()}
         , m_hash{data->GetHash()}
     {}
 
@@ -48,20 +47,13 @@ namespace AZ
     {
         m_data = rhs.m_data;
         m_hash = rhs.m_hash;
-        if (!rhs.m_view.empty())
-        {
-            m_view = rhs.m_view;
-        }
-        else
-        {
-            SetEmptyString();
-        }
+        m_view = rhs.m_view;
         return *this;
     }
 
     Name& Name::operator=(Name&& rhs)
     {
-        if (rhs.m_view.empty())
+        if (rhs.m_view == nullptr)
         {
             // In this case we can't actually copy the values from rhs
             // because rhs.m_view points to the address of rhs.m_data.
@@ -69,14 +61,14 @@ namespace AZ
             // point to *our* m_data.
             m_data = nullptr;
             m_hash = 0;
-            SetEmptyString();
+            m_view = nullptr;
         }
         else
         {
             m_data = AZStd::move(rhs.m_data);
             m_view = rhs.m_view;
             m_hash = rhs.m_hash;
-            rhs.SetEmptyString();
+            rhs.m_view = nullptr;
         }
 
         return *this;
@@ -91,23 +83,6 @@ namespace AZ
     Name::Name(Name&& rhs)
     {
         *this = AZStd::move(rhs);
-    }
-
-    void Name::SetEmptyString()
-    {
-        /**
-         * When an AZStd::string_view references an AZStd::string, it sees the null-terminator and assigns m_begin / m_end
-         * to '\0'. This means calling string_view::data() won't return nullptr. This is important in cases where data is fed
-         * to C functions which call strlen.
-         *
-         * In order to make the 'empty' string non-null, the string_view is assigned to the memory location of m_data, which
-         * is always a null pointer when the string is empty. This address is reset any time a move / copy occurs. This is safer
-         * than using a value in the string table of the module, since a module shutdown would de-allocate that memory.
-         */
-
-        AZ_Assert(!m_data.get(), "Data pointer is not null.");
-        m_view = reinterpret_cast<const char*>(&m_data);
-        m_hash = 0;
     }
 
     void Name::SetName(AZStd::string_view name)
@@ -126,17 +101,17 @@ namespace AZ
     
     AZStd::string_view Name::GetStringView() const
     {
-        return m_view;
+        return m_data ? m_data->GetName() : "";
     }
 
     const char* Name::GetCStr() const
     {
-        return m_view.data();
+        return m_view == nullptr ? "" : m_view;
     }
 
     bool Name::IsEmpty() const
     {
-        return m_view.empty();
+        return m_view == nullptr;
     }
 
     void Name::ScriptConstructor(Name* thisPtr, ScriptDataContext& dc)

@@ -103,8 +103,6 @@ namespace AZ
         // This is needed for reflection into behavior context.
         void SetName(AZStd::string_view name);
         
-        void SetEmptyString();
-        
         // This constructor is used by NameDictionary to construct from a dictionary-held NameData instance.
         Name(Internal::NameData* nameData);
 
@@ -114,9 +112,9 @@ namespace AZ
         // Most of the time this same information is available in m_data, but keeping it here too...
         // - Removes an indirection when accessing the name value.
         // - Allows functions like data() to return an empty string instead of null for empty Name objects.
-        AZStd::string_view m_view;
+        const char* m_view = nullptr;
 
-        Hash m_hash;
+        Hash m_hash = 0;
 
         //! Pointer to NameData in the NameDictionary. This holds both the hash and string pair.
         AZStd::intrusive_ptr<Internal::NameData> m_data;
