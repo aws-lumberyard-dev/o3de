@@ -43,6 +43,13 @@ namespace AZ
         *this = rhs;
     }
 
+    Name::Name(NameRef name)
+        : m_data(AZStd::move(name))
+        , m_hash(name->GetHash())
+        , m_view(name->GetName().data())
+    {
+    }
+
     Name& Name::operator=(const Name& rhs)
     {
         m_data = rhs.m_data;
@@ -162,7 +169,7 @@ namespace AZ
                 ->Method("ToString", &Name::GetCStr)
                 ->Method("Set", &Name::SetName)
                 ->Method("IsEmpty", &Name::IsEmpty)
-                ->Method("Equal", &Name::operator==)
+                ->Method("Equal", static_cast<bool(Name::*)(const Name&)const>(&Name::operator==))
                 ->Attribute(AZ::Script::Attributes::Operator, AZ::Script::Attributes::OperatorType::Equal)
                 ->Attribute(AZ::Script::Attributes::ExcludeFrom, AZ::Script::Attributes::ExcludeFlags::All)
                 ;

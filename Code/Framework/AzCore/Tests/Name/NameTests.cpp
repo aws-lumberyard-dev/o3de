@@ -635,6 +635,25 @@ namespace UnitTest
         RunConcurrencyTest<ThreadRepeatedlyCreatesAndReleasesOneName<100>>(100, 2);
     }
 
+    TEST_F(NameTest, NameRef)
+    {
+        AZ::NameRef fromRValue = AZ::Name("test");
+        EXPECT_EQ("test", fromRValue->GetName());
+
+        AZ::Name name("foo");
+        AZ::NameRef fromLValue = name;
+        EXPECT_EQ("foo", fromLValue->GetName());
+
+        AZ::Name fromRefLValue = fromLValue;
+        EXPECT_EQ("foo", fromRefLValue.GetStringView());
+
+        AZ::Name fromRefRValue = AZStd::move(fromRValue);
+        EXPECT_EQ("test", fromRefRValue.GetStringView());
+
+        EXPECT_TRUE(AZ::Name(fromLValue) == fromRefLValue);
+        EXPECT_TRUE(AZ::Name(fromLValue) == AZ::Name("foo"));
+    }
+
     TEST_F(NameTest, DISABLED_NameVsStringPerf_Creation)
     {
         constexpr int CreateCount = 1000;

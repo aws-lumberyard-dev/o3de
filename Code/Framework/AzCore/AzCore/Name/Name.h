@@ -21,6 +21,12 @@ namespace AZ
     class ScriptDataContext;
     class ReflectContext;
 
+    //! A reference to data stored in a Name dictionary.
+    //! Smaller than Name but requires a memory indirection to look up
+    //! the name text or hash.
+    //! \see Name
+    using NameRef = AZStd::intrusive_ptr<Internal::NameData>;
+
     //! The Name class provides very fast string equality comparison, so that names can be used as IDs without sacrificing performance.
     //! It is a smart pointer to a NameData held in a NameDictionary, where names are tracked, de-duplicated, and ref-counted.
     //!
@@ -48,6 +54,9 @@ namespace AZ
         Name& operator=(const Name&);
         Name& operator=(Name&&);
 
+        //! Creates a NameRef from this Name, exposing its internal NameData pointer with no cached hash/string.
+        inline operator NameRef() const& { return m_data; }
+        inline operator NameRef() && { return AZStd::move(m_data); }
 
         //! Creates an instance of a name from a string. 
         //! The name string is used as a key to lookup an entry in the dictionary, and is not 
@@ -58,6 +67,9 @@ namespace AZ
         //! The hash will be used to find an existing name in the dictionary. If there is no
         //! name with this hash, the resulting name will be empty.
         explicit Name(Hash hash);
+
+        //! Creates a name from a NameRef, an already existent name within the name dictionary.
+        Name(NameRef name);
         
         //! Assigns a new name.  
         //! The name string is used as a key to lookup an entry in the dictionary, and is not 
@@ -80,6 +92,16 @@ namespace AZ
         bool operator!=(const Name& other) const
         {
             return GetHash() != other.GetHash();
+        }
+
+        bool operator==(const NameRef& other) const
+        {
+            return m_data == other;
+        }
+
+        bool operator!=(const NameRef& other) const
+        {
+            return m_data != other;
         }
 
         // We delete these operators because using Name in ordered containers is not supported. 
@@ -117,7 +139,7 @@ namespace AZ
         Hash m_hash = 0;
 
         //! Pointer to NameData in the NameDictionary. This holds both the hash and string pair.
-        AZStd::intrusive_ptr<Internal::NameData> m_data;
+        NameRef m_data;
     };
 
 } // namespace AZ
