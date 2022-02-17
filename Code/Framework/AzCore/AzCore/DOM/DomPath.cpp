@@ -59,14 +59,14 @@ namespace AZ::Dom
 
     bool PathEntry::operator==(const AZ::Name& key) const
     {
-        const AZ::Name* internalValue = AZStd::get_if<AZ::Name>(&m_value);
-        return internalValue != nullptr && *internalValue == key;
+        const AZ::NameRef* internalValue = AZStd::get_if<AZ::NameRef>(&m_value);
+        return internalValue != nullptr && key == *internalValue;
     }
 
     bool PathEntry::operator==(AZStd::string_view key) const
     {
-        const AZ::Name* internalValue = AZStd::get_if<AZ::Name>(&m_value);
-        return internalValue != nullptr && *internalValue == AZ::Name(key);
+        const AZ::NameRef* internalValue = AZStd::get_if<AZ::NameRef>(&m_value);
+        return internalValue != nullptr && AZ::Name(key) == *internalValue;
     }
 
     bool PathEntry::operator!=(const PathEntry& other) const
@@ -108,7 +108,7 @@ namespace AZ::Dom
 
     bool PathEntry::IsKey() const
     {
-        return AZStd::holds_alternative<AZ::Name>(m_value);
+        return AZStd::holds_alternative<AZ::NameRef>(m_value);
     }
 
     size_t PathEntry::GetIndex() const
@@ -128,9 +128,9 @@ namespace AZ::Dom
                     AZStd::hash<size_t> hasher;
                     return hasher(value);
                 }
-                else if constexpr (AZStd::is_same_v<CurrentType, AZ::Name>)
+                else if constexpr (AZStd::is_same_v<CurrentType, AZ::NameRef>)
                 {
-                    return value.GetHash();
+                    return value ? value->GetHash() : 0;
                 }
             },
             m_value);
@@ -147,10 +147,10 @@ namespace AZStd
 
 namespace AZ::Dom
 {
-    const AZ::Name& PathEntry::GetKey() const
+    const AZ::NameRef& PathEntry::GetKey() const
     {
         AZ_Assert(IsKey(), "Key called on PathEntry that is not a key");
-        return AZStd::get<AZ::Name>(m_value);
+        return AZStd::get<AZ::NameRef>(m_value);
     }
 
     Path::Path(AZStd::initializer_list<PathEntry> init)
@@ -344,7 +344,7 @@ namespace AZ::Dom
             }
             else
             {
-                const char* nameBuffer = entry.GetKey().GetCStr();
+                const char* nameBuffer = entry.GetKey()->GetName().data();
                 for (size_t i = 0; nameBuffer[i]; ++i)
                 {
                     if (nameBuffer[i] == EscapeCharacter || nameBuffer[i] == PathSeparator)
@@ -411,7 +411,7 @@ namespace AZ::Dom
             }
             else
             {
-                writeToBuffer(entry.GetKey().GetCStr());
+                writeToBuffer(entry.GetKey()->GetName().data());
             }
         }
 

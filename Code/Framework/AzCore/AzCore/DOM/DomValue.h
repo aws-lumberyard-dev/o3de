@@ -24,7 +24,7 @@ namespace AZ::Dom
 {
     class PathEntry;
     class Path;
-    using KeyType = AZ::Name;
+    using KeyType = AZ::NameRef;
 
     //! The type of underlying value stored in a value. \see Value
     enum class Type

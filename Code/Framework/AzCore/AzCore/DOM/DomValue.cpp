@@ -656,7 +656,7 @@ namespace AZ::Dom
         return AddMember(AZ::Name(name), value);
     }
 
-    Value& Value::AddMember(AZ::Name name, Value&& value)
+    Value& Value::AddMember(KeyType name, Value&& value)
     {
         Object::ContainerType& object = GetObjectInternal();
         if (auto memberIt = FindMutableMember(name); memberIt != object.end())

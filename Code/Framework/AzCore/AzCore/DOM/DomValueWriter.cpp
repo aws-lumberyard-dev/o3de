@@ -238,10 +238,10 @@ namespace AZ::Dom
         m_entryStack.top().m_value.Swap(value);
         ValueInfo& newEntry = m_entryStack.top();
 
-        if (!newEntry.m_key.IsEmpty())
+        if (newEntry.m_key != nullptr)
         {
             GetValueBuffer().m_attributes.emplace_back(AZStd::move(newEntry.m_key), AZStd::move(value));
-            newEntry.m_key = AZ::Name();
+            newEntry.m_key = nullptr;
         }
         else
         {

@@ -254,7 +254,7 @@ namespace AZ::Dom::Benchmark
                     object.cbegin(), object.cend(),
                     [&key](const Object::EntryType& entry)
                     {
-                        return key == entry.first.GetStringView();
+                        return key == entry.first->GetName();
                     }));
             }
         }

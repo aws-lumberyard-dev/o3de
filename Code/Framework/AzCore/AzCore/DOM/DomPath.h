@@ -54,11 +54,11 @@ namespace AZ::Dom
         bool IsKey() const;
 
         size_t GetIndex() const;
-        const AZ::Name& GetKey() const;
+        const AZ::NameRef& GetKey() const;
         size_t GetHash() const;
 
     private:
-        AZStd::variant<size_t, AZ::Name> m_value;
+        AZStd::variant<size_t, AZ::NameRef> m_value;
     };
 } // namespace AZ::Dom
 

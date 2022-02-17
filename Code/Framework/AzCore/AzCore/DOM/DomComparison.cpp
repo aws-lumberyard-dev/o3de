@@ -47,7 +47,7 @@ namespace AZ::Dom
             Path subPath = path;
             for (auto it = after.MemberBegin(); it != after.MemberEnd(); ++it)
             {
-                desiredKeys.insert(it->first.GetHash());
+                desiredKeys.insert(it->first->GetHash());
                 subPath.Push(it->first);
                 auto beforeIt = before.FindMember(it->first);
                 if (beforeIt == before.MemberEnd())
@@ -63,7 +63,7 @@ namespace AZ::Dom
 
             for (auto it = before.MemberBegin(); it != before.MemberEnd(); ++it)
             {
-                if (!desiredKeys.contains(it->first.GetHash()))
+                if (!desiredKeys.contains(it->first->GetHash()))
                 {
                     subPath.Push(it->first);
                     AddPatch(PatchOperation::RemoveOperation(subPath), PatchOperation::AddOperation(subPath, it->second));
