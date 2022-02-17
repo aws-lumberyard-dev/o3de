@@ -17,6 +17,7 @@
 
 namespace AZ
 {
+    Name* NameDictionary::s_deferredHead = nullptr;
     static const char* NameDictionaryInstanceName = "NameDictionaryInstance";
 
     namespace NameDictionaryInternal
@@ -46,21 +47,34 @@ namespace AZ
         using namespace NameDictionaryInternal;
 
         AZ_Assert(s_instance, "NameDictionary not created!");
+        s_instance->UnloadDeferredNames();
         s_instance.Reset();
     }
 
-    bool NameDictionary::IsReady()
+    bool NameDictionary::IsReady(bool tryCreate)
     {
         using namespace NameDictionaryInternal;
 
+        if (!AZ::AllocatorStorage::EnvironmentStoragePolicy<SystemAllocator>::IsReady())
+        {
+            return false;
+        }
+
         if (!s_instance)
         {
-            // Because the NameDictionary allocates memory using the AZ::Allocator and it is created
-            // in the executable memory space, it's ownership cannot be transferred to other module memory spaces
-            // Otherwise this could cause the the NameDictionary to be destroyed in static de-init
-            // after the AZ::Allocators have been destroyed
-            // Therefore we supply the isTransferOwnership value of false using CreateVariableEx
-            s_instance = AZ::Environment::CreateVariableEx<NameDictionary>(NameDictionaryInstanceName, true, false);
+            if (tryCreate)
+            {
+                // Because the NameDictionary allocates memory using the AZ::Allocator and it is created
+                // in the executable memory space, it's ownership cannot be transferred to other module memory spaces
+                // Otherwise this could cause the the NameDictionary to be destroyed in static de-init
+                // after the AZ::Allocators have been destroyed
+                // Therefore we supply the isTransferOwnership value of false using CreateVariableEx
+                s_instance = AZ::Environment::CreateVariableEx<NameDictionary>(NameDictionaryInstanceName, true, false);
+            }
+            else
+            {
+                return false;
+            }
         }
 
         return s_instance.IsConstructed();
@@ -81,7 +95,10 @@ namespace AZ
     }
     
     NameDictionary::NameDictionary()
-    {}
+    {
+        LoadDeferredNames(AZ::Name::GetDeferredHead());
+        LoadDeferredNames(s_deferredHead);
+    }
 
     NameDictionary::~NameDictionary()
     {
@@ -118,6 +135,77 @@ namespace AZ
             return Name(iter->second);
         }
         return Name();
+    }
+
+    void NameDictionary::LoadDeferredNames(Name* deferredHead)
+    {
+        if (deferredHead == nullptr)
+        {
+            return;
+        }
+
+        if (s_deferredHead == nullptr)
+        {
+            // If we don't have any deferred names stored, this is our new head
+            s_deferredHead = deferredHead;
+        }
+        else
+        {
+            // Otherwise, scan for re-registered names
+            Name* tail = s_deferredHead;
+            Name* deferred = s_deferredHead;
+            while (deferred != nullptr)
+            {
+                tail = deferred;
+                if (deferred == deferredHead)
+                {
+                    if (deferred->m_data == nullptr)
+                    {
+                        Name nameData = MakeName(deferredHead->m_view);
+                        deferredHead->m_data = AZStd::move(nameData.m_data);
+                        deferredHead->m_hash = nameData.m_hash;
+                    }
+                    deferredHead = deferredHead->m_nextName;
+                }
+                deferred = deferred->m_nextName;
+            }
+
+            tail->m_nextName = deferredHead;
+        }
+
+        while (deferredHead != nullptr)
+        {
+            Name nameData = MakeName(deferredHead->m_view);
+            deferredHead->m_data = AZStd::move(nameData.m_data);
+            deferredHead->m_hash = nameData.m_hash;
+            deferredHead = deferredHead->m_nextName;
+        }
+    }
+
+    void NameDictionary::UnloadDeferredName(Name* deferredName)
+    {
+        Name** cur = &s_deferredHead;
+        while (*cur != nullptr)
+        {
+            if ((*cur) == deferredName)
+            {
+                (*cur)->m_nextName = nullptr;
+                *cur = nullptr;
+                break;
+            }
+            cur = &(*cur)->m_nextName;
+        }
+    }
+
+    void NameDictionary::UnloadDeferredNames()
+    {
+        Name* staticName = s_deferredHead;
+        while (staticName != nullptr)
+        {
+            staticName->m_data = nullptr;
+            staticName->m_hash = 0;
+            staticName = staticName->m_nextName;
+        }
     }
 
     Name NameDictionary::MakeName(AZStd::string_view nameString)

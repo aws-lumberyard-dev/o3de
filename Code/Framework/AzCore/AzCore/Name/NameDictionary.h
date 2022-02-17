@@ -62,7 +62,7 @@ namespace AZ
         static void Create();
 
         static void Destroy();
-        static bool IsReady();
+        static bool IsReady(bool tryCreate = true);
         static NameDictionary& Instance();
 
         //! Makes a Name from the provided raw string. If an entry already exists in the dictionary, it is shared.
@@ -76,6 +76,10 @@ namespace AZ
         //! @param hash The key by which to search for the name.
         //! @return A Name instance. If the hash was not found, the Name will be empty.
         Name FindName(Name::Hash hash) const;
+
+        void LoadDeferredNames(Name* deferredHead);
+        void UnloadDeferredName(Name* deferredName);
+        void UnloadDeferredNames();
 
         NameDictionary();
     private:
@@ -98,5 +102,7 @@ namespace AZ
 
         AZStd::unordered_map<Name::Hash, Internal::NameData*> m_dictionary;
         mutable AZStd::shared_mutex m_sharedMutex;
+
+        static Name* s_deferredHead;
     };
 }

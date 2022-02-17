@@ -18,6 +18,8 @@
 
 namespace AZ
 {
+    Name* Name::s_staticNameBegin = nullptr;
+
     Name::Name()
     {
     }
@@ -83,6 +85,11 @@ namespace AZ
 
     Name& Name::operator=(AZStd::string_view name)
     {
+        if (m_isLiteral)
+        {
+            NameDictionary::Instance().UnloadDeferredName(this);
+            m_isLiteral = false;
+        }
         SetName(name);
         return *this;
     }
@@ -92,6 +99,14 @@ namespace AZ
         *this = AZStd::move(rhs);
     }
 
+    Name::~Name()
+    {
+        if (m_isLiteral && NameDictionary::IsReady(false))
+        {
+            NameDictionary::Instance().UnloadDeferredName(this);
+        }
+    }
+
     void Name::SetName(AZStd::string_view name)
     {
         if (!name.empty())
@@ -99,6 +114,35 @@ namespace AZ
             AZ_Assert(NameDictionary::IsReady(), "Attempted to initialize Name '%.*s' before the NameDictionary is ready.", AZ_STRING_ARG(name));
 
             *this = AZStd::move(NameDictionary::Instance().MakeName(name));
+        }
+        else
+        {
+            *this = Name();
+        }
+    }
+
+    void Name::SetNameLiteral(const char* name)
+    {
+        if (name[0] != '\0')
+        {
+            m_isLiteral = true;
+            m_view = name;
+            m_hash = 0;
+            m_data = {};
+
+            if (!NameDictionary::IsReady(false))
+            {
+                Name** lastStaticName = &s_staticNameBegin;
+                while (*lastStaticName != nullptr)
+                {
+                    lastStaticName = &(*lastStaticName)->m_nextName;
+                }
+                *lastStaticName = this;
+            }
+            else
+            {
+                NameDictionary::Instance().LoadDeferredNames(this);
+            }
         }
         else
         {

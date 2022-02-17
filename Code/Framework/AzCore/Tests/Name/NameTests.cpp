@@ -33,6 +33,8 @@
 
 namespace UnitTest
 {
+    static AZ::Name globalName("global");
+
     class NameDictionaryTester
     {
     public:
@@ -55,7 +57,8 @@ namespace UnitTest
         
         static size_t GetEntryCount()
         {
-            return GetDictionary().size();
+            // Subtract one because "globalName" is always in the dictionary
+            return GetDictionary().size() - 1;
         }
 
         //! Directly calculate the hash value for a string without collision resolution
@@ -500,7 +503,8 @@ namespace UnitTest
     {
         AZ::Internal::NameData* leakedNameData = nullptr;
         {
-            AZ::Name leakedName{ "hello" };
+            constexpr AZStd::string_view leakedNameContents{ "hello" };
+            AZ::Name leakedName{ leakedNameContents };
             AZ_TEST_START_TRACE_SUPPRESSION;
             AZ::NameDictionary::Destroy();
             AZ_TEST_STOP_TRACE_SUPPRESSION(1);
@@ -652,6 +656,14 @@ namespace UnitTest
 
         EXPECT_TRUE(AZ::Name(fromLValue) == fromRefLValue);
         EXPECT_TRUE(AZ::Name(fromLValue) == AZ::Name("foo"));
+    }
+
+    TEST_F(NameTest, NameLiteral)
+    {
+        static AZ::Name staticName = AZ::Name("static");
+        EXPECT_EQ("literal", AZ_NAME_LITERAL("literal").GetStringView());
+        EXPECT_EQ("static", staticName.GetStringView());
+        EXPECT_EQ("global", globalName.GetStringView());
     }
 
     TEST_F(NameTest, DISABLED_NameVsStringPerf_Creation)
