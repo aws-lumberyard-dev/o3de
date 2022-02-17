@@ -765,7 +765,7 @@ try {
                         fileContentReplaceConfig(
                         configs: [
                             fileContentReplaceItemConfig(
-                            search: ' .cpp\(\d+\)',
+                            search: ' .cpp\\(\\d+\\)',
                             replace: 'FOO',
                             matchCount: 1,
                             verbose: false,
