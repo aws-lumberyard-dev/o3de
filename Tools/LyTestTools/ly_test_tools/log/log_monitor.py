@@ -18,6 +18,17 @@ logger = logging.getLogger(__name__)
 LOG_MONITOR_INTERVAL = 0.1  # seconds
 
 
+# This branch is to investigate an issue where messages seem to be missing from the log files.
+# This simple debug_print will write every line it monitors to another file on disk to make it
+# easier to track down what's there or missing, especially in cases where the test passes and the logs
+# from the successful run are a bit harder to find.
+def debug_print(message):
+    logger.info(message)
+    file_object = open("C:/Logs/run.txt", 'a')
+    file_object.write(message + "\n")
+    file_object.close()
+
+
 class LogMonitorException(Exception):
     """Custom exception class for errors related to log_monitor.py"""
 
@@ -64,6 +75,7 @@ class LogMonitor(object):
         self.py_log = ""
         self.log_creation_max_wait_time = log_creation_max_wait_time
 
+
     def monitor_log_for_lines(self,
                               expected_lines=None,
                               unexpected_lines=None,
@@ -81,6 +93,7 @@ class LogMonitor(object):
         :param timeout: int time in seconds to search for expected/unexpected lines before raising LogMonitorException.
         :return: True if monitoring succeeded, raises a LogMonitorException otherwise.
         """
+        debug_print("monitor_log_for_lines Start")
         # Validation checks before monitoring the log file writes.
         launcher_class = ly_test_tools.launchers.platforms.base.Launcher
         if not os.path.exists(self.log_file_path):
@@ -94,6 +107,7 @@ class LogMonitor(object):
             logger.warning("Requested log monitoring for no lines, aborting")
             return
 
+        debug_print("monitor_log_for_lines basic error checking")
         # Enforce list typing for expected_lines & unexpected_lines
         if unexpected_lines is None:
             unexpected_lines = []
@@ -107,7 +121,8 @@ class LogMonitor(object):
                 "expected_lines or unexpected_lines must be 'list' type variables. "
                 "Got types: type(expected_lines) == {} & type(unexpected_lines) == {}".format(
                     type(expected_lines), type(unexpected_lines)))
-                    
+                   
+        debug_print("monitor_log_for_lines basic error checking 2") 
         # Make sure the expected_lines don't have any common lines with unexpected_lines
         expected_lines_in_unexpected = [line for line in unexpected_lines if line in expected_lines]
         if expected_lines_in_unexpected:
@@ -116,13 +131,14 @@ class LogMonitor(object):
         unexpected_lines_in_expected = [line for line in expected_lines if line in unexpected_lines]
         if unexpected_lines_in_expected:
             raise LogMonitorException("Found expected_lines in unexpected_lines:\n{}".format("\n".join(unexpected_lines_in_expected)))
-
+            
+        debug_print("monitor_log_for_lines basic error checking 3") 
         # Log file is now opened by our process, start monitoring log lines:
         self.py_log = ""
         try:
-            logger.debug("Monitoring log file in '{}' ".format(self.log_file_path))
+            debug_print("Monitoring log file in '{}' ".format(self.log_file_path))
             with open(self.log_file_path, mode='r', encoding='utf-8') as log:
-                logger.info(
+                debug_print(
                     "Monitoring log file '{}' for '{}' seconds".format(self.log_file_path, timeout))
                     
                 search_expected_lines = expected_lines.copy()
@@ -135,12 +151,13 @@ class LogMonitor(object):
             logger.warning(f"Timeout of '{timeout}' seconds was reached, log lines may not have been found")
             # exception will be raised below by _validate_results with failure analysis
         finally:
-            logger.info("Python log output:\n" + self.py_log)
-            logger.info(
+            debug_print("Python log output:\n" + self.py_log)
+            debug_print(
                 "Finished log monitoring for '{}' seconds, validating results.\n"
                 "expected_lines_not_found: {}\n unexpected_lines_found: {}".format(
                     timeout, self.expected_lines_not_found, self.unexpected_lines_found))
-
+                    
+        debug_print("monitor_log_for_lines validate") 
         return self._validate_results(self.expected_lines_not_found, self.unexpected_lines_found, expected_lines, unexpected_lines)
 
     def _find_expected_lines(self, line, expected_lines):
@@ -158,7 +175,7 @@ class LogMonitor(object):
         for expected_line in expected_lines:
             searched_line = check_exact_match(line, expected_line)
             if expected_line == searched_line:
-                logger.debug("Found expected line: {} from line: {}".format(expected_line, line))
+                debug_print("Found expected line: {} from line: {}".format(expected_line, line))
                 expected_lines_to_remove.append(expected_line)
 
         for expected_line in expected_lines_to_remove:
@@ -184,7 +201,7 @@ class LogMonitor(object):
         for unexpected_line in unexpected_lines:
             searched_line = check_exact_match(line, unexpected_line)
             if unexpected_line == searched_line:
-                logger.debug("Found unexpected line: {} from line: {}".format(unexpected_line, line))
+                debug_print("Found unexpected line: {} from line: {}".format(unexpected_line, line))
                 if halt_on_unexpected:
                     raise LogMonitorException(
                         "Unexpected line appeared: {} from line: {}".format(unexpected_line, line))
@@ -197,6 +214,7 @@ class LogMonitor(object):
         return unexpected_lines_found
 
     def _validate_results(self, expected_lines_not_found, unexpected_lines_found, expected_lines, unexpected_lines):
+        debug_print("_validate_results")
         """
         Parses the values in the expected_lines_not_found & unexpected_lines_found lists.
         If any expected lines were NOT found or unexpected lines WERE found, a LogMonitorException will be raised.
@@ -223,7 +241,7 @@ class LogMonitor(object):
             else:
                 expected_lines_info += "[ NOT FOUND ] {}\n".format(line)
             
-        logger.info("LogMonitor Result:\n"
+        debug_print("LogMonitor Result:\n"
                     "--- Expected lines ---\n"
                     f"{expected_lines_info}"
                     f"Found {len(expected_lines_found)}/{len(expected_lines)} expected lines")

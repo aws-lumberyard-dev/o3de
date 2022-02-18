@@ -71,7 +71,9 @@ class TestBundleMode(object):
         ]
         unexpected_lines = []
 
-        timeout = 180
+        # Adjusting this timeout doesn't help the pass/fail rate of the test.
+        # However, it's useful for having the extra time to attach a debugger to the Editor and step through code.
+        timeout = 600
         halt_on_unexpected = False
         test_directory = os.path.join(os.path.dirname(__file__))
         test_file = os.path.join(test_directory, 'bundle_mode_in_editor_tests.py')
@@ -80,6 +82,7 @@ class TestBundleMode(object):
 
         with editor.start(launch_ap=True):
             editor_log_file = os.path.join(editor.workspace.paths.project_log(), 'Editor.log')
+            print(f"Editor log file: {editor_log_file}")
             log_monitor = ly_test_tools.log.log_monitor.LogMonitor(editor, editor_log_file)
             waiter.wait_for(
                 lambda: editor.is_alive(),
@@ -87,6 +90,10 @@ class TestBundleMode(object):
                 exc=("Log file '{}' was never opened by another process.".format(editor_log_file)),
                 interval=1)
             log_monitor.monitor_log_for_lines(expected_lines, unexpected_lines, halt_on_unexpected, timeout)
+            # Copy the log file that was in theory monitored for messages.
+            # Note that this doesn't seem to have many messages in it, I'm not sure why they aren't showing up here.
+            import shutil
+            shutil.copyfile(editor_log_file, "C:/Logs/editor.log")
 
         # Delete the bundle created and used in this test
         fs.delete([bundle_result_path], True, False)

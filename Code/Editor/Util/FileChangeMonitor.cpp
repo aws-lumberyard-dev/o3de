@@ -14,7 +14,8 @@
 // Qt
 #include <QDateTime>
 #include <QTimer>
-
+#include <chrono>
+#include <thread>
 
 CFileChangeMonitor* CFileChangeMonitor::s_pFileMonitorInstance = nullptr;
 
@@ -69,6 +70,8 @@ void CFileChangeMonitor::Initialize()
             this, &CFileChangeMonitor::OnDirectoryChange);
 
     AddIgnoreFileMask("*$tmp*");
+    // Add a 30 second delay to give time to attach a debugger while running the python test this branch was built for.
+    std::this_thread::sleep_for(std::chrono::seconds(30));
 }
 
 bool CFileChangeMonitor::IsDirectory(const char* sFileName)
