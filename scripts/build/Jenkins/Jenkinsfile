@@ -760,6 +760,7 @@ try {
         stage('Setup Pipeline') {
             node('controller') {
                 //
+                echo "Foo Workspace: ${workspace}"
                 contentReplace(
                     configs: [
                         fileContentReplaceConfig(
@@ -772,7 +773,7 @@ try {
                             )
                         ],
                         fileEncoding: 'UTF-8',
-                        filePath:'${JENKINS_HOME}/jobs/${JOB_NAME}/builds/${BUILD_NUMBER}/log'
+                        filePath:'${JENKINS_HOME}/jobs/OD3ETesting/branches/jenkins-testing.g0k6o0/builds/${BUILD_NUMBER}/log'
                         )
                     ]
                 )
