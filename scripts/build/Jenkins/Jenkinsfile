@@ -760,7 +760,6 @@ try {
         stage('Setup Pipeline') {
             node('controller') {
                 //
-                echo "Foo Workspace: ${workspace}"
                 contentReplace(
                     configs: [
                         fileContentReplaceConfig(
@@ -774,24 +773,6 @@ try {
                         ],
                         fileEncoding: 'UTF-8',
                         filePath:'${JENKINS_HOME}/jobs/O3DETesting/branches/jenkins-testing.g0k6o0/builds/${BUILD_NUMBER}/log'
-                        )
-                    ]
-                )
-                //
-                //
-                contentReplace(
-                    configs: [
-                        fileContentReplaceConfig(
-                        configs: [
-                            fileContentReplaceItemConfig(
-                            search: '\\.cpp',
-                            replace: 'FOO1',
-                            matchCount: 0,
-                            verbose: true,
-                            )
-                        ],
-                        fileEncoding: 'UTF-8',
-                        filePath:'${JENKINS_HOME}/jobs/${JOB_NAME}/builds/${BUILD_NUMBER}/consoleFull'
                         )
                     ]
                 )
@@ -952,25 +933,7 @@ finally {
                             )
                         ],
                         fileEncoding: 'UTF-8',
-                        filePath:'${JENKINS_HOME}/jobs/${JOB_NAME}/builds/${BUILD_NUMBER}/log'
-                        )
-                    ]
-                )
-            //
-            //
-                contentReplace(
-                    configs: [
-                        fileContentReplaceConfig(
-                        configs: [
-                            fileContentReplaceItemConfig(
-                            search: '\\.cpp',
-                            replace: 'FOO3',
-                            matchCount: 0,
-                            verbose: true,
-                            )
-                        ],
-                        fileEncoding: 'UTF-8',
-                        filePath:'${JENKINS_HOME}/jobs/${JOB_NAME}/builds/${BUILD_NUMBER}/consoleFull'
+                        filePath:'${JENKINS_HOME}/jobs/O3DETesting/branches/jenkins-testing.g0k6o0/builds/${BUILD_NUMBER}/log'
                         )
                     ]
                 )
