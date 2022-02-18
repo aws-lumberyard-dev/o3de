@@ -772,7 +772,7 @@ try {
                             )
                         ],
                         fileEncoding: 'UTF-8',
-                        '${JENKINS_HOME}/jobs/${JOB_NAME}/builds/${BUILD_NUMBER}/log'
+                        filePath:'${JENKINS_HOME}/jobs/${JOB_NAME}/builds/${BUILD_NUMBER}/log'
                         )
                     ]
                 )
