@@ -759,24 +759,6 @@ try {
     timeout(time: PIPELINE_TIMEOUT, unit: 'MINUTES', activity: true) {
         stage('Setup Pipeline') {
             node('controller') {
-                //
-                contentReplace(
-                    configs: [
-                        fileContentReplaceConfig(
-                        configs: [
-                            fileContentReplaceItemConfig(
-                            search: '\\.cpp',
-                            replace: 'FOO',
-                            matchCount: 0,
-                            verbose: true,
-                            )
-                        ],
-                        fileEncoding: 'UTF-8',
-                        filePath:'${JENKINS_HOME}/jobs/O3DETesting/branches/jenkins-testing.g0k6o0/builds/${BUILD_NUMBER}/log'
-                        )
-                    ]
-                )
-                //
                 def envVarList = []
                 if(isUnix()) {
                     envVarList.add('IS_UNIX=1')
@@ -926,8 +908,8 @@ finally {
                         fileContentReplaceConfig(
                         configs: [
                             fileContentReplaceItemConfig(
-                            search: '\\.cpp',
-                            replace: 'FOO2',
+                            search: '( .*\\.cpp\\(\\d+\\))',
+                            replace: '$FOO',
                             matchCount: 0,
                             verbose: true,
                             )
