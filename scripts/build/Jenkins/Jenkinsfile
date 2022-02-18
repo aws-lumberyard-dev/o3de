@@ -759,24 +759,24 @@ try {
     timeout(time: PIPELINE_TIMEOUT, unit: 'MINUTES', activity: true) {
         stage('Setup Pipeline') {
             node('controller') {
-                //
-                contentReplace(
-                    configs: [
-                        fileContentReplaceConfig(
-                        configs: [
-                            fileContentReplaceItemConfig(
-                            search: ' .cpp\\(\\d+\\)',
-                            replace: 'FOO',
-                            matchCount: 1,
-                            verbose: false,
-                            )
-                        ],
-                        fileEncoding: 'UTF-8',
-                        filePath:'${JENKINS_HOME}/jobs/${JOB_NAME}/builds/${BUILD_NUMBER}/log'
-                        )
-                    ]
-                )
-                //
+                // //
+                // contentReplace(
+                //     configs: [
+                //         fileContentReplaceConfig(
+                //         configs: [
+                //             fileContentReplaceItemConfig(
+                //             search: ' .cpp',
+                //             replace: 'FOO',
+                //             matchCount: 1,
+                //             verbose: false,
+                //             )
+                //         ],
+                //         fileEncoding: 'UTF-8',
+                //         filePath:'${JENKINS_HOME}/jobs/${JOB_NAME}/builds/${BUILD_NUMBER}/log'
+                //         )
+                //     ]
+                // )
+                // //
                 def envVarList = []
                 if(isUnix()) {
                     envVarList.add('IS_UNIX=1')
@@ -907,7 +907,24 @@ try {
             stage('Build') {
                 parallel buildConfigs // Run parallel builds
             }
-
+            //
+                contentReplace(
+                    configs: [
+                        fileContentReplaceConfig(
+                        configs: [
+                            fileContentReplaceItemConfig(
+                            search: ' .cpp',
+                            replace: 'FOO',
+                            matchCount: 1,
+                            verbose: false,
+                            )
+                        ],
+                        fileEncoding: 'UTF-8',
+                        filePath:'${JENKINS_HOME}/jobs/${JOB_NAME}/builds/${BUILD_NUMBER}/log'
+                        )
+                    ]
+                )
+                //
             echo 'All builds successful'
         }
         if (!someBuildHappened) {
