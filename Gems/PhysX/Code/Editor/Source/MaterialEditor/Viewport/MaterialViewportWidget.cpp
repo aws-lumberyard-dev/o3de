@@ -569,6 +569,8 @@ namespace PhysXMaterialEditor
             timer -= 1.0f;
 
             Physics::RigidBodyRequestBus::Event(m_modelEntity->GetId(), &Physics::RigidBodyRequests::DisablePhysics);
+            Physics::RigidBodyRequestBus::Event(m_modelEntity->GetId(), &Physics::RigidBodyRequests::SetLinearVelocity, AZ::Vector3::CreateZero());
+            Physics::RigidBodyRequestBus::Event(m_modelEntity->GetId(), &Physics::RigidBodyRequests::SetAngularVelocity, AZ::Vector3::CreateZero());
             AZ::TransformBus::Event(m_modelEntity->GetId(), &AZ::TransformInterface::SetWorldTM, AZ::Transform::CreateTranslation(AZ::Vector3(0.0f, 0.0f, 0.5f)));
             Physics::RigidBodyRequestBus::Event(m_modelEntity->GetId(), &Physics::RigidBodyRequests::EnablePhysics);
         }
