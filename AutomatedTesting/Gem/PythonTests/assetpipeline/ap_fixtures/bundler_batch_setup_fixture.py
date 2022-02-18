@@ -50,7 +50,7 @@ def bundler_batch_setup_fixture(request, workspace, asset_processor, timeout) ->
         platforms = [platform.strip() for platform in platforms.split(",")]
     else:
         # No commandline argument provided, default to mac and pc
-        platforms = ["pc", "mac"]
+        platforms = ["pc"]
 
     class BundlerBatchFixture:
         """
