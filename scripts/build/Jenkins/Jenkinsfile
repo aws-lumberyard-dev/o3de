@@ -773,7 +773,7 @@ try {
                             )
                         ],
                         fileEncoding: 'UTF-8',
-                        filePath:'${JENKINS_HOME}/jobs/OD3ETesting/branches/jenkins-testing.g0k6o0/builds/${BUILD_NUMBER}/log'
+                        filePath:'${JENKINS_HOME}/jobs/O3DETesting/branches/jenkins-testing.g0k6o0/builds/${BUILD_NUMBER}/log'
                         )
                     ]
                 )
