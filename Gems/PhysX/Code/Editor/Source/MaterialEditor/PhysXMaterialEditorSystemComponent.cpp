@@ -117,7 +117,7 @@ namespace PhysXMaterialEditor
                 return new MaterialEditorWindow(toolId, parent);
             };
 
-            o3deMaterialEditor->RegisterViewPane("PhysX Materials", AZStd::move(windowCreationFunc));
+            o3deMaterialEditor->RegisterViewPane("PhysX Materials", ":/Menu/emfx_editor.svg", AZStd::move(windowCreationFunc));
         }
     }
 
