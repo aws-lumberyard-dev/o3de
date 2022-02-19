@@ -908,7 +908,7 @@ finally {
                         fileContentReplaceConfig(
                         configs: [
                             fileContentReplaceItemConfig(
-                            search: '( .*\\.cpp\\(\\d+\\))',
+                            search: ' .*\\.cpp\\(\\d+\\)',
                             replace: '$FOO',
                             matchCount: 0,
                             verbose: true,
