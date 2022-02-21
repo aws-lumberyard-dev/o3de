@@ -11,6 +11,7 @@
 #if !defined(Q_MOC_RUN)
 #include <Atom/Feature/CoreLights/DirectionalLightFeatureProcessorInterface.h>
 #include <Atom/Feature/SkyBox/SkyBoxFeatureProcessorInterface.h>
+#include <Atom/Feature/Utils/LightingPreset.h>
 //#include <Atom/RPI.Public/Base.h>
 #include <AtomCore/Instance/Instance.h>
 #include <AtomToolsFramework/Document/AtomToolsDocumentNotificationBus.h>
@@ -63,7 +64,9 @@ namespace PhysXMaterialEditor
         ~MaterialViewportWidget();
 
     private:
-        AZ::Entity* CreateEntity(const AZStd::string& name, const AZStd::vector<AZ::Uuid>& componentTypeIds);
+        using PostCreateFunc = AZStd::function<void(AZ::Entity*)>;
+
+        AZ::Entity* CreateEntity(const AZStd::string& name, const AZStd::vector<AZ::Uuid>& componentTypeIds, PostCreateFunc postCreateFunc = [](AZ::Entity*) {});
         void DestroyEntity(AZ::Entity*& entity);
         void SetupInputController();
         void SetupModel();
@@ -72,6 +75,7 @@ namespace PhysXMaterialEditor
         void OnDocumentOpened(const AZ::Uuid& documentId) override;
 
         // MaterialViewportNotificationBus::Handler interface overrides...
+        void OnLightingPresetSelected(const AZ::Render::LightingPreset* preset);
         //void OnLightingPresetSelected(AZ::Render::LightingPresetPtr preset) override;
         //void OnLightingPresetChanged(AZ::Render::LightingPresetPtr preset) override;
         //void OnModelPresetSelected(AZ::Render::ModelPresetPtr preset) override;
@@ -93,14 +97,14 @@ namespace PhysXMaterialEditor
 
         const AZ::Crc32 m_toolId = {};
 
-        //using DirectionalLightHandle = AZ::Render::DirectionalLightFeatureProcessorInterface::LightHandle;
+        using DirectionalLightHandle = AZ::Render::DirectionalLightFeatureProcessorInterface::LightHandle;
 
         AZ::Data::Instance<AZ::RPI::SwapChainPass> m_swapChainPass;
         AZStd::string m_defaultPipelineAssetPath = "passes/MainRenderPipeline.azasset";
         AZ::RPI::RenderPipelinePtr m_renderPipeline;
         AZ::RPI::ScenePtr m_scene;
-        //AZ::Render::DirectionalLightFeatureProcessorInterface* m_directionalLightFeatureProcessor = {};
-        //AZ::Render::DisplayMapperFeatureProcessorInterface* m_displayMapperFeatureProcessor = {};
+        AZ::Render::DirectionalLightFeatureProcessorInterface* m_directionalLightFeatureProcessor = {};
+        AZ::Render::DisplayMapperFeatureProcessorInterface* m_displayMapperFeatureProcessor = {};
 
         AZStd::unique_ptr<AzFramework::EntityContext> m_entityContext;
         AZStd::shared_ptr<AzFramework::Scene> m_frameworkScene;
@@ -108,7 +112,7 @@ namespace PhysXMaterialEditor
         AzPhysics::SceneHandle m_physicsSceneHandle = AzPhysics::InvalidSceneHandle;
 
         AZ::Entity* m_cameraEntity = {};
-        //AZ::Entity* m_postProcessEntity = {};
+        AZ::Entity* m_postProcessEntity = {};
 
         AZ::Entity* m_modelEntity = {};
         AZ::Data::AssetId m_modelAssetId;
@@ -119,10 +123,10 @@ namespace PhysXMaterialEditor
         //AZ::Data::Instance<AZ::PhysX::Material> m_shadowCatcherMaterial;
         //AZ::PhysX::MaterialPropertyIndex m_shadowCatcherOpacityPropertyIndex;
 
-        //AZStd::vector<DirectionalLightHandle> m_lightHandles;
+        AZStd::vector<DirectionalLightHandle> m_lightHandles;
 
         AZ::Entity* m_iblEntity = {};
-        //AZ::Render::SkyBoxFeatureProcessorInterface* m_skyboxFeatureProcessor = {};
+        AZ::Render::SkyBoxFeatureProcessorInterface* m_skyboxFeatureProcessor = {};
 
         AZStd::shared_ptr<AtomToolsFramework::ViewportInputBehaviorController> m_viewportController;
 

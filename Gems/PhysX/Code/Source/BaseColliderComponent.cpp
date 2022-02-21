@@ -58,7 +58,17 @@ namespace PhysX
 
         if (numShapes > 0)
         {
-            auto* scene = Utils::GetDefaultScene();
+            //auto* scene = Utils::GetDefaultScene();
+            if (m_attachedSceneHandle == AzPhysics::InvalidSceneHandle)
+            {
+                Physics::DefaultWorldBus::BroadcastResult(m_attachedSceneHandle, &Physics::DefaultWorldRequests::GetDefaultSceneHandle);
+            }
+            AzPhysics::Scene* scene = nullptr;
+            if (auto* physicsSystem = AZ::Interface<AzPhysics::SystemInterface>::Get())
+            {
+                scene = physicsSystem->GetScene(m_attachedSceneHandle);
+            }
+
             auto* pxScene = static_cast<physx::PxScene*>(scene->GetNativePointer());
             PHYSX_SCENE_READ_LOCK(pxScene);
 

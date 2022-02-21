@@ -36,6 +36,11 @@ namespace PhysX
 
         BaseColliderComponent() = default;
 
+        void SetScene(AzPhysics::SceneHandle sceneHandle)
+        {
+            m_shapeInfoCache.SetScene(sceneHandle);
+        }
+
         void SetShapeConfigurationList(const AzPhysics::ShapeColliderPairList& shapeConfigList);
 
         // ColliderComponentRequestBus
@@ -71,12 +76,18 @@ namespace PhysX
 
             void SetWorldTransform(const AZ::Transform& worldTransform);
 
+            void SetScene(AzPhysics::SceneHandle sceneHandle)
+            {
+                m_attachedSceneHandle = sceneHandle;
+            }
+
         private:
             void UpdateCache(const AZStd::vector<AZStd::shared_ptr<Physics::Shape>>& shapes);
 
             AZ::Aabb m_aabb = AZ::Aabb::CreateNull();
             AZ::Transform m_worldTransform = AZ::Transform::CreateIdentity();
             bool m_cacheOutdated = true;
+            AzPhysics::SceneHandle m_attachedSceneHandle = AzPhysics::InvalidSceneHandle;
         };
 
         static void GetProvidedServices(AZ::ComponentDescriptor::DependencyArrayType& provided)

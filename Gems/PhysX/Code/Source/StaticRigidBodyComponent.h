@@ -40,6 +40,11 @@ namespace PhysX
         static void GetIncompatibleServices(AZ::ComponentDescriptor::DependencyArrayType& incompatible);
         static void GetDependentServices(AZ::ComponentDescriptor::DependencyArrayType& dependent);
 
+        void SetScene(AzPhysics::SceneHandle sceneHandle)
+        {
+            m_attachedSceneHandle = sceneHandle;
+        }
+
         // AzPhysics::SimulatedBodyComponentRequestsBus::Handler overrides ...
         void EnablePhysics() override;
         void DisablePhysics() override;

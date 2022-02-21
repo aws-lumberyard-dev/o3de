@@ -11,8 +11,9 @@
 #include <Atom/Component/DebugCamera/CameraComponent.h>
 //#include <Atom/Component/DebugCamera/NoClipControllerComponent.h>
 //#include <Atom/Feature/ACES/AcesDisplayMapperFeatureProcessor.h>
-//#include <Atom/Feature/ImageBasedLights/ImageBasedLightFeatureProcessorInterface.h>
-//#include <Atom/Feature/PostProcess/PostProcessFeatureProcessorInterface.h>
+#include <Atom/Feature/DisplayMapper/DisplayMapperFeatureProcessorInterface.h>
+#include <Atom/Feature/ImageBasedLights/ImageBasedLightFeatureProcessorInterface.h>
+#include <Atom/Feature/PostProcess/PostProcessFeatureProcessorInterface.h>
 //#include <Atom/Feature/PostProcessing/PostProcessingConstants.h>
 //#include <Atom/Feature/Utils/LightingPreset.h>
 //#include <Atom/Feature/Utils/ModelPreset.h>
@@ -39,8 +40,8 @@
 #include <AtomLyIntegration/CommonFeatures/Mesh/MeshComponentBus.h>
 #include <AtomLyIntegration/CommonFeatures/Mesh/MeshComponentConstants.h>
 //#include <AtomLyIntegration/CommonFeatures/PostProcess/ExposureControl/ExposureControlBus.h>
-//#include <AtomLyIntegration/CommonFeatures/PostProcess/ExposureControl/ExposureControlComponentConstants.h>
-//#include <AtomLyIntegration/CommonFeatures/PostProcess/PostFxLayerComponentConstants.h>
+#include <AtomLyIntegration/CommonFeatures/PostProcess/ExposureControl/ExposureControlComponentConstants.h>
+#include <AtomLyIntegration/CommonFeatures/PostProcess/PostFxLayerComponentConstants.h>
 #include <AtomToolsFramework/Viewport/ViewportInputBehaviorController/DollyCameraBehavior.h>
 #include <AtomToolsFramework/Viewport/ViewportInputBehaviorController/MoveCameraBehavior.h>
 #include <AtomToolsFramework/Viewport/ViewportInputBehaviorController/OrbitCameraBehavior.h>
@@ -60,6 +61,8 @@
 #include <Editor/Source/MaterialEditor/Viewport/MaterialViewportWidget.h>
 #include <Editor/Source/MaterialEditor/Viewport/ui_MaterialViewportWidget.h>
 #include <RigidBodyComponent.h>
+#include <StaticRigidBodyComponent.h>
+#include <BoxColliderComponent.h>
 
 AZ_PUSH_DISABLE_WARNING(4251 4800, "-Wunknown-warning-option") // disable warnings spawned by QT
 #include <QWindow>
@@ -67,6 +70,9 @@ AZ_POP_DISABLE_WARNING
 
 namespace PhysXMaterialEditor
 {
+    AZ_CVAR(float, physxmaterialeditor_ModelHeight, 2.0f, nullptr, AZ::ConsoleFunctorFlags::Null, "");
+    AZ_CVAR(float, physxmaterialeditor_ResetTime, 3.0f, nullptr, AZ::ConsoleFunctorFlags::Null, "");
+
     static constexpr float DepthNear = 0.01f;
 
     MaterialViewportWidget::MaterialViewportWidget(const AZ::Crc32& toolId, QWidget* parent)
@@ -95,32 +101,12 @@ namespace PhysXMaterialEditor
         m_frameworkScene = createSceneOutcome.TakeValue();
         m_frameworkScene->SetSubsystem<AzFramework::EntityContext::SceneStorageType>(m_entityContext.get());
 
-        // The viewport context created by AtomToolsFramework::RenderViewportWidget has no name.
-        // Systems like frame capturing and post FX expect there to be a context with DefaultViewportContextName
-        // ------------------------------
-        // TODO: When MaterialViewportWidget is opened inside the Editor as a dll it already exists
-        //       a viewport context with the default viewport context name. It asserts if it cannot
-        //       be renamed or for now keeping the original viewport context name. This has to be
-        //       handled properly in the future.
-        // ------------------------------
-        //auto viewportContextManager = AZ::Interface<AZ::RPI::ViewportContextRequestsInterface>::Get();
-        //const AZ::Name defaultContextName = viewportContextManager->GetDefaultViewportContextName();
-        //viewportContextManager->RenameViewportContext(GetViewportContext(), defaultContextName);
-
         // Create and register a scene with all available feature processors
         AZ::RPI::SceneDescriptor sceneDesc;
         sceneDesc.m_nameId = AZ::Name("PhysXMaterialViewport");
         m_scene = AZ::RPI::Scene::CreateScene(sceneDesc);
         m_scene->EnableAllFeatureProcessors();
 
-        // Bind m_defaultScene to the GameEntityContext's AzFramework::Scene
-        //auto sceneSystem = AzFramework::SceneSystemInterface::Get();
-        //AZ_Assert(sceneSystem, "MaterialViewportWidget was unable to get the scene system during construction.");
-        //AZStd::shared_ptr<AzFramework::Scene> mainScene = sceneSystem->GetScene(AzFramework::Scene::MainSceneName);
-
-        // This should never happen unless scene creation has changed.
-        //AZ_Assert(mainScene, "Main scenes missing during system component initialization");
-        //mainScene->SetSubsystem(m_scene);
         m_frameworkScene->SetSubsystem(m_scene);
 
         // Create a render pipeline from the specified asset for the window context and add the pipeline to the scene
@@ -150,10 +136,6 @@ namespace PhysXMaterialEditor
 
         AZ::RPI::RPISystemInterface::Get()->RegisterScene(m_scene);
 
-        //AzFramework::EntityContextId entityContextId;
-        //AzFramework::GameEntityContextRequestBus::BroadcastResult(
-        //    entityContextId, &AzFramework::GameEntityContextRequestBus::Events::GetGameEntityContextId);
-
         // Configure camera
         m_cameraEntity =
             CreateEntity("Cameraentity", { azrtti_typeid<AzFramework::TransformComponent>(), azrtti_typeid<AZ::Debug::CameraComponent>() });
@@ -169,31 +151,47 @@ namespace PhysXMaterialEditor
         m_renderPipeline->SetDefaultViewFromEntity(m_cameraEntity->GetId());
 
         // Configure tone mapper
-        //m_postProcessEntity = CreateEntity(
-        //    "PostProcessEntity",
-        //    { AZ::Render::PostFxLayerComponentTypeId, AZ::Render::ExposureControlComponentTypeId,
-        //      azrtti_typeid<AzFramework::TransformComponent>() });
+        m_postProcessEntity = CreateEntity(
+            "PostProcessEntity",
+            { AZ::Render::PostFxLayerComponentTypeId, AZ::Render::ExposureControlComponentTypeId,
+              azrtti_typeid<AzFramework::TransformComponent>() });
 
         // Init directional light processor
-        //m_directionalLightFeatureProcessor = m_scene->GetFeatureProcessor<AZ::Render::DirectionalLightFeatureProcessorInterface>();
+        m_directionalLightFeatureProcessor = m_scene->GetFeatureProcessor<AZ::Render::DirectionalLightFeatureProcessorInterface>();
 
         // Init display mapper processor
-        //m_displayMapperFeatureProcessor = m_scene->GetFeatureProcessor<AZ::Render::DisplayMapperFeatureProcessorInterface>();
+        m_displayMapperFeatureProcessor = m_scene->GetFeatureProcessor<AZ::Render::DisplayMapperFeatureProcessorInterface>();
 
         // Init Skybox
-        //m_skyboxFeatureProcessor = m_scene->GetFeatureProcessor<AZ::Render::SkyBoxFeatureProcessorInterface>();
-        //m_skyboxFeatureProcessor->Enable(true);
-        //m_skyboxFeatureProcessor->SetSkyboxMode(AZ::Render::SkyBoxMode::Cubemap);
+        m_skyboxFeatureProcessor = m_scene->GetFeatureProcessor<AZ::Render::SkyBoxFeatureProcessorInterface>();
+        m_skyboxFeatureProcessor->Enable(true);
+        m_skyboxFeatureProcessor->SetSkyboxMode(AZ::Render::SkyBoxMode::Cubemap);
 
         // Create IBL
         m_iblEntity =
             CreateEntity("IblEntity", { AZ::Render::ImageBasedLightComponentTypeId, azrtti_typeid<AzFramework::TransformComponent>() });
 
+        PostCreateFunc modelPostCreateFunc = [this](AZ::Entity* entity)
+        {
+            // Set initial position and attach to physics scene
+            entity->FindComponent<AzFramework::TransformComponent>()->SetWorldTM(AZ::Transform::CreateTranslation(AZ::Vector3(0.0f, 0.0f, physxmaterialeditor_ModelHeight)));
+            entity->FindComponent<PhysX::RigidBodyComponent>()->SetScene(m_physicsSceneHandle);
+
+            Physics::ColliderConfiguration colliderConfig;
+            colliderConfig.m_position = AZ::Vector3(0.0f, 0.0f, 0.5f);
+            Physics::BoxShapeConfiguration boxShapeConfig;
+            boxShapeConfig.m_dimensions = AZ::Vector3(1.0f, 1.0f, 1.0f);
+
+            entity->FindComponent<PhysX::BoxColliderComponent>()->SetScene(m_physicsSceneHandle);
+            entity->FindComponent<PhysX::BoxColliderComponent>()->SetShapeConfigurationList(
+                { AZStd::make_pair(AZStd::make_shared<Physics::ColliderConfiguration>(colliderConfig), AZStd::make_shared<Physics::BoxShapeConfiguration>(boxShapeConfig)) });
+        };
+
         // Create model
         m_modelEntity = CreateEntity(
             "ViewportModel",
             { AZ::Render::MeshComponentTypeId, AZ::Render::MaterialComponentTypeId, azrtti_typeid<AzFramework::TransformComponent>(),
-              azrtti_typeid<PhysX::RigidBodyComponent>() });
+              azrtti_typeid<PhysX::BoxColliderComponent>(), azrtti_typeid<PhysX::RigidBodyComponent>() }, modelPostCreateFunc);
 
         /*
         // Create shadow catcher
@@ -231,30 +229,55 @@ namespace PhysXMaterialEditor
                 m_shadowCatcherEntity->GetId(), &AZ::Render::MaterialComponentRequestBus::Events::SetMaterialOverrides,
                 shadowCatcherMaterials);
         }
-        */ 
+        */
+
+        PostCreateFunc gridPostCreateFunc = [this](AZ::Entity* entity)
+        {
+            Physics::ColliderConfiguration colliderConfig;
+            colliderConfig.m_position = AZ::Vector3(0.0f, 0.0f, -0.5f);
+            Physics::BoxShapeConfiguration boxShapeConfig;
+            boxShapeConfig.m_dimensions = AZ::Vector3(512.0f, 512.0f, 1.0f);
+
+            entity->FindComponent<PhysX::BoxColliderComponent>()->SetScene(m_physicsSceneHandle);
+            entity->FindComponent<PhysX::BoxColliderComponent>()->SetShapeConfigurationList(
+                { AZStd::make_pair(AZStd::make_shared<Physics::ColliderConfiguration>(colliderConfig), AZStd::make_shared<Physics::BoxShapeConfiguration>(boxShapeConfig)) });
+            entity->FindComponent<PhysX::StaticRigidBodyComponent>()->SetScene(m_physicsSceneHandle);
+        };
 
         // Create grid
-        m_gridEntity = CreateEntity("ViewportGrid", { AZ::Render::GridComponentTypeId, azrtti_typeid<AzFramework::TransformComponent>() });
+        //m_gridEntity = CreateEntity("ViewportGrid", {AZ::Render::GridComponentTypeId, azrtti_typeid<AzFramework::TransformComponent>(),
+        //      azrtti_typeid<PhysX::BoxColliderComponent>(), azrtti_typeid<PhysX::StaticRigidBodyComponent>() }, gridPostCreateFunc);
+        m_gridEntity = CreateEntity("ViewportGrid",
+            { AZ::Render::MeshComponentTypeId, AZ::Render::MaterialComponentTypeId, azrtti_typeid<AzFramework::TransformComponent>(),
+              azrtti_typeid<PhysX::BoxColliderComponent>(), azrtti_typeid<PhysX::StaticRigidBodyComponent>() }, gridPostCreateFunc);
 
-        AZ::Render::GridComponentConfig gridConfig;
+        auto m_groundAssetId = AZ::RPI::AssetUtils::GetAssetIdForProductPath(
+            "objects/groudplane/groundplane_512x512m.azmodel", AZ::RPI::AssetUtils::TraceLevel::Error);
+        AZ::Render::MeshComponentRequestBus::Event(
+            m_gridEntity->GetId(), &AZ::Render::MeshComponentRequestBus::Events::SetModelAssetId, m_groundAssetId);
+
+        /*AZ::Render::GridComponentConfig gridConfig;
         gridConfig.m_gridSize = 4.0f;
         gridConfig.m_axisColor = AZ::Color(0.1f, 0.1f, 0.1f, 1.0f);
         gridConfig.m_primaryColor = AZ::Color(0.1f, 0.1f, 0.1f, 1.0f);
         gridConfig.m_secondaryColor = AZ::Color(0.1f, 0.1f, 0.1f, 1.0f);
         m_gridEntity->Deactivate();
         m_gridEntity->FindComponent(AZ::Render::GridComponentTypeId)->SetConfiguration(gridConfig);
-        m_gridEntity->Activate();
+        m_gridEntity->Activate();*/
 
         SetupInputController();
 
-        SetupModel();
+        SetupModel(); // Needs to happen after SetupInputController because it initializes m_viewportController, used by OnAssetReady.
 
         OnDocumentOpened(AZ::Uuid::CreateNull());
 
         // Attempt to apply the default lighting preset
         //AZ::Render::LightingPresetPtr lightingPreset;
         //MaterialViewportRequestBus::BroadcastResult(lightingPreset, &MaterialViewportRequestBus::Events::GetLightingPresetSelection);
-        //OnLightingPresetSelected(lightingPreset);
+        AZ::Data::Asset<AZ::RPI::AnyAsset> lightingPresetAsset = AZ::RPI::AssetUtils::LoadAssetByProductPath<AZ::RPI::AnyAsset>(
+            "lightingpresets/default.lightingpreset.azasset", AZ::RPI::AssetUtils::TraceLevel::Warning);
+        const AZ::Render::LightingPreset* lightingPreset = lightingPresetAsset->GetDataAs<AZ::Render::LightingPreset>();
+        OnLightingPresetSelected(lightingPreset);
 
         // Attempt to apply the default model preset
         //AZ::Render::ModelPresetPtr modelPreset;
@@ -290,22 +313,16 @@ namespace PhysXMaterialEditor
         //DestroyEntity(m_shadowCatcherEntity);
         DestroyEntity(m_gridEntity);
         DestroyEntity(m_cameraEntity);
-        //DestroyEntity(m_postProcessEntity);
+        DestroyEntity(m_postProcessEntity);
 
         m_entityContext->DestroyContext();
 
-        /*for (DirectionalLightHandle& handle : m_lightHandles)
+        for (DirectionalLightHandle& handle : m_lightHandles)
         {
             m_directionalLightFeatureProcessor->ReleaseLight(handle);
         }
-        m_lightHandles.clear();*/
+        m_lightHandles.clear();
 
-        //auto sceneSystem = AzFramework::SceneSystemInterface::Get();
-        //AZ_Assert(sceneSystem, "MaterialViewportWidget was unable to get the scene system during destruction.");
-        //AZStd::shared_ptr<AzFramework::Scene> mainScene = sceneSystem->GetScene(AzFramework::Scene::MainSceneName);
-        // This should never happen unless scene creation has changed.
-        //AZ_Assert(mainScene, "Main scenes missing during system component destruction");
-        //mainScene->UnsetSubsystem(m_scene);
         m_frameworkScene->UnsetSubsystem(m_scene);
 
         auto sceneSystem = AzFramework::SceneSystemInterface::Get();
@@ -326,7 +343,7 @@ namespace PhysXMaterialEditor
         }
     }
 
-    AZ::Entity* MaterialViewportWidget::CreateEntity(const AZStd::string& name, const AZStd::vector<AZ::Uuid>& componentTypeIds)
+    AZ::Entity* MaterialViewportWidget::CreateEntity(const AZStd::string& name, const AZStd::vector<AZ::Uuid>& componentTypeIds, PostCreateFunc postCreateFunc)
     {
         //AzFramework::EntityContextId entityContextId;
         //AzFramework::GameEntityContextRequestBus::BroadcastResult(
@@ -344,6 +361,7 @@ namespace PhysXMaterialEditor
             {
                 entity->CreateComponent(componentTypeId);
             }
+            postCreateFunc(entity);
             entity->Init();
             entity->Activate();
         }
@@ -399,13 +417,7 @@ namespace PhysXMaterialEditor
 
     void MaterialViewportWidget::SetupModel()
     {
-        // Set initial position and attach to physics scene
-        m_modelEntity->Deactivate();
-        m_modelEntity->FindComponent<AzFramework::TransformComponent>()->SetWorldTM(AZ::Transform::CreateTranslation(AZ::Vector3(0.0f, 0.0f, 0.5f)));
-        m_modelEntity->FindComponent<PhysX::RigidBodyComponent>()->SetScene(m_physicsSceneHandle);
-        m_modelEntity->Activate();
-
-        // Use the cube model for now
+        // Use the cube model
         m_modelAssetId = AZ::RPI::AssetUtils::GetAssetIdForProductPath(
             "materialeditor/viewportmodels/cube.azmodel", AZ::RPI::AssetUtils::TraceLevel::Error);
         AZ::Render::MeshComponentRequestBus::Event(
@@ -430,8 +442,7 @@ namespace PhysXMaterialEditor
         */
     }
 
-    /*
-    void MaterialViewportWidget::OnLightingPresetSelected(AZ::Render::LightingPresetPtr preset)
+    void MaterialViewportWidget::OnLightingPresetSelected(const AZ::Render::LightingPreset* preset)
     {
         if (!preset)
         {
@@ -451,14 +462,19 @@ namespace PhysXMaterialEditor
         Camera::CameraRequestBus::EventResult(
             cameraConfig, m_cameraEntity->GetId(), &Camera::CameraRequestBus::Events::GetCameraConfiguration);
 
-        bool enableAlternateSkybox = false;
-        MaterialViewportRequestBus::BroadcastResult(enableAlternateSkybox, &MaterialViewportRequestBus::Events::GetAlternateSkyboxEnabled);
+        //bool enableAlternateSkybox = false;
+        //MaterialViewportRequestBus::BroadcastResult(enableAlternateSkybox, &MaterialViewportRequestBus::Events::GetAlternateSkyboxEnabled);
+
+        //preset->ApplyLightingPreset(
+        //    iblFeatureProcessor, m_skyboxFeatureProcessor, exposureControlSettingInterface, m_directionalLightFeatureProcessor,
+        //    cameraConfig, m_lightHandles, m_shadowCatcherMaterial, m_shadowCatcherOpacityPropertyIndex, enableAlternateSkybox);
 
         preset->ApplyLightingPreset(
             iblFeatureProcessor, m_skyboxFeatureProcessor, exposureControlSettingInterface, m_directionalLightFeatureProcessor,
-            cameraConfig, m_lightHandles, m_shadowCatcherMaterial, m_shadowCatcherOpacityPropertyIndex, enableAlternateSkybox);
+            cameraConfig, m_lightHandles, nullptr, AZ::RPI::MaterialPropertyIndex::Null, false);
     }
 
+    /*
     void MaterialViewportWidget::OnLightingPresetChanged(AZ::Render::LightingPresetPtr preset)
     {
         AZ::Render::LightingPresetPtr selectedPreset;
@@ -564,14 +580,14 @@ namespace PhysXMaterialEditor
     {
         static float timer = 0.0f;
         timer += deltaTime;
-        if (timer >= 1.0f)
+        if (timer >= physxmaterialeditor_ResetTime)
         {
-            timer -= 1.0f;
+            timer = 0.0f;
 
             Physics::RigidBodyRequestBus::Event(m_modelEntity->GetId(), &Physics::RigidBodyRequests::DisablePhysics);
             Physics::RigidBodyRequestBus::Event(m_modelEntity->GetId(), &Physics::RigidBodyRequests::SetLinearVelocity, AZ::Vector3::CreateZero());
             Physics::RigidBodyRequestBus::Event(m_modelEntity->GetId(), &Physics::RigidBodyRequests::SetAngularVelocity, AZ::Vector3::CreateZero());
-            AZ::TransformBus::Event(m_modelEntity->GetId(), &AZ::TransformInterface::SetWorldTM, AZ::Transform::CreateTranslation(AZ::Vector3(0.0f, 0.0f, 0.5f)));
+            AZ::TransformBus::Event(m_modelEntity->GetId(), &AZ::TransformInterface::SetWorldTM, AZ::Transform::CreateTranslation(AZ::Vector3(0.0f, 0.0f, physxmaterialeditor_ModelHeight)));
             Physics::RigidBodyRequestBus::Event(m_modelEntity->GetId(), &Physics::RigidBodyRequests::EnablePhysics);
         }
 
@@ -589,7 +605,7 @@ namespace PhysXMaterialEditor
 
     void MaterialViewportWidget::OnTransformChanged(const AZ::Transform&, const AZ::Transform&)
     {
-        /*const AZ::EntityId* currentBusId = AZ::TransformNotificationBus::GetCurrentBusId();
+        const AZ::EntityId* currentBusId = AZ::TransformNotificationBus::GetCurrentBusId();
         if (m_cameraEntity && currentBusId && *currentBusId == m_cameraEntity->GetId() && m_directionalLightFeatureProcessor)
         {
             auto transform = AZ::Transform::CreateIdentity();
@@ -598,6 +614,6 @@ namespace PhysXMaterialEditor
             {
                 m_directionalLightFeatureProcessor->SetCameraTransform(id, transform);
             }
-        }*/
+        }
     }
 } // namespace PhysXMaterialEditor
