@@ -805,7 +805,7 @@ namespace AZ::Render
 
         // Render y axis
         {
-            AZ::Color ySelectedColor = selected ? AZ::Colors::Orange : AZ::Colors::Blue;
+            AZ::Color ySelectedColor = selected ? AZ::Colors::Orange : AZ::Colors::Green;
 
             const AZ::Vector3 yAxisDir = (worldTM.TransformPoint(AZ::Vector3(0.0f, size, 0.0f)) - position).GetNormalized();
             const AZ::Vector3 yAxisArrowStart = position + yAxisDir * axisHeight;
@@ -821,7 +821,7 @@ namespace AZ::Render
 
         // Render z axis
         {
-            AZ::Color zSelectedColor = selected ? AZ::Colors::Orange : AZ::Colors::Green;
+            AZ::Color zSelectedColor = selected ? AZ::Colors::Orange : AZ::Colors::Blue;
 
             const AZ::Vector3 zAxisDir = (worldTM.TransformPoint(AZ::Vector3(0.0f, 0.0f, size)) - position).GetNormalized();
             const AZ::Vector3 zAxisArrowStart = position + zAxisDir * axisHeight;
