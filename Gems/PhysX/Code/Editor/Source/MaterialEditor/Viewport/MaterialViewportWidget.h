@@ -73,6 +73,7 @@ namespace PhysXMaterialEditor
 
         // AtomToolsFramework::AtomToolsDocumentNotificationBus::Handler interface overrides...
         void OnDocumentOpened(const AZ::Uuid& documentId) override;
+        void OnDocumentModified(const AZ::Uuid& documentId) override;
 
         // MaterialViewportNotificationBus::Handler interface overrides...
         void OnLightingPresetSelected(const AZ::Render::LightingPreset* preset);

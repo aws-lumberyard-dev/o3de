@@ -63,6 +63,7 @@
 #include <RigidBodyComponent.h>
 #include <StaticRigidBodyComponent.h>
 #include <BoxColliderComponent.h>
+#include <Material.h>
 
 AZ_PUSH_DISABLE_WARNING(4251 4800, "-Wunknown-warning-option") // disable warnings spawned by QT
 #include <QWindow>
@@ -177,8 +178,13 @@ namespace PhysXMaterialEditor
             entity->FindComponent<AzFramework::TransformComponent>()->SetWorldTM(AZ::Transform::CreateTranslation(AZ::Vector3(0.0f, 0.0f, physxmaterialeditor_ModelHeight)));
             entity->FindComponent<PhysX::RigidBodyComponent>()->SetScene(m_physicsSceneHandle);
 
+            Physics::MaterialId materialId;
+            PhysX::MaterialManagerRequestsBus::BroadcastResult(materialId, &PhysX::MaterialManagerRequestsBus::Events::GetMaterialEditorMaterialId);
+
             Physics::ColliderConfiguration colliderConfig;
             colliderConfig.m_position = AZ::Vector3(0.0f, 0.0f, 0.5f);
+            colliderConfig.m_materialSelection.SetMaterialSlots(Physics::MaterialSelection::SlotsArray());
+            colliderConfig.m_materialSelection.SetMaterialId(materialId, 0);
             Physics::BoxShapeConfiguration boxShapeConfig;
             boxShapeConfig.m_dimensions = AZ::Vector3(1.0f, 1.0f, 1.0f);
 
@@ -430,7 +436,61 @@ namespace PhysXMaterialEditor
         AZ::Data::Instance<AZ::PhysX::Material> materialInstance;
         MaterialDocumentRequestBus::EventResult(materialInstance, documentId, &MaterialDocumentRequestBus::Events::GetInstance);
 
-        // TODO: APPLY PHYSX MATERIAL TO ENTITY
+        AZStd::shared_ptr<PhysX::Material> material;
+        PhysX::MaterialManagerRequestsBus::BroadcastResult(material, &PhysX::MaterialManagerRequestsBus::Events::GetMaterialEditorMaterial);
+
+        if (materialInstance)
+        {
+            const size_t numProperties = materialInstance->GetMaterialPropertiesLayout()->GetPropertyCount();
+            for (size_t i = 0; i < numProperties; ++i)
+            {
+                const AZ::PhysX::MaterialPropertyIndex propertyIndex(i);
+                const AZ::PhysX::MaterialPropertyDescriptor* propertyDescriptor =
+                    materialInstance->GetMaterialPropertiesLayout()->GetPropertyDescriptor(propertyIndex);
+
+                if (propertyDescriptor->GetName() == AZ::Name("physXProperties.dynamicFriction"))
+                {
+                    material->SetDynamicFriction(materialInstance->GetPropertyValue<float>(propertyIndex));
+                }
+                else if (propertyDescriptor->GetName() == AZ::Name("physXProperties.staticFriction"))
+                {
+                    material->SetStaticFriction(materialInstance->GetPropertyValue<float>(propertyIndex));
+                }
+                else if (propertyDescriptor->GetName() == AZ::Name("physXProperties.restitution"))
+                {
+                    material->SetRestitution(materialInstance->GetPropertyValue<float>(propertyIndex));
+                }
+                else if (propertyDescriptor->GetName() == AZ::Name("physXProperties.frictionCombine"))
+                {
+                    material->SetFrictionCombineMode(static_cast<Physics::Material::CombineMode>(materialInstance->GetPropertyValue<uint32_t>(propertyIndex)));
+                }
+                else if (propertyDescriptor->GetName() == AZ::Name("physXProperties.restitutionCombine"))
+                {
+                    material->SetRestitutionCombineMode(static_cast<Physics::Material::CombineMode>(materialInstance->GetPropertyValue<uint32_t>(propertyIndex)));
+                }
+                else if (propertyDescriptor->GetName() == AZ::Name("physXProperties.density"))
+                {
+                    material->SetDensity(materialInstance->GetPropertyValue<float>(propertyIndex));
+                }
+                else if (propertyDescriptor->GetName() == AZ::Name("physXProperties.debugColor"))
+                {
+                    material->SetDebugColor(materialInstance->GetPropertyValue<AZ::Color>(propertyIndex));
+                }
+                else
+                {
+                    AZ_Warning("MaterialViewportWidget", false, "Unknown property %s", propertyDescriptor->GetName().GetCStr());
+                }
+            }
+        }
+        else
+        {
+            AZStd::string_view materialSurfaceTye;
+            PhysX::MaterialManagerRequestsBus::BroadcastResult(materialSurfaceTye, &PhysX::MaterialManagerRequestsBus::Events::GetMaterialEditorMaterialSurfaceType);
+
+            Physics::MaterialConfiguration defaultConfiguration;
+            defaultConfiguration.m_surfaceType = materialSurfaceTye;
+            material->UpdateWithConfiguration(defaultConfiguration);
+        }
 
         /*AZ::Render::MaterialAssignmentMap materials;
         auto& materialAssignment = materials[AZ::Render::DefaultMaterialAssignmentId];
@@ -440,6 +500,11 @@ namespace PhysXMaterialEditor
         AZ::Render::MaterialComponentRequestBus::Event(
             m_modelEntity->GetId(), &AZ::Render::MaterialComponentRequestBus::Events::SetMaterialOverrides, materials);
         */
+    }
+
+    void MaterialViewportWidget::OnDocumentModified(const AZ::Uuid& documentId)
+    {
+        OnDocumentOpened(documentId);
     }
 
     void MaterialViewportWidget::OnLightingPresetSelected(const AZ::Render::LightingPreset* preset)

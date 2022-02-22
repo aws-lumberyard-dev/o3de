@@ -121,6 +121,10 @@ namespace PhysX
 
         /// Releases ownership of all materials created before.
         virtual void ReleaseAllMaterials() = 0;
+
+        virtual AZStd::shared_ptr<Material> GetMaterialEditorMaterial() = 0;
+        virtual Physics::MaterialId GetMaterialEditorMaterialId() = 0;
+        virtual AZStd::string_view GetMaterialEditorMaterialSurfaceType() = 0;
     };
     using MaterialManagerRequestsBus = AZ::EBus<MaterialManagerRequests>;
 
@@ -158,6 +162,16 @@ namespace PhysX
         AZStd::shared_ptr<Material> GetDefaultMaterial() override;
         void ReleaseAllMaterials() override;
 
+        AZStd::shared_ptr<Material> GetMaterialEditorMaterial() override;
+        Physics::MaterialId GetMaterialEditorMaterialId() override
+        {
+            return m_materialEditorMaterialId;
+        }
+        AZStd::string_view GetMaterialEditorMaterialSurfaceType() override
+        {
+            return m_materialEditorMaterialSurfaceType;
+        }
+
         /// Connect to any necessary buses
         void Connect();
 
@@ -188,6 +202,9 @@ namespace PhysX
         Materials m_materials;
         AZStd::shared_ptr<Material> m_defaultMaterial;
         Physics::MaterialConfiguration m_defaultMaterialConfiguration;
+        AZStd::shared_ptr<Material> m_materialEditorMaterial;
+        const Physics::MaterialId m_materialEditorMaterialId = Physics::MaterialId::FromUUID("{B8033945-432C-4B02-8DEE-921230F90107}");
+        AZStd::string_view m_materialEditorMaterialSurfaceType = "<PhysX Material Editor>";
 
         AzPhysics::SystemEvents::OnConfigurationChangedEvent::Handler m_physicsConfigChangedHandler;
         AzPhysics::SystemEvents::OnMaterialLibraryChangedEvent::Handler m_materialLibraryChangedHandler;

@@ -326,6 +326,12 @@ namespace PhysX
         {
             const auto& materialId = materialIdsAssignedToSlots[slotIndex];
 
+            if (materialId == m_materialEditorMaterialId)
+            {
+                outMaterials[slotIndex] = GetMaterialEditorMaterial();
+                continue;
+            }
+
             if (auto iterator = FindOrCreateMaterial(materialId);
                 iterator != m_materials.end())
             {
@@ -336,6 +342,11 @@ namespace PhysX
 
     AZStd::shared_ptr<Physics::Material> MaterialsManager::GetMaterialById(Physics::MaterialId id)
     {
+        if (id == m_materialEditorMaterialId)
+        {
+            return GetMaterialEditorMaterial();
+        }
+
         if (auto it = FindOrCreateMaterial(id);
             it != m_materials.end())
         {
@@ -346,6 +357,11 @@ namespace PhysX
 
     AZStd::shared_ptr<Physics::Material> MaterialsManager::GetMaterialByName(const AZStd::string& name)
     {
+        if (name == m_materialEditorMaterialSurfaceType)
+        {
+            return GetMaterialEditorMaterial();
+        }
+
         if (auto it = FindOrCreateMaterial(name);
             it != m_materials.end())
         {
@@ -466,9 +482,22 @@ namespace PhysX
         return m_defaultMaterial;
     }
 
+    AZStd::shared_ptr<Material> MaterialsManager::GetMaterialEditorMaterial()
+    {
+        if (!m_materialEditorMaterial)
+        {
+            Physics::MaterialConfiguration materialConfiguration;
+            materialConfiguration.m_surfaceType = m_materialEditorMaterialSurfaceType;
+            m_materialEditorMaterial = AZStd::make_shared<Material>(materialConfiguration);
+        }
+
+        return m_materialEditorMaterial;
+    }
+
     void MaterialsManager::ReleaseAllMaterials()
     {
         m_defaultMaterial = nullptr;
+        m_materialEditorMaterial = nullptr;
         m_materials.clear();
         Physics::PhysicsMaterialNotificationsBus::Broadcast(&Physics::PhysicsMaterialNotificationsBus::Events::MaterialsReleased);
     }
