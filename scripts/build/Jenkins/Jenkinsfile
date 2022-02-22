@@ -905,13 +905,14 @@ finally {
         node('controller') {
             //
             github_url = "foo"
+            echo "Echo: "+ HyperlinkNote.encodeTo("www.google.com", "foo")
             contentReplace(
                 configs: [
                     fileContentReplaceConfig(
                     configs: [
                         fileContentReplaceItemConfig(
                         search: ' (.*)\\.cpp\\(\\d+\\)',
-                        replace: '$1: ' + HyperlinkNote.encodeTo("www.google.com", ${github_url}),
+                        replace: '$1: ' + HyperlinkNote.encodeTo("www.google.com", "${github_url}"),
                         matchCount: 0,
                         verbose: true,
                         )
