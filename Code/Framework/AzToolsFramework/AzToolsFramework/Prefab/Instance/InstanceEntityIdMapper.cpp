@@ -6,6 +6,8 @@
  *
  */
 
+#pragma optimize( "", off )
+
 #include <AzCore/Component/Entity.h>
 #include <AzCore/Math/Sfmt.h>
 #include <AzCore/StringFunc/StringFunc.h>
@@ -174,7 +176,15 @@ namespace AzToolsFramework
         AZ::EntityId InstanceEntityIdMapper::GenerateEntityIdForAliasPath(const AliasPathView& aliasPath, uint64_t seedKey)
         {
             const AZ::HashValue64 seed = aznumeric_cast<AZ::HashValue64>(seedKey);
-            return AZ::EntityId(aznumeric_cast<AZ::u64>((AZ::TypeHash64(aliasPath.Native().data(), seed))));
+            AZ::EntityId entityId(aznumeric_cast<AZ::u64>((AZ::TypeHash64(aliasPath.Native().data(), seed))));
+
+            AZ_Warning("Prefabs", false,
+                "Prefab - GenerateEntityIdForAliasPath: %s = %s, seed = %llu",
+                aliasPath.Native().data(), entityId.ToString().c_str(), seedKey);
+
+            return entityId;
         }
     }
 }
+
+#pragma optimize( "", on )

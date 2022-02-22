@@ -14,6 +14,8 @@
 #include <AzToolsFramework/Prefab/Spawnable/PrefabProcessorContext.h>
 #include <AzToolsFramework/Prefab/Spawnable/SpawnableUtils.h>
 
+#pragma optimize( "", off )
+
 namespace AzToolsFramework::Prefab::PrefabConversionUtils
 {
     EntityAliasSpawnableLink::EntityAliasSpawnableLink(AzFramework::Spawnable& spawnable, AZ::EntityId index)
@@ -156,10 +158,13 @@ namespace AzToolsFramework::Prefab::PrefabConversionUtils
             if (sourcePrefab != nullptr && sourcePrefab->m_prefabName == prefabName)
             {
                 AZ::EntityId id = instance.GetEntityIdFromAliasPath(sourcePrefab->m_alias);
-                AZ_Assert(
-                    id.IsValid(),
-                    "Entity '%s' was not found in Prefab Instance created from '%s' even though it was previously found.",
-                    sourcePrefab->m_alias.c_str(), sourcePrefab->m_prefabName.c_str());
+                if (!id.IsValid())
+                {
+                    AZ_Assert(
+                        id.IsValid(),
+                        "Entity '%s' was not found in Prefab Instance created from '%s' even though it was previously found.",
+                        sourcePrefab->m_alias.c_str(), sourcePrefab->m_prefabName.c_str());
+                }
                 entityAlias.m_source.emplace<EntityAliasSpawnableLink>(spawnable, id);
             }
 
@@ -291,3 +296,5 @@ namespace AzToolsFramework::Prefab::PrefabConversionUtils
     }
 
 } // namespace AzToolsFramework::Prefab::PrefabConversionUtils
+
+#pragma optimize( "", on )

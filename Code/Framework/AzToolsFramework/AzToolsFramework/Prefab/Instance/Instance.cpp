@@ -38,6 +38,11 @@ namespace AzToolsFramework
         {
         }
 
+        Instance::Instance(InstanceOptionalReference parent, InstanceAlias alias)
+            : Instance(nullptr, parent, alias)
+        {
+        }
+
         Instance::Instance(InstanceAlias alias)
             : Instance(nullptr, AZStd::nullopt, AZStd::move(alias))
         {
