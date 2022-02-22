@@ -905,7 +905,9 @@ finally {
         node('controller') {
             //
             github_url = "foo"
-            echo "Echo: "+ hudson.console.ModelHyperlinkNote.encodeTo("www.google.com", "foo")
+            web = "www.google.com"
+            echo "Echo: "+ hudson.console.ModelHyperlinkNote.encodeTo(web, web)
+            println hudson.console.ModelHyperlinkNote.encodeTo(web, web)
             contentReplace(
                 configs: [
                     fileContentReplaceConfig(
