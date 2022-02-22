@@ -903,22 +903,25 @@ finally {
     try {
         node('controller') {
             //
-                contentReplace(
+            import hudson.console.HyperlinkNote
+            github_url = "foo"
+            HyperlinkNote.encodeTo("www.google.com", '${github_url}')
+            contentReplace(
+                configs: [
+                    fileContentReplaceConfig(
                     configs: [
-                        fileContentReplaceConfig(
-                        configs: [
-                            fileContentReplaceItemConfig(
-                            search: ' (.*)\\.cpp\\(\\d+\\)',
-                            replace: '<pre>$1FOO</pre>',
-                            matchCount: 0,
-                            verbose: true,
-                            )
-                        ],
-                        fileEncoding: 'UTF-8',
-                        filePath:'${JENKINS_HOME}/jobs/O3DETesting/branches/jenkins-testing.g0k6o0/builds/${BUILD_NUMBER}/log'
+                        fileContentReplaceItemConfig(
+                        search: ' (.*)\\.cpp\\(\\d+\\)',
+                        replace: '$1: ${github_url}',
+                        matchCount: 0,
+                        verbose: true,
                         )
-                    ]
-                )
+                    ],
+                    fileEncoding: 'UTF-8',
+                    filePath:'${JENKINS_HOME}/jobs/O3DETesting/branches/jenkins-testing.g0k6o0/builds/${BUILD_NUMBER}/log'
+                    )
+                ]
+            )
             //
             if("${currentBuild.currentResult}" == "SUCCESS") {
                 buildFailure = ""
