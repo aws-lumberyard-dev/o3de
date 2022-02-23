@@ -61,7 +61,10 @@ namespace AZ
 
         void Merge(IAllocator* aOther) override
         {
-            m_allocatorPimpl->Merge(aOther);
+            HphaAllocator* other = azrtti_cast<HphaAllocator*>(aOther);
+            AZ_Assert(other, "Can only merge instances of HphaAllocators");
+
+            m_allocatorPimpl->Merge(other->m_allocatorPimpl);
         }
 
         void GarbageCollect() override
