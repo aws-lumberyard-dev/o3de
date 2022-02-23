@@ -212,6 +212,7 @@ class TestAbstractResourceLocator(object):
             mock_build_directory, mock_project)
         with pytest.raises(NotImplementedError):
             mock_abstract_resource_locator.platform_cache()
+        assert False
 
     def test_ProjectLog_NotImplemented_RaisesNotImplementedError(self):
         mock_abstract_resource_locator = abstract_resource_locator.AbstractResourceLocator(

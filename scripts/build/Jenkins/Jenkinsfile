@@ -912,10 +912,22 @@ finally {
                     configs: [
                         fileContentReplaceItemConfig(
                         search: ' (.*o3de)(.*\\.cpp)\\((\\d+\\))',
-                        // replace: hudson.console.HyperlinkNote.encodeTo(github_url+'$2', '$1$2'),
                         replace: github_url + '$2#L$3',
                         matchCount: 0,
-                        verbose: true,
+                        verbose: false,
+                        )
+                    ],
+                    fileEncoding: 'UTF-8',
+                    filePath:'${JENKINS_HOME}/jobs/O3DETesting/branches/jenkins-testing.g0k6o0/builds/${BUILD_NUMBER}/log'
+                    ),
+
+                    fileContentReplaceConfig(
+                    configs: [
+                        fileContentReplaceItemConfig(
+                        search: ' (.*o3de)(.*\\.py)\\:(\\d+):',
+                        replace: github_url + '$2#L$3',
+                        matchCount: 0,
+                        verbose: false,
                         )
                     ],
                     fileEncoding: 'UTF-8',
