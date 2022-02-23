@@ -1463,6 +1463,7 @@ namespace AssetUtilities
         }
         return false;
     }
+
     bool IsInCacheFolder(AZ::IO::PathView path, AZ::IO::Path cachePath)
     {
         if(cachePath.empty())
@@ -1497,6 +1498,7 @@ namespace AssetUtilities
 
         return path.IsRelativeTo(intermediateAssetsPath);
     }
+
     BuilderFilePatternMatcher::BuilderFilePatternMatcher(const AssetBuilderSDK::AssetBuilderPattern& pattern, const AZ::Uuid& builderDescID)
         : AssetBuilderSDK::FilePatternMatcher(pattern)
         , m_builderDescID(builderDescID)
