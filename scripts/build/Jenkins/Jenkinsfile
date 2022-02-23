@@ -6,7 +6,7 @@
  * SPDX-License-Identifier: Apache-2.0 OR MIT
  *
  */
-import hudson.console.ModelHyperlinkNote
+import hudson.console.HyperlinkNote
 import groovy.json.JsonOutput
 PIPELINE_CONFIG_FILE = 'scripts/build/Jenkins/lumberyard.json'
 INCREMENTAL_BUILD_SCRIPT_PATH = 'scripts/build/bootstrap/incremental_build_util.py'
@@ -911,7 +911,7 @@ finally {
                     configs: [
                         fileContentReplaceItemConfig(
                         search: ' (.*o3de)(.*\\.cpp\\(\\d+\\))',
-                        replace: hudson.console.ModelHyperlinkNote.encodeTo(github_url + '$1', '$1'),
+                        replace: hudson.console.HyperlinkNote.encodeTo(github_url+'$2', '$1$2'),
                         matchCount: 0,
                         verbose: true,
                         )
