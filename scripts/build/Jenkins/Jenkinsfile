@@ -911,7 +911,7 @@ finally {
                     configs: [
                         fileContentReplaceItemConfig(
                         search: ' (.*o3de)(.*\\.cpp\\(\\d+\\))',
-                        replace: hudson.console.ModelHyperlinkNote.encodeTo(github_url + '$2', '$2'),
+                        replace: hudson.console.ModelHyperlinkNote.encodeTo(github_url + '$1', '$1'),
                         matchCount: 0,
                         verbose: true,
                         )
