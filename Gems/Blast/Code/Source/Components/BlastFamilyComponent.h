@@ -7,7 +7,7 @@
  */
 #pragma once
 
-#include <AZCore/std/containers/unordered_map.h>
+#include <AzCore/std/containers/unordered_map.h>
 #include <AzCore/std/smart_ptr/unique_ptr.h>
 #include <Asset/BlastAsset.h>
 #include <AzCore/Component/Component.h>
@@ -107,7 +107,7 @@ namespace Blast
         BlastMeshData* m_meshDataComponent = nullptr;
 
         // Configurations
-        const AZ::Data::Asset<BlastAsset> m_blastAsset;
+        AZ::Data::Asset<BlastAsset> m_blastAsset;
         const BlastMaterialId m_materialId{};
         Physics::MaterialId m_physicsMaterialId;
         const BlastActorConfiguration m_actorConfiguration{};

@@ -29,7 +29,7 @@ ly_add_target(
     BUILD_DEPENDENCIES
         PUBLIC
             Gem::ScriptCanvas
-            Gem::ScriptCanvasEditor
+            Gem::ScriptCanvas.Editor
             Gem::GraphCanvasWidgets
             Gem::ScriptEvents.Editor
         PRIVATE
@@ -44,7 +44,6 @@ ly_add_target(
             *.ScriptCanvasNodeable.xml,ScriptCanvasNodeable_Source.jinja,$path/$fileprefix.generated.cpp
     RUNTIME_DEPENDENCIES
         Gem::ScriptCanvas.Editor
-        Gem::ScriptCanvasEditor
         Gem::GraphCanvasWidgets
         Gem::ScriptEvents
 )
@@ -77,6 +76,7 @@ ly_add_target(
 
 # By default, the above module is used only in tools:
 ly_create_alias(NAME ScriptCanvasTesting.Tools  NAMESPACE Gem TARGETS Gem::ScriptCanvasTesting.Editor)
+ly_create_alias(NAME ScriptCanvasTesting.Builders  NAMESPACE Gem TARGETS Gem::ScriptCanvasTesting.Editor)
 
 ################################################################################
 # Tests

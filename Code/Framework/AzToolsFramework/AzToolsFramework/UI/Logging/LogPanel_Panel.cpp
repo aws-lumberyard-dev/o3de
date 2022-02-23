@@ -61,7 +61,7 @@ namespace AzToolsFramework
             , m_impl(new BaseLogPanel::Impl)
         {
             m_impl->storageID = 0;
-            this->setLayout(aznew LogPanelLayout(NULL));
+            this->setLayout(aznew LogPanelLayout(nullptr));
 
             m_impl->pTabWidget = new AzQtComponents::TabWidget(this);
             m_impl->pTabWidget->setObjectName(QString::fromUtf8("tabWidget"));
@@ -601,7 +601,7 @@ namespace AzToolsFramework
         {
             if (index >= (int)m_children.size())
             {
-                return NULL;
+                return nullptr;
             }
 
             return m_children[index];
@@ -609,11 +609,11 @@ namespace AzToolsFramework
 
         QLayoutItem* LogPanelLayout::takeAt(int index)
         {
-            QLayoutItem* pItem = NULL;
+            QLayoutItem* pItem = nullptr;
 
             if (index >= (int)m_children.size())
             {
-                return NULL;
+                return nullptr;
             }
 
             pItem = m_children[index];
@@ -840,8 +840,6 @@ namespace AzToolsFramework
                     richLabel->setTextFormat(Qt::RichText);
                 }
 
-                richLabel->setText(data);
-
                 richLabel->setGeometry(options.rect);
                 richLabel->setTextInteractionFlags(Qt::TextSelectableByMouse | Qt::LinksAccessibleByMouse);
                 richLabel->setPalette(options.palette);
@@ -860,7 +858,7 @@ namespace AzToolsFramework
                 return richLabel;
             }
 
-            return NULL;
+            return nullptr;
         }
 
         bool LogPanelItemDelegate::editorEvent(QEvent* event, QAbstractItemModel* model, const QStyleOptionViewItem& option, const QModelIndex& index)

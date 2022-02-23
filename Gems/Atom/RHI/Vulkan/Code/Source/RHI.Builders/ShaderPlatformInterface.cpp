@@ -11,6 +11,7 @@
 
 #include <Atom/RHI.Reflect/Vulkan/Base.h>
 #include <Atom/RHI.Reflect/Vulkan/ShaderStageFunction.h>
+#include <Atom/RHI/RHIUtils.h>
 
 #include <AzCore/IO/FileIO.h>
 #include <AzCore/IO/SystemFile.h>
@@ -23,7 +24,7 @@ namespace AZ
 {
     namespace Vulkan
     {
-        static const char* VulkanShaderPlatformName = "VulkanShaderPlatform";
+        [[maybe_unused]] static const char* VulkanShaderPlatformName = "VulkanShaderPlatform";
         static const char* WindowsPlatformShaderHeader = "Builders/ShaderHeaders/Platform/Windows/Vulkan/PlatformHeader.hlsli";
         static const char* AndroidPlatformShaderHeader = "Builders/ShaderHeaders/Platform/Android/Vulkan/PlatformHeader.hlsli";
         static const char* WindowsAzslShaderHeader = "Builders/ShaderHeaders/Platform/Windows/Vulkan/AzslcHeader.azsli";
@@ -109,7 +110,7 @@ namespace AZ
 
         bool ShaderPlatformInterface::BuildHasDebugInfo(const RHI::ShaderCompilerArguments& shaderCompilerArguments) const
         {
-            return shaderCompilerArguments.m_dxcGenerateDebugInfo;
+            return shaderCompilerArguments.m_generateDebugInfo;
         }
 
         const char* ShaderPlatformInterface::GetAzslHeader(const AssetBuilderSDK::PlatformInfo& platform) const
@@ -281,7 +282,9 @@ namespace AZ
             args.m_destinationFolder = tempFolder.c_str();
 
             const auto dxcInputFile = RHI::PrependFile(args);  // Prepend header
-            if (BuildHasDebugInfo(shaderCompilerArguments))
+            const bool graphicsDevMode = RHI::IsGraphicsDevModeEnabled();
+
+            if (graphicsDevMode || BuildHasDebugInfo(shaderCompilerArguments))
             {
                 // dump intermediate "true final HLSL" file (shadername.vulkan.shadersource.prepend)
                 byProducts.m_intermediatePaths.insert(dxcInputFile);
@@ -334,7 +337,7 @@ namespace AZ
                 byProducts.m_dynamicBranchCount = ByProducts::UnknownDynamicBranchCount;
             }
 
-            if (BuildHasDebugInfo(shaderCompilerArguments))
+            if (graphicsDevMode || BuildHasDebugInfo(shaderCompilerArguments))
             {
                 byProducts.m_intermediatePaths.emplace(AZStd::move(objectCodeOutputFile));
             }

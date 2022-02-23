@@ -362,7 +362,7 @@ namespace UnitTest
         // Test specific construction case that was failing. 
         // The constructor calls Name::SetName() which does a move assignment
         // Name& Name::operator=(Name&& rhs) was leaving m_view pointing to the m_data in a temporary Name object.
-        AZ::Name emptyName(AZStd::string_view(nullptr));
+        AZ::Name emptyName(AZStd::string_view{});
         EXPECT_TRUE(emptyName.IsEmpty());
         EXPECT_EQ(0, emptyName.GetStringView().data()[0]);
     }
@@ -642,7 +642,7 @@ namespace UnitTest
         char buffer[RandomStringBufferSize];
 
         AZStd::sys_time_t newNameTime;
-        AZStd::sys_time_t existingNameTime;
+        [[maybe_unused]] AZStd::sys_time_t existingNameTime;
         AZStd::sys_time_t stringTime;
 
         {

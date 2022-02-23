@@ -14,6 +14,7 @@
 #include <ProjectUtils.h>
 #include <ProjectBuilderController.h>
 #include <ScreensCtrl.h>
+#include <SettingsInterface.h>
 
 #include <AzQtComponents/Components/FlowLayout.h>
 #include <AzCore/Platform.h>
@@ -65,6 +66,16 @@ namespace O3DE::ProjectManager
         vLayout->addWidget(m_stack);
 
         connect(reinterpret_cast<ScreensCtrl*>(parent), &ScreensCtrl::NotifyBuildProject, this, &ProjectsScreen::SuggestBuildProject);
+
+        // Will focus whatever button it finds so the Project tab is not focused on start-up
+        QTimer::singleShot(0, this, [this]
+            {
+                QPushButton* foundButton = m_stack->currentWidget()->findChild<QPushButton*>();
+                if (foundButton)
+                {
+                    foundButton->setFocus();
+                }
+            });
     }
 
     ProjectsScreen::~ProjectsScreen()
@@ -166,15 +177,25 @@ namespace O3DE::ProjectManager
     ProjectButton* ProjectsScreen::CreateProjectButton(const ProjectInfo& project)
     {
         ProjectButton* projectButton = new ProjectButton(project, this);
-        m_projectButtons.insert(project.m_path, projectButton);
+        m_projectButtons.insert(QDir::toNativeSeparators(project.m_path), projectButton);
         m_projectsFlowLayout->addWidget(projectButton);
 
         connect(projectButton, &ProjectButton::OpenProject, this, &ProjectsScreen::HandleOpenProject);
         connect(projectButton, &ProjectButton::EditProject, this, &ProjectsScreen::HandleEditProject);
+        connect(projectButton, &ProjectButton::EditProjectGems, this, &ProjectsScreen::HandleEditProjectGems);
         connect(projectButton, &ProjectButton::CopyProject, this, &ProjectsScreen::HandleCopyProject);
         connect(projectButton, &ProjectButton::RemoveProject, this, &ProjectsScreen::HandleRemoveProject);
         connect(projectButton, &ProjectButton::DeleteProject, this, &ProjectsScreen::HandleDeleteProject);
         connect(projectButton, &ProjectButton::BuildProject, this, &ProjectsScreen::QueueBuildProject);
+        connect(projectButton, &ProjectButton::OpenCMakeGUI, this, 
+            [this](const ProjectInfo& projectInfo)
+            {
+                AZ::Outcome result = ProjectUtils::OpenCMakeGUI(projectInfo.m_path);
+                if (!result)
+                {
+                    QMessageBox::critical(this, tr("Failed to open CMake GUI"), result.GetError(), QMessageBox::Ok);
+                }
+            });
 
         return projectButton;
     }
@@ -193,7 +214,7 @@ namespace O3DE::ProjectManager
             QSet<QString> keepProject;
             for (const ProjectInfo& project : projectsVector)
             {
-                keepProject.insert(project.m_path);
+                keepProject.insert(QDir::toNativeSeparators(project.m_path));
             }
 
             // Clear flow and delete buttons for removed projects
@@ -204,6 +225,7 @@ namespace O3DE::ProjectManager
 
                 if (!keepProject.contains(projectButtonsIter.key()))
                 {
+                    projectButtonsIter.value()->deleteLater();
                     projectButtonsIter = m_projectButtons.erase(projectButtonsIter);
                 }
                 else
@@ -215,7 +237,7 @@ namespace O3DE::ProjectManager
             QString buildProjectPath = "";
             if (m_currentBuilder)
             {
-                buildProjectPath = m_currentBuilder->GetProjectInfo().m_path;
+                buildProjectPath = QDir::toNativeSeparators(m_currentBuilder->GetProjectInfo().m_path);
             }
 
             // Put currently building project in front, then queued projects, then sorts alphabetically
@@ -249,17 +271,33 @@ namespace O3DE::ProjectManager
             // Add any missing project buttons and restore buttons to default state
             for (const ProjectInfo& project : projectsVector)
             {
-                if (!m_projectButtons.contains(project.m_path))
+                ProjectButton* currentButton = nullptr;
+                if (!m_projectButtons.contains(QDir::toNativeSeparators(project.m_path)))
                 {
-                    m_projectButtons.insert(project.m_path, CreateProjectButton(project));
+                    currentButton = CreateProjectButton(project);
+                    m_projectButtons.insert(QDir::toNativeSeparators(project.m_path), currentButton);
                 }
                 else
                 {
-                    auto projectButtonIter = m_projectButtons.find(project.m_path);
+                    auto projectButtonIter = m_projectButtons.find(QDir::toNativeSeparators(project.m_path));
                     if (projectButtonIter != m_projectButtons.end())
                     {
-                        projectButtonIter.value()->RestoreDefaultState();
-                        m_projectsFlowLayout->addWidget(projectButtonIter.value());
+                        currentButton = projectButtonIter.value();
+                        currentButton->RestoreDefaultState();
+                    }
+                }
+
+                // Check whether project manager has successfully built the project
+                if (currentButton)
+                {
+                    m_projectsFlowLayout->addWidget(currentButton);
+
+                    bool projectBuiltSuccessfully = false;
+                    SettingsInterface::Get()->GetProjectBuiltSuccessfully(projectBuiltSuccessfully, project);
+
+                    if (!projectBuiltSuccessfully)
+                    {
+                        currentButton->ShowBuildRequired();
                     }
                 }
             }
@@ -273,7 +311,7 @@ namespace O3DE::ProjectManager
 
             for (const ProjectInfo& project : m_buildQueue)
             {
-                auto projectIter = m_projectButtons.find(project.m_path);
+                auto projectIter = m_projectButtons.find(QDir::toNativeSeparators(project.m_path));
                 if (projectIter != m_projectButtons.end())
                 {
                     projectIter.value()->SetProjectButtonAction(
@@ -288,7 +326,7 @@ namespace O3DE::ProjectManager
 
             for (const ProjectInfo& project : m_requiresBuild)
             {
-                auto projectIter = m_projectButtons.find(project.m_path);
+                auto projectIter = m_projectButtons.find(QDir::toNativeSeparators(project.m_path));
                 if (projectIter != m_projectButtons.end())
                 {
                     if (project.m_buildFailed)
@@ -297,13 +335,14 @@ namespace O3DE::ProjectManager
                     }
                     else
                     {
-                        projectIter.value()->SetProjectBuildButtonAction();
+                        projectIter.value()->ShowBuildRequired();
                     }
                 }
             }
         }
 
         m_stack->setCurrentWidget(m_projectsContent);
+        m_projectsFlowLayout->update();
     }
 
     ProjectManagerScreen ProjectsScreen::GetScreenEnum()
@@ -347,8 +386,9 @@ namespace O3DE::ProjectManager
         painter.drawPixmap(backgroundRect, m_background);
 
         // Draw a semi-transparent overlay to darken down the colors.
-        painter.setCompositionMode (QPainter::CompositionMode_DestinationIn);
-        const float overlayTransparency = 0.7f;
+        // Use SourceOver, DestinationIn will make background transparent on Mac
+        painter.setCompositionMode (QPainter::CompositionMode_SourceOver);
+        const float overlayTransparency = 0.3f;
         painter.fillRect(backgroundRect, QColor(0, 0, 0, static_cast<int>(255.0f * overlayTransparency)));
     }
 
@@ -361,25 +401,32 @@ namespace O3DE::ProjectManager
     {
         if (ProjectUtils::AddProjectDialog(this))
         {
-            ResetProjectsContent();
             emit ChangeScreenRequest(ProjectManagerScreen::Projects);
         }
     }
+
     void ProjectsScreen::HandleOpenProject(const QString& projectPath)
     {
         if (!projectPath.isEmpty())
         {
             if (!WarnIfInBuildQueue(projectPath))
             {
-                AZ::IO::FixedMaxPath executableDirectory = AZ::Utils::GetExecutableDirectory();
-                AZStd::string executableFilename = "Editor";
-                AZ::IO::FixedMaxPath editorExecutablePath = executableDirectory / (executableFilename + AZ_TRAIT_OS_EXECUTABLE_EXTENSION);
-                auto cmdPath = AZ::IO::FixedMaxPathString::format(
-                    "%s -regset=\"/Amazon/AzCore/Bootstrap/project_path=%s\"", editorExecutablePath.c_str(),
-                    projectPath.toStdString().c_str());
+                AZ::IO::FixedMaxPath fixedProjectPath = projectPath.toUtf8().constData();
+                AZ::IO::FixedMaxPath editorExecutablePath = ProjectUtils::GetEditorExecutablePath(fixedProjectPath);
+                if (editorExecutablePath.empty())
+                {
+                    AZ_Error("ProjectManager", false, "Failed to locate editor");
+                    QMessageBox::critical(
+                        this, tr("Error"), tr("Failed to locate the Editor, please verify that it is built."));
+                    return;
+                }
 
                 AzFramework::ProcessLauncher::ProcessLaunchInfo processLaunchInfo;
-                processLaunchInfo.m_commandlineParameters = cmdPath;
+                processLaunchInfo.m_commandlineParameters = AZStd::vector<AZStd::string>{
+                    editorExecutablePath.String(),
+                    AZStd::string::format(R"(--regset="/Amazon/AzCore/Bootstrap/project_path=%s")", fixedProjectPath.c_str())
+                };
+                ;
                 bool launchSucceeded = AzFramework::ProcessLauncher::LaunchUnwatchedProcess(processLaunchInfo);
                 if (!launchSucceeded)
                 {
@@ -427,6 +474,14 @@ namespace O3DE::ProjectManager
             emit ChangeScreenRequest(ProjectManagerScreen::UpdateProject);
         }
     }
+    void ProjectsScreen::HandleEditProjectGems(const QString& projectPath)
+    {
+        if (!WarnIfInBuildQueue(projectPath))
+        {
+            emit NotifyCurrentProject(projectPath);
+            emit ChangeScreenRequest(ProjectManagerScreen::GemCatalog);
+        }
+    }
     void ProjectsScreen::HandleCopyProject(const ProjectInfo& projectInfo)
     {
         if (!WarnIfInBuildQueue(projectInfo.m_path))
@@ -436,7 +491,6 @@ namespace O3DE::ProjectManager
             // Open file dialog and choose location for copied project then register copy with O3DE
             if (ProjectUtils::CopyProjectDialog(projectInfo.m_path, newProjectInfo, this))
             {
-                ResetProjectsContent();
                 emit NotifyBuildProject(newProjectInfo);
                 emit ChangeScreenRequest(ProjectManagerScreen::Projects);
             }
@@ -449,7 +503,6 @@ namespace O3DE::ProjectManager
             // Unregister Project from O3DE and reload projects
             if (ProjectUtils::UnregisterProject(projectPath))
             {
-                ResetProjectsContent();
                 emit ChangeScreenRequest(ProjectManagerScreen::Projects);
             }
         }

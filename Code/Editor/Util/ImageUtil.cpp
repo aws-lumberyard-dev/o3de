@@ -103,7 +103,7 @@ bool CImageUtil::SavePGM(const QString& fileName, const CImageEx& image)
     }
 
     // First print the file header
-    fprintf(file, fileHeader.c_str());
+    fprintf(file, "%s", fileHeader.c_str());
 
     // Then print all the pixels.
     for (uint32 y = 0; y < height; y++)
@@ -143,7 +143,8 @@ bool CImageUtil::LoadPGM(const QString& fileName, CImageEx& image)
     fseek(file, 0, SEEK_SET);
 
     char* str = new char[fileSize];
-    fread(str, fileSize, 1, file);
+
+    [[maybe_unused]] auto bytesRead = fread(str, fileSize, 1, file);
 
     [[maybe_unused]] char* nextToken = nullptr;
     token = azstrtok(str, 0, seps, &nextToken);

@@ -85,7 +85,7 @@ namespace UnitTest
             m_testImage = StreamingImage::FindOrCreate(m_testImageAsset);
 
             MaterialAssetCreator materialCreator;
-            materialCreator.Begin(Uuid::CreateRandom(), *m_testMaterialTypeAsset);
+            materialCreator.Begin(Uuid::CreateRandom(), m_testMaterialTypeAsset, true);
             materialCreator.SetPropertyValue(Name{ "MyFloat2" }, Vector2{ 0.1f, 0.2f });
             materialCreator.SetPropertyValue(Name{ "MyFloat3" }, Vector3{ 1.1f, 1.2f, 1.3f });
             materialCreator.SetPropertyValue(Name{ "MyFloat4" }, Vector4{ 2.1f, 2.2f, 2.3f, 2.4f });
@@ -182,6 +182,13 @@ namespace UnitTest
             EXPECT_EQ(srgData.GetImageView(srgData.FindShaderInputImageIndex(Name{ "m_image" }), 0), m_testImage->GetImageView());
             EXPECT_EQ(srgData.GetConstant<uint32_t>(srgData.FindShaderInputConstantIndex(Name{ "m_enum" })), 2u);
         }
+
+        //! Provides write access to private material asset property values, primarily for simulating
+        //! MaterialAsset hot reload.
+        MaterialPropertyValue& AccessMaterialAssetPropertyValue(Data::Asset<MaterialAsset> materialAsset, Name propertyName)
+        {
+            return materialAsset->m_propertyValues[materialAsset->GetMaterialPropertiesLayout()->FindPropertyIndex(propertyName).GetIndex()];
+        }
     };
 
     TEST_F(MaterialTests, TestCreateVsFindOrCreate)
@@ -204,21 +211,13 @@ namespace UnitTest
         EXPECT_NE(materialInstance3, materialInstance4);
     }
 
-#if AZ_TRAIT_DISABLE_FAILED_ATOM_RPI_TESTS
-    TEST_F(MaterialTests, DISABLED_TestInitialValuesFromMaterial)
-#else
     TEST_F(MaterialTests, TestInitialValuesFromMaterial)
-#endif // AZ_TRAIT_DISABLE_FAILED_ATOM_RPI_TESTS
     {
         Data::Instance<Material> material = Material::FindOrCreate(m_testMaterialAsset);
         ValidateInitialValuesFromMaterial(material);
     }
 
-#if AZ_TRAIT_DISABLE_FAILED_ATOM_RPI_TESTS
-    TEST_F(MaterialTests, DISABLED_TestSetPropertyValue)
-#else
     TEST_F(MaterialTests, TestSetPropertyValue)
-#endif // AZ_TRAIT_DISABLE_FAILED_ATOM_RPI_TESTS
     {
         Data::Instance<Material> material = Material::FindOrCreate(m_testMaterialAsset);
 
@@ -290,7 +289,7 @@ namespace UnitTest
         materialTypeCreator.End(materialTypeAsset);
 
         MaterialAssetCreator materialAssetCreator;
-        materialAssetCreator.Begin(Uuid::CreateRandom(), *materialTypeAsset);
+        materialAssetCreator.Begin(Uuid::CreateRandom(), materialTypeAsset, true);
         materialAssetCreator.End(materialAsset);
 
         Data::Instance<Material> material = Material::FindOrCreate(materialAsset);
@@ -313,12 +312,36 @@ namespace UnitTest
         EXPECT_EQ(srgData.GetConstant<uint32_t>(srgData.FindShaderInputConstantIndex(Name{ "m_uint" })), 42u);
     }
 
+    TEST_F(MaterialTests, TestSetPropertyValueWhenValueIsUnchanged)
+    {
+        Data::Instance<Material> material = Material::FindOrCreate(m_testMaterialAsset);
+        
+        EXPECT_TRUE(material->SetPropertyValue<float>(material->FindPropertyIndex(Name{ "MyFloat" }), 2.5f));
+
+        ProcessQueuedSrgCompilations(m_testMaterialShaderAsset, m_testMaterialSrgLayout->GetName());
+        EXPECT_TRUE(material->Compile());
+
+        // Taint the SRG so we can check whether it was set by the SetPropertyValue() calls below.
+        const RHI::ShaderResourceGroup* srg = material->GetRHIShaderResourceGroup();
+        const RHI::ShaderResourceGroupData& srgData = srg->GetData();
+        const_cast<RHI::ShaderResourceGroupData*>(&srgData)->SetConstant(m_testMaterialSrgLayout->FindShaderInputConstantIndex(Name{"m_float"}), 0.0f);
+
+        // Set the properties to the same values as before
+        EXPECT_FALSE(material->SetPropertyValue<float>(material->FindPropertyIndex(Name{ "MyFloat" }), 2.5f));
+        
+        ProcessQueuedSrgCompilations(m_testMaterialShaderAsset, m_testMaterialSrgLayout->GetName());
+        EXPECT_FALSE(material->Compile());
+
+        // Make sure the SRG is still tainted, because the SetPropertyValue() functions weren't processed
+        EXPECT_EQ(srgData.GetConstant<float>(srgData.FindShaderInputConstantIndex(Name{ "m_float" })), 0.0f);
+    }
+
     TEST_F(MaterialTests, TestImageNotProvided)
     {
         Data::Asset<MaterialAsset> materialAssetWithEmptyImage;
 
         MaterialAssetCreator materialCreator;
-        materialCreator.Begin(Uuid::CreateRandom(), *m_testMaterialTypeAsset);
+        materialCreator.Begin(Uuid::CreateRandom(), m_testMaterialTypeAsset, true);
         materialCreator.SetPropertyValue(Name{"MyFloat2"}, Vector2{0.1f, 0.2f});
         materialCreator.SetPropertyValue(Name{"MyFloat3"}, Vector3{1.1f, 1.2f, 1.3f});
         materialCreator.SetPropertyValue(Name{"MyFloat4"}, Vector4{2.1f, 2.2f, 2.3f, 2.4f});
@@ -356,7 +379,7 @@ namespace UnitTest
 
         Data::Asset<MaterialAsset> emptyMaterialAsset;
         MaterialAssetCreator materialCreator;
-        materialCreator.Begin(Uuid::CreateRandom(), *emptyMaterialTypeAsset);
+        materialCreator.Begin(Uuid::CreateRandom(), emptyMaterialTypeAsset, true);
         EXPECT_TRUE(materialCreator.End(emptyMaterialAsset));
 
         Data::Instance<Material> material = Material::FindOrCreate(emptyMaterialAsset);
@@ -366,18 +389,9 @@ namespace UnitTest
 
     Ptr<ShaderOptionGroupLayout> CreateTestOptionsLayout()
     {
-        AZStd::vector<RPI::ShaderOptionValuePair> enumOptionValues;
-        enumOptionValues.push_back({Name("Low"),  RPI::ShaderOptionValue(0)});
-        enumOptionValues.push_back({Name("Med"), RPI::ShaderOptionValue(1)});
-        enumOptionValues.push_back({Name("High"), RPI::ShaderOptionValue(2)});
-
-        AZStd::vector<RPI::ShaderOptionValuePair> boolOptionValues;
-        boolOptionValues.push_back({Name("False"),  RPI::ShaderOptionValue(0)});
-        boolOptionValues.push_back({Name("True"), RPI::ShaderOptionValue(1)});
-
-        AZStd::vector<RPI::ShaderOptionValuePair> rangeOptionValues;
-        rangeOptionValues.push_back({Name("1"),  RPI::ShaderOptionValue(1)});
-        rangeOptionValues.push_back({Name("10"), RPI::ShaderOptionValue(10)});
+        AZStd::vector<RPI::ShaderOptionValuePair> enumOptionValues = CreateEnumShaderOptionValues({"Low", "Med", "High"});
+        AZStd::vector<RPI::ShaderOptionValuePair> boolOptionValues = CreateBoolShaderOptionValues();
+        AZStd::vector<RPI::ShaderOptionValuePair> rangeOptionValues = CreateIntRangeShaderOptionValues(1, 10);
 
         Ptr<ShaderOptionGroupLayout> shaderOptions = ShaderOptionGroupLayout::Create();
         uint32_t order = 0;
@@ -427,7 +441,7 @@ namespace UnitTest
         materialTypeCreator.End(m_testMaterialTypeAsset);
 
         MaterialAssetCreator materialAssetCreator;
-        materialAssetCreator.Begin(Uuid::CreateRandom(), *m_testMaterialTypeAsset);
+        materialAssetCreator.Begin(Uuid::CreateRandom(), m_testMaterialTypeAsset, true);
         materialAssetCreator.End(m_testMaterialAsset);
 
         Data::Instance<Material> material = Material::FindOrCreate(m_testMaterialAsset);
@@ -498,7 +512,7 @@ namespace UnitTest
         materialTypeCreator.End(m_testMaterialTypeAsset);
 
         MaterialAssetCreator materialAssetCreator;
-        materialAssetCreator.Begin(Uuid::CreateRandom(), *m_testMaterialTypeAsset);
+        materialAssetCreator.Begin(Uuid::CreateRandom(), m_testMaterialTypeAsset, true);
         materialAssetCreator.End(m_testMaterialAsset);
 
         Data::Instance<Material> material = Material::FindOrCreate(m_testMaterialAsset);
@@ -568,7 +582,7 @@ namespace UnitTest
         materialTypeCreator.End(m_testMaterialTypeAsset);
 
         MaterialAssetCreator materialAssetCreator;
-        materialAssetCreator.Begin(Uuid::CreateRandom(), *m_testMaterialTypeAsset);
+        materialAssetCreator.Begin(Uuid::CreateRandom(), m_testMaterialTypeAsset, true);
         materialAssetCreator.End(m_testMaterialAsset);
 
         Data::Instance<Material> material = Material::FindOrCreate(m_testMaterialAsset);
@@ -632,7 +646,7 @@ namespace UnitTest
         materialTypeCreator.End(m_testMaterialTypeAsset);
 
         MaterialAssetCreator materialAssetCreator;
-        materialAssetCreator.Begin(Uuid::CreateRandom(), *m_testMaterialTypeAsset);
+        materialAssetCreator.Begin(Uuid::CreateRandom(), m_testMaterialTypeAsset, true);
         materialAssetCreator.End(m_testMaterialAsset);
 
         Data::Instance<Material> material = Material::FindOrCreate(m_testMaterialAsset);
@@ -646,7 +660,7 @@ namespace UnitTest
     {
         Data::Asset<MaterialAsset> materialAsset;
         MaterialAssetCreator materialCreator;
-        materialCreator.Begin(Uuid::CreateRandom(), *m_testMaterialTypeAsset);
+        materialCreator.Begin(Uuid::CreateRandom(), m_testMaterialTypeAsset, true);
         materialCreator.SetPropertyValue(Name{ "MyFloat2" }, Vector2{ 0.1f, 0.2f });
         materialCreator.SetPropertyValue(Name{ "MyFloat3" }, Vector3{ 1.1f, 1.2f, 1.3f });
         materialCreator.SetPropertyValue(Name{ "MyFloat4" }, Vector4{ 2.1f, 2.2f, 2.3f, 2.4f });
@@ -682,11 +696,7 @@ namespace UnitTest
         AZ_TEST_STOP_ASSERTTEST(2);
     }
 
-#if AZ_TRAIT_DISABLE_FAILED_ATOM_RPI_TESTS
-    TEST_F(MaterialTests, DISABLED_Error_SetPropertyValue_WrongDataType)
-#else
     TEST_F(MaterialTests, Error_SetPropertyValue_WrongDataType)
-#endif // AZ_TRAIT_DISABLE_FAILED_ATOM_RPI_TESTS
     {
         Data::Instance<Material> material = Material::FindOrCreate(m_testMaterialAsset);
 
@@ -759,7 +769,7 @@ namespace UnitTest
         materialTypeCreator.End(materialTypeAsset);
 
         MaterialAssetCreator materialAssetCreator;
-        materialAssetCreator.Begin(Uuid::CreateRandom(), *materialTypeAsset);
+        materialAssetCreator.Begin(Uuid::CreateRandom(), materialTypeAsset, true);
         materialAssetCreator.End(materialAsset);
 
         Data::Instance<Material> material = Material::FindOrCreate(materialAsset);
@@ -784,5 +794,116 @@ namespace UnitTest
             EXPECT_EQ((float)TransformColor(inputColor, ColorSpaceId::LinearSRGB, ColorSpaceId::ACEScg).GetElement(i), (float)colorFromSrg.GetElement(i));
             EXPECT_EQ((float)inputColor.GetElement(i), (float)colorFromMaterial.GetElement(i));
         }
+    }
+
+    TEST_F(MaterialTests, TestReinitializeForHotReload)
+    {
+        Data::Instance<Material> material = Material::FindOrCreate(m_testMaterialAsset);
+        const RHI::ShaderResourceGroupData* srgData = &material->GetRHIShaderResourceGroup()->GetData();
+        ProcessQueuedSrgCompilations(m_testMaterialShaderAsset, m_testMaterialSrgLayout->GetName());
+
+        // Check the default property value
+        EXPECT_EQ(material->GetPropertyValue<float>(material->FindPropertyIndex(Name{ "MyFloat" })), 1.5f);
+        EXPECT_EQ(srgData->GetConstant<float>(srgData->FindShaderInputConstantIndex(Name{ "m_float" })), 1.5f);
+        EXPECT_EQ(material->GetPropertyValue<int32_t>(material->FindPropertyIndex(Name{ "MyInt" })), -2);
+        EXPECT_EQ(srgData->GetConstant<int32_t>(srgData->FindShaderInputConstantIndex(Name{ "m_int" })), -2);
+
+        // Override a property value
+        EXPECT_TRUE(material->SetPropertyValue<float>(material->FindPropertyIndex(Name{ "MyFloat" }), 5.5f));
+
+        // Apply the changes
+        EXPECT_TRUE(material->Compile());
+        ProcessQueuedSrgCompilations(m_testMaterialShaderAsset, m_testMaterialSrgLayout->GetName());
+
+        // Check the updated values with one overridden
+        EXPECT_EQ(material->GetPropertyValue<float>(material->FindPropertyIndex(Name{ "MyFloat" })), 5.5f);
+        EXPECT_EQ(srgData->GetConstant<float>(srgData->FindShaderInputConstantIndex(Name{ "m_float" })), 5.5f);
+        EXPECT_EQ(material->GetPropertyValue<int32_t>(material->FindPropertyIndex(Name{ "MyInt" })), -2);
+        EXPECT_EQ(srgData->GetConstant<int32_t>(srgData->FindShaderInputConstantIndex(Name{ "m_int" })), -2);
+
+        // Pretend there was a hot-reload with new default values
+        AccessMaterialAssetPropertyValue(m_testMaterialAsset, Name{"MyFloat"}) = 0.5f;
+        AccessMaterialAssetPropertyValue(m_testMaterialAsset, Name{"MyInt"}) = -7;
+        AZ::Data::AssetBus::Event(m_testMaterialAsset.GetId(), &AZ::Data::AssetBus::Handler::OnAssetReloaded, m_testMaterialAsset);
+        srgData = &material->GetRHIShaderResourceGroup()->GetData();
+        ProcessQueuedSrgCompilations(m_testMaterialShaderAsset, m_testMaterialSrgLayout->GetName());
+
+        // Make sure the override values are still there
+        EXPECT_EQ(srgData->GetConstant<float>(srgData->FindShaderInputConstantIndex(Name{ "m_float" })), 5.5f);
+        EXPECT_EQ(material->GetPropertyValue<float>(material->FindPropertyIndex(Name{ "MyFloat" })), 5.5f);
+
+        // Make sure the new default value is applied where it was not overridden
+        EXPECT_EQ(material->GetPropertyValue<int32_t>(material->FindPropertyIndex(Name{ "MyInt" })), -7);
+        EXPECT_EQ(srgData->GetConstant<int32_t>(srgData->FindShaderInputConstantIndex(Name{ "m_int" })), -7);
+    }
+
+    TEST_F(MaterialTests, TestFindPropertyIndexUsingOldName)
+    {
+        MaterialTypeAssetCreator materialTypeCreator;
+        materialTypeCreator.Begin(Uuid::CreateRandom());
+        materialTypeCreator.AddShader(m_testMaterialShaderAsset);
+        AddCommonTestMaterialProperties(materialTypeCreator);
+        materialTypeCreator.SetVersion(2);
+        MaterialVersionUpdate versionUpdate(2);
+        versionUpdate.AddAction(MaterialVersionUpdate::RenamePropertyAction({Name{ "OldName" },Name{ "MyInt" }}));
+        materialTypeCreator.AddVersionUpdate(versionUpdate);
+        materialTypeCreator.End(m_testMaterialTypeAsset);
+
+        MaterialAssetCreator materialCreator;
+        materialCreator.Begin(Uuid::CreateRandom(), m_testMaterialTypeAsset, true);
+        materialCreator.End(m_testMaterialAsset);
+
+        Data::Instance<Material> material = Material::FindOrCreate(m_testMaterialAsset);
+
+        bool wasRenamed = false;
+        Name newName;
+        MaterialPropertyIndex indexFromOldName = material->FindPropertyIndex(Name{"OldName"}, &wasRenamed, &newName);
+        EXPECT_TRUE(wasRenamed);
+        EXPECT_EQ(newName, Name{"MyInt"});
+        
+        MaterialPropertyIndex indexFromNewName = material->FindPropertyIndex(Name{"MyInt"}, &wasRenamed, &newName);
+        EXPECT_FALSE(wasRenamed);
+
+        EXPECT_EQ(indexFromOldName, indexFromNewName);
+    }
+
+    template<typename T>
+    void CheckPropertyValueRoundTrip(const T& value)
+    {
+        AZ::RPI::MaterialPropertyValue materialPropertyValue{value};
+        AZStd::any anyValue{value};
+        AZ::RPI::MaterialPropertyValue materialPropertyValueFromAny = MaterialPropertyValue::FromAny(anyValue);
+        AZ::RPI::MaterialPropertyValue materialPropertyValueFromRoundTrip = MaterialPropertyValue::FromAny(MaterialPropertyValue::ToAny(materialPropertyValue));
+        
+        EXPECT_EQ(materialPropertyValue, materialPropertyValueFromAny);
+        EXPECT_EQ(materialPropertyValue, materialPropertyValueFromRoundTrip);
+
+        if (materialPropertyValue.Is<Data::Asset<ImageAsset>>())
+        {
+            EXPECT_EQ(materialPropertyValue.GetValue<Data::Asset<ImageAsset>>().GetHint(), materialPropertyValueFromAny.GetValue<Data::Asset<ImageAsset>>().GetHint());
+            EXPECT_EQ(materialPropertyValue.GetValue<Data::Asset<ImageAsset>>().GetHint(), materialPropertyValueFromRoundTrip.GetValue<Data::Asset<ImageAsset>>().GetHint());
+        }
+    }
+
+    TEST_F(MaterialTests, TestMaterialPropertyValueAsAny)
+    {
+        CheckPropertyValueRoundTrip(true);
+        CheckPropertyValueRoundTrip(false);
+        CheckPropertyValueRoundTrip(7);
+        CheckPropertyValueRoundTrip(8u);
+        CheckPropertyValueRoundTrip(9.0f);
+        CheckPropertyValueRoundTrip(AZ::Vector2(1.0f, 2.0f));
+        CheckPropertyValueRoundTrip(AZ::Vector3(1.0f, 2.0f, 3.0f));
+        CheckPropertyValueRoundTrip(AZ::Vector4(1.0f, 2.0f, 3.0f, 4.0f));
+        CheckPropertyValueRoundTrip(AZ::Color(1.0f, 2.0f, 3.0f, 4.0f));
+        CheckPropertyValueRoundTrip(Data::Asset<Data::AssetData>{});
+        CheckPropertyValueRoundTrip(Data::Asset<ImageAsset>{});
+        CheckPropertyValueRoundTrip(Data::Asset<StreamingImageAsset>{});
+        CheckPropertyValueRoundTrip(Data::Asset<Data::AssetData>{Uuid::CreateRandom(), azrtti_typeid<AZ::RPI::StreamingImageAsset>(), "TestAssetPath.png"});
+        CheckPropertyValueRoundTrip(Data::Asset<ImageAsset>{Uuid::CreateRandom(), azrtti_typeid<AZ::RPI::StreamingImageAsset>(), "TestAssetPath.png"});
+        CheckPropertyValueRoundTrip(Data::Asset<StreamingImageAsset>{Uuid::CreateRandom(), azrtti_typeid<AZ::RPI::StreamingImageAsset>(), "TestAssetPath.png"});
+        CheckPropertyValueRoundTrip(m_testImageAsset);
+        CheckPropertyValueRoundTrip(Data::Instance<Image>{m_testImage});
+        CheckPropertyValueRoundTrip(AZStd::string{"hello"});
     }
 }

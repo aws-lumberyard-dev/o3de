@@ -36,7 +36,7 @@ ly_append_configurations_options(
         AZ_BUILD_CONFIGURATION_TYPE="${LY_BUILD_CONFIGURATION_TYPE_DEBUG}"
     DEFINES_PROFILE
         _PROFILE
-        PROFILE
+        AZ_PROFILE_BUILD=1
         NDEBUG
         AZ_ENABLE_TRACING
         AZ_ENABLE_DEBUG_TOOLS
@@ -62,3 +62,8 @@ if(CMAKE_GENERATOR MATCHES "Ninja")
         ly_set(CMAKE_JOB_POOL_LINK link_job_pool)
     endif()
 endif()
+
+set(CMAKE_POSITION_INDEPENDENT_CODE True)
+
+include(CheckPIESupported)
+check_pie_supported()

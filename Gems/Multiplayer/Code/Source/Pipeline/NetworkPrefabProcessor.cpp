@@ -8,7 +8,7 @@
 
 #include <Multiplayer/IMultiplayerTools.h>
 #include <Multiplayer/Components/NetBindComponent.h>
-#include <Pipeline/NetBindMarkerComponent.h>
+#include <Multiplayer/MultiplayerConstants.h>
 #include <Pipeline/NetworkPrefabProcessor.h>
 #include <Pipeline/NetworkSpawnableHolderComponent.h>
 
@@ -21,22 +21,29 @@
 
 namespace Multiplayer
 {
-    using AzToolsFramework::Prefab::PrefabConversionUtils::PrefabProcessor;
-    using AzToolsFramework::Prefab::PrefabConversionUtils::ProcessedObjectStore;
-
-    void NetworkPrefabProcessor::Process(PrefabProcessorContext& context)
+    void NetworkPrefabProcessor::Process(AzToolsFramework::Prefab::PrefabConversionUtils::PrefabProcessorContext& context)
     {
+        using AzToolsFramework::Prefab::PrefabConversionUtils::PrefabDocument;
+
         IMultiplayerTools* mpTools = AZ::Interface<IMultiplayerTools>::Get();
         if (mpTools)
         {
             mpTools->SetDidProcessNetworkPrefabs(false);
         }
 
-        context.ListPrefabs([&context](AZStd::string_view prefabName, PrefabDom& prefab) {
-            ProcessPrefab(context, prefabName, prefab);
-        });
+        AZ::DataStream::StreamType serializationFormat = GetAzSerializationFormat();
 
-        if (mpTools && !context.GetProcessedObjects().empty())
+        bool networkPrefabsAdded = false;
+        context.ListPrefabs(
+            [&networkPrefabsAdded, &context, serializationFormat](PrefabDocument& prefab)
+            {
+                if (ProcessPrefab(context, prefab, serializationFormat))
+                {
+                    networkPrefabsAdded = true;
+                }
+            });
+
+        if (mpTools && networkPrefabsAdded)
         {
             mpTools->SetDidProcessNetworkPrefabs(true);
         }
@@ -46,30 +53,16 @@ namespace Multiplayer
     {
         if (auto* serializeContext = azrtti_cast<AZ::SerializeContext*>(context); serializeContext != nullptr)
         {
-            serializeContext->Class<NetworkPrefabProcessor, PrefabProcessor>()->Version(1);
+            serializeContext->Enum<SerializationFormats>()
+                ->Value("Binary", SerializationFormats::Binary)
+                ->Value("Text", SerializationFormats::Text)
+            ;
+
+            serializeContext->Class<NetworkPrefabProcessor, PrefabProcessor>()
+                ->Version(4)
+                ->Field("SerializationFormat", &NetworkPrefabProcessor::m_serializationFormat)
+            ;
         }
-    }
-
-    static AZStd::unique_ptr<AzToolsFramework::Prefab::Instance> LoadInstanceFromPrefab(const PrefabDom& prefab)
-    {
-        using namespace AzToolsFramework::Prefab;
-
-        // convert Prefab DOM into Prefab Instance.
-        AZStd::unique_ptr<Instance> sourceInstance(aznew Instance());
-        if (!PrefabDomUtils::LoadInstanceFromPrefabDom(*sourceInstance, prefab, PrefabDomUtils::LoadFlags::AssignRandomEntityId))
-        {
-            PrefabDomValueConstReference sourceReference = PrefabDomUtils::FindPrefabDomValue(prefab, PrefabDomUtils::SourceName);
-
-            AZStd::string errorMessage("NetworkPrefabProcessor: Failed to Load Prefab Instance from given Prefab Dom.");
-            if (sourceReference.has_value() && sourceReference->get().IsString() && sourceReference->get().GetStringLength() != 0)
-            {
-                AZStd::string_view source(sourceReference->get().GetString(), sourceReference->get().GetStringLength());
-                errorMessage += AZStd::string::format("Prefab Source: %.*s", AZ_STRING_ARG(source));
-            }
-            AZ_Error("NetworkPrefabProcessor", false, errorMessage.c_str());
-            return nullptr;
-        }
-        return sourceInstance;
     }
 
     static void GatherNetEntities(
@@ -94,39 +87,37 @@ namespace Multiplayer
         });
     }
 
-    void NetworkPrefabProcessor::ProcessPrefab(PrefabProcessorContext& context, AZStd::string_view prefabName, PrefabDom& prefab)
+    bool NetworkPrefabProcessor::ProcessPrefab(
+        AzToolsFramework::Prefab::PrefabConversionUtils::PrefabProcessorContext& context,
+        AzToolsFramework::Prefab::PrefabConversionUtils::PrefabDocument& prefab,
+        AZ::DataStream::StreamType serializationFormat)
     {
+        using AzToolsFramework::Prefab::PrefabConversionUtils::ProcessedObjectStore;
         using namespace AzToolsFramework::Prefab;
 
-        // convert Prefab DOM into Prefab Instance.
-        AZStd::unique_ptr<Instance> sourceInstance = LoadInstanceFromPrefab(prefab);
-        if (!sourceInstance)
-        {
-            return;
-        }
+        AZStd::string uniqueName = prefab.GetName();
+        uniqueName += NetworkSpawnableFileExtension;
 
-        AZStd::string uniqueName = prefabName;
-        uniqueName += ".network.spawnable";
-
-        auto serializer = [](AZStd::vector<uint8_t>& output, const ProcessedObjectStore& object) -> bool {
+        auto serializer = [serializationFormat](AZStd::vector<uint8_t>& output, const ProcessedObjectStore& object) -> bool {
             AZ::IO::ByteContainerStream stream(&output);
             auto& asset = object.GetAsset();
-            return AZ::Utils::SaveObjectToStream(stream, AZ::DataStream::ST_JSON, &asset, asset.GetType());
+            return AZ::Utils::SaveObjectToStream(stream, serializationFormat, &asset, asset.GetType());
         };
 
         auto&& [object, networkSpawnable] =
             ProcessedObjectStore::Create<AzFramework::Spawnable>(uniqueName, context.GetSourceUuid(), AZStd::move(serializer));
         auto& netSpawnableEntities = networkSpawnable->GetEntities();
 
+        Instance& sourceInstance = prefab.GetInstance();
         // Grab all net entities with their corresponding Instances to handle nested prefabs correctly
         AZStd::unordered_map<AZ::Entity*, AzToolsFramework::Prefab::Instance*> netEntityToInstanceMap;
         AZStd::vector<AZ::Entity*> prefabNetEntities;
-        GatherNetEntities(sourceInstance.get(), netEntityToInstanceMap, prefabNetEntities);
+        GatherNetEntities(&sourceInstance, netEntityToInstanceMap, prefabNetEntities);
 
         if (prefabNetEntities.empty())
         {
             // No networked entities in the prefab, no need to do anything in this processor.
-            return;
+            return false;
         }
 
         // Sort the entities prior to processing. The entities will end up in the net spawnable in this order.
@@ -137,7 +128,7 @@ namespace Multiplayer
         networkSpawnableAsset.Create(networkSpawnable->GetId());
         networkSpawnableAsset.SetAutoLoadBehavior(AZ::Data::AssetLoadBehavior::PreLoad);
 
-        size_t netEntitiesIndexCounter = 0;
+        AZStd::unordered_set<AZ::EntityId> prefabNetEntityIds;
 
         for (auto* prefabEntity : prefabNetEntities)
         {
@@ -148,35 +139,32 @@ namespace Multiplayer
             AZ_Assert(netEntity, "Unable to detach entity %s [%s] from the source prefab instance", 
                 prefabEntity->GetName().c_str(), entityId.ToString().c_str());
 
-            // Net entity will need a new ID to avoid IDs collision
-            netEntity->SetId(AZ::Entity::MakeId());
             netEntity->InvalidateDependencies();
             netEntity->EvaluateDependencies();
 
+            auto* transformComponent = netEntity->FindComponent<AzFramework::TransformComponent>();
+            if (transformComponent)
+            {
+                AZ::EntityId parentId = transformComponent->GetParentId();
+                if (parentId.IsValid() && !prefabNetEntityIds.contains(parentId))
+                {
+                    // Clear parent ID for net entities parented to a non-net entity.
+                    // To be addressed by the spawnable aliases system where non-net entities
+                    // will be spawned together with the networked ones in which case we'll keep
+                    // the cross-spawnable references.
+                    transformComponent->SetParent(AZ::EntityId());
+                }
+            }
+
+            prefabNetEntityIds.insert(netEntity->GetId());
+
             // Insert the entity into the target net spawnable
             netSpawnableEntities.emplace_back(netEntity);
-
-            // Use the old ID for the breadcrumb entity to keep parent-child relationship in the original spawnable
-            AZ::Entity* breadcrumbEntity = aznew AZ::Entity(entityId, netEntity->GetName());
-            breadcrumbEntity->SetRuntimeActiveByDefault(netEntity->IsRuntimeActiveByDefault());
-
-            // Marker component is responsible to spawning entities based on the index.
-            NetBindMarkerComponent* netBindMarkerComponent = breadcrumbEntity->CreateComponent<NetBindMarkerComponent>();
-            netBindMarkerComponent->SetNetEntityIndex(netEntitiesIndexCounter);
-            netBindMarkerComponent->SetNetworkSpawnableAsset(networkSpawnableAsset);
-
-            // Copy the transform component from the original entity to have the correct transform and parent-child relationship
-            AzFramework::TransformComponent* transformComponent = netEntity->FindComponent<AzFramework::TransformComponent>();
-            breadcrumbEntity->CreateComponent<AzFramework::TransformComponent>(*transformComponent);
-
-            instance->AddEntity(*breadcrumbEntity);
-
-            netEntitiesIndexCounter++;
         }
 
         // Add net spawnable asset holder to the prefab root
         {
-            EntityOptionalReference containerEntityRef = sourceInstance->GetContainerEntity();
+            EntityOptionalReference containerEntityRef = sourceInstance.GetContainerEntity();
             if (containerEntityRef.has_value())
             {
                 auto* networkSpawnableHolderComponent = containerEntityRef.value().get().CreateComponent<NetworkSpawnableHolderComponent>();
@@ -187,17 +175,21 @@ namespace Multiplayer
                 AZ::Entity* networkSpawnableHolderEntity = aznew AZ::Entity(uniqueName);
                 auto* networkSpawnableHolderComponent = networkSpawnableHolderEntity->CreateComponent<NetworkSpawnableHolderComponent>();
                 networkSpawnableHolderComponent->SetNetworkSpawnableAsset(networkSpawnableAsset);
-                sourceInstance->AddEntity(*networkSpawnableHolderEntity);
+                sourceInstance.AddEntity(*networkSpawnableHolderEntity);
             }
         }
 
-        // save the final result in the target Prefab DOM.
-        if (!PrefabDomUtils::StoreInstanceInPrefabDom(*sourceInstance, prefab))
+        context.GetProcessedObjects().push_back(AZStd::move(object));
+        return true;
+    }
+
+    AZ::DataStream::StreamType NetworkPrefabProcessor::GetAzSerializationFormat() const
+    {
+        if (m_serializationFormat == SerializationFormats::Text)
         {
-            AZ_Error("NetworkPrefabProcessor", false, "Saving exported Prefab Instance within a Prefab Dom failed.");
-            return;
+            return AZ::DataStream::StreamType::ST_JSON;
         }
 
-        context.GetProcessedObjects().push_back(AZStd::move(object));
+        return AZ::DataStream::StreamType::ST_BINARY;
     }
 }

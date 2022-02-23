@@ -32,10 +32,9 @@ namespace ImageProcessingAtom
             return;
         }
 
-        uint32 dwWidth, dwHeight, dwMips;
+        uint32 dwWidth, dwHeight;
         dwWidth = Get()->GetWidth(0);
         dwHeight = Get()->GetHeight(0);
-        dwMips = Get()->GetMipCount();
 
         //if the output image size doesn't work the desired pixel format. set to fallback format
         const PixelFormatInfo* dstFmtInfo = CPixelFormats::GetInstance().GetPixelFormatInfo(fmtDst);
@@ -98,7 +97,7 @@ namespace ImageProcessingAtom
             else
             {
                 IImageObjectPtr dstImage = nullptr;
-                const PixelFormatInfo* compressedInfo = CPixelFormats::GetInstance().GetPixelFormatInfo(compressedFmt);
+                [[maybe_unused]] const PixelFormatInfo* compressedInfo = CPixelFormats::GetInstance().GetPixelFormatInfo(compressedFmt);
                 if (isSrcUncompressed)
                 {
                     AZ::u64 startTime = AZStd::GetTimeUTCMilliSecond();

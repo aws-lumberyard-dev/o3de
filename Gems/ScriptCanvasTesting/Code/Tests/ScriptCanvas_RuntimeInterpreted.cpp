@@ -14,7 +14,6 @@
 #include <ScriptCanvas/Core/SubgraphInterfaceUtility.h>
 #include <ScriptCanvas/Core/Nodeable.h>
 #include <ScriptCanvas/Execution/Interpreted/ExecutionInterpretedAPI.h>
-#include <ScriptCanvas/Execution/NodeableOut/NodeableOutNative.h>
 #include <Source/Framework/ScriptCanvasTestFixture.h>
 #include <Source/Framework/ScriptCanvasTestNodes.h>
 #include <Source/Framework/ScriptCanvasTestUtilities.h>
@@ -365,11 +364,6 @@ TEST_F(ScriptCanvasTestFixture, InterpretedCycleDetectSimple)
 TEST_F(ScriptCanvasTestFixture, InterpretedMultipleOutDataFlowParseError)
 {
     ExpectParseError("LY_SC_UnitTest_MultipleOutDataFlowParseError");
-}
-
-TEST_F(ScriptCanvasTestFixture, InterpretedSimultaneousDataInputError)
-{
-    ExpectParseError("LY_SC_UnitTest_SimultaneousDataInputError");
 }
 
 TEST_F(ScriptCanvasTestFixture, InterpretedAnyAsTailNoOp)
@@ -784,7 +778,7 @@ TEST_F(ScriptCanvasTestFixture, InterpretedPrintConnectedInput)
 
 TEST_F(ScriptCanvasTestFixture, InterpretedPrintFormatEmptyValue)
 {
-    RunUnitTestGraph("LY_SC_UnitTest_PrintFormatEmptyValue", ExecutionMode::Interpreted);
+    ExpectParseError("LY_SC_UnitTest_PrintFormatEmptyValue");
 }
 
 TEST_F(ScriptCanvasTestFixture, InterpretedProperties)
@@ -824,7 +818,7 @@ TEST_F(ScriptCanvasTestFixture, InterpretedStringFormat)
 
 TEST_F(ScriptCanvasTestFixture, InterpretedStringFormatEmptyValue)
 {
-    RunUnitTestGraph("LY_SC_UnitTest_StringFormatEmptyValue", ExecutionMode::Interpreted);
+    ExpectParseError("LY_SC_UnitTest_StringFormatEmptyValue");
 }
 
 TEST_F(ScriptCanvasTestFixture, InterpretedStringFormatWithRepeatedValueName)
@@ -939,4 +933,9 @@ TEST_F(ScriptCanvasTestFixture, InterpretedNodeableInputMethodSharedDataSlot)
 TEST_F(ScriptCanvasTestFixture, InterpretedExecutionOutPerformance)
 {
     RunUnitTestGraph("LY_SC_UnitTest_ExecutionOutPerformance", ExecutionMode::Interpreted);
+}
+
+TEST_F(ScriptCanvasTestFixture, PromotedUserVariables)
+{
+    RunUnitTestGraph("LY_SC_UnitTest_PromotedUserVariables", ExecutionMode::Interpreted);
 }

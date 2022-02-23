@@ -1160,8 +1160,8 @@ namespace ScriptCanvas
                 if (!slot->IsDynamicSlot() || slot->HasDisplayType())
                 {
                     InitializeVariableReference((*slot), {});
-        }
-    }
+                }
+            }
             else
             {
                 ModifiableDatumView datumView;
@@ -2391,7 +2391,8 @@ namespace ScriptCanvas
 
             if (variableIds.count(variableId) > 0)
             {
-                InitializeVariableReference(slot, variableIds);
+                slot.ClearVariableReference();
+                NodeNotificationsBus::Event(GetEntityId(), &NodeNotifications::OnSlotInputChanged, slot.GetId());
             }
         }
 
@@ -2576,11 +2577,11 @@ namespace ScriptCanvas
         }
     }
 
-    bool Node::ConvertSlotToReference(const SlotId& slotId)
+    bool Node::ConvertSlotToReference(const SlotId& slotId, bool isNewSlot)
     {
         Slot* slot = GetSlot(slotId);
 
-        if (slot && slot->ConvertToReference())
+        if (slot && slot->ConvertToReference(isNewSlot))
         {
             InitializeVariableReference((*slot), {});
             return true;
@@ -2885,7 +2886,7 @@ namespace ScriptCanvas
             if (node == nullptr)
             {                
                 AZStd::string assetName = m_graphRequestBus->GetAssetName();
-                AZ::EntityId assetNodeId = m_graphRequestBus->FindAssetNodeIdByRuntimeNodeId(endpoint.GetNodeId());
+                [[maybe_unused]] AZ::EntityId assetNodeId = m_graphRequestBus->FindAssetNodeIdByRuntimeNodeId(endpoint.GetNodeId());
                 AZ_Warning("Script Canvas", false, "Unable to find node with id (id: %s) in the graph '%s'. Most likely the node was serialized with a type that is no longer reflected",
                     assetNodeId.ToString().data(), assetName.data());
 
@@ -2900,7 +2901,7 @@ namespace ScriptCanvas
             if (!endpointSlot)
             {
                 AZStd::string assetName = m_graphRequestBus->GetAssetName();
-                AZ::EntityId assetNodeId = m_graphRequestBus->FindAssetNodeIdByRuntimeNodeId(endpoint.GetNodeId());
+                [[maybe_unused]] AZ::EntityId assetNodeId = m_graphRequestBus->FindAssetNodeIdByRuntimeNodeId(endpoint.GetNodeId());
                 AZ_Warning("Script Canvas", false, "Endpoint was missing slot. id (id: %s) in the graph '%s'.",
                     assetNodeId.ToString().data(), assetName.data());
 
@@ -2934,7 +2935,7 @@ namespace ScriptCanvas
             if (node == nullptr)
             {
                 AZStd::string assetName = m_graphRequestBus->GetAssetName();
-                AZ::EntityId assetNodeId = m_graphRequestBus->FindAssetNodeIdByRuntimeNodeId(endpoint.GetNodeId());
+                [[maybe_unused]] AZ::EntityId assetNodeId = m_graphRequestBus->FindAssetNodeIdByRuntimeNodeId(endpoint.GetNodeId());
 
                 AZ_Error("Script Canvas", false, "Unable to find node with id (id: %s) in the graph '%s'. Most likely the node was serialized with a type that is no longer reflected",
                     assetNodeId.ToString().data(), assetName.data());
@@ -2960,6 +2961,11 @@ namespace ScriptCanvas
                 callable(*nodeSlotPair.first, nodeSlotPair.second);
             }
         }
+    }
+
+    AZStd::string Node::GetNodeTypeName() const
+    {
+        return RTTI_GetTypeName();
     }
 
     AZStd::string Node::GetDebugName() const

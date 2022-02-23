@@ -34,6 +34,7 @@
 
 // AzQtComponents
 #include <AzQtComponents/Components/StyledDockWidget.h>
+#include <AzQtComponents/Components/Widgets/FileDialog.h>
 
 // CryCommon
 #include <CryCommon/Maestro/Bus/EditorSequenceComponentBus.h>
@@ -1045,7 +1046,12 @@ void CTrackViewDialog::OnAddSequence()
             AzToolsFramework::ScopedUndoBatch undoBatch("Create TrackView Director Node");
             sequenceManager->CreateSequence(sequenceName, sequenceType);
             CTrackViewSequence* newSequence = sequenceManager->GetSequenceByName(sequenceName);
-            AZ_Assert(newSequence, "Creating new sequence failed.");
+
+            if (!newSequence)
+            {
+                return;
+            }
+            
             undoBatch.MarkEntityDirty(newSequence->GetSequenceComponentEntityId());
 
             // make it the currently selected sequence
@@ -2324,7 +2330,7 @@ void CTrackViewDialog::SaveCurrentSequenceToFBX()
         }
     }
 
-    QString filename = QFileDialog::getSaveFileName(this, tr("Export Selected Nodes To FBX File"), selectedSequenceFBXStr, szFilters);
+    QString filename = AzQtComponents::FileDialog::GetSaveFileName(this, tr("Export Selected Nodes To FBX File"), selectedSequenceFBXStr, szFilters);
     if (!filename.isEmpty())
     {
         pExportManager->SetBakedKeysSequenceExport(true);

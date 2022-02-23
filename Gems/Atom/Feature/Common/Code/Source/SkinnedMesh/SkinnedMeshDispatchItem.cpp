@@ -14,6 +14,7 @@
 #include <Atom/RPI.Public/Shader/Shader.h>
 #include <Atom/RPI.Public/Model/ModelLod.h>
 #include <Atom/RPI.Public/Buffer/Buffer.h>
+#include <Atom/RPI.Public/RPIUtils.h>
 
 #include <Atom/RHI/Factory.h>
 #include <Atom/RHI/BufferView.h>
@@ -199,17 +200,14 @@ namespace AZ
             m_instanceSrg->Compile();
             m_dispatchItem.m_uniqueShaderResourceGroup = m_instanceSrg->GetRHIShaderResourceGroup();
             m_dispatchItem.m_pipelineState = m_skinningShader->AcquirePipelineState(pipelineStateDescriptor);
-            
-            const auto& numThreads = m_skinningShader->GetAsset()->GetAttribute(RHI::ShaderStage::Compute, AZ::Name{ "numthreads" });
-            auto& arguments = m_dispatchItem.m_arguments.m_direct;
-            if (numThreads)
-            {
-                const auto& args = *numThreads;
-                arguments.m_threadsPerGroupX = static_cast<uint16_t>(args[0].type() == azrtti_typeid<int>() ? AZStd::any_cast<int>(args[0]) : 1);
-                arguments.m_threadsPerGroupY = static_cast<uint16_t>(args[1].type() == azrtti_typeid<int>() ? AZStd::any_cast<int>(args[1]) : 1);
-                arguments.m_threadsPerGroupZ = static_cast<uint16_t>(args[2].type() == azrtti_typeid<int>() ? AZStd::any_cast<int>(args[2]) : 1);
-            }
 
+            auto& arguments = m_dispatchItem.m_arguments.m_direct;
+            const auto outcome = RPI::GetComputeShaderNumThreads(m_skinningShader->GetAsset(), arguments);
+            if (!outcome.IsSuccess())
+            {
+                AZ_Error("SkinnedMeshInputBuffers", false, outcome.GetError().c_str());
+            }
+ 
             arguments.m_totalNumberOfThreadsX = xThreads;
             arguments.m_totalNumberOfThreadsY = yThreads;
             arguments.m_totalNumberOfThreadsZ = 1;
@@ -227,12 +225,12 @@ namespace AZ
             return m_boneTransforms;
         }
 
-        AZStd::array_view<AZ::RHI::Ptr<RHI::BufferView>> SkinnedMeshDispatchItem::GetSourceUnskinnedBufferViews() const
+        AZStd::span<const AZ::RHI::Ptr<RHI::BufferView>> SkinnedMeshDispatchItem::GetSourceUnskinnedBufferViews() const
         {
             return m_inputBuffers->GetInputBufferViews(m_lodIndex);
         }
 
-        AZStd::array_view<AZ::RHI::Ptr<RHI::BufferView>> SkinnedMeshDispatchItem::GetTargetSkinnedBufferViews() const
+        AZStd::span<const AZ::RHI::Ptr<RHI::BufferView>> SkinnedMeshDispatchItem::GetTargetSkinnedBufferViews() const
         {
             return m_actorInstanceBufferViews;
         }

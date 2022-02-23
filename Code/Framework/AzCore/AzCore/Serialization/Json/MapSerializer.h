@@ -32,7 +32,7 @@ namespace AZ
         virtual JsonSerializationResult::Result LoadElement(void* outputValue, SerializeContext::IDataContainer* container, 
             const SerializeContext::ClassElement* pairElement, SerializeContext::IDataContainer* pairContainer, 
             const SerializeContext::ClassElement* keyElement, const SerializeContext::ClassElement* valueElement, 
-            const rapidjson::Value& key, const rapidjson::Value& value, JsonDeserializerContext& context);
+            const rapidjson::Value& key, const rapidjson::Value& value, JsonDeserializerContext& context, bool isMultiMap = false);
         
         virtual JsonSerializationResult::Result Store(rapidjson::Value& outputValue, const void* inputValue, const void* defaultValue,
             const Uuid& valueTypeId, JsonSerializerContext& context, bool sortResult);
@@ -46,7 +46,8 @@ namespace AZ
     public:
         AZ_RTTI(JsonUnorderedMapSerializer, "{EF4478D3-1820-4FDB-A7B7-C9711EB41602}", JsonMapSerializer);
         AZ_CLASS_ALLOCATOR_DECL;
-        
+
+        using JsonMapSerializer::Store;
         JsonSerializationResult::Result Store(rapidjson::Value& outputValue, const void* inputValue, const void* defaultValue,
             const Uuid& valueTypeId, JsonSerializerContext& context) override;
     };
@@ -61,8 +62,9 @@ namespace AZ
         JsonSerializationResult::Result LoadElement(void* outputValue, SerializeContext::IDataContainer* container,
             const SerializeContext::ClassElement* pairElement, SerializeContext::IDataContainer* pairContainer,
             const SerializeContext::ClassElement* keyElement, const SerializeContext::ClassElement* valueElement,
-            const rapidjson::Value& key, const rapidjson::Value& value, JsonDeserializerContext& context) override;
+            const rapidjson::Value& key, const rapidjson::Value& value, JsonDeserializerContext& context, bool isMultiMap = false) override;
 
+        using JsonMapSerializer::Store;
         JsonSerializationResult::Result Store(rapidjson::Value& outputValue, const void* inputValue, const void* defaultValue,
             const Uuid& valueTypeId, JsonSerializerContext& context) override;
     };

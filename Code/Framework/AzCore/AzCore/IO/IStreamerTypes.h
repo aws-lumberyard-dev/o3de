@@ -137,7 +137,7 @@ namespace AZ::IO::IStreamerTypes
     public:
         //! DefaultRequestMemoryAllocator wraps around the AZ::SystemAllocator by default.
         DefaultRequestMemoryAllocator();
-        explicit DefaultRequestMemoryAllocator(AZ::IAllocatorAllocate& allocator);
+        explicit DefaultRequestMemoryAllocator(AZ::IAllocator& allocator);
         ~DefaultRequestMemoryAllocator() override;
 
         void LockAllocator() override;
@@ -150,10 +150,8 @@ namespace AZ::IO::IStreamerTypes
 
     private:
         AZStd::atomic_int m_lockCounter{ 0 };
-#ifdef AZ_ENABLE_TRACING
         AZStd::atomic_int m_allocationCounter{ 0 };
-#endif
-        AZ::IAllocatorAllocate& m_allocator;
+        AZ::IAllocator& m_allocator;
     };
 
     // The following alignment functions are put here until they're available in AzCore's math library.

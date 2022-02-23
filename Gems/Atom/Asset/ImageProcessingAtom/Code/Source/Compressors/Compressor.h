@@ -8,7 +8,7 @@
 
 #pragma once
 
-#include <BuilderSettings/ImageProcessingDefines.h>
+#include <Atom/ImageProcessing/ImageProcessingDefines.h>
 #include <Atom/ImageProcessing/PixelFormats.h>
 #include <Atom/ImageProcessing/ImageObject.h>
 
@@ -38,8 +38,7 @@ namespace ImageProcessingAtom
             EQuality compressQuality = eQuality_Normal;
             //required for CTSquisher
             AZ::Vector3 rgbWeight = AZ::Vector3(0.3333f, 0.3334f, 0.3333f);
-            //required for ISPC texture compressor
-            bool ispcDiscardAlpha = false;
+            bool discardAlpha = false;
         };
 
     public:

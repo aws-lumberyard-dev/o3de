@@ -183,18 +183,35 @@ namespace PhysX::Benchmarks
     class PhysXJointBenchmarkFixture
         : public PhysXBaseBenchmarkFixture
     {
-    public:
-        virtual void SetUp([[maybe_unused]] const ::benchmark::State &state) override
+        void internalSetUp()
         {
             PhysXBaseBenchmarkFixture::SetUpInternal();
         }
 
-        virtual void TearDown([[maybe_unused]] const ::benchmark::State &state) override
+        void internalTearDown()
         {
             PhysXBaseBenchmarkFixture::TearDownInternal();
         }
 
-    protected:
+    public:
+        void SetUp(const benchmark::State&) override
+        {
+            internalSetUp();
+        }
+        void SetUp(benchmark::State&) override
+        {
+            internalSetUp();
+        }
+
+        void TearDown(const benchmark::State&) override
+        {
+            internalTearDown();
+        }
+        void TearDown(benchmark::State&) override
+        {
+            internalTearDown();
+        }
+
         // PhysXBaseBenchmarkFixture Interface ---------
         AzPhysics::SceneConfiguration GetDefaultSceneConfiguration() override
         {
@@ -228,7 +245,7 @@ namespace PhysX::Benchmarks
 
         //setup the frame timer tracker
         Types::TimeList tickTimes;
-        for (auto _ : state)
+        for ([[maybe_unused]] auto _ : state)
         {
             for (AZ::u32 i = 0; i < JointConstants::GameFramesToSimulate; i++)
             {
@@ -283,7 +300,7 @@ namespace PhysX::Benchmarks
 
         //setup the frame timer tracker
         Types::TimeList tickTimes;
-        for (auto _ : state)
+        for ([[maybe_unused]] auto _ : state)
         {
             for (AZ::u32 i = 0; i < JointConstants::GameFramesToSimulate; i++)
             {
@@ -382,7 +399,7 @@ namespace PhysX::Benchmarks
 
         //setup the frame timer tracker
         Types::TimeList tickTimes;
-        for (auto _ : state)
+        for ([[maybe_unused]] auto _ : state)
         {
             for (AZ::u32 i = 0; i < JointConstants::GameFramesToSimulate; i++)
             {

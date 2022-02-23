@@ -13,7 +13,6 @@
 #include <GridMate/GridMate.h>
 #include <GridMate/GridMateService.h>
 #include <GridMate/GridMateEventsBus.h>
-#include <GridMate/Version.h>
 
 AZ_DEFINE_BUDGET(GridMate);
 
@@ -36,7 +35,7 @@ namespace GridMate
         AZ_CLASS_ALLOCATOR(GridMateImpl, GridMateAllocator, 0);
 
         GridMateImpl(const GridMateDesc& desc);
-        virtual ~GridMateImpl();
+        ~GridMateImpl() override;
 
         void Update() override;
 

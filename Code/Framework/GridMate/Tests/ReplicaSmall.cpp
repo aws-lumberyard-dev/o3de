@@ -254,7 +254,7 @@ public:
             s_nInstances++;
         }
 
-        ~OfflineChunk()
+        ~OfflineChunk() override
         {
             s_nInstances--;
         }
@@ -273,7 +273,7 @@ public:
             return true;
         }
 
-        bool IsReplicaMigratable() { return true; }
+        bool IsReplicaMigratable() override { return true; }
 
         DataSet<int> m_data1;
         DataSet<int>::BindInterface<OfflineChunk, & OfflineChunk::DataSetChangeCB> m_data2;
@@ -453,7 +453,6 @@ public:
 //        replicaHeader += 16;
 //#endif
 //        const int marshalDataSize = 48; //Data plus length
-        //Only for Driller
         ReplicaManager rm;
         ReplicaPeer peer(&rm);
 

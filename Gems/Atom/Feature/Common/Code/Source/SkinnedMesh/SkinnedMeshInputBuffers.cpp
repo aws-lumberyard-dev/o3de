@@ -212,7 +212,7 @@ namespace AZ
 
         void SkinnedMeshInputLod::CreateSharedSubMeshBufferViews()
         {
-            AZStd::array_view<RPI::ModelLodAsset::Mesh> meshes = m_modelLodAsset->GetMeshes();
+            AZStd::span<const RPI::ModelLodAsset::Mesh> meshes = m_modelLodAsset->GetMeshes();
             m_sharedSubMeshViews.resize(meshes.size());
 
             // The index and static buffer views will be shared by all instances that use the same SkinnedMeshInputBuffers, so set them here
@@ -307,7 +307,7 @@ namespace AZ
             return m_lods[lodIndex];
         }
 
-        AZStd::array_view<AZ::RHI::Ptr<RHI::BufferView>> SkinnedMeshInputBuffers::GetInputBufferViews(size_t lodIndex) const
+        AZStd::span<const AZ::RHI::Ptr<RHI::BufferView>> SkinnedMeshInputBuffers::GetInputBufferViews(size_t lodIndex) const
         {
             return m_lods[lodIndex].m_bufferViews;
         }
@@ -534,7 +534,7 @@ namespace AZ
             //            lod0 Positions[^                         ^]             lod0Normals[^                         ^]   lod1Positions[^     ^]     lod1Normals[^     ^]
             // lod0 subMesh0+1 Positions[^             ^^          ^] lod0 subMesh0+1 Normals[^             ^^          ^]  lod1 sm0+1 pos[^  ^^ ^] lod1 sm0+1 norm[^  ^^ ^]
 
-            AZ_PROFILE_FUNCTION(AzRender);
+            AZ_PROFILE_SCOPE(AzRender, "SkinnedMeshInputBuffers: CreateSkinnedMeshInstance");
             AZStd::intrusive_ptr<SkinnedMeshInstance> instance = aznew SkinnedMeshInstance;
 
             // Each model gets a unique, random ID, so if the same source model is used for multiple instances, multiple target models will be created.

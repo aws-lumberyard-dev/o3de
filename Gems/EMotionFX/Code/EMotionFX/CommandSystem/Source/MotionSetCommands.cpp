@@ -22,7 +22,6 @@
 #include <EMotionFX/Source/AnimGraph.h>
 #include <EMotionFX/Source/AnimGraphNode.h>
 #include <EMotionFX/Source/AnimGraphMotionNode.h>
-#include <EMotionFX/Exporters/ExporterLib/Exporter/ExporterFileProcessor.h>
 #include <AzFramework/API/ApplicationAPI.h>
 
 namespace CommandSystem
@@ -997,7 +996,7 @@ namespace CommandSystem
                 else
                 {
                     AZStd::string result;
-                    const bool success = GetCommandManager()->ExecuteCommand(AZStd::string::format("Unselect -motionName %s", selectedMotion->GetName()), result);
+                    [[maybe_unused]] const bool success = GetCommandManager()->ExecuteCommand(AZStd::string::format("Unselect -motionName %s", selectedMotion->GetName()), result);
                     AZ_Error("EMotionFX", success, result.c_str());
                 }
             }

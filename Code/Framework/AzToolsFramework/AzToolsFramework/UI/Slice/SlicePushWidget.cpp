@@ -1201,8 +1201,6 @@ namespace AzToolsFramework
                     .arg((item->parent() == nullptr) ? item->m_entity->GetName().c_str() : GetNodeDisplayName(*item->m_node).c_str()));
             }
 
-            SliceTargetTreeItem* parent = nullptr;
-
             AZStd::vector<SliceAssetPtr> validSliceAssets = GetValidTargetAssetsForField(*item);
 
             // For the selected item populate the tree of all valid slice targets.
@@ -1274,7 +1272,6 @@ namespace AzToolsFramework
                     selectButton->setChecked(true);
                 }
 
-                parent = sliceItem;
                 ++level;
             }
         }
@@ -2525,7 +2522,7 @@ namespace AzToolsFramework
     {
         // This is an approximate measurement of how much this slice proliferates within the currently-loaded level.
         // Down the line we'll actually query the asset DB's dependency tree, summing up instances.
-
+        AZ_UNUSED(levelSlice); // Prevent unused warning in release builds
         AZ_Warning("SlicePush", levelSlice, "SlicePushWidget::CalculateReferenceCount could not find root slice, displayed counts will be inaccurate!");
         size_t instanceCount = 0;
         AZ::Data::AssetBus::EnumerateHandlersId(assetId,

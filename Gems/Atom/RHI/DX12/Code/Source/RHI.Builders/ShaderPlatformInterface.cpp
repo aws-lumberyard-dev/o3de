@@ -12,10 +12,10 @@
 #include <Atom/RHI.Edit/Utils.h>
 #include <Atom/RHI.Reflect/DX12/PipelineLayoutDescriptor.h>
 #include <Atom/RHI.Reflect/DX12/ShaderStageFunction.h>
+#include <Atom/RHI/RHIUtils.h>
 
 #include <AzCore/IO/FileIO.h>
 #include <AzCore/IO/SystemFile.h>
-
 #include <AzFramework/StringFunc/StringFunc.h>
 
 namespace AZ
@@ -114,7 +114,7 @@ namespace AZ
                     }
                 }
 
-                if (shaderCompilerArguments.m_dxcDisableOptimizations)
+                if (shaderCompilerArguments.m_disableOptimizations)
                 {
                     // When optimizations are disabled (-Od), all resources declared in the source file are available to all stages
                     // (when enabled only the resources which are referenced in a stage are bound to the stage)
@@ -195,7 +195,7 @@ namespace AZ
 
         bool ShaderPlatformInterface::BuildHasDebugInfo(const RHI::ShaderCompilerArguments& shaderCompilerArguments) const
         {
-            return shaderCompilerArguments.m_dxcGenerateDebugInfo;
+            return shaderCompilerArguments.m_generateDebugInfo;
         }
 
         const char* ShaderPlatformInterface::GetAzslHeader(const AssetBuilderSDK::PlatformInfo& platform) const
@@ -253,8 +253,15 @@ namespace AZ
                 return false;
             }
 
+            const bool graphicsDevMode = RHI::IsGraphicsDevModeEnabled();
+
             // Compilation parameters
             AZStd::string params = shaderCompilerArguments.MakeAdditionalDxcCommandLineString();
+            if (graphicsDevMode || BuildHasDebugInfo(shaderCompilerArguments))
+            {
+                params += " -Zi";  // Generate debug information
+                params += " -Zss"; // Compute Shader Hash considering source information
+            }
 
             // Enable half precision types when shader model >= 6.2
             int shaderModelMajor = 0;
@@ -279,14 +286,13 @@ namespace AZ
             // If we use the auto-name (hash), there is no way we can retrieve that name apart from listing the directory.
             // Instead, let's just generate that hash ourselves.
             AZStd::string symbolDatabaseFileCliArgument{" "};  // when not debug: still insert a space between 5.dxil and 7.hlsl-in
-            if (BuildHasDebugInfo(shaderCompilerArguments))
+            if (graphicsDevMode || BuildHasDebugInfo(shaderCompilerArguments))
             {
-                // prepare .ldd filename:
+                // prepare .pdb filename:
                 AZStd::string md5hex = RHI::ByteToHexString(md5);
                 AZStd::string symbolDatabaseFilePath = dxcInputFile.c_str();  // mutate from source
-                AZStd::string lldFileName = md5hex    // lld is like pdb but it's the default symbol database extension in dxc
-                                          + "-" + profileIt->second;   // concatenate the shader profile to disambiguate vs/ps...
-                AzFramework::StringFunc::Path::ReplaceFullName(symbolDatabaseFilePath, lldFileName.c_str(), "lld");
+                AZStd::string pdbFileName = md5hex + "-" + profileIt->second;   // concatenate the shader profile to disambiguate vs/ps...
+                AzFramework::StringFunc::Path::ReplaceFullName(symbolDatabaseFilePath, pdbFileName.c_str(), "pdb");
                 // it is possible that another activated platform/profile, already exported that file. (since it's hashed on the source file)
                 // dxc returns an error in such case. we get less surprising effets by just not mentionning an -Fd argument
                 if (AZ::IO::SystemFile::Exists(symbolDatabaseFilePath.c_str()))
@@ -349,7 +355,7 @@ namespace AZ
                 byProducts.m_dynamicBranchCount = ByProducts::UnknownDynamicBranchCount;
             }
 
-            if (BuildHasDebugInfo(shaderCompilerArguments))
+            if (graphicsDevMode || BuildHasDebugInfo(shaderCompilerArguments))
             {
                 byProducts.m_intermediatePaths.emplace(AZStd::move(objectCodeOutputFile));
             }

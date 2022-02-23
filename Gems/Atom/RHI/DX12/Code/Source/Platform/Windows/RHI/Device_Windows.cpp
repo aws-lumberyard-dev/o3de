@@ -112,6 +112,8 @@ namespace AZ
             {
                 infoQueue->SetBreakOnSeverity(D3D12_MESSAGE_SEVERITY_ERROR, TRUE);
                 infoQueue->SetBreakOnSeverity(D3D12_MESSAGE_SEVERITY_CORRUPTION, TRUE);
+                //Un-comment this if you want to break on warnings too
+                //infoQueue->SetBreakOnSeverity(D3D12_MESSAGE_SEVERITY_WARNING, TRUE);
             }
         }
 
@@ -155,7 +157,10 @@ namespace AZ
                 disabledMessages.push_back(D3D12_MESSAGE_ID_COPY_DESCRIPTORS_INVALID_RANGES);
             }
 
-            // [GFX TODO][ATOM-4712] - Fix PipelineLibrary Loading. These warnings were silenced for a release and need to be fixed properly.
+            // We disable these warnings as the our current implementation of Pipeline Library will trigger these warnings unknowingly. For example
+            // it will always first try to load a pso from pipelinelibrary triggering D3D12_MESSAGE_ID_LOADPIPELINE_NAMENOTFOUND (for the first time) before storing the PSO in a library.
+            // Similarly when we merge multiple pipeline libraries (in multiple threads) we may trigger D3D12_MESSAGE_ID_STOREPIPELINE_DUPLICATENAME as it is possible to save
+            // a PSO already saved in the main library. 
 #if defined (AZ_DX12_USE_PIPELINE_LIBRARY)
             disabledMessages.push_back(D3D12_MESSAGE_ID_LOADPIPELINE_NAMENOTFOUND);
             disabledMessages.push_back(D3D12_MESSAGE_ID_STOREPIPELINE_DUPLICATENAME);
@@ -258,6 +263,14 @@ namespace AZ
             return RHI::ResultCode::Success;
         }
 
+        RHI::ResultCode Device::CreateSwapChain(
+            [[maybe_unused]] const DXGI_SWAP_CHAIN_DESCX& swapChainDesc,
+            [[maybe_unused]] AZStd::array<RHI::Ptr<ID3D12Resource>, RHI::Limits::Device::FrameCountMax>& outSwapChainResources)
+        {
+            AZ_Assert(false, "Wrong Device::CreateSwapChain function called on Windows.");
+            return RHI::ResultCode::Fail;
+        }
+
         AZStd::vector<RHI::Format> Device::GetValidSwapChainImageFormats(const RHI::WindowHandle& windowHandle) const
         {
             AZStd::vector<RHI::Format> formatsList;
@@ -316,6 +329,11 @@ namespace AZ
             formatsList.push_back(RHI::Format::R8G8B8A8_UNORM);
 
             return formatsList;
+        }
+
+        void Device::BeginFrameInternal()
+        {
+            m_commandQueueContext.Begin();
         }
     }
 }
