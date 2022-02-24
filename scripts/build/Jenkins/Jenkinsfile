@@ -13,6 +13,7 @@ PIPELINE_CONFIG_FILE = 'scripts/build/Jenkins/lumberyard.json'
 INCREMENTAL_BUILD_SCRIPT_PATH = 'scripts/build/bootstrap/incremental_build_util.py'
 EBS_SNAPSHOT_SCRIPT_PATH = 'scripts/build/tools/ebs_snapshot.py'
 PIPELINE_RETRY_ATTEMPTS = 3
+GITHUB_URL = "https://github.com/aws-lumberyard-dev/o3de/blob/development/"
 
 // Number of minutes of inactivity in all stages of the pipeline to reach the timeout
 PIPELINE_TIMEOUT = 60
@@ -515,6 +516,40 @@ def HandleDriveSnapshots(String repositoryName, String projectName, String pipel
     }
 }
 
+def ReplaceContent() {
+    contentReplace(
+        configs: [
+            // Replace .cpp references to github links
+            fileContentReplaceConfig(
+            configs: [
+                fileContentReplaceItemConfig(
+                search: '( .*o3de)(.*\\.cpp)\\((\\d+)\\)',
+                replace: ' ' + GITHUB_URL + '$2#L$3',
+                matchCount: 0,
+                verbose: false,
+                )
+            ],
+            fileEncoding: 'UTF-8',
+            filePath:'${JENKINS_HOME}/jobs/O3DETesting/branches/jenkins-testing.g0k6o0/builds/${BUILD_NUMBER}/log'
+            ),
+            // Replace .py references github links
+            fileContentReplaceConfig(
+            configs: [
+                fileContentReplaceItemConfig(
+                search: ' .*(\\.\\.\\\\)+(.*\\.py):(\\d+): ',
+                replace: ' ' + GITHUB_URL + '$2#L$3 ',
+                matchCount: 0,
+                verbose: false,
+                )
+            ],
+            fileEncoding: 'UTF-8',
+            filePath:'${JENKINS_HOME}/jobs/O3DETesting/branches/jenkins-testing.g0k6o0/builds/${BUILD_NUMBER}/log'
+            )
+        ]
+    )
+    // $JENKINS_HOME/jobs/$JOB_NAME/builds/${BUILD_NUMBER}/log
+}
+
 def CreateSetupStage(Map pipelineConfig, String snapshot, String repositoryName, String projectName, String pipelineName, String branchName, String platformName, String jobName, Map environmentVars, boolean onlyMountEBSVolume = false) {
     return {
         stage('Setup') {
@@ -904,39 +939,7 @@ catch(Exception e) {
 finally {
     try {
         node('controller') {
-            //
-            github_url = "https://github.com/aws-lumberyard-dev/o3de/blob/development/"
-            contentReplace(
-                configs: [
-                    // .cpp github links
-                    fileContentReplaceConfig(
-                    configs: [
-                        fileContentReplaceItemConfig(
-                        search: '( .*o3de)(.*\\.cpp)\\((\\d+)\\)',
-                        replace: ' ' + github_url + '$2#L$3',
-                        matchCount: 0,
-                        verbose: false,
-                        )
-                    ],
-                    fileEncoding: 'UTF-8',
-                    filePath:'${JENKINS_HOME}/jobs/O3DETesting/branches/jenkins-testing.g0k6o0/builds/${BUILD_NUMBER}/log'
-                    ),
-                    // .py github links
-                    fileContentReplaceConfig(
-                    configs: [
-                        fileContentReplaceItemConfig(
-                        search: ' .*(\\.\\.\\\\)+(.*\\.py):(\\d+): ',
-                        replace: ' ' + github_url + '$2#L$3 ',
-                        matchCount: 0,
-                        verbose: false,
-                        )
-                    ],
-                    fileEncoding: 'UTF-8',
-                    filePath:'${JENKINS_HOME}/jobs/O3DETesting/branches/jenkins-testing.g0k6o0/builds/${BUILD_NUMBER}/log'
-                    )
-                ]
-            )
-            // $JENKINS_HOME/jobs/$JOB_NAME/builds/${BUILD_NUMBER}/log
+            ReplaceContent()
             if("${currentBuild.currentResult}" == "SUCCESS") {
                 buildFailure = ""
                 emailBody = "${BUILD_URL}\nSuccess!"
