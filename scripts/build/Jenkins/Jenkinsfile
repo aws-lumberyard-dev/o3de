@@ -925,7 +925,7 @@ finally {
                     fileContentReplaceConfig(
                     configs: [
                         fileContentReplaceItemConfig(
-                        search: ' .*(\\.\\.\\)*(.*\\.py)\\:(\\d+): ',
+                        search: ' .*(\\.\\.\\\\)*(.*\\.py):(\\d+): ',
                         replace: github_url + 'o3de/$2#L$3 ', // Pytest reports directories based off of Jenkins using ~/o3de as the CWD
                         matchCount: 0,
                         verbose: false,
