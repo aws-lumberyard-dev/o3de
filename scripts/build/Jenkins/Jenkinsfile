@@ -905,7 +905,7 @@ finally {
     try {
         node('controller') {
             //
-            github_url = "https://github.com/aws-lumberyard-dev/o3de/blob/development/"
+            github_url = " https://github.com/aws-lumberyard-dev/o3de/blob/development/"
             contentReplace(
                 configs: [
                     // .cpp github links
@@ -925,8 +925,8 @@ finally {
                     fileContentReplaceConfig(
                     configs: [
                         fileContentReplaceItemConfig(
-                        search: '( .*)(\\.py)\\:(\\d+): ',
-                        replace: github_url + 'o3de/$2#L$3 ', // Pytest reports directories based off of Jenkins using ~/o3de as the CWD
+                        search: '( .*)(\\.\\.\\)*(.*\\.py)\\:(\\d+): ',
+                        replace: github_url + 'o3de/$3#L$4 ', // Pytest reports directories based off of Jenkins using ~/o3de as the CWD
                         matchCount: 0,
                         verbose: false,
                         )
