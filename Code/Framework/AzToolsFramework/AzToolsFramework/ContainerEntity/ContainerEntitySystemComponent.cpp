@@ -41,15 +41,15 @@ namespace AzToolsFramework
 
     ContainerEntityOperationResult ContainerEntitySystemComponent::RegisterEntityAsContainer(AZ::EntityId entityId)
     {
-        if (IsContainer(entityId))
-        {
-            return AZ::Failure(AZStd::string(
-                "ContainerEntitySystemComponent error - trying to register entity as container twice."));
-        }
+    if (IsContainer(entityId))
+    {
+        return AZ::Failure(AZStd::string(
+            "ContainerEntitySystemComponent error - trying to register entity as container twice."));
+    }
 
-        m_containers.insert(entityId);
+    m_containers.insert(entityId);
 
-        return AZ::Success();
+    return AZ::Success();
     }
 
     ContainerEntityOperationResult ContainerEntitySystemComponent::UnregisterEntityAsContainer(AZ::EntityId entityId)
@@ -78,7 +78,7 @@ namespace AzToolsFramework
                 "ContainerEntitySystemComponent error - cannot set open state of entity that was not registered as container."));
         }
 
-        if(open)
+        if (open)
         {
             m_openContainers.insert(entityId);
         }
@@ -95,7 +95,7 @@ namespace AzToolsFramework
     bool ContainerEntitySystemComponent::IsContainerOpen(AZ::EntityId entityId) const
     {
         // Non-container entities behave the same as open containers. This saves the caller an additional check.
-        if(!m_containers.contains(entityId))
+        if (!m_containers.contains(entityId))
         {
             return true;
         }
@@ -111,8 +111,16 @@ namespace AzToolsFramework
             return entityId;
         }
 
+        // Get currently selected entities
+        EntityIdList selectedEntities;
+        ToolsApplicationRequestBus::BroadcastResult(selectedEntities, &ToolsApplicationRequests::GetSelectedEntities);
+
         // Return the highest closed container, or the entity if none is found.
         AZ::EntityId highestSelectableEntityId = entityId;
+        AZ::EntityId secondLastOpenContainerBeforeSelection = entityId;
+        AZ::EntityId lastOpenContainerBeforeSelection = entityId;
+        bool hitClosedContainer = false;
+        bool hitSelectedOpenContainer = false;
 
         // Skip the queried entity, as we only want to check its ancestors.
         AZ::TransformBus::EventResult(entityId, entityId, &AZ::TransformBus::Events::GetParentId);
@@ -125,12 +133,34 @@ namespace AzToolsFramework
                 // If one of the ancestors is a container and it's closed, keep track of its id.
                 // We only return of the higher closed container in the hierarchy.
                 highestSelectableEntityId = entityId;
+                hitClosedContainer = true;
+            }
+            else
+            {
+                if (!hitSelectedOpenContainer)
+                {
+                    if (IsContainer(entityId) && AZStd::find(selectedEntities.begin(), selectedEntities.end(), entityId) != selectedEntities.end())
+                    {
+                        hitSelectedOpenContainer = true;
+                    }
+                    else
+                    {
+                        secondLastOpenContainerBeforeSelection = lastOpenContainerBeforeSelection;
+                        lastOpenContainerBeforeSelection = entityId;
+                    }
+                }
             }
 
             AZ::TransformBus::EventResult(entityId, entityId, &AZ::TransformBus::Events::GetParentId);
         }
 
-        return highestSelectableEntityId;
+        if (hitClosedContainer)
+        {
+            return highestSelectableEntityId;
+        }
+
+        // We will always hit the root, so exclude it for our purposes
+        return secondLastOpenContainerBeforeSelection;
     }
 
     void ContainerEntitySystemComponent::OnEntityStreamLoadSuccess()
