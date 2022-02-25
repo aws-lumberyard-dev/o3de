@@ -93,6 +93,7 @@ namespace AssetProcessor
             "    SubID          INTEGER NOT NULL, "
             "    AssetType      BLOB NOT NULL, "
             "    LegacyGuid     BLOB NOT NULL, "
+            "    Flags          INTEGER NOT NULL DEFAULT 1, "
             "    FOREIGN KEY (JobPK) REFERENCES "
             "       Jobs(JobID) ON DELETE CASCADE);";
 
@@ -394,15 +395,16 @@ namespace AssetProcessor
 
         static const char* INSERT_PRODUCT = "AssetProcessor::InsertProduct";
         static const char* INSERT_PRODUCT_STATEMENT =
-            "INSERT INTO Products (JobPK, SubID, ProductName, AssetType, LegacyGuid) "
-            "VALUES (:jobid, :subid, :productname, :assettype, :legacyguid);";
+            "INSERT INTO Products (JobPK, SubID, ProductName, AssetType, LegacyGuid, Flags) "
+            "VALUES (:jobid, :subid, :productname, :assettype, :legacyguid, :flags);";
 
         static const auto s_InsertProductQuery = MakeSqlQuery(INSERT_PRODUCT, INSERT_PRODUCT_STATEMENT, LOG_NAME,
             SqlParam<AZ::s64>(":jobid"),
             SqlParam<AZ::u32>(":subid"),
             SqlParam<const char*>(":productname"),
             SqlParam<AZ::Uuid>(":assettype"),
-            SqlParam<AZ::Uuid>(":legacyguid"));
+            SqlParam<AZ::Uuid>(":legacyguid"),
+            SqlParam<AZ::u64>(":flags"));
 
         static const char* UPDATE_PRODUCT = "AssetProcessor::UpdateProduct";
         static const char* UPDATE_PRODUCT_STATEMENT =
@@ -411,8 +413,9 @@ namespace AssetProcessor
             "SubID = :subid, "
             "ProductName = :productname, "
             "AssetType = :assettype, "
-            "LegacyGuid = :legacyguid WHERE "
-            "ProductID = :productid;";
+            "LegacyGuid = :legacyguid, "
+            "Flags = :flags "
+            "WHERE ProductID = :productid;";
 
         static const auto s_UpdateProductQuery = MakeSqlQuery(UPDATE_PRODUCT, UPDATE_PRODUCT_STATEMENT, LOG_NAME,
             SqlParam<AZ::s64>(":jobid"),
@@ -420,6 +423,7 @@ namespace AssetProcessor
             SqlParam<const char*>(":productname"),
             SqlParam<AZ::Uuid>(":assettype"),
             SqlParam<AZ::Uuid>(":legacyguid"),
+            SqlParam<AZ::u64>(":flags"),
             SqlParam<AZ::s64>(":productid"));
 
         static const char* DELETE_PRODUCT = "AssetProcessor::DeleteProduct";
@@ -766,6 +770,11 @@ namespace AssetProcessor
         static const char* DROPINDEX_BUILDERGUID_SOURCE_SOURCEDEPENDENCY = "AssetProcesser::DropIndexBuilderGuid_Source_SourceDependency";
         static const char* DROPINDEX_BUILDERGUID_SOURCE_SOURCEDEPENDENCY_STATEMENT =
             "DROP INDEX IF EXISTS BuilderGuid_Source_SourceDependency;";
+
+        static const char* INSERT_COLUMN_PRODUCTS_FLAGS = "AssetProcessor::InsertColumnProductsFlags";
+        static const char* INSERT_COLUMN_PRODUCTS_FLAGS_STATEMENT =
+            "ALTER TABLE Products "
+            "ADD Flags INTEGER NOT NULL DEFAULT 1;";
     }
 
     AssetDatabaseConnection::AssetDatabaseConnection()
@@ -1050,6 +1059,15 @@ namespace AssetProcessor
             }
         }
 
+        if(foundVersion == AssetDatabase::DatabaseVersion::AddedSourceIndexForSourceDependencyTable)
+        {
+            if(m_databaseConnection->ExecuteOneOffStatement(INSERT_COLUMN_PRODUCTS_FLAGS))
+            {
+                foundVersion = AssetDatabase::DatabaseVersion::AddedFlagsColumnToProductTable;
+                AZ_TracePrintf(AssetProcessor::ConsoleChannel, "Upgraded Asset Database to version %i (AddedFlagsColumnToProductTable)\n", foundVersion);
+            }
+        }
+
         if (foundVersion == CurrentDatabaseVersion())
         {
             dropAllTables = false;
@@ -1192,6 +1210,7 @@ namespace AssetProcessor
         //                   Products table
         // ---------------------------------------------------------------------------------------------
         m_databaseConnection->AddStatement(CREATE_PRODUCT_TABLE, CREATE_PRODUCT_TABLE_STATEMENT);
+        m_databaseConnection->AddStatement(INSERT_COLUMN_PRODUCTS_FLAGS, INSERT_COLUMN_PRODUCTS_FLAGS_STATEMENT);
         m_createStatements.push_back(CREATE_PRODUCT_TABLE);
 
         AddStatement(m_databaseConnection, s_InsertProductQuery);
@@ -2270,7 +2289,7 @@ namespace AssetProcessor
             if (wasAlreadyInDatabase)
             {
                 // it was already in the database, so use the "UPDATE" version
-                if (!s_UpdateProductQuery.Bind(*m_databaseConnection, autoFinalizer, entry.m_jobPK, entry.m_subID, entry.m_productName.c_str(), entry.m_assetType, entry.m_legacyGuid, entry.m_productID))
+                if (!s_UpdateProductQuery.Bind(*m_databaseConnection, autoFinalizer, entry.m_jobPK, entry.m_subID, entry.m_productName.c_str(), entry.m_assetType, entry.m_legacyGuid, entry.m_flags.to_ullong(), entry.m_productID))
                 {
                     return false;
                 }
@@ -2278,7 +2297,7 @@ namespace AssetProcessor
             else
             {
                 // it wasn't in the database, so use the "INSERT" version
-                if (!s_InsertProductQuery.Bind(*m_databaseConnection, autoFinalizer, entry.m_jobPK, entry.m_subID, entry.m_productName.c_str(), entry.m_assetType, entry.m_legacyGuid))
+                if (!s_InsertProductQuery.Bind(*m_databaseConnection, autoFinalizer, entry.m_jobPK, entry.m_subID, entry.m_productName.c_str(), entry.m_assetType, entry.m_legacyGuid, entry.m_flags.to_ullong()))
                 {
                     return false;
                 }

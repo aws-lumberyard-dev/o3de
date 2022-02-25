@@ -66,6 +66,7 @@ namespace AzToolsFramework
             ChangedSortFunctionFromQSortToStdStableSort = 30,
             RemoveOutputPrefixFromScanFolders,
             AddedSourceIndexForSourceDependencyTable,
+            AddedFlagsColumnToProductTable,
             //Add all new versions before this
             DatabaseVersionCount,
             LatestVersion = DatabaseVersionCount - 1
@@ -166,7 +167,7 @@ namespace AzToolsFramework
             JobDatabaseEntry() = default;
             JobDatabaseEntry(AZ::s64 jobID, AZ::s64 sourcePK, const char* jobKey, AZ::u32 fingerprint, const char* platform, AZ::Uuid builderGuid, AssetSystem::JobStatus status, AZ::u64 jobRunKey, AZ::s64 firstFailLogTime = 0, const char* firstFailLogFile = nullptr, AZ::s64 lastFailLogTime = 0, const char* lastFailLogFile = nullptr, AZ::s64 lastLogTime = 0, const char* lastLogFile = nullptr, AZ::u32 warningCount = 0, AZ::u32 errorCount = 0);
             JobDatabaseEntry(AZ::s64 sourcePK, const char* jobKey, AZ::u32 fingerprint, const char* platform, AZ::Uuid builderGuid, AssetSystem::JobStatus status, AZ::u64 jobRunKey, AZ::s64 firstFailLogTime = 0, const char* firstFailLogFile = nullptr, AZ::s64 lastFailLogTime = 0, const char* lastFailLogFile = nullptr, AZ::s64 lastLogTime = 0, const char* lastLogFile = nullptr, AZ::u32 warningCount = 0, AZ::u32 errorCount = 0);
-            
+
             bool operator==(const JobDatabaseEntry& other) const;
 
             AZStd::string ToString() const;
@@ -206,7 +207,7 @@ namespace AzToolsFramework
                 DEP_SourceLikeMatch = 1 << 2, ///< Allow wildcard matches using LIKE
                 DEP_Any             = 0xFFFFFFFF ///< convenience value - not allowed to write this to the actual DB.
             };
-            
+
             SourceFileDependencyEntry() = default;
             SourceFileDependencyEntry(AZ::Uuid builderGuid, const char* source, const char* dependsOnSource, TypeOfDependency dependencyType, AZ::u32 fromAssetId);
 
@@ -230,14 +231,12 @@ namespace AzToolsFramework
         public:
             ProductDatabaseEntry() = default;
             ProductDatabaseEntry(AZ::s64 productID, AZ::s64 jobPK,  AZ::u32 subID, const char* productName,
-                AZ::Data::AssetType assetType, AZ::Uuid legacyGuid = AZ::Uuid::CreateNull());
+                AZ::Data::AssetType assetType, AZ::Uuid legacyGuid = AZ::Uuid::CreateNull(), AZStd::bitset<64> flags = 0);
             ProductDatabaseEntry(AZ::s64 jobPK, AZ::u32 subID, const char* productName,
-                AZ::Data::AssetType assetType, AZ::Uuid legacyGuid = AZ::Uuid::CreateNull());
-            ProductDatabaseEntry(const ProductDatabaseEntry& entry);
-            ProductDatabaseEntry(ProductDatabaseEntry&& other);
+                AZ::Data::AssetType assetType, AZ::Uuid legacyGuid = AZ::Uuid::CreateNull(), AZStd::bitset<64> flags = 0);
 
-            ProductDatabaseEntry& operator=(ProductDatabaseEntry&& other);
-            ProductDatabaseEntry& operator=(const ProductDatabaseEntry& other);
+            AZ_DEFAULT_COPY_MOVE(ProductDatabaseEntry);
+
             bool operator==(const ProductDatabaseEntry& other) const;
 
             AZStd::string ToString() const;
@@ -249,6 +248,7 @@ namespace AzToolsFramework
             AZStd::string m_productName;
             AZ::Data::AssetType m_assetType = AZ::Data::AssetType::CreateNull();
             AZ::Uuid m_legacyGuid = AZ::Uuid::CreateNull();//used only for backward compatibility with old product guid, is generated based on product name
+            AZStd::bitset<64> m_flags = 0;
         };
         typedef AZStd::vector<ProductDatabaseEntry> ProductDatabaseEntryContainer;
 
@@ -284,7 +284,7 @@ namespace AzToolsFramework
             ProductDependencyDatabaseEntry() = default;
             ProductDependencyDatabaseEntry(AZ::s64 productDependencyID, AZ::s64 productPK, AZ::Uuid dependencySourceGuid, AZ::u32 dependencySubID, AZStd::bitset<64> dependencyFlags, const AZStd::string& platform, const AZStd::string& unresolvedPath, DependencyType dependencyType, AZ::u32 fromAssetId);
             ProductDependencyDatabaseEntry(AZ::s64 productPK, AZ::Uuid dependencySourceGuid, AZ::u32 dependencySubID, AZStd::bitset<64> dependencyFlags, const AZStd::string& platform, AZ::u32 fromAssetId, const AZStd::string& unresolvedPath="", DependencyType dependencyType = DependencyType::ProductDep_ProductFile);
-            
+
             bool operator == (const ProductDependencyDatabaseEntry& other) const;
 
             AZStd::string ToString() const;
@@ -638,7 +638,7 @@ namespace AzToolsFramework
             void LogQuery(const char* statement, const AZStd::string& params) override;
             void LogResultId(AZ::s64 rowId) override;
         protected:
-            
+
             SQLite::Connection* m_databaseConnection;
 
             //override in your derived class when you need to add specific queries
