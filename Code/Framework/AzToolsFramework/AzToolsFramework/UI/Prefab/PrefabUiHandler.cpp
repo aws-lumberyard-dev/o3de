@@ -332,11 +332,13 @@ namespace AzToolsFramework
         else
         {
             // Only show the edit icon on hover.
+            /*
             if (isHovered)
             {
                 QIcon openIcon = QIcon(m_prefabEditOpenIconPath);
                 painter->drawPixmap(option.rect.topLeft() + offset, openIcon.pixmap(iconSize));
             }
+            */
         }
 
         painter->restore();

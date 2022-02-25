@@ -227,7 +227,7 @@ namespace AzToolsFramework::Prefab
         }
 
         // Close all container entities in the old path.
-        SetInstanceContainersOpenState(m_rootAliasFocusPath, false);
+        // SetInstanceContainersOpenState(m_rootAliasFocusPath, false);
 
         const RootAliasPath previousContainerRootAliasPath = m_rootAliasFocusPath;
         const InstanceOptionalReference previousFocusedInstance = GetInstanceReference(previousContainerRootAliasPath);
@@ -264,7 +264,7 @@ namespace AzToolsFramework::Prefab
         RefreshInstanceFocusPath();
 
         // Open all container entities in the new path.
-        SetInstanceContainersOpenState(m_rootAliasFocusPath, true);
+        // SetInstanceContainersOpenState(m_rootAliasFocusPath, true);
 
         PrefabFocusNotificationBus::Broadcast(&PrefabFocusNotifications::OnPrefabFocusChanged);
 

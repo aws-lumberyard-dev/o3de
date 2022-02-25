@@ -972,6 +972,9 @@ namespace AzToolsFramework
 
                 // Register entity as a container
                 s_containerEntityInterface->RegisterEntityAsContainer(entityId);
+
+                // Open the container
+                s_containerEntityInterface->SetContainerOpen(entityId, true);
             }
         }
 
