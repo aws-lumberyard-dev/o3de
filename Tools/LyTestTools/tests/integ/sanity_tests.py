@@ -53,10 +53,16 @@ class TestAutomatedTestingProject(object):
 
             # Create the Launcher object and add args
             launcher = launcher_helper.create_launcher(workspace)
-            launcher.args.extend(['-rhi=Null'])
+            # Skip connecting to and launching the asset processor.
+            # This test has a dependency on the Assets job, so all assets needed
+            # should have already been processed. Skipping asset processor launch
+            # makes this test run faster, able to better run in parallel with other tests,
+            # and less likely to have unexpected side effects if a previous test left
+            # the source asset folder(s) in an unexpected state.
+            launcher.args.extend(['-rhi=Null', '-bg_ConnectToAssetProcessor=0'])
 
             # Call the game client executable
-            with launcher.start():
+            with launcher.start(launch_ap=False):
                 # Wait for the process to exist
                 waiter.wait_for(lambda: process_utils.process_exists(f"{project}.GameLauncher.exe", ignore_extensions=True))
         finally:
@@ -74,10 +80,11 @@ class TestAutomatedTestingProject(object):
             # Create the Launcher object and add args, such as `-rhi=Null` which disables GPU rendering and allows the
             # test to run on nodes without a GPU
             launcher = launcher_helper.create_dedicated_launcher(workspace)
-            launcher.args.extend(['-rhi=Null'])
+            # See test_StartGameLauncher_Sanity for why asset processor connection is disabled.
+            launcher.args.extend(['-rhi=Null', '-bg_ConnectToAssetProcessor=0'])
 
             # Call the game client executable
-            with launcher.start():
+            with launcher.start(launch_ap=False):
                 # Wait for the process to exist
                 waiter.wait_for(lambda: process_utils.process_exists(f"{project}.ServerLauncher.exe", ignore_extensions=True))
         finally:
