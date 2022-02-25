@@ -10,24 +10,6 @@
 
 namespace AZ::DocumentPropertyEditor
 {
-    Dom::Value DocumentAdapter::CreateRow()
-    {
-        return Dom::Value::CreateNode(AZ_NAME_LITERAL("Row"));
-    }
-
-    Dom::Value DocumentAdapter::CreateLabel(AZStd::string_view text, bool copy)
-    {
-        Dom::Value labelNode = Dom::Value::CreateNode(AZ_NAME_LITERAL("Label"));
-        Dom::Value labelText(text, copy);
-        labelNode.SetNodeValue(labelText);
-        return labelNode;
-    }
-
-    Dom::Value DocumentAdapter::CreatePropertyEditor(AZ::Name editorType)
-    {
-        return Dom::Value::CreateNode(AZStd::move(editorType));
-    }
-
     void DocumentAdapter::ConnectResetHandler(ResetEvent::Handler& handler)
     {
         handler.Connect(m_resetEvent);
@@ -36,6 +18,16 @@ namespace AZ::DocumentPropertyEditor
     void DocumentAdapter::ConnectChangedHandler(ChangedEvent::Handler& handler)
     {
         handler.Connect(m_changedEvent);
+    }
+
+    bool DocumentAdapter::SupportsRouting() const
+    {
+        return false;
+    }
+
+    RoutingAdapter* DocumentAdapter::GetRoutingAdapter()
+    {
+        return nullptr;
     }
 
     void DocumentAdapter::ResetDocument()

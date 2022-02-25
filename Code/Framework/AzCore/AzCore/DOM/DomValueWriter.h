@@ -40,9 +40,10 @@ namespace AZ::Dom
         Result EndNode(AZ::u64 attributeCount, AZ::u64 elementCount) override;
         Result OpaqueValue(OpaqueType& value) override;
 
+        Value& CurrentValue();
+
     private:
         Result FinishWrite();
-        Value& CurrentValue();
         Visitor::Result EndContainer(Type containerType, AZ::u64 attributeCount, AZ::u64 elementCount);
 
         struct ValueInfo

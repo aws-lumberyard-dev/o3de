@@ -33,4 +33,7 @@ set(FILES
     Scene.cpp
     CameraState.cpp
     InputTests.cpp
+    DocumentPropertyEditor/AdapterBuilderTests.cpp
+    DocumentPropertyEditor/ProxyAdapterTests.cpp
+    DocumentPropertyEditor/RoutingAdapterTests.cpp
 )

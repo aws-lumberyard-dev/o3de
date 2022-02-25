@@ -11,31 +11,36 @@
 #include <AzCore/DOM/DomPatch.h>
 #include <AzCore/DOM/DomValue.h>
 #include <AzCore/EBus/Event.h>
+#include <AzCore/std/smart_ptr/shared_ptr.h>
 
 namespace AZ::DocumentPropertyEditor
 {
+    class DocumentAdapter;
+    class RoutingAdapter;
+    using DocumentAdapterPtr = AZStd::shared_ptr<DocumentAdapter>;
+    using ConstDocumentAdapterPtr = AZStd::shared_ptr<const DocumentAdapter>;
+
     class DocumentAdapter
     {
     public:
-        using ResetEvent = AZ::Event<>;
-        using ChangedEvent = AZ::Event<const AZ::Dom::Patch&>;
+        using ResetEvent = Event<>;
+        using ChangedEvent = Event<const Dom::Patch&>;
 
         virtual ~DocumentAdapter() = default;
         virtual Dom::Value GetContents() const = 0;
 
-        using PatchOutcome = AZ::Outcome<void, AZStd::fixed_string<1024>>;
-        virtual void ApplyPatchFromView(const AZ::Dom::Patch& patch) = 0;
+        using PatchOutcome = Outcome<void, AZStd::fixed_string<1024>>;
+        virtual void ApplyPatchFromView(const Dom::Patch& patch) = 0;
 
         void ConnectResetHandler(ResetEvent::Handler& handler);
         void ConnectChangedHandler(ChangedEvent::Handler& handler);
 
-        static Dom::Value CreateRow();
-        static Dom::Value CreateLabel(AZStd::string_view text, bool copy = true);
-        static Dom::Value CreatePropertyEditor(AZ::Name editorType);
+        virtual bool SupportsRouting() const;
+        virtual RoutingAdapter* GetRoutingAdapter();
 
     protected:
         void ResetDocument();
-        virtual void SendPatchToView(const AZ::Dom::Patch& patch) = 0;
+        void SendPatchToView(const Dom::Patch& patch);
 
     private:
         ResetEvent m_resetEvent;

@@ -137,6 +137,16 @@ set(FILES
     Components/NonUniformScaleComponent.cpp
     DocumentPropertyEditor/DocumentAdapter.h
     DocumentPropertyEditor/DocumentAdapter.cpp
+    DocumentPropertyEditor/AdapterBuilder.cpp
+    DocumentPropertyEditor/AdapterBuilder.h
+    DocumentPropertyEditor/BasicAdapter.cpp
+    DocumentPropertyEditor/BasicAdapter.h
+    DocumentPropertyEditor/DocumentAdapter.cpp
+    DocumentPropertyEditor/DocumentAdapter.h
+    DocumentPropertyEditor/ProxyAdapter.cpp
+    DocumentPropertyEditor/ProxyAdapter.h
+    DocumentPropertyEditor/RoutingAdapter.cpp
+    DocumentPropertyEditor/RoutingAdapter.h
     FileFunc/FileFunc.h
     FileFunc/FileFunc.cpp
     Font/FontInterface.h
