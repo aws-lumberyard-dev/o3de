@@ -11,6 +11,7 @@
 
 #include <Atom/RHI.Reflect/Vulkan/Base.h>
 #include <Atom/RHI.Reflect/Vulkan/ShaderStageFunction.h>
+#include <Atom/RHI.Reflect/Vulkan/PipelineLayoutDescriptor.h>
 #include <Atom/RHI/RHIUtils.h>
 
 #include <AzCore/IO/FileIO.h>
@@ -78,8 +79,7 @@ namespace AZ
 
         RHI::Ptr<RHI::PipelineLayoutDescriptor> ShaderPlatformInterface::CreatePipelineLayoutDescriptor()
         {
-            // Return the base RHI class for the PipelineLayoutDescriptor
-            return RHI::PipelineLayoutDescriptor::Create();
+            return AZ::Vulkan::PipelineLayoutDescriptor::Create();
         }
 
         bool ShaderPlatformInterface::BuildPipelineLayoutDescriptor(
@@ -88,11 +88,28 @@ namespace AZ
             const RootConstantsInfo& rootConstantsInfo,
             const RHI::ShaderCompilerArguments& shaderCompilerArguments)
         {
-            AZ_UNUSED(srgInfoList);
+            AZ::Vulkan::PipelineLayoutDescriptor* vulkanDescriptor = azrtti_cast<AZ::Vulkan::PipelineLayoutDescriptor*>(pipelineLayoutDescriptor.get());
+            AZ_Assert(vulkanDescriptor, "PipelineLayoutDescriptor should have been created by now");
+            
+            const uint32_t groupLayoutCount = static_cast<uint32_t>(srgInfoList.size());
+            AZ_Assert(groupLayoutCount <= RHI::Limits::Pipeline::ShaderResourceGroupCountMax, "Exceeded ShaderResourceGroupLayout count limit.");
+
             AZ_UNUSED(rootConstantsInfo);
             AZ_UNUSED(shaderCompilerArguments);
+            
+            for (uint32_t groupLayoutIndex = 0; groupLayoutIndex < groupLayoutCount; ++groupLayoutIndex)
+            {
+                const auto& srgInfo = srgInfoList[groupLayoutIndex];
 
-            // Nothing to do, so we just finalize the layout descriptor.
+                RHI::Ptr<ShaderResourceGroupVisibility> srgVisibility = aznew ShaderResourceGroupVisibility;
+                for (const auto& resourceBindInfo : srgInfo.m_bindingInfo.m_resourcesRegisterMap)
+                {
+                    srgVisibility->m_resourcesStageMask.insert({ resourceBindInfo.first, resourceBindInfo.second.m_shaderStageMask });
+                }
+                srgVisibility->m_constantDataStageMask = srgInfo.m_bindingInfo.m_constantDataBindingInfo.m_shaderStageMask;
+                vulkanDescriptor->AddShaderResourceGroupVisibility(srgVisibility);
+            }
+
             return pipelineLayoutDescriptor->Finalize() == RHI::ResultCode::Success;
         }
 

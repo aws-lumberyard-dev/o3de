@@ -11,6 +11,8 @@ set(FILES
     Include/Atom/RHI.Reflect/Vulkan/BufferPoolDescriptor.h
     Source/RHI.Reflect/ImagePoolDescriptor.cpp
     Include/Atom/RHI.Reflect/Vulkan/ImagePoolDescriptor.h
+    Include/Atom/RHI.Reflect/Vulkan/PipelineLayoutDescriptor.h
+    Source/RHI.Reflect/PipelineLayoutDescriptor.cpp
     Source/RHI.Reflect/ShaderStageFunction.cpp
     Include/Atom/RHI.Reflect/Vulkan/ShaderStageFunction.h
     Source/RHI.Reflect/ReflectSystemComponent.cpp

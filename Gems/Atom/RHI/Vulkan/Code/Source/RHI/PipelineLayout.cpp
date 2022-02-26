@@ -7,6 +7,7 @@
  */
 #include <Atom/RHI.Reflect/PipelineLayoutDescriptor.h>
 #include <Atom/RHI.Reflect/ShaderResourceGroupPoolDescriptor.h>
+#include <Atom/RHI.Reflect/Vulkan/PipelineLayoutDescriptor.h>
 #include <RHI/Conversion.h>
 #include <RHI/DescriptorSetLayout.h>
 #include <RHI/Device.h>
@@ -21,7 +22,7 @@ namespace AZ
     {
         size_t PipelineLayout::Descriptor::GetHash() const
         {
-            return static_cast<size_t>(m_pipelineLayoutDescriptor->GetHash());
+                return static_cast<size_t>(m_pipelineLayoutDescriptor->GetHash());
         }
 
         RHI::Ptr<PipelineLayout> PipelineLayout::Create()
@@ -47,43 +48,67 @@ namespace AZ
 
         template<class T>
         void AddShaderInputs(
-            RHI::ShaderResourceGroupLayout& srgLayout,
+            RHI::ShaderResourceGroupLayout& mergedSrgLayout,
+            ShaderResourceGroupVisibility& mergedSrgVisibility,
             AZStd::span<const T> shaderInputs,
             const uint32_t bindingSlot,
-            const RHI::ShaderResourceGroupBindingInfo& srgBidingInfo)
+            const RHI::ShaderResourceGroupBindingInfo& srgBidingInfo,
+            const ShaderResourceGroupVisibility& srgVisibility)
         {
             for (const auto& shaderInputDesc : shaderInputs)
             {
                 auto newShaderInputDesc = shaderInputDesc;
                 newShaderInputDesc.m_registerId = srgBidingInfo.m_resourcesRegisterMap.find(shaderInputDesc.m_name)->second.m_registerId;
                 newShaderInputDesc.m_name = MergedShaderResourceGroup::GenerateMergedShaderInputName(shaderInputDesc.m_name, bindingSlot);
-                AddShaderInput(srgLayout, newShaderInputDesc);
+                AddShaderInput(mergedSrgLayout, newShaderInputDesc);
+
+                auto visibilityIter = srgVisibility.m_resourcesStageMask.find(shaderInputDesc.m_name);
+                if (visibilityIter != srgVisibility.m_resourcesStageMask.end())
+                {
+                    auto mergedVisibilityIter = mergedSrgVisibility.m_resourcesStageMask.find(shaderInputDesc.m_name);
+                    if (mergedVisibilityIter == mergedSrgVisibility.m_resourcesStageMask.end())
+                    {
+                        mergedSrgVisibility.m_resourcesStageMask[shaderInputDesc.m_name] = visibilityIter->second;
+                    }
+                    else
+                    {
+                        mergedVisibilityIter->second |= visibilityIter->second;
+                    }
+                }
             }
         }
 
-        RHI::ConstPtr<RHI::ShaderResourceGroupLayout> PipelineLayout::MergeShaderResourceGroupLayouts(const AZStd::vector<const RHI::ShaderResourceGroupLayout*>& srgLayoutList) const
+        PipelineLayout::SrgInfo PipelineLayout::MergeShaderResourceGroupLayouts(const AZStd::vector<SrgInfo>& srgLayoutList) const
         {
             if (srgLayoutList.empty())
             {
-                return nullptr;
+                return {};
             }
 
             if (srgLayoutList.size() == 1)
             {
                 return srgLayoutList.front();
             }
-
+            
             RHI::Ptr<RHI::ShaderResourceGroupLayout> mergedLayout = RHI::ShaderResourceGroupLayout::Create();
-            mergedLayout->SetBindingSlot(srgLayoutList.front()->GetBindingSlot());
-            for (const RHI::ShaderResourceGroupLayout* srgLayout : srgLayoutList)
+            mergedLayout->SetBindingSlot(srgLayoutList.front().m_shaderResouceGroupLayout->GetBindingSlot());
+
+            RHI::Ptr<ShaderResourceGroupVisibility> mergedVisibility = aznew ShaderResourceGroupVisibility();
+
+            AZ_Assert(mergedVisibility->m_constantDataStageMask == RHI::ShaderStageMask::None, "We assume this starts as None and then bitwise-or each mask");
+
+            for (SrgInfo srgInfo : srgLayoutList)
             {
+                const RHI::ShaderResourceGroupLayout* srgLayout = srgInfo.m_shaderResouceGroupLayout.get();
+                const ShaderResourceGroupVisibility* srgVisibility = srgInfo.m_shaderResouceGroupVisibility.get();
+
                 const uint32_t bindingSlot = srgLayout->GetBindingSlot();
                 const auto& srgBindingInfo = m_layoutDescriptor->GetShaderResourceGroupBindingInfo(m_layoutDescriptor->GetShaderResourceGroupIndexFromBindingSlot(bindingSlot));
                 // Add all shader inputs to the merged layout.
-                AddShaderInputs(*mergedLayout, srgLayout->GetShaderInputListForBuffers(), bindingSlot, srgBindingInfo);
-                AddShaderInputs(*mergedLayout, srgLayout->GetShaderInputListForImages(), bindingSlot, srgBindingInfo);
-                AddShaderInputs(*mergedLayout, srgLayout->GetShaderInputListForSamplers(), bindingSlot, srgBindingInfo);
-                AddShaderInputs(*mergedLayout, srgLayout->GetStaticSamplers(), bindingSlot, srgBindingInfo);
+                AddShaderInputs(*mergedLayout, *mergedVisibility, srgLayout->GetShaderInputListForBuffers(), bindingSlot, srgBindingInfo, *srgVisibility);
+                AddShaderInputs(*mergedLayout, *mergedVisibility, srgLayout->GetShaderInputListForImages(), bindingSlot, srgBindingInfo, *srgVisibility);
+                AddShaderInputs(*mergedLayout, *mergedVisibility, srgLayout->GetShaderInputListForSamplers(), bindingSlot, srgBindingInfo, *srgVisibility);
+                AddShaderInputs(*mergedLayout, *mergedVisibility, srgLayout->GetStaticSamplers(), bindingSlot, srgBindingInfo, *srgVisibility);
 
                 if (srgLayout->GetConstantDataSize())
                 {
@@ -99,16 +124,18 @@ namespace AZ
                         srgBindingInfo.m_constantDataBindingInfo.m_registerId);
 
                     mergedLayout->AddShaderInput(constantsBufferDesc);
+
+                    mergedVisibility->m_constantDataStageMask |= srgVisibility->m_constantDataStageMask;
                 }
             }
 
             if (!mergedLayout->Finalize())
             {
                 AZ_Assert(false, "Failed to merge SRG layouts");
-                return nullptr;
+                return {};
             }
-
-            return mergedLayout;
+            
+            return {mergedLayout, mergedVisibility};
         }
 
         RHI::ResultCode PipelineLayout::Init(const Descriptor& descriptor)
@@ -118,19 +145,31 @@ namespace AZ
 
             AZ_Assert(descriptor.m_pipelineLayoutDescriptor, "Pipeline layout descriptor is null.");
             m_layoutDescriptor = descriptor.m_pipelineLayoutDescriptor;
-            const RHI::PipelineLayoutDescriptor& pipelineLayoutDesc = *m_layoutDescriptor;
 
-            const size_t srgCount = pipelineLayoutDesc.GetShaderResourceGroupLayoutCount();
-            AZStd::array<AZStd::vector<const RHI::ShaderResourceGroupLayout*>, RHI::Limits::Pipeline::ShaderResourceGroupCountMax> srgLayoutsPerSpace;
+            const size_t srgCount = m_layoutDescriptor->GetShaderResourceGroupLayoutCount();
+            AZStd::array<AZStd::vector<SrgInfo>, RHI::Limits::Pipeline::ShaderResourceGroupCountMax> srgLayoutsPerSpace;
             m_indexToSlot.resize(srgCount);
             m_slotToIndex.fill(static_cast<uint8_t>(RHI::Limits::Pipeline::ShaderResourceGroupCountMax));
 
             // Multiple SRGs can have the same "spaceId" (SRGs that need to be merged).
             for (uint32_t srgIndex = 0; srgIndex < srgCount; ++srgIndex)
             {
-                const auto& bindingInfo = pipelineLayoutDesc.GetShaderResourceGroupBindingInfo(srgIndex);
-                const auto* srgLayout = pipelineLayoutDesc.GetShaderResourceGroupLayout(srgIndex);
-                srgLayoutsPerSpace[bindingInfo.m_spaceId].push_back(srgLayout);
+                const auto& bindingInfo = m_layoutDescriptor->GetShaderResourceGroupBindingInfo(srgIndex);
+                const auto* srgLayout = m_layoutDescriptor->GetShaderResourceGroupLayout(srgIndex);
+
+                SrgInfo srgInfo;
+                srgInfo.m_shaderResouceGroupLayout = srgLayout;
+                
+                // Note that we store m_layoutDescriptor as RHI::PipelineLayoutDescriptor instead of Vulkan::PipelineLayoutDescriptor for backward compatibility
+                // with GI shaders that haven't been re-build yet. After they are re-built with Vulkan::PipelineLayoutDescriptor being used, we could
+                // m_layoutDescriptor to be a Vulkan::PipelineLayoutDescriptor. (2/25/2022)
+                auto vulkanLayoutDescriptor = azrtti_cast<const Vulkan::PipelineLayoutDescriptor*>(m_layoutDescriptor);
+                if (vulkanLayoutDescriptor)
+                {
+                    srgInfo.m_shaderResouceGroupVisibility = vulkanLayoutDescriptor->GetShaderResourceGroupVisibility(srgIndex);
+                }
+
+                srgLayoutsPerSpace[bindingInfo.m_spaceId].push_back(srgInfo);
 
                 uint32_t bindingSlot = srgLayout->GetBindingSlot();
                 m_indexToSlot[bindingInfo.m_spaceId].set(bindingSlot);
@@ -144,11 +183,14 @@ namespace AZ
                 {
                     continue;
                 }
+                
+                // This will merge all SRG layouts into 1.
+                SrgInfo mergedSrgInfo = MergeShaderResourceGroupLayouts(srgLayoutsPerSpace[spaceId]);
 
                 DescriptorSetLayout::Descriptor desc;
                 desc.m_device = descriptor.m_device;
-                // This will merge all SRG layouts into 1.
-                desc.m_shaderResouceGroupLayout = MergeShaderResourceGroupLayouts(srgLayoutsPerSpace[spaceId]); 
+                desc.m_shaderResouceGroupLayout = mergedSrgInfo.m_shaderResouceGroupLayout;
+                desc.m_shaderResouceGroupVisibility = mergedSrgInfo.m_shaderResouceGroupVisibility.get();
 
                 RHI::Ptr<DescriptorSetLayout> descSetLayout = descriptor.m_device->AcquireDescriptorSetLayout(desc);
                 m_descriptorSetLayouts.push_back(descSetLayout);

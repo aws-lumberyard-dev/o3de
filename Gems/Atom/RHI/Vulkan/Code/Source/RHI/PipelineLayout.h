@@ -8,6 +8,7 @@
 #pragma once
 
 #include <Atom/RHI/DeviceObject.h>
+#include <Atom/RHI.Reflect/Vulkan/PipelineLayoutDescriptor.h>
 #include <AzCore/Memory/PoolAllocator.h>
 #include <AzCore/std/containers/array.h>
 #include <AzCore/std/containers/bitset.h>
@@ -16,11 +17,6 @@
 
 namespace AZ
 {
-    namespace RHI
-    {
-        class PipelineLayoutDescriptor;
-    }
-
     namespace Vulkan
     {
         class Device;
@@ -80,8 +76,14 @@ namespace AZ
             // Build the shader resource group pools for the merged SRGs (if there's any).
             RHI::ResultCode BuildMergedShaderResourceGroupPools();
 
+            struct SrgInfo
+            {
+                RHI::ConstPtr<RHI::ShaderResourceGroupLayout> m_shaderResouceGroupLayout;
+                RHI::ConstPtr<ShaderResourceGroupVisibility> m_shaderResouceGroupVisibility;
+            };
+
             // Creates a merged SRG layout from a list of SRG layouts.
-            RHI::ConstPtr<RHI::ShaderResourceGroupLayout> MergeShaderResourceGroupLayouts(const AZStd::vector<const RHI::ShaderResourceGroupLayout*>& srgLayoutList) const;
+            SrgInfo MergeShaderResourceGroupLayouts(const AZStd::vector<SrgInfo>& srgLayoutList) const;
 
             VkPipelineLayout m_nativePipelineLayout = VK_NULL_HANDLE;
 
@@ -90,6 +92,7 @@ namespace AZ
             AZStd::array<uint8_t, RHI::Limits::Pipeline::ShaderResourceGroupCountMax> m_slotToIndex;
             AZStd::fixed_vector<ShaderResourceGroupBitset, RHI::Limits::Pipeline::ShaderResourceGroupCountMax> m_indexToSlot;
             uint32_t m_pushConstantsSize = 0;
+
             RHI::ConstPtr<RHI::PipelineLayoutDescriptor> m_layoutDescriptor;
 
             AZStd::array<RHI::Ptr<MergedShaderResourceGroupPool>, RHI::Limits::Pipeline::ShaderResourceGroupCountMax> m_mergedShaderResourceGroupPools;

@@ -10,6 +10,7 @@
 #include <Atom/RHI.Reflect/Vulkan/ShaderStageFunction.h>
 #include <Atom/RHI.Reflect/Vulkan/BufferPoolDescriptor.h>
 #include <Atom/RHI.Reflect/Vulkan/PlatformLimitsDescriptor.h>
+#include <Atom/RHI.Reflect/Vulkan/PipelineLayoutDescriptor.h>
 
 namespace AZ
 {
@@ -22,7 +23,8 @@ namespace AZ
                 serializeContext->Class<ReflectSystemComponent, AZ::Component>()
                     ->Version(1);
             }
-
+            
+            PipelineLayoutDescriptor::Reflect(context);
             BufferPoolDescriptor::Reflect(context);
             ShaderStageFunction::Reflect(context);
             PlatformLimitsDescriptor::Reflect(context);

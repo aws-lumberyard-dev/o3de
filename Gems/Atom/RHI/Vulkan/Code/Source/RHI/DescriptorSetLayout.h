@@ -27,6 +27,7 @@ namespace AZ
     namespace Vulkan
     {
         class Device;
+        class ShaderResourceGroupVisibility;
 
         class DescriptorSetLayout final
             : public RHI::DeviceObject
@@ -41,6 +42,15 @@ namespace AZ
             {
                 Device* m_device = nullptr;
                 RHI::ConstPtr<RHI::ShaderResourceGroupLayout> m_shaderResouceGroupLayout;
+
+                //! This is optional; if null then VK_SHADER_STAGE_ALL will be used for each resource.
+                //! Being optional is important because there are some code paths that need to use a
+                //! VkDescriptorSetLayout when ShaderResourceGroupVisibility isn't available and the
+                //! visibility flags don't matter anyway. Particularly, Vulkan::ShaderResourceGroupPool
+                //! initialization needs DescriptorSetLayout to create DescriptorSets outside the context
+                //! of any particular shader. The assumption here is that vkAllocateDescriptorSets doesn't
+                //! use on the visibility information that is in the VkDescriptorSetLayout.
+                const ShaderResourceGroupVisibility* m_shaderResouceGroupVisibility = nullptr;
 
                 HashValue64 GetHash() const;
             };
@@ -91,9 +101,12 @@ namespace AZ
             // RHI::DeviceObject
             void Shutdown() override;
             //////////////////////////////////////////////////////////////////////////
+            
+            //! @param shaderResouceGroupVisibility is optional, if null then VK_SHADER_STAGE_ALL will be used for each resource
+            RHI::ResultCode BuildNativeDescriptorSetLayout(const ShaderResourceGroupVisibility* shaderResouceGroupVisibility);
 
-            RHI::ResultCode BuildNativeDescriptorSetLayout();
-            RHI::ResultCode BuildDescriptorSetLayoutBindings();
+            //! @param shaderResouceGroupVisibility is optional, if null then VK_SHADER_STAGE_ALL will be used for each resource
+            RHI::ResultCode BuildDescriptorSetLayoutBindings(const ShaderResourceGroupVisibility* shaderResouceGroupVisibility);
 
             bool ValidateUniformBufferDeviceLimits(const RHI::ShaderInputBufferDescriptor& desc);
 

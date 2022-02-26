@@ -7,6 +7,7 @@
  */
 #include <Atom/RHI.Reflect/ShaderResourceGroupLayout.h>
 #include <Atom/RHI.Reflect/ShaderResourceGroupLayoutDescriptor.h>
+#include <Atom/RHI.Reflect/Vulkan/PipelineLayoutDescriptor.h>
 #include <AzCore/Utils/TypeHash.h>
 #include <AzCore/std/createdestroy.h>
 #include <AzCore/std/parallel/lock.h>
@@ -100,7 +101,7 @@ namespace AZ
             m_shaderResourceGroupLayout = descriptor.m_shaderResouceGroupLayout;
 
             m_layoutIndexOffset.fill(InvalidLayoutIndex);
-            const RHI::ResultCode result = BuildNativeDescriptorSetLayout();
+            const RHI::ResultCode result = BuildNativeDescriptorSetLayout(descriptor.m_shaderResouceGroupVisibility);
             RETURN_RESULT_IF_UNSUCCESSFUL(result);
 
             SetName(GetName());
@@ -127,9 +128,9 @@ namespace AZ
             Base::Shutdown();
         }
 
-        RHI::ResultCode DescriptorSetLayout::BuildNativeDescriptorSetLayout()
+        RHI::ResultCode DescriptorSetLayout::BuildNativeDescriptorSetLayout(const ShaderResourceGroupVisibility* shaderResouceGroupVisibility)
         {
-            const RHI::ResultCode buildResult = BuildDescriptorSetLayoutBindings();
+            const RHI::ResultCode buildResult = BuildDescriptorSetLayoutBindings(shaderResouceGroupVisibility);
             RETURN_RESULT_IF_UNSUCCESSFUL(buildResult);
 
             VkDescriptorSetLayoutBindingFlagsCreateInfo bindingFlagsCreateInfo{};
@@ -150,7 +151,55 @@ namespace AZ
             return ConvertResult(result);
         }
 
-        RHI::ResultCode DescriptorSetLayout::BuildDescriptorSetLayoutBindings()
+        VkShaderStageFlagBits ToVkShaderStageFlags(RHI::ShaderStageMask mask)
+        {
+            if (mask == RHI::ShaderStageMask::All)
+            {
+                return VK_SHADER_STAGE_ALL;
+            }
+            else
+            {
+                VkShaderStageFlagBits vkFlags = {};
+
+                if (RHI::CheckBitsAll(mask, RHI::ShaderStageMask::Vertex))
+                {
+                    vkFlags = (VkShaderStageFlagBits)(vkFlags | VK_SHADER_STAGE_VERTEX_BIT);
+                }
+
+                if (RHI::CheckBitsAll(mask, RHI::ShaderStageMask::Fragment))
+                {
+                    vkFlags = (VkShaderStageFlagBits)(vkFlags | VK_SHADER_STAGE_FRAGMENT_BIT);
+                }
+
+                if (RHI::CheckBitsAll(mask, RHI::ShaderStageMask::Compute))
+                {
+                    vkFlags = (VkShaderStageFlagBits)(vkFlags | VK_SHADER_STAGE_COMPUTE_BIT);
+                }
+                
+                if (RHI::CheckBitsAll(mask, RHI::ShaderStageMask::RayTracing))
+                {
+                    // ShaderStageMask does not distinguish between various types of ray tracing passes so we mark all of them.
+                    vkFlags = (VkShaderStageFlagBits)(vkFlags |
+                        VK_SHADER_STAGE_RAYGEN_BIT_KHR |
+                        VK_SHADER_STAGE_RAYGEN_BIT_KHR |
+                        VK_SHADER_STAGE_CLOSEST_HIT_BIT_KHR |
+                        VK_SHADER_STAGE_MISS_BIT_KHR |
+                        VK_SHADER_STAGE_INTERSECTION_BIT_KHR |
+                        VK_SHADER_STAGE_CALLABLE_BIT_KHR 
+                        );
+                }
+
+                if (RHI::CheckBitsAll(mask, RHI::ShaderStageMask::Tessellation))
+                {
+                    AZ_Warning("Vulkan", false, "Tessellation is not supported. Skipping this shader stage flag...");
+                }
+
+                return vkFlags;
+            }
+
+        }
+        
+        RHI::ResultCode DescriptorSetLayout::BuildDescriptorSetLayoutBindings(const ShaderResourceGroupVisibility* shaderResouceGroupVisibility)
         {
             const AZStd::span<const RHI::ShaderInputBufferDescriptor> bufferDescs = m_shaderResourceGroupLayout->GetShaderInputListForBuffers();
             const AZStd::span<const RHI::ShaderInputImageDescriptor> imageDescs = m_shaderResourceGroupLayout->GetShaderInputListForImages();
@@ -158,6 +207,25 @@ namespace AZ
             const AZStd::span<const RHI::ShaderInputImageUnboundedArrayDescriptor> imageUnboundedArrayDescs = m_shaderResourceGroupLayout->GetShaderInputListForImageUnboundedArrays();
             const AZStd::span<const RHI::ShaderInputSamplerDescriptor> samplerDescs = m_shaderResourceGroupLayout->GetShaderInputListForSamplers();
             const AZStd::span<const RHI::ShaderInputStaticSamplerDescriptor>& staticSamplerDescs = m_shaderResourceGroupLayout->GetStaticSamplers();
+
+            auto getResourceShaderStageFlags = [shaderResouceGroupVisibility](const Name& resourceName)
+            {
+                if (!shaderResouceGroupVisibility)
+                {
+                    return VK_SHADER_STAGE_ALL;
+                }
+
+                auto iter = shaderResouceGroupVisibility->m_resourcesStageMask.find(resourceName);
+                if (iter == shaderResouceGroupVisibility->m_resourcesStageMask.end())
+                {
+                    AZ_Warning("Vulkan", false, "No visibility information found for resource '%s'", resourceName.GetCStr());
+                    return VK_SHADER_STAGE_ALL;
+                }
+                else
+                {
+                    return ToVkShaderStageFlags(iter->second);
+                }
+            };
 
             // The + 1 is for Constant Data.
             m_descriptorSetLayoutBindings.reserve(
@@ -183,7 +251,7 @@ namespace AZ
                 vbinding.binding = inputListForConstants[0].m_registerId;
                 vbinding.descriptorType = VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER;
                 vbinding.descriptorCount = 1;
-                vbinding.stageFlags = VK_SHADER_STAGE_ALL; // [GFX TODO][ATOM-347] find a way to get an appropriate shader visibility. 
+                vbinding.stageFlags = shaderResouceGroupVisibility ? ToVkShaderStageFlags(shaderResouceGroupVisibility->m_constantDataStageMask) : VK_SHADER_STAGE_ALL;
                 vbinding.pImmutableSamplers = nullptr;
                 m_layoutIndexOffset[static_cast<uint32_t>(ResourceType::ConstantData)] = 0;
             }
@@ -233,7 +301,7 @@ namespace AZ
                     return RHI::ResultCode::InvalidArgument;
                 }
                 vbinding.descriptorCount = desc.m_count;
-                vbinding.stageFlags = VK_SHADER_STAGE_ALL; // [GFX TODO][ATOM-347] find a way to get an appropriate shader visibility. 
+                vbinding.stageFlags = getResourceShaderStageFlags(desc.m_name);
                 vbinding.pImmutableSamplers = nullptr;
             }
 
@@ -268,7 +336,7 @@ namespace AZ
                         AZ_Assert(false, "ShaderInputImageAccess is illegal.");
                         return RHI::ResultCode::InvalidArgument;
                     }
-                    vbinding.stageFlags = VK_SHADER_STAGE_ALL; // [GFX TODO][ATOM-347]  find a way to get an appropriate shader visibility. 
+                    vbinding.stageFlags = getResourceShaderStageFlags(desc.m_name);
                 }
                
                 vbinding.descriptorCount = desc.m_count;
@@ -289,7 +357,7 @@ namespace AZ
                 vbinding.binding = desc.m_registerId;
                 vbinding.descriptorType = VK_DESCRIPTOR_TYPE_SAMPLER;
                 vbinding.descriptorCount = desc.m_count;
-                vbinding.stageFlags = VK_SHADER_STAGE_ALL; // [GFX TODO][ATOM-347] find a way to get an appropriate shader visibility. 
+                vbinding.stageFlags = getResourceShaderStageFlags(desc.m_name);
                 vbinding.pImmutableSamplers = nullptr;
             }
 
@@ -299,20 +367,20 @@ namespace AZ
                 m_nativeSamplers.resize(staticSamplerDescs.size(), VK_NULL_HANDLE);
                 for (int index = 0; index < staticSamplerDescs.size(); ++index)
                 {
-                    const RHI::ShaderInputStaticSamplerDescriptor& staticSamplerInput = staticSamplerDescs[index];
+                    const RHI::ShaderInputStaticSamplerDescriptor& desc = staticSamplerDescs[index];
                     Sampler::Descriptor samplerDesc;
                     samplerDesc.m_device = &device;
-                    samplerDesc.m_samplerState = staticSamplerInput.m_samplerState;
+                    samplerDesc.m_samplerState = desc.m_samplerState;
                     m_nativeSamplers[index] = device.AcquireSampler(samplerDesc)->GetNativeSampler();
 
                     m_descriptorSetLayoutBindings.emplace_back(VkDescriptorSetLayoutBinding{});
                     VkDescriptorSetLayoutBinding& vbinding = m_descriptorSetLayoutBindings.back();
                     m_descriptorBindingFlags.emplace_back(VkDescriptorBindingFlags{});
 
-                    vbinding.binding = staticSamplerInput.m_registerId;
+                    vbinding.binding = desc.m_registerId;
                     vbinding.descriptorType = VK_DESCRIPTOR_TYPE_SAMPLER;
                     vbinding.descriptorCount = 1;
-                    vbinding.stageFlags = VK_SHADER_STAGE_ALL; // [GFX TODO][ATOM-347] find a way to get an appropriate shader visibility. 
+                    vbinding.stageFlags = getResourceShaderStageFlags(desc.m_name);
                     vbinding.pImmutableSamplers = &m_nativeSamplers[index];
                 }
             }
@@ -354,7 +422,7 @@ namespace AZ
                     return RHI::ResultCode::InvalidArgument;
                 }
                 vbinding.descriptorCount = MaxUnboundedArrayDescriptors;
-                vbinding.stageFlags = VK_SHADER_STAGE_ALL; // [GFX TODO][ATOM-347] find a way to get an appropriate shader visibility. 
+                vbinding.stageFlags = getResourceShaderStageFlags(desc.m_name);
                 vbinding.pImmutableSamplers = nullptr;
 
                 m_hasUnboundedArray = true;
@@ -387,7 +455,7 @@ namespace AZ
                     AZ_Assert(false, "ShaderInputImageAccess is illegal.");
                     return RHI::ResultCode::InvalidArgument;
                 }
-                vbinding.stageFlags = VK_SHADER_STAGE_ALL; // [GFX TODO][ATOM-347]  find a way to get an appropriate shader visibility. 
+                vbinding.stageFlags = getResourceShaderStageFlags(desc.m_name);
                 vbinding.descriptorCount = MaxUnboundedArrayDescriptors;
                 vbinding.pImmutableSamplers = nullptr;
 
