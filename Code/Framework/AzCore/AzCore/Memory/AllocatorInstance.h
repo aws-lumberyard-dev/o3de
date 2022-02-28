@@ -271,6 +271,10 @@ namespace AZ::Internal
 
         void WillDestroy() override
         {
+            if (m_cachedEnvironmentAllocator)
+            {
+                AZ::AllocatorManager::Instance().UnRegisterAllocator(m_cachedEnvironmentAllocator);
+            }
             WillDetach();
         }
         void WillDetach() override
@@ -288,7 +292,6 @@ namespace AZ::Internal
             }
             if (m_cachedEnvironmentAllocator)
             {
-                AZ::AllocatorManager::Instance().UnRegisterAllocator(m_cachedEnvironmentAllocator);
                 m_cachedEnvironmentAllocator = nullptr;
                 m_environmentAllocator.Reset();
             }
