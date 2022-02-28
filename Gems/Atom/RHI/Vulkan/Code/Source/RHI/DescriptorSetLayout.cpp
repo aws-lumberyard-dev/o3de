@@ -23,7 +23,12 @@ namespace AZ
 
         AZ::HashValue64 DescriptorSetLayout::Descriptor::GetHash() const
         {
-            return m_shaderResouceGroupLayout->GetHash();
+            AZ::HashValue64 hash = m_shaderResouceGroupLayout->GetHash();
+            if (m_shaderResouceGroupVisibility)
+            {
+                hash = m_shaderResouceGroupVisibility->GetHash(hash);
+            }
+            return hash;
         }
 
         RHI::Ptr<DescriptorSetLayout> DescriptorSetLayout::Create()
