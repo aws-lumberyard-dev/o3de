@@ -7,18 +7,19 @@
  */
 
 #include <AzFramework/DocumentPropertyEditor/AdapterBuilder.h>
+#include <AzFramework/DocumentPropertyEditor/Nodes.h>
 
 namespace AZ::DocumentPropertyEditor
 {
     AdapterBuilder::AdapterBuilder(DocumentAdapter& adapter)
         : m_adapter(adapter)
     {
-        StartNode(AZ_NAME_LITERAL("Adapter"));
+        StartNode(Nodes::Adapter::Name);
     }
 
     AdapterBuilder& AdapterBuilder::BeginRow()
     {
-        StartNode(AZ_NAME_LITERAL("Row"));
+        StartNode(Nodes::Row::Name);
         return *this;
     }
 
@@ -30,7 +31,7 @@ namespace AZ::DocumentPropertyEditor
 
     AdapterBuilder& AdapterBuilder::BeginLabel(AZStd::string_view labelText, bool copy)
     {
-        StartNode(AZ_NAME_LITERAL("Label"));
+        StartNode(Nodes::Label::Name);
         CurrentNode().SetNodeValue(Dom::Value(labelText, copy));
         return *this;
     }
@@ -43,7 +44,8 @@ namespace AZ::DocumentPropertyEditor
 
     AdapterBuilder& AdapterBuilder::BeginPropertyEditor(Name editorType)
     {
-        StartNode(AZ_NAME_LITERAL("PropertyEditor"));
+        StartNode(Nodes::PropertyEditor::Name);
+        Attribute(Nodes::PropertyEditor::Type, Dom::Value(editorType.GetStringView(), true));
         return *this;
     }
 

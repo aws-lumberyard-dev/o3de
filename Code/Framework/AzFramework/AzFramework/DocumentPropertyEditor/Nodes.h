@@ -14,22 +14,22 @@ namespace AZ::DocumentPropertyEditor::Nodes
 {
     namespace Adapter
     {
-        AZ::Name Name;
+        inline const AZ::Name Name = AZ::Name::FromStringLiteral("Adapter");
     }
 
     namespace Row
     {
-        AZ::Name Name;
+        inline const AZ::Name Name = AZ::Name::FromStringLiteral("Row");
     }
 
     namespace Label
     {
-        AZ::Name Name;
+        inline const AZ::Name Name = AZ::Name::FromStringLiteral("Label");
     }
 
     namespace PropertyEditor
     {
-        AZ::Name Name;
-        AZ::Name Type;
+        inline const AZ::Name Name = AZ::Name::FromStringLiteral("PropertyEditor");
+        inline const AZ::Name Type = AZ::Name::FromStringLiteral("Type");
     }
 } // namespace AZ::DocumentPropertyEditor::Nodes
