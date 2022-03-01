@@ -28,9 +28,9 @@ namespace AZ::DocumentPropertyEditor
         return m_proxiedAdapter != nullptr ? m_proxiedAdapter->GetContents() : Dom::Value();
     }
 
-    void ProxyAdapter::ApplyPatchFromView(const Dom::Patch& patch)
+    Dom::PatchOutcome ProxyAdapter::ApplyPatchFromView(const Dom::Patch& patch)
     {
-        m_proxiedAdapter->ApplyPatchFromView(patch);
+        return m_proxiedAdapter->ApplyPatchFromView(patch);
     }
 
     DocumentAdapterPtr ProxyAdapter::GetProxiedAdapter()

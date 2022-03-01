@@ -10,11 +10,12 @@
 
 namespace AZ::DocumentPropertyEditor
 {
-    void RoutingAdapter::ApplyPatchFromView(const Dom::Patch& patch)
+    Dom::PatchOutcome RoutingAdapter::ApplyPatchFromView(const Dom::Patch& patch)
     {
         // Apply each individual patch operation as their own patch, as they may be routed to different adapters
         Dom::Patch tempPatch;
         tempPatch.PushBack({});
+        Dom::PatchOutcome result;
 
         for (const Dom::PatchOperation& op : patch)
         {
@@ -23,13 +24,15 @@ namespace AZ::DocumentPropertyEditor
             if (route != nullptr)
             {
                 MapPatchToRoute(tempPatch, (*route)->m_path);
-                (*route)->m_adapter->ApplyPatchFromView(tempPatch);
+                Dom::CombinePatchOutcomes(result, (*route)->m_adapter->ApplyPatchFromView(tempPatch));
             }
             else
             {
-                ApplyPatchFromViewToRoot(tempPatch);
+                Dom::CombinePatchOutcomes(result, ApplyPatchFromViewToRoot(tempPatch));
             }
         }
+
+        return result;
     }
 
     void RoutingAdapter::ResetRoutes()
@@ -76,10 +79,9 @@ namespace AZ::DocumentPropertyEditor
         return this;
     }
 
-    void RoutingAdapter::ApplyPatchFromViewToRoot([[maybe_unused]] const Dom::Patch& patch)
+    Dom::PatchOutcome RoutingAdapter::ApplyPatchFromViewToRoot([[maybe_unused]] const Dom::Patch& patch)
     {
-        AZ_Assert(
-            false,
+        return AZ::Failure<AZStd::string>(
             "Attempted to call ApplyPatchFromViewToRoot on a RoutingAdapter that does not have it implemented.\nCheck to see if there "
             "should be an implementation, or if this should have been caught by a route.");
     }

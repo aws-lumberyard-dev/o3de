@@ -8,7 +8,7 @@
 
 #pragma once
 
-#include <AzCore/DOM/DomValueWriter.h>
+#include <AzCore/std/containers/vector.h>
 #include <AzFramework/DocumentPropertyEditor/DocumentAdapter.h>
 #include <AzFramework/DocumentPropertyEditor/RoutingAdapter.h>
 
@@ -29,38 +29,16 @@ namespace AZ::DocumentPropertyEditor
         AdapterBuilder& Attribute(Name attribute, Dom::Value value);
         AdapterBuilder& NestedAdapter(DocumentAdapterPtr adapter);
 
-        // Node API
-        class NodeScope
-        {
-        public:
-            NodeScope(AdapterBuilder* adapter);
-            NodeScope(const NodeScope&) = delete;
-            NodeScope(NodeScope&& other);
-            ~NodeScope();
-
-            NodeScope& operator=(const NodeScope&) = delete;
-            NodeScope& operator=(NodeScope&& other);
-
-            NodeScope Row();
-            NodeScope Label(AZStd::string_view labelText, bool copy);
-            NodeScope PropertyEditor(Name editorType);
-            NodeScope& Attribute(Name attribute, Dom::Value value);
-            NodeScope& NestedAdapter(DocumentAdapterPtr adapter);
-
-        private:
-            AdapterBuilder* m_adapter;
-        };
-        NodeScope GetNodeBuilder();
-
         Dom::Value&& TakeValue();
 
     private:
-        void StartNode();
+        Dom::Value& CurrentNode();
+        void StartNode(AZ::Name name);
         void EndNode();
 
         DocumentAdapter& m_adapter;
         Dom::Value m_value;
-        Dom::ValueWriter m_writer;
         Dom::Path m_currentPath;
+        AZStd::vector<Dom::Value> m_entries;
     };
 } // namespace AZ::DocumentPropertyEditor

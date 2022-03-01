@@ -22,9 +22,10 @@ namespace AZ::DocumentPropertyEditor
         return m_value;
     }
 
-    void BasicAdapter::ApplyPatchFromView(const Dom::Patch& patch)
+    Dom::PatchOutcome BasicAdapter::ApplyPatchFromView(const Dom::Patch& patch)
     {
-        patch.ApplyInPlace(m_value);
+        Dom::PatchOutcome result = patch.ApplyInPlace(m_value);
         SendPatchToView(patch);
+        return result;
     }
 } // namespace AZ::DocumentPropertyEditor

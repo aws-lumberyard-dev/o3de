@@ -28,9 +28,7 @@ namespace AZ::DocumentPropertyEditor
 
         virtual ~DocumentAdapter() = default;
         virtual Dom::Value GetContents() const = 0;
-
-        using PatchOutcome = Outcome<void, AZStd::fixed_string<1024>>;
-        virtual void ApplyPatchFromView(const Dom::Patch& patch) = 0;
+        virtual Dom::PatchOutcome ApplyPatchFromView(const Dom::Patch& patch) = 0;
 
         void ConnectResetHandler(ResetEvent::Handler& handler);
         void ConnectChangedHandler(ChangedEvent::Handler& handler);

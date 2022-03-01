@@ -18,7 +18,7 @@ namespace AZ::DocumentPropertyEditor
     class RoutingAdapter : public DocumentAdapter
     {
     public:
-        void ApplyPatchFromView(const Dom::Patch& patch) override;
+        Dom::PatchOutcome ApplyPatchFromView(const Dom::Patch& patch) override;
 
         void ResetRoutes();
         void AddRoute(const Dom::Path& route, DocumentAdapterPtr adapter);
@@ -28,7 +28,7 @@ namespace AZ::DocumentPropertyEditor
         RoutingAdapter* GetRoutingAdapter() override;
 
     protected:
-        virtual void ApplyPatchFromViewToRoot(const Dom::Patch& patch);
+        virtual Dom::PatchOutcome ApplyPatchFromViewToRoot(const Dom::Patch& patch);
 
     private:
         Dom::Path MapPathToRoute(const Dom::Path& path, const Dom::Path& route);
