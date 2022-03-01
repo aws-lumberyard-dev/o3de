@@ -931,7 +931,12 @@ try {
         if (!someBuildHappened) {
             currentBuild.result = 'NOT_BUILT'
         }
-        ReplaceContent()
+        count = 0
+        while(count < 100000)
+        {
+            echo 'foo'
+            count += 1
+        }
     }
 }
 catch(Exception e) {
@@ -940,6 +945,7 @@ catch(Exception e) {
 finally {
     try {
         node('controller') {
+            ReplaceContent()
             if("${currentBuild.currentResult}" == "SUCCESS") {
                 buildFailure = ""
                 emailBody = "${BUILD_URL}\nSuccess!"
