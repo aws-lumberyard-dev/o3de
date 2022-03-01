@@ -10,7 +10,7 @@
 
 namespace AZ::DocumentPropertyEditor
 {
-    Dom::PatchOutcome RoutingAdapter::ApplyPatchFromView(const Dom::Patch& patch)
+    Dom::PatchOutcome RoutingAdapter::RequestContentChange(const Dom::Patch& patch)
     {
         // Apply each individual patch operation as their own patch, as they may be routed to different adapters
         Dom::Patch tempPatch;
@@ -24,11 +24,11 @@ namespace AZ::DocumentPropertyEditor
             if (route != nullptr)
             {
                 MapPatchToRoute(tempPatch, (*route)->m_path);
-                Dom::CombinePatchOutcomes(result, (*route)->m_adapter->ApplyPatchFromView(tempPatch));
+                Dom::CombinePatchOutcomes(result, (*route)->m_adapter->RequestContentChange(tempPatch));
             }
             else
             {
-                Dom::CombinePatchOutcomes(result, ApplyPatchFromViewToRoot(tempPatch));
+                Dom::CombinePatchOutcomes(result, RequestRootContentChange(tempPatch));
             }
         }
 
@@ -49,7 +49,7 @@ namespace AZ::DocumentPropertyEditor
             [this, entryPtr = entry.get()](const Dom::Patch& patch)
             {
                 // On patch, map it to the actual path inthis adapter and notify the view
-                SendPatchToView(MapPatchFromRoute(patch, entryPtr->m_path));
+                NotifyContentsChanged(MapPatchFromRoute(patch, entryPtr->m_path));
             });
         entry->m_onAdapterReset = ResetEvent::Handler(
             [this, entryPtr = entry.get()]()
@@ -57,7 +57,7 @@ namespace AZ::DocumentPropertyEditor
                 // On reset, create a replace operation that updates the entire contents of this route
                 Dom::Patch patch;
                 patch.PushBack(Dom::PatchOperation::ReplaceOperation(entryPtr->m_path, entryPtr->m_adapter->GetContents()));
-                SendPatchToView(patch);
+                NotifyContentsChanged(patch);
             });
         adapter->ConnectChangedHandler(entry->m_onAdapterChanged);
         adapter->ConnectResetHandler(entry->m_onAdapterReset);
@@ -79,10 +79,10 @@ namespace AZ::DocumentPropertyEditor
         return this;
     }
 
-    Dom::PatchOutcome RoutingAdapter::ApplyPatchFromViewToRoot([[maybe_unused]] const Dom::Patch& patch)
+    Dom::PatchOutcome RoutingAdapter::RequestRootContentChange([[maybe_unused]] const Dom::Patch& patch)
     {
         return AZ::Failure<AZStd::string>(
-            "Attempted to call ApplyPatchFromViewToRoot on a RoutingAdapter that does not have it implemented.\nCheck to see if there "
+            "Attempted to call RequestRootContentChange on a RoutingAdapter that does not have it implemented.\nCheck to see if there "
             "should be an implementation, or if this should have been caught by a route.");
     }
 

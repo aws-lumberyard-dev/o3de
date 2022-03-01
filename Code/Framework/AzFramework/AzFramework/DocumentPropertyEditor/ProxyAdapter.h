@@ -18,7 +18,7 @@ namespace AZ::DocumentPropertyEditor
         ProxyAdapter(DocumentAdapterPtr adapterToProxy);
 
         Dom::Value GetContents() const override;
-        Dom::PatchOutcome ApplyPatchFromView(const Dom::Patch& patch) override;
+        Dom::PatchOutcome RequestContentChange(const Dom::Patch& patch) override;
 
         DocumentAdapterPtr GetProxiedAdapter();
         ConstDocumentAdapterPtr GetProxiedAdapter() const;

@@ -35,7 +35,7 @@ namespace AZ::DocumentPropertyEditor
         m_resetEvent.Signal();
     }
 
-    void DocumentAdapter::SendPatchToView(const AZ::Dom::Patch& patch)
+    void DocumentAdapter::NotifyContentsChanged(const AZ::Dom::Patch& patch)
     {
         m_changedEvent.Signal(patch);
     }

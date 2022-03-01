@@ -28,9 +28,9 @@ namespace AZ::DocumentPropertyEditor
         return m_proxiedAdapter != nullptr ? m_proxiedAdapter->GetContents() : Dom::Value();
     }
 
-    Dom::PatchOutcome ProxyAdapter::ApplyPatchFromView(const Dom::Patch& patch)
+    Dom::PatchOutcome ProxyAdapter::RequestContentChange(const Dom::Patch& patch)
     {
-        return m_proxiedAdapter->ApplyPatchFromView(patch);
+        return m_proxiedAdapter->RequestContentChange(patch);
     }
 
     DocumentAdapterPtr ProxyAdapter::GetProxiedAdapter()
@@ -63,6 +63,6 @@ namespace AZ::DocumentPropertyEditor
 
     void ProxyAdapter::OnProxiedAdapterChanged(const Dom::Patch& patch)
     {
-        SendPatchToView(patch);
+        NotifyContentsChanged(patch);
     }
 }

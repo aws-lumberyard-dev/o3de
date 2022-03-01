@@ -17,7 +17,7 @@ namespace AZ::DocumentPropertyEditor
     public:
         void SetContents(Dom::Value contents);
         Dom::Value GetContents() const override;
-        Dom::PatchOutcome ApplyPatchFromView(const Dom::Patch& patch) override;
+        Dom::PatchOutcome RequestContentChange(const Dom::Patch& patch) override;
 
     private:
         Dom::Value m_value;

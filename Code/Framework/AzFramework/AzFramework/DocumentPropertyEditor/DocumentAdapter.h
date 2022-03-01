@@ -15,6 +15,14 @@
 
 namespace AZ::DocumentPropertyEditor
 {
+    namespace NodeNames
+    {
+        AZ::Name Adapter;
+        AZ::Name Row;
+        AZ::Name Label;
+        AZ::Name PropertyEditor;
+    }
+
     class DocumentAdapter;
     class RoutingAdapter;
     using DocumentAdapterPtr = AZStd::shared_ptr<DocumentAdapter>;
@@ -28,7 +36,7 @@ namespace AZ::DocumentPropertyEditor
 
         virtual ~DocumentAdapter() = default;
         virtual Dom::Value GetContents() const = 0;
-        virtual Dom::PatchOutcome ApplyPatchFromView(const Dom::Patch& patch) = 0;
+        virtual Dom::PatchOutcome RequestContentChange(const Dom::Patch& patch) = 0;
 
         void ConnectResetHandler(ResetEvent::Handler& handler);
         void ConnectChangedHandler(ChangedEvent::Handler& handler);
@@ -38,7 +46,7 @@ namespace AZ::DocumentPropertyEditor
 
     protected:
         void ResetDocument();
-        void SendPatchToView(const Dom::Patch& patch);
+        void NotifyContentsChanged(const Dom::Patch& patch);
 
     private:
         ResetEvent m_resetEvent;

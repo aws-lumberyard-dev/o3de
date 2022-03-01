@@ -147,6 +147,8 @@ set(FILES
     DocumentPropertyEditor/ProxyAdapter.h
     DocumentPropertyEditor/RoutingAdapter.cpp
     DocumentPropertyEditor/RoutingAdapter.h
+    DocumentPropertyEditor/Nodes.cpp
+    DocumentPropertyEditor/Nodes.h
     FileFunc/FileFunc.h
     FileFunc/FileFunc.cpp
     Font/FontInterface.h
