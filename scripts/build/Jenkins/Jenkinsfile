@@ -850,7 +850,7 @@ try {
                         pipelineConfig.platforms.each { platform ->
                             platformEnv = platform.value.PIPELINE_ENV
                             count = 0
-                            while(count < 10000)
+                            while(count < 50000)
                             {
                                 echo 'foo'
                                 count += 1
