@@ -15,14 +15,6 @@
 
 namespace AZ::DocumentPropertyEditor
 {
-    namespace NodeNames
-    {
-        AZ::Name Adapter;
-        AZ::Name Row;
-        AZ::Name Label;
-        AZ::Name PropertyEditor;
-    }
-
     class DocumentAdapter;
     class RoutingAdapter;
     using DocumentAdapterPtr = AZStd::shared_ptr<DocumentAdapter>;

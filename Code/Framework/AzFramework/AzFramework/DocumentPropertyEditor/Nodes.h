@@ -30,6 +30,6 @@ namespace AZ::DocumentPropertyEditor::Nodes
     namespace PropertyEditor
     {
         inline const AZ::Name Name = AZ::Name::FromStringLiteral("PropertyEditor");
-        inline const AZ::Name Type = AZ::Name::FromStringLiteral("Type");
+        inline const AZ::Name Type = AZ::Name::FromStringLiteral("type");
     }
 } // namespace AZ::DocumentPropertyEditor::Nodes

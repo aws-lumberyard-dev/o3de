@@ -41,7 +41,8 @@ namespace AZ::DocumentPropertyEditor::Tests
         Dom::Value label = Dom::Value::CreateNode("Label");
         label.SetNodeValue(Dom::Value("label", true));
         row.ArrayPushBack(label);
-        Dom::Value editor = Dom::Value::CreateNode("editor");
+        Dom::Value editor = Dom::Value::CreateNode("PropertyEditor");
+        editor["type"] = Dom::Value("editor", true);
         editor["attr"] = 2;
         row.ArrayPushBack(editor);
         expectedValue.ArrayPushBack(row);
