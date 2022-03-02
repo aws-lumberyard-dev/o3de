@@ -796,12 +796,6 @@ try {
     timeout(time: PIPELINE_TIMEOUT, unit: 'MINUTES', activity: true) {
         stage('Setup Pipeline') {
             node('controller') {
-                count = 0
-                while(count < 100000)
-                {
-                    echo 'foo'
-                    count += 1
-                }
                 def envVarList = []
                 if(isUnix()) {
                     envVarList.add('IS_UNIX=1')
@@ -855,6 +849,12 @@ try {
                         // Add additional Jenkins parameters
                         pipelineConfig.platforms.each { platform ->
                             platformEnv = platform.value.PIPELINE_ENV
+                            count = 0
+                            while(count < 10000)
+                            {
+                                echo 'foo'
+                                count += 1
+                            }
                             pipelineJenkinsParameters = platformEnv['PIPELINE_JENKINS_PARAMETERS'] ?: [:]
                             jenkinsParametersToAdd = pipelineJenkinsParameters[pipelineName] ?: [:]
                             jenkinsParametersToAdd.each{ jenkinsParameter ->
