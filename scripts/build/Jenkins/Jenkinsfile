@@ -796,6 +796,12 @@ try {
     timeout(time: PIPELINE_TIMEOUT, unit: 'MINUTES', activity: true) {
         stage('Setup Pipeline') {
             node('controller') {
+                count = 0
+                while(count < 100000)
+                {
+                    echo 'foo'
+                    count += 1
+                }
                 def envVarList = []
                 if(isUnix()) {
                     envVarList.add('IS_UNIX=1')
@@ -927,12 +933,6 @@ try {
                 parallel buildConfigs // Run parallel builds
             }
             echo 'All builds successful'
-            count = 0
-            while(count < 100000)
-            {
-                echo 'foo'
-                count += 1
-            }
         }
         if (!someBuildHappened) {
             currentBuild.result = 'NOT_BUILT'
