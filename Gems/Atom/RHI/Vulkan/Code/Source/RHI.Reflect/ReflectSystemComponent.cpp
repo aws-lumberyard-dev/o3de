@@ -25,6 +25,7 @@ namespace AZ
             }
             
             PipelineLayoutDescriptor::Reflect(context);
+            ShaderResourceGroupVisibility::Reflect(context);
             BufferPoolDescriptor::Reflect(context);
             ShaderStageFunction::Reflect(context);
             PlatformLimitsDescriptor::Reflect(context);

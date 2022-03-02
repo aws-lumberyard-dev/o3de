@@ -6,7 +6,7 @@
  *
  */
 
-#include <Atom/RHI.Reflect/ShaderResourceGroupPoolDescriptor.h>
+#include <Atom/RHI.Reflect/Vulkan/ShaderResourceGroupPoolDescriptor.h>
 
 namespace AZ
 {

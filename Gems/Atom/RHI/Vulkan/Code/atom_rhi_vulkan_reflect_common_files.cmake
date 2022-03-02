@@ -11,6 +11,8 @@ set(FILES
     Include/Atom/RHI.Reflect/Vulkan/BufferPoolDescriptor.h
     Source/RHI.Reflect/ImagePoolDescriptor.cpp
     Include/Atom/RHI.Reflect/Vulkan/ImagePoolDescriptor.h
+    Include/Atom/RHI.Reflect/Vulkan/ShaderResourceGroupPoolDescriptor.h
+    Source/RHI.Reflect/ShaderResourceGroupPoolDescriptor.cpp
     Include/Atom/RHI.Reflect/Vulkan/PipelineLayoutDescriptor.h
     Source/RHI.Reflect/PipelineLayoutDescriptor.cpp
     Source/RHI.Reflect/ShaderStageFunction.cpp
@@ -19,4 +21,6 @@ set(FILES
     Include/Atom/RHI.Reflect/Vulkan/ReflectSystemComponent.h
     Source/RHI.Reflect/PlatformLimitsDescriptor.cpp
     Include/Atom/RHI.Reflect/Vulkan/PlatformLimitsDescriptor.h
+    Include/Atom/RHI.Reflect/Vulkan/ShaderResourceGroupVisibility.h
+    Source/RHI.Reflect/ShaderResourceGroupVisibility.cpp
 )

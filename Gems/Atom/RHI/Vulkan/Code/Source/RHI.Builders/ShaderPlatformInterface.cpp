@@ -12,6 +12,7 @@
 #include <Atom/RHI.Reflect/Vulkan/Base.h>
 #include <Atom/RHI.Reflect/Vulkan/ShaderStageFunction.h>
 #include <Atom/RHI.Reflect/Vulkan/PipelineLayoutDescriptor.h>
+#include <Atom/RHI.Reflect/Vulkan/ShaderResourceGroupVisibility.h>
 #include <Atom/RHI/RHIUtils.h>
 
 #include <AzCore/IO/FileIO.h>
@@ -101,12 +102,36 @@ namespace AZ
             {
                 const auto& srgInfo = srgInfoList[groupLayoutIndex];
 
+                // TODO: Make this data driven
+                bool isCommonSrg =
+                    srgInfo.m_layout->GetName().GetStringView() == "SceneSrg" ||
+                    srgInfo.m_layout->GetName().GetStringView() == "ViewSrg" ||
+                    srgInfo.m_layout->GetName().GetStringView() == "RayTracingMaterialSrg" ||
+                    srgInfo.m_layout->GetName().GetStringView() == "RayTracingSceneSrg" ||
+                    (srgInfo.m_layout->GetName().GetStringView() == "PassSrg" && srgInfo.m_layout->FindShaderInputImageIndex(Name{"m_tileLightData"}).IsValid()); 
+
                 RHI::Ptr<ShaderResourceGroupVisibility> srgVisibility = aznew ShaderResourceGroupVisibility;
                 for (const auto& resourceBindInfo : srgInfo.m_bindingInfo.m_resourcesRegisterMap)
                 {
-                    srgVisibility->m_resourcesStageMask.insert({ resourceBindInfo.first, resourceBindInfo.second.m_shaderStageMask });
+                    if (isCommonSrg)
+                    {
+                        srgVisibility->m_resourcesStageMask.insert({ resourceBindInfo.first, RHI::ShaderStageMask::All });
+                    }
+                    else
+                    {
+                        srgVisibility->m_resourcesStageMask.insert({ resourceBindInfo.first, resourceBindInfo.second.m_shaderStageMask });
+                    }
                 }
-                srgVisibility->m_constantDataStageMask = srgInfo.m_bindingInfo.m_constantDataBindingInfo.m_shaderStageMask;
+                
+                if (isCommonSrg)
+                {
+                    srgVisibility->m_constantDataStageMask = RHI::ShaderStageMask::All;
+                }
+                else
+                {
+                    srgVisibility->m_constantDataStageMask = srgInfo.m_bindingInfo.m_constantDataBindingInfo.m_shaderStageMask;
+                }
+
                 vulkanDescriptor->AddShaderResourceGroupVisibility(srgVisibility);
             }
 

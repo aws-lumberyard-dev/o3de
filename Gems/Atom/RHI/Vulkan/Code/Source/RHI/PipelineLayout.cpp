@@ -8,6 +8,7 @@
 #include <Atom/RHI.Reflect/PipelineLayoutDescriptor.h>
 #include <Atom/RHI.Reflect/ShaderResourceGroupPoolDescriptor.h>
 #include <Atom/RHI.Reflect/Vulkan/PipelineLayoutDescriptor.h>
+#include <Atom/RHI.Reflect/Vulkan/ShaderResourceGroupVisibility.h>
 #include <RHI/Conversion.h>
 #include <RHI/DescriptorSetLayout.h>
 #include <RHI/Device.h>
@@ -22,7 +23,7 @@ namespace AZ
     {
         size_t PipelineLayout::Descriptor::GetHash() const
         {
-                return static_cast<size_t>(m_pipelineLayoutDescriptor->GetHash());
+            return static_cast<size_t>(m_pipelineLayoutDescriptor->GetHash());
         }
 
         RHI::Ptr<PipelineLayout> PipelineLayout::Create()

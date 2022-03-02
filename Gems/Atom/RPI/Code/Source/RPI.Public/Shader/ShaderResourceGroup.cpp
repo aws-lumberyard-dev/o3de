@@ -25,13 +25,13 @@ namespace AZ
         {
             AZ_Assert(!srgName.IsEmpty(), "Invalid ShaderResourceGroup name");
 
-            // Let's find the srg layout with the given name, because it contains the azsl file path of origin
-            // which is essential to uniquely identify an SRG and avoid redundant copies in memory.
-            auto srgLayout = shaderAsset->FindShaderResourceGroupLayout(srgName, supervariantIndex);
-            AZ_Assert(srgLayout != nullptr, "Failed to find SRG with name %s, using supervariantIndex %u from shaderAsset %s", srgName.GetCStr(),
-                supervariantIndex.GetIndex(), shaderAsset.GetHint().c_str());
+            //// Let's find the srg layout with the given name, because it contains the azsl file path of origin
+            //// which is essential to uniquely identify an SRG and avoid redundant copies in memory.
+            //auto srgLayout = shaderAsset->FindShaderResourceGroupLayout(srgName, supervariantIndex);
+            //AZ_Assert(srgLayout != nullptr, "Failed to find SRG with name %s, using supervariantIndex %u from shaderAsset %s", srgName.GetCStr(),
+            //    supervariantIndex.GetIndex(), shaderAsset.GetHint().c_str());
 
-            AZStd::string idString = AZStd::string::format("%s_%u_%s", srgLayout->GetUniqueId().c_str(), supervariantIndex.GetIndex(), srgName.GetCStr());
+            AZStd::string idString = AZStd::string::format("%s_%u_%s", shaderAsset.GetId().ToString<AZStd::string>().c_str(), supervariantIndex.GetIndex(), srgName.GetCStr());
             return Data::InstanceId::CreateData(idString.data(), idString.size());
         }
 

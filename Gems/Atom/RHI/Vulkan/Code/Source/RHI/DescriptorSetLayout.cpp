@@ -8,6 +8,7 @@
 #include <Atom/RHI.Reflect/ShaderResourceGroupLayout.h>
 #include <Atom/RHI.Reflect/ShaderResourceGroupLayoutDescriptor.h>
 #include <Atom/RHI.Reflect/Vulkan/PipelineLayoutDescriptor.h>
+#include <Atom/RHI.Reflect/Vulkan/ShaderResourceGroupVisibility.h>
 #include <AzCore/Utils/TypeHash.h>
 #include <AzCore/std/createdestroy.h>
 #include <AzCore/std/parallel/lock.h>
@@ -161,6 +162,10 @@ namespace AZ
             if (mask == RHI::ShaderStageMask::All)
             {
                 return VK_SHADER_STAGE_ALL;
+            }
+            else if (mask == RHI::ShaderStageMask::None)
+            {
+                return {};
             }
             else
             {

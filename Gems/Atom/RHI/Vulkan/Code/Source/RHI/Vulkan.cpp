@@ -293,6 +293,10 @@ namespace AZ
 
                 if (RHI::CheckBitsAny(messageSeverity, VK_DEBUG_UTILS_MESSAGE_SEVERITY_ERROR_BIT_EXT))
                 {
+                    if (AZStd::string(pCallbackData->pMessage).find("matches (is the same as, or identically defined as) the VkDescriptorSetLayout", 0) != AZStd::string::npos)
+                    {
+                        AZ_Error(s_debugMessageLabel, false, "LOOK!");
+                    }
                     AZ_Error(s_debugMessageLabel, false, "%s%s %s\n", severtityString, typeString, pCallbackData->pMessage);
                 }
                 else if (RHI::CheckBitsAny(messageSeverity, VK_DEBUG_UTILS_MESSAGE_SEVERITY_WARNING_BIT_EXT))

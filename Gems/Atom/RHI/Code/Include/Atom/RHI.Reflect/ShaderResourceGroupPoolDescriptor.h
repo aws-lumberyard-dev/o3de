@@ -8,6 +8,7 @@
 #pragma once
 
 #include <Atom/RHI.Reflect/ShaderResourceGroupLayout.h>
+#include <Atom/RHI.Reflect/PipelineLayoutDescriptor.h>
 #include <Atom/RHI.Reflect/ResourcePoolDescriptor.h>
 
 namespace AZ
@@ -16,15 +17,11 @@ namespace AZ
     {
         enum class ShaderResourceGroupUsage : uint32_t
         {
-            /**
-             * The resource set is persistent across frames and will be updated rarely.
-             */
+            //! The resource set is persistent across frames and will be updated rarely.
             Persistent = 0,
 
-            /**
-             * The resource group is optimized for once-per-frame updates. Its contents become invalid
-             * after the current frame has completed.
-             */
+            //! The resource group is optimized for once-per-frame updates. Its contents become invalid
+            //! after the current frame has completed.
             Transient
         };
 
@@ -34,14 +31,16 @@ namespace AZ
         public:
             virtual ~ShaderResourceGroupPoolDescriptor() = default;
             AZ_RTTI(ShaderResourceGroupPoolDescriptor, "{7074E7D1-B98D-48C7-8622-D6635CAEFBB4}");
-            static void Reflect(AZ::ReflectContext* context);
 
             ShaderResourceGroupPoolDescriptor() = default;
 
-            /// [Not Serialized] The resource group layout shared by all resource groups in the pool.
+            //! The resource group layout shared by all resource groups in the pool.
             RHI::ConstPtr<ShaderResourceGroupLayout> m_layout;
 
-            /// The usage type used to update resource groups.
+            //! The pipeline layout descriptor which may contain extra platform-specific metadata about the SRG.
+            RHI::Ptr<const RHI::PipelineLayoutDescriptor> m_pipelineLayoutDescriptor;
+
+            //! The usage type used to update resource groups.
             ShaderResourceGroupUsage m_usage = ShaderResourceGroupUsage::Persistent;
         };
     }

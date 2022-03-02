@@ -8,6 +8,7 @@
 #include <Atom/RHI/BufferPool.h>
 #include <Atom/RHI/BufferView.h>
 #include <Atom/RHI/ImageView.h>
+#include <Atom/RHI.Reflect/Vulkan/ShaderResourceGroupPoolDescriptor.h>
 #include <RHI/Buffer.h>
 #include <RHI/BufferPool.h>
 #include <RHI/DescriptorPool.h>
@@ -47,6 +48,13 @@ namespace AZ
             DescriptorSetLayout::Descriptor layoutDescriptor;
             layoutDescriptor.m_device = &device;
             layoutDescriptor.m_shaderResouceGroupLayout = &layout;
+            
+            if (auto pipelineLayoutDescriptor = azrtti_cast<const Vulkan::PipelineLayoutDescriptor*>(descriptor.m_pipelineLayoutDescriptor.get()))
+            {
+                uint32_t index = pipelineLayoutDescriptor->GetShaderResourceGroupIndexFromBindingSlot(layout.GetBindingSlot());
+                layoutDescriptor.m_shaderResouceGroupVisibility = pipelineLayoutDescriptor->GetShaderResourceGroupVisibility(index);
+            }
+
             m_descriptorSetLayout = device.AcquireDescriptorSetLayout(layoutDescriptor);
             if (!m_descriptorSetLayout)
             {

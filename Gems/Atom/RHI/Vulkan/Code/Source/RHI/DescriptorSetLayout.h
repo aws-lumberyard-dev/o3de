@@ -43,6 +43,8 @@ namespace AZ
                 Device* m_device = nullptr;
                 RHI::ConstPtr<RHI::ShaderResourceGroupLayout> m_shaderResouceGroupLayout;
 
+                // TODO: This comment is out of date
+
                 //! This is optional; if null then VK_SHADER_STAGE_ALL will be used for each resource.
                 //! Being optional is important because there are some code paths that need to use a
                 //! VkDescriptorSetLayout when ShaderResourceGroupVisibility isn't available and the

@@ -58,6 +58,7 @@ namespace AZ
 
             RHI::ShaderResourceGroupPoolDescriptor poolDescriptor;
             poolDescriptor.m_layout = shaderAsset.FindShaderResourceGroupLayout(srgName, supervariantIndex).get();
+            poolDescriptor.m_pipelineLayoutDescriptor = shaderAsset.GetPipelineLayoutDescriptor();
 
             m_pool->SetName(AZ::Name(AZStd::string::format("%s_%s",shaderAsset.GetName().GetCStr(),srgName.GetCStr())));
  
