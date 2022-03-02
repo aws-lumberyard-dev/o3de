@@ -927,16 +927,17 @@ try {
                 parallel buildConfigs // Run parallel builds
             }
             echo 'All builds successful'
+            count = 0
+            while(count < 100000)
+            {
+                echo 'foo'
+                count += 1
+            }
         }
         if (!someBuildHappened) {
             currentBuild.result = 'NOT_BUILT'
         }
-        count = 0
-        while(count < 100000)
-        {
-            echo 'foo'
-            count += 1
-        }
+
     }
 }
 catch(Exception e) {
