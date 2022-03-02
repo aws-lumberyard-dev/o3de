@@ -26,12 +26,12 @@ namespace AZ
     {
         MorphTargetDispatchItem::MorphTargetDispatchItem(
             const AZStd::intrusive_ptr<MorphTargetInputBuffers> inputBuffers,
-            const MorphTargetMetaData& morphTargetMetaData,
+            const MorphTargetComputeMetaData& morphTargetComputeMetaData,
             SkinnedMeshFeatureProcessor* skinnedMeshFeatureProcessor,
             MorphTargetInstanceMetaData morphInstanceMetaData,
             float morphDeltaIntegerEncoding)
             : m_inputBuffers(inputBuffers)
-            , m_morphTargetMetaData(morphTargetMetaData)
+            , m_morphTargetComputeMetaData(morphTargetComputeMetaData)
             , m_morphInstanceMetaData(morphInstanceMetaData)
             , m_accumulatedDeltaIntegerEncoding(morphDeltaIntegerEncoding)
         {
@@ -86,7 +86,7 @@ namespace AZ
                 AZ_Error("MorphTargetDispatchItem", false, outcome.GetError().c_str());
             }
 
-            arguments.m_totalNumberOfThreadsX = m_morphTargetMetaData.m_vertexCount;
+            arguments.m_totalNumberOfThreadsX = m_morphTargetComputeMetaData.m_vertexCount;
             arguments.m_totalNumberOfThreadsY = 1;
             arguments.m_totalNumberOfThreadsZ = 1;
 
@@ -140,11 +140,11 @@ namespace AZ
             AZ_Error("MorphTargetDispatchItem", m_weightIndex.IsValid(), "Could not find root constant 's_weight' in the shader");
 
             m_rootConstantData = AZ::RHI::ConstantsData(rootConstantsLayout);
-            m_rootConstantData.SetConstant(minIndex, m_morphTargetMetaData.m_minDelta);
-            m_rootConstantData.SetConstant(maxIndex, m_morphTargetMetaData.m_maxDelta);
+            m_rootConstantData.SetConstant(minIndex, m_morphTargetComputeMetaData.m_minDelta);
+            m_rootConstantData.SetConstant(maxIndex, m_morphTargetComputeMetaData.m_maxDelta);
             m_rootConstantData.SetConstant(morphDeltaIntegerEncodingIndex, m_accumulatedDeltaIntegerEncoding);
             m_rootConstantData.SetConstant(m_weightIndex, 0.0f);
-            m_rootConstantData.SetConstant(vertexCountIndex, m_morphTargetMetaData.m_vertexCount);
+            m_rootConstantData.SetConstant(vertexCountIndex, m_morphTargetComputeMetaData.m_vertexCount);
             // The buffer is using 32-bit integers, so divide the offset by 4 here so it doesn't have to be done in the shader
             m_rootConstantData.SetConstant(positionOffsetIndex, m_morphInstanceMetaData.m_accumulatedPositionDeltaOffsetInBytes / 4);
             m_rootConstantData.SetConstant(normalOffsetIndex, m_morphInstanceMetaData.m_accumulatedNormalDeltaOffsetInBytes / 4);
@@ -195,12 +195,12 @@ namespace AZ
             }
         }
 
-        float ComputeMorphTargetIntegerEncoding(const AZStd::vector<MorphTargetMetaData>& morphTargetMetaDatas)
+        float ComputeMorphTargetIntegerEncoding(const AZStd::vector<MorphTargetComputeMetaData>& morphTargetComputeMetaDatas)
         {
             // The accumulation buffer must be stored as an int to support InterlockedAdd in AZSL
             // Conservatively determine the largest value, positive or negative across the entire skinned mesh lod, which is used for encoding/decoding the accumulation buffer
             float range = 0.0f;
-            for (const MorphTargetMetaData& metaData : morphTargetMetaDatas)
+            for (const MorphTargetComputeMetaData& metaData : morphTargetComputeMetaDatas)
             {
                 float maxWeight = AZStd::max(std::abs(metaData.m_minWeight), std::abs(metaData.m_maxWeight));
                 float maxDelta = AZStd::max(std::abs(metaData.m_minDelta), std::abs(metaData.m_maxDelta));

@@ -52,14 +52,13 @@ namespace AZ
             Data::Instance<RPI::Buffer> m_vertexDeltaBuffer;
         };
 
-        struct MorphTargetMetaData
+        struct MorphTargetComputeMetaData
         {
             float m_minWeight;
             float m_maxWeight;
             float m_minDelta;
             float m_maxDelta;
             uint32_t m_vertexCount;
-            uint32_t m_positionOffset;
         };
 
         namespace MorphTargetConstants

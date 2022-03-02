@@ -62,19 +62,49 @@ namespace AZ
                 return false;
             }
 
-            // Get the value needed for encoding/decoding floats as integers when passing them
-            // from the morph target pass to the skinning pass.
-            // Integer encoding is used so that AZSL's InterlockedAdd can be used, wich only supports int/uint
-            const AZStd::vector<MorphTargetMetaData>& morphTargetMetaDatas = m_inputBuffers->GetMorphTargetMetaData(modelLodIndex);
-            float morphDeltaIntegerEncoding = 0.0f;
-            if (morphTargetMetaDatas.size() > 0)
+            // Get the data needed to create a morph target dispatch item
+            Data::Instance<RPI::Shader> morphTargetShader = m_featureProcessor->GetMorphTargetShader();
+            if (!morphTargetShader)
             {
-                morphDeltaIntegerEncoding = ComputeMorphTargetIntegerEncoding(morphTargetMetaDatas);
+                AZ_Error("Skinned Mesh Feature Processor", false, "Failed to get morph target shader from morph target pass");
+                return false;
             }
 
+            // Create a vector of dispatch items for each lod
             m_dispatchItemsByLod.emplace_back(AZStd::vector<AZStd::unique_ptr<SkinnedMeshDispatchItem>>());
-            for (uint32_t meshIndex = 0; meshIndex < m_inputBuffers->GetMeshCount(modelLodIndex); ++meshIndex)
+            m_morphTargetDispatchItemsByLod.emplace_back(AZStd::vector<AZStd::unique_ptr<MorphTargetDispatchItem>>());
+
+            uint32_t meshCount = m_inputBuffers->GetMeshCount(modelLodIndex);
+            AZStd::vector<float> morphDeltaIntegerEncodings;
+            morphDeltaIntegerEncodings.reserve(meshCount);
+
+            // Populate the vector with a dispatch item for each mesh
+            for (uint32_t meshIndex = 0; meshIndex < meshCount; ++meshIndex)
             {
+                // Get the value needed for encoding/decoding floats as integers when passing them
+                // from the morph target pass to the skinning pass.
+                // Integer encoding is used so that AZSL's InterlockedAdd can be used, which only supports int/uint
+                const AZStd::vector<MorphTargetComputeMetaData>& morphTargetComputeMetaDatas =
+                    m_inputBuffers->GetMorphTargetComputeMetaDatas(modelLodIndex, meshIndex);
+                    
+                // Verify the morph targets were created correctly for this mesh
+                // With an equal number of metadatas and input buffers
+                const AZStd::vector<AZStd::intrusive_ptr<MorphTargetInputBuffers>>& morphTargetInputBuffersVector =
+                    m_inputBuffers->GetMorphTargetInputBuffers(modelLodIndex, meshIndex);
+                AZ_Assert(
+                    morphTargetComputeMetaDatas.size() == morphTargetInputBuffersVector.size(),
+                    "Skinned Mesh Feature Processor - Mismatch in morph target metadata count and morph target input buffer count");
+                    
+                float morphDeltaIntegerEncoding = 0.0f;
+                if (morphTargetComputeMetaDatas.size() > 0)
+                {
+                    morphDeltaIntegerEncoding = ComputeMorphTargetIntegerEncoding(morphTargetComputeMetaDatas);
+                }
+                
+                // Keep track of the integer encoding for this mesh, so it can be used when adding morph targets later
+                morphDeltaIntegerEncodings.push_back(morphDeltaIntegerEncoding);
+
+                // Create the skinning dispatch Item
                 m_dispatchItemsByLod[modelLodIndex].emplace_back(
                     aznew SkinnedMeshDispatchItem{
                         m_inputBuffers,
@@ -83,10 +113,32 @@ namespace AZ
                         modelLodIndex, meshIndex, m_boneTransforms,
                         m_shaderOptions,
                         m_featureProcessor,
-                        m_instance->m_morphTargetInstanceMetaData[modelLodIndex],
+                        m_instance->m_morphTargetInstanceMetaData[modelLodIndex][meshIndex],
                         morphDeltaIntegerEncoding });
+
+                
             }
 
+            // Now loop over the morph targets create the morph target dispatch items
+            const AZStd::vector<SkinnedMeshInputLod::MorphIndex>& morphTargetDispatchItemOrder =
+                m_inputBuffers->GetMorphTargetDispatchOrder(modelLodIndex);
+
+            // Create one dispatch item per morph target
+            for (const SkinnedMeshInputLod::MorphIndex& morphTargetIndex : morphTargetDispatchItemOrder)
+            {
+                m_morphTargetDispatchItemsByLod[modelLodIndex].emplace_back(aznew MorphTargetDispatchItem{
+                    m_inputBuffers->GetMorphTargetInputBuffers(modelLodIndex, morphTargetIndex.m_meshIndex)[morphTargetIndex.m_morphIndex],
+                    m_inputBuffers->GetMorphTargetComputeMetaDatas(modelLodIndex, morphTargetIndex.m_meshIndex)[morphTargetIndex.m_morphIndex],
+                    m_featureProcessor,
+                    m_instance->m_morphTargetInstanceMetaData[modelLodIndex][morphTargetIndex.m_meshIndex],
+                    morphDeltaIntegerEncodings[morphTargetIndex.m_meshIndex] });
+
+                // Initialize the MorphTargetDispatchItem we just created
+                if (!m_morphTargetDispatchItemsByLod[modelLodIndex].back()->Init())
+                {
+                    return false;
+                }
+            }
 
             AZ_Assert(m_dispatchItemsByLod.size() == modelLodIndex + 1, "Skinned Mesh Feature Processor - Mismatch in size between the fixed vector of dispatch items and the lod being initialized");
             for (uint32_t meshIndex = 0; meshIndex < m_inputBuffers->GetMeshCount(modelLodIndex); ++meshIndex)
@@ -97,35 +149,6 @@ namespace AZ
                 }
             }
 
-            // Get the data needed to create a morph target dispatch item
-            Data::Instance<RPI::Shader> morphTargetShader = m_featureProcessor->GetMorphTargetShader();
-            const AZStd::vector<AZStd::intrusive_ptr<MorphTargetInputBuffers>>& morphTargetInputBuffersVector = m_inputBuffers->GetMorphTargetInputBuffers(modelLodIndex);
-            AZ_Assert(morphTargetMetaDatas.size() == morphTargetInputBuffersVector.size(), "Skinned Mesh Feature Processor - Mismatch in morph target metadata count and morph target input buffer count");
-
-            if (!morphTargetShader && morphTargetMetaDatas.size() > 0)
-            {
-                AZ_Error("Skinned Mesh Feature Processor", false, "Failed to get morph target shader from morph target pass");
-                return false;
-            }
-
-            // Create one dispatch item per morph target
-            m_morphTargetDispatchItemsByLod.emplace_back(AZStd::vector<AZStd::unique_ptr<MorphTargetDispatchItem>>());
-            for (uint32_t morphTargetIndex = 0; morphTargetIndex < morphTargetMetaDatas.size(); ++morphTargetIndex)
-            {
-                m_morphTargetDispatchItemsByLod[modelLodIndex].emplace_back(
-                    aznew MorphTargetDispatchItem{
-                        morphTargetInputBuffersVector[morphTargetIndex],
-                        morphTargetMetaDatas[morphTargetIndex],
-                        m_featureProcessor,
-                        m_instance->m_morphTargetInstanceMetaData[modelLodIndex],
-                        morphDeltaIntegerEncoding });
-
-                // Initialize the MorphTargetDispatchItem we just created
-                if (!m_morphTargetDispatchItemsByLod[modelLodIndex].back()->Init())
-                {
-                    return false;
-                }
-            }
             
             return true;
         }
@@ -146,12 +169,12 @@ namespace AZ
 
         void SkinnedMeshRenderProxy::SetMorphTargetWeights(uint32_t lodIndex, const AZStd::vector<float>& weights)
         {
-            [[maybe_unused]] auto& morphTargetDispatchItems = m_morphTargetDispatchItemsByLod[lodIndex];
+            auto& morphTargetDispatchItems = m_morphTargetDispatchItemsByLod[lodIndex];
 
             AZ_Assert(morphTargetDispatchItems.size() == weights.size(), "Skinned Mesh Feature Processor - Morph target weights passed into SetMorphTargetWeight don't align with morph target dispatch items.");
             for (size_t morphIndex = 0; morphIndex < weights.size(); ++morphIndex)
             {
-                //morphTargetDispatchItems[morphIndex]->SetWeight(weights[morphIndex]);
+                morphTargetDispatchItems[morphIndex]->SetWeight(weights[morphIndex]);
             }
         }
 

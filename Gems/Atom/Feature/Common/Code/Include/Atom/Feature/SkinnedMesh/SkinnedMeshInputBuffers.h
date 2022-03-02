@@ -60,6 +60,12 @@ namespace AZ
 
             //! Number of influences per vertex across the sub-mesh
             uint32_t m_skinInfluenceCountPerVertex;
+
+            //! Container with one MorphTargetMetaData per morph target that can potentially be applied to an instance of this mesh
+            AZStd::vector<MorphTargetComputeMetaData> m_morphTargetComputeMetaDatas;
+
+            //! Container with one MorphTargetInputBuffers per morph target that can potentially be applied to an instance of this mesh
+            AZStd::vector<AZStd::intrusive_ptr<MorphTargetInputBuffers>> m_morphTargetInputBuffers;
         };
 
         //! Container for all the buffers and views needed for a single lod of a skinned mesh
@@ -107,18 +113,24 @@ namespace AZ
 
             //! Add a single morph target that can be applied to an instance of this skinned mesh
             //! Creates a view into the larger morph target buffer to be used for applying an individual morph
-            //! @param metaAsset The metadata that has info such as the min/max weight, offset, and vertex count for the morph
-            //! @param morphBufferAsset The the combined buffer that has all the deltas for all morph targets in the model lod
+            //! @param meshIndex The mesh that this morph target should be applied to
+            //! @param morphTarget The metadata that has info such as the min/max weight, offset, and vertex count for the morph
+            //! @param morphBufferAssetView The view of all the morph target deltas that can be applied to this mesh
             //! @param bufferNamePrefix A prefix that can be used to identify this morph target when creating the view into the morph target buffer.
             //! @param minWeight The minimum weight that might be applied to this morph target. It's possible for the weight of a morph target to be outside the 0-1 range. Defaults to 0
-            //! @param maxWeight The maximum weight that might be applied to this morph target. It's possible for the weight of a morph target to be outside the 0-1 range. Defaults to 1
-            void AddMorphTarget(const RPI::MorphTargetMetaAsset::MorphTarget& metaAsset, const Data::Asset<RPI::BufferAsset>& morphBufferAsset, const AZStd::string& bufferNamePrefix, float minWeight, float maxWeight);
-
+            //! @param maxWeight The maximum weight that might be applied to this morph target. It's possible for the weight of a morph target to be outside the 0-1 range. 
+            void AddMorphTarget(
+                uint32_t meshIndex,
+                const RPI::MorphTargetMetaAsset::MorphTarget& morphTarget,
+                const RPI::BufferAssetView* morphBufferAssetView,
+                const AZStd::string& bufferNamePrefix,
+                float minWeight,
+                float maxWeight);
             //! Get the MetaDatas for all the morph targets that can be applied to an instance of this skinned mesh
-            const AZStd::vector<MorphTargetMetaData>& GetMorphTargetMetaDatas() const;
+            const AZStd::vector<MorphTargetComputeMetaData>& GetMorphTargetComputeMetaDatas(uint32_t meshIndex) const;
 
             //! Get the MorphTargetInputBuffers for all the morph targets that can be applied to an instance of this skinned mesh
-            const AZStd::vector<AZStd::intrusive_ptr<MorphTargetInputBuffers>>& GetMorphTargetInputBuffers() const;
+            const AZStd::vector<AZStd::intrusive_ptr<MorphTargetInputBuffers>>& GetMorphTargetInputBuffers(uint32_t meshIndex) const;
 
             //! Sets the input vertex stream from an existing buffer asset.
             void SetSkinningInputBufferAsset(const Data::Asset<RPI::BufferAsset> bufferAsset, SkinnedMeshInputVertexStreams inputStream);
@@ -131,6 +143,19 @@ namespace AZ
 
             //! Calls RPI::Buffer::WaitForUpload for each buffer in the lod.
             void WaitForUpload();
+
+            struct MorphIndex
+            {
+                uint32_t m_meshIndex = 0;
+                uint32_t m_morphIndex = 0;
+            };
+
+            //! Get the order that the morph targets were added for the lod.
+            //! This is used to keep the dispatches in sync with the animation system.
+            const AZStd::vector<MorphIndex>& GetMorphTargetDispatchOrder() const
+            {
+                return m_morphDispatchOrder;
+            }
 
         private:
             RHI::BufferViewDescriptor CreateInputViewDescriptor(
@@ -176,11 +201,9 @@ namespace AZ
             Data::Asset<RPI::BufferAsset> m_indexBufferAsset;
             Data::Instance<RPI::Buffer> m_indexBuffer;
 
-            //! Container with one MorphTargetMetaData per morph target that can potentially be applied to an instance of this skinned mesh
-            AZStd::vector<MorphTargetMetaData> m_morphTargetMetaDatas;
-
-            //! Container with one MorphTargetInputBuffers per morph target that can potentially be applied to an instance of this skinned mesh
-            AZStd::vector<AZStd::intrusive_ptr<MorphTargetInputBuffers>> m_morphTargetInputBuffers;
+            //! Keep track of the order in which morph targets were added, so that the weights coming from the animation
+            //! system will be in sync with the morph target dispatch items
+            AZStd::vector<MorphIndex> m_morphDispatchOrder;
 
             //! Total number of indices for the entire lod
             uint32_t m_indexCount = 0;
@@ -243,10 +266,39 @@ namespace AZ
             bool IsUploadPending() const;
 
             //! Returns a vector of MorphTargetMetaData with one entry for each morph target that could be applied to this mesh
-            const AZStd::vector<MorphTargetMetaData>& GetMorphTargetMetaData(size_t lodIndex) const { return m_lods[lodIndex].GetMorphTargetMetaDatas(); }
+            const AZStd::vector<MorphTargetComputeMetaData>& GetMorphTargetComputeMetaDatas(uint32_t lodIndex, uint32_t meshIndex) const
+            {
+                return m_lods[lodIndex].GetMorphTargetComputeMetaDatas(meshIndex);
+            }
+
+            const AZStd::vector<SkinnedMeshInputLod::MorphIndex>& GetMorphTargetDispatchOrder(uint32_t lodIndex) const
+            {
+                return m_lods[lodIndex].GetMorphTargetDispatchOrder();
+            }
 
             //! Returns a vector of MorphTargetInputBuffers which serve as input to the morph target pass
-            const AZStd::vector<AZStd::intrusive_ptr<MorphTargetInputBuffers>>& GetMorphTargetInputBuffers(size_t lodIndex) const { return m_lods[lodIndex].GetMorphTargetInputBuffers(); }
+            const AZStd::vector<AZStd::intrusive_ptr<MorphTargetInputBuffers>>& GetMorphTargetInputBuffers(uint32_t lodIndex, uint32_t meshIndex) const { return m_lods[lodIndex].GetMorphTargetInputBuffers(meshIndex); }
+
+            //! Add a single morph target that can be applied to an instance of this skinned mesh
+            //! Creates a view into the larger morph target buffer to be used for applying an individual morph
+            //! @param lodIndex The index of the lod modified by the morph target
+            //! @param meshIndex The index of the mesh modified by the morph target
+            //! @param morphTarget The metadata that has info such as the min/max weight, offset, and vertex count for the morph
+            //! @param morphBufferAssetView The view of all the morph target deltas that can be applied to this mesh
+            //! @param bufferNamePrefix A prefix that can be used to identify this morph target when creating the view into the morph target buffer.
+            //! @param minWeight The minimum weight that might be applied to this morph target. It's possible for the weight of a morph target to be outside the 0-1 range. Defaults to 0
+            //! @param maxWeight The maximum weight that might be applied to this morph target. It's possible for the weight of a morph target to be outside the 0-1 range.
+            void AddMorphTarget(
+                uint32_t lodIndex,
+                uint32_t meshIndex,
+                const RPI::MorphTargetMetaAsset::MorphTarget& morphTarget,
+                const RPI::BufferAssetView* morphBufferAssetView,
+                const AZStd::string& bufferNamePrefix,
+                float minWeight,
+                float maxWeight)
+            {
+                m_lods[lodIndex].AddMorphTarget(meshIndex, morphTarget, morphBufferAssetView, bufferNamePrefix, minWeight, maxWeight);
+            }
 
         private:
             void CreateLod(size_t lodIndex);
