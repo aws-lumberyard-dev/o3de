@@ -20,16 +20,6 @@ namespace AZ::DocumentPropertyEditor
         handler.Connect(m_changedEvent);
     }
 
-    bool DocumentAdapter::SupportsRouting() const
-    {
-        return false;
-    }
-
-    RoutingAdapter* DocumentAdapter::GetRoutingAdapter()
-    {
-        return nullptr;
-    }
-
     void DocumentAdapter::ResetDocument()
     {
         m_resetEvent.Signal();

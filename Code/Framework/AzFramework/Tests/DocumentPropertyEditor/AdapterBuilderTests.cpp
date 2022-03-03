@@ -9,6 +9,7 @@
 #include <Tests/DocumentPropertyEditor/DocumentPropertyEditorFixture.h>
 #include <AzFramework/DocumentPropertyEditor/AdapterBuilder.h>
 #include <AzCore/DOM/DomUtils.h>
+#include <AzCore/std/any.h>
 
 namespace AZ::DocumentPropertyEditor::Tests
 {
@@ -16,23 +17,24 @@ namespace AZ::DocumentPropertyEditor::Tests
 
     TEST_F(AdapterBuilderTests, VisitSimpleStructure)
     {
-        AdapterBuilder builder(*m_adapter);
+        AdapterBuilder builder;
         builder.BeginRow();
         builder.BeginLabel("label", true);
         builder.EndLabel();
-        builder.BeginPropertyEditor(AZ_NAME_LITERAL("editor"));
+        builder.BeginPropertyEditor(AZ_NAME_LITERAL("TextEditor"));
+        builder.Value(Dom::Value("lorem ipsum", true));
         builder.Attribute(AZ_NAME_LITERAL("attr"), Dom::Value(2));
         builder.EndPropertyEditor();
         builder.EndRow();
 
-        Dom::Value result = builder.TakeValue();
+        Dom::Value result = builder.FinishAndTakeResult();
 
         /**
         Expect the following structure:
         <Adapter>
             <Row>
                 <Label>label</Label>
-                <editor attr=2 />
+                <PropertyEditor type="TextEditor" attr=2>value</TextEditor>
             </Row>
         </Adapter>
         */
@@ -42,11 +44,71 @@ namespace AZ::DocumentPropertyEditor::Tests
         label.SetNodeValue(Dom::Value("label", true));
         row.ArrayPushBack(label);
         Dom::Value editor = Dom::Value::CreateNode("PropertyEditor");
-        editor["type"] = Dom::Value("editor", true);
+        editor["type"] = Dom::Value("TextEditor", true);
         editor["attr"] = 2;
+        editor.SetNodeValue(Dom::Value("lorem ipsum", true));
         row.ArrayPushBack(editor);
         expectedValue.ArrayPushBack(row);
 
+        EXPECT_TRUE(Dom::Utils::DeepCompareIsEqual(expectedValue, result));
+    }
+
+    TEST_F(AdapterBuilderTests, VisitNestedRows)
+    {
+        AdapterBuilder builder;
+        Dom::Value expectedValue = Dom::Value::CreateNode("Adapter");
+        for (int i = 0; i < 2; ++i)
+        {
+            builder.BeginRow();
+            Dom::Value ri = Dom::Value::CreateNode("Row");
+            for (int j = 0; j < 2; ++j)
+            {
+                builder.BeginRow();
+                Dom::Value rj = Dom::Value::CreateNode("Row");
+                for (int k = 0; k < 3; ++k)
+                {
+                    builder.BeginRow();
+                    Dom::Value rk = Dom::Value::CreateNode("Row");
+                    rj.ArrayPushBack(rk);
+                    builder.EndRow();
+                }
+                ri.ArrayPushBack(rj);
+                builder.EndRow();
+            }
+            expectedValue.ArrayPushBack(ri);
+            builder.EndRow();
+        }
+
+        /**
+        Expect the following structure:
+        <Adapter>
+            <Row>
+                <Row>
+                    <Row />
+                    <Row />
+                    <Row />
+                </Row>
+                <Row>
+                    <Row />
+                    <Row />
+                    <Row />
+                </Row>
+            </Row>
+            <Row>
+                <Row>
+                    <Row />
+                    <Row />
+                    <Row />
+                </Row>
+                <Row>
+                    <Row />
+                    <Row />
+                    <Row />
+                </Row>
+            </Row>
+        </Adapter>
+        */
+        Dom::Value result = builder.FinishAndTakeResult();
         EXPECT_TRUE(Dom::Utils::DeepCompareIsEqual(expectedValue, result));
     }
 }

@@ -69,16 +69,6 @@ namespace AZ::DocumentPropertyEditor
         m_routes.EraseValue(route);
     }
 
-    bool RoutingAdapter::SupportsRouting() const
-    {
-        return true;
-    }
-
-    RoutingAdapter* RoutingAdapter::GetRoutingAdapter()
-    {
-        return this;
-    }
-
     Dom::PatchOutcome RoutingAdapter::RequestRootContentChange([[maybe_unused]] const Dom::Patch& patch)
     {
         return AZ::Failure<AZStd::string>(

@@ -24,9 +24,6 @@ namespace AZ::DocumentPropertyEditor
         void AddRoute(const Dom::Path& route, DocumentAdapterPtr adapter);
         void RemoveRoute(const Dom::Path& route);
 
-        bool SupportsRouting() const override;
-        RoutingAdapter* GetRoutingAdapter() override;
-
     protected:
         virtual Dom::PatchOutcome RequestRootContentChange(const Dom::Patch& patch);
 

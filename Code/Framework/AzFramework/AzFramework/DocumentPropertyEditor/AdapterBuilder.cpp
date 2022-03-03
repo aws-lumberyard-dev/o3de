@@ -11,8 +11,8 @@
 
 namespace AZ::DocumentPropertyEditor
 {
-    AdapterBuilder::AdapterBuilder(DocumentAdapter& adapter)
-        : m_adapter(adapter)
+    AdapterBuilder::AdapterBuilder(RoutingAdapter* routingAdapter)
+        : m_routingAdapter(routingAdapter)
     {
         StartNode(Nodes::Adapter::Name);
     }
@@ -25,7 +25,7 @@ namespace AZ::DocumentPropertyEditor
 
     AdapterBuilder& AdapterBuilder::EndRow()
     {
-        EndNode();
+        EndNode(Nodes::Row::Name);
         return *this;
     }
 
@@ -38,7 +38,7 @@ namespace AZ::DocumentPropertyEditor
 
     AdapterBuilder& AdapterBuilder::EndLabel()
     {
-        EndNode();
+        EndNode(Nodes::Label::Name);
         return *this;
     }
 
@@ -55,6 +55,12 @@ namespace AZ::DocumentPropertyEditor
         return *this;
     }
 
+    AdapterBuilder& AdapterBuilder::Value(Dom::Value value)
+    {
+        CurrentNode().SetNodeValue(value);
+        return *this;
+    }
+
     AdapterBuilder& AdapterBuilder::Attribute(Name attribute, Dom::Value value)
     {
         CurrentNode()[attribute] = AZStd::move(value);
@@ -63,24 +69,24 @@ namespace AZ::DocumentPropertyEditor
 
     AdapterBuilder& AdapterBuilder::NestedAdapter(DocumentAdapterPtr adapter)
     {
-        AZ_Assert(m_adapter.SupportsRouting(), "DPE: Attempted to add a nested adapter to an adapter that doesn't support routing");
-        m_adapter.GetRoutingAdapter()->AddRoute(m_currentPath, adapter);
+        AZ_Assert(m_routingAdapter, "DPE: Attempted to add a nested adapter to a builder with no registered routing adapter");
+        m_routingAdapter->AddRoute(m_currentPath, adapter);
         BeginRow();
         CurrentNode() = adapter->GetContents();
         EndRow();
         return *this;
     }
 
-    Dom::Value&& AdapterBuilder::TakeValue()
+    Dom::Value&& AdapterBuilder::FinishAndTakeResult()
     {
-        EndRow();
+        EndNode(Nodes::Adapter::Name);
         return AZStd::move(m_value);
     }
 
     Dom::Value& AdapterBuilder::CurrentNode()
     {
         AZ_Assert(!m_entries.empty(), "AdapterBuilder::CurrentNode called without a node on the entry stack");
-        return m_entries[m_entries.size() - 1];
+        return m_entries.top();
     }
 
     void AdapterBuilder::StartNode(Name name)
@@ -93,15 +99,18 @@ namespace AZ::DocumentPropertyEditor
         {
             m_currentPath.Push(0);
         }
-        m_entries.push_back(Dom::Value::CreateNode(name));
+        m_entries.push(Dom::Value::CreateNode(name));
     }
 
-    void AdapterBuilder::EndNode()
+    void AdapterBuilder::EndNode([[maybe_unused]] AZ::Name expectedName)
     {
         AZ_Assert(!m_entries.empty(), "AdapterBuilder::EndNode called with an empty entry stack");
+        AZ_Assert(
+            expectedName.IsEmpty() || CurrentNode().GetNodeName() == expectedName,
+            "AdapterBuilder::EndNode called for %s when %s was expected", CurrentNode().GetNodeName().GetCStr(), expectedName.GetCStr());
         m_currentPath.Pop();
-        Dom::Value value = AZStd::move(m_entries[m_entries.size() - 1]);
-        m_entries.pop_back();
+        Dom::Value value = AZStd::move(m_entries.top());
+        m_entries.pop();
         if (!m_entries.empty())
         {
             CurrentNode().ArrayPushBack(AZStd::move(value));
