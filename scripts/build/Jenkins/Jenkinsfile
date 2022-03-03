@@ -357,7 +357,7 @@ def PreBuildCommonSteps(Map pipelineConfig, String snapshot, String repositoryNa
 }
 
 def Build(Map pipelineConfig, String platform, String type, String workspace) {
-    timeout(time: (env.TIMEOUT+30), unit: 'MINUTES', activity: true) {
+    timeout(time: (env.TIMEOUT+1000), unit: 'MINUTES', activity: true) {
         count = 0
         while(count < 50000)
         {
