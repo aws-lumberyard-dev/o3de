@@ -357,7 +357,13 @@ def PreBuildCommonSteps(Map pipelineConfig, String snapshot, String repositoryNa
 }
 
 def Build(Map pipelineConfig, String platform, String type, String workspace) {
-    timeout(time: env.TIMEOUT, unit: 'MINUTES', activity: true) {
+    timeout(time: (env.TIMEOUT+30), unit: 'MINUTES', activity: true) {
+        count = 0
+        while(count < 10000)
+        {
+            echo 'foo'
+            count += 1
+        }
         def command = "${pipelineConfig.PYTHON_DIR}/python"
         if(env.IS_UNIX) command += '.sh'
         else command += '.cmd'
@@ -849,12 +855,6 @@ try {
                         // Add additional Jenkins parameters
                         pipelineConfig.platforms.each { platform ->
                             platformEnv = platform.value.PIPELINE_ENV
-                            count = 0
-                            while(count < 100000)
-                            {
-                                echo 'foo'
-                                count += 1
-                            }
                             pipelineJenkinsParameters = platformEnv['PIPELINE_JENKINS_PARAMETERS'] ?: [:]
                             jenkinsParametersToAdd = pipelineJenkinsParameters[pipelineName] ?: [:]
                             jenkinsParametersToAdd.each{ jenkinsParameter ->
