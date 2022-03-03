@@ -334,4 +334,3 @@ namespace UnitTest
         ASSERT_EQ(nestedTestComponent->m_intProperty, 1);
     }
 } // namespace UnitTest
-#pragma optimize("", on)
