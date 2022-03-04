@@ -59,6 +59,7 @@ namespace AZ
             float m_minDelta;
             float m_maxDelta;
             uint32_t m_vertexCount;
+            uint32_t m_meshIndex;
         };
 
         namespace MorphTargetConstants

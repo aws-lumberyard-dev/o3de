@@ -42,7 +42,7 @@ namespace AZ::RPI
             AZStd::string m_morphTargetName; /**< The name of the morph target we are referring to. */
 
             // !The index of the sub-mesh impacted by this morph target.
-            // !There may be multiple MorphTarget objects which all refer to the same animation, linked by m_morphTargetName. 
+            // !There may be multiple MorphTarget objects which all refer to different meshes for the same animation, linked by m_morphTargetName.
             uint32_t m_meshIndex;
 
             //! All vertex deltas for all meshes and for all morph targets are stored in a giant buffer.

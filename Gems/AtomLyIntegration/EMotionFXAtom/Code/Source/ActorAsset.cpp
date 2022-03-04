@@ -170,7 +170,7 @@ namespace AZ
                                 modelLodMesh.GetSemanticBufferAssetView(Name{ "MORPHTARGET_VERTEXDELTAS" });
 
                             skinnedMeshInputBuffers->AddMorphTarget(
-                                lodIndex, metaData.m_meshIndex, metaData, morphBufferAssetView, morphString, minWeight, maxWeight);
+                                lodIndex, metaData, morphBufferAssetView, morphString, minWeight, maxWeight);
                         }
                     }
                 }
@@ -308,6 +308,7 @@ namespace AZ
                 ProcessMorphsForLod(lodIndex, actor, fullFileName, skinnedMeshInputBuffers);
             } // for all lods
 
+            skinnedMeshInputBuffers->Finalize();
             return skinnedMeshInputBuffers;
         }
 

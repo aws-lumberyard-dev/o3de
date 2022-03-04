@@ -95,7 +95,5 @@ namespace AZ
             // Keep track of the constant index of m_weight since it is updated frequently
             RHI::ShaderInputConstantIndex m_weightIndex;
         };
-
-        float ComputeMorphTargetIntegerEncoding(const AZStd::vector<MorphTargetComputeMetaData>& morphTargetMetaDatas);
     } // namespace Render
 } // namespace AZ

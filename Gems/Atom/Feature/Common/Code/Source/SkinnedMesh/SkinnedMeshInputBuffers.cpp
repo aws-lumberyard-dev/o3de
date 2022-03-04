@@ -379,15 +379,14 @@ namespace AZ
         }
 
         void SkinnedMeshInputLod::AddMorphTarget(
-            uint32_t meshIndex,
             const RPI::MorphTargetMetaAsset::MorphTarget& morphTarget,
             const RPI::BufferAssetView* morphBufferAssetView,
             const AZStd::string& bufferNamePrefix,
             float minWeight = 0.0f,
             float maxWeight = 1.0f)
         {
-            m_meshes[meshIndex].m_morphTargetComputeMetaDatas.push_back(MorphTargetComputeMetaData{
-                minWeight, maxWeight, morphTarget.m_minPositionDelta, morphTarget.m_maxPositionDelta, morphTarget.m_numVertices });
+            m_morphTargetComputeMetaDatas.push_back(MorphTargetComputeMetaData{
+                minWeight, maxWeight, morphTarget.m_minPositionDelta, morphTarget.m_maxPositionDelta, morphTarget.m_numVertices, morphTarget.m_meshIndex });
             
             // Create a view into the larger per-lod morph buffer for this particular morph
             // The morphTarget itself refers to an offset from within the mesh, so combine that
@@ -397,21 +396,58 @@ namespace AZ
             morphView.m_elementCount = morphTarget.m_numVertices;
             RPI::BufferAssetView morphTargetDeltaView{ morphBufferAssetView->GetBufferAsset(), morphView };
 
-            m_meshes[meshIndex].m_morphTargetInputBuffers.push_back(aznew MorphTargetInputBuffers{ morphTargetDeltaView, bufferNamePrefix });
-
-            // Keep track of the order in which the morphs were added, so that we can keep
-            // the dispatch item order in sync with the weights coming from the animation system
-            m_morphDispatchOrder.push_back(MorphIndex{ meshIndex, aznumeric_cast<uint32_t>(m_meshes[meshIndex].m_morphTargetInputBuffers.size()) - 1u });
-        }
-        
-        const AZStd::vector<MorphTargetComputeMetaData>& SkinnedMeshInputLod::GetMorphTargetComputeMetaDatas(uint32_t meshIndex) const
-        {
-            return m_meshes[meshIndex].m_morphTargetComputeMetaDatas;
+            m_morphTargetInputBuffers.push_back(aznew MorphTargetInputBuffers{ morphTargetDeltaView, bufferNamePrefix });
         }
 
-        const AZStd::vector<AZStd::intrusive_ptr<MorphTargetInputBuffers>>& SkinnedMeshInputLod::GetMorphTargetInputBuffers(uint32_t meshIndex) const
+        const AZStd::vector<MorphTargetComputeMetaData>& SkinnedMeshInputLod::GetMorphTargetComputeMetaDatas() const
         {
-            return m_meshes[meshIndex].m_morphTargetInputBuffers;
+            return m_morphTargetComputeMetaDatas;
+        }
+
+        const AZStd::vector<AZStd::intrusive_ptr<MorphTargetInputBuffers>>& SkinnedMeshInputLod::GetMorphTargetInputBuffers() const
+        {
+            return m_morphTargetInputBuffers;
+        }
+
+        void SkinnedMeshInputLod::CalculateMorphTargetIntegerEncodings()
+        {
+            AZStd::vector<float> ranges(m_meshes.size(), 0.0f);
+
+            // The accumulation buffer must be stored as an int to support InterlockedAdd in AZSL
+            // Conservatively determine the largest value, positive or negative across the entire skinned mesh lod, which is used for encoding/decoding the accumulation buffer
+            for (const MorphTargetComputeMetaData& metaData : m_morphTargetComputeMetaDatas)
+            {
+                float maxWeight = AZStd::max(std::abs(metaData.m_minWeight), std::abs(metaData.m_maxWeight));
+                float maxDelta = AZStd::max(std::abs(metaData.m_minDelta), std::abs(metaData.m_maxDelta));
+                // Normal, Tangent, and Bitangent deltas can be as high as 2
+                maxDelta = AZStd::max(maxDelta, 2.0f);
+                // Since multiple morphs can be fully active at once, sum the maximum offset in either positive or negative direction
+                // that can be applied each individual morph to get the maximum offset that could be applied across all morphs
+                ranges[metaData.m_meshIndex] += maxWeight * maxDelta;
+            }
+
+            // Calculate the final encoding value
+            for (size_t i = 0; i < ranges.size(); ++i)
+            {
+                if (ranges[i] < std::numeric_limits<float>::epsilon())
+                {
+                    // There are no morph targets for this mesh
+                    ranges[i] = -1.0f;
+                }
+                else
+                {
+                    // Given a conservative maximum value of a delta (minimum if negated), set a value for encoding a float as an integer that maximizes precision
+                    // while still being able to represent the entire range of possible offset values for this instance
+                    // For example, if at most all the deltas accumulated fell between a -1 and 1 range, we'd encode it as an integer by multiplying it by 2,147,483,647.
+                    // If the delta has a larger range, we multiply it by a smaller number, increasing the range of representable values but decreasing the precision
+                    m_meshes[i].m_morphTargetIntegerEncoding = static_cast<float>(std::numeric_limits<int>::max()) / ranges[i];                    
+                }
+            }
+        }
+
+        bool SkinnedMeshInputLod::HasMorphTargetsForMesh(uint32_t meshIndex) const
+        {
+            return m_meshes[meshIndex].m_morphTargetIntegerEncoding > 0.0f;
         }
 
         SkinnedMeshInputBuffers::SkinnedMeshInputBuffers() = default;
@@ -490,6 +526,40 @@ namespace AZ
         uint32_t SkinnedMeshInputBuffers::GetVertexCount(uint32_t lodIndex, uint32_t meshIndex) const
         {
             return m_lods[lodIndex].m_meshes[meshIndex].m_vertexCount;
+        }
+
+        const AZStd::vector<MorphTargetComputeMetaData>& SkinnedMeshInputBuffers::GetMorphTargetComputeMetaDatas(uint32_t lodIndex) const
+        {
+            return m_lods[lodIndex].m_morphTargetComputeMetaDatas;
+        }
+
+        const AZStd::vector<AZStd::intrusive_ptr<MorphTargetInputBuffers>>& SkinnedMeshInputBuffers::GetMorphTargetInputBuffers(uint32_t lodIndex) const
+        {
+            return m_lods[lodIndex].m_morphTargetInputBuffers;
+        }
+        
+        float SkinnedMeshInputBuffers::GetMorphTargetIntegerEncoding(uint32_t lodIndex, uint32_t meshIndex) const
+        {
+            return m_lods[lodIndex].m_meshes[meshIndex].m_morphTargetIntegerEncoding;
+        }
+        
+        void SkinnedMeshInputBuffers::AddMorphTarget(
+            uint32_t lodIndex,
+            const RPI::MorphTargetMetaAsset::MorphTarget& morphTarget,
+            const RPI::BufferAssetView* morphBufferAssetView,
+            const AZStd::string& bufferNamePrefix,
+            float minWeight,
+            float maxWeight)
+        {
+            m_lods[lodIndex].AddMorphTarget(morphTarget, morphBufferAssetView, bufferNamePrefix, minWeight, maxWeight);
+        }
+
+        void SkinnedMeshInputBuffers::Finalize()
+        {
+            for (SkinnedMeshInputLod& lod : m_lods)
+            {
+                lod.CalculateMorphTargetIntegerEncodings();
+            }
         }
 
         void SkinnedMeshInputBuffers::SetBufferViewsOnShaderResourceGroup(
@@ -575,7 +645,7 @@ namespace AZ
                 uint32_t vertexCount = lod.GetModelLodAsset()->GetMeshes()[meshIndex].GetVertexCount();
 
                 // If this skinned mesh has morph targets, allocate a buffer for the accumulated deltas that come from the morph target pass
-                if (!lod.GetMorphTargetComputeMetaDatas(meshIndex).empty())
+                if (lod.HasMorphTargetsForMesh(meshIndex))
                 {
                     // Naively, we're going to allocate enough memory to store the accumulated delta for every vertex.
                     // This makes it simple for the skinning shader to index into the buffer, but the memory cost
