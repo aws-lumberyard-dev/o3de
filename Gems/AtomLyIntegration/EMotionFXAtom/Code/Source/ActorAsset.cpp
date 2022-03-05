@@ -57,8 +57,7 @@ namespace AZ
             const EMotionFX::SubMesh* subMesh,
             const uint32_t maxInfluencesPerVertex,
             AZStd::vector<uint32_t>& blendIndexBufferData,
-            AZStd::vector<float>& blendWeightBufferData,
-            bool hasClothData)
+            AZStd::vector<float>& blendWeightBufferData)
         {
             EMotionFX::SkinningInfoVertexAttributeLayer* sourceSkinningInfo = static_cast<EMotionFX::SkinningInfoVertexAttributeLayer*>(mesh->FindSharedVertexAttributeLayer(EMotionFX::SkinningInfoVertexAttributeLayer::TYPE_ID));
             
@@ -90,21 +89,6 @@ namespace AZ
                     {
                         localIndices.push_back(0);
                         blendWeightBufferData.push_back(0.0f);
-                    }
-
-
-                    // [TODO ATOM-15288]
-                    // Temporary workaround. If there is cloth data, set all the blend weights to zero to indicate
-                    // the vertices will be updated by cpu. When meshes with cloth data are not dispatched for skinning
-                    // this can be hasClothData can be removed.
-
-                    // If there is no skinning info, default to 0 weights and display an error
-                    if (hasClothData || !sourceSkinningInfo)
-                    {
-                        for (influenceIndex = 0; influenceIndex < maxInfluencesPerVertex; ++influenceIndex)
-                        {
-                            blendWeightBufferData[influenceIndex] = 0.0f;
-                        }
                     }
 
                     // Make sure we have an even number of indices for packing into 32-bit uints
@@ -252,9 +236,6 @@ namespace AZ
                         // Skip empty sub-meshes and sub-meshes that would put the total vertex count beyond the supported range
                         if (vertexCount > 0 && IsVertexCountWithinSupportedRange(vertexBufferOffset, vertexCount))
                         {
-                            // Check if the model mesh asset has cloth data. One ModelLodAsset::Mesh corresponds to one EMotionFX::SubMesh.
-                            const bool hasClothData = modelLodAsset->GetMeshes()[subMeshIndex].GetSemanticBufferAssetView(AZ::Name("CLOTH_DATA")) != nullptr;
-
                             ProcessSkinInfluences(mesh, subMesh, skinnedMeshInputBuffers->GetInfluenceCountPerVertex(lodIndex, subMeshIndex), blendIndexBufferData, blendWeightBufferData, hasClothData);
 
                             // Increment offsets so that the next sub-mesh can start at the right place

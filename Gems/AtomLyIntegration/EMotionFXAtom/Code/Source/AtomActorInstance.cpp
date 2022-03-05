@@ -684,6 +684,9 @@ namespace AZ::Render
         if (m_skinnedMeshInstance && m_skinnedMeshInstance->m_model)
         {
             MaterialReceiverNotificationBus::Event(m_entityId, &MaterialReceiverNotificationBus::Events::OnMaterialAssignmentsChanged);
+
+            OverrideSkinning();
+
             RegisterActor();
 
             // [TODO ATOM-15288]
@@ -743,6 +746,23 @@ namespace AZ::Render
             updateSkinnedMeshInstance(SkinnedMeshOutputVertexStreams::Normal);
             updateSkinnedMeshInstance(SkinnedMeshOutputVertexStreams::Tangent);
             updateSkinnedMeshInstance(SkinnedMeshOutputVertexStreams::BiTangent);
+        }
+    }
+
+    void AtomActorInstance::OverrideSkinning()
+    {
+        auto modelAsset = m_skinnedMeshInputBuffers->GetModelAsset();
+        for (size_t lodIndex = 0; lodIndex < modelAsset->GetLodAssets().size(); ++lodIndex)
+        {
+            const auto& lodAsset = modelAsset->GetLodAssets()[lodIndex];
+            for (size_t meshIndex = 0; meshIndex < lodAsset->GetMeshes().size(); ++meshIndex)
+            {
+                const bool hasClothData = lodAsset->GetMeshes()[meshIndex].GetSemanticBufferAssetView(AZ::Name("CLOTH_DATA")) != nullptr;
+                if (hasClothData)
+                {
+                    m_skinnedMeshInputBuffers->SetShouldSkipSkinning(aznumeric_caster(lodIndex), aznumeric_caster(meshIndex), true);
+                }
+            }
         }
     }
 

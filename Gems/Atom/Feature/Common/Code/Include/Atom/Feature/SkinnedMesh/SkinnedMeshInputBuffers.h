@@ -63,6 +63,9 @@ namespace AZ
 
             //! See Render::ComputeMorphTargetIntegerEncoding. A negative value indicates there are no morph targets that impact this mesh
             float m_morphTargetIntegerEncoding = -1.0f;
+
+            //! Meshes that are skinned by another system (cloth) should be skipped
+            bool m_skipSkinning;
         };
 
         //! Container for all the buffers and views needed for a single lod of a skinned mesh
@@ -256,9 +259,15 @@ namespace AZ
             //! Returns true if WaitForUpload has finished, false if it has not been called.
             bool IsUploadPending() const;
 
+            //! Set a flag to skip skinning for a particular mesh
+            void SetShouldSkipSkinning(uint32_t lodIndex, uint32_t meshIndex, bool shouldSkipSkinning);
+
+            //! Returns true if skinning should be skipped for this mesh
+            bool GetShouldSkipSkinning(uint32_t lodIndex, uint32_t meshIndex) const;
+            
             //! Returns the number of influences per vertex for a mesh
             uint32_t GetInfluenceCountPerVertex(uint32_t lodIndex, uint32_t meshIndex) const;
-
+            
             //! Returns a vector of MorphTargetMetaData with one entry for each morph target that could be applied to this mesh
             const AZStd::vector<MorphTargetComputeMetaData>& GetMorphTargetComputeMetaDatas(uint32_t lodIndex) const;
 

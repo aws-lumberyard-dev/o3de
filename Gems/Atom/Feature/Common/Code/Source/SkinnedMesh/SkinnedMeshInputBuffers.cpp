@@ -524,6 +524,16 @@ namespace AZ
         {
             return m_lods[lodIndex].m_meshes[meshIndex].m_vertexCount;
         }
+        
+        void SkinnedMeshInputBuffers::SetShouldSkipSkinning(uint32_t lodIndex, uint32_t meshIndex, bool shouldSkipSkinning)
+        {
+            m_lods[lodIndex].m_meshes[meshIndex].m_skipSkinning = shouldSkipSkinning;
+        }
+
+        bool SkinnedMeshInputBuffers::GetShouldSkipSkinning(uint32_t lodIndex, uint32_t meshIndex) const
+        {
+            return m_lods[lodIndex].m_meshes[meshIndex].m_skipSkinning;
+        }
 
         uint32_t SkinnedMeshInputBuffers::GetInfluenceCountPerVertex(uint32_t lodIndex, uint32_t meshIndex) const
         {

@@ -179,6 +179,9 @@ namespace AZ
             // Copies input buffers to output skinned buffers when the skinned mesh instance is created.
             void FillSkinnedMeshInstanceBuffers();
 
+            // Skip skinning for certain meshes (like those with cloth)
+            void OverrideSkinning();
+
             // SkinnedMeshOutputStreamNotificationBus
             void OnSkinnedMeshOutputStreamMemoryAvailable() override;
 
