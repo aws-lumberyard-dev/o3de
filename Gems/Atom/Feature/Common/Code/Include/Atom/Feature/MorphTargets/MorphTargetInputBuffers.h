@@ -59,6 +59,9 @@ namespace AZ
             float m_minDelta;
             float m_maxDelta;
             uint32_t m_vertexCount;
+            // Each morph target dispatch is associated with a single mesh. We need to keep track of which mesh
+            // so that we can calculate the maximum range a given mesh might be morphed if all of the morph targets
+            // associated with it were active at once.
             uint32_t m_meshIndex;
         };
 
