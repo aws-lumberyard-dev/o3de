@@ -95,17 +95,17 @@ void SkinTBN(float3x3 skinToWorldMatrix, inout float3 normal, inout float4 tange
 // Get two weights and two joint ids
 void GetInfluences(in uint weightStartOffsetForVertex, in uint jointIdStartOffsetForVertex, in uint influenceIndex, out float2 weights, out uint2 jointIds)
 {
-    float weights.x = InstanceSrg::m_sourceBlendWeights[weightStartOffsetForVertex + i];
-    float weights.y = InstanceSrg::m_sourceBlendWeights[weightStartOffsetForVertex + i + 1];
+    weights.x = InstanceSrg::m_sourceBlendWeights[weightStartOffsetForVertex + influenceIndex];
+    weights.y = InstanceSrg::m_sourceBlendWeights[weightStartOffsetForVertex + influenceIndex + 1];
 
     // Two indices, 16-bits each, stored in a 32-bit uint
-    uint rawIndex = InstanceSrg::m_sourceBlendIndices.Load(jointIdStartOffsetForVertex + i);
+    uint rawIndex = InstanceSrg::m_sourceBlendIndices.Load(jointIdStartOffsetForVertex + influenceIndex);
         
     // Although the first index in each 32-bit pair is in the most significant bits in the cpu buffer,
     // the indices get swapped within the 32-bit uint when they are loaded so we treat them
     // as if the first (even) indices are is in the least significant bits
-    uint jointIds.x = rawIndex >> 16 & 0x0000FFFF;
-    uint jointIds.y = rawIndex & 0x0000FFFF;
+    jointIds.x = rawIndex >> 16 & 0x0000FFFF;
+    jointIds.y = rawIndex & 0x0000FFFF;
 }
 
 void SkinVertexLinear(uint vertexIndex, inout float3 position, inout float3 normal, inout float4 tangent, inout float3 bitangent)
