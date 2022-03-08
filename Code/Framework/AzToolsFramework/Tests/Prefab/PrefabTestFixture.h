@@ -39,6 +39,7 @@ namespace UnitTest
 
     class PrefabTestFixture
         : public ToolsApplicationFixture
+        , public AzToolsFramework::EditorRequestBus::Handler
     {
     protected:
 
@@ -76,6 +77,13 @@ namespace UnitTest
         void Redo();
 
         void AddRequiredEditorComponents(AZ::Entity* entity);
+
+        ////////////////////////////////////////
+        //! EditorRequestBus overrides
+        void CreateEditorRepresentation(AZ::Entity* entity) override;
+        void BrowseForAssets(AzToolsFramework::AssetBrowser::AssetSelectionModel&) override;
+        int GetIconTextureIdFromEntityIconPath(const AZStd::string&) override;
+        //! EditorRequestBus overrides
 
         PrefabSystemComponent* m_prefabSystemComponent = nullptr;
         PrefabLoaderInterface* m_prefabLoaderInterface = nullptr;

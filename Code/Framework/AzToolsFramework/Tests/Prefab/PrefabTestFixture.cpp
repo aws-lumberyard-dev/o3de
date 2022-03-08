@@ -53,6 +53,15 @@ namespace UnitTest
         GetApplication()->RegisterComponentDescriptor(PrefabTestComponent::CreateDescriptor());
         GetApplication()->RegisterComponentDescriptor(PrefabTestComponentWithUnReflectedTypeMember::CreateDescriptor());
 
+        AzToolsFramework::EditorRequestBus::Handler::BusConnect();
+
+        auto entityOwnershipService = AZ::Interface<AzToolsFramework::PrefabEditorEntityOwnershipInterface>::Get();
+        ASSERT_TRUE(entityOwnershipService != nullptr);
+        auto rootEntityReference = entityOwnershipService->GetRootPrefabInstance()->get().GetContainerEntity();
+        ASSERT_TRUE(rootEntityReference.has_value());
+        AzToolsFramework::EditorEntityContextRequestBus::Broadcast(
+            &AzToolsFramework::EditorEntityContextRequests::HandleEntitiesAdded, AzToolsFramework::EntityList{&(rootEntityReference->get())});
+
         AzToolsFramework::ToolsApplicationRequestBus::BroadcastResult(
             m_undoStack, &AzToolsFramework::ToolsApplicationRequestBus::Events::GetUndoStack);
         AZ_Assert(m_undoStack, "Failed to look up undo stack from tools application");
@@ -61,6 +70,7 @@ namespace UnitTest
     void PrefabTestFixture::TearDownEditorFixtureImpl()
     {
         m_undoStack = nullptr;
+        AzToolsFramework::EditorRequestBus::Handler::BusDisconnect();
     }
 
     AZStd::unique_ptr<ToolsTestApplication> PrefabTestFixture::CreateTestApplication()
@@ -216,4 +226,27 @@ namespace UnitTest
             &AzToolsFramework::EditorEntityContextRequests::AddRequiredComponents, *entity);
         entity->Activate();
     }
+
+    ////////////////////////////////////////
+    //! EditorRequestBus overrides
+    void PrefabTestFixture::CreateEditorRepresentation(AZ::Entity* entity)
+    {
+        if (!entity)
+        {
+            return;
+        }
+
+        AzToolsFramework::EditorEntityContextRequestBus::Broadcast(
+            &AzToolsFramework::EditorEntityContextRequestBus::Events::AddRequiredComponents, *entity);
+    }
+
+    void PrefabTestFixture::BrowseForAssets(AzToolsFramework::AssetBrowser::AssetSelectionModel&)
+    {
+    }
+
+    int PrefabTestFixture::GetIconTextureIdFromEntityIconPath(const AZStd::string&)
+    {
+        return 0;
+    }
+    ////////////////////////////////////////
 }

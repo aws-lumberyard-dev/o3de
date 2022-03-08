@@ -5,7 +5,7 @@
  * SPDX-License-Identifier: Apache-2.0 OR MIT
  *
  */
-
+#pragma optimize("", off)
 #include <AzCore/Component/TransformBus.h>
 #include <AzCore/JSON/stringbuffer.h>
 #include <AzCore/JSON/writer.h>
@@ -151,7 +151,7 @@ namespace AzToolsFramework
                     linkPatchesCopy.CopyFrom(linkPatches->get(), linkPatchesCopy.GetAllocator());
                     nestedInstanceLinkPatchesMap.emplace(nestedInstance, AZStd::move(linkPatchesCopy));
 
-                    RemoveLink(outInstance, commonRootEntityOwningInstance->get().GetTemplateId(), undoBatch.GetUndoBatch());
+                    RemoveLink(*outInstance, commonRootEntityOwningInstance->get().GetTemplateId(), undoBatch.GetUndoBatch());
 
                     instancePtrs.emplace_back(AZStd::move(outInstance));
                 }
@@ -532,9 +532,9 @@ namespace AzToolsFramework
         }
 
         void PrefabPublicHandler::RemoveLink(
-            AZStd::unique_ptr<Instance>& sourceInstance, TemplateId targetTemplateId, UndoSystem::URSequencePoint* undoBatch)
+            const Instance& sourceInstance, TemplateId targetTemplateId, UndoSystem::URSequencePoint* undoBatch)
         {
-            LinkReference nestedInstanceLink = m_prefabSystemComponentInterface->FindLink(sourceInstance->GetLinkId());
+            LinkReference nestedInstanceLink = m_prefabSystemComponentInterface->FindLink(sourceInstance.GetLinkId());
             AZ_Assert(
                 nestedInstanceLink.has_value(),
                 "A valid link was not found for one of the instances provided as input for the CreatePrefab operation.");    
@@ -552,7 +552,7 @@ namespace AzToolsFramework
             }
 
             PrefabUndoHelpers::RemoveLink(
-                sourceInstance->GetTemplateId(), targetTemplateId, sourceInstance->GetInstanceAlias(), sourceInstance->GetLinkId(),
+                sourceInstance.GetTemplateId(), targetTemplateId, sourceInstance.GetInstanceAlias(), sourceInstance.GetLinkId(),
                 AZStd::move(patchesCopyForUndoSupport), undoBatch);
         }
 
@@ -700,6 +700,11 @@ namespace AzToolsFramework
         PrefabOperationResult PrefabPublicHandler::GenerateUndoNodesForEntityChangeAndUpdateCache(
             AZ::EntityId entityId, UndoSystem::URSequencePoint* parentUndoBatch)
         {
+            AZ::Entity* entity1 = GetEntityById(entityId);
+            if (!entity1)
+            {
+                return AZ::Success();
+            }
             // Create Undo node on entities if they belong to an instance
             InstanceOptionalReference owningInstance = m_instanceEntityMapperInterface->FindOwningInstance(entityId);
             if (!owningInstance.has_value())
@@ -890,7 +895,7 @@ namespace AzToolsFramework
                     }
 
                     auto nestedInstanceUniquePtr = beforeOwningInstance->get().DetachNestedInstance(nestedInstance->GetInstanceAlias());
-                    RemoveLink(nestedInstanceUniquePtr, beforeOwningInstance->get().GetTemplateId(), undoBatch);
+                    RemoveLink(*nestedInstanceUniquePtr, beforeOwningInstance->get().GetTemplateId(), undoBatch);
 
                     instancePatches.emplace_back(AZStd::make_pair(nestedInstanceUniquePtr.get(), AZStd::move(oldLinkPatches)));
                     instanceUniquePtrs.emplace_back(AZStd::move(nestedInstanceUniquePtr));
@@ -1247,7 +1252,6 @@ namespace AzToolsFramework
             AZ_PROFILE_SCOPE(AzToolsFramework, "Internal::DeleteEntities:UndoCaptureAndPurgeEntities");
 
             Prefab::PrefabDom instanceDomBefore;
-            m_instanceToTemplateInterface->GenerateDomForInstance(instanceDomBefore, commonOwningInstance->get());
 
             if (deleteDescendants)
             {
@@ -1262,30 +1266,36 @@ namespace AzToolsFramework
                     return AZStd::move(retrieveEntitiesAndInstancesOutcome);
                 }
 
+                for (auto& nestedInstance : instances)
+                {
+                    InstanceOptionalConstReference outInstance =
+                        commonOwningInstance->get().FindNestedInstance(nestedInstance->GetInstanceAlias());
+                    if (outInstance.has_value())
+                    {
+                        RemoveLink(outInstance->get(), commonOwningInstance->get().GetTemplateId(), undoBatch.GetUndoBatch());
+                    }
+                }
+
+                m_instanceToTemplateInterface->GenerateDomForInstance(instanceDomBefore, commonOwningInstance->get());
+
                 for (AZ::Entity* entity : entities)
                 {
                     commonOwningInstance->get().DetachEntity(entity->GetId()).release();
                     AZ::ComponentApplicationBus::Broadcast(&AZ::ComponentApplicationRequests::DeleteEntity, entity->GetId());
                 }
-
-                for (auto& nestedInstance : instances)
-                {
-                    AZStd::unique_ptr<Instance> outInstance =
-                        commonOwningInstance->get().DetachNestedInstance(nestedInstance->GetInstanceAlias());
-                    RemoveLink(outInstance, commonOwningInstance->get().GetTemplateId(), undoBatch.GetUndoBatch());
-                    outInstance.reset();
-                }
             }
             else
             {
+                m_instanceToTemplateInterface->GenerateDomForInstance(instanceDomBefore, commonOwningInstance->get());
                 for (AZ::EntityId entityId : entityIdsNoFocusContainer)
                 {
                     InstanceOptionalReference owningInstance = m_instanceEntityMapperInterface->FindOwningInstance(entityId);
                     // If this is the container entity, it actually represents the instance so get its owner
-                    if (owningInstance->get().GetContainerEntityId() == entityId)
+                    if (owningInstance.has_value() && owningInstance->get().GetContainerEntityId() == entityId)
                     {
-                        auto instancePtr = commonOwningInstance->get().DetachNestedInstance(owningInstance->get().GetInstanceAlias());
-                        RemoveLink(instancePtr, commonOwningInstance->get().GetTemplateId(), undoBatch.GetUndoBatch());
+                        InstanceOptionalConstReference outInstance =
+                            commonOwningInstance->get().FindNestedInstance(owningInstance->get().GetInstanceAlias());
+                        RemoveLink(outInstance->get(), commonOwningInstance->get().GetTemplateId(), undoBatch.GetUndoBatch());
                     }
                     else
                     {
@@ -1295,8 +1305,8 @@ namespace AzToolsFramework
                 }
             }
 
-            Prefab::PrefabDom instanceDomAfter;
-            m_instanceToTemplateInterface->GenerateDomForInstance(instanceDomAfter, commonOwningInstance->get());
+            AzToolsFramework::ToolsApplicationRequestBus::Broadcast(
+                &AzToolsFramework::ToolsApplicationRequestBus::Events::ClearDirtyEntities);
 
             // In order to undo DeleteSelected, we have to create a selection command which selects the current selection
             // and then add the deletion as children.
@@ -1315,6 +1325,9 @@ namespace AzToolsFramework
             EntityIdList deselection;
             SelectionCommand* deselectAllCommand = aznew SelectionCommand(deselection, "Deselect Entities");
             deselectAllCommand->SetParent(undoBatch.GetUndoBatch());
+
+            Prefab::PrefabDom instanceDomAfter;
+            m_instanceToTemplateInterface->GenerateDomForInstance(instanceDomAfter, commonOwningInstance->get());
 
             PrefabUndoInstance* command = aznew PrefabUndoInstance("Instance deletion");
             command->Capture(instanceDomBefore, instanceDomAfter, commonOwningInstance->get().GetTemplateId());
@@ -1362,7 +1375,7 @@ namespace AzToolsFramework
                     auto instancePtr = parentInstance.DetachNestedInstance(owningInstance->get().GetInstanceAlias());
                     AZ_Assert(instancePtr, "Can't detach selected Instance from its parent Instance.");
 
-                    RemoveLink(instancePtr, parentTemplateId, undoBatch.GetUndoBatch());
+                    RemoveLink(*instancePtr, parentTemplateId, undoBatch.GetUndoBatch());
 
                     Prefab::PrefabDom instanceDomBefore;
                     m_instanceToTemplateInterface->GenerateDomForInstance(instanceDomBefore, parentInstance);
@@ -2131,3 +2144,4 @@ namespace AzToolsFramework
 
     } // namespace Prefab
 } // namespace AzToolsFramework
+#pragma optimize("", on)

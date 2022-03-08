@@ -1081,8 +1081,7 @@ R"DELIMITER(<ObjectStream version="1">
 
         void TearDownEditorFixtureImpl() override
         {
-            BusDisconnect();
-            
+            AZ::TransformNotificationBus::Handler::BusDisconnect();
             PrefabTestFixture::TearDownEditorFixtureImpl();
         }
         
@@ -1104,7 +1103,7 @@ R"DELIMITER(<ObjectStream version="1">
     {
         AZ::EntityId entityId = CreateEntityUnderRootPrefab("Entity");
         MoveEntity(entityId);
-        BusConnect(entityId);
+        AZ::TransformNotificationBus::Handler::BusConnect(entityId);
 
         // verify that undoing/redoing move operations fires TransformChanged event
         Undo();
@@ -1119,7 +1118,7 @@ R"DELIMITER(<ObjectStream version="1">
     TEST_F(TransformComponentActivationTest, TransformChangedEventIsNotSentWhenEntityIsDeactivatedAndActivated)
     {
         AZ::EntityId entityId = CreateEntityUnderRootPrefab("Entity");
-        BusConnect(entityId);
+        AZ::TransformNotificationBus::Handler::BusConnect(entityId);
 
         // verify that simply activating/deactivating an entity does not fire TransformChanged event
         Entity* entity = nullptr;
