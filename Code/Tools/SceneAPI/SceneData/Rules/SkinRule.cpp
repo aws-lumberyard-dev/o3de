@@ -21,10 +21,12 @@ namespace AZ
             AZ_CLASS_ALLOCATOR_IMPL(SkinRule, AZ::SystemAllocator, 0)
 
             SkinRule::SkinRule()
-                : m_maxWeightsPerVertex(4)
-                , m_weightThreshold(0.001f)
             {
+                DataTypes::SkinRuleSettings defaultSettings = DataTypes::GetDefaultSkinRuleSettings();
+                m_maxWeightsPerVertex = defaultSettings.m_maxInfluencesPerVertex;
+                m_weightThreshold = defaultSettings.m_weightThreshold;
             }
+
             AZ::u32 SkinRule::GetMaxWeightsPerVertex() const
             {
                 return m_maxWeightsPerVertex;
@@ -57,8 +59,9 @@ namespace AZ
                         ->Attribute("AutoExpand", true)
                         ->Attribute(AZ::Edit::Attributes::NameLabelOverride, "")
                         ->DataElement(AZ::Edit::UIHandlers::Default, &SkinRule::m_maxWeightsPerVertex, "Max weights per vertex", "The maximum number of joints that can influence a single vertex.")
-                        ->Attribute(AZ::Edit::Attributes::Min, 1)
+                        ->Attribute(AZ::Edit::Attributes::Min, 2)
                         ->Attribute(AZ::Edit::Attributes::Max, 32)
+                        ->Attribute(AZ::Edit::Attributes::Step, 2)
                         ->DataElement(AZ::Edit::UIHandlers::Default, &SkinRule::m_weightThreshold, "Weight threshold", "Weight value less than this will be ignored during import.")
                         ->Attribute(AZ::Edit::Attributes::Min, 0.0f)
                         ->Attribute(AZ::Edit::Attributes::Max, 0.01f)
