@@ -530,7 +530,7 @@ def ReplaceContent() {
                 )
             ],
             fileEncoding: 'UTF-8',
-            filePath:'${JENKINS_HOME}/jobs/O3DETesting/branches/jenkins-testing.g0k6o0/builds/${BUILD_NUMBER}/log'
+            filePath:'${JENKINS_HOME}/jobs/$JOB_NAME/branches/$BRANCH_NAME/builds/${BUILD_NUMBER}/log'
             ),
             // Replace .py references github links
             fileContentReplaceConfig(
@@ -543,7 +543,7 @@ def ReplaceContent() {
                 )
             ],
             fileEncoding: 'UTF-8',
-            filePath:'${JENKINS_HOME}/jobs/O3DETesting/branches/jenkins-testing.g0k6o0/builds/${BUILD_NUMBER}/log'
+            filePath:'${JENKINS_HOME}/jobs/$JOB_NAME/branches/$BRANCH_NAME/builds/${BUILD_NUMBER}/log'
             )
         ]
     )
