@@ -115,6 +115,7 @@ void SkinVertexLinear(uint vertexIndex, inout float3 position, inout float3 norm
     uint weightStartOffsetForVertex = vertexIndex * InstanceSrg::m_numInfluencesPerVertex;
     // Multiply by two here since the jointId offset is in bytes, and there are two bytes per 16-bit jointId
     uint jointIdStartOffsetForVertex = vertexIndex * InstanceSrg::m_numInfluencesPerVertex * 2;
+    [loop]
     for(uint i = 0; i < InstanceSrg::m_numInfluencesPerVertex; i+=2)
     {
         float2 weights;
@@ -150,9 +151,9 @@ void SkinVertexDualQuaternion(uint vertexIndex, inout float3 position, inout flo
     uint weightStartOffsetForVertex = vertexIndex * InstanceSrg::m_numInfluencesPerVertex;
     // Multiply by two here since the jointId offset is in bytes, and there are two bytes per 16-bit jointId
     uint jointIdStartOffsetForVertex = vertexIndex * InstanceSrg::m_numInfluencesPerVertex * 2;
+    [loop]
     for(uint i = 0; i < InstanceSrg::m_numInfluencesPerVertex; i+=2)
-    {
-        
+    {        
         float2 weights;
         float2 jointIds;
         GetInfluences(weightStartOffsetForVertex, jointIdStartOffsetForVertex, i, weights, jointIds);
