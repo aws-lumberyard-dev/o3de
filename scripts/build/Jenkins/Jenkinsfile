@@ -517,7 +517,7 @@ def HandleDriveSnapshots(String repositoryName, String projectName, String pipel
 }
 
 def ReplaceContent() {
-    log_file = '$WORKSPACE'.replace('workspace', 'builds/$BUILD_NUMBER/log')
+    log_file = "${WORKSPACE}".replace('workspace', 'builds/$BUILD_NUMBER/log')
     contentReplace(
         configs: [
             // Replace .cpp references to github links
