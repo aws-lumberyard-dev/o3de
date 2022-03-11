@@ -958,7 +958,7 @@ namespace AZ
 
                         const float weight = link.weight;
 
-                        if (weight > m_skinRuleSettings.m_skinWeightThreshold)
+                        if (weight > m_skinRuleSettings.m_weightThreshold)
                         {
                             influenceCountPerVertex[influenceCountIndex]++;
                         }
@@ -1024,6 +1024,7 @@ namespace AZ
 
                     // Add skin influence
                     if (weight > m_skinRuleSettings.m_weightThreshold)
+                    {
                         if (numInfluencesAdded < productMesh.m_influencesPerVertex)
                         {
                             skinJointIndices.push_back(jointIndex);
