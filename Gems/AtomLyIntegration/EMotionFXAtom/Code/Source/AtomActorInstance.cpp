@@ -751,16 +751,31 @@ namespace AZ::Render
 
     void AtomActorInstance::OverrideSkinning()
     {
-        auto modelAsset = m_skinnedMeshInputBuffers->GetModelAsset();
-        for (size_t lodIndex = 0; lodIndex < modelAsset->GetLodAssets().size(); ++lodIndex)
+        Entity* thisEntity;
+        AZ::ComponentApplicationBus::BroadcastResult(thisEntity, &AZ::ComponentApplicationRequests::FindEntity, m_entityId);
+
+        // Ideally we wouldn't hard code the entity type this way, and instead we'd let the cloth component (or any other component)
+        // handle an ebus event, so that we don't have to create a dependency on any other component that might want to override skinning
+        // However, we need to know whether or not to override the skinning before we create the skinned mesh render proxy
+        // And since the skinned mesh render proxy may be created during Activate (if the assets are all already loaded)
+        // the cloth component won't be ready to respond to a request at this time since it won't be activated yet.
+        bool hasClothComponent = thisEntity->FindComponent(Uuid{ "{2C99B4EF-8A5F-4585-89F9-86D50754DF7E}" }) // Editor cloth component uuid
+            || thisEntity->FindComponent(Uuid{ "{AC9B8FA0-A6DA-4377-8219-25BA7E4A22E9}" }); // Cloth component uuid
+
+        if (hasClothComponent)
         {
-            const auto& lodAsset = modelAsset->GetLodAssets()[lodIndex];
-            for (size_t meshIndex = 0; meshIndex < lodAsset->GetMeshes().size(); ++meshIndex)
+            auto modelAsset = m_skinnedMeshInputBuffers->GetModelAsset();
+            for (size_t lodIndex = 0; lodIndex < modelAsset->GetLodAssets().size(); ++lodIndex)
             {
-                const bool hasClothData = lodAsset->GetMeshes()[meshIndex].GetSemanticBufferAssetView(AZ::Name("CLOTH_DATA")) != nullptr;
-                if (hasClothData)
+                const auto& lodAsset = modelAsset->GetLodAssets()[lodIndex];
+                for (size_t meshIndex = 0; meshIndex < lodAsset->GetMeshes().size(); ++meshIndex)
                 {
-                    m_skinnedMeshInputBuffers->SetShouldSkipSkinning(aznumeric_caster(lodIndex), aznumeric_caster(meshIndex), true);
+                    const bool hasClothData =
+                        lodAsset->GetMeshes()[meshIndex].GetSemanticBufferAssetView(AZ::Name("CLOTH_DATA")) != nullptr;
+                    if (hasClothData)
+                    {
+                        m_skinnedMeshInstance->SetShouldSkipSkinning(aznumeric_caster(lodIndex), aznumeric_caster(meshIndex), true);
+                    }
                 }
             }
         }

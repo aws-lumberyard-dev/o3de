@@ -47,10 +47,19 @@ namespace AZ
             //! Set to MorphTargetConstants::s_invalidDeltaOffset if there are no morph targets for the lod
             AZStd::vector<AZStd::vector<MorphTargetInstanceMetaData>> m_morphTargetInstanceMetaData;
 
+            //! Meshes that have no influences or are skinned by another system (cloth) should be skipped
+            AZStd::vector<AZStd::vector<bool>> m_shouldSkipSkinning;
+
             //! Typically, when a SkinnedMeshInstance goes out of scope and the memory is freed, the SkinnedMeshOutputStreamManager will signal an event indicating more memory is available
             //! If the creation of a SkinnedMeshInstance fails part way through after some memory has already been allocated,
             //! calling SupressSignalOnDeallocate before releasing the SkinnedMeshInstance will prevent this event since there is not really any new memory available that wasn't available before
             void SuppressSignalOnDeallocate();
+
+            //! Set a flag to skip skinning for a particular mesh
+            void SetShouldSkipSkinning(uint32_t lodIndex, uint32_t meshIndex, bool shouldSkipSkinning);
+
+            //! Returns true if skinning should be skipped for this mesh
+            bool GetShouldSkipSkinning(uint32_t lodIndex, uint32_t meshIndex) const;
         };
     }// Render
 }// AZ

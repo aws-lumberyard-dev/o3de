@@ -236,7 +236,7 @@ namespace AZ
                         // Skip empty sub-meshes and sub-meshes that would put the total vertex count beyond the supported range
                         if (vertexCount > 0 && IsVertexCountWithinSupportedRange(vertexBufferOffset, vertexCount))
                         {
-                            ProcessSkinInfluences(mesh, subMesh, skinnedMeshInputBuffers->GetInfluenceCountPerVertex(lodIndex, subMeshIndex), blendIndexBufferData, blendWeightBufferData, hasClothData);
+                            ProcessSkinInfluences(mesh, subMesh, skinnedMeshInputBuffers->GetInfluenceCountPerVertex(lodIndex, subMeshIndex), blendIndexBufferData, blendWeightBufferData);
 
                             // Increment offsets so that the next sub-mesh can start at the right place
                             vertexBufferOffset += vertexCount;

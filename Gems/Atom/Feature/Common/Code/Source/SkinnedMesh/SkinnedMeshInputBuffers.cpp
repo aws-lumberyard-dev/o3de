@@ -524,16 +524,6 @@ namespace AZ
         {
             return m_lods[lodIndex].m_meshes[meshIndex].m_vertexCount;
         }
-        
-        void SkinnedMeshInputBuffers::SetShouldSkipSkinning(uint32_t lodIndex, uint32_t meshIndex, bool shouldSkipSkinning)
-        {
-            m_lods[lodIndex].m_meshes[meshIndex].m_skipSkinning = shouldSkipSkinning;
-        }
-
-        bool SkinnedMeshInputBuffers::GetShouldSkipSkinning(uint32_t lodIndex, uint32_t meshIndex) const
-        {
-            return m_lods[lodIndex].m_meshes[meshIndex].m_skipSkinning;
-        }
 
         uint32_t SkinnedMeshInputBuffers::GetInfluenceCountPerVertex(uint32_t lodIndex, uint32_t meshIndex) const
         {
@@ -851,6 +841,9 @@ namespace AZ
                 AZStd::vector<uint32_t> meshPositionHistoryBufferOffsetsInBytes;
                 meshPositionHistoryBufferOffsetsInBytes.reserve(lod.m_meshes.size());
 
+                AZStd::vector<bool> shouldSkipSkinning;
+                shouldSkipSkinning.reserve(lod.m_meshes.size());
+
                 SkinnedMeshOutputVertexOffsets currentMeshOffsetsFromStreamStartInBytes = {0};
                 // Iterate over each sub-mesh for the lod to create views into the buffers
                 for (size_t i = 0; i < lod.m_meshes.size(); ++i)
@@ -896,6 +889,9 @@ namespace AZ
                         modelLodCreator.AddMeshStreamBuffer(staticBufferInfo.m_semantic, staticBufferInfo.m_customName, staticBufferInfo.m_bufferAssetView);
                     }
 
+                    // Skip the skinning dispatch if there are no skin influences.
+                    shouldSkipSkinning.push_back(lod.m_meshes[i].m_skinInfluenceCountPerVertex == 0 ? true : false);
+
                     Aabb localAabb = inputMesh.GetAabb();
                     modelLodCreator.SetMeshAabb(AZStd::move(localAabb));
 
@@ -908,6 +904,7 @@ namespace AZ
                 // Add all the mesh offsets for the lod
                 instance->m_outputStreamOffsetsInBytes.push_back(meshOffsetsFromBufferStartInBytes);
                 instance->m_positionHistoryBufferOffsetsInBytes.push_back(meshPositionHistoryBufferOffsetsInBytes);
+                instance->m_shouldSkipSkinning.push_back(shouldSkipSkinning);
 
                 Data::Asset<RPI::ModelLodAsset> lodAsset;
                 modelLodCreator.End(lodAsset);
