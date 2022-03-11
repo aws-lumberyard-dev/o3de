@@ -171,11 +171,21 @@ namespace EMotionFX
     {
         AZ::u32 modelVertexCount = 0;
         AZ::u32 modelIndexCount = 0;
+        
+        // Find the maximum skin influences across all meshes to use when pre-allocating memory
+        AZ::u32 maxSkinInfluences = 0;
         for (const AZ::RPI::ModelLodAsset::Mesh& mesh : sourceModelLod->GetMeshes())
         {
             modelVertexCount += mesh.GetVertexCount();
             modelIndexCount += mesh.GetIndexCount();
+            const AZ::RPI::BufferAssetView* weightView = mesh.GetSemanticBufferAssetView(AZ::Name{"SKIN_WEIGHTS"});
+            if(weightView)
+            {
+                AZ::u32 meshInfluenceCount = weightView->GetBufferViewDescriptor().m_elementCount / mesh.GetVertexCount();
+                maxSkinInfluences = AZStd::max(maxSkinInfluences, meshInfluenceCount);
+            }
         }
+        AZ_Assert(maxSkinInfluences > 0 && maxSkinInfluences < 100, "Expect max skin influences in a reasonable value range.");
 
         // IndicesPerFace defined in atom is 3.
         const AZ::u32 numPolygons = modelIndexCount / 3;
@@ -201,7 +211,6 @@ namespace EMotionFX
         AZ_POP_DISABLE_WARNING_MSVC
 
         // Skinning data from atom are stored in two separate buffer layer.
-        AZ::u8 maxSkinInfluences = 255; // Later we will calculate this value from skinning data.
         const AZ::u16* skinJointIndices = nullptr;
         const float* skinWeights = nullptr;
 
@@ -266,10 +275,6 @@ namespace EMotionFX
             }
             else if (name == AZ::Name("SKIN_WEIGHTS"))
             {
-                // Atom stores joint weights as float (range 0 - 1)
-                size_t influenceCount = elementCountInBytes / sizeof(float);
-                maxSkinInfluences = aznumeric_caster(influenceCount / modelVertexCount);
-                AZ_Assert(maxSkinInfluences > 0 && maxSkinInfluences < 100, "Expect max skin influences in a reasonable value range.");
                 skinWeights = static_cast<const float*>(bufferData) + bufferAssetViewDescriptor.m_elementOffset;
             }
         }
