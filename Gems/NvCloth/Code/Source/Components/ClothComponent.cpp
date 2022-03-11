@@ -48,6 +48,16 @@ namespace NvCloth
         incompatible.push_back(AZ_CRC_CE("NonUniformScaleService"));
     }
 
+    void ClothComponent::Init()
+    {
+        AZ::Component::Init();
+
+        // The actor component is going to activate before cloth, since the MeshService it provides is a dependent service
+        // But there is an event it will send during Activate that needs to be handled to tell the actor to skip skinning
+        // The cloth component does not need to be active to handle it, but it needs to be listening, so connect here
+        AZ::Render::SkinnedMeshOverrideNotificationBus::Handler::BusConnect(GetEntityId());
+    }
+
     void ClothComponent::Activate()
     {
         // Cloth components do not run on dedicated servers.
@@ -61,12 +71,14 @@ namespace NvCloth
             }
         }
 
+        AZ::Render::SkinnedMeshOverrideNotificationBus::Handler::BusConnect(GetEntityId());
         AZ::Render::MeshComponentNotificationBus::Handler::BusConnect(GetEntityId());
     }
 
     void ClothComponent::Deactivate()
     {
         AZ::Render::MeshComponentNotificationBus::Handler::BusDisconnect();
+        AZ::Render::SkinnedMeshOverrideNotificationBus::Handler::BusDisconnect();
 
         m_clothComponentMesh.reset();
     }
@@ -86,5 +98,33 @@ namespace NvCloth
     void ClothComponent::OnModelPreDestroy()
     {
         m_clothComponentMesh.reset();
+    }
+
+    void ClothComponent::OnOverrideSkinning(
+        AZStd::intrusive_ptr<const AZ::Render::SkinnedMeshInputBuffers> skinnedMeshInputBuffers,
+        AZStd::intrusive_ptr<AZ::Render::SkinnedMeshInstance> skinnedMeshInstance)
+    {
+        OverrideSkinning(skinnedMeshInputBuffers, skinnedMeshInstance);
+    }
+
+    void OverrideSkinning(
+        AZStd::intrusive_ptr<const AZ::Render::SkinnedMeshInputBuffers> skinnedMeshInputBuffers,
+        AZStd::intrusive_ptr<AZ::Render::SkinnedMeshInstance> skinnedMeshInstance)
+    {
+        // Iterate through all the meshes
+        const auto& modelAsset = skinnedMeshInputBuffers->GetModelAsset();
+        for (size_t lodIndex = 0; lodIndex < modelAsset->GetLodAssets().size(); ++lodIndex)
+        {
+            const auto& lodAsset = modelAsset->GetLodAssets()[lodIndex];
+            for (size_t meshIndex = 0; meshIndex < lodAsset->GetMeshes().size(); ++meshIndex)
+            {
+                // For any mesh with cloth data, disable skinning since
+                const bool hasClothData = lodAsset->GetMeshes()[meshIndex].GetSemanticBufferAssetView(AZ::Name("CLOTH_DATA")) != nullptr;
+                if (hasClothData)
+                {
+                    skinnedMeshInstance->SetShouldSkipSkinning(aznumeric_caster(lodIndex), aznumeric_caster(meshIndex), true);
+                }
+            }
+        }
     }
 } // namespace NvCloth

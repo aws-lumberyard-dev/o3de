@@ -11,6 +11,7 @@
 #include <AzCore/Component/Component.h>
 
 #include <AtomLyIntegration/CommonFeatures/Mesh/MeshComponentBus.h>
+#include <AtomLyIntegration/CommonFeatures/SkinnedMesh/SkinnedMeshOverrideBus.h>
 
 #include <Components/ClothConfiguration.h>
 #include <Components/ClothComponentMesh/ClothComponentMesh.h>
@@ -21,6 +22,7 @@ namespace NvCloth
     class ClothComponent
         : public AZ::Component
         , public AZ::Render::MeshComponentNotificationBus::Handler
+        , public AZ::Render::SkinnedMeshOverrideNotificationBus::Handler
     {
     public:
         AZ_COMPONENT(ClothComponent, "{AC9B8FA0-A6DA-4377-8219-25BA7E4A22E9}");
@@ -40,6 +42,7 @@ namespace NvCloth
 
     protected:
         // AZ::Component overrides ...
+        void Init() override;
         void Activate() override;
         void Deactivate() override;
 
@@ -47,9 +50,18 @@ namespace NvCloth
         void OnModelReady(const AZ::Data::Asset<AZ::RPI::ModelAsset>& modelAsset, const AZ::Data::Instance<AZ::RPI::Model>& model) override;
         void OnModelPreDestroy() override;
 
+        // AZ::Render::SkinnedMeshOverrideNotificationBus::Handler
+        void OnOverrideSkinning(
+            AZStd::intrusive_ptr<const AZ::Render::SkinnedMeshInputBuffers> skinnedMeshInputBuffers,
+            AZStd::intrusive_ptr<AZ::Render::SkinnedMeshInstance> skinnedMeshInstance) override;
+
     private:
         ClothConfiguration m_config;
 
         AZStd::unique_ptr<ClothComponentMesh> m_clothComponentMesh;
     };
+
+    void OverrideSkinning(
+        AZStd::intrusive_ptr<const AZ::Render::SkinnedMeshInputBuffers> skinnedMeshInputBuffers,
+        AZStd::intrusive_ptr<AZ::Render::SkinnedMeshInstance> skinnedMeshInstance);
 } // namespace NvCloth

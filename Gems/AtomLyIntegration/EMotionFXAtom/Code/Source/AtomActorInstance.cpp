@@ -12,6 +12,7 @@
 #include <ActorAsset.h>
 
 #include <Atom/Feature/SkinnedMesh/SkinnedMeshInputBuffers.h>
+#include <AtomLyIntegration/CommonFeatures/SkinnedMesh/SkinnedMeshOverrideBus.h>
 #include <Integration/System/SystemCommon.h>
 #include <Integration/System/SystemComponent.h>
 #include <EMotionFX/Source/ActorInstance.h>
@@ -751,34 +752,8 @@ namespace AZ::Render
 
     void AtomActorInstance::OverrideSkinning()
     {
-        Entity* thisEntity;
-        AZ::ComponentApplicationBus::BroadcastResult(thisEntity, &AZ::ComponentApplicationRequests::FindEntity, m_entityId);
-
-        // Ideally we wouldn't hard code the entity type this way, and instead we'd let the cloth component (or any other component)
-        // handle an ebus event, so that we don't have to create a dependency on any other component that might want to override skinning
-        // However, we need to know whether or not to override the skinning before we create the skinned mesh render proxy
-        // And since the skinned mesh render proxy may be created during Activate (if the assets are all already loaded)
-        // the cloth component won't be ready to respond to a request at this time since it won't be activated yet.
-        bool hasClothComponent = thisEntity->FindComponent(Uuid{ "{2C99B4EF-8A5F-4585-89F9-86D50754DF7E}" }) // Editor cloth component uuid
-            || thisEntity->FindComponent(Uuid{ "{AC9B8FA0-A6DA-4377-8219-25BA7E4A22E9}" }); // Cloth component uuid
-
-        if (hasClothComponent)
-        {
-            auto modelAsset = m_skinnedMeshInputBuffers->GetModelAsset();
-            for (size_t lodIndex = 0; lodIndex < modelAsset->GetLodAssets().size(); ++lodIndex)
-            {
-                const auto& lodAsset = modelAsset->GetLodAssets()[lodIndex];
-                for (size_t meshIndex = 0; meshIndex < lodAsset->GetMeshes().size(); ++meshIndex)
-                {
-                    const bool hasClothData =
-                        lodAsset->GetMeshes()[meshIndex].GetSemanticBufferAssetView(AZ::Name("CLOTH_DATA")) != nullptr;
-                    if (hasClothData)
-                    {
-                        m_skinnedMeshInstance->SetShouldSkipSkinning(aznumeric_caster(lodIndex), aznumeric_caster(meshIndex), true);
-                    }
-                }
-            }
-        }
+        // Give other components a chance to disable skinning for any given mesh
+        SkinnedMeshOverrideNotificationBus::Event(m_entityId, &SkinnedMeshOverrideNotificationBus::Events::OnOverrideSkinning, m_skinnedMeshInputBuffers, m_skinnedMeshInstance);
     }
 
     void AtomActorInstance::OnSkinnedMeshOutputStreamMemoryAvailable()
