@@ -122,7 +122,7 @@ namespace NvCloth
                 const bool hasClothData = lodAsset->GetMeshes()[meshIndex].GetSemanticBufferAssetView(AZ::Name("CLOTH_DATA")) != nullptr;
                 if (hasClothData)
                 {
-                    skinnedMeshInstance->SetShouldSkipSkinning(aznumeric_caster(lodIndex), aznumeric_caster(meshIndex), true);
+                    skinnedMeshInstance->DisableSkinning(aznumeric_caster(lodIndex), aznumeric_caster(meshIndex));
                 }
             }
         }

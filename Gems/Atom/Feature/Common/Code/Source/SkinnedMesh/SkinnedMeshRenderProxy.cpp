@@ -80,7 +80,7 @@ namespace AZ
             // Populate the vector with a dispatch item for each mesh
             for (uint32_t meshIndex = 0; meshIndex < meshCount; ++meshIndex)
             {
-                if (!m_instance->GetShouldSkipSkinning(modelLodIndex, meshIndex))
+                if (m_instance->IsSkinningEnabled(modelLodIndex, meshIndex))
                 {                
                     // Create the skinning dispatch Item
                     m_dispatchItemsByLod[modelLodIndex].emplace_back(

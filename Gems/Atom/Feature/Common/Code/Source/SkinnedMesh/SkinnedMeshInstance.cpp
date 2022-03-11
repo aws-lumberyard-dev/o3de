@@ -26,14 +26,19 @@ namespace AZ
             }
         }
         
-        void SkinnedMeshInstance::SetShouldSkipSkinning(uint32_t lodIndex, uint32_t meshIndex, bool shouldSkipSkinning)
+        void SkinnedMeshInstance::DisableSkinning(uint32_t lodIndex, uint32_t meshIndex)
         {
-            m_shouldSkipSkinning[lodIndex][meshIndex] = shouldSkipSkinning;
+            m_isSkinningEnabled[lodIndex][meshIndex] = false;
+        }
+
+        void SkinnedMeshInstance::EnableSkinning(uint32_t lodIndex, uint32_t meshIndex)
+        {
+            m_isSkinningEnabled[lodIndex][meshIndex] = true;
         }
         
-        bool SkinnedMeshInstance::GetShouldSkipSkinning(uint32_t lodIndex, uint32_t meshIndex) const
+        bool SkinnedMeshInstance::IsSkinningEnabled(uint32_t lodIndex, uint32_t meshIndex) const
         {
-            return m_shouldSkipSkinning[lodIndex][meshIndex];
+            return m_isSkinningEnabled[lodIndex][meshIndex];
         }
     } // namespace Render
 }// namespace AZ
