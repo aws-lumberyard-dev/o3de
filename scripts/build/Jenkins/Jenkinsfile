@@ -941,6 +941,11 @@ catch(Exception e) {
 finally {
     try {
         node('controller') {
+            echo "displayName: ${currentBuild.displayName}"
+            echo "fullDisplayName: ${currentBuild.fullDisplayName}"
+            echo "projectName: ${currentBuild.projectName}"
+            echo "fullProjectName: ${currentBuild.fullProjectName}"
+            echo "description: ${currentBuild.description}"
             ReplaceContent()
             if("${currentBuild.currentResult}" == "SUCCESS") {
                 buildFailure = ""
