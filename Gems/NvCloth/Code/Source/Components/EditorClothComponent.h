@@ -13,7 +13,6 @@
 #include <AzToolsFramework/ToolsComponents/EditorComponentBase.h>
 
 #include <AtomLyIntegration/CommonFeatures/Mesh/MeshComponentBus.h>
-#include <AtomLyIntegration/CommonFeatures/SkinnedMesh/SkinnedMeshOverrideBus.h>
 
 #include <Components/ClothConfiguration.h>
 
@@ -25,7 +24,6 @@ namespace NvCloth
     class EditorClothComponent
         : public AzToolsFramework::Components::EditorComponentBase
         , public AZ::Render::MeshComponentNotificationBus::Handler
-        , public AZ::Render::SkinnedMeshOverrideNotificationBus::Handler
     {
     public:
         AZ_EDITOR_COMPONENT(EditorClothComponent, "{2C99B4EF-8A5F-4585-89F9-86D50754DF7E}", AzToolsFramework::Components::EditorComponentBase);
@@ -46,18 +44,12 @@ namespace NvCloth
         void BuildGameEntity(AZ::Entity* gameEntity) override;
 
         // AZ::Component overrides ...
-        void Init() override;
         void Activate() override;
         void Deactivate() override;
 
         // AZ::Render::MeshComponentNotificationBus::Handler overrides ...
         void OnModelReady(const AZ::Data::Asset<AZ::RPI::ModelAsset>& modelAsset, const AZ::Data::Instance<AZ::RPI::Model>& model) override;
         void OnModelPreDestroy() override;
-
-        // AZ::Render::SkinnedMeshOverrideNotificationBus::Handler
-        void OnOverrideSkinning(
-            AZStd::intrusive_ptr<const AZ::Render::SkinnedMeshInputBuffers> skinnedMeshInputBuffers,
-            AZStd::intrusive_ptr<AZ::Render::SkinnedMeshInstance> skinnedMeshInstance) override;
 
     private:
         bool IsSimulatedInEditor() const;

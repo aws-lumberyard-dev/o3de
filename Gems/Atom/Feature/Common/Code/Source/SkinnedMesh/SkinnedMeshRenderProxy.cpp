@@ -79,21 +79,18 @@ namespace AZ
 
             // Populate the vector with a dispatch item for each mesh
             for (uint32_t meshIndex = 0; meshIndex < meshCount; ++meshIndex)
-            {
-                if (m_instance->IsSkinningEnabled(modelLodIndex, meshIndex))
-                {                
-                    // Create the skinning dispatch Item
-                    m_dispatchItemsByLod[modelLodIndex].emplace_back(
-                        aznew SkinnedMeshDispatchItem{
-                            m_inputBuffers,
-                            m_instance->m_outputStreamOffsetsInBytes[modelLodIndex][meshIndex],
-                            m_instance->m_positionHistoryBufferOffsetsInBytes[modelLodIndex][meshIndex],
-                            modelLodIndex, meshIndex, m_boneTransforms,
-                            m_shaderOptions,
-                            m_featureProcessor,
-                            m_instance->m_morphTargetInstanceMetaData[modelLodIndex][meshIndex],
-                            m_inputBuffers->GetMorphTargetIntegerEncoding(modelLodIndex, meshIndex)});
-                }
+            {            
+                // Create the skinning dispatch Item
+                m_dispatchItemsByLod[modelLodIndex].emplace_back(
+                    aznew SkinnedMeshDispatchItem{
+                        m_inputBuffers,
+                        m_instance->m_outputStreamOffsetsInBytes[modelLodIndex][meshIndex],
+                        m_instance->m_positionHistoryBufferOffsetsInBytes[modelLodIndex][meshIndex],
+                        modelLodIndex, meshIndex, m_boneTransforms,
+                        m_shaderOptions,
+                        m_featureProcessor,
+                        m_instance->m_morphTargetInstanceMetaData[modelLodIndex][meshIndex],
+                        m_inputBuffers->GetMorphTargetIntegerEncoding(modelLodIndex, meshIndex)});
             }
 
             AZ_Assert(m_dispatchItemsByLod.size() == modelLodIndex + 1, "Skinned Mesh Feature Processor - Mismatch in size between the fixed vector of dispatch items and the lod being initialized");
@@ -161,6 +158,16 @@ namespace AZ
             {
                 morphTargetDispatchItems[morphIndex]->SetWeight(weights[morphIndex]);
             }
+        }
+
+        void SkinnedMeshRenderProxy::EnableSkinning(uint32_t lodIndex, uint32_t meshIndex)
+        {
+            m_dispatchItemsByLod[lodIndex][meshIndex]->Enable();
+        }
+
+        void SkinnedMeshRenderProxy::DisableSkinning(uint32_t lodIndex, uint32_t meshIndex)
+        {
+            m_dispatchItemsByLod[lodIndex][meshIndex]->Disable();
         }
 
         uint32_t SkinnedMeshRenderProxy::GetLodCount() const

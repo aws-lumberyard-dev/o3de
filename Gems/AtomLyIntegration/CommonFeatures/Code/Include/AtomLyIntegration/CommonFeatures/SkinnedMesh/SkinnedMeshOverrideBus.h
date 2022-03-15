@@ -18,12 +18,15 @@ namespace AZ
         /**
          * SkinnedMeshOverrideBus provides an interface for components to disable skinning
          */
-        class SkinnedMeshOverrideNotifications
+        class SkinnedMeshOverrideRequests
             : public ComponentBus
         {
         public:
-            virtual void OnOverrideSkinning(AZStd::intrusive_ptr<const SkinnedMeshInputBuffers> skinnedMeshInputBuffers, AZStd::intrusive_ptr<SkinnedMeshInstance> skinnedMeshInstance) = 0;
+            //! Enable the GPU skinning for a mesh if it was previously disabled
+            virtual void EnableSkinning(uint32_t lodIndex, uint32_t meshIndex) = 0;
+            //! Disable the GPU skinning for a mesh
+            virtual void DisableSkinning(uint32_t lodIndex, uint32_t meshIndex) = 0;
         };
-        using SkinnedMeshOverrideNotificationBus = EBus<SkinnedMeshOverrideNotifications>;
+        using SkinnedMeshOverrideRequestBus = EBus<SkinnedMeshOverrideRequests>;
     } // namespace Render
 } // namespace AZ

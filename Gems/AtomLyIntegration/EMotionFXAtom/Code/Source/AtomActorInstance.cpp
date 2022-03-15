@@ -627,6 +627,7 @@ namespace AZ::Render
         TransformNotificationBus::Handler::BusConnect(m_entityId);
         MaterialComponentNotificationBus::Handler::BusConnect(m_entityId);
         MeshComponentRequestBus::Handler::BusConnect(m_entityId);
+        AZ::Render::SkinnedMeshOverrideRequestBus::Handler::BusConnect(m_entityId);
 
         const Data::Instance<RPI::Model> model = m_meshFeatureProcessor->GetModel(*m_meshHandle);
         MeshComponentNotificationBus::Event(m_entityId, &MeshComponentNotificationBus::Events::OnModelReady, GetModelAsset(), model);
@@ -636,6 +637,7 @@ namespace AZ::Render
     {
         MeshComponentNotificationBus::Event(m_entityId, &MeshComponentNotificationBus::Events::OnModelPreDestroy);
 
+        AZ::Render::SkinnedMeshOverrideRequestBus::Handler::BusDisconnect(m_entityId);
         MeshComponentRequestBus::Handler::BusDisconnect();
         MaterialComponentNotificationBus::Handler::BusDisconnect();
         TransformNotificationBus::Handler::BusDisconnect();
@@ -686,8 +688,6 @@ namespace AZ::Render
         {
             MaterialReceiverNotificationBus::Event(m_entityId, &MaterialReceiverNotificationBus::Events::OnMaterialAssignmentsChanged);
 
-            OverrideSkinning();
-
             RegisterActor();
         }
         else
@@ -697,79 +697,80 @@ namespace AZ::Render
         }
     }
 
-    void AtomActorInstance::FillSkinnedMeshInstanceBuffers()
+    void AtomActorInstance::FillSkinnedMeshInstanceBuffers(uint32_t lodIndex, uint32_t meshIndex)
     {
         AZ_Assert( m_skinnedMeshInputBuffers->GetLodCount() == m_skinnedMeshInstance->m_outputStreamOffsetsInBytes.size(),
             "Number of lods in Skinned Mesh Input Buffers (%d) does not match with Skinned Mesh Instance (%d)",
             m_skinnedMeshInputBuffers->GetLodCount(), m_skinnedMeshInstance->m_outputStreamOffsetsInBytes.size());
 
         const auto& modelAsset = m_skinnedMeshInputBuffers->GetModelAsset();
-        for (size_t lodIndex = 0; lodIndex < modelAsset->GetLodAssets().size(); ++lodIndex)
+        AZ_Assert(lodIndex < modelAsset->GetLodAssets().size(), "Invalid lod index");
+        AZ_Assert(meshIndex < modelAsset->GetLodAssets()[lodIndex]->GetMeshes().size(), "Invalid lod index");
+
+        const AZ::RPI::ModelLodAsset::Mesh& meshAsset = modelAsset->GetLodAssets()[lodIndex]->GetMeshes()[meshIndex];
+
+        const SkinnedMeshOutputVertexOffsets& outputBufferOffsetsInBytes =
+            m_skinnedMeshInstance->m_outputStreamOffsetsInBytes[lodIndex][meshIndex];
+
+        auto updateSkinnedMeshInstance = [&meshAsset, &outputBufferOffsetsInBytes](SkinnedMeshOutputVertexStreams outputStream)
         {
-            const auto& lodAsset = modelAsset->GetLodAssets()[lodIndex];
-            for (size_t meshIndex = 0; meshIndex < lodAsset->GetMeshes().size(); ++meshIndex)
+            const SkinnedMeshOutputVertexStreamInfo& outputStreamInfo =
+                SkinnedMeshVertexStreamPropertyInterface::Get()->GetOutputStreamInfo(outputStream);
+
+            const RPI::BufferAssetView* inputBufferAssetView =
+                meshAsset.GetSemanticBufferAssetView(outputStreamInfo.m_semantic.m_name);
+            if (inputBufferAssetView)
             {
-                if (!m_skinnedMeshInstance->IsSkinningEnabled(aznumeric_caster(lodIndex), aznumeric_caster(meshIndex)))
-                {
-                    const AZ::RPI::ModelLodAsset::Mesh& meshAsset = lodAsset->GetMeshes()[meshIndex];
-                    const SkinnedMeshOutputVertexOffsets& outputBufferOffsetsInBytes =
-                        m_skinnedMeshInstance->m_outputStreamOffsetsInBytes[lodIndex][meshIndex];
+                const RHI::BufferViewDescriptor& inputBufferViewDescriptor = inputBufferAssetView->GetBufferViewDescriptor();
 
-                    auto updateSkinnedMeshInstance = [&meshAsset, &outputBufferOffsetsInBytes](SkinnedMeshOutputVertexStreams outputStream)
-                    {
-                        const SkinnedMeshOutputVertexStreamInfo& outputStreamInfo =
-                            SkinnedMeshVertexStreamPropertyInterface::Get()->GetOutputStreamInfo(outputStream);
+                const uint64_t inputByteCount = aznumeric_cast<uint64_t>(inputBufferViewDescriptor.m_elementCount) *
+                    aznumeric_cast<uint64_t>(inputBufferViewDescriptor.m_elementSize);
+                const uint64_t inputByteOffset = aznumeric_cast<uint64_t>(inputBufferViewDescriptor.m_elementOffset) *
+                    aznumeric_cast<uint64_t>(inputBufferViewDescriptor.m_elementSize);
 
-                        const RPI::BufferAssetView* inputBufferAssetView =
-                            meshAsset.GetSemanticBufferAssetView(outputStreamInfo.m_semantic.m_name);
-                        if (inputBufferAssetView)
-                        {
-                            const RHI::BufferViewDescriptor& inputBufferViewDescriptor = inputBufferAssetView->GetBufferViewDescriptor();
+                const uint32_t outputElementSize = outputStreamInfo.m_elementSize;
+                const uint32_t outputElementCount = meshAsset.GetVertexCount();
+                [[maybe_unused]] const uint64_t outputByteCount =
+                    aznumeric_cast<uint64_t>(outputElementCount) * aznumeric_cast<uint64_t>(outputElementSize);
+                const uint64_t outputByteOffset =
+                    aznumeric_cast<uint64_t>(outputBufferOffsetsInBytes[static_cast<uint8_t>(outputStream)]);
 
-                            const uint64_t inputByteCount = aznumeric_cast<uint64_t>(inputBufferViewDescriptor.m_elementCount) *
-                                aznumeric_cast<uint64_t>(inputBufferViewDescriptor.m_elementSize);
-                            const uint64_t inputByteOffset = aznumeric_cast<uint64_t>(inputBufferViewDescriptor.m_elementOffset) *
-                                aznumeric_cast<uint64_t>(inputBufferViewDescriptor.m_elementSize);
+                // The byte count from input and output buffers doesn't have to match necessarily.
+                // For example the output positions buffer has double the amount of elements because it has
+                // another set of positions from the previous frame.
+                AZ_Assert(inputByteCount <= outputByteCount, "Trying to write too many bytes to output buffer.");
 
-                            const uint32_t outputElementSize = outputStreamInfo.m_elementSize;
-                            const uint32_t outputElementCount = meshAsset.GetVertexCount();
-                            [[maybe_unused]] const uint64_t outputByteCount =
-                                aznumeric_cast<uint64_t>(outputElementCount) * aznumeric_cast<uint64_t>(outputElementSize);
-                            const uint64_t outputByteOffset =
-                                aznumeric_cast<uint64_t>(outputBufferOffsetsInBytes[static_cast<uint8_t>(outputStream)]);
+                // The shared buffer that all skinning output lives in
+                AZ::Data::Instance<AZ::RPI::Buffer> rpiBuffer = SkinnedMeshOutputStreamManagerInterface::Get()->GetBuffer();
 
-                            // The byte count from input and output buffers doesn't have to match necessarily.
-                            // For example the output positions buffer has double the amount of elements because it has
-                            // another set of positions from the previous frame.
-                            AZ_Assert(inputByteCount <= outputByteCount, "Trying to write too many bytes to output buffer.");
-
-                            // The shared buffer that all skinning output lives in
-                            AZ::Data::Instance<AZ::RPI::Buffer> rpiBuffer = SkinnedMeshOutputStreamManagerInterface::Get()->GetBuffer();
-
-                            rpiBuffer->UpdateData(
-                                inputBufferAssetView->GetBufferAsset()->GetBuffer().data() + inputByteOffset,
-                                inputByteCount,
-                                outputByteOffset);
-                        }
-                    };
-
-                    updateSkinnedMeshInstance(SkinnedMeshOutputVertexStreams::Position);
-                    updateSkinnedMeshInstance(SkinnedMeshOutputVertexStreams::Normal);
-                    updateSkinnedMeshInstance(SkinnedMeshOutputVertexStreams::Tangent);
-                    updateSkinnedMeshInstance(SkinnedMeshOutputVertexStreams::BiTangent);
-                }
+                rpiBuffer->UpdateData(
+                    inputBufferAssetView->GetBufferAsset()->GetBuffer().data() + inputByteOffset,
+                    inputByteCount,
+                    outputByteOffset);
             }
+        };
+
+        updateSkinnedMeshInstance(SkinnedMeshOutputVertexStreams::Position);
+        updateSkinnedMeshInstance(SkinnedMeshOutputVertexStreams::Normal);
+        updateSkinnedMeshInstance(SkinnedMeshOutputVertexStreams::Tangent);
+        updateSkinnedMeshInstance(SkinnedMeshOutputVertexStreams::BiTangent);
+    }
+    
+    void AtomActorInstance::EnableSkinning(uint32_t lodIndex, uint32_t meshIndex)
+    {
+        if (m_skinnedMeshRenderProxy.IsValid())
+        {
+            m_skinnedMeshRenderProxy->EnableSkinning(lodIndex, meshIndex);
         }
     }
 
-    void AtomActorInstance::OverrideSkinning()
+    void AtomActorInstance::DisableSkinning(uint32_t lodIndex, uint32_t meshIndex)
     {
-        // Give other components a chance to disable skinning for any given mesh
-        SkinnedMeshOverrideNotificationBus::Event(
-            m_entityId, &SkinnedMeshOverrideNotificationBus::Events::OnOverrideSkinning, m_skinnedMeshInputBuffers, m_skinnedMeshInstance);
-
-        // For any mesh that is not going to be skinned at all, fill the vertex buffers for the instance with the bind pose
-        FillSkinnedMeshInstanceBuffers();
+        if (m_skinnedMeshRenderProxy.IsValid())
+        {
+            m_skinnedMeshRenderProxy->DisableSkinning(lodIndex, meshIndex);
+            FillSkinnedMeshInstanceBuffers(lodIndex, meshIndex);
+        }
     }
 
     void AtomActorInstance::OnSkinnedMeshOutputStreamMemoryAvailable()

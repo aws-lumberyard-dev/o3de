@@ -435,28 +435,16 @@ namespace NvCloth
         gameEntity->CreateComponent<ClothComponent>(m_config);
     }
 
-    void EditorClothComponent::Init()
-    {        
-        AZ::Component::Init();
-
-        // The actor component is going to activate before cloth, since the MeshService it provides is a dependent service
-        // But there is an event it will send during Activate that needs to be handled to tell the actor to skip skinning
-        // The cloth component does not need to be active to handle it, but it needs to be listening, so connect here
-        AZ::Render::SkinnedMeshOverrideNotificationBus::Handler::BusConnect(GetEntityId());
-    }
-
     void EditorClothComponent::Activate()
     {
         AzToolsFramework::Components::EditorComponentBase::Activate();
 
-        AZ::Render::SkinnedMeshOverrideNotificationBus::Handler::BusConnect(GetEntityId());
         AZ::Render::MeshComponentNotificationBus::Handler::BusConnect(GetEntityId());
     }
 
     void EditorClothComponent::Deactivate()
     {
         AZ::Render::MeshComponentNotificationBus::Handler::BusDisconnect();
-        AZ::Render::SkinnedMeshOverrideNotificationBus::Handler::BusDisconnect();
 
         AzToolsFramework::Components::EditorComponentBase::Deactivate();
 
@@ -552,13 +540,6 @@ namespace NvCloth
         AzToolsFramework::ToolsApplicationEvents::Bus::Broadcast(
             &AzToolsFramework::ToolsApplicationEvents::InvalidatePropertyDisplay,
             AzToolsFramework::Refresh_EntireTree);
-    }
-
-    void EditorClothComponent::OnOverrideSkinning(
-        AZStd::intrusive_ptr<const AZ::Render::SkinnedMeshInputBuffers> skinnedMeshInputBuffers,
-        AZStd::intrusive_ptr<AZ::Render::SkinnedMeshInstance> skinnedMeshInstance)
-    {
-        OverrideSkinning(skinnedMeshInputBuffers, skinnedMeshInstance);
     }
 
     bool EditorClothComponent::IsSimulatedInEditor() const
