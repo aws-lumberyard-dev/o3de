@@ -73,34 +73,31 @@ namespace AZ
                     const uint32_t originalVertex = sourceOriginalVertex[vertexIndex + vertexStart];
                     const uint32_t influenceCount = AZStd::GetMin<uint32_t>(
                         maxInfluencesPerVertex, static_cast<uint32_t>(sourceSkinningInfo->GetNumInfluences(originalVertex)));
-                    uint32_t influenceIndex = 0;
 
-                    AZStd::vector<uint32_t> localIndices;
-                    AZStd::vector<float> localWeights;
+                    uint32_t influenceIndex = 0;
                     for (; influenceIndex < influenceCount; ++influenceIndex)
                     {
                         EMotionFX::SkinInfluence* influence = sourceSkinningInfo->GetInfluence(originalVertex, influenceIndex);
-                        localIndices.push_back(static_cast<uint32_t>(influence->GetNodeNr()));
+                        // Pack the 16-bit indices into 32-bit uints, putting the first of each index pair in the most significant bits
+                        if (influenceIndex % 2 == 0)
+                        {
+                            blendIndexBufferData.push_back(static_cast<uint32_t>(influence->GetNodeNr()) << 16);
+                        }
+                        else
+                        {
+                            blendIndexBufferData.back() |= static_cast<uint32_t>(influence->GetNodeNr());
+                        }
                         blendWeightBufferData.push_back(influence->GetWeight());
                     }
 
                     // Zero out any unused ids/weights
                     for (; influenceIndex < maxInfluencesPerVertex; ++influenceIndex)
                     {
-                        localIndices.push_back(0);
+                        if (influenceIndex % 2 == 0)
+                        {
+                            blendIndexBufferData.push_back(0);
+                        }
                         blendWeightBufferData.push_back(0.0f);
-                    }
-
-                    // Make sure we have an even number of indices for packing into 32-bit uints
-                    if (localIndices.size() % 2 != 0)
-                    {
-                        localIndices.push_back(0);
-                    }
-
-                    // Now that we have the 16-bit indices, pack them into 32-bit uints
-                    for (size_t i = 0; i < localIndices.size(); i+=2)
-                    {
-                        blendIndexBufferData.push_back(localIndices[i] << 16 | localIndices[i+1]);
                     }
                 }
 
