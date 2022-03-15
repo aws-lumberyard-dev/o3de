@@ -775,10 +775,10 @@ namespace AZ
                             AZ_Warning(s_builderName, false, "Mesh '%s' is missing bitangents and no defaults were generated. Skinned meshes require bitangents. Dummy bitangents will be inserted, which may result in rendering artifacts.", sourceMesh.m_name.GetCStr());
                         }
 
-                        CalculateMaxUsedSkinInfluencesPerVertex(
-                            sourceMesh, productMesh, oldToNewIndices, warnedExcessOfSkinInfluences);
+                        productMesh.m_influencesPerVertex = CalculateMaxUsedSkinInfluencesPerVertex(
+                            sourceMesh, oldToNewIndices, warnedExcessOfSkinInfluences);
 
-                        uint32_t totalInfluences = productMesh.m_influencesPerVertex * aznumeric_cast<uint32_t>(vertexCount);
+                        const uint32_t totalInfluences = productMesh.m_influencesPerVertex * aznumeric_cast<uint32_t>(vertexCount);
                         productMesh.m_skinJointIndices.reserve(totalInfluences + CalculateJointIdPaddingCount(totalInfluences));
                         productMesh.m_skinWeights.reserve(totalInfluences);
                     }
@@ -932,22 +932,18 @@ namespace AZ
             }
         }
 
-        void ModelAssetBuilderComponent::CalculateMaxUsedSkinInfluencesPerVertex(
+        uint32_t ModelAssetBuilderComponent::CalculateMaxUsedSkinInfluencesPerVertex(
             const SourceMeshContent& sourceMesh,
-            ProductMeshContent& productMesh,
             const AZStd::map<uint32_t, uint32_t>& oldToNewIndicesMap,
             bool& warnedExcessOfSkinInfluences) const
         {
-            size_t vertexCount = oldToNewIndicesMap.size();
-            AZStd::vector<uint32_t> influenceCountPerVertex(vertexCount, 0);
+            const size_t vertexCount = oldToNewIndicesMap.size();
 
-            for (const auto& skinData : sourceMesh.m_skinData)
+            uint32_t influencesPerVertex = 0;
+            for (const auto& [oldIndex, newIndex] : oldToNewIndicesMap)
             {
-                // The old and new indices are a subset of the total indices across the source mesh
-                // that represent the indices which are used by a particular product mesh (submesh)
-                // Since neither of those are in the range of 0->vertexCount, we track another index for influenceCountPerVertex
-                size_t influenceCountIndex = 0;
-                for (const auto& [oldIndex, newIndex] : oldToNewIndicesMap)
+                uint32_t influenceCountForCurrentVertex = 0;
+                for (const auto& skinData : sourceMesh.m_skinData)
                 {
                     const size_t numSkinInfluences = skinData->GetLinkCount(oldIndex);
 
@@ -960,19 +956,11 @@ namespace AZ
 
                         if (weight > m_skinRuleSettings.m_weightThreshold)
                         {
-                            influenceCountPerVertex[influenceCountIndex]++;
+                            ++influenceCountForCurrentVertex;
                         }
                     }
-
-                    influenceCountIndex++;
                 }
-            }
-
-            // Now do a pass over the counts to see what the maximum influences actually needed for this mesh is
-            uint32_t influencesPerVertex = 0;
-            for (const uint32_t& influenceCount : influenceCountPerVertex)
-            {
-                influencesPerVertex = AZStd::max(influencesPerVertex, influenceCount);
+                influencesPerVertex = AZStd::max(influencesPerVertex, influenceCountForCurrentVertex);
             }
 
             if (influencesPerVertex > m_skinRuleSettings.m_maxInfluencesPerVertex)
@@ -990,7 +978,7 @@ namespace AZ
             influencesPerVertex = AZStd::min(influencesPerVertex, m_skinRuleSettings.m_maxInfluencesPerVertex);
 
             // Round up to a multiple of two, since influences are processed two at a time in the shader
-            productMesh.m_influencesPerVertex = AZ::RoundUpToMultiple(influencesPerVertex, 2);
+            return AZ::RoundUpToMultiple(influencesPerVertex, 2u);
         }
 
         void ModelAssetBuilderComponent::GatherVertexSkinningInfluences(

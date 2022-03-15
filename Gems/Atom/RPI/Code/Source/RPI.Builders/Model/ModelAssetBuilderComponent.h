@@ -384,9 +384,8 @@ namespace AZ
 
         private:
             //! Collects skinning influences of a vertex from the SceneAPI source mesh and fills them in the resulting mesh
-            void CalculateMaxUsedSkinInfluencesPerVertex(
+            uint32_t CalculateMaxUsedSkinInfluencesPerVertex(
                 const SourceMeshContent& sourceMesh,
-                ProductMeshContent& productMesh,
                 const AZStd::map<uint32_t, uint32_t>& oldToNewIndicesMap,
                 bool& warnedExcessOfSkinInfluences) const;
 

@@ -78,6 +78,7 @@ namespace AZ
                     for (; influenceIndex < influenceCount; ++influenceIndex)
                     {
                         EMotionFX::SkinInfluence* influence = sourceSkinningInfo->GetInfluence(originalVertex, influenceIndex);
+                        // Pack the 16-bit indices into 32-bit uints, putting the first of each index pair in the most significant bits
                         if (influenceIndex % 2 == 0)
                         {
                             blendIndexBufferData.push_back(static_cast<uint32_t>(influence->GetNodeNr()) << 16);

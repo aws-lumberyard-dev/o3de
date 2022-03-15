@@ -181,7 +181,7 @@ namespace EMotionFX
             const AZ::RPI::BufferAssetView* weightView = mesh.GetSemanticBufferAssetView(AZ::Name{"SKIN_WEIGHTS"});
             if(weightView)
             {
-                AZ::u32 meshInfluenceCount = weightView->GetBufferViewDescriptor().m_elementCount / mesh.GetVertexCount();
+                const AZ::u32 meshInfluenceCount = weightView->GetBufferViewDescriptor().m_elementCount / mesh.GetVertexCount();
                 maxSkinInfluences = AZStd::max(maxSkinInfluences, meshInfluenceCount);
             }
         }
@@ -306,10 +306,10 @@ namespace EMotionFX
                 const AZ::RPI::BufferAssetView* jointIdView = sourceMesh.GetSemanticBufferAssetView(AZ::Name{"SKIN_JOINTINDICES"});
                 if (weightView && jointIdView)
                 {                    
-                    AZ::u32 meshInfluenceCount = weightView->GetBufferViewDescriptor().m_elementCount / meshVertexCount;
-                    AZ::u32 weightOffsetInElements = weightView->GetBufferViewDescriptor().m_elementOffset;
+                    const AZ::u32 meshInfluenceCount = weightView->GetBufferViewDescriptor().m_elementCount / meshVertexCount;
+                    const AZ::u32 weightOffsetInElements = weightView->GetBufferViewDescriptor().m_elementOffset;
                     // We multiply by two here since there are two jointId's packed per-element
-                    AZ::u32 jointIdOffsetInElements = jointIdView->GetBufferViewDescriptor().m_elementOffset * 2;
+                    const AZ::u32 jointIdOffsetInElements = jointIdView->GetBufferViewDescriptor().m_elementOffset * 2;
 
                     // Fill in skinning data from atom buffer
                     for (AZ::u32 v = 0; v < meshVertexCount; ++v)
