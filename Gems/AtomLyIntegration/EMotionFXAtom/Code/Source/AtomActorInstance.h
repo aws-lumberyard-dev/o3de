@@ -183,9 +183,6 @@ namespace AZ
         private:
             void CreateSkinnedMeshInstance();
 
-            // Copies input buffers to output skinned buffers when the skinned mesh instance is created.
-            void FillSkinnedMeshInstanceBuffers(uint32_t lodIndex, uint32_t meshIndex);
-
             // Skip skinning for certain meshes (like those with cloth)
             void OverrideSkinning();
 

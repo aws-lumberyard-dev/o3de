@@ -696,65 +696,6 @@ namespace AZ::Render
             SkinnedMeshOutputStreamNotificationBus::Handler::BusConnect();
         }
     }
-
-    void AtomActorInstance::FillSkinnedMeshInstanceBuffers(uint32_t lodIndex, uint32_t meshIndex)
-    {
-        AZ_Assert( m_skinnedMeshInputBuffers->GetLodCount() == m_skinnedMeshInstance->m_outputStreamOffsetsInBytes.size(),
-            "Number of lods in Skinned Mesh Input Buffers (%d) does not match with Skinned Mesh Instance (%d)",
-            m_skinnedMeshInputBuffers->GetLodCount(), m_skinnedMeshInstance->m_outputStreamOffsetsInBytes.size());
-
-        const auto& modelAsset = m_skinnedMeshInputBuffers->GetModelAsset();
-        AZ_Assert(lodIndex < modelAsset->GetLodAssets().size(), "Invalid lod index");
-        AZ_Assert(meshIndex < modelAsset->GetLodAssets()[lodIndex]->GetMeshes().size(), "Invalid lod index");
-
-        const AZ::RPI::ModelLodAsset::Mesh& meshAsset = modelAsset->GetLodAssets()[lodIndex]->GetMeshes()[meshIndex];
-
-        const SkinnedMeshOutputVertexOffsets& outputBufferOffsetsInBytes =
-            m_skinnedMeshInstance->m_outputStreamOffsetsInBytes[lodIndex][meshIndex];
-
-        auto updateSkinnedMeshInstance = [&meshAsset, &outputBufferOffsetsInBytes](SkinnedMeshOutputVertexStreams outputStream)
-        {
-            const SkinnedMeshOutputVertexStreamInfo& outputStreamInfo =
-                SkinnedMeshVertexStreamPropertyInterface::Get()->GetOutputStreamInfo(outputStream);
-
-            const RPI::BufferAssetView* inputBufferAssetView =
-                meshAsset.GetSemanticBufferAssetView(outputStreamInfo.m_semantic.m_name);
-            if (inputBufferAssetView)
-            {
-                const RHI::BufferViewDescriptor& inputBufferViewDescriptor = inputBufferAssetView->GetBufferViewDescriptor();
-
-                const uint64_t inputByteCount = aznumeric_cast<uint64_t>(inputBufferViewDescriptor.m_elementCount) *
-                    aznumeric_cast<uint64_t>(inputBufferViewDescriptor.m_elementSize);
-                const uint64_t inputByteOffset = aznumeric_cast<uint64_t>(inputBufferViewDescriptor.m_elementOffset) *
-                    aznumeric_cast<uint64_t>(inputBufferViewDescriptor.m_elementSize);
-
-                const uint32_t outputElementSize = outputStreamInfo.m_elementSize;
-                const uint32_t outputElementCount = meshAsset.GetVertexCount();
-                [[maybe_unused]] const uint64_t outputByteCount =
-                    aznumeric_cast<uint64_t>(outputElementCount) * aznumeric_cast<uint64_t>(outputElementSize);
-                const uint64_t outputByteOffset =
-                    aznumeric_cast<uint64_t>(outputBufferOffsetsInBytes[static_cast<uint8_t>(outputStream)]);
-
-                // The byte count from input and output buffers doesn't have to match necessarily.
-                // For example the output positions buffer has double the amount of elements because it has
-                // another set of positions from the previous frame.
-                AZ_Assert(inputByteCount <= outputByteCount, "Trying to write too many bytes to output buffer.");
-
-                // The shared buffer that all skinning output lives in
-                AZ::Data::Instance<AZ::RPI::Buffer> rpiBuffer = SkinnedMeshOutputStreamManagerInterface::Get()->GetBuffer();
-
-                rpiBuffer->UpdateData(
-                    inputBufferAssetView->GetBufferAsset()->GetBuffer().data() + inputByteOffset,
-                    inputByteCount,
-                    outputByteOffset);
-            }
-        };
-
-        updateSkinnedMeshInstance(SkinnedMeshOutputVertexStreams::Position);
-        updateSkinnedMeshInstance(SkinnedMeshOutputVertexStreams::Normal);
-        updateSkinnedMeshInstance(SkinnedMeshOutputVertexStreams::Tangent);
-        updateSkinnedMeshInstance(SkinnedMeshOutputVertexStreams::BiTangent);
-    }
     
     void AtomActorInstance::EnableSkinning(uint32_t lodIndex, uint32_t meshIndex)
     {
@@ -769,7 +710,6 @@ namespace AZ::Render
         if (m_skinnedMeshRenderProxy.IsValid())
         {
             m_skinnedMeshRenderProxy->DisableSkinning(lodIndex, meshIndex);
-            FillSkinnedMeshInstanceBuffers(lodIndex, meshIndex);
         }
     }
 
