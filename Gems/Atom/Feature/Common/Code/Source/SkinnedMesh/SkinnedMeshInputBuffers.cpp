@@ -252,127 +252,9 @@ namespace AZ
             return m_modelLodAsset;
         }
 
-        void SkinnedMeshInputLod::SetIndexCount(uint32_t indexCount)
-        {
-            m_indexCount = indexCount;
-        }
-
-        void SkinnedMeshInputLod::SetVertexCount(uint32_t vertexCount)
-        {
-            m_vertexCount = vertexCount;
-        }
-
         uint32_t SkinnedMeshInputLod::GetVertexCount() const
         {
             return m_outputVertexCountsByStream[aznumeric_caster(SkinnedMeshOutputVertexStreams::Position)];
-        }
-
-        void SkinnedMeshInputLod::SetIndexBufferAsset(const Data::Asset<RPI::BufferAsset> bufferAsset)
-        {
-            m_indexBufferAsset = bufferAsset;
-            m_indexBuffer = RPI::Buffer::FindOrCreate(bufferAsset);
-        }
-
-        void SkinnedMeshInputLod::CreateIndexBuffer(const uint32_t* data, const AZStd::string& bufferNamePrefix)
-        {
-            AZ_Assert(m_indexCount > 0, "SkinnedMeshInputLod::CreateIndexBuffer called with a index count of 0. Make sure SetIndexCount has been called before trying to create any buffers.");
-
-            RHI::BufferViewDescriptor indexBufferViewDescriptor = RHI::BufferViewDescriptor::CreateTyped(0, m_indexCount, AZ::RHI::Format::R32_UINT);
-
-            // Use the user-specified buffer name if it exits, or a default one otherwise.
-            const char* bufferName = !bufferNamePrefix.empty() ? bufferNamePrefix.c_str() : "SkinnedMeshStaticIndexBuffer";
-
-            Data::Asset<RPI::BufferAsset> bufferAsset = CreateBufferAsset(data, indexBufferViewDescriptor, RHI::BufferBindFlags::InputAssembly, SkinnedMeshVertexStreamPropertyInterface::Get()->GetStaticStreamResourcePool(), bufferName);
-            m_indexBufferAsset = bufferAsset;
-            m_indexBuffer = RPI::Buffer::FindOrCreate(bufferAsset);
-        }
-
-        void SkinnedMeshInputLod::CreateSkinningInputBuffer(void* data, SkinnedMeshInputVertexStreams inputStream, const AZStd::string& bufferNamePrefix)
-        {
-            AZ_Assert(m_vertexCount > 0, "SkinnedMeshInputLod::CreateSkinningInputBuffer called with a vertex count of 0. Make sure SetVertexCount has been called before trying to create any buffers.");
-
-            const SkinnedMeshVertexStreamInfo& streamInfo = SkinnedMeshVertexStreamPropertyInterface::Get()->GetInputStreamInfo(inputStream);
-            RHI::BufferViewDescriptor viewDescriptor = RHI::BufferViewDescriptor::CreateRaw(0, m_vertexCount * streamInfo.m_elementSize);
-
-            // Use the user-specified buffer name if it exits, or a default one from the streamInfo otherwise.
-            const char* bufferName = !bufferNamePrefix.empty() ? bufferNamePrefix.c_str() : streamInfo.m_bufferName.GetCStr();
-
-            Data::Asset<RPI::BufferAsset> bufferAsset = CreateBufferAsset(data, viewDescriptor, RHI::BufferBindFlags::ShaderRead, SkinnedMeshVertexStreamPropertyInterface::Get()->GetInputStreamResourcePool(), bufferName);
-            m_inputBufferAssets[static_cast<uint8_t>(inputStream)] = bufferAsset;
-            m_inputBuffers[static_cast<uint8_t>(inputStream)] = RPI::Buffer::FindOrCreate(bufferAsset);
-        }
-
-        void SkinnedMeshInputLod::SetSkinningInputBufferAsset(const Data::Asset<RPI::BufferAsset> bufferAsset, SkinnedMeshInputVertexStreams inputStream)
-        {
-            m_inputBufferAssets[static_cast<uint8_t>(inputStream)] = bufferAsset;
-            Data::Instance<RPI::Buffer> buffer = RPI::Buffer::FindOrCreate(bufferAsset);
-            m_inputBuffers[static_cast<uint8_t>(inputStream)] = buffer;
-
-            // Create a buffer view to use as input to the skinning shader
-            AZ::RHI::Ptr<AZ::RHI::BufferView> bufferView = RHI::Factory::Get().CreateBufferView();                
-            bufferView->SetName(Name{ AZStd::string(buffer->GetBufferView()->GetName().GetStringView()) + "_SkinningInputBufferView" });
-            RHI::BufferViewDescriptor bufferViewDescriptor = bufferAsset->GetBufferViewDescriptor();
-
-            // 3-component float buffers are not supported on metal for non-input assembly buffer views, so use a float view instead
-            if (bufferViewDescriptor.m_elementFormat == RHI::Format::R32G32B32_FLOAT)
-            {
-                // Use one float per element, with 3x as many elements
-                bufferViewDescriptor = RHI::BufferViewDescriptor::CreateTyped(
-                    bufferViewDescriptor.m_elementOffset * 3, bufferViewDescriptor.m_elementCount * 3, RHI::Format::R32_FLOAT);
-            }
-
-            [[maybe_unused]] RHI::ResultCode resultCode =
-                bufferView->Init(*buffer->GetRHIBuffer(), bufferViewDescriptor);
-            AZ_Error(
-                "SkinnedMeshInputBuffers", resultCode == RHI::ResultCode::Success,
-                "Failed to initialize buffer view for skinned mesh input.");
-                
-            m_bufferViews[static_cast<uint8_t>(inputStream)] = bufferView;
-        }
-
-        void SkinnedMeshInputLod::SetStaticBufferAsset(const Data::Asset<RPI::BufferAsset> bufferAsset, SkinnedMeshStaticVertexStreams staticStream)
-        {
-            m_staticBuffers[static_cast<uint8_t>(staticStream)] = RPI::Buffer::FindOrCreate(bufferAsset);
-        }
-
-        void SkinnedMeshInputLod::CreateStaticBuffer(void* data, SkinnedMeshStaticVertexStreams staticStream, const AZStd::string& bufferNamePrefix)
-        {
-            AZ_Assert(m_vertexCount > 0, "SkinnedMeshInputLod::CreateStaticBuffer called with a vertex count of 0. Make sure SetVertexCount has been called before trying to create any buffers.");
-
-            const SkinnedMeshVertexStreamInfo& streamInfo = SkinnedMeshVertexStreamPropertyInterface::Get()->GetStaticStreamInfo(staticStream);
-            RHI::BufferViewDescriptor viewDescriptor = RHI::BufferViewDescriptor::CreateTyped(0, m_vertexCount, streamInfo.m_elementFormat);
-
-            // Use the user-specified buffer name if it exits, or a default one from the streamInfo otherwise.
-            const char* bufferName = !bufferNamePrefix.empty() ? bufferNamePrefix.c_str() : streamInfo.m_bufferName.GetCStr();
-
-            Data::Asset<RPI::BufferAsset> bufferAsset = CreateBufferAsset(data, viewDescriptor, RHI::BufferBindFlags::InputAssembly, SkinnedMeshVertexStreamPropertyInterface::Get()->GetStaticStreamResourcePool(), bufferName);
-            m_staticBuffers[static_cast<uint8_t>(staticStream)] = RPI::Buffer::FindOrCreate(bufferAsset);
-        }
-
-        const Data::Asset<RPI::BufferAsset>& SkinnedMeshInputLod::GetSkinningInputBufferAsset(SkinnedMeshInputVertexStreams stream) const
-        {
-            return m_inputBufferAssets[static_cast<uint8_t>(stream)];
-        }
-
-        void SkinnedMeshInputLod::WaitForUpload()
-        {
-            m_indexBuffer->WaitForUpload();
-
-            for (const Data::Instance<RPI::Buffer>& inputBuffer : m_inputBuffers)
-            {
-                if (inputBuffer)
-                {
-                    inputBuffer->WaitForUpload();
-                }
-            }
-
-            for (const Data::Instance<RPI::Buffer>& staticBuffer : m_staticBuffers)
-            {
-                if (staticBuffer)
-                {
-                    staticBuffer->WaitForUpload();
-                }
-            }
         }
 
         void SkinnedMeshInputLod::AddMorphTarget(
@@ -478,6 +360,11 @@ namespace AZ
             return m_modelAsset;
         }
 
+        Data::Instance<RPI::Model> SkinnedMeshInputBuffers::GetModel() const
+        {
+            return m_model;
+        }
+
         uint32_t SkinnedMeshInputBuffers::GetMeshCount(uint32_t lodIndex) const
         {
             return aznumeric_caster(m_lods[lodIndex].m_meshes.size());
@@ -508,16 +395,6 @@ namespace AZ
         {
             AZ_Assert(lodIndex < m_lods.size(), "Attempting to get lod at index %" PRIu32 " in SkinnedMeshInputBuffers, which is outside the range of %zu.", lodIndex, m_lods.size());
             return m_lods[lodIndex];
-        }
-
-        AZStd::span<const AZ::RHI::Ptr<RHI::BufferView>> SkinnedMeshInputBuffers::GetInputBufferViews(uint32_t lodIndex) const
-        {
-            return m_lods[lodIndex].m_bufferViews;
-        }
-
-        AZ::RHI::Ptr<const RHI::BufferView> SkinnedMeshInputBuffers::GetInputBufferView(uint32_t lodIndex, uint8_t inputStream) const
-        {
-            return m_lods[lodIndex].m_inputBuffers[inputStream]->GetBufferView();
         }
 
         uint32_t SkinnedMeshInputBuffers::GetVertexCount(uint32_t lodIndex, uint32_t meshIndex) const
@@ -923,18 +800,6 @@ namespace AZ
 
             instance->m_model = RPI::Model::FindOrCreate(modelAsset);
             return instance;
-        }
-
-        void SkinnedMeshInputBuffers::WaitForUpload()
-        {
-            if (m_isUploadPending)
-            {
-                for (SkinnedMeshInputLod& lod : m_lods)
-                {
-                    lod.WaitForUpload();
-                }
-                m_isUploadPending = false;
-            }
         }
 
         bool SkinnedMeshInputBuffers::IsUploadPending() const

@@ -67,7 +67,6 @@ namespace AZ
             const RHI::DispatchItem& GetRHIDispatchItem() const;
 
             Data::Instance<RPI::Buffer> GetBoneTransforms() const;
-            AZStd::span<const RHI::Ptr<RHI::BufferView>> GetSourceUnskinnedBufferViews() const;
             AZStd::span<const RHI::Ptr<RHI::BufferView>> GetTargetSkinnedBufferViews() const;
             uint32_t GetVertexCount() const;
             void Enable();
