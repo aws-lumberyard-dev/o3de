@@ -110,9 +110,6 @@ namespace AZ
                 const RHI::StreamBufferView& streamBufferView = streamBufferViews[meshStreamIndex];
                 if (streamInfo && streamBufferView.GetByteCount() > 0)
                 {
-                    m_inputBufferAssets[static_cast<uint8_t>(streamInfo->m_enum)] =
-                        modelLodAssetMesh.GetSemanticBufferAssetView(streamInfo->m_semantic.m_name)->GetBufferAsset();
-
                     RHI::BufferViewDescriptor descriptor =
                         CreateInputViewDescriptor(streamInfo->m_enum, streamInfo->m_elementFormat, streamBufferView);
 
@@ -370,25 +367,9 @@ namespace AZ
             return aznumeric_caster(m_lods[lodIndex].m_meshes.size());
         }
 
-        void SkinnedMeshInputBuffers::SetLodCount(size_t lodCount)
-        {
-            AZ_Assert(lodCount <= RPI::ModelLodAsset::LodCountMax, "Attempting to set lod count of %d in SkinnedMeshInputBuffers, "
-                "which exceeds the maximum count of %d", lodCount, RPI::ModelLodAsset::LodCountMax);
-            m_lods.resize(lodCount);
-        }
-
         uint32_t SkinnedMeshInputBuffers::GetLodCount() const
         {
             return aznumeric_caster(m_lods.size());
-        }
-
-        void SkinnedMeshInputBuffers::SetLod(size_t lodIndex, const SkinnedMeshInputLod& lod)
-        {
-            AZ_Assert(lodIndex < m_lods.size(), "Attempting to set lod at index %d in SkinnedMeshInputBuffers, which is outside the range of %zu. "
-                "Make sure SetLodCount has been called before calling SetLod.", lodIndex, m_lods.size());
-            m_lods[lodIndex] = lod;
-
-            m_isUploadPending = true;
         }
 
         const SkinnedMeshInputLod& SkinnedMeshInputBuffers::GetLod(uint32_t lodIndex) const
@@ -800,11 +781,6 @@ namespace AZ
 
             instance->m_model = RPI::Model::FindOrCreate(modelAsset);
             return instance;
-        }
-
-        bool SkinnedMeshInputBuffers::IsUploadPending() const
-        {
-            return m_isUploadPending;
         }
     } // namespace Render
 }// namespace AZ

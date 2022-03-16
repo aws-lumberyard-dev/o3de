@@ -130,11 +130,6 @@ namespace AZ
             //! The lod asset from the underlying mesh
             Data::Asset<RPI::ModelLodAsset> m_modelLodAsset;
             Data::Instance<RPI::ModelLod> m_modelLod;
-
-            //! One BufferAsset for each input vertex stream
-            AZStd::array<Data::Asset<RPI::BufferAsset>, static_cast<uint8_t>(SkinnedMeshInputVertexStreams::NumVertexStreams)> m_inputBufferAssets;
-            //! One buffer view for each input vertex stream
-            AZStd::array<RHI::Ptr<RHI::BufferView>, static_cast<uint8_t>(SkinnedMeshInputVertexStreams::NumVertexStreams)> m_bufferViews;
             
             //! Per-mesh data for the lod
             AZStd::vector<SkinnedSubMeshProperties> m_meshes;
@@ -142,20 +137,11 @@ namespace AZ
             //! One BufferAsset for each static vertex stream. Not needed as input to the skinning shader, but used to create per-instance models as targets for skinning.
             AZStd::vector<Data::Asset<RPI::BufferAsset>> m_staticBufferAssets;
 
-            //! One index buffer for the entire lod. Not needed as input to the skinning shader, but used to create per-instance models as targets for skinning.
-            //! Effectively this is one of the SkinnedMeshStaticVertexStreams, but since it is an index buffer it is created slightly differently so it is a special case
-            Data::Asset<RPI::BufferAsset> m_indexBufferAsset;
-
             //! Container with one MorphTargetMetaData per morph target that can potentially be applied to an instance of this lod
             AZStd::vector<MorphTargetComputeMetaData> m_morphTargetComputeMetaDatas;
 
             //! Container with one MorphTargetInputBuffers per morph target that can potentially be applied to an instance of this lod
             AZStd::vector<AZStd::intrusive_ptr<MorphTargetInputBuffers>> m_morphTargetInputBuffers;
-
-            //! Total number of indices for the entire lod
-            uint32_t m_indexCount = 0;
-            //! Total number of vertices for the entire lod
-            uint32_t m_vertexCount = 0;
 
             SkinnedMeshOutputVertexCounts m_outputVertexCountsByStream;
         };
@@ -182,14 +168,8 @@ namespace AZ
             //! Get the number of meshes for the lod.
             uint32_t GetMeshCount(uint32_t lodIndex) const;
 
-            //! Set the total number of lods for the SkinnedMeshInputBuffers
-            void SetLodCount(size_t lodCount);
-
             //! Get the total number of lods
             uint32_t GetLodCount() const;
-
-            //! Sets the SkinnedMeshInputLod at the specified index. SetLodCount must be called first.
-            void SetLod(size_t lodIndex, const SkinnedMeshInputLod& lod);
 
             //! Get an individual lod
             const SkinnedMeshInputLod& GetLod(uint32_t lodIndex) const;
@@ -202,9 +182,6 @@ namespace AZ
 
             //! Create a model and resource views into the SkinnedMeshOutputBuffer that can be used as a target for the skinned vertices
             AZStd::intrusive_ptr<SkinnedMeshInstance> CreateSkinnedMeshInstance() const;
-
-            //! Returns true if WaitForUpload has finished, false if it has not been called.
-            bool IsUploadPending() const;
             
             //! Returns the number of influences per vertex for a mesh
             uint32_t GetInfluenceCountPerVertex(uint32_t lodIndex, uint32_t meshIndex) const;
@@ -240,16 +217,9 @@ namespace AZ
             //! and after all morph targets have been added
             void Finalize();
         private:
-            void CreateLod(size_t lodIndex);
             AZStd::fixed_vector<SkinnedMeshInputLod, RPI::ModelLodAsset::LodCountMax> m_lods;
             Data::Asset<RPI::ModelAsset> m_modelAsset;
             Data::Instance<RPI::Model> m_model;
-
-            bool m_isUploadPending = false;
         };
-
-        Data::Asset<RPI::BufferAsset> CreateBufferAsset(
-            const void* data, const RHI::BufferViewDescriptor& viewDescriptor, RHI::BufferBindFlags bindFlags,
-            Data::Asset<RPI::ResourcePoolAsset> resourcePoolAsset, const char* bufferName);
     }// Render
 }// AZ
