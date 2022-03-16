@@ -146,6 +146,10 @@ set(FILES
     DocumentPropertyEditor/PropertyEditorNodes.h
     DocumentPropertyEditor/CvarAdapter.cpp
     DocumentPropertyEditor/CvarAdapter.h
+    DocumentPropertyEditor/Reflection/Attribute.h
+    DocumentPropertyEditor/Reflection/LegacyReflectionBridge.cpp
+    DocumentPropertyEditor/Reflection/LegacyReflectionBridge.h
+    DocumentPropertyEditor/Reflection/Visitor.h
     FileFunc/FileFunc.h
     FileFunc/FileFunc.cpp
     Font/FontInterface.h
