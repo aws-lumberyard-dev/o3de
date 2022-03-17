@@ -182,8 +182,6 @@ namespace AZ
 #else  //[GFX_TODO][ATOM-13564] This is a temporary implementation that submits all of the skinning compute shaders without any culling:
             for (SkinnedMeshRenderProxy& renderProxy : m_renderProxies)
             {
-                renderProxy.m_isQueuedForCompile = false;
-
                 if (renderProxy.m_inputBuffers->GetModel()->IsUploadPending())
                 {
                     renderProxy.m_inputBuffers->GetModel()->WaitForUpload();

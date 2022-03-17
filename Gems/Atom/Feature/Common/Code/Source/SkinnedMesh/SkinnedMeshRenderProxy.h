@@ -41,7 +41,6 @@ namespace AZ
             AZ_RTTI(AZ::Render::SkinnedMeshRenderProxy, "{C77A21E7-113A-4DC9-972F-923E1BEFBC9A}", AZ::Render::SkinnedMeshRenderProxyInterface);
             explicit SkinnedMeshRenderProxy(const SkinnedMeshFeatureProcessorInterface::SkinnedMeshRenderProxyDesc& desc);
 
-            void SetTransform(const Transform& transform) override;
             void SetSkinningMatrices(const AZStd::vector<float>& data) override;
             void SetMorphTargetWeights(uint32_t lodIndex, const AZStd::vector<float>& weights) override;
             void EnableSkinning(uint32_t lodIndex, uint32_t meshIndex) override;
@@ -60,7 +59,6 @@ namespace AZ
             AZStd::fixed_vector<AZStd::vector<AZStd::unique_ptr<SkinnedMeshDispatchItem>>, RPI::ModelLodAsset::LodCountMax> m_dispatchItemsByLod;
             AZStd::fixed_vector<AZStd::vector<AZStd::unique_ptr<MorphTargetDispatchItem>>, RPI::ModelLodAsset::LodCountMax> m_morphTargetDispatchItemsByLod;
             Data::Instance<SkinnedMeshInputBuffers> m_inputBuffers;
-            Data::Instance<MorphTargetInputBuffers> m_morphTargetInputBuffers;
             AZStd::intrusive_ptr<SkinnedMeshInstance> m_instance;
             AZStd::shared_ptr<MeshFeatureProcessorInterface::MeshHandle> m_meshHandle;
             SkinnedMeshShaderOptions m_shaderOptions;
@@ -68,7 +66,6 @@ namespace AZ
             Data::Instance<RPI::Buffer> m_boneTransforms;
 
             SkinnedMeshFeatureProcessor* m_featureProcessor = nullptr;
-            bool m_isQueuedForCompile = false;
         };
 
         using SkinnedMeshRenderProxyHandle = StableDynamicArrayHandle<SkinnedMeshRenderProxy>;
