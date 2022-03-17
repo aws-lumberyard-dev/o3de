@@ -29,6 +29,8 @@
 
 #include "AssetRequestHandler.h"
 
+#include <AssetManager/ProductAsset.h>
+
 namespace AssetProcessor
 {
     const AZ::u32 FAILED_FINGERPRINT = 1;
@@ -766,14 +768,19 @@ namespace AssetProcessor
         // Asset Catalog may not realize that things are dirty by that point.
         QueueIdleCheck();
     }
+#pragma optimize("", off)
 
     void AssetProcessorManager::AssetProcessed_Impl()
     {
+        using AssetBuilderSDK::ProductOutputFlags;
+
         m_processedQueued = false;
         if (m_quitRequested || m_assetProcessedList.empty())
         {
             return;
         }
+
+        const auto intermediateDir = AssetUtilities::GetIntermediateAssetsFolder(m_cacheRootDir.absolutePath().toUtf8().constData());
 
         // Note: if we get here, the scanning / createjobs phase has finished
         // because we no longer start any jobs until it has finished.  So there is no reason
@@ -789,6 +796,10 @@ namespace AssetProcessor
             bool remove = false;
             for (const AssetBuilderSDK::JobProduct& product : itProcessedAsset->m_response.m_outputProducts)
             {
+                AssetUtilities::ProductPath productPath(product.m_productFileName, itProcessedAsset->m_entry.m_platformInfo.m_identifier);
+
+                ProductAssetWrapper productWrapper(product, productPath);
+
                 if (!existingSubIDs.insert(product.m_productSubID).second)
                 {
                     // insert pair<iter,bool> will return false if the item was already there, indicating a collision.
@@ -815,33 +826,46 @@ namespace AssetProcessor
                 // The product file path is always lower cased, we can't check that for existance.
                 // Let rebuild a fs sensitive file path by replacing the cache path.
                 // We assume any file paths normalized, ie no .. nor (back) slashes.
-                const QString productFilePath = m_cacheRootDir.filePath(product.m_productFileName.substr(m_normalizedCacheRootPath.length() +1).c_str());
+                //const QString productFilePath = m_cacheRootDir.filePath(product.m_productFileName.substr(m_normalizedCacheRootPath.length() +1).c_str());
 
                 // if the claimed product does not exist, remove it so it does not get into the database
-                if (!QFile::exists(productFilePath))
+                //if (hasProductOutput && !AZ::IO::SystemFile::Exists(absoluteProductPath.c_str()))
+                //{
+                //    remove = true;
+                //    AZ_TracePrintf(AssetProcessor::ConsoleChannel, "Was expecting product file %s... but it already appears to be gone. \n",
+                //        absoluteProductPath.c_str());
+                //}
+                //else if(hasIntermediateOutput && !AZ::IO::SystemFile::Exists(absoluteIntermediatePath.c_str()))
+                //{
+                //    remove = true;
+                //    AZ_TracePrintf(AssetProcessor::ConsoleChannel, "Was expecting intermediate file %s but it already appears to be gone.\n",
+                //        absoluteIntermediatePath.c_str())
+                //}
+                if(!productWrapper.IsValid())
+                {
+                    AZ_Error(AssetProcessor::ConsoleChannel, false, "Products are not valid %s\n", product.m_productFileName.c_str());
+
+                    AutoFailJob("", AZStd::string::format("Products are not valid %s", product.m_productFileName.c_str()), itProcessedAsset);
+                    continue;
+                }
+
+                if(!productWrapper.ExistOnDisk())
                 {
                     remove = true;
-                    AZ_TracePrintf(AssetProcessor::ConsoleChannel, "Was expecting product file %s... but it already appears to be gone. \n", qUtf8Printable(productFilePath));
                 }
                 else
                 {
                     // database products, if present, will be in the form "platform/game/subfolders/productfile", convert
                     // our new products to the same thing by removing the cache root
-                    QString newProductName = productFilePath;
-                    newProductName = AssetUtilities::NormalizeFilePath(newProductName);
-                    if (!IsInCacheFolder(newProductName.toUtf8().constData()))
-                    {
-                        AZ_Error(AssetProcessor::ConsoleChannel, false, "AssetProcessed(\" << %s << \", \" << %s << \" ... ) cache file \"  %s << \" does not appear to be within the cache!.\n",
-                            itProcessedAsset->m_entry.m_pathRelativeToWatchFolder.toUtf8().constData(),
-                            itProcessedAsset->m_entry.m_platformInfo.m_identifier.c_str(),
-                            newProductName.toUtf8().constData());
-                    }
-                    // note that this is a relative path from the cache root dir itself, and thus does need to be lowered in its entirety.
-                    newProductName = m_cacheRootDir.relativeFilePath(newProductName).toLower();
+                    //QString newProductRelativePath = product.m_productFileName.c_str();
+                    //newProductRelativePath = AssetUtilities::NormalizeFilePath(newProductRelativePath);
+
+                    //// note that this is a relative path from the cache root dir itself, and thus does need to be lowered in its entirety.
+                    //newProductRelativePath = newProductRelativePath.toLower();
 
                     AzToolsFramework::AssetDatabase::JobDatabaseEntryContainer jobEntries;
 
-                    if (m_stateData->GetJobsByProductName(newProductName.toUtf8().constData(), jobEntries, AZ::Uuid::CreateNull(), QString(), QString(), AzToolsFramework::AssetSystem::JobStatus::Completed))
+                    if (m_stateData->GetJobsByProductName(productPath.GetDatabasePath().c_str(), jobEntries, AZ::Uuid::CreateNull(), QString(), QString(), AzToolsFramework::AssetSystem::JobStatus::Completed))
                     {
                         for (auto& job : jobEntries)
                         {
@@ -857,16 +881,16 @@ namespace AssetProcessor
                                         // This is usually the case when two builders process the same source file and outputs the same product file.
                                         remove = true;
                                         AZStd::string consoleMsg = AZStd::string::format("Failing Job (source : %s , jobkey %s) because another job (source : %s , jobkey : %s ) outputted the same product %s.\n",
-                                            itProcessedAsset->m_entry.m_pathRelativeToWatchFolder.toUtf8().constData(), itProcessedAsset->m_entry.m_jobKey.toUtf8().data(), source.m_sourceName.c_str(), job.m_jobKey.c_str(), newProductName.toUtf8().constData());
+                                            itProcessedAsset->m_entry.m_pathRelativeToWatchFolder.toUtf8().constData(), itProcessedAsset->m_entry.m_jobKey.toUtf8().data(), source.m_sourceName.c_str(), job.m_jobKey.c_str(), productPath.GetRelativePath().c_str());
 
-                                        QString duplicateProduct = m_cacheRootDir.absoluteFilePath(newProductName);
+                                        //QString duplicateProduct = m_cacheRootDir.absoluteFilePath(newProductRelativePath);
 
                                         AZStd::string autoFailReason = AZStd::string::format(
                                             "Source file ( %s ) and builder (%s) are also outputting the product (%s)."
                                             "Please ensure that the same product file is not output to the cache multiple times by the same or different builders.\n",
                                             source.m_sourceName.c_str(),
                                             job.m_builderGuid.ToString<AZStd::string>().c_str(),
-                                            duplicateProduct.toUtf8().data());
+                                            productPath.GetCachePath().c_str());
 
                                         AutoFailJob(consoleMsg, autoFailReason, itProcessedAsset);
                                     }
@@ -896,9 +920,14 @@ namespace AssetProcessor
                                         // The product file path is always lower cased, we can't check that for existance.
                                         // Let rebuild a fs sensitive file path by replacing the cache path.
                                         // We assume any file paths normalized, ie no .. nor (back) slashes.
-                                        const QString outputProductFilePath = m_cacheRootDir.filePath(outputProduct.m_productFileName.substr(m_normalizedCacheRootPath.length() + 1).c_str());
+                                        //const QString outputProductFilePath = m_cacheRootDir.filePath(outputProduct.m_productFileName.substr(m_normalizedCacheRootPath.length() + 1).c_str());
+                                        AssetUtilities::ProductPath outputProductPath(outputProduct.m_productFileName, itProcessedAsset->m_entry.m_platformInfo.m_identifier);
+                                        ProductAssetWrapper wrapper(outputProduct, outputProductPath);
 
-                                        if (!QFile::exists(outputProductFilePath))
+                                        // This will handle outputting debug messages on its own
+                                        wrapper.DeleteFiles();
+
+                                        /*if (!QFile::exists(outputProductFilePath))
                                         {
                                             AZ_TracePrintf(AssetProcessor::ConsoleChannel, "Was expecting to delete product file %s... but it already appears to be gone. \n", qUtf8Printable(outputProductFilePath));
                                         }
@@ -909,21 +938,21 @@ namespace AssetProcessor
                                         else
                                         {
                                             AZ_TracePrintf(AssetProcessor::ConsoleChannel, "Deleted product file %s\n", qUtf8Printable(outputProductFilePath));
-                                        }
+                                        }*/
                                     }
 
                                     //let people know what happened
                                     AZStd::string consoleMsg = AZStd::string::format("%s has failed because another source %s has already produced the same product %s. Rebuild the original Source.\n",
-                                        itProcessedAsset->m_entry.m_pathRelativeToWatchFolder.toUtf8().constData(), source.m_sourceName.c_str(), newProductName.toUtf8().constData());
+                                        itProcessedAsset->m_entry.m_pathRelativeToWatchFolder.toUtf8().constData(), source.m_sourceName.c_str(), productPath.GetRelativePath().c_str());
 
                                     AZStd::string fullSourcePath = source.m_sourceName;
-                                    QString duplicateProduct = m_cacheRootDir.absoluteFilePath(newProductName);
+                                    //QString duplicateProduct = m_cacheRootDir.absoluteFilePath(newProductRelativePath);
                                     AZStd::string autoFailReason = AZStd::string::format(
                                         "A different source file\n%s\nis already outputting the product\n%s\n"
                                         "Please check other files in the same folder as source file and make sure no two sources output the product file.\n"
                                         "For example, you can't have a DDS file and a TIF file in the same folder, as they would cause overwriting.\n",
                                         fullSourcePath.c_str(),
-                                        duplicateProduct.toUtf8().data());
+                                        productPath.GetCachePath().c_str());
 
                                     AutoFailJob(consoleMsg, autoFailReason, itProcessedAsset);
 
@@ -935,7 +964,6 @@ namespace AssetProcessor
                                         AssessFileInternal(fullSourcePath.c_str(), false);
                                     }
                                 }
-
                             }
                         }
                     }
@@ -1056,35 +1084,44 @@ namespace AssetProcessor
             AZStd::vector<AZStd::vector<AZ::u32> > newLegacySubIDs;  // each product has a vector of legacy subids;
             for (const AssetBuilderSDK::JobProduct& product : processedAsset.m_response.m_outputProducts)
             {
-                // prior products, if present, will be in the form "platform/subfolders/productfile", convert
-                // our new products to the same thing by removing the cache root
-                QString newProductName = product.m_productFileName.c_str();
-                newProductName = AssetUtilities::NormalizeFilePath(newProductName);
-                if (!IsInCacheFolder(newProductName.toUtf8().constData()))
-                {
-                    AZ_Error(AssetProcessor::ConsoleChannel, false, "AssetProcessed(\" << %s << \", \" << %s << \" ... ) cache file \"  %s << \" does not appear to be within the cache!.\n",
-                        processedAsset.m_entry.m_pathRelativeToWatchFolder.toUtf8().constData(),
-                        processedAsset.m_entry.m_platformInfo.m_identifier.c_str(),
-                        newProductName.toUtf8().constData());
-                }
+                AssetUtilities::ProductPath productPath(product.m_productFileName, processedAsset.m_entry.m_platformInfo.m_identifier);
 
-                // note that the cache root dir is being used here to generate a relative path (not an absolute path).
-                // this means that the entire string can be lowered since it contains only the parts up above the cache root dir
-                newProductName = m_cacheRootDir.relativeFilePath(newProductName).toLower();
+                // prior products, if present, will be in the form "platform/subfolders/productfile"
+                //QString newProductRelativePath = product.m_productFileName.c_str();
+                //processedAsset.m_entry.m_platformInfo.m_identifier.c_str()
+                //QString platformId = jobDetails.m_jobEntry.m_platformInfo.m_identifier.c_str();
+
+                //// this may seem odd, but m_databaseSourceName includes the output prefix up front, and we're trying to find where to put it
+                //// in the cache so we use the databaseSourceName instead of relpath.
+                //QString pathRel = QFileInfo(jobDetails.m_jobEntry.m_databaseSourceName).path();
+
+                //if (pathRel == ".")
+                //{
+                //    // if its in the current folder, avoid using ./ or /.
+                //    pathRel = QString();
+                //}
+
+                //platformId = platformId.toLower();
+                //pathRel = pathRel.toLower();
+
+                //newProductRelativePath = AssetUtilities::NormalizeFilePath(newProductRelativePath);
+
+                // the entire string can be lowered since it contains only the parts up above the cache root dir
+                //newProductRelativePath = newProductRelativePath.toLower();
 
                 //make a new product entry for this file
                 AzToolsFramework::AssetDatabase::ProductDatabaseEntry newProduct;
                 newProduct.m_jobPK = job.m_jobID;
-                newProduct.m_productName = newProductName.toUtf8().constData();
+                newProduct.m_productName = productPath.GetDatabasePath();
                 newProduct.m_assetType = product.m_productAssetType;
                 newProduct.m_subID = product.m_productSubID;
+                newProduct.m_flags = static_cast<AZ::s64>(product.m_outputFlags);
 
-                //This is the legacy product guid, its only use is for backward compatibility as before the asset id's guid was created off of the relative product name.
+                // This is the legacy product guid, its only use is for backward compatibility as before the asset id's guid was created off of the relative product name.
                 // Right now when we query for an asset guid we first match on the source guid which is correct and secondarily match on the product guid. Eventually this will go away.
-                newProductName = newProductName.right(newProductName.length() - newProductName.indexOf('/') - 1); // remove PLATFORM and an extra slash
                 // Strip the <asset_platform> from the front of a relative product path
-                newProductName = AssetUtilities::StripAssetPlatform(newProductName.toUtf8().constData());
-                newProduct.m_legacyGuid = AZ::Uuid::CreateName(newProductName.toUtf8().constData());
+                //newProductRelativePath = AssetUtilities::StripAssetPlatform(newProductRelativePath.toUtf8().constData());
+                newProduct.m_legacyGuid = AZ::Uuid::CreateName(productPath.GetRelativePath().c_str());
 
                 //push back the new product into the new products list
                 newProducts.emplace_back(newProduct, &product);
@@ -1366,7 +1403,7 @@ namespace AssetProcessor
         // Asset Catalog may not realize that things are dirty by that point.
         QueueIdleCheck();
     }
-
+#pragma optimize("", on)
     void AssetProcessorManager::WriteProductTableInfo(AZStd::pair<AzToolsFramework::AssetDatabase::ProductDatabaseEntry, const AssetBuilderSDK::JobProduct*>& pair, AZStd::vector<AZ::u32>& subIds, AZStd::unordered_set<AzToolsFramework::AssetDatabase::ProductDependencyDatabaseEntry>& dependencyContainer, const AZStd::string& platform)
     {
         AzToolsFramework::AssetDatabase::ProductDatabaseEntry& newProduct = pair.first;
@@ -2126,22 +2163,24 @@ namespace AssetProcessor
             // macOS requires that the cacheRootDir to not be all lowercase, otherwise file copies will not work correctly.
             // So use the lowerCasePath string to capture the parts that need to be lower case while keeping the cache root
             // mixed case.
-            QString lowerCasePath = jobDetails.m_jobEntry.m_platformInfo.m_identifier.c_str();
+            QString platformId = jobDetails.m_jobEntry.m_platformInfo.m_identifier.c_str();
 
             // this may seem odd, but m_databaseSourceName includes the output prefix up front, and we're trying to find where to put it in the cache
             // so we use the databaseSourceName instead of relpath.
-            QString pathRel = QString("/") + QFileInfo(jobDetails.m_jobEntry.m_databaseSourceName).path();
+            QString pathRel = QFileInfo(jobDetails.m_jobEntry.m_databaseSourceName).path();
 
-            if (pathRel == "/.")
+            if (pathRel == ".")
             {
                 // if its in the current folder, avoid using ./ or /.
                 pathRel = QString();
             }
 
-            lowerCasePath += pathRel;
+            platformId = platformId.toLower();
+            pathRel = pathRel.toLower();
 
-            lowerCasePath = lowerCasePath.toLower();
-            jobDetails.m_destinationPath = m_cacheRootDir.absoluteFilePath(lowerCasePath);
+            jobDetails.m_cachePath = m_cacheRootDir.absoluteFilePath(platformId).toUtf8().constData();
+            jobDetails.m_intermediatePath = AssetUtilities::GetIntermediateAssetsFolder(m_cacheRootDir.absolutePath().toUtf8().constData());
+            jobDetails.m_relativePath = pathRel.toUtf8().constData();
         }
 
         return true;
@@ -2800,6 +2839,7 @@ namespace AssetProcessor
         if (!QFileInfo(filePath).isDir())
         {
             // we also don't care if you modify files in the cache, only deletions matter.
+            [[maybe_unused]] bool match = !filePath.startsWith(m_normalizedCacheRootPath, Qt::CaseInsensitive);
             if(!IsInCacheFolder(filePath.toUtf8().constData()))
             {
                 AssessFileInternal(filePath, false);
@@ -3358,7 +3398,27 @@ namespace AssetProcessor
             // instead, we strip it out, before we send the request and if necessary, put it back after.
             QString actualRelativePath = newSourceInfo.m_sourceRelativeToWatchFolder;
 
-            const AssetBuilderSDK::CreateJobsRequest createJobsRequest(builderInfo.m_busId, actualRelativePath.toUtf8().constData(), scanFolder->ScanPath().toUtf8().constData(), scanFolder->GetPlatforms(), sourceUUID);
+            AZStd::vector<AssetBuilderSDK::PlatformInfo> platforms = scanFolder->GetPlatforms();
+
+            if(IsInIntermediateAssetsFolder(scanFolder->ScanPath().toUtf8().constData()))
+            {
+                AZ::IO::FixedMaxPath scanPath = databasePathToFile.toUtf8().constData();
+
+                AZ::IO::FixedMaxPath::const_iterator end = scanPath.begin();
+
+                auto platformFromFolder = m_platformConfig->GetPlatformByIdentifier(end->c_str());
+
+                if(!platformFromFolder)
+                {
+                    //AZ_Error("AssetProcessor", false, "Failed to get platform for intermediate asset folder");
+                }
+                else
+                {
+                    platforms = { *platformFromFolder };
+                }
+            }
+
+            const AssetBuilderSDK::CreateJobsRequest createJobsRequest(builderInfo.m_busId, actualRelativePath.toUtf8().constData(), scanFolder->ScanPath().toUtf8().constData(), platforms, sourceUUID);
 
             AssetBuilderSDK::CreateJobsResponse createJobsResponse;
 

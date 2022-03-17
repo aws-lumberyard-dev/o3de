@@ -19,7 +19,7 @@ namespace TestAssetBuilder
 {
     bool failedNetworkConnectionTest = true;
 
-    AZ::Data::AssetStreamInfo TestDependentAssetCatalog::GetStreamInfoForLoad(const AZ::Data::AssetId& assetId, const AZ::Data::AssetType& type) 
+    AZ::Data::AssetStreamInfo TestDependentAssetCatalog::GetStreamInfoForLoad(const AZ::Data::AssetId& assetId, const AZ::Data::AssetType& type)
     {
         if (AZ::AzTypeInfo<TestDependentAsset>::Uuid() != type)
         {
@@ -262,7 +262,7 @@ namespace TestAssetBuilder
             AZStd::string sourcePath{ request.m_fullPath };
             AZStd::string dependentFile{ fileName };
             AzFramework::StringFunc::Path::ReplaceExtension(dependentFile, "dependentprocessed");
-            // By default fileIO uses @asset@ alias therefore if we give fileIO a filename 
+            // By default fileIO uses @asset@ alias therefore if we give fileIO a filename
             // it will try to check in the cache instead of the source folder.
             AZ::IO::HandleType dependentfileHandle;
             if (!fileIO->Open(dependentFile.c_str(), AZ::IO::OpenMode::ModeRead, dependentfileHandle))
@@ -284,7 +284,7 @@ namespace TestAssetBuilder
             }
 
             fileIO->Close(dependentfileHandle);
-            // Validating AssetCatalogRequest API's here which operates on assetpath and assetid 
+            // Validating AssetCatalogRequest API's here which operates on assetpath and assetid
             AZ::Data::AssetId depAssetId;
             AZ::Data::AssetCatalogRequestBus::BroadcastResult(depAssetId, &AZ::Data::AssetCatalogRequestBus::Events::GetAssetIdByPath, dependentFile.c_str(), AZ::Data::s_invalidAssetType, false);
             if (!depAssetId.IsValid())
@@ -358,7 +358,7 @@ namespace TestAssetBuilder
                 return;
             }
 
-            // Validating AssetCatalogRequest API's here which operates on assetpath and assetid 
+            // Validating AssetCatalogRequest API's here which operates on assetpath and assetid
             AZ::Data::AssetId assetId;
             AZ::Data::AssetCatalogRequestBus::BroadcastResult(assetId, &AZ::Data::AssetCatalogRequestBus::Events::GetAssetIdByPath, dependentFile.c_str(), AZ::Data::s_invalidAssetType, false);
             if (!assetId.IsValid())
@@ -407,14 +407,14 @@ namespace TestAssetBuilder
             bool result = false;
             AZStd::vector<AZ::Data::AssetInfo> productsInfo;
 
-            AzToolsFramework::AssetSystemRequestBus::BroadcastResult(result, 
-                &AzToolsFramework::AssetSystemRequestBus::Events::GetAssetsProducedBySourceUUID, 
+            AzToolsFramework::AssetSystemRequestBus::BroadcastResult(result,
+                &AzToolsFramework::AssetSystemRequestBus::Events::GetAssetsProducedBySourceUUID,
                 assetId.m_guid, productsInfo);
 
             if (productsInfo.size() == 0)
             {
-                AZ_Error("AssetBuilder", false, 
-                    "GetAssetsProducedBySourceUUID - list of products can't be empty. Assetid ( %s ) ( %s )", 
+                AZ_Error("AssetBuilder", false,
+                    "GetAssetsProducedBySourceUUID - list of products can't be empty. Assetid ( %s ) ( %s )",
                     assetId.ToString<AZStd::string>().c_str(), fileName.c_str());
 
                 return;
@@ -527,7 +527,7 @@ namespace TestAssetBuilder
             bool gotAssetSystemInfoByIdFromProduct{ false };
             AZStd::string sourcePathFromProduct;
             AZ::Data::AssetInfo sliceSourceInfo;
-            
+
             AzToolsFramework::AssetSystemRequestBus::BroadcastResult(gotAssetSystemInfoByIdFromProduct, &AzToolsFramework::AssetSystem::AssetSystemRequest::GetAssetInfoById,
                 pathAssetId, AZ::AzTypeInfo<AZ::SliceAsset>::Uuid(), platformName, sliceSourceInfo, sourcePathFromProduct);
             if (!gotAssetSystemInfoByIdFromProduct)
