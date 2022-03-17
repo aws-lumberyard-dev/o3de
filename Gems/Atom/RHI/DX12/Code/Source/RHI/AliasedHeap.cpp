@@ -74,6 +74,10 @@ namespace AZ
             Microsoft::WRL::ComPtr<ID3D12Heap> heap;
             device.AssertSuccess(device.GetDevice()->CreateHeap(&heapDesc, IID_GRAPHICS_PPV_ARGS(heap.GetAddressOf())));
             m_heap = heap.Get();
+            AZStd::fixed_wstring<256> wname;
+            AZStd::to_wstring(wname, GetName().GetCStr());
+
+            m_heap->SetName(wname.c_str());
             
             return m_heap ? RHI::ResultCode::Success : RHI::ResultCode::Fail;
         }

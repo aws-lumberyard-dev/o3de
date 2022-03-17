@@ -16,7 +16,10 @@
 #include <Atom/RPI.Public/View.h>
 #include <Atom/RPI.Public/Pass/PassSystem.h>
 #include <Atom/RPI.Public/Pass/PassFilter.h>
+#include <Atom/RHI/RHIUtils.h>
 #include <CoreLights/Shadow.h>
+
+bool disableShadows = false;
 
 namespace AZ::Render
 {
@@ -32,6 +35,8 @@ namespace AZ::Render
     
     void ProjectedShadowFeatureProcessor::Activate()
     {
+        disableShadows = RHI::QueryCommandLineOption("disable-shadows");
+
         const RHI::ShaderResourceGroupLayout* viewSrgLayout = RPI::RPISystemInterface::Get()->GetViewSrgLayout().get();
 
         GpuBufferHandler::Descriptor desc;
@@ -313,9 +318,16 @@ namespace AZ::Render
     
     void ProjectedShadowFeatureProcessor::CachePasses()
     {
-        CacheProjectedShadowmapsPass();
-        CacheEsmShadowmapsPass();
-        m_shadowmapPassNeedsUpdate = true;
+        if (!disableShadows)
+        {
+            CacheProjectedShadowmapsPass();
+            CacheEsmShadowmapsPass();
+            m_shadowmapPassNeedsUpdate = true;
+        }
+        else
+        {
+            m_shadowmapPassNeedsUpdate = false;
+        }
     }
     
     void ProjectedShadowFeatureProcessor::CacheProjectedShadowmapsPass()

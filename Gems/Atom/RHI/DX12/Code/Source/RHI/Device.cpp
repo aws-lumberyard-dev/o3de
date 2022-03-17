@@ -12,6 +12,7 @@
 #include <RHI/Conversions.h>
 #include <RHI/DescriptorContext.h>
 #include <RHI/Fence.h>
+#include <Atom/RHI/RHIUtils.h>
 #include <Atom/RHI/MemoryStatisticsBuilder.h>
 #include <Atom/RHI.Reflect/DX12/PlatformLimitsDescriptor.h>
 #include <AzCore/std/parallel/lock.h>
@@ -153,9 +154,11 @@ namespace AZ
             m_features.m_indirectDrawStartInstanceLocationSupported = true;
 
 #ifdef AZ_DX12_DXR_SUPPORT
+            bool disableRT = RHI::QueryCommandLineOption("disable-ray-tracing");
+
             D3D12_FEATURE_DATA_D3D12_OPTIONS5 options5;
             GetDevice()->CheckFeatureSupport(D3D12_FEATURE_D3D12_OPTIONS5, &options5, sizeof(options5));
-            m_features.m_rayTracing = options5.RaytracingTier != D3D12_RAYTRACING_TIER_NOT_SUPPORTED;
+            m_features.m_rayTracing = !disableRT && options5.RaytracingTier != D3D12_RAYTRACING_TIER_NOT_SUPPORTED;
 #else
             m_features.m_rayTracing = false;
 #endif
