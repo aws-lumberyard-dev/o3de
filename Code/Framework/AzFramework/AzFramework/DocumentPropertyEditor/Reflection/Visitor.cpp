@@ -6,7 +6,7 @@
  *
  */
 
-#include <AzFramework/DocumentPropertyEditor/Reflection/LegacyReflectionBridge.h>
+#include <AzFramework/DocumentPropertyEditor/Reflection/Visitor.h>
 
 namespace AZ::Reflection
 {

@@ -16,6 +16,9 @@
 
 namespace AZ::Reflection
 {
+    class IRead;
+    class IReadWrite;
+
     // Note on the I*Access structs: Functions may return default values such as a null type id, empty strings or nullptr.
     // This will be dependent on the source providing the data. If for instance the information comes from a file a
     // type id might not exist or direct access to an element can be provided.
@@ -249,5 +252,44 @@ namespace AZ::Reflection
         virtual void Visit(IPointerAccess& access, const IAttributes& attributes);
         virtual void Visit(IBufferAccess& access, const IAttributes& attributes);
         virtual void Visit(const AZ::Data::Asset<AZ::Data::AssetData>& asset, IAssetAccess& access, const IAttributes& attributes);
+    };
+
+    class IReadWriteToRead final : public IReadWrite
+    {
+    public:
+        IReadWriteToRead(IRead* reader) : m_reader(reader) {}
+
+        void Visit(bool& value, const IAttributes& attributes) override { m_reader->Visit(value, attributes); }
+
+        void Visit(int8_t& value, const IAttributes& attributes) override { m_reader->Visit(value, attributes); }
+        void Visit(int16_t& value, const IAttributes& attributes) override { m_reader->Visit(value, attributes); }
+        void Visit(int32_t& value, const IAttributes& attributes) override { m_reader->Visit(value, attributes); }
+        void Visit(int64_t& value, const IAttributes& attributes) override { m_reader->Visit(value, attributes); }
+
+        void Visit(uint8_t& value, const IAttributes& attributes) override { m_reader->Visit(value, attributes); }
+        void Visit(uint16_t& value, const IAttributes& attributes) override { m_reader->Visit(value, attributes); }
+        void Visit(uint32_t& value, const IAttributes& attributes) override { m_reader->Visit(value, attributes); }
+        void Visit(uint64_t& value, const IAttributes& attributes) override { m_reader->Visit(value, attributes); }
+
+        void Visit(float& value, const IAttributes& attributes) override { m_reader->Visit(value, attributes); }
+        void Visit(double& value, const IAttributes& attributes) override { m_reader->Visit(value, attributes); }
+
+        // Starting from this point there can be multiple interpretations of the data, for instance there can be different types of strings
+        // that are supported.
+
+        void VisitObjectBegin(IObjectAccess& access, const IAttributes& attributes) override { m_reader->VisitObjectBegin(access, attributes); }
+        void VisitObjectEnd() override { m_reader->VisitObjectEnd(); }
+
+        void Visit(const AZStd::string_view value, IStringAccess& access, const IAttributes& attributes) override { m_reader->Visit(value, access, attributes); }
+        void Visit(IArrayAccess& access, const IAttributes& attributes) override { m_reader->Visit(access, attributes); }
+        void Visit(IMapAccess& access, const IAttributes& attributes) override { m_reader->Visit(access, attributes); }
+        void Visit(IDictionaryAccess& access, const IAttributes& attributes) override { m_reader->Visit(access, attributes); }
+        void Visit(int64_t value, const IEnumAccess& access, const IAttributes& attributes) override { m_reader->Visit(value, access, attributes); }
+        void Visit(IPointerAccess& access, const IAttributes& attributes) override { m_reader->Visit(access, attributes); }
+        void Visit(IBufferAccess& access, const IAttributes& attributes) override { m_reader->Visit(access, attributes); }
+        void Visit(const AZ::Data::Asset<AZ::Data::AssetData>& asset, IAssetAccess& access, const IAttributes& attributes) override { m_reader->Visit(asset, access, attributes); }
+
+    private:
+        IRead* m_reader;
     };
 } // namespace AZ::Reflection

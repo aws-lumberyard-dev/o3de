@@ -149,6 +149,7 @@ set(FILES
     DocumentPropertyEditor/Reflection/Attribute.h
     DocumentPropertyEditor/Reflection/LegacyReflectionBridge.cpp
     DocumentPropertyEditor/Reflection/LegacyReflectionBridge.h
+    DocumentPropertyEditor/Reflection/Visitor.cpp
     DocumentPropertyEditor/Reflection/Visitor.h
     FileFunc/FileFunc.h
     FileFunc/FileFunc.cpp
