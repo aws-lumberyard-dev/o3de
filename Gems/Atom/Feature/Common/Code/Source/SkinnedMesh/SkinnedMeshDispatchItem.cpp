@@ -222,11 +222,6 @@ namespace AZ
             return m_boneTransforms;
         }
 
-        AZStd::span<const AZ::RHI::Ptr<RHI::BufferView>> SkinnedMeshDispatchItem::GetTargetSkinnedBufferViews() const
-        {
-            return m_actorInstanceBufferViews;
-        }
-
         uint32_t SkinnedMeshDispatchItem::GetVertexCount() const
         {
             return m_inputBuffers->GetVertexCount(m_lodIndex, m_meshIndex);
