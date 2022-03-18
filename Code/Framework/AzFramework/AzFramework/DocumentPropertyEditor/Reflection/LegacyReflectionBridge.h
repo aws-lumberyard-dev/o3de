@@ -15,7 +15,7 @@
 
 namespace AZ::Reflection
 {
-    void VisitLegacyInMemoryInstance(IRead* visitor, void* instance, const AZ::TypeId& typeId);
-    void VisitLegacyInMemoryInstance(IReadWrite* reader, void* instance, const AZ::TypeId& typeId);
+    void VisitLegacyInMemoryInstance(IRead* visitor, void* instance, const AZ::TypeId& typeId, AZ::SerializeContext* serializeContext = nullptr);
+    void VisitLegacyInMemoryInstance(IReadWrite* visitor, void* instance, const AZ::TypeId& typeId, AZ::SerializeContext* serializeContext = nullptr);
     void VisitLegacyJsonSerializedInstance(IRead* visitor, Dom::Value instance, const AZ::TypeId& typeId);
 }
