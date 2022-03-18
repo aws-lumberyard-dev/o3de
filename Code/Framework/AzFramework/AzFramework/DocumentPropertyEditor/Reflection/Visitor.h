@@ -187,7 +187,7 @@ namespace AZ::Reflection
     public:
         virtual ~IRead() = default;
 
-        virtual void Visit(bool, const IAttributes& attributes);
+        virtual void Visit(bool value, const IAttributes& attributes);
 
         virtual void Visit(int8_t value, const IAttributes& attributes);
         virtual void Visit(int16_t value, const IAttributes& attributes);
