@@ -14,7 +14,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 {% macro Required(attribute, element, Class) %}
 {% set name = "unknown" %}
 {% if element.attrib['Name'] is defined %}{% set name = element.attrib['Name'] %}{% endif %}
-{% if element.attrib[attribute] is not defined %}
+{% if element.attrib[attribute] is not defined or not element.attrib[attribute] %}
 {{ AddError(Class, "| You must specify the attribute: " + attribute + " for " + name) }}
 {% endif %}
 {% endmacro %}

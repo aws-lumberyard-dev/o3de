@@ -11,9 +11,10 @@
 #include <string>
 #include <unordered_map>
 
-#include <AzCore/RTTI/BehaviorContext.h>
-#include <AzCore/Serialization/EditContext.h>
-#include <AzCore/Serialization/SerializeContext.h>
+namespace AZ
+{
+    class ReflectContext;
+}
 
 namespace ScriptCanvas
 {
@@ -30,10 +31,13 @@ namespace ScriptCanvas
         ~AutoGenRegistry();
 
         static AutoGenRegistry* GetInstance();
-        static void ReflectFunctions(AZ::ReflectContext* context);
+        static void Reflect(AZ::ReflectContext* context);
 
-        void RegisterFunction(const char* className, IScriptCanvasFunctionRegistry* registry);
+        void RegisterFunction(const char* functionName, IScriptCanvasFunctionRegistry* registry);
+        void UnregisterFunction(const char* functionName);
 
         std::unordered_map<std::string, IScriptCanvasFunctionRegistry*> m_functions;
+    private:
+        static void ReflectFunctions(AZ::ReflectContext* context);
     };
 } // namespace ScriptCanvas

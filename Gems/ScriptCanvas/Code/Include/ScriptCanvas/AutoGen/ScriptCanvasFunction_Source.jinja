@@ -19,15 +19,21 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 #include <AzCore/RTTI/BehaviorContext.h>
 #include <ScriptCanvasAutoGenRegistry.h>
 
-{% for xml in dataFiles %}
-{% for Library in xml.iter('ScriptCanvasFunction') %}
+{% for ScriptCanvasFunction in dataFiles %}
 
-#include "{{ Library.attrib['Include'] }}"
+{{- macros.Required('Include', ScriptCanvasFunction, ScriptCanvasFunction) -}}
+{{- macros.Required('Name', ScriptCanvasFunction, ScriptCanvasFunction) -}}
 
-{% set className = macros.CleanName('ScriptCanvasFunction' + Library.attrib['Name']) %}
-{% set namespaceList = macros.CleanName(Library.attrib['Namespace']).split('::') %}
-{% set prettyNamespaceName = macros.CleanName(Library.attrib['Namespace'].replace('::', '_')) %}
-{% set categoryName = Library.attrib['Category']%}
+#include "{{ ScriptCanvasFunction.attrib['Include'] }}"
+
+{% set className = macros.CleanName('ScriptCanvasFunction' + ScriptCanvasFunction.attrib['Name']) %}
+{% set namespaceList = [] %}
+{% set sanitizedNamespaceName = 'GlobalMethod' %}
+{% if ScriptCanvasFunction.attrib['Namespace'] is defined and ScriptCanvasFunction.attrib['Namespace'] %}
+{% set namespaceList = macros.CleanName(ScriptCanvasFunction.attrib['Namespace']).split('::') %}
+{% set sanitizedNamespaceName = macros.CleanName(ScriptCanvasFunction.attrib['Namespace'].replace('::', '_')) %}
+{% endif %}
+{% set categoryName = ScriptCanvasFunction.attrib['Category'] %}
 
 {% for namespace in namespaceList %}
 namespace {{namespace}}
@@ -40,21 +46,27 @@ namespace {{namespace}}
     public:
         {{className}}()
         {
-            ScriptCanvas::AutoGenRegistry::GetInstance()->RegisterFunction("{{className}}", this);
+            ScriptCanvas::AutoGenRegistry::GetInstance()->RegisterFunction("{{sanitizedNamespaceName}}_{{className}}", this);
         }
 
-        ~{{className}}() = default;
+        virtual ~{{className}}()
+        {
+            ScriptCanvas::AutoGenRegistry::GetInstance()->UnregisterFunction("{{sanitizedNamespaceName}}_{{className}}");
+        }
  
         void Reflect(AZ::ReflectContext* context) override
         {
             if (AZ::BehaviorContext* behaviorContext = azrtti_cast<AZ::BehaviorContext*>(context))
             {
-{% for function in Library.findall('Function') %}
+{% for function in ScriptCanvasFunction.findall('Function') %}
+{{ macros.Required('Name', function, ScriptCanvasFunction) }}
 {% set functionName = macros.CleanName(function.attrib['Name'])%}
-                behaviorContext->Method("{{prettyNamespaceName}}_{{functionName}}", &{{functionName}}, 
+                behaviorContext->Method("{{sanitizedNamespaceName}}_{{functionName}}", &{{functionName}}, 
 {{macros.GenerateFunctionMetaData(function)}})
                     ->Attribute(AZ::Script::Attributes::Scope, AZ::Script::Attributes::ScopeFlags::Common)
+{% if categoryName %}
                     ->Attribute(AZ::Script::Attributes::Category, "{{categoryName}}")
+{% endif %}
                 ;
 
 {% endfor %}
@@ -68,5 +80,6 @@ namespace {{namespace}}
 }
 {% endfor %}
 
-{% endfor %}
+{{ macros.ReportErrors() }}
+
 {% endfor %}

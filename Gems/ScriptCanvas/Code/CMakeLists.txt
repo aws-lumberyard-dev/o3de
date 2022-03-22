@@ -54,6 +54,20 @@ ly_create_alias(NAME ScriptCanvasDebugger.Clients  NAMESPACE Gem TARGETS Gem::Sc
 ly_create_alias(NAME ScriptCanvasDebugger.Servers  NAMESPACE Gem TARGETS Gem::ScriptCanvasDebugger)
 
 ly_add_target(
+    NAME ScriptCanvas.Extensions STATIC
+    NAMESPACE Gem
+    FILES_CMAKE
+        scriptcanvasgem_autogen_files.cmake
+    INCLUDE_DIRECTORIES
+        PUBLIC
+            Include/ScriptCanvas/AutoGen
+    BUILD_DEPENDENCIES
+        PUBLIC
+            AZ::AzCore
+            AZ::AzFramework
+)
+
+ly_add_target(
     NAME ScriptCanvas.Static STATIC
     NAMESPACE Gem
     FILES_CMAKE
@@ -81,7 +95,7 @@ ly_add_target(
             AZ::AzCore
             AZ::AzFramework
             Gem::ScriptCanvasDebugger
-            Gem::ScriptCanvas.AutoGen
+            Gem::ScriptCanvas.Extensions
     AUTOGEN_RULES
         *.ScriptCanvasFunction.xml,ScriptCanvasFunction_Source.jinja,$path/$fileprefix.generated.cpp
         *.ScriptCanvasGrammar.xml,ScriptCanvasGrammar_Header.jinja,$path/$fileprefix.generated.h
@@ -106,20 +120,6 @@ ly_add_target(
             .
             Include
             ${SCRIPT_CANVAS_AUTOGEN_BUILD_DIR}
-)
-
-ly_add_target(
-    NAME ScriptCanvas.AutoGen STATIC
-    NAMESPACE Gem
-    FILES_CMAKE
-        scriptcanvasgem_autogen_files.cmake
-    INCLUDE_DIRECTORIES
-        PUBLIC
-            Include/ScriptCanvas/AutoGen
-    BUILD_DEPENDENCIES
-        PUBLIC
-            AZ::AzCore
-            AZ::AzFramework
 )
 
 ly_add_target(

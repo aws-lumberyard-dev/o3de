@@ -60,7 +60,7 @@ namespace ScriptCanvas
 {
     void SystemComponent::Reflect(AZ::ReflectContext* context)
     {
-        AutoGenRegistry::ReflectFunctions(context);
+        AutoGenRegistry::Reflect(context);
         VersionData::Reflect(context);
         Nodeable::Reflect(context);
         ReflectLibraries(context);

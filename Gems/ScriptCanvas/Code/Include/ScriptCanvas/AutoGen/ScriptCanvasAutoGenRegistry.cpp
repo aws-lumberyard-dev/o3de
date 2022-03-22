@@ -6,12 +6,15 @@
  *
  */
 
-#include <algorithm>
-
+#include <AzCore/RTTI/ReflectContext.h>
 #include "ScriptCanvasAutoGenRegistry.h"
 
 namespace ScriptCanvas
 {
+    static constexpr const char ScriptCanvasAutoGenRegistryName[] = "AutoGenRegistry";
+    static constexpr int MaxMessageLength = 4096;
+    static constexpr const char ScriptCanvasAutoGenFunctionRegistrationWarningMessage[] = "[Warning] Functions name %s is occupied already, ignore functions registration.\n";
+
     AutoGenRegistry::~AutoGenRegistry()
     {
         m_functions.clear();
@@ -23,6 +26,13 @@ namespace ScriptCanvas
         static AutoGenRegistry s_autogenRegistry;
 
         return &s_autogenRegistry;
+    }
+
+    void AutoGenRegistry::Reflect(AZ::ReflectContext* context)
+    {
+        ReflectFunctions(context);
+        // Expand here to add more reflections
+        // ...
     }
 
     void AutoGenRegistry::ReflectFunctions(AZ::ReflectContext* context)
@@ -39,11 +49,22 @@ namespace ScriptCanvas
         }
     }
 
-    void AutoGenRegistry::RegisterFunction(const char* className, IScriptCanvasFunctionRegistry* registry)
+    void AutoGenRegistry::RegisterFunction(const char* functionName, IScriptCanvasFunctionRegistry* registry)
     {
-        if (m_functions.find(className) == m_functions.end() && registry != nullptr)
+        if (m_functions.find(functionName) != m_functions.end())
         {
-            m_functions.emplace(className, registry);
+            char message[MaxMessageLength];
+            azsnprintf(message, MaxMessageLength, ScriptCanvasAutoGenFunctionRegistrationWarningMessage, functionName);
+            AZ::Debug::Platform::OutputToDebugger(ScriptCanvasAutoGenRegistryName, message);
         }
+        else if (registry != nullptr)
+        {
+            m_functions.emplace(functionName, registry);
+        }
+    }
+
+    void AutoGenRegistry::UnregisterFunction(const char* functionName)
+    {
+        m_functions.erase(functionName);
     }
 } // namespace ScriptCanvas
