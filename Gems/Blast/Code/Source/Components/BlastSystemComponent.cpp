@@ -127,6 +127,7 @@ namespace Blast
         materialAsset->Register();
         m_assetHandlers.emplace_back(materialAsset);
 
+        // TODO: "blastmaterial2" is temporary until the library asset is removed.
         auto materialAsset2 = aznew AzFramework::GenericAssetHandler<MaterialAsset>(
             "Blast Material 2", "Blast Material", "blastmaterial2");
         materialAsset2->Register();

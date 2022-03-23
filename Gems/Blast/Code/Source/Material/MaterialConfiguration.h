@@ -19,10 +19,10 @@ namespace Blast
 
         static void Reflect(AZ::ReflectContext* context);
 
-        float m_health = 1.0;
-        float m_forceDivider = 1.0;
-        float m_minDamageThreshold = 0.0;
-        float m_maxDamageThreshold = 1.0;
+        float m_health = 1.0f;
+        float m_forceDivider = 1.0f;
+        float m_minDamageThreshold = 0.0f;
+        float m_maxDamageThreshold = 1.0f;
         float m_stressLinearFactor = 1.0f;
         float m_stressAngularFactor = 1.0f;
     };

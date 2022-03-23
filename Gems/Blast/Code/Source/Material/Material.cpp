@@ -16,8 +16,7 @@ namespace Blast
         m_stressLinearFactor = configuration.m_stressLinearFactor;
         m_stressAngularFactor = configuration.m_stressAngularFactor;
 
-        // This is not an error, health in ExtPxMaterial is actually damage divider and not health
-        m_blastMaterial.health = configuration.m_forceDivider;
+        m_blastMaterial.health = configuration.m_forceDivider; // This is not an error, health in ExtPxMaterial is actually damage divider and not health.
         m_blastMaterial.minDamageThreshold = configuration.m_minDamageThreshold;
         m_blastMaterial.maxDamageThreshold = configuration.m_maxDamageThreshold;
     }
@@ -54,14 +53,21 @@ namespace Blast
 
     float Material::GetNormalizedDamage(float damage) const
     {
-        // Same clamping behavior as NvBlastExtMaterial::getNormalizedDamage function.
+        // Same normalization behavior as NvBlastExtMaterial::getNormalizedDamage function.
         // Since the damage input parameter is expected in the right range already, it's better
         // to do the operation directly rather than passing an scaled value of damage expecting
-        // getNormalizedDamage to invert that scale to return to the original number, which due
-        // to floating precision issues could result in an slightly different number causing
-        // the clamping to return unexpected results in the limits.
+        // getNormalizedDamage to invert that scale to get the original value, which due
+        // to floating precision issues it results in an slightly different number, causing
+        // the normalization to return unexpected results in the limits.
         damage = (m_blastMaterial.health > 0.0f) ? damage : 1.0f;
-        return damage > m_blastMaterial.minDamageThreshold ? (damage < m_blastMaterial.maxDamageThreshold ? damage : m_blastMaterial.maxDamageThreshold) : 0.0f;
+        if (damage > m_blastMaterial.minDamageThreshold)
+        {
+            return (damage < m_blastMaterial.maxDamageThreshold) ? damage : m_blastMaterial.maxDamageThreshold;
+        }
+        else
+        {
+            return 0.0f;
+        }
     }
 
     Nv::Blast::ExtStressSolverSettings Material::GetStressSolverSettings(uint32_t iterationsCount) const
