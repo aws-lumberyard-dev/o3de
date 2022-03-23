@@ -11,7 +11,6 @@
 #include <AzCore/std/smart_ptr/unique_ptr.h>
 
 #include <Blast/BlastDebug.h>
-#include <Blast/BlastMaterial.h>
 
 struct NvBlastExtRadialDamageDesc;
 struct NvBlastExtProgramParams;
@@ -31,7 +30,6 @@ namespace Blast
 
         static void Reflect(AZ::ReflectContext* context);
 
-        AZ::Data::Asset<Blast::BlastMaterialLibraryAsset> m_materialLibrary = AZ::Data::AssetLoadBehavior::NoLoad;
         uint32_t m_stressSolverIterations = 180;
     };
 

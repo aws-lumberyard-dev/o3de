@@ -21,7 +21,6 @@
 #include <Blast/BlastActorData.h>
 #include <Blast/BlastDebug.h>
 #include <Blast/BlastFamilyComponentBus.h>
-#include <Blast/BlastMaterial.h>
 #include <Material/MaterialAsset.h>
 #include <IConsole.h>
 #include <NvBlastExtPxSerialization.h>
@@ -63,15 +62,11 @@ namespace Blast
 
     void BlastGlobalConfiguration::Reflect(AZ::ReflectContext* context)
     {
-        BlastMaterialLibraryAsset::Reflect(context);
-        BlastMaterialConfiguration::Reflect(context);
-
         if (AZ::SerializeContext* serialize = azrtti_cast<AZ::SerializeContext*>(context))
         {
             serialize->Class<BlastGlobalConfiguration>()
-                ->Field("BlastMaterialLibrary", &BlastGlobalConfiguration::m_materialLibrary)
-                ->Field("StressSolverIterations", &BlastGlobalConfiguration::m_stressSolverIterations)
-                ->Version(1);
+                ->Version(2)
+                ->Field("StressSolverIterations", &BlastGlobalConfiguration::m_stressSolverIterations);
 
             if (AZ::EditContext* ec = serialize->GetEditContext())
             {
@@ -80,9 +75,6 @@ namespace Blast
                     ->ClassElement(AZ::Edit::ClassElements::EditorData, "")
                     ->Attribute(AZ::Edit::Attributes::AppearsInAddComponentMenu, AZ_CRC_CE("System"))
                     ->Attribute(AZ::Edit::Attributes::AutoExpand, true)
-                    ->DataElement(
-                        AZ::Edit::UIHandlers::Default, &BlastGlobalConfiguration::m_materialLibrary,
-                        "Blast material library", "Material library asset to be used globally.")
                     ->DataElement(
                         AZ::Edit::UIHandlers::Default, &BlastGlobalConfiguration::m_stressSolverIterations,
                         "Stress solver iterations",
@@ -122,16 +114,10 @@ namespace Blast
         blastAssetHandler->Register();
         m_assetHandlers.emplace_back(blastAssetHandler);
 
-        auto materialAsset = aznew AzFramework::GenericAssetHandler<BlastMaterialLibraryAsset>(
+        auto materialAsset = aznew AzFramework::GenericAssetHandler<MaterialAsset>(
             "Blast Material", "Blast Material", "blastmaterial");
         materialAsset->Register();
         m_assetHandlers.emplace_back(materialAsset);
-
-        // TODO: "blastmaterial2" is temporary until the library asset is removed.
-        auto materialAsset2 = aznew AzFramework::GenericAssetHandler<MaterialAsset>(
-            "Blast Material 2", "Blast Material", "blastmaterial2");
-        materialAsset2->Register();
-        m_assetHandlers.emplace_back(materialAsset2);
 
         // Add asset types and extensions to AssetCatalog. Uses "AssetCatalogService".
         auto assetCatalog = AZ::Data::AssetCatalogRequestBus::FindFirstHandler();
@@ -160,8 +146,6 @@ namespace Blast
 
         SaveConfiguration();
         DeactivatePhysics();
-
-        m_configuration.m_materialLibrary.Release();
 
         m_assetHandlers.clear();
     };
