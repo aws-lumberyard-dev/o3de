@@ -44,6 +44,9 @@ namespace Blast
                     ->DataElement(
                         AZ::Edit::UIHandlers::Default, &EditorBlastFamilyComponent::m_blastMaterialAsset, "Blast Material",
                         "Assigned blast material asset")
+                        ->Attribute(AZ_CRC_CE("EditButton"), "")
+                        ->Attribute(AZ_CRC_CE("EditDescription"), "Open in Asset Editor")
+                        ->Attribute(AZ_CRC_CE("DisableEditButtonWhenNoAssetSelected"), true)
                     ->DataElement(
                         AZ::Edit::UIHandlers::Default, &EditorBlastFamilyComponent::m_physicsMaterialId,
                         "Physics Material", "Assigned physics material from current physics material library")
