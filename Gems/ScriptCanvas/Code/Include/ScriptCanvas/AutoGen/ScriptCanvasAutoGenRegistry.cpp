@@ -7,6 +7,7 @@
  */
 
 #include <AzCore/RTTI/ReflectContext.h>
+#include <AzCore/std/string/fixed_string.h>
 #include "ScriptCanvasAutoGenRegistry.h"
 
 namespace ScriptCanvas
@@ -53,9 +54,9 @@ namespace ScriptCanvas
     {
         if (m_functions.find(functionName) != m_functions.end())
         {
-            char message[MaxMessageLength];
-            azsnprintf(message, MaxMessageLength, ScriptCanvasAutoGenFunctionRegistrationWarningMessage, functionName);
-            AZ::Debug::Platform::OutputToDebugger(ScriptCanvasAutoGenRegistryName, message);
+            AZ::Debug::Platform::OutputToDebugger(
+                ScriptCanvasAutoGenRegistryName,
+                AZStd::fixed_string<MaxMessageLength>::format(ScriptCanvasAutoGenFunctionRegistrationWarningMessage, functionName).c_str());
         }
         else if (registry != nullptr)
         {

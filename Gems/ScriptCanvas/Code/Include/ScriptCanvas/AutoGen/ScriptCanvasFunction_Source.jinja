@@ -60,8 +60,9 @@ namespace {{namespace}}
             {
 {% for function in ScriptCanvasFunction.findall('Function') %}
 {{ macros.Required('Name', function, ScriptCanvasFunction) }}
-{% set functionName = macros.CleanName(function.attrib['Name'])%}
-                behaviorContext->Method("{{sanitizedNamespaceName}}_{{functionName}}", &{{functionName}}, 
+{% set functionName = macros.CleanName(function.attrib['Name']) %}
+{% set sanitizedFunctionName = macros.CleanName(function.attrib['Name']).replace('::', '_') %}
+                behaviorContext->Method("{{sanitizedNamespaceName}}_{{sanitizedFunctionName}}", &{{functionName}},
 {{macros.GenerateFunctionMetaData(function)}})
                     ->Attribute(AZ::Script::Attributes::Scope, AZ::Script::Attributes::ScopeFlags::Common)
 {% if categoryName %}
