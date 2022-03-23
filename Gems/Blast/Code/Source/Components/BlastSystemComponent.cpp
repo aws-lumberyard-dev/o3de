@@ -139,7 +139,6 @@ namespace Blast
     void BlastSystemComponent::Deactivate()
     {
         AZ_PROFILE_FUNCTION(Physics);
-        AZ::Data::AssetBus::MultiHandler::BusDisconnect();
         CrySystemEventBus::Handler::BusDisconnect();
         AZ::TickBus::Handler::BusDisconnect();
         BlastSystemRequestBus::Handler::BusDisconnect();
@@ -271,14 +270,6 @@ namespace Blast
         }
     }
 
-    void BlastSystemComponent::OnAssetReloaded(AZ::Data::Asset<AZ::Data::AssetData> asset)
-    {
-        if (m_configuration.m_materialLibrary == asset)
-        {
-            m_configuration.m_materialLibrary = asset;
-        }
-    }
-
     void BlastSystemComponent::LoadConfiguration()
     {
         BlastGlobalConfiguration globalConfiguration;
@@ -405,30 +396,6 @@ namespace Blast
     {
         m_configuration = globalConfiguration;
 
-        {
-            AZ::Data::Asset<Blast::BlastMaterialLibraryAsset>& materialLibrary = m_configuration.m_materialLibrary;
-
-            if (!materialLibrary.GetId().IsValid())
-            {
-                AZ_Warning("Blast", false, "LoadDefaultMaterialLibrary: Default Material Library asset ID is invalid.");
-                return;
-            }
-
-            materialLibrary = AZ::Data::AssetManager::Instance().GetAsset<Blast::BlastMaterialLibraryAsset>(
-                materialLibrary.GetId(), AZ::Data::AssetLoadBehavior::QueueLoad);
-            materialLibrary.BlockUntilLoadComplete();
-
-            // Listen for material library asset modification events
-            if (!AZ::Data::AssetBus::MultiHandler::BusIsConnectedId(materialLibrary.GetId()))
-            {
-                AZ::Data::AssetBus::MultiHandler::BusDisconnect();
-                AZ::Data::AssetBus::MultiHandler::BusConnect(materialLibrary.GetId());
-            }
-
-            AZ_Warning(
-                "Blast", (materialLibrary.GetData() != nullptr),
-                "LoadDefaultMaterialLibrary: Default Material Library asset data is invalid.");
-        }
 #ifdef BLAST_EDITOR
         AzToolsFramework::ToolsApplicationEvents::Bus::Broadcast(
             &AzToolsFramework::ToolsApplicationEvents::InvalidatePropertyDisplay, AzToolsFramework::Refresh_EntireTree);

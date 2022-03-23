@@ -13,6 +13,10 @@
 #include <Blast/BlastDebug.h>
 
 struct NvBlastExtRadialDamageDesc;
+struct NvBlastExtCapsuleRadialDamageDesc;
+struct NvBlastExtShearDamageDesc;
+struct NvBlastExtTriangleIntersectionDamageDesc;
+struct NvBlastExtImpactSpreadDamageDesc;
 struct NvBlastExtProgramParams;
 
 namespace Nv::Blast
