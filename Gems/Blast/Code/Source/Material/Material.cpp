@@ -55,14 +55,14 @@ namespace Blast
     {
         // Same normalization behavior as NvBlastExtMaterial::getNormalizedDamage function.
         // Since the damage input parameter is expected in the right range already, it's better
-        // to do the operation directly rather than passing an scaled value of damage expecting
+        // to do the operation directly rather than passing a scaled value of damage expecting
         // getNormalizedDamage to invert that scale to get the original value, which due
         // to floating precision issues it results in an slightly different number, causing
         // the normalization to return unexpected results in the limits.
         damage = (m_blastMaterial.health > 0.0f) ? damage : 1.0f;
         if (damage > m_blastMaterial.minDamageThreshold)
         {
-            return (damage < m_blastMaterial.maxDamageThreshold) ? damage : m_blastMaterial.maxDamageThreshold;
+            return AZ::GetMin(damage, m_blastMaterial.maxDamageThreshold);
         }
         else
         {
