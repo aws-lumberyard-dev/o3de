@@ -72,9 +72,10 @@ namespace ScriptCanvas
     }
 }
 
-#define SCRIPT_CANVAS_GENERIC_FUNCTION_MULTI_RESULTS_NODE_WITH_DEFAULTS(NODE_NAME, DEFAULT_FUNC, CATEGORY, UUID, ISDEPRECATED, DESCRIPTION, ...)\
+#define SCRIPT_CANVAS_GENERIC_FUNCTION_NODE_TRAIT(NODE_NAME, DEFAULT_FUNC, CATEGORY, UUID, ISDEPRECATED, DESCRIPTION, ...)\
     struct NODE_NAME##Traits\
     {\
+    public:\
         AZ_TYPE_INFO(NODE_NAME##Traits, UUID);\
         using FunctionTraits = AZStd::function_traits< decltype(&NODE_NAME) >;\
         using ResultType = FunctionTraits::result_type;\
@@ -138,9 +139,32 @@ namespace ScriptCanvas
             /*static_assert((s_numResults + s_numArgs) == s_numNames, "Argument name count + result name count != name count in " #NODE_NAME );*/\
             static const AZStd::array<AZStd::string_view, s_numNames> s_names = {{ __VA_ARGS__ }};\
             return i < s_names.size() ? s_names[i] : "";\
+        }
+
+#define SCRIPT_CANVAS_GENERIC_FUNCTION_REPLACEMENT_CONFIG(NODE_NAME, DEFAULT_FUNC, METHOD_NAME, ...)\
+    public:\
+        static const char* GetReplacementMethodName() { return METHOD_NAME; }\
+        static AZStd::string GetReplacementArgName(size_t i)\
+        {\
+            return GetReplacementName(i);\
+        }\
+        static AZStd::string GetReplacementResultName(size_t i)\
+        {\
+            return GetReplacementName(i + s_numArgs);\
+        }\
+    private:\
+        static AZStd::string_view GetReplacementName(size_t i)\
+        {\
+            static const AZStd::array<AZStd::string_view, s_numArgs + s_numResults> s_replacementNames = { { __VA_ARGS__ } };\
+            return i < s_replacementNames.size() ? s_replacementNames[i] : "";\
         }\
     };\
     using NODE_NAME##Node = ScriptCanvas::NodeFunctionGenericMultiReturn<AZStd::add_pointer_t<decltype(NODE_NAME)>, NODE_NAME##Traits, &NODE_NAME, AZStd::add_pointer_t<decltype(DEFAULT_FUNC)>, &DEFAULT_FUNC>;
+
+// Following MACROS will be simplified and removed after all generic functions get migrated
+#define SCRIPT_CANVAS_GENERIC_FUNCTION_MULTI_RESULTS_NODE_WITH_DEFAULTS(NODE_NAME, DEFAULT_FUNC, CATEGORY, UUID, ISDEPRECATED, DESCRIPTION, ...)\
+    SCRIPT_CANVAS_GENERIC_FUNCTION_NODE_TRAIT(NODE_NAME, DEFAULT_FUNC, CATEGORY, UUID, ISDEPRECATED, DESCRIPTION, __VA_ARGS__)\
+    SCRIPT_CANVAS_GENERIC_FUNCTION_REPLACEMENT_CONFIG(NODE_NAME, DEFAULT_FUNC , "", "")
 
 #define SCRIPT_CANVAS_GENERIC_FUNCTION_MULTI_RESULTS_NODE(NODE_NAME, CATEGORY, UUID, DESCRIPTION, ...)\
     SCRIPT_CANVAS_GENERIC_FUNCTION_MULTI_RESULTS_NODE_WITH_DEFAULTS(NODE_NAME, ScriptCanvas::NoDefaultArguments, CATEGORY, UUID, false, DESCRIPTION, __VA_ARGS__)
@@ -217,7 +241,7 @@ namespace ScriptCanvas
         AZ_POP_DISABLE_WARNING
 
 
-            static const char* GetNodeFunctionName()
+        static const char* GetNodeFunctionName()
         {
             return t_Traits::GetNodeName();
         }
@@ -276,6 +300,35 @@ namespace ScriptCanvas
             scope.m_type = Grammar::LexicalScopeType::Namespace;
             scope.m_namespaces.push_back(Translation::Context::GetCategoryLibraryName(t_Traits::GetDependency()));
             return AZ::Success(scope);
+        }
+
+        bool IsDeprecated() const override
+        {
+            return t_Traits::IsDeprecated();
+        }
+
+        AZStd::unordered_map<AZStd::string, AZStd::vector<AZStd::string>> GetReplacementSlotsMap() const override
+        {
+            // Replacement node topology should always be the same as old node
+            AZStd::unordered_map<AZStd::string, AZStd::vector<AZStd::string>> result{ { "In", { "In" } }, { "Out", { "Out" } } };
+            for (size_t i = 0; i < t_Traits::s_numArgs; i++)
+            {
+                result.emplace(t_Traits::GetArgName(i), AZStd::vector<AZStd::string>{ t_Traits::GetReplacementArgName(i) });
+            }
+            for (size_t i = 0; i < t_Traits::s_numResults; i++)
+            {
+                result.emplace(t_Traits::GetResultName(i), AZStd::vector<AZStd::string>{ t_Traits::GetReplacementResultName(i) });
+            }
+            return result;
+        }
+
+        ScriptCanvas::NodeConfiguration GetReplacementNodeConfiguration() const override
+        {
+            ScriptCanvas::NodeConfiguration replacementNode;
+            // Replacement node should always be behavior context global method
+            replacementNode.m_type = AZ::Uuid("E42861BD-1956-45AE-8DD7-CCFC1E3E5ACF");
+            replacementNode.m_methodName = t_Traits::GetReplacementMethodName();
+            return replacementNode;
         }
 
     protected:
