@@ -21,16 +21,14 @@ namespace ScriptCanvas
             AZStd::to_lower(sourceString.begin(), sourceString.end());
             return sourceString;
         }
-        SCRIPT_CANVAS_GENERIC_FUNCTION_NODE_TRAIT(ToLower, ScriptCanvas::NoDefaultArguments, k_categoryName, "{FC5FA07E-C65D-470A-BEFA-714EF8103866}", true, "Makes all the characters in the string lower case", "Source");
-        SCRIPT_CANVAS_GENERIC_FUNCTION_REPLACEMENT_CONFIG(ToLower, ScriptCanvas::NoDefaultArguments, "ScriptCanvas_StringFunctions_ToLower", "Source", "String");
+        SCRIPT_CANVAS_GENERIC_FUNCTION_REPLACEMENT(ToLower, k_categoryName, "{FC5FA07E-C65D-470A-BEFA-714EF8103866}", "ScriptCanvas_StringFunctions_ToLower");
 
         AZ_INLINE Data::StringType ToUpper(Data::StringType sourceString)
         {
             AZStd::to_upper(sourceString.begin(), sourceString.end());
             return sourceString;
         }
-        SCRIPT_CANVAS_GENERIC_FUNCTION_NODE_TRAIT(ToUpper, ScriptCanvas::NoDefaultArguments, k_categoryName, "{323951D4-9BB1-47C9-BD2C-2DD2B750217F}", true, "Makes all the characters in the string upper case", "Source");
-        SCRIPT_CANVAS_GENERIC_FUNCTION_REPLACEMENT_CONFIG(ToUpper, ScriptCanvas::NoDefaultArguments, "ScriptCanvas_StringFunctions_ToUpper", "Source", "String");
+        SCRIPT_CANVAS_GENERIC_FUNCTION_REPLACEMENT(ToUpper, k_categoryName, "{323951D4-9BB1-47C9-BD2C-2DD2B750217F}", "ScriptCanvas_StringFunctions_ToUpper");
 
         AZ_INLINE Data::StringType Substring(Data::StringType sourceString, AZ::u32 index, AZ::u32 length)
         {
@@ -43,8 +41,7 @@ namespace ScriptCanvas
 
             return sourceString.substr(index, length);
         }
-        SCRIPT_CANVAS_GENERIC_FUNCTION_NODE_TRAIT(Substring, ScriptCanvas::NoDefaultArguments, k_categoryName, "{031BCDFC-5DA4-4EA0-A310-1FA9165E5BE5}", true, "Returns a sub string from a given string", "Source", "From", "Length");
-        SCRIPT_CANVAS_GENERIC_FUNCTION_REPLACEMENT_CONFIG(Substring, ScriptCanvas::NoDefaultArguments, "ScriptCanvas_StringFunctions_Substring", "Source", "From", "Length", "String");
+        SCRIPT_CANVAS_GENERIC_FUNCTION_REPLACEMENT(Substring, k_categoryName, "{031BCDFC-5DA4-4EA0-A310-1FA9165E5BE5}", "ScriptCanvas_StringFunctions_Substring");
 
         using Registrar = RegistrarGeneric
             <
