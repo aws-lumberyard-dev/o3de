@@ -47,15 +47,21 @@ namespace AZ::DocumentPropertyEditor::Nodes
     struct NumericEditor
     {
         static_assert(AZStd::is_floating_point_v<T> || AZStd::is_integral_v<T>, "Numeric editors must have a numeric type");
-        static constexpr auto Min = AttributeDefinition<T>("Min");
-        static constexpr auto Max = AttributeDefinition<T>("Max");
-        static constexpr auto Step = AttributeDefinition<T>("Step");
+        using StorageType =
+            AZStd::conditional_t<AZStd::is_floating_point_v<T>, double, AZStd::conditional_t<AZStd::is_signed_v<T>, int64_t, uint64_t>>;
+
+        static constexpr auto Min = AttributeDefinition<StorageType>("Min");
+        static constexpr auto Max = AttributeDefinition<StorageType>("Max");
+        static constexpr auto Step = AttributeDefinition<StorageType>("Step");
         static constexpr auto Suffix = AttributeDefinition<AZStd::string_view>("Suffix");
-        static constexpr auto SoftMin = AttributeDefinition<T>("SoftMin");
-        static constexpr auto SoftMax = AttributeDefinition<T>("SoftMax");
+        static constexpr auto SoftMin = AttributeDefinition<StorageType>("SoftMin");
+        static constexpr auto SoftMax = AttributeDefinition<StorageType>("SoftMax");
         static constexpr auto Decimals = AttributeDefinition<int>("Decimals");
         static constexpr auto DisplayDecimals = AttributeDefinition<int>("DisplayDecimals");
     };
+    using IntNumericEditor = NumericEditor<int64_t>;
+    using UintNumericEditor = NumericEditor<uint64_t>;
+    using DoubleNumericEditor = NumericEditor<double>;
 
     struct Button : PropertyEditorDefinition
     {
@@ -112,12 +118,18 @@ namespace AZ::DocumentPropertyEditor::Nodes
     {
         static constexpr AZStd::string_view Name = "Slider";
     };
+    using IntSlider = Slider<int64_t>;
+    using UintSlider = Slider<uint64_t>;
+    using DoubleSlider = Slider<double>;
 
     template<typename T>
     struct SpinBox : NumericEditor<T>
     {
         static constexpr AZStd::string_view Name = "SpinBox";
     };
+    using IntSpinBox = SpinBox<int64_t>;
+    using UintSpinBox = SpinBox<uint64_t>;
+    using DoubleSpinBox = SpinBox<double>;
 
     struct Crc : PropertyEditorDefinition
     {

@@ -8,13 +8,17 @@
 
 #include <AzCore/Component/ComponentApplicationBus.h>
 #include <AzCore/RTTI/TypeInfo.h>
+#include <AzCore/RTTI/AttributeReader.h>
 #include <AzFramework/DocumentPropertyEditor/Reflection/LegacyReflectionBridge.h>
+#include <AzCore/Name/Name.h>
 
 namespace AZ::Reflection
 {
     namespace LegacyReflectionInternal
     {
-        struct InstanceVisitor : IObjectAccess, IAttributes
+        struct InstanceVisitor
+            : IObjectAccess
+            , IAttributes
         {
             IReadWrite* m_visitor;
             void* m_instance;
@@ -34,22 +38,10 @@ namespace AZ::Reflection
                 , m_typeId(typeId)
                 , m_serializeContext(serializeContext)
             {
-                RegisterPrimitiveHandlers<
-                    bool,
-                    uint8_t,
-                    uint16_t,
-                    uint32_t,
-                    uint64_t,
-                    int8_t,
-                    int16_t,
-                    int32_t,
-                    int64_t,
-                    float,
-                    double
-                >();
+                RegisterPrimitiveHandlers<bool, uint8_t, uint16_t, uint32_t, uint64_t, int8_t, int16_t, int32_t, int64_t, float, double>();
             }
 
-            template <typename T>
+            template<typename T>
             void RegisterHandler(AZStd::function<bool(T&)> handler)
             {
                 m_handlers[azrtti_typeid<T>()] = [this, handler]() -> bool
@@ -58,17 +50,18 @@ namespace AZ::Reflection
                 };
             }
 
-            template <typename T>
+            template<typename T>
             void RegisterPrimitiveHandlers()
             {
-                RegisterHandler<T>([this](T& value) -> bool
-                {
-                    m_visitor->Visit(value, *this);
-                    return false;
-                });
+                RegisterHandler<T>(
+                    [this](T& value) -> bool
+                    {
+                        m_visitor->Visit(value, *this);
+                        return false;
+                    });
             }
 
-            template <typename T1, typename T2, typename... Rest>
+            template<typename T1, typename T2, typename... Rest>
             void RegisterPrimitiveHandlers()
             {
                 RegisterPrimitiveHandlers<T1>();
@@ -142,11 +135,37 @@ namespace AZ::Reflection
                 return m_instance;
             }
 
+            Dom::Value AzAttributeToValue(const AZ::Attribute* attribute)
+            {
+                (void)attribute;
+            }
+
             void ListAttributes(const IterationCallback& callback) const override
             {
                 // Legacy reflection doesn't have groups, so they're in the root "" group
-                // Name group;
-                (void) callback;
+                Name group;
+                AZStd::unordered_set<Name> visitedAttributes;
+
+                AZStd::string_view labelAttributeValue;
+
+                auto crcToName = [](AZ::u32 crc) -> AZ::Name
+                {
+                    (void)crc;
+                    return AZ::Name();
+                };
+
+                if (m_classElement)
+                {
+                    if (const AZ::Edit::ElementData* elementEditData = m_classElement->m_editData; elementEditData != nullptr)
+                    {
+                        for (auto it = elementEditData->m_attributes.begin(); it != elementEditData->m_attributes.end(); ++it)
+                        {
+                            AZ::Name name = crcToName(it->first);
+                        }
+                    }
+                }
+
+                callback(group, AZ_NAME_LITERAL("Label"), Dom::Value(labelAttributeValue, true));
             }
         };
     } // namespace LegacyReflectionInternal

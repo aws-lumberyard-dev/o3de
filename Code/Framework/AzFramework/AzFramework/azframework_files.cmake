@@ -144,6 +144,9 @@ set(FILES
     DocumentPropertyEditor/DocumentSchema.h
     DocumentPropertyEditor/PropertyEditorNodes.cpp
     DocumentPropertyEditor/PropertyEditorNodes.h
+    DocumentPropertyEditor/PropertyEditorSystem.cpp
+    DocumentPropertyEditor/PropertyEditorSystem.h
+    DocumentPropertyEditor/PropertyEditorSystemInterface.h
     DocumentPropertyEditor/CvarAdapter.cpp
     DocumentPropertyEditor/CvarAdapter.h
     DocumentPropertyEditor/Reflection/Attribute.h
