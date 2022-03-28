@@ -169,8 +169,15 @@ namespace Terrain
             }
         };
 
-        UpdateImageIndex(macroMaterial.m_colorIndex, newMaterialData.m_colorImage);
-        UpdateImageIndex(macroMaterial.m_normalIndex, newMaterialData.m_normalImage);
+        if (macroMaterial.m_colorIndex != 0xFFFF)
+        {
+            UpdateImageIndex(macroMaterial.m_colorIndex, newMaterialData.m_colorImage);
+        }
+
+        if (macroMaterial.m_normalIndex != 0xFFFF)
+        {
+            UpdateImageIndex(macroMaterial.m_normalIndex, newMaterialData.m_normalImage);
+        }
         
         ForMacroMaterialsInBounds(newMaterialData.m_bounds,
             [&](uint16_t idx, [[maybe_unused]] const AZ::Vector2& corner)
