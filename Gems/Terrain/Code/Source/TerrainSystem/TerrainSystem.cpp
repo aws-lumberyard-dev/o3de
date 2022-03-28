@@ -1220,11 +1220,16 @@ void TerrainSystem::ProcessHeightsFromRegion(
 
     AZStd::vector<AZ::Vector3> inPositions = GenerateInputPositionsFromRegion(inRegion, stepSize, sampler);
 
+    if (inPositions.empty())
+    {
+        return;
+    }
+
     AZStd::vector<bool> terrainExists(inPositions.size());
     AZStd::vector<float> heights(inPositions.size());
 
     GetHeightsSynchronous(inPositions, sampler, heights, terrainExists);
-    
+
     AzFramework::SurfaceData::SurfacePoint surfacePoint;
     for (size_t y = 0, i = 0; y < numSamplesY; y++)
     {
@@ -1252,6 +1257,11 @@ void TerrainSystem::ProcessNormalsFromRegion(
     const auto [numSamplesX, numSamplesY] = GetNumSamplesFromRegion(inRegion, stepSize, sampler);
 
     AZStd::vector<AZ::Vector3> inPositions = GenerateInputPositionsFromRegion(inRegion, stepSize, sampler);
+
+    if (inPositions.empty())
+    {
+        return;
+    }
 
     AZStd::vector<bool> terrainExists(inPositions.size());
     AZStd::vector<AZ::Vector3> normals(inPositions.size());
@@ -1287,6 +1297,11 @@ void TerrainSystem::ProcessSurfaceWeightsFromRegion(
 
     AZStd::vector<AZ::Vector3> inPositions = GenerateInputPositionsFromRegion(inRegion, stepSize, sampler);
 
+    if (inPositions.empty())
+    {
+        return;
+    }
+
     AZStd::vector<AzFramework::SurfaceData::SurfaceTagWeightList> outSurfaceWeightsList(inPositions.size());
     AZStd::vector<bool> terrainExists(inPositions.size());
 
@@ -1320,6 +1335,11 @@ void TerrainSystem::ProcessSurfacePointsFromRegion(
     const auto [numSamplesX, numSamplesY] = GetNumSamplesFromRegion(inRegion, stepSize, sampler);
 
     AZStd::vector<AZ::Vector3> inPositions = GenerateInputPositionsFromRegion(inRegion, stepSize, sampler);
+
+    if (inPositions.empty())
+    {
+        return;
+    }
 
     AZStd::vector<float> heights(inPositions.size());
     AZStd::vector<AZ::Vector3> normals(inPositions.size());
