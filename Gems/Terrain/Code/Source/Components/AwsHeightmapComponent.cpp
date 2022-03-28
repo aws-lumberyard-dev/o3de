@@ -231,7 +231,8 @@ namespace Terrain
 
                 AZ::Vector2 minMaxHeights(0.0f);
                 CoordinateMapperRequestBus::BroadcastResult(minMaxHeights, &CoordinateMapperRequestBus::Events::GetMinMaxWorldHeights);
-                AZ_Assert(
+                AZ_Warning(
+                    "Terrain",
                     (minMaxHeights.GetX() <= m_heightmapMinHeight) && (minMaxHeights.GetY() >= m_heightmapMaxHeight),
                     "Real-world data is outside the bounds of the Coordinate Mapper World Scale.  World Scale: (%.3f, %.3f).  Region "
                     "Heights: "
