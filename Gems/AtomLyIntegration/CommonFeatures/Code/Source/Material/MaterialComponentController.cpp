@@ -104,6 +104,7 @@ namespace AZ
         MaterialComponentController::MaterialComponentController(const MaterialComponentConfig& config)
             : m_configuration(config)
         {
+            ConvertAssetsForSerialization();
         }
 
         void MaterialComponentController::Activate(EntityId entityId)
@@ -135,6 +136,7 @@ namespace AZ
         void MaterialComponentController::SetConfiguration(const MaterialComponentConfig& config)
         {
             m_configuration = config;
+            ConvertAssetsForSerialization();
         }
 
         const MaterialComponentConfig& MaterialComponentController::GetConfiguration() const
@@ -338,6 +340,7 @@ namespace AZ
             // before LoadMaterials() is called [LYN-2249]
             auto temp = m_configuration.m_materials;
             m_configuration.m_materials = materials;
+            ConvertAssetsForSerialization();
             LoadMaterials();
         }
 
@@ -489,6 +492,7 @@ namespace AZ
             auto& materialAssignment = m_configuration.m_materials[materialAssignmentId];
             const bool wasEmpty = materialAssignment.m_propertyOverrides.empty();
             materialAssignment.m_propertyOverrides[AZ::Name(propertyName)] = value;
+            ConvertAssetsForSerialization();
 
             if (materialAssignment.RequiresLoading())
             {
@@ -586,6 +590,7 @@ namespace AZ
             auto& materialAssignment = m_configuration.m_materials[materialAssignmentId];
             const bool wasEmpty = materialAssignment.m_propertyOverrides.empty();
             materialAssignment.m_propertyOverrides = propertyOverrides;
+            ConvertAssetsForSerialization();
 
             if (materialAssignment.RequiresLoading())
             {
@@ -613,7 +618,6 @@ namespace AZ
             const MaterialAssignmentId& materialAssignmentId, const AZ::RPI::MaterialModelUvOverrideMap& modelUvOverrides)
         {
             auto& materialAssignment = m_configuration.m_materials[materialAssignmentId];
-            const bool wasEmpty = materialAssignment.m_matModUvOverrides.empty();
             materialAssignment.m_matModUvOverrides = modelUvOverrides;
 
             if (materialAssignment.RequiresLoading())
@@ -622,13 +626,10 @@ namespace AZ
                 return;
             }
 
-            if (wasEmpty != materialAssignment.m_matModUvOverrides.empty())
-            {
-                materialAssignment.RebuildInstance();
-                QueueMaterialUpdateNotification();
-            }
-
-            QueuePropertyChanges(materialAssignmentId);
+            // Unlike material properties which are applied to the material itself, UV overrides are applied outside the material
+            // by the MeshFeatureProcessor. So all we have to do is notify the mesh component that the materials were updated and it
+            // will pass the updated data to the MeshFeatureProcessor.
+            QueueMaterialUpdateNotification();
         }
 
         AZ::RPI::MaterialModelUvOverrideMap MaterialComponentController::GetModelUvOverrides(
@@ -665,6 +666,34 @@ namespace AZ
             if (!TickBus::Handler::BusIsConnected())
             {
                 TickBus::Handler::BusConnect();
+            }
+        }
+
+        void MaterialComponentController::ConvertAssetsForSerialization()
+        {
+            for (auto& materialAssignmentPair : m_configuration.m_materials)
+            {
+                MaterialAssignment& materialAssignment = materialAssignmentPair.second;
+                for (auto& propertyPair : materialAssignment.m_propertyOverrides)
+                {
+                    auto& value = propertyPair.second;
+                    if (value.is<AZ::Data::Asset<AZ::Data::AssetData>>())
+                    {
+                        value = AZStd::any_cast<AZ::Data::Asset<AZ::Data::AssetData>>(value).GetId();
+                    }
+                    else if (value.is<AZ::Data::Asset<AZ::RPI::StreamingImageAsset>>())
+                    {
+                        value = AZStd::any_cast<AZ::Data::Asset<AZ::RPI::StreamingImageAsset>>(value).GetId();
+                    }
+                    else if (value.is<AZ::Data::Asset<AZ::RPI::ImageAsset>>())
+                    {
+                        value = AZStd::any_cast<AZ::Data::Asset<AZ::RPI::ImageAsset>>(value).GetId();
+                    }
+                    else if (value.is<AZ::Data::Instance<AZ::RPI::Image>>())
+                    {
+                        value = AZStd::any_cast<AZ::Data::Instance<AZ::RPI::Image>>(value)->GetAssetId();
+                    }
+                }
             }
         }
     } // namespace Render

@@ -8,12 +8,20 @@
 #pragma once
 
 #include <AzCore/Math/Vector2.h>
+#include <AzCore/PlatformDef.h>
+
 #include <LyShine/UiBase.h>
+#include <AtomCore/Instance/Instance.h>
 
 class IDraw2d;
 class ISprite;
 struct IUiAnimationSystem;
 class UiEntityContext;
+
+namespace AZ::RPI
+{
+    class Image;
+}
 
 // The following ifdef block is the standard way of creating macros which make exporting
 // from a DLL simpler. All files within this DLL are compiled with the LYSHINE_EXPORTS
@@ -22,9 +30,9 @@ class UiEntityContext;
 // LYSHINE_API functions as being imported from a DLL, whereas this DLL sees symbols
 // defined with this macro as being exported.
 #ifdef LYSHINE_EXPORTS
-    #define LYSHINE_API DLL_EXPORT
+    #define LYSHINE_API AZ_DLL_EXPORT
 #else
-    #define LYSHINE_API DLL_IMPORT
+    #define LYSHINE_API AZ_DLL_IMPORT
 #endif
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -32,7 +40,10 @@ class UiEntityContext;
 class ILyShine
 {
 public:
-    virtual ~ILyShine(){}
+    AZ_RTTI(ILyShine, "{652ED9D7-0782-44E8-BCE7-65DD38C90907}");
+
+    ILyShine() = default;
+    virtual ~ILyShine() = default;
 
     //! Delete this object
     virtual void Release() = 0;
@@ -81,6 +92,9 @@ public:
 
     //! Check if a sprite's texture asset exists. The .sprite sidecar file is optional and is not checked
     virtual bool DoesSpriteTextureAssetExist(const AZStd::string& pathname) = 0;
+
+    //! Load an image asset by texture pathname
+    virtual AZ::Data::Instance<AZ::RPI::Image> LoadTexture(const AZStd::string& pathName) = 0;
 
     //! Perform post-initialization (script system will be available)
     virtual void PostInit() = 0;

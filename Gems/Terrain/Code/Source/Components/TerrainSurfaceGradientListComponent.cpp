@@ -15,6 +15,8 @@
 #include <GradientSignal/Ebuses/GradientRequestBus.h>
 #include <TerrainSystem/TerrainSystemBus.h>
 
+AZ_DECLARE_BUDGET(Terrain);
+
 namespace Terrain
 {
     void TerrainSurfaceGradientMapping::Reflect(AZ::ReflectContext* context)
@@ -26,26 +28,6 @@ namespace Terrain
                 ->Field("Gradient Entity", &TerrainSurfaceGradientMapping::m_gradientEntityId)
                 ->Field("Surface Tag", &TerrainSurfaceGradientMapping::m_surfaceTag)
             ;
-
-            if (auto edit = serialize->GetEditContext())
-            {
-                edit->Class<TerrainSurfaceGradientMapping>("Terrain Surface Gradient Mapping", "Mapping between a gradient and a surface.")
-                    ->ClassElement(AZ::Edit::ClassElements::EditorData, "")
-                    ->Attribute(AZ::Edit::Attributes::Visibility, AZ::Edit::PropertyVisibility::Show)
-                    ->Attribute(AZ::Edit::Attributes::AutoExpand, true)
-
-                    ->DataElement(
-                        AZ::Edit::UIHandlers::Default, &TerrainSurfaceGradientMapping::m_gradientEntityId,
-                        "Gradient Entity", "ID of Entity providing a gradient.")
-                       ->Attribute(AZ::Edit::Attributes::ChangeNotify, AZ::Edit::PropertyRefreshLevels::AttributesAndValues)
-                    ->UIElement("GradientPreviewer", "Previewer")
-                        ->Attribute(AZ::Edit::Attributes::NameLabelOverride, "")
-                    ->Attribute(AZ_CRC_CE("GradientEntity"), &TerrainSurfaceGradientMapping::m_gradientEntityId)
-                    ->DataElement(
-                        AZ::Edit::UIHandlers::Default, &TerrainSurfaceGradientMapping::m_surfaceTag, "Surface Tag",
-                        "Surface type to map to this gradient.")
-                ;
-            }
         }
 
         if (auto behaviorContext = azrtti_cast<AZ::BehaviorContext*>(context))
@@ -71,21 +53,6 @@ namespace Terrain
                 ->Version(1)
                 ->Field("Mappings", &TerrainSurfaceGradientListConfig::m_gradientSurfaceMappings)
             ;
-
-            AZ::EditContext* edit = serialize->GetEditContext();
-            if (edit)
-            {
-                edit->Class<TerrainSurfaceGradientListConfig>(
-                    "Terrain Surface Gradient List Component", "Provide mapping between gradients and surfaces.")
-                    ->ClassElement(AZ::Edit::ClassElements::EditorData, "")
-                    ->Attribute(AZ::Edit::Attributes::Visibility, AZ::Edit::PropertyVisibility::Show)
-                    ->Attribute(AZ::Edit::Attributes::AutoExpand, true)
-
-                    ->DataElement(
-                        AZ::Edit::UIHandlers::Default, &TerrainSurfaceGradientListConfig::m_gradientSurfaceMappings,
-                        "Gradient to Surface Mappings", "Maps Gradient Entities to Surfaces.")
-                    ;
-            }
         }
     }
 
@@ -147,13 +114,18 @@ namespace Terrain
 
     void TerrainSurfaceGradientListComponent::Deactivate()
     {
+        // Ensure that we only deactivate when no queries are actively running.
+        AZStd::unique_lock lock(m_queryMutex);
+
         m_dependencyMonitor.Reset();
 
         Terrain::TerrainAreaSurfaceRequestBus::Handler::BusDisconnect();
         LmbrCentral::DependencyNotificationBus::Handler::BusDisconnect();
 
         // Since this surface data will no longer exist, notify the terrain system to refresh the area.
-        OnCompositionChanged();
+        TerrainSystemServiceRequestBus::Broadcast(
+            &TerrainSystemServiceRequestBus::Events::RefreshArea, GetEntityId(),
+            AzFramework::Terrain::TerrainDataNotifications::SurfaceData);
     }
 
     bool TerrainSurfaceGradientListComponent::ReadInConfig(const AZ::ComponentConfig* baseConfig)
@@ -180,9 +152,19 @@ namespace Terrain
         const AZ::Vector3& inPosition,
         AzFramework::SurfaceData::SurfaceTagWeightList& outSurfaceWeights) const
     {
+        // Allow multiple queries to run simultaneously, but prevent them from running in parallel with activation / deactivation.
+        AZStd::shared_lock lock(m_queryMutex);
+
         outSurfaceWeights.clear();
 
-        const GradientSignal::GradientSampleParams params(AZ::Vector3(inPosition.GetX(), inPosition.GetY(), 0.0f));
+        if (Terrain::TerrainAreaSurfaceRequestBus::HasReentrantEBusUseThisThread())
+        {
+            AZ_ErrorOnce("Terrain", false, "Detected cyclic dependencies with terrain surface entity references on entity '%s' (%s)",
+                GetEntity()->GetName().c_str(), GetEntityId().ToString().c_str());
+            return;
+        }
+
+        const GradientSignal::GradientSampleParams params(inPosition);
 
         for (const auto& mapping : m_configuration.m_gradientSurfaceMappings)
         {
@@ -194,8 +176,45 @@ namespace Terrain
         }
     }
 
+    void TerrainSurfaceGradientListComponent::GetSurfaceWeightsFromList(
+        AZStd::span<const AZ::Vector3> inPositionList,
+        AZStd::span<AzFramework::SurfaceData::SurfaceTagWeightList> outSurfaceWeightsList) const
+    {
+        AZ_PROFILE_FUNCTION(Terrain);
+
+        // Allow multiple queries to run simultaneously, but prevent them from running in parallel with activation / deactivation.
+        AZStd::shared_lock lock(m_queryMutex);
+
+        AZ_Assert(
+            inPositionList.size() == outSurfaceWeightsList.size(), "The position list size doesn't match the outSurfaceWeights list size.");
+
+        if (Terrain::TerrainAreaSurfaceRequestBus::HasReentrantEBusUseThisThread())
+        {
+            AZ_ErrorOnce(
+                "Terrain", false, "Detected cyclic dependencies with terrain surface entity references on entity '%s' (%s)",
+                GetEntity()->GetName().c_str(), GetEntityId().ToString().c_str());
+            return;
+        }
+
+        AZStd::vector<float> gradientValues(inPositionList.size());
+
+        for (const auto& mapping : m_configuration.m_gradientSurfaceMappings)
+        {
+            GradientSignal::GradientRequestBus::Event(
+                mapping.m_gradientEntityId, &GradientSignal::GradientRequestBus::Events::GetValues, inPositionList, gradientValues);
+
+            for (size_t index = 0; index < outSurfaceWeightsList.size(); index++)
+            {
+                outSurfaceWeightsList[index].emplace_back(mapping.m_surfaceTag, gradientValues[index]);
+            }
+        }
+    }
+
     void TerrainSurfaceGradientListComponent::OnCompositionChanged()
     {
+        // Ensure that we only change our terrain registration status when no queries are actively running.
+        AZStd::unique_lock lock(m_queryMutex);
+
         TerrainSystemServiceRequestBus::Broadcast(
             &TerrainSystemServiceRequestBus::Events::RefreshArea, GetEntityId(),
             AzFramework::Terrain::TerrainDataNotifications::SurfaceData);

@@ -4,16 +4,23 @@ For complete copyright and license terms please see the LICENSE at the root of t
 
 SPDX-License-Identifier: Apache-2.0 OR MIT
 """
+import logging
+import os
 import pytest
 
 from ly_test_tools.o3de.editor_test import EditorSharedTest, EditorTestSuite
+
+logger = logging.getLogger(__name__)
+TEST_DIRECTORY = os.path.join(os.path.dirname(__file__), "tests")
 
 
 @pytest.mark.parametrize("project", ["AutomatedTesting"])
 @pytest.mark.parametrize("launcher_platform", ['windows_editor'])
 class TestAutomation(EditorTestSuite):
 
-    enable_prefab_system = False
+    @pytest.mark.test_case_id("C36529679")
+    class AtomLevelLoadTest_Editor(EditorSharedTest):
+        from Atom.tests import hydra_Atom_LevelLoadTest as test_module
 
     @pytest.mark.test_case_id("C36525657")
     class AtomEditorComponents_BloomAdded(EditorSharedTest):
@@ -112,5 +119,10 @@ class TestAutomation(EditorTestSuite):
     class AtomEditorComponents_SSAOAdded(EditorSharedTest):
         from Atom.tests import hydra_AtomEditorComponents_SSAOAdded as test_module
 
-    class ShaderAssetBuilder_RecompilesShaderAsChainOfDependenciesChanges(EditorSharedTest):
-        from Atom.tests import hydra_ShaderAssetBuilder_RecompilesShaderAsChainOfDependenciesChanges as test_module
+    @pytest.mark.test_case_id("C36529666")
+    class AtomEditorComponentsLevel_DiffuseGlobalIlluminationAdded(EditorSharedTest):
+        from Atom.tests import hydra_AtomEditorComponentsLevel_DiffuseGlobalIlluminationAdded as test_module
+
+    @pytest.mark.test_case_id("C36525660")
+    class AtomEditorComponentsLevel_DisplayMapperAdded(EditorSharedTest):
+        from Atom.tests import hydra_AtomEditorComponentsLevel_DisplayMapperAdded as test_module

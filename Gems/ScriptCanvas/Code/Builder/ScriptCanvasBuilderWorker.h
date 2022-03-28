@@ -35,7 +35,7 @@ namespace ScriptCanvas
 
 namespace ScriptCanvasEditor
 {
-    class Graph;
+    class EditorGraph;
     class SourceHandle;
 }
 
@@ -60,6 +60,7 @@ namespace ScriptCanvasBuilder
         ReflectEntityIdNodes,
         FixExecutionStateNodeableConstruction,
         SwitchAssetsToBinary,
+        ReinforcePreloadBehavior,
         // add new entries above
         Current,
     };
@@ -135,7 +136,7 @@ namespace ScriptCanvasBuilder
 
     AZ::Outcome<void, AZStd::string> ProcessTranslationJob(ProcessTranslationJobInput& input);
 
-    ScriptCanvasEditor::Graph* PrepareSourceGraph(AZ::Entity* const buildEntity);
+    ScriptCanvasEditor::EditorGraph* PrepareSourceGraph(AZ::Entity* const buildEntity);
 
     AZ::Outcome<void, AZStd::string> SaveSubgraphInterface(ProcessTranslationJobInput& input, ScriptCanvas::SubgraphInterfaceData& subgraphInterface);
 

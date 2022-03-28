@@ -12,6 +12,7 @@ set(FILES
     AssetFileInfoListComparison.cpp
     AssetSeedManager.cpp
     AssetSystemMocks.h
+    AzToolsFrameworkTestHelpersTest.cpp
     BoundsTestComponent.cpp
     BoundsTestComponent.h
     ComponentAdapterTests.cpp
@@ -23,6 +24,7 @@ set(FILES
     ComponentModeTests.cpp
     EditorTransformComponentSelectionTests.cpp
     EditorVertexSelectionTests.cpp
+    EditorViewportIconTests.cpp
     Entity/EditorEntityContextComponentTests.cpp
     Entity/EditorEntityHelpersTests.cpp
     Entity/EditorEntitySearchComponentTests.cpp
@@ -63,6 +65,7 @@ set(FILES
     Prefab/Benchmark/PrefabInstantiateBenchmarks.cpp
     Prefab/Benchmark/PrefabLoadBenchmarks.cpp
     Prefab/Benchmark/PrefabUpdateInstancesBenchmarks.cpp
+    Prefab/Benchmark/Propagation/SingleInstanceMultipleEntityBenchmarks.cpp
     Prefab/Benchmark/SpawnableCreateBenchmarks.cpp
     Prefab/Benchmark/Spawnable/SpawnableBenchmarkFixture.h
     Prefab/Benchmark/Spawnable/SpawnableBenchmarkFixture.cpp
@@ -96,6 +99,9 @@ set(FILES
     Prefab/PrefabUpdateTemplateTests.cpp
     Prefab/PrefabUpdateWithPatchesTests.cpp
     Prefab/Spawnable/SpawnableMetaDataTests.cpp
+    Prefab/Spawnable/SpawnableTestFixture.h
+    Prefab/Spawnable/SpawnableTestFixture.cpp
+    Prefab/Spawnable/SpawnableTicketTests.cpp
     Prefab/SpawnableCreateTests.cpp
     Prefab/SpawnableRemoveEditorInfoTestFixture.cpp
     Prefab/SpawnableRemoveEditorInfoTestFixture.h

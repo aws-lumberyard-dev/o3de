@@ -153,7 +153,7 @@ namespace ScriptCanvasBuilder
             return AZ::Failure(AZStd::string("Cannot compile graph data from a nullptr Script Canvas Entity"));
         }
 
-        auto sourceGraph = AZ::EntityUtils::FindFirstDerivedComponent<ScriptCanvasEditor::Graph>(scriptCanvasEntity);
+        auto sourceGraph = AZ::EntityUtils::FindFirstDerivedComponent<ScriptCanvasEditor::EditorGraph>(scriptCanvasEntity);
         if (!sourceGraph)
         {
             return AZ::Failure(AZStd::string("Failed to find Script Canvas Graph Component"));
@@ -385,9 +385,9 @@ namespace ScriptCanvasBuilder
             ;
     }
 
-    ScriptCanvasEditor::Graph* PrepareSourceGraph(AZ::Entity* const buildEntity)
+    ScriptCanvasEditor::EditorGraph* PrepareSourceGraph(AZ::Entity* const buildEntity)
     {
-        auto sourceGraph = AZ::EntityUtils::FindFirstDerivedComponent<ScriptCanvasEditor::Graph>(buildEntity);
+        auto sourceGraph = AZ::EntityUtils::FindFirstDerivedComponent<ScriptCanvasEditor::EditorGraph>(buildEntity);
         if (!sourceGraph)
         {
             return nullptr;
@@ -491,7 +491,8 @@ namespace ScriptCanvasBuilder
         input.response->m_outputProducts.push_back(AZStd::move(jobProduct));
 
         const AZ::Data::AssetId scriptAssetId(input.assetID.m_guid, jobProduct.m_productSubID);
-        const AZ::Data::Asset<AZ::ScriptAsset> scriptAsset(scriptAssetId, jobProduct.m_productAssetType, {});
+        AZ::Data::Asset<AZ::ScriptAsset> scriptAsset(scriptAssetId, jobProduct.m_productAssetType, {});
+        scriptAsset.SetAutoLoadBehavior(AZ::Data::AssetLoadBehavior::PreLoad);
         input.runtimeDataOut.m_script = scriptAsset;
 
         const ScriptCanvas::OrderedDependencies& orderedDependencies = translationResult.m_model->GetOrderedDependencies();
@@ -500,13 +501,15 @@ namespace ScriptCanvasBuilder
         for (const auto& subgraphAssetID : orderedDependencies.orderedAssetIds)
         {
             const AZ::Data::AssetId dependentSubgraphAssetID(subgraphAssetID.m_guid, AZ_CRC("RuntimeData", 0x163310ae));
-            const AZ::Data::Asset<ScriptCanvas::RuntimeAsset> subgraphAsset(dependentSubgraphAssetID, azrtti_typeid<ScriptCanvas::RuntimeAsset>(), {});
+            AZ::Data::Asset<ScriptCanvas::RuntimeAsset> subgraphAsset(dependentSubgraphAssetID, azrtti_typeid<ScriptCanvas::RuntimeAsset>(), {});
+            subgraphAsset.SetAutoLoadBehavior(AZ::Data::AssetLoadBehavior::PreLoad);
             input.runtimeDataOut.m_requiredAssets.push_back(subgraphAsset);
         }
 
         for (const auto& scriptEventAssetID : dependencyReport.scriptEventsAssetIds)
         {
-            const AZ::Data::Asset<ScriptEvents::ScriptEventsAsset> subgraphAsset(scriptEventAssetID, azrtti_typeid<ScriptEvents::ScriptEventsAsset>(), {});
+            AZ::Data::Asset<ScriptEvents::ScriptEventsAsset> subgraphAsset(scriptEventAssetID, azrtti_typeid<ScriptEvents::ScriptEventsAsset>(), {});
+            subgraphAsset.SetAutoLoadBehavior(AZ::Data::AssetLoadBehavior::PreLoad);
             input.runtimeDataOut.m_requiredScriptEvents.push_back(subgraphAsset);
         }
 

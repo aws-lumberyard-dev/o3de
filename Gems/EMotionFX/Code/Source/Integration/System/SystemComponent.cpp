@@ -10,6 +10,7 @@
 #include <AzCore/Component/TransformBus.h>
 #include <AzCore/Serialization/SerializeContext.h>
 #include <AzCore/Serialization/EditContext.h>
+#include <AzCore/Settings/SettingsRegistryMergeUtils.h>
 #include <AzCore/RTTI/BehaviorContext.h>
 #include <AzCore/Utils/Utils.h>
 
@@ -400,17 +401,16 @@ namespace EMotionFX
                 behaviorContext->EBus<SystemNotificationBus>("SystemNotificationBus")
                 ;
 
-                // In order for a property to be displayed in ScriptCanvas. Both a setter and a getter are necessary(both must be non-null).
-                // This is being worked on in dragon branch, once this is complete the dummy lambda functions can be removed.
+                // In order for a property to be displayed in ScriptCanvas.
                 behaviorContext->Class<MotionEvent>("MotionEvent")
-                    ->Property("entityId", BehaviorValueGetter(&MotionEvent::m_entityId), [](MotionEvent*, const AZ::EntityId&) {})
-                    ->Property("parameter", BehaviorValueGetter(&MotionEvent::m_parameter), [](MotionEvent*, const char*) {})
-                    ->Property("eventType", BehaviorValueGetter(&MotionEvent::m_eventType), [](MotionEvent*, const AZ::u32&) {})
-                    ->Property("eventTypeName", BehaviorValueGetter(&MotionEvent::m_eventTypeName), [](MotionEvent*, const char*) {})
-                    ->Property("time", BehaviorValueGetter(&MotionEvent::m_time), [](MotionEvent*, const float&) {})
-                    ->Property("globalWeight", BehaviorValueGetter(&MotionEvent::m_globalWeight), [](MotionEvent*, const float&) {})
-                    ->Property("localWeight", BehaviorValueGetter(&MotionEvent::m_localWeight), [](MotionEvent*, const float&) {})
-                    ->Property("isEventStart", BehaviorValueGetter(&MotionEvent::m_isEventStart), [](MotionEvent*, const bool&) {})
+                    ->Property("entityId", BehaviorValueGetter(&MotionEvent::m_entityId), nullptr)
+                    ->Property("parameter", BehaviorValueGetter(&MotionEvent::m_parameter), nullptr)
+                    ->Property("eventType", BehaviorValueGetter(&MotionEvent::m_eventType), nullptr)
+                    ->Property("eventTypeName", BehaviorValueGetter(&MotionEvent::m_eventTypeName), nullptr)
+                    ->Property("time", BehaviorValueGetter(&MotionEvent::m_time), nullptr)
+                    ->Property("globalWeight", BehaviorValueGetter(&MotionEvent::m_globalWeight), nullptr)
+                    ->Property("localWeight", BehaviorValueGetter(&MotionEvent::m_localWeight), nullptr)
+                    ->Property("isEventStart", BehaviorValueGetter(&MotionEvent::m_isEventStart), nullptr)
                 ;
 
                 behaviorContext->EBus<ActorNotificationBus>("ActorNotificationBus")
@@ -828,7 +828,15 @@ namespace EMotionFX
             using namespace AzToolsFramework;
 
             // Construct data folder that is used by the tool for loading assets (images etc.).
-            auto editorAssetsPath = (AZ::IO::FixedMaxPath(AZ::Utils::GetEnginePath()) / "Gems/EMotionFX/Assets/Editor").LexicallyNormal();
+            using FixedValueString = AZ::SettingsRegistryInterface::FixedValueString;
+            auto settingsRegistry = AZ::SettingsRegistry::Get();
+            AZ::IO::FixedMaxPath editorAssetsPath;
+            if (settingsRegistry && settingsRegistry->Get(editorAssetsPath.Native(),
+                FixedValueString::format("%s/EMotionFX/Path",AZ::SettingsRegistryMergeUtils::ManifestGemsRootKey)))
+            {
+                editorAssetsPath /= "Assets/Editor";
+                editorAssetsPath = editorAssetsPath.LexicallyNormal();
+            }
 
             // Re-initialize EMStudio.
             int argc = 0;

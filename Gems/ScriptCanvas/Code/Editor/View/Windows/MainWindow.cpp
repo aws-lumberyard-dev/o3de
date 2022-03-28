@@ -513,7 +513,6 @@ namespace ScriptCanvasEditor
         m_editorToolbar->AddCustomAction(m_createFunctionOutput);
         connect(m_createFunctionOutput, &QToolButton::clicked, this, &MainWindow::CreateFunctionOutput);
 
-
         {
             m_validateGraphToolButton = new QToolButton();
             m_validateGraphToolButton->setToolTip("Will run a validation check on the current graph and report any warnings/errors discovered.");
@@ -522,6 +521,18 @@ namespace ScriptCanvasEditor
         }
 
         m_editorToolbar->AddCustomAction(m_validateGraphToolButton);
+
+        // Screenshot
+        {
+            m_takeScreenshot = new QToolButton();
+            m_takeScreenshot->setToolTip("Captures a full resolution screenshot of the entire graph or selected nodes into the clipboard");
+            m_takeScreenshot->setIcon(QIcon(":/ScriptCanvasEditorResources/Resources/scriptcanvas_screenshot.png"));
+            m_takeScreenshot->setEnabled(false);
+        }
+
+        m_editorToolbar->AddCustomAction(m_takeScreenshot);
+        connect(m_takeScreenshot, &QToolButton::clicked, this, &MainWindow::OnScreenshot);
+
 
         connect(m_validateGraphToolButton, &QToolButton::clicked, this, &MainWindow::OnValidateCurrentGraph);
 
@@ -1136,23 +1147,23 @@ namespace ScriptCanvasEditor
             return AZ::Success(outTabIndex);
         }
 
-        auto loadedGraph = LoadFromFile(fileAssetId.Path().c_str());
-        if (!loadedGraph.IsSuccess())
+        auto loadedGraphOutcome = LoadFromFile(fileAssetId.Path().c_str());
+        if (!loadedGraphOutcome.IsSuccess())
         {
-            return AZ::Failure(AZStd::string("Failed to load graph at %s", fileAssetId.Path().c_str()));
+            return AZ::Failure(AZStd::string::format("Failed to load graph at %s", fileAssetId.Path().c_str()));
         }
 
-        outTabIndex = CreateAssetTab(loadedGraph.GetValue(), fileState);
+        AZ_Warning("ScriptCanvas", loadedGraphOutcome.GetValue().deserializationErrors.empty()
+            , "ScriptCanvas graph loaded with skippable errors: %s", loadedGraphOutcome.GetValue().deserializationErrors.c_str());
 
-        if (!m_isRestoringWorkspace)
-        {
-            SetActiveAsset(loadedGraph.GetValue());
-        }
+        auto loadedGraph = loadedGraphOutcome.GetValue().handle;
+        CompleteDescriptionInPlace(loadedGraph);
+        outTabIndex = CreateAssetTab(loadedGraph, fileState);
 
         if (outTabIndex >= 0)
         {
-            AddRecentFile(loadedGraph.GetValue().Path().c_str());
-            OpenScriptCanvasAssetImplementation(loadedGraph.GetValue(), fileState);
+            AddRecentFile(loadedGraph.Path().c_str());
+            OpenScriptCanvasAssetImplementation(loadedGraph, fileState);
             return AZ::Success(outTabIndex);
         }
         else
@@ -1167,6 +1178,11 @@ namespace ScriptCanvasEditor
         if (!fileAssetId.IsDescriptionValid())
         {
             return AZ::Failure(AZStd::string("Unable to open asset with invalid asset id"));
+        }
+
+        if (!m_isRestoringWorkspace)
+        {
+            SetActiveAsset(scriptCanvasAsset);
         }
 
         if (!scriptCanvasAsset.IsDescriptionValid())
@@ -1342,17 +1358,24 @@ namespace ScriptCanvasEditor
             return;
         }
 
-        AZ::Outcome<ScriptCanvasEditor::SourceHandle, AZStd::string> outcome = LoadFromFile(fullPath);
+        auto outcome = LoadFromFile(fullPath);
         if (!outcome.IsSuccess())
         {
-            QMessageBox::warning(this, "Invalid Source File", QString("'%1' failed to load properly.").arg(fullPath), QMessageBox::Ok);
+            QMessageBox::warning(this, "Invalid Source File"
+                , QString("'%1' failed to load properly.\nFailure: %2").arg(fullPath).arg(outcome.GetError().c_str()), QMessageBox::Ok);
             m_errorFilePath = fullPath;
-            AZ_Warning("ScriptCanvas", false, "Unable to open file as a ScriptCanvas graph: %s", fullPath);
+            AZ_Warning("ScriptCanvas", false, "Unable to open file as a ScriptCanvas graph: %s. Failure: %s"
+                , fullPath, outcome.GetError().c_str());
             return;
+        }
+        else
+        {
+            AZ_Warning("ScriptCanvas", outcome.GetValue().deserializationErrors.empty()
+                , "File loaded succesfully with deserialiation errors: %s", outcome.GetValue().deserializationErrors.c_str());
         }
 
         m_errorFilePath.clear();
-        auto activeGraph = ScriptCanvasEditor::SourceHandle(outcome.TakeValue(), assetInfo.m_assetId.m_guid, fullPath);
+        auto activeGraph = ScriptCanvasEditor::SourceHandle(outcome.GetValue().handle, assetInfo.m_assetId.m_guid, fullPath);
         
         auto openOutcome = OpenScriptCanvasAsset(activeGraph, Tracker::ScriptCanvasFileState::UNMODIFIED);
         if (openOutcome)
@@ -1541,7 +1564,7 @@ namespace ScriptCanvasEditor
     {
         int outTabIndex = -1;
 
-        ScriptCanvas::DataPtr graph = Graph::Create();
+        ScriptCanvas::DataPtr graph = EditorGraph::Create();
         AZ::Uuid assetId = AZ::Uuid::CreateRandom();
         ScriptCanvasEditor::SourceHandle handle = ScriptCanvasEditor::SourceHandle(graph, assetId, assetPath);
 
@@ -1596,7 +1619,14 @@ namespace ScriptCanvasEditor
 
     bool MainWindow::OnFileSave()
     {
-        return SaveAssetImpl(m_activeGraph, Save::InPlace);
+        if (auto metaData = m_tabBar->GetTabData(m_activeGraph); metaData && metaData->m_fileState == Tracker::ScriptCanvasFileState::NEW)
+        {
+            return SaveAssetImpl(m_activeGraph, Save::As);
+        }
+        else
+        {
+            return SaveAssetImpl(m_activeGraph, Save::InPlace);
+        }
     }
 
     bool MainWindow::OnFileSaveAs()
@@ -3200,6 +3230,7 @@ namespace ScriptCanvasEditor
 
         m_createFunctionOutput->setEnabled(enabled);
         m_createFunctionInput->setEnabled(enabled);
+        m_takeScreenshot->setEnabled(enabled);
 
         // File Menu
         ui->action_Close->setEnabled(enabled);
@@ -3862,7 +3893,13 @@ namespace ScriptCanvasEditor
         contextMenu.AddMenuAction(aznew ConvertReferenceToVariableNodeAction(&contextMenu));
         contextMenu.AddMenuAction(aznew ExposeSlotMenuAction(&contextMenu));
         contextMenu.AddMenuAction(aznew CreateAzEventHandlerSlotMenuAction(&contextMenu));
-        contextMenu.AddMenuAction(aznew SetDataSlotTypeMenuAction(&contextMenu));
+
+        auto setSlotTypeAction = aznew SetDataSlotTypeMenuAction(&contextMenu);
+        // Changing slot type is disabled temporarily because now that that user data slots are correctly coordinated with their reference
+        // variables, their type cannot be changed. The next change will allow all variables to change their type post creation, and then
+        // that will allow this action to be enabled.
+        setSlotTypeAction->setEnabled(false);
+        contextMenu.AddMenuAction(setSlotTypeAction);
 
         return HandleContextMenu(contextMenu, slotId, screenPoint, scenePoint);
     }
