@@ -502,12 +502,10 @@ namespace ScriptCanvasEditor
             return false;
         }
 
-        // Do node replace with custom logic if there is any
-        // If it fails, fall back to same topology replacement check
-        bool customReplacementResult = SanityCheckNodeReplacementWithCustomLogic(oldNode, newNode, nodeUpdateSlotReport);
-        bool sameTopologyReplacementResult = SanityCheckNodeReplacementWithSameTopology(oldNode, newNode, nodeUpdateSlotReport);
-
-        return customReplacementResult || sameTopologyReplacementResult;
+        // Do node replace with custom logic first if there is any
+        // If it fails, fall back to replace based on same topology
+        return SanityCheckNodeReplacementWithCustomLogic(oldNode, newNode, nodeUpdateSlotReport) ||
+            SanityCheckNodeReplacementWithSameTopology(oldNode, newNode, nodeUpdateSlotReport);
     }
 
     bool EditorGraph::SanityCheckNodeReplacementWithCustomLogic(
@@ -662,6 +660,10 @@ namespace ScriptCanvasEditor
         findTopologyMatch(oldNode->GetSlotsByType(ScriptCanvas::CombinedSlotType::ExecutionIn),
                           newNode->GetSlotsByType(ScriptCanvas::CombinedSlotType::ExecutionIn));
 
+        // LatentOut slots map
+        findTopologyMatch(oldNode->GetSlotsByType(ScriptCanvas::CombinedSlotType::LatentOut),
+                          newNode->GetSlotsByType(ScriptCanvas::CombinedSlotType::LatentOut));
+
         // ExecutionOut slots map
         findTopologyMatch(oldNode->GetSlotsByType(ScriptCanvas::CombinedSlotType::ExecutionOut),
                           newNode->GetSlotsByType(ScriptCanvas::CombinedSlotType::ExecutionOut));
@@ -673,6 +675,7 @@ namespace ScriptCanvasEditor
         // DataOut slots map
         findTopologyMatch(oldNode->GetSlotsByType(ScriptCanvas::CombinedSlotType::DataOut),
                           newNode->GetSlotsByType(ScriptCanvas::CombinedSlotType::DataOut));
+
 
         if (oldSlotsToNewSlots.size() != oldNode->GetAllSlots().size())
         {
