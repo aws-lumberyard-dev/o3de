@@ -65,6 +65,8 @@ set(FILES
     Source/Components/AwsHeightmapComponent.h
     Source/Components/CoordinateMapperComponent.cpp
     Source/Components/CoordinateMapperComponent.h
+    Source/Components/MacroColorFalloffGradientComponent.cpp
+    Source/Components/MacroColorFalloffGradientComponent.h
     Source/TerrainRenderer/Components/TerrainMapboxMacroMaterialComponent.cpp
     Source/TerrainRenderer/Components/TerrainMapboxMacroMaterialComponent.h
 )

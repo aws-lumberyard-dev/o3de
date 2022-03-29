@@ -80,6 +80,7 @@ namespace Terrain
         bool WriteOutConfig(AZ::ComponentConfig* outBaseConfig) const override;
 
         MacroMaterialData GetTerrainMacroMaterialData() override;
+        void GetTerrainMacroMaterialColorData(uint32_t& width, uint32_t& height, AZStd::vector<AZ::Color>& pixels) override;
 
     private:
         //////////////////////////////////////////////////////////////////////////
@@ -104,6 +105,11 @@ namespace Terrain
         AZStd::vector<uint32_t> m_cachedPixels;
         int m_cachedPixelsHeight = 0;
         int m_cachedPixelsWidth = 0;
+
+        uint32_t m_macroPixelHeight = 0;
+        uint32_t m_macroPixelWidth = 0;
+        uint32_t m_macroXPixelLeft = 0;
+        uint32_t m_macroYPixelTop = 0;
 
         void DownloadSatelliteImage();
         AZ::Job* DownloadAndStitchSatelliteImage(const AZStd::string& url, int tileStartX, int tileStartY, int stitchStartX, int stitchStartY);

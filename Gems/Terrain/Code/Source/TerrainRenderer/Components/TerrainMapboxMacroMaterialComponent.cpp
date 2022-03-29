@@ -315,6 +315,12 @@ namespace Terrain
         uint32_t xPixelLeft = aznumeric_cast<uint32_t>(xTileLeftFrac * tileSize);
         uint32_t yPixelTop = aznumeric_cast<uint32_t>(yTileTopFrac * tileSize);
 
+        // Save off the stats on which portion of our cachedPixel buffer is actually getting used.
+        m_macroPixelHeight = pixelHeight;
+        m_macroPixelWidth = pixelWidth;
+        m_macroXPixelLeft = xPixelLeft;
+        m_macroYPixelTop = yPixelTop;
+
         // Create the initial buffer for the downloaded color data
         const AZ::Data::Instance<AZ::RPI::AttachmentImagePool> imagePool = AZ::RPI::ImageSystemInterface::Get()->GetSystemAttachmentPool();
         AZ::RHI::ImageDescriptor imageDescriptor = AZ::RHI::ImageDescriptor::Create2D(
@@ -526,6 +532,39 @@ namespace Terrain
             }
         }
     }
+
+    void TerrainMapboxMacroMaterialComponent::GetTerrainMacroMaterialColorData(
+        uint32_t& width, uint32_t& height, AZStd::vector<AZ::Color>& pixels)
+    {
+        pixels.clear();
+        width = 0;
+        height = 0;
+
+        if (m_cachedPixels.empty())
+        {
+            return;
+        }
+
+        width = m_macroPixelWidth;
+        height = m_macroPixelHeight;
+
+        pixels.reserve(width * height);
+
+        for (uint32_t y = m_macroYPixelTop; y < (m_macroYPixelTop + height); y++)
+        {
+            for (uint32_t x = m_macroXPixelLeft; x < (m_macroXPixelLeft + width); x++)
+            {
+                uint32_t srcPixel = m_cachedPixels[(y * m_cachedPixelsWidth) + x];
+                AZ::Color pixel(
+                    static_cast<AZ::u8>(srcPixel & 0xFF),
+                    static_cast<AZ::u8>((srcPixel >> 8) & 0xFF),
+                    static_cast<AZ::u8>((srcPixel >> 16) & 0xFF),
+                    static_cast<AZ::u8>((srcPixel >> 24) & 0xFF));
+                pixels.push_back(pixel);
+            }
+        }
+    }
+
 
 } // namespace Terrain
 

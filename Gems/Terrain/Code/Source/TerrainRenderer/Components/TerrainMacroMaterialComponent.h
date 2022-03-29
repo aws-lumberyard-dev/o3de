@@ -67,6 +67,7 @@ namespace Terrain
         bool WriteOutConfig(AZ::ComponentConfig* outBaseConfig) const override;
 
         MacroMaterialData GetTerrainMacroMaterialData() override;
+        void GetTerrainMacroMaterialColorData(uint32_t& width, uint32_t& height, AZStd::vector<AZ::Color>& pixels) override;
 
     private:
         ////////////////////////////////////////////////////////////////////////

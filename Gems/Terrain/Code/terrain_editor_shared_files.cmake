@@ -38,6 +38,8 @@ set(FILES
     Source/EditorComponents/EditorAwsHeightmapComponent.h
     Source/EditorComponents/EditorCoordinateMapperComponent.cpp
     Source/EditorComponents/EditorCoordinateMapperComponent.h
+    Source/EditorComponents/EditorMacroColorFalloffGradientComponent.cpp
+    Source/EditorComponents/EditorMacroColorFalloffGradientComponent.h
     Source/TerrainRenderer/EditorComponents/EditorTerrainMapboxMacroMaterialComponent.cpp
     Source/TerrainRenderer/EditorComponents/EditorTerrainMapboxMacroMaterialComponent.h
 )

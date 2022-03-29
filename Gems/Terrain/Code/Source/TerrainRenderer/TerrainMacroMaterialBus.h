@@ -50,6 +50,8 @@ namespace Terrain
 
         // Get the terrain macro material and the region that it covers.
         virtual MacroMaterialData GetTerrainMacroMaterialData() = 0;
+
+        virtual void GetTerrainMacroMaterialColorData(uint32_t& width, uint32_t& height, AZStd::vector<AZ::Color>& pixels) = 0;
     };
 
     using TerrainMacroMaterialRequestBus = AZ::EBus<TerrainMacroMaterialRequests>;

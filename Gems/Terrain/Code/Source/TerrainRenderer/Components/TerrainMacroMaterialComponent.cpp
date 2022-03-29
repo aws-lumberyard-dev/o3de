@@ -17,6 +17,7 @@
 #include <AzCore/Serialization/SerializeContext.h>
 
 #include <Atom/RPI.Public/Image/StreamingImage.h>
+#include <Atom/RPI.Public/RPIUtils.h>
 
 namespace Terrain
 {
@@ -289,4 +290,58 @@ namespace Terrain
 
         return macroMaterial;
     }
+
+    void TerrainMacroMaterialComponent::GetTerrainMacroMaterialColorData(
+        uint32_t& width, uint32_t& height, AZStd::vector<AZ::Color>& pixels)
+    {
+        pixels.clear();
+        width = 0;
+        height = 0;
+
+        if (!m_colorImage || !m_colorImage->IsInitialized())
+        {
+            return;
+        }
+
+        auto assetId = m_colorImage->GetAssetId();
+        auto assetType = m_colorImage->GetAssetType();
+        auto macroImageAsset = AZ::Data::AssetManager::Instance().GetAsset(assetId, assetType, AZ::Data::AssetLoadBehavior::Default);
+        macroImageAsset.BlockUntilLoadComplete();
+
+        if (macroImageAsset.IsReady())
+        {
+            if (auto imageAsset = macroImageAsset.GetAs<AZ::RPI::StreamingImageAsset>(); imageAsset)
+            {
+                auto imageData = imageAsset->GetSubImageData(0, 0);
+
+                if (!imageData.empty())
+                {
+                    AZ::RHI::Format format = imageAsset->GetImageDescriptor().m_format;
+                    const auto numComponents = AZ::RHI::GetFormatComponentCount(format);
+
+                    const AZ::RHI::ImageDescriptor& imageDescriptor = imageAsset->GetImageDescriptor();
+                    width = imageDescriptor.m_size.m_width;
+                    height = imageDescriptor.m_size.m_height;
+
+                    pixels.reserve(width * height);
+
+                    for (uint32_t y = 0; y < height; y++)
+                    {
+                        for (uint32_t x = 0; x < width; x++)
+                        {
+                            AZ::Color pixel;
+
+                            for (uint8_t channel = 0; channel < numComponents; channel++)
+                            {
+                                float pixelValue = AZ::RPI::GetImageDataPixelValue<float>(imageData, imageDescriptor, x, y, channel);
+                                pixel.SetElement(channel, pixelValue);
+                            }
+                            pixels.push_back(pixel);
+                        }
+                    }
+                }
+            }
+        }
+    }
+
 }
