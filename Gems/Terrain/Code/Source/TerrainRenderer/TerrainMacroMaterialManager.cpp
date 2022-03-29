@@ -106,6 +106,12 @@ namespace Terrain
     
     void TerrainMacroMaterialManager::OnTerrainMacroMaterialCreated(AZ::EntityId entityId, const MacroMaterialData& newMaterialData)
     {
+        // We're going to rebuild everything anyways, so don't do any work here.
+        if (m_terrainSizeChanged)
+        {
+            return;
+        }
+
         AZ_Assert(!m_macroMaterials.contains(entityId),
             "OnTerrainMacroMaterialCreated called for a macro material that already exists. This indicates that either the bus is incorrectly sending out "
             "OnCreated announcements for existing materials, or the terrain feature processor isn't properly cleaning up macro materials.");
@@ -142,7 +148,14 @@ namespace Terrain
 
     void TerrainMacroMaterialManager::OnTerrainMacroMaterialChanged(AZ::EntityId entityId, const MacroMaterialData& newMaterialData)
     {
-        AZ_Assert(m_macroMaterials.contains(entityId),
+        // We're going to rebuild everything anyways, so don't do any work here.
+        if (m_terrainSizeChanged)
+        {
+            return;
+        }
+
+        AZ_Assert(
+            m_macroMaterials.contains(entityId),
             "OnTerrainMacroMaterialChanged called for a macro material that TerrainFeatureProcessor isn't tracking. This indicates that either the bus is sending out "
             "Changed announcements for materials that haven't had a OnCreated event sent, or the terrain feature processor isn't properly tracking macro materials.");
         
@@ -199,7 +212,14 @@ namespace Terrain
     void TerrainMacroMaterialManager::OnTerrainMacroMaterialRegionChanged(
         AZ::EntityId entityId, [[maybe_unused]] const AZ::Aabb& oldRegion, const AZ::Aabb& newRegion)
     {
-        AZ_Assert(m_macroMaterials.contains(entityId),
+        // We're going to rebuild everything anyways, so don't do any work here.
+        if (m_terrainSizeChanged)
+        {
+            return;
+        }
+
+        AZ_Assert(
+            m_macroMaterials.contains(entityId),
             "OnTerrainMacroMaterialChanged called for a macro material that TerrainFeatureProcessor isn't tracking. This indicates that either the bus is sending out "
             "Changed announcements for materials that haven't had a OnCreated event sent, or the terrain feature processor isn't properly tracking macro materials.");
         
@@ -250,7 +270,14 @@ namespace Terrain
 
     void TerrainMacroMaterialManager::OnTerrainMacroMaterialDestroyed(AZ::EntityId entityId)
     {
-        AZ_Assert(m_macroMaterials.contains(entityId),
+        // We're going to rebuild everything anyways, so don't do any work here.
+        if (m_terrainSizeChanged)
+        {
+            return;
+        }
+
+        AZ_Assert(
+            m_macroMaterials.contains(entityId),
             "OnTerrainMacroMaterialChanged called for a macro material that TerrainFeatureProcessor isn't tracking. This indicates that either the bus is sending out "
             "Changed announcements for materials that haven't had a OnCreated event sent, or the terrain feature processor isn't properly tracking macro materials.");
         
