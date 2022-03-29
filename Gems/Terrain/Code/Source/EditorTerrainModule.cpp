@@ -21,6 +21,7 @@
 #include <EditorComponents/EditorAwsHeightmapComponent.h>
 #include <EditorComponents/EditorCoordinateMapperComponent.h>
 #include <EditorComponents/EditorMacroColorFalloffGradientComponent.h>
+#include <TerrainRenderer/EditorComponents/EditorTerrainGradientMacroMaterialComponent.h>
 #include <TerrainRenderer/EditorComponents/EditorTerrainMapboxMacroMaterialComponent.h>
 
 namespace Terrain
@@ -44,6 +45,7 @@ namespace Terrain
                 Terrain::EditorAwsHeightmapComponent::CreateDescriptor(),
                 Terrain::EditorCoordinateMapperComponent::CreateDescriptor(),
                 GradientSignal::EditorMacroColorFalloffGradientComponent::CreateDescriptor(),
+                Terrain::EditorTerrainGradientMacroMaterialComponent::CreateDescriptor(),
                 Terrain::EditorTerrainMapboxMacroMaterialComponent::CreateDescriptor(),
 
             });

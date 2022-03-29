@@ -25,6 +25,7 @@
 #include <Components/AwsHeightmapComponent.h>
 #include <Components/CoordinateMapperComponent.h>
 #include <Components/MacroColorFalloffGradientComponent.h>
+#include <TerrainRenderer/Components/TerrainGradientMacroMaterialComponent.h>
 #include <TerrainRenderer/Components/TerrainMapboxMacroMaterialComponent.h>
 
 namespace Terrain
@@ -48,6 +49,7 @@ namespace Terrain
                 AwsHeightmapComponent::CreateDescriptor(),
                 CoordinateMapperComponent::CreateDescriptor(),
                 GradientSignal::MacroColorFalloffGradientComponent::CreateDescriptor(),
+                TerrainGradientMacroMaterialComponent::CreateDescriptor(),
                 TerrainMapboxMacroMaterialComponent::CreateDescriptor(),
             });
     }

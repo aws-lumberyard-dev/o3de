@@ -67,6 +67,8 @@ set(FILES
     Source/Components/CoordinateMapperComponent.h
     Source/Components/MacroColorFalloffGradientComponent.cpp
     Source/Components/MacroColorFalloffGradientComponent.h
+    Source/TerrainRenderer/Components/TerrainGradientMacroMaterialComponent.cpp
+    Source/TerrainRenderer/Components/TerrainGradientMacroMaterialComponent.h
     Source/TerrainRenderer/Components/TerrainMapboxMacroMaterialComponent.cpp
     Source/TerrainRenderer/Components/TerrainMapboxMacroMaterialComponent.h
 )
