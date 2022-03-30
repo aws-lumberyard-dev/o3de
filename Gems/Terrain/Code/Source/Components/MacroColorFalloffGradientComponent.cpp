@@ -28,9 +28,9 @@ namespace GradientSignal
         if (serialize)
         {
             serialize->Class<MacroColorFalloffGradientConfig, AZ::ComponentConfig>()
-                ->Version(1)
+                ->Version(2)
                 ->Field("MacroColorEntityId", &MacroColorFalloffGradientConfig::m_macroColorEntityId)
-                ->Field("FalloffColor", &MacroColorFalloffGradientConfig::m_falloffColor)
+                ->Field("FalloffColors", &MacroColorFalloffGradientConfig::m_falloffColors)
                 ->Field("FalloffStartDistance", &MacroColorFalloffGradientConfig::m_falloffStartDistance)
                 ->Field("FalloffEndDistance", &MacroColorFalloffGradientConfig::m_falloffEndDistance)
                 ;
@@ -48,8 +48,8 @@ namespace GradientSignal
                         "Entity with macro color component to get source color from.")
                     ->Attribute(AZ::Edit::Attributes::RequiredService, AZ_CRC_CE("TerrainMacroMaterialProviderService"))
                     ->DataElement(
-                        AZ::Edit::UIHandlers::Default, &MacroColorFalloffGradientConfig::m_falloffColor, "Falloff Color",
-                        "Color to compute falloff from.")
+                        AZ::Edit::UIHandlers::Default, &MacroColorFalloffGradientConfig::m_falloffColors, "Falloff Colors",
+                        "Colors to compute falloff from.")
                     ->DataElement(
                         AZ::Edit::UIHandlers::Slider, &MacroColorFalloffGradientConfig::m_falloffStartDistance, "Falloff Start Distance",
                         "Falloff start. Everything closer to the color than this will go to 1 in the gradient.")
@@ -198,17 +198,23 @@ namespace GradientSignal
                     // Flip the y because images are stored in reverse of our world axes
                     y = (height - 1) - y;
 
-                    float distanceSquared = 0.0f;
-
-                    uint8_t numComponents = 4;
-                    for (uint8_t channel = 0; channel < numComponents; channel++)
+                    float minDistanceSquared = 1.0f;
+                    for (auto& falloffColor : m_configuration.m_falloffColors)
                     {
-                        float pixel = m_macroColorPixels[y * width + x].GetElement(channel);
-                        float channelDist = (m_configuration.m_falloffColor.GetElement(channel) - pixel);
-                        distanceSquared += channelDist * channelDist;
+                        float distanceSquared = 0.0f;
+
+                        // Compute RGB distance
+                        const uint8_t numComponents = 3;
+                        for (uint8_t channel = 0; channel < numComponents; channel++)
+                        {
+                            float pixel = m_macroColorPixels[y * width + x].GetElement(channel);
+                            float channelDist = (falloffColor.GetElement(channel) - pixel);
+                            distanceSquared += channelDist * channelDist;
+                        }
+                        minDistanceSquared = AZStd::min(minDistanceSquared, distanceSquared);
                     }
 
-                    float distance = sqrtf(distanceSquared);
+                    float distance = sqrtf(minDistanceSquared);
                     outValues[index] = (distance - m_configuration.m_falloffStartDistance) /
                         (m_configuration.m_falloffEndDistance - m_configuration.m_falloffStartDistance);
                     outValues[index] = 1.0f - AZ::GetClamp(outValues[index], 0.0f, 1.0f);

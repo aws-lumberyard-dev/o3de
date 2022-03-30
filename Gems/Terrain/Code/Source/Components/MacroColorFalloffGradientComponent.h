@@ -33,9 +33,9 @@ namespace GradientSignal
         static void Reflect(AZ::ReflectContext* context);
 
         AZ::EntityId m_macroColorEntityId;
-        AZ::Color m_falloffColor = AZ::Color::CreateOne();
-        float m_falloffStartDistance = 0.0f;
-        float m_falloffEndDistance = 0.55f;
+        AZStd::vector<AZ::Color> m_falloffColors;
+        float m_falloffStartDistance = 0.05f;
+        float m_falloffEndDistance = 0.10f;
     };
 
     static const AZ::Uuid MacroColorFalloffGradientComponentTypeId = "{7557062C-09A8-497C-94FA-FD00406619B1}";
