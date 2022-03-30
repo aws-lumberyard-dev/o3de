@@ -36,16 +36,14 @@ namespace Terrain
         static void Reflect(AZ::ReflectContext* context);
 
         TerrainGradientColorMapping() = default;
-        TerrainGradientColorMapping(const AZ::EntityId& maskEntityId, const AZ::EntityId& variationEntityId, const AZ::Color& color1, const AZ::Color& color2)
+        TerrainGradientColorMapping(const AZ::EntityId& maskEntityId, const AZ::Color& color1, const AZ::Color& color2)
             : m_maskEntityId(maskEntityId)
-            , m_variationEntityId(variationEntityId)
             , m_color1(color1)
             , m_color2(color2)
         {
         }
 
         AZ::EntityId m_maskEntityId;
-        AZ::EntityId m_variationEntityId;
         AZ::Color m_color1;
         AZ::Color m_color2;
     };
@@ -60,6 +58,7 @@ namespace Terrain
         static void Reflect(AZ::ReflectContext* context);
 
         AZ::Vector2 m_imageResolution;
+        AZ::EntityId m_variationEntityId;
         AZStd::vector<TerrainGradientColorMapping> m_gradientColorMappings;
     };
 

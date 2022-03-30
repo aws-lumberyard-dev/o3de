@@ -16,6 +16,11 @@
 #include <AzCore/Serialization/EditContext.h>
 #include <AzCore/Serialization/SerializeContext.h>
 
+#include <AzCore/Jobs/JobCompletion.h>
+#include <AzCore/Jobs/JobContext.h>
+#include <AzCore/Jobs/JobFunction.h>
+#include <AzCore/Jobs/JobManagerBus.h>
+
 #include <Atom/RPI.Public/Image/StreamingImage.h>
 #include <Atom/RPI.Public/Image/ImageSystemInterface.h>
 #include <Atom/RPI.Public/Image/AttachmentImagePool.h>
@@ -38,7 +43,6 @@ namespace Terrain
                 ->Field("Color1", &TerrainGradientColorMapping::m_color1)
                 ->Field("Color2", &TerrainGradientColorMapping::m_color2)
                 ->Field("Mask Gradient", &TerrainGradientColorMapping::m_maskEntityId)
-                ->Field("Color Variation Gradient", &TerrainGradientColorMapping::m_variationEntityId)
                 ;
 
             if (auto edit = serialize->GetEditContext())
@@ -63,13 +67,6 @@ namespace Terrain
                     ->UIElement("GradientPreviewer", "Previewer")
                     ->Attribute(AZ::Edit::Attributes::NameLabelOverride, "")
                     ->Attribute(AZ_CRC_CE("GradientEntity"), &TerrainGradientColorMapping::m_maskEntityId)
-                    ->DataElement(
-                        AZ::Edit::UIHandlers::Default, &TerrainGradientColorMapping::m_variationEntityId, "Color Variation Gradient",
-                        "Entity that provides a gradient that determines the blend between the two colors.")
-                    ->Attribute(AZ::Edit::Attributes::ChangeNotify, AZ::Edit::PropertyRefreshLevels::AttributesAndValues)
-                    ->UIElement("GradientPreviewer", "Previewer")
-                    ->Attribute(AZ::Edit::Attributes::NameLabelOverride, "")
-                    ->Attribute(AZ_CRC_CE("GradientEntity"), &TerrainGradientColorMapping::m_variationEntityId)
                     ;
             }
         }
@@ -83,6 +80,7 @@ namespace Terrain
         {
             serialize->Class<TerrainGradientMacroMaterialConfig, AZ::ComponentConfig>()
                 ->Version(1)
+                ->Field("Color Variation Gradient", &TerrainGradientMacroMaterialConfig::m_variationEntityId)
                 ->Field("Image Resolution", &TerrainGradientMacroMaterialConfig::m_imageResolution)
                 ->Field("Gradient Color Mappings", &TerrainGradientMacroMaterialConfig::m_gradientColorMappings)
                 ;
@@ -96,6 +94,13 @@ namespace Terrain
                     ->Attribute(AZ::Edit::Attributes::Visibility, AZ::Edit::PropertyVisibility::ShowChildrenOnly)
                     ->Attribute(AZ::Edit::Attributes::AutoExpand, true)
 
+                    ->UIElement("GradientPreviewer", "Previewer")
+                        ->Attribute(AZ::Edit::Attributes::NameLabelOverride, "")
+                        ->Attribute(AZ_CRC_CE("GradientEntity"), &TerrainGradientMacroMaterialConfig::m_variationEntityId)
+                    ->DataElement(
+                        AZ::Edit::UIHandlers::Default, &TerrainGradientMacroMaterialConfig::m_variationEntityId, "Color Variation Gradient",
+                        "Entity that provides a gradient that determines the blend between the two colors.")
+                        ->Attribute(AZ::Edit::Attributes::ChangeNotify, AZ::Edit::PropertyRefreshLevels::AttributesAndValues)
                     ->DataElement(
                         AZ::Edit::UIHandlers::Default, &TerrainGradientMacroMaterialConfig::m_imageResolution,
                         "Image Resolution", "Number of pixels in the generated image.")
@@ -155,20 +160,21 @@ namespace Terrain
             m_cachedShapeBounds, GetEntityId(), &LmbrCentral::ShapeComponentRequestsBus::Events::GetEncompassingAabb);
 
         // Make sure we get update notifications whenever this entity or any dependent gradient entity changes in any way.
-        // We'll use that to notify the terrain system that the height information needs to be refreshed.
+        // We'll use that to rebuild our generated macro material.
         m_dependencyMonitor.Reset();
         m_dependencyMonitor.ConnectOwner(GetEntityId());
         m_dependencyMonitor.ConnectDependency(GetEntityId());
+
+        if (m_configuration.m_variationEntityId != GetEntityId())
+        {
+            m_dependencyMonitor.ConnectDependency(m_configuration.m_variationEntityId);
+        }
 
         for (auto& mapping : m_configuration.m_gradientColorMappings)
         {
             if (mapping.m_maskEntityId != GetEntityId())
             {
                 m_dependencyMonitor.ConnectDependency(mapping.m_maskEntityId);
-            }
-            if (mapping.m_variationEntityId != GetEntityId())
-            {
-                m_dependencyMonitor.ConnectDependency(mapping.m_variationEntityId);
             }
         }
 
@@ -354,6 +360,9 @@ namespace Terrain
         AZ::Vector2 stepSize(
             m_cachedShapeBounds.GetXExtent() / m_cachedPixelsWidth, m_cachedShapeBounds.GetYExtent() / m_cachedPixelsHeight);
 
+        // The order of our position list will determine the order in which we fill in pixels in our cached pixel structure.
+        // We invert the y loop because we have a convention in which we want the bottom of the texture to be aligned with the bottom
+        // of world space so that looking in the +x +y direction from 0,0 shows the texture going in the direction we expect.
         for (int y = m_cachedPixelsHeight; y > 0; y--)
         {
             for (int x = 0; x < m_cachedPixelsWidth; x++)
@@ -365,32 +374,23 @@ namespace Terrain
             }
         }
 
-        /*
-        for (float y = m_cachedShapeBounds.GetMin().GetY(); y < m_cachedShapeBounds.GetMax().GetY(); y += stepSize.GetY())
-        {
-            for (float x = m_cachedShapeBounds.GetMin().GetX(); x < m_cachedShapeBounds.GetMax().GetX(); x += stepSize.GetX())
-            {
-                gradientQueryPositions.emplace_back(x, y, m_cachedShapeBounds.GetCenter().GetZ());
-            }
-        }
-        */
+        // Block other threads from accessing the surface data bus while we are in GetValue (which may call into the SurfaceData bus).
+        // This prevents lock inversion deadlocks between this calling Gradient->Surface and something else calling Surface->Gradient.
+        auto& surfaceDataContext = SurfaceData::SurfaceDataSystemRequestBus::GetOrCreateContext(false);
+        typename SurfaceData::SurfaceDataSystemRequestBus::Context::DispatchLockGuard scopeLock(surfaceDataContext.m_contextMutex);
 
         // Get each set of gradient values and use that to create the color to alpha blend into our texture.
 
-        AZStd::vector<float> maskValues(gradientQueryPositions.size());
         AZStd::vector<float> variationValues(gradientQueryPositions.size());
+        GradientSignal::GradientRequestBus::Event(
+            m_configuration.m_variationEntityId, &GradientSignal::GradientRequestBus::Events::GetValues, gradientQueryPositions, variationValues);
+
+        AZStd::vector<float> maskValues(gradientQueryPositions.size());
 
         for (auto& mapping : m_configuration.m_gradientColorMappings)
         {
-            // Block other threads from accessing the surface data bus while we are in GetValue (which may call into the SurfaceData bus).
-            // This prevents lock inversion deadlocks between this calling Gradient->Surface and something else calling Surface->Gradient.
-            auto& surfaceDataContext = SurfaceData::SurfaceDataSystemRequestBus::GetOrCreateContext(false);
-            typename SurfaceData::SurfaceDataSystemRequestBus::Context::DispatchLockGuard scopeLock(surfaceDataContext.m_contextMutex);
-
             GradientSignal::GradientRequestBus::Event(
                 mapping.m_maskEntityId, &GradientSignal::GradientRequestBus::Events::GetValues, gradientQueryPositions, maskValues);
-            GradientSignal::GradientRequestBus::Event(
-                mapping.m_variationEntityId, &GradientSignal::GradientRequestBus::Events::GetValues, gradientQueryPositions, variationValues);
 
             for (uint32_t index = 0; index < m_cachedPixels.size(); index++)
             {
@@ -498,139 +498,6 @@ namespace Terrain
 
 
     /*
-    void TerrainGradientMacroMaterialComponent::DownloadSatelliteImage()
-    {
-        if (!m_cachedShapeBounds.IsValid())
-        {
-            return;
-        }
-
-        // Mapbox raster images requested at 2x are 512 x 512 in size.
-        // https://docs.mapbox.com/api/maps/raster-tiles/#example-request-retrieve-raster-tiles
-        const int tileSize = 512;
-        // Zoom goes from 0-20, but we'll use 15 to align with the terrain height data.
-        // https://github.com/tilezen/joerd/blob/master/docs/use-service.md
-        const int zoom = 15;
-        const int maxCachedPixelSize = 8192;
-
-        // Clamp to a max of 4k x 4k pixels by controlling the number of tiles we load in our grid in each direction.
-        const int maxTilesToLoad = maxCachedPixelSize / tileSize;
-
-        float xTileLeft = 0.0f, yTileTop = 0.0f;
-        float xTileRight = 0.0f, yTileBottom = 0.0f;
-
-        CoordinateMapperRequestBus::Broadcast(
-            &CoordinateMapperRequestBus::Events::ConvertWorldAabbToTileNums, m_cachedShapeBounds, zoom, yTileTop, xTileLeft, yTileBottom,
-            xTileRight);
-
-        if (((xTileRight - xTileLeft) <= 0.0f) && ((yTileBottom - yTileTop) <= 0.0f))
-        {
-            return;
-        }
-
-        // Clamp to a max of 8k x 8k pixels by controlling the number of tiles we load in our grid in each direction.
-        xTileRight = AZStd::GetMin(xTileLeft + maxTilesToLoad, xTileRight);
-        yTileBottom = AZStd::GetMin(yTileTop + maxTilesToLoad, yTileBottom);
-
-        float xTileLeftInt, xTileLeftFrac, xTileRightInt, xTileRightFrac;
-        float yTileTopInt, yTileTopFrac, yTileBottomInt, yTileBottomFrac;
-
-        xTileLeftFrac = modf(xTileLeft, &xTileLeftInt);
-        xTileRightFrac = modf(xTileRight, &xTileRightInt);
-        yTileTopFrac = modf(yTileTop, &yTileTopInt);
-        yTileBottomFrac = modf(yTileBottom, &yTileBottomInt);
-
-        // Create the temp pixel buffer to store all the tile data in
-        m_cachedPixels.clear();
-        m_cachedPixelsHeight = static_cast<int>((yTileBottomInt - yTileTopInt + 1) * tileSize);
-        m_cachedPixelsWidth = static_cast<int>((xTileRightInt - xTileLeftInt + 1) * tileSize);
-        m_cachedPixels.resize(m_cachedPixelsHeight * m_cachedPixelsWidth);
-
-        uint32_t pixelWidth = aznumeric_cast<uint32_t>((xTileRight - xTileLeft) * tileSize);
-        uint32_t pixelHeight = aznumeric_cast<uint32_t>((yTileBottom - yTileTop) * tileSize);
-
-        uint32_t xPixelLeft = aznumeric_cast<uint32_t>(xTileLeftFrac * tileSize);
-        uint32_t yPixelTop = aznumeric_cast<uint32_t>(yTileTopFrac * tileSize);
-
-        // Save off the stats on which portion of our cachedPixel buffer is actually getting used.
-        m_macroPixelHeight = pixelHeight;
-        m_macroPixelWidth = pixelWidth;
-        m_macroXPixelLeft = xPixelLeft;
-        m_macroYPixelTop = yPixelTop;
-
-        // Create the initial buffer for the downloaded color data
-        const AZ::Data::Instance<AZ::RPI::AttachmentImagePool> imagePool = AZ::RPI::ImageSystemInterface::Get()->GetSystemAttachmentPool();
-        AZ::RHI::ImageDescriptor imageDescriptor = AZ::RHI::ImageDescriptor::Create2D(
-            AZ::RHI::ImageBindFlags::ShaderRead, pixelWidth, pixelHeight, AZ::RHI::Format::R8G8B8A8_UNORM_SRGB);
-
-        const AZ::Name DownloadedImageName = AZ::Name("DownloadedImage");
-        m_downloadedImage = AZ::RPI::AttachmentImage::Create(*imagePool.get(), imageDescriptor, DownloadedImageName, nullptr, nullptr);
-        AZ_Error("Terrain", m_downloadedImage, "Failed to initialize the downloaded image buffer.");
-
-
-        // Download the tiles and copy them into the right place in the stitched image
-        AZStd::string url;
-
-        AZ::JobContext* jobContext{ nullptr };
-        AZ::JobManagerBus::BroadcastResult(jobContext, &AZ::JobManagerEvents::GetGlobalContext);
-        AZ::Job* finalJob = AZ::CreateJobFunction(
-            [=]()
-            {
-                constexpr uint32_t BytesPerPixel = sizeof(uint32_t);
-
-                AZStd::vector<uint32_t> cachedPixelSubRegion;
-                cachedPixelSubRegion.resize(pixelWidth * pixelHeight);
-                for (uint32_t line = 0; line < pixelHeight; line++)
-                {
-                    uint32_t* srcLineStart = &(m_cachedPixels[(line + yPixelTop) * m_cachedPixelsWidth]);
-                    uint32_t* subregionLineStart = &(cachedPixelSubRegion[line * pixelWidth]);
-                    memcpy(subregionLineStart, &(srcLineStart[xPixelLeft]), pixelWidth * BytesPerPixel);
-                }
-
-                AZ::RHI::ImageUpdateRequest imageUpdateRequest;
-                imageUpdateRequest.m_imageSubresourcePixelOffset.m_left = 0;
-                imageUpdateRequest.m_imageSubresourcePixelOffset.m_top = 0;
-                imageUpdateRequest.m_sourceSubresourceLayout.m_bytesPerRow = pixelWidth * BytesPerPixel;
-                imageUpdateRequest.m_sourceSubresourceLayout.m_bytesPerImage = pixelWidth * pixelHeight * BytesPerPixel;
-                imageUpdateRequest.m_sourceSubresourceLayout.m_rowCount = pixelHeight;
-                imageUpdateRequest.m_sourceSubresourceLayout.m_size.m_width = pixelWidth;
-                imageUpdateRequest.m_sourceSubresourceLayout.m_size.m_height = pixelHeight;
-                imageUpdateRequest.m_sourceSubresourceLayout.m_size.m_depth = 1;
-                imageUpdateRequest.m_sourceData = cachedPixelSubRegion.data();
-                imageUpdateRequest.m_image = m_downloadedImage->GetRHIImage();
-
-                m_downloadedImage->UpdateImageContents(imageUpdateRequest);
-
-                HandleMaterialStateChange();
-            },
-            true, jobContext);
-
-
-        for (int yTile = static_cast<int>(yTileTopInt); yTile <= static_cast<int>(yTileBottomInt); yTile++)
-        {
-            for (int xTile = static_cast<int>(xTileLeftInt); xTile <= static_cast<int>(xTileRightInt); xTile++)
-            {
-                url = AZStd::string::format(
-                    "https://api.mapbox.com/v4/mapbox.satellite/%d/%d/%d@2x.png256?access_token=%s",
-                    zoom, xTile, yTile, m_configuration.m_mapboxApiKey.c_str());
-                AZ::Job* job = DownloadAndStitchSatelliteImage(
-                    url, 0, 0, static_cast<int>((xTile - xTileLeftInt) * tileSize), static_cast<int>((yTile - yTileTopInt) * tileSize));
-
-                job->SetDependent(finalJob);
-                job->Start();
-
-                // TODO:  error handling!!!
-            }
-        }
-
-        // TODO: The finalJob can't run on a separate thread right now, since Atom doesn't handle updating the image in the midst
-        // of rendering.  The final update call to Atom needs to always be done from the main thread.
-        // Right now, running on a separate thread will work some of the time, but not all of the time, due to timing.
-        //finalJob->Start();
-        finalJob->StartAndWaitForCompletion();
-    }
-
-
     AZ::Job* TerrainMapboxMacroMaterialComponent::DownloadAndStitchSatelliteImage(
         const AZStd::string& url, int tileStartX, int tileStartY, int stitchStartX, int stitchStartY)
     {
