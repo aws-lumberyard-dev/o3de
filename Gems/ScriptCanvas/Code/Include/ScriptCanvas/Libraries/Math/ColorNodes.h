@@ -59,7 +59,11 @@ namespace ScriptCanvas
 
         AZ_INLINE ColorType FromValues(NumberType r, NumberType g, NumberType b, NumberType a)
         {
-            return ColorType(aznumeric_cast<float>(r), aznumeric_cast<float>(g), aznumeric_cast<float>(b), aznumeric_cast<float>(a));
+            return ColorType(
+                aznumeric_cast<float>(r / 255.0),
+                aznumeric_cast<float>(g / 255.0),
+                aznumeric_cast<float>(b / 255.0),
+                aznumeric_cast<float>(a / 255.0));
         }
         SCRIPT_CANVAS_GENERIC_FUNCTION_NODE(FromValues, k_categoryName, "{37473690-CA2B-4F76-B101-40527EEEEC57}", "returns a Color from the R, G, B, A inputs", "R", "G", "B", "A");
 
