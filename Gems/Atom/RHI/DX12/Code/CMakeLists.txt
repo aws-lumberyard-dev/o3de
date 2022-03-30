@@ -107,6 +107,7 @@ ly_add_target(
             Gem::Atom_RHI.Reflect
             Gem::Atom_RHI_DX12.Reflect
             3rdParty::d3dx12
+            3rdParty::OpenXR
             ${AFTERMATH_BUILD_DEPENDENCY}
     COMPILE_DEFINITIONS 
         PRIVATE

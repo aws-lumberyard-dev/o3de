@@ -32,3 +32,4 @@ ly_associate_package(PACKAGE_NAME OpenSSL-1.1.1b-rev1-android        TARGETS Ope
 ly_associate_package(PACKAGE_NAME zlib-1.2.11-rev5-android           TARGETS ZLIB            PACKAGE_HASH 73c9e88892c237a3fc6eafc04268ccd9d479e6d55f9df2ed58b236c8f9cf2cae)
 ly_associate_package(PACKAGE_NAME lz4-1.9.3-vcpkg-rev4-android       TARGETS lz4             PACKAGE_HASH f5b22642d218dbbb442cae61e469e5b241c4740acd258c3e8678e60dec61ea93)
 
+ly_associate_package(PACKAGE_NAME OpenXR-1.0.22-rev1-android         TARGETS OpenXR          PACKAGE_HASH 42640478bf336aa055912b9bd336bab8500400e83a43cfb6b3038098894e07a8)
