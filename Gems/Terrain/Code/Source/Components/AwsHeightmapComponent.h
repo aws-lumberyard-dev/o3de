@@ -15,6 +15,7 @@
 #include <AzCore/Asset/AssetCommon.h>
 #include <AzCore/Component/Component.h>
 #include <AzCore/Math/Vector3.h>
+#include <AzCore/std/parallel/binary_semaphore.h>
 
 AZ_PUSH_DISABLE_WARNING(4251 4355 4996, "-Wunknown-warning-option")
 #include <aws/core/client/ClientConfiguration.h>
@@ -141,5 +142,7 @@ namespace Terrain
         int m_heightmapWidth = 0;
         int m_heightmapHeight = 0;
 
+        AZStd::atomic_bool m_jobActive = false;
+        AZStd::binary_semaphore m_jobCompletionBlocker;
     };
 }

@@ -111,6 +111,11 @@ namespace Terrain
     {
         AZ::TickBus::Handler::BusDisconnect();
 
+        if (m_jobActive)
+        {
+            m_jobCompletionBlocker.acquire();
+        }
+
         GradientSignal::GradientRequestBus::Handler::BusDisconnect();
 
         AZ::TransformNotificationBus::Handler::BusDisconnect();
@@ -241,8 +246,14 @@ namespace Terrain
                 m_heightmapMinHeight = minMaxHeights.GetX();
                 m_heightmapMaxHeight = minMaxHeights.GetY();
 
+                // Make sure we don't try to deactivate the component until the job is done. Save off the ID first though so that the
+                // OnCompositionChanged() event can cause a deactivate/activate successfully.
+                AZ::EntityId id = GetEntityId();
+                m_jobCompletionBlocker.release();
+                m_jobActive = false;
+
                 LmbrCentral::DependencyNotificationBus::Event(
-                    GetEntityId(), &LmbrCentral::DependencyNotificationBus::Events::OnCompositionChanged);
+                    id, &LmbrCentral::DependencyNotificationBus::Events::OnCompositionChanged);
             },
             true, jobContext);
 
@@ -262,6 +273,7 @@ namespace Terrain
 
         // TODO: Running the final job on a separate thread will work some of the time, but not all of the time, due to timing.
         // Need to figure out what specifically has issues with the update.
+        m_jobActive = true;
         finalJob->Start();
         //finalJob->StartAndWaitForCompletion();
     }
