@@ -75,6 +75,28 @@ namespace AZ::Dom
         return AZ::Success();
     }
 
+    void Visitor::ResultCombine(Result& result, Result&& newResult)
+    {
+        if (result.IsSuccess())
+        {
+            result = AZStd::move(newResult);
+        }
+        else if (!newResult.IsSuccess())
+        {
+            VisitorErrorCode code = result.GetError().GetCode();
+            if (code != newResult.GetError().GetCode())
+            {
+                code = VisitorErrorCode::MultipleErrors;
+            }
+            AZStd::string message;
+            message.reserve(result.GetError().GetAdditionalInfo().size() + newResult.GetError().GetAdditionalInfo().size() + 1);
+            message.append(result.GetError().GetAdditionalInfo());
+            message.append("\n");
+            message.append(newResult.GetError().GetAdditionalInfo());
+            result = VisitorFailure(code, AZStd::move(message));
+        }
+    }
+
     Visitor::Result Visitor::Null()
     {
         return VisitorSuccess();
@@ -123,7 +145,9 @@ namespace AZ::Dom
     {
         if (!SupportsRawValues())
         {
-            return VisitorFailure(VisitorErrorCode::UnsupportedOperation, "Raw values are not supported by this visitor");
+            Result result = VisitorFailure(VisitorErrorCode::UnsupportedOperation, "Raw values are not supported by this visitor, storing as String");
+            ResultCombine(result, String(value, lifetime));
+            return result;
         }
         return VisitorSuccess();
     }

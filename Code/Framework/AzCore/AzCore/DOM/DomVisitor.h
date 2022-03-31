@@ -47,7 +47,10 @@ namespace AZ::Dom
         //! The Visitor failed for some other reason not caused by invalid input.
         //! If returning a custom error with this code, it's preferrable to also provide supplemental info
         //! in the form of an explanatory string.
-        InternalError
+        InternalError,
+        //! Set when multiple errors of different categories occurred.
+        //! The description will contain a full report on all the specific errors.
+        MultipleErrors,
     };
 
     //
@@ -229,9 +232,6 @@ namespace AZ::Dom
         //! provided to the node, attributes being values prefaced by a call to Key.
         virtual Result EndNode(AZ::u64 attributeCount, AZ::u64 elementCount);
 
-    protected:
-        Visitor() = default;
-
         //! Helper method, constructs a failure \ref Result with the specified code.
         static Result VisitorFailure(VisitorErrorCode code);
         //! Helper method, constructs a failure \ref Result with the specified code and supplemental info.
@@ -241,5 +241,11 @@ namespace AZ::Dom
 
         //! Helper method, constructs a success \ref Result.
         static Result VisitorSuccess();
+
+        //! Helper method, combines two visitor results, merging any failures into a signal error.
+        static void ResultCombine(Result& result, Result&& newResult);
+
+    protected:
+        Visitor() = default;
     };
 } // namespace AZ::Dom
