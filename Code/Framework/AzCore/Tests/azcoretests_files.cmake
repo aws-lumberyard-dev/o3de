@@ -235,6 +235,8 @@ set(FILES
     DOM/DomValueBenchmarks.cpp
     DOM/DomPrefixTreeTests.cpp
     DOM/DomPrefixTreeBenchmarks.cpp
+    DOM/DomPolyfillTests.cpp
+    DOM/DomXmlTests.cpp
 )
 
 # Prevent the following files from being grouped in UNITY builds

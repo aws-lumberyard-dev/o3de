@@ -132,9 +132,16 @@ set(FILES
     DOM/DomComparison.h
     DOM/DomPrefixTree.h
     DOM/DomPrefixTree.inl
+    DOM/DomPolyfillBackend.h
+    DOM/DomPolyfillVisitor.cpp
+    DOM/DomPolyfillVisitor.h
     DOM/Backends/JSON/JsonBackend.h
     DOM/Backends/JSON/JsonSerializationUtils.cpp
     DOM/Backends/JSON/JsonSerializationUtils.h
+    DOM/Backends/XML/XmlBackend.cpp
+    DOM/Backends/XML/XmlBackend.h
+    DOM/Backends/XML/XmlSerializationUtils.cpp
+    DOM/Backends/XML/XmlSerializationUtils.h
     EBus/BusImpl.h
     EBus/EBus.h
     EBus/EBusEnvironment.cpp
