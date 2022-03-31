@@ -127,7 +127,94 @@ namespace AZ
 
             static ConversionLookupTable s_SrgbGammaToLinearLookupTable = CreateSrgbGammaToLinearLookupTable();
 
-            float RetrieveFloatValue(const AZ::u8* mem, size_t index, AZ::RHI::Format format)
+            // Helper structure for decoding BC1 block compression.
+            // BC1 consists of 8-byte blocks that encode 16 pixels arranged in a 4x4 square. The first 4 bytes are 2 16-bit colors,
+            // and the second 4 bytes contain 4 2-bit color indices that represent individual pixels.
+            // The 2-bit indices represent the following:
+            // 00 - use color0
+            // 01 - use color1
+            // 10 - use 2/3 color0 and 1/3 color1
+            // 11 - use 1/3 color0 and 2/3 color1
+            struct BC1Block
+            {
+                uint16_t m_color0;
+                uint16_t m_color1;
+                uint8_t m_colorIndices[4];
+
+                // Each block is 8 bytes in size.
+                static constexpr size_t BlockBytes = 8;
+
+                // Each block is 4x4 pixels in size.
+                static constexpr size_t BlockPixelWidth = 4;
+                static constexpr size_t BlockPixelHeight = 4;
+
+                // Given an image width, and an XY location, return a pair of indices. The first is a block index 
+                static AZStd::pair<size_t, size_t> GetBlockIndices(uint32_t width, uint32_t x, uint32_t y)
+                {
+                    size_t blockWidth = width / BlockPixelWidth;
+                    uint32_t blockX = x / BlockPixelWidth;
+                    uint32_t blockY = y / BlockPixelHeight;
+
+                    size_t blockIndex = (blockY * blockWidth + blockX);
+                    size_t pixelIndex = ((y % BlockPixelHeight) * BlockPixelHeight) + (x % BlockPixelWidth);
+                    return AZStd::pair<size_t, size_t>(blockIndex, pixelIndex);
+                }
+
+                // Given an index into the 4x4 block and a component index (R, G, B, or A), return the color value in the 0-1 range.
+                float GetBlockColor(size_t pixelIndex, uint32_t componentIndex) const
+                {
+                    AZ_Assert(pixelIndex < 16, "Unsupported pixel index for BC1: %zu", pixelIndex);
+                    // The pixels are in a 4x4 block, so first we get the row of 4 2-bit indices that have the pixel we want.
+                    uint8_t colorRowIndices = m_colorIndices[(pixelIndex / 4)];
+                    // Extract the 2-bit index by shifting down in multiples of 2 bits and masking.
+                    uint8_t colorIndex = (colorRowIndices >> (2 * (pixelIndex % 4))) & 0x03;
+
+                    // Extract just the R, G, B, or A component of the two colors.
+                    float color0;
+                    float color1;
+                    switch (componentIndex)
+                    {
+                    case 0:
+                        // red
+                        color0 = ((m_color0 >> 11) & 0x1F) / aznumeric_cast<float>(0x1F);
+                        color1 = ((m_color1 >> 11) & 0x1F) / aznumeric_cast<float>(0x1F);
+                        break;
+                    case 1:
+                        // green
+                        color0 = ((m_color0 >> 5) & 0x3F) / aznumeric_cast<float>(0x3F);
+                        color1 = ((m_color1 >> 5) & 0x3F) / aznumeric_cast<float>(0x3F);
+                        break;
+                    case 2:
+                        // blue
+                        color0 = ((m_color0 >> 0) & 0x1F) / aznumeric_cast<float>(0x1F);
+                        color1 = ((m_color1 >> 0) & 0x1F) / aznumeric_cast<float>(0x1F);
+                        break;
+                    case 3:
+                        // alpha
+                        return 1.0f;
+                    default:
+                        AZ_Assert(false, "Unsupported component offset for BC1: %u", componentIndex);
+                        return 0.0f;
+                    }
+                    
+                    // Using the pixel's color index, return the proper color value.
+                    switch (colorIndex)
+                    {
+                    case 0:
+                        return color0;
+                    case 1:
+                        return color1;
+                    case 2:
+                        return (color0 * (2.0f / 3.0f)) + (color1 * (1.0f / 3.0f));
+                    case 3:
+                        return (color0 * (1.0f / 3.0f)) + (color1 * (2.0f / 3.0f));
+                    }
+                    return 0.0f;
+                }
+            };
+
+            float RetrieveFloatValue(
+                const AZ::u8* mem, AZStd::pair<size_t, size_t> indices, uint32_t componentIndex, AZ::RHI::Format format)
             {
                 switch (format)
                 {
@@ -137,7 +224,7 @@ namespace AZ
                 case AZ::RHI::Format::R8G8B8A8_UNORM:
                 case AZ::RHI::Format::A8B8G8R8_UNORM:
                 {
-                    return mem[index] / static_cast<float>(std::numeric_limits<AZ::u8>::max());
+                    return mem[indices.first + componentIndex] / static_cast<float>(std::numeric_limits<AZ::u8>::max());
                 }
                 case AZ::RHI::Format::R8_UNORM_SRGB:
                 case AZ::RHI::Format::R8G8_UNORM_SRGB:
@@ -146,7 +233,7 @@ namespace AZ
                 {
                     // Use a lookup table that takes an AZ::u8 instead of a float
                     // for better performance
-                    return s_SrgbGammaToLinearLookupTable[mem[index]];
+                    return s_SrgbGammaToLinearLookupTable[mem[indices.first + componentIndex]];
                 }
                 case AZ::RHI::Format::R8_SNORM:
                 case AZ::RHI::Format::R8G8_SNORM:
@@ -159,7 +246,7 @@ namespace AZ
                     auto actualMem = reinterpret_cast<const AZ::s8*>(mem);
                     AZ::s8 signedMax = std::numeric_limits<AZ::s8>::max();
                     AZ::s8 signedMin = aznumeric_cast<AZ::s8>(-signedMax);
-                    return ScaleValue(AZStd::max(actualMem[index], signedMin), signedMin, signedMax, -1.0f, 1.0f);
+                    return ScaleValue(AZStd::max(actualMem[indices.first + componentIndex], signedMin), signedMin, signedMax, -1.0f, 1.0f);
                 }
                 case AZ::RHI::Format::D16_UNORM:
                 case AZ::RHI::Format::R16_UNORM:
@@ -167,7 +254,7 @@ namespace AZ
                 case AZ::RHI::Format::R16G16B16A16_UNORM:
                 {
                     auto actualMem = reinterpret_cast<const AZ::u16*>(mem);
-                    return actualMem[index] / static_cast<float>(std::numeric_limits<AZ::u16>::max());
+                    return actualMem[indices.first + componentIndex] / static_cast<float>(std::numeric_limits<AZ::u16>::max());
                 }
                 case AZ::RHI::Format::R16_SNORM:
                 case AZ::RHI::Format::R16G16_SNORM:
@@ -179,14 +266,14 @@ namespace AZ
                     auto actualMem = reinterpret_cast<const AZ::s16*>(mem);
                     AZ::s16 signedMax = std::numeric_limits<AZ::s16>::max();
                     AZ::s16 signedMin = aznumeric_cast<AZ::s16>(-signedMax);
-                    return ScaleValue(AZStd::max(actualMem[index], signedMin), signedMin, signedMax, -1.0f, 1.0f);
+                    return ScaleValue(AZStd::max(actualMem[indices.first + componentIndex], signedMin), signedMin, signedMax, -1.0f, 1.0f);
                 }
                 case AZ::RHI::Format::R16_FLOAT:
                 case AZ::RHI::Format::R16G16_FLOAT:
                 case AZ::RHI::Format::R16G16B16A16_FLOAT:
                 {
                     auto actualMem = reinterpret_cast<const float*>(mem);
-                    return SHalf(actualMem[index]);
+                    return SHalf(actualMem[indices.first + componentIndex]);
                 }
                 case AZ::RHI::Format::D32_FLOAT:
                 case AZ::RHI::Format::R32_FLOAT:
@@ -195,7 +282,18 @@ namespace AZ
                 case AZ::RHI::Format::R32G32B32A32_FLOAT:
                 {
                     auto actualMem = reinterpret_cast<const float*>(mem);
-                    return actualMem[index];
+                    return actualMem[indices.first + componentIndex];
+                }
+                case AZ::RHI::Format::BC1_UNORM:
+                {
+                    auto actualMem = reinterpret_cast<const BC1Block*>(mem);
+                    return actualMem[indices.first].GetBlockColor(indices.second, componentIndex);
+                }
+                case AZ::RHI::Format::BC1_UNORM_SRGB:
+                {
+                    auto actualMem = reinterpret_cast<const BC1Block*>(mem);
+                    float color = actualMem[indices.first].GetBlockColor(indices.second, componentIndex);
+                    return s_SrgbGammaToLinearLookupTable[aznumeric_cast<uint8_t>(color * AZStd::numeric_limits<AZ::u8>::max())];
                 }
                 default:
                     AZ_Assert(false, "Unsupported pixel format: %s", AZ::RHI::ToString(format));
@@ -203,7 +301,8 @@ namespace AZ
                 }
             }
 
-            AZ::u32 RetrieveUintValue(const AZ::u8* mem, size_t index, AZ::RHI::Format format)
+            AZ::u32 RetrieveUintValue(
+                const AZ::u8* mem, AZStd::pair<size_t, size_t> indices, uint32_t componentIndex, AZ::RHI::Format format)
             {
                 switch (format)
                 {
@@ -211,14 +310,14 @@ namespace AZ
                 case AZ::RHI::Format::R8G8_UINT:
                 case AZ::RHI::Format::R8G8B8A8_UINT:
                 {
-                    return mem[index] / static_cast<AZ::u32>(std::numeric_limits<AZ::u8>::max());
+                        return mem[indices.first + componentIndex] / static_cast<AZ::u32>(std::numeric_limits<AZ::u8>::max());
                 }
                 case AZ::RHI::Format::R16_UINT:
                 case AZ::RHI::Format::R16G16_UINT:
                 case AZ::RHI::Format::R16G16B16A16_UINT:
                 {
                     auto actualMem = reinterpret_cast<const AZ::u16*>(mem);
-                    return actualMem[index] / static_cast<AZ::u32>(std::numeric_limits<AZ::u16>::max());
+                    return actualMem[indices.first + componentIndex] / static_cast<AZ::u32>(std::numeric_limits<AZ::u16>::max());
                 }
                 case AZ::RHI::Format::R32_UINT:
                 case AZ::RHI::Format::R32G32_UINT:
@@ -226,7 +325,7 @@ namespace AZ
                 case AZ::RHI::Format::R32G32B32A32_UINT:
                 {
                     auto actualMem = reinterpret_cast<const AZ::u32*>(mem);
-                    return actualMem[index];
+                    return actualMem[indices.first + componentIndex];
                 }
                 default:
                     AZ_Assert(false, "Unsupported pixel format: %s", AZ::RHI::ToString(format));
@@ -234,7 +333,8 @@ namespace AZ
                 }
             }
 
-            AZ::s32 RetrieveIntValue(const AZ::u8* mem, size_t index, AZ::RHI::Format format)
+            AZ::s32 RetrieveIntValue(
+                const AZ::u8* mem, AZStd::pair<size_t, size_t> indices, uint32_t componentIndex, AZ::RHI::Format format)
             {
                 switch (format)
                 {
@@ -242,14 +342,14 @@ namespace AZ
                 case AZ::RHI::Format::R8G8_SINT:
                 case AZ::RHI::Format::R8G8B8A8_SINT:
                 {
-                    return mem[index] / static_cast<AZ::s32>(std::numeric_limits<AZ::s8>::max());
+                        return mem[indices.first + componentIndex] / static_cast<AZ::s32>(std::numeric_limits<AZ::s8>::max());
                 }
                 case AZ::RHI::Format::R16_SINT:
                 case AZ::RHI::Format::R16G16_SINT:
                 case AZ::RHI::Format::R16G16B16A16_SINT:
                 {
                     auto actualMem = reinterpret_cast<const AZ::s16*>(mem);
-                    return actualMem[index] / static_cast<AZ::s32>(std::numeric_limits<AZ::s16>::max());
+                    return actualMem[indices.first + componentIndex] / static_cast<AZ::s32>(std::numeric_limits<AZ::s16>::max());
                 }
                 case AZ::RHI::Format::R32_SINT:
                 case AZ::RHI::Format::R32G32_SINT:
@@ -257,7 +357,7 @@ namespace AZ
                 case AZ::RHI::Format::R32G32B32A32_SINT:
                 {
                     auto actualMem = reinterpret_cast<const AZ::s32*>(mem);
-                    return actualMem[index];
+                    return actualMem[indices.first + componentIndex];
                 }
                 default:
                     AZ_Assert(false, "Unsupported pixel format: %s", AZ::RHI::ToString(format));
@@ -265,12 +365,30 @@ namespace AZ
                 }
             }
 
-            size_t GetImageDataIndex(const AZ::RHI::ImageDescriptor& imageDescriptor, uint32_t x, uint32_t y, uint32_t componentIndex)
+            // Given an XY position, return a pair of indices that can be used to decode an individual pixel.
+            // For uncompressed formats:
+            //   The first index points to the start of the pixel when indexing by component type
+            //   The second index is 0 (unused)
+            //   Ex: an input XY of (2, 0) for an R16G16B16 format returns (6,0) because the requested pixel starts at
+            //   the 6th 16-bit entry in the pixel data.
+            // For compressed formats:
+            //   The first index points to the start of the compressed block
+            //   The second index is a relative pixel index within that block
+            //   Ex: an input XY of (6, 0) with a 4x4 compressed format produces an output of (1, 2), which means use block[1] to
+            //   decompress and pixel[2] within that decompressed block.
+            AZStd::pair<size_t,size_t> GetImageDataIndex(const AZ::RHI::ImageDescriptor& imageDescriptor, uint32_t x, uint32_t y)
             {
                 auto width = imageDescriptor.m_size.m_width;
                 const uint32_t numComponents = AZ::RHI::GetFormatComponentCount(imageDescriptor.m_format);
 
-                return (y * width + x) * numComponents + componentIndex;
+                switch (imageDescriptor.m_format)
+                {
+                case AZ::RHI::Format::BC1_UNORM:
+                case AZ::RHI::Format::BC1_UNORM_SRGB:
+                    return BC1Block::GetBlockIndices(width, x, y);
+                default:
+                    return AZStd::pair<size_t, size_t>((y * width + x) * numComponents, 0);
+                }
             }
         }
 
@@ -531,6 +649,9 @@ namespace AZ
             case AZ::RHI::Format::R32G32_SINT:
             case AZ::RHI::Format::R32G32B32_SINT:
             case AZ::RHI::Format::R32G32B32A32_SINT:
+            // Compressed types
+            case AZ::RHI::Format::BC1_UNORM:
+            case AZ::RHI::Format::BC1_UNORM_SRGB:
                 return true;
             }
 
@@ -540,22 +661,22 @@ namespace AZ
         template<>
         float GetImageDataPixelValue<float>(AZStd::span<const uint8_t> imageData, const AZ::RHI::ImageDescriptor& imageDescriptor, uint32_t x, uint32_t y, uint32_t componentIndex)
         {
-            size_t imageDataIndex = Internal::GetImageDataIndex(imageDescriptor, x, y, componentIndex);
-            return Internal::RetrieveFloatValue(imageData.data(), imageDataIndex, imageDescriptor.m_format);
+            auto imageDataIndices = Internal::GetImageDataIndex(imageDescriptor, x, y);
+            return Internal::RetrieveFloatValue(imageData.data(), imageDataIndices, componentIndex, imageDescriptor.m_format);
         }
 
         template<>
         AZ::u32 GetImageDataPixelValue<AZ::u32>(AZStd::span<const uint8_t> imageData, const AZ::RHI::ImageDescriptor& imageDescriptor, uint32_t x, uint32_t y, uint32_t componentIndex)
         {
-            size_t imageDataIndex = Internal::GetImageDataIndex(imageDescriptor, x, y, componentIndex);
-            return Internal::RetrieveUintValue(imageData.data(), imageDataIndex, imageDescriptor.m_format);
+            auto imageDataIndices = Internal::GetImageDataIndex(imageDescriptor, x, y);
+            return Internal::RetrieveUintValue(imageData.data(), imageDataIndices, componentIndex, imageDescriptor.m_format);
         }
 
         template<>
         AZ::s32 GetImageDataPixelValue<AZ::s32>(AZStd::span<const uint8_t> imageData, const AZ::RHI::ImageDescriptor& imageDescriptor, uint32_t x, uint32_t y, uint32_t componentIndex)
         {
-            size_t imageDataIndex = Internal::GetImageDataIndex(imageDescriptor, x, y, componentIndex);
-            return Internal::RetrieveIntValue(imageData.data(), imageDataIndex, imageDescriptor.m_format);
+            auto imageDataIndices = Internal::GetImageDataIndex(imageDescriptor, x, y);
+            return Internal::RetrieveIntValue(imageData.data(), imageDataIndices, componentIndex, imageDescriptor.m_format);
         }
 
         template<typename T>
@@ -613,10 +734,10 @@ namespace AZ
             {
                 for (uint32_t x = topLeft.first; x < bottomRight.first; ++x)
                 {
-                    size_t imageDataIndex = Internal::GetImageDataIndex(imageDescriptor, x, y, componentIndex);
+                    auto imageDataIndices = Internal::GetImageDataIndex(imageDescriptor, x, y);
 
                     auto& outValue = outValues[outValuesIndex++];
-                    outValue = Internal::RetrieveFloatValue(imageData.data(), imageDataIndex, imageDescriptor.m_format);
+                    outValue = Internal::RetrieveFloatValue(imageData.data(), imageDataIndices, componentIndex, imageDescriptor.m_format);
                 }
             }
 
@@ -643,10 +764,10 @@ namespace AZ
             {
                 for (uint32_t x = topLeft.first; x < bottomRight.first; ++x)
                 {
-                    size_t imageDataIndex = Internal::GetImageDataIndex(imageDescriptor, x, y, componentIndex);
+                    auto imageDataIndices = Internal::GetImageDataIndex(imageDescriptor, x, y);
 
                     auto& outValue = outValues[outValuesIndex++];
-                    outValue = Internal::RetrieveUintValue(imageData.data(), imageDataIndex, imageDescriptor.m_format);
+                    outValue = Internal::RetrieveUintValue(imageData.data(), imageDataIndices, componentIndex, imageDescriptor.m_format);
                 }
             }
 
@@ -673,10 +794,10 @@ namespace AZ
             {
                 for (uint32_t x = topLeft.first; x < bottomRight.first; ++x)
                 {
-                    size_t imageDataIndex = Internal::GetImageDataIndex(imageDescriptor, x, y, componentIndex);
+                    auto imageDataIndices = Internal::GetImageDataIndex(imageDescriptor, x, y);
 
                     auto& outValue = outValues[outValuesIndex++];
-                    outValue = Internal::RetrieveIntValue(imageData.data(), imageDataIndex, imageDescriptor.m_format);
+                    outValue = Internal::RetrieveIntValue(imageData.data(), imageDataIndices, componentIndex, imageDescriptor.m_format);
                 }
             }
 
