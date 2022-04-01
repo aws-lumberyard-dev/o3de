@@ -6,7 +6,6 @@
  *
  */
 
-#pragma optimize("", off)
 #include <AzCore/Component/Entity.h>
 #include <AzCore/Serialization/Json/RegistrationContext.h>
 #include <AzToolsFramework/Prefab/Instance/Instance.h>
