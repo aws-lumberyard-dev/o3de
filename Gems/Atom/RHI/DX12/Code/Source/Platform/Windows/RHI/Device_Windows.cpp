@@ -19,6 +19,117 @@
 #include <Atom/RHI/FactoryManagerBus.h>
 #include <comdef.h>
 
+
+// Tell OpenXR what platform code we'll be using
+#define XR_USE_PLATFORM_WIN32
+#define XR_USE_GRAPHICS_API_D3D12
+#include <openxr/openxr.h>
+#include <openxr/openxr_platform.h>
+
+//#include <RHI/DX12_Windows.h>
+
+
+struct swapchain_surfdata_t
+{
+    ID3D12DepthStencilView* depth_view;
+    ID3D12RenderTargetView* target_view;
+};
+
+struct swapchain_t
+{
+    XrSwapchain handle;
+    int32_t width;
+    int32_t height;
+    std::vector<XrSwapchainImageD3D12KHR> surface_images;
+    std::vector<swapchain_surfdata_t> surface_data;
+};
+
+struct input_state_t
+{
+    XrActionSet actionSet;
+    XrAction poseAction;
+    XrAction selectAction;
+    XrPath handSubactionPath[2];
+    XrSpace handSpace[2];
+    XrPosef handPose[2];
+    XrBool32 renderHand[2];
+    XrBool32 handSelect[2];
+};
+
+// Function pointers for some OpenXR extension methods we'll use.
+PFN_xrGetD3D12GraphicsRequirementsKHR ext_xrGetD3D12GraphicsRequirementsKHR = nullptr;
+PFN_xrCreateDebugUtilsMessengerEXT ext_xrCreateDebugUtilsMessengerEXT = nullptr;
+PFN_xrDestroyDebugUtilsMessengerEXT ext_xrDestroyDebugUtilsMessengerEXT = nullptr;
+
+// struct app_transform_buffer_t
+//{
+//    XMFLOAT4X4 world;
+//    XMFLOAT4X4 viewproj;
+//};
+
+XrFormFactor app_config_form = XR_FORM_FACTOR_HEAD_MOUNTED_DISPLAY;
+XrViewConfigurationType app_config_view = XR_VIEW_CONFIGURATION_TYPE_PRIMARY_STEREO;
+
+const XrPosef xr_pose_identity = { { 0, 0, 0, 1 }, { 0, 0, 0 } };
+XrInstance xr_instance = {};
+XrSession xr_session = {};
+XrSessionState xr_session_state = XR_SESSION_STATE_UNKNOWN;
+bool xr_running = false;
+XrSpace xr_app_space = {};
+XrSystemId xr_system_id = XR_NULL_SYSTEM_ID;
+input_state_t xr_input = {};
+XrEnvironmentBlendMode xr_blend = {};
+XrDebugUtilsMessengerEXT xr_debug = {};
+
+std::vector<XrView> xr_views;
+std::vector<XrViewConfigurationView> xr_config_views;
+std::vector<swapchain_t> xr_swapchains;
+
+int64_t d3d_swapchain_fmt = DXGI_FORMAT_R8G8B8A8_UNORM;
+
+
+swapchain_surfdata_t d3d_make_surface_data(ID3D12DeviceX* d3d_device, XrBaseInStructure& swapchain_img)
+{
+    swapchain_surfdata_t result = {};
+
+    // Get information about the swapchain image that OpenXR made for us!
+    XrSwapchainImageD3D12KHR& d3d_swapchain_img = (XrSwapchainImageD3D12KHR&)swapchain_img;
+    D3D12_TEXTURE2D_DESC color_desc;
+    d3d_swapchain_img.texture->GetDesc(&color_desc);
+
+    // Create a view resource for the swapchain image target that we can use to set up rendering.
+    D3D12_RENDER_TARGET_VIEW_DESC target_desc = {};
+    target_desc.ViewDimension = D3D12_RTV_DIMENSION_TEXTURE2D;
+    // NOTE: Why not use color_desc.Format? Check the notes over near the xrCreateSwapchain call!
+    // Basically, the color_desc.Format of the OpenXR created swapchain is TYPELESS, but in order to
+    // create a View for the texture, we need a concrete variant of the texture format like UNORM.
+    target_desc.Format = (DXGI_FORMAT)d3d_swapchain_fmt;
+    d3d_device->CreateRenderTargetView(d3d_swapchain_img.texture, &target_desc, &result.target_view);
+
+    // Create a depth buffer that matches
+    ID3D12Texture2D* depth_texture;
+    D3D12_TEXTURE2D_DESC depth_desc = {};
+    depth_desc.SampleDesc.Count = 1;
+    depth_desc.MipLevels = 1;
+    depth_desc.Width = color_desc.Width;
+    depth_desc.Height = color_desc.Height;
+    depth_desc.ArraySize = color_desc.ArraySize;
+    depth_desc.Format = DXGI_FORMAT_R32_TYPELESS;
+    depth_desc.BindFlags = D3D12_BIND_SHADER_RESOURCE | D3D12_BIND_DEPTH_STENCIL;
+    d3d_device->CreateTexture2D(&depth_desc, nullptr, &depth_texture);
+
+    // And create a view resource for the depth buffer, so we can set that up for rendering to as well!
+    D3D12_DEPTH_STENCIL_VIEW_DESC stencil_desc = {};
+    stencil_desc.ViewDimension = D3D12_DSV_DIMENSION_TEXTURE2D;
+    stencil_desc.Format = DXGI_FORMAT_D32_FLOAT;
+    d3d_device->CreateDepthStencilView(depth_texture, &stencil_desc, &result.depth_view);
+
+    // We don't need direct access to the ID3D12Texture2D object anymore, we only need the view
+    depth_texture->Release();
+
+    return result;
+}
+
 namespace AZ
 {
     namespace DX12
@@ -223,6 +334,200 @@ namespace AZ
             InitDeviceRemovalHandle();
 
             m_isAftermathInitialized = Aftermath::InitializeAftermath(m_dx12Device);
+
+
+
+
+
+            // OpenXR will fail to initialize if we ask for an extension that OpenXR
+            // can't provide! So we need to check our all extensions before
+            // initializing OpenXR with them. Note that even if the extension is
+            // present, it's still possible you may not be able to use it. For
+            // example: the hand tracking extension may be present, but the hand
+            // sensor might not be plugged in or turned on. There are often
+            // additional checks that should be made before using certain features!
+            std::vector<const char*> use_extensions;
+            const char* ask_extensions[] = {
+                XR_KHR_D3D12_ENABLE_EXTENSION_NAME, // Use Direct3D12 for rendering
+                XR_EXT_DEBUG_UTILS_EXTENSION_NAME, // Debug utils for extra info
+            };
+
+            // We'll get a list of extensions that OpenXR provides using this
+            // enumerate pattern. OpenXR often uses a two-call enumeration pattern
+            // where the first call will tell you how much memory to allocate, and
+            // the second call will provide you with the actual data!
+            uint32_t ext_count = 0;
+            xrEnumerateInstanceExtensionProperties(nullptr, 0, &ext_count, nullptr);
+            std::vector<XrExtensionProperties> xr_exts(ext_count, { XR_TYPE_EXTENSION_PROPERTIES });
+            xrEnumerateInstanceExtensionProperties(nullptr, ext_count, &ext_count, xr_exts.data());
+
+            printf("OpenXR extensions available:\n");
+            for (size_t i = 0; i < xr_exts.size(); i++)
+            {
+                printf("- %s\n", xr_exts[i].extensionName);
+
+                // Check if we're asking for this extensions, and add it to our use
+                // list!
+                for (int32_t ask = 0; ask < _countof(ask_extensions); ask++)
+                {
+                    if (strcmp(ask_extensions[ask], xr_exts[i].extensionName) == 0)
+                    {
+                        use_extensions.push_back(ask_extensions[ask]);
+                        break;
+                    }
+                }
+            }
+
+            // Initialize OpenXR with the extensions we've found!
+            XrInstanceCreateInfo createInfo = { XR_TYPE_INSTANCE_CREATE_INFO };
+            createInfo.enabledExtensionCount = (uint32_t)use_extensions.size();
+            createInfo.enabledExtensionNames = use_extensions.data();
+            createInfo.applicationInfo.apiVersion = XR_CURRENT_API_VERSION;
+            strcpy_s(createInfo.applicationInfo.applicationName, "Test AppName");
+            xrCreateInstance(&createInfo, &xr_instance);
+
+            // Check if OpenXR is on this system, if this is null here, the user
+            // needs to install an OpenXR runtime and ensure it's active!
+            if(xr_instance == nullptr)
+            {
+                return RHI::ResultCode::Fail;
+            }
+
+            // Load extension methods that we'll need for this application
+            xrGetInstanceProcAddr(
+                xr_instance, "xrCreateDebugUtilsMessengerEXT", (PFN_xrVoidFunction*)(&ext_xrCreateDebugUtilsMessengerEXT));
+            xrGetInstanceProcAddr(
+                xr_instance, "xrDestroyDebugUtilsMessengerEXT", (PFN_xrVoidFunction*)(&ext_xrDestroyDebugUtilsMessengerEXT));
+            xrGetInstanceProcAddr(
+                xr_instance, "xrGetD3D12GraphicsRequirementsKHR", (PFN_xrVoidFunction*)(&ext_xrGetD3D12GraphicsRequirementsKHR));
+
+            // Set up a really verbose debug log! Great for dev, but turn this off or
+            // down for final builds. WMR doesn't produce much output here, but it
+            // may be more useful for other runtimes?
+            // Here's some extra information about the message types and severities:
+            // https://www.khronos.org/registry/OpenXR/specs/1.0/html/xrspec.html#debug-message-categorization
+            XrDebugUtilsMessengerCreateInfoEXT debug_info = { XR_TYPE_DEBUG_UTILS_MESSENGER_CREATE_INFO_EXT };
+            debug_info.messageTypes = XR_DEBUG_UTILS_MESSAGE_TYPE_GENERAL_BIT_EXT |
+                XR_DEBUG_UTILS_MESSAGE_TYPE_VALIDATION_BIT_EXT |
+                XR_DEBUG_UTILS_MESSAGE_TYPE_PERFORMANCE_BIT_EXT |
+                XR_DEBUG_UTILS_MESSAGE_TYPE_CONFORMANCE_BIT_EXT;
+            debug_info.messageSeverities = XR_DEBUG_UTILS_MESSAGE_SEVERITY_VERBOSE_BIT_EXT |
+                XR_DEBUG_UTILS_MESSAGE_SEVERITY_INFO_BIT_EXT |
+                XR_DEBUG_UTILS_MESSAGE_SEVERITY_WARNING_BIT_EXT |
+                XR_DEBUG_UTILS_MESSAGE_SEVERITY_ERROR_BIT_EXT;
+            debug_info.userCallback = [](XrDebugUtilsMessageSeverityFlagsEXT /*severity*/,
+                                         XrDebugUtilsMessageTypeFlagsEXT /*types*/,
+                                         const XrDebugUtilsMessengerCallbackDataEXT* msg,
+                                         void* /*user_data*/)
+            {
+                // Print the debug message we got! There's a bunch more info we could
+                // add here too, but this is a pretty good start, and you can always
+                // add a breakpoint this line!
+                printf("%s: %s\n", msg->functionName, msg->message);
+
+                // Output to debug window
+                char text[512];
+                sprintf_s(text, "%s: %s", msg->functionName, msg->message);
+                OutputDebugStringA(text);
+
+                // Returning XR_TRUE here will force the calling function to fail
+                return (XrBool32)XR_FALSE;
+            };
+            // Start up the debug utils!
+            if (ext_xrCreateDebugUtilsMessengerEXT)
+            {
+                ext_xrCreateDebugUtilsMessengerEXT(xr_instance, &debug_info, &xr_debug);
+            }
+
+            // Request a form factor from the device (HMD, Handheld, etc.)
+            XrSystemGetInfo systemInfo = { XR_TYPE_SYSTEM_GET_INFO };
+            systemInfo.formFactor = app_config_form;
+            xrGetSystem(xr_instance, &systemInfo, &xr_system_id);
+
+            // Check what blend mode is valid for this device (opaque vs transparent displays)
+            // We'll just take the first one available!
+            uint32_t blend_count = 0;
+            xrEnumerateEnvironmentBlendModes(xr_instance, xr_system_id, app_config_view, 1, &blend_count, &xr_blend);
+
+            // OpenXR wants to ensure apps are using the correct graphics card, so this MUST be called
+            // before xrCreateSession. This is crucial on devices that have multiple graphics cards,
+            // like laptops with integrated graphics chips in addition to dedicated graphics cards.
+            XrGraphicsRequirementsD3D12KHR requirement = { XR_TYPE_GRAPHICS_REQUIREMENTS_D3D12_KHR };
+            ext_xrGetD3D12GraphicsRequirementsKHR(xr_instance, xr_system_id, &requirement);
+
+            // A session represents this application's desire to display things! This is where we hook up our graphics API.
+            // This does not start the session, for that, you'll need a call to xrBeginSession, which we do in openxr_poll_events
+            XrGraphicsBindingD3D12KHR binding = { XR_TYPE_GRAPHICS_BINDING_D3D12_KHR };
+            binding.device = GetDevice();
+
+            XrSessionCreateInfo sessionInfo = { XR_TYPE_SESSION_CREATE_INFO };
+            sessionInfo.next = &binding;
+            sessionInfo.systemId = xr_system_id;
+            xrCreateSession(xr_instance, &sessionInfo, &xr_session);
+
+            // Unable to start a session, may not have an MR device attached or ready
+            if (xr_session == nullptr)
+            {
+                return RHI::ResultCode::Fail;
+            }
+
+            // OpenXR uses a couple different types of reference frames for positioning content, we need to choose one for
+            // displaying our content! STAGE would be relative to the center of your guardian system's bounds, and LOCAL
+            // would be relative to your device's starting location. HoloLens doesn't have a STAGE, so we'll use LOCAL.
+            XrReferenceSpaceCreateInfo ref_space = { XR_TYPE_REFERENCE_SPACE_CREATE_INFO };
+            ref_space.poseInReferenceSpace = xr_pose_identity;
+            ref_space.referenceSpaceType = XR_REFERENCE_SPACE_TYPE_LOCAL;
+            xrCreateReferenceSpace(xr_session, &ref_space, &xr_app_space);
+
+            // Now we need to find all the viewpoints we need to take care of! For a stereo headset, this should be 2.
+            // Similarly, for an AR phone, we'll need 1, and a VR cave could have 6, or even 12!
+            uint32_t view_count = 0;
+            xrEnumerateViewConfigurationViews(xr_instance, xr_system_id, app_config_view, 0, &view_count, nullptr);
+            xr_config_views.resize(view_count, { XR_TYPE_VIEW_CONFIGURATION_VIEW });
+            xr_views.resize(view_count, { XR_TYPE_VIEW });
+            xrEnumerateViewConfigurationViews(xr_instance, xr_system_id, app_config_view, view_count, &view_count, xr_config_views.data());
+            for (uint32_t i = 0; i < view_count; i++)
+            {
+                // Create a swapchain for this viewpoint! A swapchain is a set of texture buffers used for displaying to screen,
+                // typically this is a backbuffer and a front buffer, one for rendering data to, and one for displaying on-screen.
+                // A note about swapchain image format here! OpenXR doesn't create a concrete image format for the texture, like
+                // DXGI_FORMAT_R8G8B8A8_UNORM. Instead, it switches to the TYPELESS variant of the provided texture format, like
+                // DXGI_FORMAT_R8G8B8A8_TYPELESS. When creating an ID3D12RenderTargetView for the swapchain texture, we must specify
+                // a concrete type like DXGI_FORMAT_R8G8B8A8_UNORM, as attempting to create a TYPELESS view will throw errors, so
+                // we do need to store the format separately and remember it later.
+                XrViewConfigurationView& view = xr_config_views[i];
+                XrSwapchainCreateInfo swapchain_info = { XR_TYPE_SWAPCHAIN_CREATE_INFO };
+                XrSwapchain handle;
+                swapchain_info.arraySize = 1;
+                swapchain_info.mipCount = 1;
+                swapchain_info.faceCount = 1;
+                swapchain_info.format = d3d_swapchain_fmt;
+                swapchain_info.width = view.recommendedImageRectWidth;
+                swapchain_info.height = view.recommendedImageRectHeight;
+                swapchain_info.sampleCount = view.recommendedSwapchainSampleCount;
+                swapchain_info.usageFlags = XR_SWAPCHAIN_USAGE_SAMPLED_BIT | XR_SWAPCHAIN_USAGE_COLOR_ATTACHMENT_BIT;
+                xrCreateSwapchain(xr_session, &swapchain_info, &handle);
+
+                // Find out how many textures were generated for the swapchain
+                uint32_t surface_count = 0;
+                xrEnumerateSwapchainImages(handle, 0, &surface_count, nullptr);
+
+                // We'll want to track our own information about the swapchain, so we can draw stuff onto it! We'll also create
+                // a depth buffer for each generated texture here as well with make_surfacedata.
+                swapchain_t swapchain = {};
+                swapchain.width = swapchain_info.width;
+                swapchain.height = swapchain_info.height;
+                swapchain.handle = handle;
+                swapchain.surface_images.resize(surface_count, { XR_TYPE_SWAPCHAIN_IMAGE_D3D12_KHR });
+                swapchain.surface_data.resize(surface_count);
+                xrEnumerateSwapchainImages(swapchain.handle, surface_count, &surface_count, (XrSwapchainImageBaseHeader*)swapchain.surface_images.data());
+                for (uint32_t i = 0; i < surface_count; i++)
+                {
+                    swapchain.surface_data[i] = d3d_make_surface_data(GetDevice(), (XrBaseInStructure&)swapchain.surface_images[i]);
+                }
+                xr_swapchains.push_back(swapchain);
+            }
+
 
             return RHI::ResultCode::Success;
         }
