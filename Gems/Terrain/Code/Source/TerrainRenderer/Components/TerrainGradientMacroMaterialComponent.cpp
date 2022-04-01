@@ -352,220 +352,110 @@ namespace Terrain
         m_generatedImage = AZ::RPI::AttachmentImage::Create(*imagePool.get(), imageDescriptor, GeneratedImage, nullptr, nullptr);
         AZ_Error("Terrain", m_generatedImage, "Failed to initialize the generated image buffer.");
 
-        // Generate the world locations of every pixel in our generated image to use in our gradient queries.
-
-        AZStd::vector<AZ::Vector3> gradientQueryPositions;
-        gradientQueryPositions.reserve(m_cachedPixelsWidth * m_cachedPixelsHeight);
-
-        AZ::Vector2 stepSize(
-            m_cachedShapeBounds.GetXExtent() / m_cachedPixelsWidth, m_cachedShapeBounds.GetYExtent() / m_cachedPixelsHeight);
-
-        // The order of our position list will determine the order in which we fill in pixels in our cached pixel structure.
-        // We invert the y loop because we have a convention in which we want the bottom of the texture to be aligned with the bottom
-        // of world space so that looking in the +x +y direction from 0,0 shows the texture going in the direction we expect.
-        for (int y = m_cachedPixelsHeight; y > 0; y--)
-        {
-            for (int x = 0; x < m_cachedPixelsWidth; x++)
-            {
-                float worldX = m_cachedShapeBounds.GetMin().GetX() + (aznumeric_cast<float>(x) * stepSize.GetX());
-                float worldY = m_cachedShapeBounds.GetMin().GetY() + (aznumeric_cast<float>(y) * stepSize.GetY());
-
-                gradientQueryPositions.emplace_back(worldX, worldY, m_cachedShapeBounds.GetCenter().GetZ());
-            }
-        }
-
-        // Block other threads from accessing the surface data bus while we are in GetValue (which may call into the SurfaceData bus).
-        // This prevents lock inversion deadlocks between this calling Gradient->Surface and something else calling Surface->Gradient.
-        auto& surfaceDataContext = SurfaceData::SurfaceDataSystemRequestBus::GetOrCreateContext(false);
-        typename SurfaceData::SurfaceDataSystemRequestBus::Context::DispatchLockGuard scopeLock(surfaceDataContext.m_contextMutex);
-
-        // Get each set of gradient values and use that to create the color to alpha blend into our texture.
-
-        AZStd::vector<float> variationValues(gradientQueryPositions.size());
-        GradientSignal::GradientRequestBus::Event(
-            m_configuration.m_variationEntityId, &GradientSignal::GradientRequestBus::Events::GetValues, gradientQueryPositions, variationValues);
-
-        AZStd::vector<float> maskValues(gradientQueryPositions.size());
-
-        for (auto& mapping : m_configuration.m_gradientColorMappings)
-        {
-            GradientSignal::GradientRequestBus::Event(
-                mapping.m_maskEntityId, &GradientSignal::GradientRequestBus::Events::GetValues, gradientQueryPositions, maskValues);
-
-            for (uint32_t index = 0; index < m_cachedPixels.size(); index++)
-            {
-                if (maskValues[index] > 0.0f)
-                {
-                    uint32_t& srcPixel = m_cachedPixels[index];
-                    AZ::Color pixel(
-                        static_cast<AZ::u8>(srcPixel & 0xFF), static_cast<AZ::u8>((srcPixel >> 8) & 0xFF),
-                        static_cast<AZ::u8>((srcPixel >> 16) & 0xFF), static_cast<AZ::u8>((srcPixel >> 24) & 0xFF));
-
-                    // Create our color variation.
-                    AZ::Color destPixel = mapping.m_color1;
-                    destPixel = destPixel.Lerp(mapping.m_color2, variationValues[index]);
-
-                    // Alpha blend it back in with our built-up color so far.
-                    pixel = pixel.Lerp(destPixel, maskValues[index]);
-
-                    // Write it back into our cached buffer as a uint32
-                    srcPixel = pixel.GetR8() | (pixel.GetG8() << 8) | (pixel.GetB8() << 16) | (0xFF << 24);
-                }
-            }
-        }
-
-        constexpr uint32_t BytesPerPixel = sizeof(uint32_t);
-
-        AZ::RHI::ImageUpdateRequest imageUpdateRequest;
-        imageUpdateRequest.m_imageSubresourcePixelOffset.m_left = 0;
-        imageUpdateRequest.m_imageSubresourcePixelOffset.m_top = 0;
-        imageUpdateRequest.m_sourceSubresourceLayout.m_bytesPerRow = m_cachedPixelsWidth * BytesPerPixel;
-        imageUpdateRequest.m_sourceSubresourceLayout.m_bytesPerImage = m_cachedPixelsWidth * m_cachedPixelsHeight * BytesPerPixel;
-        imageUpdateRequest.m_sourceSubresourceLayout.m_rowCount = m_cachedPixelsHeight;
-        imageUpdateRequest.m_sourceSubresourceLayout.m_size.m_width = m_cachedPixelsWidth;
-        imageUpdateRequest.m_sourceSubresourceLayout.m_size.m_height = m_cachedPixelsHeight;
-        imageUpdateRequest.m_sourceSubresourceLayout.m_size.m_depth = 1;
-        imageUpdateRequest.m_sourceData = m_cachedPixels.data();
-        imageUpdateRequest.m_image = m_generatedImage->GetRHIImage();
-
-        m_generatedImage->UpdateImageContents(imageUpdateRequest);
-
-        HandleMaterialStateChange();
-
-
-
-
-
-        /*
         AZ::JobContext* jobContext{ nullptr };
         AZ::JobManagerBus::BroadcastResult(jobContext, &AZ::JobManagerEvents::GetGlobalContext);
+
+        // Generate the world locations of every pixel in our generated image to use in our gradient queries.
+        AZ::Job* generatePixelDataJob = AZ::CreateJobFunction(
+            [=]()
+            {
+                AZStd::vector<AZ::Vector3> gradientQueryPositions;
+                gradientQueryPositions.reserve(m_cachedPixelsWidth * m_cachedPixelsHeight);
+
+                AZ::Vector2 stepSize(
+                    m_cachedShapeBounds.GetXExtent() / m_cachedPixelsWidth, m_cachedShapeBounds.GetYExtent() / m_cachedPixelsHeight);
+
+                // The order of our position list will determine the order in which we fill in pixels in our cached pixel structure.
+                // We invert the y loop because we have a convention in which we want the bottom of the texture to be aligned with the
+                // bottom of world space so that looking in the +x +y direction from 0,0 shows the texture going in the direction we expect.
+                for (int y = m_cachedPixelsHeight; y > 0; y--)
+                {
+                    for (int x = 0; x < m_cachedPixelsWidth; x++)
+                    {
+                        float worldX = m_cachedShapeBounds.GetMin().GetX() + (aznumeric_cast<float>(x) * stepSize.GetX());
+                        float worldY = m_cachedShapeBounds.GetMin().GetY() + (aznumeric_cast<float>(y) * stepSize.GetY());
+
+                        gradientQueryPositions.emplace_back(worldX, worldY, m_cachedShapeBounds.GetCenter().GetZ());
+                    }
+                }
+
+                // Block other threads from accessing the surface data bus while we are in GetValue (which may call into the SurfaceData
+                // bus). This prevents lock inversion deadlocks between this calling Gradient->Surface and something else calling
+                // Surface->Gradient.
+                auto& surfaceDataContext = SurfaceData::SurfaceDataSystemRequestBus::GetOrCreateContext(false);
+                typename SurfaceData::SurfaceDataSystemRequestBus::Context::DispatchLockGuard scopeLock(surfaceDataContext.m_contextMutex);
+
+                // Get each set of gradient values and use that to create the color to alpha blend into our texture.
+
+                AZStd::vector<float> variationValues(gradientQueryPositions.size());
+                GradientSignal::GradientRequestBus::Event(
+                    m_configuration.m_variationEntityId, &GradientSignal::GradientRequestBus::Events::GetValues, gradientQueryPositions,
+                    variationValues);
+
+                AZStd::vector<float> maskValues(gradientQueryPositions.size());
+
+                for (auto& mapping : m_configuration.m_gradientColorMappings)
+                {
+                    GradientSignal::GradientRequestBus::Event(
+                        mapping.m_maskEntityId, &GradientSignal::GradientRequestBus::Events::GetValues, gradientQueryPositions, maskValues);
+
+                    for (uint32_t index = 0; index < m_cachedPixels.size(); index++)
+                    {
+                        if (maskValues[index] > 0.0f)
+                        {
+                            uint32_t& srcPixel = m_cachedPixels[index];
+                            AZ::Color pixel(
+                                static_cast<AZ::u8>(srcPixel & 0xFF), static_cast<AZ::u8>((srcPixel >> 8) & 0xFF),
+                                static_cast<AZ::u8>((srcPixel >> 16) & 0xFF), static_cast<AZ::u8>((srcPixel >> 24) & 0xFF));
+
+                            // Create our color variation.
+                            AZ::Color destPixel = mapping.m_color1;
+                            destPixel = destPixel.Lerp(mapping.m_color2, variationValues[index]);
+
+                            // Alpha blend it back in with our built-up color so far.
+                            pixel = pixel.Lerp(destPixel, maskValues[index]);
+
+                            // Write it back into our cached buffer as a uint32
+                            srcPixel = pixel.GetR8() | (pixel.GetG8() << 8) | (pixel.GetB8() << 16) | (0xFF << 24);
+                        }
+                    }
+                }
+            },
+            true, jobContext);
+
+
         AZ::Job* finalJob = AZ::CreateJobFunction(
             [=]()
             {
                 constexpr uint32_t BytesPerPixel = sizeof(uint32_t);
 
-                AZStd::vector<uint32_t> cachedPixelSubRegion;
-                cachedPixelSubRegion.resize(pixelWidth * pixelHeight);
-                for (uint32_t line = 0; line < pixelHeight; line++)
-                {
-                    uint32_t* srcLineStart = &(m_cachedPixels[(line + yPixelTop) * m_cachedPixelsWidth]);
-                    uint32_t* subregionLineStart = &(cachedPixelSubRegion[line * pixelWidth]);
-                    memcpy(subregionLineStart, &(srcLineStart[xPixelLeft]), pixelWidth * BytesPerPixel);
-                }
-
                 AZ::RHI::ImageUpdateRequest imageUpdateRequest;
                 imageUpdateRequest.m_imageSubresourcePixelOffset.m_left = 0;
                 imageUpdateRequest.m_imageSubresourcePixelOffset.m_top = 0;
-                imageUpdateRequest.m_sourceSubresourceLayout.m_bytesPerRow = pixelWidth * BytesPerPixel;
-                imageUpdateRequest.m_sourceSubresourceLayout.m_bytesPerImage = pixelWidth * pixelHeight * BytesPerPixel;
-                imageUpdateRequest.m_sourceSubresourceLayout.m_rowCount = pixelHeight;
-                imageUpdateRequest.m_sourceSubresourceLayout.m_size.m_width = pixelWidth;
-                imageUpdateRequest.m_sourceSubresourceLayout.m_size.m_height = pixelHeight;
+                imageUpdateRequest.m_sourceSubresourceLayout.m_bytesPerRow = m_cachedPixelsWidth * BytesPerPixel;
+                imageUpdateRequest.m_sourceSubresourceLayout.m_bytesPerImage = m_cachedPixelsWidth * m_cachedPixelsHeight * BytesPerPixel;
+                imageUpdateRequest.m_sourceSubresourceLayout.m_rowCount = m_cachedPixelsHeight;
+                imageUpdateRequest.m_sourceSubresourceLayout.m_size.m_width = m_cachedPixelsWidth;
+                imageUpdateRequest.m_sourceSubresourceLayout.m_size.m_height = m_cachedPixelsHeight;
                 imageUpdateRequest.m_sourceSubresourceLayout.m_size.m_depth = 1;
-                imageUpdateRequest.m_sourceData = cachedPixelSubRegion.data();
-                imageUpdateRequest.m_image = m_downloadedImage->GetRHIImage();
+                imageUpdateRequest.m_sourceData = m_cachedPixels.data();
+                imageUpdateRequest.m_image = m_generatedImage->GetRHIImage();
 
-                m_downloadedImage->UpdateImageContents(imageUpdateRequest);
+                m_generatedImage->UpdateImageContents(imageUpdateRequest);
 
                 HandleMaterialStateChange();
             },
             true, jobContext);
 
-        for (int yTile = static_cast<int>(yTileTopInt); yTile <= static_cast<int>(yTileBottomInt); yTile++)
-        {
-            for (int xTile = static_cast<int>(xTileLeftInt); xTile <= static_cast<int>(xTileRightInt); xTile++)
-            {
-                url = AZStd::string::format(
-                    "https://api.mapbox.com/v4/mapbox.satellite/%d/%d/%d@2x.png256?access_token=%s", zoom, xTile, yTile,
-                    m_configuration.m_mapboxApiKey.c_str());
-                AZ::Job* job = DownloadAndStitchSatelliteImage(
-                    url, 0, 0, static_cast<int>((xTile - xTileLeftInt) * tileSize), static_cast<int>((yTile - yTileTopInt) * tileSize));
-
-                job->SetDependent(finalJob);
-                job->Start();
-
-                // TODO:  error handling!!!
-            }
-        }
+        generatePixelDataJob->SetDependent(finalJob);
+        generatePixelDataJob->Start();
 
         // TODO: The finalJob can't run on a separate thread right now, since Atom doesn't handle updating the image in the midst
         // of rendering.  The final update call to Atom needs to always be done from the main thread.
         // Right now, running on a separate thread will work some of the time, but not all of the time, due to timing.
         // finalJob->Start();
         finalJob->StartAndWaitForCompletion();
-        */
     }
-
-
-    /*
-    AZ::Job* TerrainMapboxMacroMaterialComponent::DownloadAndStitchSatelliteImage(
-        const AZStd::string& url, int tileStartX, int tileStartY, int stitchStartX, int stitchStartY)
-    {
-        AZ::JobContext* jobContext{ nullptr };
-        AZ::JobManagerBus::BroadcastResult(jobContext, &AZ::JobManagerEvents::GetGlobalContext);
-        AZ::Job* job{ nullptr };
-        job = AZ::CreateJobFunction(
-            [=]()
-            {
-                std::shared_ptr<Aws::Http::HttpClient> httpClient = Aws::Http::CreateHttpClient(Aws::Client::ClientConfiguration());
-
-                Aws::String requestURL{ url.c_str() };
-                auto httpRequest(Aws::Http::CreateHttpRequest(
-                    requestURL, Aws::Http::HttpMethod::HTTP_GET, Aws::Utils::Stream::DefaultResponseStreamFactoryMethod));
-
-                auto httpResponse(httpClient->MakeRequest(httpRequest, nullptr, nullptr));
-                if (!httpResponse)
-                {
-                    AZ_Error("Terrain", false, "Failed to download url: %s", url.c_str());
-                    // EBUS_EVENT(AWSBehaviorHTTPNotificationsBus, OnError, "No Response Received from request!  (Internal SDK Error)");
-                    return;
-                }
-
-                int responseCode = static_cast<int>(httpResponse->GetResponseCode());
-                if (responseCode != static_cast<int>(Aws::Http::HttpResponseCode::OK))
-                {
-                    AZ_Error("Terrain", false, "Failed to download url: %s (Response code %d)", url.c_str(), responseCode);
-                    return;
-                }
-
-                AZStd::string contentType = httpResponse->GetContentType().c_str();
-
-                AZStd::string returnString;
-                auto& body = httpResponse->GetResponseBody();
-
-                // Debug code to save the downloaded PNG
-                /*
-                {
-                    AZStd::vector<char> pngBuffer;
-                    AZ::IO::SystemFile debugFile;
-
-                    AZStd::string debugFileName("D:\\downloadedImage.png");
-
-                    debugFile.Open(
-                        debugFileName.c_str(),
-                        AZ::IO::SystemFile::OpenMode::SF_OPEN_CREATE | AZ::IO::SystemFile::OpenMode::SF_OPEN_WRITE_ONLY);
-                    // Copy the PNG data out of our response into a memory buffer
-                    AZStd::copy(std::istreambuf_iterator<char>(body), std::istreambuf_iterator<char>(), AZStd::back_inserter(pngBuffer));
-                    debugFile.Write(pngBuffer.data(), pngBuffer.size());
-                    debugFile.Flush();
-                    debugFile.Close();
-
-                    body.clear();
-                    body.seekg(0, std::ios::beg);
-                }
-                *
-
-                ProcessSatelliteImage(body, tileStartX, tileStartY, stitchStartX, stitchStartY);
-
-                AZ_TracePrintf("Terrain", "Successfully downloaded url: %s", url.c_str());
-
-                // EBUS_EVENT(AWSBehaviorHTTPNotificationsBus, OnSuccess, AZStd::string("Success!"));
-                // EBUS_EVENT(AWSBehaviorHTTPNotificationsBus, GetResponse, responseCode, stdHeaderMap, contentType, returnString);
-            },
-            true, jobContext);
-        return job;
-    }
-    */
 
     void TerrainGradientMacroMaterialComponent::OnCompositionChanged()
     {
