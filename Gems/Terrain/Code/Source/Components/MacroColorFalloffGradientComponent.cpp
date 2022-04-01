@@ -181,6 +181,21 @@ namespace GradientSignal
         {
             const AZ::Vector3 tiledDimensions(aznumeric_cast<float>(width), aznumeric_cast<float>(height), 0.0f);
 
+            constexpr bool useLinearColors = false;
+            AZStd::vector<AZ::Color> falloffColors;
+            falloffColors.reserve(m_configuration.m_falloffColors.size());
+            for (auto& falloffColor : m_configuration.m_falloffColors)
+            {
+                if (useLinearColors)
+                {
+                    falloffColors.push_back(falloffColor.GammaToLinear());
+                }
+                else
+                {
+                    falloffColors.push_back(falloffColor);
+                }
+            }
+
             for (size_t index = 0; index < positions.size(); index++)
             {
                 AZ::Vector3 uvw = positions[index];
@@ -199,7 +214,7 @@ namespace GradientSignal
                     y = (height - 1) - y;
 
                     float minDistanceSquared = 1.0f;
-                    for (auto& falloffColor : m_configuration.m_falloffColors)
+                    for (auto& falloffColor : falloffColors)
                     {
                         float distanceSquared = 0.0f;
 
