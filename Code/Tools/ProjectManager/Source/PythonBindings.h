@@ -18,12 +18,16 @@
 #include <pybind11/pybind11.h>
 #pragma pop_macro("slots")
 
+#include <QObject>
+#include <QOAuth2AuthorizationCodeFlow>
+
 
 namespace O3DE::ProjectManager
 {
     class PythonBindings
         : public PythonBindingsInterface::Registrar
     {
+        Q_OBJECT
     public:
         PythonBindings() = default;
         PythonBindings(const AZ::IO::PathView& enginePath);
@@ -69,12 +73,30 @@ namespace O3DE::ProjectManager
         AZ::Outcome<QVector<GemInfo>, AZStd::string> GetGemInfosForRepo(const QString& repoUri) override;
         AZ::Outcome<QVector<GemInfo>, AZStd::string> GetGemInfosForAllRepos() override;
         DetailedOutcome DownloadGem(
-            const QString& gemName, std::function<void(int, int)> gemProgressCallback, bool force = false) override;
+            const QString& gemName,
+            std::function<void(int, int)> gemProgressCallback,
+            bool force = false,
+            const QString authToken = "") override;
         void CancelDownload() override;
         bool IsGemUpdateAvaliable(const QString& gemName, const QString& lastUpdated) override;
 
         void AddErrorString(AZStd::string errorString) override;
         void ClearErrorStrings() override;
+
+        DetailedOutcome GH_OAuthAuthenticate() override;
+
+        bool NeedsAuth() override
+        {
+            return failedBecauseAuth;
+        }
+
+    signals:
+        void authenticated();
+
+    public slots:
+        void authenticationcomplete();
+
+
 
     private:
         AZ_DISABLE_COPY_MOVE(PythonBindings);
@@ -90,6 +112,7 @@ namespace O3DE::ProjectManager
         bool StopPython();
         IPythonBindings::ErrorPair GetErrorPair();
 
+        QOAuth2AuthorizationCodeFlow oauth2;
 
         bool m_pythonStarted = false;
 
@@ -108,6 +131,8 @@ namespace O3DE::ProjectManager
         pybind11::handle m_repo;
         pybind11::handle m_pathlib;
 
+        QString m_authToken;
+        bool failedBecauseAuth = false;
         bool m_requestCancelDownload = false;
         AZStd::vector<AZStd::string> m_pythonErrorStrings;
     };

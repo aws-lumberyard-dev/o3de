@@ -73,6 +73,11 @@ namespace O3DE::ProjectManager
         emit GemDownloadProgress(m_gemNames.front(), bytesDownloaded, totalBytes);
     }
 
+    void DownloadController::ReattemptDownload()
+    {
+        emit StartGemDownload(m_gemNames.front());
+    }
+
     void DownloadController::HandleResults(const QString& result, const QString& detailedError)
     {
         bool succeeded = true;
@@ -90,6 +95,26 @@ namespace O3DE::ProjectManager
             }
             else
             {
+                if (PythonBindingsInterface::Get()->NeedsAuth())
+                {
+                    QMessageBox::StandardButton reply;
+                    reply = QMessageBox::question(
+                        nullptr, "Authorize and download?", "This repository requires you to authorize with GitHub to download this object. Do you want to authorize now and then download?",
+                        QMessageBox::Yes | QMessageBox::No);
+                    if (reply == QMessageBox::Yes)
+                    {
+                        // requeue the gem and attempt auth
+                        connect(
+                            (PythonBindings*)PythonBindingsInterface::Get(), &PythonBindings::authenticated, this,
+                            &DownloadController::ReattemptDownload);
+                        PythonBindingsInterface::Get()->GH_OAuthAuthenticate();
+                        return;
+                    }
+                    else
+                    {
+                        // just carry on
+                    }
+                }
                 QMessageBox::critical(nullptr, tr("Gem download"), result);
             }
             succeeded = false;

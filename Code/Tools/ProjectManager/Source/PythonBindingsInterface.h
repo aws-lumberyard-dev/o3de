@@ -19,11 +19,14 @@
 #include <ProjectTemplateInfo.h>
 #include <GemRepo/GemRepoInfo.h>
 
+#include <QObject>
+
 namespace O3DE::ProjectManager
 {
     //! Interface used to interact with the o3de cli python functions
-    class IPythonBindings
+    class IPythonBindings : public QObject
     {
+        Q_OBJECT
     public:
         AZ_RTTI(O3DE::ProjectManager::IPythonBindings, "{C2B72CA4-56A9-4601-A584-3B40E83AA17C}");
         AZ_DISABLE_COPY_MOVE(IPythonBindings);
@@ -250,7 +253,10 @@ namespace O3DE::ProjectManager
          * @return an outcome with a pair of string error and detailed messages on failure.
          */
         virtual DetailedOutcome DownloadGem(
-            const QString& gemName, std::function<void(int, int)> gemProgressCallback, bool force = false) = 0;
+            const QString& gemName,
+            std::function<void(int, int)> gemProgressCallback,
+            bool force = false,
+            const QString authToken = "") = 0;
 
         /**
          * Cancels the current download.
@@ -275,6 +281,9 @@ namespace O3DE::ProjectManager
          * Clears the current list of error strings.
          */
         virtual void ClearErrorStrings() = 0;
+
+        virtual DetailedOutcome GH_OAuthAuthenticate() = 0;
+        virtual bool NeedsAuth() = 0;
     };
 
     using PythonBindingsInterface = AZ::Interface<IPythonBindings>;

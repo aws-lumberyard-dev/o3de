@@ -14,7 +14,7 @@ import uuid
 import os
 import pathlib
 import shutil
-import urllib.request
+import urllib
 import logging
 import zipfile
 
@@ -163,7 +163,7 @@ def backup_folder(folder: str or pathlib.Path) -> None:
                 renamed = True
 
 
-def download_file(parsed_uri, download_path: pathlib.Path, force_overwrite: bool = False, download_progress_callback = None) -> int:
+def download_file(parsed_uri, download_path: pathlib.Path, force_overwrite: bool = False, download_progress_callback = None, auth_token: str = "") -> int:
     """
     Download file
     :param parsed_uri: uniform resource identifier to zip file to download
@@ -183,7 +183,29 @@ def download_file(parsed_uri, download_path: pathlib.Path, force_overwrite: bool
 
     if parsed_uri.scheme in ['http', 'https', 'ftp', 'ftps']:
         try:
-            with urllib.request.urlopen(parsed_uri.geturl()) as s:
+            maybeAuth = False
+            print(parsed_uri.netloc)
+            if 'github' in parsed_uri.netloc:
+                print('Setting maybeAuth')
+                maybeAuth = True
+                print('After Setting maybeAuth')
+                if auth_token:
+                    authstr = 'token {}'.format(auth_token)
+                    print(f'{parsed_uri.geturl()}\n')
+                    print(f'{authstr}\n')
+                    #auri = "https://github.com/AMZN-Phil/LargeTestGem/releases/download/v0.1/gem.zip"
+                    auri = "https://api.github.com/repos/AMZN-Phil/LargeTestGem/releases/assets/61466733"
+                    #req = urllib.request.Request(parsed_uri.geturl(), headers={'accept': 'application/octet-stream', 'authorization': authstr})
+                    req = urllib.request.Request(auri)
+                    req.add_header('Authorization', authstr)
+                    req.add_header('accept', 'application/octet-stream')
+                else:
+                    req = urllib.request.Request(parsed_uri.geturl())
+            else:
+                req = urllib.request.Request(parsed_uri.geturl())
+
+            print('Attempting open maybeAuth')
+            with urllib.request.urlopen(req) as s:
                 download_file_size = 0
                 try:
                     download_file_size = s.headers['content-length']
@@ -202,7 +224,11 @@ def download_file(parsed_uri, download_path: pathlib.Path, force_overwrite: bool
                         return 1
         except urllib.error.HTTPError as e:
             logger.error(f'HTTP Error {e.code} opening {parsed_uri.geturl()}')
-            return 1
+            if maybeAuth and download_progress_callback:
+                download_progress_callback(-2, -2)
+                return 2
+            else:
+                return 1
         except urllib.error.URLError as e:
             logger.error(f'URL Error {e.reason} opening {parsed_uri.geturl()}')
             return 1
@@ -215,12 +241,12 @@ def download_file(parsed_uri, download_path: pathlib.Path, force_overwrite: bool
     return 0
 
 
-def download_zip_file(parsed_uri, download_zip_path: pathlib.Path, force_overwrite: bool, download_progress_callback = None) -> int:
+def download_zip_file(parsed_uri, download_zip_path: pathlib.Path, force_overwrite: bool, download_progress_callback = None, auth_token: str = "") -> int:
     """
     :param parsed_uri: uniform resource identifier to zip file to download
     :param download_zip_path: path to output zip file
     """
-    download_file_result = download_file(parsed_uri, download_zip_path, force_overwrite, download_progress_callback)
+    download_file_result = download_file(parsed_uri, download_zip_path, force_overwrite, download_progress_callback, auth_token)
     if download_file_result != 0:
         return download_file_result
 

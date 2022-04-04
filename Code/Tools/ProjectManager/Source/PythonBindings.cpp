@@ -26,7 +26,10 @@
 #include <AzCore/std/numeric.h>
 #include <AzCore/StringFunc/StringFunc.h>
 
+#include <QtCore>
 #include <QDir>
+#include <QtNetworkAuth>
+#include <QDesktopServices>
 
 namespace Platform
 {
@@ -1111,6 +1114,92 @@ namespace O3DE::ProjectManager
         return result && refreshResult;
     }
 
+    void PythonBindings::authenticationcomplete()
+    {
+        m_authToken = oauth2.token();
+        // need to use access token to download
+        QString token = oauth2.token();
+
+        QVariantMap black;
+        black.insert("Accept", "application/vnd.github.v3+json");
+
+        //QUrl getDownloadLink("https://api.github.com/repos/AMZN-Phil/LargeTestGem/releases/1/assets");
+        QUrl getDownloadLink("https://api.github.com/repos/AMZN-Phil/LargeTestGem/releases");
+        //QUrl getDownloadLink("https://api.github.com/repos/o3de/o3de/releases");
+        QNetworkReply* reply = oauth2.get(getDownloadLink);
+
+        connect(
+            reply, &QNetworkReply::finished,
+            [=]()
+            {
+                reply->deleteLater();
+                if (reply->error() != QNetworkReply::NoError)
+                {
+                    QString errstr = reply->errorString();
+                    //emit error(reply->errorString());
+                    return;
+                }
+                const auto json = reply->readAll();
+                const auto document = QJsonDocument::fromJson(json);
+                //Q_ASSERT(document.isObject());
+                //const auto rootObject = document.object();
+            });
+            
+        auto gemDownloadProgress = [=](int bytesDownloaded, int totalBytes)
+        {
+            int iy = bytesDownloaded;
+            iy += totalBytes;
+        };
+        //DownloadGem("TestPasswordGem", gemDownloadProgress, true, token);
+        
+
+        //https://api.github.com/repos/jgm/pandoc/releases/latest
+        int ix = 0;
+        ++ix;
+    }
+
+    IPythonBindings::DetailedOutcome PythonBindings::GH_OAuthAuthenticate()
+    {
+        auto replyHandler = new QOAuthHttpServerReplyHandler(1337, this);
+        oauth2.setReplyHandler(replyHandler);
+        oauth2.setAuthorizationUrl(QUrl("https://github.com/login/oauth/authorize"));
+        oauth2.setAccessTokenUrl(QUrl("https://github.com/login/oauth/access_token"));
+        oauth2.setClientIdentifier("e09107374915dfbef29c");
+        oauth2.setScope("repo");
+        oauth2.setClientIdentifierSharedKey("7a34072a89e2c471d3fe93aaef302b013b9af200");
+
+        connect(this, &PythonBindings::authenticated, this, &PythonBindings::authenticationcomplete);
+
+        connect(
+            &oauth2, &QOAuth2AuthorizationCodeFlow::statusChanged,
+            [=](QAbstractOAuth::Status status)
+            {
+                if (status == QAbstractOAuth::Status::Granted)
+                {
+                    emit authenticated();
+                }
+            });
+        oauth2.setModifyParametersFunction(
+            [&](QAbstractOAuth::Stage stage, QVariantMap* /*parameters*/)
+            {
+                if (stage == QAbstractOAuth::Stage::RequestingAuthorization)
+                {
+                    
+                }
+                if (stage == QAbstractOAuth::Stage::RequestingAccessToken)
+                {
+                    // oauth2
+                }
+                // if (stage == QAbstractOAuth::Stage::RequestingAuthorization && isPermanent())
+                //    parameters->insert("duration", "permanent");
+            });
+        connect(&oauth2, &QOAuth2AuthorizationCodeFlow::authorizeWithBrowser, &QDesktopServices::openUrl);
+
+        oauth2.grant();
+
+        return AZ::Success();
+    }
+
     IPythonBindings::DetailedOutcome PythonBindings::AddGemRepo(const QString& repoUri)
     {
         bool registrationResult = false;
@@ -1294,12 +1383,13 @@ namespace O3DE::ProjectManager
     }
 
     IPythonBindings::DetailedOutcome  PythonBindings::DownloadGem(
-        const QString& gemName, std::function<void(int, int)> gemProgressCallback, bool force)
+        const QString& gemName, std::function<void(int, int)> gemProgressCallback, bool force, const QString authToken)
     {
         // This process is currently limited to download a single gem at a time.
         bool downloadSucceeded = false;
 
         m_requestCancelDownload = false;
+        failedBecauseAuth = false;
         auto result = ExecuteWithLockErrorHandling(
             [&]
             {
@@ -1311,11 +1401,22 @@ namespace O3DE::ProjectManager
                     pybind11::cpp_function(
                         [this, gemProgressCallback](int bytesDownloaded, int totalBytes)
                         {
+                            if (bytesDownloaded == -2 && totalBytes == -2)
+                            {
+                                failedBecauseAuth = true;
+                            }
                             gemProgressCallback(bytesDownloaded, totalBytes);
 
                             return m_requestCancelDownload;
-                        }) // Callback for download progress and cancelling
+                        }
+                        ), // Callback for download progress and cancelling
+                    QString_To_Py_String(m_authToken)
                     );
+                if (downloadResult.cast<int>() == 2)
+                {
+                    int ix = 0;
+                    ++ix;
+                }
                 downloadSucceeded = (downloadResult.cast<int>() == 0);
             });
 

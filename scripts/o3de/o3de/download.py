@@ -97,7 +97,7 @@ def get_downloadable(engine_name: str = None,
 
 def download_o3de_object(object_name: str, default_folder_name: str, dest_path: str or pathlib.Path,
                          object_type: str, downloadable_kwarg_key, skip_auto_register: bool,
-                         force_overwrite: bool, download_progress_callback = None) -> int:
+                         force_overwrite: bool, download_progress_callback = None, auth_token: str = "") -> int:
 
     download_path = manifest.get_o3de_cache_folder() / default_folder_name / object_name
     download_path.mkdir(parents=True, exist_ok=True)
@@ -110,8 +110,8 @@ def download_o3de_object(object_name: str, default_folder_name: str, dest_path: 
 
     origin_uri = downloadable_object_data['origin_uri']
     parsed_uri = urllib.parse.urlparse(origin_uri)
-
-    download_zip_result = utils.download_zip_file(parsed_uri, download_zip_path, force_overwrite, download_progress_callback)
+    print('Test download download_o3de_object')
+    download_zip_result = utils.download_zip_file(parsed_uri, download_zip_path, force_overwrite, download_progress_callback, auth_token)
     if download_zip_result != 0:
         return download_zip_result
 
@@ -193,7 +193,8 @@ def download_gem(gem_name: str,
                  dest_path: str or pathlib.Path,
                  skip_auto_register: bool,
                  force_overwrite: bool,
-                 download_progress_callback = None) -> int:
+                 download_progress_callback = None,
+                 auth_token: str = "") -> int:
     return download_o3de_object(gem_name,
                                 'gems',
                                 dest_path,
@@ -201,7 +202,8 @@ def download_gem(gem_name: str,
                                 'gem_name',
                                 skip_auto_register,
                                 force_overwrite,
-                                download_progress_callback)
+                                download_progress_callback,
+                                auth_token)
 
 
 def download_template(template_name: str,
@@ -291,7 +293,9 @@ def _run_download(args: argparse) -> int:
         return download_gem(args.gem_name,
                             args.dest_path,
                             args.skip_auto_register,
-                            args.force)
+                            args.force,
+                            None,
+                            args.atoken)
     elif args.template_name:
         return download_template(args.template_name,
                                  args.dest_path,
@@ -328,6 +332,8 @@ def add_parser_args(parser):
     parser.add_argument('-f', '--force', action='store_true', required=False,
                             default=False,
                             help = 'Force overwrite the current object')
+    parser.add_argument('-tok', '--atoken', type=str, required=False, default=None,
+                            help = 'auth token')
 
     parser.set_defaults(func=_run_download)
 
