@@ -1,0 +1,18 @@
+{
+    "Amazon": {
+        "AssetProcessor": {
+            "Settings": {
+                "ScanFolder LuaDebugger/Assets": {
+                    "watch": "@GEMROOT:LuaDebugger@/Assets",
+                    "recursive": 1,
+                    "order": 101
+                },
+                "ScanFolder LuaDebugger/Registry": {
+                    "watch": "@GEMROOT:LuaDebugger@/Registry",
+                    "recursive": 1,
+                    "order": 102
+                }
+            }
+        }
+    }
+}

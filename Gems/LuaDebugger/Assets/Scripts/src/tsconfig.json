@@ -1,0 +1,18 @@
+{
+	"compilerOptions": {
+		"module": "commonjs",
+		"lib": ["es6", "dom", "es2017"],
+		"target": "es6",
+		"noImplicitAny": false,
+		"removeComments": true,
+		"noUnusedLocals": true,
+		"noImplicitThis": true,
+		"inlineSourceMap": false,
+		"sourceMap": true,
+		"outDir": "../out",
+		"preserveConstEnums": true,
+		"strictNullChecks": false,
+		"noUnusedParameters": false,
+		"strict": false   /* enable all strict type-checking options */
+	}
+}

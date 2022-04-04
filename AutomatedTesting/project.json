@@ -15,5 +15,6 @@
     "icon_path": "preview.png",
     "external_subdirectories": [
         "Gem"
-    ]
+    ],
+    "gem_names": []
 }

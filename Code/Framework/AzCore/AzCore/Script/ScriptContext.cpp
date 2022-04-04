@@ -4344,6 +4344,8 @@ LUA_API const Node* lua_getDummyNode()
                 //AZ_Assert(false, "Modules not supported!");
                 //}
 
+                Execute("_G.socket = require(\"socket.core\"); if _G.socket == nil then print(\"SOCKET NIL\") end");
+
                 lua_pushglobaltable(m_lua);       ///< push the _G on the stack
 
                 // setup typeid() function
@@ -5753,6 +5755,16 @@ LUA_API const Node* lua_getDummyNode()
 
                 // Get the package table
                 lua_getglobal(lua, "package");
+
+                // TEMP
+
+                lua_getfield(lua, -1, "searchers");
+
+                lua_pushvalue(lua, -1);
+
+                lua_setglobal(lua, "old_searchers");
+
+                // TEMP END
 
                 // We'll call this newloaders
                 lua_createtable(lua, 2, 0);

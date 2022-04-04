@@ -1,0 +1,14 @@
+.vscode/**/*
+.gitignore
+.github
+.travis.yml
+appveyor.yml
+src/**/*
+out/tests/**/*
+**/*.js.map
+Debugger/debugger_lib/*.h
+Debugger/debugger_lib/*.cpp
+Docs/**/*
+luasocketBin/**/*
+lua504Test/**/*
+vsix/**/*
