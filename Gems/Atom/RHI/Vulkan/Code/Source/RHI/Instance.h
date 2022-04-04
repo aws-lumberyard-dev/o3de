@@ -13,6 +13,15 @@
 #include <RHI/PhysicalDevice.h>
 #include <Atom/RHI/ValidationLayer.h>
 
+#include "common.h"
+#define XR_USE_GRAPHICS_API_VULKAN 1
+//
+// OpenXR Headers
+//
+#include <openxr/openxr.h>
+#include <openxr/openxr_platform.h>
+#include <openxr/openxr_reflection.h>
+
 namespace AZ
 {
     namespace Vulkan
@@ -47,6 +56,36 @@ namespace AZ
             RHI::PhysicalDeviceList GetSupportedDevices() const;
             AZ::RHI::ValidationMode GetValidationMode() const;
 
+            void CreateInstanceInternal();
+            void LogInstanceInfo();
+            std::vector<std::string> GetInstanceExtensions() const;
+            void InitializeSystem();
+            void LogViewConfigurations();
+            void LogEnvironmentBlendMode(XrViewConfigurationType type);
+            XrResult GetVulkanGraphicsRequirements2KHR(
+                XrInstance instance, XrSystemId systemId, XrGraphicsRequirementsVulkan2KHR* graphicsRequirements);
+            XrResult CreateVulkanInstanceKHR(
+                XrInstance instance, const XrVulkanInstanceCreateInfoKHR* createInfo, VkInstance* vulkanInstance, VkResult* vulkanResult);
+
+            XrInstance GetXRInstance()
+            {
+                return m_xrInstance;
+            };
+
+            XrSystemId GetXRSystemId()
+            {
+                return m_systemId;
+            };
+            XrEnvironmentBlendMode GetEnvironmentBlendMode()
+            {
+                return m_environmentBlendMode;
+            };
+
+            std::vector<const char*> ParseExtensionString(char* names);
+            XrViewConfigurationType GetViewConfigType()
+            {
+                return m_viewConfigType;
+            }
         private:
             RHI::PhysicalDeviceList EnumerateSupportedDevices() const;
 
@@ -54,6 +93,13 @@ namespace AZ
             VkInstance m_instance = VK_NULL_HANDLE;
             AZStd::unique_ptr<FunctionLoader> m_functionLoader;
             RHI::PhysicalDeviceList m_supportedDevices;
+
+
+            XrInstance m_xrInstance{ XR_NULL_HANDLE };
+            XrFormFactor m_formFactor{ XR_FORM_FACTOR_HEAD_MOUNTED_DISPLAY };
+            XrViewConfigurationType m_viewConfigType{ XR_VIEW_CONFIGURATION_TYPE_PRIMARY_STEREO };
+            XrEnvironmentBlendMode m_environmentBlendMode{ XR_ENVIRONMENT_BLEND_MODE_OPAQUE };
+            XrSystemId m_systemId{ XR_NULL_SYSTEM_ID };
         };
     }
 }

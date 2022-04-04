@@ -10,6 +10,13 @@
 #include <Atom/RHI/PhysicalDevice.h>
 #include <AzCore/std/containers/bitset.h>
 #include <Atom/RHI.Reflect/Format.h>
+#include <RHI/Instance.h>
+
+#include "common.h"
+#define XR_USE_GRAPHICS_API_VULKAN 1
+#include <openxr/openxr.h>
+#include <openxr/openxr_platform.h>
+#include <openxr/openxr_reflection.h>
 
 namespace AZ
 {
@@ -94,9 +101,12 @@ namespace AZ
             RawStringList FilterSupportedOptionalExtensions();
             void CompileMemoryStatistics(RHI::MemoryStatisticsBuilder& builder) const;
 
+            static XrResult GetVulkanGraphicsDevice2KHR(
+                XrInstance instance, const XrVulkanGraphicsDeviceGetInfoKHR* getInfo, VkPhysicalDevice* vulkanPhysicalDevice);
         private:
             PhysicalDevice() = default;
             void Init(VkPhysicalDevice vkPhysicalDevice);
+            
 
             ///////////////////////////////////////////////////////////////////
             // RHI::PhysicalDevice

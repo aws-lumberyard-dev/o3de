@@ -13,7 +13,7 @@
 #include <RHI/SwapChain.h>
 
 #include <AzCore/Debug/Timer.h>
-
+#pragma optimize("", off)
 namespace AZ
 {
     namespace Vulkan
@@ -44,6 +44,9 @@ namespace AZ
         void CommandQueue::ExecuteWork(const RHI::ExecuteWorkRequest& rhiRequest)
         {
             const ExecuteWorkRequest& request = static_cast<const ExecuteWorkRequest&>(rhiRequest);
+            auto& device = static_cast<Device&>(GetDevice());
+            uint32_t eyeIndex = device.GetEyeIndex();
+            
             QueueCommand([=](void* queue) 
             {
                 AZ_PROFILE_SCOPE(RHI, "ExecuteWork");
@@ -86,7 +89,10 @@ namespace AZ
                     // present the image of the current frame.
                     for (RHI::SwapChain* swapChain : request.m_swapChainsToPresent)
                     {
-                        swapChain->Present();
+                        if (eyeIndex == 0)
+                        {
+                            swapChain->Present();
+                        }
                     }
                 }
 
@@ -192,4 +198,5 @@ namespace AZ
             return m_queue.get();
         }
     }
-}
+} // namespace AZ
+#pragma optimize("", on)

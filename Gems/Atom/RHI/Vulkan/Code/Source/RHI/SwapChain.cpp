@@ -91,6 +91,23 @@ namespace AZ
             }
         }
 
+        int64_t SwapChain::SelectColorSwapchainFormat(const std::vector<int64_t>& runtimeFormats) const 
+        {
+            // List of supported color swapchain formats.
+            constexpr int64_t SupportedColorSwapchainFormats[] = { 
+                                                                   VK_FORMAT_B8G8R8A8_UNORM };
+
+            auto swapchainFormatIt = std::find_first_of(
+                runtimeFormats.begin(), runtimeFormats.end(), std::begin(SupportedColorSwapchainFormats),
+                std::end(SupportedColorSwapchainFormats));
+            if (swapchainFormatIt == runtimeFormats.end())
+            {
+                THROW("No runtime swapchain format supported for color swapchain");
+            }
+
+            return *swapchainFormatIt;
+        }
+
         RHI::ResultCode SwapChain::InitInternal(RHI::Device& baseDevice, const RHI::SwapChainDescriptor& descriptor, RHI::SwapChainDimensions* nativeDimensions)
         {
             RHI::ResultCode result = RHI::ResultCode::Success;
@@ -115,6 +132,110 @@ namespace AZ
                 nativeDimensions->m_imageFormat = ConvertFormat(m_surfaceFormat.format);
             }
 
+            Instance& instance = Instance::GetInstance();
+            // Read graphics properties for preferred swapchain length and logging.
+            XrSystemProperties systemProperties{ XR_TYPE_SYSTEM_PROPERTIES };
+            CHECK_XRCMD(xrGetSystemProperties(instance.GetXRInstance(), instance.GetXRSystemId(), &systemProperties));
+
+            // Log system properties.
+            AZ_Printf(
+                "Vulkan", Fmt("System Properties: Name=%s VendorId=%d\n", systemProperties.systemName, systemProperties.vendorId).c_str());
+            AZ_Printf(
+                "Vulkan",
+                Fmt("System Graphics Properties: MaxWidth=%d MaxHeight=%d MaxLayers=%d\n",
+                    systemProperties.graphicsProperties.maxSwapchainImageWidth, systemProperties.graphicsProperties.maxSwapchainImageHeight,
+                    systemProperties.graphicsProperties.maxLayerCount).c_str());
+            AZ_Printf(
+                "Vulkan",
+                Fmt("System Tracking Properties: OrientationTracking=%s PositionTracking=%s\n",
+                    systemProperties.trackingProperties.orientationTracking == XR_TRUE ? "True" : "False",
+                    systemProperties.trackingProperties.positionTracking == XR_TRUE ? "True" : "False").c_str());
+                    
+            // Note: No other view configurations exist at the time this code was written. If this
+            // condition is not met, the project will need to be audited to see how support should be
+            // added.
+            //CHECK_MSG(m_viewConfigType == XR_VIEW_CONFIGURATION_TYPE_PRIMARY_STEREO, "Unsupported view configuration type");
+
+            uint32_t viewCount;
+            CHECK_XRCMD(xrEnumerateViewConfigurationViews(
+                instance.GetXRInstance(), instance.GetXRSystemId(), XR_VIEW_CONFIGURATION_TYPE_PRIMARY_STEREO, 0, &viewCount, nullptr));
+            m_configViews.resize(viewCount, { XR_TYPE_VIEW_CONFIGURATION_VIEW });
+            CHECK_XRCMD(xrEnumerateViewConfigurationViews(
+                instance.GetXRInstance(), instance.GetXRSystemId(), XR_VIEW_CONFIGURATION_TYPE_PRIMARY_STEREO, viewCount, &viewCount,
+                m_configViews.data()));
+
+            // Create and cache view buffer for xrLocateViews later.
+            m_views.resize(viewCount, { XR_TYPE_VIEW });
+
+            // Create the swapchain and get the images.
+            if (viewCount > 0)
+            {
+                // Select a swapchain format.
+                uint32_t swapchainFormatCount;
+                CHECK_XRCMD(xrEnumerateSwapchainFormats(device.GetSession(), 0, &swapchainFormatCount, nullptr));
+                std::vector<int64_t> swapchainFormats(swapchainFormatCount);
+                CHECK_XRCMD(xrEnumerateSwapchainFormats(
+                    device.GetSession(), (uint32_t)swapchainFormats.size(), &swapchainFormatCount, swapchainFormats.data()));
+                CHECK(swapchainFormatCount == swapchainFormats.size());
+                m_colorSwapchainFormat = SelectColorSwapchainFormat(swapchainFormats);
+
+                // Print swapchain formats and the selected one.
+                {
+                    std::string swapchainFormatsString;
+                    for (int64_t format : swapchainFormats)
+                    {
+                        const bool selected = format == m_colorSwapchainFormat;
+                        swapchainFormatsString += " ";
+                        if (selected)
+                        {
+                            swapchainFormatsString += "[";
+                        }
+                        swapchainFormatsString += std::to_string(format);
+                        if (selected)
+                        {
+                            swapchainFormatsString += "]";
+                        }
+                    }
+                    AZ_Printf("Vulkan", Fmt("Swapchain Formats: %s\n", swapchainFormatsString.c_str()).c_str());
+                }
+
+                 // Create a swapchain for each view.
+                for (uint32_t i = 0; i < viewCount; i++)
+                {
+                    const XrViewConfigurationView& vp = m_configViews[i];
+                    AZ_Printf(
+                        "Vulkan",
+                        Fmt("Creating swapchain for view %d with dimensions Width=%d Height=%d SampleCount=%d\n", i,
+                            vp.recommendedImageRectWidth, vp.recommendedImageRectHeight, vp.recommendedSwapchainSampleCount).c_str());
+
+                    // Create the swapchain.
+                    XrSwapchainCreateInfo swapchainCreateInfo{ XR_TYPE_SWAPCHAIN_CREATE_INFO };
+                    swapchainCreateInfo.arraySize = 1;
+                    swapchainCreateInfo.format = m_colorSwapchainFormat;
+                    swapchainCreateInfo.width = vp.recommendedImageRectWidth;
+                    swapchainCreateInfo.height = vp.recommendedImageRectHeight;
+                    swapchainCreateInfo.mipCount = 1;
+                    swapchainCreateInfo.faceCount = 1;
+                    swapchainCreateInfo.sampleCount = VK_SAMPLE_COUNT_1_BIT; //m_graphicsPlugin->GetSupportedSwapchainSampleCount(vp);
+                    swapchainCreateInfo.usageFlags = XR_SWAPCHAIN_USAGE_SAMPLED_BIT | XR_SWAPCHAIN_USAGE_COLOR_ATTACHMENT_BIT;
+                    Swapchain1 swapchain;
+                    swapchain.width = swapchainCreateInfo.width;
+                    swapchain.height = swapchainCreateInfo.height;
+                    CHECK_XRCMD(xrCreateSwapchain(device.GetSession(), &swapchainCreateInfo, &swapchain.handle));
+
+                    m_swapchains.push_back(swapchain);
+
+                    uint32_t imageCount;
+                    CHECK_XRCMD(xrEnumerateSwapchainImages(swapchain.handle, 0, &imageCount, nullptr));
+                    // XXX This should really just return XrSwapchainImageBaseHeader*
+                    std::vector<XrSwapchainImageBaseHeader*> swapchainImages =
+                        device.AllocateSwapchainImageStructs(imageCount, swapchainCreateInfo);
+                    CHECK_XRCMD(xrEnumerateSwapchainImages(swapchain.handle, imageCount, &imageCount, swapchainImages[0]));
+
+                    m_swapchainImages.insert(std::make_pair(swapchain.handle, std::move(swapchainImages)));
+                }
+            }
+            device.SetSwapchain(this);
             SetName(GetName());
             return result;
         }

@@ -29,6 +29,91 @@
 #include <RHI/WSISurface.h>
 #include <Vulkan_Traits_Platform.h>
 
+
+#pragma optimize("", off)
+
+
+namespace Math
+{
+    namespace Pose
+    {
+        XrPosef Identity()
+        {
+            XrPosef t{};
+            t.orientation.w = 1;
+            return t;
+        }
+
+        XrPosef Translation(const XrVector3f& translation)
+        {
+            XrPosef t = Identity();
+            t.position = translation;
+            return t;
+        }
+
+        XrPosef RotateCCWAboutYAxis(float radians, XrVector3f translation)
+        {
+            XrPosef t = Identity();
+            t.orientation.x = 0.f;
+            t.orientation.y = std::sin(radians * 0.5f);
+            t.orientation.z = 0.f;
+            t.orientation.w = std::cos(radians * 0.5f);
+            t.position = translation;
+            return t;
+        }
+    } // namespace Pose
+} // namespace Math
+
+inline XrReferenceSpaceCreateInfo GetXrReferenceSpaceCreateInfo(const std::string& referenceSpaceTypeStr)
+{
+    XrReferenceSpaceCreateInfo referenceSpaceCreateInfo{ XR_TYPE_REFERENCE_SPACE_CREATE_INFO };
+    referenceSpaceCreateInfo.poseInReferenceSpace = Math::Pose::Identity();
+    if (EqualsIgnoreCase(referenceSpaceTypeStr, "View"))
+    {
+        referenceSpaceCreateInfo.referenceSpaceType = XR_REFERENCE_SPACE_TYPE_VIEW;
+    }
+    else if (EqualsIgnoreCase(referenceSpaceTypeStr, "ViewFront"))
+    {
+        // Render head-locked 2m in front of device.
+        referenceSpaceCreateInfo.poseInReferenceSpace = Math::Pose::Translation({ 0.f, 0.f, -2.f }),
+        referenceSpaceCreateInfo.referenceSpaceType = XR_REFERENCE_SPACE_TYPE_VIEW;
+    }
+    else if (EqualsIgnoreCase(referenceSpaceTypeStr, "Local"))
+    {
+        referenceSpaceCreateInfo.referenceSpaceType = XR_REFERENCE_SPACE_TYPE_LOCAL;
+    }
+    else if (EqualsIgnoreCase(referenceSpaceTypeStr, "Stage"))
+    {
+        referenceSpaceCreateInfo.referenceSpaceType = XR_REFERENCE_SPACE_TYPE_STAGE;
+    }
+    else if (EqualsIgnoreCase(referenceSpaceTypeStr, "StageLeft"))
+    {
+        referenceSpaceCreateInfo.poseInReferenceSpace = Math::Pose::RotateCCWAboutYAxis(0.f, { -2.f, 0.f, -2.f });
+        referenceSpaceCreateInfo.referenceSpaceType = XR_REFERENCE_SPACE_TYPE_STAGE;
+    }
+    else if (EqualsIgnoreCase(referenceSpaceTypeStr, "StageRight"))
+    {
+        referenceSpaceCreateInfo.poseInReferenceSpace = Math::Pose::RotateCCWAboutYAxis(0.f, { 2.f, 0.f, -2.f });
+        referenceSpaceCreateInfo.referenceSpaceType = XR_REFERENCE_SPACE_TYPE_STAGE;
+    }
+    else if (EqualsIgnoreCase(referenceSpaceTypeStr, "StageLeftRotated"))
+    {
+        referenceSpaceCreateInfo.poseInReferenceSpace = Math::Pose::RotateCCWAboutYAxis(3.14f / 3.f, { -2.f, 0.5f, -2.f });
+        referenceSpaceCreateInfo.referenceSpaceType = XR_REFERENCE_SPACE_TYPE_STAGE;
+    }
+    else if (EqualsIgnoreCase(referenceSpaceTypeStr, "StageRightRotated"))
+    {
+        referenceSpaceCreateInfo.poseInReferenceSpace = Math::Pose::RotateCCWAboutYAxis(-3.14f / 3.f, { 2.f, 0.5f, -2.f });
+        referenceSpaceCreateInfo.referenceSpaceType = XR_REFERENCE_SPACE_TYPE_STAGE;
+    }
+    else
+    {
+        throw std::invalid_argument(Fmt("Unknown reference space type '%s'", referenceSpaceTypeStr.c_str()));
+    }
+    return referenceSpaceCreateInfo;
+}
+
+
 namespace AZ
 {
     namespace Vulkan
@@ -62,6 +147,343 @@ namespace AZ
             {
                 Debug::SetNameToObject(reinterpret_cast<uint64_t>(m_nativeDevice), name.data(), VK_OBJECT_TYPE_DEVICE, *this);
             }
+        }
+
+        
+
+        XrResult Device::CreateVulkanDeviceKHR(
+            XrInstance instance,
+            const XrVulkanDeviceCreateInfoKHR* createInfo,
+            VkDevice* vulkanDevice,
+            VkResult* vulkanResult,
+            VkPhysicalDevice vkPhysicalDevice,
+            VkInstance vkInstance)
+        {
+            PFN_xrGetVulkanDeviceExtensionsKHR pfnGetVulkanDeviceExtensionsKHR = nullptr;
+            CHECK_XRCMD(xrGetInstanceProcAddr(
+                instance, "xrGetVulkanDeviceExtensionsKHR", reinterpret_cast<PFN_xrVoidFunction*>(&pfnGetVulkanDeviceExtensionsKHR)));
+
+            uint32_t deviceExtensionNamesSize = 0;
+            CHECK_XRCMD(pfnGetVulkanDeviceExtensionsKHR(instance, createInfo->systemId, 0, &deviceExtensionNamesSize, nullptr));
+            std::vector<char> deviceExtensionNames(deviceExtensionNamesSize);
+            CHECK_XRCMD(pfnGetVulkanDeviceExtensionsKHR(
+                instance, createInfo->systemId, deviceExtensionNamesSize, &deviceExtensionNamesSize, &deviceExtensionNames[0]));
+            {
+                // Note: This cannot outlive the extensionNames above, since it's just a collection of views into that string!
+                std::vector<const char*> extensions = Instance::GetInstance().ParseExtensionString(&deviceExtensionNames[0]);
+
+                // Merge the runtime's request with the applications requests
+                for (uint32_t i = 0; i < createInfo->vulkanCreateInfo->enabledExtensionCount; ++i)
+                {
+                    extensions.push_back(createInfo->vulkanCreateInfo->ppEnabledExtensionNames[i]);
+                }
+
+                VkPhysicalDeviceFeatures features{};
+                memcpy(&features, createInfo->vulkanCreateInfo->pEnabledFeatures, sizeof(features));
+
+#if !defined(XR_USE_PLATFORM_ANDROID)
+                VkPhysicalDeviceFeatures availableFeatures{};
+                vkGetPhysicalDeviceFeatures(vkPhysicalDevice, &availableFeatures);
+                if (availableFeatures.shaderStorageImageMultisample == VK_TRUE)
+                {
+                    // Setting this quiets down a validation error triggered by the Oculus runtime
+                    features.shaderStorageImageMultisample = VK_TRUE;
+                }
+#endif
+
+                VkDeviceCreateInfo deviceInfo{ VK_STRUCTURE_TYPE_DEVICE_CREATE_INFO };
+                memcpy(&deviceInfo, createInfo->vulkanCreateInfo, sizeof(deviceInfo));
+                deviceInfo.pEnabledFeatures = &features;
+                deviceInfo.enabledExtensionCount = (uint32_t)extensions.size();
+                deviceInfo.ppEnabledExtensionNames = extensions.empty() ? nullptr : extensions.data();
+
+                auto pfnCreateDevice = (PFN_vkCreateDevice)createInfo->pfnGetInstanceProcAddr(vkInstance, "vkCreateDevice");
+                *vulkanResult = pfnCreateDevice(vkPhysicalDevice, &deviceInfo, createInfo->vulkanAllocator, vulkanDevice);
+            }
+
+            return XR_SUCCESS;
+        }
+
+        const XrBaseInStructure* Device::GetGraphicsBinding() const
+        {
+            return reinterpret_cast<const XrBaseInStructure*>(&m_graphicsBinding);
+        }
+
+        void Device::CreateVisualizedSpaces()
+        {
+            CHECK(m_session != XR_NULL_HANDLE);
+
+            std::string visualizedSpaces[] = { "ViewFront",        "Local", "Stage", "StageLeft", "StageRight", "StageLeftRotated",
+                                               "StageRightRotated" };
+
+            for (const auto& visualizedSpace : visualizedSpaces)
+            {
+                XrReferenceSpaceCreateInfo referenceSpaceCreateInfo = GetXrReferenceSpaceCreateInfo(visualizedSpace);
+                XrSpace space;
+                XrResult res = xrCreateReferenceSpace(m_session, &referenceSpaceCreateInfo, &space);
+                if (XR_SUCCEEDED(res))
+                {
+                    m_visualizedSpaces.push_back(space);
+                }
+                else
+                {
+                    AZ_Printf("Vulkan", Fmt("Failed to create reference space %s with error %d", visualizedSpace.c_str(), res).c_str());
+                }
+            }
+        }
+
+        std::vector<XrSwapchainImageBaseHeader*> Device::AllocateSwapchainImageStructs(uint32_t capacity, const XrSwapchainCreateInfo& swapchainCreateInfo)
+        {
+            // Allocate and initialize the buffer of image structs (must be sequential in memory for xrEnumerateSwapchainImages).
+            // Return back an array of pointers to each swapchain image struct so the consumer doesn't need to know the type/size.
+            // Keep the buffer alive by adding it into the list of buffers.
+            m_swapchainImageContexts.emplace_back(XR_TYPE_SWAPCHAIN_IMAGE_VULKAN_KHR);//GetSwapchainImageType());
+            SwapchainImageContext& swapchainImageContext = m_swapchainImageContexts.back();
+
+            std::vector<XrSwapchainImageBaseHeader*> bases = swapchainImageContext.Create(
+                m_nativeDevice, capacity, swapchainCreateInfo);
+                //m_vkDevice, &m_memAllocator, capacity, swapchainCreateInfo, m_pipelineLayout, m_shaderProgram, m_drawBuffer);
+
+            // Map every swapchainImage base pointer to this context
+            for (auto& base : bases)
+            {
+                m_swapchainImageContextMap[base] = &swapchainImageContext;
+            }
+
+            return bases;
+        }
+
+        void Device::LogReferenceSpaces()
+        {
+            CHECK(m_session != XR_NULL_HANDLE);
+
+            uint32_t spaceCount;
+            CHECK_XRCMD(xrEnumerateReferenceSpaces(m_session, 0, &spaceCount, nullptr));
+            std::vector<XrReferenceSpaceType> spaces(spaceCount);
+            CHECK_XRCMD(xrEnumerateReferenceSpaces(m_session, spaceCount, &spaceCount, spaces.data()));
+
+            AZ_Printf("Vulkan", Fmt("Available reference spaces: %d\n", spaceCount).c_str());
+            for (XrReferenceSpaceType space : spaces)
+            {
+                AZ_Printf("Vulkan", Fmt("  Name: %s\n", to_string(space)).c_str());
+            }
+        }
+        void Device::InitializeActions()
+        {
+            Instance& instance = Instance::GetInstance();
+            // Create an action set.
+            {
+                XrActionSetCreateInfo actionSetInfo{ XR_TYPE_ACTION_SET_CREATE_INFO };
+                strcpy_s(actionSetInfo.actionSetName, "gameplay");
+                strcpy_s(actionSetInfo.localizedActionSetName, "Gameplay");
+                actionSetInfo.priority = 0;
+                CHECK_XRCMD(xrCreateActionSet(instance.GetXRInstance(), &actionSetInfo, &m_input.actionSet));
+            }
+
+            // Get the XrPath for the left and right hands - we will use them as subaction paths.
+            CHECK_XRCMD(xrStringToPath(instance.GetXRInstance(), "/user/hand/left", &m_input.handSubactionPath[Side::LEFT]));
+            CHECK_XRCMD(xrStringToPath(instance.GetXRInstance(), "/user/hand/right", &m_input.handSubactionPath[Side::RIGHT]));
+
+            // Create actions.
+            {
+                // Create an input action for grabbing objects with the left and right hands.
+                XrActionCreateInfo actionInfo{ XR_TYPE_ACTION_CREATE_INFO };
+                actionInfo.actionType = XR_ACTION_TYPE_FLOAT_INPUT;
+                strcpy_s(actionInfo.actionName, "grab_object");
+                strcpy_s(actionInfo.localizedActionName, "Grab Object");
+                actionInfo.countSubactionPaths = uint32_t(m_input.handSubactionPath.size());
+                actionInfo.subactionPaths = m_input.handSubactionPath.data();
+                CHECK_XRCMD(xrCreateAction(m_input.actionSet, &actionInfo, &m_input.grabAction));
+
+                // Create an input action getting the left and right hand poses.
+                actionInfo.actionType = XR_ACTION_TYPE_POSE_INPUT;
+                strcpy_s(actionInfo.actionName, "hand_pose");
+                strcpy_s(actionInfo.localizedActionName, "Hand Pose");
+                actionInfo.countSubactionPaths = uint32_t(m_input.handSubactionPath.size());
+                actionInfo.subactionPaths = m_input.handSubactionPath.data();
+                CHECK_XRCMD(xrCreateAction(m_input.actionSet, &actionInfo, &m_input.poseAction));
+
+                // Create output actions for vibrating the left and right controller.
+                actionInfo.actionType = XR_ACTION_TYPE_VIBRATION_OUTPUT;
+                strcpy_s(actionInfo.actionName, "vibrate_hand");
+                strcpy_s(actionInfo.localizedActionName, "Vibrate Hand");
+                actionInfo.countSubactionPaths = uint32_t(m_input.handSubactionPath.size());
+                actionInfo.subactionPaths = m_input.handSubactionPath.data();
+                CHECK_XRCMD(xrCreateAction(m_input.actionSet, &actionInfo, &m_input.vibrateAction));
+
+                // Create input actions for quitting the session using the left and right controller.
+                // Since it doesn't matter which hand did this, we do not specify subaction paths for it.
+                // We will just suggest bindings for both hands, where possible.
+                actionInfo.actionType = XR_ACTION_TYPE_BOOLEAN_INPUT;
+                strcpy_s(actionInfo.actionName, "quit_session");
+                strcpy_s(actionInfo.localizedActionName, "Quit Session");
+                actionInfo.countSubactionPaths = 0;
+                actionInfo.subactionPaths = nullptr;
+                CHECK_XRCMD(xrCreateAction(m_input.actionSet, &actionInfo, &m_input.quitAction));
+            }
+
+            std::array<XrPath, Side::COUNT> selectPath;
+            std::array<XrPath, Side::COUNT> squeezeValuePath;
+            std::array<XrPath, Side::COUNT> squeezeForcePath;
+            std::array<XrPath, Side::COUNT> squeezeClickPath;
+            std::array<XrPath, Side::COUNT> posePath;
+            std::array<XrPath, Side::COUNT> hapticPath;
+            std::array<XrPath, Side::COUNT> menuClickPath;
+            std::array<XrPath, Side::COUNT> bClickPath;
+            std::array<XrPath, Side::COUNT> triggerValuePath;
+            CHECK_XRCMD(xrStringToPath(instance.GetXRInstance(), "/user/hand/left/input/select/click", &selectPath[Side::LEFT]));
+            CHECK_XRCMD(xrStringToPath(instance.GetXRInstance(), "/user/hand/right/input/select/click", &selectPath[Side::RIGHT]));
+            CHECK_XRCMD(xrStringToPath(instance.GetXRInstance(), "/user/hand/left/input/squeeze/value", &squeezeValuePath[Side::LEFT]));
+            CHECK_XRCMD(xrStringToPath(instance.GetXRInstance(), "/user/hand/right/input/squeeze/value", &squeezeValuePath[Side::RIGHT]));
+            CHECK_XRCMD(xrStringToPath(instance.GetXRInstance(), "/user/hand/left/input/squeeze/force", &squeezeForcePath[Side::LEFT]));
+            CHECK_XRCMD(xrStringToPath(instance.GetXRInstance(), "/user/hand/right/input/squeeze/force", &squeezeForcePath[Side::RIGHT]));
+            CHECK_XRCMD(xrStringToPath(instance.GetXRInstance(), "/user/hand/left/input/squeeze/click", &squeezeClickPath[Side::LEFT]));
+            CHECK_XRCMD(xrStringToPath(instance.GetXRInstance(), "/user/hand/right/input/squeeze/click", &squeezeClickPath[Side::RIGHT]));
+            CHECK_XRCMD(xrStringToPath(instance.GetXRInstance(), "/user/hand/left/input/grip/pose", &posePath[Side::LEFT]));
+            CHECK_XRCMD(xrStringToPath(instance.GetXRInstance(), "/user/hand/right/input/grip/pose", &posePath[Side::RIGHT]));
+            CHECK_XRCMD(xrStringToPath(instance.GetXRInstance(), "/user/hand/left/output/haptic", &hapticPath[Side::LEFT]));
+            CHECK_XRCMD(xrStringToPath(instance.GetXRInstance(), "/user/hand/right/output/haptic", &hapticPath[Side::RIGHT]));
+            CHECK_XRCMD(xrStringToPath(instance.GetXRInstance(), "/user/hand/left/input/menu/click", &menuClickPath[Side::LEFT]));
+            CHECK_XRCMD(xrStringToPath(instance.GetXRInstance(), "/user/hand/right/input/menu/click", &menuClickPath[Side::RIGHT]));
+            CHECK_XRCMD(xrStringToPath(instance.GetXRInstance(), "/user/hand/left/input/b/click", &bClickPath[Side::LEFT]));
+            CHECK_XRCMD(xrStringToPath(instance.GetXRInstance(), "/user/hand/right/input/b/click", &bClickPath[Side::RIGHT]));
+            CHECK_XRCMD(xrStringToPath(instance.GetXRInstance(), "/user/hand/left/input/trigger/value", &triggerValuePath[Side::LEFT]));
+            CHECK_XRCMD(xrStringToPath(instance.GetXRInstance(), "/user/hand/right/input/trigger/value", &triggerValuePath[Side::RIGHT]));
+            // Suggest bindings for KHR Simple.
+            {
+                XrPath khrSimpleInteractionProfilePath;
+                CHECK_XRCMD(xrStringToPath(
+                    instance.GetXRInstance(), "/interaction_profiles/khr/simple_controller", &khrSimpleInteractionProfilePath));
+                std::vector<XrActionSuggestedBinding> bindings{ { // Fall back to a click input for the grab action.
+                                                                  { m_input.grabAction, selectPath[Side::LEFT] },
+                                                                  { m_input.grabAction, selectPath[Side::RIGHT] },
+                                                                  { m_input.poseAction, posePath[Side::LEFT] },
+                                                                  { m_input.poseAction, posePath[Side::RIGHT] },
+                                                                  { m_input.quitAction, menuClickPath[Side::LEFT] },
+                                                                  { m_input.quitAction, menuClickPath[Side::RIGHT] },
+                                                                  { m_input.vibrateAction, hapticPath[Side::LEFT] },
+                                                                  { m_input.vibrateAction, hapticPath[Side::RIGHT] } } };
+                XrInteractionProfileSuggestedBinding suggestedBindings{ XR_TYPE_INTERACTION_PROFILE_SUGGESTED_BINDING };
+                suggestedBindings.interactionProfile = khrSimpleInteractionProfilePath;
+                suggestedBindings.suggestedBindings = bindings.data();
+                suggestedBindings.countSuggestedBindings = (uint32_t)bindings.size();
+                CHECK_XRCMD(xrSuggestInteractionProfileBindings(instance.GetXRInstance(), &suggestedBindings));
+            }
+            // Suggest bindings for the Oculus Touch.
+            {
+                XrPath oculusTouchInteractionProfilePath;
+                CHECK_XRCMD(xrStringToPath(
+                    instance.GetXRInstance(), "/interaction_profiles/oculus/touch_controller", &oculusTouchInteractionProfilePath));
+                std::vector<XrActionSuggestedBinding> bindings{ { { m_input.grabAction, squeezeValuePath[Side::LEFT] },
+                                                                  { m_input.grabAction, squeezeValuePath[Side::RIGHT] },
+                                                                  { m_input.poseAction, posePath[Side::LEFT] },
+                                                                  { m_input.poseAction, posePath[Side::RIGHT] },
+                                                                  { m_input.quitAction, menuClickPath[Side::LEFT] },
+                                                                  { m_input.vibrateAction, hapticPath[Side::LEFT] },
+                                                                  { m_input.vibrateAction, hapticPath[Side::RIGHT] } } };
+                XrInteractionProfileSuggestedBinding suggestedBindings{ XR_TYPE_INTERACTION_PROFILE_SUGGESTED_BINDING };
+                suggestedBindings.interactionProfile = oculusTouchInteractionProfilePath;
+                suggestedBindings.suggestedBindings = bindings.data();
+                suggestedBindings.countSuggestedBindings = (uint32_t)bindings.size();
+                CHECK_XRCMD(xrSuggestInteractionProfileBindings(instance.GetXRInstance(), &suggestedBindings));
+            }
+            // Suggest bindings for the Vive Controller.
+            {
+                XrPath viveControllerInteractionProfilePath;
+                CHECK_XRCMD(xrStringToPath(
+                    instance.GetXRInstance(), "/interaction_profiles/htc/vive_controller", &viveControllerInteractionProfilePath));
+                std::vector<XrActionSuggestedBinding> bindings{ { { m_input.grabAction, triggerValuePath[Side::LEFT] },
+                                                                  { m_input.grabAction, triggerValuePath[Side::RIGHT] },
+                                                                  { m_input.poseAction, posePath[Side::LEFT] },
+                                                                  { m_input.poseAction, posePath[Side::RIGHT] },
+                                                                  { m_input.quitAction, menuClickPath[Side::LEFT] },
+                                                                  { m_input.quitAction, menuClickPath[Side::RIGHT] },
+                                                                  { m_input.vibrateAction, hapticPath[Side::LEFT] },
+                                                                  { m_input.vibrateAction, hapticPath[Side::RIGHT] } } };
+                XrInteractionProfileSuggestedBinding suggestedBindings{ XR_TYPE_INTERACTION_PROFILE_SUGGESTED_BINDING };
+                suggestedBindings.interactionProfile = viveControllerInteractionProfilePath;
+                suggestedBindings.suggestedBindings = bindings.data();
+                suggestedBindings.countSuggestedBindings = (uint32_t)bindings.size();
+                CHECK_XRCMD(xrSuggestInteractionProfileBindings(instance.GetXRInstance(), &suggestedBindings));
+            }
+
+            // Suggest bindings for the Valve Index Controller.
+            {
+                XrPath indexControllerInteractionProfilePath;
+                CHECK_XRCMD(xrStringToPath(
+                    instance.GetXRInstance(), "/interaction_profiles/valve/index_controller", &indexControllerInteractionProfilePath));
+                std::vector<XrActionSuggestedBinding> bindings{ { { m_input.grabAction, squeezeForcePath[Side::LEFT] },
+                                                                  { m_input.grabAction, squeezeForcePath[Side::RIGHT] },
+                                                                  { m_input.poseAction, posePath[Side::LEFT] },
+                                                                  { m_input.poseAction, posePath[Side::RIGHT] },
+                                                                  { m_input.quitAction, bClickPath[Side::LEFT] },
+                                                                  { m_input.quitAction, bClickPath[Side::RIGHT] },
+                                                                  { m_input.vibrateAction, hapticPath[Side::LEFT] },
+                                                                  { m_input.vibrateAction, hapticPath[Side::RIGHT] } } };
+                XrInteractionProfileSuggestedBinding suggestedBindings{ XR_TYPE_INTERACTION_PROFILE_SUGGESTED_BINDING };
+                suggestedBindings.interactionProfile = indexControllerInteractionProfilePath;
+                suggestedBindings.suggestedBindings = bindings.data();
+                suggestedBindings.countSuggestedBindings = (uint32_t)bindings.size();
+                CHECK_XRCMD(xrSuggestInteractionProfileBindings(instance.GetXRInstance(), &suggestedBindings));
+            }
+
+            // Suggest bindings for the Microsoft Mixed Reality Motion Controller.
+            {
+                XrPath microsoftMixedRealityInteractionProfilePath;
+                CHECK_XRCMD(xrStringToPath(
+                    instance.GetXRInstance(), "/interaction_profiles/microsoft/motion_controller",
+                    &microsoftMixedRealityInteractionProfilePath));
+                std::vector<XrActionSuggestedBinding> bindings{ { { m_input.grabAction, squeezeClickPath[Side::LEFT] },
+                                                                  { m_input.grabAction, squeezeClickPath[Side::RIGHT] },
+                                                                  { m_input.poseAction, posePath[Side::LEFT] },
+                                                                  { m_input.poseAction, posePath[Side::RIGHT] },
+                                                                  { m_input.quitAction, menuClickPath[Side::LEFT] },
+                                                                  { m_input.quitAction, menuClickPath[Side::RIGHT] },
+                                                                  { m_input.vibrateAction, hapticPath[Side::LEFT] },
+                                                                  { m_input.vibrateAction, hapticPath[Side::RIGHT] } } };
+                XrInteractionProfileSuggestedBinding suggestedBindings{ XR_TYPE_INTERACTION_PROFILE_SUGGESTED_BINDING };
+                suggestedBindings.interactionProfile = microsoftMixedRealityInteractionProfilePath;
+                suggestedBindings.suggestedBindings = bindings.data();
+                suggestedBindings.countSuggestedBindings = (uint32_t)bindings.size();
+                CHECK_XRCMD(xrSuggestInteractionProfileBindings(instance.GetXRInstance(), &suggestedBindings));
+            }
+            XrActionSpaceCreateInfo actionSpaceInfo{ XR_TYPE_ACTION_SPACE_CREATE_INFO };
+            actionSpaceInfo.action = m_input.poseAction;
+            actionSpaceInfo.poseInActionSpace.orientation.w = 1.f;
+            actionSpaceInfo.subactionPath = m_input.handSubactionPath[Side::LEFT];
+            CHECK_XRCMD(xrCreateActionSpace(m_session, &actionSpaceInfo, &m_input.handSpace[Side::LEFT]));
+            actionSpaceInfo.subactionPath = m_input.handSubactionPath[Side::RIGHT];
+            CHECK_XRCMD(xrCreateActionSpace(m_session, &actionSpaceInfo, &m_input.handSpace[Side::RIGHT]));
+
+            XrSessionActionSetsAttachInfo attachInfo{ XR_TYPE_SESSION_ACTION_SETS_ATTACH_INFO };
+            attachInfo.countActionSets = 1;
+            attachInfo.actionSets = &m_input.actionSet;
+            CHECK_XRCMD(xrAttachSessionActionSets(m_session, &attachInfo));
+        }
+        void Device::InitializeSession() 
+        {
+            Instance& instance = Instance::GetInstance();
+            CHECK(instance.GetXRInstance() != XR_NULL_HANDLE);
+            CHECK(m_session == XR_NULL_HANDLE);
+
+            {
+                AZ_Printf("Vulkan", Fmt("Creating session...\n").c_str());
+
+                XrSessionCreateInfo createInfo{ XR_TYPE_SESSION_CREATE_INFO };
+                createInfo.next = GetGraphicsBinding();
+                createInfo.systemId = instance.GetXRSystemId();
+                CHECK_XRCMD(xrCreateSession(instance.GetXRInstance(), &createInfo, &m_session));
+            }
+            
+            LogReferenceSpaces();
+            InitializeActions();
+            CreateVisualizedSpaces();
+
+            {
+                XrReferenceSpaceCreateInfo referenceSpaceCreateInfo = GetXrReferenceSpaceCreateInfo("View");// m_options->AppSpace);
+                CHECK_XRCMD(xrCreateReferenceSpace(m_session, &referenceSpaceCreateInfo, &m_appSpace));
+            }
+            
         }
 
         RHI::ResultCode Device::InitInternal(RHI::PhysicalDevice& physicalDeviceBase)
@@ -243,18 +665,36 @@ namespace AZ
             deviceInfo.ppEnabledExtensionNames = requiredExtensions.data();
             deviceInfo.pEnabledFeatures = &m_enabledDeviceFeatures;
 
-            const VkResult vkResult = vkCreateDevice(physicalDevice.GetNativePhysicalDevice(),
-                &deviceInfo, nullptr, &m_nativeDevice);
-            AssertSuccess(vkResult);
-            RETURN_RESULT_IF_UNSUCCESSFUL(ConvertResult(vkResult));
+            Instance& instance = Instance::GetInstance();
+
+            XrVulkanDeviceCreateInfoKHR deviceCreateInfo{ XR_TYPE_VULKAN_DEVICE_CREATE_INFO_KHR };
+            deviceCreateInfo.systemId = instance.GetXRSystemId(); 
+            deviceCreateInfo.pfnGetInstanceProcAddr = vkGetInstanceProcAddr;
+            deviceCreateInfo.vulkanCreateInfo = &deviceInfo;
+            deviceCreateInfo.vulkanPhysicalDevice = physicalDevice.GetNativePhysicalDevice();
+            deviceCreateInfo.vulkanAllocator = nullptr;
+            VkResult err;
+            CHECK_XRCMD(CreateVulkanDeviceKHR(
+                instance.GetXRInstance(), &deviceCreateInfo, &m_nativeDevice, &err, physicalDevice.GetNativePhysicalDevice(),
+                instance.GetNativeInstance()));
+            //CHECK_VKCMD(err);
+            RETURN_RESULT_IF_UNSUCCESSFUL(ConvertResult(err));
+
+            
+            //const VkResult vkResult = vkCreateDevice(physicalDevice.GetNativePhysicalDevice(),
+            //    &deviceInfo, nullptr, &m_nativeDevice);
+            //AssertSuccess(vkResult);
+            //RETURN_RESULT_IF_UNSUCCESSFUL(ConvertResult(vkResult));
 
             for (const VkDeviceQueueCreateInfo& queueInfo : queueCreationInfo)
             {
                 delete queueInfo.pQueuePriorities;
             }
 
-            Instance& instance = Instance::GetInstance();
+            
             instance.GetFunctionLoader().LoadProcAddresses(instance.GetNativeInstance(), physicalDevice.GetNativePhysicalDevice(), m_nativeDevice);
+
+            
 
             //Load device features now that we have loaded all extension info
             physicalDevice.LoadSupportedFeatures();
@@ -314,6 +754,18 @@ namespace AZ
                 result = m_nullDescriptorManager->Init(*this);
                 RETURN_RESULT_IF_UNSUCCESSFUL(result);
             }
+
+            Instance& instance = Instance::GetInstance();
+            m_graphicsBinding.instance = instance.GetNativeInstance();
+            m_graphicsBinding.physicalDevice = physicalDevice.GetNativePhysicalDevice();
+            m_graphicsBinding.device = m_nativeDevice;
+            m_graphicsBinding.queueFamilyIndex =
+                m_commandQueueContext.GetQueueFamilyIndex(RHI::HardwareQueueClass::Graphics); // queueInfo.queueFamilyIndex;
+            m_graphicsBinding.queueIndex = 0;
+            InitializeSession();
+
+            auto& presentationQueue = GetCommandQueueContext().GetCommandQueue(RHI::HardwareQueueClass::Graphics);
+            m_graphicsQueue = &presentationQueue;
 
             SetName(GetName());
             return result;
@@ -543,16 +995,389 @@ namespace AZ
             }
         }
 
-        void Device::BeginFrameInternal() 
+        void Device::LogActionSourceName(XrAction action, const std::string& actionName) const
         {
+            XrBoundSourcesForActionEnumerateInfo getInfo = { XR_TYPE_BOUND_SOURCES_FOR_ACTION_ENUMERATE_INFO };
+            getInfo.action = action;
+            uint32_t pathCount = 0;
+            CHECK_XRCMD(xrEnumerateBoundSourcesForAction(m_session, &getInfo, 0, &pathCount, nullptr));
+            std::vector<XrPath> paths(pathCount);
+            CHECK_XRCMD(xrEnumerateBoundSourcesForAction(m_session, &getInfo, uint32_t(paths.size()), &pathCount, paths.data()));
+
+            std::string sourceName;
+            for (uint32_t i = 0; i < pathCount; ++i)
+            {
+                constexpr XrInputSourceLocalizedNameFlags all = XR_INPUT_SOURCE_LOCALIZED_NAME_USER_PATH_BIT |
+                    XR_INPUT_SOURCE_LOCALIZED_NAME_INTERACTION_PROFILE_BIT | XR_INPUT_SOURCE_LOCALIZED_NAME_COMPONENT_BIT;
+
+                XrInputSourceLocalizedNameGetInfo nameInfo = { XR_TYPE_INPUT_SOURCE_LOCALIZED_NAME_GET_INFO };
+                nameInfo.sourcePath = paths[i];
+                nameInfo.whichComponents = all;
+
+                uint32_t size = 0;
+                CHECK_XRCMD(xrGetInputSourceLocalizedName(m_session, &nameInfo, 0, &size, nullptr));
+                if (size < 1)
+                {
+                    continue;
+                }
+                std::vector<char> grabSource(size);
+                CHECK_XRCMD(xrGetInputSourceLocalizedName(m_session, &nameInfo, uint32_t(grabSource.size()), &size, grabSource.data()));
+                if (!sourceName.empty())
+                {
+                    sourceName += " and ";
+                }
+                sourceName += "'";
+                sourceName += std::string(grabSource.data(), size - 1);
+                sourceName += "'";
+            }
+
+            AZ_Printf(
+                "Vulkan",
+                Fmt("%s action is bound to %s\n", actionName.c_str(), ((!sourceName.empty()) ? sourceName.c_str() : "nothing")).c_str());
+        }
+
+        bool Device::IsSessionRunning() const 
+        {
+            return m_sessionRunning;
+        }
+
+        bool Device::IsSessionFocused() const 
+        {
+            return m_sessionState == XR_SESSION_STATE_FOCUSED;
+        }
+
+
+        // Return event if one is available, otherwise return null.
+        const XrEventDataBaseHeader* Device::TryReadNextEvent()
+        {
+            Instance& instance = Instance::GetInstance();
+            // It is sufficient to clear the just the XrEventDataBuffer header to
+            // XR_TYPE_EVENT_DATA_BUFFER
+            XrEventDataBaseHeader* baseHeader = reinterpret_cast<XrEventDataBaseHeader*>(&m_eventDataBuffer);
+            *baseHeader = { XR_TYPE_EVENT_DATA_BUFFER };
+            const XrResult xr = xrPollEvent(instance.GetXRInstance(), &m_eventDataBuffer);
+            if (xr == XR_SUCCESS)
+            {
+                if (baseHeader->type == XR_TYPE_EVENT_DATA_EVENTS_LOST)
+                {
+                    const XrEventDataEventsLost* const eventsLost = reinterpret_cast<const XrEventDataEventsLost*>(baseHeader);
+                    AZ_Printf("Vulkan", Fmt("%d events lost\n", eventsLost).c_str());
+                }
+
+                return baseHeader;
+            }
+            if (xr == XR_EVENT_UNAVAILABLE)
+            {
+                return nullptr;
+            }
+            THROW_XR(xr, "xrPollEvent");
+        }
+
+        void Device::PollEvents(bool* exitRenderLoop, bool* requestRestart)
+        {
+            *exitRenderLoop = *requestRestart = false;
+
+            // Process all pending messages.
+            while (const XrEventDataBaseHeader* event = TryReadNextEvent())
+            {
+                switch (event->type)
+                {
+                case XR_TYPE_EVENT_DATA_INSTANCE_LOSS_PENDING:
+                    {
+                        const auto& instanceLossPending = *reinterpret_cast<const XrEventDataInstanceLossPending*>(event);
+                        AZ_Printf("Vulkan", Fmt("XrEventDataInstanceLossPending by %lld\n", instanceLossPending.lossTime).c_str());
+                        *exitRenderLoop = true;
+                        *requestRestart = true;
+                        return;
+                    }
+                case XR_TYPE_EVENT_DATA_SESSION_STATE_CHANGED:
+                    {
+                        auto sessionStateChangedEvent = *reinterpret_cast<const XrEventDataSessionStateChanged*>(event);
+                        HandleSessionStateChangedEvent(sessionStateChangedEvent, exitRenderLoop, requestRestart);
+                        break;
+                    }
+                case XR_TYPE_EVENT_DATA_INTERACTION_PROFILE_CHANGED:
+                    LogActionSourceName(m_input.grabAction, "Grab");
+                    LogActionSourceName(m_input.quitAction, "Quit");
+                    LogActionSourceName(m_input.poseAction, "Pose");
+                    LogActionSourceName(m_input.vibrateAction, "Vibrate");
+                    break;
+                case XR_TYPE_EVENT_DATA_REFERENCE_SPACE_CHANGE_PENDING:
+                default:
+                    {
+                        AZ_Printf("Vulkan", Fmt("Ignoring event type %d\n", event->type).c_str());
+                        break;
+                    }
+                }
+            }
+        }
+
+        void Device::HandleSessionStateChangedEvent(const XrEventDataSessionStateChanged& stateChangedEvent, bool* exitRenderLoop, bool* requestRestart)
+        {
+            const XrSessionState oldState = m_sessionState;
+            m_sessionState = stateChangedEvent.state;
+
+            AZ_Printf(
+                "Vulkan",
+                Fmt("XrEventDataSessionStateChanged: state %s->%s session=%lld time=%lld\n", to_string(oldState), to_string(m_sessionState),
+                    stateChangedEvent.session, stateChangedEvent.time).c_str());
+
+            if ((stateChangedEvent.session != XR_NULL_HANDLE) && (stateChangedEvent.session != m_session))
+            {
+                AZ_Printf("Vulkan", "XrEventDataSessionStateChanged for unknown session\n");
+                return;
+            }
+
+            switch (m_sessionState)
+            {
+            case XR_SESSION_STATE_READY:
+                {
+                    CHECK(m_session != XR_NULL_HANDLE);
+                    XrSessionBeginInfo sessionBeginInfo{ XR_TYPE_SESSION_BEGIN_INFO };
+                    Instance& instance = Instance::GetInstance();
+                    sessionBeginInfo.primaryViewConfigurationType = instance.GetViewConfigType();
+                    CHECK_XRCMD(xrBeginSession(m_session, &sessionBeginInfo));
+                    m_sessionRunning = true;
+                    break;
+                }
+            case XR_SESSION_STATE_STOPPING:
+                {
+                    CHECK(m_session != XR_NULL_HANDLE);
+                    m_sessionRunning = false;
+                    CHECK_XRCMD(xrEndSession(m_session))
+                    break;
+                }
+            case XR_SESSION_STATE_EXITING:
+                {
+                    *exitRenderLoop = true;
+                    // Do not attempt to restart because user closed this session.
+                    *requestRestart = false;
+                    break;
+                }
+            case XR_SESSION_STATE_LOSS_PENDING:
+                {
+                    *exitRenderLoop = true;
+                    // Poll for a new instance.
+                    *requestRestart = true;
+                    break;
+                }
+            default:
+                break;
+            }
+        }
+
+        void Device::PollActions() 
+        {
+            m_input.handActive = { XR_FALSE, XR_FALSE };
+
+            // Sync actions
+            const XrActiveActionSet activeActionSet{ m_input.actionSet, XR_NULL_PATH };
+            XrActionsSyncInfo syncInfo{ XR_TYPE_ACTIONS_SYNC_INFO };
+            syncInfo.countActiveActionSets = 1;
+            syncInfo.activeActionSets = &activeActionSet;
+            CHECK_XRCMD(xrSyncActions(m_session, &syncInfo));
+
+            // Get pose and grab action state and start haptic vibrate when hand is 90% squeezed.
+            for (auto hand : { Side::LEFT, Side::RIGHT })
+            {
+                XrActionStateGetInfo getInfo{ XR_TYPE_ACTION_STATE_GET_INFO };
+                getInfo.action = m_input.grabAction;
+                getInfo.subactionPath = m_input.handSubactionPath[hand];
+
+                XrActionStateFloat grabValue{ XR_TYPE_ACTION_STATE_FLOAT };
+                CHECK_XRCMD(xrGetActionStateFloat(m_session, &getInfo, &grabValue));
+                if (grabValue.isActive == XR_TRUE)
+                {
+                    // Scale the rendered hand by 1.0f (open) to 0.5f (fully squeezed).
+                    m_input.handScale[hand] = 1.0f - 0.5f * grabValue.currentState;
+                    if (grabValue.currentState > 0.9f)
+                    {
+                        XrHapticVibration vibration{ XR_TYPE_HAPTIC_VIBRATION };
+                        vibration.amplitude = 0.5;
+                        vibration.duration = XR_MIN_HAPTIC_DURATION;
+                        vibration.frequency = XR_FREQUENCY_UNSPECIFIED;
+
+                        XrHapticActionInfo hapticActionInfo{ XR_TYPE_HAPTIC_ACTION_INFO };
+                        hapticActionInfo.action = m_input.vibrateAction;
+                        hapticActionInfo.subactionPath = m_input.handSubactionPath[hand];
+                        CHECK_XRCMD(xrApplyHapticFeedback(m_session, &hapticActionInfo, (XrHapticBaseHeader*)&vibration));
+                    }
+                }
+
+                getInfo.action = m_input.poseAction;
+                XrActionStatePose poseState{ XR_TYPE_ACTION_STATE_POSE };
+                CHECK_XRCMD(xrGetActionStatePose(m_session, &getInfo, &poseState));
+                m_input.handActive[hand] = poseState.isActive;
+            }
+
+            // There were no subaction paths specified for the quit action, because we don't care which hand did it.
+            XrActionStateGetInfo getInfo{ XR_TYPE_ACTION_STATE_GET_INFO, nullptr, m_input.quitAction, XR_NULL_PATH };
+            XrActionStateBoolean quitValue{ XR_TYPE_ACTION_STATE_BOOLEAN };
+            CHECK_XRCMD(xrGetActionStateBoolean(m_session, &getInfo, &quitValue));
+            if ((quitValue.isActive == XR_TRUE) && (quitValue.changedSinceLastSync == XR_TRUE) && (quitValue.currentState == XR_TRUE))
+            {
+                CHECK_XRCMD(xrRequestExitSession(m_session));
+            }
+        }
+
+        RHI::ResultCode Device::BeginXRView(uint32_t viewIndex)
+        {
+            if (IsSessionRunning() && m_isXRFrameBeginCalled)
+            {
+                if (m_frameState.shouldRender == XR_TRUE)
+                {
+                    XrResult res;
+                    Instance& instance = Instance::GetInstance();
+                    XrViewState viewState{ XR_TYPE_VIEW_STATE };
+                    uint32_t viewCapacityInput = (uint32_t)m_swapchain->GetXRViews().size(); // m_views.size();
+
+                    XrViewLocateInfo viewLocateInfo{ XR_TYPE_VIEW_LOCATE_INFO };
+                    viewLocateInfo.viewConfigurationType = instance.GetViewConfigType(); // m_viewConfigType;
+                    viewLocateInfo.displayTime = m_frameState.predictedDisplayTime;
+                    viewLocateInfo.space = m_appSpace;
+
+                    std::vector<XrView> views = m_swapchain->GetXRViews();
+                    //m_views.resize(2, { XR_TYPE_VIEW });
+                    //res = xrLocateViews(m_session, &viewLocateInfo, &viewState, viewCapacityInput, &m_viewCountOutput, m_swapchain->GetXRViews().data());
+                    res = xrLocateViews(m_session, &viewLocateInfo, &viewState, viewCapacityInput, &m_viewCountOutput, views.data());
+                    m_swapchain->SetXRViews(views);
+                    CHECK_XRRESULT(res, "xrLocateViews");
+                    if ((viewState.viewStateFlags & XR_VIEW_STATE_POSITION_VALID_BIT) == 0 ||
+                        (viewState.viewStateFlags & XR_VIEW_STATE_ORIENTATION_VALID_BIT) == 0)
+                    {
+                        return RHI::ResultCode::Fail; // There is no valid tracking poses for the views.
+                    }
+
+                    CHECK(m_viewCountOutput == viewCapacityInput);
+                    CHECK(m_viewCountOutput == m_swapchain->GetViewConfigs().size());
+                    CHECK(m_viewCountOutput == m_swapchain->GetXRSwapchains().size());
+
+                    m_projectionLayerViews.resize(m_viewCountOutput);
+
+                    // for (uint32_t i = 0; i < m_viewCountOutput; i++)
+                    //for (uint32_t i = 0; i < 1; i++)
+                    {
+                        // Each view has a separate swapchain which is acquired, rendered to, and released.
+                        const Swapchain1 viewSwapchain = m_swapchain->GetXRSwapchain(viewIndex);
+
+                        XrSwapchainImageAcquireInfo acquireInfo{ XR_TYPE_SWAPCHAIN_IMAGE_ACQUIRE_INFO };
+
+                        // uint32_t swapchainImageIndex;
+                        if (viewIndex == 0)
+                        {
+                            CHECK_XRCMD(xrAcquireSwapchainImage(viewSwapchain.handle, &acquireInfo, &m_swapchainImageIndex0));
+                        }
+                        else
+                        {
+                            CHECK_XRCMD(xrAcquireSwapchainImage(viewSwapchain.handle, &acquireInfo, &m_swapchainImageIndex1));
+                        }
+
+                        XrSwapchainImageWaitInfo waitInfo{ XR_TYPE_SWAPCHAIN_IMAGE_WAIT_INFO };
+                        waitInfo.timeout = XR_INFINITE_DURATION;
+                        CHECK_XRCMD(xrWaitSwapchainImage(viewSwapchain.handle, &waitInfo));
+
+                        m_projectionLayerViews[viewIndex] = { XR_TYPE_COMPOSITION_LAYER_PROJECTION_VIEW };
+                        m_projectionLayerViews[viewIndex].pose = m_swapchain->GetXRView(viewIndex).pose;
+                        m_projectionLayerViews[viewIndex].fov = m_swapchain->GetXRView(viewIndex).fov;
+                        m_projectionLayerViews[viewIndex].subImage.swapchain = viewSwapchain.handle;
+                        m_projectionLayerViews[viewIndex].subImage.imageRect.offset = { 0, 0 };
+                        m_projectionLayerViews[viewIndex].subImage.imageRect.extent = { viewSwapchain.width, viewSwapchain.height };
+                    }
+                    m_isXRRenderBeginCalled = true;
+                    return RHI::ResultCode::Success;
+                }
+            }
+            return RHI::ResultCode::Success;
+        }
+
+        void Device::EndXRView(uint32_t viewIndex)
+        {
+            
+            if (IsSessionRunning() && m_isXRRenderBeginCalled)
+            {
+                m_isXRRenderBeginCalled = false;
+                if (m_frameState.shouldRender == XR_TRUE)
+                {
+                    // for (uint32_t i = 0; i < m_viewCountOutput; i++)
+                    //for (uint32_t i = 0; i < 1; i++)
+                    {
+                        const Swapchain1 viewSwapchain = m_swapchain->GetXRSwapchain(viewIndex);
+                        XrSwapchainImageReleaseInfo releaseInfo{ XR_TYPE_SWAPCHAIN_IMAGE_RELEASE_INFO };
+                        CHECK_XRCMD(xrReleaseSwapchainImage(viewSwapchain.handle, &releaseInfo));
+                    }
+
+                    m_xrLayer.space = m_appSpace;
+                    m_xrLayer.viewCount = (uint32_t)m_projectionLayerViews.size();
+                    m_xrLayer.views = m_projectionLayerViews.data();
+
+                    m_xrLayers.push_back(reinterpret_cast<XrCompositionLayerBaseHeader*>(&m_xrLayer));
+                }
+                
+            }
+        }
+        RHI::ResultCode Device::BeginFrameInternal() 
+        {
+            m_projectionLayerViews.clear();
+            m_xrLayers.clear();
+            bool exitRenderLoop = false;
+            bool requestRestart = false;
+            PollEvents(&exitRenderLoop, &requestRestart);
+            if (exitRenderLoop)
+            {
+                return RHI::ResultCode::Fail;
+            }
+
+            if (IsSessionRunning())
+            {
+                PollActions();
+                auto presentCommand = [this]([[maybe_unused]] void* queue)
+                {
+                    CHECK(m_session != XR_NULL_HANDLE);
+
+                    XrFrameWaitInfo frameWaitInfo{ XR_TYPE_FRAME_WAIT_INFO };
+                    CHECK_XRCMD(xrWaitFrame(m_session, &frameWaitInfo, &m_frameState));
+
+                    XrFrameBeginInfo frameBeginInfo{ XR_TYPE_FRAME_BEGIN_INFO };
+                    CHECK_XRCMD(xrBeginFrame(m_session, &frameBeginInfo));
+                };
+
+                m_graphicsQueue->QueueCommand(AZStd::move(presentCommand));
+                m_graphicsQueue->FlushCommands();
+
+                
+               
+                m_isXRFrameBeginCalled = true;
+            }
+
             // We call to collect on the release queue on the begin frame because some objects (like resource pools)
             // cannot be shutdown during the frame scheduler execution. At this point the frame has not yet started.
             m_releaseQueue.Collect();
             m_commandQueueContext.Begin();
+
+            return RHI::ResultCode::Success;
         }
         
         void Device::EndFrameInternal() 
         {
+            if (IsSessionRunning() && m_isXRFrameBeginCalled)
+            {
+                auto presentCommand = [this]([[maybe_unused]] void* queue)
+                {
+                    XrFrameEndInfo frameEndInfo{ XR_TYPE_FRAME_END_INFO };
+                    frameEndInfo.displayTime = m_frameState.predictedDisplayTime;
+                    Instance& instance = Instance::GetInstance();
+                    frameEndInfo.environmentBlendMode = instance.GetEnvironmentBlendMode();
+                    frameEndInfo.layerCount = (uint32_t)m_xrLayers.size();
+                    frameEndInfo.layers = m_xrLayers.data();
+                    CHECK_XRCMD(xrEndFrame(m_session, &frameEndInfo));
+                };
+
+                m_graphicsQueue->QueueCommand(AZStd::move(presentCommand));
+                m_graphicsQueue->FlushCommands();
+
+                m_isXRFrameBeginCalled = false;
+                
+            }
             m_commandQueueContext.End();
             m_commandListAllocator.Collect();
             m_semaphoreAllocator.Collect();
@@ -873,4 +1698,5 @@ namespace AZ
             vkDestroyBuffer(GetNativeDevice(), vkBuffer, nullptr);
         }
     }
-}
+} // namespace AZ
+#pragma optimize("", on)

@@ -143,7 +143,15 @@ namespace AZ
             };
 
             bool WasDeviceRemoved();
+            void SetEyeIndex(uint32_t index)
+            {
+                m_eyeIndex = index;
+            }
 
+            uint32_t GetEyeIndex()
+            {
+                return m_eyeIndex;
+            }
         protected:
 
             void SetDeviceRemoved();
@@ -176,7 +184,7 @@ namespace AZ
             virtual void ShutdownInternal() = 0;
 
             //! Called when the device is beginning a frame for processing.
-            virtual void BeginFrameInternal() = 0;
+            virtual ResultCode BeginFrameInternal() = 0;
 
             //! Called when the device is ending a frame for processing.
             virtual void EndFrameInternal() = 0;
@@ -214,6 +222,7 @@ namespace AZ
             FormatCapabilitiesList m_formatsCapabilities;
 
             bool m_wasDeviceRemoved = false;
+            uint32_t m_eyeIndex = 0;
         };
     }
 }

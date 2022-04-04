@@ -19,6 +19,19 @@
 #include <RHI/RenderPass.h>
 #include <RHI/WSISurface.h>
 
+#include "common.h"
+#define XR_USE_GRAPHICS_API_VULKAN 1
+#include <openxr/openxr.h>
+#include <openxr/openxr_platform.h>
+#include <openxr/openxr_reflection.h>
+
+struct Swapchain1
+{
+    XrSwapchain handle;
+    int32_t width;
+    int32_t height;
+};
+
 namespace AZ
 {
     namespace Vulkan
@@ -52,6 +65,36 @@ namespace AZ
             void QueueBarrier(const VkPipelineStageFlags src, const VkPipelineStageFlags dst, const VkImageMemoryBarrier& imageBarrier);
 
             void ProcessRecreation() override;
+            std::vector<XrView> GetXRViews()
+            {
+                return m_views;
+            }
+            XrView GetXRView(uint32_t index)
+            {
+                return m_views[index];
+            }
+
+            std::vector<XrViewConfigurationView> GetViewConfigs()
+            {
+                return m_configViews;
+            }
+            std::vector<Swapchain1> GetXRSwapchains()
+            {
+                return m_swapchains;        
+            }
+            Swapchain1 GetXRSwapchain(uint32_t index)
+            {
+                return m_swapchains[index];
+            }
+            std::map<XrSwapchain, std::vector<XrSwapchainImageBaseHeader*>> GetXRSwapChainImages()
+            {
+                return m_swapchainImages;
+            }
+            void SetXRViews(std::vector<XrView> views)
+            {
+                m_views = views;
+            }
+
         private:
             SwapChain() = default;
 
@@ -71,6 +114,7 @@ namespace AZ
             //////////////////////////////////////////////////////////////////////
 
             RHI::ResultCode BuildSurface(const RHI::SwapChainDescriptor& descriptor);
+            int64_t SelectColorSwapchainFormat(const std::vector<int64_t>& runtimeFormats) const;
 
             //! Returns true is the swapchain dimensions are supported by the current surface.
             bool ValidateSurfaceDimensions(const RHI::SwapChainDimensions& dimensions);
@@ -122,6 +166,15 @@ namespace AZ
                 VkImageMemoryBarrier m_barrier = {};
                 bool m_isValid = false;
             } m_swapChainBarrier;
+
+            std::vector<XrViewConfigurationView> m_configViews;
+            std::vector<XrView> m_views;
+            int64_t m_colorSwapchainFormat{ -1 };
+        
+            
+            std::vector<Swapchain1> m_swapchains;
+            std::map<XrSwapchain, std::vector<XrSwapchainImageBaseHeader*>> m_swapchainImages;
+
         };
     }
 }

@@ -45,7 +45,7 @@ namespace AZ
             RHI::ResultCode Init(const Descriptor& descriptor);
             ~Framebuffer() = default;
 
-            VkFramebuffer GetNativeFramebuffer() const;
+            VkFramebuffer GetNativeFramebuffer() ;
             const RenderPass* GetRenderPass() const;
 
             const RHI::Size& GetSize() const;
@@ -74,8 +74,11 @@ namespace AZ
             void Invalidate();
 
             VkFramebuffer m_nativeFramebuffer = VK_NULL_HANDLE;
+            VkFramebuffer m_nativeXRFramebuffer = VK_NULL_HANDLE;
             AZStd::vector<RHI::ConstPtr<ImageView>> m_attachments;
             RHI::ConstPtr<RenderPass> m_renderPass;
+            VkImageView m_xrColorView = VK_NULL_HANDLE;
+            Descriptor m_descriptor;
         };
     }
 }

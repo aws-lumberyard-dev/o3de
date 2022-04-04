@@ -12,7 +12,7 @@
 #include <Atom/RHI/FrameGraphExecuteGroup.h>
 #include <AzCore/Memory/PoolAllocator.h>
 #include <Atom/RHI.Reflect/PlatformLimitsDescriptor.h>
-
+#pragma optimize("", off)
 namespace AZ
 {
     namespace RHI
@@ -109,6 +109,11 @@ namespace AZ
             //! resets all state held by the executer.
             void End();
 
+            virtual RHI::ResultCode BeginXRView([[maybe_unused]] uint32_t viewIndex)
+            {
+                return RHI::ResultCode::Success;
+            };
+            virtual void EndXRView([[maybe_unused]] uint32_t viewIndex){};
         protected:
             FrameGraphExecuter() = default;
 
@@ -168,4 +173,5 @@ namespace AZ
             return group;
         }
     }
-}
+} // namespace AZ
+#pragma optimize("", on)

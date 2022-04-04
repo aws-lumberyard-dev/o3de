@@ -130,8 +130,8 @@ namespace AZ
             if (ValidateIsInitialized() && ValidateIsNotInFrame())
             {
                 m_isInFrame = true;
-                BeginFrameInternal();
-                return ResultCode::Success;
+                return BeginFrameInternal();
+                //return ResultCode::Success;
             }
             return ResultCode::InvalidOperation;
         }

@@ -162,7 +162,7 @@ namespace AZ
             //! \param jobPolicy The global job policy for the current frame. If serial, it will force
             //!                   serial execution even if the platform supports parallel dispatch. If parallel,
             //!                   it will defer to the platform for parallel dispatch support.
-            void Execute(JobPolicy jobPolicy);
+            void Execute(JobPolicy jobPolicy, int eyeIndex);
 
             //! Returns the timing statistics for the previous frame.
             const TransientAttachmentStatistics* GetTransientAttachmentStatistics() const;
@@ -185,6 +185,8 @@ namespace AZ
             //! Returns PhysicalDeviceDescriptor which can be used to extract vendor/driver information
             const PhysicalDeviceDescriptor& GetPhysicalDeviceDescriptor();
 
+            Ptr<FrameGraphExecuter> m_frameGraphExecuter;
+            AZStd::unique_ptr<FrameGraph> m_frameGraph;
         private:
             const ScopeId m_rootScopeId{"Root"};
 
@@ -211,11 +213,11 @@ namespace AZ
 
             Device* m_device = nullptr;
 
-            AZStd::unique_ptr<FrameGraph> m_frameGraph;
+            
             FrameGraphAttachmentDatabase* m_frameGraphAttachmentDatabase = nullptr;
 
             Ptr<FrameGraphCompiler> m_frameGraphCompiler;
-            Ptr<FrameGraphExecuter> m_frameGraphExecuter;
+            
 
             Ptr<TransientAttachmentPool> m_transientAttachmentPool;
 

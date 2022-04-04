@@ -56,6 +56,7 @@ namespace AZ
 
         void FrameGraphExecuteGroupHandlerBase::AddWorkRequest(const ExecuteWorkRequest& workRequest)
         {
+            m_workRequest.m_debugLabel = workRequest.m_debugLabel;
             InsertWorkRequestElements(m_workRequest.m_swapChainsToPresent, workRequest.m_swapChainsToPresent);
             InsertWorkRequestElements(m_workRequest.m_semaphoresToWait, workRequest.m_semaphoresToWait);
             InsertWorkRequestElements(m_workRequest.m_semaphoresToSignal, workRequest.m_semaphoresToSignal);

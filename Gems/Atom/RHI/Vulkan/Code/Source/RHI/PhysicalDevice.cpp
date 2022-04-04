@@ -13,10 +13,41 @@
 #include <RHI/PhysicalDevice.h>
 #include <Vulkan_Traits_Platform.h>
 
+#pragma optimize("", off)
 namespace AZ
 {
     namespace Vulkan
     {
+        XrResult PhysicalDevice::GetVulkanGraphicsDevice2KHR(
+            XrInstance instance, const XrVulkanGraphicsDeviceGetInfoKHR* getInfo, VkPhysicalDevice* vulkanPhysicalDevice)
+        {
+            PFN_xrGetVulkanGraphicsDeviceKHR pfnGetVulkanGraphicsDeviceKHR = nullptr;
+            CHECK_XRCMD(xrGetInstanceProcAddr(
+                instance, "xrGetVulkanGraphicsDeviceKHR", reinterpret_cast<PFN_xrVoidFunction*>(&pfnGetVulkanGraphicsDeviceKHR)));
+
+            if (getInfo->next != nullptr)
+            {
+                return XR_ERROR_FEATURE_UNSUPPORTED;
+            }
+
+            CHECK_XRCMD(pfnGetVulkanGraphicsDeviceKHR(instance, getInfo->systemId, getInfo->vulkanInstance, vulkanPhysicalDevice));
+            VkPhysicalDeviceProperties2 deviceProps2 = {};
+            //m_conservativeRasterProperties.sType = VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_CONSERVATIVE_RASTERIZATION_PROPERTIES_EXT;
+            deviceProps2.sType = VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_PROPERTIES_2_KHR;
+            //deviceProps2.pNext = &m_conservativeRasterProperties;
+
+   //         m_rayTracingPipelineProperties.sType = VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_RAY_TRACING_PIPELINE_PROPERTIES_KHR;
+     //       m_conservativeRasterProperties.pNext = &m_rayTracingPipelineProperties;
+
+       //     m_accelerationStructureProperties.sType = VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_ACCELERATION_STRUCTURE_PROPERTIES_KHR;
+         //   m_rayTracingPipelineProperties.pNext = &m_accelerationStructureProperties;
+
+            vkGetPhysicalDeviceProperties2KHR(*vulkanPhysicalDevice, &deviceProps2);
+            
+
+            return XR_SUCCESS;
+        }
+
         RHI::PhysicalDeviceList PhysicalDevice::Enumerate()
         {
             RHI::PhysicalDeviceList physicalDeviceList;
@@ -34,10 +65,17 @@ namespace AZ
             }
 
             AZStd::vector<VkPhysicalDevice> physicalDevices;
-            physicalDevices.resize(physicalDeviceCount);
+            //physicalDevices.resize(physicalDeviceCount);
 
             result = vkEnumeratePhysicalDevices(instance, &physicalDeviceCount, physicalDevices.data());
             AssertSuccess(result);
+
+            XrVulkanGraphicsDeviceGetInfoKHR deviceGetInfo{ XR_TYPE_VULKAN_GRAPHICS_DEVICE_GET_INFO_KHR };
+            deviceGetInfo.systemId = Instance::GetInstance().GetXRSystemId();
+            deviceGetInfo.vulkanInstance = instance;
+            VkPhysicalDevice vkPhysicalDevice = VK_NULL_HANDLE;
+            CHECK_XRCMD(GetVulkanGraphicsDevice2KHR(Instance::GetInstance().GetXRInstance(), &deviceGetInfo, &vkPhysicalDevice));
+            physicalDevices.push_back(vkPhysicalDevice);
 
             if (ConvertResult(result) != RHI::ResultCode::Success)
             {
@@ -482,4 +520,6 @@ namespace AZ
             return m_optionalExtensions.test(index);
         }
     }
-}
+} // namespace AZ
+
+#pragma optimize("", on)

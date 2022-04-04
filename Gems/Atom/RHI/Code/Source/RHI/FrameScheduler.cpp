@@ -29,7 +29,7 @@
 #include <AzCore/Jobs/JobCompletion.h>
 #include <AzCore/Jobs/JobFunction.h>
 #include <AzCore/Task/TaskGraph.h>
-
+#pragma optimize("", off)
 namespace AZ
 {
     namespace RHI
@@ -420,18 +420,21 @@ namespace AZ
 
             m_isProcessing = true;
 
-            m_device->BeginFrame();
-            m_frameGraph->Begin();
+            if (m_device->BeginFrame() == ResultCode::Success)
+            {
+                m_frameGraph->Begin();
 
-            ImportScopeProducer(*m_rootScopeProducer);
+                ImportScopeProducer(*m_rootScopeProducer);
 
-            // Queue resource pool resolves onto the root scope.
-            m_rootScope->QueueResourcePoolResolves(m_device->GetResourcePoolDatabase());
+                // Queue resource pool resolves onto the root scope.
+                m_rootScope->QueueResourcePoolResolves(m_device->GetResourcePoolDatabase());
 
-            // This is broadcast after beginning the frame so that the CPU and GPU are synchronized.
-            FrameEventBus::Event(m_device, &FrameEventBus::Events::OnFrameBegin);
+                // This is broadcast after beginning the frame so that the CPU and GPU are synchronized.
+                FrameEventBus::Event(m_device, &FrameEventBus::Events::OnFrameBegin);
 
-            return ResultCode::Success;
+                return ResultCode::Success;
+            }
+            return ResultCode::Fail;
         }
 
         ResultCode FrameScheduler::EndFrame()
@@ -512,7 +515,7 @@ namespace AZ
             const bool isSerialPolicy = executeGroup->GetJobPolicy() == JobPolicy::Serial;
             const bool isSerialExecute = parentJob == nullptr || contextCount == 1 || isSerialPolicy;
 
-            if (isSerialExecute)
+            if (1)//isSerialExecute)
             {
                 for (uint32_t i = 0; i < contextCount; ++i)
                 {
@@ -542,19 +545,20 @@ namespace AZ
             m_frameGraphExecuter->EndGroup(groupIndex);
         }
 
-        void FrameScheduler::Execute(JobPolicy overrideJobPolicy)
+        void FrameScheduler::Execute([[maybe_unused]] JobPolicy overrideJobPolicy, [[maybe_unused]] int eyeIndex)
         {
             AZ_PROFILE_SCOPE(RHI, "FrameScheduler: Execute");
 
             const uint32_t groupCount = m_frameGraphExecuter->GetGroupCount();
             const JobPolicy platformJobPolicy = m_frameGraphExecuter->GetJobPolicy();
 
+            m_frameGraphExecuter->BeginXRView(eyeIndex);
             /**
              * The scheduler itself can force serial execution even if the platform supports it (e.g. as a debugging flag).
              * We must run serially if the scheduler or the platform forces us to.
              */
-            if (overrideJobPolicy == JobPolicy::Serial ||
-                platformJobPolicy == JobPolicy::Serial)
+            if (1)//overrideJobPolicy == JobPolicy::Serial ||
+                //platformJobPolicy == JobPolicy::Serial)
             {
                 for (uint32_t groupIndex = 0; groupIndex < groupCount; ++groupIndex)
                 {
@@ -580,6 +584,7 @@ namespace AZ
 
                 jobCompletion.StartAndWaitForCompletion();
             }
+            m_frameGraphExecuter->EndXRView(eyeIndex);
         }
 
         ScopeProducer* FrameScheduler::FindScopeProducer(const ScopeId& scopeId)
@@ -631,4 +636,5 @@ namespace AZ
             m_rayTracingShaderTablesToBuild.push_back(rayTracingShaderTable);
         }
     }
-}
+} // namespace AZ
+#pragma optimize("", on)

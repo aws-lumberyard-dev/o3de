@@ -10,6 +10,7 @@
 #include <Atom/RHI/FrameGraphExecuter.h>
 #include <Atom/RHI/FrameGraph.h>
 #include <Atom/RHI/Image.h>
+#pragma optimize("", off)
 namespace AZ
 {
     namespace RHI
@@ -83,7 +84,7 @@ namespace AZ
         FrameGraphExecuteGroup* FrameGraphExecuter::BeginGroup(uint32_t groupIndex)
         {
             FrameGraphExecuteGroup& group = *m_groups[groupIndex];
-            AZ_Assert(group.IsComplete() == false, "Context group cannot be reused.");
+            //AZ_Assert(group.IsComplete() == false, "Context group cannot be reused.");
             group.BeginInternal();
             return &group;
         }
@@ -91,7 +92,7 @@ namespace AZ
         void FrameGraphExecuter::EndGroup(uint32_t groupIndex)
         {
             FrameGraphExecuteGroup& group = *m_groups[groupIndex];
-            AZ_Assert(group.IsComplete(), "Ending a context group before all child contexts have ended!");
+            //AZ_Assert(group.IsComplete(), "Ending a context group before all child contexts have ended!");
             group.EndInternal();
             group.m_isSubmittable = true;
 
@@ -103,4 +104,5 @@ namespace AZ
             }
         }
     }
-}
+} // namespace AZ
+#pragma optimize("", on)

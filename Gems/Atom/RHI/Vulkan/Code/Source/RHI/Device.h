@@ -37,6 +37,89 @@
 #include <RHI/RenderPass.h>
 #include <RHI/Sampler.h>
 #include <RHI/SemaphoreAllocator.h>
+#include <array>
+
+#pragma optimize("", off)
+namespace Side
+{
+    const int LEFT = 0;
+    const int RIGHT = 1;
+    const int COUNT = 2;
+} // namespace Side
+
+
+struct SwapchainImageContext
+{
+    SwapchainImageContext(XrStructureType _swapchainImageType)
+        : swapchainImageType(_swapchainImageType)
+    {
+    }
+
+    // A packed array of XrSwapchainImageVulkan2KHR's for xrEnumerateSwapchainImages
+    std::vector<XrSwapchainImageVulkan2KHR> swapchainImages;
+    //std::vector<RenderTarget> renderTarget;
+    VkExtent2D size{};
+    //DepthBuffer depthBuffer{};
+    //RenderPass rp{};
+    //Pipeline pipe{};
+    XrStructureType swapchainImageType;
+
+    SwapchainImageContext() = default;
+
+    std::vector<XrSwapchainImageBaseHeader*> Create(
+        VkDevice device,
+        //MemoryAllocator* memAllocator,
+        uint32_t capacity,
+        [[maybe_unused]] const XrSwapchainCreateInfo& swapchainCreateInfo
+        //const PipelineLayout& layout,
+        //const ShaderProgram& sp,
+        //const VertexBuffer<Geometry::Vertex>& vb
+        )
+    {
+        m_vkDevice = device;
+
+        //size = { swapchainCreateInfo.width, swapchainCreateInfo.height };
+        //VkFormat colorFormat = (VkFormat)swapchainCreateInfo.format;
+        //VkFormat depthFormat = VK_FORMAT_D32_SFLOAT;
+        // XXX handle swapchainCreateInfo.sampleCount
+
+        //depthBuffer.Create(m_vkDevice, memAllocator, depthFormat, swapchainCreateInfo);
+        //rp.Create(m_vkDevice, colorFormat, depthFormat);
+        //pipe.Create(m_vkDevice, size, layout, rp, sp, vb);
+
+        swapchainImages.resize(capacity);
+        //renderTarget.resize(capacity);
+        std::vector<XrSwapchainImageBaseHeader*> bases(capacity);
+        for (uint32_t i = 0; i < capacity; ++i)
+        {
+            swapchainImages[i] = { swapchainImageType };
+            bases[i] = reinterpret_cast<XrSwapchainImageBaseHeader*>(&swapchainImages[i]);
+        }
+
+        return bases;
+    }
+
+    uint32_t ImageIndex(const XrSwapchainImageBaseHeader* swapchainImageHeader)
+    {
+        auto p = reinterpret_cast<const XrSwapchainImageVulkan2KHR*>(swapchainImageHeader);
+        return (uint32_t)(p - &swapchainImages[0]);
+    }
+
+    void BindRenderTarget([[maybe_unused]] uint32_t index, VkRenderPassBeginInfo* renderPassBeginInfo)
+    {
+        //if (renderTarget[index].fb == VK_NULL_HANDLE)
+        {
+            //renderTarget[index].Create(m_vkDevice, swapchainImages[index].image, depthBuffer.depthImage, size, rp);
+        }
+        //renderPassBeginInfo->renderPass = rp.pass;
+        //renderPassBeginInfo->framebuffer = renderTarget[index].fb;
+        renderPassBeginInfo->renderArea.offset = { 0, 0 };
+        renderPassBeginInfo->renderArea.extent = size;
+    }
+
+private:
+    VkDevice m_vkDevice{ VK_NULL_HANDLE };
+};
 
 namespace AZ
 {
@@ -113,6 +196,53 @@ namespace AZ
             VkBuffer CreateBufferResouce(const RHI::BufferDescriptor& descriptor) const;
             void DestroyBufferResource(VkBuffer vkBuffer) const;
 
+            void InitializeSession();
+            XrSession GetSession()
+            {
+                return m_session;
+            }
+            std::vector<XrSwapchainImageBaseHeader*> AllocateSwapchainImageStructs(uint32_t capacity, const XrSwapchainCreateInfo& swapchainCreateInfo);
+            void PollEvents(bool* exitRenderLoop, bool* requestRestart);
+            void HandleSessionStateChangedEvent(
+                const XrEventDataSessionStateChanged& stateChangedEvent, bool* exitRenderLoop, bool* requestRestart);
+            const XrEventDataBaseHeader* TryReadNextEvent();
+            bool IsSessionFocused() const;
+            bool IsSessionRunning() const;
+            void LogActionSourceName(XrAction action, const std::string& actionName) const;
+            void PollActions();
+            void SetSwapchain(SwapChain* swapchain)
+            {
+                m_swapchain = swapchain;
+            }
+            SwapChain* GetSwapChain()
+            {
+                return m_swapchain;
+            }
+
+            uint32_t GetSwapchainImageIndex0()
+            {
+                return m_swapchainImageIndex0;
+            }
+            uint32_t GetSwapchainImageIndex1()
+            {
+                return m_swapchainImageIndex1;
+            }
+
+            std::map<const XrSwapchainImageBaseHeader*, SwapchainImageContext*> GetSwapchainImageContextMap()
+            {
+                return m_swapchainImageContextMap;
+            }
+            XrFrameState GetFrameState()
+            {
+                return m_frameState;
+            }
+            bool IsXRActivated()
+            {
+                return m_isXRRenderBeginCalled;
+            }
+            RHI::ResultCode BeginXRView(uint32_t viewIndex);
+            void EndXRView(uint32_t viewIndex);
+            void InitializeActions();
         private:
             Device();
 
@@ -126,7 +256,7 @@ namespace AZ
             RHI::ResultCode InitInternal(RHI::PhysicalDevice& physicalDevice) override;
 
             void ShutdownInternal() override;
-            void BeginFrameInternal() override;
+            RHI::ResultCode BeginFrameInternal() override;
             void EndFrameInternal() override;
             void WaitForIdleInternal() override;
             void CompileMemoryStatisticsInternal(RHI::MemoryStatisticsBuilder& builder) override;
@@ -143,6 +273,17 @@ namespace AZ
 
             void InitFeaturesAndLimits(const PhysicalDevice& physicalDevice);
             void BuildDeviceQueueInfo(const PhysicalDevice& physicalDevice);
+
+            XrResult CreateVulkanDeviceKHR(
+                XrInstance instance,
+                const XrVulkanDeviceCreateInfoKHR* createInfo,
+                VkDevice* vulkanDevice,
+                VkResult* vulkanResult,
+                VkPhysicalDevice vkPhysicalDevice,
+                VkInstance vkInstance);
+            const XrBaseInStructure* GetGraphicsBinding() const;
+            void LogReferenceSpaces();
+            void CreateVisualizedSpaces();
 
             template<typename ObjectType>
             using ObjectCache = std::pair<RHI::ObjectCache<ObjectType>, AZStd::mutex>;
@@ -187,6 +328,48 @@ namespace AZ
             RHI::ThreadLocalContext<AZStd::lru_cache<uint64_t, VkMemoryRequirements>> m_bufferMemoryRequirementsCache;
 
             RHI::Ptr<NullDescriptorManager> m_nullDescriptorManager;
+
+            XrSession m_session{ XR_NULL_HANDLE };
+            XrSpace m_appSpace{ XR_NULL_HANDLE };
+            XrGraphicsBindingVulkan2KHR m_graphicsBinding{ XR_TYPE_GRAPHICS_BINDING_VULKAN2_KHR };
+            std::vector<XrSpace> m_visualizedSpaces;
+
+            std::list<SwapchainImageContext> m_swapchainImageContexts;
+            std::map<const XrSwapchainImageBaseHeader*, SwapchainImageContext*> m_swapchainImageContextMap;
+            XrFrameState m_frameState{ XR_TYPE_FRAME_STATE };
+
+            std::vector<XrCompositionLayerBaseHeader*> m_xrLayers;
+            XrCompositionLayerProjection m_xrLayer{ XR_TYPE_COMPOSITION_LAYER_PROJECTION };
+            std::vector<XrCompositionLayerProjectionView> m_projectionLayerViews;
+
+            XrSessionState m_sessionState{ XR_SESSION_STATE_UNKNOWN };
+            XrEventDataBuffer m_eventDataBuffer;
+            bool m_sessionRunning{ false };
+
+            
+
+            struct InputState
+            {
+                XrActionSet actionSet{ XR_NULL_HANDLE };
+                XrAction grabAction{ XR_NULL_HANDLE };
+                XrAction poseAction{ XR_NULL_HANDLE };
+                XrAction vibrateAction{ XR_NULL_HANDLE };
+                XrAction quitAction{ XR_NULL_HANDLE };
+                std::array<XrPath, Side::COUNT> handSubactionPath;
+                std::array<XrSpace, Side::COUNT> handSpace;
+                std::array<float, Side::COUNT> handScale = { { 1.0f, 1.0f } };
+                std::array<XrBool32, Side::COUNT> handActive;
+            };
+            InputState m_input;
+            SwapChain* m_swapchain = nullptr;
+            uint32_t m_viewCountOutput = 0;
+            bool m_isXRFrameBeginCalled = false;
+            bool m_isXRRenderBeginCalled = false;
+
+            uint32_t m_swapchainImageIndex0 = 0;
+            uint32_t m_swapchainImageIndex1 = 0;
+            CommandQueue* m_graphicsQueue = nullptr;
+
         };
 
         template<typename ObjectType, typename ...Args>
@@ -211,4 +394,6 @@ namespace AZ
             return RHI::Ptr<ObjectType>(objectRawPtr);
         }
     }
-}
+} // namespace AZ
+
+#pragma optimize("", on)

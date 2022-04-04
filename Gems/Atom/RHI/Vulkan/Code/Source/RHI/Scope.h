@@ -175,6 +175,8 @@ namespace AZ
             ResolveMode m_resolveMode = ResolveMode::None;
             AZStd::vector<CommandList::ResourceClearRequest> m_imageClearRequests;
             AZStd::vector<CommandList::ResourceClearRequest> m_bufferClearRequests;
+            bool m_isWritingToSwapChainScope = false;
+            const RHI::ImageScopeAttachment* m_swapChainAttachment = nullptr;
         };
     }
 }

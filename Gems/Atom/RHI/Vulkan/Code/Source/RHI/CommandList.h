@@ -52,13 +52,13 @@ namespace AZ
 
             struct InheritanceInfo
             {
-                const Framebuffer* m_frameBuffer = nullptr;
+                 Framebuffer* m_frameBuffer = nullptr;
                 uint32_t m_subpass = 0;
             };
 
             struct BeginRenderPassInfo
             {
-                const Framebuffer* m_frameBuffer = nullptr;
+                 Framebuffer* m_frameBuffer = nullptr;
                 AZStd::vector<RHI::ClearValue> m_clearValues;
                 VkSubpassContents m_subpassContentType = VK_SUBPASS_CONTENTS_INLINE;
             };

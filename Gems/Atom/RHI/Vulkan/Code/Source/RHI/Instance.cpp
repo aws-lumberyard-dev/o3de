@@ -10,7 +10,7 @@
 #include <Atom/RHI.Loader/FunctionLoader.h>
 #include <AzCore/Debug/Trace.h>
 #include <AzCore/Utils/Utils.h>
-
+#pragma optimize("", off)
 namespace AZ
 {
     namespace Vulkan
@@ -42,6 +42,313 @@ namespace AZ
         Instance::~Instance()
         {
             Shutdown();
+        }
+
+        inline std::string GetXrVersionString(XrVersion ver)
+        {
+            return Fmt("%d.%d.%d", XR_VERSION_MAJOR(ver), XR_VERSION_MINOR(ver), XR_VERSION_PATCH(ver));
+        }
+
+        static void LogLayersAndExtensions()
+        {
+            // Write out extension properties for a given layer.
+            const auto logExtensions = [](const char* layerName, int indent = 0)
+            {
+                uint32_t instanceExtensionCount;
+                CHECK_XRCMD(xrEnumerateInstanceExtensionProperties(layerName, 0, &instanceExtensionCount, nullptr));
+
+                std::vector<XrExtensionProperties> extensions(instanceExtensionCount);
+                for (XrExtensionProperties& extension : extensions)
+                {
+                    extension.type = XR_TYPE_EXTENSION_PROPERTIES;
+                }
+
+                CHECK_XRCMD(xrEnumerateInstanceExtensionProperties(
+                    layerName, (uint32_t)extensions.size(), &instanceExtensionCount, extensions.data()));
+
+                const std::string indentStr(indent, ' ');
+                AZ_Printf("VkLayer", Fmt("%sAvailable Extensions: (%d)\n", indentStr.c_str(), instanceExtensionCount).c_str());
+                for (const XrExtensionProperties& extension : extensions)
+                {
+                    AZ_Printf(
+                        "VkLayer",
+                        Fmt("%s  Name=%s SpecVersion=%d\n", indentStr.c_str(), extension.extensionName, extension.extensionVersion)
+                            .c_str());
+                }
+            };
+
+            // Log non-layer extensions (layerName==nullptr).
+            logExtensions(nullptr);
+
+            // Log layers and any of their extensions.
+            {
+                uint32_t layerCount;
+                CHECK_XRCMD(xrEnumerateApiLayerProperties(0, &layerCount, nullptr));
+
+                std::vector<XrApiLayerProperties> layers(layerCount);
+                for (XrApiLayerProperties& layer : layers)
+                {
+                    layer.type = XR_TYPE_API_LAYER_PROPERTIES;
+                }
+
+                CHECK_XRCMD(xrEnumerateApiLayerProperties((uint32_t)layers.size(), &layerCount, layers.data()));
+
+                AZ_Printf("VkLayer", Fmt("Available Layers: (%d)\n", layerCount).c_str());
+                for (const XrApiLayerProperties& layer : layers)
+                {
+                    AZ_Printf(
+                        "VkLayer",
+                        Fmt("  Name=%s SpecVersion=%s LayerVersion=%d Description=%s\n", layer.layerName,
+                            GetXrVersionString(layer.specVersion).c_str(), layer.layerVersion, layer.description)
+                            .c_str());
+
+                    logExtensions(layer.layerName, 4);
+                }
+            }
+        }
+
+        std::vector<std::string> Instance::GetInstanceExtensions() const
+        {
+            return { XR_KHR_VULKAN_ENABLE_EXTENSION_NAME };
+        }
+        void Instance::CreateInstanceInternal()
+        {
+            CHECK(m_xrInstance == XR_NULL_HANDLE);
+
+            // Create union of extensions required by platform and graphics plugins.
+            std::vector<const char*> extensions;
+
+            // Transform platform and graphics extension std::strings to C strings.
+
+            const std::vector<std::string> graphicsExtensions = GetInstanceExtensions();
+            std::transform(
+                graphicsExtensions.begin(), graphicsExtensions.end(), std::back_inserter(extensions),
+                [](const std::string& ext)
+                {
+                    return ext.c_str();
+                });
+
+            XrInstanceCreateInfo createInfo{ XR_TYPE_INSTANCE_CREATE_INFO };
+            createInfo.next = nullptr;
+            createInfo.enabledExtensionCount = (uint32_t)extensions.size();
+            createInfo.enabledExtensionNames = extensions.data();
+
+            // strncpy(createInfo.applicationInfo.applicationName, "O3de", XR_MAX_APPLICATION_NAME_SIZE);
+            azstrncpy(createInfo.applicationInfo.applicationName, XR_MAX_APPLICATION_NAME_SIZE, "O3de", 4);
+            createInfo.applicationInfo.apiVersion = XR_CURRENT_API_VERSION;
+
+            CHECK_XRCMD(xrCreateInstance(&createInfo, &m_xrInstance));
+        }
+
+        void Instance::LogInstanceInfo()
+        {
+            CHECK(m_xrInstance != XR_NULL_HANDLE);
+
+            XrInstanceProperties instanceProperties{ XR_TYPE_INSTANCE_PROPERTIES };
+            CHECK_XRCMD(xrGetInstanceProperties(m_xrInstance, &instanceProperties));
+
+            AZ_Printf(
+                "VkLayer",
+                Fmt("Instance RuntimeName=%s RuntimeVersion=%s\n", instanceProperties.runtimeName,
+                    GetXrVersionString(instanceProperties.runtimeVersion).c_str())
+                    .c_str());
+        }
+
+        void Instance::LogEnvironmentBlendMode(XrViewConfigurationType type)
+        {
+            CHECK(m_xrInstance != XR_NULL_HANDLE);
+            CHECK(m_systemId != 0);
+
+            uint32_t count;
+            CHECK_XRCMD(xrEnumerateEnvironmentBlendModes(m_xrInstance, m_systemId, type, 0, &count, nullptr));
+            CHECK(count > 0);
+
+            AZ_Printf("VkLayer", Fmt("Available Environment Blend Mode count : (%d)\n", count).c_str());
+
+            std::vector<XrEnvironmentBlendMode> blendModes(count);
+            CHECK_XRCMD(xrEnumerateEnvironmentBlendModes(m_xrInstance, m_systemId, type, count, &count, blendModes.data()));
+
+            bool blendModeFound = false;
+            for (XrEnvironmentBlendMode mode : blendModes)
+            {
+                const bool blendModeMatch = (mode == m_environmentBlendMode);
+                AZ_Printf(
+                    "VkLayer", Fmt("Environment Blend Mode (%s) : %s\n", to_string(mode), blendModeMatch ? "(Selected)" : "").c_str());
+                blendModeFound |= blendModeMatch;
+            }
+            CHECK(blendModeFound);
+        }
+
+        void Instance::LogViewConfigurations()
+        {
+            CHECK(m_xrInstance != XR_NULL_HANDLE);
+            CHECK(m_systemId != XR_NULL_SYSTEM_ID);
+
+            uint32_t viewConfigTypeCount;
+            CHECK_XRCMD(xrEnumerateViewConfigurations(m_xrInstance, m_systemId, 0, &viewConfigTypeCount, nullptr));
+            std::vector<XrViewConfigurationType> viewConfigTypes(viewConfigTypeCount);
+            CHECK_XRCMD(
+                xrEnumerateViewConfigurations(m_xrInstance, m_systemId, viewConfigTypeCount, &viewConfigTypeCount, viewConfigTypes.data()));
+            CHECK((uint32_t)viewConfigTypes.size() == viewConfigTypeCount);
+
+            AZ_Printf("VkLayer", Fmt("Available View Configuration Types: (%d)\n", viewConfigTypeCount).c_str());
+            for (XrViewConfigurationType viewConfigType : viewConfigTypes)
+            {
+                AZ_Printf(
+                    "VkLayer",
+                    Fmt("  View Configuration Type: %s %s\n", to_string(viewConfigType),
+                        viewConfigType == m_viewConfigType ? "(Selected)" : "")
+                        .c_str());
+
+                XrViewConfigurationProperties viewConfigProperties{ XR_TYPE_VIEW_CONFIGURATION_PROPERTIES };
+                CHECK_XRCMD(xrGetViewConfigurationProperties(m_xrInstance, m_systemId, viewConfigType, &viewConfigProperties));
+
+                AZ_Printf(
+                    "VkLayer",
+                    Fmt("  View configuration FovMutable=%s\n", viewConfigProperties.fovMutable == XR_TRUE ? "True" : "False").c_str());
+
+                uint32_t viewCount;
+                CHECK_XRCMD(xrEnumerateViewConfigurationViews(m_xrInstance, m_systemId, viewConfigType, 0, &viewCount, nullptr));
+                if (viewCount > 0)
+                {
+                    std::vector<XrViewConfigurationView> views(viewCount, { XR_TYPE_VIEW_CONFIGURATION_VIEW });
+                    CHECK_XRCMD(
+                        xrEnumerateViewConfigurationViews(m_xrInstance, m_systemId, viewConfigType, viewCount, &viewCount, views.data()));
+
+                    for (uint32_t i = 0; i < views.size(); i++)
+                    {
+                        const XrViewConfigurationView& view = views[i];
+
+                        AZ_Printf(
+                            "VkLayer",
+                            Fmt("    View [%d]: Recommended Width=%d Height=%d SampleCount=%d\n", i, view.recommendedImageRectWidth,
+                                view.recommendedImageRectHeight, view.recommendedSwapchainSampleCount)
+                                .c_str());
+                        AZ_Printf(
+                            "VkLayer",
+                            Fmt("    View [%d]:     Maximum Width=%d Height=%d SampleCount=%d\n", i, view.maxImageRectWidth,
+                                view.maxImageRectHeight, view.maxSwapchainSampleCount)
+                                .c_str());
+                    }
+                }
+                else
+                {
+                    AZ_Printf("VkLayer", Fmt("Empty view configuration type\n").c_str());
+                }
+
+                LogEnvironmentBlendMode(viewConfigType);
+            }
+        }
+
+        XrResult Instance::GetVulkanGraphicsRequirements2KHR(
+            XrInstance instance, XrSystemId systemId, XrGraphicsRequirementsVulkan2KHR* graphicsRequirements)
+        {
+            PFN_xrGetVulkanGraphicsRequirementsKHR pfnGetVulkanGraphicsRequirementsKHR = nullptr;
+            CHECK_XRCMD(xrGetInstanceProcAddr(
+                instance, "xrGetVulkanGraphicsRequirementsKHR",
+                reinterpret_cast<PFN_xrVoidFunction*>(&pfnGetVulkanGraphicsRequirementsKHR)));
+
+            XrGraphicsRequirementsVulkanKHR legacyRequirements{ XR_TYPE_GRAPHICS_REQUIREMENTS_VULKAN_KHR };
+            CHECK_XRCMD(pfnGetVulkanGraphicsRequirementsKHR(instance, systemId, &legacyRequirements));
+
+            graphicsRequirements->maxApiVersionSupported = legacyRequirements.maxApiVersionSupported;
+            graphicsRequirements->minApiVersionSupported = legacyRequirements.minApiVersionSupported;
+
+            return XR_SUCCESS;
+        }
+
+        void Instance::InitializeSystem()
+        {
+            CHECK(m_xrInstance != XR_NULL_HANDLE);
+            CHECK(m_systemId == XR_NULL_SYSTEM_ID);
+
+            m_formFactor = XR_FORM_FACTOR_HEAD_MOUNTED_DISPLAY; // GetXrFormFactor(m_options->FormFactor);
+            m_viewConfigType = XR_VIEW_CONFIGURATION_TYPE_PRIMARY_STEREO; // GetXrViewConfigurationType(m_options->ViewConfiguration);
+            m_environmentBlendMode = XR_ENVIRONMENT_BLEND_MODE_OPAQUE; // GetXrEnvironmentBlendMode(m_options->EnvironmentBlendMode);
+
+            XrSystemGetInfo systemInfo{ XR_TYPE_SYSTEM_GET_INFO };
+            systemInfo.formFactor = m_formFactor;
+            CHECK_XRCMD(xrGetSystem(m_xrInstance, &systemInfo, &m_systemId));
+
+            AZ_Printf("VkLayer", Fmt("Using system %d for form factor %s\n", m_systemId, to_string(m_formFactor)).c_str());
+            CHECK(m_xrInstance != XR_NULL_HANDLE);
+            CHECK(m_systemId != XR_NULL_SYSTEM_ID);
+
+            LogViewConfigurations();
+
+            // The graphics API can initialize the graphics device now that the systemId and instance
+            // handle are available.
+            // m_graphicsPlugin->InitializeDevice(m_instance, m_systemId);
+
+            // Create the Vulkan device for the adapter associated with the system.
+            // Extension function must be loaded by name
+            XrGraphicsRequirementsVulkan2KHR graphicsRequirements{ XR_TYPE_GRAPHICS_REQUIREMENTS_VULKAN2_KHR };
+            CHECK_XRCMD(GetVulkanGraphicsRequirements2KHR(m_xrInstance, m_systemId, &graphicsRequirements));
+        }
+
+        // Note: The output must not outlive the input - this modifies the input and returns a collection of views into that modified
+        // input!
+        std::vector<const char*> Instance::ParseExtensionString(char* names)
+        {
+            std::vector<const char*> list;
+            while (*names != 0)
+            {
+                list.push_back(names);
+                while (*(++names) != 0)
+                {
+                    if (*names == ' ')
+                    {
+                        *names++ = '\0';
+                        break;
+                    }
+                }
+            }
+            return list;
+        }
+
+        XrResult Instance::CreateVulkanInstanceKHR(
+            XrInstance instance, const XrVulkanInstanceCreateInfoKHR* createInfo,
+            VkInstance* vulkanInstance, VkResult* vulkanResult) 
+        {
+            
+            PFN_xrGetVulkanInstanceExtensionsKHR pfnGetVulkanInstanceExtensionsKHR = nullptr;
+            CHECK_XRCMD(xrGetInstanceProcAddr(
+                instance, "xrGetVulkanInstanceExtensionsKHR", reinterpret_cast<PFN_xrVoidFunction*>(&pfnGetVulkanInstanceExtensionsKHR)));
+
+            uint32_t extensionNamesSize = 0;
+            CHECK_XRCMD(pfnGetVulkanInstanceExtensionsKHR(instance, createInfo->systemId, 0, &extensionNamesSize, nullptr));
+
+            std::vector<char> extensionNames(extensionNamesSize);
+            CHECK_XRCMD(pfnGetVulkanInstanceExtensionsKHR(
+                instance, createInfo->systemId, extensionNamesSize, &extensionNamesSize, &extensionNames[0]));
+            {
+                // Note: This cannot outlive the extensionNames above, since it's just a collection of views into that string!
+                std::vector<const char*> extensions = ParseExtensionString(&extensionNames[0]);
+
+                // Merge the runtime's request with the applications requests
+                for (uint32_t i = 0; i < createInfo->vulkanCreateInfo->enabledExtensionCount; ++i)
+                {
+                    extensions.push_back(createInfo->vulkanCreateInfo->ppEnabledExtensionNames[i]);
+                }
+
+                VkInstanceCreateInfo instInfo{ VK_STRUCTURE_TYPE_INSTANCE_CREATE_INFO };
+                memcpy(&instInfo, createInfo->vulkanCreateInfo, sizeof(instInfo));
+                instInfo.enabledExtensionCount = (uint32_t)extensions.size();
+                instInfo.ppEnabledExtensionNames = extensions.empty() ? nullptr : extensions.data();
+
+                auto pfnCreateInstance = (PFN_vkCreateInstance)createInfo->pfnGetInstanceProcAddr(nullptr, "vkCreateInstance");
+                *vulkanResult = pfnCreateInstance(&instInfo, createInfo->vulkanAllocator, vulkanInstance);
+            }
+
+            return XR_SUCCESS;
+            
+            /*
+            PFN_xrCreateVulkanInstanceKHR pfnCreateVulkanInstanceKHR = nullptr;
+            CHECK_XRCMD(xrGetInstanceProcAddr(
+                instance, "xrCreateVulkanInstanceKHR", reinterpret_cast<PFN_xrVoidFunction*>(&pfnCreateVulkanInstanceKHR)));
+
+            return pfnCreateVulkanInstanceKHR(instance, createInfo, vulkanInstance, vulkanResult);
+            */
         }
 
         bool Instance::Init(const Descriptor& descriptor)
@@ -96,6 +403,12 @@ namespace AZ
                 return false;
             }                
 
+
+            LogLayersAndExtensions();
+            CreateInstanceInternal();
+            LogInstanceInfo();
+            InitializeSystem();
+
             VkApplicationInfo appInfo = {};
             appInfo.sType = VK_STRUCTURE_TYPE_APPLICATION_INFO;
             appInfo.apiVersion = apiVersion;
@@ -117,12 +430,21 @@ namespace AZ
             instanceCreateInfo.enabledExtensionCount = static_cast<uint32_t>(m_descriptor.m_requiredExtensions.size());
             instanceCreateInfo.ppEnabledExtensionNames = m_descriptor.m_requiredExtensions.data();
 
+            XrVulkanInstanceCreateInfoKHR createInfo{ XR_TYPE_VULKAN_INSTANCE_CREATE_INFO_KHR };
+            createInfo.systemId = m_systemId;
+            createInfo.pfnGetInstanceProcAddr = vkGetInstanceProcAddr;
+            createInfo.vulkanCreateInfo = &instanceCreateInfo;
+            createInfo.vulkanAllocator = nullptr;
+            VkResult err;
+            CHECK_XRCMD(CreateVulkanInstanceKHR(m_xrInstance, &createInfo, &m_instance, &err));
+            //CHECK_VKCMD(err);
+            /*
             if (vkCreateInstance(&instanceCreateInfo, nullptr, &m_instance) != VK_SUCCESS)
             {
                 AZ_Warning("Vulkan", false, "Failed to create Vulkan instance");
                 return false;
             }
-
+            */
             // Now that we have created the instance, load the function pointers for it.
             m_functionLoader->LoadProcAddresses(m_instance, VK_NULL_HANDLE, VK_NULL_HANDLE);
 
@@ -287,4 +609,5 @@ namespace AZ
             return supportedDevices;
         }
     }
-}
+} // namespace AZ
+#pragma optimize("", on)

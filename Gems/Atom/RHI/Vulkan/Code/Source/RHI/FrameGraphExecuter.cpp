@@ -17,7 +17,7 @@
 #include <RHI/Scope.h>
 #include <RHI/CommandQueueContext.h>
 
-
+#pragma optimize("", off)
 namespace AZ
 {
     namespace Vulkan
@@ -217,5 +217,16 @@ namespace AZ
             handler->Init(GetDevice(), groups);
             m_groupHandlers.insert({ groupId, AZStd::move(handler) });
         }
+
+        RHI::ResultCode FrameGraphExecuter::BeginXRView(uint32_t viewIndex)
+        {
+            return GetDevice().BeginXRView(viewIndex);
+        }
+
+        void FrameGraphExecuter::EndXRView(uint32_t viewIndex)
+        {
+            return GetDevice().EndXRView(viewIndex);
+        }
     }
-}
+} // namespace AZ
+#pragma optimize("", on)

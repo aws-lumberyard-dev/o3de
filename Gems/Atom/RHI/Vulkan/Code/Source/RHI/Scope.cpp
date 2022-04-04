@@ -26,6 +26,7 @@
 #include <RHI/Conversion.h>
 #include <RHI/BufferView.h>
 
+#pragma optimize("", off)
 namespace AZ
 {
     namespace Vulkan
@@ -67,6 +68,14 @@ namespace AZ
 
         void Scope::Begin(CommandList& commandList) const
         {
+            if (m_isWritingToSwapChainScope)
+            {
+                [[maybe_unused]] const RHI::SwapChain* swapChain =
+                    (azrtti_cast<const RHI::SwapChainFrameAttachment*>(&m_swapChainAttachment->GetFrameAttachment()))->GetSwapChain();
+                [[maybe_unused]] SwapChain* metalSwapChain = static_cast<SwapChain*>(const_cast<RHI::SwapChain*>(swapChain));
+                [[maybe_unused]] int i = 0;
+                i++;
+            }
             commandList.GetValidator().BeginScope(*this);
             commandList.BeginDebugLabel(AZStd::string::format("%s Scope", GetId().GetCStr()).c_str());
 
@@ -353,6 +362,12 @@ namespace AZ
             Device& device = static_cast<Device&>(deviceBase);
             m_deviceSupportedPipelineStageFlags = device.GetCommandQueueContext().GetCommandQueue(GetHardwareQueueClass()).GetSupportedPipelineStages();
 
+            for (RHI::ImageScopeAttachment* scopeAttachment : GetImageAttachments())
+            {
+                m_isWritingToSwapChainScope =
+                    scopeAttachment->IsSwapChainAttachment() && scopeAttachment->HasUsage(RHI::ScopeAttachmentUsage::RenderTarget);
+                m_swapChainAttachment = scopeAttachment;
+            }
             RHI::FrameEventBus::Handler::BusConnect(&deviceBase);
         }
 
@@ -638,4 +653,5 @@ namespace AZ
             return m_resolveMode;            
         }
     }
-}
+} // namespace AZ
+#pragma optimize("", on)

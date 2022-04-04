@@ -73,7 +73,7 @@ namespace AZ
             RHI::FrameGraphExecuteContext& context,
             uint32_t contextIndex)
         {
-            AZ_Assert(static_cast<uint32_t>(m_lastCompletedScope + 1) == contextIndex, "Contexts must be recorded in order!");
+            //AZ_Assert(static_cast<uint32_t>(m_lastCompletedScope + 1) == contextIndex, "Contexts must be recorded in order!");
 
             const Scope* scope = m_scopes[contextIndex];
             context.SetCommandList(*m_commandList);

@@ -194,30 +194,41 @@ namespace AZ
 
             {
                 AZ_PROFILE_SCOPE(RHI, "main per-frame work");
-                m_frameScheduler.BeginFrame();
-
-                frameGraphCallback(m_frameScheduler);
-
-                /**
-                 * This exists as a hook to enable RHI sample tests, which are allowed to queue their
-                 * own RHI scopes to the frame scheduler. This happens prior to the RPI pass graph registration.
-                 */
+                //m_frameScheduler.BeginFrame();
+                if (m_frameScheduler.BeginFrame() == ResultCode::Success)
                 {
-                    AZ_PROFILE_SCOPE(RHI, "RHISystem: FrameUpdate: OnFramePrepare");
-                    RHISystemNotificationBus::Broadcast(&RHISystemNotificationBus::Events::OnFramePrepare, m_frameScheduler);
-                }
+                    frameGraphCallback(m_frameScheduler);
 
-                RHI::MessageOutcome outcome = m_frameScheduler.Compile(m_compileRequest);
-                if (outcome.IsSuccess())
-                {
-                    m_frameScheduler.Execute(RHI::JobPolicy::Parallel);
-                }
-                else
-                {
-                    AZ_Error("RHISystem", false, "Frame Scheduler Compilation Failure: %s", outcome.GetError().c_str());
-                }
+                    /**
+                     * This exists as a hook to enable RHI sample tests, which are allowed to queue their
+                     * own RHI scopes to the frame scheduler. This happens prior to the RPI pass graph registration.
+                     */
+                    {
+                        AZ_PROFILE_SCOPE(RHI, "RHISystem: FrameUpdate: OnFramePrepare");
+                        RHISystemNotificationBus::Broadcast(&RHISystemNotificationBus::Events::OnFramePrepare, m_frameScheduler);
+                    }
 
-                m_pipelineStateCache->Compact();
+                    RHI::MessageOutcome outcome = m_frameScheduler.Compile(m_compileRequest);
+                    if (outcome.IsSuccess())
+                    {
+                        m_device->SetEyeIndex(0);
+                        m_frameScheduler.Execute(RHI::JobPolicy::Parallel, 0);
+                        m_device->SetEyeIndex(1);
+                        //outcome = m_frameScheduler.Compile(m_compileRequest);
+                        //if (outcome.IsSuccess())
+                        {
+                            m_frameScheduler.m_frameGraphExecuter->End();
+                            m_frameScheduler.m_frameGraphExecuter->Begin(*m_frameScheduler.m_frameGraph);
+                            m_frameScheduler.Execute(RHI::JobPolicy::Parallel, 1);
+                        }
+                    }
+                    else
+                    {
+                        AZ_Error("RHISystem", false, "Frame Scheduler Compilation Failure: %s", outcome.GetError().c_str());
+                    }
+
+                    m_pipelineStateCache->Compact();
+                }
             }
 
             m_frameScheduler.EndFrame();

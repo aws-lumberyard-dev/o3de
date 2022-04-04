@@ -34,6 +34,8 @@ namespace AZ
 
             Device& GetDevice() const;
 
+            RHI::ResultCode BeginXRView(uint32_t viewIndex);
+            void EndXRView(uint32_t viewIndex);
         private:
             FrameGraphExecuter();
 
