@@ -11,6 +11,7 @@
 #include <AzCore/Asset/AssetCommon.h>
 
 #include <BlastMaterial/MaterialConfiguration.h>
+#include <BlastMaterial/LegacyMaterial.h>
 
 namespace Blast
 {
@@ -31,5 +32,10 @@ namespace Blast
 
     protected:
         MaterialConfiguration m_materialConfiguration;
+
+        // Legacy Blast material Id is only used when converting from old blast material asset,
+        // which holds a library of materials, to the new blast material asset.
+        // Eventually this will be removed.
+        BlastMaterialId m_legacyBlastMaterialId;
     };
 } // namespace Blast

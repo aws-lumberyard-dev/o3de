@@ -45,6 +45,7 @@ namespace Blast
 
         MaterialConfiguration::Reflect(context);
         MaterialAsset::Reflect(context);
+        ReflectLegacyMaterialClasses(context);
 
         if (AZ::SerializeContext* serialize = azrtti_cast<AZ::SerializeContext*>(context))
         {
