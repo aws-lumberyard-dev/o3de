@@ -959,7 +959,6 @@ void AssetBuilderComponent::JobThread()
             case JobType::Process:
             {
                 using namespace AssetBuilder;
-
                 AZ_TracePrintf("AssetBuilder", "Running processJob task\n");
 
                 auto* netRequest = azrtti_cast<ProcessJobNetRequest*>(job->m_netRequest.get());

@@ -39,7 +39,7 @@ class AssetUtilitiesTest
             m_localFileIo = nullptr;
             AZ::IO::FileIOBase::SetInstance(nullptr);
         }
-        
+
         AssetProcessorTest::TearDown();
     }
 
@@ -151,7 +151,7 @@ TEST_F(AssetUtilitiesTest, UpdateToCorrectCase_ExistingFile_ReturnsTrue_Corrects
     thingsToTry << "specialFileName+.txt";
     thingsToTry << "specialFileName[9].txt";
     thingsToTry << "specialFileName[A-Za-z].txt"; // these should all be treated as literally the name of the file, not a regex!
-    
+
     for (QString triedThing : thingsToTry)
     {
         triedThing = NormalizeFilePath(triedThing);
@@ -159,7 +159,7 @@ TEST_F(AssetUtilitiesTest, UpdateToCorrectCase_ExistingFile_ReturnsTrue_Corrects
 
         QString lowercaseVersion = triedThing.toLower();
         // each one should be found.   If it fails, we'll pipe out the name of the file it fails on for extra context.
-        
+
         EXPECT_TRUE(AssetUtilities::UpdateToCorrectCase(canonicalTempDirPath, lowercaseVersion)) << "File being Examined: " << lowercaseVersion.toUtf8().constData();
         // each one should correct, and return a normalized path.
         EXPECT_STREQ(AssetUtilities::NormalizeFilePath(lowercaseVersion).toUtf8().constData(), AssetUtilities::NormalizeFilePath(triedThing).toUtf8().constData());
@@ -217,7 +217,7 @@ TEST_F(AssetUtilitiesTest, GenerateFingerprint_BasicTest)
     EXPECT_TRUE(UnitTestUtils::CreateDummyFile(absoluteTestFilePath1, "contents new"));
     result1 = AssetUtilities::GenerateFingerprint(jobDetail);
     EXPECT_NE(result1, result2);
-    
+
     // changing the other should also change the hash:
     EXPECT_TRUE(UnitTestUtils::CreateDummyFile(absoluteTestFilePath2, "contents new2"));
     result2 = AssetUtilities::GenerateFingerprint(jobDetail);
@@ -227,10 +227,10 @@ TEST_F(AssetUtilitiesTest, GenerateFingerprint_BasicTest)
 TEST_F(AssetUtilitiesTest, GenerateFingerprint_Empty_Asserts)
 {
     AssetProcessor::JobDetails jobDetail;
+
+    m_errorAbsorber->StartTraceSuppression();
     AssetUtilities::GenerateFingerprint(jobDetail);
-    
-    EXPECT_EQ(m_errorAbsorber->m_numAssertsAbsorbed, 1);
-    m_errorAbsorber->Clear();
+    m_errorAbsorber->StopTraceSuppression(1);
 }
 
 TEST_F(AssetUtilitiesTest, GenerateFingerprint_MissingFile_NotSameAsZeroByteFile)
@@ -242,7 +242,7 @@ TEST_F(AssetUtilitiesTest, GenerateFingerprint_MissingFile_NotSameAsZeroByteFile
     tempPath = QDir(canonicalTempDirPath);
     QString absoluteTestFilePath1 = tempPath.absoluteFilePath("basicfile.txt");
     QString absoluteTestFilePath2 = tempPath.absoluteFilePath("basicfile2.txt");
-    
+
     EXPECT_TRUE(UnitTestUtils::CreateDummyFile(absoluteTestFilePath1, "")); // empty file
     // note:  basicfile1 exists but is empty, whereas basicfile2, 3 are missing entirely.
 
@@ -300,7 +300,7 @@ TEST_F(AssetUtilitiesTest, GenerateFingerprint_OneFile_Differs)
     jobDetail.m_fingerprintFiles.insert(AZStd::make_pair(tempPath.absoluteFilePath("basicfile.txt").toUtf8().constData(), "basicfile.txt"));
 
     AZ::u32 fingerprint1 = AssetUtilities::GenerateFingerprint(jobDetail);
-    
+
     jobDetail.m_fingerprintFiles.clear();
     jobDetail.m_fingerprintFiles.insert(AZStd::make_pair(tempPath.absoluteFilePath("basicfile2.txt").toUtf8().constData(), "basicfile2.txt"));
     AZ::u32 fingerprint2 = AssetUtilities::GenerateFingerprint(jobDetail);
@@ -358,7 +358,7 @@ TEST_F(AssetUtilitiesTest, GenerateFingerprint_MultipleFile_Differs)
     jobDetail.m_fingerprintFiles.insert(AZStd::make_pair(tempPath.absoluteFilePath("basicfile.txt").toUtf8().constData(), "basicfile.txt"));
     jobDetail.m_fingerprintFiles.insert(AZStd::make_pair(tempPath.absoluteFilePath("basicfile2.txt").toUtf8().constData(), "basicfile2.txt"));
     fingerprint1 = AssetUtilities::GenerateFingerprint(jobDetail);
-    
+
     jobDetail.m_fingerprintFiles.clear();
     jobDetail.m_fingerprintFiles.insert(AZStd::make_pair(tempPath.absoluteFilePath("basicfile2.txt").toUtf8().constData(), "basicfile2.txt"));
     jobDetail.m_fingerprintFiles.insert(AZStd::make_pair(tempPath.absoluteFilePath("basicfile3.txt").toUtf8().constData(), "basicfile3.txt"));
@@ -395,7 +395,7 @@ TEST_F(AssetUtilitiesTest, GenerateFingerprint_OrderOnceJobDependency_NoChange)
     jobDetail.m_jobEntry.m_databaseSourceName = relFile1Path;
     jobDetail.m_jobEntry.m_watchFolderPath = tempPath.absolutePath();
     jobDetail.m_fingerprintFiles.insert(AZStd::make_pair(absoluteTestFile1Path.toUtf8().constData(), relFile1Path));
-  
+
     AZ::u32 fingerprintWithoutOrderOnceJobDependency = AssetUtilities::GenerateFingerprint(jobDetail);
 
     AssetBuilderSDK::SourceFileDependency dep = { relFile2Path, AZ::Uuid::CreateNull() };
@@ -413,6 +413,11 @@ namespace AssetUtilsTest
     {
     public:
         MOCK_METHOD1(GetJobFingerprint, AZ::u32(const AssetProcessor::JobIndentifier&));
+
+        ~MockJobDependencyResponder()
+        {
+            BusDisconnect();
+        }
     };
 }
 
@@ -443,14 +448,14 @@ TEST_F(AssetUtilitiesTest, GenerateFingerprint_GivenJobDependencies_AffectsOutco
     jobDetail.m_jobDependencyList.push_back(internalJobDep);
 
     EXPECT_CALL(responder, GetJobFingerprint(_))
-        .WillOnce( 
+        .WillOnce(
             Return(0x12341234));
 
     AZ::u32 fingerprint2 = AssetUtilities::GenerateFingerprint(jobDetail);
 
     // different job fingerprint -> different result
     EXPECT_CALL(responder, GetJobFingerprint(_))
-        .WillOnce( 
+        .WillOnce(
             Return(0x11111111));
 
     AZ::u32 fingerprint3 = AssetUtilities::GenerateFingerprint(jobDetail);

@@ -26,14 +26,14 @@ namespace UnitTests
     class IgnoreNotifyTracker : public ProcessingJobInfoBus::Handler
     {
     public:
-        // Will notify other systems which old product is just about to get removed from the cache 
-        // before we copy the new product instead along. 
+        // Will notify other systems which old product is just about to get removed from the cache
+        // before we copy the new product instead along.
         void BeginCacheFileUpdate(const char* productPath) override
         {
             m_capturedStartPaths.push_back(productPath);
         }
-        
-        // Will notify other systems which product we are trying to copy in the cache 
+
+        // Will notify other systems which product we are trying to copy in the cache
         // along with status of whether that copy succeeded or failed.
         void EndCacheFileUpdate(const char* productPath, bool /*queueAgainForProcessing*/) override
         {
@@ -64,7 +64,7 @@ namespace UnitTests
             ON_CALL(m_data->m_diskSpaceResponder, CheckSufficientDiskSpace(_, _, _))
                 .WillByDefault(Return(true));
 
-            
+
         }
 
         void TearDown() override
@@ -95,9 +95,6 @@ namespace UnitTests
         BuilderParams builderParams;
         ProcessJobResponse response;
         EXPECT_TRUE(RCJob::CopyCompiledAssets(builderParams, response));
-        EXPECT_EQ(m_errorAbsorber->m_numAssertsAbsorbed, 0);
-        EXPECT_EQ(m_errorAbsorber->m_numErrorsAbsorbed, 0);
-        EXPECT_EQ(m_errorAbsorber->m_numWarningsAbsorbed, 0);
     }
 
     TEST_F(RCJobTest, CopyCompiledAssets_InvalidOutputPath_FailsAndAsserts)
@@ -106,12 +103,13 @@ namespace UnitTests
         ProcessJobResponse response;
         response.m_resultCode = ProcessJobResult_Success;
         response.m_outputProducts.push_back({ "file1.txt" }); // make sure that there is at least one product so that it doesn't early out.
-        
+
         // set only the input path, not the output path:
         builderParams.m_processJobRequest.m_tempDirPath = m_data->m_absolutePathToTempInputFolder.c_str(); // input working scratch space folder
 
+        m_errorAbsorber->StartTraceSuppression();
         EXPECT_FALSE(RCJob::CopyCompiledAssets(builderParams, response));
-        EXPECT_EQ(m_errorAbsorber->m_numAssertsAbsorbed, 1);
+        m_errorAbsorber->StopTraceSuppression(1);
     }
 
     TEST_F(RCJobTest, CopyCompiledAssets_InvalidInputPath_FailsAndAsserts)
@@ -124,9 +122,10 @@ namespace UnitTests
         // set the input dir to be a broken invalid dir:
         builderParams.m_processJobRequest.m_tempDirPath = AZ::Uuid::CreateRandom().ToString<AZStd::string>();
         builderParams.m_finalOutputDir = QString::fromUtf8(m_data->m_absolutePathToTempOutputFolder.c_str());  // output folder in the 'cache'
-        
+
+        m_errorAbsorber->StartTraceSuppression();
         EXPECT_FALSE(RCJob::CopyCompiledAssets(builderParams, response));
-        EXPECT_EQ(m_errorAbsorber->m_numAssertsAbsorbed, 1);
+        m_errorAbsorber->StopTraceSuppression(1);
     }
 
     TEST_F(RCJobTest, CopyCompiledAssets_TooLongPath_FailsButDoesNotAssert)
@@ -143,9 +142,9 @@ namespace UnitTests
         reallyLongFileName.resize(4096, 'x');
         response.m_outputProducts.push_back({ reallyLongFileName.c_str() });
 
+        m_errorAbsorber->StartTraceSuppression();
         EXPECT_FALSE(RCJob::CopyCompiledAssets(builderParams, response));
-        EXPECT_EQ(m_errorAbsorber->m_numAssertsAbsorbed, 0);
-        EXPECT_EQ(m_errorAbsorber->m_numErrorsAbsorbed, 1);
+        m_errorAbsorber->StopTraceSuppression(1);
     }
 
     TEST_F(RCJobTest, CopyCompiledAssets_OutOfDiskSpace_FailsButDoesNotAssert)
@@ -167,9 +166,9 @@ namespace UnitTests
             .Times(1)
             .WillRepeatedly(Return(false));
 
+        m_errorAbsorber->StartTraceSuppression();
         EXPECT_FALSE(RCJob::CopyCompiledAssets(builderParams, response));
-        EXPECT_EQ(m_errorAbsorber->m_numAssertsAbsorbed, 0);
-        EXPECT_EQ(m_errorAbsorber->m_numErrorsAbsorbed, 1);
+        m_errorAbsorber->StopTraceSuppression(1);
 
         // no notifies should be hit since the operation should not have been attempted at all (disk space should be checked up front)
         ASSERT_EQ(m_data->m_notifyTracker.m_capturedStartPaths.size(), 0);
@@ -199,9 +198,9 @@ namespace UnitTests
         response.m_outputProducts.push_back({ "FiLe2.txt" });
         // note well that we create the first file but we don't acutally create the second one, so it is missing.
 
+        m_errorAbsorber->StartTraceSuppression();
         EXPECT_FALSE(RCJob::CopyCompiledAssets(builderParams, response));
-        EXPECT_EQ(m_errorAbsorber->m_numAssertsAbsorbed, 0);
-        EXPECT_EQ(m_errorAbsorber->m_numErrorsAbsorbed, 1);
+        m_errorAbsorber->StopTraceSuppression(1);
 
         // no notifies should be hit since the operation should not have been attempted at all.
         ASSERT_EQ(m_data->m_notifyTracker.m_capturedStartPaths.size(), 0);
@@ -230,8 +229,6 @@ namespace UnitTests
 
         // this should copy that file into the target path.
         EXPECT_TRUE(RCJob::CopyCompiledAssets(builderParams, response));
-        EXPECT_EQ(m_errorAbsorber->m_numAssertsAbsorbed, 0);
-        EXPECT_EQ(m_errorAbsorber->m_numErrorsAbsorbed, 0);
         ASSERT_EQ(m_data->m_notifyTracker.m_capturedStartPaths.size(), 1);
         ASSERT_EQ(m_data->m_notifyTracker.m_capturedStopPaths.size(), 1);
 
@@ -257,8 +254,6 @@ namespace UnitTests
         UnitTestUtils::CreateDummyFile(QDir(m_data->m_absolutePathToTempInputFolder.c_str()).absoluteFilePath("FiLe1.TxT"), "output of file 1");
 
         EXPECT_TRUE(RCJob::CopyCompiledAssets(builderParams, response));
-        EXPECT_EQ(m_errorAbsorber->m_numAssertsAbsorbed, 0);
-        EXPECT_EQ(m_errorAbsorber->m_numErrorsAbsorbed, 0);
         ASSERT_EQ(m_data->m_notifyTracker.m_capturedStartPaths.size(), 1);
         ASSERT_EQ(m_data->m_notifyTracker.m_capturedStopPaths.size(), 1);
 

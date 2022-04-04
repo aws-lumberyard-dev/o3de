@@ -79,7 +79,7 @@ void AssetProcessorServerUnitTest::RunAssetProcessorConnectionStressTest(bool fa
 {
     AZStd::string azBranchToken;
     AzFramework::ApplicationRequests::Bus::Broadcast(&AzFramework::ApplicationRequests::CalculateBranchTokenForEngineRoot, azBranchToken);
-    
+
     QString branchToken(azBranchToken.c_str());
 
     if (failNegotiation)
@@ -126,7 +126,7 @@ void AssetProcessorServerUnitTest::RunAssetProcessorConnectionStressTest(bool fa
 
         for (int idx = 0; idx < NUMBER_OF_CONNECTION; ++idx)
         {
-            // each thread should sleep after each test for a different amount of time so that they 
+            // each thread should sleep after each test for a different amount of time so that they
             // end up trying all different overlapping parts of the code.
             int sleepTime = iteration * (idx + 1);
             assetProcessorConnectionList.push_back(AZStd::thread(AZStd::bind(StartConnection, sleepTime)));
@@ -162,14 +162,10 @@ void AssetProcessorServerUnitTest::AssetProcessorConnectionStressTest()
     // Testing the case when negotiation succeeds
     RunAssetProcessorConnectionStressTest(false);
 
-    UNIT_TEST_CHECK(assertAbsorber.m_numErrorsAbsorbed == 0);
-    UNIT_TEST_CHECK(assertAbsorber.m_numAssertsAbsorbed == 0);
-
+    assertAbsorber.StartTraceSuppression();
     // Testing the case when negotiation fails
     RunAssetProcessorConnectionStressTest(true);
-
-    UNIT_TEST_CHECK(assertAbsorber.m_numErrorsAbsorbed == 0);
-    UNIT_TEST_CHECK(assertAbsorber.m_numAssertsAbsorbed == 0);
+    assertAbsorber.StopTraceSuppressionWarningsGT(0);
 
     Q_EMIT UnitTestPassed();
 }

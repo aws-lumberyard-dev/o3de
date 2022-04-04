@@ -122,7 +122,7 @@ void AssetProcessingStateDataUnitTest::DataTest(AssetProcessor::AssetDatabaseCon
             }
             return false;
         };
-    
+
     auto ScanFoldersContainPortableKey = [](const ScanFolderDatabaseEntryContainer& scanFolders, const char* portableKey) -> bool
     {
         for (const auto& scanFolder : scanFolders)
@@ -310,8 +310,9 @@ void AssetProcessingStateDataUnitTest::DataTest(AssetProcessor::AssetDatabaseCon
     source = SourceDatabaseEntry(234234, "SomeSource1.tif", validSourceGuid1, "");
     {
         UnitTestUtils::AssertAbsorber absorb;
+        absorb.StartTraceSuppression();
         UNIT_TEST_EXPECT_FALSE(stateData->SetSource(source));
-        UNIT_TEST_EXPECT_TRUE(absorb.m_numWarningsAbsorbed > 0);
+        absorb.StopTraceSuppression(1);
     }
 
     //setting a valid scan folder pk should allow it to be added
@@ -661,16 +662,18 @@ void AssetProcessingStateDataUnitTest::DataTest(AssetProcessor::AssetDatabaseCon
     {
         UnitTestUtils::AssertAbsorber absorber;
         job = JobDatabaseEntry(234234, "jobkey", validFingerprint1, "pc", validBuilderGuid1, statusQueued, 1);
+        absorber.StartTraceSuppression();
         UNIT_TEST_EXPECT_FALSE(stateData->SetJob(job));
-        UNIT_TEST_EXPECT_TRUE(absorber.m_numWarningsAbsorbed > 0);
+        absorber.StopTraceSuppression(1);
     }
 
     //trying to add a job with a valid source pk but an invalid job id  should fail:
     {
         UnitTestUtils::AssertAbsorber absorb;
+        absorb.StartTraceSuppression();
         job = JobDatabaseEntry(source.m_sourceID, "jobkey", validFingerprint1, "pc", validBuilderGuid1, statusQueued, 0);
         UNIT_TEST_EXPECT_FALSE(stateData->SetJob(job));
-        UNIT_TEST_EXPECT_TRUE(absorb.m_numErrorsAbsorbed > 0);
+        absorb.StopTraceSuppressionErrorsGT(0);
     }
 
     //setting a valid scan folder pk should allow it to be added AND should tell you what the job ID will be.
@@ -867,16 +870,18 @@ void AssetProcessingStateDataUnitTest::DataTest(AssetProcessor::AssetDatabaseCon
     LegacySubIDsEntry legacyEntry(1, product.m_productID, 3);
     {
         UnitTestUtils::AssertAbsorber absorb;
+        absorb.StartTraceSuppression();
         UNIT_TEST_EXPECT_FALSE(stateData->CreateOrUpdateLegacySubID(legacyEntry));
-        UNIT_TEST_EXPECT_TRUE(absorb.m_numWarningsAbsorbed > 0);
+        absorb.StopTraceSuppressionWarningsGT(0);
     }
 
     // test invalid insert for non-existant legacy product FK constraint
     legacyEntry = LegacySubIDsEntry(AzToolsFramework::AssetDatabase::InvalidEntryId, 9999, 3);
     {
         UnitTestUtils::AssertAbsorber absorb;
+        absorb.StartTraceSuppression();
         UNIT_TEST_EXPECT_FALSE(stateData->CreateOrUpdateLegacySubID(legacyEntry));
-        UNIT_TEST_EXPECT_TRUE(absorb.m_numWarningsAbsorbed > 0);
+        absorb.StopTraceSuppression(1);
     }
 
     // test valid insert of another for same product
@@ -884,7 +889,7 @@ void AssetProcessingStateDataUnitTest::DataTest(AssetProcessor::AssetDatabaseCon
     UNIT_TEST_EXPECT_TRUE(stateData->CreateOrUpdateLegacySubID(legacyEntry));
     AZ::s64 newPK = legacyEntry.m_subIDsEntryID;
     UNIT_TEST_EXPECT_TRUE(newPK != AzToolsFramework::AssetDatabase::InvalidEntryId); // it should have also updated the PK
-    
+
     legacyEntry = LegacySubIDsEntry(AzToolsFramework::AssetDatabase::InvalidEntryId, product.m_productID, 4);
     UNIT_TEST_EXPECT_TRUE(stateData->CreateOrUpdateLegacySubID(legacyEntry));
     UNIT_TEST_EXPECT_TRUE(legacyEntry.m_subIDsEntryID != AzToolsFramework::AssetDatabase::InvalidEntryId); // it should have also updated the PK
@@ -903,7 +908,7 @@ void AssetProcessingStateDataUnitTest::DataTest(AssetProcessor::AssetDatabaseCon
     };
     UNIT_TEST_EXPECT_TRUE(stateData->QueryLegacySubIdsByProductID(product.m_productID, handler));
     UNIT_TEST_EXPECT_TRUE(entriesReturned.size() == 2);
-    
+
     bool foundSubID3 = false;
     bool foundSubID4 = false;
     for (const LegacySubIDsEntry& entryFound : entriesReturned)
@@ -935,7 +940,7 @@ void AssetProcessingStateDataUnitTest::DataTest(AssetProcessor::AssetDatabaseCon
     entriesReturned[0].m_subID = 6;
     UNIT_TEST_EXPECT_TRUE(stateData->CreateOrUpdateLegacySubID(entriesReturned[0]));
     entriesReturned.clear();
-    
+
     UNIT_TEST_EXPECT_TRUE(stateData->QueryLegacySubIdsByProductID(product2.m_productID, handler));
     UNIT_TEST_EXPECT_TRUE(entriesReturned.size() == 1);
     UNIT_TEST_EXPECT_TRUE(entriesReturned[0].m_subIDsEntryID != AzToolsFramework::AssetDatabase::InvalidEntryId);
@@ -945,16 +950,16 @@ void AssetProcessingStateDataUnitTest::DataTest(AssetProcessor::AssetDatabaseCon
     // test delete by product ID
     UNIT_TEST_EXPECT_TRUE(stateData->RemoveLegacySubIDsByProductID(product2.m_productID));
     entriesReturned.clear();
-    
+
     UNIT_TEST_EXPECT_TRUE(stateData->QueryLegacySubIdsByProductID(product2.m_productID, handler));
     UNIT_TEST_EXPECT_TRUE(entriesReturned.empty());
-    
+
     // test delete by PK.  The prior entries should be here for product1. This also makes sure the above
     // delete statement didn't delete more than it should have.
-    
+
     UNIT_TEST_EXPECT_TRUE(stateData->QueryLegacySubIdsByProductID(product.m_productID, handler));
     UNIT_TEST_EXPECT_TRUE(entriesReturned.size() == 2);
-    
+
     AZ::s64 toRemove = entriesReturned[0].m_subIDsEntryID;
     AZ::u32 removingSubID = entriesReturned[0].m_subID;
 
@@ -1089,8 +1094,9 @@ void AssetProcessingStateDataUnitTest::DataTest(AssetProcessor::AssetDatabaseCon
     productDependency = ProductDependencyDatabaseEntry(234234, validSourceGuid1, 1, 0, platform, true);
     {
         UnitTestUtils::AssertAbsorber absorber;
+        absorber.StartTraceSuppression();
         UNIT_TEST_EXPECT_FALSE(stateData->SetProductDependency(productDependency));
-        UNIT_TEST_EXPECT_TRUE(absorber.m_numWarningsAbsorbed > 0);
+        absorber.StopTraceSuppression(1);
     }
 
     //setting a valid product pk should allow it to be added
@@ -1133,7 +1139,7 @@ void AssetProcessingStateDataUnitTest::DataTest(AssetProcessor::AssetDatabaseCon
     UNIT_TEST_EXPECT_TRUE(ProductDependenciesContainDependencySoureGuid(productDependencies, productDependency.m_dependencySourceGuid));
     UNIT_TEST_EXPECT_TRUE(ProductDependenciesContainDependencySubID(productDependencies, productDependency.m_dependencySubID));
     UNIT_TEST_EXPECT_TRUE(ProductDependenciesContainDependencyFlags(productDependencies, productDependency.m_dependencyFlags));
-    
+
     // Setup some more dependencies
 
     //Product2 -> Product3
@@ -1155,10 +1161,10 @@ void AssetProcessingStateDataUnitTest::DataTest(AssetProcessor::AssetDatabaseCon
     /* Dependency Tree
     *
     * Product -> Product2 -> Product3 -> Product5 -> Product 6->
-    *                    \                          
+    *                    \
     *                     -> Product4
     */
-    
+
     // Direct Deps
 
     // Product -> Product2
@@ -1235,7 +1241,7 @@ void AssetProcessingStateDataUnitTest::DataTest(AssetProcessor::AssetDatabaseCon
     UNIT_TEST_EXPECT_TRUE(products.size() == 1);
     UNIT_TEST_EXPECT_TRUE(ProductsContainProductID(products, product6.m_productID));
 
-    // Product6 -> 
+    // Product6 ->
     products.clear();
     UNIT_TEST_EXPECT_FALSE(stateData->GetAllProductDependencies(product6.m_productID, products));
     UNIT_TEST_EXPECT_TRUE(products.size() == 0);
@@ -1313,7 +1319,7 @@ void AssetProcessingStateDataUnitTest::BuilderInfoTest(AssetProcessor::AssetData
         results.push_back(AZStd::move(element));
         return true; // returning false would stop iterating.  We want all results, so we return true.
     };
-    
+
     UNIT_TEST_EXPECT_TRUE(stateData->QueryBuilderInfoTable(resultGatherer));
     UNIT_TEST_EXPECT_TRUE(results.empty());
 
@@ -1379,7 +1385,7 @@ void AssetProcessingStateDataUnitTest::SourceDependencyTest(AssetProcessor::Asse
     newEntry1.m_builderGuid = AZ::Uuid::CreateRandom();
     newEntry1.m_source = "a.txt";
     newEntry1.m_dependsOnSource = "b.txt";
-    
+
     SourceFileDependencyEntry newEntry2; // b depends on C
     newEntry2.m_sourceDependencyID = AzToolsFramework::AssetDatabase::InvalidEntryId;
     newEntry2.m_builderGuid = AZ::Uuid::CreateRandom();
@@ -1395,7 +1401,7 @@ void AssetProcessingStateDataUnitTest::SourceDependencyTest(AssetProcessor::Asse
     UNIT_TEST_EXPECT_TRUE(stateData->SetSourceFileDependency(newEntry1));
     UNIT_TEST_EXPECT_TRUE(stateData->SetSourceFileDependency(newEntry2));
     UNIT_TEST_EXPECT_TRUE(stateData->SetSourceFileDependency(newEntry3));
-    
+
     SourceFileDependencyEntryContainer results;
 
     // what depends on b?  a does.
@@ -1412,7 +1418,7 @@ void AssetProcessingStateDataUnitTest::SourceDependencyTest(AssetProcessor::Asse
     UNIT_TEST_EXPECT_TRUE(results.size() == 2);
     UNIT_TEST_EXPECT_TRUE(results[0].m_source == "b.txt");  // note that both of these are B, since its B that has the dependency on the others.
     UNIT_TEST_EXPECT_TRUE(results[1].m_source == "b.txt");
-    UNIT_TEST_EXPECT_TRUE(results[0].m_dependsOnSource == "c.txt"); 
+    UNIT_TEST_EXPECT_TRUE(results[0].m_dependsOnSource == "c.txt");
     UNIT_TEST_EXPECT_TRUE(results[1].m_dependsOnSource == "d.txt");
 
     // what does b depend on, but filtered to only one builder?
@@ -1464,7 +1470,7 @@ void AssetProcessingStateDataUnitTest::SourceFingerprintTest(AssetProcessor::Ass
     sourceFile1.m_sourceGuid = AZ::Uuid::CreateRandom();
     sourceFile1.m_sourceName = "a.txt";
     UNIT_TEST_EXPECT_TRUE(stateData->SetSource(sourceFile1));
-    
+
     SourceDatabaseEntry sourceFile2;
     sourceFile2.m_analysisFingerprint = "54321";
     sourceFile2.m_scanFolderPK = scanFolder.m_scanFolderID;
@@ -1492,7 +1498,7 @@ void AssetProcessingStateDataUnitTest::AssetProcessingStateDataTest()
     QDir dirPath;
 
     // intentional scope to contain QTemporaryDir since it cleans up on destruction!
-    { 
+    {
         QTemporaryDir tempDir;
         ProductDatabaseEntryContainer products;
         dirPath = QDir(tempDir.path());

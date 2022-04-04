@@ -68,7 +68,9 @@ TEST_F(RCBuilderTest, Initialize_StandardInitializationWithDuplicateAndInvalidRe
     configuration.m_recognizerContainer["no_platform"] = no_platform;
     configuration.m_recognizerContainer["duplicate"] = duplicate;
 
+    m_errorAbsorber->StartTraceSuppression();
     bool initialization_result = test.Initialize(configuration);
+    m_errorAbsorber->StopTraceSuppressionWarnings(1);
     ASSERT_TRUE(initialization_result);
 
     ASSERT_EQ(mockRC->m_initialize, 1);
@@ -90,10 +92,6 @@ TEST_F(RCBuilderTest, Initialize_StandardInitializationWithDuplicateAndInvalidRe
     bool no_recognizers_found = !test.GetMatchingRecognizers(platformInfos, "test.ccc", good_recognizers);
     ASSERT_TRUE(no_recognizers_found);
     ASSERT_EQ(bad_recognizers.size(), 0);  // 1, not 2 since the duplicates should be removed
-
-    ASSERT_EQ(m_errorAbsorber->m_numWarningsAbsorbed, 1); // this should be the "duplicate builder" warning.
-    ASSERT_EQ(m_errorAbsorber->m_numErrorsAbsorbed, 0);
-    ASSERT_EQ(m_errorAbsorber->m_numAssertsAbsorbed, 0);
 }
 
 
@@ -644,7 +642,7 @@ TEST_F(RCBuilderTest, TestProcessRCResultFolder_LegacySystem)
     ASSERT_EQ(response.m_outputProducts[1].m_productAssetType, productGUID);
     ASSERT_EQ(response.m_outputProducts[1].m_productSubID, (AZ_CRC("file.caf", 0x91277b80) & 0x0000FFFF)); // legacy subids are just the lower 16 bits of the crc of filename.
     ASSERT_EQ(response.m_outputProducts[1].m_legacySubIDs.size(), 0);
-    
+
     AzFramework::StringFunc::Path::Join("c:\\temp", "file.png", fileJoined);
     ASSERT_EQ(response.m_outputProducts[2].m_productFileName, fileJoined);
     ASSERT_EQ(response.m_outputProducts[2].m_productAssetType, productGUID);
@@ -657,7 +655,7 @@ TEST_F(RCBuilderTest, TestProcessRCResultFolder_Fail_Fail)
     TestInternalRecognizerBasedBuilder  test(new MockRCCompiler());
     AssetBuilderSDK::ProcessJobResponse response;
     response.m_resultCode = AssetBuilderSDK::ProcessJobResult_Failed;
-    
+
     AZ::Uuid productGUID = AZ::Uuid("{60554E3C-D8D5-4429-AC77-740F0ED46193}");
     test.TestProcessRCResultFolder("c:\\temp", productGUID, true, response);
     ASSERT_EQ(response.m_resultCode, AssetBuilderSDK::ProcessJobResult_Failed);
@@ -668,7 +666,7 @@ TEST_F(RCBuilderTest, TestProcessRCResultFolder_Succeed_NothingBuilt)
     TestInternalRecognizerBasedBuilder  test(new MockRCCompiler());
     AssetBuilderSDK::ProcessJobResponse response;
     response.m_resultCode = AssetBuilderSDK::ProcessJobResult_Success;
-    
+
     AZ::Uuid productGUID = AZ::Uuid("{60554E3C-D8D5-4429-AC77-740F0ED46193}");
     test.TestProcessRCResultFolder("c:\\temp", productGUID, true, response);
     ASSERT_EQ(response.m_resultCode, AssetBuilderSDK::ProcessJobResult_Success);
@@ -683,13 +681,14 @@ TEST_F(RCBuilderTest, TestProcessRCResultFolder_Fail_BadName)
     AZ::Uuid productGUID = AZ::Uuid("{60554E3C-D8D5-4429-AC77-740F0ED46193}");
     // note: empty name on next line
     response.m_outputProducts.push_back(AssetBuilderSDK::JobProduct("", productGUID, 1234));
+    m_errorAbsorber->StartTraceSuppression();
     test.TestProcessRCResultFolder("c:\\temp", productGUID, true, response);
+    m_errorAbsorber->StopTraceSuppression(1);
     ASSERT_EQ(response.m_resultCode, AssetBuilderSDK::ProcessJobResult_Failed);
 }
 
 TEST_F(RCBuilderTest, TestProcessRCResultFolder_Fail_DuplicateFile)
 {
-    m_errorAbsorber->m_debugMessages = true;
     TestInternalRecognizerBasedBuilder  test(new MockRCCompiler());
     AssetBuilderSDK::ProcessJobResponse response;
     test.AddTestFileInfo("file.dds");
@@ -697,8 +696,9 @@ TEST_F(RCBuilderTest, TestProcessRCResultFolder_Fail_DuplicateFile)
     response.m_resultCode = AssetBuilderSDK::ProcessJobResult_Success;
     response.m_outputProducts.push_back(AssetBuilderSDK::JobProduct("file.dds", productGUID, 1234));
     response.m_outputProducts.push_back(AssetBuilderSDK::JobProduct("file.dds", productGUID, 5679));
+    m_errorAbsorber->StartTraceSuppression();
     test.TestProcessRCResultFolder("c:\\temp", productGUID, true, response);
-    m_errorAbsorber->AssertErrors(1);
+    m_errorAbsorber->StopTraceSuppression(1);
     ASSERT_EQ(response.m_resultCode, AssetBuilderSDK::ProcessJobResult_Failed);
 }
 
@@ -713,8 +713,9 @@ TEST_F(RCBuilderTest, TestProcessRCResultFolder_Fail_DuplicateSubID)
     response.m_resultCode = AssetBuilderSDK::ProcessJobResult_Success;
     response.m_outputProducts.push_back(AssetBuilderSDK::JobProduct("file.dds", productGUID, 1234));
     response.m_outputProducts.push_back(AssetBuilderSDK::JobProduct("file.caf", productGUID, 1234));
+    m_errorAbsorber->StartTraceSuppression();
     test.TestProcessRCResultFolder("c:\\temp", productGUID, true, response);
-    ASSERT_EQ(m_errorAbsorber->m_numErrorsAbsorbed, 1);
+    m_errorAbsorber->StopTraceSuppression(1);
     ASSERT_EQ(response.m_resultCode, AssetBuilderSDK::ProcessJobResult_Failed);
 }
 
@@ -793,7 +794,7 @@ public:
 class RCBuilderFingerprintTest
     : public RCBuilderTest
 {
-    
+
 public:
 
     // A utility function which feeds in the version and asset type to the builder, fingerprints it, and returns the fingerprint
@@ -813,7 +814,7 @@ public:
         good.m_patternMatcher = AssetBuilderSDK::FilePatternMatcher("*.foo", AssetBuilderSDK::AssetBuilderPattern::PatternType::Wildcard);
         good.m_platformSpecs["pc"] = good_spec;
         good.m_productAssetType = builderProductType;
-        
+
         configuration.m_recognizerContainer["good"] = good;
 
         MockBuilderListener listener;

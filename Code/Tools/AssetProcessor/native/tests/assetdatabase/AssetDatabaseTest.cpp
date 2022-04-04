@@ -193,10 +193,9 @@ namespace UnitTests
         AZ::Data::AssetType validAssetType1 = AZ::Data::AssetType::CreateRandom();
         ProductDatabaseEntry product { 123213, 234234, 1, "SomeProduct1.dds", validAssetType1 };
 
-        m_errorAbsorber->Clear();
+        m_errorAbsorber->StartTraceSuppression();
         EXPECT_FALSE(m_data->m_connection.SetProduct(product));
-        EXPECT_GT(m_errorAbsorber->m_numErrorsAbsorbed, 0);
-        EXPECT_EQ(m_errorAbsorber->m_numAssertsAbsorbed, 0); // not allowed to assert on this
+        m_errorAbsorber->StopTraceSuppression(1);
 
         // make sure it didn't actually touch the db as a side effect:
         ProductDatabaseEntryContainer products;
@@ -213,10 +212,9 @@ namespace UnitTests
 
         ProductDatabaseEntry product{ AzToolsFramework::AssetDatabase::InvalidEntryId, 234234, 1, "SomeProduct1.dds", validAssetType1 };
 
-        m_errorAbsorber->Clear();
+        m_errorAbsorber->StartTraceSuppression();
         EXPECT_FALSE(m_data->m_connection.SetProduct(product));
-        EXPECT_GT(m_errorAbsorber->m_numErrorsAbsorbed, 0);
-        EXPECT_EQ(m_errorAbsorber->m_numAssertsAbsorbed, 0); // not allowed to assert on this
+        m_errorAbsorber->StopTraceSuppression(2);
 
         // make sure it didn't actually touch the db as a side effect:
         ProductDatabaseEntryContainer products;
@@ -251,12 +249,8 @@ namespace UnitTests
 
         ProductDatabaseEntry product{ AzToolsFramework::AssetDatabase::InvalidEntryId, jobEntry.m_jobID, 1, "SomeProduct1.dds", validAssetType1 };
 
-        m_errorAbsorber->Clear();
         EXPECT_TRUE(m_data->m_connection.SetProduct(product));
         ASSERT_NE(product.m_productID, AzToolsFramework::AssetDatabase::InvalidEntryId);
-
-        EXPECT_EQ(m_errorAbsorber->m_numErrorsAbsorbed, 0);
-        EXPECT_EQ(m_errorAbsorber->m_numAssertsAbsorbed, 0); // not allowed to assert on this
 
         // read it back from the DB and make sure its identical to what was written
 
@@ -362,8 +356,6 @@ namespace UnitTests
 
         EXPECT_FALSE(m_data->m_connection.GetProductsByJobID(-1, resultProducts));
         EXPECT_EQ(resultProducts.size(), 0);
-
-        EXPECT_EQ(m_errorAbsorber->m_numAssertsAbsorbed, 0); // not allowed to assert on this
     }
 
     TEST_F(AssetDatabaseTest, GetProductsByJobID_Valid_ReturnsTrue_FindsProducts)
@@ -378,8 +370,6 @@ namespace UnitTests
         // since there is no ordering, we just have to find both of them:
         EXPECT_NE(AZStd::find(resultProducts.begin(), resultProducts.end(), m_data->m_product1), resultProducts.end());
         EXPECT_NE(AZStd::find(resultProducts.begin(), resultProducts.end(), m_data->m_product2), resultProducts.end());
-
-        EXPECT_EQ(m_errorAbsorber->m_numAssertsAbsorbed, 0); // not allowed to assert on this
     }
 
     TEST_F(AssetDatabaseTest, GetProductByJobIDSubId_InvalidID_NotFound_ReturnsFalse)
@@ -391,7 +381,6 @@ namespace UnitTests
         EXPECT_FALSE(m_data->m_connection.GetProductByJobIDSubId(m_data->m_job1.m_jobID, aznumeric_caster(-1), resultProduct));
         EXPECT_FALSE(m_data->m_connection.GetProductByJobIDSubId(-1, m_data->m_product1.m_subID, resultProduct));
         EXPECT_FALSE(m_data->m_connection.GetProductByJobIDSubId(-1, aznumeric_caster(-1), resultProduct));
-        EXPECT_EQ(m_errorAbsorber->m_numAssertsAbsorbed, 0); // not allowed to assert on this
     }
 
     TEST_F(AssetDatabaseTest, GetProductByJobIDSubId_ValidID_Found_ReturnsTrue)
@@ -402,8 +391,6 @@ namespace UnitTests
 
         EXPECT_TRUE(m_data->m_connection.GetProductByJobIDSubId(m_data->m_job1.m_jobID, m_data->m_product1.m_subID, resultProduct));
         EXPECT_EQ(resultProduct, m_data->m_product1);
-
-        EXPECT_EQ(m_errorAbsorber->m_numAssertsAbsorbed, 0); // not allowed to assert on this
     }
 
     TEST_F(AssetDatabaseTest, GetProductBySourceGuidSubId_InvalidInputs_ProductNotFound)
@@ -418,8 +405,6 @@ namespace UnitTests
         EXPECT_FALSE(m_data->m_connection.GetProductBySourceGuidSubId(invalidGuid, m_data->m_product1.m_subID, resultProduct));
         EXPECT_FALSE(m_data->m_connection.GetProductBySourceGuidSubId(m_data->m_sourceFile1.m_sourceGuid, invalidSubId, resultProduct));
         EXPECT_FALSE(m_data->m_connection.GetProductBySourceGuidSubId(invalidGuid, invalidSubId, resultProduct));
-
-        EXPECT_EQ(m_errorAbsorber->m_numAssertsAbsorbed, 0);
     }
 
     TEST_F(AssetDatabaseTest, GetProductBySourceGuidSubId_ValidInputs_ProductFound)
@@ -430,8 +415,6 @@ namespace UnitTests
 
         EXPECT_TRUE(m_data->m_connection.GetProductBySourceGuidSubId(m_data->m_sourceFile1.m_sourceGuid, m_data->m_product1.m_subID, resultProduct));
         EXPECT_EQ(resultProduct, m_data->m_product1);
-
-        EXPECT_EQ(m_errorAbsorber->m_numAssertsAbsorbed, 0);
     }
 
     // --------------------------------------------------------------------------------------------------------------------
@@ -445,8 +428,6 @@ namespace UnitTests
         ProductDatabaseEntryContainer resultProducts;
         EXPECT_FALSE(m_data->m_connection.GetProductsByProductName(QString(), resultProducts));
         EXPECT_EQ(resultProducts.size(), 0);
-
-        EXPECT_EQ(m_errorAbsorber->m_numAssertsAbsorbed, 0); // not allowed to assert on this
     }
 
     TEST_F(AssetDatabaseTest, GetProductsByProductName_NotFound_NoResult)
@@ -456,8 +437,6 @@ namespace UnitTests
         ProductDatabaseEntryContainer resultProducts;
         EXPECT_FALSE(m_data->m_connection.GetProductsByProductName("akdsuhuksahdsak", resultProducts));
         EXPECT_EQ(resultProducts.size(), 0);
-
-        EXPECT_EQ(m_errorAbsorber->m_numAssertsAbsorbed, 0); // not allowed to assert on this
     }
 
     TEST_F(AssetDatabaseTest, GetProductsByProductName_CorrectName_ReturnsCorrectResult)
@@ -468,8 +447,6 @@ namespace UnitTests
         EXPECT_TRUE(m_data->m_connection.GetProductsByProductName("someproduct4.dds", resultProducts));
         EXPECT_EQ(resultProducts.size(), 1);
         EXPECT_EQ(resultProducts[0], m_data->m_product4);
-
-        EXPECT_EQ(m_errorAbsorber->m_numAssertsAbsorbed, 0); // not allowed to assert on this
     }
 
     // tests all of the filters (beside name) to make sure they all function as expected.
@@ -491,8 +468,6 @@ namespace UnitTests
         EXPECT_TRUE(m_data->m_connection.GetProductsByProductName("someproduct4.dds", resultProducts, m_data->m_job2.m_builderGuid));
         EXPECT_EQ(resultProducts.size(), 1);
         EXPECT_EQ(resultProducts[0], m_data->m_product4);
-
-        EXPECT_EQ(m_errorAbsorber->m_numAssertsAbsorbed, 0); // not allowed to assert on this
     }
 
     TEST_F(AssetDatabaseTest, GetProductsByProductName_FilterTest_JobKey)
@@ -513,8 +488,6 @@ namespace UnitTests
         EXPECT_TRUE(m_data->m_connection.GetProductsByProductName("someproduct4.dds", resultProducts, AZ::Uuid::CreateNull(), QString(m_data->m_job2.m_jobKey.c_str())));
         EXPECT_EQ(resultProducts.size(), 1);
         EXPECT_EQ(resultProducts[0], m_data->m_product4);
-
-        EXPECT_EQ(m_errorAbsorber->m_numAssertsAbsorbed, 0); // not allowed to assert on this
     }
 
     TEST_F(AssetDatabaseTest, GetProductsByProductName_FilterTest_Platform)
@@ -535,8 +508,6 @@ namespace UnitTests
         EXPECT_TRUE(m_data->m_connection.GetProductsByProductName("someproduct4.dds", resultProducts, AZ::Uuid::CreateNull(), QString(), "osx"));
         EXPECT_EQ(resultProducts.size(), 1);
         EXPECT_EQ(resultProducts[0], m_data->m_product4);
-
-        EXPECT_EQ(m_errorAbsorber->m_numAssertsAbsorbed, 0); // not allowed to assert on this
     }
 
     TEST_F(AssetDatabaseTest, GetProductsByProductName_FilterTest_Status)
@@ -553,8 +524,6 @@ namespace UnitTests
         EXPECT_TRUE(m_data->m_connection.GetProductsByProductName("someproduct4.dds", resultProducts, AZ::Uuid::CreateNull(), QString(), QString(), AzToolsFramework::AssetSystem::JobStatus::Failed));
         EXPECT_EQ(resultProducts.size(), 1);
         EXPECT_EQ(resultProducts[0], m_data->m_product4);
-
-        EXPECT_EQ(m_errorAbsorber->m_numAssertsAbsorbed, 0); // not allowed to assert on this
     }
 
     // --------------------------------------------------------------------------------------------------------------------
@@ -568,8 +537,6 @@ namespace UnitTests
         ProductDatabaseEntryContainer resultProducts;
         EXPECT_FALSE(m_data->m_connection.GetProductsLikeProductName(QString(), AssetDatabaseConnection::StartsWith, resultProducts));
         EXPECT_EQ(resultProducts.size(), 0);
-
-        EXPECT_EQ(m_errorAbsorber->m_numAssertsAbsorbed, 0); // not allowed to assert on this
     }
 
     TEST_F(AssetDatabaseTest, GetProductsLikeProductName_NotFound_NoResult)
@@ -579,8 +546,6 @@ namespace UnitTests
         ProductDatabaseEntryContainer resultProducts;
         EXPECT_FALSE(m_data->m_connection.GetProductsLikeProductName("akdsuhuksahdsak", AssetDatabaseConnection::StartsWith, resultProducts));
         EXPECT_EQ(resultProducts.size(), 0);
-
-        EXPECT_EQ(m_errorAbsorber->m_numAssertsAbsorbed, 0); // not allowed to assert on this
     }
 
     TEST_F(AssetDatabaseTest, GetProductsLikeProductName_CorrectName_StartsWith_ReturnsCorrectResult)
@@ -591,8 +556,6 @@ namespace UnitTests
         EXPECT_TRUE(m_data->m_connection.GetProductsLikeProductName("someproduct4", AssetDatabaseConnection::StartsWith, resultProducts));
         EXPECT_EQ(resultProducts.size(), 1);
         EXPECT_EQ(resultProducts[0], m_data->m_product4);
-
-        EXPECT_EQ(m_errorAbsorber->m_numAssertsAbsorbed, 0); // not allowed to assert on this
     }
 
     TEST_F(AssetDatabaseTest, GetProductsLikeProductName_CorrectName_EndsWith_ReturnsCorrectResult)
@@ -603,8 +566,6 @@ namespace UnitTests
         EXPECT_TRUE(m_data->m_connection.GetProductsLikeProductName("product4.dds", AssetDatabaseConnection::EndsWith, resultProducts));
         EXPECT_EQ(resultProducts.size(), 1);
         EXPECT_EQ(resultProducts[0], m_data->m_product4);
-
-        EXPECT_EQ(m_errorAbsorber->m_numAssertsAbsorbed, 0); // not allowed to assert on this
     }
 
     TEST_F(AssetDatabaseTest, GetProductsLikeProductName_CorrectName_Matches_ReturnsCorrectResult)
@@ -615,8 +576,6 @@ namespace UnitTests
         EXPECT_TRUE(m_data->m_connection.GetProductsLikeProductName("product4", AssetDatabaseConnection::Matches, resultProducts));
         EXPECT_EQ(resultProducts.size(), 1);
         EXPECT_EQ(resultProducts[0], m_data->m_product4);
-
-        EXPECT_EQ(m_errorAbsorber->m_numAssertsAbsorbed, 0); // not allowed to assert on this
     }
 
     TEST_F(AssetDatabaseTest, GetProductsLikeProductName_CorrectName_StartsWith_ReturnsMany)
@@ -628,8 +587,6 @@ namespace UnitTests
         // a very broad search that matches all products.
         EXPECT_TRUE(m_data->m_connection.GetProductsLikeProductName("someproduct", AssetDatabaseConnection::StartsWith, resultProducts));
         EXPECT_EQ(resultProducts.size(), 4);
-
-        EXPECT_EQ(m_errorAbsorber->m_numAssertsAbsorbed, 0); // not allowed to assert on this
     }
 
     // tests all of the filters (beside name) to make sure they all function as expected.
@@ -651,8 +608,6 @@ namespace UnitTests
         EXPECT_TRUE(m_data->m_connection.GetProductsLikeProductName("someproduct4", AssetDatabaseConnection::StartsWith, resultProducts, m_data->m_job2.m_builderGuid));
         EXPECT_EQ(resultProducts.size(), 1);
         EXPECT_EQ(resultProducts[0], m_data->m_product4);
-
-        EXPECT_EQ(m_errorAbsorber->m_numAssertsAbsorbed, 0); // not allowed to assert on this
     }
 
     TEST_F(AssetDatabaseTest, GetProductsLikeProductName_FilterTest_JobKey)
@@ -673,8 +628,6 @@ namespace UnitTests
         EXPECT_TRUE(m_data->m_connection.GetProductsLikeProductName("someproduct4", AssetDatabaseConnection::StartsWith, resultProducts, AZ::Uuid::CreateNull(), QString(m_data->m_job2.m_jobKey.c_str())));
         EXPECT_EQ(resultProducts.size(), 1);
         EXPECT_EQ(resultProducts[0], m_data->m_product4);
-
-        EXPECT_EQ(m_errorAbsorber->m_numAssertsAbsorbed, 0); // not allowed to assert on this
     }
 
     TEST_F(AssetDatabaseTest, GetProductsLikeProductName_FilterTest_Platform)
@@ -695,8 +648,6 @@ namespace UnitTests
         EXPECT_TRUE(m_data->m_connection.GetProductsLikeProductName("someproduct4", AssetDatabaseConnection::StartsWith, resultProducts, AZ::Uuid::CreateNull(), QString(), "osx"));
         EXPECT_EQ(resultProducts.size(), 1);
         EXPECT_EQ(resultProducts[0], m_data->m_product4);
-
-        EXPECT_EQ(m_errorAbsorber->m_numAssertsAbsorbed, 0); // not allowed to assert on this
     }
 
     TEST_F(AssetDatabaseTest, GetProductsLikeProductName_FilterTest_Status)
@@ -713,8 +664,6 @@ namespace UnitTests
         EXPECT_TRUE(m_data->m_connection.GetProductsLikeProductName("someproduct4", AssetDatabaseConnection::StartsWith, resultProducts, AZ::Uuid::CreateNull(), QString(), QString(), AzToolsFramework::AssetSystem::JobStatus::Failed));
         EXPECT_EQ(resultProducts.size(), 1);
         EXPECT_EQ(resultProducts[0], m_data->m_product4);
-
-        EXPECT_EQ(m_errorAbsorber->m_numAssertsAbsorbed, 0); // not allowed to assert on this
     }
 
     // --------------------------------------------------------------------------------------------------------------------
@@ -728,8 +677,6 @@ namespace UnitTests
         ProductDatabaseEntryContainer resultProducts;
         EXPECT_FALSE(m_data->m_connection.GetProductsBySourceID(-1, resultProducts));
         EXPECT_EQ(resultProducts.size(), 0);
-
-        EXPECT_EQ(m_errorAbsorber->m_numAssertsAbsorbed, 0); // not allowed to assert on this
     }
 
     TEST_F(AssetDatabaseTest, GetProductsBySourceID_CorrectID_ReturnsCorrectResult)
@@ -741,8 +688,6 @@ namespace UnitTests
         EXPECT_EQ(resultProducts.size(), 2);
         EXPECT_NE(AZStd::find(resultProducts.begin(), resultProducts.end(), m_data->m_product1), resultProducts.end());
         EXPECT_NE(AZStd::find(resultProducts.begin(), resultProducts.end(), m_data->m_product2), resultProducts.end());
-
-        EXPECT_EQ(m_errorAbsorber->m_numAssertsAbsorbed, 0); // not allowed to assert on this
     }
 
     // tests all of the filters (beside name) to make sure they all function as expected.
@@ -765,8 +710,6 @@ namespace UnitTests
         EXPECT_EQ(resultProducts.size(), 2);
         EXPECT_NE(AZStd::find(resultProducts.begin(), resultProducts.end(), m_data->m_product1), resultProducts.end());
         EXPECT_NE(AZStd::find(resultProducts.begin(), resultProducts.end(), m_data->m_product2), resultProducts.end());
-
-        EXPECT_EQ(m_errorAbsorber->m_numAssertsAbsorbed, 0); // not allowed to assert on this
     }
 
     TEST_F(AssetDatabaseTest, GetProductsBySourceID_FilterTest_JobKey)
@@ -788,8 +731,6 @@ namespace UnitTests
         EXPECT_EQ(resultProducts.size(), 2);
         EXPECT_NE(AZStd::find(resultProducts.begin(), resultProducts.end(), m_data->m_product1), resultProducts.end());
         EXPECT_NE(AZStd::find(resultProducts.begin(), resultProducts.end(), m_data->m_product2), resultProducts.end());
-
-        EXPECT_EQ(m_errorAbsorber->m_numAssertsAbsorbed, 0); // not allowed to assert on this
     }
 
     TEST_F(AssetDatabaseTest, GetProductsBySourceID_FilterTest_Platform)
@@ -811,8 +752,6 @@ namespace UnitTests
         EXPECT_EQ(resultProducts.size(), 2);
         EXPECT_NE(AZStd::find(resultProducts.begin(), resultProducts.end(), m_data->m_product1), resultProducts.end());
         EXPECT_NE(AZStd::find(resultProducts.begin(), resultProducts.end(), m_data->m_product2), resultProducts.end());
-
-        EXPECT_EQ(m_errorAbsorber->m_numAssertsAbsorbed, 0); // not allowed to assert on this
     }
 
     TEST_F(AssetDatabaseTest, GetProductsBySourceID_FilterTest_Status)
@@ -830,8 +769,6 @@ namespace UnitTests
         EXPECT_EQ(resultProducts.size(), 2);
         EXPECT_NE(AZStd::find(resultProducts.begin(), resultProducts.end(), m_data->m_product1), resultProducts.end());
         EXPECT_NE(AZStd::find(resultProducts.begin(), resultProducts.end(), m_data->m_product2), resultProducts.end());
-
-        EXPECT_EQ(m_errorAbsorber->m_numAssertsAbsorbed, 0); // not allowed to assert on this
     }
 
     // --------------------------------------------------------------------------------------------------------------------
@@ -845,8 +782,6 @@ namespace UnitTests
         ProductDatabaseEntryContainer resultProducts;
         EXPECT_FALSE(m_data->m_connection.GetProductsBySourceName(QString(), resultProducts));
         EXPECT_EQ(resultProducts.size(), 0);
-
-        EXPECT_EQ(m_errorAbsorber->m_numAssertsAbsorbed, 0); // not allowed to assert on this
     }
 
     TEST_F(AssetDatabaseTest, GetProductsBySourceName_NotFound_NoResult)
@@ -856,8 +791,6 @@ namespace UnitTests
         ProductDatabaseEntryContainer resultProducts;
         EXPECT_FALSE(m_data->m_connection.GetProductsBySourceName("blahrga", resultProducts));
         EXPECT_EQ(resultProducts.size(), 0);
-
-        EXPECT_EQ(m_errorAbsorber->m_numAssertsAbsorbed, 0); // not allowed to assert on this
     }
 
     TEST_F(AssetDatabaseTest, GetProductsBySourceName_CorrectName_ReturnsCorrectResult)
@@ -869,8 +802,6 @@ namespace UnitTests
         EXPECT_EQ(resultProducts.size(), 2);
         EXPECT_NE(AZStd::find(resultProducts.begin(), resultProducts.end(), m_data->m_product1), resultProducts.end());
         EXPECT_NE(AZStd::find(resultProducts.begin(), resultProducts.end(), m_data->m_product2), resultProducts.end());
-
-        EXPECT_EQ(m_errorAbsorber->m_numAssertsAbsorbed, 0); // not allowed to assert on this
     }
 
     // tests all of the filters (beside name) to make sure they all function as expected.
@@ -893,8 +824,6 @@ namespace UnitTests
         EXPECT_EQ(resultProducts.size(), 2);
         EXPECT_NE(AZStd::find(resultProducts.begin(), resultProducts.end(), m_data->m_product1), resultProducts.end());
         EXPECT_NE(AZStd::find(resultProducts.begin(), resultProducts.end(), m_data->m_product2), resultProducts.end());
-
-        EXPECT_EQ(m_errorAbsorber->m_numAssertsAbsorbed, 0); // not allowed to assert on this
     }
 
     TEST_F(AssetDatabaseTest, GetProductsBySourceName_FilterTest_JobKey)
@@ -916,8 +845,6 @@ namespace UnitTests
         EXPECT_EQ(resultProducts.size(), 2);
         EXPECT_NE(AZStd::find(resultProducts.begin(), resultProducts.end(), m_data->m_product1), resultProducts.end());
         EXPECT_NE(AZStd::find(resultProducts.begin(), resultProducts.end(), m_data->m_product2), resultProducts.end());
-
-        EXPECT_EQ(m_errorAbsorber->m_numAssertsAbsorbed, 0); // not allowed to assert on this
     }
 
     TEST_F(AssetDatabaseTest, GetProductsBySourceName_FilterTest_Platform)
@@ -939,8 +866,6 @@ namespace UnitTests
         EXPECT_EQ(resultProducts.size(), 2);
         EXPECT_NE(AZStd::find(resultProducts.begin(), resultProducts.end(), m_data->m_product1), resultProducts.end());
         EXPECT_NE(AZStd::find(resultProducts.begin(), resultProducts.end(), m_data->m_product2), resultProducts.end());
-
-        EXPECT_EQ(m_errorAbsorber->m_numAssertsAbsorbed, 0); // not allowed to assert on this
     }
 
     TEST_F(AssetDatabaseTest, GetProductsBySourceName_FilterTest_Status)
@@ -958,8 +883,6 @@ namespace UnitTests
         EXPECT_EQ(resultProducts.size(), 2);
         EXPECT_NE(AZStd::find(resultProducts.begin(), resultProducts.end(), m_data->m_product1), resultProducts.end());
         EXPECT_NE(AZStd::find(resultProducts.begin(), resultProducts.end(), m_data->m_product2), resultProducts.end());
-
-        EXPECT_EQ(m_errorAbsorber->m_numAssertsAbsorbed, 0); // not allowed to assert on this
     }
 
     // --------------------------------------------------------------------------------------------------------------------
@@ -973,8 +896,6 @@ namespace UnitTests
         ProductDatabaseEntryContainer resultProducts;
         EXPECT_FALSE(m_data->m_connection.GetProductsLikeSourceName(QString(), AzToolsFramework::AssetDatabase::AssetDatabaseConnection::Raw, resultProducts));
         EXPECT_EQ(resultProducts.size(), 0);
-
-        EXPECT_EQ(m_errorAbsorber->m_numAssertsAbsorbed, 0); // not allowed to assert on this
     }
 
     TEST_F(AssetDatabaseTest, GetProductsLikeSourceName_NotFound_NoResult)
@@ -996,8 +917,6 @@ namespace UnitTests
         // make sure invalid tokens do not crash it or something
         EXPECT_FALSE(m_data->m_connection.GetProductsLikeSourceName("%%%%%blahrga%%%%%", AzToolsFramework::AssetDatabase::AssetDatabaseConnection::Matches, resultProducts));
         EXPECT_EQ(resultProducts.size(), 0);
-
-        EXPECT_EQ(m_errorAbsorber->m_numAssertsAbsorbed, 0); // not allowed to assert on this
     }
 
     TEST_F(AssetDatabaseTest, GetProductsLikeSourceName_StartsWith_CorrectName_ReturnsCorrectResult)
@@ -1009,8 +928,6 @@ namespace UnitTests
         EXPECT_EQ(resultProducts.size(), 2);
         EXPECT_NE(AZStd::find(resultProducts.begin(), resultProducts.end(), m_data->m_product1), resultProducts.end());
         EXPECT_NE(AZStd::find(resultProducts.begin(), resultProducts.end(), m_data->m_product2), resultProducts.end());
-
-        EXPECT_EQ(m_errorAbsorber->m_numAssertsAbsorbed, 0); // not allowed to assert on this
     }
 
 
@@ -1023,8 +940,6 @@ namespace UnitTests
         EXPECT_EQ(resultProducts.size(), 2);
         EXPECT_NE(AZStd::find(resultProducts.begin(), resultProducts.end(), m_data->m_product1), resultProducts.end());
         EXPECT_NE(AZStd::find(resultProducts.begin(), resultProducts.end(), m_data->m_product2), resultProducts.end());
-
-        EXPECT_EQ(m_errorAbsorber->m_numAssertsAbsorbed, 0); // not allowed to assert on this
     }
 
     TEST_F(AssetDatabaseTest, GetProductsLikeSourceName_Matches_CorrectName_ReturnsCorrectResult)
@@ -1036,8 +951,6 @@ namespace UnitTests
         EXPECT_EQ(resultProducts.size(), 2);
         EXPECT_NE(AZStd::find(resultProducts.begin(), resultProducts.end(), m_data->m_product1), resultProducts.end());
         EXPECT_NE(AZStd::find(resultProducts.begin(), resultProducts.end(), m_data->m_product2), resultProducts.end());
-
-        EXPECT_EQ(m_errorAbsorber->m_numAssertsAbsorbed, 0); // not allowed to assert on this
     }
 
     // tests all of the filters (beside name) to make sure they all function as expected.
@@ -1060,8 +973,6 @@ namespace UnitTests
         EXPECT_EQ(resultProducts.size(), 2);
         EXPECT_NE(AZStd::find(resultProducts.begin(), resultProducts.end(), m_data->m_product1), resultProducts.end());
         EXPECT_NE(AZStd::find(resultProducts.begin(), resultProducts.end(), m_data->m_product2), resultProducts.end());
-
-        EXPECT_EQ(m_errorAbsorber->m_numAssertsAbsorbed, 0); // not allowed to assert on this
     }
 
     TEST_F(AssetDatabaseTest, GetProductsLikeSourceName_FilterTest_JobKey)
@@ -1083,8 +994,6 @@ namespace UnitTests
         EXPECT_EQ(resultProducts.size(), 2);
         EXPECT_NE(AZStd::find(resultProducts.begin(), resultProducts.end(), m_data->m_product1), resultProducts.end());
         EXPECT_NE(AZStd::find(resultProducts.begin(), resultProducts.end(), m_data->m_product2), resultProducts.end());
-
-        EXPECT_EQ(m_errorAbsorber->m_numAssertsAbsorbed, 0); // not allowed to assert on this
     }
 
     TEST_F(AssetDatabaseTest, GetProductsLikeSourceName_FilterTest_Platform)
@@ -1106,8 +1015,6 @@ namespace UnitTests
         EXPECT_EQ(resultProducts.size(), 2);
         EXPECT_NE(AZStd::find(resultProducts.begin(), resultProducts.end(), m_data->m_product1), resultProducts.end());
         EXPECT_NE(AZStd::find(resultProducts.begin(), resultProducts.end(), m_data->m_product2), resultProducts.end());
-
-        EXPECT_EQ(m_errorAbsorber->m_numAssertsAbsorbed, 0); // not allowed to assert on this
     }
 
     TEST_F(AssetDatabaseTest, GetProductsLikeSourceName_FilterTest_Status)
@@ -1125,8 +1032,6 @@ namespace UnitTests
         EXPECT_EQ(resultProducts.size(), 2);
         EXPECT_NE(AZStd::find(resultProducts.begin(), resultProducts.end(), m_data->m_product1), resultProducts.end());
         EXPECT_NE(AZStd::find(resultProducts.begin(), resultProducts.end(), m_data->m_product2), resultProducts.end());
-
-        EXPECT_EQ(m_errorAbsorber->m_numAssertsAbsorbed, 0); // not allowed to assert on this
     }
 
     // --------------------------------------------------------------------------------------------------------------------
@@ -1138,7 +1043,6 @@ namespace UnitTests
 
         ProductDatabaseEntryContainer requestProducts;
         EXPECT_FALSE(m_data->m_connection.SetProducts(requestProducts));
-        EXPECT_EQ(m_errorAbsorber->m_numAssertsAbsorbed, 0); // not allowed to assert on this
     }
 
     TEST_F(AssetDatabaseTest, SetProducts_UpdatesProductIDs)
@@ -1163,7 +1067,6 @@ namespace UnitTests
         EXPECT_NE(requestProducts[1].m_productID, AzToolsFramework::AssetDatabase::InvalidEntryId);
 
         EXPECT_EQ(newProductCount, priorProductCount + 2);
-        EXPECT_EQ(m_errorAbsorber->m_numAssertsAbsorbed, 0); // not allowed to assert on this
     }
 
     // --------------------------------------------------------------------------------------------------------------------
@@ -1357,8 +1260,6 @@ namespace UnitTests
         EXPECT_TRUE(m_data->m_connection.GetProducts(resultProducts));
         size_t newProductCount = resultProducts.size();
         EXPECT_EQ(newProductCount, priorProductCount);
-
-        EXPECT_EQ(m_errorAbsorber->m_numAssertsAbsorbed, 0); // not allowed to assert on this
     }
 
     TEST_F(AssetDatabaseTest, RemoveProductsBySourceID_Valid_OnlyRemovesTheCorrectOnes)
@@ -1381,8 +1282,6 @@ namespace UnitTests
         EXPECT_EQ(AZStd::find(resultProducts.begin(), resultProducts.end(), m_data->m_product2), resultProducts.end());
         EXPECT_NE(AZStd::find(resultProducts.begin(), resultProducts.end(), m_data->m_product3), resultProducts.end());
         EXPECT_NE(AZStd::find(resultProducts.begin(), resultProducts.end(), m_data->m_product4), resultProducts.end());
-
-        EXPECT_EQ(m_errorAbsorber->m_numAssertsAbsorbed, 0); // not allowed to assert on this
     }
 
     // tests all of the filters (beside name) to make sure they all function as expected.
@@ -1420,8 +1319,6 @@ namespace UnitTests
         EXPECT_EQ(AZStd::find(resultProducts.begin(), resultProducts.end(), m_data->m_product2), resultProducts.end());
         EXPECT_NE(AZStd::find(resultProducts.begin(), resultProducts.end(), m_data->m_product3), resultProducts.end());
         EXPECT_NE(AZStd::find(resultProducts.begin(), resultProducts.end(), m_data->m_product4), resultProducts.end());
-
-        EXPECT_EQ(m_errorAbsorber->m_numAssertsAbsorbed, 0); // not allowed to assert on this
     }
 
     TEST_F(AssetDatabaseTest, RemoveProductsBySourceID_FilterTest_JobKey)
@@ -1458,8 +1355,6 @@ namespace UnitTests
         EXPECT_EQ(AZStd::find(resultProducts.begin(), resultProducts.end(), m_data->m_product2), resultProducts.end());
         EXPECT_NE(AZStd::find(resultProducts.begin(), resultProducts.end(), m_data->m_product3), resultProducts.end());
         EXPECT_NE(AZStd::find(resultProducts.begin(), resultProducts.end(), m_data->m_product4), resultProducts.end());
-
-        EXPECT_EQ(m_errorAbsorber->m_numAssertsAbsorbed, 0); // not allowed to assert on this
     }
 
     TEST_F(AssetDatabaseTest, RemoveProductsBySourceID_FilterTest_Platform)
@@ -1496,8 +1391,6 @@ namespace UnitTests
         EXPECT_EQ(AZStd::find(resultProducts.begin(), resultProducts.end(), m_data->m_product2), resultProducts.end());
         EXPECT_NE(AZStd::find(resultProducts.begin(), resultProducts.end(), m_data->m_product3), resultProducts.end());
         EXPECT_NE(AZStd::find(resultProducts.begin(), resultProducts.end(), m_data->m_product4), resultProducts.end());
-
-        EXPECT_EQ(m_errorAbsorber->m_numAssertsAbsorbed, 0); // not allowed to assert on this
     }
 
     TEST_F(AssetDatabaseTest, RemoveProductsBySourceID_FilterTest_Status)
@@ -1529,8 +1422,6 @@ namespace UnitTests
         EXPECT_EQ(AZStd::find(resultProducts.begin(), resultProducts.end(), m_data->m_product2), resultProducts.end());
         EXPECT_NE(AZStd::find(resultProducts.begin(), resultProducts.end(), m_data->m_product3), resultProducts.end());
         EXPECT_NE(AZStd::find(resultProducts.begin(), resultProducts.end(), m_data->m_product4), resultProducts.end());
-
-        EXPECT_EQ(m_errorAbsorber->m_numAssertsAbsorbed, 0); // not allowed to assert on this
     }
 
     TEST_F(AssetDatabaseTest, SetProductDependencies_CorrectnessTest)
@@ -1624,10 +1515,7 @@ namespace UnitTests
             EXPECT_EQ(productDependencies[productIndex].m_dependencyFlags, dependencyFlags);
             EXPECT_EQ(productDependencies[productIndex].m_platform, platform);
             EXPECT_EQ(productDependencies[productIndex].m_unresolvedPath, ""); // verify that no path is set if it was not specified in the entry
-
         }
-
-        EXPECT_EQ(m_errorAbsorber->m_numAssertsAbsorbed, 0); // not allowed to assert on this
     }
 
     TEST_F(AssetDatabaseTest, AddLargeNumberOfDependencies_PerformanceTest)
@@ -1650,8 +1538,6 @@ namespace UnitTests
             productDependencies.emplace_back(AZStd::move(entry));
         }
         EXPECT_TRUE(m_data->m_connection.SetProductDependencies(productDependencies));
-
-        EXPECT_EQ(m_errorAbsorber->m_numAssertsAbsorbed, 0); // not allowed to assert on this
     }
 
     TEST_F(AssetDatabaseTest, MissingDependencyTable_WriteAndReadMissingDependencyByDependencyId_ResultsMatch)
@@ -2015,8 +1901,6 @@ namespace UnitTests
 
         EXPECT_TRUE(m_data->m_connection.SetSourceFileDependencies(resultSourceDependencies));
 
-        EXPECT_EQ(m_errorAbsorber->m_numAssertsAbsorbed, 0); // not allowed to assert on this
-
         // read them back
         resultSourceDependencies.clear();
         EXPECT_TRUE(m_data->m_connection.GetSourceFileDependenciesByBuilderGUIDAndSource(builderGuid, originFile.c_str(), SourceFileDependencyEntry::DEP_SourceToSource, resultSourceDependencies));
@@ -2170,8 +2054,6 @@ namespace UnitTests
         CreateCoverageTestData();
 
         ASSERT_FALSE(m_data->m_connection.UpdateFileModTimeAndHashByFileNameAndScanFolderId("testfile.txt", m_data->m_scanFolder.m_scanFolderID, 1234, 1111));
-
-        EXPECT_EQ(m_errorAbsorber->m_numAssertsAbsorbed, 0); // not allowed to assert on this
     }
 
     TEST_F(AssetDatabaseTest, UpdateExistingFile_Succeeds)
@@ -2186,8 +2068,6 @@ namespace UnitTests
         ASSERT_TRUE(m_data->m_connection.InsertFile(entry, entryAlreadyExists));
         ASSERT_FALSE(entryAlreadyExists);
         ASSERT_TRUE(m_data->m_connection.UpdateFileModTimeAndHashByFileNameAndScanFolderId("testfile.txt", m_data->m_scanFolder.m_scanFolderID, 1234, 1111));
-
-        EXPECT_EQ(m_errorAbsorber->m_numAssertsAbsorbed, 0); // not allowed to assert on this
     }
 
     TEST_F(AssetDatabaseTest, GetSourceBySourceName_InvalidInput_SourceNotFound)
@@ -2197,8 +2077,6 @@ namespace UnitTests
         SourceDatabaseEntry resultSource;
 
         EXPECT_FALSE(m_data->m_connection.GetSourceBySourceName("non_existent", resultSource));
-
-        EXPECT_EQ(m_errorAbsorber->m_numAssertsAbsorbed, 0);
     }
 
     TEST_F(AssetDatabaseTest, GetSourceBySourceName_ValidInput_SourceFound)
@@ -2209,8 +2087,6 @@ namespace UnitTests
 
         EXPECT_TRUE(m_data->m_connection.GetSourceBySourceName("somefile.tif", resultSource));
         EXPECT_EQ(resultSource.m_sourceGuid, m_data->m_sourceFile1.m_sourceGuid);
-
-        EXPECT_EQ(m_errorAbsorber->m_numAssertsAbsorbed, 0);
     }
 
     TEST_F(AssetDatabaseTest, GetDirectReverseProductDependenciesBySourceGuidSubID_InvalidInput_ProductsNotFound)
@@ -2231,8 +2107,6 @@ namespace UnitTests
         EXPECT_FALSE(m_data->m_connection.GetDirectReverseProductDependenciesBySourceGuidSubId(invalidGuid, m_data->m_product1.m_subID, resultProducts));
         EXPECT_FALSE(m_data->m_connection.GetDirectReverseProductDependenciesBySourceGuidSubId(m_data->m_sourceFile1.m_sourceGuid, invalidSubId, resultProducts));
         EXPECT_FALSE(m_data->m_connection.GetDirectReverseProductDependenciesBySourceGuidSubId(invalidGuid, invalidSubId, resultProducts));
-
-        EXPECT_EQ(m_errorAbsorber->m_numAssertsAbsorbed, 0);
     }
 
     TEST_F(AssetDatabaseTest, GetDirectReverseProductDependenciesBySourceGuidSubID_ValidInput_ProductsFound)
@@ -2250,8 +2124,6 @@ namespace UnitTests
         EXPECT_TRUE(m_data->m_connection.GetDirectReverseProductDependenciesBySourceGuidSubId(m_data->m_sourceFile1.m_sourceGuid, m_data->m_product1.m_subID, resultProducts));
         ASSERT_EQ(resultProducts.size(), 1);
         EXPECT_EQ(resultProducts[0], m_data->m_product1);
-
-        EXPECT_EQ(m_errorAbsorber->m_numAssertsAbsorbed, 0);
     }
 
     TEST_F(AssetDatabaseTest, QueryProductDependenciesUnresolvedAdvanced_HandlesLargeSearch_Success)

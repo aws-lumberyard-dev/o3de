@@ -20,7 +20,7 @@ public:
     {
         m_folder = QDir(m_tempDir.path());
     }
-    
+
     QDir m_folder;
 
 private:
@@ -129,13 +129,13 @@ public:
         QString dummyFileName = m_folder.absoluteFilePath("test_empty_xml");
         UNIT_TEST_EXPECT_TRUE(CreateDummyFile(dummyFileName, ""));
         UNIT_TEST_EXPECT_TRUE(AssetBuilderSDK::JobProduct::InferAssetTypeByProductFileName(dummyFileName.toUtf8().data()) == AZ::Uuid::CreateNull());
-        
+
         UNIT_TEST_EXPECT_TRUE(CreateDummyFile(dummyFileName, "dummy"));
         UNIT_TEST_EXPECT_TRUE(AssetBuilderSDK::JobProduct::InferAssetTypeByProductFileName(dummyFileName.toUtf8().data()) == AZ::Uuid::CreateNull());
 
         UNIT_TEST_EXPECT_TRUE(CreateDummyFile(dummyFileName, "<truncatedfile "));
         UNIT_TEST_EXPECT_TRUE(AssetBuilderSDK::JobProduct::InferAssetTypeByProductFileName(dummyFileName.toUtf8().data()) == AZ::Uuid::CreateNull());
-        
+
         UNIT_TEST_EXPECT_TRUE(CreateDummyFile(dummyFileName, "<truncated attribute=\"test"));
         UNIT_TEST_EXPECT_TRUE(AssetBuilderSDK::JobProduct::InferAssetTypeByProductFileName(dummyFileName.toUtf8().data()) == AZ::Uuid::CreateNull());
 
@@ -166,7 +166,7 @@ public:
         dummyFileName = m_folder.absoluteFilePath("test_basic_file.xml");
         UNIT_TEST_EXPECT_TRUE(CreateDummyFile(dummyFileName, "<fontshader>stuff</fontshader>"));
         UNIT_TEST_EXPECT_TRUE(AssetBuilderSDK::JobProduct::InferAssetTypeByProductFileName(dummyFileName.toUtf8().data()) == fontAssetType);
-        
+
         UNIT_TEST_EXPECT_TRUE(CreateDummyFile(dummyFileName, "<ParticleLibrary>stuff</ParticleLibrary>"));
         UNIT_TEST_EXPECT_TRUE(AssetBuilderSDK::JobProduct::InferAssetTypeByProductFileName(dummyFileName.toUtf8().data()) == particleAssetType);
 
@@ -201,17 +201,20 @@ public:
         {
             UnitTestUtils::AssertAbsorber absorber;
             // objectstream with invalid 'type' inside the class
+
             UNIT_TEST_EXPECT_TRUE(CreateDummyFile(dummyFileName, "<ObjectStream><Class type=\"\"/></ObjectStream>"));
+            absorber.StartTraceSuppression();
             UNIT_TEST_EXPECT_TRUE(AssetBuilderSDK::JobProduct::InferAssetTypeByProductFileName(dummyFileName.toUtf8().data()) == AZ::Uuid::CreateNull());
-            UNIT_TEST_EXPECT_TRUE(absorber.m_numWarningsAbsorbed > 0);
+            absorber.StopTraceSuppressionWarningsGT(0);
         }
 
         {
             UnitTestUtils::AssertAbsorber absorber;
             // objectstream with invalid 'type' inside the class (bad guid)
             UNIT_TEST_EXPECT_TRUE(CreateDummyFile(dummyFileName, "<ObjectStream><Class type=\"123 NOT A GUID\"/></ObjectStream>"));
+            absorber.StartTraceSuppression();
             UNIT_TEST_EXPECT_TRUE(AssetBuilderSDK::JobProduct::InferAssetTypeByProductFileName(dummyFileName.toUtf8().data()) == AZ::Uuid::CreateNull());
-            UNIT_TEST_EXPECT_TRUE(absorber.m_numWarningsAbsorbed > 0);
+            absorber.StopTraceSuppressionWarningsGT(0);
         }
 
         // objectstream with an actual 'guid' inside the class (bad guid)
@@ -300,10 +303,10 @@ public:
     void StartTest() override
     {
         // test subid autogeneration
-        
+
         // files with no UUID and no extension always return null
         UNIT_TEST_EXPECT_TRUE(AssetBuilderSDK::JobProduct::InferSubIDFromProductFileName(AZ::Data::AssetType::CreateNull(), "blah") == 0);
-        
+
         // files with no UUID and no known extension always return null
         UNIT_TEST_EXPECT_TRUE(AssetBuilderSDK::JobProduct::InferSubIDFromProductFileName(AZ::Data::AssetType::CreateNull(), "blah.whatever") == 0);
 
@@ -325,7 +328,7 @@ public:
         UNIT_TEST_EXPECT_TRUE((AssetBuilderSDK::JobProduct::InferSubIDFromProductFileName(textureMipsAssetType, "whatever_diff.dds.1a") & AssetBuilderSDK::SUBID_FLAG_DIFF) == AssetBuilderSDK::SUBID_FLAG_DIFF);
         // regular textures do not.
         UNIT_TEST_EXPECT_TRUE((AssetBuilderSDK::JobProduct::InferSubIDFromProductFileName(textureAssetType, "whatever.dds") & AssetBuilderSDK::SUBID_FLAG_ALPHA) == 0);
-        
+
         // check each possible LOD and Alpha LOD:
         for (AZ::u32 idx = 1; idx <= 9; ++idx)
         {
@@ -336,20 +339,20 @@ public:
             UNIT_TEST_EXPECT_TRUE(AssetBuilderSDK::GetSubID_LOD(AssetBuilderSDK::JobProduct::InferSubIDFromProductFileName(textureMipsAssetType, check.c_str())) == idx);
             UNIT_TEST_EXPECT_TRUE(AssetBuilderSDK::GetSubID_ID(AssetBuilderSDK::JobProduct::InferSubIDFromProductFileName(textureMipsAssetType, check.c_str())) == 0);
 
-            // .1a is the same, but has 
+            // .1a is the same, but has
             check = AZStd::string::format("somefilename.dds.%ia", idx);
             UNIT_TEST_EXPECT_TRUE(AssetBuilderSDK::GetSubID_LOD(AssetBuilderSDK::JobProduct::InferSubIDFromProductFileName(textureMipsAssetType, check.c_str())) == idx);
             UNIT_TEST_EXPECT_TRUE(AssetBuilderSDK::GetSubID_ID(AssetBuilderSDK::JobProduct::InferSubIDFromProductFileName(textureMipsAssetType, check.c_str())) == 0);
             UNIT_TEST_EXPECT_TRUE((AssetBuilderSDK::JobProduct::InferSubIDFromProductFileName(textureMipsAssetType, check.c_str()) & AssetBuilderSDK::SUBID_FLAG_ALPHA) == AssetBuilderSDK::SUBID_FLAG_ALPHA);
             UNIT_TEST_EXPECT_TRUE((AssetBuilderSDK::JobProduct::InferSubIDFromProductFileName(textureMipsAssetType, check.c_str()) & AssetBuilderSDK::SUBID_FLAG_DIFF) == 0);
-            
+
 
             check = AZStd::string::format("somefilename_diff.dds.%ia", idx);
             UNIT_TEST_EXPECT_TRUE(AssetBuilderSDK::GetSubID_LOD(AssetBuilderSDK::JobProduct::InferSubIDFromProductFileName(textureMipsAssetType, check.c_str())) == idx);
             UNIT_TEST_EXPECT_TRUE(AssetBuilderSDK::GetSubID_ID(AssetBuilderSDK::JobProduct::InferSubIDFromProductFileName(textureMipsAssetType, check.c_str())) == 0);
             UNIT_TEST_EXPECT_TRUE((AssetBuilderSDK::JobProduct::InferSubIDFromProductFileName(textureMipsAssetType, check.c_str()) & AssetBuilderSDK::SUBID_FLAG_ALPHA) == AssetBuilderSDK::SUBID_FLAG_ALPHA);
             UNIT_TEST_EXPECT_TRUE((AssetBuilderSDK::JobProduct::InferSubIDFromProductFileName(textureMipsAssetType, check.c_str()) & AssetBuilderSDK::SUBID_FLAG_DIFF) == AssetBuilderSDK::SUBID_FLAG_DIFF);
-            
+
             check = AZStd::string::format("somefilename.skin.%i", idx);
             UNIT_TEST_EXPECT_TRUE(AssetBuilderSDK::GetSubID_LOD(AssetBuilderSDK::JobProduct::InferSubIDFromProductFileName(skinnedMeshLodsAssetType, check.c_str())) == idx);
             UNIT_TEST_EXPECT_TRUE(AssetBuilderSDK::GetSubID_ID(AssetBuilderSDK::JobProduct::InferSubIDFromProductFileName(skinnedMeshLodsAssetType, check.c_str())) == 0);

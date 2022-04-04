@@ -34,13 +34,11 @@ TEST_F(AssetProcessorTest, StatsCaptureTest_UninitializedSystemDoesNotAssert)
 // Double-intiailize is an error
 TEST_F(AssetProcessorTest, StatsCaptureTest_DoubleInitializeIsAnAssert)
 {
-    m_errorAbsorber->Clear();
-    
     AssetProcessor::StatsCapture::Initialize();
+
+    m_errorAbsorber->StartTraceSuppression();
     AssetProcessor::StatsCapture::Initialize();
-    
-    EXPECT_EQ(m_errorAbsorber->m_numErrorsAbsorbed, 0);
-    EXPECT_EQ(m_errorAbsorber->m_numAssertsAbsorbed, 1); // not allowed to assert on this
+    m_errorAbsorber->StopTraceSuppression(1);
 
     AssetProcessor::StatsCapture::BeginCaptureStat("Test");
     AssetProcessor::StatsCapture::Shutdown();
@@ -54,7 +52,7 @@ public:
         AssetProcessorTest::SetUp();
         AssetProcessor::StatsCapture::Initialize();
     }
-    
+
     // dump but also capture the dump as a vector of lines:
     void Dump()
     {
@@ -62,22 +60,22 @@ public:
         AssetProcessor::StatsCapture::Dump();
         AZ::Debug::TraceMessageBus::Handler::BusDisconnect();
     }
-    
+
     virtual bool OnPrintf(const char* /*window*/, const char* message)
     {
         m_gatheredMessages.emplace_back(message);
         AZ::StringFunc::TrimWhiteSpace(m_gatheredMessages.back(), true, true);
         return false;
     }
-    
+
     void TearDown() override
     {
         m_gatheredMessages = {};
-        
+
         AssetProcessor::StatsCapture::Shutdown();
         AssetProcessorTest::TearDown();
     }
-    
+
     AZStd::vector<AZStd::string> m_gatheredMessages;
 };
 
@@ -131,31 +129,31 @@ TEST_F(StatsCaptureOutputTest, StatsCaptureTest_MachineReadableOnly_DumpsNoHuman
 }
 
 
-// The interface for StatsCapture just captures and then dumps.  
+// The interface for StatsCapture just captures and then dumps.
 // For us to test this, we thus have to capture and parse the dump output.
 TEST_F(StatsCaptureOutputTest, StatsCaptureTest_Sanity)
 {
     auto registry = AZ::SettingsRegistry::Get();
     ASSERT_NE(registry, nullptr);
-    
+
     // Make it output in "machine raadable" format so that it is simpler to parse.
     registry->Set("/Amazon/AssetProcessor/Settings/Stats/HumanReadable", false);
     registry->Set("/Amazon/AssetProcessor/Settings/Stats/MachineReadable", true);
     AssetProcessor::StatsCapture::BeginCaptureStat("CreateJobs,foo,mybuilder");
     AssetProcessor::StatsCapture::EndCaptureStat("CreateJobs,foo,mybuilder");
-    
-    // Intentionally not using sleeps in this test.  It means that the 
+
+    // Intentionally not using sleeps in this test.  It means that the
     // captured duration will be likely 0 but its not worth it to slow down tests.
     // If the durations end up 0 its going to be extremely noticable in day-to-day use.
     AssetProcessor::StatsCapture::BeginCaptureStat("CreateJobs,foo,mybuilder");
     AssetProcessor::StatsCapture::EndCaptureStat("CreateJobs,foo,mybuilder");
-    
+
     // for the second stat, we'll double capture and double end, in order to test debounce
     AssetProcessor::StatsCapture::BeginCaptureStat("CreateJobs,foo2,mybuilder");
     AssetProcessor::StatsCapture::BeginCaptureStat("CreateJobs,foo2,mybuilder");
     AssetProcessor::StatsCapture::EndCaptureStat("CreateJobs,foo2,mybuilder2");
     AssetProcessor::StatsCapture::EndCaptureStat("CreateJobs,foo2,mybuilder2");
-    
+
     m_gatheredMessages.clear();
     Dump();
     EXPECT_GT(m_gatheredMessages.size(), 0);
@@ -165,7 +163,7 @@ TEST_F(StatsCaptureOutputTest, StatsCaptureTest_Sanity)
     // mybuilder appears only once but count is 2
     bool foundFoo = false;
     bool foundFoo2 = false;
-    
+
     for (const auto& stat : m_gatheredMessages)
     {
         if (stat.contains("MachineReadableStat:"))
@@ -175,14 +173,14 @@ TEST_F(StatsCaptureOutputTest, StatsCaptureTest_Sanity)
             ASSERT_EQ(tokens.size(), 5); // should be "MachineReadableStat:time:count:average:name)
             const auto& countData = tokens[2];
             const auto& nameData = tokens[4];
-            
+
             if (AZ::StringFunc::Equal(nameData, "CreateJobs,foo,mybuilder"))
             {
                 EXPECT_FALSE(foundFoo); // should only find one of these
                 foundFoo = true;
                 EXPECT_STREQ(countData.c_str(), "2");
             }
-            
+
             if (AZ::StringFunc::Equal(nameData, "CreateJobs,foo2,mybuilder2"))
             {
                 EXPECT_FALSE(foundFoo2); // should only find one of these
@@ -191,7 +189,7 @@ TEST_F(StatsCaptureOutputTest, StatsCaptureTest_Sanity)
             }
         }
     }
-    
+
     EXPECT_TRUE(foundFoo) << "The expected token CreateJobs,foo,mybuilder did not appear in the output.";
     EXPECT_TRUE(foundFoo2) << "The expected CreateJobs.foo2.mybuilder2 did not appear in the output";
 }

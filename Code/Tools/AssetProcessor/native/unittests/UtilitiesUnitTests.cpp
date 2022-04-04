@@ -131,7 +131,7 @@ void UtilitiesUnitTests::StartTest()
     //-----------------------Test CopyFileWithTimeout---------------------
 
     QString outputFileName(dir.filePath("test1.txt"));
-    
+
     QFile inputFile(fileName);
     inputFile.open(QFile::WriteOnly);
     QFile outputFile(outputFileName);
@@ -145,11 +145,13 @@ void UtilitiesUnitTests::StartTest()
     //Trying to copy when the output file is open for reading should fail.
     {
         UnitTestUtils::AssertAbsorber absorb;
+        absorb.StartTraceSuppression();
         UNIT_TEST_EXPECT_FALSE(CopyFileWithTimeout(fileName, outputFileName, 1));
-        UNIT_TEST_EXPECT_TRUE(absorb.m_numWarningsAbsorbed == 2); // 2 for each fail
+        absorb.StopTraceSuppressionWarnings(2); // 2 for each fail
         //Trying to move when the output file is open for reading
+        absorb.StartTraceSuppression();
         UNIT_TEST_EXPECT_FALSE(MoveFileWithTimeout(fileName, outputFileName, 1));
-        UNIT_TEST_EXPECT_TRUE(absorb.m_numWarningsAbsorbed == 4);
+        absorb.StopTraceSuppressionWarnings(2);
     }
 #endif // AZ_PLATFORM_WINDOWS ONLY
 
@@ -185,14 +187,17 @@ void UtilitiesUnitTests::StartTest()
     //Trying to copy when the output file is open,but will close before the timeout inputted
     {
         UnitTestUtils::AssertAbsorber absorb;
+#if defined(AZ_PLATFORM_WINDOWS)
+        absorb.StartTraceSuppression();
+#endif
         UNIT_TEST_EXPECT_TRUE(CopyFileWithTimeout(fileName, outputFileName, 3));
 #if defined(AZ_PLATFORM_WINDOWS)
         // only windows has an issue with moving files out that are in use.
         // other platforms do so without issue.
-        UNIT_TEST_EXPECT_TRUE(absorb.m_numWarningsAbsorbed > 0);
+        absorb.StopTraceSuppressionWarningsGT(0);
 #endif // windows platform.
     }
-  
+
     // ------------- Test CheckCanLock --------------
     {
         QTemporaryDir lockTestTempDir;
@@ -212,7 +217,7 @@ void UtilitiesUnitTests::StartTest()
 #elif defined(AZ_PLATFORM_LINUX)
         int handle = open(lockTestFileName.toUtf8().constData(), O_RDONLY | O_EXCL | O_NONBLOCK);
 #else
-        int handle = open(lockTestFileName.toUtf8().constData(), O_RDONLY | O_EXLOCK | O_NONBLOCK);       
+        int handle = open(lockTestFileName.toUtf8().constData(), O_RDONLY | O_EXLOCK | O_NONBLOCK);
 #endif // AZ_PLATFORM_WINDOWS
 
 #if defined(AZ_PLATFORM_WINDOWS)
@@ -223,7 +228,7 @@ void UtilitiesUnitTests::StartTest()
         {
             close(handle);
         }
-#endif // windows/other platforms ifdef 
+#endif // windows/other platforms ifdef
     }
 
     // --------------- TEST BYTEARRAYSTREAM

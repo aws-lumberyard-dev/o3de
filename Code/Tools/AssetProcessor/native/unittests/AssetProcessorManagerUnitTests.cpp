@@ -171,7 +171,7 @@ namespace AssetProcessor
         UNIT_TEST_EXPECT_FALSE(gameName.isEmpty());
         // should create cache folder in the root, and read everything from there.
 
-        // There is a sub-case of handling mixed cases, but is only supported on case-insensitive filesystems. 
+        // There is a sub-case of handling mixed cases, but is only supported on case-insensitive filesystems.
 #if defined(AZ_PLATFORM_LINUX)
         // Linux is case-sensitive, so 'basefile.txt' will stay the same case as the other subfolder versions
         constexpr const char* subfolder3BaseFilePath = "subfolder3/basefile.txt";
@@ -192,7 +192,7 @@ namespace AssetProcessor
         expectedFiles << tempPath.absoluteFilePath("subfolder2/aaa/bbb/ccc/basefile.txt");
         expectedFiles << tempPath.absoluteFilePath("subfolder2/aaa/bbb/ccc/ddd/basefile.txt");
 
-        expectedFiles << tempPath.absoluteFilePath(subfolder3BaseFilePath); 
+        expectedFiles << tempPath.absoluteFilePath(subfolder3BaseFilePath);
 
         expectedFiles << tempPath.absoluteFilePath("subfolder8/a/b/c/test.txt");
 
@@ -1792,7 +1792,7 @@ namespace AssetProcessor
         UNIT_TEST_EXPECT_TRUE((newfingerprintForANDROIDAfterVersionChange != fingerprintForANDROID) || (newfingerprintForANDROIDAfterVersionChange != newfingerprintForANDROID));//Fingerprints should be different
 
         processResults.clear();
-        
+
         // ------------- Test querying asset status -------------------
         {
             absolutePath = tempPath.absoluteFilePath("subfolder2/folder/ship.tiff");

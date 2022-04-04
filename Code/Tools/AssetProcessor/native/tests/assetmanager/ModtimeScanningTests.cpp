@@ -651,6 +651,7 @@ namespace UnitTests
         m_data->m_mockBuilderInfoHandler.m_createJobsCount = 0;
 
         // Reboot the APM since we added stuff to the database that needs to be loaded on-startup of the APM
+        m_assetProcessorManager = nullptr; // Destroy the old instance first so everything can destruct before we construct a new instance
         m_assetProcessorManager.reset(new AssetProcessorManager_Test(m_config.get()));
 
         SetUpAssetProcessorManager();
@@ -713,8 +714,9 @@ namespace UnitTests
             QMetaObject::invokeMethod(
                 m_assetProcessorManager.get(), "AssessDeletedFile", Qt::QueuedConnection, Q_ARG(QString, QString(theFileString)));
 
+            m_errorAbsorber->StartTraceSuppression();
             EXPECT_TRUE(BlockUntilIdle(5000));
-
+            m_errorAbsorber->StopTraceSuppressionWarnings(1);
             EXPECT_TRUE(QFile::exists(productPath));
             EXPECT_EQ(m_data->m_deletedSources.size(), 0);
         }
@@ -769,7 +771,6 @@ namespace UnitTests
             EXPECT_EQ(m_data->m_deletedSources.size(), 1);
 
             EXPECT_GT(m_deleteCounter, 1); // Make sure the AP tried more than once to delete the file
-            m_errorAbsorber->ExpectAsserts(0);
         }
         else
         {

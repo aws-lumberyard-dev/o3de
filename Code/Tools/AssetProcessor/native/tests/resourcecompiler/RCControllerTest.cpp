@@ -14,10 +14,10 @@
 
 TEST_F(RCcontrollerTest, CompileGroupCreatedWithUnknownStatusForFailedJobs)
 {
-    //Strategy Add a failed job to the job queue list and than ask the rc controller to request compile, it should emit unknown status  
+    //Strategy Add a failed job to the job queue list and than ask the rc controller to request compile, it should emit unknown status
     using namespace AssetProcessor;
-    // we have to initialize this to something other than Assetstatus_Unknown here because later on we will be testing the value of assetstatus  
-    AzFramework::AssetSystem::AssetStatus assetStatus = AzFramework::AssetSystem::AssetStatus_Failed; 
+    // we have to initialize this to something other than Assetstatus_Unknown here because later on we will be testing the value of assetstatus
+    AzFramework::AssetSystem::AssetStatus assetStatus = AzFramework::AssetSystem::AssetStatus_Failed;
     RCController rcController;
     QObject::connect(&rcController, &RCController::CompileGroupCreated,
         [&assetStatus]([[maybe_unused]] AssetProcessor::NetworkRequestID groupID, AzFramework::AssetSystem::AssetStatus status)
@@ -223,12 +223,14 @@ void RCcontrollerTest_Simple::SubmitJob()
 TEST_F(RCcontrollerTest_Simple, DISABLED_SameJobIsCompletedMultipleTimes_CompletesWithoutError)
 {
     using namespace AssetProcessor;
-    
+
     AZStd::vector<JobEntry> jobEntries;
     QObject::connect(m_rcController.get(), &RCController::FileCompiled, [&jobEntries](JobEntry entry, AssetBuilderSDK::ProcessJobResponse response)
     {
         jobEntries.push_back(entry);
     });
+
+    m_errorAbsorber->StartTraceSuppression();
 
     SubmitJob();
     SubmitJob();
@@ -240,6 +242,5 @@ TEST_F(RCcontrollerTest_Simple, DISABLED_SameJobIsCompletedMultipleTimes_Complet
         m_rcController->OnAddedToCatalog(entry);
     }
 
-    ASSERT_EQ(m_errorAbsorber->m_numAssertsAbsorbed, 4); // Expected that there are 4 errors related to the files not existing on disk.  Error message: GenerateFingerprint was called but no input files were requested for fingerprinting.
-    ASSERT_EQ(m_errorAbsorber->m_numErrorsAbsorbed, 0);
+    m_errorAbsorber->StopTraceSuppression(4); // Expected that there are 4 errors related to the files not existing on disk.  Error message: GenerateFingerprint was called but no input files were requested for fingerprinting.
 }

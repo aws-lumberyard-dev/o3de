@@ -39,31 +39,6 @@
         return;                                                                                             \
     }
 
-//! This is the base class.  Derive from this class, implement StartTest
-//! and emit UnitTestPassed when done or UnitTestFailed when you fail
-//! You must emit either one or the other for the next unit test to start.
-class UnitTestRun
-    : public QObject
-{
-    Q_OBJECT
-public:
-    virtual ~UnitTestRun() {}
-    ///implement all your unit tests in this function
-    virtual void StartTest() = 0;
-    ///Unit tests having higher priority will run first,
-    ///negative value means higher priority, default priority is zero
-    virtual int UnitTestPriority() const;
-    const char* GetName() const;
-    void SetName(const char* name);
-
-Q_SIGNALS:
-    void UnitTestFailed(QString message);
-    void UnitTestPassed();
-
-private:
-    const char* m_name = nullptr; // expected to be static memory!
-};
-
 // after deriving from this class, place the following somewhere
 // REGISTER_UNIT_TEST(YourClassName)
 
@@ -94,73 +69,82 @@ namespace UnitTestUtils
             BusConnect();
         }
 
-        void ExpectCheck(const int& numAbsorbed, int expectedAbsorbed, const char* errorType, const AZStd::vector<AZStd::string>& messageList)
+        void StartTraceSuppression()
         {
-            if (numAbsorbed != expectedAbsorbed)
+            EXPECT_FALSE(m_suppressionEnabled);
+
+            m_suppressionEnabled = true;
+            Clear();
+        }
+
+        void StopTraceSuppression(int expectedAssertCount)
+        {
+            EXPECT_TRUE(m_suppressionEnabled);
+
+            m_suppressionEnabled = false;
+
+            EXPECT_EQ(expectedAssertCount, m_numAssertsAbsorbed + m_numErrorsAbsorbed);
+        }
+
+        void StopTraceSuppressionWarnings(int expectedWarningCount)
+        {
+            EXPECT_TRUE(m_suppressionEnabled);
+
+            m_suppressionEnabled = false;
+
+            EXPECT_EQ(expectedWarningCount, m_numWarningsAbsorbed);
+            EXPECT_EQ(m_numAssertsAbsorbed, 0);
+            EXPECT_EQ(m_numErrorsAbsorbed, 0);
+        }
+
+        void StopTraceSuppressionPossibleWarnings(int maxWarningCount)
+        {
+            EXPECT_TRUE(m_suppressionEnabled);
+
+            m_suppressionEnabled = false;
+
+            EXPECT_EQ(m_numErrorsAbsorbed, 0);
+            EXPECT_EQ(m_numAssertsAbsorbed, 0);
+            EXPECT_LE(maxWarningCount, m_numWarningsAbsorbed);
+        }
+
+        void StopTraceSuppressionWarningsGT(int minimumExpectedWarningsCount)
+        {
+            EXPECT_TRUE(m_suppressionEnabled);
+
+            m_suppressionEnabled = false;
+
+            EXPECT_GT(m_numWarningsAbsorbed, minimumExpectedWarningsCount);
+            EXPECT_EQ(m_numAssertsAbsorbed, 0);
+            EXPECT_EQ(m_numErrorsAbsorbed, 0);
+        }
+
+        void StopTraceSuppressionErrorsGT(int minimumExpectedErrorCount)
+        {
+            EXPECT_TRUE(m_suppressionEnabled);
+
+            m_suppressionEnabled = false;
+
+            EXPECT_GT(m_numErrorsAbsorbed, minimumExpectedErrorCount);
+            EXPECT_EQ(m_numAssertsAbsorbed, 0);
+        }
+
+        void HandleError(const char* message)
+        {
+            if (!m_suppressionEnabled)
             {
-                BusDisconnect();
-                AZ_Printf("AssertAbsorber", "Incorrect number of %s absobed:\n\n", errorType);
-                for (auto& thisMessage : messageList)
-                {
-                    AZ_Printf("Absorbed", thisMessage.c_str());
-                }
-                BusConnect();
+                FAIL() << message;
             }
-            ASSERT_EQ(numAbsorbed, expectedAbsorbed);
-        }
-
-        void AssertCheck(const int& numAbsorbed, int expectedAbsorbed, const char* errorType, const AZStd::vector<AZStd::string>& messageList)
-        {
-            if (numAbsorbed != expectedAbsorbed)
-            {
-                BusDisconnect();
-                AZ_Printf("AssertAbsorber", "Incorrect number of %s absorbed:\n\n", errorType);
-                for (auto& thisMessage : messageList)
-                {
-                    AZ_Printf("Absorbed", thisMessage.c_str());
-                }
-                BusConnect();
-            }
-            ASSERT_EQ(numAbsorbed, expectedAbsorbed);
-        }
-
-        void ExpectWarnings(int expectValue)
-        {
-            ExpectCheck(m_numWarningsAbsorbed, expectValue, "warnings", m_warningMessages);
-        }
-
-        void ExpectErrors(int expectValue)
-        {
-            ExpectCheck(m_numErrorsAbsorbed, expectValue, "errors", m_errorMessages);
-        }
-
-        void ExpectAsserts(int expectValue)
-        {
-            ExpectCheck(m_numAssertsAbsorbed, expectValue, "asserts", m_assertMessages);
-        }
-
-        void AssertWarnings(int expectValue)
-        {
-            AssertCheck(m_numWarningsAbsorbed, expectValue, "warnings", m_warningMessages);
-        }
-
-        void AssertErrors(int expectValue)
-        {
-            AssertCheck(m_numErrorsAbsorbed, expectValue, "errors", m_errorMessages);
-        }
-
-        void AssertAsserts(int expectValue)
-        {
-            AssertCheck(m_numAssertsAbsorbed, expectValue, "asserts", m_assertMessages);
         }
 
         bool OnPreWarning([[maybe_unused]] const char* window, [[maybe_unused]] const char* fileName, [[maybe_unused]] int line, [[maybe_unused]] const char* func, [[maybe_unused]] const char* message) override
         {
             ++m_numWarningsAbsorbed;
-            if (m_debugMessages)
-            {
-                m_warningMessages.push_back(AZStd::string::format("%s\n    File: %s  Line: %d  Func: %s\n", message, fileName, line, func));
-            }
+
+            HandleError(message);
+
+            m_warningMessages.push_back(message);
+
             return true;
         }
 
@@ -170,20 +154,22 @@ namespace UnitTestUtils
             UnitTest::ColoredPrintf(UnitTest::COLOR_YELLOW, "Absorbed Assert: %s\n", message);
 
             ++m_numAssertsAbsorbed;
-            if (m_debugMessages)
-            {
-                m_assertMessages.push_back(AZStd::string::format("%s\n    File: %s  Line: %d  Func: %s\n", message, fileName, line, func));
-            }
+
+            HandleError(message);
+
+            m_assertMessages.push_back(message);
+
             return true; // I handled this, do not forward it
         }
 
         bool OnPreError([[maybe_unused]] const char* window, [[maybe_unused]] const char* fileName, [[maybe_unused]] int line, [[maybe_unused]] const char* func, [[maybe_unused]] const char* message) override
         {
             ++m_numErrorsAbsorbed;
-            if (m_debugMessages)
-            {
-                m_errorMessages.push_back(AZStd::string::format("%s\n    File: %s  Line: %d  Func: %s\n", message, fileName, line, func));
-            }
+
+            HandleError(message);
+
+            m_errorMessages.push_back(message);
+
             return true; // I handled this, do not forward it
         }
 
@@ -193,31 +179,12 @@ namespace UnitTestUtils
             return true;
         }
 
-        void PrintAbsorbed()
-        {
-            BusDisconnect();
-            AZ_Printf("AssertAbsorber", "Warnings Absorbed:\n");
-            for (auto& thisMessage : m_warningMessages)
-            {
-                AZ_Printf("AbsorbedWarning", thisMessage.c_str());
-            }
-            AZ_Printf("AssertAbsorber", "Errors Absorbed:\n");
-            for (auto& thisMessage : m_errorMessages)
-            {
-                AZ_Printf("AbsorbedError", thisMessage.c_str());
-            }
-            AZ_Printf("AssertAbsorber", "Warnings Absorbed:\n");
-            for (auto& thisMessage : m_assertMessages)
-            {
-                AZ_Printf("AbsorbedAssert", thisMessage.c_str());
-            }
-            BusConnect();
-        }
-
         ~AssertAbsorber()
         {
             BusDisconnect();
         }
+
+    private:
 
         void Clear()
         {
@@ -229,6 +196,7 @@ namespace UnitTestUtils
             m_errorMessages.clear();
             m_assertMessages.clear();
         }
+
         AZStd::vector<AZStd::string> m_assertMessages;
         AZStd::vector<AZStd::string> m_warningMessages;
         AZStd::vector<AZStd::string> m_errorMessages;
@@ -236,6 +204,7 @@ namespace UnitTestUtils
         int m_numWarningsAbsorbed = 0;
         int m_numAssertsAbsorbed = 0;
         int m_numErrorsAbsorbed = 0;
+        bool m_suppressionEnabled = false;
         bool m_debugMessages{ false };
     };
 
@@ -291,7 +260,34 @@ namespace UnitTestUtils
     };
 }
 
+//! This is the base class.  Derive from this class, implement StartTest
+//! and emit UnitTestPassed when done or UnitTestFailed when you fail
+//! You must emit either one or the other for the next unit test to start.
+class UnitTestRun : public QObject
+{
+    Q_OBJECT
+public:
+    virtual ~UnitTestRun()
+    {
+    }
+    /// implement all your unit tests in this function
+    virtual void StartTest() = 0;
+    /// Unit tests having higher priority will run first,
+    /// negative value means higher priority, default priority is zero
+    virtual int UnitTestPriority() const;
+    const char* GetName() const;
+    void SetName(const char* name);
 
+Q_SIGNALS:
+    void UnitTestFailed(QString message);
+    void UnitTestPassed();
+
+public:
+    UnitTestUtils::AssertAbsorber m_errorAbsorber;
+
+private:
+    const char* m_name = nullptr; // expected to be static memory!
+};
 
 // ----------------------------------- IMPLEMENTATION DETAILS ------------------------
 class UnitTestRegistry

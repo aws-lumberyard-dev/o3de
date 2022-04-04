@@ -51,17 +51,18 @@ namespace AssetProcessor
         AZStd::unique_ptr<ConnectionManager> m_connectionManager;
     };
 
-    class LegacyTestAdapter : public AssetProcessorTest,
+    class LegacyTestAdapter : public UnitTest::ScopedAllocatorSetupFixture,
         public ::testing::WithParamInterface<std::string>
     {
         void SetUp() override
         {
-            AssetProcessorTest::SetUp();
-
             static int numParams = 1;
             static char processName[] = {"AssetProcessorBatch"};
             static char* namePtr = &processName[0];
             static char** paramStringArray = &namePtr;
+
+            m_fileStateCache = AZStd::make_unique<FileStatePassthrough>();
+            m_application.reset(new UnitTestAppManager(&numParams, &paramStringArray));
 
             auto registry = AZ::SettingsRegistry::Get();
             auto bootstrapKey = AZ::SettingsRegistryInterface::FixedValueString(AZ::SettingsRegistryMergeUtils::BootstrapSettingsRootKey);
@@ -78,7 +79,6 @@ namespace AssetProcessor
             AzFramework::StringFunc::AssetPath::CalculateBranchToken(enginePath.c_str(), token);
             registry->Set(branchTokenKey, token.c_str());
 
-            m_application.reset(new UnitTestAppManager(&numParams, &paramStringArray));
             ASSERT_EQ(m_application->BeforeRun(), ApplicationManager::Status_Success);
             ASSERT_TRUE(m_application->PrepareForTests());
         }
@@ -90,7 +90,7 @@ namespace AssetProcessor
         }
 
         AZStd::unique_ptr<UnitTestAppManager> m_application;
-
+        AZStd::unique_ptr<FileStatePassthrough> m_fileStateCache;
     };
 
     // use the list of registered legacy unit tests to generate the list of test parameters:
@@ -160,7 +160,10 @@ namespace AssetProcessor
 
                 // Explanation of below:  EXPECT_TRUE returns an object that can be used with the stream operator
                 // to add additional information when it fails, for display to the user.
-                EXPECT_TRUE(failMessage.isEmpty()) << failMessage.toUtf8().constData();
+                if (!failMessage.isEmpty())
+                {
+                    FAIL() << failMessage.toUtf8().constData();
+                }
 
                 delete actualTest;
             }

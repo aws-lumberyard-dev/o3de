@@ -34,6 +34,7 @@ namespace AssetProcessor
     {
         UnitTestUtils::AssertAbsorber absorb;
         AssetBuilderSDK::CreateJobsRequest createJobsRequest;
+        absorb.StartTraceSuppression();
         ASSERT_EQ(createJobsRequest.GetEnabledPlatformAt(0), AssetBuilderSDK::Platform_NONE);
 
         createJobsRequest.m_enabledPlatforms = {
@@ -87,6 +88,7 @@ namespace AssetProcessor
         ASSERT_EQ(createJobsRequest.GetEnabledPlatformAt(0), AssetBuilderSDK::Platform_PC);
         ASSERT_EQ(createJobsRequest.GetEnabledPlatformAt(1), AssetBuilderSDK::Platform_ANDROID);
         ASSERT_EQ(createJobsRequest.GetEnabledPlatformAt(2), AssetBuilderSDK::Platform_NONE);
+        absorb.StopTraceSuppressionPossibleWarnings(1);
         // using a deprecated API should have generated warnings.
         // but we can't test for it because these warnings are WarningOnce and some other unit test might have already triggered it
     }
@@ -95,6 +97,7 @@ namespace AssetProcessor
     {
         UnitTestUtils::AssertAbsorber absorb;
         AssetBuilderSDK::CreateJobsRequest createJobsRequest;
+        absorb.StartTraceSuppression();
         ASSERT_FALSE(createJobsRequest.IsPlatformEnabled(AssetBuilderSDK::Platform_PC));
 
         createJobsRequest.m_enabledPlatforms = {
@@ -119,6 +122,7 @@ namespace AssetProcessor
         };
         ASSERT_TRUE(createJobsRequest.IsPlatformEnabled(AssetBuilderSDK::Platform_PC));
         ASSERT_TRUE(createJobsRequest.IsPlatformEnabled(AssetBuilderSDK::Platform_ANDROID));
+        absorb.StopTraceSuppressionPossibleWarnings(1);
         // using a deprecated API should have generated warnings.
         // but we can't test for it because these warnings are WarningOnce and some other unit test might have already triggered it
     }
@@ -128,6 +132,7 @@ namespace AssetProcessor
         AssetBuilderSDK::CreateJobsRequest createJobsRequest;
         UnitTestUtils::AssertAbsorber absorb;
 
+        absorb.StartTraceSuppression();
         ASSERT_TRUE(createJobsRequest.IsPlatformValid(AssetBuilderSDK::Platform_PC));
         ASSERT_TRUE(createJobsRequest.IsPlatformValid(AssetBuilderSDK::Platform_ANDROID));
         ASSERT_TRUE(createJobsRequest.IsPlatformValid(AssetBuilderSDK::Platform_IOS));
@@ -138,6 +143,7 @@ namespace AssetProcessor
         //64 is 0x040 which currently is the next valid platform value which is invalid as of now, if we ever add a new platform entry to the Platform enum
         //we will have to update this failure unit test
         ASSERT_FALSE(createJobsRequest.IsPlatformValid(static_cast<AssetBuilderSDK::Platform>(256)));
+        absorb.StopTraceSuppressionPossibleWarnings(1);
         // using a deprecated API should have generated warnings.
         // but we can't test for it because these warnings are WarningOnce and some other unit test might have already triggered it
     }

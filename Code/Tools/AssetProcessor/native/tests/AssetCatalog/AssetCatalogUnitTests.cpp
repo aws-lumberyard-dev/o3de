@@ -195,11 +195,6 @@ namespace AssetProcessor
 
         void TearDown() override
         {
-            // if you EXPECT warnings/asserts/errors you need to check in your test, and you need to also
-            // reset it before returning from your test.
-            EXPECT_EQ(m_data->m_absorber.m_numAssertsAbsorbed, 0);
-            EXPECT_EQ(m_data->m_absorber.m_numErrorsAbsorbed, 0);
-            EXPECT_EQ(m_data->m_absorber.m_numWarningsAbsorbed, 0);
             AssetUtilities::ResetAssetRoot();
 
             azdestroy(m_data);
@@ -428,12 +423,12 @@ namespace AssetProcessor
 
         // empty requests should generate an assert since it is a programming error to call this API with bad data.
         // however, the app should not crash even if the assert is absorbed.
+        m_data->m_absorber.StartTraceSuppression();
         GetRelativeProductPathFromFullSourceOrProductPathRequest request(fileToCheck.toUtf8().constData());
-        ASSERT_EQ(m_data->m_absorber.m_numAssertsAbsorbed, 1);
+        m_data->m_absorber.StopTraceSuppression(1); // 1 assert
+        m_data->m_absorber.StartTraceSuppression();
         GetFullSourcePathFromRelativeProductPathRequest sourceRequest(fileToCheck.toUtf8().constData());
-        ASSERT_EQ(m_data->m_absorber.m_numAssertsAbsorbed, 2);
-        // reset the absorber before we leave this assert-test, so that it doesn't cause failure of the test itself
-        m_data->m_absorber.Clear();
+        m_data->m_absorber.StopTraceSuppression(1); // 1 assert
 
         ASSERT_TRUE(TestGetRelativeProductPath("", false, { "" }));
         ASSERT_TRUE(TestGetFullSourcePath("", m_data->m_temporarySourceDir, false, ""));
