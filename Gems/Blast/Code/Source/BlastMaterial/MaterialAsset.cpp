@@ -13,8 +13,20 @@
 
 namespace Blast
 {
+    void BlastMaterialId::Reflect(AZ::ReflectContext* context)
+    {
+        if (auto* serializeContext = azrtti_cast<AZ::SerializeContext*>(context))
+        {
+            serializeContext->Class<Blast::BlastMaterialId>()
+                ->Version(1)
+                ->Field("BlastMaterialId", &Blast::BlastMaterialId::m_id);
+        }
+    }
+
     void MaterialAsset::Reflect(AZ::ReflectContext* context)
     {
+        BlastMaterialId::Reflect(context);
+
         if (auto* serializeContext = azrtti_cast<AZ::SerializeContext*>(context))
         {
             serializeContext->Class<Blast::MaterialAsset, AZ::Data::AssetData>()

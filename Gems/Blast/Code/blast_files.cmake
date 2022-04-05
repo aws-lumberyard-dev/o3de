@@ -53,6 +53,4 @@ set(FILES
     Source/BlastMaterial/MaterialAsset.cpp
     Source/BlastMaterial/MaterialConfiguration.h
     Source/BlastMaterial/MaterialConfiguration.cpp
-    Source/BlastMaterial/LegacyMaterial.h
-    Source/BlastMaterial/LegacyMaterial.cpp
 )
