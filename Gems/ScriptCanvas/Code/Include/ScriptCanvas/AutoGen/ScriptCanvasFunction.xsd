@@ -5,7 +5,8 @@
            xmlns:xs="http://www.w3.org/2001/XMLSchema">
     <xs:element name="ScriptCanvas">
         <xs:annotation>
-            <xs:documentation>ScriptCanvas Function XML root element.</xs:documentation>
+            <xs:documentation>The ScriptCanvas Function XML definition root element, it is used to declare function definitions that become ScriptCanvas nodes.</xs:documentation>
+            <xs:documentation>See https://www.o3de.org/docs/user-guide/scripting/script-canvas for more details.</xs:documentation>
         </xs:annotation>
         <xs:complexType>
             <xs:sequence>
