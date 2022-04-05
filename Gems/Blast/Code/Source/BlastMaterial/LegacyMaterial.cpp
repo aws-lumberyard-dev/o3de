@@ -9,9 +9,13 @@
 #include <AzCore/Serialization/SerializeContext.h>
 #include <AzCore/Console/IConsole.h>
 #include <AzCore/Asset/AssetCommon.h>
+#include <AzCore/Asset/AssetManager.h>
+
+#include <AzFramework/Asset/GenericAssetHandler.h>
 
 #include <BlastMaterial/LegacyMaterial.h>
 #include <BlastMaterial/MaterialConfiguration.h>
+#include <BlastMaterial/MaterialAsset.h>
 
 namespace Blast
 {
@@ -95,7 +99,73 @@ namespace Blast
 
         void ConvertMaterialLibrariesIntoIndividualMaterials([[maybe_unused]] const AZ::ConsoleCommandContainer& commandArgs)
         {
-            AZ_Warning("Blast", false, "Do amazing conversion!");
+            auto* materialAssetHandler = AZ::Data::AssetManager::Instance().GetHandler(MaterialAsset::RTTI_Type());
+            if (!materialAssetHandler)
+            {
+                AZ_Error("Blast", false, "Unable to find blast MaterialAsset handler.");
+                return;
+            }
+
+            struct BlastLibrary
+            {
+                AZStd::vector<BlastMaterialFromAssetConfiguration> m_materialAssetConfigurations;
+                AZStd::string m_sourceFile; // Path to source file. Used during conversion to new material asset.
+            };
+
+            // Collect all BlastMaterialLibraryAsset
+            AZStd::vector<BlastLibrary> materialLibraries;
+            {
+                // Unregister the new MaterialAsset handler for .blastmaterial files
+                AZ::Data::AssetManager::Instance().UnregisterHandler(materialAssetHandler);
+
+                // Create asset handler for BlastMaterialLibraryAsset for .blastmaterial files
+                auto materialLibraryAsset = AZStd::make_unique<AzFramework::GenericAssetHandler<BlastMaterialLibraryAsset>>(
+                    "Blast Material", "Blast Material", "blastmaterial");
+                materialLibraryAsset->Register();
+
+                // For each .blastmaterial file
+                    // Is it valid? Meaning it's a BlastMaterialLibraryAsset
+                        // Read and add it to vector.
+
+                // automatically register all layer categories assets
+                AZ::Data::AssetCatalogRequestBus::Broadcast(&AZ::Data::AssetCatalogRequestBus::Events::EnumerateAssets,
+                    nullptr,
+                    [&materialLibraries](const AZ::Data::AssetId assetId, const AZ::Data::AssetInfo& assetInfo) {
+                        if (assetInfo.m_assetType == BlastMaterialLibraryAsset::RTTI_Type())
+                        {
+                            AZ::Data::Asset<BlastMaterialLibraryAsset> materialLibrary =
+                                AZ::Data::AssetManager::Instance().GetAsset<BlastMaterialLibraryAsset>(assetId, AZ::Data::AssetLoadBehavior::PreLoad);
+                            materialLibrary.QueueLoad();
+                            materialLibrary.BlockUntilLoadComplete();
+
+                            BlastLibrary blastLibrary;
+                            blastLibrary.m_materialAssetConfigurations = materialLibrary->m_materialLibrary;
+                            blastLibrary.m_sourceFile = assetInfo.m_relativePath;
+
+                            materialLibraries.push_back(AZStd::move(blastLibrary));
+                        }
+                    },
+                    nullptr);
+
+                materialLibraryAsset->Unregister();
+                materialLibraryAsset.reset();
+
+                // Register back the new MaterialAsset handler for .blastmaterial files
+                AZ::Data::AssetManager::Instance().UnregisterHandler(materialAssetHandler);
+            }
+
+            AZ_Warning("Blast", false, "Material Libraries:");
+            for (const auto& materialLibrary : materialLibraries)
+            {
+                AZ_Warning("Blast", false, "- Path: %s", materialLibrary.m_sourceFile.c_str());
+
+                for (const auto& materialAssetConfiguration : materialLibrary.m_materialAssetConfigurations)
+                {
+                    AZ_Warning("Blast", false, "    + BlastId: %d Health: %0.3f",
+                        materialAssetConfiguration.m_id.GetUuid().ToString<AZStd::string>().c_str(),
+                        materialAssetConfiguration.m_configuration.m_health);
+                }
+            }
         }
 
     } // namespace Internal
