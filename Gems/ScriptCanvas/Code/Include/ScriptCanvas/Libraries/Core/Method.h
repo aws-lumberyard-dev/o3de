@@ -172,7 +172,7 @@ namespace ScriptCanvas
 
                 bool IsDeprecated() const override;
 
-                NodeConfiguration GetReplacementNodeConfiguration() const override;
+                NodeReplacementConfiguration GetReplacementNodeConfiguration() const override;
 
             private:
                 friend struct ScriptCanvas::BehaviorContextMethodHelper;

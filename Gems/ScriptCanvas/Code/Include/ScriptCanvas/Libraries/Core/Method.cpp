@@ -232,13 +232,13 @@ namespace ScriptCanvas
                 }
             }
 
-            NodeConfiguration Method::GetReplacementNodeConfiguration() const
+            NodeReplacementConfiguration Method::GetReplacementNodeConfiguration() const
             {
                 if (m_method)
                 {
                     return ReplacementUtils::GetReplacementMethodNode(m_className.c_str(), m_lookupName.c_str());
                 }
-                return NodeConfiguration{};
+                return NodeReplacementConfiguration{};
             }
 
             void Method::InitializeMethod(const MethodConfiguration& config)

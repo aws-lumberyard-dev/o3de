@@ -11,23 +11,24 @@
 
 namespace ScriptCanvas
 {
-    typedef std::tuple<std::string, std::string> MethodConfig;
-    static std::unordered_map<std::string, MethodConfig> m_replacementMethods = {
-        { "Entity Transform::Rotate", { "", "ScriptCanvas_EntityFunctions_Rotate" } },
-        { "String::Split", { "", "ScriptCanvas_StringFunctions_Split" } },
-        { "String::Join", { "", "ScriptCanvas_StringFunctions_Join" } },
-        { "String::Replace String", { "", "ScriptCanvas_StringFunctions_ReplaceString" } }
-    };
+    BEGIN_METHOD_NODE_REPLACEMENT
+    REPLACE_METHOD("Entity Transform::Rotate", "", "ScriptCanvas_EntityFunctions_Rotate")
+    REPLACE_METHOD("String::Split", "", "ScriptCanvas_StringFunctions_Split")
+    REPLACE_METHOD("String::Join", "", "ScriptCanvas_StringFunctions_Join")
+    REPLACE_METHOD("String::Replace String", "", "ScriptCanvas_StringFunctions_ReplaceString")
+    END_METHOD_NODE_REPLACEMENT;
 
-    NodeConfiguration ReplacementUtils::GetReplacementMethodNode(const char* className, const char* methodName)
+    static constexpr const char MethodNodeUUID[] = "{E42861BD-1956-45AE-8DD7-CCFC1E3E5ACF}";
+
+    NodeReplacementConfiguration ReplacementUtils::GetReplacementMethodNode(const char* className, const char* methodName)
     {
-        NodeConfiguration configuration{};
+        NodeReplacementConfiguration configuration{};
         AZStd::string oldMethodName = AZStd::string::format("%s::%s", className, methodName);
         if (m_replacementMethods.find(oldMethodName.c_str()) != m_replacementMethods.end())
         {
-            configuration.m_type = AZ::Uuid("{E42861BD-1956-45AE-8DD7-CCFC1E3E5ACF}");
-            configuration.m_className = std::get<0>(m_replacementMethods[oldMethodName.c_str()]).c_str();
-            configuration.m_methodName = std::get<1>(m_replacementMethods[oldMethodName.c_str()]).c_str();
+            configuration.m_type = AZ::Uuid(MethodNodeUUID);
+            configuration.m_className = m_replacementMethods[oldMethodName.c_str()].first.c_str();
+            configuration.m_methodName = m_replacementMethods[oldMethodName.c_str()].second.c_str();
         }
         return configuration;
     }
