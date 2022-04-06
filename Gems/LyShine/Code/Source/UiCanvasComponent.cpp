@@ -252,26 +252,6 @@ namespace
             }, context);
     }
 
-    UiRenderer* GetUiRendererForGame()
-    {
-        if (AZ::Interface<ILyShine>::Get())
-        {
-            CLyShine* lyShine = static_cast<CLyShine*>(AZ::Interface<ILyShine>::Get());
-            return lyShine->GetUiRenderer();
-        }
-        return nullptr;
-    }
-
-    UiRenderer* GetUiRendererForEditor()
-    {
-        if (AZ::Interface<ILyShine>::Get())
-        {
-            CLyShine* lyShine = static_cast<CLyShine*>(AZ::Interface<ILyShine>::Get());
-            return lyShine->GetUiRendererForEditor();
-        }
-        return nullptr;
-    }
-
     bool IsValidInteractable(const AZ::EntityId& entityId)
     {
         if (!entityId.IsValid())
@@ -324,7 +304,6 @@ UiCanvasComponent::UiCanvasComponent()
     , m_canvasSize(UiCanvasComponent::s_defaultCanvasSize)
     , m_targetCanvasSize(m_canvasSize)
     , m_deviceScale(1.0f, 1.0f)
-    , m_isLoadedInGame(false)
     , m_keepLoadedOnLevelUnload(false)
     , m_enabled(true)
     , m_renderToTexture(false)
@@ -367,7 +346,7 @@ UiCanvasComponent::~UiCanvasComponent()
         m_entityContext->DestroyUiContext();
     }
 
-    if (m_isLoadedInGame)
+    if (m_usageType != UsageType::InEditor)
     {
         delete m_entityContext;
     }
@@ -562,7 +541,7 @@ AZ::Entity* UiCanvasComponent::PickElement(AZ::Vector2 point)
 {
     AZ::Entity* element = nullptr;
     EBUS_EVENT_ID_RESULT(element, m_rootElement,
-        UiElementBus, FindFrontmostChildContainingPoint, point, m_isLoadedInGame);
+        UiElementBus, FindFrontmostChildContainingPoint, point, IsLoadedInGame());
     return element;
 }
 
@@ -571,7 +550,7 @@ LyShine::EntityArray UiCanvasComponent::PickElements(const AZ::Vector2& bound0, 
 {
     LyShine::EntityArray elements;
     EBUS_EVENT_ID_RESULT(elements, m_rootElement,
-        UiElementBus, FindAllChildrenIntersectingRect, bound0, bound1, m_isLoadedInGame);
+        UiElementBus, FindAllChildrenIntersectingRect, bound0, bound1, IsLoadedInGame());
     return elements;
 }
 
@@ -632,7 +611,7 @@ void UiCanvasComponent::FixupCreatedEntities(LyShine::EntityArray topLevelEntiti
         elementComponent->FixupPostLoad(entity, this, parent, makeUniqueNamesAndIds);
     }
 
-    if (m_isLoadedInGame)
+    if (IsLoadedInGame())
     {
         // Call InGamePostActivate on all the created entities
         for (auto entity : topLevelEntities)
@@ -826,7 +805,6 @@ AZ::Entity* UiCanvasComponent::CloneCanvas(const AZ::Vector2& canvasSize)
     if (canvasComponent)
     {
         newCanvasEntity = canvasComponent->GetEntity();
-        canvasComponent->m_isLoadedInGame = true;
 
         // The game entity context needs to know its corresponding canvas entity for instantiating dynamic slices
         entityContext->SetCanvasEntity(newCanvasEntity->GetId());
@@ -875,16 +853,24 @@ void UiCanvasComponent::SetCanvasSize(const AZ::Vector2& canvasSize)
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
-void UiCanvasComponent::SetTargetCanvasSize(bool isInGame, const AZ::Vector2& targetCanvasSize)
+void UiCanvasComponent::SetTargetCanvasSize(const AZ::Vector2& targetCanvasSize)
 {
-    if (m_renderToTexture)
+    AZ_Warning("UI", m_usageType != UsageType::InEditor,
+        "SetTargetCanvasSize: A custom target render size can only be applied to canvases that are running in game/preview (not loaded for editing)");
+    if (m_usageType == UsageType::InEditor)
     {
-        // when a canvas is set to render to texture the target canvas size is always the authored canvas size
-        SetTargetCanvasSizeAndUniformScale(isInGame, m_canvasSize);
+        return;
+    }
+
+    if (targetCanvasSize.IsClose(AZ::Vector2::CreateZero()))
+    {
+        // Special case, use the viewport size
+        m_customTargetCanvasSize.reset();
     }
     else
     {
-        SetTargetCanvasSizeAndUniformScale(isInGame, targetCanvasSize);
+        // Use a custom target canvas size
+        m_customTargetCanvasSize = targetCanvasSize;
     }
 }
 
@@ -1804,33 +1790,28 @@ void UiCanvasComponent::RemoveOrphanedElements()
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
-void UiCanvasComponent::UpdateCanvasInEditorViewport(float deltaTime, bool isInGame)
+void UiCanvasComponent::UpdateCanvasInEditorViewport(float deltaTime)
 {
-    UpdateCanvas(deltaTime, isInGame);
+    UpdateCanvas(deltaTime);
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
-void UiCanvasComponent::RenderCanvasInEditorViewport(bool isInGame, AZ::Vector2 viewportSize)
+void UiCanvasComponent::RenderCanvasInEditorViewport()
 {
-    // When isInGame is true we're rendering the canvas in UI Editor's Preview Mode
-    UiRenderer* uiRenderer = GetUiRendererForEditor();
+    UiRenderer* uiRenderer = GetUiRenderer();
     AZ_Assert(uiRenderer, "Trying to render a canvas in the UI Editor before its UIRenderer has been initialized");
     uiRenderer->BeginUiFrameRender();
-    RenderCanvas(isInGame, viewportSize, uiRenderer);
+    BuildRenderGraph();
+    // Process LyShine pass changes to create the necessary render to texture child passes
+    AZ::RPI::PassSystemInterface::Get()->ProcessQueuedChanges();
+    DrawRenderGraph();
     uiRenderer->EndUiFrameRender();
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 void UiCanvasComponent::MarkRenderGraphDirty()
 {
-    // It is possible that the loading screen can result in this being called while we are already
-    // rendering this canvas. We never want to set the dirty flag while rendering, if the dirty
-    // flag is not already set it could result in an incomplete renderGraph being created since
-    // the render graph will be cleared.
-    if (!m_isRendering)
-    {
-        m_renderGraph.SetDirtyFlag(true);
-    }
+    m_renderGraph.SetDirtyFlag(true);
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -1874,11 +1855,16 @@ void UiCanvasComponent::ReleaseRenderTarget(const AZ::RHI::AttachmentId& attachm
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 AZ::Data::Instance<AZ::RPI::AttachmentImage> UiCanvasComponent::GetRenderTarget(const AZ::RHI::AttachmentId& attachmentId)
 {
-    return m_attachmentImageMap[attachmentId];
+    if (m_attachmentImageMap.contains(attachmentId))
+    {
+        return m_attachmentImageMap[attachmentId];
+    }
+
+    return {};
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
-void UiCanvasComponent::UpdateCanvas(float deltaTime, bool isInGame)
+void UiCanvasComponent::UpdateCanvas(float deltaTime)
 {
     // Ignore update if we're not enabled
     if (!m_enabled)
@@ -1886,7 +1872,10 @@ void UiCanvasComponent::UpdateCanvas(float deltaTime, bool isInGame)
         return;
     }
 
-    if (isInGame)
+    // Update the target canvas size
+    UpdateTargetCanvasSizeAndUniformScale();
+
+    if (IsLoadedInGame())
     {
         EBUS_EVENT_ID(GetEntityId(), UiCanvasUpdateNotificationBus, Update, deltaTime);
 
@@ -1904,7 +1893,7 @@ void UiCanvasComponent::UpdateCanvas(float deltaTime, bool isInGame)
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
-void UiCanvasComponent::RenderCanvas(bool isInGame, AZ::Vector2 viewportSize, UiRenderer* uiRenderer)
+void UiCanvasComponent::BuildRenderGraph()
 {
     // Ignore render ops if we're not enabled
     if (!m_enabled)
@@ -1912,32 +1901,11 @@ void UiCanvasComponent::RenderCanvas(bool isInGame, AZ::Vector2 viewportSize, Ui
         return;
     }
 
-    m_renderInEditor = uiRenderer ? true : false;
-
-    if (!uiRenderer)
-    {
-        uiRenderer = GetUiRendererForGame();
-    }
-
-    // It is possible, due to the LoadScreenComponent, for this canvas to have Render called while it is rendering.
-    // This is rare but can happen because rendering of text can call FontCreateTexture which results in CreateTextureObject
-    // being called, which has a load scren update in it. Rendering the canvas to the render graph while already in the
-    // process of doing so can corrupt the render graph by adding an element to an intrusive list that is already in the
-    // list.
-    // We could prevent this at the CLyShine::Render level. But doing it here with an m_isRendering flag also allows us to
-    // check for the error condition where MarkRenderGraphDirty (which clears the render graph) is called during rendering.
-    if (m_isRendering)
-    {
-        return;
-    }
-
-    m_isRendering = true;
-
     if (m_renderGraph.GetDirtyFlag())
     {
         m_renderGraph.ResetGraph();
 
-        bool renderToTexture = !m_renderInEditor && GetIsRenderToTexture();
+        bool renderToTexture = !IsRenderingInEditorViewport() && GetIsRenderToTexture();
         if (renderToTexture)
         {
             if (m_attachmentImageId.IsEmpty())
@@ -1953,7 +1921,7 @@ void UiCanvasComponent::RenderCanvas(bool isInGame, AZ::Vector2 viewportSize, Ui
             AZ::Data::Instance<AZ::RPI::AttachmentImage> attachmentImage;
             LyShine::RenderToTextureRequestBus::EventResult(attachmentImage, GetEntityId(),
                 &LyShine::RenderToTextureRequestBus::Events::GetRenderTarget, m_attachmentImageId);
-            m_renderGraph.BeginRenderToTexture(attachmentImage, viewportTopLeft, viewportSize, clearColor);
+            m_renderGraph.BeginRenderToTexture(attachmentImage, viewportTopLeft, GetTargetCanvasSize(), clearColor);
         }
         else
         {
@@ -1963,7 +1931,7 @@ void UiCanvasComponent::RenderCanvas(bool isInGame, AZ::Vector2 viewportSize, Ui
             }
         }
 
-        EBUS_EVENT_ID(m_rootElement, UiElementBus, RenderElement, &m_renderGraph, isInGame);
+        EBUS_EVENT_ID(m_rootElement, UiElementBus, RenderElement, &m_renderGraph, IsLoadedInGame());
 
         if (renderToTexture)
         {
@@ -1974,15 +1942,24 @@ void UiCanvasComponent::RenderCanvas(bool isInGame, AZ::Vector2 viewportSize, Ui
         m_renderGraph.SetDirtyFlag(false);
         m_renderGraph.FinalizeGraph();
     }
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
+void UiCanvasComponent::DrawRenderGraph()
+{
+    // Ignore render ops if we're not enabled
+    if (!m_enabled)
+    {
+        return;
+    }
 
     if (!m_renderGraph.IsEmpty())
     {
+        UiRenderer* uiRenderer = GetUiRenderer();
         uiRenderer->BeginCanvasRender();
-        m_renderGraph.Render(uiRenderer, viewportSize);
+        m_renderGraph.Render(uiRenderer);
         uiRenderer->EndCanvasRender();
     }
-
-    m_isRendering = false;
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -2050,13 +2027,92 @@ void UiCanvasComponent::DestroyScheduledElements()
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
+bool UiCanvasComponent::IsLoadedInGame()
+{
+    return m_usageType != UsageType::InEditor;
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
+bool UiCanvasComponent::IsRenderingInEditorViewport()
+{
+    return m_usageType != UsageType::InGame;
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
+void UiCanvasComponent::UpdateTargetCanvasSizeAndUniformScale()
+{
+    AZ::Vector2 oldTargetCanvasSize = m_targetCanvasSize;
+    AZ::Vector2 oldDeviceScale = m_deviceScale;
+
+    if (m_usageType == UsageType::InEditor)
+    {
+        // While in the editor, the only resolution we care about is the canvas' authored
+        // size, so we set that as our target size for display purposes.
+        m_targetCanvasSize = m_canvasSize;
+    }
+    else if (m_renderToTexture && m_usageType == UsageType::InGame)
+    {
+        // A canvas that renders to texture always uses authored canvas size in the game
+        m_targetCanvasSize = m_canvasSize;
+    }
+    else
+    {
+        if (m_customTargetCanvasSize.has_value())
+        {
+            m_targetCanvasSize = m_customTargetCanvasSize.value();
+        }
+        else
+        {
+            // Use the viewport context's size
+            UiRenderer* uiRenderer = GetUiRenderer();
+            if (uiRenderer) // can be null in automated testing
+            {
+                m_targetCanvasSize = uiRenderer->GetViewportSize();
+            }
+        }
+    }
+
+    // set the device scale
+    m_deviceScale.SetX(m_targetCanvasSize.GetX() / m_canvasSize.GetX());
+    m_deviceScale.SetY(m_targetCanvasSize.GetY() / m_canvasSize.GetY());
+
+    // if the target canvas size or the uniform device scale changed then this will affect the
+    // element transforms so force them to recompute
+    if (oldTargetCanvasSize != m_targetCanvasSize || oldDeviceScale != m_deviceScale)
+    {
+        UiTransformInterface::Recompute recompute;
+        if (oldTargetCanvasSize != m_targetCanvasSize)
+        {
+            recompute = (oldDeviceScale != m_deviceScale) ? UiTransformInterface::Recompute::RectAndTransform : UiTransformInterface::Recompute::RectOnly;
+        }
+        else
+        {
+            recompute = UiTransformInterface::Recompute::TransformOnly;
+        }
+
+        EBUS_EVENT_ID(GetRootElement()->GetId(), UiTransformBus, SetRecomputeFlags, recompute);
+        EBUS_EVENT(UiCanvasSizeNotificationBus, OnCanvasSizeOrScaleChange, GetEntityId());
+    }
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
+UiRenderer* UiCanvasComponent::GetUiRenderer()
+{
+    ILyShine* lyShine = AZ::Interface<ILyShine>::Get();
+    if (lyShine)
+    {   
+        return IsRenderingInEditorViewport() ? lyShine->GetUiRendererForEditor() : lyShine->GetUiRenderer();
+    }
+    return nullptr;
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
 void UiCanvasComponent::QueueRttPassRebuild()
 {
-    UiRenderer* uiRenderer = m_renderInEditor ? GetUiRendererForEditor() : GetUiRendererForGame();
+    UiRenderer* uiRenderer = GetUiRenderer();
     if (uiRenderer && uiRenderer->GetViewportContext()) // can be null in automated testing
     {
-        AZ::RPI::SceneId sceneId = uiRenderer->GetViewportContext()->GetRenderScene()->GetId();
-        EBUS_EVENT_ID(sceneId, LyShinePassRequestBus, RebuildRttChildren);
+        LyShinePassRequestBus::Event(uiRenderer->GetSceneId(), &LyShinePassRequests::QueueForRebuild);
     }
 }
 
@@ -2496,10 +2552,13 @@ void UiCanvasComponent::Deactivate()
     }
 
     // Destroy owned render targets
-    m_attachmentImageMap.clear();
+    if (!m_attachmentImageMap.empty())
+    {
+        m_attachmentImageMap.clear();
 
-    //! Notify LyShine pass that it needs to rebuild
-    QueueRttPassRebuild();
+        //! Notify LyShine pass that it needs to rebuild
+        QueueRttPassRebuild();
+    }
 
     delete m_layoutManager;
     m_layoutManager = nullptr;
@@ -3436,7 +3495,6 @@ UiCanvasComponent* UiCanvasComponent::CloneAndInitializeCanvas(UiEntityContext* 
     if (canvasComponent)
     {
         canvasComponent->m_pathname = assetIdPathname;
-        canvasComponent->m_isLoadedInGame = true;
     }
 
     return canvasComponent;
@@ -3483,47 +3541,6 @@ AZStd::vector<AZ::EntityId> UiCanvasComponent::GetEntityIdsOfElementAndDescendan
     }
 
     return entitiesInPrefab;
-}
-
-////////////////////////////////////////////////////////////////////////////////////////////////////
-void UiCanvasComponent::SetTargetCanvasSizeAndUniformScale(bool isInGame, AZ::Vector2 canvasSize)
-{
-    AZ::Vector2 oldTargetCanvasSize = m_targetCanvasSize;
-    AZ::Vector2 oldDeviceScale = m_deviceScale;
-
-    if (isInGame)
-    {
-        // Set the target canvas size to the canvas size specified by the caller
-        m_targetCanvasSize = canvasSize;
-
-        // set the device scale
-        m_deviceScale.SetX(m_targetCanvasSize.GetX() / m_canvasSize.GetX());
-        m_deviceScale.SetY(m_targetCanvasSize.GetY() / m_canvasSize.GetY());
-    }
-    else
-    {
-        // While in the editor, the only resolution we care about is the canvas' authored
-        // size, so we set that as our target size for display purposes.
-        m_targetCanvasSize = m_canvasSize;
-    }
-
-    // if the target canvas size or the uniform device scale changed then this will affect the
-    // element transforms so force them to recompute
-    if (oldTargetCanvasSize != m_targetCanvasSize || oldDeviceScale != m_deviceScale)
-    {
-        UiTransformInterface::Recompute recompute;
-        if (oldTargetCanvasSize != m_targetCanvasSize)
-        {
-            recompute = (oldDeviceScale != m_deviceScale) ? UiTransformInterface::Recompute::RectAndTransform : UiTransformInterface::Recompute::RectOnly;
-        }
-        else
-        {
-            recompute = UiTransformInterface::Recompute::TransformOnly;
-        }
-
-        EBUS_EVENT_ID(GetRootElement()->GetId(), UiTransformBus, SetRecomputeFlags, recompute);
-        EBUS_EVENT(UiCanvasSizeNotificationBus, OnCanvasSizeOrScaleChange, GetEntityId());
-    }
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -3825,7 +3842,7 @@ AZ::Entity* UiCanvasComponent::CloneAndAddElementInternal(AZ::Entity* sourceEnti
     AZ_Assert(parentElementComponent, "No element component found on parent entity");
     parentElementComponent->AddChild(clonedRootEntity, insertBeforeEntity);
 
-    if (m_isLoadedInGame)
+    if (IsLoadedInGame())
     {
         // Call InGamePostActivate on all the created entities
         InGamePostActivateBottomUp(clonedRootEntity);
@@ -3927,7 +3944,8 @@ UiCanvasComponent* UiCanvasComponent::CreateCanvasInternal(UiEntityContext* enti
     canvasEntity->Init();
     canvasEntity->Activate();
 
-    canvasComponent->m_isLoadedInGame = !forEditor;
+    canvasComponent->m_usageType = forEditor ? UsageType::InEditor : UsageType::InGame;
+    canvasComponent->UpdateTargetCanvasSizeAndUniformScale();
 
     return canvasComponent;
 }
@@ -3976,7 +3994,6 @@ UiCanvasComponent*  UiCanvasComponent::LoadCanvasInternal(const AZStd::string& p
                         EBUS_EVENT_ID(canvasComponent->GetRootElement()->GetId(), UiTransformBus, SetRecomputeFlags, UiTransformInterface::Recompute::RectAndTransform);
 
                         canvasComponent->m_pathname = assetIdPathname;
-                        canvasComponent->m_isLoadedInGame = !forEditor;
                     }
                     else
                     {
@@ -4130,27 +4147,25 @@ UiCanvasComponent* UiCanvasComponent::FixupPostLoad(AZ::Entity* canvasEntity, AZ
         return nullptr;
     }
 
+    // Set this before calling InGamePostActivate on the created entities. InGamePostActivate could
+    // call CloneElement which checks this flag
+    if (forEditor)
+    {
+        canvasComponent->m_usageType = UsageType::InEditor;
+    }
+    else
+    {
+        canvasComponent->m_usageType = canvasSize ? UsageType::InPreview : UsageType::InGame;
+    }
+
     // Initialize the target canvas size and uniform scale
     // This should be done before calling InGamePostActivate so that the
     // canvas space rects of the elements are accurate
-    UiRenderer* uiRenderer = forEditor ? GetUiRendererForEditor() : GetUiRendererForGame();
-    if (uiRenderer) // can be null in automated testing
+    if (canvasSize)
     {
-        AZ::Vector2 targetCanvasSize;
-        if (canvasSize)
-        {
-            targetCanvasSize = *canvasSize;
-        }
-        else
-        {
-            targetCanvasSize = uiRenderer->GetViewportSize();
-        }
-        canvasComponent->SetTargetCanvasSizeAndUniformScale(!forEditor, targetCanvasSize);
+        canvasComponent->SetTargetCanvasSize(*canvasSize);
     }
-
-    // Set this before calling InGamePostActivate on the created entities. InGamePostActivate could
-    // call CloneElement which checks this flag
-    canvasComponent->m_isLoadedInGame = !forEditor;
+    canvasComponent->UpdateTargetCanvasSizeAndUniformScale();
 
     // Initialize transform properties of children of layout elements
     canvasComponent->InitializeLayouts();

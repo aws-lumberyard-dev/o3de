@@ -85,13 +85,10 @@ public: // member functions
 
     //! Update the canvas from the UI Editor
     //! \param deltaTime the amount of time in seconds since the last call to this function
-    //! \param isInGame, true if canvas being updated in preview mode, false if being updated in edit mode
-    virtual void UpdateCanvasInEditorViewport(float deltaTime, bool isInGame) = 0;
+    virtual void UpdateCanvasInEditorViewport(float deltaTime) = 0;
 
     //! Render the canvas in the UI Editor
-    //! \param isInGame, true if canvas being rendered in preview mode, false if being rendered in edit mode
-    //! \param viewportSize, this is the size of the viewport that the canvas is being rendered to
-    virtual void RenderCanvasInEditorViewport(bool isInGame, AZ::Vector2 viewportSize) = 0;
+    virtual void RenderCanvasInEditorViewport() = 0;
 
 public: // static member data
 

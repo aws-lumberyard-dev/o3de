@@ -10,6 +10,7 @@
 #include <AzCore/Component/Component.h>
 #include <AzCore/Component/EntityBus.h>
 #include <AzCore/RTTI/TypeInfo.h>
+#include <AzFramework/Viewport/ViewportId.h>
 
 #include <LyShine/Bus/UiCanvasBus.h>
 #include <LyShine/Bus/UiInteractableBus.h>
@@ -33,6 +34,8 @@
 #include "TextureAtlas/TextureAtlasNotificationBus.h"
 
 #include "RenderToTextureBus.h"
+
+#include <Atom/RPI.Reflect/Material/MaterialAsset.h>
 
 namespace AZ
 {
@@ -115,7 +118,9 @@ public: // member functions
     void GetViewportToCanvasMatrix(AZ::Matrix4x4& matrix) override;
     AZ::Vector2 GetCanvasSize() override;
     void SetCanvasSize(const AZ::Vector2& canvasSize) override;
-    void SetTargetCanvasSize(bool isInGame, const AZ::Vector2& targetCanvasSize) override;
+    void SetTargetCanvasSize(const AZ::Vector2& targetCanvasSize) override;
+    AzFramework::ViewportId GetViewportContextId() override;
+    void SetViewportContextId(AzFramework::ViewportId viewportContextId) override;
     AZ::Vector2 GetDeviceScale() override;
     bool GetIsPixelAligned() override;
     void SetIsPixelAligned(bool isPixelAligned) override;
@@ -222,8 +227,8 @@ public: // member functions
     void RecoverOrphanedElements() override;
     void RemoveOrphanedElements() override;
 
-    void UpdateCanvasInEditorViewport(float deltaTime, bool isInGame) override;
-    void RenderCanvasInEditorViewport(bool isInGame, AZ::Vector2 viewportSize) override;
+    void UpdateCanvasInEditorViewport(float deltaTime) override;
+    void RenderCanvasInEditorViewport() override;
     // ~UiEditorCanvasInterface
 
     // UiCanvasComponentImplementationInterface
@@ -236,8 +241,9 @@ public: // member functions
     AZ::Data::Instance<AZ::RPI::AttachmentImage> GetRenderTarget(const AZ::RHI::AttachmentId& attachmentId) override;
     // ~RenderToTextureRequests
 
-    void UpdateCanvas(float deltaTime, bool isInGame);
-    void RenderCanvas(bool isInGame, AZ::Vector2 viewportSize, UiRenderer* uiRenderer = nullptr);
+    void UpdateCanvas(float deltaTime);
+    void BuildRenderGraph();
+    void DrawRenderGraph();
 
     AZ::Entity* GetRootElement() const;
 
@@ -394,9 +400,6 @@ private: // member functions
     //! Get a list of entity IDs for this element and all its descendant elements
     AZStd::vector<AZ::EntityId> GetEntityIdsOfElementAndDescendants(AZ::Entity* entity);
 
-    //! Calculate the target canvas size and uniform scale
-    void SetTargetCanvasSizeAndUniformScale(bool isInGame, AZ::Vector2 canvasSize);
-
     //! Check if an element name is unique
     bool IsElementNameUnique(const AZStd::string& elementName, const LyShine::EntityArray& elements);
 
@@ -434,6 +437,18 @@ private: // member functions
 
     void DestroyScheduledElements();
 
+    //! True when loaded in Ctrl-G mode, UI Editor preview mode or launcher
+    bool IsLoadedInGame();
+
+    //! True when the canvas is rendering in the editor's viewport vs. the game's viewport
+    bool IsRenderingInEditorViewport();
+
+    //! Called internally when a property that affects the target render size has changed
+    void UpdateTargetCanvasSizeAndUniformScale();
+
+    //! Return the UI Renderer responsible for rendering this canvas
+    UiRenderer* GetUiRenderer();
+
     //! Notify LyShine pass that it needs to rebuild its Rtt child passes
     void QueueRttPassRebuild();
 
@@ -450,6 +465,13 @@ private: // static member functions
 private: // types
 
     typedef std::vector<UiCanvasComponent*> CanvasList;   //!< Sorted by draw order
+
+    enum class UsageType
+    {
+        InGame,
+        InPreview,
+        InEditor
+    };
 
 private: // data
 
@@ -525,7 +547,7 @@ private: // data
     //! The authored canvas size, in pixels
     //
     //! While in the editor, this is the resolution that we display the canvas at. While in
-    //! game, the authored canvas size is used to calculate m_uniformDeviceScale, which is
+    //! game, the authored canvas size is used to calculate m_deviceScale, which is
     //! used to apply the "scale to device" feature.
     AZ::Vector2 m_canvasSize;
 
@@ -542,8 +564,11 @@ private: // data
     //! and m_viewportSize.y/m_canvasSize.y
     AZ::Vector2 m_deviceScale;
 
-    //! True if this canvas is loaded in game (including for Ctrl-G in Sandbox), false if open in the UI Editor
-    bool m_isLoadedInGame;
+    //! Specifies how this canvas is being used (in game, in editing mode, in preview mode)
+    UsageType m_usageType = UsageType::InGame;
+
+    //! Set when the desired target canvas size is different from the viewport size
+    AZStd::optional<AZ::Vector2> m_customTargetCanvasSize;
 
     //! This flag allows some UI canvases to stay loaded when transitioning from one level to another
     bool m_keepLoadedOnLevelUnload;
@@ -603,8 +628,6 @@ private: // static data
     static bool s_allowClearingHoverInteractableOnHoverInput;
 
     LyShine::RenderGraph m_renderGraph; //!< the render graph for rendering the canvas, can be cached between frames
-    bool m_isRendering = false;
-    bool m_renderInEditor = false; //!< indicates whether this canvas will render in the Editor viewport or the Game viewport
 
     //! Map of attachments used by this canvas's elements
     AZStd::unordered_map<AZ::RHI::AttachmentId, AZ::Data::Instance<AZ::RPI::AttachmentImage>> m_attachmentImageMap;

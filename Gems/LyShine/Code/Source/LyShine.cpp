@@ -371,24 +371,12 @@ void CLyShine::PostInit()
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
-void CLyShine::SetViewportSize(AZ::Vector2 viewportSize)
-{
-    // Pass the viewport size to UiCanvasComponents
-    m_uiCanvasManager->SetTargetSizeForLoadedCanvases(viewportSize);
-}
-
-////////////////////////////////////////////////////////////////////////////////////////////////////
 void CLyShine::Update(float deltaTimeInSeconds)
 {
     if (!m_uiRenderer->IsReady())
     {
         return;
     }
-
-    // Tell the UI system the size of the viewport we are rendering to - this drives the
-    // canvas size for full screen UI canvases. It needs to be set before either lyShine->Update or
-    // lyShine->Render are called. It must match the viewport size that the input system is using.
-    SetViewportSize(m_uiRenderer->GetViewportSize());
 
     // Guard against nested updates. This can occur if a canvas update below triggers the load screen component's
     // UpdateAndRender (ex. when a texture is loaded)

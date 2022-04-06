@@ -23,7 +23,8 @@ namespace AZ
 namespace LyShine
 {
     using AttachmentImages = AZStd::vector<AZ::Data::Instance<AZ::RPI::AttachmentImage>>;
-    using AttachmentImageAndDependentsPair = AZStd::pair<AZ::Data::Instance<AZ::RPI::AttachmentImage>, AttachmentImages>;
+    using AttachmentImageAndEnabledPair = AZStd::pair<AZ::Data::Instance<AZ::RPI::AttachmentImage>, bool>;
+    using AttachmentImageAndDependentsPair = AZStd::pair<AttachmentImageAndEnabledPair, AttachmentImages>;
     using AttachmentImagesAndDependencies = AZStd::vector<AttachmentImageAndDependentsPair>;
 }
 
@@ -36,10 +37,13 @@ public:
     using BusIdType = AZ::RPI::SceneId;
 
     //! Called when the number of render targets has changed and the LyShine pass needs to rebuild
-    virtual void RebuildRttChildren() = 0;
+    virtual void QueueForRebuild() = 0;
+
+    //! Returns whether the number of render targets have changed and the pass needs to rebuild its children
+    virtual bool IsQueuedForRebuild() = 0;
 
     //! Returns a render to texture pass based on render target name
-    virtual AZ::RPI::RasterPass* GetRttPass(const AZStd::string& name) = 0;
+    virtual AZ::RPI::RasterPass* GetRttPass(const AZ::Name& name) = 0;
 
     //! Returns the final pass that renders the UI canvas contents
     virtual AZ::RPI::RasterPass* GetUiCanvasPass() = 0;

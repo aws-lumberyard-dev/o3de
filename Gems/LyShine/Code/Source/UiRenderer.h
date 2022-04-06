@@ -94,7 +94,7 @@ public: // member functions
     //! Return the dynamic draw context associated with this UI renderer
     AZ::RHI::Ptr<AZ::RPI::DynamicDrawContext> GetDynamicDrawContext();
 
-    AZ::RHI::Ptr<AZ::RPI::DynamicDrawContext> CreateDynamicDrawContextForRTT(const AZStd::string& rttName);
+    AZ::RHI::Ptr<AZ::RPI::DynamicDrawContext> CreateDynamicDrawContextForRTT(const AZ::Name& rttName);
 
     //! Return the shader data for the ui shader
     const UiShaderData& GetUiShaderData();
@@ -128,6 +128,9 @@ public: // member functions
 
     //! Return the viewport context set by the user, or the default if not set
     AZStd::shared_ptr<AZ::RPI::ViewportContext> GetViewportContext();
+
+    //! Return the scene Id of the viewport context
+    AZ::RPI::SceneId GetSceneId();
 
 #ifndef _RELEASE
     //! Setup to record debug texture data before rendering

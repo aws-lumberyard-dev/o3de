@@ -175,11 +175,10 @@ public: // member functions
     //! Set the authored size of the canvas (in pixels)
     virtual void SetCanvasSize(const AZ::Vector2& canvasSize) = 0;
 
-    //! Set the target size of the canvas (in pixels)
+    //! Set a custom target size (in pixels) of a canvas loaded in game/preview mode
     //!
     //! This should be called before the UpdateCanvas and RenderCanvas methods.
-    //! When running in game in full screen mode the target canvas size should be set to the viewport size
-    virtual void SetTargetCanvasSize(bool isInGame, const AZ::Vector2& targetCanvasSize) = 0;
+    virtual void SetTargetCanvasSize(const AZ::Vector2& targetCanvasSize) = 0;
 
     //! Get scale to adjust for the difference between canvas size (authored size)
     //! and the viewport size (target canvas size) when running on current device

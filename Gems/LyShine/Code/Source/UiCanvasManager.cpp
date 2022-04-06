@@ -111,8 +111,7 @@ namespace
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 UiCanvasManager::UiCanvasManager()
-    : m_latestViewportSize(UiCanvasComponent::s_defaultCanvasSize)
-    , m_localUserIdInputFilter(AzFramework::LocalUserIdAny)
+    : m_localUserIdInputFilter(AzFramework::LocalUserIdAny)
 {
     UiCanvasManagerBus::Handler::BusConnect();
     UiCanvasOrderNotificationBus::Handler::BusConnect();
@@ -164,10 +163,6 @@ AZ::EntityId UiCanvasManager::CreateCanvas()
 
     // The game entity context needs to know its corresponding canvas entity for instantiating dynamic slices
     entityContext->SetCanvasEntity(canvasComponent->GetEntityId());
-
-    // When we create a canvas in game we want it to have the correct viewport size from the first frame rather
-    // than having to wait a frame to have it updated
-    canvasComponent->SetTargetCanvasSize(true, m_latestViewportSize);
 
     return canvasComponent->GetEntityId();
 }
@@ -273,6 +268,10 @@ void UiCanvasManager::GenerateMousePositionInputEvent()
     const AzFramework::InputDevice* mouseDevice = AzFramework::InputDeviceRequests::FindInputDevice(AzFramework::InputDeviceMouse::Id);
     if (mouseDevice && mouseDevice->IsConnected())
     {
+        // Get current viewport size for game
+        ILyShine* lyShine = AZ::Interface<ILyShine>::Get();
+        AZ::Vector2 viewportSize = lyShine->GetUiRenderer()->GetViewportSize();
+
         // Create a game input event for the system cursor position
         const AzFramework::InputChannel::Snapshot inputSnapshot(AzFramework::InputDeviceMouse::SystemCursorPosition,
             AzFramework::InputDeviceMouse::Id,
@@ -283,8 +282,8 @@ void UiCanvasManager::GenerateMousePositionInputEvent()
         AzFramework::InputSystemCursorRequestBus::EventResult(systemCursorPositionNormalized,
             AzFramework::InputDeviceMouse::Id,
             &AzFramework::InputSystemCursorRequests::GetSystemCursorPositionNormalized);
-        AZ::Vector2 cursorViewportPos(systemCursorPositionNormalized.GetX() * m_latestViewportSize.GetX(),
-            systemCursorPositionNormalized.GetY() * m_latestViewportSize.GetY());
+        AZ::Vector2 cursorViewportPos(systemCursorPositionNormalized.GetX() * viewportSize.GetX(),
+            systemCursorPositionNormalized.GetY() * viewportSize.GetY());
 
         // Handle the input event
         HandleInputEventForLoadedCanvases(inputSnapshot, cursorViewportPos, AzFramework::ModifierKeyMask::None, true);
@@ -308,9 +307,12 @@ void UiCanvasManager::GetRenderTargets(LyShine::AttachmentImagesAndDependencies&
 {
     for (auto canvas : m_loadedCanvases)
     {
-        LyShine::AttachmentImagesAndDependencies canvasTargets;
-        canvas->GetRenderTargets(canvasTargets);
-        attachmentImagesAndDependencies.insert(attachmentImagesAndDependencies.end(), canvasTargets.begin(), canvasTargets.end());
+        if (canvas->GetEnabled())
+        {
+            LyShine::AttachmentImagesAndDependencies canvasTargets;
+            canvas->GetRenderTargets(canvasTargets);
+            attachmentImagesAndDependencies.insert(attachmentImagesAndDependencies.end(), canvasTargets.begin(), canvasTargets.end());
+        }
     }
 }
 
@@ -564,17 +566,6 @@ AZ::EntityId UiCanvasManager::FindCanvasById(LyShine::CanvasId id)
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
-void UiCanvasManager::SetTargetSizeForLoadedCanvases(AZ::Vector2 viewportSize)
-{
-    for (auto canvas : m_loadedCanvases)
-    {
-        canvas->SetTargetCanvasSize(true, viewportSize);
-    }
-
-    m_latestViewportSize = viewportSize;
-}
-
-////////////////////////////////////////////////////////////////////////////////////////////////////
 void UiCanvasManager::UpdateLoadedCanvases(float deltaTime)
 {
     // make a temporary copy of the list in case the update code ends up releasing or loading canvases during iterating over the list
@@ -592,7 +583,7 @@ void UiCanvasManager::UpdateLoadedCanvases(float deltaTime)
     }
     for (auto canvas : loadedCanvases)
     {
-        canvas->UpdateCanvas(deltaTime, true);
+        canvas->UpdateCanvas(deltaTime);
     }
     m_recursionGuardCount--;
 
@@ -619,13 +610,26 @@ void UiCanvasManager::RenderLoadedCanvases()
         m_fontTextureHasChanged = false;
     }
 
+    // Build any render graphs that are dirty
     for (auto canvas : m_loadedCanvases)
     {
-        // In game we render full screen so the viewport size and target canvas size are the same.
-        // For render targets, the target canvas size is always the authored canvas size
-        AZ::Vector2 viewportSize = canvas->GetTargetCanvasSize();
+        canvas->BuildRenderGraph();
+    }
 
-        canvas->RenderCanvas(true, viewportSize);
+    // We need to ensure the necessary render passes have been created before adding any draw calls
+    bool needsPassRebuild = false;
+    ILyShine* lyShine = AZ::Interface<ILyShine>::Get();
+    AZ::RPI::SceneId sceneId = lyShine->GetUiRenderer()->GetSceneId();
+    LyShinePassRequestBus::EventResult(needsPassRebuild, sceneId, &LyShinePassRequests::IsQueuedForRebuild);
+    if (needsPassRebuild)
+    {
+        // Process LyShine pass changes to create the necessary render to texture child passes
+        AZ::RPI::PassSystemInterface::Get()->ProcessQueuedChanges();
+    }
+
+    for (auto canvas : m_loadedCanvases)
+    {
+        canvas->DrawRenderGraph();
     }
 }
 
@@ -675,14 +679,18 @@ bool UiCanvasManager::HandleInputEventForLoadedCanvases(const AzFramework::Input
     // mode so that it works exactly the same as in-game input, but this is a larger task for later.
     const AzFramework::InputChannel::Snapshot inputSnapshot(inputChannel);
 
+    // Get current viewport size for game
+    ILyShine* lyShine = AZ::Interface<ILyShine>::Get();
+    AZ::Vector2 viewportSize = lyShine->GetUiRenderer()->GetViewportSize();
+
     // De-normalize the position (if any) of the input event, as the UI system expects it relative
     // to the viewport from here on.
     AZ::Vector2 viewportPos(0.0f, 0.0f);
     const AzFramework::InputChannel::PositionData2D* positionData2D = inputChannel.GetCustomData<AzFramework::InputChannel::PositionData2D>();
     if (positionData2D)
     {
-        viewportPos.SetX(positionData2D->m_normalizedPosition.GetX() * m_latestViewportSize.GetX());
-        viewportPos.SetY(positionData2D->m_normalizedPosition.GetY() * m_latestViewportSize.GetY());
+        viewportPos.SetX(positionData2D->m_normalizedPosition.GetX() * viewportSize.GetX());
+        viewportPos.SetY(positionData2D->m_normalizedPosition.GetY() * viewportSize.GetY());
     }
 
     // Get the active modifier keys (if any) of the input event. Will only exist for keyboard keys.
@@ -816,7 +824,7 @@ bool UiCanvasManager::HandleInputEventForInWorldCanvases(const AzFramework::Inpu
     }
 
     // First we need to construct a ray from either the center of the screen or the mouse position
-    CLyShine* lyShine = static_cast<CLyShine*>(AZ::Interface<ILyShine>::Get());
+    ILyShine* lyShine = AZ::Interface<ILyShine>::Get();
     auto viewportContext = lyShine->GetUiRenderer()->GetViewportContext();
     AZ::Transform cameraTransform = viewportContext->GetCameraTransform();
 

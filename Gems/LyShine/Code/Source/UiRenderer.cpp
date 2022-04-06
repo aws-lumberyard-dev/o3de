@@ -166,6 +166,11 @@ AZStd::shared_ptr<AZ::RPI::ViewportContext> UiRenderer::GetViewportContext()
     return m_viewportContext;
 }
 
+AZ::RPI::SceneId UiRenderer::GetSceneId()
+{
+    return m_scene->GetId();
+}
+
 void UiRenderer::CacheShaderData(const AZ::RHI::Ptr<AZ::RPI::DynamicDrawContext>& dynamicDraw)
 {
     // Cache draw srg input indices
@@ -244,7 +249,7 @@ AZ::RHI::Ptr<AZ::RPI::DynamicDrawContext> UiRenderer::GetDynamicDrawContext()
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
-AZ::RHI::Ptr<AZ::RPI::DynamicDrawContext> UiRenderer::CreateDynamicDrawContextForRTT(const AZStd::string& rttName)
+AZ::RHI::Ptr<AZ::RPI::DynamicDrawContext> UiRenderer::CreateDynamicDrawContextForRTT(const AZ::Name& rttName)
 {
     // find the rtt pass with the specified name
     AZ::RPI::RasterPass* rttPass = nullptr;    

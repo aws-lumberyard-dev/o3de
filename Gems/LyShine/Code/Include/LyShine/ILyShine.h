@@ -17,6 +17,7 @@ class IDraw2d;
 class ISprite;
 struct IUiAnimationSystem;
 class UiEntityContext;
+class UiRenderer;
 
 namespace AZ::RPI
 {
@@ -70,6 +71,13 @@ public:
     //! Reload a UI Canvas from xml. For use in the editor for the undo system only
     virtual AZ::EntityId ReloadCanvasFromXml(const AZStd::string& xmlString, UiEntityContext* entityContext) = 0;
 
+    //! Get the UIRenderer for the game
+    virtual UiRenderer* GetUiRenderer() = 0;
+
+    // Get/set the UIRenderer for the Editor
+    virtual UiRenderer* GetUiRendererForEditor() = 0;
+    virtual void SetUiRendererForEditor(AZStd::shared_ptr<UiRenderer> uiRenderer) = 0;
+
     //! Get a loaded canvas by CanvasId
     //! NOTE: this only searches canvases loaded in the game (not the editor)
     virtual AZ::EntityId FindCanvasById(LyShine::CanvasId id) = 0;
@@ -98,9 +106,6 @@ public:
 
     //! Perform post-initialization (script system will be available)
     virtual void PostInit() = 0;
-
-    //! Set the current viewport size, this should be called before Update and Render are called
-    virtual void SetViewportSize(AZ::Vector2 viewportSize) = 0;
 
     //! Update UI elements
     //! \param deltaTimeInSeconds the amount of time in seconds since the last call to this function

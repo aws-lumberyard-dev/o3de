@@ -211,7 +211,7 @@ namespace LyShine
         float GetViewportHeight() const { return m_viewportHeight; }
         AZ::Color GetClearColor() const { return m_clearColor; }
 
-        const char* GetRenderTargetName() const;
+        const AZ::Name& GetRenderTargetName() const;
         int GetNestLevel() const;
 
         const AZ::Data::Instance<AZ::RPI::AttachmentImage> GetRenderTarget() const;
@@ -292,7 +292,7 @@ namespace LyShine
             BlendMode blendMode) override;
 
         //! Render the display graph
-        void Render(UiRenderer* uiRenderer, const AZ::Vector2& viewportSize);
+        void Render(UiRenderer* uiRenderer);
 
         //! Set the dirty flag - this also resets the graph
         void SetDirtyFlag(bool isDirty);

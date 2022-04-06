@@ -81,7 +81,6 @@ public: // member functions
 
     AZ::EntityId FindCanvasById(LyShine::CanvasId id);
 
-    void SetTargetSizeForLoadedCanvases(AZ::Vector2 viewportSize);
     void UpdateLoadedCanvases(float deltaTimeInSeconds);
     void RenderLoadedCanvases();
 
@@ -142,8 +141,6 @@ private: // data
 
     CanvasList m_loadedCanvases;             // UI Canvases loaded in game
     CanvasList m_loadedCanvasesInEditor;     // UI Canvases loaded in editor
-
-    AZ::Vector2 m_latestViewportSize;        // The most recent viewport size
 
     int m_recursionGuardCount = 0;   // incremented while updating or doing input handling for canvases
     AZStd::vector<AZ::EntityId> m_canvasesQueuedForDeletion;

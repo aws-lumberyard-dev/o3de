@@ -39,8 +39,9 @@ namespace LyShine
         void CreateChildPassesInternal() override;
 
         // LyShinePassRequestBus overrides
-        void RebuildRttChildren() override;
-        AZ::RPI::RasterPass* GetRttPass(const AZStd::string& name) override;
+        void QueueForRebuild() override;
+        bool IsQueuedForRebuild() override;
+        AZ::RPI::RasterPass* GetRttPass(const AZ::Name& name) override;
         AZ::RPI::RasterPass* GetUiCanvasPass() override;
 
     private:
@@ -51,10 +52,10 @@ namespace LyShine
         void AddRttChildPasses(LyShine::AttachmentImagesAndDependencies AttachmentImagesAndDependencies);
 
         // Add a render to texture child pass
-        void AddRttChildPass(AZ::Data::Instance<AZ::RPI::AttachmentImage> attachmentImage, AttachmentImages dependentAttachmentImages);
+        void AddRttChildPass(AZ::Data::Instance<AZ::RPI::AttachmentImage> attachmentImage, AttachmentImages dependentAttachmentImages, bool startEnabled);
 
         // Append the final pass to render UI Canvas elements to the screen
-        void AddUiCanvasChildPass(LyShine::AttachmentImagesAndDependencies AttachmentImagesAndDependencies);
+        void AddUiCanvasChildPass(LyShine::AttachmentImages attachmentImageDependencies);
 
         // Pass that renders the UI Canvas elements to the screen
         AZ::RPI::Ptr<LyShineChildPass> m_uiCanvasChildPass;

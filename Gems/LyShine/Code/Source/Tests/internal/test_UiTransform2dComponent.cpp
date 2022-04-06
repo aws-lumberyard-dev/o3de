@@ -231,7 +231,7 @@ namespace
         EBUS_EVENT_ID(testElemId, UiTransformBus, SetScaleToDeviceMode, UiTransformInterface::ScaleToDeviceMode::UniformScaleToFit);
         
         // Resize the canvas to change the DeviceScale
-        canvas->SetTargetCanvasSize(true, AZ::Vector2(3, 3));
+        canvas->SetTargetCanvasSize(AZ::Vector2(3, 3));
         EBUS_EVENT_ID(testElemId, UiTransformBus, GetLocalTransform, transform2);
         AZ_Assert(transform != transform2, "Test failed");
 

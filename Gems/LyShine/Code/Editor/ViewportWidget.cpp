@@ -265,8 +265,7 @@ ViewportWidget::~ViewportWidget()
 
     // Notify LyShine that this is no longer a valid UiRenderer.
     // Only one viewport/renderer is currently supported in the UI Editor
-    CLyShine* lyShine = static_cast<CLyShine*>(AZ::Interface<ILyShine>::Get());
-    lyShine->SetUiRendererForEditor(nullptr);
+    AZ::Interface<ILyShine>::Get()->SetUiRendererForEditor(nullptr);
 }
 
 void ViewportWidget::InitUiRenderer()
@@ -276,12 +275,11 @@ void ViewportWidget::InitUiRenderer()
     // Notify LyShine that this is the UiRenderer to be used for rendering
     // UI canvases that are loaded in the UI Editor.
     // Only one viewport/renderer is currently supported in the UI Editor
-    CLyShine* lyShine = static_cast<CLyShine*>(AZ::Interface<ILyShine>::Get());
-    lyShine->SetUiRendererForEditor(m_uiRenderer);
+    AZ::Interface<ILyShine>::Get()->SetUiRendererForEditor(m_uiRenderer);
 
     m_draw2d = AZStd::make_shared<CDraw2d>(GetViewportContext());
 
-    LyShinePassDataRequestBus::Handler::BusConnect(GetViewportContext()->GetRenderScene()->GetId());
+    LyShinePassDataRequestBus::Handler::BusConnect(m_uiRenderer->GetSceneId());
 }
 
 ViewportInteraction* ViewportWidget::GetViewportInteraction()
@@ -955,14 +953,8 @@ void ViewportWidget::UpdateEditMode(float deltaTime)
         return; // this can happen if a render happens during a restart
     }
 
-    AZ::Vector2 canvasSize;
-    EBUS_EVENT_ID_RESULT(canvasSize, canvasEntityId, UiCanvasBus, GetCanvasSize);
-
-    // Set the target size of the canvas
-    EBUS_EVENT_ID(canvasEntityId, UiCanvasBus, SetTargetCanvasSize, false, canvasSize);
-
-    // Update this canvas (must be done after SetTargetCanvasSize)
-    EBUS_EVENT_ID(canvasEntityId, UiEditorCanvasBus, UpdateCanvasInEditorViewport, deltaTime, false);
+    // Update this canvas
+    EBUS_EVENT_ID(canvasEntityId, UiEditorCanvasBus, UpdateCanvasInEditorViewport, deltaTime);
 }
 
 void ViewportWidget::RenderEditMode()
@@ -995,12 +987,8 @@ void ViewportWidget::RenderEditMode()
         m_viewportInteraction->GetCanvasToViewportScale(),
         m_viewportInteraction->GetCanvasToViewportTranslation());
 
-    // Set the target size of the canvas
-    EBUS_EVENT_ID(canvasEntityId, UiCanvasBus, SetTargetCanvasSize, false, canvasSize);
-
     // Render this canvas
-    AZ::Vector2 viewportSize = GetRenderViewportSize();
-    EBUS_EVENT_ID(canvasEntityId, UiEditorCanvasBus, RenderCanvasInEditorViewport, false, viewportSize);
+    EBUS_EVENT_ID(canvasEntityId, UiEditorCanvasBus, RenderCanvasInEditorViewport);
 
     m_draw2d->SetSortKey(topLayerKey);
     // Draw borders around selected and unselected UI elements in the viewport
@@ -1108,45 +1096,17 @@ void ViewportWidget::UpdatePreviewMode(float deltaTime)
 
     if (canvasEntityId.IsValid())
     {
-        // Get the canvas size
-        AZ::Vector2 canvasSize = m_editorWindow->GetPreviewCanvasSize();
-        if (canvasSize.GetX() == 0.0f && canvasSize.GetY() == 0.0f)
-        {
-            // special value of (0,0) means use the viewport size
-            canvasSize = GetRenderViewportSize();;
-        }
+        // Rather than scaling to exactly fit we try to draw at one of these preset scale factors
+        // to make it it bit more obvious that the canvas size is changing
+        float zoomScales[] = {
+            1.00f,
+            0.75f,
+            0.50f,
+            0.25f,
+            0.10f,
+            0.05f
+        };
 
-        // Set the target size of the canvas
-        EBUS_EVENT_ID(canvasEntityId, UiCanvasBus, SetTargetCanvasSize, true, canvasSize);
-
-        // Update this canvas (must be done after SetTargetCanvasSize)
-        EBUS_EVENT_ID(canvasEntityId, UiEditorCanvasBus, UpdateCanvasInEditorViewport, deltaTime, true);
-
-        // Execute events that have been queued during the canvas update
-        AZ::Interface<ILyShine>::Get()->ExecuteQueuedEvents();
-    }
-}
-
-void ViewportWidget::RenderPreviewMode()
-{
-    // sort keys for different layers
-    static const int64_t backgroundKey = -0x1000;
-
-    AZ::EntityId canvasEntityId = m_editorWindow->GetPreviewModeCanvas();
-
-    // Rather than scaling to exactly fit we try to draw at one of these preset scale factors
-    // to make it it bit more obvious that the canvas size is changing
-    float zoomScales[] = {
-        1.00f,
-        0.75f,
-        0.50f,
-        0.25f,
-        0.10f,
-        0.05f
-    };
-
-    if (canvasEntityId.IsValid())
-    {
         AZ::Vector2 viewportSize = GetRenderViewportSize();
 
         // Get the canvas size
@@ -1204,6 +1164,34 @@ void ViewportWidget::RenderPreviewMode()
         canvasToViewportMatrix.SetTranslation(translation);
         EBUS_EVENT_ID(canvasEntityId, UiCanvasBus, SetCanvasToViewportMatrix, canvasToViewportMatrix);
 
+        // Set the target size of the canvas
+        EBUS_EVENT_ID(canvasEntityId, UiCanvasBus, SetTargetCanvasSize, canvasSize);
+
+        // Update this canvas (must be done after SetTargetCanvasSize)
+        EBUS_EVENT_ID(canvasEntityId, UiEditorCanvasBus, UpdateCanvasInEditorViewport, deltaTime);
+
+        // Execute events that have been queued during the canvas update
+        AZ::Interface<ILyShine>::Get()->ExecuteQueuedEvents();
+    }
+}
+
+void ViewportWidget::RenderPreviewMode()
+{
+    // sort keys for different layers
+    static const int64_t backgroundKey = -0x1000;
+
+    AZ::EntityId canvasEntityId = m_editorWindow->GetPreviewModeCanvas();
+
+        AZ::Vector2 viewportSize = GetRenderViewportSize();
+
+        // Get the canvas size
+        AZ::Vector2 canvasSize = m_editorWindow->GetPreviewCanvasSize();
+        if (canvasSize.GetX() == 0.0f && canvasSize.GetY() == 0.0f)
+        {
+            // special value of (0,0) means use the viewport size
+            canvasSize = viewportSize;
+        }
+
         m_draw2d->SetSortKey(backgroundKey);
 
         RenderViewportBackground();
@@ -1221,8 +1209,7 @@ void ViewportWidget::RenderPreviewMode()
         // NOTE: the displayBounds param is always false. If we wanted a debug option to display the bounds
         // in preview mode we would need to render the deferred primitives after this call so that they
         // show up in the correct viewport
-        EBUS_EVENT_ID(canvasEntityId, UiEditorCanvasBus, RenderCanvasInEditorViewport, true, viewportSize);
-    }
+        EBUS_EVENT_ID(canvasEntityId, UiEditorCanvasBus, RenderCanvasInEditorViewport);
 }
 
 void ViewportWidget::RenderViewportBackground()

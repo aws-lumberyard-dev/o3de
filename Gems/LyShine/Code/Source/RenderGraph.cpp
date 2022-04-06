@@ -511,7 +511,7 @@ namespace LyShine
                 m_dynamicDraw = uiRenderer->CreateDynamicDrawContextForRTT(GetRenderTargetName());
                 if (m_dynamicDraw)
                 {
-                    m_dynamicDraw->SetViewport(AZ::RHI::Viewport(m_viewportX, m_viewportWidth, m_viewportY, m_viewportHeight));
+                    m_dynamicDraw->SetViewport(AZ::RHI::Viewport(0.0f, m_viewportWidth, 0.0f, m_viewportHeight));
                 }
             }
 
@@ -531,9 +531,9 @@ namespace LyShine
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////
-    const char* RenderTargetRenderNode::GetRenderTargetName() const
+    const AZ::Name& RenderTargetRenderNode::GetRenderTargetName() const
     {
-        return m_attachmentImage->GetRHIImage()->GetName().GetCStr();
+        return m_attachmentImage->GetRHIImage()->GetName();
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -937,7 +937,7 @@ namespace LyShine
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////
-    void RenderGraph::Render(UiRenderer* uiRenderer, [[maybe_unused]] const AZ::Vector2& viewportSize)
+    void RenderGraph::Render(UiRenderer* uiRenderer)
     {
         AZ::RHI::Ptr<AZ::RPI::DynamicDrawContext> dynamicDraw = uiRenderer->GetDynamicDrawContext();
 
@@ -948,25 +948,22 @@ namespace LyShine
         defaultBlendModeState.m_writeMask = uiRenderer->GetBaseState().m_blendStateWriteMask;
         dynamicDraw->SetTarget0BlendState(defaultBlendModeState);
 
+        AZ::Matrix4x4 modelViewProjectionMatrix = uiRenderer->GetModelViewProjectionMatrix();
+
         // First render the render targets, they are sorted so that more deeply nested ones are rendered first.
         // They only need to be rendered the first time that a render graph is rendered after it has been built.
         if (m_renderToRenderTargetCount == 0)
         {
             // Enable the Rtt passes to draw onto the render targets
             SetRttPassesEnabled(uiRenderer, true);
-        }
 
-        // LYSHINE_ATOM_TODO - It is currently necessary to render to the targets twice. Needs investigation
-        constexpr int timesToRenderToRenderTargets = 2;
-        if (m_renderToRenderTargetCount < timesToRenderToRenderTargets)
-        {
             for (RenderNode* renderNode : m_renderTargetRenderNodes)
             {
-                renderNode->Render(uiRenderer, uiRenderer->GetModelViewProjectionMatrix(), dynamicDraw);
+                renderNode->Render(uiRenderer, modelViewProjectionMatrix, dynamicDraw);
             }
             m_renderToRenderTargetCount++;
         }
-        else if (m_renderToRenderTargetCount < timesToRenderToRenderTargets + 1)
+        else if (m_renderToRenderTargetCount == 1)
         {
             // Disable the rtt render passes since they don't need to be rendered to until the graph becomes invalidated again.
             // This is also necessary to prevent the render targets' contents getting cleared on load by the pass.
@@ -974,9 +971,10 @@ namespace LyShine
             m_renderToRenderTargetCount++;
         }
 
+        // Render the rest of the render nodes
         for (RenderNode* renderNode : m_renderNodes)
         {
-            renderNode->Render(uiRenderer, uiRenderer->GetModelViewProjectionMatrix(), dynamicDraw);
+            renderNode->Render(uiRenderer, modelViewProjectionMatrix, dynamicDraw);
         }
     }
 
@@ -1018,10 +1016,8 @@ namespace LyShine
     ////////////////////////////////////////////////////////////////////////////////////////////////////
     void RenderGraph::GetRenderTargetsAndDependencies(LyShine::AttachmentImagesAndDependencies& attachmentImagesAndDependencies)
     {
-        for (RenderNode* renderNode : m_renderTargetRenderNodes)
+        for (RenderTargetRenderNode* renderTargetRenderNode : m_renderTargetRenderNodes)
         {
-            const RenderTargetRenderNode* renderTargetRenderNode = static_cast<const RenderTargetRenderNode*>(renderNode);
-
             if (renderTargetRenderNode->GetNestLevel() == 0)
             {
                 LyShine::AttachmentImages attachmentImages;
@@ -1035,7 +1031,9 @@ namespace LyShine
                     }
                 }
 
-                attachmentImagesAndDependencies.emplace_back(AttachmentImageAndDependentsPair(renderTargetRenderNode->GetRenderTarget(), attachmentImages));
+                bool startEnabled = m_renderToRenderTargetCount == 0;
+                AttachmentImageAndEnabledPair attachmentImageEnabledPair(renderTargetRenderNode->GetRenderTarget(), startEnabled);
+                attachmentImagesAndDependencies.emplace_back(AttachmentImageAndDependentsPair(attachmentImageEnabledPair, attachmentImages));
             }
         }
     }
@@ -1067,14 +1065,14 @@ namespace LyShine
         info.m_numNodesDueToTextures = 0;
         info.m_wasBuiltThisFrame = m_wasBuiltThisFrame;
         info.m_timeGraphLastBuiltMs = m_timeGraphLastBuiltMs;
-        info.m_isReusingRenderTargets = m_renderToRenderTargetCount >= 2 && !m_renderTargetRenderNodes.empty();
+        info.m_isReusingRenderTargets = m_renderToRenderTargetCount > 1 && !m_renderTargetRenderNodes.empty();
 
         m_wasBuiltThisFrame = false;
 
         AZStd::set<AZ::Data::Instance<AZ::RPI::Image>> uniqueTextures;
 
         // If we are rendering to the render targets this frame then record the stats for doing that
-        if (m_renderToRenderTargetCount < 2)
+        if (m_renderToRenderTargetCount == 1)
         {
             for (RenderNode* renderNode : m_renderTargetRenderNodes)
             {
@@ -1205,7 +1203,7 @@ namespace LyShine
             for (const RenderNode* renderNode : m_renderTargetRenderNodes)
             {
                 const RenderTargetRenderNode* renderTargetRenderNode = static_cast<const RenderTargetRenderNode*>(renderNode);
-                const char* renderTargetName = renderTargetRenderNode->GetRenderTargetName();
+                const char* renderTargetName = renderTargetRenderNode->GetRenderTargetName().GetCStr();
 
                 AZ::Color clearColor = renderTargetRenderNode->GetClearColor();
                 AZStd::string logLine = AZStd::string::format("RenderTarget %s (ClearColor=(%f,%f,%f), ClearAlpha=%f, Viewport=(%f,%f,%f,%f)) :\r\n",
@@ -1488,12 +1486,11 @@ namespace LyShine
     void RenderGraph::SetRttPassesEnabled(UiRenderer* uiRenderer, bool enabled)
     {
         // Enable or disable the rtt render passes
-        AZ::RPI::SceneId sceneId = uiRenderer->GetViewportContext()->GetRenderScene()->GetId();
         for (RenderTargetRenderNode* renderTargetRenderNode : m_renderTargetRenderNodes)
         {
             // Find the rtt pass to disable
             AZ::RPI::RasterPass* rttPass = nullptr;
-            LyShinePassRequestBus::EventResult(rttPass, sceneId, &LyShinePassRequestBus::Events::GetRttPass, renderTargetRenderNode->GetRenderTargetName());
+            LyShinePassRequestBus::EventResult(rttPass, uiRenderer->GetSceneId(), &LyShinePassRequestBus::Events::GetRttPass, renderTargetRenderNode->GetRenderTargetName());
             if (rttPass)
             {
                 rttPass->SetEnabled(enabled);

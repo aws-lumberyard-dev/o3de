@@ -63,6 +63,9 @@ public:
     AZ::EntityId CreateCanvasInEditor(UiEntityContext* entityContext) override;
     AZ::EntityId LoadCanvasInEditor(const AZStd::string& assetIdPathname, const AZStd::string& sourceAssetPathname, UiEntityContext* entityContext) override;
     AZ::EntityId ReloadCanvasFromXml(const AZStd::string& xmlString, UiEntityContext* entityContext) override;
+    UiRenderer* GetUiRenderer() override;
+    UiRenderer* GetUiRendererForEditor() override;
+    void SetUiRendererForEditor(AZStd::shared_ptr<UiRenderer> uiRenderer) override;
     AZ::EntityId FindCanvasById(LyShine::CanvasId id) override;
     AZ::EntityId FindLoadedCanvasByPathName(const AZStd::string& assetIdPathname) override;
 
@@ -76,7 +79,6 @@ public:
 
     void PostInit() override;
 
-    void SetViewportSize(AZ::Vector2 viewportSize) override;
     void Update(float deltaTimeInSeconds) override;
     void Render() override;
     void ExecuteQueuedEvents() override;
@@ -118,13 +120,6 @@ public:
     // LyShinePassDataRequestBus
     LyShine::AttachmentImagesAndDependencies GetRenderTargets() override;
     // ~LyShinePassDataRequestBus
-
-    // Get the UIRenderer for the game (which is owned by CLyShine). This is not exposed outside the gem.
-    UiRenderer* GetUiRenderer();
-
-    // Get/set the UIRenderer for the Editor (which is owned by CLyShine). This is not exposed outside the gem.
-    UiRenderer* GetUiRendererForEditor();
-    void SetUiRendererForEditor(AZStd::shared_ptr<UiRenderer> uiRenderer);
 
 public: // static member functions
 
