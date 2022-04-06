@@ -50,5 +50,6 @@ namespace Blast
         // Legacy Blast material Id is only used when converting from old blast material asset,
         // which holds a library of materials, to the new blast material asset.
         BlastMaterialId m_legacyBlastMaterialId;
+        friend class BlastMaterialFromAssetConfiguration;
     };
 } // namespace Blast

@@ -30,7 +30,7 @@ namespace Blast
         if (auto* serializeContext = azrtti_cast<AZ::SerializeContext*>(context))
         {
             serializeContext->Class<Blast::MaterialAsset, AZ::Data::AssetData>()
-                ->Version(2)
+                ->Version(1)
                 ->Attribute(AZ::Edit::Attributes::EnableForAssetEditor, true)
                 ->Field("MaterialConfiguration", &MaterialAsset::m_materialConfiguration)
                 ->Field("LegacyBlastMaterialId", &MaterialAsset::m_legacyBlastMaterialId)

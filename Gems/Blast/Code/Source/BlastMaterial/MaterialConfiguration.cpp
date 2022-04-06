@@ -18,7 +18,7 @@ namespace Blast
         if (auto* serializeContext = azrtti_cast<AZ::SerializeContext*>(context))
         {
             serializeContext->Class<Blast::MaterialConfiguration>()
-                ->Version(2)
+                ->Version(1)
                 ->Field("Health", &MaterialConfiguration::m_health)
                 ->Field("ForceDivider", &MaterialConfiguration::m_forceDivider)
                 ->Field("MinDamageThreshold", &MaterialConfiguration::m_minDamageThreshold)

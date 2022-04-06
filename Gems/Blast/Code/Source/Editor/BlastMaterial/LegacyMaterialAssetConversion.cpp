@@ -10,8 +10,12 @@
 #include <AzCore/Console/IConsole.h>
 #include <AzCore/Asset/AssetCommon.h>
 #include <AzCore/Asset/AssetManager.h>
+#include <AzCore/IO/IOUtils.h>
+#include <AzCore/std/smart_ptr/make_shared.h>
 
 #include <AzFramework/Asset/GenericAssetHandler.h>
+
+#include <AzToolsFramework/API/EditorAssetSystemAPI.h>
 
 #include <BlastMaterial/MaterialConfiguration.h>
 #include <BlastMaterial/MaterialAsset.h>
@@ -22,6 +26,40 @@ namespace Blast
 
     AZ_CONSOLEFREEFUNC("blast_convertMaterialLibrariesIntoIndividualMaterials", ConvertMaterialLibrariesIntoIndividualMaterials, AZ::ConsoleFunctorFlags::Null,
         "Finds legacy blast material library assets in the project and generates new individual blast material assets. Original library assets will be deleted.");
+
+    // DEPRECATED
+    // Default values used for initializing materials.
+    // Use BlastMaterialConfiguration to define properties for materials at the time of creation.
+    class BlastMaterialConfiguration
+    {
+    public:
+        AZ_TYPE_INFO(BlastMaterialConfiguration, "{BEC875B1-26E4-4A4A-805E-0E880372720D}");
+
+        static void Reflect(AZ::ReflectContext* context)
+        {
+            if (auto* serializeContext = azrtti_cast<AZ::SerializeContext*>(context))
+            {
+                serializeContext->Class<BlastMaterialConfiguration>()
+                    ->Version(1)
+                    ->Field("MaterialName", &BlastMaterialConfiguration::m_materialName)
+                    ->Field("Health", &BlastMaterialConfiguration::m_health)
+                    ->Field("ForceDivider", &BlastMaterialConfiguration::m_forceDivider)
+                    ->Field("MinDamageThreshold", &BlastMaterialConfiguration::m_minDamageThreshold)
+                    ->Field("MaxDamageThreshold", &BlastMaterialConfiguration::m_maxDamageThreshold)
+                    ->Field("StressLinearFactor", &BlastMaterialConfiguration::m_stressLinearFactor)
+                    ->Field("StressAngularFactor", &BlastMaterialConfiguration::m_stressAngularFactor);
+            }
+        }
+
+        float m_health = 1.0f;
+        float m_forceDivider = 1.0f;
+        float m_minDamageThreshold = 0.0f;
+        float m_maxDamageThreshold = 1.0f;
+        float m_stressLinearFactor = 1.0f;
+        float m_stressAngularFactor = 1.0f;
+
+        AZStd::string m_materialName{"Default"};
+    };
 
     // DEPRECATED
     // A single BlastMaterial entry in the material library
@@ -42,8 +80,19 @@ namespace Blast
             }
         }
 
-        MaterialConfiguration m_configuration;
+        BlastMaterialConfiguration m_configuration;
         BlastMaterialId m_id;
+
+        void CopyDataToMaterialAsset(MaterialAsset& materialAsset) const
+        {
+            materialAsset.m_materialConfiguration.m_health = m_configuration.m_health;
+            materialAsset.m_materialConfiguration.m_forceDivider = m_configuration.m_forceDivider;
+            materialAsset.m_materialConfiguration.m_minDamageThreshold = m_configuration.m_minDamageThreshold;
+            materialAsset.m_materialConfiguration.m_maxDamageThreshold = m_configuration.m_maxDamageThreshold;
+            materialAsset.m_materialConfiguration.m_stressLinearFactor = m_configuration.m_stressLinearFactor;
+            materialAsset.m_materialConfiguration.m_stressAngularFactor = m_configuration.m_stressAngularFactor;
+            materialAsset.m_legacyBlastMaterialId = m_id;
+        }
     };
 
     // DEPRECATED
@@ -72,6 +121,7 @@ namespace Blast
 
     void ReflectLegacyMaterialClasses(AZ::ReflectContext* context)
     {
+        BlastMaterialConfiguration::Reflect(context);
         BlastMaterialFromAssetConfiguration::Reflect(context);
         BlastMaterialLibraryAsset::Reflect(context);
     }
@@ -91,59 +141,188 @@ namespace Blast
             AZStd::string m_sourceFile; // Path to source file. Used during conversion to new material asset.
         };
 
-        // Collect all BlastMaterialLibraryAsset
-        AZStd::vector<BlastLibrary> materialLibraries;
+        // Collect all legacy material libraries to convert to new material assets
+        AZStd::vector<BlastLibrary> materialLibrariesToConvert;
         {
             // Unregister the new MaterialAsset handler for .blastmaterial files
             AZ::Data::AssetManager::Instance().UnregisterHandler(materialAssetHandler);
 
-            // Create asset handler for BlastMaterialLibraryAsset for .blastmaterial files
-            auto materialLibraryAsset = AZStd::make_unique<AzFramework::GenericAssetHandler<BlastMaterialLibraryAsset>>(
+            // Create asset handler for legacy BlastMaterialLibraryAsset for .blastmaterial files
+            auto materialLibraryAssetHandler = AZStd::make_unique<AzFramework::GenericAssetHandler<BlastMaterialLibraryAsset>>(
                 "Blast Material", "Blast Material", "blastmaterial");
-            materialLibraryAsset->Register();
+            AZ::Data::AssetManager::Instance().RegisterHandler(materialLibraryAssetHandler.get(), BlastMaterialLibraryAsset::RTTI_Type());
 
-            // For each .blastmaterial file
-                // Is it valid? Meaning it's a BlastMaterialLibraryAsset
-                    // Read and add it to vector.
-
-            // automatically register all layer categories assets
             AZ::Data::AssetCatalogRequestBus::Broadcast(&AZ::Data::AssetCatalogRequestBus::Events::EnumerateAssets,
                 nullptr,
-                [&materialLibraries](const AZ::Data::AssetId assetId, const AZ::Data::AssetInfo& assetInfo) {
-                    if (assetInfo.m_assetType == BlastMaterialLibraryAsset::RTTI_Type())
+                [&materialLibraryAssetHandler, &materialLibrariesToConvert](const AZ::Data::AssetId assetId, const AZ::Data::AssetInfo& assetInfo)
+                {
+                    // In the catalog all .blastmaterial files have rtti type of new MaterialAsset class.
+                    if (assetInfo.m_assetType != MaterialAsset::RTTI_Type())
                     {
-                        AZ::Data::Asset<BlastMaterialLibraryAsset> materialLibrary =
-                            AZ::Data::AssetManager::Instance().GetAsset<BlastMaterialLibraryAsset>(assetId, AZ::Data::AssetLoadBehavior::PreLoad);
-                        materialLibrary.QueueLoad();
-                        materialLibrary.BlockUntilLoadComplete();
-
-                        BlastLibrary blastLibrary;
-                        blastLibrary.m_materialAssetConfigurations = materialLibrary->m_materialLibrary;
-                        blastLibrary.m_sourceFile = assetInfo.m_relativePath;
-
-                        materialLibraries.push_back(AZStd::move(blastLibrary));
+                        return;
                     }
+
+                    AZStd::string assetPath;
+                    AZ::Data::AssetCatalogRequestBus::BroadcastResult(assetPath, &AZ::Data::AssetCatalogRequests::GetAssetPathById, assetId);
+                    AZ_Assert(!assetPath.empty(), "Asset Catalog returned an invalid path from an enumerated asset.");
+                    if (assetPath.empty())
+                    {
+                        AZ_Error("Blast", false, "Failed to get asset path for asset with id %s of type %s.",
+                            assetId.ToString<AZStd::string>().c_str(),
+                            assetInfo.m_assetType.ToString<AZStd::string>().c_str());
+                        return;
+                    }
+
+                    AZStd::string assetFullPath;
+                    bool assetFullPathFound = false;
+                    AzToolsFramework::AssetSystemRequestBus::BroadcastResult(
+                        assetFullPathFound,
+                        &AzToolsFramework::AssetSystem::AssetSystemRequest::GetFullSourcePathFromRelativeProductPath,
+                        assetPath, assetFullPath);
+                    if (!assetFullPathFound)
+                    {
+                        AZ_Error("Blast", false, "Source file of asset '%s' could not be found.", assetPath.c_str());
+                        return;
+                    }
+
+                    auto assetDataStream = AZStd::make_shared<AZ::Data::AssetDataStream>();
+                    // Read in the data from a file to a buffer, then hand ownership of the buffer over to the assetDataStream
+                    {
+                        AZ::IO::FileIOStream stream(assetFullPath.c_str(), AZ::IO::OpenMode::ModeRead);
+                        if (!AZ::IO::RetryOpenStream(stream))
+                        {
+                            AZ_Error("Blast", false, "Source file '%s' could not be opened.", assetFullPath.c_str());
+                            return;
+                        }
+                        AZStd::vector<AZ::u8> fileBuffer(stream.GetLength());
+                        size_t bytesRead = stream.Read(fileBuffer.size(), fileBuffer.data());
+                        if (bytesRead != stream.GetLength())
+                        {
+                            AZ_Error("Blast", false, "Source file '%s' could not be read.", assetFullPath.c_str());
+                            return;
+                        }
+
+                        // Only consider old assets by checking if the legacy material library asset id is part of the content.
+                        AZStd::string_view fileBufferString(reinterpret_cast<const char*>(fileBuffer.data()), bytesRead);
+                        if (!fileBufferString.contains(BlastMaterialLibraryAsset::RTTI_Type().ToString<AZStd::string>().c_str()))
+                        {
+                            return;
+                        }
+
+                        assetDataStream->Open(AZStd::move(fileBuffer));
+                    }
+
+                    AZ::Data::Asset<BlastMaterialLibraryAsset> materialLibraryAsset;
+                    materialLibraryAsset.Create(AZ::Data::AssetId(AZ::Uuid::CreateRandom()));
+
+                    if (materialLibraryAssetHandler->LoadAssetDataFromStream(materialLibraryAsset, assetDataStream, nullptr) != AZ::Data::AssetHandler::LoadResult::LoadComplete)
+                    {
+                        AZ_Error("Blast", false, "Failed to load BlastMaterialLibraryAsset asset: '%s'", assetFullPath.c_str());
+                        return;
+                    }
+
+                    BlastLibrary blastLibrary;
+                    blastLibrary.m_materialAssetConfigurations = materialLibraryAsset->m_materialLibrary;
+                    blastLibrary.m_sourceFile = assetFullPath;
+
+                    materialLibrariesToConvert.push_back(AZStd::move(blastLibrary));
                 },
                 nullptr);
 
-            materialLibraryAsset->Unregister();
-            materialLibraryAsset.reset();
+            AZ::Data::AssetManager::Instance().UnregisterHandler(materialLibraryAssetHandler.get());
+            materialLibraryAssetHandler.reset();
 
             // Register back the new MaterialAsset handler for .blastmaterial files
-            AZ::Data::AssetManager::Instance().UnregisterHandler(materialAssetHandler);
+            AZ::Data::AssetManager::Instance().RegisterHandler(materialAssetHandler, MaterialAsset::RTTI_Type());
         }
 
         AZ_Warning("Blast", false, "Material Libraries:");
-        for (const auto& materialLibrary : materialLibraries)
+        for (const auto& materialLibrary : materialLibrariesToConvert)
         {
             AZ_Warning("Blast", false, "- Path: %s", materialLibrary.m_sourceFile.c_str());
 
             for (const auto& materialAssetConfiguration : materialLibrary.m_materialAssetConfigurations)
             {
-                AZ_Warning("Blast", false, "    + BlastId: %d Health: %0.3f",
+                AZ_Warning("Blast", false, "    + Name: %s BlastId: %s Health: %0.3f",
+                    materialAssetConfiguration.m_configuration.m_materialName.c_str(),
                     materialAssetConfiguration.m_id.m_id.ToString<AZStd::string>().c_str(),
                     materialAssetConfiguration.m_configuration.m_health);
+
+                AZ::Data::Asset<MaterialAsset> materialLibraryAsset;
+                materialLibraryAsset.Create(AZ::Data::AssetId(AZ::Uuid::CreateRandom()));
+                materialAssetConfiguration.CopyDataToMaterialAsset(*materialLibraryAsset);
+
+                AZStd::vector<AZ::u8> byteBuffer;
+                AZ::IO::ByteContainerStream<decltype(byteBuffer)> byteStream(&byteBuffer);
+
+                AZStd::string targetSourceFile = materialLibrary.m_sourceFile;
+                AZ::StringFunc::Path::ReplaceFullName(targetSourceFile, materialAssetConfiguration.m_configuration.m_materialName.c_str(), ".blastmaterial");
+
+                AZ_TracePrintf("Blast", "Blast Material Asset presave to object stream for %s\n", targetSourceFile.c_str());
+                if (!materialAssetHandler->SaveAssetData(materialLibraryAsset, &byteStream))
+                {
+                    AZ_Error("Blast", false, "Failed to save runtime Blast Material to object stream");
+                    return;
+                }
+
+                // TODO: What if the target file already exists?
+
+                AZ::IO::FileIOStream outFileStream(targetSourceFile.c_str(), AZ::IO::OpenMode::ModeWrite);
+                if (!outFileStream.IsOpen())
+                {
+                    AZ_Error("Blast", false, "Failed to open output file %s", targetSourceFile.c_str());
+                    return;
+                }
+
+                size_t bytesWritten = outFileStream.Write(byteBuffer.size(), byteBuffer.data());
+                if (bytesWritten != byteBuffer.size())
+                {
+                    AZ_Error("Blast", false, "Unable to save runtime Blast Material Asset file %s", targetSourceFile.c_str());
+                    return;
+                }
+
+                AZ_TracePrintf("Blast", "Blast Material '%s' has been saved to the object stream successfully\n", targetSourceFile.c_str());
             }
         }
+
+        // TODO: Delete old material library assets from source
+
+        // TODO: SCM
+
+#if 0
+        if (!assetFullPath.empty())
+        {
+            using SCCommandBus = SourceControlCommandBus;
+            SCCommandBus::Broadcast(&SCCommandBus::Events::RequestEdit, assetFullPath.c_str(), true,
+                [id, asset, assetFullPath, assetCheckoutAndSaveCallback](bool /*success*/, const SourceControlFileInfo& info)
+                {
+                    if (!info.IsReadOnly())
+                    {
+                        AZ::Outcome<bool, AZStd::string> outcome = AZ::Success(true);
+                        AzToolsFramework::AssetEditor::AssetEditorValidationRequestBus::EventResult(outcome, id, &AzToolsFramework::AssetEditor::AssetEditorValidationRequests::IsAssetDataValid, asset);
+                        if (!outcome.IsSuccess())
+                        {
+                            assetCheckoutAndSaveCallback(false, outcome.GetError(), assetFullPath);
+                        }
+                        else
+                        {
+                            AssetEditorValidationRequestBus::Event(id, &AssetEditorValidationRequests::PreAssetSave, asset);
+                            assetCheckoutAndSaveCallback(true, "", assetFullPath);
+                        }
+                    }
+                    else
+                    {
+                        AZStd::string error = AZStd::string::format("Could not check out asset file: %s.", assetFullPath.c_str());
+                        assetCheckoutAndSaveCallback(false, error, assetFullPath);
+                    }
+                }
+            );
+        }
+        else
+        {
+            AZStd::string error = AZStd::string::format("Could not resolve path name for asset {%s}.", id.ToString<AZStd::string>().c_str());
+            assetCheckoutAndSaveCallback(false, error, AZStd::string{});
+        }
+#endif
     }
 } // namespace Blast
