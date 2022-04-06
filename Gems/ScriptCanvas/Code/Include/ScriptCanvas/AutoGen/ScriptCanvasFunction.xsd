@@ -44,6 +44,64 @@
                                                 </xs:attribute>
                                             </xs:complexType>
                                         </xs:element>
+                                        <xs:element minOccurs="0" maxOccurs="1" name="BranchResult">
+                                            <xs:annotation>
+                                                <xs:documentation>The function tag to indicate whether branch on result.</xs:documentation>
+                                                <xs:documentation>See https://www.o3de.org/docs/user-guide/scripting/script-canvas for more details.</xs:documentation>
+                                            </xs:annotation>
+                                            <xs:complexType>
+                                                <xs:sequence>
+                                                    <xs:element minOccurs="0" maxOccurs="1" name="True">
+                                                        <xs:annotation>
+                                                            <xs:documentation>The true branch detailed information, including Name and Tooltip.</xs:documentation>
+                                                        </xs:annotation>
+                                                        <xs:complexType>
+                                                            <xs:attribute name="Name" type="NonEmptyString" use="required">
+                                                                <xs:annotation>
+                                                                    <xs:documentation>The name of true branch, default is True.</xs:documentation>
+                                                                </xs:annotation>
+                                                            </xs:attribute>
+                                                            <xs:attribute name="Description" type="NonEmptyString" use="optional">
+                                                                <xs:annotation>
+                                                                    <xs:documentation>The description of true branch, default is empty.</xs:documentation>
+                                                                </xs:annotation>
+                                                            </xs:attribute>
+                                                        </xs:complexType>
+                                                    </xs:element>
+                                                    <xs:element minOccurs="0" maxOccurs="1" name="False">
+                                                        <xs:annotation>
+                                                            <xs:documentation>The false branch detailed information, including Name and Tooltip.</xs:documentation>
+                                                        </xs:annotation>
+                                                        <xs:complexType>
+                                                            <xs:attribute name="Name" type="NonEmptyString" use="required">
+                                                                <xs:annotation>
+                                                                    <xs:documentation>The name of false branch, default is False.</xs:documentation>
+                                                                </xs:annotation>
+                                                            </xs:attribute>
+                                                            <xs:attribute name="Description" type="NonEmptyString" use="optional">
+                                                                <xs:annotation>
+                                                                    <xs:documentation>The description of false branch, default is empty.</xs:documentation>
+                                                                </xs:annotation>
+                                                            </xs:attribute>
+                                                        </xs:complexType>
+                                                    </xs:element>
+                                                </xs:sequence>
+                                                <xs:attribute name="Function" type="NonEmptyString" use="optional">
+                                                    <xs:annotation>
+                                                        <xs:documentation>The function gets used to branch the result.</xs:documentation>
+                                                        <xs:documentation>Note: The branch function must get registered within same namesapce in this autogen input file.</xs:documentation>
+                                                        <xs:documentation>Note: The branch function input parameter type must match with parent function result type.</xs:documentation>
+                                                        <xs:documentation>Note: The branch function must return a boolean.</xs:documentation>
+                                                    </xs:annotation>
+                                                </xs:attribute>
+                                                <xs:attribute name="WithValue" type="NonEmptyString" use="optional">
+                                                    <xs:annotation>
+                                                        <xs:documentation>The tag to indicate whether return result with branches.</xs:documentation>
+                                                        <xs:documentation>Options: True/False. Default is False.</xs:documentation>
+                                                    </xs:annotation>
+                                                </xs:attribute>
+                                            </xs:complexType>
+                                        </xs:element>
                                     </xs:sequence>
                                     <xs:attribute name="Name" type="NonEmptyString" use="required">
                                         <xs:annotation>

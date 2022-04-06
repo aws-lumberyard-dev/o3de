@@ -7,6 +7,38 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 {% import 'ScriptCanvas_Macros.jinja' as macros %}
 
+{%- macro CheckFunctionBranchResult(function) -%}
+{% set branch = function.findall('BranchResult') %}
+{% if branch is defined and branch|length() > 0 %}
+{%     if branch|length() == 1 %}
+true
+{%     else %}
+{{ macros.AddError(function, "There should be only one branch result per function.") }}
+false
+{%     endif %}
+{% else %}
+false
+{% endif %}
+{%- endmacro -%}
+
+{%- macro SetBranchExecution(function, branch, branchName) -%}
+{% set definition = branch.findall(branchName) %}
+{%- if definition and definition|length() > 0 %}
+{%     if definition|length() == 1 %}
+{%         set definitionName = definition[0].attrib['Name']%}
+{%         if definitionName is defined and definitionName %}
+                    branchResultInfo.m_trueName = "{{definitionName}}";
+{%         endif %}
+{%         set definitionDescription = definition[0].attrib['Description'] %}
+{%         if definitionDescription is defined and definitionDescription %}
+                    branchResultInfo.m_trueToolTip = "{{definitionDescription}}";
+{%         endif %}
+{%     else %}
+{{         macros.AddError(function, "There should be only one definition for " + branchName + " branch.") }}
+{%     endif %}
+{% endif -%}
+{%- endmacro -%}
+
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
 // This code was produced with AzAutoGen, any modifications made will not be preserved.
@@ -60,17 +92,39 @@ namespace {{namespace}}
             if (AZ::BehaviorContext* behaviorContext = azrtti_cast<AZ::BehaviorContext*>(context))
             {
 {% for function in Library.findall('Function') %}
+                {
 {{ macros.Required('Name', function, Library) }}
+
+{%- set hasbranch = CheckFunctionBranchResult(function) -%}
+{% if hasbranch|booleanTrue == true %}
+{% set branch = function.findall('BranchResult')[0] %}
+                    AZ::BranchOnResultInfo branchResultInfo;
+{% set branchfunction = branch.attrib['Function'] %}
+{%- if branchfunction is defined and branchfunction %}
+{% set sanitizedBranchFunctionName = macros.CleanName(branchfunction).replace('::', '_') %}
+                    branchResultInfo.m_nonBooleanResultCheckName = "{{sanitizedNamespaceName}}_{{sanitizedBranchFunctionName}}";
+{% endif -%}
+{% set branchwithvalue = branch.attrib['WithValue'] %}
+{%- if branchwithvalue is defined and branchwithvalue.lower() == "true" %}
+                    branchResultInfo.m_returnResultInBranches = true;
+{% endif -%}
+{{SetBranchExecution(function, branch, 'True')}}
+{{SetBranchExecution(function, branch, 'False')}}
+{%- endif -%}
+
 {% set functionName = macros.CleanName(function.attrib['Name']) %}
 {% set sanitizedFunctionName = macros.CleanName(function.attrib['Name']).replace('::', '_') %}
-                behaviorContext->Method("{{sanitizedNamespaceName}}_{{sanitizedFunctionName}}", &{{functionName}},
+                    behaviorContext->Method("{{sanitizedNamespaceName}}_{{sanitizedFunctionName}}", &{{functionName}},
 {{macros.GenerateFunctionMetaData(function)}})
-                    ->Attribute(AZ::Script::Attributes::Scope, AZ::Script::Attributes::ScopeFlags::Common)
+                        ->Attribute(AZ::Script::Attributes::Scope, AZ::Script::Attributes::ScopeFlags::Common)
 {% if categoryName %}
-                    ->Attribute(AZ::Script::Attributes::Category, "{{categoryName}}")
+                        ->Attribute(AZ::Script::Attributes::Category, "{{categoryName}}")
 {% endif %}
-                ;
-
+{% if hasbranch|booleanTrue == true %}
+                        ->Attribute(AZ::ScriptCanvasAttributes::BranchOnResult, branchResultInfo)
+{% endif %}
+                    ;
+                }
 {% endfor %}
             }
         }
