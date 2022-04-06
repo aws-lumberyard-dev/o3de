@@ -1,0 +1,38 @@
+{
+    "Type": "JsonSerialization",
+    "Version": 1,
+    "ClassName": "PassAsset",
+    "ClassData": {
+        "PassTemplate": {
+            "Name": "OceanParentPassTemplate",
+            "PassClass": "ParentPass",
+            "PassRequests": [
+                {
+                    "Name": "OceanInitialSpectrumComputePass",
+                    "TemplateName": "OceanInitialSpectrumComputePassTemplate",
+                    "Enabled": true
+                },
+                {
+                    "Name": "OceanConjugatedSpectrumComputePass",
+                    "TemplateName": "OceanConjugatedSpectrumComputePassTemplate",
+                    "Enabled": true,
+                    "Connections": [
+                        {
+                            "LocalSlot": "H0KInput",
+                            "AttachmentRef": {
+                                "Pass": "OceanInitialSpectrumComputePass",
+                                "Attachment": "H0KOutput"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "Name": "OceanFftComputePass",
+                    "TemplateName": "OceanFftComputePassTemplate",
+                    "Enabled": true
+                }
+            ]
+        }
+    }
+}
+

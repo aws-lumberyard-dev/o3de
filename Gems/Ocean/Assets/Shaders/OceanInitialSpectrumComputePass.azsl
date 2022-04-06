@@ -1,0 +1,180 @@
+/*
+ * Copyright (c) Contributors to the Open 3D Engine Project.
+ * For complete copyright and license terms please see the LICENSE at the root of this distribution.
+ *
+ * SPDX-License-Identifier: Apache-2.0 OR MIT
+ *
+ */
+ 
+#include <Atom/Features/SrgSemantics.azsli>
+#include <scenesrg.srgi>
+
+#include <Atom/RPI/Math.azsli>
+
+struct SpectrumSettings
+{
+    float m_scale; // Scale of the waves [0..1]
+    float m_angle; // Wind direction in radians
+    float m_spreadBlend; // ?? [0..1]
+    float m_swell; // ?? should be higher for swell spectrum [0..1]
+    float m_alpha; // ?? Based on gravity, wind speed, and fetch
+    float m_peakOmega; // peak wave frequency based on gravity, wind speed, and fetch
+    float m_gamma; // ?? peak enhancement? maybe something to do with gershner waves?
+    float m_shortWavesFade; // ?? Some kind of dampener on waves
+};
+
+ShaderResourceGroup PassSrg : SRG_PerPass
+{
+    struct Constants
+    {
+        uint m_textureSize;
+        float m_lengthScale;
+        float m_cutoffLow;
+        float m_cutoffHigh;
+        float m_gravity;
+        float m_depth;
+    };
+
+    Constants m_constants;
+
+    SpectrumSettings m_localSpectrumSettings;
+    SpectrumSettings m_swellSpectrumSettings;
+
+    RWTexture2D<float4> m_wavesData; // wave vector x, 1 / magnitude, wave vector z, frequency
+    RWTexture2D<float2> m_h0K;
+    RWTexture2D<float2> m_h0;
+
+    Texture2D<float2> m_gaussianDistribution;
+}
+
+float Frequency(float k, float g, float depth)
+{
+    return sqrt(g * k * tanh(min(k * depth, 20)));
+}
+
+float FrequencyDerivative(float k, float g, float depth)
+{
+    float th = tanh(min(k * depth, 20));
+    float ch = cosh(k * depth);
+    return g * (depth * k / ch / ch + th) / Frequency(k, g, depth) / 2;
+}
+
+float NormalizationFactor(float s)
+{
+    float s2 = s * s;
+    float s3 = s2 * s;
+    float s4 = s3 * s;
+    if (s < 5)
+        return -0.000564 * s4 + 0.00776 * s3 - 0.044 * s2 + 0.192 * s + 0.163;
+    else
+        return -4.80e-08 * s4 + 1.07e-05 * s3 - 9.53e-04 * s2 + 5.90e-02 * s + 3.93e-01;
+}
+
+float Cosine2s(float theta, float s)
+{
+    return NormalizationFactor(s) * pow(abs(cos(0.5 * theta)), 2 * s);
+}
+
+float SpreadPower(float omega, float peakOmega)
+{
+    if (omega > peakOmega)
+    {
+        return 9.77 * pow(abs(omega / peakOmega), -2.5);
+    }
+    else
+    {
+        return 6.97 * pow(abs(omega / peakOmega), 5);
+    }
+}
+
+float DirectionSpectrum(float theta, float omega, SpectrumSettings settings)
+{
+    float s = SpreadPower(omega, settings.m_peakOmega)
+        + 16 * tanh(min(omega / settings.m_peakOmega, 20)) * settings.m_swell * settings.m_swell;
+    return lerp(2 / 3.1415 * cos(theta) * cos(theta), Cosine2s(theta - settings.m_angle, s), settings.m_spreadBlend);
+}
+
+float TMACorrection(float omega, float g, float depth)
+{
+    float omegaH = omega * sqrt(depth / g);
+    if (omegaH <= 1)
+        return 0.5 * omegaH * omegaH;
+    if (omegaH < 2)
+        return 1.0 - 0.5 * (2.0 - omegaH) * (2.0 - omegaH);
+    return 1;
+}
+
+float JONSWAP(float omega, float g, float depth, SpectrumSettings settings)
+{
+    float sigma;
+    if (omega <= settings.m_peakOmega)
+        sigma = 0.07;
+    else
+        sigma = 0.09;
+    float r = exp(-(omega - settings.m_peakOmega) * (omega - settings.m_peakOmega)
+        / 2 / sigma / sigma / settings.m_peakOmega / settings.m_peakOmega);
+
+    float oneOverOmega = 1 / omega;
+    float peakOmegaOverOmega = settings.m_peakOmega / omega;
+    return settings.m_scale * TMACorrection(omega, g, depth) * settings.m_alpha * g * g
+        * oneOverOmega * oneOverOmega * oneOverOmega * oneOverOmega * oneOverOmega
+        * exp(-1.25 * peakOmegaOverOmega * peakOmegaOverOmega * peakOmegaOverOmega * peakOmegaOverOmega)
+        * pow(abs(settings.m_gamma), r);
+}
+
+float ShortWavesFade(float kLength, SpectrumSettings settings)
+{
+    return exp(-settings.m_shortWavesFade * settings.m_shortWavesFade * kLength * kLength);
+}
+
+
+[numthreads(8,8,1)]
+void CalculateInitialSpectrum(uint3 dispatchThreadID : SV_DispatchThreadID)
+{
+    const uint size = PassSrg::m_constants.m_textureSize;
+
+    float deltaK = 2.0 * PI / PassSrg::m_constants.m_lengthScale;
+    int nx = dispatchThreadID.x - size / 2;
+    int ny = dispatchThreadID.y - size / 2;
+    float2 k = float2(nx, -ny) * deltaK;
+    float kLength = length(k);
+
+    if (kLength >= PassSrg::m_constants.m_cutoffLow && kLength <= PassSrg::m_constants.m_cutoffHigh)
+    {
+        float omega = Frequency(kLength, PassSrg::m_constants.m_gravity, PassSrg::m_constants.m_depth);
+        PassSrg::m_wavesData[dispatchThreadID.xy] = float4(k.x, 1.0 / kLength, k.y, omega);
+        
+        // It seems odd to save k.x and k.y to a buffer since they are trivial to calculate. 1.0 / kLength and
+        // omega are also questionable since they're not that expensive. Perhaps it makes more sense later...
+
+        float kAngle = atan2(k.y, k.x);
+        float dOmegadk = FrequencyDerivative(kLength, PassSrg::m_constants.m_gravity, PassSrg::m_constants.m_depth);
+
+        float spectrum = JONSWAP(omega, PassSrg::m_constants.m_gravity, PassSrg::m_constants.m_depth, PassSrg::m_localSpectrumSettings)
+            * DirectionSpectrum(kAngle, omega, PassSrg::m_localSpectrumSettings) * ShortWavesFade(kLength, PassSrg::m_localSpectrumSettings);
+            
+        if (PassSrg::m_swellSpectrumSettings.m_scale > 0)
+        {
+            spectrum += JONSWAP(omega, PassSrg::m_constants.m_gravity, PassSrg::m_constants.m_depth, PassSrg::m_swellSpectrumSettings)
+                * DirectionSpectrum(kAngle, omega, PassSrg::m_swellSpectrumSettings)
+                * ShortWavesFade(kLength, PassSrg::m_swellSpectrumSettings);
+        }
+
+        PassSrg::m_h0K[dispatchThreadID.xy] = PassSrg::m_gaussianDistribution[dispatchThreadID.xy]
+            * sqrt(2 * spectrum * abs(dOmegadk) / kLength * deltaK * deltaK) * 1000.0;
+    }
+    else
+    {
+        PassSrg::m_h0K[dispatchThreadID.xy] = 0;
+        PassSrg::m_wavesData[dispatchThreadID.xy] = float4(k.x, 1, k.y, 0);
+    }
+}
+
+[numthreads(8,8,1)]
+void CalculateConjugatedSpectrum(uint3 id : SV_DispatchThreadID)
+{
+    const uint size = PassSrg::m_constants.m_textureSize;
+    float2 h0K = PassSrg::m_h0K[id.xy];
+    float2 h0MinusK = PassSrg::m_h0K[uint2((size - id.x) % size, (size - id.y) % size)];
+    PassSrg::m_h0[id.xy] = float4(h0K.x, h0K.y, h0MinusK.x, -h0MinusK.y);
+}

@@ -1,0 +1,29 @@
+{
+    "Type": "JsonSerialization",
+    "Version": 1,
+    "ClassName": "AssetAliasesSourceData",
+    "ClassData": {
+        "AssetPaths": [
+            {
+                "Name": "OceanInitialSpectrumComputePassTemplate",
+                "Path": "Passes/OceanInitialSpectrumComputePass.pass"
+            },
+            {
+                "Name": "OceanConjugatedSpectrumComputePassTemplate",
+                "Path": "Passes/OceanConjugatedSpectrumComputePass.pass"
+            },
+            {
+                "Name": "OceanTimeDependentSpectrumComputePassTemplate",
+                "Path": "Passes/OceanTimeDependentSpectrumComputePass.pass"
+            },
+            {
+                "Name": "OceanFftComputePassTemplate",
+                "Path": "Passes/OceanFftComputePass.pass"
+            },
+            {
+                "Name": "OceanParentPassTemplate",
+                "Path": "Passes/OceanParentPass.pass"
+            }
+        ]
+    }
+}

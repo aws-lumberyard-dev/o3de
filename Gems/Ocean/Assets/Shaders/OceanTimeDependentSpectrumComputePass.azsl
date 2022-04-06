@@ -1,0 +1,66 @@
+/*
+ * Copyright (c) Contributors to the Open 3D Engine Project.
+ * For complete copyright and license terms please see the LICENSE at the root of this distribution.
+ *
+ * SPDX-License-Identifier: Apache-2.0 OR MIT
+ *
+ */
+ 
+#include <Atom/Features/SrgSemantics.azsli>
+#include <scenesrg.srgi>
+
+#include <Atom/RPI/Math.azsli>
+
+ShaderResourceGroup PassSrg : SRG_PerPass
+{
+    RWTexture2D<float2> m_Dx_Dy;
+    RWTexture2D<float2> m_Dz_Dxy;
+    RWTexture2D<float2> m_Dzx_Dzy;
+    RWTexture2D<float2> m_Dxx_Dyy;
+
+    Texture2D<float4> m_h0;
+    
+    // wave vector x, 1 / magnitude, wave vector y, frequency
+    Texture2D<float4> m_wavesData;
+    float m_time;
+}
+
+float2 ComplexMult(float2 a, float2 b)
+{
+    return float2(a.x * b.x - a.y * b.y, a.x * b.y + a.y * b.x);
+}
+
+[numthreads(8,8,1)]
+void MainCS(uint3 dispatchThreadID : SV_DispatchThreadID)
+{
+    float4 wave = PassSrg::m_wavesData[dispatchThreadID.xy];
+    float waveDirX = wave.x;
+    float waveDirY = wave.z;
+    float waveRcpMag = wave.y;
+    float waveFrequency = wave.w;
+
+    float phase = waveFrequency * PassSrg::m_time;
+    float2 exponent = float2(cos(phase), sin(phase));
+
+    float2 h = 
+        ComplexMult(PassSrg::m_h0[dispatchThreadID.xy].xy, exponent) +
+        ComplexMult(PassSrg::m_h0[dispatchThreadID.xy].zw, float2(exponent.x, -exponent.y));
+    float2 ih = float2(-h.y, h.x);
+
+    float2 displacementX = ih * waveDirX * waveRcpMag;
+    float2 displacementY = ih * waveDirY * waveRcpMag;
+    float2 displacementZ = h;
+
+    float2 displacementX_dx = -h * waveDirX * waveDirX * waveRcpMag;
+    float2 displacementY_dx = -h * waveDirX * waveDirY * waveRcpMag;
+    float2 displacementZ_dx = ih * waveDirX;
+
+    float2 displacementY_dy = ih * waveDirY;
+    float2 displacementZ_dy = -h * waveDirY * waveDirY * waveRcpMag;
+
+    PassSrg::m_Dx_Dy[dispatchThreadID.xy] = float2(displacementX.x - displacementY.y, displacementX.y + displacementY.x);
+    PassSrg::m_Dz_Dxy[dispatchThreadID.xy] = float2(displacementZ.x - displacementY_dx.y, displacementZ.y + displacementY_dx.x);
+    PassSrg::m_Dzx_Dzy[dispatchThreadID.xy] = float2(displacementZ_dx.x - displacementZ_dy.y, displacementZ_dx.y + displacementZ_dy.x);
+    PassSrg::m_Dxx_Dyy[dispatchThreadID.xy] = float2(displacementX_dx.x - displacementY_dy.y, displacementX_dx.y + displacementY_dy.x);
+}
+
