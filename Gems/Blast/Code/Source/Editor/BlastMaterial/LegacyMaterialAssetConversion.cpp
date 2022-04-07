@@ -16,6 +16,7 @@
 #include <AzFramework/Asset/GenericAssetHandler.h>
 
 #include <AzToolsFramework/API/EditorAssetSystemAPI.h>
+#include <AzToolsFramework/SourceControl/SourceControlAPI.h>
 
 #include <BlastMaterial/MaterialConfiguration.h>
 #include <BlastMaterial/MaterialAsset.h>
@@ -282,50 +283,41 @@ namespace Blast
             size_t bytesWritten = outFileStream.Write(byteBuffer.size(), byteBuffer.data());
             if (bytesWritten != byteBuffer.size())
             {
-                AZ_Warning("BlastMaterialConversion", false, "Unable to save runtime Blast Material Asset file '%s'", targetSourceFile.c_str());
+                AZ_Warning("BlastMaterialConversion", false, "Unable to save Blast Material Asset file '%s'", targetSourceFile.c_str());
                 continue; // next material
             }
+
+            // Add new file to source control (which is done by calling RequetEdit)
+            AzToolsFramework::SourceControlCommandBus::Broadcast(
+                &AzToolsFramework::SourceControlCommandBus::Events::RequestEdit,
+                targetSourceFile.c_str(), true,
+                [targetSourceFile]([[maybe_unused]] bool success, [[maybe_unused]] const AzToolsFramework::SourceControlFileInfo& info)
+                {
+                    AZ_Warning("BlastMaterialConversion", success, "Unable to mark for add '%s' in source control.", targetSourceFile.c_str());
+                }
+            );
         }
 
-        // TODO: Delete old material library assets from source
+        // Delete old material library assets from source
         AZ_TracePrintf("BlastMaterialConversion", "Deleting blast material library '%s'.\n", materialLibrary.m_sourceFile.c_str());
-
-        // TODO: SCM
-#if 0
-        if (!assetFullPath.empty())
+        if (AZ::IO::FileIOBase::GetInstance()->Exists(materialLibrary.m_sourceFile.c_str()))
         {
-            using SCCommandBus = SourceControlCommandBus;
-            SCCommandBus::Broadcast(&SCCommandBus::Events::RequestEdit, assetFullPath.c_str(), true,
-                [id, asset, assetFullPath, assetCheckoutAndSaveCallback](bool /*success*/, const SourceControlFileInfo& info)
+            // Mark for deletion in source control (it will also delete the file)
+            AzToolsFramework::SourceControlCommandBus::Broadcast(
+                &AzToolsFramework::SourceControlCommandBus::Events::RequestDelete,
+                materialLibrary.m_sourceFile.c_str(),
+                [sourceFile = materialLibrary.m_sourceFile](bool success, [[maybe_unused]] const AzToolsFramework::SourceControlFileInfo& info)
                 {
-                    if (!info.IsReadOnly())
+                    AZ_Warning("BlastMaterialConversion", success, "Unable to mark for deletion '%s' in source control.", sourceFile.c_str());
+
+                    // If source control didn't delete it, then delete the file ourselves.
+                    if (!success)
                     {
-                        AZ::Outcome<bool, AZStd::string> outcome = AZ::Success(true);
-                        AzToolsFramework::AssetEditor::AssetEditorValidationRequestBus::EventResult(outcome, id, &AzToolsFramework::AssetEditor::AssetEditorValidationRequests::IsAssetDataValid, asset);
-                        if (!outcome.IsSuccess())
-                        {
-                            assetCheckoutAndSaveCallback(false, outcome.GetError(), assetFullPath);
-                        }
-                        else
-                        {
-                            AssetEditorValidationRequestBus::Event(id, &AssetEditorValidationRequests::PreAssetSave, asset);
-                            assetCheckoutAndSaveCallback(true, "", assetFullPath);
-                        }
-                    }
-                    else
-                    {
-                        AZStd::string error = AZStd::string::format("Could not check out asset file: %s.", assetFullPath.c_str());
-                        assetCheckoutAndSaveCallback(false, error, assetFullPath);
+                        AZ::IO::FileIOBase::GetInstance()->Remove(sourceFile.c_str());
                     }
                 }
             );
         }
-        else
-        {
-            AZStd::string error = AZStd::string::format("Could not resolve path name for asset {%s}.", id.ToString<AZStd::string>().c_str());
-            assetCheckoutAndSaveCallback(false, error, AZStd::string{});
-        }
-#endif
 
         AZ_TracePrintf("BlastMaterialConversion", "\n");
     }
