@@ -5,9 +5,11 @@
  * SPDX-License-Identifier: Apache-2.0 OR MIT
  *
  */
-#pragma once
 
 #include "ReplacementUtils.h"
+#include <string>
+#include <unordered_map>
+#include <utility>
 
 namespace ScriptCanvas
 {
