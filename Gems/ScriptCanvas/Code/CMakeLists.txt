@@ -77,10 +77,14 @@ ly_add_target(
         PUBLIC
             Gem::ScriptEvents.Static
             Gem::ExpressionEvaluation.Static
+            3rdParty::AWSNativeSDK::Core
+            Gem::AWSCore
         PRIVATE
             AZ::AzCore
             AZ::AzFramework
             Gem::ScriptCanvasDebugger
+            AZ::AWSNativeSDKInit
+            Gem::ScriptEvents.Static
     AUTOGEN_RULES
         *.ScriptCanvasGrammar.xml,ScriptCanvasGrammar_Header.jinja,$path/$fileprefix.generated.h
         *.ScriptCanvasGrammar.xml,ScriptCanvasGrammar_Source.jinja,$path/$fileprefix.generated.cpp

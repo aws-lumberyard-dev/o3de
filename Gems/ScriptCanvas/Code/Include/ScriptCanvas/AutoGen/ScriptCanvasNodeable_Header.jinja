@@ -80,7 +80,12 @@ public: \
     bool IsActive() const override { return false; } \
 {{ nodemacro.PopulateMemberVariables(Class) }}{{ nodemacro.ExecutionInDeclarations(Class) }}{{ nodemacro.ExecutionOutDeclarations(Class) }}/* end #define SCRIPTCANVAS_NODE_{{className}} */
 
-{% if className is defined -%}
+{% set generateNode = True %}
+{% if Class.attrib['GenerateNode'] is defined %}
+{% set generateNode = Class.attrib['GenerateNode']|lower == "true" %}
+{% endif %}
+
+{% if className is defined and generateNode == True -%}
 {% set nodeableNodeName = nodeableClassName + 'Node' %}
 
       namespace Nodes
@@ -119,6 +124,23 @@ public: \
               {{nodeableNodeName}}();
 
               {{Class.attrib['NodeDeclarations']}}
+
+{#  Slot Selector Supported Types #}
+{% if Class.findall('SlotSelectorSupportedType')|length > 0 %}
+              AZStd::unordered_set<AZ::Uuid> GetSupportedSlotTypes() const /*override*/ {
+                    AZStd::unordered_set<AZ::Uuid> types;
+                    {% for type in Class.iter('SlotSelectorSupportedType') %}
+                        types.insert(azrtti_typeid<{{type.attrib['Type']}}>());
+                    {% endfor %}
+                    return types;
+                }
+{% endif %}
+
+{% if Class.findall('VisualExtensions')|length > 0 %}
+                //ScriptCanvas::SlotId HandleExtension(AZ::Crc32 extensionId) override;
+{% endif %}
+
+
           };
       }
 {% endif %}

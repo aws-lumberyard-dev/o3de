@@ -1,0 +1,48 @@
+<?xml version ="1.0" encoding="utf-8"?>
+
+<ScriptCanvas Include="ScriptCanvas/Libraries/Core/JSON/JSON_Node.h" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+
+  <Class  Name="JSON_Nodeable"
+          QualifiedName="ScriptCanvas::JSON_Nodeable"
+          PreferredClassName="JSON"
+          Base="ScriptCanvas::Nodeable"
+          GeneratePropertyFriend="True"
+          DynamicSlotORdering="True"
+          GenerateNode="True"
+>
+
+    <Include File="ScriptCanvas/Libraries/Core/JSON/JSON.h"/>
+
+      <Input Name="In" OutputName="Out">
+        <Parameter Name="Source JSON" Type="JSONView"/>
+        <Return Name="Source JSON" Type="JSONView"/>
+      </Input>
+
+      <Property Name="m_jsonData"
+      Type="JSONView"
+      DisplayGroup="Output"
+      IsInput="True"
+      IsOutput="False">
+        <PropertyData Name="Source JSON" UIHandler="AZ::Edit::UIHandlers::Default"/>
+      </Property>
+
+      <Property Name="m_key" Type="ScriptCanvas::Data::StringType" Serialize="True">
+        <PropertyData Name="Key" Serialize="True"/>
+      </Property>
+
+      <PropertyInterface Property="m_keyInterface" Name="KeyStringProperty" Type="Input"/>
+
+      <VisualExtensions>
+        <Extension Type="ExtenderSlot" Name="Specify Key &amp; Type" ConnectionType="Output" DataDisplayGroup="DataDisplayGroup" Idemtifier="KeyStringProperty"/>
+      </VisualExtensions>
+
+      <SlotSelectorSupportedType Type="ScriptCanvas::Data::NumberType"/>
+      <SlotSelectorSupportedType Type="ScriptCanvas::Data::StringType"/>
+      <SlotSelectorSupportedType Type="bool"/>
+      <SlotSelectorSupportedType Type="ScriptCanvas::JSONView"/>
+      <SlotSelectorSupportedType Type="AZStd::vector&lt;ScriptCanvas::JSONView&gt;"/>
+
+    </Class>
+
+
+</ScriptCanvas>

@@ -29,7 +29,12 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 #include "{{ xml.attrib['Include'] }}"
 
 {%     for Class in xml.iter('Class') %}
-{% set baseClass = Class.attrib['Base'].split(';')[0] if Class.attrib['Base'] is string else "ScriptCanvas::Node" %}
+
+{% set baseClass = "ScriptCanvas::Node" %}
+{% if Class.attrib['Base'] is defined %}
+{% set baseClass = Class.attrib['Base'] %}
+{% endif %}
+
 {% set attribute_Namespace = undefined %}
 {%- if Class.attrib['Namespace'] is defined %}
 {%      if Class.attrib['Namespace'] != "None" %}
@@ -41,7 +46,6 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 namespace {{attribute_Namespace}} 
 {
 {% endif %}
-
 
 void {{ Class.attrib['QualifiedName'] }}::ConfigureSlots()
 {
@@ -287,9 +291,8 @@ void {{ Class.attrib['QualifiedName'] }}::Reflect(AZ::ReflectContext* context)
 {%         endfor %}
 
 {% if attribute_Namespace is defined %}
-}
+} // namespace {{attribute_Namespace}}
 {% endif %}
-
 
 {%     endfor %}
 {% endfor %}

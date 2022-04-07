@@ -91,6 +91,10 @@ set(FILES
     Include/ScriptCanvas/Internal/Nodes/ExpressionNodeBase.cpp
     Include/ScriptCanvas/Internal/Nodes/StringFormatted.cpp
     Include/ScriptCanvas/Libraries/Libraries.cpp
+    Include/ScriptCanvas/Libraries/Core/JSON/JSON.h
+    Include/ScriptCanvas/Libraries/Core/JSON/JSON_Node.cpp
+    Include/ScriptCanvas/Libraries/Core/JSON/JSON_Node.h
+    Include/ScriptCanvas/Libraries/Core/JSON/JSON_Node.ScriptCanvasNodeable.xml
     Include/ScriptCanvas/Libraries/Core/AzEventHandler.cpp
     Include/ScriptCanvas/Libraries/Core/BinaryOperator.cpp
     Include/ScriptCanvas/Libraries/Core/CoreNodes.cpp

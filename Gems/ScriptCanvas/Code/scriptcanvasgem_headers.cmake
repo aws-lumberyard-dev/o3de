@@ -133,6 +133,10 @@ set(FILES
     Include/ScriptCanvas/Internal/Nodes/StringFormatted.ScriptCanvasGrammar.xml
     Include/ScriptCanvas/Grammar/AbstractCodeModel.h
     Include/ScriptCanvas/Libraries/Libraries.h
+    Include/ScriptCanvas/Libraries/Core/JSON/JSON.h
+    Include/ScriptCanvas/Libraries/Core/JSON/JSON_Node.h
+    Include/ScriptCanvas/Libraries/Core/JSON/JSON_Node.cpp
+    Include/ScriptCanvas/Libraries/Core/JSON/JSON_Node.ScriptCanvasNodeable.xml
     Include/ScriptCanvas/Libraries/Core/AzEventHandler.h
     Include/ScriptCanvas/Libraries/Core/AzEventHandler.ScriptCanvasGrammar.xml
     Include/ScriptCanvas/Libraries/Core/BinaryOperator.h
