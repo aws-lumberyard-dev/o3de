@@ -9,6 +9,9 @@
 #pragma once
 
 #include <AzCore/Math/Aabb.h>
+#include <AzCore/Math/Obb.h>
+#include <AzCore/Math/Transform.h>
+#include <AzCore/Math/Vector3.h>
 #include <AzCore/std/tuple.h>
 
 namespace ScriptCanvas
