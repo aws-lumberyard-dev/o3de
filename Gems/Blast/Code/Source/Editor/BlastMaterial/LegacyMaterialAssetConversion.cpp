@@ -141,7 +141,7 @@ namespace Blast
         // Unregister the MaterialAsset handler new for .blastmaterial files
         AZ::Data::AssetManager::Instance().UnregisterHandler(materialAssetHandler);
 
-        // Create and register the asset handler for legacy BlastMaterialLibraryAsset to hanlde old .blastmaterial files
+        // Create and register the asset handler for legacy BlastMaterialLibraryAsset to handle old .blastmaterial files
         auto materialLibraryAssetHandler = AZStd::make_unique<AzFramework::GenericAssetHandler<BlastMaterialLibraryAsset>>(
             "Blast Material", "Blast Material", "blastmaterial");
         AZ::Data::AssetManager::Instance().RegisterHandler(materialLibraryAssetHandler.get(), BlastMaterialLibraryAsset::RTTI_Type());
