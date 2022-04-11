@@ -44,31 +44,6 @@ namespace AZ::DocumentPropertyEditor
         }
     };
 
-    struct NodeMetadata
-    {
-        template <typename NodeDefinition>
-        NodeMetadata(NodeMetadata* parent = nullptr)
-            : m_name(GetNodeName<NodeDefinition>())
-            , m_canAddToParentNode(&NodeDefinition::CanAddToParentNode)
-            , m_canBeParentToValue(&NodeDefinition::CanBeParentToValue)
-            , m_parent(parent)
-        {
-        }
-
-        template <typename PropertyEditorDefinition>
-        static NodeMetadata FromType(NodeMetadata* parent = nullptr)
-        {
-            NodeMetadata metadata<PropertyEditorDefinition>(parent);
-            metadata.m_name = GetNodeName<PropertyEditorDefinition>();
-            return metadata;
-        }
-
-        AZ::Name m_name;
-        AZStd::function<bool(const Dom::Value&)> m_canAddToParentNode;
-        AZStd::function<bool(const Dom::Value&)> m_canBeParentToValue;
-        NodeMetadata* m_parent = nullptr;
-    };
-
     //! Retrieves a node's name from a node definition.
     //! \see NodeDefinition
     template<typename NodeDefinition>
@@ -77,11 +52,27 @@ namespace AZ::DocumentPropertyEditor
         return AZ::Name(NodeDefinition::Name);
     }
 
-    //! Defines a definition for a PropertyEditor, specified as the type of a PropertyEditor node
-    struct PropertyEditorDefinition
+    struct NodeMetadata
     {
-        static constexpr AZStd::string_view Name = "<undefined editor name>";
+        template<typename NodeDefinition>
+        static NodeMetadata FromType(const NodeMetadata* parent = nullptr)
+        {
+            NodeMetadata metadata;
+            metadata.m_name = GetNodeName<NodeDefinition>();
+            metadata.m_parent = parent;
+            metadata.m_canAddToParentNode = &NodeDefinition::CanAddToParentNode;
+            metadata.m_canBeParentToValue = &NodeDefinition::CanBeParentToValue;
+            return metadata;
+        }
+
+        AZ::Name m_name;
+        AZStd::function<bool(const Dom::Value&)> m_canAddToParentNode;
+        AZStd::function<bool(const Dom::Value&)> m_canBeParentToValue;
+        const NodeMetadata* m_parent = nullptr;
     };
+
+    using PropertyEditorMetadata = NodeMetadata;
+    using PropertyEditorDefinition = NodeDefinition;
 
     //! Defines an attribute applicable to a Node.
     //! Attributes may be defined inline inside of a NodeDefinition.
@@ -139,16 +130,16 @@ namespace AZ::DocumentPropertyEditor
     struct AttributeMetadata
     {
         template <typename AttributeDefinition>
-        static AttributeMetadata FromDefinition(const AttributeDefinition& definition, const PropertyEditorMetadata* propertyEditor)
+        static AttributeMetadata FromDefinition(const AttributeDefinition& definition, const NodeMetadata* node)
         {
             AttributeMetadata metadata;
             metadata.m_name = definition.GetName();
-            metadata.m_propertyEditor = propertyEditor;
+            metadata.m_node = node;
             return metadata;
         }
 
         AZ::Name m_name;
-        const PropertyEditorMetadata* m_propertyEditor;
+        const NodeMetadata* m_node;
     };
 
     //! Defines a callback applicable to a Node.

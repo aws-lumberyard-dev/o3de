@@ -15,6 +15,9 @@ namespace AZ::DocumentPropertyEditor
     class PropertyEditorSystem : public PropertyEditorSystemInterface
     {
     public:
+        AZ_RTTI(PropertyEditorSystem, "{5DD4E43F-B17C-463E-8D4C-5A1E22DD452D}", PropertyEditorSystemInterface);
+        AZ_CLASS_ALLOCATOR(PropertyEditorSystem, AZ::OSAllocator, 0);
+
         PropertyEditorSystem();
         ~PropertyEditorSystem();
 
@@ -24,7 +27,7 @@ namespace AZ::DocumentPropertyEditor
 
         const NodeMetadata* FindNode(AZ::Name name) const override;
         const PropertyEditorMetadata* FindPropertyEditor(AZ::Name name) const override;
-        const AttributeMetadata* FindAttribute(AZ::Name name) const override;
+        const AttributeMetadata* FindAttribute(AZ::Name name, const PropertyEditorMetadata* parent) const override;
         AZ::Name LookupNameFromCrc(AZ::Crc32 crc) const override;
 
     private:
@@ -34,6 +37,6 @@ namespace AZ::DocumentPropertyEditor
         AZStd::unordered_map<AZ::Crc32, AZ::Name> m_crcToName;
         AZStd::unordered_map<AZ::Name, NodeMetadata> m_nodeMetadata;
         AZStd::unordered_map<AZ::Name, PropertyEditorMetadata> m_propertyEditorMetadata;
-        AZStd::unordered_map<AZ::Name, AZStd::vector<AttributeMetadata>> m_attributeMetadata;
+        AZStd::unordered_map<AZ::Name, AZStd::unordered_map<AZ::Name, AttributeMetadata>> m_attributeMetadata;
     };
 } // namespace AZ::DocumentPropertyEditor

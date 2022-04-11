@@ -44,7 +44,7 @@ namespace AZ::DocumentPropertyEditor::Nodes
     };
 
     template<typename T>
-    struct NumericEditor
+    struct NumericEditor : PropertyEditorDefinition
     {
         static_assert(AZStd::is_floating_point_v<T> || AZStd::is_integral_v<T>, "Numeric editors must have a numeric type");
         using StorageType =

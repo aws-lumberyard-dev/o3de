@@ -39,7 +39,12 @@ namespace AZ::DocumentPropertyEditor
     void PropertyEditorSystem::RegisterAttribute(AttributeMetadata metadata)
     {
         AddNameToCrcTable(metadata.m_name);
-        m_attributeMetadata[metadata.m_name] = AZStd::move(metadata);
+        AZ::Name parentNodeName;
+        if (metadata.m_node != nullptr)
+        {
+            parentNodeName = metadata.m_node->m_name;
+        }
+        m_attributeMetadata[metadata.m_name][parentNodeName] = AZStd::move(metadata);
     }
 
     const NodeMetadata* PropertyEditorSystem::FindNode(AZ::Name name) const
@@ -60,11 +65,18 @@ namespace AZ::DocumentPropertyEditor
         return nullptr;
     }
 
-    const AttributeMetadata* PropertyEditorSystem::FindAttribute(AZ::Name name) const
+    const AttributeMetadata* PropertyEditorSystem::FindAttribute(AZ::Name name, const PropertyEditorMetadata* parent) const
     {
-        if (auto attributeIt = m_attributeMetadata.find(name); attributeIt != m_attributeMetadata.end())
+        if (auto attributeContainerIt = m_attributeMetadata.find(name); attributeContainerIt != m_attributeMetadata.end())
         {
-            return &attributeIt->second;
+            while (parent != nullptr)
+            {
+                if (auto attributeIt = attributeContainerIt->second.find(parent->m_name); attributeIt != attributeContainerIt->second.end())
+                {
+                    return &attributeIt->second;
+                }
+                parent = parent->m_parent;
+            }
         }
         return nullptr;
     }
@@ -76,15 +88,28 @@ namespace AZ::DocumentPropertyEditor
         system->RegisterNode<Nodes::Label>();
         system->RegisterNode<Nodes::PropertyEditor>();
 
-        system->RegisterPropertyEditor<Nodes::IntNumericEditor>();
-        system->RegisterPropertyEditor<Nodes::UintNumericEditor>();
-        system->RegisterPropertyEditor<Nodes::DoubleNumericEditor>();
-        system->RegisterPropertyEditor<Nodes::IntSlider, Nodes::IntNumericEditor>();
-        system->RegisterPropertyEditor<Nodes::UintSlider, Nodes::UintNumericEditor>();
-        system->RegisterPropertyEditor<Nodes::DoubleSlider, Nodes::DoubleNumericEditor>();
-        system->RegisterPropertyEditor<Nodes::IntSpinBox, Nodes::IntNumericEditor>();
-        system->RegisterPropertyEditor<Nodes::UintSpinBox, Nodes::UintNumericEditor>();
-        system->RegisterPropertyEditor<Nodes::DoubleSpinBox, Nodes::DoubleNumericEditor>();
+        const AZ::Name numericEditorName = AZ_NAME_LITERAL("NumericEditor");
+        const PropertyEditorMetadata* propertyEditorNode = system->FindNode(GetNodeName<Nodes::PropertyEditor>());
+        {
+            PropertyEditorMetadata numericEditor;
+            numericEditor.m_name = numericEditorName;
+            numericEditor.m_parent = propertyEditorNode;
+            system->RegisterNode(AZStd::move(numericEditor));
+        }
+
+        const PropertyEditorMetadata* numericEditorNode = system->FindNode(numericEditorName);
+        {
+            PropertyEditorMetadata slider;
+            slider.m_name = GetNodeName<Nodes::IntSlider>();
+            slider.m_parent = numericEditorNode;
+            system->RegisterNode(AZStd::move(slider));
+        }
+        {
+            PropertyEditorMetadata spinBox;
+            spinBox.m_name = GetNodeName<Nodes::IntSpinBox>();
+            spinBox.m_parent = numericEditorNode;
+            system->RegisterNode(AZStd::move(spinBox));
+        }
 
         system->RegisterPropertyEditor<Nodes::Button>();
         system->RegisterPropertyEditor<Nodes::CheckBox>();
