@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ScriptCanvas>
     <Library
-        Include="Include/ScriptCanvas/Libraries/Math/AABBFunctions.h"
+        Include="Include/ScriptCanvas/Libraries/Math/AABB.h"
         Name="AABBFunctions"
         Namespace="ScriptCanvas::AABBFunctions"
         Category="Math/AABB">

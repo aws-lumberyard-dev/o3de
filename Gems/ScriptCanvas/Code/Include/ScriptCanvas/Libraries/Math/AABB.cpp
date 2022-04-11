@@ -6,7 +6,7 @@
  *
  */
 
-#include "AABBFunctions.h"
+#include "AABB.h"
 
 namespace ScriptCanvas
 {

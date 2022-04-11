@@ -208,8 +208,8 @@ set(FILES
     Include/ScriptCanvas/Libraries/Logic/While.h
     Include/ScriptCanvas/Libraries/Logic/While.ScriptCanvasGrammar.xml
     Include/ScriptCanvas/Libraries/Math/Deprecated/AABBNodes.h
-    Include/ScriptCanvas/Libraries/Math/AABBFunctions.h
-    Include/ScriptCanvas/Libraries/Math/AABBFunctions.ScriptCanvasFunction.xml
+    Include/ScriptCanvas/Libraries/Math/AABB.h
+    Include/ScriptCanvas/Libraries/Math/AABB.ScriptCanvasFunction.xml
     Include/ScriptCanvas/Libraries/Math/ColorNodes.h
     Include/ScriptCanvas/Libraries/Math/CRCNodes.h
     Include/ScriptCanvas/Libraries/Math/Deprecated/Divide.h
