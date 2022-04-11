@@ -28,7 +28,7 @@ namespace Blast
     AZ_CONSOLEFREEFUNC("blast_convertMaterialLibrariesIntoIndividualMaterials", ConvertMaterialLibrariesIntoIndividualMaterials, AZ::ConsoleFunctorFlags::Null,
         "Finds legacy blast material library assets in the project and generates new individual blast material assets. Original library assets will be deleted.");
 
-    // DEPRECATED
+    // O3DE_DEPRECATION
     // Default values used for initializing materials.
     // Use BlastMaterialConfiguration to define properties for materials at the time of creation.
     class BlastMaterialConfiguration
@@ -62,7 +62,7 @@ namespace Blast
         AZStd::string m_materialName{"Default"};
     };
 
-    // DEPRECATED
+    // O3DE_DEPRECATION
     // A single BlastMaterial entry in the material library
     // BlastMaterialLibraryAsset holds a collection of BlastMaterialFromAssetConfiguration instances.
     class BlastMaterialFromAssetConfiguration
@@ -96,7 +96,7 @@ namespace Blast
         }
     };
 
-    // DEPRECATED
+    // O3DE_DEPRECATION
     // An asset that holds a list of materials.
     class BlastMaterialLibraryAsset : public AZ::Data::AssetData
     {
@@ -287,7 +287,7 @@ namespace Blast
                 continue; // next material
             }
 
-            // Add new file to source control (which is done by calling RequetEdit)
+            // Add new file to source control (which is done by calling RequestEdit)
             AzToolsFramework::SourceControlCommandBus::Broadcast(
                 &AzToolsFramework::SourceControlCommandBus::Events::RequestEdit,
                 targetSourceFile.c_str(), true,

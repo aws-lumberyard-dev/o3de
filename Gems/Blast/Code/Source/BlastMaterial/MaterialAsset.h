@@ -15,7 +15,7 @@
 
 namespace Blast
 {
-    // DEPRECATED
+    // O3DE_DEPRECATION
     // Legacy blast material Id class used to identify the material in the collection of materials.
     // Used when converting old material asset to new one.
     class BlastMaterialId
