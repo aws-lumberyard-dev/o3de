@@ -253,38 +253,29 @@ namespace AZ::Dom
     {
         m_entryStack.push({ name });
         Visitor::Result result = ValueBegin();
-        if ((m_supportToPolyfill & VisitorFlags::SupportsNodes) == VisitorFlags::Null)
+        if (name == s_arrayNodeName)
         {
-            if (name == s_arrayNodeName)
-            {
-                ResultCombine(result, m_proxiedVisitor->StartArray());
-            }
-            else if (name == s_objectNodeName)
-            {
-                ResultCombine(result, m_proxiedVisitor->StartObject());
-            }
-            else if (name == s_entryNodeName)
-            {
-                // no-op, just forward the value of the entry
-            }
-            else
-            {
-                ResultCombine(result, m_proxiedVisitor->StartNode(name));
-            }
-            return result;
+            m_entryStack.top().m_type = SyntheticNodeType::Array;
+            ResultCombine(result, m_proxiedVisitor->StartArray());
         }
-        return VisitorSuccess();
+        else if (name == s_objectNodeName)
+        {
+            m_entryStack.top().m_type = SyntheticNodeType::Object;
+            ResultCombine(result, m_proxiedVisitor->StartObject());
+        }
+        else if (name == s_entryNodeName)
+        {
+            // no-op, just forward the value of the entry
+        }
+        else if ((m_supportToPolyfill & VisitorFlags::SupportsNodes) == VisitorFlags::Null)
+        {
+            ResultCombine(result, m_proxiedVisitor->StartNode(name));
+        }
+        return result;
     }
 
-    Visitor::Result DomPolyfillVisitor::RawStartNode(AZStd::string_view name, Lifetime lifetime)
+    Visitor::Result DomPolyfillVisitor::RawStartNode(AZStd::string_view name, [[maybe_unused]] Lifetime lifetime)
     {
-        if ((m_supportToPolyfill & VisitorFlags::SupportsNodes) == VisitorFlags::Null)
-        {
-            m_entryStack.push({ AZ::Name(name) });
-            Visitor::Result result = ValueBegin();
-            ResultCombine(result, m_proxiedVisitor->RawStartNode(name, lifetime));
-            return result;
-        }
         return StartNode(AZ::Name(name));
     }
 

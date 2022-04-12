@@ -25,6 +25,17 @@ namespace AZ::Dom::Tests
             Utils::ReadFromString(backend, xml, Lifetime::Persistent, *deserializedValue.GetWriteHandler());
 
             EXPECT_TRUE(Utils::DeepCompareIsEqual(value, deserializedValue));
+
+            AZStd::string serializedXml;
+            backend.WriteToBuffer(
+                serializedXml,
+                [&](Dom::Visitor& visitor)
+                {
+                    return value.Accept(visitor, false);
+                });
+            Utils::ReadFromString(backend, serializedXml, Lifetime::Persistent, *deserializedValue.GetWriteHandler());
+
+            EXPECT_TRUE(Utils::DeepCompareIsEqual(value, deserializedValue));
         }
     };
 
@@ -116,6 +127,31 @@ namespace AZ::Dom::Tests
                     <Grandchild idx="1" />
                     <Grandchild idx="2" />
                 </Child>
+            </Root>
+            )",
+            root);
+    }
+
+    TEST_F(DomXmlTests, Arrays)
+    {
+        Value root = Value::CreateNode("Root");
+        Value arr(Type::Array);
+        for (size_t i = 0; i < 5; ++i)
+        {
+            arr.ArrayPushBack(Value(i));
+        }
+        root["arr"] = arr;
+
+        CompareXmlToValue(
+            R"(
+            <Root>
+                <o3de:Array o3de:Key="arr">
+                    <o3de:Entry>0</o3de:Entry>
+                    <o3de:Entry>1</o3de:Entry>
+                    <o3de:Entry>2</o3de:Entry>
+                    <o3de:Entry>3</o3de:Entry>
+                    <o3de:Entry>4</o3de:Entry>
+                </o3de:Array>
             </Root>
             )",
             root);

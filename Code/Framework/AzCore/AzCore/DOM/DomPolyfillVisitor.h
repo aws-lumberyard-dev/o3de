@@ -63,9 +63,17 @@ namespace AZ::Dom
         };
         AZStd::stack<NodeStackEntry> m_nodeStack;
 
+        enum class SyntheticNodeType
+        {
+            None,
+            Array,
+            Object,
+        };
+
         struct EntryStackEntry
         {
             AZ::Name m_node;
+            SyntheticNodeType m_type = SyntheticNodeType::None;
             bool m_nextStringIsKey = false;
         };
         AZStd::stack<EntryStackEntry> m_entryStack;

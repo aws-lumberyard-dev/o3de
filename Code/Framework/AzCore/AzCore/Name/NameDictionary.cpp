@@ -186,7 +186,7 @@ namespace AZ
         Name* current = deferredHead->m_nextName;
         while (current != nullptr)
         {
-            LoadLiteral(*deferredHead);
+            LoadLiteral(*current);
             current->m_linkedToDictionary = true;
             current = current->m_nextName;
         }
