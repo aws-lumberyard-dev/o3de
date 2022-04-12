@@ -25,26 +25,23 @@
             <Parameter Name="Position" Description="The string find position to check against"/>
         </Function>
 
-        <Function Name="ContainsString">
+        <Function Name="ContainsString" Branch="IsValidFindPosition" BranchWithValue="True">
             <Parameter Name="Source" Description="The string to search in."/>
             <Parameter Name="Pattern" Description="The substring to search for."/>
             <Parameter Name="Search From End" Description="Start the match checking from the end of a string."/>
             <Parameter Name="Case Sensitive" Description="Take into account the case of the string when searching."/>
-            <BranchResult Function="IsValidFindPosition" WithValue="True"/>
         </Function>
 
-        <Function Name="StartsWith">
+        <Function Name="StartsWith" Branch="Boolean">
             <Parameter Name="Source" Description="The string to search in."/>
             <Parameter Name="Pattern" Description="The substring to search for."/>
             <Parameter Name="Case Sensitive" Description="Take into account the case of the string when searching."/>
-            <BranchResult/>
         </Function>
 
-        <Function Name="EndsWith">
+        <Function Name="EndsWith" Branch="Boolean">
             <Parameter Name="Source" Description="The string to search in."/>
             <Parameter Name="Pattern" Description="The substring to search for."/>
             <Parameter Name="Case Sensitive" Description="Take into account the case of the string when searching."/>
-            <BranchResult/>
         </Function>
 
         <Function Name="Join">

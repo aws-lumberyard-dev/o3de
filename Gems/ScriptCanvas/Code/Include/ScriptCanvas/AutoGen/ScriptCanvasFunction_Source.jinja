@@ -8,33 +8,36 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 {% import 'ScriptCanvas_Macros.jinja' as macros %}
 
 {%- macro CheckFunctionBranchResult(function) -%}
-{% set branch = function.findall('BranchResult') %}
-{% if branch is defined and branch|length() > 0 %}
-{%     if branch|length() == 1 %}
+{% set branch = function.attrib['Branch'] %}
+{% if branch is defined and branch %}
 true
-{%     else %}
-{{ macros.AddError(function, "There should be only one branch result per function.") }}
-false
-{%     endif %}
 {% else %}
 false
 {% endif %}
 {%- endmacro -%}
 
-{%- macro SetBranchExecution(function, branch, branchName) -%}
-{% set definition = branch.findall(branchName) %}
-{%- if definition and definition|length() > 0 %}
-{%     if definition|length() == 1 %}
-{%         set definitionName = definition[0].attrib['Name']%}
+{%- macro SetBranchExecution(function) -%}
+{% set outs = function.findall('Out') %}
+{%- if outs and outs|length() > 0 %}
+{%     if outs|length() == 2 %}
+{%         set definitionName = outs[0].attrib['Name']%}
 {%         if definitionName is defined and definitionName %}
                     branchResultInfo.m_trueName = "{{definitionName}}";
 {%         endif %}
-{%         set definitionDescription = definition[0].attrib['Description'] %}
+{%         set definitionDescription = outs[0].attrib['Description'] %}
 {%         if definitionDescription is defined and definitionDescription %}
                     branchResultInfo.m_trueToolTip = "{{definitionDescription}}";
 {%         endif %}
+{%         set definitionName = outs[1].attrib['Name']%}
+{%         if definitionName is defined and definitionName %}
+                    branchResultInfo.m_falseName = "{{definitionName}}";
+{%         endif %}
+{%         set definitionDescription = outs[1].attrib['Description'] %}
+{%         if definitionDescription is defined and definitionDescription %}
+                    branchResultInfo.m_falseToolTip = "{{definitionDescription}}";
+{%         endif %}
 {%     else %}
-{{         macros.AddError(function, "There should be only one definition for " + branchName + " branch.") }}
+{{         macros.AddError(function, "There should be only two branches per function.") }}
 {%     endif %}
 {% endif -%}
 {%- endmacro -%}
@@ -97,19 +100,17 @@ namespace {{namespace}}
 
 {%- set hasbranch = CheckFunctionBranchResult(function) -%}
 {% if hasbranch|booleanTrue == true %}
-{% set branch = function.findall('BranchResult')[0] %}
+{% set branchfunction = function.attrib['Branch'] %}
                     AZ::BranchOnResultInfo branchResultInfo;
-{% set branchfunction = branch.attrib['Function'] %}
-{%- if branchfunction is defined and branchfunction %}
+{% if branchfunction is defined and branchfunction and not branchfunction == "Boolean" %}
 {% set sanitizedBranchFunctionName = macros.CleanName(branchfunction).replace('::', '_') %}
                     branchResultInfo.m_nonBooleanResultCheckName = "{{sanitizedNamespaceName}}_{{sanitizedBranchFunctionName}}";
 {% endif -%}
-{% set branchwithvalue = branch.attrib['WithValue'] %}
+{% set branchwithvalue = function.attrib['BranchWithValue'] %}
 {%- if branchwithvalue is defined and branchwithvalue.lower() == "true" %}
                     branchResultInfo.m_returnResultInBranches = true;
 {% endif -%}
-{{SetBranchExecution(function, branch, 'True')}}
-{{SetBranchExecution(function, branch, 'False')}}
+{{SetBranchExecution(function)}}
 {%- endif -%}
 
 {% set functionName = macros.CleanName(function.attrib['Name']) %}

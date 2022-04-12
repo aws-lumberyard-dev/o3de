@@ -44,68 +44,45 @@
                                                 </xs:attribute>
                                             </xs:complexType>
                                         </xs:element>
-                                        <xs:element minOccurs="0" maxOccurs="1" name="BranchResult">
-                                            <xs:annotation>
-                                                <xs:documentation>The function tag to indicate whether branch on result.</xs:documentation>
-                                                <xs:documentation>See https://www.o3de.org/docs/user-guide/scripting/script-canvas for more details.</xs:documentation>
-                                            </xs:annotation>
-                                            <xs:complexType>
-                                                <xs:sequence>
-                                                    <xs:element minOccurs="0" maxOccurs="1" name="True">
+                                        <xs:sequence minOccurs="0" maxOccurs="1">
+                                            <xs:element minOccurs="2" maxOccurs="2" name="Out">
+                                                <xs:annotation>
+                                                    <xs:documentation>The function out branch to provide detailed information, including its name and description.</xs:documentation>
+                                                    <xs:documentation>Note: The order follows first True second False.</xs:documentation>
+                                                </xs:annotation>
+                                                <xs:complexType>
+                                                    <xs:attribute name="Name" type="NonEmptyString" use="required">
                                                         <xs:annotation>
-                                                            <xs:documentation>The true branch detailed information, including Name and Tooltip.</xs:documentation>
+                                                            <xs:documentation>The name of function branch out slot.</xs:documentation>
                                                         </xs:annotation>
-                                                        <xs:complexType>
-                                                            <xs:attribute name="Name" type="NonEmptyString" use="required">
-                                                                <xs:annotation>
-                                                                    <xs:documentation>The name of true branch, default is True.</xs:documentation>
-                                                                </xs:annotation>
-                                                            </xs:attribute>
-                                                            <xs:attribute name="Description" type="NonEmptyString" use="optional">
-                                                                <xs:annotation>
-                                                                    <xs:documentation>The description of true branch, default is empty.</xs:documentation>
-                                                                </xs:annotation>
-                                                            </xs:attribute>
-                                                        </xs:complexType>
-                                                    </xs:element>
-                                                    <xs:element minOccurs="0" maxOccurs="1" name="False">
+                                                    </xs:attribute>
+                                                    <xs:attribute name="Description" type="NonEmptyString" use="optional">
                                                         <xs:annotation>
-                                                            <xs:documentation>The false branch detailed information, including Name and Tooltip.</xs:documentation>
+                                                            <xs:documentation>The description of function branch out slot.</xs:documentation>
                                                         </xs:annotation>
-                                                        <xs:complexType>
-                                                            <xs:attribute name="Name" type="NonEmptyString" use="required">
-                                                                <xs:annotation>
-                                                                    <xs:documentation>The name of false branch, default is False.</xs:documentation>
-                                                                </xs:annotation>
-                                                            </xs:attribute>
-                                                            <xs:attribute name="Description" type="NonEmptyString" use="optional">
-                                                                <xs:annotation>
-                                                                    <xs:documentation>The description of false branch, default is empty.</xs:documentation>
-                                                                </xs:annotation>
-                                                            </xs:attribute>
-                                                        </xs:complexType>
-                                                    </xs:element>
-                                                </xs:sequence>
-                                                <xs:attribute name="Function" type="NonEmptyString" use="optional">
-                                                    <xs:annotation>
-                                                        <xs:documentation>The function gets used to branch the result.</xs:documentation>
-                                                        <xs:documentation>Note: The branch function must get registered within same namesapce in this autogen input file.</xs:documentation>
-                                                        <xs:documentation>Note: The branch function input parameter type must match with parent function result type.</xs:documentation>
-                                                        <xs:documentation>Note: The branch function must return a boolean.</xs:documentation>
-                                                    </xs:annotation>
-                                                </xs:attribute>
-                                                <xs:attribute name="WithValue" type="NonEmptyString" use="optional">
-                                                    <xs:annotation>
-                                                        <xs:documentation>The tag to indicate whether return result with branches.</xs:documentation>
-                                                        <xs:documentation>Options: True/False. Default is False.</xs:documentation>
-                                                    </xs:annotation>
-                                                </xs:attribute>
-                                            </xs:complexType>
-                                        </xs:element>
+                                                    </xs:attribute>
+                                                </xs:complexType>
+                                            </xs:element>
+                                        </xs:sequence>
                                     </xs:sequence>
                                     <xs:attribute name="Name" type="NonEmptyString" use="required">
                                         <xs:annotation>
                                             <xs:documentation>The name of function, it must match with function signature in given namespace.</xs:documentation>
+                                        </xs:annotation>
+                                    </xs:attribute>
+                                    <xs:attribute name="Branch" type="NonEmptyString" use="optional">
+                                        <xs:annotation>
+                                            <xs:documentation>The tag to indicate how to branch function result, either Boolean or custom check function.</xs:documentation>
+                                            <xs:documentation>Note: Boolean assumes the function result type is boolean.</xs:documentation>
+                                            <xs:documentation>Note: The check function must get registered within same namesapce in this autogen input file.</xs:documentation>
+                                            <xs:documentation>Note: The check function input parameter type must match with the function result type.</xs:documentation>
+                                            <xs:documentation>Note: The check function must return a boolean result.</xs:documentation>
+                                        </xs:annotation>
+                                    </xs:attribute>
+                                    <xs:attribute name="BranchWithValue" type="NonEmptyString" use="optional">
+                                        <xs:annotation>
+                                            <xs:documentation>The tag to indicate whether return result with branches.</xs:documentation>
+                                            <xs:documentation>Options: True/False. Default is False.</xs:documentation>
                                         </xs:annotation>
                                     </xs:attribute>
                                 </xs:complexType>
