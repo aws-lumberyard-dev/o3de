@@ -42,6 +42,7 @@
 #include "SourceFileRelocator.h"
 
 #include <AssetManager/ExcludedFolderCache.h>
+#include <AssetManager/ProductAsset.h>
 #endif
 
 class FileWatcher;
@@ -323,6 +324,7 @@ namespace AssetProcessor
         void CheckDeletedCacheFolder(QString normalizedPath);
         void CheckDeletedSourceFolder(QString normalizedPath, QString relativePath, const ScanFolderInfo* scanFolderInfo);
         void CheckCreatedSourceFolder(QString normalizedPath);
+        void FailTopLevelSourceForIntermediate(AZ::IO::PathView relativePathToIntermediateProduct, const AzToolsFramework::AssetDatabase::SourceDatabaseEntry& conflictingSource);
         void CheckMetaDataRealFiles(QString relativePath);
         bool DeleteProducts(const AzToolsFramework::AssetDatabase::ProductDatabaseEntryContainer& products);
         void DispatchFileChange();
@@ -331,7 +333,7 @@ namespace AssetProcessor
         void AutoFailJob(
             AZStd::string_view consoleMsg,
             AZStd::string_view autoFailReason,
-            const AZ::IO::Path& filePath,
+            const AZ::IO::Path& absoluteFilePath,
             JobEntry jobEntry,
             AZStd::string_view jobLog = "");
         void AutoFailJob(AZStd::string_view consoleMsg, AZStd::string_view autoFailReason, const AZStd::vector<AssetProcessedEntry>::iterator& assetIter);
@@ -364,6 +366,20 @@ namespace AssetProcessor
             QString m_sourceRelativeToWatchFolder;
             QString m_sourceDatabaseName;
             QString m_analysisFingerprint;
+        };
+
+        struct ConflictResult
+        {
+            enum class ConflictType
+            {
+                None,
+                Intermediate,
+                Source
+            };
+
+            ConflictType m_type;
+            AZ::IO::Path m_conflictsWith;
+            AzToolsFramework::AssetDatabase::SourceDatabaseEntry m_conflictingSource;
         };
 
         //! Search the database and the the source dependency maps for the the sourceUuid. if found returns the cached info
@@ -416,6 +432,9 @@ namespace AssetProcessor
 
         // Returns true if the path is inside the Intermediate Assets folder
         bool IsInIntermediateAssetsFolder(AZ::IO::PathView path) const;
+        bool IsInIntermediateAssetsFolder(QString path) const;
+
+        ConflictResult CheckIntermediateProductConflict(const ProductAssetWrapper& productWrapper, const char* scanfolderRelativeProductPath, const char* databaseSourceName);
 
         AssetProcessor::PlatformConfiguration* m_platformConfig = nullptr;
 

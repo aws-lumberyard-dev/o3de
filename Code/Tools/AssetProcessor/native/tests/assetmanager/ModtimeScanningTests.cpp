@@ -149,7 +149,7 @@ namespace UnitTests
 
             AssetBuilderSDK::ProcessJobResponse response;
             response.m_resultCode = AssetBuilderSDK::ProcessJobResult_Success;
-            response.m_outputProducts.push_back(AssetBuilderSDK::JobProduct(file, AZ::Uuid::CreateNull(), 1));
+            response.m_outputProducts.push_back(AssetBuilderSDK::JobProduct((processResult.m_relativePath / file).StringAsPosix(), AZ::Uuid::CreateNull(), 1));
 
             using JobEntry = AssetProcessor::JobEntry;
 

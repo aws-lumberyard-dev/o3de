@@ -3852,7 +3852,7 @@ TEST_F(AssetProcessorManagerTest, RemoveSource_RemoveCacheFolderIfEmpty_Ok)
         // Populate ProcessJobResponse
         ProcessJobResponse response;
         response.m_resultCode = ProcessJobResult_Success;
-        JobProduct product(filename, AZ::Uuid::CreateRandom(), static_cast<AZ::u32>(idx));
+        JobProduct product((jobDetails.m_relativePath / filename).StringAsPosix(), AZ::Uuid::CreateRandom(), static_cast<AZ::u32>(idx));
         response.m_outputProducts.push_back(product);
 
         // Process the job
@@ -4033,7 +4033,7 @@ TEST_F(DuplicateProductsTest, SameSource_MultipleBuilder_NoDuplicateProductJob_N
     productFile = (jobDetails[0].m_cachePath / filename).AsPosix().c_str();
     UnitTestUtils::CreateDummyFile(productFile, "product");
 
-    JobProduct newJobProduct(filename, AZ::Uuid::CreateRandom(), static_cast<AZ::u32>(0));
+    JobProduct newJobProduct((jobDetails[0].m_relativePath / filename).c_str(), AZ::Uuid::CreateRandom(), static_cast<AZ::u32>(0));
     response.m_outputProducts.clear();
     response.m_outputProducts.push_back(newJobProduct);
 

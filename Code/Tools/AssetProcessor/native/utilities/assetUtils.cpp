@@ -1508,6 +1508,81 @@ namespace AssetUtilities
         return path / AssetProcessor::IntermediateAssetsFolderName;
     }
 
+    AZStd::string GetIntermediateAssetDatabaseName(AZ::IO::PathView relativePath)
+    {
+        // For intermediate assets, the platform must always be common, we don't support anything else for intermediate assets
+        AZ::IO::Path platformPrefix = AssetBuilderSDK::CommonPlatformName;
+
+        return (platformPrefix / relativePath).LexicallyNormal().StringAsPosix();
+    }
+
+    AZStd::optional<AzToolsFramework::AssetDatabase::SourceDatabaseEntry> GetTopLevelSourceForProduct(
+        AZ::IO::PathView relativePath, AZStd::shared_ptr<AssetProcessor::AssetDatabaseConnection> db)
+    {
+        AzToolsFramework::AssetDatabase::SourceDatabaseEntryContainer sources;
+        db->GetSourcesByProductName(GetIntermediateAssetDatabaseName(relativePath).c_str(), sources);
+
+        if (sources.empty())
+        {
+            return {};
+        }
+
+        if (sources.size() > 1)
+        {
+            AZ_Error(AssetProcessor::ConsoleChannel, false, "GetTopLevelSourceForProduct found multiple sources for product %s", relativePath.FixedMaxPathStringAsPosix().c_str());
+            return {};
+        }
+
+        AzToolsFramework::AssetDatabase::SourceDatabaseEntry source;
+
+        do
+        {
+            source = sources[0];
+            sources = {}; // Clear the array, otherwise it keeps accumulating the results
+        } while (db->GetSourcesByProductName(GetIntermediateAssetDatabaseName(source.m_sourceName.c_str()).c_str(), sources));
+
+        return source;
+    }
+
+    AZStd::vector<AZStd::string> GetAllIntermediateSources(
+        AZ::IO::PathView relativeSourcePath, AZStd::shared_ptr<AssetProcessor::AssetDatabaseConnection> db)
+    {
+        AZStd::vector<AZStd::string> sources;
+
+        auto topLevelSource = GetTopLevelSourceForProduct(relativeSourcePath, db);
+
+        if (!topLevelSource)
+        {
+            AzToolsFramework::AssetDatabase::SourceDatabaseEntry source;
+            db->GetSourceBySourceName(relativeSourcePath.FixedMaxPathStringAsPosix().c_str(), source);
+
+            topLevelSource = source;
+        }
+
+        sources.emplace_back(topLevelSource->m_sourceName);
+
+        AzToolsFramework::AssetDatabase::ProductDatabaseEntryContainer products;
+        db->GetProductsBySourceID(topLevelSource->m_sourceID, products);
+
+        auto size = products.size();
+        for (int i = 0; i < size; ++i)
+        {
+            const auto& product = products[i];
+
+            if ((static_cast<AssetBuilderSDK::ProductOutputFlags>(product.m_flags.to_ullong()) & AssetBuilderSDK::ProductOutputFlags::IntermediateAsset) == AssetBuilderSDK::ProductOutputFlags::IntermediateAsset)
+            {
+                auto productSourceName = StripAssetPlatformNoCopy(product.m_productName);
+                sources.emplace_back(productSourceName);
+
+                // Note that this will result in adding more products to the end of the same array we're looping
+                db->GetProductsBySourceName(QString(QByteArray(productSourceName.data(), static_cast<int>(productSourceName.size()))), products);
+                size = products.size();
+            }
+        }
+
+        return sources;
+    }
+
     BuilderFilePatternMatcher::BuilderFilePatternMatcher(const AssetBuilderSDK::AssetBuilderPattern& pattern, const AZ::Uuid& builderDescID)
         : AssetBuilderSDK::FilePatternMatcher(pattern)
         , m_builderDescID(builderDescID)

@@ -662,7 +662,6 @@ namespace AssetProcessor
         case AssetBuilderSDK::ProcessJobResult_Success:
             // make sure there's no subid collision inside a job.
             {
-
                 if (!CopyCompiledAssets(builderParams, result))
                 {
                     result.m_resultCode = AssetBuilderSDK::ProcessJobResult_Failed;
@@ -799,7 +798,7 @@ namespace AssetProcessor
                 }
 
                 if (!VerifyOutputProduct(
-                    QDir((cacheDirectory / relativeFilePath).c_str()), outputFilename, absolutePathOfSource, totalCacheFileSizeRequired,
+                    QDir(cacheDirectory.c_str()), outputFilename, absolutePathOfSource, totalCacheFileSizeRequired,
                     outputsToCopy))
                 {
                     return false;
@@ -814,7 +813,7 @@ namespace AssetProcessor
                 }
 
                 if (!VerifyOutputProduct(
-                    QDir((intermediateDirectory / relativeFilePath).c_str()), outputFilename, absolutePathOfSource,
+                    QDir(intermediateDirectory.c_str()), outputFilename, absolutePathOfSource,
                     totalIntermediateFileSizeRequired, outputsToCopy))
                 {
                     return false;
