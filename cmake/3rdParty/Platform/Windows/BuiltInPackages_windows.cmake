@@ -53,4 +53,4 @@ ly_associate_package(PACKAGE_NAME azslc-1.7.35-rev1-windows                     
 ly_associate_package(PACKAGE_NAME SQLite-3.37.2-rev1-windows        	                TARGETS SQLite                      PACKAGE_HASH c1658c8ed5cf0e45d4a5da940c6a6d770b76e0f4f57313b70d0fd306885f015e)
 ly_associate_package(PACKAGE_NAME AwsIotDeviceSdkCpp-1.15.2-rev1-windows                TARGETS AwsIotDeviceSdkCpp          PACKAGE_HASH b03475a9f0f7a7e7c90619fba35f1a74fb2b8f4cd33fa07af99f2ae9e0c079dd)
 ly_associate_package(PACKAGE_NAME vulkan-validationlayers-1.2.198-rev1-windows          TARGETS vulkan-validationlayers     PACKAGE_HASH 4c617b83611f9f990b7e6ff21f2e2d22bda154591bff7e0e39610e319a3e5a53)
-ly_associate_package(PACKAGE_NAME OpenXR-1.0.22-rev1-windows                            TARGETS OpenXR                      PACKAGE_HASH 522d12d762f67ca4ce7e6ae42221d700f439d429a1f33455acb6230961d6de27)
+ly_associate_package(PACKAGE_NAME OpenXR-1.0.22-rev1-windows                            TARGETS OpenXR                      PACKAGE_HASH 3b04c1ed3d5af7662d6c6ccd8c1551e21e10685eea652db2dc5afdd6a0da583e)
