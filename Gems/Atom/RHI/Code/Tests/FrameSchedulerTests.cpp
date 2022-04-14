@@ -387,7 +387,10 @@ namespace UnitTest
                 compileRequest.m_jobPolicy = RHI::JobPolicy::Serial;
                 frameScheduler.Compile(compileRequest);
 
-                frameScheduler.Execute(RHI::JobPolicy::Serial);
+                for (uint32_t eyeIdx = 0; eyeIdx < EyeCount; ++eyeIdx)
+                {
+                    frameScheduler.Execute(RHI::JobPolicy::Serial, eyeIdx);
+                }
 
                 frameScheduler.EndFrame();
             }
@@ -406,6 +409,7 @@ namespace UnitTest
         static const uint32_t BufferSize = 64;
         static const uint32_t ImageSize = 16;
         static const uint32_t ScopeCount = 16;
+        static const uint32_t EyeCount = 2;
 
         AZStd::unique_ptr<Factory> m_rootFactory;
         RHI::Ptr<RHI::Device> m_device;
