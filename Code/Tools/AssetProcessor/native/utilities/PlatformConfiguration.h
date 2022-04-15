@@ -70,8 +70,8 @@ namespace AssetProcessor
     {
         AssetRecognizer() = default;
 
-        AssetRecognizer(const QString& name, bool testLockSource, int priority, 
-            bool critical, bool supportsCreateJobs, AssetBuilderSDK::FilePatternMatcher patternMatcher, 
+        AssetRecognizer(const QString& name, bool testLockSource, int priority,
+            bool critical, bool supportsCreateJobs, AssetBuilderSDK::FilePatternMatcher patternMatcher,
             const QString& version, const AZ::Data::AssetType& productAssetType, bool outputProductDependencies, bool checkServer = false)
             : m_name(name)
             , m_testLockSource(testLockSource)
@@ -299,7 +299,7 @@ namespace AssetProcessor
         QString GetOverridingFile(QString relativeName, QString scanFolderName) const;
 
         //! given a relative name, loop over folders and resolve it to a full path with the first existing match.
-        QString FindFirstMatchingFile(QString relativeName) const;
+        QString FindFirstMatchingFile(QString relativeName, bool skipIntermediateScanFolder = false) const;
 
         //! given a relative name with wildcard characters (* allowed) find a set of matching files or optionally folders
         QStringList FindWildcardMatches(const QString& sourceFolder, QString relativeName, bool includeFolders = false,

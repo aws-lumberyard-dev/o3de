@@ -324,7 +324,7 @@ namespace AssetProcessor
         void CheckDeletedCacheFolder(QString normalizedPath);
         void CheckDeletedSourceFolder(QString normalizedPath, QString relativePath, const ScanFolderInfo* scanFolderInfo);
         void CheckCreatedSourceFolder(QString normalizedPath);
-        void FailTopLevelSourceForIntermediate(AZ::IO::PathView relativePathToIntermediateProduct, const AzToolsFramework::AssetDatabase::SourceDatabaseEntry& conflictingSource);
+        void FailTopLevelSourceForIntermediate(AZ::IO::PathView relativePathToIntermediateProduct, AZ::IO::PathView conflictingSourcePath);
         void CheckMetaDataRealFiles(QString relativePath);
         bool DeleteProducts(const AzToolsFramework::AssetDatabase::ProductDatabaseEntryContainer& products);
         void DispatchFileChange();
@@ -373,13 +373,16 @@ namespace AssetProcessor
             enum class ConflictType
             {
                 None,
+                //! Indicates the conflict occurred becuase of a new intermediate overriding an existing source
                 Intermediate,
+                //! Indicates the conflict occurred because of a new source overriding an existing intermediate
                 Source
             };
 
             ConflictType m_type;
-            AZ::IO::Path m_conflictsWith;
-            AzToolsFramework::AssetDatabase::SourceDatabaseEntry m_conflictingSource;
+
+            //! Full path to the file that has caused the conflict.  If ConflictType == Intermediate, this is the path to the source, if ConflictType == Source, this is the intermediate
+            AZ::IO::Path m_conflictingFile;
         };
 
         //! Search the database and the the source dependency maps for the the sourceUuid. if found returns the cached info
@@ -434,7 +437,7 @@ namespace AssetProcessor
         bool IsInIntermediateAssetsFolder(AZ::IO::PathView path) const;
         bool IsInIntermediateAssetsFolder(QString path) const;
 
-        ConflictResult CheckIntermediateProductConflict(const ProductAssetWrapper& productWrapper, const char* scanfolderRelativeProductPath, const char* databaseSourceName);
+        ConflictResult CheckIntermediateProductConflict(bool isIntermediateProduct, const char* searchSourcePath);
 
         AssetProcessor::PlatformConfiguration* m_platformConfig = nullptr;
 

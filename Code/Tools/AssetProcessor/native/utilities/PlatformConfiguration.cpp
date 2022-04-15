@@ -1485,7 +1485,7 @@ namespace AssetProcessor
         return QString();
     }
 
-    QString PlatformConfiguration::FindFirstMatchingFile(QString relativeName) const
+    QString PlatformConfiguration::FindFirstMatchingFile(QString relativeName, bool skipIntermediateScanFolder) const
     {
         if (relativeName.isEmpty())
         {
@@ -1494,9 +1494,19 @@ namespace AssetProcessor
 
         auto* fileStateInterface = AZ::Interface<AssetProcessor::IFileStateRequests>::Get();
 
+        QDir cacheRoot;
+        AssetUtilities::ComputeProjectCacheRoot(cacheRoot);
+
         for (int pathIdx = 0; pathIdx < m_scanFolders.size(); ++pathIdx)
         {
             AssetProcessor::ScanFolderInfo scanFolderInfo = m_scanFolders[pathIdx];
+
+            if (skipIntermediateScanFolder && AssetUtilities::GetIntermediateAssetsFolder(cacheRoot.absolutePath().toUtf8().constData()) == AZ::IO::PathView(scanFolderInfo.ScanPath().toUtf8().constData()))
+            {
+                // There's only 1 intermediate assets folder, if we've skipped it, theres no point continuing to check every folder afterwards
+                skipIntermediateScanFolder = false;
+                continue;
+            }
 
             QString tempRelativeName(relativeName);
 
