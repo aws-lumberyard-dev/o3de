@@ -346,10 +346,18 @@ namespace AZ::Debug
 
         AllocationInfo* allocationInfo;
         {
-            AZStd::scoped_lock lock(m_recordsMutex);
-            Debug::AllocationRecordsType::iterator iter = m_records.find(address);
-            AZ_Assert(iter != m_records.end(), "Could not find address 0x%p in the allocator!", address);
-            allocationInfo = &iter->second;
+            bool foundIt = true;
+            
+            // lock only for the duration of inserting a record,
+            // do not hold the lock during assert!
+            {
+                AZStd::scoped_lock lock(m_recordsMutex);
+                Debug::AllocationRecordsType::iterator iter = m_records.find(address);
+                foundIt = (iter != m_records.end());
+                allocationInfo = &iter->second;
+            }
+            
+            AZ_Assert(foundIt, "Could not find address 0x%p in the allocator!", address);
         }
         AllocatorManager::Instance().DebugBreak(address, *allocationInfo);
 

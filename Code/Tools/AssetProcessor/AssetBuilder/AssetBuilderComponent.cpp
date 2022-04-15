@@ -902,8 +902,13 @@ bool AssetBuilderComponent::IsBuilderForFile(const AZStd::string& filePath, cons
     return false;
 }
 
+#include <unordered_set>
+
 void AssetBuilderComponent::JobThread()
 {
+    AZ::AllocatorManager::Instance().EnterProfilingMode();
+    std::unordered_set<void*> lastAllocations;
+    std::unordered_set<void*> currentAllocations;
     while (m_running)
     {
         m_jobEvent.acquire();
@@ -1010,6 +1015,39 @@ void AssetBuilderComponent::JobThread()
         AZ::SystemTickBus::Broadcast(&AZ::SystemTickBus::Events::OnSystemTick);
         AZ::TickBus::Broadcast(&AZ::TickEvents::OnTick, 0.00f, AZ::ScriptTimePoint(AZStd::chrono::system_clock::now()));
         AZ::AllocatorManager::Instance().GarbageCollect();
+
+        // # dump a memory snapshot to file.  Let's not make huge allocations while we do this.
+        int numAllocators = AZ::AllocatorManager::Instance().GetNumAllocators();
+        for (int index = 0; index < numAllocators;++index)
+        {
+            AZ::IAllocator* allocator = AZ::AllocatorManager::Instance().GetAllocator(index);
+            AZ::Debug::AllocationRecords* records = allocator->GetRecords();
+            
+            AZ_Printf("Memory-summary", "Allocator: %s %" PRIu64 " bytes\n", allocator->GetName(), allocator->GetSchema()->NumAllocatedBytes());
+            
+            if (records)
+            {
+
+                 // print out any new allocations since it was last done.
+                AZ::Debug::PrintAllocationsCB regular_printer(true, true);
+                records->EnumerateAllocations([&](void* address, const AZ::Debug::AllocationInfo& info, unsigned char numStackLevels) 
+                {
+                    currentAllocations.insert(address);
+                    if (lastAllocations.find(address) != lastAllocations.end())
+                    {
+                        return true;
+                    }
+                    if (lastAllocations.empty())
+                    {
+                        return true;
+                    }
+                    regular_printer.operator()(address, info, numStackLevels);
+                    return true;
+                });
+            }
+        }
+        lastAllocations = currentAllocations;
+        currentAllocations.clear();
 
         AzFramework::AssetSystem::SendResponse(*(job->m_netResponse), job->m_requestSerial);
     }
