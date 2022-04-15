@@ -101,7 +101,6 @@ namespace AZ::SceneAPI::Behaviors
         {
             AZStd::string result;
             CallResult(result, FN_OnUpdateManifest, scene);
-            ScriptBuildingNotificationBusHandler::BusDisconnect();
             return result;
         }
 
@@ -113,7 +112,6 @@ namespace AZ::SceneAPI::Behaviors
         {
             ExportProductList result;
             CallResult(result, FN_OnPrepareForExport, scene, outputDirectory, platformIdentifier, productList);
-            ScriptBuildingNotificationBusHandler::BusDisconnect();
             return result;
         }
 

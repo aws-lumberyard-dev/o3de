@@ -9,6 +9,9 @@
 #include "TraceMessageHook.h"
 #include "AssetBuilderComponent.h"
 
+#include <AzCore/Memory/AllocatorManager.h>
+#include <AzCore/Memory/SystemAllocator.h>
+
 int main(int argc, char** argv)
 {
     AssetBuilderApplication app(&argc, &argv);
@@ -18,8 +21,12 @@ int main(int argc, char** argv)
 
     AZ::ComponentApplication::StartupParameters startupParams;
     startupParams.m_loadDynamicModules = false;
-
-    app.Start(AzFramework::Application::Descriptor(), startupParams);
+    AzFramework::Application::Descriptor desc;
+    desc.m_stackRecordLevels = 25;
+    AZ::Debug::AllocationRecords* records = AZ::AllocatorInstance<AZ::SystemAllocator>::Get().GetRecords();
+    records->SetMode(AZ::Debug::AllocationRecords::RECORD_FULL);
+    app.Start(desc, startupParams);
+    AZ::AllocatorManager::Instance().EnterProfilingMode();
     traceMessageHook.EnableDebugMode(app.IsInDebugMode());
 
     bool result = false;

@@ -904,11 +904,101 @@ bool AssetBuilderComponent::IsBuilderForFile(const AZStd::string& filePath, cons
 
 #include <unordered_set>
 
+class AllocationDumper
+{
+    public:
+
+    std::unordered_set<void*> m_priorAllocations;
+    std::unordered_map<void*, uint64_t> m_priorAllocators;
+
+    void CaptureWithoutDumping()
+    {
+        // capture initial state:
+        int numAllocators = AZ::AllocatorManager::Instance().GetNumAllocators();
+        for (int index = 0; index < numAllocators;++index)
+        {
+            AZ::IAllocator* allocator = AZ::AllocatorManager::Instance().GetAllocator(index);
+            m_priorAllocators[(void*)allocator] = allocator->GetSchema()->NumAllocatedBytes();
+
+            AZ::Debug::AllocationRecords* records = allocator->GetRecords();
+
+            if (records)
+            {
+                auto initialPopulateAllocationsCB = [&](void* address, const AZ::Debug::AllocationInfo& /*info*/, unsigned char /*numStackLevels*/) 
+                {
+                    m_priorAllocations.insert(address);
+                    return true;
+                };
+                records->EnumerateAllocations(initialPopulateAllocationsCB);
+            }
+        }
+    }
+    void DumpAndCycle()
+    {
+        std::unordered_set<void*> currentAllocations;
+        std::unordered_map<void*, uint64_t> currentAllocators;
+
+        int numAllocators = AZ::AllocatorManager::Instance().GetNumAllocators();
+        for (int index = 0; index < numAllocators;++index)
+        {
+            AZ::IAllocator* allocator = AZ::AllocatorManager::Instance().GetAllocator(index);
+            uint64_t currentAllocationAmount = allocator->GetSchema()->NumAllocatedBytes();
+            currentAllocators[(void*)allocator] = currentAllocationAmount;
+            auto found = m_priorAllocators.find((void*)allocator);
+            bool alreadyPrintedHeader = false;
+            if (found != m_priorAllocators.end())
+            {
+                uint64_t prior_value = found->second;
+                
+                if (prior_value > currentAllocationAmount)
+                {
+                    uint64_t delta = prior_value - currentAllocationAmount;
+                    AZ_Printf("M", "Allocator: %s Schema:[0x%" PRIXPTR "] -%8" PRIu64 " (total: %12" PRIu64 ")\n", allocator->GetName(),(void*)allocator->GetSchema(), delta, currentAllocationAmount);
+                    alreadyPrintedHeader = true;
+                }
+                else if (prior_value < currentAllocationAmount)
+                {
+                    uint64_t delta = currentAllocationAmount - prior_value;
+                    AZ_Printf("M", "Allocator: %s Schema:[0x%" PRIXPTR "] +%8" PRIu64 " (total: %12" PRIu64 ")\n", allocator->GetName(), (void*)allocator->GetSchema(), delta, currentAllocationAmount);
+                    alreadyPrintedHeader = true;
+                }
+            }
+
+            AZ::Debug::AllocationRecords* records = allocator->GetRecords();
+            if (records)
+            {
+                // print out any new allocations since it was last done.
+                AZ::Debug::PrintAllocationsCB regular_printer(true, true);
+                auto enumAllocationsCB = [&](void* address, const AZ::Debug::AllocationInfo& info, unsigned char numStackLevels) 
+                {
+                    currentAllocations.insert(address);
+                    if (m_priorAllocations.find(address) != m_priorAllocations.end())
+                    {
+                        return true; // don't print it out if its not a new one
+                    }
+                    if (!alreadyPrintedHeader)
+                    {
+                        // if size didn't change but we have different allocations print the headerfirst:
+                        AZ_Printf("M", "Allocator: %s Schema:[0x%" PRIXPTR "] (total: %12" PRIu64 ")\n", allocator->GetName(), allocator->GetSchema(), currentAllocationAmount);
+                        alreadyPrintedHeader = true;
+                    }
+                    regular_printer.operator()(address, info, numStackLevels);
+                    return true;
+                };
+                records->EnumerateAllocations(enumAllocationsCB);
+            }
+        }
+        m_priorAllocations.swap(currentAllocations);
+        m_priorAllocators.swap(currentAllocators);
+        std::fflush(stdout);
+        std::fflush(stderr);
+    }
+};
+
 void AssetBuilderComponent::JobThread()
 {
-    AZ::AllocatorManager::Instance().EnterProfilingMode();
-    std::unordered_set<void*> lastAllocations;
-    std::unordered_set<void*> currentAllocations;
+    AllocationDumper dumper;
+
     while (m_running)
     {
         m_jobEvent.acquire();
@@ -932,6 +1022,8 @@ void AssetBuilderComponent::JobThread()
 
         AssetBuilderSDK::AssetBuilderTraceBus::Broadcast(&AssetBuilderSDK::AssetBuilderTraceBus::Events::ResetErrorCount);
         AssetBuilderSDK::AssetBuilderTraceBus::Broadcast(&AssetBuilderSDK::AssetBuilderTraceBus::Events::ResetWarningCount);
+
+        dumper.CaptureWithoutDumping();
 
         switch (job->m_jobType)
         {
@@ -1016,38 +1108,7 @@ void AssetBuilderComponent::JobThread()
         AZ::TickBus::Broadcast(&AZ::TickEvents::OnTick, 0.00f, AZ::ScriptTimePoint(AZStd::chrono::system_clock::now()));
         AZ::AllocatorManager::Instance().GarbageCollect();
 
-        // # dump a memory snapshot to file.  Let's not make huge allocations while we do this.
-        int numAllocators = AZ::AllocatorManager::Instance().GetNumAllocators();
-        for (int index = 0; index < numAllocators;++index)
-        {
-            AZ::IAllocator* allocator = AZ::AllocatorManager::Instance().GetAllocator(index);
-            AZ::Debug::AllocationRecords* records = allocator->GetRecords();
-            
-            AZ_Printf("Memory-summary", "Allocator: %s %" PRIu64 " bytes\n", allocator->GetName(), allocator->GetSchema()->NumAllocatedBytes());
-            
-            if (records)
-            {
-
-                 // print out any new allocations since it was last done.
-                AZ::Debug::PrintAllocationsCB regular_printer(true, true);
-                records->EnumerateAllocations([&](void* address, const AZ::Debug::AllocationInfo& info, unsigned char numStackLevels) 
-                {
-                    currentAllocations.insert(address);
-                    if (lastAllocations.find(address) != lastAllocations.end())
-                    {
-                        return true;
-                    }
-                    if (lastAllocations.empty())
-                    {
-                        return true;
-                    }
-                    regular_printer.operator()(address, info, numStackLevels);
-                    return true;
-                });
-            }
-        }
-        lastAllocations = currentAllocations;
-        currentAllocations.clear();
+        dumper.DumpAndCycle();
 
         AzFramework::AssetSystem::SendResponse(*(job->m_netResponse), job->m_requestSerial);
     }
