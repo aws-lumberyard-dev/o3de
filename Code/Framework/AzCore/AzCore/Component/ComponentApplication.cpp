@@ -152,8 +152,8 @@ namespace AZ
         m_memoryBlocksByteSize = 0;
         m_reservedOS = 0;
         m_reservedDebug = 0;
-        m_recordingMode = Debug::AllocationRecords::RECORD_STACK_IF_NO_FILE_LINE;
-        m_stackRecordLevels = 5;
+        m_recordingMode = Debug::AllocationRecords::RECORD_FULL;
+        m_stackRecordLevels = 20;
     }
 
     bool AppDescriptorConverter(SerializeContext& serialize, SerializeContext::DataElementNode& node)

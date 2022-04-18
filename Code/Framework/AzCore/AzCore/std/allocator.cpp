@@ -18,7 +18,12 @@ namespace AZStd
     allocator::pointer_type
     allocator::allocate(size_type byteSize, size_type alignment, int flags)
     {
-        return AZ::AllocatorInstance<AZ::SystemAllocator>::Get().Allocate(byteSize, alignment, flags, m_name, __FILE__, __LINE__, 1);
+        // Note:  We avoid giving file and line information to this allocation intentionally
+        // This is because allocations with file and line information don't by default record any stack
+        // frames.
+        // But in this case, it would be fairly useless to see thousands of stackless allocations just calling themseves
+        // "AZStd::allocator::allocate" and we're likely more interested in the stack or site they're from.  
+        return AZ::AllocatorInstance<AZ::SystemAllocator>::Get().Allocate(byteSize, alignment, flags, "AZStd::allocator::allocate", 0, 0, 1);
     }
     //=========================================================================
     // deallocate

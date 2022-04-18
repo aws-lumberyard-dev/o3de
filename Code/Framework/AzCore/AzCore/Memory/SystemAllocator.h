@@ -47,7 +47,7 @@ namespace AZ
             Descriptor()
                 : m_custom(0)
                 , m_allocationRecords(true)
-                , m_stackRecordLevels(5)
+                , m_stackRecordLevels(20)
             {}
             IAllocatorSchema*         m_custom;   ///< You can provide our own allocation scheme. If NULL a HeapScheme will be used with the provided Descriptor.
 

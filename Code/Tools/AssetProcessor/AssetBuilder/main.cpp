@@ -27,6 +27,7 @@ int main(int argc, char** argv)
     records->SetMode(AZ::Debug::AllocationRecords::RECORD_FULL);
     app.Start(desc, startupParams);
     AZ::AllocatorManager::Instance().EnterProfilingMode();
+    AZ::AllocatorManager::Instance().SetTrackingMode(AZ::Debug::AllocationRecords::RECORD_FULL);
     traceMessageHook.EnableDebugMode(app.IsInDebugMode());
 
     bool result = false;

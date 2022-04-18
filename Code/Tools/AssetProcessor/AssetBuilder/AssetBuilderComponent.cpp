@@ -36,6 +36,7 @@
 #include <AzFramework/Asset/AssetSystemComponent.h>
 #include <ToolsComponents/ToolsAssetCatalogComponent.h>
 #include <AssetBuilderStatic.h>
+#include <AzCore/IO/IStreamer.h>
 
 // Command-line parameter options:
 static const char* const s_paramHelp = "help"; // Print help information.
@@ -918,9 +919,15 @@ class AllocationDumper
         for (int index = 0; index < numAllocators;++index)
         {
             AZ::IAllocator* allocator = AZ::AllocatorManager::Instance().GetAllocator(index);
-            m_priorAllocators[(void*)allocator] = allocator->GetSchema()->NumAllocatedBytes();
-
             AZ::Debug::AllocationRecords* records = allocator->GetRecords();
+
+            if ((!records)&&(allocator != &AZ::AllocatorInstance<AZ::OSAllocator>::Get()))
+            {
+                // if we have no records, don't bother storing or showing anything except for the OS Allocator
+                continue;
+            }
+
+            m_priorAllocators[(void*)allocator] = allocator->GetSchema()->NumAllocatedBytes();
 
             if (records)
             {
@@ -933,6 +940,7 @@ class AllocationDumper
             }
         }
     }
+
     void DumpAndCycle()
     {
         std::unordered_set<void*> currentAllocations;
@@ -942,33 +950,22 @@ class AllocationDumper
         for (int index = 0; index < numAllocators;++index)
         {
             AZ::IAllocator* allocator = AZ::AllocatorManager::Instance().GetAllocator(index);
+            AZ::Debug::AllocationRecords* records = allocator->GetRecords();
+
             uint64_t currentAllocationAmount = allocator->GetSchema()->NumAllocatedBytes();
             currentAllocators[(void*)allocator] = currentAllocationAmount;
-            auto found = m_priorAllocators.find((void*)allocator);
-            bool alreadyPrintedHeader = false;
-            if (found != m_priorAllocators.end())
-            {
-                uint64_t prior_value = found->second;
-                
-                if (prior_value > currentAllocationAmount)
-                {
-                    uint64_t delta = prior_value - currentAllocationAmount;
-                    AZ_Printf("M", "Allocator: %s Schema:[0x%" PRIXPTR "] -%8" PRIu64 " (total: %12" PRIu64 ")\n", allocator->GetName(),(void*)allocator->GetSchema(), delta, currentAllocationAmount);
-                    alreadyPrintedHeader = true;
-                }
-                else if (prior_value < currentAllocationAmount)
-                {
-                    uint64_t delta = currentAllocationAmount - prior_value;
-                    AZ_Printf("M", "Allocator: %s Schema:[0x%" PRIXPTR "] +%8" PRIu64 " (total: %12" PRIu64 ")\n", allocator->GetName(), (void*)allocator->GetSchema(), delta, currentAllocationAmount);
-                    alreadyPrintedHeader = true;
-                }
-            }
 
-            AZ::Debug::AllocationRecords* records = allocator->GetRecords();
+            // cache the allocator so we dont find on each allocation during the callback.
+            auto foundAllocator = m_priorAllocators.find((void*)allocator);
+            
+            // print the "header" for the allocator only once.
+            bool alreadyPrintedHeader = false;
+
             if (records)
             {
                 // print out any new allocations since it was last done.
-                AZ::Debug::PrintAllocationsCB regular_printer(true, true);
+                AZ::Debug::PrintAllocationsCB defaultPrinter(true, true);
+
                 auto enumAllocationsCB = [&](void* address, const AZ::Debug::AllocationInfo& info, unsigned char numStackLevels) 
                 {
                     currentAllocations.insert(address);
@@ -976,13 +973,40 @@ class AllocationDumper
                     {
                         return true; // don't print it out if its not a new one
                     }
+                    
+                    if (foundAllocator == m_priorAllocators.end())
+                    {
+                        return true; // we aren't tracking this allocator
+                    }
+
+                    // by only printing the header one time and only in the enum callback
+                    // it ensures we only show allocators that have records in them.
                     if (!alreadyPrintedHeader)
                     {
-                        // if size didn't change but we have different allocations print the headerfirst:
-                        AZ_Printf("M", "Allocator: %s Schema:[0x%" PRIXPTR "] (total: %12" PRIu64 ")\n", allocator->GetName(), allocator->GetSchema(), currentAllocationAmount);
                         alreadyPrintedHeader = true;
+                        uint64_t prior_value = foundAllocator->second;
+
+                        if (currentAllocationAmount < prior_value)
+                        {
+                            uint64_t delta = prior_value - currentAllocationAmount;
+                            AZ_Printf("M", "\n------------------\nAllocator: %s DECREASED by %8" PRIu64 " bytes (total: %12" PRIu64 ")\n", allocator->GetName(), delta, currentAllocationAmount);
+                        }
+                        else if (currentAllocationAmount > prior_value)
+                        {
+                            uint64_t delta = currentAllocationAmount - prior_value;
+                            AZ_Printf("M", "\n------------------\nAllocator: %s INCREASED by %8" PRIu64 " bytes (total: %12" PRIu64 ")\n", allocator->GetName(), delta, currentAllocationAmount);
+                        }
+                        else
+                        {
+                            AZ_Printf("M", "\n------------------\nAllocator: %s TOTAL SIZE UNCHANGED (total: %12" PRIu64 ")\n", allocator->GetName(), currentAllocationAmount);
+                        }
                     }
-                    regular_printer.operator()(address, info, numStackLevels);
+
+                    // if we get here, its a line we're interested in, so print it out using the usual
+                    // stack printer, which will decode the stack.
+                    defaultPrinter.operator()(address, info, numStackLevels);
+                    // make a blank line after the stack.
+                    AZ_Printf("M", "\n");
                     return true;
                 };
                 records->EnumerateAllocations(enumAllocationsCB);
@@ -1103,11 +1127,16 @@ void AssetBuilderComponent::JobThread()
         //Flush our output so the AP can properly associate all output with the current job
         std::fflush(stdout);
         std::fflush(stderr);
+        auto streamer = AZ::Interface<AZ::IO::IStreamer>::Get();
+        if (streamer)
+        {
+            streamer->FlushCaches();
+        }
 
         AZ::SystemTickBus::Broadcast(&AZ::SystemTickBus::Events::OnSystemTick);
         AZ::TickBus::Broadcast(&AZ::TickEvents::OnTick, 0.00f, AZ::ScriptTimePoint(AZStd::chrono::system_clock::now()));
         AZ::AllocatorManager::Instance().GarbageCollect();
-
+        
         dumper.DumpAndCycle();
 
         AzFramework::AssetSystem::SendResponse(*(job->m_netResponse), job->m_requestSerial);
