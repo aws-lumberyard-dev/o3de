@@ -27,7 +27,7 @@ namespace NvCloth
             AZ::EntityId entityId, 
             const MeshNodeInfo& meshNodeInfo,
             AZStd::vector<SkinningInfluence>& skinningInfluences,
-            AZStd::vector<AZ::u32>& influencesPerVertex)
+            AZStd::vector<AZ::u32>& numInfluencesPerSubmesh)
         {
             AZ::Data::Asset<AZ::RPI::ModelAsset> modelAsset;
             AZ::Render::MeshComponentRequestBus::EventResult(
@@ -65,8 +65,8 @@ namespace NvCloth
 
             // Pre-calculate the total number of vertices and the number of influences per-vertex
             size_t totalInfluenceCount = 0;
-            influencesPerVertex.clear();
-            influencesPerVertex.reserve(meshNodeInfo.m_subMeshes.size());
+            numInfluencesPerSubmesh.clear();
+            numInfluencesPerSubmesh.reserve(meshNodeInfo.m_subMeshes.size());
             for (const auto& subMeshInfo : meshNodeInfo.m_subMeshes)
             {
                 if (modelLodAsset->GetMeshes().size() < subMeshInfo.m_primitiveIndex)
@@ -108,7 +108,7 @@ namespace NvCloth
                     "Submesh %d skinning data has zero joint influences per vertex.",
                     subMeshInfo.m_primitiveIndex);
 
-                influencesPerVertex.push_back(subMeshInfluenceCount);
+                numInfluencesPerSubmesh.push_back(subMeshInfluenceCount);
                 totalInfluenceCount += sourceSkinWeights.size();
             }
 
@@ -123,15 +123,15 @@ namespace NvCloth
                 const auto sourceSkinJointIndices = subMesh.GetSemanticBufferTyped<uint16_t>(AZ::Name("SKIN_JOINTINDICES"));
                 const auto sourceSkinWeights = subMesh.GetSemanticBufferTyped<float>(AZ::Name("SKIN_WEIGHTS"));
 
-                size_t numberOfInfluencesPerVertex = aznumeric_caster(influencesPerVertex[meshIndex]);
+                size_t numberOfInfluencesPerSubmesh = aznumeric_caster(numInfluencesPerSubmesh[meshIndex]);
 
                 for (int subMeshVertexIndex = 0; subMeshVertexIndex < subMeshInfo.m_numVertices; ++subMeshVertexIndex)
                 {
                     // sourceSkinJointIndices and sourceSkinWeights buffers are views into the influences for the current mesh.
                     // Get the offset to the start of the influences for the current vertex
-                    const size_t influenceStart = subMeshVertexIndex * numberOfInfluencesPerVertex;
+                    const size_t influenceStart = subMeshVertexIndex * numberOfInfluencesPerSubmesh;
 
-                    for (size_t influenceIndex = 0; influenceIndex < numberOfInfluencesPerVertex; ++influenceIndex)
+                    for (size_t influenceIndex = 0; influenceIndex < numberOfInfluencesPerSubmesh; ++influenceIndex)
                     {
                         const AZ::u16 jointIndex = sourceSkinJointIndices[influenceStart + influenceIndex];
                         const float weight = sourceSkinWeights[influenceStart + influenceIndex];
@@ -197,19 +197,10 @@ namespace NvCloth
                 return {};
             }
 
-            constexpr AZ::u16 invalidJointId = AZStd::numeric_limits<AZ::u16>::max();
             AZStd::unordered_map<AZ::u16, MCore::DualQuaternion> skinningDualQuaternions;
             for (AZ::u16 jointIndex : jointIndices)
             {
-                if (jointIndex != invalidJointId)
-                {
-                    skinningDualQuaternions.emplace(jointIndex, MCore::DualQuaternion(AZ::Transform::CreateFromMatrix3x4(skinningMatrices[jointIndex])));
-                }
-                else
-                {
-                    // Use an identity quaternion for an invalid jointId. It will ultimately be ignored, since it's corresponding weight should be 0
-                    skinningDualQuaternions.emplace(jointIndex, MCore::DualQuaternion());
-                }
+                skinningDualQuaternions.emplace(jointIndex, MCore::DualQuaternion(AZ::Transform::CreateFromMatrix3x4(skinningMatrices[jointIndex])));
             }
             return skinningDualQuaternions;
         }
@@ -319,15 +310,11 @@ namespace NvCloth
             const size_t vertexInfluenceIndex = influenceOffset + influenceIndex;
 
             const AZ::u16 jointIndex = m_skinningInfluences[vertexInfluenceIndex].m_jointIndex;
-            constexpr AZ::u16 invalidJointId = AZStd::numeric_limits<AZ::u16>::max();
-            if (jointIndex != invalidJointId)
-            {
-                const float jointWeight = m_skinningInfluences[vertexInfluenceIndex].m_jointWeight;
+            const float jointWeight = m_skinningInfluences[vertexInfluenceIndex].m_jointWeight;
 
-                // Blending matrices the same way done in GPU shaders, by adding each weighted matrix element by element.
-                // This operation results in a non orthogonal matrix, but it's done this way because it's fast to perform.
-                vertexSkinningTransform += m_skinningMatrices[jointIndex] * jointWeight;
-            }
+            // Blending matrices the same way done in GPU shaders, by adding each weighted matrix element by element.
+            // This operation results in a non orthogonal matrix, but it's done this way because it's fast to perform.
+            vertexSkinningTransform += m_skinningMatrices[jointIndex] * jointWeight;
         }
         return vertexSkinningTransform;
     }
@@ -456,8 +443,8 @@ namespace NvCloth
         const size_t numVertices = originalMeshParticles.size();
 
         AZStd::vector<SkinningInfluence> skinningInfluences;
-        AZStd::vector<AZ::u32> influencesPerVertex;
-        if (!Internal::ObtainSkinningInfluences(entityId, meshNodeInfo, skinningInfluences, influencesPerVertex))
+        AZStd::vector<AZ::u32> numInfluencesPerSubmesh;
+        if (!Internal::ObtainSkinningInfluences(entityId, meshNodeInfo, skinningInfluences, numInfluencesPerSubmesh))
         {
             return nullptr;
         }
@@ -489,7 +476,6 @@ namespace NvCloth
         actorClothSkinning->m_jointIndices.assign(jointIndices.begin(), jointIndices.end());
 
         // Collect the indices for simulated and non-simulated vertices
-        constexpr AZ::u32 invalidIndex = AZStd::numeric_limits<AZ::u32>::max();
         actorClothSkinning->m_simulatedVertices.resize(numSimulatedVertices);
         actorClothSkinning->m_nonSimulatedVertices.reserve(numVertices);
 
@@ -503,7 +489,7 @@ namespace NvCloth
 
             for (int vertexIndex = meshIndexOffset; vertexIndex < meshIndexOffset + subMeshInfo.m_numVertices; ++vertexIndex)
             {
-                const AZ::u32 influenceOffset = meshInfluenceOffset + (vertexIndex - meshIndexOffset) * influencesPerVertex[subMeshIndex];
+                const AZ::u32 influenceOffset = meshInfluenceOffset + (vertexIndex - meshIndexOffset) * numInfluencesPerSubmesh[subMeshIndex];
 
                 // The cloth cooker has previously simplified the original mesh and re-mapped the vertices 
                 const int remappedIndex = meshRemappedVertices[vertexIndex];
@@ -513,7 +499,7 @@ namespace NvCloth
                 {
                     SimulatedVertex vertex;
                     vertex.m_influenceOffset = influenceOffset;
-                    vertex.m_influenceCount = influencesPerVertex[subMeshIndex];
+                    vertex.m_influenceCount = numInfluencesPerSubmesh[subMeshIndex];
                     actorClothSkinning->m_simulatedVertices[remappedIndex] = vertex;
                 }
 
@@ -522,13 +508,13 @@ namespace NvCloth
                     NonSimulatedVertex vertex;
                     vertex.m_originalVertexIndex = static_cast<AZ::u32>(vertexIndex);
                     vertex.m_influenceOffset = influenceOffset;
-                    vertex.m_influenceCount = influencesPerVertex[subMeshIndex];
+                    vertex.m_influenceCount = numInfluencesPerSubmesh[subMeshIndex];
                     actorClothSkinning->m_nonSimulatedVertices.emplace_back(vertex);
                 }
             }
 
             meshIndexOffset += subMeshInfo.m_numVertices;
-            meshInfluenceOffset += subMeshInfo.m_numVertices * influencesPerVertex[subMeshIndex];
+            meshInfluenceOffset += subMeshInfo.m_numVertices * numInfluencesPerSubmesh[subMeshIndex];
         }
 
         actorClothSkinning->m_nonSimulatedVertices.shrink_to_fit();
