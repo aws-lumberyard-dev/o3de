@@ -6,6 +6,8 @@
  *
  */
 
+#include <limits.h>
+
 #include "StringFunctions.h"
 #include <AzCore/Math/MathUtils.h>
 #include <AzCore/std/string/conversions.h>
