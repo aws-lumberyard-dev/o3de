@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScriptCanvas>
     <Library
-        Include="Include\ScriptCanvas\Libraries\Math\CRC.h"
+        Include="Include/ScriptCanvas/Libraries/Math/CRC.h"
         Name="CRCFunctions"
         Namespace="ScriptCanvas::CRCFunctions"
         Category="Math/Crc32">
