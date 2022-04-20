@@ -92,7 +92,7 @@ namespace Blast
         void ApplyStressDamage() override;
         void SyncMeshes() override;
 
-        // AZ::Data::AssetBus::Handler
+        // AZ::Data::AssetBus overrides ...
         void OnAssetReady(AZ::Data::Asset<AZ::Data::AssetData> asset) override;
         void OnAssetError(AZ::Data::Asset<AZ::Data::AssetData> asset) override;
 
