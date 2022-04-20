@@ -192,9 +192,10 @@ namespace Blast
     {
         AZ_PROFILE_FUNCTION(Physics);
 
-        if (m_blastAsset.GetId().IsValid())
+        if (const auto blastAssetId = m_blastAsset.GetId();
+            blastAssetId.IsValid())
         {
-            AZ::Data::AssetBus::MultiHandler::BusConnect(m_blastAsset.GetId());
+            AZ::Data::AssetBus::MultiHandler::BusConnect(blastAssetId);
         }
         else
         {
@@ -203,9 +204,10 @@ namespace Blast
         }
 
         // If user didn't assign a blast material the default will be used.
-        if (m_blastMaterialAsset.GetId().IsValid())
+        if (const auto blastMaterialAssetId = m_blastMaterialAsset.GetId();
+            blastMaterialAssetId.IsValid())
         {
-            AZ::Data::AssetBus::MultiHandler::BusConnect(m_blastMaterialAsset.GetId());
+            AZ::Data::AssetBus::MultiHandler::BusConnect(blastMaterialAssetId);
         }
 
         // Wait for assets to be ready to spawn the blast family
