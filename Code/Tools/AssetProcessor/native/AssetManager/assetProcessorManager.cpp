@@ -2870,7 +2870,7 @@ namespace AssetProcessor
 
         }
 
-        if (IsInIntermediateAssetsFolder(normalizedFullFile))
+        if (!isDelete && IsInIntermediateAssetsFolder(normalizedFullFile))
         {
             QString relativePath, scanfolderPath;
             m_platformConfig->ConvertToRelativePath(normalizedFullFile, relativePath, scanfolderPath);
