@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScriptCanvas>
     <Library
-        Include="Include\ScriptCanvas\Libraries\Math\Plane.h"
+        Include="Include/ScriptCanvas/Libraries/Math/Plane.h"
         Name="PlaneFunctions"
         Namespace="ScriptCanvas::PlaneFunctions"
         Category="Math/Plane">

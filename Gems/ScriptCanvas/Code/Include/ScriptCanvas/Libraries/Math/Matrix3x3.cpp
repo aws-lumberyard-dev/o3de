@@ -6,10 +6,7 @@
  *
  */
 
-#pragma once
-
-#include <ScriptCanvas/Core/NodeFunctionGeneric.h>
-#include <ScriptCanvas/Libraries/Math/MathNodeUtilities.h>
+#include "Matrix3x3.h"
 
 namespace ScriptCanvas
 {

@@ -6,7 +6,6 @@
  *
  */
 
-
 #include "Plane.h"
 
 namespace ScriptCanvas
