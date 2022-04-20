@@ -226,7 +226,7 @@ namespace NvCloth
             ClothComponentMesh::RenderData& renderData) override;
 
     private:
-        AZ::Matrix3x4 ComputeVertexSkinnningTransform(
+        AZ::Matrix3x4 ComputeVertexSkinningTransform(
             AZ::u32 influenceOffset, AZ::u32 numberOfInfluencesPerVertex);
 
         const AZ::Matrix3x4* m_skinningMatrices = nullptr;
@@ -259,7 +259,7 @@ namespace NvCloth
         for (size_t index = 0; index < vertexCount; ++index)
         {
             const SimulatedVertex& vertex = m_simulatedVertices[index];
-            const AZ::Matrix3x4 vertexSkinningTransform = ComputeVertexSkinnningTransform(vertex.m_influenceOffset, vertex.m_influenceCount);
+            const AZ::Matrix3x4 vertexSkinningTransform = ComputeVertexSkinningTransform(vertex.m_influenceOffset, vertex.m_influenceCount);
 
             const AZ::Vector3 skinnedPosition = vertexSkinningTransform * originalPositions[index].GetAsVector3();
             positions[index].Set(skinnedPosition, positions[index].GetW()); // Avoid overwriting the w component
@@ -283,7 +283,7 @@ namespace NvCloth
         {
             const AZ::u32 index = vertex.m_originalVertexIndex;
             const AZ::Matrix3x4 vertexSkinningTransform =
-                ComputeVertexSkinnningTransform(vertex.m_influenceOffset, vertex.m_influenceCount);
+                ComputeVertexSkinningTransform(vertex.m_influenceOffset, vertex.m_influenceCount);
 
             const AZ::Vector3 skinnedPosition = vertexSkinningTransform * originalData.m_particles[index].GetAsVector3();
             renderData.m_particles[index].Set(skinnedPosition, renderData.m_particles[index].GetW()); // Avoid overwriting the w component
@@ -301,7 +301,7 @@ namespace NvCloth
         }
     }
 
-    AZ::Matrix3x4 ActorClothSkinningLinear::ComputeVertexSkinnningTransform(
+    AZ::Matrix3x4 ActorClothSkinningLinear::ComputeVertexSkinningTransform(
         AZ::u32 influenceOffset, AZ::u32 numberOfInfluencesPerVertex)
     {
         AZ::Matrix3x4 vertexSkinningTransform = s_zeroMatrix3x4;
@@ -339,7 +339,7 @@ namespace NvCloth
             ClothComponentMesh::RenderData& renderData) override;
 
     private:
-        MCore::DualQuaternion ComputeVertexSkinnningTransform(
+        MCore::DualQuaternion ComputeVertexSkinningTransform(
             AZ::u32 influenceOffset, AZ::u32 numberOfInfluencesPerVertex);
 
         AZStd::unordered_map<AZ::u16, MCore::DualQuaternion> m_skinningDualQuaternions;
@@ -373,7 +373,7 @@ namespace NvCloth
         {
             const SimulatedVertex& vertex = m_simulatedVertices[index];
             const MCore::DualQuaternion vertexSkinningTransform =
-                ComputeVertexSkinnningTransform(vertex.m_influenceOffset, vertex.m_influenceCount);
+                ComputeVertexSkinningTransform(vertex.m_influenceOffset, vertex.m_influenceCount);
 
             const AZ::Vector3 skinnedPosition = vertexSkinningTransform.TransformPoint(originalPositions[index].GetAsVector3());
             positions[index].Set(skinnedPosition, positions[index].GetW()); // Avoid overwriting the w component
@@ -397,12 +397,12 @@ namespace NvCloth
         {
             const AZ::u32 index = vertex.m_originalVertexIndex;
             const MCore::DualQuaternion vertexSkinningTransform =
-                ComputeVertexSkinnningTransform(vertex.m_influenceOffset, vertex.m_influenceCount);
+                ComputeVertexSkinningTransform(vertex.m_influenceOffset, vertex.m_influenceCount);
 
             const AZ::Vector3 skinnedPosition = vertexSkinningTransform.TransformPoint(originalData.m_particles[index].GetAsVector3());
             renderData.m_particles[index].Set(skinnedPosition, renderData.m_particles[index].GetW()); // Avoid overwriting the w component
 
-            // ComputeVertexSkinnningTransform is normalizing the blended dual quaternion. This means the dual
+            // ComputeVertexSkinningTransform is normalizing the blended dual quaternion. This means the dual
             // quaternion will not have any scale and there is no need to compute the reciprocal scale version
             // for transforming normals.
             // Note: The GPU skinning shader does the same operation.
@@ -413,7 +413,7 @@ namespace NvCloth
         }
     }
 
-    MCore::DualQuaternion ActorClothSkinningDualQuaternion::ComputeVertexSkinnningTransform(AZ::u32 influenceOffset, AZ::u32 numberOfInfluencesPerVertex)
+    MCore::DualQuaternion ActorClothSkinningDualQuaternion::ComputeVertexSkinningTransform(AZ::u32 influenceOffset, AZ::u32 numberOfInfluencesPerVertex)
     {
         MCore::DualQuaternion vertexSkinningTransform = s_zeroDualQuaternion;
         for (size_t influenceIndex = 0; influenceIndex < numberOfInfluencesPerVertex; ++influenceIndex)
