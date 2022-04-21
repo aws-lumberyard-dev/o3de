@@ -290,6 +290,7 @@ set(FILES
     Include/ScriptCanvas/Libraries/String/Deprecated/Replace.h
     Include/ScriptCanvas/Libraries/String/Deprecated/Replace.ScriptCanvasGrammar.xml
     Include/ScriptCanvas/Libraries/String/Deprecated/StringGenerics.h
+    Include/ScriptCanvas/Libraries/String/Deprecated/StringMethods.h
     Include/ScriptCanvas/Libraries/String/Deprecated/Utilities.h
     Include/ScriptCanvas/Libraries/String/Deprecated/Utilities.ScriptCanvasGrammar.xml
     Include/ScriptCanvas/Libraries/String/Format.h
@@ -299,7 +300,6 @@ set(FILES
     Include/ScriptCanvas/Libraries/String/String.h
     Include/ScriptCanvas/Libraries/String/StringFunctions.h
     Include/ScriptCanvas/Libraries/String/StringFunctions.ScriptCanvasFunction.xml
-    Include/ScriptCanvas/Libraries/String/StringMethods.h
     Include/ScriptCanvas/Libraries/UnitTesting/AddFailure.h
     Include/ScriptCanvas/Libraries/UnitTesting/AddFailure.ScriptCanvasGrammar.xml
     Include/ScriptCanvas/Libraries/UnitTesting/AddSuccess.h
