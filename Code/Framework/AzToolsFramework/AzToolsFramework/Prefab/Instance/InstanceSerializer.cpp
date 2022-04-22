@@ -356,11 +356,13 @@ namespace AzToolsFramework
                 auto instancesMemberIterator = inputValue.FindMember("Instances");
                 if (instancesMemberIterator != inputValue.MemberEnd() && instancesMemberIterator->value.IsObject())
                 {
+                    // Remove nested instances identified in patches metadata.
                     for (const AZStd::string& instanceAlias : patchesMetadata.instancesToRemove)
                     {
                         instance->DetachNestedInstance(instanceAlias);
                     }
 
+                    // Add nested instances identified in patches metadata.
                     for (const AZStd::string& instanceAlias : patchesMetadata.instancesToAdd)
                     {
                         AZStd::unique_ptr<Instance> detachedInstance = instance->DetachNestedInstance(instanceAlias);
@@ -385,6 +387,7 @@ namespace AzToolsFramework
                         }
                     }
 
+                    // Reload nested instances identified in patches metadata. This will trigger further instance loads recursively.
                     for (const AZStd::string& instanceAlias : patchesMetadata.instancesToReload)
                     {
                         InstanceOptionalReference nestedInstance = instance->FindNestedInstance(instanceAlias);
@@ -434,7 +437,7 @@ namespace AzToolsFramework
                 auto entitiesMemberIterator = inputValue.FindMember("Entities");
                 if (entitiesMemberIterator != inputValue.MemberEnd() && entitiesMemberIterator->value.IsObject())
                 {
-
+                    // Remove entities identified in patches metadata.
                     for (AZStd::string entityAlias : patchesMetadata.entitiesToRemove)
                     {
                         EntityOptionalReference existingEntity = instance->GetEntity(entityAlias);
@@ -448,6 +451,7 @@ namespace AzToolsFramework
                     EntityList entitiesLoaded;
                     entitiesLoaded.reserve(patchesMetadata.entitiesToReload.size());
 
+                    // Reload entities identified in patches metadata. This includes addition of new entities too.
                     for (AZStd::string entityAlias : patchesMetadata.entitiesToReload)
                     {
                         EntityOptionalReference existingEntity = instance->GetEntity(entityAlias);
