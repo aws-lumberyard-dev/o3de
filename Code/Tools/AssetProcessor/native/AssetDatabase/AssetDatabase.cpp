@@ -1642,6 +1642,30 @@ namespace AssetProcessor
         return  found && succeeded;
     }
 
+    bool AssetDatabaseConnection::GetSourcesLikeSourceNameScanFolderId(
+        QString likeSourceName,
+        AZ::s64 scanFolderID,
+        LikeType likeType,
+        AzToolsFramework::AssetDatabase::SourceDatabaseEntryContainer& container)
+    {
+        if (likeSourceName.isEmpty())
+        {
+            return false;
+        }
+
+        bool found = false;
+        bool succeeded = QuerySourceLikeSourceNameScanFolderID(
+            likeSourceName.toUtf8().constData(), scanFolderID, likeType,
+            [&](SourceDatabaseEntry& source)
+            {
+                found = true;
+                container.push_back();
+                container.back() = AZStd::move(source);
+                return true; // return true to continue iterating over additional results, we are populating a container
+            });
+        return found && succeeded;
+    }
+
     bool AssetDatabaseConnection::GetSourceByJobID(AZ::s64 jobID, SourceDatabaseEntry& entry)
     {
         bool found = false;
