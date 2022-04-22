@@ -132,6 +132,10 @@ namespace AzToolsFramework
                     commonRootEntityOwningInstance->get().DetachEntity(entity->GetId()).release();
                 }
 
+                PrefabUndoHelpers::UpdatePrefabInstance(
+                    commonRootEntityOwningInstance->get(), "Update prefab instance", commonRootInstanceDomBeforeCreate,
+                    undoBatch.GetUndoBatch());
+
                 // When we create a prefab with other prefab instances, we have to remove the existing links between the source and 
                 // target templates of the other instances.
                 for (auto& nestedInstance : instances)
@@ -155,10 +159,6 @@ namespace AzToolsFramework
 
                     instancePtrs.emplace_back(AZStd::move(outInstance));
                 }
-
-                PrefabUndoHelpers::UpdatePrefabInstance(
-                    commonRootEntityOwningInstance->get(), "Update prefab instance", commonRootInstanceDomBeforeCreate,
-                    undoBatch.GetUndoBatch());
 
                 auto prefabEditorEntityOwnershipInterface = AZ::Interface<PrefabEditorEntityOwnershipInterface>::Get();
                 if (!prefabEditorEntityOwnershipInterface)
@@ -416,9 +416,6 @@ namespace AzToolsFramework
                     return AZ::Failure(AZStd::string("Could not instantiate the prefab provided - internal error "
                                                      "(A null instance is returned)."));
                 }
-
-                PrefabUndoHelpers::UpdatePrefabInstance(
-                    instanceToParentUnder->get(), "Update prefab instance", instanceToParentUnderDomBeforeCreate, undoBatch.GetUndoBatch());
 
                 // Create Link with correct container patches
                 containerEntityId = instanceToCreate->get().GetContainerEntityId();
@@ -832,15 +829,13 @@ namespace AzToolsFramework
         }
 
         void PrefabPublicHandler::Internal_HandleContainerOverride(
-            UndoSystem::URSequencePoint* undoBatch, AZ::EntityId entityId, const PrefabDom& patch,
-            const LinkId linkId, InstanceOptionalReference parentInstance)
+            UndoSystem::URSequencePoint* undoBatch, AZ::EntityId entityId, const PrefabDom& patch, const LinkId linkId)
         {
             // Save these changes as patches to the link
             PrefabUndoLinkUpdate* linkUpdate = aznew PrefabUndoLinkUpdate(AZStd::to_string(static_cast<AZ::u64>(entityId)));
             linkUpdate->SetParent(undoBatch);
             linkUpdate->Capture(patch, linkId);
-
-            linkUpdate->Redo(parentInstance->get());
+            linkUpdate->Redo();
         }
 
         void PrefabPublicHandler::Internal_HandleEntityChange(
@@ -1250,7 +1245,6 @@ namespace AzToolsFramework
             AZ_PROFILE_SCOPE(AzToolsFramework, "Internal::DeleteEntities:UndoCaptureAndPurgeEntities");
 
             Prefab::PrefabDom instanceDomBefore;
-            m_instanceToTemplateInterface->GenerateDomForInstance(instanceDomBefore, commonOwningInstance->get());
 
             AZStd::vector<AZ::Entity*> entities;
             AZStd::vector<Instance*> instances;
