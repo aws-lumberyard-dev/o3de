@@ -532,6 +532,7 @@ namespace AzToolsFramework
             bool QuerySourceBySourceName(const char* exactSourceName, sourceHandler handler);
             bool QuerySourceBySourceNameScanFolderID(const char* exactSourceName, AZ::s64 scanFolderID, sourceHandler handler);
             bool QuerySourceLikeSourceName(const char* likeSourceName, LikeType likeType, sourceHandler handler);
+            bool QuerySourceLikeSourceNameScanFolderID(const char* likeSourceName, AZ::s64 scanFolderID, LikeType likeType, sourceHandler handler);
             bool QuerySourceAnalysisFingerprint(const char* exactSourceName, AZ::s64 scanFolderID, AZStd::string& result);
             bool QuerySourceAndScanfolder(combinedSourceScanFolderHandler handler);
 
