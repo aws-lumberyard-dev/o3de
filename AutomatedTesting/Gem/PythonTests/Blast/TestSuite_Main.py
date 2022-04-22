@@ -8,7 +8,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 # This suite consists of all test cases that are passing and have been verified.
 # Since most tests open the same level they cannot run in parallel (EditorParallelTest or EditorSharedTest)
-# because multiple editors openning the same level lead to random failures, using batching instead (EditorBatchedTest).
+# because multiple editors opening the same level lead to random failures, using batching instead (EditorBatchedTest).
 
 import pytest
 from ly_test_tools.o3de.editor_test import EditorTestSuite, EditorBatchedTest
