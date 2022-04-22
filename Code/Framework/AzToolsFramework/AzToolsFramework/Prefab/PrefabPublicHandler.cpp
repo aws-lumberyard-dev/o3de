@@ -809,7 +809,7 @@ namespace AzToolsFramework
                     else
                     {
                         Internal_HandleContainerOverride(
-                            parentUndoBatch, entityId, patch, owningInstance->get().GetLinkId(), owningInstance->get().GetParentInstance());
+                            parentUndoBatch, entityId, patch, owningInstance->get().GetLinkId());
                     }
                 }
                 else
