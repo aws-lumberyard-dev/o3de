@@ -37,7 +37,9 @@ ly_add_target(
             AZ::AzFramework
             AZ::AzToolsFramework
             AZ::AssetBuilderSDK
+            Gem::ScriptCanvas.Extensions
         AUTOGEN_RULES
+            *.ScriptCanvasFunction.xml,ScriptCanvasFunction_Source.jinja,$path/$fileprefix.generated.cpp
             *.ScriptCanvasGrammar.xml,ScriptCanvasGrammar_Header.jinja,$path/$fileprefix.generated.h
             *.ScriptCanvasGrammar.xml,ScriptCanvasGrammar_Source.jinja,$path/$fileprefix.generated.cpp
             *.ScriptCanvasNodeable.xml,ScriptCanvasNodeable_Header.jinja,$path/$fileprefix.generated.h

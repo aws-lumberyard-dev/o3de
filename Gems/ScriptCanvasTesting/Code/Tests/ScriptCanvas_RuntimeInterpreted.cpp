@@ -954,3 +954,8 @@ TEST_F(ScriptCanvasTestFixture, GlobalMultipleReturnResultsByValue)
 {
     RunUnitTestGraph("LY_SC_UnitTest_GlobalMultipleReturnResultsByValue", ExecutionMode::Interpreted);
 }
+
+TEST_F(ScriptCanvasTestFixture, AutoGenFunctions)
+{
+    RunUnitTestGraph("LY_SC_UnitTest_AutoGenFunctions", ExecutionMode::Interpreted);
+}

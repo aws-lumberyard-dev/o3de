@@ -247,18 +247,13 @@ if(PAL_TRAIT_BUILD_TESTS_SUPPORTED)
         INCLUDE_DIRECTORIES
             PRIVATE
                 Include
-                Source
-        COMPILE_DEFINITIONS
-            PRIVATE
-                SCRIPTCANVAS_EDITOR
-                SCRIPTCANVAS_ERRORS_ENABLED
-                ${SCRIPT_CANVAS_COMMON_DEFINES}
+                Tests
         BUILD_DEPENDENCIES
             PRIVATE
-                AZ::AzTest
+                AZ::AzCore
                 AZ::AzFramework
-        RUNTIME_DEPENDENCIES
-            Gem::ScriptCanvas
+                AZ::AzTest
+                Gem::ScriptCanvas.Static
     )
     ly_add_googletest(
         NAME Gem::ScriptCanvas.Tests

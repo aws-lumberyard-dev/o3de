@@ -23,6 +23,7 @@
 #include <Nodes/BehaviorContextObjectTestNode.h>
 #include <Nodes/Nodeables/SharedDataSlotExample.h>
 #include <Nodes/Nodeables/ValuePointerReferenceExample.h>
+#include <ScriptCanvas/AutoGen/ScriptCanvasAutoGenRegistry.h>
 #include <ScriptCanvas/Core/Graph.h>
 #include <ScriptCanvas/Core/SlotConfigurationDefaults.h>
 #include <ScriptCanvas/ScriptCanvasGem.h>
@@ -128,6 +129,8 @@ namespace ScriptCanvasTests
             TestNodeableObject::Reflect(m_behaviorContext);
             ScriptUnitTestEventHandler::Reflect(m_serializeContext);
             ScriptUnitTestEventHandler::Reflect(m_behaviorContext);
+            ScriptCanvas::AutoGenRegistry::ReflectFunction(
+                m_behaviorContext, "ScriptCanvasTesting_TestAutoGenFunctions_ScriptCanvasTestAutoGenFunctions");
         }
 
         static void TearDownTestCase()
