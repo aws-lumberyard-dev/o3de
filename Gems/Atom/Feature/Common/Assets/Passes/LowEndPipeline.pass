@@ -206,6 +206,25 @@
                     ]
                 },
                 {
+                    "Name": "MeshletsComputePass",
+                    "TemplateName": "MeshletsComputePassTemplate",
+                    "Connections": [
+//                        {
+//                            "LocalSlot": "DepthInputOutput",
+//                            "AttachmentRef": {
+//                                "Pass": "DepthPrePass",
+//                                "Attachment": "Depth"
+//                            }
+//                        }
+                    ],
+                    "PassData": {
+                        "$type": "ComputePassData",
+                        "ShaderAsset": {
+                            "FilePath": "Shaders/MeshletsCompute.shader"
+                        }
+                    }
+                },
+                {
                     "Name": "TransparentPass",
                     "TemplateName": "TransparentParentTemplate",
                     "Connections": [
