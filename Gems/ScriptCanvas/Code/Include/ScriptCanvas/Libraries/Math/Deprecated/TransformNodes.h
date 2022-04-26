@@ -16,6 +16,9 @@
 
 namespace ScriptCanvas
 {
+    //! TransformNodes is deprecated
+    //! This file is deprecated and will be removed. Keep it to allow for seamless migration from node generic framework
+    //! to new AutoGen function.
     namespace TransformNodes
     {
         using namespace Data;
