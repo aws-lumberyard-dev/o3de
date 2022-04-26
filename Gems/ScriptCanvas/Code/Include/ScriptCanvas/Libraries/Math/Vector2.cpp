@@ -8,6 +8,8 @@
 
 #include "Vector2.h"
 
+REGISTER_SCRIPTCANVAS_VECTOR2FUNCTIONS;
+
 namespace ScriptCanvas
 {
     namespace Vector2Functions

@@ -8,6 +8,8 @@
 
 #include "Transform.h"
 
+REGISTER_SCRIPTCANVAS_TRANSFORMFUNCTIONS;
+
 namespace ScriptCanvas
 {
     namespace TransformFunctions

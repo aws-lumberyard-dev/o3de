@@ -8,6 +8,8 @@
 
 #include "OBB.h"
 
+REGISTER_SCRIPTCANVAS_OBBFUNCTIONS;
+
 namespace ScriptCanvas
 {
     namespace OBBFunctions

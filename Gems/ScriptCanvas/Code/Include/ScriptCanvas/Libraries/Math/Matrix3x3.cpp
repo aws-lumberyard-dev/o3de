@@ -8,6 +8,8 @@
 
 #include "Matrix3x3.h"
 
+REGISTER_SCRIPTCANVAS_MATRIX3X3FUNCTIONS;
+
 namespace ScriptCanvas
 {
     namespace Matrix3x3Functions

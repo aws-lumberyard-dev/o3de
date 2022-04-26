@@ -12,6 +12,9 @@
 #include <AzCore/Math/Vector4.h>
 #include <ScriptCanvas/Libraries/Math/MathNodeUtilities.h>
 
+REGISTER_SCRIPTCANVAS_MATHFUNCTIONS;
+REGISTER_SCRIPTCANVAS_MATHRANDOMS;
+
 namespace ScriptCanvas
 {
     namespace MathFunctions

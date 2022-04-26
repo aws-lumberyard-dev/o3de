@@ -15,6 +15,8 @@
 
 #define LUA_BACKEND
 
+REGISTER_SCRIPTCANVAS_STRINGFUNCTIONS;
+
 namespace ScriptCanvas
 {
     static const size_t k_LuaNpos = UINT_MAX;

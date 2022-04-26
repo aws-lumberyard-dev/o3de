@@ -8,6 +8,8 @@
 
 #include "Vector3.h"
 
+REGISTER_SCRIPTCANVAS_VECTOR3FUNCTIONS;
+
 namespace ScriptCanvas
 {
     namespace Vector3Functions
