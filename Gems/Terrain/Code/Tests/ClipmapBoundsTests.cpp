@@ -218,7 +218,7 @@ namespace UnitTest
 
         {
             // 2 quadrant positive
-            
+
             AZ::Aabb smallArea = AZ::Aabb::CreateFromMinMaxValues(
                 10.0f, -10.0f, 0.0f, 50.0f, 50.0f, 0.0f
             );
