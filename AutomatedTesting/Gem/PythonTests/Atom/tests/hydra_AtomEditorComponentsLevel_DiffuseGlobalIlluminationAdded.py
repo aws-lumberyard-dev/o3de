@@ -63,6 +63,7 @@ def AtomEditorComponentsLevel_DiffuseGlobalIllumination_AddedToEntity():
         # 1. Add Diffuse Global Illumination level component to the level entity.
         diffuse_global_illumination_component = EditorLevelEntity.add_component(
             AtomComponentProperties.diffuse_global_illumination())
+        general.idle_wait_frames(1)
         Report.critical_result(
             Tests.diffuse_global_illumination_component,
             EditorLevelEntity.has_component(AtomComponentProperties.diffuse_global_illumination()))
