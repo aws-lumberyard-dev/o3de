@@ -127,7 +127,14 @@ namespace AZ
             const RHI::AttachmentId attachmentId = attachment->GetAttachmentId();
 
             RHI::AttachmentLoadStoreAction action;
-            action.m_clearValue = RHI::ClearValue::CreateDepth(1.f);
+            if (m_reverseDepth)
+            {
+                action.m_clearValue = RHI::ClearValue::CreateDepth(0.f);
+            }
+            else
+            {
+                action.m_clearValue = RHI::ClearValue::CreateDepth(1.f);
+            }
             action.m_loadAction = m_clearEnabled ? RHI::AttachmentLoadAction::Clear : RHI::AttachmentLoadAction::DontCare;
             binding.m_unifiedScopeDesc = RHI::UnifiedScopeAttachmentDescriptor(attachmentId, imageViewDescriptor, action);
 

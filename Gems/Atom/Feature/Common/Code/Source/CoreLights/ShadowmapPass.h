@@ -43,6 +43,8 @@ namespace AZ
             //! This enable/disable clearing of the image view.
             void SetClearEnabled(bool enabled);
 
+            void SetReverseDepth(bool reverseDepth) { m_reverseDepth = reverseDepth; }
+
             //! This update viewport and scissor for this shadowmap from the given image size.
             void SetViewportScissorFromImageSize(const RHI::Size& imageSize);
 
@@ -58,6 +60,7 @@ namespace AZ
 
             uint16_t m_arraySlice = 0;
             bool m_clearEnabled = true;
+            bool m_reverseDepth = false;
         };
     } // namespace Render
 } // namespace AZ

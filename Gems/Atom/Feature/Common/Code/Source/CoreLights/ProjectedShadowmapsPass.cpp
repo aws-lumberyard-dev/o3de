@@ -207,7 +207,9 @@ namespace AZ
             passData->m_drawListTag = m_drawListTagName;
             passData->m_pipelineViewTag = GetPipelineViewTagOfChild(childIndex);
 
-            return ShadowmapPass::CreateWithPassRequest(passName, passData);
+            RPI::Ptr<ShadowmapPass> pass = ShadowmapPass::CreateWithPassRequest(passName, passData);
+            pass->SetReverseDepth(true);
+            return pass;
         }
 
         void ProjectedShadowmapsPass::SetChildrenCount(size_t childrenCount)

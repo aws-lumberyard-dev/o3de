@@ -306,7 +306,7 @@ bool ProjectedShadow::IsShadowed(float3 shadowPosition)
             float3(atlasPosition.xy * invAtlasSize, atlasPosition.z)).r;
         const float depthDiff = depthInShadowmap - shadowPosition.z;
 
-        if (depthDiff < -m_bias)
+        if (depthDiff >= m_bias)
         {
             return true;
         }
