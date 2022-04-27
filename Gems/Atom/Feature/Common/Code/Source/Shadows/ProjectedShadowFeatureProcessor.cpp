@@ -211,10 +211,14 @@ namespace AZ::Render
     {
         AZ_Assert(id.IsValid(), "Invalid ShadowId passed to ProjectedShadowFeatureProcessor::SetShadowProperties().");
         ShadowProperty& shadowProperty = GetShadowPropertyFromShadowId(id);
-        shadowProperty.m_desc = descriptor;
-        UpdateShadowView(shadowProperty);
-        m_shadowmapPassNeedsUpdate = true;
-        m_filterParameterNeedsUpdate = true;
+
+        if (shadowProperty.m_desc != descriptor)
+        {
+            shadowProperty.m_desc = descriptor;
+            UpdateShadowView(shadowProperty);
+            //m_shadowmapPassNeedsUpdate = true;
+            m_filterParameterNeedsUpdate = true;
+        }
     }
     
     auto ProjectedShadowFeatureProcessor::GetShadowProperties(ShadowId id) -> const ProjectedShadowDescriptor&
@@ -240,7 +244,8 @@ namespace AZ::Render
             GetMax(desc.m_fieldOfViewYRadians, MinimumFieldOfView),
             desc.m_aspectRatio,
             nearDist,
-            farDist);
+            farDist,
+            true);
 
         RPI::ViewPtr view = shadowProperty.m_shadowmapView;
         view->SetViewToClipMatrix(viewToClipMatrix);
@@ -276,6 +281,27 @@ namespace AZ::Render
         shadowData.m_unprojectConstants[1] = view->GetViewToClipMatrix().GetRow(2).GetElement(3);
 
         m_deviceBufferNeedsUpdate = true;
+
+        
+            if (RPI::RenderPipeline* renderPipeline = GetParentScene()->GetDefaultRenderPipeline().get())
+            {
+                if (RPI::View* cameraView = renderPipeline->GetDefaultView().get())
+                {
+                    MakePerspectiveFovMatrixRH(
+                        viewToClipMatrix,
+                        GetMax(desc.m_fieldOfViewYRadians, MinimumFieldOfView),
+                        desc.m_aspectRatio,
+                        nearDist,
+                        farDist,
+                        true);
+
+                    cameraView->SetCameraTransform(AZ::Matrix3x4::CreateFromTransform(view->GetCameraTransform()));
+                    cameraView->SetViewToClipMatrix(viewToClipMatrix);
+                    cameraView->SetWorldToViewMatrix(view->GetWorldToViewMatrix());
+                }
+            }
+
+
     }
 
     void ProjectedShadowFeatureProcessor::InitializeShadow(ShadowId shadowId)
@@ -499,7 +525,7 @@ namespace AZ::Render
         }
     }
     
-    void ProjectedShadowFeatureProcessor::Render(const ProjectedShadowFeatureProcessor::RenderPacket& packet)
+    void ProjectedShadowFeatureProcessor::Render(const FeatureProcessor::RenderPacket& packet)
     {
         AZ_PROFILE_SCOPE(RPI, "ProjectedShadowFeatureProcessor: Render");
 

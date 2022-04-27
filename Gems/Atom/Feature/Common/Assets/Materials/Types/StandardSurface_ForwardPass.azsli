@@ -121,6 +121,8 @@ PbrLightingOutput ForwardPassPS_Common(VSOutput IN, bool isFrontFace, out float 
 
     if(ShouldHandleParallax())
     {
+        float depthClipSpaceUnused = 0.0;
+
         SetPixelDepth(
             IN.m_worldPosition,
             vertexNormal,
@@ -128,7 +130,7 @@ PbrLightingOutput ForwardPassPS_Common(VSOutput IN, bool isFrontFace, out float 
             bitangents,
             IN.m_uv,
             isFrontFace,
-            IN.m_position.w,
+            depthClipSpaceUnused,
             depthNDC,
             displacementIsClipped);
 
@@ -140,6 +142,7 @@ PbrLightingOutput ForwardPassPS_Common(VSOutput IN, bool isFrontFace, out float 
             {
                 DirectionalLightShadow::GetShadowCoords(shadowIndex, IN.m_worldPosition, vertexNormal, IN.m_shadowCoords);
             }
+            IN.m_position.w = mul(ViewSrg::m_viewProjectionMatrix, IN.m_worldPosition).z;
         }
     }
 

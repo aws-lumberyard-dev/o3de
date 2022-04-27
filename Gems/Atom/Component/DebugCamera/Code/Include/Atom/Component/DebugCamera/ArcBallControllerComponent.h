@@ -74,6 +74,7 @@ namespace AZ
             AZ::Vector3 m_center = AZ::Vector3::CreateZero();
             AZ::Vector3 m_panningOffset = AZ::Vector3::CreateZero();
             AZ::Vector3 m_panningOffsetDelta = AZ::Vector3::CreateZero();
+            AZ::Transform m_transform = AZ::Transform::Identity();
             float m_distance = 5.0f;
             float m_minDistance = 0.1f;
             float m_maxDistance = 10.0f;

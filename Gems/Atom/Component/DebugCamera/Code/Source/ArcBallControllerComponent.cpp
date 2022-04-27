@@ -128,8 +128,12 @@ namespace AZ
             AZ::Vector3 position = (m_center + m_panningOffset) + (orientation.TransformVector(AZ::Vector3(0, -m_distance, 0)));
 
             AZ::Transform transform = AZ::Transform::CreateFromQuaternionAndTranslation(orientation, position);
-            AZ::TransformBus::Event(
-                GetEntityId(), &AZ::TransformBus::Events::SetLocalTM, transform);
+            if (transform != m_transform)
+            {
+                m_transform = transform;
+                AZ::TransformBus::Event(
+                    GetEntityId(), &AZ::TransformBus::Events::SetLocalTM, transform);
+            }
         }
 
         bool ArcBallControllerComponent::OnInputChannelEventFiltered(const AzFramework::InputChannel& inputChannel)

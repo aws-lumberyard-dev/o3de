@@ -123,14 +123,14 @@ PSDepthOutput MainPS(VSDepthOutput IN, bool isFrontFace : SV_IsFrontFace)
                 bitangents[i]);
         }
 
-#if MULTILAYER
+#if MULTILAYER  
         MultilayerSetPixelDepth(IN.m_blendMask, IN.m_worldPosition, IN.m_normal, tangents, bitangents, IN.m_uv, isFrontFace, OUT.m_depth);
 #else
         SetPixelDepth(IN.m_worldPosition, IN.m_normal, tangents, bitangents, IN.m_uv, isFrontFace, OUT.m_depth);
 #endif
 
 #if SHADOWS
-        OUT.m_depth += PdoShadowMapBias;
+        OUT.m_depth -= PdoShadowMapBias;
 #endif
     }
     

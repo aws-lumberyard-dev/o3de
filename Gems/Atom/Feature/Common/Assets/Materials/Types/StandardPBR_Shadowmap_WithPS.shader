@@ -2,7 +2,7 @@
     "Source" : "./StandardPBR_Shadowmap_WithPS.azsl",
 
     "DepthStencilState" : { 
-        "Depth" : { "Enable" : true, "CompareFunc" : "LessEqual" }
+        "Depth" : { "Enable" : true, "CompareFunc" : "GreaterEqual" }
     },
 
     "DrawList" : "shadow",

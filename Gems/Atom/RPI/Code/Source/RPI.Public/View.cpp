@@ -166,7 +166,7 @@ namespace AZ
 
             // Only signal an update when there is a change, otherwise this might block
             // user input from changing the value.
-            if (!prevViewToWorldMatrix.IsClose(m_viewToWorldMatrix))
+            //if (!prevViewToWorldMatrix.IsClose(m_viewToWorldMatrix))
             {
                 m_onWorldToViewMatrixChange.Signal(m_worldToViewMatrix);
             }

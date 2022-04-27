@@ -2,7 +2,7 @@
     "Source" : "Shadowmap.azsl",
 
     "DepthStencilState" : { 
-        "Depth" : { "Enable" : true, "CompareFunc" : "LessEqual" }
+        "Depth" : { "Enable" : true, "CompareFunc" : "GreaterEqual" }
     },
 
     "DrawList" : "shadow",

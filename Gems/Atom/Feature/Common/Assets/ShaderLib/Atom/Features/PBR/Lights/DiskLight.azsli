@@ -89,7 +89,7 @@ void ApplyDiskLight(ViewSrg::DiskLight light, Surface surface, inout LightingDat
                 light.m_position,
                 surface.position,
                 -dirToConeTip,
-                surface.vertexNormal);
+                surface.normal);
              
 
             // o_transmission_mode == NONE is not taken into account because GetBackLighting already ignores this case
