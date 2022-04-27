@@ -14,7 +14,7 @@
 
 namespace PhysX
 {
-    //! Runtime blast material, created from a MaterialConfiguration.
+    //! Runtime PhysX material, created from a MaterialConfiguration.
     // TODO: Material2 is temporary until old Material class is removed.
     class Material2
     {
