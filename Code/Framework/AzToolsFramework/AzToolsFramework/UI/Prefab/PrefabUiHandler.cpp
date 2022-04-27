@@ -393,7 +393,7 @@ namespace AzToolsFramework
         else
         {
             // Only show the edit icon on hover.
-            if (isFirstColumn && isHovered && !isContainerOpen)
+            if (isFirstColumn && isHovered)
             {
                 QIcon openIcon = QIcon(m_prefabEditOpenIconPath);
                 painter->drawPixmap(option.rect.topRight() + QPoint(-13, 7), openIcon.pixmap(editIconSize));
