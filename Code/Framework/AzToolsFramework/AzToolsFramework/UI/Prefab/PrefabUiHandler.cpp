@@ -355,7 +355,6 @@ namespace AzToolsFramework
         const bool isExpanded =
             firstColumnIndex.data(EntityOutlinerListModel::ExpandedRole).value<bool>() &&
             firstColumnIndex.model()->hasChildren(firstColumnIndex);
-        bool isContainerOpen = m_containerEntityInterface->IsContainerOpen(entityId);
 
         painter->save();
         painter->setRenderHint(QPainter::Antialiasing, true);
