@@ -6,7 +6,7 @@
  *
  */
 
-#include <Framework/ScriptCanvasUnitTestFixture.h>
+#include <Tests/Framework/ScriptCanvasUnitTestFixture.h>
 #include <Libraries/Math/Quaternion.h>
 
 namespace ScriptCanvasUnitTest

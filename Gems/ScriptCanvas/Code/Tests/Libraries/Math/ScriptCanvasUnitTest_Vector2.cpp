@@ -6,7 +6,7 @@
  *
  */
 
-#include <Framework/ScriptCanvasUnitTestFixture.h>
+#include <Tests/Framework/ScriptCanvasUnitTestFixture.h>
 #include <Libraries/Math/Vector2.h>
 
 namespace ScriptCanvasUnitTest

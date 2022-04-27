@@ -9,7 +9,7 @@
 #include <AzCore/Component/ComponentApplicationBus.h>
 #include <AzCore/Component/Entity.h>
 #include <AzCore/Component/TransformBus.h>
-#include <Framework/ScriptCanvasUnitTestFixture.h>
+#include <Tests/Framework/ScriptCanvasUnitTestFixture.h>
 #include <Libraries/Entity/EntityFunctions.h>
 
 namespace ScriptCanvasUnitTest
