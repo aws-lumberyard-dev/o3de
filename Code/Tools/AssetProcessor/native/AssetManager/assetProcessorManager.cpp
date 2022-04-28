@@ -2952,7 +2952,7 @@ namespace AssetProcessor
             }
         }
 
-        if (!isDelete && IsInIntermediateAssetsFolder(normalizedFullFile) && !AZ::IO::SystemFile::IsDirectory(normalizedFullFile.toUtf8().constData()))
+        if (!isDelete && IsInIntermediateAssetsFolder(normalizedFullFile) && !m_knownFolders.contains(normalizedFullFile))
         {
             QString relativePath, scanfolderPath;
             m_platformConfig->ConvertToRelativePath(normalizedFullFile, relativePath, scanfolderPath);
