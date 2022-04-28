@@ -14,11 +14,16 @@ namespace PhysX
     {
         switch (pxMode)
         {
-        case physx::PxCombineMode::eAVERAGE: return CombineMode::Average;
-        case physx::PxCombineMode::eMULTIPLY: return CombineMode::Multiply;
-        case physx::PxCombineMode::eMAX: return CombineMode::Maximum;
-        case physx::PxCombineMode::eMIN: return CombineMode::Minimum;
-        default: return CombineMode::Average;
+        case physx::PxCombineMode::eAVERAGE:
+            return CombineMode::Average;
+        case physx::PxCombineMode::eMULTIPLY:
+            return CombineMode::Multiply;
+        case physx::PxCombineMode::eMAX:
+            return CombineMode::Maximum;
+        case physx::PxCombineMode::eMIN:
+            return CombineMode::Minimum;
+        default:
+            return CombineMode::Average;
         }
     }
 
@@ -26,11 +31,16 @@ namespace PhysX
     {
         switch (mode)
         {
-        case CombineMode::Average: return physx::PxCombineMode::eAVERAGE;
-        case CombineMode::Multiply: return physx::PxCombineMode::eMULTIPLY;
-        case CombineMode::Maximum: return physx::PxCombineMode::eMAX;
-        case CombineMode::Minimum: return physx::PxCombineMode::eMIN;
-        default: return physx::PxCombineMode::eAVERAGE;
+        case CombineMode::Average:
+            return physx::PxCombineMode::eAVERAGE;
+        case CombineMode::Multiply:
+            return physx::PxCombineMode::eMULTIPLY;
+        case CombineMode::Maximum:
+            return physx::PxCombineMode::eMAX;
+        case CombineMode::Minimum:
+            return physx::PxCombineMode::eMIN;
+        default:
+            return physx::PxCombineMode::eAVERAGE;
         }
     }
 
@@ -40,9 +50,7 @@ namespace PhysX
 
         m_pxMaterial = PxMaterialUniquePtr(
             PxGetPhysics().createMaterial(
-                defaultMaterialConf.m_staticFriction,
-                defaultMaterialConf.m_dynamicFriction,
-                defaultMaterialConf.m_restitution),
+                defaultMaterialConf.m_staticFriction, defaultMaterialConf.m_dynamicFriction, defaultMaterialConf.m_restitution),
             [](physx::PxMaterial* pxMaterial)
             {
                 pxMaterial->release();
@@ -67,9 +75,8 @@ namespace PhysX
 
     void Material2::SetDynamicFriction(float dynamicFriction)
     {
-        AZ_Warning("PhysX Material", dynamicFriction >= 0.0f,
-            "Dynamic friction value %f is out of range, 0 will be used.",
-            dynamicFriction);
+        AZ_Warning(
+            "PhysX Material", dynamicFriction >= 0.0f, "Dynamic friction value %f is out of range, 0 will be used.", dynamicFriction);
 
         m_pxMaterial->setDynamicFriction(AZ::GetMax(0.0f, dynamicFriction));
     }
@@ -81,9 +88,7 @@ namespace PhysX
 
     void Material2::SetStaticFriction(float staticFriction)
     {
-        AZ_Warning("PhysX Material", staticFriction >= 0.0f,
-            "Static friction value %f is out of range, 0 will be used.",
-            staticFriction);
+        AZ_Warning("PhysX Material", staticFriction >= 0.0f, "Static friction value %f is out of range, 0 will be used.", staticFriction);
 
         m_pxMaterial->setStaticFriction(AZ::GetMax(0.0f, staticFriction));
     }
@@ -95,8 +100,8 @@ namespace PhysX
 
     void Material2::SetRestitution(float restitution)
     {
-        AZ_Warning("PhysX Material", restitution >= 0.0f && restitution <= 1.0f,
-            "Restitution value %f will be clamped into range [0, 1]",
+        AZ_Warning(
+            "PhysX Material", restitution >= 0.0f && restitution <= 1.0f, "Restitution value %f will be clamped into range [0, 1]",
             restitution);
 
         m_pxMaterial->setRestitution(AZ::GetClamp(restitution, 0.0f, 1.0f));
@@ -129,12 +134,12 @@ namespace PhysX
 
     void Material2::SetDensity(float density)
     {
-        AZ_Warning("PhysX Material", density >= MaterialConfiguration::MinDensityLimit && density <= MaterialConfiguration::MaxDensityLimit,
-            "Density value %f will be clamped into range [%f, %f].",
-            density, MaterialConfiguration::MinDensityLimit, MaterialConfiguration::MaxDensityLimit);
+        AZ_Warning(
+            "PhysX Material", density >= MaterialConfiguration::MinDensityLimit && density <= MaterialConfiguration::MaxDensityLimit,
+            "Density value %f will be clamped into range [%f, %f].", density, MaterialConfiguration::MinDensityLimit,
+            MaterialConfiguration::MaxDensityLimit);
 
-        m_density = AZ::GetClamp(density,
-            MaterialConfiguration::MinDensityLimit, MaterialConfiguration::MaxDensityLimit);
+        m_density = AZ::GetClamp(density, MaterialConfiguration::MinDensityLimit, MaterialConfiguration::MaxDensityLimit);
     }
 
     const AZ::Color& Material2::GetDebugColor() const
