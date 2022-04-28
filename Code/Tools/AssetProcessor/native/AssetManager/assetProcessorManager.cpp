@@ -916,7 +916,7 @@ namespace AssetProcessor
                 AzToolsFramework::AssetDatabase::SourceDatabaseEntryContainer sources;
 
 
-                if (CheckForIntermediateAssetLoop(
+                if (productWrapper.HasIntermediateProduct() && CheckForIntermediateAssetLoop(
                         itProcessedAsset->m_entry.m_databaseSourceName.toUtf8().constData(), productPath.GetRelativePath()))
                 {
                     // Loop detected
@@ -2791,12 +2791,30 @@ namespace AssetProcessor
                 {
                     if (!IsInIntermediateAssetsFolder(overrider))
                     {
-                    // this file is being overridden by an earlier file.
-                    // ignore us, and pretend the other file changed:
-                    AZ_TracePrintf(AssetProcessor::DebugChannel, "File overridden by %s.\n", overrider.toUtf8().constData());
-                    CheckSource(FileEntry(overrider, false, examineFile.m_isFromScanner));
-                    continue;
-                }
+                        FileStateInfo foundFileInfo;
+                        bool found = AZ::Interface<IFileStateRequests>::Get()->GetFileInfo(overrider, &foundFileInfo);
+
+                        if(!found)
+                        {
+                            AZ_Error(AssetProcessor::ConsoleChannel, false, "ProcessFilesToExamineQueue: Found overrider %s for file %s, but FileStateCache has no information about this file.  File will not be processed.",
+                                overrider.toUtf8().constData(), normalizedPath.toUtf8().constData());
+                            continue;
+                        }
+
+                        if(foundFileInfo.m_isDirectory)
+                        {
+                            // It makes no sense for directories to override directories.  This happens usually because a directory was deleted, but we have no way of knowing it was a directory (since it's already deleted)
+                            // Since we know the overrider is a directory, ignore this overrider and continue on processing the actual directory.
+                        }
+                        else
+                        {
+                            // this file is being overridden by an earlier file.
+                            // ignore us, and pretend the other file changed:
+                            AZ_TracePrintf(AssetProcessor::DebugChannel, "File overridden by %s.\n", overrider.toUtf8().constData());
+                            CheckSource(FileEntry(overrider, false, examineFile.m_isFromScanner));
+                            continue;
+                        }
+                    }
                 }
 
                 // its an input file or a file we don't care about...
