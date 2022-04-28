@@ -15,7 +15,7 @@ namespace UnitTest
 {
     static constexpr float Tolerance = 1e-4f;
 
-    TEST(PhysXMaterial, Material_GetSet_DynamicFriction_Successfully)
+    TEST(PhysXMaterial, Material_GetSet_DynamicFriction)
     {
         PhysX::MaterialConfiguration materialConfiguration;
         materialConfiguration.m_dynamicFriction = 68.6f;
@@ -28,7 +28,7 @@ namespace UnitTest
         EXPECT_NEAR(material.GetDynamicFriction(), 31.2f, Tolerance);
     }
 
-    TEST(PhysXMaterial, Material_Clamps_DynamicFriction_Successfully)
+    TEST(PhysXMaterial, Material_Clamps_DynamicFriction)
     {
         PhysX::MaterialConfiguration materialConfiguration;
         materialConfiguration.m_dynamicFriction = -7.0f;
@@ -41,7 +41,7 @@ namespace UnitTest
         EXPECT_NEAR(material.GetDynamicFriction(), 0.0f, Tolerance);
     }
 
-    TEST(PhysXMaterial, Material_GetSet_StaticFriction_Successfully)
+    TEST(PhysXMaterial, Material_GetSet_StaticFriction)
     {
         PhysX::MaterialConfiguration materialConfiguration;
         materialConfiguration.m_staticFriction = 68.6f;
@@ -54,7 +54,7 @@ namespace UnitTest
         EXPECT_NEAR(material.GetStaticFriction(), 31.2f, Tolerance);
     }
 
-    TEST(PhysXMaterial, Material_Clamps_StaticFriction_Successfully)
+    TEST(PhysXMaterial, Material_Clamps_StaticFriction)
     {
         PhysX::MaterialConfiguration materialConfiguration;
         materialConfiguration.m_staticFriction = -7.0f;
@@ -67,7 +67,7 @@ namespace UnitTest
         EXPECT_NEAR(material.GetStaticFriction(), 0.0f, Tolerance);
     }
 
-    TEST(PhysXMaterial, Material_GetSet_Restitution_Successfully)
+    TEST(PhysXMaterial, Material_GetSet_Restitution)
     {
         PhysX::MaterialConfiguration materialConfiguration;
         materialConfiguration.m_restitution = 0.43f;
@@ -80,7 +80,7 @@ namespace UnitTest
         EXPECT_NEAR(material.GetRestitution(), 0.78f, Tolerance);
     }
 
-    TEST(PhysXMaterial, Material_Clamps_Restitution_Successfully)
+    TEST(PhysXMaterial, Material_Clamps_Restitution)
     {
         PhysX::MaterialConfiguration materialConfiguration;
         materialConfiguration.m_restitution = -13.0f;
@@ -99,7 +99,7 @@ namespace UnitTest
         EXPECT_NEAR(material.GetRestitution(), 1.0f, Tolerance);
     }
 
-    TEST(PhysXMaterial, Material_GetSet_Density_Successfully)
+    TEST(PhysXMaterial, Material_GetSet_Density)
     {
         PhysX::MaterialConfiguration materialConfiguration;
         materialConfiguration.m_density = 245.0f;
@@ -112,7 +112,7 @@ namespace UnitTest
         EXPECT_NEAR(material.GetDensity(), 43.1f, Tolerance);
     }
 
-    TEST(PhysXMaterial, Material_Clamps_Density_Successfully)
+    TEST(PhysXMaterial, Material_Clamps_Density)
     {
         PhysX::MaterialConfiguration materialConfiguration;
         materialConfiguration.m_density = -13.0f;
@@ -134,7 +134,7 @@ namespace UnitTest
         EXPECT_NEAR(material.GetDensity(), PhysX::MaterialConfiguration::MaxDensityLimit, Tolerance);
     }
 
-    TEST(PhysXMaterial, Material_GetSet_FrictionCombineMode_Successfully)
+    TEST(PhysXMaterial, Material_GetSet_FrictionCombineMode)
     {
         PhysX::MaterialConfiguration materialConfiguration;
         materialConfiguration.m_frictionCombine = PhysX::CombineMode::Maximum;
@@ -147,7 +147,7 @@ namespace UnitTest
         EXPECT_EQ(material.GetFrictionCombineMode(), PhysX::CombineMode::Minimum);
     }
 
-    TEST(PhysXMaterial, Material_GetSet_RestitutionCombineMode_Successfully)
+    TEST(PhysXMaterial, Material_GetSet_RestitutionCombineMode)
     {
         PhysX::MaterialConfiguration materialConfiguration;
         materialConfiguration.m_restitutionCombine = PhysX::CombineMode::Maximum;
@@ -160,7 +160,7 @@ namespace UnitTest
         EXPECT_EQ(material.GetRestitutionCombineMode(), PhysX::CombineMode::Minimum);
     }
 
-    TEST(PhysXMaterial, Material_GetSet_DebugColor_Successfully)
+    TEST(PhysXMaterial, Material_GetSet_DebugColor)
     {
         PhysX::MaterialConfiguration materialConfiguration;
         materialConfiguration.m_debugColor = AZ::Colors::Lavender;
