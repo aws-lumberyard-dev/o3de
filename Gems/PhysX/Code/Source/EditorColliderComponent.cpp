@@ -192,8 +192,9 @@ namespace PhysX
                 ;
 
             serializeContext->Class<EditorColliderComponent, EditorComponentBase>()
-                ->Version(9, &PhysX::ClassConverters::UpgradeEditorColliderComponent)
+                ->Version(10, &PhysX::ClassConverters::UpgradeEditorColliderComponent)
                 ->Field("ColliderConfiguration", &EditorColliderComponent::m_configuration)
+                ->Field("MaterialSlots", &EditorColliderComponent::m_materialSlots)
                 ->Field("ShapeConfiguration", &EditorColliderComponent::m_shapeConfiguration)
                 ->Field("DebugDrawSettings", &EditorColliderComponent::m_colliderDebugDraw)
                 ->Field("ComponentMode", &EditorColliderComponent::m_componentModeDelegate)
@@ -214,6 +215,8 @@ namespace PhysX
                     ->DataElement(AZ::Edit::UIHandlers::Default, &EditorColliderComponent::m_configuration, "Collider Configuration", "Configuration of the collider.")
                     ->Attribute(AZ::Edit::Attributes::Visibility, AZ::Edit::PropertyVisibility::ShowChildrenOnly)
                     ->Attribute(AZ::Edit::Attributes::ChangeNotify, &EditorColliderComponent::OnConfigurationChanged)
+                    ->DataElement(AZ::Edit::UIHandlers::Default, &EditorColliderComponent::m_materialSlots, "", "")
+                    ->Attribute(AZ::Edit::Attributes::Visibility, AZ::Edit::PropertyVisibility::ShowChildrenOnly)
                     ->DataElement(AZ::Edit::UIHandlers::Default, &EditorColliderComponent::m_shapeConfiguration, "Shape Configuration", "Configuration of the shape.")
                     ->Attribute(AZ::Edit::Attributes::Visibility, AZ::Edit::PropertyVisibility::ShowChildrenOnly)
                     ->Attribute(AZ::Edit::Attributes::ChangeNotify, &EditorColliderComponent::OnConfigurationChanged)
@@ -415,6 +418,7 @@ namespace PhysX
 
         bool usingMaterialsFromAsset = IsAssetConfig() ? m_shapeConfiguration.m_physicsAsset.m_configuration.m_useMaterialsFromAsset : false;
         m_configuration.m_materialSelection.SetSlotsReadOnly(usingMaterialsFromAsset);
+        m_materialSlots.SetSlotsReadOnly(usingMaterialsFromAsset);
 
         if (ShouldUpdateCollisionMeshFromRender())
         {
@@ -458,11 +462,14 @@ namespace PhysX
         {
             UpdateMeshAsset();
             m_configuration.m_materialSelection.SetSlotsReadOnly(m_shapeConfiguration.m_physicsAsset.m_configuration.m_useMaterialsFromAsset);
+            m_materialSlots.SetSlotsReadOnly(m_shapeConfiguration.m_physicsAsset.m_configuration.m_useMaterialsFromAsset);
         }
         else
         {
             m_configuration.m_materialSelection.SetMaterialSlots(Physics::MaterialSelection::SlotsArray());
             m_configuration.m_materialSelection.SetSlotsReadOnly(false);
+            m_materialSlots.SetSlots({}); // Non-asset configs only have the default slot.
+            m_materialSlots.SetSlotsReadOnly(false);
         }
 
         // ensure we refresh the ComponentMode (and Manipulators) when the configuration
@@ -717,6 +724,8 @@ namespace PhysX
             m_shapeConfiguration.GetCurrent(),
             m_configuration.m_materialSelection);
 
+        m_materialSlots.SetSlotsFromPhysicsAsset(m_shapeConfiguration.GetCurrent());
+
         AzToolsFramework::ToolsApplicationEvents::Bus::Broadcast(&AzToolsFramework::ToolsApplicationEvents::InvalidatePropertyDisplay, AzToolsFramework::Refresh_EntireTree);
 
         ValidateAssetMaterials();
@@ -776,6 +785,7 @@ namespace PhysX
         {
             m_componentWarnings.clear();
             m_configuration.m_materialSelection.SetMaterialSlots(Physics::MaterialSelection::SlotsArray());
+            m_materialSlots.SetSlots({});
             AzToolsFramework::ToolsApplicationEvents::Bus::Broadcast(
                 &AzToolsFramework::ToolsApplicationEvents::InvalidatePropertyDisplay, AzToolsFramework::Refresh_EntireTree);
         }

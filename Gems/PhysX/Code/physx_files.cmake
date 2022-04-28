@@ -120,6 +120,8 @@ set(FILES
     Source/Material/PhysXMaterialAsset.cpp
     Source/Material/PhysXMaterialConfiguration.h
     Source/Material/PhysXMaterialConfiguration.cpp
+    Source/Material/PhysXMaterialSlots.h
+    Source/Material/PhysXMaterialSlots.cpp
     Source/Scene/PhysXScene.h
     Source/Scene/PhysXScene.cpp
     Source/Scene/PhysXSceneInterface.h
