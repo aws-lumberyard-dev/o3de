@@ -1740,14 +1740,34 @@ bool ApplicationManagerBase::OnError(const char* /*window*/, const char* /*messa
 
 bool ApplicationManagerBase::CheckSufficientDiskSpace(const QString& savePath, qint64 requiredSpace, bool shutdownIfInsufficient)
 {
+    bool createdDirectory = false;
+
     if (!QDir(savePath).exists())
     {
+        // GetFreeDiskSpace will fail if the path does not exist
         QDir dir;
-        dir.mkpath(savePath);
+        createdDirectory = dir.mkpath(savePath);
     }
 
     qint64 bytesFree = 0;
     [[maybe_unused]] bool result = AzToolsFramework::ToolsFileUtils::GetFreeDiskSpace(savePath, bytesFree);
+
+    if (createdDirectory)
+    {
+        // Clean up the folder so we're not leaving empty folders all over the place
+        AZ::IO::Path path(savePath.toUtf8().constData());
+        while(AZ::IO::SystemFile::DeleteDir(path.c_str()))
+        {
+            if (path.HasParentPath())
+            {
+                path = path.ParentPath();
+            }
+            else
+            {
+                break;
+            }
+        }
+    }
 
     AZ_Assert(result, "Unable to determine the amount of free space on drive containing path (%s).", savePath.toUtf8().constData());
 
