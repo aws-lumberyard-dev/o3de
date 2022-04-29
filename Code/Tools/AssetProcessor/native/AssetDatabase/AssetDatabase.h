@@ -215,7 +215,7 @@ namespace AssetProcessor
         //Files
         bool GetFileByFileID(AZ::s64 fileID, AzToolsFramework::AssetDatabase::FileDatabaseEntry& entry);
         bool GetFileByFileNameAndScanFolderId(QString fileName, AZ::s64 scanFolderId, AzToolsFramework::AssetDatabase::FileDatabaseEntry& entry);
-        bool GetFilesLikeFileName(QString likeFileName, LikeType likeType, AzToolsFramework::AssetDatabase::FileDatabaseEntryContainer& container);
+        bool GetFilesLikeFileNameScanFolderId(QString likeFileName, LikeType likeType, AZ::s64 scanFolderId, AzToolsFramework::AssetDatabase::FileDatabaseEntryContainer& container);
 
         bool InsertFiles(AzToolsFramework::AssetDatabase::FileDatabaseEntryContainer& entry);
         bool InsertFile(AzToolsFramework::AssetDatabase::FileDatabaseEntry& entry, bool& entryAlreadyExists);

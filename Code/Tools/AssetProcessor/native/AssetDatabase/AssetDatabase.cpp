@@ -3147,10 +3147,10 @@ namespace AssetProcessor
         return found && succeeded;
     }
 
-    bool AssetDatabaseConnection::GetFilesLikeFileName(QString likeFileName, LikeType likeType, FileDatabaseEntryContainer& container)
+    bool AssetDatabaseConnection::GetFilesLikeFileNameScanFolderId(QString likeFileName, LikeType likeType, AZ::s64 scanFolderId, FileDatabaseEntryContainer& container)
     {
         bool found = false;
-        bool succeeded = QueryFilesLikeFileName(likeFileName.toUtf8().constData(), likeType,
+        bool succeeded = QueryFilesLikeFileNameAndScanFolderID(likeFileName.toUtf8().constData(), likeType, scanFolderId,
             [&](FileDatabaseEntry& file)
         {
             found = true;
