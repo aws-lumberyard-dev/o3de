@@ -981,7 +981,7 @@ namespace AssetProcessor
                     continue;
                 }
 
-                if(!remove && !productWrapper.ExistOnDisk())
+                if(!remove && !productWrapper.ExistOnDisk(true))
                 {
                     remove = true;
                 }
@@ -2197,7 +2197,7 @@ namespace AssetProcessor
                     auto productPath = AssetUtilities::ProductPath::FromDatabasePath(product.m_productName);
                     ProductAssetWrapper wrapper{ product, productPath };
 
-                    if(!wrapper.ExistOnDisk())
+                    if(!wrapper.ExistOnDisk(true))
                     {
                         shouldProcessAsset = true;
                     }
@@ -2310,10 +2310,12 @@ namespace AssetProcessor
 
         for (const auto& product : products)
         {
-            QString fileFound = m_cacheRootDir.absoluteFilePath(product.m_productName.c_str());
-            if (!QFile::exists(fileFound))
+            auto productPath = AssetUtilities::ProductPath::FromDatabasePath(product.m_productName);
+            ProductAssetWrapper productWrapper{ product, productPath };
+
+            if (!productWrapper.ExistOnDisk(false))
             {
-                AssessDeletedFile(fileFound);
+                AssessDeletedFile(productPath.GetCachePath().c_str());
             }
         }
 
