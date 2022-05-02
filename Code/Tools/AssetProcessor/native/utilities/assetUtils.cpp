@@ -1839,4 +1839,33 @@ namespace AssetUtilities
 
         return ProductPath{ relativeProductPath, platform };
     }
+
+    ProductPath ProductPath::FromAbsoluteProductPath(AZ::IO::PathView absolutePath, AZStd::string& outPlatform)
+    {
+        QDir cacheDir;
+        [[maybe_unused]] bool result = ComputeProjectCacheRoot(cacheDir);
+
+        AZ_Error("AssetUtils", result, "Failed to get cache root for IsInCacheFolder");
+
+        AZ::IO::FixedMaxPath parentFolder = cacheDir.absolutePath().toUtf8().constData();
+
+        bool intermediateAsset = IsInIntermediateAssetsFolder(absolutePath, parentFolder);
+        if (intermediateAsset)
+        {
+            parentFolder = AssetUtilities::GetIntermediateAssetsFolder(parentFolder);
+            outPlatform = AssetBuilderSDK::CommonPlatformName;
+        }
+
+        auto relativePath = absolutePath.LexicallyRelative(parentFolder);
+
+        if (!intermediateAsset)
+        {
+            AZStd::string_view platform;
+            auto fixedString = relativePath.FixedMaxPathStringAsPosix();
+            relativePath = StripAssetPlatformNoCopy(fixedString, &platform);
+            outPlatform = platform;
+        }
+
+        return ProductPath{ relativePath.StringAsPosix(), outPlatform };
+    }
 } // namespace AssetUtilities

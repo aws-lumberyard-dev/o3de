@@ -290,6 +290,7 @@ namespace AssetUtilities
         ProductPath(AZStd::string scanfolderRelativeProductPath, AZStd::string platformIdentifier);
 
         static ProductPath FromDatabasePath(AZStd::string_view databasePath, AZStd::string_view* platformOut = nullptr);
+        static ProductPath FromAbsoluteProductPath(AZ::IO::PathView absolutePath, AZStd::string& outPlatform);
 
         //! Absolute path for the product in the intermediate asset folder.  Not guaranteed to exist, this is just the path the file would be at
         AZStd::string GetIntermediatePath() const { return m_intermediatePath.StringAsPosix(); }

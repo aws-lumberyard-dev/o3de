@@ -1732,28 +1732,27 @@ namespace AssetProcessor
             return;
         }
 
-        //remove the cache root from the cached product path
-        QString relativeProductFile = m_cacheRootDir.relativeFilePath(fullProductFile);
+        AZStd::string platform;
+        auto productPath = AssetUtilities::ProductPath::FromAbsoluteProductPath(fullProductFile.toUtf8().constData(), platform);
 
-        //platform
-        QString platform = relativeProductFile;// currently <platform>/<relative_asset_path>
-        platform = platform.left(platform.indexOf('/')); // also consume the extra slash - remove PLATFORM
+        //remove the cache root from the cached product path
+        AZStd::string productDatabasePath = productPath.GetDatabasePath();
 
         //we are going to force the processor to re process the source file associated with this product
         //we do that by setting the fingerprint to some other value than which will be recomputed
         //we only want to notify any listeners that the product file was removed for this particular product
         AzToolsFramework::AssetDatabase::SourceDatabaseEntryContainer sources;
-        if (!m_stateData->GetSourcesByProductName(relativeProductFile, sources))
+        if (!m_stateData->GetSourcesByProductName(productDatabasePath.c_str(), sources))
         {
             return;
         }
         AzToolsFramework::AssetDatabase::JobDatabaseEntryContainer jobs;
-        if (!m_stateData->GetJobsByProductName(relativeProductFile, jobs, AZ::Uuid::CreateNull(), QString(), platform))
+        if (!m_stateData->GetJobsByProductName(productDatabasePath.c_str(), jobs, AZ::Uuid::CreateNull(), QString(), platform.c_str()))
         {
             return;
         }
         AzToolsFramework::AssetDatabase::ProductDatabaseEntryContainer products;
-        if (!m_stateData->GetProductsByProductName(relativeProductFile, products, AZ::Uuid::CreateNull(), QString(), platform))
+        if (!m_stateData->GetProductsByProductName(productDatabasePath.c_str(), products, AZ::Uuid::CreateNull(), QString(), platform.c_str()))
         {
             return;
         }
@@ -1893,6 +1892,32 @@ namespace AssetProcessor
         {
             for (const auto& source : sources)
             {
+                if (IsInIntermediateAssetsFolder(normalizedPath))
+                {
+                    auto topLevelSource = AssetUtilities::GetTopLevelSourceForProduct(source.m_sourceName.c_str(), m_stateData);
+
+                    if (topLevelSource)
+                    {
+                        ScanFolderDatabaseEntry scanfolderForTopLevelSource;
+                        m_stateData->GetScanFolderByScanFolderID(topLevelSource->m_scanFolderPK, scanfolderForTopLevelSource);
+
+                        AZ::IO::Path fullPath = scanfolderForTopLevelSource.m_scanFolder;
+                        fullPath /= topLevelSource->m_sourceName;
+
+                        if (AZ::IO::SystemFile::Exists(fullPath.c_str()))
+                        {
+                            // The top level file for this intermediate exists, treat this as a product deletion in that case which should
+                            // regenerate the product
+                            CheckDeletedProductFile(normalizedPath);
+                            return;
+                        }
+                        else
+                        {
+                            // The top level file is gone, so we need to continue on to delete the child products
+                        }
+                    }
+                }
+
                 AzToolsFramework::AssetSystem::JobInfo jobInfo;
                 jobInfo.m_sourceFile = databaseSourceFile.toUtf8().constData();
 
