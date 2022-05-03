@@ -33,7 +33,6 @@
 #include <PhysX/MeshAsset.h>
 #include <PhysX/MeshColliderComponentBus.h>
 #include <System/PhysXSystem.h>
-#include <Material/PhysXMaterialSlots.h>
 
 #include <Editor/DebugDraw.h>
 
@@ -207,7 +206,6 @@ namespace PhysX
 
         EditorProxyShapeConfig m_shapeConfiguration;
         Physics::ColliderConfiguration m_configuration;
-        MaterialSlots m_materialSlots;
 
         AZ::u32 OnConfigurationChanged();
         void UpdateShapeConfigurationScale();

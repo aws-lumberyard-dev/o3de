@@ -12,10 +12,9 @@
 #include <AzCore/std/containers/vector.h>
 
 #include <AzFramework/Physics/ShapeConfiguration.h>
+#include <AzFramework/Physics/Material/PhysicsMaterialAsset.h>
 
-#include <Material/PhysXMaterialAsset.h>
-
-namespace PhysX
+namespace Physics
 {
     //! The class is used to store a list of material assets.
     //! Each material will be assigned to a slot and when reflected
@@ -23,8 +22,8 @@ namespace PhysX
     class MaterialSlots
     {
     public:
-        AZ_CLASS_ALLOCATOR(PhysX::MaterialSlots, AZ::SystemAllocator, 0);
-        AZ_RTTI(PhysX::MaterialSlots, "{8A0D64CB-C98E-42E3-96A9-B81D7118CA6F}");
+        AZ_CLASS_ALLOCATOR(Physics::MaterialSlots, AZ::SystemAllocator, 0);
+        AZ_RTTI(Physics::MaterialSlots, "{8A0D64CB-C98E-42E3-96A9-B81D7118CA6F}");
 
         MaterialSlots();
         virtual ~MaterialSlots() = default;
@@ -57,4 +56,4 @@ namespace PhysX
 
         bool m_slotsReadOnly = false;
     };
-} // namespace PhysX
+} // namespace Physics

@@ -10,10 +10,12 @@
 #include <AzCore/Serialization/EditContext.h>
 #include <AzCore/Asset/AssetSerializer.h>
 
-#include <Material/PhysXMaterialSlots.h>
-#include <PhysX/MeshAsset.h>
+#include <AzFramework/Physics/Material/PhysicsMaterialSlots.h>
+//#include <PhysX/MeshAsset.h>
 
-namespace PhysX
+// TODO: This file is Work in Progress
+
+namespace Physics
 {
     namespace
     {
@@ -24,7 +26,7 @@ namespace PhysX
     {
         if (auto* serializeContext = azrtti_cast<AZ::SerializeContext*>(context))
         {
-            serializeContext->Class<PhysX::MaterialSlots>()
+            serializeContext->Class<Physics::MaterialSlots>()
                 ->Version(1)
                 ->Field("Slots", &MaterialSlots::m_slots)
                 ->Field("MaterialAssets", &MaterialSlots::m_materialAssets)
@@ -32,10 +34,10 @@ namespace PhysX
 
             if (auto* editContext = serializeContext->GetEditContext())
             {
-                editContext->Class<PhysX::MaterialSlots>("", "")
+                editContext->Class<Physics::MaterialSlots>("", "")
                     ->ClassElement(AZ::Edit::ClassElements::EditorData, "")
-                    ->DataElement(AZ::Edit::UIHandlers::Default, &MaterialSlots::m_materialAssets, "PhysX Materials",
-                        "List of slots for physX materials.")
+                    ->DataElement(AZ::Edit::UIHandlers::Default, &MaterialSlots::m_materialAssets, "Physics Materials",
+                        "List of slots for Physics materials.")
                         ->Attribute(AZ::Edit::Attributes::IndexedChildNameLabelOverride, &MaterialSlots::GetSlotLabel)
                         ->Attribute(AZ::Edit::Attributes::ContainerCanBeModified, false)
                         ->Attribute(AZ::Edit::Attributes::AutoExpand, true)
@@ -93,16 +95,16 @@ namespace PhysX
             return;
         }
 
-        Pipeline::MeshAsset* meshAsset = assetConfiguration.m_asset.GetAs<Pipeline::MeshAsset>();
+        /*Pipeline::MeshAsset* meshAsset = assetConfiguration.m_asset.GetAs<Pipeline::MeshAsset>();
         if (!meshAsset)
         {
             SetSlots({});
-            AZ_Warning("PhysX", false, "Invalid mesh asset in physics asset shape configuration.");
+            AZ_Warning("Physics", false, "Invalid mesh asset in physics asset shape configuration.");
             return;
         }
 
         // Set the slots from the mesh asset
-        SetSlots(meshAsset->m_assetData.m_materialNames);
+        SetSlots(meshAsset->m_assetData.m_materialNames);*/
 
         // Lastly, check if it has to use the materials assets from the mesh.
         if (assetConfiguration.m_useMaterialsFromAsset)
@@ -129,7 +131,7 @@ namespace PhysX
                 }
                 else
                 {
-                    AZ_Warning("PhysX", false,
+                    AZ_Warning("Physics", false,
                         "UpdateMaterialSelectionFromPhysicsAsset: Physics material '%s' not found in the material library. Mesh material '%s' will use the default physics material.",
                         physicsMaterialNameFromPhysicsAsset.c_str(),
                         meshAsset->m_assetData.m_materialNames[slotIndex].c_str());
@@ -160,4 +162,4 @@ namespace PhysX
     {
         return {};
     }
-} // namespace PhysX
+} // namespace Physics
