@@ -5259,7 +5259,7 @@ namespace AssetProcessor
     {
         QFileInfo dirCheck{ sourcePathRequest };
         auto normalizedSourcePath = AssetUtilities::NormalizeFilePath(sourcePathRequest);
-        QStringList reprocessList;
+        AZStd::list<AZStd::string> reprocessList;
         if (dirCheck.isDir())
         {
             QString scanFolderName;
@@ -5283,11 +5283,16 @@ namespace AssetProcessor
             {
                 searchPath += "*";
             }
-            reprocessList = m_platformConfig->FindWildcardMatches(scanFolderName, searchPath);
+            auto result = AzFramework::FileFunc::FindFilesInPath(sourcePathRequest.toUtf8().constData(), "*", true);
+
+            if (result)
+            {
+                reprocessList = result.GetValue();
+            }
         }
         else
         {
-            reprocessList.append(normalizedSourcePath);
+            reprocessList.push_back(normalizedSourcePath.toUtf8().constData());
         }
 
         AZ::u64 filesFound{ 0 };
@@ -5295,7 +5300,7 @@ namespace AssetProcessor
         {
             QString scanFolderName;
             QString relativePathToFile;
-            if (!m_platformConfig->ConvertToRelativePath(sourcePath, relativePathToFile, scanFolderName))
+            if (!m_platformConfig->ConvertToRelativePath(sourcePath.c_str(), relativePathToFile, scanFolderName))
             {
                 continue;
             }
@@ -5309,7 +5314,7 @@ namespace AssetProcessor
             if (jobs.size())
             {
                 filesFound++;
-                AssessModifiedFile(sourcePath);
+                AssessModifiedFile(sourcePath.c_str());
             }
         }
         return filesFound;
