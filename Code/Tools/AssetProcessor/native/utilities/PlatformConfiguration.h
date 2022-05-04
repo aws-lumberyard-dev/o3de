@@ -349,6 +349,9 @@ namespace AssetProcessor
 
         void PopulatePlatformsForScanFolder(AZStd::vector<AssetBuilderSDK::PlatformInfo>& platformsList, QStringList includeTagsList = QStringList(), QStringList excludeTagsList = QStringList());
 
+        void CacheIntermediateAssetsScanFolderId();
+        AZ::s64 GetIntermediateAssetsScanFolderId() const;
+
     protected:
 
         // call this first, to populate the list of platform informations
@@ -373,6 +376,7 @@ namespace AssetProcessor
         QList<QPair<QString, QString> > m_metaDataFileTypes;
         QSet<QString> m_metaDataRealFiles;
         AZStd::vector<AzFramework::GemInfo> m_gemInfoList;
+        AZ::s64 m_intermediateAssetScanFolderId = -1; // Cached ID for intermediate scanfolder, for quick lookups
 
         int m_minJobs = 1;
         int m_maxJobs = 3;

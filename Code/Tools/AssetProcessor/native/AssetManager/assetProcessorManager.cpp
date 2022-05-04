@@ -783,11 +783,13 @@ namespace AssetProcessor
                 AzToolsFramework::AssetDatabase::ScanFolderDatabaseEntry scanfolder;
                 if (!m_stateData->GetScanFolderByScanFolderID(source.m_scanFolderPK, scanfolder))
                 {
-                    AZ_Error(AssetProcessor::ConsoleChannel, false, "Failed to get scanfolder %s", source.m_scanFolderPK);
+                    AZ_Error(AssetProcessor::ConsoleChannel, false, "CheckIntermediateProductConflict: Failed to get scanfolder %d for source %s",
+                        source.m_scanFolderPK,
+                        source.m_sourceName.c_str());
                 }
 
-                bool scanfolderIsIntermediateAssetsFolder = AZ::IO::PathView(scanfolder.m_scanFolder) ==
-                    AssetUtilities::GetIntermediateAssetsFolder(m_cacheRootDir.absolutePath().toUtf8().constData());
+                bool scanfolderIsIntermediateAssetsFolder =
+                    m_platformConfig->GetIntermediateAssetsScanFolderId() == scanfolder.m_scanFolderID;
 
                 if (isIntermediateProduct)
                 {
@@ -2397,7 +2399,8 @@ namespace AssetProcessor
         if (!m_stateData->GetScanFolderByScanFolderID(topLevelSourceForIntermediateConflict->m_scanFolderPK, topLevelSourceScanFolder))
         {
             AZ_Error(
-                AssetProcessor::ConsoleChannel, false, "Failed to get scanfolder for file %s",
+                AssetProcessor::ConsoleChannel, false, "FailTopLevelSourceForIntermediate: Failed to get scanfolder %d for file %s",
+                topLevelSourceForIntermediateConflict->m_scanFolderPK,
                 topLevelSourceForIntermediateConflict->m_sourceName.c_str());
             return;
         }
@@ -4265,6 +4268,9 @@ namespace AssetProcessor
             // update the in-memory value of the scan folder id from the above query.
             scanFolderFromConfigFile.SetScanFolderID(scanFolderToWrite.m_scanFolderID);
         }
+
+        m_platformConfig->CacheIntermediateAssetsScanFolderId();
+
         return true;
     }
 

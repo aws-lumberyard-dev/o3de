@@ -373,7 +373,7 @@ namespace AssetProcessor
             enum class ConflictType
             {
                 None,
-                //! Indicates the conflict occurred becuase of a new intermediate overriding an existing source
+                //! Indicates the conflict occurred because of a new intermediate overriding an existing source
                 Intermediate,
                 //! Indicates the conflict occurred because of a new source overriding an existing intermediate
                 Source

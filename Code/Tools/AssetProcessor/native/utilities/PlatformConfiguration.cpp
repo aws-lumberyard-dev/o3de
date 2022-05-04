@@ -1044,6 +1044,29 @@ namespace AssetProcessor
         }
     }
 
+    void PlatformConfiguration::CacheIntermediateAssetsScanFolderId()
+    {
+        for (const auto& scanfolder : m_scanFolders)
+        {
+            if (scanfolder.GetPortableKey() == IntermediateAssetsFolderName)
+            {
+                m_intermediateAssetScanFolderId = scanfolder.ScanFolderID();
+                return;
+            }
+        }
+
+        AZ_Error(
+            "PlatformConfiguration", false,
+            "CacheIntermediateAssetsScanFolderId: Failed to find Intermediate Assets folder in scanfolder list");
+    }
+
+    AZ::s64 PlatformConfiguration::GetIntermediateAssetsScanFolderId() const
+    {
+        AZ_Error("PlatformConfiguration", m_intermediateAssetScanFolderId >= 0, "m_intermediateAssetScanFolderId is invalid.  Make sure CacheIntermediateAssetsScanFolderId has been called");
+
+        return m_intermediateAssetScanFolderId;
+    }
+
     bool PlatformConfiguration::ReadRecognizersFromSettingsRegistry(const QString& assetRoot, bool skipScanFolders, QStringList scanFolderPatterns)
     {
         auto settingsRegistry = AZ::SettingsRegistry::Get();
@@ -1714,8 +1737,8 @@ namespace AssetProcessor
 
         AddScanFolder(ScanFolderInfo{
             scanfolderPath.c_str(),
-            "Intermediate Assets",
-            "Intermediate Assets",
+            IntermediateAssetsFolderName,
+            IntermediateAssetsFolderName,
             false,
             true,
             platforms,
