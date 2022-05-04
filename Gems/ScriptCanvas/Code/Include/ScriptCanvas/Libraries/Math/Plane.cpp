@@ -8,12 +8,12 @@
 
 #include "Plane.h"
 
-REGISTER_SCRIPTCANVAS_PLANEFUNCTIONS;
-
 namespace ScriptCanvas
 {
     namespace PlaneFunctions
     {
+        REGISTER_SCRIPTCANVAS_FUNCTION(PlaneFunctions);
+
         using namespace Data;
 
         NumberType DistanceToPoint(PlaneType source, Vector3Type point)

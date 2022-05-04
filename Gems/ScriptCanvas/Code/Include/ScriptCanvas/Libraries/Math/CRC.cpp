@@ -10,12 +10,12 @@
 
 #include <AzCore/Math/Crc.h>
 
-REGISTER_SCRIPTCANVAS_CRCFUNCTIONS;
-
 namespace ScriptCanvas
 {
     namespace CRCFunctions
     {
+        REGISTER_SCRIPTCANVAS_FUNCTION(CRCFunctions);
+
         Data::CRCType FromString(Data::StringType value)
         {
             return AZ::Crc32(value.data());

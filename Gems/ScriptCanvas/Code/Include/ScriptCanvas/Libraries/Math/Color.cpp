@@ -11,12 +11,12 @@
 #include <AzCore/Math/Color.h>
 #include <ScriptCanvas/Libraries/Math/MathNodeUtilities.h>
 
-REGISTER_SCRIPTCANVAS_COLORFUNCTIONS;
-
 namespace ScriptCanvas
 {
     namespace ColorFunctions
     {
+        REGISTER_SCRIPTCANVAS_FUNCTION(ColorFunctions);
+
         using namespace Data;
 
         NumberType Dot(ColorType a, ColorType b)

@@ -8,12 +8,12 @@
 
 #include "Transform.h"
 
-REGISTER_SCRIPTCANVAS_TRANSFORMFUNCTIONS;
-
 namespace ScriptCanvas
 {
     namespace TransformFunctions
     {
+        REGISTER_SCRIPTCANVAS_FUNCTION(TransformFunctions);
+
         using namespace Data;
 
         TransformType FromMatrix3x3(Matrix3x3Type source)

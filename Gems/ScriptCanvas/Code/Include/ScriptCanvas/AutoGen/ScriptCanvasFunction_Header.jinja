@@ -26,15 +26,11 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 {{- macros.Required('Include', Library, Library) -}}
 {{- macros.Required('Name', Library, Library) -}}
 
-{% set sanitizedName = macros.CleanName(Library.attrib['Name']) %}
 {% set className = macros.CleanName('ScriptCanvas' + Library.attrib['Name']) %}
 {% set namespaceList = [] %}
-{% set sanitizedNamespaceName = 'GlobalMethod' %}
 {% if Library.attrib['Namespace'] is defined and Library.attrib['Namespace'] %}
 {% set namespaceList = macros.CleanName(Library.attrib['Namespace']).split('::') %}
-{% set sanitizedNamespaceName = macros.CleanName(Library.attrib['Namespace'].replace('::', '_')) %}
 {% endif %}
-{% set categoryName = Library.attrib['Category'] %}
 
 {% for namespace in namespaceList %}
 namespace {{namespace}}
@@ -55,14 +51,6 @@ public:
 {% for namespace in namespaceList %}
 }
 {% endfor %}
-
-{% if Library.attrib['Namespace'] is defined and Library.attrib['Namespace'] %}
-#define REGISTER_{{sanitizedNamespaceName|upper}}\
-    static {{Library.attrib['Namespace']}}::{{className}} s_{{className}};
-{% else %}
-#define REGISTER_{{sanitizedName|upper}}\
-    static {{className}} s_{{className}};
-{% endif %}
 
 {{ macros.ReportErrors() }}
 

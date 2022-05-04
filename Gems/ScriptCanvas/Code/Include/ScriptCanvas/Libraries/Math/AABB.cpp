@@ -8,12 +8,12 @@
 
 #include "AABB.h"
 
-REGISTER_SCRIPTCANVAS_AABBFUNCTIONS;
-
 namespace ScriptCanvas
 {
     namespace AABBFunctions
     {
+        REGISTER_SCRIPTCANVAS_FUNCTION(AABBFunctions);
+
         AZ::Aabb AddAABB(AZ::Aabb a, const AZ::Aabb& b)
         {
             a.AddAabb(b);
