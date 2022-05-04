@@ -5261,15 +5261,18 @@ namespace AssetProcessor
         QFileInfo dirCheck{ sourcePathRequest };
         auto normalizedSourcePath = AssetUtilities::NormalizeFilePath(sourcePathRequest);
         AZStd::list<AZStd::string> reprocessList;
+
         if (dirCheck.isDir())
         {
             QString scanFolderName;
             QString relativePathToFile;
+            QString searchPath;
+
             if (!m_platformConfig->ConvertToRelativePath(normalizedSourcePath, relativePathToFile, scanFolderName))
             {
                 return 0;
             }
-            QString searchPath;
+
             // If we have a path beyond the scanFolder we need to keep that as part of our search string
             if (sourcePathRequest.length() > scanFolderName.length())
             {
@@ -5301,21 +5304,28 @@ namespace AssetProcessor
         {
             QString scanFolderName;
             QString relativePathToFile;
+
             if (!m_platformConfig->ConvertToRelativePath(sourcePath.c_str(), relativePathToFile, scanFolderName))
             {
                 continue;
             }
-            AzToolsFramework::AssetDatabase::JobDatabaseEntryContainer jobs; //should only find one when we specify builder, job key, platform
-            m_stateData->GetJobsBySourceName(relativePathToFile, jobs);
-            for (auto& job : jobs)
+
+            auto sources = AssetUtilities::GetAllIntermediateSources(relativePathToFile.toUtf8().constData(), m_stateData);
+
+            for (const auto& source : sources)
             {
-                job.m_fingerprint = 0;
-                m_stateData->SetJob(job);
-            }
-            if (jobs.size())
-            {
-                filesFound++;
-                AssessModifiedFile(sourcePath.c_str());
+                AzToolsFramework::AssetDatabase::JobDatabaseEntryContainer jobs; // should only find one when we specify builder, job key, platform
+                m_stateData->GetJobsBySourceName(source.c_str(), jobs);
+                for (auto& job : jobs)
+                {
+                    job.m_fingerprint = 0;
+                    m_stateData->SetJob(job);
+                }
+                if (jobs.size())
+                {
+                    filesFound++;
+                    AssessModifiedFile(sourcePath.c_str());
+                }
             }
         }
         return filesFound;
