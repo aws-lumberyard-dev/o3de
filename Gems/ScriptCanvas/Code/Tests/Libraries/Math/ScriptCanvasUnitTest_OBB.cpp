@@ -35,41 +35,41 @@ namespace ScriptCanvasUnitTest
 
     TEST_F(ScriptCanvasUnitTestOBBFunctions, IsFinite_Call_GetExpectedResult)
     {
-        auto dummy = AZ::Obb::CreateFromPositionRotationAndHalfLengths(
+        auto testobb = AZ::Obb::CreateFromPositionRotationAndHalfLengths(
             AZ::Vector3(0.5, 0.5, 0.5), AZ::Quaternion::CreateIdentity(), AZ::Vector3(0.5, 0.5, 0.5));
-        auto actualResult = OBBFunctions::IsFinite(dummy);
+        auto actualResult = OBBFunctions::IsFinite(testobb);
         EXPECT_TRUE(actualResult);
     }
 
     TEST_F(ScriptCanvasUnitTestOBBFunctions, GetAxisX_Call_GetExpectedResult)
     {
-        auto dummy = AZ::Obb::CreateFromPositionRotationAndHalfLengths(
+        auto testobb = AZ::Obb::CreateFromPositionRotationAndHalfLengths(
             AZ::Vector3(0.5, 0.5, 0.5), AZ::Quaternion::CreateIdentity(), AZ::Vector3(0.5, 0.5, 0.5));
-        auto actualResult = OBBFunctions::GetAxisX(dummy);
+        auto actualResult = OBBFunctions::GetAxisX(testobb);
         EXPECT_EQ(actualResult, AZ::Vector3(1, 0, 0));
     }
 
     TEST_F(ScriptCanvasUnitTestOBBFunctions, GetAxisY_Call_GetExpectedResult)
     {
-        auto dummy = AZ::Obb::CreateFromPositionRotationAndHalfLengths(
+        auto testobb = AZ::Obb::CreateFromPositionRotationAndHalfLengths(
             AZ::Vector3(0.5, 0.5, 0.5), AZ::Quaternion::CreateIdentity(), AZ::Vector3(0.5, 0.5, 0.5));
-        auto actualResult = OBBFunctions::GetAxisY(dummy);
+        auto actualResult = OBBFunctions::GetAxisY(testobb);
         EXPECT_EQ(actualResult, AZ::Vector3(0, 1, 0));
     }
 
     TEST_F(ScriptCanvasUnitTestOBBFunctions, GetAxisZ_Call_GetExpectedResult)
     {
-        auto dummy = AZ::Obb::CreateFromPositionRotationAndHalfLengths(
+        auto testobb = AZ::Obb::CreateFromPositionRotationAndHalfLengths(
             AZ::Vector3(0.5, 0.5, 0.5), AZ::Quaternion::CreateIdentity(), AZ::Vector3(0.5, 0.5, 0.5));
-        auto actualResult = OBBFunctions::GetAxisZ(dummy);
+        auto actualResult = OBBFunctions::GetAxisZ(testobb);
         EXPECT_EQ(actualResult, AZ::Vector3(0, 0, 1));
     }
 
     TEST_F(ScriptCanvasUnitTestOBBFunctions, GetPosition_Call_GetExpectedResult)
     {
-        auto dummy = AZ::Obb::CreateFromPositionRotationAndHalfLengths(
+        auto testobb = AZ::Obb::CreateFromPositionRotationAndHalfLengths(
             AZ::Vector3(0.5, 0.5, 0.5), AZ::Quaternion::CreateIdentity(), AZ::Vector3(0.5, 0.5, 0.5));
-        auto actualResult = OBBFunctions::GetPosition(dummy);
+        auto actualResult = OBBFunctions::GetPosition(testobb);
         EXPECT_EQ(actualResult, AZ::Vector3(0.5, 0.5, 0.5));
     }
 } // namespace ScriptCanvasUnitTest

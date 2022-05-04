@@ -26,20 +26,20 @@ namespace ScriptCanvasUnitTest
         {
             ScriptCanvasUnitTestFixture::SetUp();
 
-            m_dummyLocalTransform = AZ::Transform::CreateIdentity();
-            m_dummyWordTransform = AZ::Transform::CreateIdentity();
-            m_dummyEntity.Init();
-            m_dummyEntity.Activate();
+            m_localTransform = AZ::Transform::CreateIdentity();
+            m_wordTransform = AZ::Transform::CreateIdentity();
+            m_entity.Init();
+            m_entity.Activate();
 
-            AZ::TransformBus::Handler::BusConnect(m_dummyId);
+            AZ::TransformBus::Handler::BusConnect(m_id);
             AZ::ComponentApplicationBus::Handler::BusConnect();
         }
 
         void TearDown() override
         {
-            m_dummyEntity.Deactivate();
+            m_entity.Deactivate();
             AZ::ComponentApplicationBus::Handler::BusDisconnect();
-            AZ::TransformBus::Handler::BusDisconnect(m_dummyId);
+            AZ::TransformBus::Handler::BusDisconnect(m_id);
 
             ScriptCanvasUnitTestFixture::TearDown();
         }
@@ -58,7 +58,7 @@ namespace ScriptCanvasUnitTest
         bool AddEntity(AZ::Entity*) override { return false; }
         bool RemoveEntity(AZ::Entity*) override { return false; }
         bool DeleteEntity(const AZ::EntityId&) override { return false; }
-        AZ::Entity* FindEntity(const AZ::EntityId&) override { return &m_dummyEntity; }
+        AZ::Entity* FindEntity(const AZ::EntityId&) override { return &m_entity; }
         AZ::SerializeContext* GetSerializeContext() override { return nullptr; }
         AZ::BehaviorContext*  GetBehaviorContext() override { return nullptr; }
         AZ::JsonRegistrationContext* GetJsonRegistrationContext() override { return nullptr; }
@@ -74,61 +74,61 @@ namespace ScriptCanvasUnitTest
         void BindParentChangedEventHandler(AZ::ParentChangedEvent::Handler&) override {}
         void BindChildChangedEventHandler(AZ::ChildChangedEvent::Handler&) override {}
         void NotifyChildChangedEvent(AZ::ChildChangeType, AZ::EntityId) override {}
-        const AZ::Transform& GetLocalTM() override { return m_dummyLocalTransform; }
+        const AZ::Transform& GetLocalTM() override { return m_localTransform; }
         bool IsStaticTransform() override { return false; }
-        const AZ::Transform& GetWorldTM() override { return m_dummyWordTransform; }
-        void SetWorldTM(const AZ::Transform& tm) override { m_dummyWordTransform = tm; }
+        const AZ::Transform& GetWorldTM() override { return m_wordTransform; }
+        void SetWorldTM(const AZ::Transform& tm) override { m_wordTransform = tm; }
         //////////////////////////////////////////////////////////////////////////
 
-        AZ::EntityId m_dummyId{123};
-        AZ::Transform m_dummyLocalTransform;
-        AZ::Transform m_dummyWordTransform;
-        AZ::Entity m_dummyEntity;
+        AZ::EntityId m_id{123};
+        AZ::Transform m_localTransform;
+        AZ::Transform m_wordTransform;
+        AZ::Entity m_entity;
     };
 
     TEST_F(ScriptCanvasUnitTestEntityFunctions, GetEntityRight_Call_GetExpectedResult)
     {
-        float dummyScale = 123.f;
-        auto actualResult = EntityFunctions::GetEntityRight(m_dummyId, dummyScale);
-        EXPECT_EQ(actualResult, AZ::Vector3(dummyScale, 0, 0));
+        float scale = 123.f;
+        auto actualResult = EntityFunctions::GetEntityRight(m_id, scale);
+        EXPECT_EQ(actualResult, AZ::Vector3(scale, 0, 0));
     }
 
     TEST_F(ScriptCanvasUnitTestEntityFunctions, GetEntityForward_Call_GetExpectedResult)
     {
-        float dummyScale = 123.f;
-        auto actualResult = EntityFunctions::GetEntityForward(m_dummyId, dummyScale);
-        EXPECT_EQ(actualResult, AZ::Vector3(0, dummyScale, 0));
+        float scale = 123.f;
+        auto actualResult = EntityFunctions::GetEntityForward(m_id, scale);
+        EXPECT_EQ(actualResult, AZ::Vector3(0, scale, 0));
     }
 
     TEST_F(ScriptCanvasUnitTestEntityFunctions, GetEntityUp_Call_GetExpectedResult)
     {
-        float dummyScale = 123.f;
-        auto actualResult = EntityFunctions::GetEntityUp(m_dummyId, dummyScale);
-        EXPECT_EQ(actualResult, AZ::Vector3(0, 0, dummyScale));
+        float scale = 123.f;
+        auto actualResult = EntityFunctions::GetEntityUp(m_id, scale);
+        EXPECT_EQ(actualResult, AZ::Vector3(0, 0, scale));
     }
 
     TEST_F(ScriptCanvasUnitTestEntityFunctions, Rotate_Call_GetExpectedResult)
     {
-        auto dummyRotation = AZ::Vector3(180, 0, 0);
-        EntityFunctions::Rotate(m_dummyId, AZ::Vector3(180, 0, 0));
-        EXPECT_EQ(m_dummyWordTransform.GetRotation(), AZ::ConvertEulerDegreesToQuaternion(dummyRotation));
+        auto rotation = AZ::Vector3(180, 0, 0);
+        EntityFunctions::Rotate(m_id, AZ::Vector3(180, 0, 0));
+        EXPECT_EQ(m_wordTransform.GetRotation(), AZ::ConvertEulerDegreesToQuaternion(rotation));
     }
 
     TEST_F(ScriptCanvasUnitTestEntityFunctions, IsActive_Call_GetExpectedResult)
     {
-        auto actualResult = EntityFunctions::IsActive(m_dummyId);
+        auto actualResult = EntityFunctions::IsActive(m_id);
         EXPECT_TRUE(actualResult);
     }
 
     TEST_F(ScriptCanvasUnitTestEntityFunctions, IsValid_Call_GetExpectedResult)
     {
-        auto actualResult = EntityFunctions::IsValid(m_dummyId);
+        auto actualResult = EntityFunctions::IsValid(m_id);
         EXPECT_TRUE(actualResult);
     }
 
     TEST_F(ScriptCanvasUnitTestEntityFunctions, ToString_Call_GetExpectedResult)
     {
-        auto actualResult = EntityFunctions::ToString(m_dummyId);
-        EXPECT_EQ(actualResult, m_dummyId.ToString());
+        auto actualResult = EntityFunctions::ToString(m_id);
+        EXPECT_EQ(actualResult, m_id.ToString());
     }
 }
