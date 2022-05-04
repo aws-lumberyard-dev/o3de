@@ -11,7 +11,7 @@
 #include <ScriptCanvas/Core/Node.h>
 #include <ScriptCanvas/Internal/Nodes/StringFormatted.h>
 
-#include <Include/ScriptCanvas/Libraries/String/Deprecated/Replace.generated.h>
+#include <Include/ScriptCanvas/Libraries/Deprecated/Replace.generated.h>
 
 namespace ScriptCanvas
 {

@@ -14,7 +14,6 @@
 #include <Libraries/Logic/Logic.h>
 #include <Libraries/Spawning/Spawning.h>
 #include <Libraries/UnitTesting/UnitTestingLibrary.h>
-#include <AzCore/std/containers/vector.h>
 
 namespace ScriptCanvas
 {

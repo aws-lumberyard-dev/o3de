@@ -7,6 +7,8 @@
  */
 #pragma once
 
+#include <AzCore/std/containers/vector.h>
+
 namespace AZ
 {
     class ReflectContext;
