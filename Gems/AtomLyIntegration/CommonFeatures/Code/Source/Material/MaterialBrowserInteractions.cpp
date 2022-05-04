@@ -10,7 +10,7 @@
 #include <AzToolsFramework/AssetBrowser/AssetBrowserBus.h>
 #include <AtomLyIntegration/CommonFeatures/Material/EditorMaterialSystemComponentRequestBus.h>
 #include <Material/MaterialBrowserInteractions.h>
-
+#pragma optimize("", off)
 namespace AZ
 {
     namespace Render
@@ -37,6 +37,17 @@ namespace AZ
                             fullSourceFileNameInCallback);
                     } });
             }
+        }
+
+        void MaterialBrowserInteractions::AddSourceFileCreators([[maybe_unused]] const char* fullSourceFolderName, [[maybe_unused]] const AZ::Uuid& sourceUUID, AzToolsFramework::AssetBrowser::SourceFileCreatorList& creators)
+        {
+            creators.push_back({ "Material_Creator", "Material", QIcon(),
+                [&](const char* fullSourceFolderNameInCallback, [[maybe_unused]] const AZ::Uuid& sourceUUID)
+                {
+                    EditorMaterialSystemComponentRequestBus::Broadcast(
+                        &EditorMaterialSystemComponentRequestBus::Events::OpenMaterialEditor,
+                        fullSourceFolderNameInCallback);
+                } });
         }
 
         bool MaterialBrowserInteractions::HandlesSource(AZStd::string_view fileName) const
