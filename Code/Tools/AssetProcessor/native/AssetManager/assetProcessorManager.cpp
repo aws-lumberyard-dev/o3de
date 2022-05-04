@@ -788,8 +788,18 @@ namespace AssetProcessor
                         source.m_sourceName.c_str());
                 }
 
-                bool scanfolderIsIntermediateAssetsFolder =
-                    m_platformConfig->GetIntermediateAssetsScanFolderId() == scanfolder.m_scanFolderID;
+                auto intermediateScanfolderId = m_platformConfig->GetIntermediateAssetsScanFolderId();
+
+                if (!intermediateScanfolderId)
+                {
+                    AZ_Error(
+                        AssetProcessor::ConsoleChannel, false,
+                        "GetIntermediateAssetsScanFolderId is invalid.  Make sure CacheIntermediateAssetsScanFolderId has been called");
+
+                    return ConflictResult{ ConflictResult::ConflictType::None };
+                }
+
+                bool scanfolderIsIntermediateAssetsFolder = intermediateScanfolderId.value() == scanfolder.m_scanFolderID;
 
                 if (isIntermediateProduct)
                 {

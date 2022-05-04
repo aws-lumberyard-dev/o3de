@@ -1060,11 +1060,14 @@ namespace AssetProcessor
             "CacheIntermediateAssetsScanFolderId: Failed to find Intermediate Assets folder in scanfolder list");
     }
 
-    AZ::s64 PlatformConfiguration::GetIntermediateAssetsScanFolderId() const
+    AZStd::optional<AZ::s64> PlatformConfiguration::GetIntermediateAssetsScanFolderId() const
     {
-        AZ_Error("PlatformConfiguration", m_intermediateAssetScanFolderId >= 0, "m_intermediateAssetScanFolderId is invalid.  Make sure CacheIntermediateAssetsScanFolderId has been called");
+        if (m_intermediateAssetScanFolderId >= 0)
+        {
+            return m_intermediateAssetScanFolderId;
+        }
 
-        return m_intermediateAssetScanFolderId;
+        return AZStd::nullopt;
     }
 
     bool PlatformConfiguration::ReadRecognizersFromSettingsRegistry(const QString& assetRoot, bool skipScanFolders, QStringList scanFolderPatterns)

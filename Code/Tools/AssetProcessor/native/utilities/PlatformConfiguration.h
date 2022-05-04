@@ -350,7 +350,7 @@ namespace AssetProcessor
         void PopulatePlatformsForScanFolder(AZStd::vector<AssetBuilderSDK::PlatformInfo>& platformsList, QStringList includeTagsList = QStringList(), QStringList excludeTagsList = QStringList());
 
         void CacheIntermediateAssetsScanFolderId();
-        AZ::s64 GetIntermediateAssetsScanFolderId() const;
+        AZStd::optional<AZ::s64> GetIntermediateAssetsScanFolderId() const;
 
     protected:
 
