@@ -192,7 +192,7 @@ void FileWatcherUnitTestRunner::StartTest()
         UNIT_TEST_EXPECT_TRUE(UnitTestUtils::CreateDummyFile(originalName));
 
         int tries = 0;
-        while (!(fileAddCalled && fileRemoveCalled && fileModifiedCalled) && tries++ < 100)
+        while (!(fileAddCalled || fileRemoveCalled || fileModifiedCalled) && tries++ < 100)
         {
             QThread::msleep(10);
             QCoreApplication::processEvents(QEventLoop::AllEvents, 100);
@@ -209,7 +209,7 @@ void FileWatcherUnitTestRunner::StartTest()
         UNIT_TEST_EXPECT_TRUE(QFile::rename(originalName, newName1));
 
         tries = 0;
-        while (!(fileAddCalled && fileRemoveCalled && fileModifiedCalled) && tries++ < 100)
+        while (!(fileAddCalled || fileRemoveCalled || fileModifiedCalled) && tries++ < 100)
         {
             QThread::msleep(10);
             QCoreApplication::processEvents(QEventLoop::AllEvents, 100);
@@ -235,7 +235,7 @@ void FileWatcherUnitTestRunner::StartTest()
         UNIT_TEST_EXPECT_TRUE(QFile::rename(newName1, newName2));
 
         tries = 0;
-        while (!(fileAddCalled && fileRemoveCalled && fileModifiedCalled) && tries++ < 100)
+        while (!(fileAddCalled || fileRemoveCalled || fileModifiedCalled) && tries++ < 100)
         {
             QThread::msleep(10);
             QCoreApplication::processEvents(QEventLoop::AllEvents, 100);
@@ -260,7 +260,7 @@ void FileWatcherUnitTestRunner::StartTest()
         fileModifiedCalled = false;
 
         tries = 0;
-        while (!(fileAddCalled && fileRemoveCalled && fileModifiedCalled) && tries++ < 100)
+        while (!(fileAddCalled || fileRemoveCalled || fileModifiedCalled) && tries++ < 100)
         {
             QThread::msleep(10);
             QCoreApplication::processEvents(QEventLoop::AllEvents, 100);
@@ -286,7 +286,7 @@ void FileWatcherUnitTestRunner::StartTest()
         UNIT_TEST_EXPECT_TRUE(renamer.rename(tempDirPath.absoluteFilePath("dir3"), tempDirPath.absoluteFilePath("dir4")));
 
         tries = 0;
-        while (!(fileAddCalled && fileRemoveCalled && fileModifiedCalled) && tries++ < 100)
+        while (!(fileAddCalled || fileRemoveCalled || fileModifiedCalled) && tries++ < 100)
         {
             QThread::msleep(10);
             QCoreApplication::processEvents(QEventLoop::AllEvents, 100);

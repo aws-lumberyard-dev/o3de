@@ -65,7 +65,7 @@ namespace UnitTests
         SetUpAssetProcessorManager();
 
         // Create the test file
-        const auto& scanFolder = m_config->GetScanFolderAt(0);
+        const auto& scanFolder = m_config->GetScanFolderAt(1);
         m_data->m_relativePathFromWatchFolder[0] = "modtimeTestFile.txt";
         m_data->m_absolutePath.push_back(QDir(scanFolder.ScanPath()).absoluteFilePath(m_data->m_relativePathFromWatchFolder[0]));
 
@@ -268,7 +268,7 @@ namespace UnitTests
 
         // There's no way to remove scanfolders and adding a new one after enabling the platform will cause the pc assets to build as well,
         // which we don't want Instead we'll just const cast the vector and modify the enabled platforms for the scanfolder
-        auto& platforms = const_cast<AZStd::vector<AssetBuilderSDK::PlatformInfo>&>(m_config->GetScanFolderAt(0).GetPlatforms());
+        auto& platforms = const_cast<AZStd::vector<AssetBuilderSDK::PlatformInfo>&>(m_config->GetScanFolderAt(1).GetPlatforms());
         platforms.push_back(androidPlatform);
 
         // We need the builder fingerprints to be updated to reflect the newly enabled platform
@@ -504,7 +504,7 @@ namespace UnitTests
     {
         using namespace AzToolsFramework::AssetSystem;
 
-        const auto& scanFolder = m_config->GetScanFolderAt(0);
+        const auto& scanFolder = m_config->GetScanFolderAt(1);
 
         QString scanPath = scanFolder.ScanPath();
         m_assetProcessorManager->RequestReprocess(scanPath);

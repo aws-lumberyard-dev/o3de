@@ -76,6 +76,8 @@ namespace UnitTests
         m_platformConfig->AddScanFolder(AssetProcessor::ScanFolderInfo{
             (tempDir/"folder").c_str(), "folder", "folder", false, true, platforms});
 
+        m_platformConfig->AddIntermediateScanFolder();
+
         // Create the APM
         m_assetProcessorManager = AZStd::make_unique<JobDependencyAssetProcessorManager>(m_platformConfig.get());
 
