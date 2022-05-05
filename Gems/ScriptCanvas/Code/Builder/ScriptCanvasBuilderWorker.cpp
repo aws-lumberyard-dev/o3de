@@ -111,9 +111,13 @@ namespace ScriptCanvasBuilder
             , const AZ::SerializeContext::ClassData* classData
             , [[maybe_unused]] const AZ::SerializeContext::ClassElement* classElement)
         {
-            auto azTypeId = classData->m_azRtti->GetTypeId();
-            
-            if (azTypeId == azrtti_typeid<AZ::Data::Asset<ScriptCanvas::SubgraphInterfaceAsset>>())
+            /*if (classData->m_version == (unsigned int)-1)
+            {
+                AZ::SerializeContext::DataElementNode convertedNode;
+                convertedNode.SetData(*serializeContext, classElement->m_editData);
+                classData->m_converter(*serializeContext, convertedNode);
+            }*/
+            if (classData->m_typeId == azrtti_typeid<AZ::Data::Asset<ScriptCanvas::SubgraphInterfaceAsset>>())
             {
                 const auto* subgraphAsset = reinterpret_cast<AZ::Data::Asset<const ScriptCanvas::SubgraphInterfaceAsset>*>(instancePointer);
                 if (subgraphAsset->GetId().IsValid())
@@ -121,11 +125,11 @@ namespace ScriptCanvasBuilder
                     AssetBuilderSDK::SourceFileDependency dependency;
                     dependency.m_sourceFileDependencyUUID = subgraphAsset->GetId().m_guid;
                     jobDependenciesByKey[s_scriptCanvasProcessJobKey].insert(dependency.m_sourceFileDependencyUUID);
-                    this->m_processEditorAssetDependencies.push_back
-                        ( { subgraphAsset->GetId(), azTypeId, AZ::Data::AssetLoadBehavior::PreLoad });
+                    this->m_processEditorAssetDependencies.push_back(
+                        { subgraphAsset->GetId(), classData->m_typeId, AZ::Data::AssetLoadBehavior::PreLoad });
                 }
             }
-            else if (azTypeId == azrtti_typeid<AZ::Data::Asset<ScriptEvents::ScriptEventsAsset>>())
+            else if (classData->m_typeId == azrtti_typeid<AZ::Data::Asset<ScriptEvents::ScriptEventsAsset>>())
             {
                 const auto* eventAsset = reinterpret_cast<AZ::Data::Asset<const ScriptEvents::ScriptEventsAsset>*>(instancePointer);
                 if (eventAsset->GetId().IsValid())
@@ -133,8 +137,8 @@ namespace ScriptCanvasBuilder
                     AssetBuilderSDK::SourceFileDependency dependency;
                     dependency.m_sourceFileDependencyUUID = eventAsset->GetId().m_guid;
                     jobDependenciesByKey[ScriptEvents::k_builderJobKey].insert(dependency.m_sourceFileDependencyUUID);
-                    this->m_processEditorAssetDependencies.push_back
-                        ( { eventAsset->GetId(), azTypeId, AZ::Data::AssetLoadBehavior::PreLoad });
+                    this->m_processEditorAssetDependencies.push_back(
+                        { eventAsset->GetId(), classData->m_typeId, AZ::Data::AssetLoadBehavior::PreLoad });
                 }
             }
 

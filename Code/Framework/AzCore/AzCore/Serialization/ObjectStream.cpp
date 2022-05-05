@@ -425,6 +425,11 @@ namespace AZ
                     nextLevel = false;
                 }
 
+                if (AZStd::string(classData->m_name) == "SpawnTicketInstance")
+                {
+                    AZ_Warning("test", false, "");
+                }
+
                 // Handle conversion of deprecated classes to non-deprecated ones.
                 if (!convertedClassElement.m_classData && classData && classData->IsDeprecated())
                 {
@@ -1344,6 +1349,12 @@ namespace AZ
 
                 // find the registered class data
                 cd = sc.FindClassData(element.m_id, parent, element.m_nameCrc);
+
+                if (element.m_id == AZ::Uuid("{2B5EB938-8962-4A43-A97B-112F398C604B}"))
+                {
+                    AZ_Warning("test", false, "");
+                }
+
                 if (cd)
                 {
                     // Lookup the SpecializedTypeId from the class if it has GenericClassInfo registered with it

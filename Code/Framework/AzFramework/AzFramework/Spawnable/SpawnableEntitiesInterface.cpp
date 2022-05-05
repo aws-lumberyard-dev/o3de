@@ -12,6 +12,16 @@
 
 namespace AzFramework
 {
+    namespace Internal
+    {
+        bool SpawnTicketInstanceConverter(AZ::SerializeContext& context, AZ::SerializeContext::DataElementNode& classElement)
+        {
+            // convert to the new class
+            classElement.Convert<EntitySpawnTicket>(context);
+            return true;
+        }
+    } // namespace Internal
+
     //
     // SpawnableEntityContainerView
     //
@@ -360,6 +370,8 @@ namespace AzFramework
     {
         if (auto serializeContext = azrtti_cast<AZ::SerializeContext*>(context))
         {
+            serializeContext->ClassDeprecate(
+                "SpawnTicketInstance", "{2B5EB938-8962-4A43-A97B-112F398C604B}", &Internal::SpawnTicketInstanceConverter);
             serializeContext
                 ->Class<EntitySpawnTicket>();
 

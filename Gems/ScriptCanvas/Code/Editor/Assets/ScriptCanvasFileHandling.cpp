@@ -209,9 +209,8 @@ namespace ScriptCanvasEditor
                     instance = *static_cast<void**>(instance);
                 }
             }
-
-            const auto azTypeId = classData->m_azRtti->GetTypeId();
-            if (azTypeId == subgraphInterfaceAssetTypeID)
+            
+            if (classData->m_typeId == subgraphInterfaceAssetTypeID)
             {
                 auto id = reinterpret_cast<AZ::Data::Asset<ScriptCanvas::SubgraphInterfaceAsset>*>(instance)->GetId();
                 dependentAssets.push_back(SourceHandle(nullptr, id.m_guid, {}));

@@ -207,6 +207,10 @@ namespace AZ
             ScopedContextPath subPath(context, name);
             if (foundElementData.m_found)
             {
+                if (AZStd::string(foundElementData.m_info->m_name) == "Datum")
+                {
+                    AZ_Warning("test", false, "");                
+                }
                 ResultCode result = LoadWithClassElement(foundElementData.m_data, val, *foundElementData.m_info, context);
                 retVal.Combine(result);
 

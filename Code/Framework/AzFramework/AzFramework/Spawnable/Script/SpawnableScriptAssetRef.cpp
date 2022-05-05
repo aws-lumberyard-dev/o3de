@@ -6,6 +6,7 @@
  *
  */
 
+#include <AzCore/Debug/Profiler.h>
 #include <AzCore/RTTI/BehaviorContext.h>
 #include <AzCore/Serialization/EditContext.h>
 #include <AzCore/Serialization/SerializeContext.h>
@@ -15,10 +16,26 @@
 
 namespace AzFramework::Scripts
 {
+    namespace Internal
+    {
+        bool SpawnableAssetConverter(AZ::SerializeContext& context, AZ::SerializeContext::DataElementNode& classElement)
+        {
+            AZ::Data::Asset<Spawnable> asset;
+            classElement.GetChildData(AZ::Crc32("Asset"), asset);
+            // convert to the new class
+            classElement.Convert<SpawnableScriptAssetRef>(context);
+            // add the captured name
+            classElement.AddElementWithData(context, "asset", asset);
+            return true;
+        }
+    } // namespace Internal
+
     void SpawnableScriptAssetRef::Reflect(AZ::ReflectContext* context)
     {
         if (auto serializeContext = azrtti_cast<AZ::SerializeContext*>(context))
         {
+            serializeContext->ClassDeprecate(
+                "SpawnableAsset", "{A96A5037-AD0D-43B6-9948-ED63438C4A52}", &Internal::SpawnableAssetConverter);
             serializeContext
                 ->Class<SpawnableScriptAssetRef>()
                 ->Version(0)
@@ -27,7 +44,7 @@ namespace AzFramework::Scripts
             serializeContext->RegisterGenericType<AZStd::vector<SpawnableScriptAssetRef>>();
             serializeContext->RegisterGenericType<AZStd::unordered_map<AZStd::string, SpawnableScriptAssetRef>>();
             serializeContext->RegisterGenericType<AZStd::unordered_map<double, SpawnableScriptAssetRef>>(); // required to support Map<Number, SpawnableScriptAssetRef> in Script Canvas
-
+            
             if (AZ::EditContext* editContext = serializeContext->GetEditContext())
             {
                 editContext

@@ -6,6 +6,8 @@
  *
  */
 
+#include <AzCore/Serialization/Json/RegistrationContext.h>
+#include <AzCore/Serialization/Json/BaseJsonSerializer.h>
 #include <AzFramework/Components/TransformComponent.h>
 #include <AzFramework/Spawnable/Script/SpawnableScriptBus.h>
 #include <AzFramework/Spawnable/Script/SpawnableScriptMediator.h>
@@ -13,9 +15,87 @@
 
 namespace AzFramework::Scripts
 {
+    namespace Internal
+    {
+        struct LegacySpawnTicket
+        {
+            LegacySpawnTicket() {}
+
+            static void Reflect(AZ::ReflectContext* context)
+            {
+                if (auto serializeContext = azrtti_cast<AZ::SerializeContext*>(context); serializeContext != nullptr)
+                {
+                    serializeContext->Class<LegacySpawnTicket>();
+                }
+            }
+
+            AZ_TYPE_INFO(LegacySpawnTicket, "{2B5EB938-8962-4A43-A97B-112F398C604B}");
+        };
+
+        class SpawnTicketSerializer : public AZ::BaseJsonSerializer
+        {
+        public:
+            AZ_RTTI(SpawnTicketSerializer, "{F0B6F71C-FFC8-4FDB-8239-6D2368EB9FBC}", AZ::BaseJsonSerializer);
+            AZ_CLASS_ALLOCATOR_DECL;
+
+        private:
+            AZ::JsonSerializationResult::Result Load(
+                [[maybe_unused]] void* outputValue,
+                [[maybe_unused]] const AZ::Uuid& outputValueTypeId,
+                [[maybe_unused]] const rapidjson::Value& inputValue,
+                AZ::JsonDeserializerContext& context) override
+            {
+                namespace JSR = AZ::JsonSerializationResult;
+                JSR::ResultCode result(JSR::Tasks::ReadField);
+                memcpy(aznew EntitySpawnTicket(), &outputValue, sizeof(EntitySpawnTicket));
+                
+                return context.Report(
+                    result,
+                    result.GetProcessing() != JSR::Processing::Halted ? "AzEventEntrySerializer Load finished loading AzEventEntry"
+                                                                      : "AzEventEntrySerializer Load failed to load AzEventEntry");
+            }
+
+            AZ::JsonSerializationResult::Result Store(
+                rapidjson::Value& outputValue,
+                [[maybe_unused]] const void* inputValue,
+                [[maybe_unused]] const void* defaultValue,
+                [[maybe_unused]] const AZ::Uuid& valueTypeId,
+                AZ::JsonSerializerContext& context) override
+            {
+                namespace JSR = AZ::JsonSerializationResult;
+                
+                EntitySpawnTicket ticket;
+                EntitySpawnTicket defaultData;
+                JSR::ResultCode result(JSR::Tasks::WriteValue);
+
+                outputValue.SetObject();
+                {
+                    rapidjson::Value versionData;
+                    versionData.SetObject();
+                    result.Combine(ContinueStoring(versionData, &ticket, &defaultData, azrtti_typeid<EntitySpawnTicket>(), context));
+                    outputValue.AddMember(
+                        rapidjson::StringRef("AzFramework::EntitySpawnTicket"), AZStd::move(versionData), context.GetJsonAllocator());
+                }
+
+                return context.Report(
+                    result,
+                    result.GetProcessing() != JSR::Processing::Halted ? "AzEventEntrySerializer Load finished loading Datum"
+                                                                      : "AzEventEntrySerializer Load failed to load Datum");
+            }
+        };
+
+        AZ_CLASS_ALLOCATOR_IMPL(SpawnTicketSerializer, AZ::SystemAllocator, 0);
+    } // namespace Internal
+
     void SpawnableScriptMediator::Reflect(AZ::ReflectContext* context)
     {
         SpawnableScriptAssetRef::Reflect(context);
+        Internal::LegacySpawnTicket::Reflect(context);
+
+        if (AZ::JsonRegistrationContext* jsonContext = azrtti_cast<AZ::JsonRegistrationContext*>(context))
+        {
+            jsonContext->Serializer<Internal::SpawnTicketSerializer>()->HandlesType<Internal::LegacySpawnTicket>();
+        }
 
         if (auto* serializeContext = azrtti_cast<AZ::SerializeContext*>(context); serializeContext != nullptr)
         {

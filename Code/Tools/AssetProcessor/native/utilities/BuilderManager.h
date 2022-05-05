@@ -189,7 +189,7 @@ namespace AssetProcessor
         AZStd::unordered_map<AZ::Uuid, AZStd::shared_ptr<Builder>> m_builders;
 
         //! Indicates if we allow builders to connect that we haven't started up ourselves.  Useful for debugging
-        bool m_allowUnmanagedBuilderConnections = false;
+        bool m_allowUnmanagedBuilderConnections = true;
 
         //! Responsible for going through all the idle builders and pumping their communicators so they don't stall
         AZStd::thread m_pollingThread;

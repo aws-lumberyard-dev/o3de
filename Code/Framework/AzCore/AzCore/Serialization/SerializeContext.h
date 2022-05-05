@@ -117,9 +117,9 @@ namespace AZ
     class SerializeContext
         : public ReflectContext
     {
+    public:
         static const unsigned int VersionClassDeprecated = (unsigned int)-1;
 
-    public:
         /// @cond EXCLUDE_DOCS
         friend class EditContext;
         class ClassBuilder;
