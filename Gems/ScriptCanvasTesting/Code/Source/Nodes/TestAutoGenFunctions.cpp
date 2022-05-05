@@ -12,6 +12,8 @@ namespace ScriptCanvasTesting
 {
     namespace TestAutoGenFunctions
     {
+        REGISTER_SCRIPTCANVAS_FUNCTION(TestAutoGenFunctions);
+
         float NoArgsReturn()
         {
             return 0.0f;

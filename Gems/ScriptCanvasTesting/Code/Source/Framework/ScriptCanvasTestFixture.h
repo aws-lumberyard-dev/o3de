@@ -23,6 +23,7 @@
 #include <Nodes/BehaviorContextObjectTestNode.h>
 #include <Nodes/Nodeables/SharedDataSlotExample.h>
 #include <Nodes/Nodeables/ValuePointerReferenceExample.h>
+#include <Nodes/TestAutoGenFunctions.h>
 #include <ScriptCanvas/AutoGen/ScriptCanvasAutoGenRegistry.h>
 #include <ScriptCanvas/Core/Graph.h>
 #include <ScriptCanvas/Core/SlotConfigurationDefaults.h>
@@ -37,6 +38,14 @@
 
 #define SC_EXPECT_DOUBLE_EQ(candidate, reference) EXPECT_NEAR(candidate, reference, 0.001)
 #define SC_EXPECT_FLOAT_EQ(candidate, reference) EXPECT_NEAR(candidate, reference, 0.001f)
+
+namespace ScriptCanvasTesting
+{
+    namespace TestAutoGenFunctions
+    {
+        REGISTER_SCRIPTCANVAS_FUNCTION(TestAutoGenFunctions);
+    }
+}
 
 namespace ScriptCanvasTests
 {
