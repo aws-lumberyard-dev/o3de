@@ -84,8 +84,11 @@ namespace UnitTests
         // Cache the db pointer because the TEST_F generates a subclass which can't access this private member
         m_stateData = m_assetProcessorManager->m_stateData;
 
+        // Cache the scanfolder db entry, for convenience
+        ASSERT_TRUE(m_stateData->GetScanFolderByPortableKey("folder", m_scanfolder));
+
         // Configure our mock builder so APM can find the builder and run CreateJobs
-        m_builderInfoHandler.m_builderDesc = m_builderInfoHandler.CreateBuilderDesc("test", AZ::Uuid::CreateRandom().ToString<QString>(), { AssetBuilderSDK::AssetBuilderPattern("*.txt", AssetBuilderSDK::AssetBuilderPattern::Wildcard) });
+        m_builderInfoHandler.CreateBuilderDesc("test", AZ::Uuid::CreateRandom().ToString<QString>(), { AssetBuilderSDK::AssetBuilderPattern("*.txt", AssetBuilderSDK::AssetBuilderPattern::Wildcard) }, {});
         m_builderInfoHandler.BusConnect();
     }
 
@@ -110,9 +113,7 @@ namespace UnitTests
         using namespace AzToolsFramework::AssetDatabase;
 
         AZ::IO::Path tempDir(m_tempDir.GetDirectory());
-        m_scanfolder = { (tempDir / "folder").c_str(), "folder", "folder", 0 };
 
-        ASSERT_TRUE(m_stateData->SetScanFolder(m_scanfolder));
 
         SourceDatabaseEntry source1{ m_scanfolder.m_scanFolderID, "parent.txt", AZ::Uuid::CreateRandom(), "fingerprint" };
         SourceDatabaseEntry source2{ m_scanfolder.m_scanFolderID, "child.txt", AZ::Uuid::CreateRandom(), "fingerprint" };
@@ -126,7 +127,7 @@ namespace UnitTests
         ASSERT_TRUE(m_stateData->SetSource(source2));
 
         JobDatabaseEntry job1{
-            source1.m_sourceID, "Mock Job", 1234, "pc", m_builderInfoHandler.m_builderDesc.m_busId, AzToolsFramework::AssetSystem::JobStatus::Completed, 999
+            source1.m_sourceID, "Mock Job", 1234, "pc", m_builderInfoHandler.m_builderDescMap.begin()->second.m_busId, AzToolsFramework::AssetSystem::JobStatus::Completed, 999
         };
 
         ASSERT_TRUE(m_stateData->SetJob(job1));

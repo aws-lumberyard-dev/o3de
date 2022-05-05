@@ -63,7 +63,7 @@ namespace UnitTests
         JobDependencyDatabaseLocationListener m_databaseLocationListener;
         AzToolsFramework::AssetDatabase::ScanFolderDatabaseEntry m_scanfolder;
         AZ::IO::Path m_parentFile, m_childFile;
-        MockBuilderInfoHandler m_builderInfoHandler;
+        MockMultiBuilderInfoHandler m_builderInfoHandler;
         AZ::IO::LocalFileIO* m_localFileIo;
 
         AZ::Uuid m_assetType = AZ::Uuid::CreateName("test");
