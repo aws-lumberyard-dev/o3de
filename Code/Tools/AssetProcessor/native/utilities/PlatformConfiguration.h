@@ -246,6 +246,8 @@ namespace AssetProcessor
         //! Gets the minumum jobs specified in the configuration file
         int GetMinJobs() const;
         int GetMaxJobs() const;
+
+        void EnableCommonPlatform();
         void AddIntermediateScanFolder();
 
         //! Return how many scan folders there are
