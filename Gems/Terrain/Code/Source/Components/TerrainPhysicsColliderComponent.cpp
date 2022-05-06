@@ -9,6 +9,7 @@
 
 #include <Components/TerrainPhysicsColliderComponent.h>
 
+#include <AzCore/Asset/AssetSerializer.h>
 #include <AzCore/Asset/AssetManagerBus.h>
 #include <AzCore/Component/Entity.h>
 #include <AzCore/Component/TransformBus.h>
@@ -57,9 +58,11 @@ namespace Terrain
         if (auto serialize = azrtti_cast<AZ::SerializeContext*>(context))
         {
             serialize->Class<TerrainPhysicsSurfaceMaterialMapping>()
-                ->Version(1)
+                ->Version(2)
                 ->Field("Surface", &TerrainPhysicsSurfaceMaterialMapping::m_surfaceTag)
-                ->Field("Material", &TerrainPhysicsSurfaceMaterialMapping::m_materialId);
+                ->Field("Material", &TerrainPhysicsSurfaceMaterialMapping::m_materialId)
+                ->Field("MaterialAsset", &TerrainPhysicsSurfaceMaterialMapping::m_materialAsset)
+            ;
         }
     }
 
@@ -83,8 +86,9 @@ namespace Terrain
         if (auto serialize = azrtti_cast<AZ::SerializeContext*>(context))
         {
             serialize->Class<TerrainPhysicsColliderConfig, AZ::ComponentConfig>()
-                ->Version(3)
+                ->Version(4)
                 ->Field("DefaultMaterial", &TerrainPhysicsColliderConfig::m_defaultMaterialSelection)
+                ->Field("DefaultMaterialAsset", &TerrainPhysicsColliderConfig::m_defaultMaterialAsset)
                 ->Field("Mappings", &TerrainPhysicsColliderConfig::m_surfaceMaterialMappings)
             ;
         }

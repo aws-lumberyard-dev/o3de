@@ -193,6 +193,7 @@ namespace PhysX
 
         // Update material selection from the mapping
         Utils::SetMaterialsFromHeightfieldProvider(GetEntityId(), m_colliderConfig.m_materialSelection);
+        Utils::SetMaterialsFromHeightfieldProvider(GetEntityId(), m_colliderConfig.m_materialSlots);
 
         AzPhysics::ShapeColliderPairList colliderShapePairs;
         colliderShapePairs.emplace_back(AZStd::make_shared<Physics::ColliderConfiguration>(m_colliderConfig), m_shapeConfig);

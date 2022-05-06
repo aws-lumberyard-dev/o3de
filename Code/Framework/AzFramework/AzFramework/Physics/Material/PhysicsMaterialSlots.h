@@ -10,6 +10,7 @@
 
 #include <AzCore/Asset/AssetCommon.h>
 #include <AzCore/std/containers/vector.h>
+#include <AzCore/std/string/string_view.h>
 
 #include <AzFramework/Physics/ShapeConfiguration.h>
 #include <AzFramework/Physics/Material/PhysicsMaterialAsset.h>
@@ -36,19 +37,20 @@ namespace Physics
         //! @param slots List of labels for slots. It can be empty, in which case a slot will the default label "Entire Object" will be created.
         void SetSlots(const AZStd::vector<AZStd::string>& slots);
 
-        //! Sets an array of material slots from Physics Asset.
-        //! If the configuration indicates that it should use the physics materials
-        //! assignment from the physics asset it will also use those materials for the slots.
-        //! If the shape configuration passed do not use Physics Asset this call won't do any operations.
-        //! @param shapeConfiguration Shape configuration with the information about Physics Assets.
-        void SetSlotsFromPhysicsAsset(const Physics::ShapeConfiguration& shapeConfiguration);
+        void SetMaterialAsset(size_t slotIndex, const AZ::Data::Asset<MaterialAsset>& materialAsset);
+
+        size_t GetSlotsCount() const;
+
+        AZStd::string_view GetSlotName(size_t slotIndex) const;
+
+        const AZ::Data::Asset<MaterialAsset> GetMaterialAsset(size_t slotIndex) const;
 
         //! Set if the material slots are editable in the edit context.
         void SetSlotsReadOnly(bool readOnly);
 
     protected:
-        AZStd::vector<AZStd::string> m_slots; //!< List of labels for slots
-        AZStd::vector<AZ::Data::Asset<MaterialAsset>> m_materialAssets; //!< List of material assets assigned to slots
+        AZStd::vector<AZStd::string> m_slots; //!< List of labels for slots.
+        AZStd::vector<AZ::Data::Asset<MaterialAsset>> m_materialAssets; //!< List of material assets assigned to slots.
 
     private:
         AZStd::string GetSlotLabel(int index) const;

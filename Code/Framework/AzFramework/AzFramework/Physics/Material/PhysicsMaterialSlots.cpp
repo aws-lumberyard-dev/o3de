@@ -11,9 +11,6 @@
 #include <AzCore/Asset/AssetSerializer.h>
 
 #include <AzFramework/Physics/Material/PhysicsMaterialSlots.h>
-//#include <PhysX/MeshAsset.h>
-
-// TODO: This file is Work in Progress
 
 namespace Physics
 {
@@ -37,7 +34,7 @@ namespace Physics
                 editContext->Class<Physics::MaterialSlots>("", "")
                     ->ClassElement(AZ::Edit::ClassElements::EditorData, "")
                     ->DataElement(AZ::Edit::UIHandlers::Default, &MaterialSlots::m_materialAssets, "Physics Materials",
-                        "List of slots for Physics materials.")
+                        "Select which physics materials to use for each slot.")
                         ->Attribute(AZ::Edit::Attributes::IndexedChildNameLabelOverride, &MaterialSlots::GetSlotLabel)
                         ->Attribute(AZ::Edit::Attributes::ContainerCanBeModified, false)
                         ->Attribute(AZ::Edit::Attributes::AutoExpand, true)
@@ -71,73 +68,40 @@ namespace Physics
         m_materialAssets.resize(m_slots.size());
     }
 
-    void MaterialSlots::SetSlotsFromPhysicsAsset(const Physics::ShapeConfiguration& shapeConfiguration)
+    void MaterialSlots::SetMaterialAsset(size_t slotIndex, const AZ::Data::Asset<MaterialAsset>& materialAsset)
     {
-        if (shapeConfiguration.GetShapeType() != Physics::ShapeType::PhysicsAsset)
+        if (slotIndex < m_materialAssets.size())
         {
-            return;
+            m_materialAssets[slotIndex] = materialAsset;
         }
+    }
 
-        const Physics::PhysicsAssetShapeConfiguration& assetConfiguration =
-            static_cast<const Physics::PhysicsAssetShapeConfiguration&>(shapeConfiguration);
+    size_t MaterialSlots::GetSlotsCount() const
+    {
+        return m_slots.size();
+    }
 
-        if (!assetConfiguration.m_asset.GetId().IsValid())
+    AZStd::string_view MaterialSlots::GetSlotName(size_t slotIndex) const
+    {
+        if (slotIndex < m_slots.size())
         {
-            // Set the default selection if there's no physics asset.
-            SetSlots({});
-            return;
+            return m_slots[slotIndex];
         }
-
-        if (!assetConfiguration.m_asset.IsReady())
+        else
         {
-            // The asset is valid but is still loading,
-            // Do not set the empty slots in this case to avoid the entity being in invalid state
-            return;
+            return "<error>";
         }
+    }
 
-        /*Pipeline::MeshAsset* meshAsset = assetConfiguration.m_asset.GetAs<Pipeline::MeshAsset>();
-        if (!meshAsset)
+    const AZ::Data::Asset<MaterialAsset> MaterialSlots::GetMaterialAsset(size_t slotIndex) const
+    {
+        if (slotIndex < m_materialAssets.size())
         {
-            SetSlots({});
-            AZ_Warning("Physics", false, "Invalid mesh asset in physics asset shape configuration.");
-            return;
+            return m_materialAssets[slotIndex];
         }
-
-        // Set the slots from the mesh asset
-        SetSlots(meshAsset->m_assetData.m_materialNames);*/
-
-        // Lastly, check if it has to use the materials assets from the mesh.
-        if (assetConfiguration.m_useMaterialsFromAsset)
+        else
         {
-            // TODO: m_assetData.m_physicsMaterialNames must be replaced with m_assetData.m_physicsMaterialAssets and
-            // then here they get set to m_materialAssets
-
-            // Update material IDs in the selection for each slot
-            /*const AZStd::vector<AZStd::string>& physicsMaterialNames = meshAsset->m_assetData.m_physicsMaterialNames;
-            for (size_t slotIndex = 0; slotIndex < physicsMaterialNames.size(); ++slotIndex)
-            {
-                const AZStd::string& physicsMaterialNameFromPhysicsAsset = physicsMaterialNames[slotIndex];
-                if (physicsMaterialNameFromPhysicsAsset.empty() ||
-                    physicsMaterialNameFromPhysicsAsset == Physics::DefaultPhysicsMaterialLabel)
-                {
-                    materialSelection.SetMaterialId(Physics::MaterialId(), static_cast<int>(slotIndex));
-                    continue;
-                }
-
-                if (auto it = FindOrCreateMaterial(physicsMaterialNameFromPhysicsAsset);
-                    it != m_materials.end())
-                {
-                    materialSelection.SetMaterialId(Physics::MaterialId::FromUUID(it->first), static_cast<int>(slotIndex));
-                }
-                else
-                {
-                    AZ_Warning("Physics", false,
-                        "UpdateMaterialSelectionFromPhysicsAsset: Physics material '%s' not found in the material library. Mesh material '%s' will use the default physics material.",
-                        physicsMaterialNameFromPhysicsAsset.c_str(),
-                        meshAsset->m_assetData.m_materialNames[slotIndex].c_str());
-                    materialSelection.SetMaterialId(Physics::MaterialId(), static_cast<int>(slotIndex));
-                }
-            }*/
+            return {};
         }
     }
 
@@ -148,18 +112,14 @@ namespace Physics
 
     AZStd::string MaterialSlots::GetSlotLabel(int index) const
     {
-        if (index >= 0 && index < m_slots.size())
-        {
-            return m_slots[index];
-        }
-        else
-        {
-            return "<error>";
-        }
+        return GetSlotName(static_cast<size_t>(index));
     }
 
     AZ::Data::AssetId MaterialSlots::GetDefaultMaterialAssetId() const
     {
+        // Used for Edit Context.
+        // When the physics material asset property doesn't have an asset assigned it
+        // will show "(default)" to indicate that the default material will be used.
         return {};
     }
 } // namespace Physics

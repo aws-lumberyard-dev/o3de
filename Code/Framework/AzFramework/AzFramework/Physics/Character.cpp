@@ -85,10 +85,11 @@ namespace Physics
         if (serializeContext)
         {
             serializeContext->Class<CharacterConfiguration, AzPhysics::SimulatedBodyConfiguration>()
-                ->Version(3)
+                ->Version(4)
                 ->Field("CollisionLayer", &CharacterConfiguration::m_collisionLayer)
                 ->Field("CollisionGroupId", &CharacterConfiguration::m_collisionGroupId)
                 ->Field("Material", &CharacterConfiguration::m_materialSelection)
+                ->Field("MaterialSlots", &CharacterConfiguration::m_materialSlots)
                 ->Field("UpDirection", &CharacterConfiguration::m_upDirection)
                 ->Field("MaximumSlopeAngle", &CharacterConfiguration::m_maximumSlopeAngle)
                 ->Field("StepHeight", &CharacterConfiguration::m_stepHeight)
@@ -109,6 +110,8 @@ namespace Physics
                         "Collides With", "The collision layers this character controller collides with")
                     ->DataElement(AZ::Edit::UIHandlers::Default, &CharacterConfiguration::m_materialSelection,
                         "Physics Material", "Assign physics material library and select materials to use for the character")
+                    ->DataElement(AZ::Edit::UIHandlers::Default, &CharacterConfiguration::m_materialSlots, "", "")
+                        ->Attribute(AZ::Edit::Attributes::Visibility, AZ::Edit::PropertyVisibility::ShowChildrenOnly)
                     ->DataElement(AZ::Edit::UIHandlers::Default, &CharacterConfiguration::m_maximumSlopeAngle,
                         "Maximum Slope Angle", "Maximum angle of slopes on which the controller can walk")
                         ->Attribute(AZ::Edit::Attributes::Min, 0.0f)

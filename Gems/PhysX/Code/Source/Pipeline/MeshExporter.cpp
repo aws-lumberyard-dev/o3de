@@ -212,6 +212,35 @@ namespace PhysX
                 return true;
             }
 
+            void UpdateAssetPhysicsMaterials(
+                const AZStd::vector<AZStd::string>& newMaterials,
+                Physics::MaterialSlots& physicsMaterialSlots)
+            {
+                Physics::MaterialSlots newSlots;
+                newSlots.SetSlots(newMaterials);
+
+                // In the new material list, the materials might have changed slots.
+                // Form the new list of physics material slots by looking at the previous list
+                // and keeping the same physics materials association when found.
+                for (size_t newSlotId = 0; newSlotId < newSlots.GetSlotsCount(); ++newSlotId)
+                {
+                    for (size_t prevSlotId = 0; prevSlotId < physicsMaterialSlots.GetSlotsCount(); ++prevSlotId)
+                    {
+                        if (AZ::StringFunc::Equal(physicsMaterialSlots.GetSlotName(prevSlotId), newSlots.GetSlotName(newSlotId), false/*bCaseSensitive*/))
+                        {
+                            const auto materialAsset = physicsMaterialSlots.GetMaterialAsset(prevSlotId);
+                            if (materialAsset.GetId().IsValid())
+                            {
+                                newSlots.SetMaterialAsset(newSlotId, materialAsset);
+                            }
+                            break;
+                        }
+                    }
+                }
+
+                physicsMaterialSlots = AZStd::move(newSlots);
+            }
+
             bool ValidateCookedTriangleMesh(void* assetData, AZ::u32 assetDataSize)
             {
                 physx::PxDefaultMemoryInputData inpStream(static_cast<physx::PxU8*>(assetData), assetDataSize);

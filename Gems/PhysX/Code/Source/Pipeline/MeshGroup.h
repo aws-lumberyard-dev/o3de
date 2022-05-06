@@ -237,6 +237,7 @@ namespace PhysX
             AZ::SceneAPI::Containers::RuleContainer m_rules{};
             AZStd::vector<AZStd::string> m_materialSlots;
             AZStd::vector<AZStd::string> m_physicsMaterials;
+            Physics::MaterialSlots m_physicsMaterialSlots;
 
             const AZ::SceneAPI::Containers::SceneGraph* m_graph = nullptr;
             

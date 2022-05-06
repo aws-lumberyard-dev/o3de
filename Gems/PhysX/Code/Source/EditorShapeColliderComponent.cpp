@@ -312,6 +312,7 @@ namespace PhysX
     AZ::u32 EditorShapeColliderComponent::OnConfigurationChanged()
     {
         m_colliderConfig.m_materialSelection.SetMaterialSlots(Physics::MaterialSelection::SlotsArray());
+        m_colliderConfig.m_materialSlots.SetSlots({});
         CreateStaticEditorCollider();
         return AZ::Edit::PropertyRefreshLevels::None;
     }

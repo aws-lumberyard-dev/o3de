@@ -8,6 +8,8 @@
 
 #pragma once
 
+#include <AzFramework/Physics/Material/PhysicsMaterialSlots.h>
+
 #include <SceneAPI/SceneCore/Components/ExportingComponent.h>
 
 namespace AZ
@@ -82,6 +84,12 @@ namespace PhysX
                 const AZStd::vector<AZStd::string>& newMaterials,
                 AZStd::vector<AZStd::string>& materials,
                 AZStd::vector<AZStd::string>& physicsMaterials);
+
+            //! Function to update a list of physics material slots from a new list.
+            //! All those new materials not found in the previous list will fallback to default physics material.
+            void UpdateAssetPhysicsMaterials(
+                const AZStd::vector<AZStd::string>& newMaterials,
+                Physics::MaterialSlots& physicsMaterialSlots);
         } // namespace Utils
     } // namespace Pipeline
 } // namespace PhysX

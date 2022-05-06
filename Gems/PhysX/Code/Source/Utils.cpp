@@ -1603,6 +1603,91 @@ namespace PhysX
             return configuration;
         }
 
+        void SetMaterialsFromPhysicsAssetShape(const Physics::ShapeConfiguration& shapeConfiguration, Physics::MaterialSlots& materialSlots)
+        {
+            if (shapeConfiguration.GetShapeType() != Physics::ShapeType::PhysicsAsset)
+            {
+                return;
+            }
+
+            const Physics::PhysicsAssetShapeConfiguration& assetConfiguration =
+                static_cast<const Physics::PhysicsAssetShapeConfiguration&>(shapeConfiguration);
+
+            if (!assetConfiguration.m_asset.GetId().IsValid())
+            {
+                // Set the default selection if there's no physics asset.
+                materialSlots.SetSlots({});
+                return;
+            }
+
+            if (!assetConfiguration.m_asset.IsReady())
+            {
+                // The asset is valid but is still loading,
+                // Do not set the empty slots in this case to avoid the entity being in invalid state
+                return;
+            }
+
+            Pipeline::MeshAsset* meshAsset = assetConfiguration.m_asset.GetAs<Pipeline::MeshAsset>();
+            if (!meshAsset)
+            {
+                materialSlots.SetSlots({});
+                AZ_Warning("Physics", false, "Invalid mesh asset in physics asset shape configuration.");
+                return;
+            }
+
+            // Set the slots from the mesh asset
+            materialSlots.SetSlots(meshAsset->m_assetData.m_materialNames);
+
+            // Lastly, check if it has to use the materials assets from the mesh.
+            if (assetConfiguration.m_useMaterialsFromAsset)
+            {
+                // TODO: m_assetData.m_physicsMaterialNames must be replaced with m_assetData.m_physicsMaterialAssets and
+                // then here they get set to m_materialAssets
+
+                // Update material IDs in the selection for each slot
+                /*const AZStd::vector<AZStd::string>& physicsMaterialNames = meshAsset->m_assetData.m_physicsMaterialNames;
+                for (size_t slotIndex = 0; slotIndex < physicsMaterialNames.size(); ++slotIndex)
+                {
+                    const AZStd::string& physicsMaterialNameFromPhysicsAsset = physicsMaterialNames[slotIndex];
+                    if (physicsMaterialNameFromPhysicsAsset.empty() ||
+                        physicsMaterialNameFromPhysicsAsset == Physics::DefaultPhysicsMaterialLabel)
+                    {
+                        materialSelection.SetMaterialId(Physics::MaterialId(), static_cast<int>(slotIndex));
+                        continue;
+                    }
+
+                    if (auto it = FindOrCreateMaterial(physicsMaterialNameFromPhysicsAsset);
+                        it != m_materials.end())
+                    {
+                        materialSelection.SetMaterialId(Physics::MaterialId::FromUUID(it->first), static_cast<int>(slotIndex));
+                    }
+                    else
+                    {
+                        AZ_Warning("Physics", false,
+                            "UpdateMaterialSelectionFromPhysicsAsset: Physics material '%s' not found in the material library. Mesh material '%s' will use the default physics material.",
+                            physicsMaterialNameFromPhysicsAsset.c_str(),
+                            meshAsset->m_assetData.m_materialNames[slotIndex].c_str());
+                        materialSelection.SetMaterialId(Physics::MaterialId(), static_cast<int>(slotIndex));
+                    }
+                }*/
+            }
+        }
+
+        void SetMaterialsFromHeightfieldProvider(const AZ::EntityId& heightfieldProviderId, Physics::MaterialSlots& materialSlots)
+        {
+            // TODO: materialList must be a list of MaterialAsset
+            AZStd::vector<Physics::MaterialId> materialList;
+            Physics::HeightfieldProviderRequestsBus::EventResult(
+                materialList, heightfieldProviderId, &Physics::HeightfieldProviderRequestsBus::Events::GetMaterialList);
+
+            materialSlots.SetSlots({ materialList.size(), "" }); // Nameless slots, their names are not shown in the heightfield component.
+
+            /*for (size_t slotIndex = 0; slotIndex < materialList.size(); ++slotIndex)
+            {
+                materialSlots.SetMaterialAsset(slotIndex, materialList[slotIndex]);
+            }*/
+        }
+
         void SetMaterialsFromHeightfieldProvider(const AZ::EntityId& heightfieldProviderId, Physics::MaterialSelection& materialSelection)
         {
             AZStd::vector<Physics::MaterialId> materialList;

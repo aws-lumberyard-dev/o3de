@@ -605,7 +605,7 @@ namespace PhysX
                 serializeContext
             )
             {
-                serializeContext->Class<MeshGroup, AZ::SceneAPI::DataTypes::ISceneNodeGroup>()->Version(2, &MeshGroup::VersionConverter)
+                serializeContext->Class<MeshGroup, AZ::SceneAPI::DataTypes::ISceneNodeGroup>()->Version(3, &MeshGroup::VersionConverter)
                     ->Field("id", &MeshGroup::m_id)
                     ->Field("name", &MeshGroup::m_name)
                     ->Field("NodeSelectionList", &MeshGroup::m_nodeSelectionList)
@@ -617,6 +617,7 @@ namespace PhysX
                     ->Field("ConvexDecompositionParams", &MeshGroup::m_convexDecompositionParams)
                     ->Field("MaterialSlots", &MeshGroup::m_materialSlots)
                     ->Field("PhysicsMaterials", &MeshGroup::m_physicsMaterials)
+                    ->Field("PhysicsMaterialSlots", &MeshGroup::m_physicsMaterialSlots)
                     ->Field("rules", &MeshGroup::m_rules);
 
                 if (
@@ -681,6 +682,9 @@ namespace PhysX
                             ->Attribute(AZ::Edit::Attributes::ContainerCanBeModified, false)
                             ->ElementAttribute(AZ::Edit::UIHandlers::Handler, AZ::Edit::UIHandlers::ComboBox)
                             ->ElementAttribute(AZ::Edit::Attributes::StringList, &MeshGroup::GetPhysicsMaterialNames)
+
+                        ->DataElement(AZ::Edit::UIHandlers::Default, &MeshGroup::m_physicsMaterialSlots, "", "")
+                            ->Attribute(AZ::Edit::Attributes::Visibility, AZ::Edit::PropertyVisibility::ShowChildrenOnly)
 
                         ->DataElement(AZ::Edit::UIHandlers::Default, &MeshGroup::m_rules, "",
                             "Add or remove rules to fine-tune the export process.")
@@ -763,6 +767,7 @@ namespace PhysX
             }
 
             Utils::UpdateAssetPhysicsMaterials(assetMaterialData->m_sourceSceneMaterialNames, m_materialSlots, m_physicsMaterials);
+            Utils::UpdateAssetPhysicsMaterials(assetMaterialData->m_sourceSceneMaterialNames, m_physicsMaterialSlots);
         }
 
         AZ::SceneAPI::Containers::RuleContainer& MeshGroup::GetRuleContainer()

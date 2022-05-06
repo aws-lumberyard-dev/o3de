@@ -10,6 +10,7 @@
 
 #include <AzFramework/Physics/ShapeConfiguration.h>
 #include <AzFramework/Physics/Material.h>
+#include <AzFramework/Physics/Material/PhysicsMaterialSlots.h>
 #include <AzFramework/Physics/Collision/CollisionGroups.h>
 #include <AzFramework/Physics/Collision/CollisionLayers.h>
 #include <AzFramework/Physics/Common/PhysicsSceneQueries.h>
@@ -21,8 +22,6 @@ namespace AZ
 
 namespace Physics
 {
-    class Material;
-
     class ColliderConfiguration
     {
     public:
@@ -52,6 +51,7 @@ namespace Physics
         AZ::Crc32 GetIsTriggerVisibility() const;
         AZ::Crc32 GetCollisionLayerVisibility() const;
         AZ::Crc32 GetMaterialSelectionVisibility() const;
+        AZ::Crc32 GetMaterialSlotsVisibility() const;
         AZ::Crc32 GetOffsetVisibility() const;
 
         AzPhysics::CollisionLayer m_collisionLayer; ///< Which collision layer is this collider on.
@@ -63,6 +63,7 @@ namespace Physics
         AZ::Vector3 m_position = AZ::Vector3::CreateZero(); /// Shape offset relative to the connected rigid body.
         AZ::Quaternion m_rotation = AZ::Quaternion::CreateIdentity(); ///< Shape rotation relative to the connected rigid body.
         Physics::MaterialSelection m_materialSelection; ///< Materials for the collider.
+        MaterialSlots m_materialSlots; ///< Material slots for the collider.
         AZ::u8 m_propertyVisibilityFlags = (std::numeric_limits<AZ::u8>::max)(); ///< Visibility flags for collider.
                                                                                  ///< Note: added parenthesis for std::numeric_limits is
                                                                                  ///< to avoid collision with `max` macro in uber builds.

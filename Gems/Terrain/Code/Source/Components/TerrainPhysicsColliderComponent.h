@@ -10,9 +10,11 @@
 
 #include <AzCore/Component/Component.h>
 #include <AzCore/Math/Aabb.h>
+#include <AzCore/Asset/AssetCommon.h>
 
 #include <AzFramework/Physics/HeightfieldProviderBus.h>
 #include <AzFramework/Physics/Material.h>
+#include <AzFramework/Physics/Material/PhysicsMaterialAsset.h>
 #include <SurfaceData/SurfaceTag.h>
 #include <TerrainSystem/TerrainSystemBus.h>
 
@@ -40,9 +42,11 @@ namespace Terrain
 
         AZStd::vector<AZStd::pair<AZ::u32, AZStd::string>> BuildSelectableTagList() const;
         void SetTagListProvider(const EditorSurfaceTagListProvider* tagListProvider);
+        AZ::Data::AssetId GetDefaultPhysicsAssetId() const;
 
         SurfaceData::SurfaceTag m_surfaceTag;
         Physics::MaterialId m_materialId;
+        AZ::Data::Asset<Physics::MaterialAsset> m_materialAsset;
 
     private:
         const EditorSurfaceTagListProvider* m_tagListProvider = nullptr;
@@ -56,7 +60,10 @@ namespace Terrain
         AZ_RTTI(TerrainPhysicsColliderConfig, "{E9EADB8F-C3A5-4B9C-A62D-2DBC86B4CE59}", AZ::ComponentConfig);
         static void Reflect(AZ::ReflectContext* context);
 
+        AZ::Data::AssetId GetDefaultPhysicsAssetId() const;
+
         Physics::MaterialSelection m_defaultMaterialSelection;
+        AZ::Data::Asset<Physics::MaterialAsset> m_defaultMaterialAsset;
         AZStd::vector<TerrainPhysicsSurfaceMaterialMapping> m_surfaceMaterialMappings;
     };
 
