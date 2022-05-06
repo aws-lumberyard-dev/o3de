@@ -19,10 +19,19 @@
 
 namespace UnitTests
 {
-    class MockDiskSpaceResponder : public AssetProcessor::DiskSpaceInfoBus::Handler
+    struct MockDiskSpaceResponder : AssetProcessor::DiskSpaceInfoBus::Handler
     {
-    public:
         MOCK_METHOD3(CheckSufficientDiskSpace, bool(const QString&, qint64, bool));
+
+        MockDiskSpaceResponder()
+        {
+            BusConnect();
+        }
+
+        ~MockDiskSpaceResponder()
+        {
+            BusDisconnect();
+        }
     };
 
     class TestingDatabaseLocationListener : public AzToolsFramework::AssetDatabase::AssetDatabaseRequests::Bus::Handler
@@ -95,6 +104,7 @@ namespace UnitTests
         AZStd::unique_ptr<AssetProcessor::PlatformConfiguration> m_platformConfig;
         AZStd::unique_ptr<AZ::SettingsRegistryImpl> m_settingsRegistry;
         AZStd::shared_ptr<AssetProcessor::AssetDatabaseConnection> m_stateData;
+        AZStd::unique_ptr<::testing::NiceMock<MockDiskSpaceResponder>> m_diskSpaceResponder;
         AZ::Test::ScopedAutoTempDirectory m_tempDir;
         TestingDatabaseLocationListener m_databaseLocationListener;
         AzToolsFramework::AssetDatabase::ScanFolderDatabaseEntry m_scanfolder;

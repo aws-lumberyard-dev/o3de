@@ -14,6 +14,7 @@ namespace UnitTests
 {
     struct IntermediateAssetTests : AssetManagerTestingBase
     {
-
+        void SetUp() override;
+        void TearDown() override;
     };
 } // namespace UnitTests

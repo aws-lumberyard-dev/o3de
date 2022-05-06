@@ -10,15 +10,11 @@
 
 namespace UnitTests
 {
-    TEST_F(IntermediateAssetTests, IntermediateAssets_1)
+    void IntermediateAssetTests::SetUp()
     {
+        AssetManagerTestingBase::SetUp();
+
         using namespace AssetBuilderSDK;
-
-        ::testing::NiceMock<MockDiskSpaceResponder> diskSpaceResponder;
-        diskSpaceResponder.BusConnect();
-
-        ON_CALL(diskSpaceResponder, CheckSufficientDiskSpace(::testing::_, ::testing::_, ::testing::_))
-            .WillByDefault(::testing::Return(true));
 
         CreateJobFunction createJobsStage1 = [](const CreateJobsRequest&, CreateJobsResponse& response)
         {
@@ -76,18 +72,22 @@ namespace UnitTests
         m_builderInfoHandler.CreateBuilderDesc(
             "stage 2", AZ::Uuid::CreateRandom().ToFixedString().c_str(),
             { AssetBuilderPattern{ "*.stage1", AssetBuilderPattern::Wildcard } }, createJobsStage2, processJobStage2, "fingerprint");
+    }
 
-        /////////////////////////
+    void IntermediateAssetTests::TearDown()
+    {
+        AssetManagerTestingBase::TearDown();
+    }
+
+    TEST_F(IntermediateAssetTests, FileProcessedAsIntermediateIntoProduct)
+    {
+        using namespace AssetBuilderSDK;
 
         AZ::IO::Path scanFolderDir(m_scanfolder.m_scanFolder);
         AZStd::string testFilename = "test.input";
         AZStd::string testFilePath = (scanFolderDir / testFilename).AsPosix().c_str();
 
         UnitTestUtils::CreateDummyFile(testFilePath.c_str(), "unit test file");
-
-        QMetaObject::invokeMethod(
-            m_assetProcessorManager.get(), "AssessAddedFile", Qt::QueuedConnection, Q_ARG(QString, testFilePath.c_str()));
-        QCoreApplication::processEvents();
 
         AssetProcessor::RCController rc(1, 1);
         rc.SetDispatchPaused(false);
@@ -104,7 +104,10 @@ namespace UnitTests
                 response = responseIn;
             });
 
-        // AZ::IO::LocalFileIO::GetInstance()->SetAlias("log", (tempDir / "logs").AsPosix().c_str());
+        QMetaObject::invokeMethod(
+            m_assetProcessorManager.get(), "AssessAddedFile", Qt::QueuedConnection, Q_ARG(QString, testFilePath.c_str()));
+        QCoreApplication::processEvents();
+
         AZStd::vector<AssetProcessor::JobDetails> jobDetailsList;
         RunFile(jobDetailsList);
         ProcessJob(rc, jobDetailsList[0]);
@@ -112,6 +115,11 @@ namespace UnitTests
         ASSERT_TRUE(fileCompiled);
 
         m_assetProcessorManager->AssetProcessed(jobEntry, response);
+
+        auto cacheDir = AZ::IO::Path(m_tempDir.GetDirectory()) / "Cache";
+        auto intermediatesDir = AssetUtilities::GetIntermediateAssetsFolder(cacheDir);
+        auto expectedIntermediatePath = intermediatesDir / "test.stage1";
+        EXPECT_TRUE(AZ::IO::SystemFile::Exists(expectedIntermediatePath.c_str())) << expectedIntermediatePath.c_str();
 
         // stage1 file should be processed now, and it should have queued up stage2
         jobDetailsList.clear();
@@ -127,9 +135,7 @@ namespace UnitTests
         m_assetProcessorManager->CheckActiveFiles(0);
         m_assetProcessorManager->CheckJobEntries(0);
 
-        auto expectedProductPath = (AZ::IO::Path(m_tempDir.GetDirectory()) / "Cache" / "pc" / "test.stage2");
+        auto expectedProductPath = cacheDir / "pc" / "test.stage2";
         EXPECT_TRUE(AZ::IO::SystemFile::Exists(expectedProductPath.c_str())) << expectedProductPath.c_str();
-
-        diskSpaceResponder.BusDisconnect();
     }
-}
+} // namespace UnitTests

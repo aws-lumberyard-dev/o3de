@@ -113,10 +113,17 @@ namespace UnitTests
         m_jobManagerEntity->CreateComponent<AZ::JobManagerComponent>();
         m_jobManagerEntity->Init();
         m_jobManagerEntity->Activate();
+
+        // Set up a mock disk space responder, required for RCController to process a job
+        m_diskSpaceResponder = AZStd::make_unique<::testing::NiceMock<MockDiskSpaceResponder>>();
+
+        ON_CALL(*m_diskSpaceResponder, CheckSufficientDiskSpace(::testing::_, ::testing::_, ::testing::_))
+            .WillByDefault(::testing::Return(true));
     }
 
     void AssetManagerTestingBase::TearDown()
     {
+        m_diskSpaceResponder = nullptr;
         m_builderInfoHandler.BusDisconnect();
 
         AZ::SettingsRegistry::Unregister(m_settingsRegistry.get());
