@@ -254,6 +254,7 @@ if(PAL_TRAIT_BUILD_TESTS_SUPPORTED)
                 AZ::AzFramework
                 AZ::AzTest
                 Gem::ScriptCanvas.Static
+                Gem::ScriptCanvas.Extensions
     )
     ly_add_googletest(
         NAME Gem::ScriptCanvas.Tests
@@ -264,7 +265,6 @@ if(PAL_TRAIT_BUILD_TESTS_SUPPORTED)
             NAME ScriptCanvas.Editor.Tests MODULE
             NAMESPACE Gem
             FILES_CMAKE
-                scriptcanvasgem_tests_files.cmake
                 scriptcanvasgem_editor_tests_files.cmake
             INCLUDE_DIRECTORIES
                 PRIVATE
@@ -272,11 +272,6 @@ if(PAL_TRAIT_BUILD_TESTS_SUPPORTED)
                     Include
                     Include/ScriptCanvas
                     Source
-            COMPILE_DEFINITIONS
-                PRIVATE
-                    SCRIPTCANVAS_EDITOR
-                    SCRIPTCANVAS_ERRORS_ENABLED
-                    ${SCRIPT_CANVAS_COMMON_DEFINES}
             BUILD_DEPENDENCIES
                 PRIVATE
                     AZ::AzTest
