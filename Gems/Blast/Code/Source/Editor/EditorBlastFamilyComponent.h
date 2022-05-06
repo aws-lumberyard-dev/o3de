@@ -9,7 +9,6 @@
 
 #include <Asset/BlastAsset.h>
 #include <AzCore/Component/Component.h>
-#include <AzFramework/Physics/Material.h>
 #include <AzFramework/Physics/Material/PhysicsMaterialAsset.h>
 #include <Blast/BlastActorConfiguration.h>
 #include <Blast/BlastDebug.h>
@@ -59,7 +58,6 @@ namespace Blast
         AZ::Data::Asset<BlastAsset> m_blastAsset;
         AZ::Data::Asset<MaterialAsset> m_blastMaterialAsset;
         BlastMaterialId m_legacyBlastMaterialId; // Kept to convert old blast material assets. It will be removed eventually.
-        Physics::MaterialId m_physicsMaterialId;
         AZ::Data::Asset<Physics::MaterialAsset> m_physicsMaterialAsset;
 
         BlastActorConfiguration m_actorConfiguration;

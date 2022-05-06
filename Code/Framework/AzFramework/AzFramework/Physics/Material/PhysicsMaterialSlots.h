@@ -40,8 +40,8 @@ namespace Physics
         void SetMaterialAsset(size_t slotIndex, const AZ::Data::Asset<MaterialAsset>& materialAsset);
 
         size_t GetSlotsCount() const;
-
         AZStd::string_view GetSlotName(size_t slotIndex) const;
+        const AZStd::vector<AZStd::string>& GetSlotsNames() const;
 
         const AZ::Data::Asset<MaterialAsset> GetMaterialAsset(size_t slotIndex) const;
 

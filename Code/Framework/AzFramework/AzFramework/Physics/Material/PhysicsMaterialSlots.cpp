@@ -93,6 +93,11 @@ namespace Physics
         }
     }
 
+    const AZStd::vector<AZStd::string>& MaterialSlots::GetSlotsNames() const
+    {
+        return m_slots;
+    }
+
     const AZ::Data::Asset<MaterialAsset> MaterialSlots::GetMaterialAsset(size_t slotIndex) const
     {
         if (slotIndex < m_materialAssets.size())

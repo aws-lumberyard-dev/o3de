@@ -19,7 +19,7 @@ namespace Physics
         if (auto serializeContext = azrtti_cast<AZ::SerializeContext*>(context))
         {
             serializeContext->Class<ColliderConfiguration>()
-                ->Version(5, &Physics::ClassConverters::ColliderConfigurationConverter)
+                ->Version(6, &Physics::ClassConverters::ColliderConfigurationConverter)
                 ->Field("CollisionLayer", &ColliderConfiguration::m_collisionLayer)
                 ->Field("CollisionGroupId", &ColliderConfiguration::m_collisionGroupId)
                 ->Field("Visible", &ColliderConfiguration::m_visible)
@@ -29,7 +29,6 @@ namespace Physics
                 ->Field("Exclusive", &ColliderConfiguration::m_isExclusive)
                 ->Field("Position", &ColliderConfiguration::m_position)
                 ->Field("Rotation", &ColliderConfiguration::m_rotation)
-                ->Field("MaterialSelection", &ColliderConfiguration::m_materialSelection)
                 ->Field("MaterialSlots", &ColliderConfiguration::m_materialSlots)
                 ->Field("propertyVisibilityFlags", &ColliderConfiguration::m_propertyVisibilityFlags)
                 ->Field("ColliderTag", &ColliderConfiguration::m_tag)
@@ -59,8 +58,6 @@ namespace Physics
                         ->Attribute(AZ::Edit::Attributes::Step, 0.01f)
                     ->DataElement(AZ::Edit::UIHandlers::Default, &ColliderConfiguration::m_rotation, "Rotation", "Local rotation relative to the rigid body")
                         ->Attribute(AZ::Edit::Attributes::Visibility, &ColliderConfiguration::GetOffsetVisibility)
-                    ->DataElement(AZ::Edit::UIHandlers::Default, &ColliderConfiguration::m_materialSelection, "Physics Materials", "Select which physics materials to use for each element of this shape")
-                        ->Attribute(AZ::Edit::Attributes::Visibility, &ColliderConfiguration::GetMaterialSelectionVisibility)
                     ->DataElement(AZ::Edit::UIHandlers::Default, &ColliderConfiguration::m_materialSlots, "", "")
                         ->Attribute(AZ::Edit::Attributes::Visibility, &ColliderConfiguration::GetMaterialSlotsVisibility)
                     ->DataElement(AZ::Edit::UIHandlers::Default, &ColliderConfiguration::m_tag, "Tag", "Tag used to identify colliders from one another")
@@ -123,11 +120,6 @@ namespace Physics
     AZ::Crc32 ColliderConfiguration::GetCollisionLayerVisibility() const
     {
         return GetPropertyVisibility(PropertyVisibility::CollisionLayer);
-    }
-
-    AZ::Crc32 ColliderConfiguration::GetMaterialSelectionVisibility() const
-    {
-        return GetPropertyVisibility(PropertyVisibility::MaterialSelection);
     }
 
     AZ::Crc32 ColliderConfiguration::GetMaterialSlotsVisibility() const

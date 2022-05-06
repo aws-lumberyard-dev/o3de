@@ -12,7 +12,6 @@
 #include <AzCore/std/smart_ptr/shared_ptr.h>
 #include <AzFramework/Physics/ColliderComponentBus.h>
 #include <AzFramework/Physics/SimulatedBodies/RigidBody.h>
-#include <AzFramework/Physics/MaterialBus.h>
 #include <AzFramework/Physics/Common/PhysicsSimulatedBody.h>
 #include <AzFramework/Physics/Configuration/StaticRigidBodyConfiguration.h>
 #include <AzFramework/Viewport/ViewportColors.h>
@@ -370,16 +369,6 @@ namespace PhysX
                     AzToolsFramework::PropertyModificationRefreshLevel::Refresh_AttributesAndValues);
             });
 
-        m_onMaterialLibraryChangedEventHandler = AzPhysics::SystemEvents::OnMaterialLibraryChangedEvent::Handler(
-            [this](const AZ::Data::AssetId& defaultMaterialLibrary)
-            {
-                m_configuration.m_materialSelection.OnMaterialLibraryChanged(defaultMaterialLibrary);
-                UpdateMaterialSlotsFromMeshAsset();
-
-                AzToolsFramework::PropertyEditorGUIMessages::Bus::Broadcast(&AzToolsFramework::PropertyEditorGUIMessages::RequestRefresh,
-                    AzToolsFramework::PropertyModificationRefreshLevel::Refresh_AttributesAndValues);
-            });
-
         AzToolsFramework::Components::EditorComponentBase::Activate();
         AzToolsFramework::EntitySelectionEvents::Bus::Handler::BusConnect(GetEntityId());
         PhysX::MeshColliderComponentRequestsBus::Handler::BusConnect(GetEntityId());
@@ -414,7 +403,6 @@ namespace PhysX
                 AZ::EntityComponentIdPair(GetEntityId(), GetId()), nullptr);
 
         bool usingMaterialsFromAsset = IsAssetConfig() ? m_shapeConfiguration.m_physicsAsset.m_configuration.m_useMaterialsFromAsset : false;
-        m_configuration.m_materialSelection.SetSlotsReadOnly(usingMaterialsFromAsset);
         m_configuration.m_materialSlots.SetSlotsReadOnly(usingMaterialsFromAsset);
 
         if (ShouldUpdateCollisionMeshFromRender())
@@ -458,13 +446,10 @@ namespace PhysX
         if (m_shapeConfiguration.IsAssetConfig())
         {
             UpdateMeshAsset();
-            m_configuration.m_materialSelection.SetSlotsReadOnly(m_shapeConfiguration.m_physicsAsset.m_configuration.m_useMaterialsFromAsset);
             m_configuration.m_materialSlots.SetSlotsReadOnly(m_shapeConfiguration.m_physicsAsset.m_configuration.m_useMaterialsFromAsset);
         }
         else
         {
-            m_configuration.m_materialSelection.SetMaterialSlots(Physics::MaterialSelection::SlotsArray());
-            m_configuration.m_materialSelection.SetSlotsReadOnly(false);
             m_configuration.m_materialSlots.SetSlots({}); // Non-asset configs only have the default slot.
             m_configuration.m_materialSlots.SetSlotsReadOnly(false);
         }
@@ -492,13 +477,11 @@ namespace PhysX
         if (auto* physXSystem = GetPhysXSystem())
         {
             physXSystem->RegisterSystemConfigurationChangedEvent(m_physXConfigChangedHandler);
-            physXSystem->RegisterOnMaterialLibraryChangedEventHandler(m_onMaterialLibraryChangedEventHandler);
         }
     }
 
     void EditorColliderComponent::OnDeselected()
     {
-        m_onMaterialLibraryChangedEventHandler.Disconnect();
         m_physXConfigChangedHandler.Disconnect();
     }
 
@@ -693,11 +676,6 @@ namespace PhysX
         return m_shapeConfiguration.m_physicsAsset.m_pxAsset;
     }
 
-    Physics::MaterialId EditorColliderComponent::GetMaterialId() const
-    {
-        return m_configuration.m_materialSelection.GetMaterialId();
-    }
-
     void EditorColliderComponent::SetMeshAsset(const AZ::Data::AssetId& id)
     {
         if (id.IsValid())
@@ -709,18 +687,8 @@ namespace PhysX
         }
     }
 
-    void EditorColliderComponent::SetMaterialId(const Physics::MaterialId& id)
-    {
-        m_configuration.m_materialSelection.SetMaterialId(id);
-    }
-
     void EditorColliderComponent::UpdateMaterialSlotsFromMeshAsset()
     {
-        Physics::PhysicsMaterialRequestBus::Broadcast(
-            &Physics::PhysicsMaterialRequestBus::Events::UpdateMaterialSelectionFromPhysicsAsset,
-            m_shapeConfiguration.GetCurrent(),
-            m_configuration.m_materialSelection);
-
         Utils::SetMaterialsFromPhysicsAssetShape(m_shapeConfiguration.GetCurrent(), m_configuration.m_materialSlots);
 
         AzToolsFramework::ToolsApplicationEvents::Bus::Broadcast(&AzToolsFramework::ToolsApplicationEvents::InvalidatePropertyDisplay, AzToolsFramework::Refresh_EntireTree);
@@ -739,7 +707,7 @@ namespace PhysX
 
         // Here we check the material indices assigned to every shape and validate that every index is used at least once.
         // It's not an error if the validation fails here but something we want to let the designers know about.
-        [[maybe_unused]] size_t materialsNum = physicsAsset->m_assetData.m_materialNames.size();
+        [[maybe_unused]] size_t materialsNum = physicsAsset->m_assetData.m_materialSlots.GetSlotsCount();
         const AZStd::vector<AZ::u16>& indexPerShape = physicsAsset->m_assetData.m_materialIndexPerShape;
 
         AZStd::unordered_set<AZ::u16> usedIndices;
@@ -781,7 +749,6 @@ namespace PhysX
         else
         {
             m_componentWarnings.clear();
-            m_configuration.m_materialSelection.SetMaterialSlots(Physics::MaterialSelection::SlotsArray());
             m_configuration.m_materialSlots.SetSlots({});
             AzToolsFramework::ToolsApplicationEvents::Bus::Broadcast(
                 &AzToolsFramework::ToolsApplicationEvents::InvalidatePropertyDisplay, AzToolsFramework::Refresh_EntireTree);

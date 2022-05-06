@@ -85,10 +85,9 @@ namespace Physics
         if (serializeContext)
         {
             serializeContext->Class<CharacterConfiguration, AzPhysics::SimulatedBodyConfiguration>()
-                ->Version(4)
+                ->Version(5)
                 ->Field("CollisionLayer", &CharacterConfiguration::m_collisionLayer)
                 ->Field("CollisionGroupId", &CharacterConfiguration::m_collisionGroupId)
-                ->Field("Material", &CharacterConfiguration::m_materialSelection)
                 ->Field("MaterialSlots", &CharacterConfiguration::m_materialSlots)
                 ->Field("UpDirection", &CharacterConfiguration::m_upDirection)
                 ->Field("MaximumSlopeAngle", &CharacterConfiguration::m_maximumSlopeAngle)
@@ -108,8 +107,6 @@ namespace Physics
                         "Collision Layer", "The collision layer assigned to the controller")
                     ->DataElement(AZ::Edit::UIHandlers::Default, &CharacterConfiguration::m_collisionGroupId,
                         "Collides With", "The collision layers this character controller collides with")
-                    ->DataElement(AZ::Edit::UIHandlers::Default, &CharacterConfiguration::m_materialSelection,
-                        "Physics Material", "Assign physics material library and select materials to use for the character")
                     ->DataElement(AZ::Edit::UIHandlers::Default, &CharacterConfiguration::m_materialSlots, "", "")
                         ->Attribute(AZ::Edit::Attributes::Visibility, AZ::Edit::PropertyVisibility::ShowChildrenOnly)
                     ->DataElement(AZ::Edit::UIHandlers::Default, &CharacterConfiguration::m_maximumSlopeAngle,

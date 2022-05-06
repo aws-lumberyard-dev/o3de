@@ -13,8 +13,6 @@
 #include <AzCore/Asset/AssetCommon.h>
 
 #include <AzFramework/Physics/HeightfieldProviderBus.h>
-#include <AzFramework/Physics/Material.h>
-#include <AzFramework/Physics/Material/PhysicsMaterialAsset.h>
 #include <SurfaceData/SurfaceTag.h>
 #include <TerrainSystem/TerrainSystemBus.h>
 
@@ -38,14 +36,12 @@ namespace Terrain
         AZ_CLASS_ALLOCATOR(TerrainPhysicsSurfaceMaterialMapping, AZ::SystemAllocator, 0);
         AZ_RTTI(TerrainPhysicsSurfaceMaterialMapping, "{A88B5289-DFCD-4564-8395-E2177DFE5B18}");
         static void Reflect(AZ::ReflectContext* context);
-        static AZ::Data::AssetId GetMaterialLibraryId();
 
         AZStd::vector<AZStd::pair<AZ::u32, AZStd::string>> BuildSelectableTagList() const;
         void SetTagListProvider(const EditorSurfaceTagListProvider* tagListProvider);
         AZ::Data::AssetId GetDefaultPhysicsAssetId() const;
 
         SurfaceData::SurfaceTag m_surfaceTag;
-        Physics::MaterialId m_materialId;
         AZ::Data::Asset<Physics::MaterialAsset> m_materialAsset;
 
     private:
@@ -62,7 +58,6 @@ namespace Terrain
 
         AZ::Data::AssetId GetDefaultPhysicsAssetId() const;
 
-        Physics::MaterialSelection m_defaultMaterialSelection;
         AZ::Data::Asset<Physics::MaterialAsset> m_defaultMaterialAsset;
         AZStd::vector<TerrainPhysicsSurfaceMaterialMapping> m_surfaceMaterialMappings;
     };
@@ -98,7 +93,7 @@ namespace Terrain
         float GetHeightfieldMaxHeight() const override;
         AZ::Aabb GetHeightfieldAabb() const override;
         AZ::Transform GetHeightfieldTransform() const override;
-        AZStd::vector<Physics::MaterialId> GetMaterialList() const override;
+        AZStd::vector<AZ::Data::Asset<Physics::MaterialAsset>> GetMaterialList() const override;
         AZStd::vector<float> GetHeights() const override;
         AZStd::vector<Physics::HeightMaterialPoint> GetHeightsAndMaterials() const override;
         void UpdateHeightsAndMaterials(const Physics::UpdateHeightfieldSampleFunction& updateHeightsMaterialsCallback,
@@ -112,8 +107,8 @@ namespace Terrain
         bool ReadInConfig(const AZ::ComponentConfig* baseConfig) override;
         bool WriteOutConfig(AZ::ComponentConfig* outBaseConfig) const override;
 
-        uint8_t GetMaterialIdIndex(const Physics::MaterialId& materialId, const AZStd::vector<Physics::MaterialId>& materialList) const;
-        Physics::MaterialId FindMaterialIdForSurfaceTag(const SurfaceData::SurfaceTag tag) const;
+        uint8_t GetMaterialIndex(const AZ::Data::Asset<Physics::MaterialAsset>& materialAsset, const AZStd::vector<AZ::Data::Asset<Physics::MaterialAsset>>& materialList) const;
+        AZ::Data::Asset<Physics::MaterialAsset> FindMaterialAssetForSurfaceTag(const SurfaceData::SurfaceTag tag) const;
 
         void GenerateHeightsInBounds(AZStd::vector<float>& heights) const;
         AZ::Aabb GetRegionClampedToGrid(const AZ::Aabb& region) const;

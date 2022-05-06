@@ -84,7 +84,7 @@ namespace Blast
         AZStd::shared_ptr<EntityProvider> m_entityProvider;
         BlastListener* m_listener;
 
-        const Physics::MaterialId m_physicsMaterialId;
+        const AZ::Data::Asset<Physics::MaterialAsset> m_physicsMaterialAsset;
         const Material* m_blastMaterial = nullptr;
         const BlastActorConfiguration& m_actorConfiguration;
         AZ::Transform m_initialTransform;

@@ -38,7 +38,7 @@ namespace Blast
         , m_actorFactory(desc.m_actorFactory)
         , m_entityProvider(desc.m_entityProvider)
         , m_listener(desc.m_listener)
-        , m_physicsMaterialId(desc.m_physicsMaterial)
+        , m_physicsMaterialAsset(desc.m_physicsMaterialAsset)
         , m_blastMaterial(desc.m_blastMaterial)
         , m_actorConfiguration(desc.m_actorConfiguration)
         , m_isSpawned(false)
@@ -232,7 +232,7 @@ namespace Blast
         BlastActorDesc actorDesc;
         actorDesc.m_family = this;
         actorDesc.m_tkActor = tkActor;
-        actorDesc.m_physicsMaterialId = m_physicsMaterialId;
+        actorDesc.m_physicsMaterialAsset = m_physicsMaterialAsset;
         actorDesc.m_chunkIndices = m_actorFactory->CalculateVisibleChunks(*this, *actorDesc.m_tkActor);
         actorDesc.m_isStatic = m_actorFactory->CalculateIsStatic(*this, *actorDesc.m_tkActor, actorDesc.m_chunkIndices);
         actorDesc.m_isLeafChunk = m_actorFactory->CalculateIsLeafChunk(*actorDesc.m_tkActor, actorDesc.m_chunkIndices);

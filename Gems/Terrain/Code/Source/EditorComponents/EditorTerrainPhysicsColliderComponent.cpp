@@ -37,11 +37,6 @@ namespace Terrain
                         "Surface type to map to a physics material.")
                     ->Attribute(AZ::Edit::Attributes::EnumValues, &TerrainPhysicsSurfaceMaterialMapping::BuildSelectableTagList)
 
-                    ->DataElement(AZ::Edit::UIHandlers::Default, &TerrainPhysicsSurfaceMaterialMapping::m_materialId, "Material ID", "")
-                    ->ElementAttribute(Physics::Attributes::MaterialLibraryAssetId, &TerrainPhysicsSurfaceMaterialMapping::GetMaterialLibraryId)
-                    ->Attribute(AZ::Edit::Attributes::AutoExpand, true)
-                    ->Attribute(AZ::Edit::Attributes::ShowProductAssetFileName, true)
-
                     ->DataElement(AZ::Edit::UIHandlers::Default, &TerrainPhysicsSurfaceMaterialMapping::m_materialAsset, "Material Asset", "")
                     ->Attribute(AZ::Edit::Attributes::DefaultAsset, &TerrainPhysicsSurfaceMaterialMapping::GetDefaultPhysicsAssetId)
                     ->Attribute(AZ_CRC_CE("EditButton"), "")
@@ -55,8 +50,6 @@ namespace Terrain
                     ->ClassElement(AZ::Edit::ClassElements::EditorData, "")
                     ->Attribute(AZ::Edit::Attributes::Visibility, AZ::Edit::PropertyVisibility::ShowChildrenOnly)
                     ->Attribute(AZ::Edit::Attributes::AutoExpand, true)
-                    ->DataElement(AZ::Edit::UIHandlers::Default, &TerrainPhysicsColliderConfig::m_defaultMaterialSelection,
-                        "Default Surface Physics Material", "Select a material to be used by unmapped surfaces by default")
                     ->DataElement(AZ::Edit::UIHandlers::Default, &TerrainPhysicsColliderConfig::m_defaultMaterialAsset,
                         "Default Surface Physics Material", "Select a material to be used by unmapped surfaces by default")
                         ->Attribute(AZ::Edit::Attributes::DefaultAsset, &TerrainPhysicsColliderConfig::GetDefaultPhysicsAssetId)

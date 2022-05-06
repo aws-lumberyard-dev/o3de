@@ -13,7 +13,6 @@
 #include <AzCore/Math/Quaternion.h>
 #include <AzCore/Math/Transform.h>
 #include <AzCore/Math/Vector3.h>
-#include <AzFramework/Physics/Material.h>
 #include <AzFramework/Physics/Material/PhysicsMaterialSlots.h>
 #include <AzFramework/Physics/Shape.h>
 #include <AzFramework/Physics/ShapeConfiguration.h>
@@ -41,7 +40,6 @@ namespace PhysX
 {
     class Shape;
     class ActorData;
-    class Material;
     struct TerrainConfiguration;
 
     namespace Pipeline
@@ -214,7 +212,6 @@ namespace PhysX
         //! @param heightfieldProviderId Entity id for the heightfield provider.
         //! @param materialSlots Output materials slots.
         void SetMaterialsFromHeightfieldProvider(const AZ::EntityId& heightfieldProviderId, Physics::MaterialSlots& materialSlots);
-        void SetMaterialsFromHeightfieldProvider(const AZ::EntityId& heightfieldProviderId, Physics::MaterialSelection& materialSelection);
 
         namespace Geometry
         {

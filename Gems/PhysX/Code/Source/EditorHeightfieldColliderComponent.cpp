@@ -82,16 +82,6 @@ namespace PhysX
                       &AzToolsFramework::PropertyEditorGUIMessages::RequestRefresh,
                       AzToolsFramework::PropertyModificationRefreshLevel::Refresh_AttributesAndValues);
               })
-        , m_onMaterialLibraryChangedEventHandler(
-              [this](const AZ::Data::AssetId& defaultMaterialLibrary)
-              {
-                  m_colliderConfig.m_materialSelection.OnMaterialLibraryChanged(defaultMaterialLibrary);
-                  Physics::ColliderComponentEventBus::Event(GetEntityId(), &Physics::ColliderComponentEvents::OnColliderChanged);
-
-                  AzToolsFramework::PropertyEditorGUIMessages::Bus::Broadcast(
-                      &AzToolsFramework::PropertyEditorGUIMessages::RequestRefresh,
-                      AzToolsFramework::PropertyModificationRefreshLevel::Refresh_AttributesAndValues);
-              })
     {
         // By default, disable heightfield collider debug drawing. This doesn't need to be viewed in the common case.
         m_colliderDebugDraw.SetDisplayFlag(false);
@@ -192,7 +182,6 @@ namespace PhysX
         configuration.m_debugName = GetEntity()->GetName();
 
         // Update material selection from the mapping
-        Utils::SetMaterialsFromHeightfieldProvider(GetEntityId(), m_colliderConfig.m_materialSelection);
         Utils::SetMaterialsFromHeightfieldProvider(GetEntityId(), m_colliderConfig.m_materialSlots);
 
         AzPhysics::ShapeColliderPairList colliderShapePairs;
@@ -305,17 +294,12 @@ namespace PhysX
             {
                 physXSystem->RegisterSystemConfigurationChangedEvent(m_physXConfigChangedHandler);
             }
-            if (!m_onMaterialLibraryChangedEventHandler.IsConnected())
-            {
-                physXSystem->RegisterOnMaterialLibraryChangedEventHandler(m_onMaterialLibraryChangedEventHandler);
-            }
         }
     }
 
     // AzToolsFramework::EntitySelectionEvents
     void EditorHeightfieldColliderComponent::OnDeselected()
     {
-        m_onMaterialLibraryChangedEventHandler.Disconnect();
         m_physXConfigChangedHandler.Disconnect();
     }
 

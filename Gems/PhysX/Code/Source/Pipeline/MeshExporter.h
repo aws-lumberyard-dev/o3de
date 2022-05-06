@@ -78,13 +78,6 @@ namespace PhysX
                 const MeshGroup& meshGroup,
                 const AZ::SceneAPI::Containers::SceneGraph& sceneGraph);
 
-            //! Function to update a list of materials and physics materials from a new list.
-            //! All those new materials not found in the previous list will fallback to default physics material.
-            bool UpdateAssetPhysicsMaterials(
-                const AZStd::vector<AZStd::string>& newMaterials,
-                AZStd::vector<AZStd::string>& materials,
-                AZStd::vector<AZStd::string>& physicsMaterials);
-
             //! Function to update a list of physics material slots from a new list.
             //! All those new materials not found in the previous list will fallback to default physics material.
             void UpdateAssetPhysicsMaterials(

@@ -40,7 +40,5 @@ namespace Physics
 
         virtual const AZ::Color& GetDebugColor() const = 0;
         virtual void SetDebugColor(const AZ::Color& debugColor) = 0;
-
-        virtual const void* GetNativePointer() const = 0;
     };
 } // namespace Physics

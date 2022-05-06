@@ -156,9 +156,7 @@ namespace PhysX
 
         // PhysXMeshColliderComponentRequestBus
         AZ::Data::Asset<Pipeline::MeshAsset> GetMeshAsset() const override;
-        Physics::MaterialId GetMaterialId() const override;
         void SetMeshAsset(const AZ::Data::AssetId& id) override;
-        void SetMaterialId(const Physics::MaterialId& id) override;
         void UpdateMaterialSlotsFromMeshAsset();
 
         // TransformBus
@@ -252,7 +250,6 @@ namespace PhysX
         DebugDraw::Collider m_colliderDebugDraw;
 
         AzPhysics::SystemEvents::OnConfigurationChangedEvent::Handler m_physXConfigChangedHandler;
-        AzPhysics::SystemEvents::OnMaterialLibraryChangedEvent::Handler m_onMaterialLibraryChangedEventHandler;
         AZ::Transform m_cachedWorldTransform;
 
         AZ::NonUniformScaleChangedEvent::Handler m_nonUniformScaleChangedHandler; //!< Responds to changes in non-uniform scale.

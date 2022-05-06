@@ -8,6 +8,8 @@
 
 #pragma once
 
+#include <AzCore/std/smart_ptr/enable_shared_from_this.h>
+
 #include <AzFramework/Physics/Material/PhysicsMaterial.h>
 #include <AzFramework/Physics/Material/PhysicsMaterialConfiguration.h>
 
@@ -19,6 +21,7 @@ namespace PhysX
     // TODO: Material2 is temporary until old Material class is removed.
     class Material2
         : public Physics::Material2
+        , public AZStd::enable_shared_from_this<Material2>
     {
     public:
         Material2(const Physics::MaterialConfiguration2& configuration);
@@ -38,7 +41,8 @@ namespace PhysX
         void SetDensity(float density) override;
         const AZ::Color& GetDebugColor() const override;
         void SetDebugColor(const AZ::Color& debugColor) override;
-        const void* GetNativePointer() const override;
+
+        const physx::PxMaterial* GetPxMaterial() const;
 
     private:
         using PxMaterialUniquePtr = AZStd::unique_ptr<physx::PxMaterial, AZStd::function<void(physx::PxMaterial*)>>;

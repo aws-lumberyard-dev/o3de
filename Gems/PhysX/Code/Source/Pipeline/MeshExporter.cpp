@@ -19,7 +19,6 @@
 #include <SceneAPI/SceneCore/DataTypes/GraphData/IMaterialData.h>
 
 #include <PhysX/MeshAsset.h>
-#include <Source/Material.h>
 #include <Source/Pipeline/MeshAssetHandler.h>
 #include <Source/Pipeline/MeshExporter.h>
 #include <Source/Pipeline/PrimitiveShapeFitter/PrimitiveShapeFitter.h>
@@ -165,51 +164,6 @@ namespace PhysX
                 materialIndexByName[materialName] = newIndex;
 
                 return newIndex;
-            }
-
-            bool UpdateAssetPhysicsMaterials(
-                const AZStd::vector<AZStd::string>& newMaterials,
-                AZStd::vector<AZStd::string>& materials,
-                AZStd::vector<AZStd::string>& physicsMaterials)
-            {
-                if (materials.size() != physicsMaterials.size())
-                {
-                    AZ_TracePrintf(
-                        AZ::SceneAPI::Utilities::WarningWindow,
-                        "Materials and Physics Materials have different number of elements. %d materials and %d physics materials.",
-                        materials.size(), physicsMaterials.size());
-                    return false;
-                }
-
-                AZStd::vector<AZStd::string> newPhysicsMaterials;
-                newPhysicsMaterials.reserve(newMaterials.size());
-
-                // In the new material list, the materials might have changed slots.
-                // Form the new list of physics materials by looking at the previous list
-                // and keeping the same physics materials association when found.
-                for (const auto& newMaterial : newMaterials)
-                {
-                    AZStd::string physicsMaterialName = Physics::DefaultPhysicsMaterialLabel;
-
-                    for (size_t slotId = 0; slotId < materials.size(); ++slotId)
-                    {
-                        if (AZ::StringFunc::Equal(materials[slotId], newMaterial, false/*bCaseSensitive*/))
-                        {
-                            if (!physicsMaterials[slotId].empty())
-                            {
-                                physicsMaterialName = physicsMaterials[slotId];
-                            }
-                            break;
-                        }
-                    }
-
-                    newPhysicsMaterials.emplace_back(AZStd::move(physicsMaterialName));
-                }
-
-                materials = newMaterials;
-                physicsMaterials = AZStd::move(newPhysicsMaterials);
-
-                return true;
             }
 
             void UpdateAssetPhysicsMaterials(
@@ -538,17 +492,13 @@ namespace PhysX
             MeshAssetData assetData;
 
             // Assign the materials into cooked data
-            assetData.m_materialNames = meshGroup.GetMaterialSlots();
-            assetData.m_physicsMaterialNames = meshGroup.GetPhysicsMaterials();
+            assetData.m_materialSlots = meshGroup.GetMaterialSlots();
 
             // Updating materials lists from new materials gathered from the source scene file 
             // because this exporter runs when the source scene is being processed, which
             // could have a different content from when the mesh group info was
             // entered in Scene Settings Editor.
-            if (!Utils::UpdateAssetPhysicsMaterials(assetMaterialsData.m_sourceSceneMaterialNames, assetData.m_materialNames, assetData.m_physicsMaterialNames))
-            {
-                return SceneEvents::ProcessingResult::Failure;
-            }
+            Utils::UpdateAssetPhysicsMaterials(assetMaterialsData.m_sourceSceneMaterialNames, assetData.m_materialSlots);
 
             for (const NodeCollisionGeomExportData& subMesh : totalExportData)
             {

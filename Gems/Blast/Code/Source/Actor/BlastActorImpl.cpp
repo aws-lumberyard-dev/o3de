@@ -36,7 +36,7 @@ namespace Blast
         , m_chunkIndices(desc.m_chunkIndices)
         , m_isLeafChunk(desc.m_isLeafChunk)
         , m_isStatic(desc.m_isStatic)
-        , m_physicsMaterialId(desc.m_physicsMaterialId)
+        , m_physicsMaterialAsset(desc.m_physicsMaterialAsset)
         , m_parentLinearVelocity(desc.m_parentLinearVelocity)
         , m_parentCenterOfMass(desc.m_parentCenterOfMass)
         , m_bodyConfiguration(desc.m_bodyConfiguration)
@@ -56,7 +56,7 @@ namespace Blast
     void BlastActorImpl::Spawn()
     {
         // Add shapes for each of the visible chunks
-        AddShapes(m_chunkIndices, m_family.GetPxAsset(), m_physicsMaterialId);
+        AddShapes(m_chunkIndices, m_family.GetPxAsset(), m_physicsMaterialAsset);
 
         m_entity->Init();
         m_entity->Activate();
@@ -87,7 +87,7 @@ namespace Blast
 
     void BlastActorImpl::AddShapes(
         const AZStd::vector<uint32_t>& chunkIndices, const Nv::Blast::ExtPxAsset& asset,
-        const Physics::MaterialId& material)
+        const AZ::Data::Asset<Physics::MaterialAsset>& physicsMaterialAsset)
     {
         const Nv::Blast::ExtPxChunk* pxChunks = asset.getChunks();
         const Nv::Blast::ExtPxSubchunk* pxSubchunks = asset.getSubchunks();
@@ -121,7 +121,7 @@ namespace Blast
 
                 auto& subchunk = pxSubchunks[subchunkIndex];
                 AZ::Transform transform = PxMathConvert(subchunk.transform);
-                auto colliderConfiguration = CalculateColliderConfiguration(transform, material);
+                auto colliderConfiguration = CalculateColliderConfiguration(transform, physicsMaterialAsset);
 
                 Physics::NativeShapeConfiguration shapeConfiguration;
                 shapeConfiguration.m_nativeShapePtr =
@@ -139,14 +139,14 @@ namespace Blast
     }
 
     Physics::ColliderConfiguration BlastActorImpl::CalculateColliderConfiguration(
-        const AZ::Transform& transform, Physics::MaterialId material)
+        const AZ::Transform& transform, const AZ::Data::Asset<Physics::MaterialAsset>& physicsMaterialAsset)
     {
         auto& actorConfiguration = m_family.GetActorConfiguration();
         Physics::ColliderConfiguration colliderConfiguration;
         colliderConfiguration.m_position = transform.GetTranslation();
         colliderConfiguration.m_rotation = transform.GetRotation();
         colliderConfiguration.m_isExclusive = true;
-        colliderConfiguration.m_materialSelection.SetMaterialId(material);
+        colliderConfiguration.m_materialSlots.SetMaterialAsset(0, physicsMaterialAsset);
         colliderConfiguration.m_collisionGroupId = actorConfiguration.m_collisionGroupId;
         colliderConfiguration.m_collisionLayer = actorConfiguration.m_collisionLayer;
         colliderConfiguration.m_isInSceneQueries = actorConfiguration.m_isInSceneQueries;

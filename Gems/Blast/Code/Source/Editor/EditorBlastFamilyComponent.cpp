@@ -22,11 +22,10 @@ namespace Blast
         if (AZ::SerializeContext* serialize = azrtti_cast<AZ::SerializeContext*>(context))
         {
             serialize->Class<EditorBlastFamilyComponent, EditorComponentBase>()
-                ->Version(3)
+                ->Version(4)
                 ->Field("BlastAsset", &EditorBlastFamilyComponent::m_blastAsset)
                 ->Field("BlastMaterialAsset", &EditorBlastFamilyComponent::m_blastMaterialAsset)
                 ->Field("BlastMaterial", &EditorBlastFamilyComponent::m_legacyBlastMaterialId)
-                ->Field("PhysicsMaterial", &EditorBlastFamilyComponent::m_physicsMaterialId)
                 ->Field("PhysicsMaterialAsset", &EditorBlastFamilyComponent::m_physicsMaterialAsset)
                 ->Field("ActorConfiguration", &EditorBlastFamilyComponent::m_actorConfiguration);
 
@@ -58,12 +57,6 @@ namespace Blast
                         ->Attribute(AZ_CRC_CE("EditButton"), "")
                         ->Attribute(AZ_CRC_CE("EditDescription"), "Open in Asset Editor")
                         ->Attribute(AZ_CRC_CE("DisableEditButtonWhenNoAssetSelected"), true)
-                    ->DataElement(
-                        AZ::Edit::UIHandlers::Default, &EditorBlastFamilyComponent::m_physicsMaterialId,
-                        "Physics Material", "Assigned physics material from current physics material library")
-                        ->ElementAttribute(
-                            Physics::Attributes::MaterialLibraryAssetId,
-                            &EditorBlastFamilyComponent::GetPhysicsMaterialLibraryAssetId)
                     ->DataElement(
                         AZ::Edit::UIHandlers::Default, &EditorBlastFamilyComponent::m_actorConfiguration,
                         "Actor configuration", "Configurations for actors in this family");
@@ -136,7 +129,7 @@ namespace Blast
     void EditorBlastFamilyComponent::BuildGameEntity(AZ::Entity* gameEntity)
     {
         gameEntity->CreateComponent<BlastFamilyComponent>(
-            m_blastAsset, m_blastMaterialAsset, m_physicsMaterialId, m_actorConfiguration);
+            m_blastAsset, m_blastMaterialAsset, m_physicsMaterialAsset, m_actorConfiguration);
     }
 
     AZ::Data::AssetId EditorBlastFamilyComponent::GetPhysicsMaterialLibraryAssetId() const

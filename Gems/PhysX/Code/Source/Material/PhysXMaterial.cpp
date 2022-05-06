@@ -152,7 +152,7 @@ namespace PhysX
         m_debugColor = debugColor;
     }
 
-    const void* Material2::GetNativePointer() const
+    const physx::PxMaterial* Material2::GetPxMaterial() const
     {
         return m_pxMaterial.get();
     }
