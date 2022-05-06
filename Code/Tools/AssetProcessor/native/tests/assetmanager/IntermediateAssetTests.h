@@ -14,7 +14,19 @@ namespace UnitTests
 {
     struct IntermediateAssetTests : AssetManagerTestingBase
     {
+        void CreateBuilder(
+            const char* name, const char* inputFilter, bool createJobCommonPlatform, AssetBuilderSDK::ProductOutputFlags outputFlags);
+
+        void IncorrectBuilderConfigurationTest(bool commonPlatform, AssetBuilderSDK::ProductOutputFlags flags);
+
         void SetUp() override;
         void TearDown() override;
+
+        AZStd::unique_ptr<AssetProcessor::RCController> m_rc;
+        bool m_fileCompiled = false;
+        bool m_fileFailed = false;
+        AssetProcessor::JobEntry m_processedJobEntry;
+        AssetBuilderSDK::ProcessJobResponse m_processJobResponse;
+        AZStd::string m_testFilePath;
     };
 } // namespace UnitTests

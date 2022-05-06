@@ -764,7 +764,6 @@ namespace AssetProcessor
             bool outputToIntermediate = (product.m_outputFlags & AssetBuilderSDK::ProductOutputFlags::IntermediateAsset) ==
                 AssetBuilderSDK::ProductOutputFlags::IntermediateAsset;
 
-
             if (outputToCache && outputToIntermediate)
             {
                 // We currently do not support both since intermediate outputs require the Common platform, which is not supported for cache outputs yet
@@ -777,6 +776,27 @@ namespace AssetProcessor
                 AZ_Error(AssetProcessor::ConsoleChannel, false, "An output asset must be flagged as either a product or an intermediate asset.  "
                     "Please update the output job to include either AssetBuilderSDK::ProductOutputFlags::ProductAsset "
                     "or AssetBuilderSDK::ProductOutputFlags::IntermediateAsset");
+                return false;
+            }
+
+            // Intermediates are required to output for the common platform only
+            if (outputToIntermediate && params.m_processJobRequest.m_platformInfo.m_identifier != AssetBuilderSDK::CommonPlatformName)
+            {
+                AZ_Error(AssetProcessor::ConsoleChannel, false, "Intermediate outputs are only supported for the %s platform.  "
+                    "Either change the Job platform to %s or change the output flag to AssetBuilderSDK::ProductOutputFlags::ProductAsset",
+                    AssetBuilderSDK::CommonPlatformName,
+                    AssetBuilderSDK::CommonPlatformName);
+                return false;
+            }
+
+            // Common platform is not currently supported for product assets
+            if (outputToCache && params.m_processJobRequest.m_platformInfo.m_identifier == AssetBuilderSDK::CommonPlatformName)
+            {
+                AZ_Error(
+                    AssetProcessor::ConsoleChannel, false,
+                    "Product asset outputs are not currently supported for the %s platform.  "
+                    "Either change the Job platform a normal platform or change the output flag to AssetBuilderSDK::ProductOutputFlags::IntermediateAsset",
+                    AssetBuilderSDK::CommonPlatformName);
                 return false;
             }
 
