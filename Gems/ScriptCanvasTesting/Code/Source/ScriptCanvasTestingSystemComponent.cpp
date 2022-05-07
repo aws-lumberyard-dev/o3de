@@ -15,6 +15,7 @@
 #include "Nodes/BehaviorContextObjectTestNode.h"
 
 #include <Source/Nodes/Nodeables/NodeableTestingLibrary.h>
+#include <Source/Nodes/TestAutoGenFunctions.h>
 #include <ScriptCanvas/AutoGen/ScriptCanvasAutoGenRegistry.h>
 
 namespace ScriptCanvasTesting
@@ -42,7 +43,7 @@ namespace ScriptCanvasTesting
         ScriptCanvasTestingNodes::BehaviorContextObjectTest::Reflect(context);
         ScriptCanvasTesting::Reflect(context);
         // Reflect testing only autogen function
-        ScriptCanvas::AutoGenRegistry::ReflectFunction(context, "ScriptCanvasTesting_TestAutoGenFunctions_ScriptCanvasTestAutoGenFunctions");
+        ScriptCanvas::AutoGenRegistry::ReflectFunction(context, TestAutoGenFunctions::TestAutoGenFunctions::GetRegistryName());
     }
 
     void ScriptCanvasTestingSystemComponent::GetProvidedServices(AZ::ComponentDescriptor::DependencyArrayType& provided)

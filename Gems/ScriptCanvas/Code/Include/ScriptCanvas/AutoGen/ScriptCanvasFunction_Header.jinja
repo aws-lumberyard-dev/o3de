@@ -26,7 +26,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 {{- macros.Required('Include', Library, Library) -}}
 {{- macros.Required('Name', Library, Library) -}}
 
-{% set className = macros.CleanName('ScriptCanvas' + Library.attrib['Name']) %}
+{% set className = macros.CleanName(Library.attrib['Name']) %}
 {% set namespaceList = [] %}
 {% if Library.attrib['Namespace'] is defined and Library.attrib['Namespace'] %}
 {% set namespaceList = macros.CleanName(Library.attrib['Namespace']).split('::') %}
@@ -46,6 +46,8 @@ public:
     virtual ~{{className}}();
  
     void Reflect(AZ::ReflectContext* context) override;
+
+    static const char* GetRegistryName();
 };
 
 {% for namespace in namespaceList %}

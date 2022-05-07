@@ -62,7 +62,7 @@ false
 
 #include "{{ Library.attrib['Include'] }}"
 
-{% set className = macros.CleanName('ScriptCanvas' + Library.attrib['Name']) %}
+{% set className = macros.CleanName(Library.attrib['Name']) %}
 {% set namespaceList = [] %}
 {% set sanitizedNamespaceName = 'GlobalMethod' %}
 {% if Library.attrib['Namespace'] is defined and Library.attrib['Namespace'] %}
@@ -78,12 +78,12 @@ namespace {{namespace}}
 
 {{className}}::{{className}}()
 {
-    ScriptCanvas::AutoGenRegistry::GetInstance()->RegisterFunction("{{sanitizedNamespaceName}}_{{className}}", this);
+    ScriptCanvas::AutoGenRegistry::GetInstance()->RegisterFunction(GetRegistryName(), this);
 }
 
 {{className}}::~{{className}}()
 {
-    ScriptCanvas::AutoGenRegistry::GetInstance()->UnregisterFunction("{{sanitizedNamespaceName}}_{{className}}");
+    ScriptCanvas::AutoGenRegistry::GetInstance()->UnregisterFunction(GetRegistryName());
 }
 
 void {{className}}::Reflect(AZ::ReflectContext* context)
@@ -124,6 +124,11 @@ void {{className}}::Reflect(AZ::ReflectContext* context)
         }
 {% endfor %}
     }
+}
+
+const char* {{className}}::GetRegistryName()
+{
+    return "{{sanitizedNamespaceName}}_{{className}}";
 }
 
 {% for namespace in namespaceList %}

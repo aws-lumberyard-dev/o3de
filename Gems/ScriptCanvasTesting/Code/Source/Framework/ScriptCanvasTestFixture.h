@@ -39,14 +39,6 @@
 #define SC_EXPECT_DOUBLE_EQ(candidate, reference) EXPECT_NEAR(candidate, reference, 0.001)
 #define SC_EXPECT_FLOAT_EQ(candidate, reference) EXPECT_NEAR(candidate, reference, 0.001f)
 
-namespace ScriptCanvasTesting
-{
-    namespace TestAutoGenFunctions
-    {
-        REGISTER_SCRIPTCANVAS_FUNCTION(TestAutoGenFunctions);
-    }
-}
-
 namespace ScriptCanvasTests
 {
 
@@ -138,8 +130,9 @@ namespace ScriptCanvasTests
             TestNodeableObject::Reflect(m_behaviorContext);
             ScriptUnitTestEventHandler::Reflect(m_serializeContext);
             ScriptUnitTestEventHandler::Reflect(m_behaviorContext);
+            REGISTER_SCRIPTCANVAS_FUNCTION(ScriptCanvasTesting::TestAutoGenFunctions::TestAutoGenFunctions);
             ScriptCanvas::AutoGenRegistry::ReflectFunction(
-                m_behaviorContext, "ScriptCanvasTesting_TestAutoGenFunctions_ScriptCanvasTestAutoGenFunctions");
+                m_behaviorContext, ScriptCanvasTesting::TestAutoGenFunctions::TestAutoGenFunctions::GetRegistryName());
         }
 
         static void TearDownTestCase()

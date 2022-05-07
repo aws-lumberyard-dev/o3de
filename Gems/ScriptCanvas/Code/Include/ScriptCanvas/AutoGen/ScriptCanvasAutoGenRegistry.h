@@ -16,10 +16,12 @@ namespace AZ
     class ReflectContext;
 }
 
+#define CONCAT_IMPL(x, y) x##y
+#define UNIQUE_NAME(x, y) CONCAT_IMPL(x, y)
+
 //! Macros to self-register AutoGen functions into ScriptCanvas
-//! Which takes the same library name as provided in .ScriptCanvasFunction.xml
-#define REGISTER_SCRIPTCANVAS_FUNCTION(LIBRARY)\
-    static ScriptCanvas##LIBRARY s_ScriptCanvas##LIBRARY;
+//! Which takes the same library (library namespace + library name) as provided in .ScriptCanvasFunction.xml
+#define REGISTER_SCRIPTCANVAS_FUNCTION(LIBRARY) static LIBRARY UNIQUE_NAME(s_functionLibrary, __COUNTER__);
 
 namespace ScriptCanvas
 {
