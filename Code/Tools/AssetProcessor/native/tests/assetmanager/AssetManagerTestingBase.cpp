@@ -119,6 +119,13 @@ namespace UnitTests
 
         ON_CALL(*m_diskSpaceResponder, CheckSufficientDiskSpace(::testing::_, ::testing::_, ::testing::_))
             .WillByDefault(::testing::Return(true));
+
+        QObject::connect(
+            m_assetProcessorManager.get(), &AssetProcessor::AssetProcessorManager::AssetToProcess,
+            [this](AssetProcessor::JobDetails jobDetails)
+            {
+                m_jobDetailsList.push_back(jobDetails);
+            });
     }
 
     void AssetManagerTestingBase::TearDown()
@@ -146,14 +153,16 @@ namespace UnitTests
         ScopedAllocatorSetupFixture::TearDown();
     }
 
-    void AssetManagerTestingBase::RunFile(AZStd::vector<AssetProcessor::JobDetails>& jobDetailsList)
+    void AssetManagerTestingBase::RunFile()
     {
+        m_jobDetailsList.clear();
+
         m_assetProcessorManager->CheckActiveFiles(1);
 
         // AssessModifiedFile is going to set up a OneShotTimer with a 1ms delay on it.  We have to wait a short time for that timer to
         // elapse before we can process that event. If we use the alternative processEvents that loops for X milliseconds we could
         // accidentally process too many events.
-        AZStd::this_thread::sleep_for(AZStd::chrono::milliseconds(10));
+        AZStd::this_thread::sleep_for(AZStd::chrono::milliseconds(2));
         QCoreApplication::processEvents();
 
         m_assetProcessorManager->CheckActiveFiles(0);
@@ -163,18 +172,9 @@ namespace UnitTests
 
         m_assetProcessorManager->CheckJobEntries(1);
 
-        auto connection = QObject::connect(
-            m_assetProcessorManager.get(), &AssetProcessor::AssetProcessorManager::AssetToProcess,
-            [&jobDetailsList](AssetProcessor::JobDetails jobDetails)
-            {
-                jobDetailsList.push_back(jobDetails);
-            });
-
         QCoreApplication::processEvents();
 
-        ASSERT_EQ(jobDetailsList.size(), 1);
-
-        QObject::disconnect(connection);
+        ASSERT_EQ(m_jobDetailsList.size(), 1);
     }
 
     void AssetManagerTestingBase::ProcessJob(AssetProcessor::RCController& rcController, const AssetProcessor::JobDetails& jobDetails)

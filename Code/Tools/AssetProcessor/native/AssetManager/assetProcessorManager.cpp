@@ -5218,7 +5218,7 @@ namespace AssetProcessor
     {
         if (!consoleMsg.empty())
         {
-            AZ_TracePrintf(AssetProcessor::ConsoleChannel, AZ_STRING_FORMAT, AZ_STRING_ARG(consoleMsg));
+            AZ_TracePrintf(AssetProcessor::ConsoleChannel, AZ_STRING_FORMAT "\n", AZ_STRING_ARG(consoleMsg));
         }
 
         JobDetails jobdetail;

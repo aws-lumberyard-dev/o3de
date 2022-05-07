@@ -55,14 +55,14 @@ namespace UnitTests
         };
     }
 
-    void IntermediateAssetTests::CreateBuilder(const char* name, const char* inputFilter, bool createJobCommonPlatform, AssetBuilderSDK::ProductOutputFlags outputFlags)
+    void IntermediateAssetTests::CreateBuilder(const char* name, const char* inputFilter, const char* outputExtension, bool createJobCommonPlatform, AssetBuilderSDK::ProductOutputFlags outputFlags)
     {
         using namespace AssetBuilderSDK;
 
         m_builderInfoHandler.CreateBuilderDesc(
             name, AZ::Uuid::CreateRandom().ToFixedString().c_str(),
             { AssetBuilderPattern{ inputFilter, AssetBuilderPattern::Wildcard } }, CreateJobStage(name, createJobCommonPlatform),
-            ProcessJobStage(name, outputFlags), "fingerprint");
+            ProcessJobStage(outputExtension, outputFlags), "fingerprint");
     }
 
     void IntermediateAssetTests::SetUp()
@@ -70,7 +70,7 @@ namespace UnitTests
         AssetManagerTestingBase::SetUp();
 
         AZ::IO::Path scanFolderDir(m_scanfolder.m_scanFolder);
-        AZStd::string testFilename = "test.input";
+        AZStd::string testFilename = "test.stage1";
         m_testFilePath = (scanFolderDir / testFilename).AsPosix().c_str();
 
         UnitTestUtils::CreateDummyFile(m_testFilePath.c_str(), "unit test file");
@@ -102,15 +102,14 @@ namespace UnitTests
     {
         using namespace AssetBuilderSDK;
 
-        CreateBuilder("stage1", "*.input", commonPlatform, flags);
+        CreateBuilder("stage1", "*.stage1", "stage2", commonPlatform, flags);
 
         QMetaObject::invokeMethod(
             m_assetProcessorManager.get(), "AssessAddedFile", Qt::QueuedConnection, Q_ARG(QString, m_testFilePath.c_str()));
         QCoreApplication::processEvents();
 
-        AZStd::vector<AssetProcessor::JobDetails> jobDetailsList;
-        RunFile(jobDetailsList);
-        ProcessJob(*m_rc, jobDetailsList[0]);
+        RunFile();
+        ProcessJob(*m_rc, m_jobDetailsList[0]);
 
         ASSERT_TRUE(m_fileFailed);
     }
@@ -124,42 +123,10 @@ namespace UnitTests
     {
         using namespace AssetBuilderSDK;
 
-        CreateBuilder("stage1", "*.input", true, ProductOutputFlags::IntermediateAsset);
-        CreateBuilder("stage2", "*.stage1", false, ProductOutputFlags::ProductAsset);
+        CreateBuilder("stage1", "*.stage1", "stage2", true, ProductOutputFlags::IntermediateAsset);
+        CreateBuilder("stage2", "*.stage2","stage3", false, ProductOutputFlags::ProductAsset);
 
-        QMetaObject::invokeMethod(
-            m_assetProcessorManager.get(), "AssessAddedFile", Qt::QueuedConnection, Q_ARG(QString, m_testFilePath.c_str()));
-        QCoreApplication::processEvents();
-
-        AZStd::vector<AssetProcessor::JobDetails> jobDetailsList;
-        RunFile(jobDetailsList);
-        ProcessJob(*m_rc, jobDetailsList[0]);
-
-        ASSERT_TRUE(m_fileCompiled);
-
-        m_assetProcessorManager->AssetProcessed(m_processedJobEntry, m_processJobResponse);
-
-        auto cacheDir = AZ::IO::Path(m_tempDir.GetDirectory()) / "Cache";
-        auto intermediatesDir = AssetUtilities::GetIntermediateAssetsFolder(cacheDir);
-        auto expectedIntermediatePath = intermediatesDir / "test.stage1";
-        EXPECT_TRUE(AZ::IO::SystemFile::Exists(expectedIntermediatePath.c_str())) << expectedIntermediatePath.c_str();
-
-        // stage1 file should be processed now, and it should have queued up stage2
-        jobDetailsList.clear();
-        RunFile(jobDetailsList);
-
-        m_fileCompiled = false;
-        ProcessJob(*m_rc, jobDetailsList[0]);
-        ASSERT_TRUE(m_fileCompiled);
-
-        m_assetProcessorManager->AssetProcessed(m_processedJobEntry, m_processJobResponse);
-
-        m_assetProcessorManager->CheckFilesToExamine(0);
-        m_assetProcessorManager->CheckActiveFiles(0);
-        m_assetProcessorManager->CheckJobEntries(0);
-
-        auto expectedProductPath = cacheDir / "pc" / "test.stage2";
-        EXPECT_TRUE(AZ::IO::SystemFile::Exists(expectedProductPath.c_str())) << expectedProductPath.c_str();
+        ProcessFileMultiStage(2, true);
     }
 
     TEST_F(IntermediateAssetTests, IntermediateOutputWithWrongPlatform_CausesFailure)
@@ -185,5 +152,111 @@ namespace UnitTests
     TEST_F(IntermediateAssetTests, NoFlags_CausesFailure)
     {
         IncorrectBuilderConfigurationTest(false, (AssetBuilderSDK::ProductOutputFlags)(0));
+    }
+
+    void IntermediateAssetTests::ProcessFileMultiStage(int stageCount, bool doProductOutputCheck)
+    {
+        auto cacheDir = AZ::IO::Path(m_tempDir.GetDirectory()) / "Cache";
+        auto intermediatesDir = AssetUtilities::GetIntermediateAssetsFolder(cacheDir);
+
+        QMetaObject::invokeMethod(
+            m_assetProcessorManager.get(), "AssessAddedFile", Qt::QueuedConnection, Q_ARG(QString, m_testFilePath.c_str()));
+        QCoreApplication::processEvents();
+
+        AZStd::vector<AssetProcessor::JobDetails> jobDetailsList;
+
+        for (int i = 1; i <= stageCount; ++i)
+        {
+            // Reset state
+            jobDetailsList.clear();
+            m_fileCompiled = false;
+            m_fileFailed = false;
+
+            RunFile();
+            ProcessJob(*m_rc, m_jobDetailsList[0]);
+
+            ASSERT_TRUE(m_fileCompiled);
+
+            m_assetProcessorManager->AssetProcessed(m_processedJobEntry, m_processJobResponse);
+
+            if (i < stageCount)
+            {
+                auto expectedIntermediatePath = intermediatesDir / AZStd::string::format("test.stage%d", i + 1);
+                EXPECT_TRUE(AZ::IO::SystemFile::Exists(expectedIntermediatePath.c_str())) << expectedIntermediatePath.c_str();
+            }
+        }
+
+        m_assetProcessorManager->CheckFilesToExamine(0);
+        m_assetProcessorManager->CheckActiveFiles(0);
+        m_assetProcessorManager->CheckJobEntries(0);
+
+        if (doProductOutputCheck)
+        {
+            auto expectedProductPath = cacheDir / "pc" / AZStd::string::format("test.stage%d", stageCount + 1);
+            EXPECT_TRUE(AZ::IO::SystemFile::Exists(expectedProductPath.c_str())) << expectedProductPath.c_str();
+        }
+    }
+
+    TEST_F(IntermediateAssetTests, ABALoop_CausesFailure)
+    {
+        using namespace AssetBuilderSDK;
+
+        CreateBuilder("stage1", "*.stage1", "stage2", true, ProductOutputFlags::IntermediateAsset);
+        CreateBuilder("stage2", "*.stage2", "stage3", true, ProductOutputFlags::IntermediateAsset);
+        CreateBuilder("stage3", "*.stage3", "stage2",  true, ProductOutputFlags::IntermediateAsset); // Loop back to an intermediate
+
+        ProcessFileMultiStage(3, false);
+
+        EXPECT_EQ(m_jobDetailsList.size(), 3);
+        EXPECT_TRUE(m_jobDetailsList[1].m_autoFail);
+        EXPECT_TRUE(m_jobDetailsList[2].m_autoFail);
+
+        EXPECT_EQ(m_jobDetailsList[1].m_jobEntry.m_databaseSourceName, "test.stage3");
+        EXPECT_EQ(m_jobDetailsList[2].m_jobEntry.m_databaseSourceName, "test.stage1");
+    }
+
+    TEST_F(IntermediateAssetTests, AALoop_CausesFailure)
+    {
+        using namespace AssetBuilderSDK;
+
+        CreateBuilder("stage1", "*.stage1", "stage2", true, ProductOutputFlags::IntermediateAsset);
+        CreateBuilder("stage2", "*.stage2", "stage1", true, ProductOutputFlags::IntermediateAsset); // Loop back to the source
+
+        ProcessFileMultiStage(2, false);
+
+        EXPECT_EQ(m_jobDetailsList.size(), 3);
+        EXPECT_TRUE(m_jobDetailsList[1].m_autoFail);
+        EXPECT_TRUE(m_jobDetailsList[2].m_autoFail);
+
+        EXPECT_EQ(m_jobDetailsList[1].m_jobEntry.m_databaseSourceName, "test.stage2");
+        EXPECT_EQ(m_jobDetailsList[2].m_jobEntry.m_databaseSourceName, "test.stage1");
+    }
+
+    TEST_F(IntermediateAssetTests, SelfLoop_CausesFailure)
+    {
+        using namespace AssetBuilderSDK;
+
+        CreateBuilder("stage1", "*.stage1", "stage1", true, ProductOutputFlags::IntermediateAsset); // Loop back to the source with a single job
+
+        ProcessFileMultiStage(1, false);
+
+        EXPECT_EQ(m_jobDetailsList.size(), 2);
+        EXPECT_TRUE(m_jobDetailsList[1].m_autoFail);
+
+        EXPECT_EQ(m_jobDetailsList[1].m_jobEntry.m_databaseSourceName, "test.stage1");
+    }
+
+    TEST_F(IntermediateAssetTests, CopyJob_Works)
+    {
+        using namespace AssetBuilderSDK;
+
+        CreateBuilder("stage1", "*.stage1", "stage1", false, ProductOutputFlags::ProductAsset); // Copy jobs are ok
+
+        ProcessFileMultiStage(1, false);
+
+        auto expectedProduct = AZ::IO::Path(m_tempDir.GetDirectory()) / "Cache" / "pc" / "test.stage1";
+
+        EXPECT_EQ(m_jobDetailsList.size(), 1);
+        EXPECT_TRUE(AZ::IO::SystemFile::Exists(expectedProduct.c_str())) << expectedProduct.c_str();
     }
 } // namespace UnitTests

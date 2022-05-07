@@ -91,7 +91,7 @@ namespace UnitTests
         void CreateTestData(AZ::u64 hashA, AZ::u64 hashB, bool useSubId);
         void RunTest(bool firstProductChanged, bool secondProductChanged);
 
-        void RunFile(AZStd::vector<AssetProcessor::JobDetails>& jobDetailsList);
+        void RunFile();
         void ProcessJob(AssetProcessor::RCController& rcController, const AssetProcessor::JobDetails& jobDetails);
 
         int m_argc = 0;
@@ -115,6 +115,6 @@ namespace UnitTests
         AZ::Entity* m_jobManagerEntity{};
         AZ::ComponentDescriptor* m_descriptor{};
 
-        AZ::Uuid m_assetType = AZ::Uuid::CreateName("test");
+        AZStd::vector<AssetProcessor::JobDetails> m_jobDetailsList;
     };
 } // namespace UnitTests

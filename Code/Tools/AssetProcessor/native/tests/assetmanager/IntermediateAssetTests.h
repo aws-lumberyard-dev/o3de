@@ -14,13 +14,19 @@ namespace UnitTests
 {
     struct IntermediateAssetTests : AssetManagerTestingBase
     {
-        void CreateBuilder(
-            const char* name, const char* inputFilter, bool createJobCommonPlatform, AssetBuilderSDK::ProductOutputFlags outputFlags);
+        void SetUp() override;
+        void TearDown() override;
 
         void IncorrectBuilderConfigurationTest(bool commonPlatform, AssetBuilderSDK::ProductOutputFlags flags);
 
-        void SetUp() override;
-        void TearDown() override;
+        void CreateBuilder(
+            const char* name,
+            const char* inputFilter,
+            const char* outputExtension,
+            bool createJobCommonPlatform,
+            AssetBuilderSDK::ProductOutputFlags outputFlags);
+
+        void ProcessFileMultiStage(int stageCount, bool doProductOutputCheck);
 
         AZStd::unique_ptr<AssetProcessor::RCController> m_rc;
         bool m_fileCompiled = false;
