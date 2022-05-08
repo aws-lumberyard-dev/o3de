@@ -55,6 +55,7 @@ namespace AZ
             AZ::Matrix4x4 viewToClipMatrix;
             AZ::MakePerspectiveFovMatrixRH(viewToClipMatrix, AZ::Constants::HalfPi, 1, 0.1f, 1000.f, true);
             SetViewToClipMatrix(viewToClipMatrix);
+            SetViewRotation(0);
 
             TryCreateShaderResourceGroup();
 
@@ -159,7 +160,7 @@ namespace AZ
             const AZ::Matrix4x4 prevViewToWorldMatrix = m_viewToWorldMatrix;
             m_viewToWorldMatrix = AZ::Matrix4x4::CreateFromRowMajorFloat16(viewToWorldMatrixRaw);
 
-            m_worldToViewMatrix = m_viewToWorldMatrix.GetInverseFast();
+            m_worldToViewMatrix = m_viewRotationMatrix * m_viewToWorldMatrix.GetInverseFast();
 
             m_worldToClipMatrix = m_viewToClipMatrix * m_worldToViewMatrix;
             m_clipToWorldMatrix = m_worldToClipMatrix.GetInverseFull();
@@ -207,6 +208,11 @@ namespace AZ
         void View::SetClipSpaceOffset(float xOffset, float yOffset)
         {
             m_clipSpaceOffset.Set(xOffset, yOffset);
+        }
+
+        void View::SetViewRotation(float angle)
+        {
+            m_viewRotationMatrix = AZ::Matrix4x4::CreateRotationZ(angle);
         }
 
         const AZ::Matrix4x4& View::GetWorldToViewMatrix() const

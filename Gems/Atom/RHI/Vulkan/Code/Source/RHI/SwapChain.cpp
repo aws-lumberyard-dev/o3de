@@ -434,7 +434,7 @@ namespace AZ
             createInfo.imageSharingMode = VK_SHARING_MODE_EXCLUSIVE;
             createInfo.queueFamilyIndexCount = aznumeric_cast<uint32_t>(familyIndices.size());
             createInfo.pQueueFamilyIndices = familyIndices.empty() ? nullptr : familyIndices.data();
-            createInfo.preTransform = VK_SURFACE_TRANSFORM_IDENTITY_BIT_KHR;
+            createInfo.preTransform = m_surfaceCapabilities.currentTransform;
             createInfo.compositeAlpha = m_compositeAlphaFlagBits;
             createInfo.presentMode = m_presentMode;
             createInfo.clipped = VK_FALSE;
@@ -542,6 +542,24 @@ namespace AZ
                 AZ_Printf(
                     "Vulkan", "Resizing swapchain from (%u, %u) to (%u, %u).",
                     oldWidth, oldHeight, m_dimensions.m_imageWidth, m_dimensions.m_imageHeight);
+            }
+
+            switch (m_surfaceCapabilities.currentTransform)
+            {
+                case VK_SURFACE_TRANSFORM_ROTATE_90_BIT_KHR:
+                    AZStd::swap(m_dimensions.m_imageHeight, m_dimensions.m_imageWidth);
+                    m_dimensions.m_rotation = -AZ::Constants::HalfPi;
+                    break;
+                case VK_SURFACE_TRANSFORM_ROTATE_180_BIT_KHR:
+                    m_dimensions.m_rotation = AZ::Constants::Pi;
+                    break;
+                case VK_SURFACE_TRANSFORM_ROTATE_270_BIT_KHR:
+                    AZStd::swap(m_dimensions.m_imageHeight, m_dimensions.m_imageWidth);
+                    m_dimensions.m_rotation = AZ::Constants::HalfPi;
+                    break;
+                default:
+                    m_dimensions.m_rotation = 0;
+                    break;
             }
 
             RHI::ResultCode result = BuildNativeSwapChain(m_dimensions);

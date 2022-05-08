@@ -534,8 +534,17 @@ namespace Camera
             }
             else
             {
+                float fovY = AZ::DegToRad(m_config.m_fov);
+                float viewRotation = viewportContext->GetViewRotation();
+                if (AZ::IsClose(viewRotation, -AZ::Constants::HalfPi) || AZ::IsClose(viewRotation, AZ::Constants::HalfPi))
+                {
+                    float sinFov, cosFov;
+                    AZ::SinCos(0.5f * fovY, sinFov, cosFov);
+                    fovY = 2 * AZStd::atan((sinFov/cosFov)/aspectRatio);
+                }
+
                 AZ::MakePerspectiveFovMatrixRH(viewToClipMatrix,
-                    AZ::DegToRad(m_config.m_fov),
+                    fovY,
                     aspectRatio,
                     m_config.m_nearClipDistance,
                     m_config.m_farClipDistance,

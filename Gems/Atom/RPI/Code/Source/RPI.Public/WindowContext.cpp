@@ -7,6 +7,7 @@
  */
 
 #include <Atom/RPI.Public/RPISystemInterface.h>
+#include <Atom/RPI.Public/ViewportContext.h>
 #include <Atom/RPI.Public/WindowContext.h>
 #include <Atom/RPI.Public/WindowContextBus.h>
 #include <Atom/RPI.Public/Pass/PassSystemInterface.h>
@@ -27,7 +28,11 @@ namespace AZ
 
             CreateSwapChain(device);
 
-            FillWindowState(m_swapChain->GetDescriptor().m_dimensions.m_imageWidth, m_swapChain->GetDescriptor().m_dimensions.m_imageHeight);
+            const AZ::RHI::SwapChainDescriptor& descriptor = m_swapChain->GetDescriptor();
+            FillWindowState(descriptor.m_dimensions.m_imageWidth, descriptor.m_dimensions.m_imageHeight);
+
+            AzFramework::WindowSize newSize = AzFramework::WindowSize(descriptor.m_dimensions.m_imageWidth, descriptor.m_dimensions.m_imageHeight);
+            AzFramework::WindowRequestBus::Event(m_windowHandle, &AzFramework::WindowRequestBus::Events::ResizeClientArea, newSize);
 
             AzFramework::WindowNotificationBus::Handler::BusConnect(m_windowHandle);
             AzFramework::ExclusiveFullScreenRequestBus::Handler::BusConnect(m_windowHandle);

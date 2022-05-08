@@ -36,6 +36,8 @@ namespace AZ
             AzFramework::WindowNotificationBus::Handler::BusConnect(nativeWindow);
             AzFramework::ViewportRequestBus::Handler::BusConnect(id);
 
+            m_viewRotation = m_windowContext->GetSwapChain()->GetDescriptor().m_dimensions.m_rotation;
+
             m_onProjectionMatrixChangedHandler = MatrixChangedEvent::Handler([this](const AZ::Matrix4x4& matrix)
             {
                 m_projectionMatrixChangedEvent.Signal(matrix);
@@ -236,6 +238,11 @@ namespace AZ
             m_viewMatrixChangedEvent.Signal(view->GetWorldToViewMatrix());
         }
 
+        float ViewportContext::GetViewRotation()
+        {
+            return m_viewRotation;
+        }
+
         void ViewportContext::SetDefaultView(ViewPtr view)
         {
             if (m_defaultView != view)
@@ -252,6 +259,8 @@ namespace AZ
 
                 view->ConnectWorldToViewMatrixChangedHandler(m_onViewMatrixChangedHandler);
                 view->ConnectWorldToClipMatrixChangedHandler(m_onProjectionMatrixChangedHandler);
+
+                view->SetViewRotation(m_viewRotation);
             }
         }
 

@@ -26,6 +26,7 @@ namespace AzFramework
                         const WindowStyleMasks& styleMasks) override;
         NativeWindowHandle GetWindowHandle() const override;
         uint32_t GetDisplayRefreshRate() const override;
+        void ResizeClientArea(WindowSize clientAreaSize) override;
     private:
         ANativeWindow* m_nativeWindow = nullptr;
     };
@@ -60,5 +61,11 @@ namespace AzFramework
         // [GFX TODO][GHI - 2678]
         // Using 60 for now until proper support is added
         return 60;
+    }
+
+    void NativeWindowImpl_Android::ResizeClientArea(WindowSize clientAreaSize)
+    {
+        m_width = clientAreaSize.m_width;
+        m_height = clientAreaSize.m_height;
     }
 } // namespace AzFramework

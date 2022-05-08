@@ -35,6 +35,9 @@ namespace AZ
 
             /// Pixel format of the images in the swap chain.
             Format m_imageFormat = Format::Unknown;
+
+            /// SwapChain rotation
+            float m_rotation = 0;
         };
 
         class SwapChainDescriptor

@@ -90,6 +90,9 @@ namespace AZ
             //! Sets a pixel offset on the view, usually used for jittering the camera for anti-aliasing techniques.
             void SetClipSpaceOffset(float xOffset, float yOffset);
 
+            //! Sets the pre-rotation matrix which will be applied to the world to view matrix.
+            void SetViewRotation(float angle);
+
             const AZ::Matrix4x4& GetWorldToViewMatrix() const;
             //! Use GetViewToWorldMatrix().GetTranslation() to get the camera's position.
             const AZ::Matrix4x4& GetViewToWorldMatrix() const;
@@ -184,6 +187,7 @@ namespace AZ
             Matrix4x4 m_viewToWorldMatrix;
             Matrix4x4 m_viewToClipMatrix;
             Matrix4x4 m_clipToWorldMatrix;
+            Matrix4x4 m_viewRotationMatrix;
 
             // View's position in world space
             Vector3 m_position;

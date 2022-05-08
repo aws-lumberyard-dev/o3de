@@ -45,6 +45,8 @@ namespace AzFramework
         virtual AZ::Transform GetCameraTransform() const = 0;
         //! Convenience method, sets the camera's world to view matrix from this AZ::Transform.
         virtual void SetCameraTransform(const AZ::Transform& transform) = 0;
+        //! Gets the view rotation.
+        virtual float GetViewRotation() = 0;
 
     protected:
         ~ViewportRequests() = default;
