@@ -22,20 +22,14 @@
 #include <Multiplayer/Session/SessionConfig.h>
 
 #include <AzCore/Serialization/SerializeContext.h>
-#include <AzCore/Serialization/Utils.h>
 #include <AzCore/Interface/Interface.h>
-#include <AzCore/Component/TransformBus.h>
 #include <AzCore/Console/IConsole.h>
 #include <AzCore/Console/ILogger.h>
 #include <AzCore/Math/ShapeIntersection.h>
-#include <AzCore/Asset/AssetCommon.h>
-#include <AzCore/Asset/AssetManagerBus.h>
 #include <AzCore/Utils/Utils.h>
 #include <AzCore/RTTI/BehaviorContext.h>
 #include <AzFramework/Components/CameraBus.h>
-#include <AzFramework/Spawnable/Spawnable.h>
 #include <AzFramework/Visibility/IVisibilitySystem.h>
-#include <AzFramework/Visibility/EntityBoundsUnionBus.h>
 
 #include <AzNetworking/Framework/INetworking.h>
 
@@ -92,6 +86,9 @@ namespace Multiplayer
         "The base used for blending between network updates, 0.1 will be quite linear, 0.2 or 0.3 will "
         "slow down quicker and may be better suited to connections with highly variable latency");
     AZ_CVAR(bool, bg_multiplayerDebugDraw, false, nullptr, AZ::ConsoleFunctorFlags::Null, "Enables debug draw for the multiplayer gem");
+    AZ_CVAR(bool, cl_silentCVarSync, true, nullptr, AZ::ConsoleFunctorFlags::DontReplicate,
+        "Silences (disable printing to) the console logging while the client syncs all the server cvars; "
+        "set to false if you want logs of all cvars being sent from the server.");
 
     void MultiplayerSystemComponent::Reflect(AZ::ReflectContext* context)
     {
@@ -1182,7 +1179,9 @@ namespace Multiplayer
         const AZ::ConsoleFunctorFlags requiredSet = isAcceptor ? AZ::ConsoleFunctorFlags::AllowClientSet : AZ::ConsoleFunctorFlags::Null;
         for (auto& command : commands)
         {
-            console->PerformCommand(command.c_str(), AZ::ConsoleSilentMode::NotSilent, AZ::ConsoleInvokedFrom::AzNetworking, requiredSet);
+            console->PerformCommand(
+                command.c_str(), cl_silentCVarSync ? AZ::ConsoleSilentMode::Silent : AZ::ConsoleSilentMode::NotSilent,
+                AZ::ConsoleInvokedFrom::AzNetworking, requiredSet);
         }
     }
 
