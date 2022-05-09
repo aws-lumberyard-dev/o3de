@@ -126,7 +126,6 @@ namespace AZ
             void SetCameraProjectionMatrix(const AZ::Matrix4x4& matrix) override;
             AZ::Transform GetCameraTransform() const override;
             void SetCameraTransform(const AZ::Transform& transform) override;
-            float GetViewRotation() override;
 
         private:
             // Used by the manager to set the current default camera.
@@ -139,7 +138,6 @@ namespace AZ
             ViewPtr m_defaultView;
             AzFramework::WindowSize m_viewportSize;
             float m_viewportDpiScaleFactor = 1.0f;
-            float m_viewRotation = 0.0f;
 
             SizeChangedEvent m_sizeChangedEvent;
             ScalarChangedEvent m_dpiScalingFactorChangedEvent;

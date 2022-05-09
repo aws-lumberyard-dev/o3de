@@ -34,6 +34,8 @@ namespace AZ
             AzFramework::WindowSize newSize = AzFramework::WindowSize(descriptor.m_dimensions.m_imageWidth, descriptor.m_dimensions.m_imageHeight);
             AzFramework::WindowRequestBus::Event(m_windowHandle, &AzFramework::WindowRequestBus::Events::ResizeClientArea, newSize);
 
+            m_viewportDefault.m_viewRotation = descriptor.m_dimensions.m_rotation;
+
             AzFramework::WindowNotificationBus::Handler::BusConnect(m_windowHandle);
             AzFramework::ExclusiveFullScreenRequestBus::Handler::BusConnect(m_windowHandle);
         }
