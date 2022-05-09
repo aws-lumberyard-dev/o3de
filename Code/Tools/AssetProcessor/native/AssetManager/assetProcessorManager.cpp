@@ -1822,11 +1822,11 @@ namespace AssetProcessor
 
             successfullyRemoved = wrapper.DeleteFiles(true);
 
-                if(!successfullyRemoved)
-                {
-                    AZ_TracePrintf(AssetProcessor::ConsoleChannel, "Failed to delete product files for %s\n", product.m_productName.c_str());
-                }
-                else
+            if(!successfullyRemoved)
+            {
+                AZ_TracePrintf(AssetProcessor::ConsoleChannel, "Failed to delete product files for %s\n", product.m_productName.c_str());
+            }
+            else
             {
                 if (!m_stateData->RemoveProduct(product.m_productID))
                 {
@@ -1853,6 +1853,14 @@ namespace AssetProcessor
                         message.m_legacyAssetIds.push_back(legacySourceAssetId);
                     }
                     Q_EMIT AssetMessage( message);
+                }
+
+                if (wrapper.HasIntermediateProduct())
+                {
+                    CheckDeletedSourceFile(
+                        productPath.GetIntermediatePath().c_str(), productPath.GetRelativePath().c_str(),
+                        productPath.GetRelativePath().c_str(),
+                        AZStd::chrono::system_clock::now());
                 }
 
                 m_checkFoldersToRemove.insert(productPath.GetCachePath().c_str());
@@ -2496,8 +2504,6 @@ namespace AssetProcessor
             return;
         }
 
-
-
         for (auto& job : jobs)
         {
             JobEntry jobEntry{ topLevelSourceScanFolder.m_scanFolder.c_str(),
@@ -2518,6 +2524,8 @@ namespace AssetProcessor
         AzToolsFramework::AssetDatabase::ProductDatabaseEntryContainer products;
         m_stateData->GetProductsBySourceID(topLevelSourceForIntermediateConflict->m_sourceID, products);
         DeleteProducts(products);
+
+        m_stateData->RemoveSource(topLevelSourceForIntermediateConflict->m_sourceID);
     }
 
     void AssetProcessorManager::ProcessFilesToExamineQueue()
