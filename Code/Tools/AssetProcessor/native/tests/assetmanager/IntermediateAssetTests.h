@@ -17,6 +17,8 @@ namespace UnitTests
         void SetUp() override;
         void TearDown() override;
 
+        void ProcessFileMultiStage(int endStage, bool doProductOutputCheck, const char* file = nullptr, int startStage = 1, bool expectAutofail = false);
+
         void IncorrectBuilderConfigurationTest(bool commonPlatform, AssetBuilderSDK::ProductOutputFlags flags);
 
         void CreateBuilder(
@@ -25,8 +27,6 @@ namespace UnitTests
             const char* outputExtension,
             bool createJobCommonPlatform,
             AssetBuilderSDK::ProductOutputFlags outputFlags);
-
-        void ProcessFileMultiStage(int stageCount, bool doProductOutputCheck);
 
         AZStd::unique_ptr<AssetProcessor::RCController> m_rc;
         bool m_fileCompiled = false;

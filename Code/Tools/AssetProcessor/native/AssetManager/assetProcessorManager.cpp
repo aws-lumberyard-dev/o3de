@@ -2841,6 +2841,16 @@ namespace AssetProcessor
                             continue;
                         }
                     }
+                    else
+                    {
+                        auto errorMessage = AZStd::string::format(
+                            "Intermediate asset (%s) conflicts with an existing source asset "
+                            "with the same relative path: %s.  Please move/rename one of the files to fix the conflict.",
+                            overrider.toUtf8().constData(),
+                            normalizedPath.toUtf8().constData());
+
+                        FailTopLevelSourceForIntermediate(databasePathToFile.toUtf8().constData(), errorMessage);
+                    }
                 }
 
                 // its an input file or a file we don't care about...

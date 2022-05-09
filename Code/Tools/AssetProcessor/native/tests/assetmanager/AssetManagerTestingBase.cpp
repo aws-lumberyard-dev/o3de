@@ -153,7 +153,7 @@ namespace UnitTests
         ScopedAllocatorSetupFixture::TearDown();
     }
 
-    void AssetManagerTestingBase::RunFile()
+    void AssetManagerTestingBase::RunFile(bool expectAdditionalAutofail)
     {
         m_jobDetailsList.clear();
 
@@ -174,7 +174,15 @@ namespace UnitTests
 
         QCoreApplication::processEvents();
 
-        ASSERT_EQ(m_jobDetailsList.size(), 1);
+        if (expectAdditionalAutofail)
+        {
+            ASSERT_EQ(m_jobDetailsList.size(), 2);
+            ASSERT_TRUE(m_jobDetailsList[0].m_autoFail);
+        }
+        else
+        {
+            ASSERT_EQ(m_jobDetailsList.size(), 1);
+        }
     }
 
     void AssetManagerTestingBase::ProcessJob(AssetProcessor::RCController& rcController, const AssetProcessor::JobDetails& jobDetails)

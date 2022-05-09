@@ -7,6 +7,8 @@
  */
 
 #include <native/tests/assetmanager/IntermediateAssetTests.h>
+#include <QCoreApplication>
+#include <native/unittests/UnitTestRunner.h>
 
 namespace UnitTests
 {
@@ -108,7 +110,7 @@ namespace UnitTests
             m_assetProcessorManager.get(), "AssessAddedFile", Qt::QueuedConnection, Q_ARG(QString, m_testFilePath.c_str()));
         QCoreApplication::processEvents();
 
-        RunFile();
+        RunFile(false);
         ProcessJob(*m_rc, m_jobDetailsList[0]);
 
         ASSERT_TRUE(m_fileFailed);
@@ -154,36 +156,47 @@ namespace UnitTests
         IncorrectBuilderConfigurationTest(false, (AssetBuilderSDK::ProductOutputFlags)(0));
     }
 
-    void IntermediateAssetTests::ProcessFileMultiStage(int stageCount, bool doProductOutputCheck)
+    void IntermediateAssetTests::ProcessFileMultiStage(int endStage, bool doProductOutputCheck, const char* file, int startStage, bool expectAutofail)
     {
         auto cacheDir = AZ::IO::Path(m_tempDir.GetDirectory()) / "Cache";
         auto intermediatesDir = AssetUtilities::GetIntermediateAssetsFolder(cacheDir);
 
+        if (file == nullptr)
+        {
+            file = m_testFilePath.c_str();
+        }
+
         QMetaObject::invokeMethod(
-            m_assetProcessorManager.get(), "AssessAddedFile", Qt::QueuedConnection, Q_ARG(QString, m_testFilePath.c_str()));
+            m_assetProcessorManager.get(), "AssessAddedFile", Qt::QueuedConnection, Q_ARG(QString, file));
         QCoreApplication::processEvents();
 
         AZStd::vector<AssetProcessor::JobDetails> jobDetailsList;
 
-        for (int i = 1; i <= stageCount; ++i)
+        for (int i = startStage; i <= endStage; ++i)
         {
             // Reset state
             jobDetailsList.clear();
             m_fileCompiled = false;
             m_fileFailed = false;
 
-            RunFile();
-            ProcessJob(*m_rc, m_jobDetailsList[0]);
+            RunFile(expectAutofail);
+
+            int jobToRun = expectAutofail ? 1 : 0;
+
+            ProcessJob(*m_rc, m_jobDetailsList[jobToRun]);
 
             ASSERT_TRUE(m_fileCompiled);
 
             m_assetProcessorManager->AssetProcessed(m_processedJobEntry, m_processJobResponse);
 
-            if (i < stageCount)
+            if (i < endStage)
             {
                 auto expectedIntermediatePath = intermediatesDir / AZStd::string::format("test.stage%d", i + 1);
                 EXPECT_TRUE(AZ::IO::SystemFile::Exists(expectedIntermediatePath.c_str())) << expectedIntermediatePath.c_str();
             }
+
+            // Only first job should have an autofail due to a conflict
+            expectAutofail = false;
         }
 
         m_assetProcessorManager->CheckFilesToExamine(0);
@@ -192,7 +205,7 @@ namespace UnitTests
 
         if (doProductOutputCheck)
         {
-            auto expectedProductPath = cacheDir / "pc" / AZStd::string::format("test.stage%d", stageCount + 1);
+            auto expectedProductPath = cacheDir / "pc" / AZStd::string::format("test.stage%d", endStage + 1);
             EXPECT_TRUE(AZ::IO::SystemFile::Exists(expectedProductPath.c_str())) << expectedProductPath.c_str();
         }
     }
@@ -258,5 +271,56 @@ namespace UnitTests
 
         EXPECT_EQ(m_jobDetailsList.size(), 1);
         EXPECT_TRUE(AZ::IO::SystemFile::Exists(expectedProduct.c_str())) << expectedProduct.c_str();
+    }
+
+    TEST_F(IntermediateAssetTests, Override_NormalFileProcessedFirst_CausesFailure)
+    {
+        using namespace AssetBuilderSDK;
+
+        CreateBuilder("stage1", "*.stage1", "stage2", true, ProductOutputFlags::IntermediateAsset);
+        CreateBuilder("stage2", "*.stage2", "stage3", true, ProductOutputFlags::IntermediateAsset);
+        CreateBuilder("stage3", "*.stage3", "stage4", false, ProductOutputFlags::ProductAsset);
+
+        // Make and process a source file which matches an intermediate output name we will create later
+        AZ::IO::Path scanFolderDir(m_scanfolder.m_scanFolder);
+        AZStd::string testFilename = "test.stage2";
+        AZStd::string testFilePath = (scanFolderDir / testFilename).AsPosix();
+
+        UnitTestUtils::CreateDummyFile(testFilePath.c_str(), "unit test file");
+
+        ProcessFileMultiStage(3, true, testFilePath.c_str(), 2);
+
+        // Now process another file which produces intermediates that conflict with the existing source file above
+        // Only go to stage 1 since we're expecting a failure at that point
+        ProcessFileMultiStage(1, false);
+
+        EXPECT_EQ(m_jobDetailsList.size(), 2);
+        EXPECT_TRUE(m_jobDetailsList[1].m_autoFail);
+
+        EXPECT_EQ(m_jobDetailsList[1].m_jobEntry.m_databaseSourceName, "test.stage1");
+    }
+
+    TEST_F(IntermediateAssetTests, Override_IntermediateFileProcessedFirst_CausesFailure)
+    {
+        using namespace AssetBuilderSDK;
+
+        CreateBuilder("stage1", "*.stage1", "stage2", true, ProductOutputFlags::IntermediateAsset);
+        CreateBuilder("stage2", "*.stage2", "stage3", true, ProductOutputFlags::IntermediateAsset);
+        CreateBuilder("stage3", "*.stage3", "stage4", false, ProductOutputFlags::ProductAsset);
+
+        // Process a file from stage1 -> stage4, this will create several intermediates
+        ProcessFileMultiStage(3, true);
+
+        // Now make a source file which is the same name as an existing intermediate and process it
+        AZ::IO::Path scanFolderDir(m_scanfolder.m_scanFolder);
+        AZStd::string testFilename = "test.stage2";
+        AZStd::string testFilePath = (scanFolderDir / testFilename).AsPosix();
+
+        UnitTestUtils::CreateDummyFile(testFilePath.c_str(), "unit test file");
+
+        ProcessFileMultiStage(3, true, testFilePath.c_str(), 2, true);
+
+        EXPECT_EQ(m_jobDetailsList.size(), 1);
+        EXPECT_FALSE(m_jobDetailsList[0].m_autoFail);
     }
 } // namespace UnitTests
