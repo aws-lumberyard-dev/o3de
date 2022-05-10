@@ -2214,7 +2214,7 @@ TEST_F(PathDependencyTest, AbsoluteDependencies_Deferred_ResolveCorrectly)
     auto scanfolder4 = m_config->GetScanFolderForFile(absPathDep1);
     // When an absolute path matches a scan folder, the portion of the path matching that scan folder
     // is replaced with the scan folder's ID.
-    AZStd::string absPathDep1WithScanfolder(AZStd::string::format("$%d$%s", scanfolder4->ScanFolderID(), relativePathDep1.c_str()));
+    AZStd::string absPathDep1WithScanfolder(AZStd::string::format("$%" PRId64 "$%s", aznumeric_cast<int64_t>(scanfolder4->ScanFolderID()), relativePathDep1.c_str()));
     QString absPathDep2(tempPath.absoluteFilePath("subfolder2/redirected/dep2.txt"));
     QString absPathDep3(tempPath.absoluteFilePath("subfolder1/dep3.txt"));
 
