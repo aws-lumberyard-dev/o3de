@@ -27,7 +27,7 @@ AZCG_TARGET_NAME = ""
 
 def SanitizeAZCGTargetName():
     global AZCG_TARGET_NAME
-    return AZCG_TARGET_NAME.replace('.', '').replace('::', '.')
+    return AZCG_TARGET_NAME.replace('.', '').replace('::', '')
 
 def ParseInputFile(inputFilePath):
     result = []
