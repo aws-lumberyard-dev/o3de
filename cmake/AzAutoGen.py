@@ -23,6 +23,11 @@ from xml.sax.saxutils import escape, unescape, quoteattr
 # Maximum number of errors before bailing on AutoGen
 MAX_ERRORS = 100
 errorCount = 0
+AZCG_TARGET_NAME = ""
+
+def SanitizeAZCGTargetName():
+    global AZCG_TARGET_NAME
+    return AZCG_TARGET_NAME.replace('.', '').replace('::', '.')
 
 def ParseInputFile(inputFilePath):
     result = []
@@ -165,6 +170,7 @@ def ProcessTemplateConversion(dataInputSet, dataInputFiles, templateFile, output
         templateJinja  = templateEnv.get_template(os.path.basename(templateFile))
         templateVars   = \
             { \
+                "azcgTargetName": SanitizeAZCGTargetName(), \
                 "dataFiles"     : treeRoots, \
                 "dataFileNames" : dataInputFiles, \
                 "templateName"  : templateFile, \
@@ -298,7 +304,10 @@ def ProcessExpansionRule(sourceFiles, templateFiles, templateCache, outputDir, p
                 # Process all matches in one batch
                 # Due to the lack of wildcards in the output file, we've determined we'll glob all matching input files into the template conversion 
                 dataInputFiles = [os.path.abspath(file) for file in fnmatch.filter(sourceFiles, inputFiles)]
-                outputFileAbsolute = outputFile.replace("$path", ComputeOutputPath(dataInputFiles, projectDir, outputDir))
+                if "$path" in outputFile:
+                    outputFileAbsolute = outputFile.replace("$path", ComputeOutputPath(dataInputFiles, projectDir, outputDir))
+                else: # if no relative $path, put one batch file under outputDir
+                    outputFileAbsolute = os.path.join(outputDir, outputFile)
                 outputFileAbsolute = SanitizePath(outputFileAbsolute)
                 ProcessTemplateConversion(dataInputSet, dataInputFiles, templateFile, outputFileAbsolute, templateCache, dryrun, verbose)
                 outputFiles.append(outputFileAbsolute)
@@ -346,6 +355,7 @@ def ExecuteExpansionRules(cacheDir, outputDir, projectDir, inputFiles, expansion
 if __name__ == '__main__':
     # setup our command syntax
     parser = argparse.ArgumentParser()
+    parser.add_argument("targetName", help="azcg target name")
     parser.add_argument("cacheDir", help="location to store jinja template cache files")
     parser.add_argument("outputDir", help="location to output generated files")
     parser.add_argument("projectDir", help="location to build directory against")
@@ -356,6 +366,7 @@ if __name__ == '__main__':
     parser.add_argument("-p", "--pythonPaths", action='append', nargs='+', default=[""], help="set of additional python paths to use for module imports")
     
     args = parser.parse_args()
+    AZCG_TARGET_NAME = args.targetName
     pythonPaths = args.pythonPaths
     cacheDir  = args.cacheDir
     outputDir = args.outputDir

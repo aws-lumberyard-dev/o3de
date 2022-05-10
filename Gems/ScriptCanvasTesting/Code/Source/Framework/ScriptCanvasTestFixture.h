@@ -20,11 +20,11 @@
 #include <AzFramework/IO/LocalFileIO.h>
 #include <AzTest/AzTest.h>
 
+#include <TestAutoGenFunctionRegistry.generated.h>
 #include <Nodes/BehaviorContextObjectTestNode.h>
 #include <Nodes/Nodeables/SharedDataSlotExample.h>
 #include <Nodes/Nodeables/ValuePointerReferenceExample.h>
 #include <Nodes/TestAutoGenFunctions.h>
-#include <ScriptCanvas/AutoGen/ScriptCanvasAutoGenRegistry.h>
 #include <ScriptCanvas/Core/Graph.h>
 #include <ScriptCanvas/Core/SlotConfigurationDefaults.h>
 #include <ScriptCanvas/ScriptCanvasGem.h>
@@ -130,9 +130,9 @@ namespace ScriptCanvasTests
             TestNodeableObject::Reflect(m_behaviorContext);
             ScriptUnitTestEventHandler::Reflect(m_serializeContext);
             ScriptUnitTestEventHandler::Reflect(m_behaviorContext);
-            REGISTER_SCRIPTCANVAS_FUNCTION(ScriptCanvasTesting::TestAutoGenFunctions::TestAutoGenFunctions);
+            REGISTER_SCRIPTCANVAS_AUTOGEN(ScriptCanvasTestingEditorStatic);
             ScriptCanvas::AutoGenRegistry::ReflectFunction(
-                m_behaviorContext, ScriptCanvasTesting::TestAutoGenFunctions::TestAutoGenFunctions::GetRegistryName());
+                m_behaviorContext, ScriptCanvas::ScriptCanvasTestingEditorStaticFunctionRegistry::GetRegistryName());
         }
 
         static void TearDownTestCase()

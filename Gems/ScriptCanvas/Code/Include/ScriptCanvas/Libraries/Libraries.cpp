@@ -14,21 +14,6 @@
 #include <Libraries/Logic/Logic.h>
 #include <Libraries/Spawning/Spawning.h>
 #include <Libraries/UnitTesting/UnitTestingLibrary.h>
-#include <ScriptCanvas/Libraries/Entity/EntityFunctions.h>
-#include <ScriptCanvas/Libraries/Math/AABB.h>
-#include <ScriptCanvas/Libraries/Math/CRC.h>
-#include <ScriptCanvas/Libraries/Math/Color.h>
-#include <ScriptCanvas/Libraries/Math/MathFunctions.h>
-#include <ScriptCanvas/Libraries/Math/Matrix3x3.h>
-#include <ScriptCanvas/Libraries/Math/Matrix4x4.h>
-#include <ScriptCanvas/Libraries/Math/OBB.h>
-#include <ScriptCanvas/Libraries/Math/Plane.h>
-#include <ScriptCanvas/Libraries/Math/Quaternion.h>
-#include <ScriptCanvas/Libraries/Math/Transform.h>
-#include <ScriptCanvas/Libraries/Math/Vector2.h>
-#include <ScriptCanvas/Libraries/Math/Vector3.h>
-#include <ScriptCanvas/Libraries/Math/Vector4.h>
-#include <ScriptCanvas/Libraries/String/StringFunctions.h>
 
 namespace ScriptCanvas
 {
@@ -36,23 +21,6 @@ namespace ScriptCanvas
 
     void InitNodeRegistry()
     {
-        REGISTER_SCRIPTCANVAS_FUNCTION(ScriptCanvas::EntityFunctions::EntityFunctions);
-        REGISTER_SCRIPTCANVAS_FUNCTION(ScriptCanvas::AABBFunctions::AABBFunctions);
-        REGISTER_SCRIPTCANVAS_FUNCTION(ScriptCanvas::ColorFunctions::ColorFunctions);
-        REGISTER_SCRIPTCANVAS_FUNCTION(ScriptCanvas::CRCFunctions::CRCFunctions);
-        REGISTER_SCRIPTCANVAS_FUNCTION(ScriptCanvas::MathFunctions::MathFunctions);
-        REGISTER_SCRIPTCANVAS_FUNCTION(ScriptCanvas::MathRandoms::MathRandoms);
-        REGISTER_SCRIPTCANVAS_FUNCTION(ScriptCanvas::Matrix3x3Functions::Matrix3x3Functions);
-        REGISTER_SCRIPTCANVAS_FUNCTION(ScriptCanvas::Matrix4x4Functions::Matrix4x4Functions);
-        REGISTER_SCRIPTCANVAS_FUNCTION(ScriptCanvas::OBBFunctions::OBBFunctions);
-        REGISTER_SCRIPTCANVAS_FUNCTION(ScriptCanvas::PlaneFunctions::PlaneFunctions);
-        REGISTER_SCRIPTCANVAS_FUNCTION(ScriptCanvas::QuaternionFunctions::QuaternionFunctions);
-        REGISTER_SCRIPTCANVAS_FUNCTION(ScriptCanvas::TransformFunctions::TransformFunctions);
-        REGISTER_SCRIPTCANVAS_FUNCTION(ScriptCanvas::Vector2Functions::Vector2Functions);
-        REGISTER_SCRIPTCANVAS_FUNCTION(ScriptCanvas::Vector3Functions::Vector3Functions);
-        REGISTER_SCRIPTCANVAS_FUNCTION(ScriptCanvas::Vector4Functions::Vector4Functions);
-        REGISTER_SCRIPTCANVAS_FUNCTION(ScriptCanvas::StringFunctions::StringFunctions);
-
         g_nodeRegistry = AZ::Environment::CreateVariable<NodeRegistry>(s_nodeRegistryName);
         using namespace Library;
         Core::InitNodeRegistry(*g_nodeRegistry);

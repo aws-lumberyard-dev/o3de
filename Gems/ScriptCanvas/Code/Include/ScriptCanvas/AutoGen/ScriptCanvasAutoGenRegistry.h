@@ -16,12 +16,9 @@ namespace AZ
     class ReflectContext;
 }
 
-#define CONCAT_IMPL(x, y) x##y
-#define UNIQUE_NAME(x, y) CONCAT_IMPL(x, y)
-
-//! Macros to self-register AutoGen functions into ScriptCanvas
-//! Which takes the same library (library namespace + library name) as provided in .ScriptCanvasFunction.xml
-#define REGISTER_SCRIPTCANVAS_FUNCTION(LIBRARY) static LIBRARY UNIQUE_NAME(s_functionLibrary, __COUNTER__);
+//! Macros to self-register AutoGen node into ScriptCanvas
+#define REGISTER_SCRIPTCANVAS_AUTOGEN(LIBRARY)\
+    static ScriptCanvas::##LIBRARY##FunctionRegistry s_AutoGenFunctionRegistry;
 
 namespace ScriptCanvas
 {
@@ -42,13 +39,16 @@ namespace ScriptCanvas
 
         static AutoGenRegistry* GetInstance();
 
-        // Reflect all autogen functions
+        //! Reflect all AutoGen functions
         static void Reflect(AZ::ReflectContext* context);
 
-        //! Reflect specified autogen function by given name
+        //! Reflect specified AutoGen function by given name
         static void ReflectFunction(AZ::ReflectContext* context, const char* functionName);
 
+        //! Register function registry with its name
         void RegisterFunction(const char* functionName, IScriptCanvasFunctionRegistry* registry);
+
+        //! Unregister function registry by using its name
         void UnregisterFunction(const char* functionName);
 
         std::unordered_map<std::string, IScriptCanvasFunctionRegistry*> m_functions;

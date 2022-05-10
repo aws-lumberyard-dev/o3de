@@ -9,7 +9,6 @@
 #include "ScriptCanvasPhysicsSystemComponent.h"
 #include <AzCore/Memory/SystemAllocator.h>
 #include <AzCore/Module/Module.h>
-#include "World.h"
 
 namespace ScriptCanvasPhysics
 {
@@ -23,8 +22,6 @@ namespace ScriptCanvasPhysics
         ScriptCanvasPhysicsModule()
             : AZ::Module()
         {
-            REGISTER_SCRIPTCANVAS_FUNCTION(ScriptCanvasPhysics::WorldFunctions::WorldFunctions);
-
             // Push results of [MyComponent]::CreateDescriptor() into m_descriptors here.
             m_descriptors.insert(m_descriptors.end(), {
                 ScriptCanvasPhysicsSystemComponent::CreateDescriptor(),

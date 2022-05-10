@@ -12,7 +12,6 @@
 #include <ScriptCanvasTestingSystemComponent.h>
 #include <Editor/Framework/ScriptCanvasTraceUtilities.h>
 #include <Source/Nodes/Nodeables/NodeableTestingLibrary.h>
-#include <Source/Nodes/TestAutoGenFunctions.h>
 
 namespace ScriptCanvasTesting
 {
@@ -27,8 +26,6 @@ namespace ScriptCanvasTesting
 
         ScriptCanvasTestingModule()
         {
-            REGISTER_SCRIPTCANVAS_FUNCTION(ScriptCanvasTesting::TestAutoGenFunctions::TestAutoGenFunctions);
-
             m_descriptors.insert(m_descriptors.end(), {
                 ScriptCanvasTestingSystemComponent::CreateDescriptor(),
                 TraceMessageComponent::CreateDescriptor(),
