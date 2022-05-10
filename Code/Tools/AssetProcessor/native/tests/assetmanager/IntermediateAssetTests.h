@@ -17,7 +17,13 @@ namespace UnitTests
         void SetUp() override;
         void TearDown() override;
 
-        void ProcessFileMultiStage(int endStage, bool doProductOutputCheck, const char* file = nullptr, int startStage = 1, bool expectAutofail = false);
+        AZStd::string MakePath(const char* filename, bool intermediate);
+
+        void CheckProduct(const char* relativePath, bool exists = true);
+        void CheckIntermediate(const char* relativePath, bool exists = true);
+
+        void ProcessFileMultiStage(
+            int endStage, bool doProductOutputCheck, const char* file = nullptr, int startStage = 1, bool expectAutofail = false);
 
         void IncorrectBuilderConfigurationTest(bool commonPlatform, AssetBuilderSDK::ProductOutputFlags flags);
 

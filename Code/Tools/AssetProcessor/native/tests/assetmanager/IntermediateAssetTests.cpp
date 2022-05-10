@@ -110,7 +110,7 @@ namespace UnitTests
             m_assetProcessorManager.get(), "AssessAddedFile", Qt::QueuedConnection, Q_ARG(QString, m_testFilePath.c_str()));
         QCoreApplication::processEvents();
 
-        RunFile(false);
+        RunFile(1);
         ProcessJob(*m_rc, m_jobDetailsList[0]);
 
         ASSERT_TRUE(m_fileFailed);
@@ -156,6 +156,32 @@ namespace UnitTests
         IncorrectBuilderConfigurationTest(false, (AssetBuilderSDK::ProductOutputFlags)(0));
     }
 
+    AZStd::string IntermediateAssetTests::MakePath(const char* filename, bool intermediate)
+    {
+        auto cacheDir = AZ::IO::Path(m_tempDir.GetDirectory()) / "Cache";
+
+        if (intermediate)
+        {
+            cacheDir = AssetUtilities::GetIntermediateAssetsFolder(cacheDir);
+
+            return (cacheDir / filename).StringAsPosix();
+        }
+
+        return (cacheDir / "pc" / filename).StringAsPosix();
+    }
+
+    void IntermediateAssetTests::CheckProduct(const char* relativePath, bool exists)
+    {
+        auto expectedProductPath = MakePath(relativePath, false);
+        EXPECT_EQ(AZ::IO::SystemFile::Exists(expectedProductPath.c_str()), exists) << expectedProductPath.c_str();
+    }
+
+    void IntermediateAssetTests::CheckIntermediate(const char* relativePath, bool exists)
+    {
+        auto expectedIntermediatePath = MakePath(relativePath, true);
+        EXPECT_EQ(AZ::IO::SystemFile::Exists(expectedIntermediatePath.c_str()), exists) << expectedIntermediatePath.c_str();
+    }
+
     void IntermediateAssetTests::ProcessFileMultiStage(int endStage, bool doProductOutputCheck, const char* file, int startStage, bool expectAutofail)
     {
         auto cacheDir = AZ::IO::Path(m_tempDir.GetDirectory()) / "Cache";
@@ -166,20 +192,17 @@ namespace UnitTests
             file = m_testFilePath.c_str();
         }
 
-        QMetaObject::invokeMethod(
-            m_assetProcessorManager.get(), "AssessAddedFile", Qt::QueuedConnection, Q_ARG(QString, file));
+        QMetaObject::invokeMethod(m_assetProcessorManager.get(), "AssessAddedFile", Qt::QueuedConnection, Q_ARG(QString, file));
         QCoreApplication::processEvents();
-
-        AZStd::vector<AssetProcessor::JobDetails> jobDetailsList;
 
         for (int i = startStage; i <= endStage; ++i)
         {
             // Reset state
-            jobDetailsList.clear();
+            m_jobDetailsList.clear();
             m_fileCompiled = false;
             m_fileFailed = false;
 
-            RunFile(expectAutofail);
+            RunFile(expectAutofail ? 2 : 1);
 
             int jobToRun = expectAutofail ? 1 : 0;
 
@@ -205,8 +228,7 @@ namespace UnitTests
 
         if (doProductOutputCheck)
         {
-            auto expectedProductPath = cacheDir / "pc" / AZStd::string::format("test.stage%d", endStage + 1);
-            EXPECT_TRUE(AZ::IO::SystemFile::Exists(expectedProductPath.c_str())) << expectedProductPath.c_str();
+            CheckProduct(AZStd::string::format("test.stage%d", endStage + 1).c_str());
         }
     }
 
@@ -271,6 +293,77 @@ namespace UnitTests
 
         EXPECT_EQ(m_jobDetailsList.size(), 1);
         EXPECT_TRUE(AZ::IO::SystemFile::Exists(expectedProduct.c_str())) << expectedProduct.c_str();
+    }
+
+    TEST_F(IntermediateAssetTests, DeleteSourceIntermediate_DeletesAllProducts)
+    {
+        using namespace AssetBuilderSDK;
+
+        CreateBuilder("stage1", "*.stage1", "stage2", true, ProductOutputFlags::IntermediateAsset);
+        CreateBuilder("stage2", "*.stage2", "stage3", true, ProductOutputFlags::IntermediateAsset);
+        CreateBuilder("stage3", "*.stage3", "stage4", false, ProductOutputFlags::ProductAsset);
+
+        ProcessFileMultiStage(3, true);
+
+        AZ::IO::SystemFile::Delete(m_testFilePath.c_str());
+        m_assetProcessorManager->AssessDeletedFile(m_testFilePath.c_str());
+        RunFile(0);
+
+        CheckIntermediate("test.stage2", false);
+        CheckIntermediate("test.stage3", false);
+        CheckProduct("test.stage4", false);
+    }
+
+    TEST_F(IntermediateAssetTests, DeleteIntermediateProduct_Reprocesses)
+    {
+        using namespace AssetBuilderSDK;
+
+        CreateBuilder("stage1", "*.stage1", "stage2", true, ProductOutputFlags::IntermediateAsset);
+        CreateBuilder("stage2", "*.stage2", "stage3", true, ProductOutputFlags::IntermediateAsset);
+        CreateBuilder("stage3", "*.stage3", "stage4", false, ProductOutputFlags::ProductAsset);
+
+        ProcessFileMultiStage(3, true);
+
+        auto stage2Path = MakePath("test.stage2", true);
+
+        AZ::IO::SystemFile::Delete(stage2Path.c_str());
+        m_assetProcessorManager->AssessDeletedFile(stage2Path.c_str());
+        RunFile(0); // Process the delete
+
+        RunFile(1); // Reprocess the file
+        ProcessJob(*m_rc, m_jobDetailsList[0]);
+
+        ASSERT_TRUE(m_fileCompiled);
+
+        m_assetProcessorManager->AssetProcessed(m_processedJobEntry, m_processJobResponse);
+
+        CheckIntermediate("test.stage3");
+    }
+
+    TEST_F(IntermediateAssetTests, DeleteFinalProduct_Reprocesses)
+    {
+        using namespace AssetBuilderSDK;
+
+        CreateBuilder("stage1", "*.stage1", "stage2", true, ProductOutputFlags::IntermediateAsset);
+        CreateBuilder("stage2", "*.stage2", "stage3", true, ProductOutputFlags::IntermediateAsset);
+        CreateBuilder("stage3", "*.stage3", "stage4", false, ProductOutputFlags::ProductAsset);
+
+        ProcessFileMultiStage(3, true);
+
+        auto stage4Path = MakePath("test.stage4", false);
+
+        AZ::IO::SystemFile::Delete(stage4Path.c_str());
+        m_assetProcessorManager->AssessDeletedFile(stage4Path.c_str());
+        RunFile(0); // Process the delete
+
+        RunFile(1); // Reprocess the file
+        ProcessJob(*m_rc, m_jobDetailsList[0]);
+
+        ASSERT_TRUE(m_fileCompiled);
+
+        m_assetProcessorManager->AssetProcessed(m_processedJobEntry, m_processJobResponse);
+
+        CheckProduct("test.stage4");
     }
 
     TEST_F(IntermediateAssetTests, Override_NormalFileProcessedFirst_CausesFailure)

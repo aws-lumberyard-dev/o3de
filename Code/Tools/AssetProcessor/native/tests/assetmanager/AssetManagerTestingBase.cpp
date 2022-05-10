@@ -153,7 +153,7 @@ namespace UnitTests
         ScopedAllocatorSetupFixture::TearDown();
     }
 
-    void AssetManagerTestingBase::RunFile(bool expectAdditionalAutofail)
+    void AssetManagerTestingBase::RunFile(int expectedJobCount)
     {
         m_jobDetailsList.clear();
 
@@ -168,20 +168,15 @@ namespace UnitTests
         m_assetProcessorManager->CheckActiveFiles(0);
         m_assetProcessorManager->CheckFilesToExamine(1);
 
-        QCoreApplication::processEvents();
+        QCoreApplication::processEvents(); // execute ProcessFilesToExamineQueue
 
-        m_assetProcessorManager->CheckJobEntries(1);
-
-        QCoreApplication::processEvents();
-
-        if (expectAdditionalAutofail)
+        if (expectedJobCount > 0)
         {
-            ASSERT_EQ(m_jobDetailsList.size(), 2);
-            ASSERT_TRUE(m_jobDetailsList[0].m_autoFail);
-        }
-        else
-        {
-            ASSERT_EQ(m_jobDetailsList.size(), 1);
+            m_assetProcessorManager->CheckJobEntries(1);
+
+            QCoreApplication::processEvents(); // execute CheckForIdle
+
+            ASSERT_EQ(m_jobDetailsList.size(), expectedJobCount);
         }
     }
 
