@@ -7,6 +7,8 @@
  */
 
 #include <AtomToolsFramework/Document/AtomToolsDocumentSystemRequestBus.h>
+#include <AtomToolsFramework/Util/Util.h>
+#include <AtomToolsFramework/Document/CreateDocumentDialog.h>
 #include <AzCore/Settings/SettingsRegistryMergeUtils.h>
 #include <MaterialEditorApplication.h>
 
@@ -85,6 +87,27 @@ namespace MaterialEditor
 
         m_window.reset(aznew MaterialEditorMainWindow(m_toolId));
         m_window->show();
+
+        if (m_commandLine.HasSwitch("create-path"))
+        {
+            using namespace AtomToolsFramework;
+            const auto& savePath = m_commandLine.GetSwitchValue("create-path", 0);
+            if (!savePath.empty())
+            {
+                DocumentTypeInfoVector documentTypes;
+                AtomToolsDocumentSystemRequestBus::EventResult(
+                    documentTypes, m_toolId, &AtomToolsDocumentSystemRequestBus::Events::GetRegisteredDocumentTypes);
+                const DocumentTypeInfo& documentType = documentTypes[0];
+                CreateDocumentDialog dialog(documentType, savePath.c_str(), GetAppMainWindow());
+                dialog.adjustSize();
+                if (dialog.exec() == QDialog::Accepted && !dialog.m_sourcePath.isEmpty() && !dialog.m_targetPath.isEmpty())
+                {
+                    AtomToolsDocumentSystemRequestBus::Event(
+                        m_toolId, &AtomToolsDocumentSystemRequestBus::Events::CreateDocumentFromFilePath,
+                        dialog.m_sourcePath.toUtf8().constData(), dialog.m_targetPath.toUtf8().constData());
+                }
+            }
+        }
     }
 
     void MaterialEditorApplication::Destroy()

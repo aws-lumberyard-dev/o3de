@@ -373,8 +373,6 @@ void AzAssetBrowserRequestHandler::AddContextMenuActions(QWidget* caller, QMenu*
             });
         }
 
-        AddCreateMenu(menu, fullFilePath);
-
         AZStd::vector<const ProductAssetBrowserEntry*> products;
         entry->GetChildrenRecursively<ProductAssetBrowserEntry>(products);
 

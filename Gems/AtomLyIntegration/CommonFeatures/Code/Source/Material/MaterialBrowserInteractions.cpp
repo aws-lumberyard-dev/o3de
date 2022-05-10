@@ -46,7 +46,7 @@ namespace AZ
                 {
                     EditorMaterialSystemComponentRequestBus::Broadcast(
                         &EditorMaterialSystemComponentRequestBus::Events::OpenMaterialEditor,
-                        fullSourceFolderNameInCallback);
+                        AZStd::string::format("--create-path=%s",  fullSourceFolderNameInCallback).c_str());
                 } });
         }
 
