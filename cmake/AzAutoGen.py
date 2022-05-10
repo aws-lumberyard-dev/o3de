@@ -23,11 +23,11 @@ from xml.sax.saxutils import escape, unescape, quoteattr
 # Maximum number of errors before bailing on AutoGen
 MAX_ERRORS = 100
 errorCount = 0
-AZCG_TARGET_NAME = ""
+AUTOGEN_TARGET_NAME = ""
 
-def SanitizeAZCGTargetName():
-    global AZCG_TARGET_NAME
-    return AZCG_TARGET_NAME.replace('.', '').replace('::', '')
+def SanitizeAutoGenTargetName():
+    global AUTOGEN_TARGET_NAME
+    return AUTOGEN_TARGET_NAME.replace('.', '').replace('::', '')
 
 def ParseInputFile(inputFilePath):
     result = []
@@ -170,12 +170,12 @@ def ProcessTemplateConversion(dataInputSet, dataInputFiles, templateFile, output
         templateJinja  = templateEnv.get_template(os.path.basename(templateFile))
         templateVars   = \
             { \
-                "azcgTargetName": SanitizeAZCGTargetName(), \
-                "dataFiles"     : treeRoots, \
-                "dataFileNames" : dataInputFiles, \
-                "templateName"  : templateFile, \
-                "outputFile"    : outputFile, \
-                "filename"      : os.path.splitext(os.path.basename(outputFile))[0], \
+                "autogenTargetName": SanitizeAutoGenTargetName(), \
+                "dataFiles"        : treeRoots, \
+                "dataFileNames"    : dataInputFiles, \
+                "templateName"     : templateFile, \
+                "outputFile"       : outputFile, \
+                "filename"         : os.path.splitext(os.path.basename(outputFile))[0], \
             }
         try:
             outputExtension = os.path.splitext(outputFile)[1]
@@ -355,7 +355,7 @@ def ExecuteExpansionRules(cacheDir, outputDir, projectDir, inputFiles, expansion
 if __name__ == '__main__':
     # setup our command syntax
     parser = argparse.ArgumentParser()
-    parser.add_argument("targetName", help="azcg target name")
+    parser.add_argument("targetName", help="AzAutoGen build target name")
     parser.add_argument("cacheDir", help="location to store jinja template cache files")
     parser.add_argument("outputDir", help="location to output generated files")
     parser.add_argument("projectDir", help="location to build directory against")
@@ -366,7 +366,7 @@ if __name__ == '__main__':
     parser.add_argument("-p", "--pythonPaths", action='append', nargs='+', default=[""], help="set of additional python paths to use for module imports")
     
     args = parser.parse_args()
-    AZCG_TARGET_NAME = args.targetName
+    AUTOGEN_TARGET_NAME = args.targetName
     pythonPaths = args.pythonPaths
     cacheDir  = args.cacheDir
     outputDir = args.outputDir

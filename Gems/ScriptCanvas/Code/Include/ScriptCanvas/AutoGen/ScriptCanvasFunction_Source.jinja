@@ -52,7 +52,6 @@ false
 {%- endmacro -%}
 
 #include "{{filename}}.h"
-#include <AzCore/Math/Uuid.h>
 #include <AzCore/RTTI/BehaviorContext.h>
 #include <ScriptCanvasAutoGenRegistry.h>
 {% for ScriptCanvas in dataFiles %}
@@ -67,21 +66,21 @@ false
 
 namespace ScriptCanvas
 {
-    {{azcgTargetName}}FunctionRegistry::{{azcgTargetName}}FunctionRegistry()
+    {{autogenTargetName}}FunctionRegistry::{{autogenTargetName}}FunctionRegistry()
     {
         ScriptCanvas::AutoGenRegistry::GetInstance()->RegisterFunction(GetRegistryName(), this);
     }
 
-    {{azcgTargetName}}FunctionRegistry::~{{azcgTargetName}}FunctionRegistry()
+    {{autogenTargetName}}FunctionRegistry::~{{autogenTargetName}}FunctionRegistry()
     {
         ScriptCanvas::AutoGenRegistry::GetInstance()->UnregisterFunction(GetRegistryName());
     }
 
-    const char* {{azcgTargetName}}FunctionRegistry::GetRegistryName() {
-        return "{{azcgTargetName}}";
+    const char* {{autogenTargetName}}FunctionRegistry::GetRegistryName() {
+        return "{{autogenTargetName}}";
     }
 
-    void {{azcgTargetName}}FunctionRegistry::Reflect(AZ::ReflectContext* context)
+    void {{autogenTargetName}}FunctionRegistry::Reflect(AZ::ReflectContext* context)
     {
         if (AZ::BehaviorContext* behaviorContext = azrtti_cast<AZ::BehaviorContext*>(context))
         {
