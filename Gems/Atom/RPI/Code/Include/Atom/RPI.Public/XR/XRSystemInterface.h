@@ -8,6 +8,9 @@
 
 #pragma once
 
+#include <AzCore/Memory/SystemAllocator.h>
+#include <AzCore/std/smart_ptr/intrusive_base.h>
+
 #include <Atom/RHI.Reflect/base.h>
 
 namespace AZ
@@ -15,8 +18,10 @@ namespace AZ
     namespace RPI
     {
         class XRDeviceDescriptor
+            : public AZStd::intrusive_base
         {
         public:
+            AZ_CLASS_ALLOCATOR(XRDeviceDescriptor, AZ::SystemAllocator, 0);
             AZ_RTTI(XRDeviceDescriptor, "{55E9010A-3EF2-4B12-A355-A8189BC4B0E7}");
 
             XRDeviceDescriptor() = default;
@@ -27,8 +32,10 @@ namespace AZ
         };
 
         class XRInstanceDescriptor
+            : public AZStd::intrusive_base
         {
         public:
+            AZ_CLASS_ALLOCATOR(XRInstanceDescriptor, AZ::SystemAllocator, 0);
             AZ_RTTI(XRInstanceDescriptor, "{FE1EC82F-6265-4A67-84D2-D05D4229B598}");
 
             XRInstanceDescriptor() = default;
@@ -36,8 +43,10 @@ namespace AZ
         };
 
         class XRSwapChainImageDescriptor
+            : public AZStd::intrusive_base
         {
         public:
+            AZ_CLASS_ALLOCATOR(XRSwapChainImageDescriptor, AZ::SystemAllocator, 0);
             AZ_RTTI(XRSwapChainImageDescriptor, "{E63273BF-BA94-431D-8174-69DD96A6CF94}");
 
             XRSwapChainImageDescriptor() = default;
@@ -45,8 +54,10 @@ namespace AZ
         };
 
         class XRGraphicsBindingDescriptor
+            : public AZStd::intrusive_base
         {
         public:
+            AZ_CLASS_ALLOCATOR(XRGraphicsBindingDescriptor, AZ::SystemAllocator, 0);
             AZ_RTTI(XRGraphicsBindingDescriptor, "{5F105FF8-CB52-4E6B-9511-7479F12939ED}");
 
             XRGraphicsBindingDescriptor() = default;
@@ -56,6 +67,7 @@ namespace AZ
         class XRSystemInterface
         {
         public:
+            AZ_CLASS_ALLOCATOR(XRSystemInterface, AZ::SystemAllocator, 0);
             AZ_RTTI(XRSystemInterface, "{18177EAF-3014-4349-A28F-BF58442FFC2B}");
 
             XRSystemInterface() = default;
@@ -88,7 +100,7 @@ namespace AZ
 
             // Create a Swapchain which will responsible for managing
             // multiple XR swapchains and multiple swapchain images within it
-            virtual void CreateSwapchain() = 0;
+            virtual AZ::RHI::ResultCode CreateSwapchain() = 0;
 
             // This will allow XR gem to provide device related data to RHI
             virtual XRDeviceDescriptor* GetDeviceDescriptor() = 0;
@@ -97,7 +109,7 @@ namespace AZ
             virtual XRInstanceDescriptor* GetInstanceDescriptor() = 0;
 
             // Provide Swapchain specific data to RHI
-            virtual XRSwapChainImageDescriptor* GetSwapChainImageDescriptor(int swapchainIndex) = 0;
+            virtual XRSwapChainImageDescriptor* GetSwapChainImageDescriptor(AZ::u16 swapchainIndex) = 0;
 
             // Provide access to Graphics Binding specific data that RHI can populate
             virtual XRGraphicsBindingDescriptor* GetGraphicsBindingDescriptor() = 0;
