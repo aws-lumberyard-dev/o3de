@@ -261,6 +261,7 @@ namespace AssetProcessor
         config.AddScanFolder(ScanFolderInfo(tempPath.filePath("subfolder1"), "subfolder1", "subfolder1", false, true,  platforms, -1)); // subfolder1 overrides root
         config.AddScanFolder(ScanFolderInfo(tempPath.absolutePath(),         "temp",       "tempfolder", true, false,  platforms, 0)); // add the root
 
+        config.AddIntermediateScanFolder();
 
         config.AddMetaDataType("exportsettings", QString());
 
@@ -2377,6 +2378,8 @@ namespace AssetProcessor
         config.AddScanFolder(ScanFolderInfo(tempPath.filePath("subfolder1"), "subfolder1", "subfolder1", false, true, platforms,-1)); // subfolder1 overrides root
         config.AddScanFolder(ScanFolderInfo(tempPath.absolutePath(), "temp", "tempfolder", true, false, platforms, 0)); // add the root
 
+        config.AddIntermediateScanFolder();
+
         AssetProcessorManager_Test apm(&config);
 
         QDir cacheRoot;
@@ -2831,6 +2834,8 @@ namespace AssetProcessor
         //                                               PATH                 DisplayName  PortKey       outputfolder  root recurse order
         config.AddScanFolder(ScanFolderInfo(tempPath.filePath("subfolder1"), "subfolder1", "subfolder1", false, true, platforms, -1)); // subfolder1 overrides root
         config.AddScanFolder(ScanFolderInfo(tempPath.absolutePath(), "temp", "tempfolder", true, false, platforms, 0)); // add the root
+
+        config.AddIntermediateScanFolder();
 
         AssetProcessorManager_Test apm(&config);
 
