@@ -46,6 +46,7 @@ def MeshBlocker_InstancesBlockedByMesh():
 
     import editor_python_test_tools.hydra_editor_utils as hydra
     from largeworlds.large_worlds_utils import editor_dynveg_test_helper as dynveg
+    from editor_python_test_tools.prefab_utils import wait_for_propagation as WaitForPrefabPropagation
     from editor_python_test_tools.utils import Report
     from editor_python_test_tools.utils import TestHelper as helper
 

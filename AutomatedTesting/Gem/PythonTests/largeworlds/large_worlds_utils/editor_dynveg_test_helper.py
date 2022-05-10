@@ -22,7 +22,7 @@ import azlmbr.vegetation as vegetation
 sys.path.append(os.path.join(azlmbr.paths.projectroot, 'Gem', 'PythonTests'))
 import editor_python_test_tools.hydra_editor_utils as hydra
 from editor_python_test_tools.editor_entity_utils import EditorEntity
-from editor_python_test_tools.prefab_utils import Prefab
+from editor_python_test_tools.prefab_utils import Prefab, wait_for_propagation
 
 
 def create_temp_mesh_prefab(model_asset_path, prefab_filename):
