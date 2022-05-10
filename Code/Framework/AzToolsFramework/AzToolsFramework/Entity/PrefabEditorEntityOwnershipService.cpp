@@ -461,6 +461,7 @@ namespace AzToolsFramework
     {
         // This is a workaround until the replacement for GameEntityContext is done
         AzFramework::GameEntityContextEventBus::Broadcast(&AzFramework::GameEntityContextEventBus::Events::OnPreGameEntitiesStarted);
+        m_gameModeEvent.Signal(GameModeState::Started);
 
         if (m_rootInstance && !m_playInEditorData.m_isEnabled)
         {
@@ -542,6 +543,7 @@ namespace AzToolsFramework
 
                     // This is a workaround until the replacement for GameEntityContext is done
                     AzFramework::GameEntityContextEventBus::Broadcast(&AzFramework::GameEntityContextEventBus::Events::OnGameEntitiesReset);
+                    m_gameModeEvent.Signal(GameModeState::Stopped);
                 });
             m_playInEditorData.m_entities.Clear();
 
