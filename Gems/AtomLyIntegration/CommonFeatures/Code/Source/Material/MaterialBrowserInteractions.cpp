@@ -10,7 +10,7 @@
 #include <AzToolsFramework/AssetBrowser/AssetBrowserBus.h>
 #include <AtomLyIntegration/CommonFeatures/Material/EditorMaterialSystemComponentRequestBus.h>
 #include <Material/MaterialBrowserInteractions.h>
-#pragma optimize("", off)
+
 namespace AZ
 {
     namespace Render
