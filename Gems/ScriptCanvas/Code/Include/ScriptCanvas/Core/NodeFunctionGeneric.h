@@ -11,7 +11,7 @@
 #include <AzCore/RTTI/BehaviorContext.h>
 #include <AzCore/RTTI/RTTI.h>
 #include <AzCore/RTTI/TypeInfo.h>
-#include <AzCore/std/typetraits/function_traits.h>
+#include <AzCore/std/typetraits/add_pointer.h>
 #include <ScriptCanvas/Libraries/Libraries.h>
 #include <ScriptCanvas/Translation/TranslationContext.h>
 
@@ -131,8 +131,8 @@ namespace ScriptCanvas
         template<typename t_Library>
         static void Reflect(AZ::BehaviorContext* behaviorContext, const char* libraryName)
         {
-            auto reflection = behaviorContext->Class<t_Library>(libraryName)
-                ->Attribute(AZ::ScriptCanvasAttributes::VariableCreationForbidden, AZ::AttributeIsValid::IfPresent)
+            auto reflection = behaviorContext->Class<t_Library>(libraryName);
+            reflection->Attribute(AZ::ScriptCanvasAttributes::VariableCreationForbidden, AZ::AttributeIsValid::IfPresent)
                 ->Attribute(AZ::ScriptCanvasAttributes::Internal::ImplementedAsNodeGeneric, true);
             SCRIPT_CANVAS_CALL_ON_INDEX_SEQUENCE(reflection->Method(t_Node::GetNodeFunctionName(), t_Node::GetFunction())->Attribute(AZ::Script::Attributes::ExcludeFrom, AZ::Script::Attributes::ExcludeFlags::List | AZ::Script::Attributes::ExcludeFlags::Documentation));
         }
