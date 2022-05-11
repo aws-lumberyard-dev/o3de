@@ -769,6 +769,69 @@ namespace AssetProcessor
         QueueIdleCheck();
     }
 
+    AssetProcessorManager::ConflictResult AssetProcessorManager::CheckIntermediateProductConflict(
+        bool isIntermediateProduct,
+        const char* searchSourcePath)
+    {
+
+        AzToolsFramework::AssetDatabase::SourceDatabaseEntryContainer sources;
+
+        if (m_stateData->GetSourcesBySourceName(searchSourcePath, sources))
+        {
+            for (const auto& source : sources)
+            {
+                AzToolsFramework::AssetDatabase::ScanFolderDatabaseEntry scanfolder;
+                if (!m_stateData->GetScanFolderByScanFolderID(source.m_scanFolderPK, scanfolder))
+                {
+                    AZ_Error(AssetProcessor::ConsoleChannel, false, "CheckIntermediateProductConflict: Failed to get scanfolder %d for source %s",
+                        source.m_scanFolderPK,
+                        source.m_sourceName.c_str());
+                }
+
+                auto intermediateScanfolderId = m_platformConfig->GetIntermediateAssetsScanFolderId();
+
+                if (!intermediateScanfolderId)
+                {
+                    AZ_Error(
+                        AssetProcessor::ConsoleChannel, false,
+                        "GetIntermediateAssetsScanFolderId is invalid.  Make sure CacheIntermediateAssetsScanFolderId has been called");
+
+                    return ConflictResult{ ConflictResult::ConflictType::None };
+                }
+
+                bool scanfolderIsIntermediateAssetsFolder = intermediateScanfolderId.value() == scanfolder.m_scanFolderID;
+
+                if (isIntermediateProduct)
+                {
+                    // Check if this newly created intermediate will conflict with an existing source
+                    if (!scanfolderIsIntermediateAssetsFolder)
+                    {
+                        return ConflictResult{ ConflictResult::ConflictType::Intermediate, AZ::IO::Path(scanfolder.m_scanFolder) / source.m_sourceName };
+                    }
+                }
+                else
+                {
+                    // Check if the source for this product conflicts with an existing intermediate product (which is also a source)
+                    if(scanfolderIsIntermediateAssetsFolder)
+                    {
+                        return ConflictResult{ ConflictResult::ConflictType::Source, AZ::IO::Path(scanfolder.m_scanFolder) / source.m_sourceName };
+                    }
+                }
+            }
+        }
+
+        if (isIntermediateProduct)
+        {
+            // Its possible we haven't recorded the source in the database yet, so check the filesystem to confirm there's no normal source we're overriding
+            if (QString overriddenFile = m_platformConfig->FindFirstMatchingFile(searchSourcePath, true); !overriddenFile.isEmpty())
+            {
+                return ConflictResult{ ConflictResult::ConflictType::Intermediate, AZ::IO::Path(overriddenFile.toUtf8().constData()) };
+            }
+        }
+
+        return ConflictResult{ ConflictResult::ConflictType::None };
+    }
+
     void AssetProcessorManager::AssetProcessed_Impl()
     {
         using AssetBuilderSDK::ProductOutputFlags;
@@ -820,7 +883,39 @@ namespace AssetProcessor
                     break;
                 }
 
-                if(!productWrapper.IsValid())
+                AzToolsFramework::AssetDatabase::SourceDatabaseEntryContainer sources;
+
+                // Check if there is an intermediate product that conflicts with a normal source asset
+                // Its possible for the intermediate product to process first, so we need to do this check
+                // for both the intermediate product and normal products
+                if (auto result = CheckIntermediateProductConflict(productWrapper.HasIntermediateProduct(),
+                    productWrapper.HasIntermediateProduct() ? productPath.GetRelativePath().c_str() : itProcessedAsset->m_entry.m_databaseSourceName.toUtf8().constData());
+                    result.m_type != ConflictResult::ConflictType::None)
+                {
+                    if(result.m_type == ConflictResult::ConflictType::Intermediate)
+                    {
+                        auto errorMessage = AZStd::string::format(
+                            "Intermediate output product %s overrides existing source with the same path: %s.  "
+                            "Please move/rename one of the files to fix the conflict.",
+                            productPath.GetIntermediatePath().c_str(),
+                            result.m_conflictingFile.MakePreferred().c_str());
+
+                        // Fail this job and delete its files, since it might actually be the top level source, and since we haven't recorded it yet, FailTopLevelSourceForIntermediate will do nothing in that case
+                        AutoFailJob(errorMessage, errorMessage, itProcessedAsset);
+                        productWrapper.DeleteFiles(false);
+
+                        FailTopLevelSourceForIntermediate(itProcessedAsset->m_entry.m_databaseSourceName.toUtf8().constData(), result.m_conflictingFile);
+                        remove = true;
+                        break;
+                    }
+                    else
+                    {
+                        // We need to fail the other, intermediate asset job
+                        FailTopLevelSourceForIntermediate(result.m_conflictingFile, itProcessedAsset->m_entry.m_databaseSourceName.toUtf8().constData());
+                    }
+                }
+
+                if(!remove && !productWrapper.IsValid())
                 {
                     auto errorMessage = AZStd::string::format("Output product %s for file %s is not valid.  The file may have been deleted unexpectedly or have an invalid path.",
                         product.m_productFileName.c_str(),
@@ -831,11 +926,12 @@ namespace AssetProcessor
                     continue;
                 }
 
-                if(!productWrapper.ExistOnDisk())
+                if(!remove && !productWrapper.ExistOnDisk())
                 {
                     remove = true;
                 }
-                else
+
+                if(!remove)
                 {
                     AzToolsFramework::AssetDatabase::JobDatabaseEntryContainer jobEntries;
 
@@ -1331,6 +1427,17 @@ namespace AssetProcessor
                 Q_EMIT AssetMessage( message);
 
                 AddKnownFoldersRecursivelyForFile(fullProductPath, m_cacheRootDir.absolutePath());
+
+                auto productPath = AssetUtilities::ProductPath::FromDatabasePath(pair.first.m_productName);
+                ProductAssetWrapper wrapper{*pair.second, productPath};
+
+                if (wrapper.HasIntermediateProduct())
+                {
+                    // Now that we've verified that the output doesn't conflict with an existing source
+                    // And we've updated the database, trigger processing the output
+
+                    AssessFileInternal(productPath.GetIntermediatePath().c_str(), false);
+                }
             }
 
             QString fullSourcePath = processedAsset.m_entry.GetAbsoluteSourcePath();
@@ -1663,7 +1770,11 @@ namespace AssetProcessor
 
             successfullyRemoved = wrapper.DeleteFiles(true);
 
-            if (successfullyRemoved)
+                if(!successfullyRemoved)
+                {
+                    AZ_TracePrintf(AssetProcessor::ConsoleChannel, "Failed to delete product files for %s\n", product.m_productName.c_str());
+                }
+                else
             {
                 if (!m_stateData->RemoveProduct(product.m_productID))
                 {
@@ -2117,12 +2228,11 @@ namespace AssetProcessor
                 pathRel = QString();
             }
 
-            platformId = platformId.toLower();
-            pathRel = pathRel.toLower();
+            AssetUtilities::ProductPath productPath{ pathRel.toUtf8().constData(), platformId.toUtf8().constData() };
 
-            jobDetails.m_cachePath = m_cacheRootDir.absoluteFilePath(platformId).toUtf8().constData();
-            jobDetails.m_intermediatePath = AssetUtilities::GetIntermediateAssetsFolder(m_cacheRootDir.absolutePath().toUtf8().constData());
-            jobDetails.m_relativePath = pathRel.toUtf8().constData();
+            jobDetails.m_cachePath = productPath.GetCachePath();
+            jobDetails.m_intermediatePath = productPath.GetIntermediatePath();
+            jobDetails.m_relativePath = productPath.GetRelativePath();
         }
 
         return true;
@@ -2279,6 +2389,60 @@ namespace AssetProcessor
         {
             AssessModifiedFile(fileEntry);
         }
+    }
+
+    void AssetProcessorManager::FailTopLevelSourceForIntermediate(
+        AZ::IO::PathView relativePathToIntermediateProduct, AZ::IO::PathView conflictingSourcePath)
+    {
+        auto topLevelSourceForIntermediateConflict =
+            AssetUtilities::GetTopLevelSourceForProduct(relativePathToIntermediateProduct, m_stateData);
+
+        if (!topLevelSourceForIntermediateConflict)
+        {
+            AZ_TracePrintf(AssetProcessor::DebugChannel, "FailTopLevelSourceForIntermediate: No top level source found for " AZ_STRING_FORMAT "\n", AZ_STRING_ARG(relativePathToIntermediateProduct.Native()));
+            return;
+        }
+
+        AzToolsFramework::AssetDatabase::JobDatabaseEntryContainer jobs;
+        m_stateData->GetJobsBySourceID(topLevelSourceForIntermediateConflict->m_sourceID, jobs);
+
+        AzToolsFramework::AssetDatabase::ScanFolderDatabaseEntry topLevelSourceScanFolder;
+        if (!m_stateData->GetScanFolderByScanFolderID(topLevelSourceForIntermediateConflict->m_scanFolderPK, topLevelSourceScanFolder))
+        {
+            AZ_Error(
+                AssetProcessor::ConsoleChannel, false, "FailTopLevelSourceForIntermediate: Failed to get scanfolder %d for file %s",
+                topLevelSourceForIntermediateConflict->m_scanFolderPK,
+                topLevelSourceForIntermediateConflict->m_sourceName.c_str());
+            return;
+        }
+
+
+
+        for (auto& job : jobs)
+        {
+            JobEntry jobEntry{ topLevelSourceScanFolder.m_scanFolder.c_str(),
+                               topLevelSourceForIntermediateConflict->m_sourceName.c_str(),
+                               topLevelSourceForIntermediateConflict->m_sourceName.c_str(),
+                               job.m_builderGuid,
+                               *m_platformConfig->GetPlatformByIdentifier(job.m_platform.c_str()),
+                               job.m_jobKey.c_str(),
+                               job.m_fingerprint,
+                               job.m_jobRunKey,
+                               topLevelSourceForIntermediateConflict->m_sourceGuid };
+
+            auto errorMessage = AZStd::string::format(
+                "This asset (%s) or one of its downstream assets has produced an intermediate asset file which conflicts with an existing source asset "
+                "with the same relative path: " AZ_STRING_FORMAT ".  Please move/rename one of the files to fix the conflict.",
+                topLevelSourceForIntermediateConflict->m_sourceName.c_str(), AZ_STRING_ARG(conflictingSourcePath.Native()));
+
+            AutoFailJob(
+                errorMessage, errorMessage,
+                AZ::IO::Path(topLevelSourceScanFolder.m_scanFolder) / topLevelSourceForIntermediateConflict->m_sourceName, jobEntry);
+        }
+
+        AzToolsFramework::AssetDatabase::ProductDatabaseEntryContainer products;
+        m_stateData->GetProductsBySourceID(topLevelSourceForIntermediateConflict->m_sourceID, products);
+        DeleteProducts(products);
     }
 
     void AssetProcessorManager::ProcessFilesToExamineQueue()
@@ -2576,11 +2740,14 @@ namespace AssetProcessor
 
                 if (!overrider.isEmpty())
                 {
+                    if (!IsInIntermediateAssetsFolder(overrider))
+                    {
                     // this file is being overridden by an earlier file.
                     // ignore us, and pretend the other file changed:
                     AZ_TracePrintf(AssetProcessor::DebugChannel, "File overridden by %s.\n", overrider.toUtf8().constData());
                     CheckSource(FileEntry(overrider, false, examineFile.m_isFromScanner));
                     continue;
+                }
                 }
 
                 // its an input file or a file we don't care about...
@@ -2717,6 +2884,23 @@ namespace AssetProcessor
 
         }
 
+        if (!isDelete && IsInIntermediateAssetsFolder(normalizedFullFile))
+        {
+            QString relativePath, scanfolderPath;
+            m_platformConfig->ConvertToRelativePath(normalizedFullFile, relativePath, scanfolderPath);
+
+            auto productName = AssetUtilities::GetIntermediateAssetDatabaseName(relativePath.toUtf8().constData());
+
+            AzToolsFramework::AssetDatabase::ProductDatabaseEntryContainer products;
+
+            if(!m_stateData->GetProductsByProductName(productName.c_str(), products))
+            {
+                // This file is an intermediate asset product but it doesn't exist in the database yet.  This means the job which produced this asset has not completed yet.
+                // Do not process this file yet.  When the job is done it will retrigger processing for this file.
+                return;
+            }
+        }
+
         m_AssetProcessorIsBusy = true;
         Q_EMIT AssetProcessorManagerIdleState(false);
 
@@ -2781,7 +2965,6 @@ namespace AssetProcessor
         if (!QFileInfo(filePath).isDir())
         {
             // we also don't care if you modify files in the cache, only deletions matter.
-            [[maybe_unused]] bool match = !filePath.startsWith(m_normalizedCacheRootPath, Qt::CaseInsensitive);
             if(!IsInCacheFolder(filePath.toUtf8().constData()))
             {
                 AssessFileInternal(filePath, false);
@@ -3158,6 +3341,11 @@ namespace AssetProcessor
     bool AssetProcessorManager::IsInIntermediateAssetsFolder(AZ::IO::PathView path) const
     {
         return AssetUtilities::IsInIntermediateAssetsFolder(path, m_normalizedCacheRootPath.toUtf8().constData());
+    }
+
+    bool AssetProcessorManager::IsInIntermediateAssetsFolder(QString path) const
+    {
+        return AssetProcessorManager::IsInIntermediateAssetsFolder(AZ::IO::PathView(path.toUtf8().constData()));
     }
 
     void AssetProcessorManager::UpdateJobDependency(JobDetails& job)
@@ -4091,6 +4279,9 @@ namespace AssetProcessor
             // update the in-memory value of the scan folder id from the above query.
             scanFolderFromConfigFile.SetScanFolderID(scanFolderToWrite.m_scanFolderID);
         }
+
+        m_platformConfig->CacheIntermediateAssetsScanFolderId();
+
         return true;
     }
 
@@ -4922,7 +5113,7 @@ namespace AssetProcessor
         UpdateAnalysisTrackerForFile(absolutePath.toUtf8().constData(), updateType);
     }
 
-    void AssetProcessorManager::AutoFailJob([[maybe_unused]] AZStd::string_view consoleMsg, AZStd::string_view autoFailReason, const AZ::IO::Path& filePath, JobEntry jobEntry, AZStd::string_view jobLog)
+    void AssetProcessorManager::AutoFailJob([[maybe_unused]] AZStd::string_view consoleMsg, AZStd::string_view autoFailReason, const AZ::IO::Path& absoluteFilePath, JobEntry jobEntry, AZStd::string_view jobLog)
     {
         if (!consoleMsg.empty())
         {
@@ -4944,7 +5135,7 @@ namespace AssetProcessor
 
         // this is a failure, so make sure that the system that is tracking files
         // knows that this file must not be skipped next time:
-        UpdateAnalysisTrackerForFile(filePath.c_str(), AnalysisTrackerUpdateType::JobFailed);
+        UpdateAnalysisTrackerForFile(absoluteFilePath.c_str(), AnalysisTrackerUpdateType::JobFailed);
 
         Q_EMIT AssetToProcess(jobdetail); // forwarding this job to rccontroller to fail it
     }
