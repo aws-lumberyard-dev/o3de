@@ -1574,9 +1574,10 @@ namespace AssetUtilities
                 auto productSourceName = StripAssetPlatformNoCopy(product.m_productName);
                 sources.emplace_back(productSourceName);
 
-                // Note that this will result in adding more products to the end of the same array we're looping
+                // Note: This call is intentionally re-using the products array.  The new results will be appended to the end (via push_back).
+                // The array will not be cleared.  We're essentially using products as a queue
                 db->GetProductsBySourceName(QString(QByteArray(productSourceName.data(), static_cast<int>(productSourceName.size()))), products);
-                size = products.size();
+                size = products.size(); // Update the loop size since the array grew
             }
         }
 

@@ -2399,6 +2399,7 @@ namespace AssetProcessor
 
         if (!topLevelSourceForIntermediateConflict)
         {
+            AZ_TracePrintf(AssetProcessor::DebugChannel, "FailTopLevelSourceForIntermediate: No top level source found for " AZ_STRING_FORMAT "\n", AZ_STRING_ARG(relativePathToIntermediateProduct.Native()));
             return;
         }
 
