@@ -8,7 +8,8 @@
 
 #pragma once
 
-#include <AzFramework/Physics/Material/PhysicsMaterialConfiguration.h>
+#include <AzFramework/Physics/Material/PhysicsMaterialId.h>
+#include <AzFramework/Physics/Material/PhysicsMaterialAsset.h>
 
 namespace Physics
 {
@@ -17,6 +18,8 @@ namespace Physics
     class Material2
     {
     public:
+        AZ_RTTI(Physics::MaterialAsset2, "{B0C593B9-F58E-47BF-856B-2F202A9E8813}");
+
         Material2() = default;
         virtual ~Material2() = default;
 
@@ -40,5 +43,13 @@ namespace Physics
 
         virtual const AZ::Color& GetDebugColor() const = 0;
         virtual void SetDebugColor(const AZ::Color& debugColor) = 0;
+
+        MaterialId2 GetId() const;
+
+        AZ::Data::Asset<MaterialAsset> GetMaterialAsset() const;
+
+    protected:
+        MaterialId2 m_id;
+        AZ::Data::Asset<MaterialAsset> m_materialAsset;
     };
 } // namespace Physics

@@ -8,12 +8,18 @@
 
 #pragma once
 
+#include <AzCore/Asset/AssetCommon.h>
 #include <AzCore/std/smart_ptr/enable_shared_from_this.h>
 
 #include <AzFramework/Physics/Material/PhysicsMaterial.h>
 #include <AzFramework/Physics/Material/PhysicsMaterialConfiguration.h>
 
 #include <PxPhysicsAPI.h>
+
+namespace Physics
+{
+    class MaterialSlots;
+};
 
 namespace PhysX
 {
@@ -22,9 +28,17 @@ namespace PhysX
     class Material2
         : public Physics::Material2
         , public AZStd::enable_shared_from_this<Material2>
+        , protected AZ::Data::AssetBus::Handler
     {
     public:
-        Material2(const Physics::MaterialConfiguration2& configuration);
+        AZ_CLASS_ALLOCATOR(Material2, AZ::SystemAllocator, 0);
+        AZ_RTTI(PhysX::Material2, "{57A9681F-4025-4D66-891B-80CBC78BDEB9}", Physics::Material2);
+
+        static AZStd::shared_ptr<Material2> CreateMaterial(const AZ::Data::Asset<Physics::MaterialAsset>& materialAsset);
+        static AZStd::vector<AZStd::shared_ptr<Material2>> CreateMaterials(const Physics::MaterialSlots& materialSlots);
+        static AZStd::shared_ptr<Material2> CreateMaterialWithRandomId(const AZ::Data::Asset<Physics::MaterialAsset>& materialAsset);
+
+        ~Material2() override;
 
         // Physics::Material2 overrides ...
         float GetDynamicFriction() const override;
@@ -44,7 +58,17 @@ namespace PhysX
 
         const physx::PxMaterial* GetPxMaterial() const;
 
+    protected:
+        // AssetBus overrides...
+        void OnAssetReloaded(AZ::Data::Asset<AZ::Data::AssetData> asset) override;
+
     private:
+        friend class MaterialManager;
+
+        Material2(
+            const Physics::MaterialId2& id,
+            const AZ::Data::Asset<Physics::MaterialAsset>& materialAsset);
+
         using PxMaterialUniquePtr = AZStd::unique_ptr<physx::PxMaterial, AZStd::function<void(physx::PxMaterial*)>>;
 
         PxMaterialUniquePtr m_pxMaterial;

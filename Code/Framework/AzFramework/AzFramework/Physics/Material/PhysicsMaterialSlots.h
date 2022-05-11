@@ -41,7 +41,7 @@ namespace Physics
 
         size_t GetSlotsCount() const;
         AZStd::string_view GetSlotName(size_t slotIndex) const;
-        const AZStd::vector<AZStd::string>& GetSlotsNames() const;
+        AZStd::vector<AZStd::string> GetSlotsNames() const;
 
         const AZ::Data::Asset<MaterialAsset> GetMaterialAsset(size_t slotIndex) const;
 
@@ -49,13 +49,21 @@ namespace Physics
         void SetSlotsReadOnly(bool readOnly);
 
     protected:
-        AZStd::vector<AZStd::string> m_slots; //!< List of labels for slots.
-        AZStd::vector<AZ::Data::Asset<MaterialAsset>> m_materialAssets; //!< List of material assets assigned to slots.
+        struct MaterialSlot
+        {
+            AZ_TYPE_INFO(Physics::MaterialSlots::MaterialSlot, "{B5AA3CC9-637F-44FB-A4AE-4621D37884BA}");
 
-    private:
-        AZStd::string GetSlotLabel(int index) const;
-        AZ::Data::AssetId GetDefaultMaterialAssetId() const;
+            static void Reflect(AZ::ReflectContext* context);
 
-        bool m_slotsReadOnly = false;
+            AZStd::string m_name;
+            AZ::Data::Asset<MaterialAsset> m_materialAsset;
+
+        private:
+            friend class MaterialSlots;
+            AZ::Data::AssetId GetDefaultMaterialAssetId() const;
+            bool m_slotsReadOnly = false;
+        };
+
+        AZStd::vector<MaterialSlot> m_slots;
     };
 } // namespace Physics
