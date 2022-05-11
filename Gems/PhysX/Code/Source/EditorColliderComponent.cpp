@@ -451,7 +451,7 @@ namespace PhysX
         {
             AZ::Data::AssetBus::Handler::BusDisconnect(); // Disconnect since the asset is not used anymore
 
-            m_configuration.m_materialSlots.SetSlots({}); // Non-asset configs only have the default slot.
+            m_configuration.m_materialSlots.SetSlots(Physics::MaterialDefaultSlot::Default); // Non-asset configs only have the default slot.
             m_configuration.m_materialSlots.SetSlotsReadOnly(false);
         }
 

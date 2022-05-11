@@ -233,6 +233,8 @@ namespace EMotionFX
         }
         
         AzPhysics::ShapeColliderPair pair(AZStd::make_shared<Physics::ColliderConfiguration>(), shapeConfig);
+        AZ_Assert(pair.first->m_materialSlots.GetSlotsCount() > 0, "Material slots is empty.");
+
         return AZ::Success(pair);
     }
 

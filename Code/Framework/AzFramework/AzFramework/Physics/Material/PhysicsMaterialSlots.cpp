@@ -102,7 +102,12 @@ namespace Physics
 
     MaterialSlots::MaterialSlots()
     {
-        SetSlots({}); // Create default slot
+        SetSlots(MaterialDefaultSlot::Default);
+    }
+
+    void MaterialSlots::SetSlots(MaterialDefaultSlot)
+    {
+        SetSlots({});
     }
 
     void MaterialSlots::SetSlots(const AZStd::vector<AZStd::string>& slots)

@@ -17,6 +17,11 @@
 
 namespace Physics
 {
+    enum class MaterialDefaultSlot
+    {
+        Default
+    };
+
     //! The class is used to store a list of material assets.
     //! Each material will be assigned to a slot and when reflected
     //! to edit context it will show it for each slot entry.
@@ -30,6 +35,8 @@ namespace Physics
         virtual ~MaterialSlots() = default;
 
         static void Reflect(AZ::ReflectContext* context);
+
+        void SetSlots(MaterialDefaultSlot);
 
         //! Sets an array of material slots to pick MaterialAssets for.
         //! Having multiple slots is required for assigning multiple materials

@@ -999,7 +999,7 @@ namespace PhysX
                 if (shapeMaterialIndex != Pipeline::MeshAssetData::TriangleMeshMaterialIndex)
                 {
                     // Clear the materials that came in from the component collider configuration
-                    thisColliderConfiguration->m_materialSlots.SetSlots({});
+                    thisColliderConfiguration->m_materialSlots.SetSlots(Physics::MaterialDefaultSlot::Default);
 
                     // Set the material that is relevant for this specific shape
                     thisColliderConfiguration->m_materialSlots.SetMaterialAsset(
@@ -1609,7 +1609,7 @@ namespace PhysX
             if (!assetConfiguration.m_asset.GetId().IsValid())
             {
                 // Set the default selection if there's no physics asset.
-                materialSlots.SetSlots({});
+                materialSlots.SetSlots(Physics::MaterialDefaultSlot::Default);
                 return;
             }
 
@@ -1623,7 +1623,7 @@ namespace PhysX
             Pipeline::MeshAsset* meshAsset = assetConfiguration.m_asset.GetAs<Pipeline::MeshAsset>();
             if (!meshAsset)
             {
-                materialSlots.SetSlots({});
+                materialSlots.SetSlots(Physics::MaterialDefaultSlot::Default);
                 AZ_Warning("Physics", false, "Invalid mesh asset in physics asset shape configuration.");
                 return;
             }
