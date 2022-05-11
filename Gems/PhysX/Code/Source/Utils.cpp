@@ -40,6 +40,7 @@
 #include <Source/StaticRigidBodyComponent.h>
 #include <Source/RigidBodyStatic.h>
 #include <Source/Utils.h>
+#include <PhysX/Material/PhysXMaterial.h>
 #include <PhysX/PhysXLocks.h>
 #include <PhysX/Joint/Configuration/PhysXJointConfiguration.h>
 #include <PhysX/MathConversion.h>
@@ -353,86 +354,78 @@ namespace PhysX
         physx::PxShape* CreatePxShapeFromConfig(const Physics::ColliderConfiguration& colliderConfiguration,
             const Physics::ShapeConfiguration& shapeConfiguration, AzPhysics::CollisionGroup& assignedCollisionGroup)
         {
-            AZStd::vector<physx::PxMaterial*> materials;
-            MaterialManagerRequestsBus::Broadcast(&MaterialManagerRequestsBus::Events::GetPxMaterials, colliderConfiguration.m_materialSelection, materials);
-
-            if (materials.empty())
-            {
-                AZStd::shared_ptr<Material> defaultMaterial = nullptr;
-                MaterialManagerRequestsBus::BroadcastResult(defaultMaterial, &MaterialManagerRequestsBus::Events::GetDefaultMaterial);
-                if (!defaultMaterial)
-                {
-                    AZ_Error("PhysX", false, "Material array can't be empty!");
-                    return nullptr;
-                }
-                materials.push_back(defaultMaterial->GetPxMaterial());
-            }
-
             physx::PxGeometryHolder pxGeomHolder;
-            if (Utils::CreatePxGeometryFromConfig(shapeConfiguration, pxGeomHolder))
+            if (!Utils::CreatePxGeometryFromConfig(shapeConfiguration, pxGeomHolder))
             {
-                auto materialsCount = static_cast<physx::PxU16>(materials.size());
-
-                physx::PxShape* shape = PxGetPhysics().createShape(pxGeomHolder.any(), materials.begin(), materialsCount, colliderConfiguration.m_isExclusive);
-
-                if (shape)
-                {
-                    AzPhysics::CollisionGroup collisionGroup;
-                    Physics::CollisionRequestBus::BroadcastResult(collisionGroup, &Physics::CollisionRequests::GetCollisionGroupById, colliderConfiguration.m_collisionGroupId);
-
-                    physx::PxFilterData filterData = PhysX::Collision::CreateFilterData(colliderConfiguration.m_collisionLayer, collisionGroup);
-                    shape->setSimulationFilterData(filterData);
-                    shape->setQueryFilterData(filterData);
-
-                    // Do custom logic for specific shape types
-                    if (pxGeomHolder.getType() == physx::PxGeometryType::eCAPSULE)
-                    {
-                        // PhysX capsules are oriented around x by default.
-                        physx::PxQuat pxQuat(AZ::Constants::HalfPi, physx::PxVec3(0.0f, 1.0f, 0.0f));
-                        shape->setLocalPose(physx::PxTransform(pxQuat));
-                    }
-                    else if (pxGeomHolder.getType() == physx::PxGeometryType::eHEIGHTFIELD)
-                    {
-                        const Physics::HeightfieldShapeConfiguration& heightfieldConfig =
-                            static_cast<const Physics::HeightfieldShapeConfiguration&>(shapeConfiguration);
-
-                        // PhysX heightfields have the origin at the corner, not the center, so add an offset to the passed-in transform
-                        // to account for this difference.
-                        const AZ::Vector2 gridSpacing = heightfieldConfig.GetGridResolution();
-                        AZ::Vector3 offset(
-                            -(gridSpacing.GetX() * heightfieldConfig.GetNumColumns() / 2.0f),
-                            -(gridSpacing.GetY() * heightfieldConfig.GetNumRows() / 2.0f),
-                            0.0f);
-
-                        // PhysX heightfields are always defined to have the height in the Y direction, not the Z direction, so we need
-                        // to provide additional rotations to make it Z-up.
-                        physx::PxQuat pxQuat = PxMathConvert(
-                            AZ::Quaternion::CreateFromEulerAnglesRadians(AZ::Vector3(AZ::Constants::HalfPi, AZ::Constants::HalfPi, 0.0f)));
-                        physx::PxTransform pxHeightfieldTransform = physx::PxTransform(PxMathConvert(offset), pxQuat);
-                        shape->setLocalPose(pxHeightfieldTransform);
-                    }
-
-                    // Handle a possible misconfiguration when a shape is set to be both simulated & trigger. This is illegal in PhysX.
-                    shape->setFlag(physx::PxShapeFlag::eSIMULATION_SHAPE, colliderConfiguration.m_isSimulated && !colliderConfiguration.m_isTrigger);
-                    shape->setFlag(physx::PxShapeFlag::eSCENE_QUERY_SHAPE, colliderConfiguration.m_isInSceneQueries);
-                    shape->setFlag(physx::PxShapeFlag::eTRIGGER_SHAPE, colliderConfiguration.m_isTrigger);
-
-                    shape->setRestOffset(colliderConfiguration.m_restOffset);
-                    shape->setContactOffset(colliderConfiguration.m_contactOffset);
-
-                    physx::PxTransform pxShapeTransform = PxMathConvert(colliderConfiguration.m_position, colliderConfiguration.m_rotation);
-                    shape->setLocalPose(pxShapeTransform * shape->getLocalPose());
-
-                    assignedCollisionGroup = collisionGroup;
-                    return shape;
-                }
-                else
-                {
-                    AZ_Error("PhysX Rigid Body", false, "Failed to create shape.");
-                    return nullptr;
-                }
+                return nullptr;
             }
-            return nullptr;
+
+            AZStd::vector<AZStd::shared_ptr<Material2>> materials = Material2::CreateMaterials(colliderConfiguration.m_materialSlots);
+            AZStd::vector<const physx::PxMaterial*> pxMaterials(materials.size(), nullptr);
+            for (size_t materialIndex = 0; materialIndex < materials.size(); ++materialIndex)
+            {
+                pxMaterials[materialIndex] = materials[materialIndex]->GetPxMaterial();
+            }
+
+            physx::PxShape* shape = PxGetPhysics().createShape(
+                pxGeomHolder.any(),
+                const_cast<physx::PxMaterial**>(pxMaterials.data()),
+                static_cast<physx::PxU16>(pxMaterials.size()),
+                colliderConfiguration.m_isExclusive);
+            if (!shape)
+            {
+                AZ_Error("PhysX Rigid Body", false, "Failed to create shape.");
+                return nullptr;
+            }
+
+            AzPhysics::CollisionGroup collisionGroup;
+            Physics::CollisionRequestBus::BroadcastResult(collisionGroup, &Physics::CollisionRequests::GetCollisionGroupById, colliderConfiguration.m_collisionGroupId);
+
+            physx::PxFilterData filterData = PhysX::Collision::CreateFilterData(colliderConfiguration.m_collisionLayer, collisionGroup);
+            shape->setSimulationFilterData(filterData);
+            shape->setQueryFilterData(filterData);
+
+            // Do custom logic for specific shape types
+            if (pxGeomHolder.getType() == physx::PxGeometryType::eCAPSULE)
+            {
+                // PhysX capsules are oriented around x by default.
+                physx::PxQuat pxQuat(AZ::Constants::HalfPi, physx::PxVec3(0.0f, 1.0f, 0.0f));
+                shape->setLocalPose(physx::PxTransform(pxQuat));
+            }
+            else if (pxGeomHolder.getType() == physx::PxGeometryType::eHEIGHTFIELD)
+            {
+                const Physics::HeightfieldShapeConfiguration& heightfieldConfig =
+                    static_cast<const Physics::HeightfieldShapeConfiguration&>(shapeConfiguration);
+
+                // PhysX heightfields have the origin at the corner, not the center, so add an offset to the passed-in transform
+                // to account for this difference.
+                const AZ::Vector2 gridSpacing = heightfieldConfig.GetGridResolution();
+                AZ::Vector3 offset(
+                    -(gridSpacing.GetX() * heightfieldConfig.GetNumColumns() / 2.0f),
+                    -(gridSpacing.GetY() * heightfieldConfig.GetNumRows() / 2.0f),
+                    0.0f);
+
+                // PhysX heightfields are always defined to have the height in the Y direction, not the Z direction, so we need
+                // to provide additional rotations to make it Z-up.
+                physx::PxQuat pxQuat = PxMathConvert(
+                    AZ::Quaternion::CreateFromEulerAnglesRadians(AZ::Vector3(AZ::Constants::HalfPi, AZ::Constants::HalfPi, 0.0f)));
+                physx::PxTransform pxHeightfieldTransform = physx::PxTransform(PxMathConvert(offset), pxQuat);
+                shape->setLocalPose(pxHeightfieldTransform);
+            }
+
+            // Handle a possible misconfiguration when a shape is set to be both simulated & trigger. This is illegal in PhysX.
+            shape->setFlag(physx::PxShapeFlag::eSIMULATION_SHAPE, colliderConfiguration.m_isSimulated && !colliderConfiguration.m_isTrigger);
+            shape->setFlag(physx::PxShapeFlag::eSCENE_QUERY_SHAPE, colliderConfiguration.m_isInSceneQueries);
+            shape->setFlag(physx::PxShapeFlag::eTRIGGER_SHAPE, colliderConfiguration.m_isTrigger);
+
+            shape->setRestOffset(colliderConfiguration.m_restOffset);
+            shape->setContactOffset(colliderConfiguration.m_contactOffset);
+
+            physx::PxTransform pxShapeTransform = PxMathConvert(colliderConfiguration.m_position, colliderConfiguration.m_rotation);
+            shape->setLocalPose(pxShapeTransform * shape->getLocalPose());
+
+            assignedCollisionGroup = collisionGroup;
+            return shape;
         }
 
         AzPhysics::Scene* GetDefaultScene()
@@ -1006,12 +999,12 @@ namespace PhysX
                 if (shapeMaterialIndex != Pipeline::MeshAssetData::TriangleMeshMaterialIndex)
                 {
                     // Clear the materials that came in from the component collider configuration
-                    thisColliderConfiguration->m_materialSelection.SetMaterialSlots({});
+                    thisColliderConfiguration->m_materialSlots.SetSlots({});
 
                     // Set the material that is relevant for this specific shape
-                    Physics::MaterialId assignedMaterialForShape =
-                        originalColliderConfiguration.m_materialSelection.GetMaterialId(shapeMaterialIndex);
-                    thisColliderConfiguration->m_materialSelection.SetMaterialId(assignedMaterialForShape);
+                    thisColliderConfiguration->m_materialSlots.SetMaterialAsset(
+                        0,
+                        originalColliderConfiguration.m_materialSlots.GetMaterialAsset(shapeMaterialIndex));
                 }
 
                 // Here we use the collider configuration data saved in the asset to update the one coming from the component
@@ -1635,70 +1628,30 @@ namespace PhysX
                 return;
             }
 
-            // Set the slots from the mesh asset
-            materialSlots.SetSlots(meshAsset->m_assetData.m_materialNames);
-
-            // Lastly, check if it has to use the materials assets from the mesh.
+            // If it has to use the materials assets from the mesh.
             if (assetConfiguration.m_useMaterialsFromAsset)
             {
-                // TODO: m_assetData.m_physicsMaterialNames must be replaced with m_assetData.m_physicsMaterialAssets and
-                // then here they get set to m_materialAssets
-
-                // Update material IDs in the selection for each slot
-                /*const AZStd::vector<AZStd::string>& physicsMaterialNames = meshAsset->m_assetData.m_physicsMaterialNames;
-                for (size_t slotIndex = 0; slotIndex < physicsMaterialNames.size(); ++slotIndex)
-                {
-                    const AZStd::string& physicsMaterialNameFromPhysicsAsset = physicsMaterialNames[slotIndex];
-                    if (physicsMaterialNameFromPhysicsAsset.empty() ||
-                        physicsMaterialNameFromPhysicsAsset == Physics::DefaultPhysicsMaterialLabel)
-                    {
-                        materialSelection.SetMaterialId(Physics::MaterialId(), static_cast<int>(slotIndex));
-                        continue;
-                    }
-
-                    if (auto it = FindOrCreateMaterial(physicsMaterialNameFromPhysicsAsset);
-                        it != m_materials.end())
-                    {
-                        materialSelection.SetMaterialId(Physics::MaterialId::FromUUID(it->first), static_cast<int>(slotIndex));
-                    }
-                    else
-                    {
-                        AZ_Warning("Physics", false,
-                            "UpdateMaterialSelectionFromPhysicsAsset: Physics material '%s' not found in the material library. Mesh material '%s' will use the default physics material.",
-                            physicsMaterialNameFromPhysicsAsset.c_str(),
-                            meshAsset->m_assetData.m_materialNames[slotIndex].c_str());
-                        materialSelection.SetMaterialId(Physics::MaterialId(), static_cast<int>(slotIndex));
-                    }
-                }*/
+                // Copy slots entirely, which also include the material assets assigned to them.
+                materialSlots = meshAsset->m_assetData.m_materialSlots;
+            }
+            else
+            {
+                // Set only the slots, but do not set the material assets.
+                materialSlots.SetSlots(meshAsset->m_assetData.m_materialSlots.GetSlotsNames());
             }
         }
 
         void SetMaterialsFromHeightfieldProvider(const AZ::EntityId& heightfieldProviderId, Physics::MaterialSlots& materialSlots)
         {
-            // TODO: materialList must be a list of MaterialAsset
-            AZStd::vector<Physics::MaterialId> materialList;
+            AZStd::vector<AZ::Data::Asset<Physics::MaterialAsset>> materialList;
             Physics::HeightfieldProviderRequestsBus::EventResult(
                 materialList, heightfieldProviderId, &Physics::HeightfieldProviderRequestsBus::Events::GetMaterialList);
 
             materialSlots.SetSlots({ materialList.size(), "" }); // Nameless slots, their names are not shown in the heightfield component.
 
-            /*for (size_t slotIndex = 0; slotIndex < materialList.size(); ++slotIndex)
+            for (size_t slotIndex = 0; slotIndex < materialList.size(); ++slotIndex)
             {
                 materialSlots.SetMaterialAsset(slotIndex, materialList[slotIndex]);
-            }*/
-        }
-
-        void SetMaterialsFromHeightfieldProvider(const AZ::EntityId& heightfieldProviderId, Physics::MaterialSelection& materialSelection)
-        {
-            AZStd::vector<Physics::MaterialId> materialList;
-            Physics::HeightfieldProviderRequestsBus::EventResult(
-                materialList, heightfieldProviderId, &Physics::HeightfieldProviderRequestsBus::Events::GetMaterialList);
-
-            materialSelection.SetMaterialSlots(Physics::MaterialSelection::SlotsArray(materialList.size(), ""));
-
-            for (int i = 0; i < materialList.size(); ++i)
-            {
-                materialSelection.SetMaterialId(materialList[i], i);
             }
         }
     } // namespace Utils

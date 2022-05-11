@@ -402,15 +402,15 @@ namespace PhysX
             EditorColliderComponent, ColliderComponentMode>(
                 AZ::EntityComponentIdPair(GetEntityId(), GetId()), nullptr);
 
-        bool usingMaterialsFromAsset = IsAssetConfig() ? m_shapeConfiguration.m_physicsAsset.m_configuration.m_useMaterialsFromAsset : false;
-        m_configuration.m_materialSlots.SetSlotsReadOnly(usingMaterialsFromAsset);
-
         if (ShouldUpdateCollisionMeshFromRender())
         {
             SetCollisionMeshFromRender();
         }
 
-        UpdateMeshAsset();
+        if (IsAssetConfig())
+        {
+            UpdateMeshAsset();
+        }
         UpdateShapeConfigurationScale();
         CreateStaticEditorCollider();
 
@@ -421,7 +421,7 @@ namespace PhysX
     {
         AzPhysics::SimulatedBodyComponentRequestsBus::Handler::BusDisconnect();
         m_colliderDebugDraw.Disconnect();
-        AZ::Data::AssetBus::MultiHandler::BusDisconnect();
+        AZ::Data::AssetBus::Handler::BusDisconnect();
         m_nonUniformScaleChangedHandler.Disconnect();
         EditorColliderValidationRequestBus::Handler::BusDisconnect();
         EditorColliderComponentRequestBus::Handler::BusDisconnect();
@@ -443,13 +443,14 @@ namespace PhysX
 
     AZ::u32 EditorColliderComponent::OnConfigurationChanged()
     {
-        if (m_shapeConfiguration.IsAssetConfig())
+        if (IsAssetConfig())
         {
             UpdateMeshAsset();
-            m_configuration.m_materialSlots.SetSlotsReadOnly(m_shapeConfiguration.m_physicsAsset.m_configuration.m_useMaterialsFromAsset);
         }
         else
         {
+            AZ::Data::AssetBus::Handler::BusDisconnect(); // Disconnect since the asset is not used anymore
+
             m_configuration.m_materialSlots.SetSlots({}); // Non-asset configs only have the default slot.
             m_configuration.m_materialSlots.SetSlotsReadOnly(false);
         }
@@ -577,7 +578,8 @@ namespace PhysX
     {
         if (m_shapeConfiguration.m_physicsAsset.m_pxAsset.GetId().IsValid())
         {
-            AZ::Data::AssetBus::MultiHandler::BusConnect(m_shapeConfiguration.m_physicsAsset.m_pxAsset.GetId());
+            AZ::Data::AssetBus::Handler::BusDisconnect(); // Disconnect in case there was a previous asset being used.
+            AZ::Data::AssetBus::Handler::BusConnect(m_shapeConfiguration.m_physicsAsset.m_pxAsset.GetId());
             m_shapeConfiguration.m_physicsAsset.m_pxAsset.QueueLoad();
             m_shapeConfiguration.m_physicsAsset.m_configuration.m_asset = m_shapeConfiguration.m_physicsAsset.m_pxAsset;
             m_colliderDebugDraw.ClearCachedGeometry();
@@ -691,6 +693,11 @@ namespace PhysX
     {
         Utils::SetMaterialsFromPhysicsAssetShape(m_shapeConfiguration.GetCurrent(), m_configuration.m_materialSlots);
 
+        if (IsAssetConfig())
+        {
+            m_configuration.m_materialSlots.SetSlotsReadOnly(m_shapeConfiguration.m_physicsAsset.m_configuration.m_useMaterialsFromAsset);
+        }
+
         AzToolsFramework::ToolsApplicationEvents::Bus::Broadcast(&AzToolsFramework::ToolsApplicationEvents::InvalidatePropertyDisplay, AzToolsFramework::Refresh_EntireTree);
 
         ValidateAssetMaterials();
@@ -749,7 +756,6 @@ namespace PhysX
         else
         {
             m_componentWarnings.clear();
-            m_configuration.m_materialSlots.SetSlots({});
             AzToolsFramework::ToolsApplicationEvents::Bus::Broadcast(
                 &AzToolsFramework::ToolsApplicationEvents::InvalidatePropertyDisplay, AzToolsFramework::Refresh_EntireTree);
         }

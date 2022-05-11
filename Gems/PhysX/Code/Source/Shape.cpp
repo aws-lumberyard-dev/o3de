@@ -13,8 +13,8 @@
 #include <Common/PhysXSceneQueryHelpers.h>
 #include <PhysX/PhysXLocks.h>
 #include <PhysX/Utils.h>
+#include <PhysX/Material/PhysXMaterial.h>
 #include <Source/Collision.h>
-#include <Source/Material/PhysXMaterial.h>
 #include <Source/Utils.h>
 #include <PhysX/MathConversion.h>
 
@@ -174,14 +174,14 @@ namespace PhysX
         {
             if (assignedMaterials[i]->userData == nullptr)
             {
-                AZ_Warning("PhysX Shape", false, "Trying to assign material with no user data. Make sure you are creating materials using MaterialManager");
+                AZ_Error("PhysX Shape", false, "Trying to assign material with no user data. Make sure you are creating materials using MaterialManager");
                 continue;
             }
 
             AZStd::shared_ptr<PhysX::Material2> physxMaterial = static_cast<PhysX::Material2*>(PhysX::Utils::GetUserData(assignedMaterials[i]))->shared_from_this();
             if (!physxMaterial)
             {
-                AZ_Warning("PhysX Shape", false, "Invalid user data of a physx material. Make sure you are creating materials using MaterialManager");
+                AZ_Error("PhysX Shape", false, "Invalid user data of a physx material. Make sure you are creating materials using MaterialManager");
                 continue;
             }
 
