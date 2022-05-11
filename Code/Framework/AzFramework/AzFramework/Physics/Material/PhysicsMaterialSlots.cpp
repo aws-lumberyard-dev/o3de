@@ -107,7 +107,7 @@ namespace Physics
 
     void MaterialSlots::SetSlots(MaterialDefaultSlot)
     {
-        SetSlots({});
+        SetSlots(AZStd::vector<AZStd::string>{});
     }
 
     void MaterialSlots::SetSlots(const AZStd::vector<AZStd::string>& slots)
