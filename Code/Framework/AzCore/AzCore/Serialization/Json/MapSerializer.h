@@ -38,6 +38,8 @@ namespace AZ
             const Uuid& valueTypeId, JsonSerializerContext& context, bool sortResult);
 
         virtual bool CanBeConvertedToObject(const rapidjson::Value& outputValue);
+
+        virtual bool ShouldClearContainer(JsonDeserializerContext& context);
     };
 
     class JsonUnorderedMapSerializer
