@@ -12,7 +12,7 @@
 #include <AzCore/std/smart_ptr/enable_shared_from_this.h>
 
 #include <AzFramework/Physics/Material/PhysicsMaterial.h>
-#include <AzFramework/Physics/Material/PhysicsMaterialConfiguration.h>
+#include <AzFramework/Physics/Material/PhysicsMaterialAsset.h>
 
 #include <PxPhysicsAPI.h>
 
@@ -34,8 +34,8 @@ namespace PhysX
         AZ_CLASS_ALLOCATOR(Material2, AZ::SystemAllocator, 0);
         AZ_RTTI(PhysX::Material2, "{57A9681F-4025-4D66-891B-80CBC78BDEB9}", Physics::Material2);
 
-        static AZStd::shared_ptr<Material2> CreateMaterial(const AZ::Data::Asset<Physics::MaterialAsset>& materialAsset);
-        static AZStd::vector<AZStd::shared_ptr<Material2>> CreateMaterials(const Physics::MaterialSlots& materialSlots);
+        static AZStd::shared_ptr<Material2> FindOrCreateMaterial(const AZ::Data::Asset<Physics::MaterialAsset>& materialAsset);
+        static AZStd::vector<AZStd::shared_ptr<Material2>> FindOrCreateMaterials(const Physics::MaterialSlots& materialSlots);
         static AZStd::shared_ptr<Material2> CreateMaterialWithRandomId(const AZ::Data::Asset<Physics::MaterialAsset>& materialAsset);
 
         ~Material2() override;

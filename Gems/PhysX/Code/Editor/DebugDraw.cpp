@@ -449,7 +449,7 @@ namespace PhysX
             {
                 const auto materialAsset = colliderConfig.m_materialSlots.GetMaterialAsset(elementDebugInfo.m_materialSlotIndex);
 
-                AZStd::shared_ptr<Material2> material = Material2::CreateMaterial(materialAsset);
+                AZStd::shared_ptr<Material2> material = Material2::FindOrCreateMaterial(materialAsset);
 
                 if (material)
                 {

@@ -243,7 +243,7 @@ namespace Blast
         }
 
         // Create physx material instance
-        m_physxMaterial = PhysX::Material2::CreateMaterial(m_physicsMaterialAsset);
+        m_physxMaterial = PhysX::Material2::FindOrCreateMaterial(m_physicsMaterialAsset);
         if (!m_physxMaterial)
         {
             m_physxMaterial =

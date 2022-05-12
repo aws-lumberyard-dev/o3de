@@ -49,7 +49,7 @@ namespace PhysX
         }
     }
 
-    AZStd::shared_ptr<Material2> Material2::CreateMaterial(const AZ::Data::Asset<Physics::MaterialAsset>& materialAsset)
+    AZStd::shared_ptr<Material2> Material2::FindOrCreateMaterial(const AZ::Data::Asset<Physics::MaterialAsset>& materialAsset)
     {
         return AZStd::rtti_pointer_cast<Material2>(
             AZ::Interface<Physics::MaterialManager>::Get()->FindOrCreateMaterial(
@@ -57,7 +57,7 @@ namespace PhysX
                 materialAsset));
     }
 
-    AZStd::vector<AZStd::shared_ptr<Material2>> Material2::CreateMaterials(const Physics::MaterialSlots& materialSlots)
+    AZStd::vector<AZStd::shared_ptr<Material2>> Material2::FindOrCreateMaterials(const Physics::MaterialSlots& materialSlots)
     {
         AZStd::shared_ptr<Material2> defaultMaterial =
             AZStd::rtti_pointer_cast<Material2>(
@@ -73,7 +73,7 @@ namespace PhysX
             if (const auto materialAsset = materialSlots.GetMaterialAsset(slotIndex);
                 materialAsset.GetId().IsValid())
             {
-                auto material = Material2::CreateMaterial(materialAsset);
+                auto material = Material2::FindOrCreateMaterial(materialAsset);
                 if (material)
                 {
                     materials.push_back(material);
