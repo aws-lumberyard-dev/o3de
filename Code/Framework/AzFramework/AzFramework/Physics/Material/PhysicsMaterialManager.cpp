@@ -13,6 +13,8 @@ namespace Physics
     void MaterialManager::Init()
     {
         m_defaultMaterial = CreateDefaultMaterialInternal();
+        AZ_Assert(m_defaultMaterial.get() != nullptr, "Failed to create default material");
+        AZ_Assert(m_defaultMaterial->GetId().IsValid(), "Default material created with invalid id");
 
         // Add default material to the list
         m_materials.emplace(m_defaultMaterial->GetId(), m_defaultMaterial);
@@ -67,8 +69,8 @@ namespace Physics
 
     void MaterialManager::DeleteMaterial(const MaterialId2& id)
     {
-        // Do not remove the default material from the list
-        if (id == m_defaultMaterial->GetId())
+        if (!id.IsValid() ||
+            id == m_defaultMaterial->GetId()) // Do not remove the default material from the list
         {
             return;
         }
@@ -90,6 +92,10 @@ namespace Physics
     //! Returns a weak pointer to physics material with the given id.
     AZStd::shared_ptr<Material2> MaterialManager::GetMaterial(const MaterialId2& id)
     {
+        if (!id.IsValid())
+        {
+            return nullptr;
+        }
         auto it = m_materials.find(id);
         return it != m_materials.end()
             ? it->second
