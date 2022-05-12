@@ -37,14 +37,14 @@ namespace Terrain
         AZ_RTTI(TerrainPhysicsSurfaceMaterialMapping, "{A88B5289-DFCD-4564-8395-E2177DFE5B18}");
         static void Reflect(AZ::ReflectContext* context);
 
-        AZStd::vector<AZStd::pair<AZ::u32, AZStd::string>> BuildSelectableTagList() const;
-        void SetTagListProvider(const EditorSurfaceTagListProvider* tagListProvider);
-        AZ::Data::AssetId GetDefaultPhysicsAssetId() const;
-
         SurfaceData::SurfaceTag m_surfaceTag;
         AZ::Data::Asset<Physics::MaterialAsset> m_materialAsset;
 
     private:
+        AZStd::vector<AZStd::pair<AZ::u32, AZStd::string>> BuildSelectableTagList() const;
+        void SetTagListProvider(const EditorSurfaceTagListProvider* tagListProvider);
+        AZ::Data::AssetId GetDefaultPhysicsAssetId() const;
+
         const EditorSurfaceTagListProvider* m_tagListProvider = nullptr;
     };
 
@@ -56,10 +56,11 @@ namespace Terrain
         AZ_RTTI(TerrainPhysicsColliderConfig, "{E9EADB8F-C3A5-4B9C-A62D-2DBC86B4CE59}", AZ::ComponentConfig);
         static void Reflect(AZ::ReflectContext* context);
 
-        AZ::Data::AssetId GetDefaultPhysicsAssetId() const;
-
         AZ::Data::Asset<Physics::MaterialAsset> m_defaultMaterialAsset;
         AZStd::vector<TerrainPhysicsSurfaceMaterialMapping> m_surfaceMaterialMappings;
+
+    private:
+        AZ::Data::AssetId GetDefaultPhysicsAssetId() const;
     };
 
 
