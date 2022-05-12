@@ -10,6 +10,8 @@
 
 #include <ScriptAutomation/ScriptAutomationBus.h>
 
+#include <AssetStatusTracker.h>
+
 #include <AzCore/Component/Component.h>
 #include <AzCore/Component/TickBus.h>
 #include <AzCore/std/smart_ptr/unique_ptr.h>
@@ -50,8 +52,14 @@ namespace ScriptAutomation
         ScriptAutomationSystemComponent();
         ~ScriptAutomationSystemComponent();
 
-        void SetIdleFrames(int numFrames);
-        void SetIdleSeconds(float numSeconds);
+        void SetFrameTimeIsLocked(bool frameTimeIsLocked);
+
+        int GetRandomTestSeed();
+
+        void StartTrackingAssetStatus();
+        void StopTrackingAssetStatus();
+        void ExpectAsset(const AZStd::string& sourceAssetPath, uint32_t expectedCount);
+        void IdleUntilExpectedAssetsFinish(float timeout);
 
     protected:
         // AZ::Component implementation
@@ -66,23 +74,49 @@ namespace ScriptAutomation
         void PauseAutomation(float timeout = DefaultPauseTimeout) override;
         void ResumeAutomation() override;
         void QueueScriptOperation(ScriptAutomationRequests::ScriptOperation&& operation) override;
+        void Abort(const AZStd::string& reason) override;
+        void SetIdleFrames(int numFrames) override;
+        void SetIdleSeconds(float numSeconds) override;
 
-        void ExecuteScript(const char* scriptFilePath);
+        void ExecuteScript(const AZStd::string& scriptFilePath) override;
 
         AZStd::unique_ptr<AZ::ScriptContext> m_scriptContext; //< Provides the lua scripting system
         AZStd::unique_ptr<AZ::BehaviorContext> m_scriptBehaviorContext; //< Used to bind script callback functions to lua
 
         AZStd::queue<ScriptAutomationRequests::ScriptOperation> m_scriptOperations;
 
+        AZStd::unordered_set<AZ::Data::AssetId> m_executingScripts;
+
         AZStd::string m_automationScript;
 
-        int m_scriptIdleFrames = 0;
+        AssetStatusTracker m_assetStatusTracker;
+        float m_assetTrackingTimeout = 0.0f;
+
         float m_scriptIdleSeconds = 0.0f;
 
         float m_scriptPauseTimeout = 0.0f;
+
+        int m_scriptIdleFrames = 0;
+        int m_randomSeed = 0;
+
+        uint32_t m_savedViewportWidth = 0;
+        uint32_t m_savedViewportHeight = 0;
+
+        bool m_waitForAssetTracker = false;
+
         bool m_scriptPaused = false;
+
+        bool m_frameTimeIsLocked = false;
 
         bool m_isStarted = false;
         bool m_exitOnFinish = false;
+
+        bool m_prevShowImGui = true;
+        bool m_showImGui = true;
+
+        bool m_shouldRestoreViewportSize = false;
+
+    private:
+        void SetupScriptExecution(const AZStd::string& scriptFilePath);
     };
 } // namespace ScriptAutomation

@@ -7,9 +7,12 @@
 #
 
 set(FILES
+    Source/AssetStatusTracker.cpp
+    Source/AssetStatusTracker.h
     Source/ScriptAutomationScriptBindings.cpp
     Source/ScriptAutomationScriptBindings.h
     Source/ScriptAutomationSystemComponent.cpp
     Source/ScriptAutomationSystemComponent.h
+    Source/ScriptAutomationUtils.cpp
+    Source/ScriptAutomationUtils.h
 )
-
