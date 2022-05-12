@@ -42,14 +42,20 @@ namespace Multiplayer
         //! Invoked when a Client connects/ClientHost starts a session to determine what autonomous Prefab should be spawned where
         //! @param userId User ID of joining player
         //! @param agentDatum Datum containing connection data that can be used to inform join logic
+        //! @param playerSpawnedCallback Callback triggered once the player has been spawned. Use this to access the entities and the root netbind component.
         //! @return A NetworkEntityHandle of the entity the player will have autonomy over
-        virtual Multiplayer::NetworkEntityHandle OnPlayerJoin(uint64_t userId, const Multiplayer::MultiplayerAgentDatum& agentDatum) = 0;
+        virtual void OnPlayerJoin(
+            uint64_t userId,
+            const MultiplayerAgentDatum& agentDatum,
+            AzFramework::EntitySpawnCallback playerSpawnedCallback) = 0;
 
         //! Invoked when a Client disconnects from the session to determine how the autonomous prefab should be cleaned up
         //! @param entityHandle The entity handle to consider on leaving, generally the connection's primary player entity
         //! @param replicationSet The replication set of the related connection
         //! @param reason The cause of disconnection
         virtual void OnPlayerLeave(
-            Multiplayer::ConstNetworkEntityHandle entityHandle, const Multiplayer::ReplicationSet& replicationSet, AzNetworking::DisconnectReason reason) = 0;
+            ConstNetworkEntityHandle entityHandle,
+            const ReplicationSet& replicationSet,
+            AzNetworking::DisconnectReason reason) = 0;
     };
 }
