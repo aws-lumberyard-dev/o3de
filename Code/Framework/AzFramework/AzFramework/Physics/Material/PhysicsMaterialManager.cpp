@@ -10,6 +10,14 @@
 
 namespace Physics
 {
+    void MaterialManager::Init()
+    {
+        m_defaultMaterial = CreateDefaultMaterialInternal();
+
+        // Add default material to the list
+        m_materials.emplace(m_defaultMaterial->GetId(), m_defaultMaterial);
+    }
+
     MaterialManager::~MaterialManager()
     {
         m_materials.clear();

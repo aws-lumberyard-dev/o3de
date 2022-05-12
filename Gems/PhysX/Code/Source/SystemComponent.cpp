@@ -530,5 +530,6 @@ namespace PhysX
 
         m_windProvider = AZStd::make_unique<WindProvider>();
         m_materialManager = AZStd::make_unique<MaterialManager>();
+        m_materialManager->Init();
     }
 } // namespace PhysX

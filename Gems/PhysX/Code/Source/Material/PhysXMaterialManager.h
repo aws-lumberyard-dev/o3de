@@ -18,9 +18,10 @@ namespace PhysX
     public:
         AZ_RTTI(PhysX::MaterialManager, "{4E0CEA41-A289-44F8-B612-43AC7E2AEE06}", Physics::MaterialManager);
 
-        MaterialManager();
+        MaterialManager() = default;
 
     protected:
+        AZStd::shared_ptr<Physics::Material2> CreateDefaultMaterialInternal() override;
         AZStd::shared_ptr<Physics::Material2> CreateMaterialInternal(const Physics::MaterialId2& id, const AZ::Data::Asset<Physics::MaterialAsset>& materialAsset) override;
     };
 } // namespace PhysX

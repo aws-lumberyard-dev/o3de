@@ -26,6 +26,8 @@ namespace Physics
         MaterialManager() = default;
         virtual ~MaterialManager();
 
+        void Init();
+
         AZStd::shared_ptr<Material2> FindOrCreateMaterial(const MaterialId2& id, const AZ::Data::Asset<MaterialAsset>& materialAsset);
 
         void DeleteMaterial(const MaterialId2& id);
@@ -39,9 +41,10 @@ namespace Physics
         AZStd::shared_ptr<Material2> GetMaterial(const MaterialId2& id);
 
     protected:
+        virtual AZStd::shared_ptr<Material2> CreateDefaultMaterialInternal() = 0;
         virtual AZStd::shared_ptr<Material2> CreateMaterialInternal(const MaterialId2& id, const AZ::Data::Asset<MaterialAsset>& materialAsset) = 0;
 
-        AZStd::shared_ptr<Material2> m_defaultMaterial; // Instantiated and added to m_materials by specialized class.
+        AZStd::shared_ptr<Material2> m_defaultMaterial;
         AZStd::unordered_map<MaterialId2, AZStd::shared_ptr<Material2>> m_materials;
     };
 } // namespace Physics

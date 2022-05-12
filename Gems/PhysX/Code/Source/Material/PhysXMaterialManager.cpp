@@ -14,18 +14,16 @@
 
 namespace PhysX
 {
-    MaterialManager::MaterialManager()
+    AZStd::shared_ptr<Physics::Material2> MaterialManager::CreateDefaultMaterialInternal()
     {
-        // Create default material
+        // Create default material asset
         AZ::Data::Asset<Physics::MaterialAsset> defaultMaterialAsset =
             AZ::Data::AssetManager::Instance().CreateAsset<Physics::MaterialAsset>(
                 AZ::Uuid::CreateRandom(), AZ::Data::AssetLoadBehavior::Default);
 
-        m_defaultMaterial = CreateMaterialInternal(
+        // Create default material with random id
+        return CreateMaterialInternal(
             Physics::MaterialId2::CreateRandom(), defaultMaterialAsset);
-
-        // Add default material to the list
-        m_materials.emplace(m_defaultMaterial->GetId(), m_defaultMaterial);
     }
 
     AZStd::shared_ptr<Physics::Material2> MaterialManager::CreateMaterialInternal(
