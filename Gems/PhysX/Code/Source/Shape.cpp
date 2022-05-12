@@ -129,20 +129,6 @@ namespace PhysX
         return nullptr;
     }
 
-    void Shape::SetMaterials(const AZStd::vector<AZStd::shared_ptr<Physics::Material>>& materials)
-    {
-        m_materials.clear();
-
-        for (const AZStd::shared_ptr<Physics::Material>& material : materials)
-        {
-            auto materialWrapper = AZStd::rtti_pointer_cast<PhysX::Material>(material);
-            AZ_Assert(materialWrapper, "Passed material must be a PhysX::Material one");
-            m_materials.emplace_back(materialWrapper);
-        }
-
-        BindMaterialsWithPxShape();
-    }
-
     void Shape::SetMaterials(const AZStd::vector<AZStd::shared_ptr<PhysX::Material2>>& materials)
     {
         m_materials = materials;

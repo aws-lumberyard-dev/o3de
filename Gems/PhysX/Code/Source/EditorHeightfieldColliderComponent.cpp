@@ -18,6 +18,7 @@
 #include <System/PhysXSystem.h>
 #include <Source/Shape.h>
 #include <Source/Utils.h>
+#include <PhysX/Material/PhysXMaterial.h>
 
 namespace PhysX
 {
@@ -220,15 +221,15 @@ namespace PhysX
         // If the change is only about heightfield materials mapping, we can simply update material selection in the heightfield shape
         if (changeMask == HeightfieldChangeMask::SurfaceMapping)
         {
-            Physics::MaterialSelection updatedMaterialSelection;
-            Utils::SetMaterialsFromHeightfieldProvider(GetEntityId(), updatedMaterialSelection);
+            Physics::MaterialSlots updatedMaterialSlots;
+            Utils::SetMaterialsFromHeightfieldProvider(GetEntityId(), updatedMaterialSlots);
 
             // Make sure the number of slots is the same.
             // Otherwise the heightfield needs to be rebuilt to support updated indices.
-            if (updatedMaterialSelection.GetMaterialIdsAssignedToSlots().size()
-                == m_colliderConfig.m_materialSelection.GetMaterialIdsAssignedToSlots().size())
+            if (updatedMaterialSlots.GetSlotsCount()
+                == m_colliderConfig.m_materialSlots.GetSlotsCount())
             {
-                UpdateHeightfieldMaterialSelection(updatedMaterialSelection);
+                UpdateHeightfieldMaterialSlots(updatedMaterialSlots);
                 return;
             }
         }
@@ -417,7 +418,7 @@ namespace PhysX
         return AZ::Aabb::CreateNull();
     }
 
-    void EditorHeightfieldColliderComponent::UpdateHeightfieldMaterialSelection(const Physics::MaterialSelection& updatedMaterialSelection)
+    void EditorHeightfieldColliderComponent::UpdateHeightfieldMaterialSlots(const Physics::MaterialSlots& updatedMaterialSlots)
     {
         AzPhysics::SimulatedBody* simulatedBody = m_sceneInterface->GetSimulatedBodyFromHandle(m_attachedSceneHandle, m_staticRigidBodyHandle);
         if (!simulatedBody)
@@ -437,16 +438,12 @@ namespace PhysX
         AZStd::shared_ptr<Physics::Shape> shape = rigidBody->GetShape(0);
         PhysX::Shape* physxShape = azdynamic_cast<PhysX::Shape*>(shape.get());
 
-        AZStd::vector<AZStd::shared_ptr<Physics::Material>> materials;
-
-        Physics::PhysicsMaterialRequestBus::Broadcast(
-            &Physics::PhysicsMaterialRequestBus::Events::GetMaterials,
-            updatedMaterialSelection,
-            materials);
+        AZStd::vector<AZStd::shared_ptr<Material2>> materials =
+            Material2::FindOrCreateMaterials(updatedMaterialSlots);
 
         physxShape->SetMaterials(materials);
 
-        m_colliderConfig.m_materialSelection = updatedMaterialSelection;
+        m_colliderConfig.m_materialSlots = updatedMaterialSlots;
     }
 
 } // namespace PhysX
