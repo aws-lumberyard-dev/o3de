@@ -31,6 +31,11 @@ namespace AzPhysics
     struct CollisionEvent;
 }
 
+namespace PhysX
+{
+    class Material2;
+}
+
 namespace Blast
 {
     //! Component that handles simulation of the Blast family.
@@ -114,6 +119,9 @@ namespace Blast
 
         // Blast material instance
         AZStd::unique_ptr<Material> m_blastMaterial;
+
+        // PhysX material instance
+        AZStd::shared_ptr<PhysX::Material2> m_physxMaterial;
 
         // Dependencies
         BlastMeshData* m_meshDataComponent = nullptr;

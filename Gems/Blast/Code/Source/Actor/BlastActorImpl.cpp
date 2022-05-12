@@ -15,6 +15,7 @@
 #include <AzFramework/Physics/Shape.h>
 #include <AzFramework/Physics/SystemBus.h>
 #include <AzFramework/Physics/Utils.h>
+#include <AzFramework/Physics/Material/PhysicsMaterialManager.h>
 #include <AzFramework/Physics/Components/SimulatedBodyComponentBus.h>
 #include <Blast/BlastActor.h>
 #include <Family/BlastFamily.h>
@@ -36,7 +37,7 @@ namespace Blast
         , m_chunkIndices(desc.m_chunkIndices)
         , m_isLeafChunk(desc.m_isLeafChunk)
         , m_isStatic(desc.m_isStatic)
-        , m_physicsMaterialAsset(desc.m_physicsMaterialAsset)
+        , m_physicsMaterialId(desc.m_physicsMaterialId)
         , m_parentLinearVelocity(desc.m_parentLinearVelocity)
         , m_parentCenterOfMass(desc.m_parentCenterOfMass)
         , m_bodyConfiguration(desc.m_bodyConfiguration)
@@ -55,8 +56,15 @@ namespace Blast
 
     void BlastActorImpl::Spawn()
     {
+        // Get physics material from id
+        AZStd::shared_ptr<Physics::Material2> physicsMaterial = AZ::Interface<Physics::MaterialManager>::Get()->GetMaterial(m_physicsMaterialId);
+        if (!physicsMaterial)
+        {
+            physicsMaterial = AZ::Interface<Physics::MaterialManager>::Get()->GetDefaultMaterial();
+        }
+
         // Add shapes for each of the visible chunks
-        AddShapes(m_chunkIndices, m_family.GetPxAsset(), m_physicsMaterialAsset);
+        AddShapes(m_chunkIndices, m_family.GetPxAsset(), physicsMaterial->GetMaterialAsset());
 
         m_entity->Init();
         m_entity->Activate();

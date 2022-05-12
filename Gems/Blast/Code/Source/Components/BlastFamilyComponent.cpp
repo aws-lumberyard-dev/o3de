@@ -242,6 +242,15 @@ namespace Blast
             m_blastMaterial = AZStd::make_unique<Material>(MaterialConfiguration{});
         }
 
+        // Create physx material instance
+        m_physxMaterial = PhysX::Material2::CreateMaterial(m_physicsMaterialAsset);
+        if (!m_physxMaterial)
+        {
+            m_physxMaterial =
+                AZStd::rtti_pointer_cast<PhysX::Material2>(
+                    AZ::Interface<Physics::MaterialManager>::Get()->GetDefaultMaterial());
+        }
+
         auto blastSystem = AZ::Interface<BlastSystemRequests>::Get();
 
         // Create family
@@ -249,7 +258,7 @@ namespace Blast
             {*m_blastAsset.Get(),
              this,
              blastSystem->CreateTkGroup(), // Blast system takes care of destroying this group when it's empty.
-             m_physicsMaterialAsset,
+             m_physxMaterial->GetId(),
              m_blastMaterial.get(),
              AZStd::make_shared<BlastActorFactoryImpl>(),
              EntityProvider::Create(),
@@ -265,15 +274,7 @@ namespace Blast
             const_cast<NvBlastFamily&>(*m_family->GetTkFamily()->getFamilyLL()), stressSolverSettings);
         m_solver = physx::unique_ptr<Nv::Blast::ExtStressSolver>(solverPtr);
 
-        auto physxMaterial = PhysX::Material2::CreateMaterial(m_physicsMaterialAsset);
-        if (!physxMaterial)
-        {
-            physxMaterial =
-                AZStd::rtti_pointer_cast<PhysX::Material2>(
-                    AZ::Interface<Physics::MaterialManager>::Get()->GetDefaultMaterial());
-            AZ_Assert(physxMaterial, "BlastFamilyComponent: Invalid default physx material");
-        }
-        m_solver->setAllNodesInfoFromLL(physxMaterial->GetDensity());
+        m_solver->setAllNodesInfoFromLL(m_physxMaterial->GetDensity());
 
         // Create damage and actor render managers
         m_damageManager = AZStd::make_unique<DamageManager>(m_blastMaterial.get(), m_family->GetActorTracker());
@@ -323,6 +324,7 @@ namespace Blast
         m_solver.reset();
         m_family.reset();
         m_blastMaterial.reset();
+        m_physxMaterial.reset();
 
         m_isSpawned = false;
     }

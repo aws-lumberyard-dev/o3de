@@ -54,7 +54,7 @@ namespace Blast
         //! Static function to add shapes, based on a list of indices that references chunks in a Blast asset.
         //! @param chunkIndices The indices of chunks in the asset parameter that will instantiate shapes.
         //! @param asset The Blast asset that stores chunk data based on indices.
-        //! @param material The PhysX material to use to create shapes.
+        //! @param physicsMaterialAsset The physics material assset to use to create shapes.
         void AddShapes(
             const AZStd::vector<uint32_t>& chunkIndices, const Nv::Blast::ExtPxAsset& asset,
             const AZ::Data::Asset<Physics::MaterialAsset>& physicsMaterialAsset);
@@ -69,7 +69,7 @@ namespace Blast
         bool m_isStatic;
 
         // Stored from BlastActorDescription, because we can't use them right away in constructor
-        AZ::Data::Asset<Physics::MaterialAsset> m_physicsMaterialAsset;
+        Physics::MaterialId2 m_physicsMaterialId;
         AZ::Vector3 m_parentLinearVelocity = AZ::Vector3::CreateZero();
         AZ::Vector3 m_parentCenterOfMass = AZ::Vector3::CreateZero();
         AzPhysics::RigidBodyConfiguration m_bodyConfiguration;
