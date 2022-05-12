@@ -34,12 +34,12 @@ namespace UnitTests
         };
     }
 
-    AssetBuilderSDK::ProcessJobFunction ProcessJobStage(const AZStd::string& outputExtension, AssetBuilderSDK::ProductOutputFlags flags)
+    AssetBuilderSDK::ProcessJobFunction ProcessJobStage(const AZStd::string& outputExtension, AssetBuilderSDK::ProductOutputFlags flags, bool outputExtraFile)
     {
         using namespace AssetBuilderSDK;
 
         // Capture by copy because we need these to stay around a long time
-        return [outputExtension, flags](const ProcessJobRequest& request, ProcessJobResponse& response)
+        return [outputExtension, flags, outputExtraFile](const ProcessJobRequest& request, ProcessJobResponse& response)
         {
             AZ::IO::Path outputFile = request.m_sourceFile;
             outputFile.ReplaceExtension(outputExtension.c_str());
@@ -53,18 +53,31 @@ namespace UnitTests
             product.m_dependenciesHandled = true;
             response.m_outputProducts.push_back(product);
 
+            if (outputExtraFile)
+            {
+                auto extraFilePath = AZ::IO::Path(request.m_tempDirPath) / "z_extra.txt"; // Z prefix to place at end of list when sorting for processing
+
+                UnitTestUtils::CreateDummyFile(extraFilePath.c_str(), "unit test file");
+
+                auto extraProduct = JobProduct{ extraFilePath.c_str(), AZ::Data::AssetType::CreateName("extra"), 2 };
+
+                extraProduct.m_outputFlags = flags;
+                extraProduct.m_dependenciesHandled = true;
+                response.m_outputProducts.push_back(extraProduct);
+            }
+
             response.m_resultCode = ProcessJobResult_Success;
         };
     }
 
-    void IntermediateAssetTests::CreateBuilder(const char* name, const char* inputFilter, const char* outputExtension, bool createJobCommonPlatform, AssetBuilderSDK::ProductOutputFlags outputFlags)
+    void IntermediateAssetTests::CreateBuilder(const char* name, const char* inputFilter, const char* outputExtension, bool createJobCommonPlatform, AssetBuilderSDK::ProductOutputFlags outputFlags, bool outputExtraFile)
     {
         using namespace AssetBuilderSDK;
 
         m_builderInfoHandler.CreateBuilderDesc(
             name, AZ::Uuid::CreateRandom().ToFixedString().c_str(),
             { AssetBuilderPattern{ inputFilter, AssetBuilderPattern::Wildcard } }, CreateJobStage(name, createJobCommonPlatform),
-            ProcessJobStage(outputExtension, outputFlags), "fingerprint");
+            ProcessJobStage(outputExtension, outputFlags, outputExtraFile), "fingerprint");
     }
 
     void IntermediateAssetTests::SetUp()
@@ -182,7 +195,7 @@ namespace UnitTests
         EXPECT_EQ(AZ::IO::SystemFile::Exists(expectedIntermediatePath.c_str()), exists) << expectedIntermediatePath.c_str();
     }
 
-    void IntermediateAssetTests::ProcessFileMultiStage(int endStage, bool doProductOutputCheck, const char* file, int startStage, bool expectAutofail)
+    void IntermediateAssetTests::ProcessFileMultiStage(int endStage, bool doProductOutputCheck, const char* file, int startStage, bool expectAutofail, bool hasExtraFile)
     {
         auto cacheDir = AZ::IO::Path(m_tempDir.GetDirectory()) / "Cache";
         auto intermediatesDir = AssetUtilities::GetIntermediateAssetsFolder(cacheDir);
@@ -202,9 +215,24 @@ namespace UnitTests
             m_fileCompiled = false;
             m_fileFailed = false;
 
-            RunFile(expectAutofail ? 2 : 1);
+            // If there's an extra file output, it'll only show up after the 1st iteration
+            if (i > startStage && hasExtraFile)
+            {
+                RunFile(2);
+            }
+            else
+            {
+                RunFile(expectAutofail ? 2 : 1);
+            }
 
             int jobToRun = expectAutofail ? 1 : 0;
+
+            std::stable_sort(
+                m_jobDetailsList.begin(), m_jobDetailsList.end(),
+                [](const AssetProcessor::JobDetails& a, const AssetProcessor::JobDetails& b) -> bool
+                {
+                    return a.m_jobEntry.m_databaseSourceName.compare(b.m_jobEntry.m_databaseSourceName) < 0;
+                });
 
             ProcessJob(*m_rc, m_jobDetailsList[jobToRun]);
 
@@ -415,5 +443,36 @@ namespace UnitTests
 
         EXPECT_EQ(m_jobDetailsList.size(), 1);
         EXPECT_FALSE(m_jobDetailsList[0].m_autoFail);
+    }
+
+    TEST_F(IntermediateAssetTests, DuplicateOutputs_CausesFailure)
+    {
+        using namespace AssetBuilderSDK;
+
+        CreateBuilder("stage1", "*.stage1", "stage2", true, ProductOutputFlags::IntermediateAsset, true);
+        CreateBuilder("stage2", "*.stage2", "stage3", false, ProductOutputFlags::ProductAsset);
+
+        ProcessFileMultiStage(2, true, nullptr, 1, false, true);
+
+        AZ::IO::Path scanFolderDir(m_scanfolder.m_scanFolder);
+        AZStd::string testFilename = "test2.stage1";
+
+        UnitTestUtils::CreateDummyFile((scanFolderDir / testFilename).c_str(), "unit test file");
+
+        QMetaObject::invokeMethod(
+            m_assetProcessorManager.get(), "AssessAddedFile", Qt::QueuedConnection, Q_ARG(QString, (scanFolderDir / testFilename).c_str()));
+        QCoreApplication::processEvents();
+
+        RunFile(1);
+        ProcessJob(*m_rc, m_jobDetailsList[0]);
+
+        ASSERT_TRUE(m_fileCompiled);
+
+        m_jobDetailsList.clear();
+
+        m_assetProcessorManager->AssetProcessed(m_processedJobEntry, m_processJobResponse);
+
+        EXPECT_EQ(m_jobDetailsList.size(), 1);
+        EXPECT_TRUE(m_jobDetailsList[0].m_autoFail);
     }
 } // namespace UnitTests

@@ -23,7 +23,7 @@ namespace UnitTests
         void CheckIntermediate(const char* relativePath, bool exists = true);
 
         void ProcessFileMultiStage(
-            int endStage, bool doProductOutputCheck, const char* file = nullptr, int startStage = 1, bool expectAutofail = false);
+            int endStage, bool doProductOutputCheck, const char* file = nullptr, int startStage = 1, bool expectAutofail = false, bool hasExtraFile = false);
 
         void IncorrectBuilderConfigurationTest(bool commonPlatform, AssetBuilderSDK::ProductOutputFlags flags);
 
@@ -32,7 +32,8 @@ namespace UnitTests
             const char* inputFilter,
             const char* outputExtension,
             bool createJobCommonPlatform,
-            AssetBuilderSDK::ProductOutputFlags outputFlags);
+            AssetBuilderSDK::ProductOutputFlags outputFlags,
+            bool outputExtraFile = false);
 
         AZStd::unique_ptr<AssetProcessor::RCController> m_rc;
         bool m_fileCompiled = false;
