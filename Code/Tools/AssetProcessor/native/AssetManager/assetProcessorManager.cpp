@@ -2682,6 +2682,12 @@ namespace AssetProcessor
                     continue;
                 }
 
+                if (normalizedPath == scanFolderName)
+                {
+                    // We found a scanfolder, record it
+                    m_knownFolders.insert(scanFolderName);
+                }
+
                 const ScanFolderInfo* scanFolderInfo = m_platformConfig->GetScanFolderForFile(normalizedPath);
 
                 relativePathToFile = databasePathToFile;
