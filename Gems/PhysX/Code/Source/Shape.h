@@ -43,6 +43,8 @@ namespace PhysX
         Shape& operator=(const Shape& shape) = delete;
 
         physx::PxShape* GetPxShape();
+		
+        void SetMaterials(const AZStd::vector<AZStd::shared_ptr<Physics::Material>>& materials);
 
         void SetMaterial(const AZStd::shared_ptr<Physics::Material2>& material) override;
         AZStd::shared_ptr<Physics::Material2> GetMaterial() const override;

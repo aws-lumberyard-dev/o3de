@@ -129,6 +129,20 @@ namespace PhysX
         return nullptr;
     }
 
+    void Shape::SetMaterials(const AZStd::vector<AZStd::shared_ptr<Physics::Material>>& materials)
+    {
+        m_materials.clear();
+
+        for (const AZStd::shared_ptr<Physics::Material>& material : materials)
+        {
+            auto materialWrapper = AZStd::rtti_pointer_cast<PhysX::Material>(material);
+            AZ_Assert(materialWrapper, "Passed material must be a PhysX::Material one");
+            m_materials.emplace_back(materialWrapper);
+        }
+
+        BindMaterialsWithPxShape();
+    }
+
     void Shape::SetMaterials(const AZStd::vector<AZStd::shared_ptr<PhysX::Material2>>& materials)
     {
         m_materials = materials;
@@ -150,7 +164,11 @@ namespace PhysX
 
             AZ_Warning("PhysX Shape", m_materials.size() < std::numeric_limits<AZ::u16>::max(), "Trying to assign too many materials, cutting down");
             size_t materialsCount = AZStd::GetMin(m_materials.size(), static_cast<size_t>(std::numeric_limits<AZ::u16>::max()));
-            m_pxShape->setMaterials(const_cast<physx::PxMaterial**>(&pxMaterials[0]), static_cast<physx::PxU16>(materialsCount));
+
+            {
+                PHYSX_SCENE_WRITE_LOCK(GetScene());
+                m_pxShape->setMaterials(const_cast<physx::PxMaterial**>(pxMaterials.data()), static_cast<physx::PxU16>(materialsCount));
+            }
         }
     }
 
