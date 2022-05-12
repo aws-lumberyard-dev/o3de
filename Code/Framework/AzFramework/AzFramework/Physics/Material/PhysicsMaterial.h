@@ -21,6 +21,7 @@ namespace Physics
         AZ_RTTI(Physics::MaterialAsset2, "{B0C593B9-F58E-47BF-856B-2F202A9E8813}");
 
         Material2() = default;
+        Material2(const MaterialId2& id, const AZ::Data::Asset<MaterialAsset>& materialAsset);
         virtual ~Material2() = default;
 
         virtual float GetDynamicFriction() const = 0;

@@ -103,6 +103,7 @@ namespace PhysX
     Material2::Material2(
         const Physics::MaterialId2& id,
         const AZ::Data::Asset<Physics::MaterialAsset>& materialAsset)
+        : Physics::Material2(id, materialAsset)
     {
         const Physics::MaterialConfiguration2 defaultMaterialConf;
 
@@ -116,9 +117,6 @@ namespace PhysX
             });
         AZ_Assert(m_pxMaterial, "Failed to create physx material");
         m_pxMaterial->userData = this;
-
-        m_id = id;
-        m_materialAsset = materialAsset;
 
         const auto& materialConfiguration = m_materialAsset->GetMaterialConfiguration();
 
