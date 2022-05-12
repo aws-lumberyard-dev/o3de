@@ -23,7 +23,8 @@ namespace PhysX
 
         // Create default material with random id
         return CreateMaterialInternal(
-            Physics::MaterialId2::CreateRandom(), defaultMaterialAsset);
+            Physics::MaterialId2::CreateFromAssetId(defaultMaterialAsset.GetId()),
+            defaultMaterialAsset);
     }
 
     AZStd::shared_ptr<Physics::Material2> MaterialManager::CreateMaterialInternal(
