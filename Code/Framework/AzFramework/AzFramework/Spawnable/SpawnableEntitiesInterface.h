@@ -217,7 +217,7 @@ namespace AzFramework
         //! Callback that's called when spawning entities has completed. This can be triggered from a different thread than the one that
         //!     made the function call to spawn. The returned list of entities contains all the newly created entities.
         EntitySpawnCallback m_completionCallback;
-        //! The Serialize Context used to clone entities with. If this is not provided the global Serialize Contetx will be used.
+        //! The Serialize Context used to clone entities with. If this is not provided the global Serialize Context will be used.
         AZ::SerializeContext* m_serializeContext { nullptr };
         //! The priority at which this call will be executed.
         SpawnablePriority m_priority { SpawnablePriority_Default };
