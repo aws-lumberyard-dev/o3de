@@ -218,7 +218,7 @@ namespace UnitTests
             // If there's an extra file output, it'll only show up after the 1st iteration
             if (i > startStage && hasExtraFile)
             {
-                RunFile(2);
+                RunFile(2, 2);
             }
             else
             {
@@ -342,7 +342,7 @@ namespace UnitTests
         CheckProduct("test.stage4", false);
     }
 
-    TEST_F(IntermediateAssetTests, DeleteIntermediateProduct_Reprocesses)
+    void IntermediateAssetTests::DeleteIntermediateTest(const char* deleteFilePath)
     {
         using namespace AssetBuilderSDK;
 
@@ -352,46 +352,47 @@ namespace UnitTests
 
         ProcessFileMultiStage(3, true);
 
-        auto stage2Path = MakePath("test.stage2", true);
-
-        AZ::IO::SystemFile::Delete(stage2Path.c_str());
-        m_assetProcessorManager->AssessDeletedFile(stage2Path.c_str());
+        AZ::IO::SystemFile::Delete(deleteFilePath);
+        m_assetProcessorManager->AssessDeletedFile(deleteFilePath);
         RunFile(0); // Process the delete
 
-        RunFile(1); // Reprocess the file
+        // Reprocess the file
+        m_jobDetailsList.clear();
+
+        // AssessModifiedFile is going to set up a OneShotTimer with a 1ms delay on it.  We have to wait a short time for that timer to
+        // elapse before we can process that event. If we use the alternative processEvents that loops for X milliseconds we could
+        // accidentally process too many events.
+        AZStd::this_thread::sleep_for(AZStd::chrono::milliseconds(2));
+
+        // Unfortunately we need to just process the events a few times without doing any checks here
+        // due to the previous step queuing work which is sometimes executed immediately.
+        // Without a way to consistently be sure whether the work has been done or not, we need to just run enough until the job is emitted
+
+        QCoreApplication::processEvents();
+        QCoreApplication::processEvents();
+        QCoreApplication::processEvents();
+
+        ASSERT_EQ(m_jobDetailsList.size(), 1);
+
         ProcessJob(*m_rc, m_jobDetailsList[0]);
 
         ASSERT_TRUE(m_fileCompiled);
 
         m_assetProcessorManager->AssetProcessed(m_processedJobEntry, m_processJobResponse);
 
+        CheckIntermediate("test.stage2");
         CheckIntermediate("test.stage3");
+        CheckProduct("test.stage4");
+    }
+
+    TEST_F(IntermediateAssetTests, DeleteIntermediateProduct_Reprocesses)
+    {
+        DeleteIntermediateTest(MakePath("test.stage2", true).c_str());
     }
 
     TEST_F(IntermediateAssetTests, DeleteFinalProduct_Reprocesses)
     {
-        using namespace AssetBuilderSDK;
-
-        CreateBuilder("stage1", "*.stage1", "stage2", true, ProductOutputFlags::IntermediateAsset);
-        CreateBuilder("stage2", "*.stage2", "stage3", true, ProductOutputFlags::IntermediateAsset);
-        CreateBuilder("stage3", "*.stage3", "stage4", false, ProductOutputFlags::ProductAsset);
-
-        ProcessFileMultiStage(3, true);
-
-        auto stage4Path = MakePath("test.stage4", false);
-
-        AZ::IO::SystemFile::Delete(stage4Path.c_str());
-        m_assetProcessorManager->AssessDeletedFile(stage4Path.c_str());
-        RunFile(0); // Process the delete
-
-        RunFile(1); // Reprocess the file
-        ProcessJob(*m_rc, m_jobDetailsList[0]);
-
-        ASSERT_TRUE(m_fileCompiled);
-
-        m_assetProcessorManager->AssetProcessed(m_processedJobEntry, m_processJobResponse);
-
-        CheckProduct("test.stage4");
+        DeleteIntermediateTest(MakePath("test.stage4", false).c_str());
     }
 
     TEST_F(IntermediateAssetTests, Override_NormalFileProcessedFirst_CausesFailure)

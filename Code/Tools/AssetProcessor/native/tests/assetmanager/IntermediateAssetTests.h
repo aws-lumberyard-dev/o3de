@@ -23,7 +23,14 @@ namespace UnitTests
         void CheckIntermediate(const char* relativePath, bool exists = true);
 
         void ProcessFileMultiStage(
-            int endStage, bool doProductOutputCheck, const char* file = nullptr, int startStage = 1, bool expectAutofail = false, bool hasExtraFile = false);
+            int endStage,
+            bool doProductOutputCheck,
+            const char* file = nullptr,
+            int startStage = 1,
+            bool expectAutofail = false,
+            bool hasExtraFile = false);
+
+        void DeleteIntermediateTest(const char* fileToDelete);
 
         void IncorrectBuilderConfigurationTest(bool commonPlatform, AssetBuilderSDK::ProductOutputFlags flags);
 

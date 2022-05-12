@@ -91,7 +91,7 @@ namespace UnitTests
         void CreateTestData(AZ::u64 hashA, AZ::u64 hashB, bool useSubId);
         void RunTest(bool firstProductChanged, bool secondProductChanged);
 
-        void RunFile(int expectedJobCount);
+        void RunFile(int expectedJobCount, int expectedFileCount = 1);
         void ProcessJob(AssetProcessor::RCController& rcController, const AssetProcessor::JobDetails& jobDetails);
 
         int m_argc = 0;
