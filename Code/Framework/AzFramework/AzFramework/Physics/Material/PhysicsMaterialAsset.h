@@ -27,6 +27,8 @@ namespace Physics
 
         static void Reflect(AZ::ReflectContext* context);
 
+        void SetData(const MaterialConfiguration2& materialConfiguraiton);
+
         const MaterialConfiguration2& GetMaterialConfiguration() const;
 
     protected:
