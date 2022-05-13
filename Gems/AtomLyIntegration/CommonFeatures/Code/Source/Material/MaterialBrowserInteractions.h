@@ -44,6 +44,7 @@ namespace AZ
             void AddSourceFileCreators(const char* fullSourceFolderName, const AZ::Uuid& sourceUUID, AzToolsFramework::AssetBrowser::SourceFileCreatorList& creators) override;
             
             bool HandlesSource(AZStd::string_view fileName) const;
+
         };
     } // namespace Render
 } // namespace AZ
