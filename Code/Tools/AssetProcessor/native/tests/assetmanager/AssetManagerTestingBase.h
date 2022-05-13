@@ -88,10 +88,11 @@ namespace UnitTests
     {
         void SetUp() override;
         void TearDown() override;
+
         void CreateTestData(AZ::u64 hashA, AZ::u64 hashB, bool useSubId);
         void RunTest(bool firstProductChanged, bool secondProductChanged);
 
-        void RunFile(int expectedJobCount, int expectedFileCount = 1);
+        void RunFile(int expectedJobCount, int expectedFileCount = 1, int dependencyFileCount = 0);
         void ProcessJob(AssetProcessor::RCController& rcController, const AssetProcessor::JobDetails& jobDetails);
 
         int m_argc = 0;

@@ -12,15 +12,21 @@
 
 namespace UnitTests
 {
-    struct IntermediateAssetTests : AssetManagerTestingBase
+    struct IntermediateAssetTests
+        : AssetManagerTestingBase
+        , AZ::Debug::TraceMessageBus::Handler
     {
         void SetUp() override;
         void TearDown() override;
+
+        bool OnPreAssert(const char*, int, const char*, const char* message) override;
+        bool OnPreError(const char*, const char*, int, const char*, const char* message) override;
 
         AZStd::string MakePath(const char* filename, bool intermediate);
 
         void CheckProduct(const char* relativePath, bool exists = true);
         void CheckIntermediate(const char* relativePath, bool exists = true);
+        void ProcessSingleStep(int expectedJobCount = 1, int expectedFileCount = 1, int jobToRun = 0, bool expectSuccess = true);
 
         void ProcessFileMultiStage(
             int endStage,
@@ -48,5 +54,7 @@ namespace UnitTests
         AssetProcessor::JobEntry m_processedJobEntry;
         AssetBuilderSDK::ProcessJobResponse m_processJobResponse;
         AZStd::string m_testFilePath;
+
+        int m_expectedErrors = 0;
     };
 } // namespace UnitTests

@@ -153,7 +153,7 @@ namespace UnitTests
         ScopedAllocatorSetupFixture::TearDown();
     }
 
-    void AssetManagerTestingBase::RunFile(int expectedJobCount, int expectedFileCount)
+    void AssetManagerTestingBase::RunFile(int expectedJobCount, int expectedFileCount, int dependencyFileCount)
     {
         m_jobDetailsList.clear();
 
@@ -166,17 +166,17 @@ namespace UnitTests
         QCoreApplication::processEvents();
 
         m_assetProcessorManager->CheckActiveFiles(0);
-        m_assetProcessorManager->CheckFilesToExamine(expectedFileCount);
+        m_assetProcessorManager->CheckFilesToExamine(expectedFileCount + dependencyFileCount);
 
         QCoreApplication::processEvents(); // execute ProcessFilesToExamineQueue
 
         if (expectedJobCount > 0)
         {
-            m_assetProcessorManager->CheckJobEntries(expectedFileCount);
+            m_assetProcessorManager->CheckJobEntries(expectedFileCount + dependencyFileCount);
 
             QCoreApplication::processEvents(); // execute CheckForIdle
 
-            ASSERT_EQ(m_jobDetailsList.size(), expectedJobCount);
+            ASSERT_EQ(m_jobDetailsList.size(), expectedJobCount + dependencyFileCount);
         }
     }
 
