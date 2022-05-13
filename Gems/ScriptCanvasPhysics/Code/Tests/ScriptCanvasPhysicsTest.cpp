@@ -8,7 +8,6 @@
 
 #include <AzTest/GemTestEnvironment.h>
 #include <gmock/gmock.h>
-#include <AzFramework/Physics/Material.h>
 #include <AzFramework/Physics/PhysicsScene.h>
 #include <AzFramework/Physics/Shape.h>
 #include <AzFramework/Physics/ShapeConfiguration.h>
@@ -30,7 +29,7 @@ namespace ScriptCanvasPhysics
             AZ::Vector3 /*surface normal*/,
             float /*distance to the hit*/,
             AZ::EntityId /*entity hit, if any*/,
-            Physics::MaterialId2 /*physics material hit, if any*/
+            AZ::Crc32 /*tag of material surface hit, if any*/
         >;
 
         using OverlapResult = AZStd::tuple<
@@ -247,7 +246,7 @@ namespace ScriptCanvasPhysicsTests
                 AZStd::get<2>(result) == hit.m_normal &&
                 AZStd::get<3>(result) == hit.m_distance &&
                 AZStd::get<4>(result) == hit.m_entityId &&
-                AZStd::get<5>(result) == hit.m_physicsMaterialId
+                AZStd::get<5>(result) == AZ::Crc32(hit.m_physicsMaterialId.ToString<AZStd::string>())
                 ;
         }
     };

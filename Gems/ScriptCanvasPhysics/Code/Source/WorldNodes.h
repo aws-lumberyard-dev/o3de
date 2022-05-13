@@ -53,7 +53,7 @@ namespace ScriptCanvasPhysics
             AZ::Vector3 /*surface normal*/,
             float /*distance to the hit*/,
             AZ::EntityId /*entity hit, if any*/,
-            Physics::MaterialId2 /*physics material hit, if any*/
+            AZ::Crc32 /*tag of material surface hit, if any*/
         >;
 
         using OverlapResult = AZStd::tuple<
@@ -94,11 +94,12 @@ namespace ScriptCanvasPhysics
             }
             if (result)
             {
+                const AZ::Crc32 surfaceType(result.m_hits[0].m_physicsMaterialId.ToString<AZStd::string>());
                 return AZStd::make_tuple(result.m_hits[0].IsValid(), result.m_hits[0].m_position,
                     result.m_hits[0].m_normal, result.m_hits[0].m_distance,
-                    result.m_hits[0].m_entityId, result.m_hits[0].m_physicsMaterialId);
+                    result.m_hits[0].m_entityId, surfaceType);
             }
-            return AZStd::make_tuple(false, AZ::Vector3::CreateZero(), AZ::Vector3::CreateZero(), 0.0f, AZ::EntityId(), Physics::MaterialId2());
+            return AZStd::make_tuple(false, AZ::Vector3::CreateZero(), AZ::Vector3::CreateZero(), 0.0f, AZ::EntityId(), AZ::Crc32());
         }
         SCRIPT_CANVAS_GENERIC_FUNCTION_NODE(RayCastWorldSpaceWithGroup,
             k_categoryName,
@@ -114,7 +115,7 @@ namespace ScriptCanvasPhysics
             "Normal",
             "Distance",
             "EntityId",
-            "Physics MaterialId");
+            "Surface");
 
         AZ_INLINE Result RayCastFromScreenWithGroup(
             const AZ::Vector2& screenPosition,
@@ -135,7 +136,7 @@ namespace ScriptCanvasPhysics
             }
 
             // fallback in the rare case there is no active camera
-            return AZStd::make_tuple(false, AZ::Vector3::CreateZero(), AZ::Vector3::CreateZero(), 0.0f, AZ::EntityId(), Physics::MaterialId2());
+            return AZStd::make_tuple(false, AZ::Vector3::CreateZero(), AZ::Vector3::CreateZero(), 0.0f, AZ::EntityId(), AZ::Crc32());
         }
 
         SCRIPT_CANVAS_GENERIC_FUNCTION_NODE(RayCastFromScreenWithGroup,
@@ -151,7 +152,7 @@ namespace ScriptCanvasPhysics
             "Normal",
             "Distance",
             "EntityId",
-            "Physics MaterialId");
+            "Surface");
 
         AZ_INLINE Result RayCastLocalSpaceWithGroup(const AZ::EntityId& fromEntityId,
             const AZ::Vector3& direction,
@@ -179,7 +180,7 @@ namespace ScriptCanvasPhysics
             "Normal",
             "Distance",
             "EntityId",
-            "Physics MaterialId");
+            "Surface");
 
         AZ_INLINE AZStd::vector<AzPhysics::SceneQueryHit> RayCastMultipleLocalSpaceWithGroup(const AZ::EntityId& fromEntityId,
             const AZ::Vector3& direction,
@@ -353,11 +354,12 @@ namespace ScriptCanvasPhysics
             }
             if (result)
             {
+                const AZ::Crc32 surfaceType(result.m_hits[0].m_physicsMaterialId.ToString<AZStd::string>());
                 return AZStd::make_tuple(result.m_hits[0].IsValid(), result.m_hits[0].m_position,
                     result.m_hits[0].m_normal, result.m_hits[0].m_distance,
-                    result.m_hits[0].m_entityId, result.m_hits[0].m_physicsMaterialId);
+                    result.m_hits[0].m_entityId, surfaceType);
             }
-            return AZStd::make_tuple(false, AZ::Vector3::CreateZero(), AZ::Vector3::CreateZero(), 0.0f, AZ::EntityId(), Physics::MaterialId2());
+            return AZStd::make_tuple(false, AZ::Vector3::CreateZero(), AZ::Vector3::CreateZero(), 0.0f, AZ::EntityId(), AZ::Crc32());
         }
 
         AZ_INLINE Result SphereCastWithGroup(float distance,
@@ -374,7 +376,7 @@ namespace ScriptCanvasPhysics
             k_categoryName,
             "{7A4D8893-51F5-444F-9C77-64D179F9C9BB}", "SphereCast",
             "Distance", "Pose", "Direction", "Radius", "Collision group", "Ignore", // In Params
-            "Object Hit", "Position", "Normal", "Distance", "EntityId", "Physics MaterialId" // Out Params
+            "Object Hit", "Position", "Normal", "Distance", "EntityId", "Surface" // Out Params
         );
 
         AZ_INLINE Result BoxCastWithGroup(float distance,
@@ -391,7 +393,7 @@ namespace ScriptCanvasPhysics
             k_categoryName,
             "{E7C2CFE0-3FB9-438B-9A8A-A5D333AB0791}", "BoxCast",
             "Distance", "Pose", "Direction", "Dimensions", "Collision group", "Ignore", // In Params
-            "Object Hit", "Position", "Normal", "Distance", "EntityId", "Physics MaterialId" // Out Params
+            "Object Hit", "Position", "Normal", "Distance", "EntityId", "Surface" // Out Params
         );
 
         AZ_INLINE Result CapsuleCastWithGroup(float distance,
@@ -409,7 +411,7 @@ namespace ScriptCanvasPhysics
             k_categoryName,
             "{938B047C-6282-4510-8AFE-21D58426061D}", "CapsuleCast",
             "Distance", "Pose", "Direction", "Height", "Radius", "Collision group", "Ignore", // In Params
-            "Object Hit", "Position", "Normal", "Distance", "EntityId", "Physics MaterialId" // Out Params
+            "Object Hit", "Position", "Normal", "Distance", "EntityId", "Surface" // Out Params
         );
 
         ///////////////////////////////////////////////////////////////
