@@ -493,50 +493,41 @@ namespace Multiplayer
         const AZ::Transform& transform
     )
     {
-        EntityList returnList;
-        if (!AZ::Data::AssetManager::IsReady())
-        {
-            return returnList;
-        }
-
-        auto spawnableAssetId = m_networkPrefabLibrary.GetAssetIdByName(prefabEntryId.m_prefabName);
-        // Required for sync-instantiation. Todo: keep the reference in NetworkSpawnableLibrary
-        auto netSpawnableAsset = AZ::Data::AssetManager::Instance().GetAsset<AzFramework::Spawnable>(spawnableAssetId, AZ::Data::AssetLoadBehavior::PreLoad);
-        AZ::Data::AssetManager::Instance().BlockUntilLoadComplete(netSpawnableAsset);
-
-        AzFramework::Spawnable* netSpawnable = netSpawnableAsset.GetAs<AzFramework::Spawnable>();
-        if (!netSpawnable)
-        {
-            return returnList;
-        }
-
         const uint32_t entityIndex = prefabEntryId.m_entityOffset;
-
         if (entityIndex == PrefabEntityId::AllIndices)
         {
             return CreateEntitiesImmediate(*netSpawnable, netEntityRole, transform, autoActivate);
         }
+        
+        AZStd::vector entityIndices = { entityIndex };
+        auto spawnableAssetId = m_networkPrefabLibrary.GetAssetIdByName(prefabEntryId.m_prefabName);
+        
+        // Required for sync-instantiation. Todo: keep the reference in NetworkSpawnableLibrary
+        auto netSpawnableAsset =
+            AZ::Data::AssetManager::Instance().GetAsset<AzFramework::Spawnable>(spawnableAssetId, AZ::Data::AssetLoadBehavior::NoLoad);
 
-        const AzFramework::Spawnable::EntityList& entities = netSpawnable->GetEntities();
-        size_t entitiesSize = entities.size();
-        if (entityIndex >= entitiesSize)
+
+        auto ticket = AZStd::make_unique<AzFramework::EntitySpawnTicket>(netSpawnableAsset);
+        if (!ticket->IsValid())
         {
-            return returnList;
+            return EntityList();
         }
-
-        AZ::SerializeContext* serializeContext = nullptr;
-        AZ::ComponentApplicationBus::BroadcastResult(serializeContext, &AZ::ComponentApplicationBus::Events::GetSerializeContext);
-
-        AZ::Entity* clone = serializeContext->CloneObject(entities[entityIndex].get());
-        AZ_Assert(clone != nullptr, "Failed to clone spawnable entity.");
-        clone->SetId(AZ::Entity::MakeId());
-
-        NetBindComponent* netBindComponent = clone->FindComponent<NetBindComponent>();
-        if (netBindComponent)
+        
+        entityIndices.push_back(entityIndex);
+        AzFramework::SpawnEntitiesOptionalArgs optionalArgs;
+        optionalArgs.m_preInsertionCallback = [prefabEntryId, netEntityId, netEntityRole, transform](
+                                                  AzFramework::EntitySpawnTicket::Id, AzFramework::SpawnableEntityContainerView entities)
         {
-            netBindComponent->PreInit(clone, prefabEntryId, netEntityId, netEntityRole);
+            AZ::Entity* entity = *entities.begin();
+            auto netBindComponent = entity->FindComponent<NetBindComponent>();
+            if (!netBindComponent)
+            {
+                return;
+            }
 
-            auto* transformComponent = clone->FindComponent<AzFramework::TransformComponent>();
+            netBindComponent->PreInit(entity, prefabEntryId, netEntityId, netEntityRole);
+
+            auto* transformComponent = entity->FindComponent<AzFramework::TransformComponent>();
             if (transformComponent)
             {
                 transformComponent->SetWorldTM(transform);
@@ -550,7 +541,12 @@ namespace Multiplayer
             AzFramework::GameEntityContextRequestBus::Broadcast(&AzFramework::GameEntityContextRequestBus::Events::AddGameEntity, clone);
 
             returnList.push_back(netBindComponent->GetEntityHandle());
-        }
+
+        };
+        
+        AzFramework::SpawnableEntitiesInterface::Get()->SpawnEntities(*ticket, entityIndices, AZStd::move(optionalArgs));
+        
+
 
         return returnList;
     }
