@@ -24,6 +24,9 @@ namespace AZ
         JsonSerializationResult::Result Store(rapidjson::Value& outputValue, const void* inputValue, const void* defaultValue,
             const Uuid& valueTypeId, JsonSerializerContext& context) override;
 
+    protected:
+        virtual bool ShouldClearContainer(JsonDeserializerContext& context);
+
     private:
         JsonSerializationResult::Result LoadContainer(void* outputValue, const Uuid& outputValueTypeId, const rapidjson::Value& inputValue,
             JsonDeserializerContext& context);
