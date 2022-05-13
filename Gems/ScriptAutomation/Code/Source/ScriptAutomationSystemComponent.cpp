@@ -22,6 +22,7 @@
 #include <AzCore/Serialization/EditContext.h>
 #include <AzCore/Serialization/EditContextConstants.inl>
 #include <AzCore/Serialization/SerializeContext.h>
+#include <AzCore/Statistics/StatisticalProfilerProxy.h>
 
 #include <AzFramework/API/ApplicationAPI.h>
 #include <AzFramework/Asset/AssetSystemBus.h>
@@ -206,6 +207,31 @@ namespace ScriptAutomation
         m_assetTrackingTimeout = timeout;
     }
 
+    void ScriptAutomationSystemComponent::AddProfiler(AZ::Crc32 profilerId)
+    {
+        m_profilerTracker.push_back(profilerId);
+    }
+
+    void ScriptAutomationSystemComponent::ActivateAllProfilers()
+    {
+        for (auto& profilerId : m_profilerTracker)
+        {
+            AZ::Interface<AZ::Statistics::StatisticalProfilerProxy>::Get()->ActivateProfiler(profilerId, true, false);
+        }
+    }
+
+    void ScriptAutomationSystemComponent::DeactivateAllProfilers()
+    {
+        for (auto& profilerId : m_profilerTracker)
+        {
+            AZ::Interface<AZ::Statistics::StatisticalProfilerProxy>::Get()->ActivateProfiler(profilerId, false, false);
+            AZ::Interface<AZ::Statistics::StatisticalProfilerProxy>::Get()->GetProfiler(profilerId).LogAndResetStats("ScriptAutomation");
+            AZ::Interface<AZ::Statistics::StatisticalProfilerProxy>::Get()->GetProfiler(profilerId).GetStatsManager().Clear();
+        }
+
+        m_profilerTracker.clear();
+    }
+
     void ScriptAutomationSystemComponent::Activate()
     {
         ScriptAutomationRequestBus::Handler::BusConnect();
@@ -263,6 +289,7 @@ namespace ScriptAutomation
             m_isStarted = true;
             SetupScriptExecution(m_automationScript);
             ExecuteScript(m_automationScript);
+            return;
         }
 
         if (m_executingScripts.size() > 0 || !m_scriptOperations.empty())
@@ -293,12 +320,12 @@ namespace ScriptAutomation
                         auto incomplateAssetList = m_assetStatusTracker.GetIncompleteAssetList();
                         AZStd::string incompleteAssetListString;
                         AzFramework::StringFunc::Join(incompleteAssetListString, incomplateAssetList.begin(), incomplateAssetList.end(), "\n    ");
-                        AZ_Error("Automation", false, "Script asset tracking timed out waiting for:\n    %s \n Continuing...", incompleteAssetListString.c_str());
+                        AZ_Error("ScriptAutomation", false, "Script asset tracking timed out waiting for:\n    %s \n Continuing...", incompleteAssetListString.c_str());
                         m_waitForAssetTracker = false;
                     }
                     else if (m_assetStatusTracker.DidExpectedAssetsFinish())
                     {
-                        AZ_Printf("Automation", "Asset Tracker finished with %f seconds remaining.", m_assetTrackingTimeout);
+                        AZ_Printf("ScriptAutomation", "Asset Tracker finished with %f seconds remaining.", m_assetTrackingTimeout);
                         m_waitForAssetTracker = false;
                     }
                     else

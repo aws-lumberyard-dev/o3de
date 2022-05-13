@@ -9,6 +9,8 @@
 set(FILES
     Source/AssetStatusTracker.cpp
     Source/AssetStatusTracker.h
+    Source/ProfilerScriptBindings.cpp
+    Source/ProfilerScriptBindings.h
     Source/ScriptAutomationScriptBindings.cpp
     Source/ScriptAutomationScriptBindings.h
     Source/ScriptAutomationSystemComponent.cpp

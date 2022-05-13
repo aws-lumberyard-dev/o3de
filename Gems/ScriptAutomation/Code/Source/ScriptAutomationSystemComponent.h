@@ -15,10 +15,12 @@
 #include <AzCore/Component/Component.h>
 #include <AzCore/Component/TickBus.h>
 #include <AzCore/std/smart_ptr/unique_ptr.h>
+#include <AzCore/std/containers/vector.h>
 
 namespace AZ
 {
     class ScriptContext;
+    class Crc32;
 } // namespace AZ
 
 namespace ScriptAutomation
@@ -61,6 +63,10 @@ namespace ScriptAutomation
         void ExpectAsset(const AZStd::string& sourceAssetPath, uint32_t expectedCount);
         void IdleUntilExpectedAssetsFinish(float timeout);
 
+        void AddProfiler(AZ::Crc32 profilerId);
+        void ActivateAllProfilers();
+        void DeactivateAllProfilers();
+
     protected:
         // AZ::Component implementation
         void Activate() override;
@@ -88,6 +94,8 @@ namespace ScriptAutomation
         AZStd::unordered_set<AZ::Data::AssetId> m_executingScripts;
 
         AZStd::string m_automationScript;
+
+        AZStd::vector<AZ::Crc32> m_profilerTracker;
 
         AssetStatusTracker m_assetStatusTracker;
         float m_assetTrackingTimeout = 0.0f;

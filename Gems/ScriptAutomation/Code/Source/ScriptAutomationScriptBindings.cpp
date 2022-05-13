@@ -8,6 +8,7 @@
 
 #include <ScriptAutomationSystemComponent.h>
 
+#include <ProfilerScriptBindings.h>
 #include <ScriptAutomationScriptBindings.h>
 #include <ScriptAutomationUtils.h>
 
@@ -129,7 +130,6 @@ namespace ScriptAutomation
             ScriptAutomationInterface::Get()->QueueScriptOperation(AZStd::move(func));
         }
 
-
         void AssetTracking_ExpectAsset(const AZStd::string& sourceAssetPath, uint32_t expectedCount)
         {
             auto func = [sourceAssetPath, expectedCount]()
@@ -181,6 +181,19 @@ namespace ScriptAutomation
                 {
                     AZ_Error("ScriptAutomation", false, "ResizeViewport() is not supported on this platform");
                 }
+            };
+
+            ScriptAutomationInterface::Get()->QueueScriptOperation(AZStd::move(func));
+        }
+
+        void LoadLevel(const AZStd::string& levelPath)
+        {
+            auto func = [levelPath]()
+            {
+                AZStd::fixed_vector<AZStd::string_view, 2> loadLevelCmd;
+                loadLevelCmd.push_back("LoadLevel");
+                loadLevelCmd.push_back(levelPath);
+                AZ::Interface<AZ::IConsole>::Get()->PerformCommand(loadLevelCmd);
             };
 
             ScriptAutomationInterface::Get()->QueueScriptOperation(AZStd::move(func));
@@ -245,6 +258,7 @@ namespace ScriptAutomation
         behaviorContext->Method("LockFrameTime", &Bindings::LockFrameTime);
         behaviorContext->Method("UnlockFrameTime", &Bindings::UnlockFrameTime);
 
+        behaviorContext->Method("LoadLevel", &Bindings::LoadLevel);
         behaviorContext->Method("RunScript", &Bindings::RunScript);
         behaviorContext->Method("ResolvePath", &Bindings::ResolvePath);
         behaviorContext->Method("NormalizePath", &Bindings::NormalizePath);
@@ -258,5 +272,7 @@ namespace ScriptAutomation
         AZ::BehaviorParameterOverrides expectedCountDetails = {"expectedCount", "Expected number of asset jobs; default=1", aznew AZ::BehaviorDefaultValue(1u)};
         const AZStd::array<AZ::BehaviorParameterOverrides, 2> assetTrackingExpectAssetArgs = {{ AZ::BehaviorParameterOverrides{}, expectedCountDetails }};
         behaviorContext->Method("AssetTracking_ExpectAsset", &Bindings::AssetTracking_ExpectAsset, assetTrackingExpectAssetArgs);
+
+        ReflectProfilerScriptBindings(behaviorContext);
     }
 } // namespace ScriptAutomation
