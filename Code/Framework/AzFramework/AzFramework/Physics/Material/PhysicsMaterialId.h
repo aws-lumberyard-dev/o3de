@@ -12,40 +12,26 @@
 
 namespace Physics
 {
-    /**
-     * InstanceId is a unique identifier for an Instance in an InstanceDatabase. Instances
-     * are used primarily to control de-duplication of 'instances' created from 'assets'.
-     * As a result, this class mirrors the structure of asset id (by including the sub-id)
-     * in order to make translation easy. However, the types are not related in order to add
-     * some type safety to the system.
-     */
+    //! Class that is used to identify a material.
     struct MaterialId2
     {
         AZ_TYPE_INFO(Physics::MaterialId2, "{30DED897-0E19-40B7-9BE1-0E92CBD307F9}");
 
-        /**
-         * Creates an instance id from an asset id. The two will share the same guid and
-         * sub id. This is an explicit create method rather than a constructor in order
-         * to make it explicit.
-         */
+        //! Creates an instance id from an asset id. The two will share the same guid and
+        //! sub id. This is an explicit create method rather than a constructor in order
+        //! to make it explicit.
         static MaterialId2 CreateFromAssetId(const AZ::Data::AssetId& assetId);
 
-        /**
-         * Creates an InstanceId by hashing the provided name.
-         */
+        //! Creates an InstanceId by hashing the provided name.
         static MaterialId2 CreateName(const char* name);
 
-        /**
-         * Creates an InstanceId by hashing the provided data.
-         */
+        //! Creates an InstanceId by hashing the provided data.
         static MaterialId2 CreateData(const void* data, size_t dataSize);
 
-        /**
-         * Creates a random InstanceId.
-         */
+        //! Creates a random id.
         static MaterialId2 CreateRandom();
 
-        // Create a null id by default.
+        //! Create a null id by default.
         MaterialId2() = default;
 
         explicit MaterialId2(const AZ::Uuid& guid);

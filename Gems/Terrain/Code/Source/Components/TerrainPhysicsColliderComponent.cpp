@@ -452,7 +452,7 @@ namespace Terrain
     AZStd::vector<AZ::Data::Asset<Physics::MaterialAsset>> TerrainPhysicsColliderComponent::GetMaterialList() const
     {
         AZStd::vector<AZ::Data::Asset<Physics::MaterialAsset>> materialList;
-        materialList.reserve(m_configuration.m_surfaceMaterialMappings.size() + 1);
+        materialList.reserve(m_configuration.m_surfaceMaterialMappings.size() + 1); // +1 for default material asset
 
         // Ensure the list contains the default material as the first entry.
         materialList.push_back(m_configuration.m_defaultMaterialAsset);

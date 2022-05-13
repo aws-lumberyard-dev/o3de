@@ -12,6 +12,7 @@
 
 namespace PhysX
 {
+    //! Material manager specialization for PhysX.
     class MaterialManager
         : public AZ::Interface<Physics::MaterialManager>::Registrar
     {

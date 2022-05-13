@@ -331,7 +331,7 @@ TEST_F(TerrainPhysicsColliderComponentTest, TerrainPhysicsColliderReturnsMateria
     // The materialList should be 3 items long: the two materials we've added, plus a default material.
     EXPECT_EQ(materialList.size(), 3);
 
-    AZ::Data::AssetId nullId; // Not having an asset in the slot lead to use the default material
+    const AZ::Data::AssetId nullId; // Not having an asset in the slot lead to use the default material
     EXPECT_EQ(materialList[0].GetId(), nullId);
     EXPECT_EQ(materialList[1], mat1);
     EXPECT_EQ(materialList[2], mat2);
@@ -350,7 +350,7 @@ TEST_F(TerrainPhysicsColliderComponentTest, TerrainPhysicsColliderReturnsMateria
     // The materialList should be 1 items long: which should be the default material.
     EXPECT_EQ(materialList.size(), 1);
 
-    AZ::Data::AssetId nullId; // Not having an asset in the slot lead to use the default material
+    const AZ::Data::AssetId nullId; // Not having an asset in the slot lead to use the default material
     EXPECT_EQ(materialList[0].GetId(), nullId);
 }
 

@@ -13,7 +13,7 @@
 
 namespace Physics
 {
-    //! Runtime Physics material interface.
+    //! Runtime Physics material instance.
     // TODO: Material2 is temporary until old Material class is removed.
     class Material2
     {
