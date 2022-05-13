@@ -90,7 +90,7 @@
 // include required AzCore headers
 #include <AzCore/IO/FileIO.h>
 #include <AzFramework/API/ApplicationAPI.h>
-#pragma optimize("", off)
+
 namespace EMotionFX
 {
     namespace Integration
@@ -882,6 +882,7 @@ namespace EMotionFX
                             EMStudio::MotionSetsWindowPlugin* motionSetPlugin = (EMStudio::MotionSetsWindowPlugin*)plugin;
                             if (plugin)
                             {
+                                // We need to wait for the end of frame otherwise setting the current widget fails
                                 QTimer::singleShot(
                                     0,
                                     [motionSetPlugin, fullSourceFileName]()
