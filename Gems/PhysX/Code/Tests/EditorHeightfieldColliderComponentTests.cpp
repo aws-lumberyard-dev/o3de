@@ -13,6 +13,7 @@
 #include <HeightfieldColliderComponent.h>
 #include <LmbrCentral/Shape/BoxShapeComponentBus.h>
 #include <AzFramework/Physics/HeightfieldProviderBus.h>
+#include <AzFramework/Physics/Material/PhysicsMaterialManager.h>
 #include <StaticRigidBodyComponent.h>
 #include <RigidBodyStatic.h>
 #include <PhysX/PhysXLocks.h>
@@ -143,6 +144,11 @@ namespace PhysXEditorTests
 
         void TearDown() override
         {
+            if (auto* materialManager = AZ::Interface<Physics::MaterialManager>::Get())
+            {
+                materialManager->DeleteAllMaterials();
+            }
+
             CleanupHeightfieldComponent();
 
             m_editorEntity = nullptr;

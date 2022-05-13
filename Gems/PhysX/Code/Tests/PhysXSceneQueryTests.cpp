@@ -17,6 +17,7 @@
 #include <AzFramework/Physics/SystemBus.h>
 #include <AzFramework/Physics/Common/PhysicsSceneQueries.h>
 #include <AzFramework/Physics/Configuration/RigidBodyConfiguration.h>
+#include <AzFramework/Physics/Material/PhysicsMaterialManager.h>
 
 #include <RigidBodyComponent.h>
 #include <SphereColliderComponent.h>
@@ -37,6 +38,10 @@ namespace PhysX
         }
         void TearDownFixture()
         {
+            if (auto* materialManager = AZ::Interface<Physics::MaterialManager>::Get())
+            {
+                materialManager->DeleteAllMaterials();
+            }
             //Cleanup any created scenes
             if (auto* physicsSystem = AZ::Interface<AzPhysics::SystemInterface>::Get())
             {
