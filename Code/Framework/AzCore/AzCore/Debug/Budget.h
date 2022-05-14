@@ -21,7 +21,7 @@ namespace AZ::Debug
         ~Budget();
 
         void PerFrameReset();
-        void BeginProfileRegion();
+        void BeginProfileRegion(AZ::Crc32 eventId);
         void EndProfileRegion();
         void TrackAllocation(uint64_t bytes);
         void UntrackAllocation(uint64_t bytes);

@@ -121,31 +121,31 @@ namespace AZ::Statistics
 
         void RegisterProfilerId(StatisticalProfilerId id)
         {
-            m_profilers.try_emplace(id, ProfilerInfo());
+            m_profilers.try_emplace(id, StatisticalProfilerType());
         }
 
         bool IsProfilerActive(StatisticalProfilerId id) const
         {
             auto iter = m_profilers.find(id);
-            return (iter != m_profilers.end()) ? iter->second.m_enabled : false;
+            return (iter != m_profilers.end()) ? iter->second.IsEnabled() : false;
         }
 
         StatisticalProfilerType& GetProfiler(StatisticalProfilerId id)
         {
-            auto iter = m_profilers.try_emplace(id, ProfilerInfo()).first;
-            return iter->second.m_profiler;
+            auto iter = m_profilers.try_emplace(id, StatisticalProfilerType()).first;
+            return iter->second;
         }
 
         void ActivateProfiler(StatisticalProfilerId id, bool activate, bool autoCreate = true)
         {
             if (autoCreate)
             {
-                auto iter = m_profilers.try_emplace(id, ProfilerInfo()).first;
-                iter->second.m_enabled = activate;
+                auto iter = m_profilers.try_emplace(id, StatisticalProfilerType()).first;
+                iter->second.ToggleEnabled(activate);
             }
             else if (auto iter = m_profilers.find(id); iter != m_profilers.end())
             {
-                iter->second.m_enabled = activate;
+                iter->second.ToggleEnabled(activate);
             }
         }
 
@@ -153,7 +153,7 @@ namespace AZ::Statistics
         {
             if (auto iter = m_profilers.find(id); iter != m_profilers.end())
             {
-                iter->second.m_profiler.PushSample(statId, value);
+                iter->second.PushSample(statId, value);
             }
         }
 
@@ -161,7 +161,7 @@ namespace AZ::Statistics
         {
             for (auto& iter : m_profilers)
             {
-                iter.second.m_profiler.GetStatsManager().GetAllStatistics(stats);
+                iter.second.GetStatsManager().GetAllStatistics(stats);
             }
         }
 
@@ -169,18 +169,13 @@ namespace AZ::Statistics
         {
             for (auto& iter : m_profilers)
             {
-                iter.second.m_profiler.GetStatsManager().GetAllStatisticsOfUnits(stats, units);
+                iter.second.GetStatsManager().GetAllStatisticsOfUnits(stats, units);
             }
         }
 
     private:
-        struct ProfilerInfo
-        {
-            StatisticalProfilerType m_profiler;
-            bool m_enabled{ false };
-        };
 
-        using ProfilerMap = AZStd::unordered_map<StatisticalProfilerId, ProfilerInfo>;
+        using ProfilerMap = AZStd::unordered_map<StatisticalProfilerId, StatisticalProfilerType>;
 
         ProfilerMap m_profilers;
     }; // class StatisticalProfilerProxy

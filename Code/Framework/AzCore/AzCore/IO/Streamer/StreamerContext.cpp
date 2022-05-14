@@ -222,10 +222,18 @@ namespace AZ
                     bool isInternal = top->m_usage == FileRequest::Usage::Internal;
 
                     {
-                        AZ_PROFILE_SCOPE(AzCore,
-                            isInternal ? "Completion callback internal" : "Completion callback external");
-                        top->m_onCompletion(*top);
-                        AZ_PROFILE_INTERVAL_END(AzCore, top);
+                        if (isInternal)
+                        {
+                            AZ_PROFILE_SCOPE(AzCore, "Completion callback internal");
+                            top->m_onCompletion(*top);
+                            AZ_PROFILE_INTERVAL_END(AzCore, top);
+                        }
+                        else
+                        {
+                            AZ_PROFILE_SCOPE(AzCore, "Completion callback external");
+                            top->m_onCompletion(*top);
+                            AZ_PROFILE_INTERVAL_END(AzCore, top);
+                        }
                     }
 
                     if (parent)

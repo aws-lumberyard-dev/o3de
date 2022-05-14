@@ -73,6 +73,7 @@ namespace AZ
 
             StatisticalProfiler()
             {
+                m_enabled = false;
             }
 
             StatisticalProfiler(const StatisticalProfiler& other)
@@ -80,12 +81,14 @@ namespace AZ
                 m_statisticsManager = other.m_statisticsManager;
                 m_statsVector.clear();
                 m_perFrameAggregates.clear();
+                m_enabled = other.m_enabled;
             }
 
             StatisticalProfiler(StatisticalProfiler&& other)
             {
                 m_statisticsManager = AZStd::move(other.m_statisticsManager);
                 m_perFrameAggregates = AZStd::move(other.m_perFrameAggregates);
+                m_enabled = other.m_enabled;
             }
 
             virtual ~StatisticalProfiler()
@@ -224,6 +227,16 @@ namespace AZ
                 return m_perFrameAggregates[0].m_statPerFrame;
             }
 
+            void ToggleEnabled(bool enabled)
+            {
+                m_enabled = enabled;
+            }
+
+            bool IsEnabled() const
+            {
+                return m_enabled;
+            }
+
         protected:
             //! Lock this before reading/writing to m_timeStatisticsManager, or else...
             MutexType m_mutex;
@@ -248,6 +261,7 @@ namespace AZ
 
             AZStd::vector<StatisticalAggregate> m_perFrameAggregates;
 
+            bool m_enabled;
         }; //class StatisticalProfiler
 
     }; //namespace Statistics

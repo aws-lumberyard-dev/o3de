@@ -25,6 +25,7 @@
 #include <AzCore/Settings/CommandLine.h>
 #include <AzCore/Settings/SettingsRegistry.h>
 #include <AzCore/Settings/SettingsRegistryConsoleUtils.h>
+#include <AzCore/Statistics/StatisticalProfilerProxy.h>
 #include <AzCore/std/containers/vector.h>
 #include <AzCore/std/smart_ptr/unique_ptr.h>
 #include <AzCore/std/string/conversions.h>
@@ -383,6 +384,7 @@ namespace AZ
 
 #if !defined(_RELEASE)
         Debug::BudgetTracker m_budgetTracker;
+        AZStd::unique_ptr<Statistics::StatisticalProfilerProxy> m_statisticalProfilerProxy;
 #endif
 
         // this is used when no argV/ArgC is supplied.

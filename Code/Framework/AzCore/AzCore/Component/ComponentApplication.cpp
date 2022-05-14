@@ -610,6 +610,7 @@ namespace AZ
 
 #if !defined(_RELEASE)
         m_budgetTracker.Init();
+        m_statisticalProfilerProxy = AZStd::make_unique<Statistics::StatisticalProfilerProxy>();
 #endif
 
         // This can be moved to the ComponentApplication constructor if need be
@@ -753,6 +754,7 @@ namespace AZ
         // the budget tracker must be cleaned up prior to module unloading to ensure
         // budgets initialized cross boundary are freed properly
         m_budgetTracker.Reset();
+        m_statisticalProfilerProxy.reset();
 #endif
 
         // Uninit and unload any dynamic modules.

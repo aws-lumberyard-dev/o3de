@@ -20,14 +20,14 @@ namespace AZ::Debug
 
     template<typename... T>
     void ProfileScope::BeginRegion(
-        [[maybe_unused]] Budget* budget, [[maybe_unused]] const char* eventName, [[maybe_unused]] T const&... args)
+        [[maybe_unused]] Budget* budget, [[maybe_unused]] const char* eventName, [[maybe_unused]] AZ::Crc32 eventId, [[maybe_unused]] T const&... args)
     {
     #if !defined(_RELEASE)
         if (budget)
         {
             Platform::BeginProfileRegion(budget, eventName, args...);
 
-            budget->BeginProfileRegion();
+            budget->BeginProfileRegion(eventId);
 
             if (auto profiler = AZ::Interface<Profiler>::Get(); profiler)
             {
@@ -55,10 +55,10 @@ namespace AZ::Debug
     }
 
     template<typename... T>
-    ProfileScope::ProfileScope(Budget* budget, const char* eventName, T const&... args)
+    ProfileScope::ProfileScope(Budget* budget, const char* eventName, AZ::Crc32 eventId, T const&... args)
         : m_budget{ budget }
     {
-        BeginRegion(budget, eventName, args...);
+        BeginRegion(budget, eventName, eventId, args...);
     }
 
     inline ProfileScope::~ProfileScope()

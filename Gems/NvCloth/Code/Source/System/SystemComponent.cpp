@@ -110,7 +110,7 @@ namespace NvCloth
                 }
                 else
                 {
-                    AZ_PROFILE_BEGIN(Cloth, eventName);
+                    AZ_PROFILE_BEGIN(Cloth, "zoneStart: %s", eventName);
                 }
                 return nullptr;
             }

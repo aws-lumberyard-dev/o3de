@@ -12,6 +12,7 @@
 #include <AzCore/Math/Crc.h>
 #include <AzCore/Memory/SystemAllocator.h>
 #include <AzCore/Statistics/StatisticalProfilerProxy.h>
+#include <AzCore/std/containers/stack.h>
 
 AZ_DEFINE_BUDGET(Animation);
 AZ_DEFINE_BUDGET(Audio);
@@ -28,7 +29,19 @@ namespace AZ::Debug
     {
         AZ_CLASS_ALLOCATOR(BudgetImpl, AZ::SystemAllocator, 0);
         // TODO: Budget implementation for tracking budget wall time per-core, memory, etc.
+
+        BudgetImpl(Statistics::StatisticalProfilerProxy::StatisticalProfilerType& profiler)
+            : m_profiler(profiler)
+        {
+        }
+
+        Statistics::StatisticalProfilerProxy::StatisticalProfilerType& m_profiler;
+        thread_local static AZStd::stack<AZ::Crc32> s_eventIds;
+        thread_local static AZStd::stack<AZStd::chrono::system_clock::time_point> s_regionStartTimes;
     };
+
+    thread_local AZStd::stack<AZ::Crc32> BudgetImpl::s_eventIds;
+    thread_local AZStd::stack<AZStd::chrono::system_clock::time_point> BudgetImpl::s_regionStartTimes;
 
     Budget::Budget(const char* name)
         : Budget( name, Crc32(name) )
@@ -39,10 +52,9 @@ namespace AZ::Debug
         : m_name{ name }
         , m_crc{ crc }
     {
-        m_impl = aznew BudgetImpl;
         if (auto statsProfiler = Interface<Statistics::StatisticalProfilerProxy>::Get(); statsProfiler)
         {
-            statsProfiler->RegisterProfilerId(m_crc);
+            m_impl = aznew BudgetImpl(statsProfiler->GetProfiler(m_crc));
         }
     }
 
@@ -60,12 +72,25 @@ namespace AZ::Debug
     {
     }
 
-    void Budget::BeginProfileRegion()
+    void Budget::BeginProfileRegion(AZ::Crc32 eventId)
     {
+        if (m_impl && m_impl->m_profiler.IsEnabled())
+        {
+            BudgetImpl::s_regionStartTimes.push(AZStd::chrono::high_resolution_clock::now());
+            BudgetImpl::s_eventIds.push(eventId);
+        }
     }
 
     void Budget::EndProfileRegion()
     {
+        if (m_impl && m_impl->m_profiler.IsEnabled() && !BudgetImpl::s_regionStartTimes.empty())
+        {
+            AZStd::chrono::system_clock::time_point endTime = AZStd::chrono::high_resolution_clock::now();
+            AZStd::chrono::microseconds duration = endTime - BudgetImpl::s_regionStartTimes.top();
+            m_impl->m_profiler.PushSample(BudgetImpl::s_eventIds.top(), static_cast<double>(duration.count()));
+            BudgetImpl::s_regionStartTimes.pop();
+            BudgetImpl::s_eventIds.pop();
+        }
     }
 
     void Budget::TrackAllocation(uint64_t)
