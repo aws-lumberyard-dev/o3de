@@ -11,7 +11,6 @@
 #include <Editor/ColliderComponentMode.h>
 #include <EditorHeightfieldColliderComponent.h>
 #include <AzFramework/Physics/Configuration/StaticRigidBodyConfiguration.h>
-#include <AzFramework/Physics/MaterialBus.h>
 #include <AzFramework/Physics/SimulatedBodies/StaticRigidBody.h>
 #include <AzFramework/Physics/Shape.h>
 #include <Source/HeightfieldColliderComponent.h>
