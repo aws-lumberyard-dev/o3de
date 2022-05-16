@@ -117,7 +117,7 @@ namespace Physics
             AzPhysics::CollisionEvent::Reflect(context);
             AzPhysics::TriggerEvent::Reflect(context);
             AzPhysics::SceneConfiguration::Reflect(context);
-            MaterialConfiguration2::Reflect(context);
+            MaterialConfiguration::Reflect(context);
             MaterialAsset::Reflect(context);
             MaterialSlots::Reflect(context);
             AzPhysics::SimulatedBodyConfiguration::Reflect(context);
