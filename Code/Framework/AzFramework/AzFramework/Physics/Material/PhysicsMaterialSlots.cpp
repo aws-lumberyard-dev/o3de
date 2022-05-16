@@ -33,7 +33,7 @@ namespace Physics
         AZ_RTTI(Physics::JsonMaterialSlotContainerSerializer, "{1F71E69B-F4A0-46EF-A5BE-98028C931253}", AZ::JsonBasicContainerSerializer);
 
     protected:
-        bool ShouldClearContainer(AZ::JsonDeserializerContext&) override
+        bool ShouldClearContainer(const AZ::JsonDeserializerContext&) const override
         {
             return true;
         }
