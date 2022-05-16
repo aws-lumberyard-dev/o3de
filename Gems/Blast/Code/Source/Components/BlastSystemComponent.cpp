@@ -409,7 +409,7 @@ namespace Blast
 
     void BlastSystemComponent::AZBlastProfilerCallback::zoneStart(const char* eventName)
     {
-        AZ_PROFILE_BEGIN(Physics, "zoneStart: %s", eventName);
+        AZ_PROFILE_BEGIN(Physics, eventName);
     }
 
     void BlastSystemComponent::AZBlastProfilerCallback::zoneEnd()

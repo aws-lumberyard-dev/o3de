@@ -11,7 +11,6 @@
 #include <limits>
 #include <AzCore/Debug/IEventLogger.h>
 #include <AzCore/Interface/Interface.h>
-#include <AzCore/IO/Path/Path.h>
 #include <AzCore/IO/SystemFile.h>
 #include <AzCore/std/containers/fixed_vector.h>
 #include <AzCore/std/containers/vector.h>
@@ -60,26 +59,23 @@ namespace AZ::Debug
 
         ~LocalFileEventLogger() override;
 
-        bool Start(const AZ::IO::Path& filePath);
-        bool Start(AZStd::string_view outputPath, AZStd::string_view fileNameHint);
-        void Stop();
+        bool Start(const AZ::IO::Path& filePath, bool performanceMode = false) override;
+        bool Start(AZStd::string_view outputPath, AZStd::string_view fileNameHint, bool performanceMode = false) override;
+        void Stop() override;
 
         void Flush() override;
 
         void* RecordEventBegin(EventNameHash id, uint16_t size, uint16_t flags = 0) override;
         void RecordEventEnd() override;
-
         void RecordStringEvent(EventNameHash id, AZStd::string_view text, uint16_t flags = 0) override;
 
+        AZStd::pair<ThreadData*, size_t> RecordPerformanceEventBegin(EventNameHash id, uint16_t size, uint16_t flags) override;
+        void RecordPerformanceEventEnd(ThreadData* bufferData) override;
+
+        bool IsPerformanceModeEnabled() override;
+        void EnablePerformanceMode(bool enable) override;
+
     protected:
-        struct ThreadData
-        {
-            // ensure there is enough room for one large event with header + prolog
-            static constexpr size_t BufferSize = AZStd::numeric_limits<decltype(EventHeader::m_size)>::max() + sizeof(EventHeader) + sizeof(Prolog);
-            char m_buffer[BufferSize]{ 0 };
-            uint64_t m_threadId{ 0 };
-            uint32_t m_usedBytes{ sizeof(Prolog) }; // always front load the buffer with a prolog
-        };
 
         struct ThreadStorage
         {
@@ -99,8 +95,13 @@ namespace AZ::Debug
 
         AZStd::fixed_vector<ThreadStorage*, MaxThreadCount> m_threadDataBlocks;
 
+        AZStd::fixed_vector<ThreadData*, MaxThreadCount> m_deferredDataBlocks;
+
         AZ::IO::SystemFile m_file;
         AZStd::recursive_mutex m_fileGuard;
         AZStd::recursive_mutex m_fileWriteGuard;
+
+        bool m_performanceMode { false };
+        bool m_stopRequested { false };
     };
 } // namespace AZ::Debug

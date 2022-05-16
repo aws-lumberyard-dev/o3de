@@ -8,6 +8,7 @@
 #pragma once
 
 #include <AzCore/Debug/BudgetTracker.h>
+#include <AzCore/Debug/IEventLogger.h>
 #include <AzCore/Math/Crc.h>
 
 namespace AZ::Debug
@@ -21,7 +22,7 @@ namespace AZ::Debug
         ~Budget();
 
         void PerFrameReset();
-        void BeginProfileRegion(AZ::Crc32 eventId);
+        void BeginProfileRegion(AZStd::string_view event);
         void EndProfileRegion();
         void TrackAllocation(uint64_t bytes);
         void UntrackAllocation(uint64_t bytes);
@@ -39,6 +40,7 @@ namespace AZ::Debug
     private:
         const char* m_name;
         const uint32_t m_crc;
+        const EventNameHash m_budgetNameHash;
         struct BudgetImpl* m_impl = nullptr;
     };
 } // namespace AZ::Debug

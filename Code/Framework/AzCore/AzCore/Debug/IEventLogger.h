@@ -10,6 +10,7 @@
 
 #include <type_traits>
 #include <AzCore/base.h>
+#include <AzCore/IO/Path/Path.h>
 #include <AzCore/RTTI/TypeInfoSimple.h>
 #include <AzCore/std/limits.h>
 #include <AzCore/std/string/string_view.h>
@@ -78,9 +79,23 @@ namespace AZ::Debug
             uint64_t m_threadId;    //!< Unique id of the thread the log buffer is being recorded on.
         };
 
+        struct ThreadData
+        {
+            // ensure there is enough room for one large event with header + prolog
+            static constexpr size_t BufferSize = AZStd::numeric_limits<decltype(EventHeader::m_size)>::max() + sizeof(EventHeader) + sizeof(Prolog);
+            char m_buffer[BufferSize]{ 0 };
+            uint64_t m_threadId{ 0 };
+            uint32_t m_usedBytes{ sizeof(Prolog) }; // always front load the buffer with a prolog
+            uint8_t m_refCount { 0 };
+        };
+
         AZ_TYPE_INFO(AZ::Debug::IEventLogger, "{D39D09FA-DEA0-4874-BC45-4B310C3DD52E}");
 
         virtual ~IEventLogger() = default;
+
+        virtual bool Start(const AZ::IO::Path& filePath, bool performanceMode = false) = 0;
+        virtual bool Start(AZStd::string_view outputPath, AZStd::string_view fileNameHint, bool performanceMode = false) = 0;
+        virtual void Stop() = 0;
 
         //! Writes and flushes all thread local buffers to disk and flushes the disk to store the recorded events.
         virtual void Flush() = 0;
@@ -101,6 +116,15 @@ namespace AZ::Debug
         //! @param text The string that will be logged.
         //! @param flags Optional flags unique to the event.
         virtual void RecordStringEvent(EventNameHash id, AZStd::string_view text, uint16_t flags = 0) = 0;
+
+        //!
+        virtual AZStd::pair<ThreadData*, size_t> RecordPerformanceEventBegin(EventNameHash id, uint16_t size, uint16_t flags) = 0;
+
+        virtual void RecordPerformanceEventEnd(ThreadData* bufferData) = 0;
+
+        virtual bool IsPerformanceModeEnabled() = 0;
+
+        virtual void EnablePerformanceMode(bool enable) = 0;
 
         //! Utility function to begin an event with a specific structure.
         //! For example this can be used as:

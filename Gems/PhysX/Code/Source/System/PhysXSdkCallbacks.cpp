@@ -45,7 +45,7 @@ namespace PhysX
     {
         if (!detached)
         {
-            AZ_PROFILE_BEGIN(Physics, "zoneStart: %s", eventName);
+            AZ_PROFILE_BEGIN(Physics, eventName);
         }
         else
         {

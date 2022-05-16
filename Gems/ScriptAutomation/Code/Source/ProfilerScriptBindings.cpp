@@ -12,9 +12,12 @@
 #include <ScriptAutomation/ScriptAutomationBus.h>
 
 #include <AzCore/Debug/Budget.h>
+#include <AzCore/Debug/IEventLogger.h>
+#include <AzCore/IO/Path/Path.h>
 #include <AzCore/Math/Crc.h>
 #include <AzCore/RTTI/BehaviorContext.h>
 #include <AzCore/Script/ScriptContext.h>
+#include <AzCore/Settings/SettingsRegistryMergeUtils.h>
 #include <AzCore/Statistics/StatisticalProfilerProxy.h>
 #include <AzCore/std/string/fixed_string.h>
 
@@ -99,10 +102,52 @@ namespace ScriptAutomation
             ScriptAutomationInterface->QueueScriptOperation(AZStd::move(enableProfilers));
             ScriptAutomationInterface->QueueScriptOperation(AZStd::move(disableFrofilers));
         }
+
+        void ToggleProfileCapture(int numFrames)
+        {
+            auto stopEventLogging = []()
+            {
+                if (auto logger = AZ::Interface<AZ::Debug::IEventLogger>::Get(); logger)
+                {
+                    logger->Stop();
+                }
+            };
+
+            auto startPerformanceLogging = [numFrames]()
+            {
+                if (auto registry = AZ::SettingsRegistry::Get(); registry)
+                {
+                    AZ::IO::FixedMaxPath outputPath;
+                    registry->Get(outputPath.Native(), AZ::SettingsRegistryMergeUtils::FilePathKey_DevWriteStorage);
+                    outputPath /= "perf_metrics";
+                    AZ::IO::FixedMaxPathString baseFileName{ "PerfMetrics" };
+
+                    if (auto logger = AZ::Interface<AZ::Debug::IEventLogger>::Get(); logger)
+                    {
+                        logger->Start(outputPath.Native(), baseFileName, true);
+                        auto ScriptAutomationInterface = ScriptAutomationInterface::Get();
+                        ScriptAutomationInterface->SetIdleFrames(numFrames);
+                    }
+                }
+            };
+
+            auto stopPerformanceLogging = []()
+            {
+                if (auto logger = AZ::Interface<AZ::Debug::IEventLogger>::Get(); logger)
+                {
+                    logger->Stop();
+                }
+            };
+
+            ScriptAutomationInterface::Get()->QueueScriptOperation(stopEventLogging);
+            ScriptAutomationInterface::Get()->QueueScriptOperation(startPerformanceLogging);
+            ScriptAutomationInterface::Get()->QueueScriptOperation(stopPerformanceLogging);
+        }
     }
 
     void ReflectProfilerScriptBindings(AZ::BehaviorContext* context)
     {
         context->Method("CaptureStatistics", &Bindings::CaptureStatistics);
+        context->Method("ToggleProfileCapture", &Bindings::ToggleProfileCapture);
     }
 }

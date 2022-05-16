@@ -10,7 +10,6 @@
 #include <AzCore/Casting/lossy_cast.h>
 #include <AzCore/Casting/numeric_cast.h>
 #include <AzCore/Debug/LocalFileEventLogger.h>
-#include <AzCore/IO/Path/Path.h>
 #include <AzCore/std/parallel/scoped_lock.h>
 #include <AzCore/std/parallel/thread.h>
 #include <AzCore/Settings/SettingsRegistry.h>
@@ -118,7 +117,7 @@ namespace AZ::Debug
         }
     }
 
-    bool LocalFileEventLogger::Start(const AZ::IO::Path& filePath)
+    bool LocalFileEventLogger::Start(const AZ::IO::Path& filePath, bool performanceMode)
     {
         using namespace AZ::IO;
 
@@ -127,12 +126,13 @@ namespace AZ::Debug
         {
             LogHeader defaultHeader;
             m_file.Write(&defaultHeader, sizeof(LogHeader));
+            m_performanceMode = performanceMode;
             return true;
         }
         return false;
     }
 
-    bool LocalFileEventLogger::Start(AZStd::string_view outputPath, AZStd::string_view fileNameHint)
+    bool LocalFileEventLogger::Start(AZStd::string_view outputPath, AZStd::string_view fileNameHint, bool performanceMode)
     {
         using namespace AZ::IO;
 
@@ -167,13 +167,20 @@ namespace AZ::Debug
         filePath /= fileName;
         filePath.ReplaceExtension("azel");
 
-        return Start(filePath.c_str());
+        return Start(filePath.c_str(), performanceMode);
     }
 
     void LocalFileEventLogger::Stop()
     {
-        Flush();
-        m_file.Close();
+        if (!m_performanceMode)
+        {
+            Flush();
+            m_file.Close();
+        }
+        else
+        {
+            m_stopRequested = true;
+        }
     }
 
     void LocalFileEventLogger::Flush()
@@ -238,6 +245,11 @@ namespace AZ::Debug
 
     void* LocalFileEventLogger::RecordEventBegin(EventNameHash id, uint16_t size, uint16_t flags)
     {
+        if (m_performanceMode)
+        {
+            return nullptr;
+        }
+
         ThreadStorage& threadStorage = GetThreadStorage();
         ThreadData* threadData = threadStorage.m_data;
 
@@ -269,6 +281,11 @@ namespace AZ::Debug
 
     void LocalFileEventLogger::RecordEventEnd()
     {
+        if (m_performanceMode)
+        {
+            return;
+        }
+
         // swap the pending data to commit the event
         ThreadStorage& threadStorage = GetThreadStorage();
         ThreadData* expectedData = nullptr;
@@ -280,6 +297,11 @@ namespace AZ::Debug
 
     void LocalFileEventLogger::RecordStringEvent(EventNameHash id, AZStd::string_view text, uint16_t flags)
     {
+        if (m_performanceMode)
+        {
+            return;
+        }
+
         constexpr size_t maxSize = AZStd::numeric_limits<decltype(EventHeader::m_size)>::max();
         const size_t stringLen = text.length();
 
@@ -292,6 +314,101 @@ namespace AZ::Debug
         void* eventText = RecordEventBegin(id, aznumeric_cast<uint16_t>(stringLen), flags);
         memcpy(eventText, text.data(), stringLen);
         RecordEventEnd();
+    }
+
+    AZStd::pair<IEventLogger::ThreadData*, size_t> LocalFileEventLogger::RecordPerformanceEventBegin(EventNameHash id, uint16_t size, uint16_t flags)
+    {
+        if (!m_performanceMode)
+        {
+            AZ_Assert(false, "Cannot record performance events when performance mode is disabled!");
+            return AZStd::make_pair<ThreadData*, size_t>(nullptr, 0);
+        }
+        
+        if (m_stopRequested)
+        {
+            if (m_deferredDataBlocks.size() == 0)
+            {
+                m_stopRequested = false;
+                m_performanceMode = false;
+                Stop();
+            }
+            return AZStd::make_pair<ThreadData*, size_t>(nullptr, 0);
+        }
+
+        ThreadStorage& threadStorage = GetThreadStorage();
+        ThreadData* threadData = threadStorage.m_data;
+
+        uint32_t writeSize = AZ_SIZE_ALIGN_UP(sizeof(EventHeader) + size, EventBoundary);
+        if (threadData->m_usedBytes + writeSize >= ThreadData::BufferSize)
+        {
+            if (threadData->m_refCount == 0)
+            {
+                AZStd::scoped_lock lock(m_fileWriteGuard);
+                WriteCacheToDisk(*threadData);
+            }
+            else
+            {
+                {
+                    AZStd::scoped_lock guard(m_fileGuard);
+                    threadStorage.m_owner->m_deferredDataBlocks.push_back(threadData);
+                }
+
+                ThreadData* data = new ThreadData();
+                data->m_threadId = azlossy_caster(AZStd::hash<AZStd::thread_id>{}(AZStd::this_thread::get_id()));
+                threadStorage.m_data = data;
+                threadData = threadStorage.m_data;
+            }
+        }
+
+        size_t usedBytesBeforeEvent = threadData->m_usedBytes;
+        char* eventBuffer = (threadData->m_buffer + usedBytesBeforeEvent);
+        EventHeader* header = reinterpret_cast<EventHeader*>(eventBuffer);
+        header->m_eventId = id;
+        header->m_size = size;
+        header->m_flags = flags;
+        threadData->m_usedBytes += writeSize;
+        threadData->m_refCount++;
+
+        return AZStd::make_pair<ThreadData*, size_t>(threadData, usedBytesBeforeEvent + sizeof(EventHeader));
+    }
+
+    void LocalFileEventLogger::RecordPerformanceEventEnd(ThreadData* bufferData)
+    {
+        if (!m_performanceMode)
+        {
+            return;
+        }
+
+        bufferData->m_refCount--;
+
+        if (bufferData->m_refCount == 0)
+        {
+            auto it = AZStd::find(m_deferredDataBlocks.begin(), m_deferredDataBlocks.end(), bufferData);
+            if (it != m_deferredDataBlocks.end())
+            {
+                {
+                    AZStd::scoped_lock guard(m_fileGuard);
+                    m_deferredDataBlocks.erase(it);
+                }
+                
+                {
+                    AZStd::scoped_lock guard(m_fileWriteGuard);
+                    WriteCacheToDisk(*bufferData);
+                }
+
+                delete bufferData;
+            }
+        }
+    }
+
+    bool LocalFileEventLogger::IsPerformanceModeEnabled()
+    {
+        return m_performanceMode;
+    }
+
+    void LocalFileEventLogger::EnablePerformanceMode(bool enable)
+    {
+        m_performanceMode = enable;
     }
 
     void LocalFileEventLogger::WriteCacheToDisk(ThreadData& threadData)
@@ -339,6 +456,7 @@ namespace AZ::Debug
             ThreadData* data = m_data;
             if (data->m_usedBytes > 0)
             {
+                AZ_Assert(data->m_refCount == 0, "Thread data pointer still being cached when thread is being destroyed!");
                 m_owner->WriteCacheToDisk(*data);
             }
 
@@ -361,8 +479,11 @@ namespace AZ::Debug
             data->m_threadId = azlossy_caster(AZStd::hash<AZStd::thread_id>{}(AZStd::this_thread::get_id()));
             m_data = data;
 
-            AZStd::scoped_lock guard(m_owner->m_fileGuard);
-            m_owner->m_threadDataBlocks.push_back(this);
+            if (!m_owner->m_performanceMode)
+            {
+                AZStd::scoped_lock guard(m_owner->m_fileGuard);
+                m_owner->m_threadDataBlocks.push_back(this);
+            }
         }
     }
 } // namespace AZ::Debug

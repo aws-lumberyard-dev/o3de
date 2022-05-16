@@ -22,19 +22,16 @@
  * Macro to declare a profile section for the current scope { }.
  * format is: AZ_PROFILE_SCOPE(categoryName, const char* formatStr, ...)
  */
-#define AZ_PROFILE_SCOPE(budget, eventName, ...)                                                                                           \
-    static constexpr AZ::Crc32 AZ_JOIN(blockId, __LINE__)(eventName);                                                                      \
+#define AZ_PROFILE_SCOPE(budget, ...)                                                                                                      \
     ::AZ::Debug::ProfileScope AZ_JOIN(azProfileScope, __LINE__)                                                                            \
     {                                                                                                                                      \
-        AZ_BUDGET_GETTER(budget)(), eventName, AZ_JOIN(blockId, __LINE__), __VA_ARGS__                                                     \
+        AZ_BUDGET_GETTER(budget)(), __VA_ARGS__                                                                                            \
     }
 
 #define AZ_PROFILE_FUNCTION(category) AZ_PROFILE_SCOPE(category, AZ_FUNCTION_SIGNATURE)
 
 // Prefer using the scoped macros which automatically end the event (AZ_PROFILE_SCOPE/AZ_PROFILE_FUNCTION)
-#define AZ_PROFILE_BEGIN(budget, eventName, ...)                                                                                           \
-    static constexpr AZ::Crc32 AZ_JOIN(blockId, __LINE__)(eventName);                                                                      \
-    ::AZ::Debug::ProfileScope::BeginRegion(AZ_BUDGET_GETTER(budget)(), eventName, AZ_JOIN(blockId, __LINE__), __VA_ARGS__)
+#define AZ_PROFILE_BEGIN(budget, ...) ::AZ::Debug::ProfileScope::BeginRegion(AZ_BUDGET_GETTER(budget)(), __VA_ARGS__)
 #define AZ_PROFILE_END(budget) ::AZ::Debug::ProfileScope::EndRegion(AZ_BUDGET_GETTER(budget)())
 
 #endif // AZ_PROFILER_MACRO_DISABLE
@@ -78,11 +75,11 @@ namespace AZ::Debug
     {
     public:
         template<typename... T>
-        static void BeginRegion(Budget* budget, const char* eventName, AZ::Crc32 eventId, T const&... args);
+        static void BeginRegion(Budget* budget, const char* eventName, T const&... args);
         static void EndRegion(Budget* budget);
 
         template<typename... T>
-        ProfileScope(Budget* budget, const char* eventName, AZ::Crc32 eventId, T const&... args);
+        ProfileScope(Budget* budget, const char* eventName, T const&... args);
 
         ~ProfileScope();
 
