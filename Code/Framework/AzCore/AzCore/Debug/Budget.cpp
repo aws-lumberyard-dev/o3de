@@ -34,12 +34,13 @@ namespace AZ::Debug
         BudgetImpl(AZStd::string_view name)
         {
             m_budgetNameLength = static_cast<uint8_t>(name.length());
-            m_baseEventSize = m_budgetNameLength + sizeof(AZStd::chrono::system_clock::time_point) + sizeof(uint64_t);
+            m_baseEventSize = m_budgetNameLength + sizeof(uint64_t);
             m_eventLogger = Interface<IEventLogger>::Get();
         }
         
         static constexpr size_t MaxProfileDepth = 32;        
         thread_local static AZStd::pair<IEventLogger::ThreadData*, size_t> s_eventData[MaxProfileDepth];
+        thread_local static AZStd::chrono::system_clock::time_point s_timeStamps[MaxProfileDepth];
         thread_local static int8_t s_currentDepth;
 
         uint16_t m_budgetNameLength;
@@ -48,6 +49,7 @@ namespace AZ::Debug
     };
 
     thread_local AZStd::pair<IEventLogger::ThreadData*, size_t> BudgetImpl::s_eventData[BudgetImpl::MaxProfileDepth];
+    thread_local AZStd::chrono::system_clock::time_point BudgetImpl::s_timeStamps[BudgetImpl::MaxProfileDepth];
     thread_local int8_t BudgetImpl::s_currentDepth = -1;
 
     Budget::Budget(const char* name)
@@ -88,11 +90,11 @@ namespace AZ::Debug
                 uint16_t bufferSize = m_impl->m_baseEventSize + eventSize;
                 uint16_t flags = BudgetImpl::s_currentDepth;
                 flags |= (m_impl->m_budgetNameLength << 8);
-                auto perfEvent = m_impl->m_eventLogger->RecordPerformanceEventBegin(m_budgetNameHash, bufferSize, flags);
+                m_impl->m_eventLogger->RecordPerformanceEventBegin(m_budgetNameHash, bufferSize, flags
+                    , BudgetImpl::s_eventData[BudgetImpl::s_currentDepth].first, BudgetImpl::s_eventData[BudgetImpl::s_currentDepth].second);
 
-                if (perfEvent.first != nullptr)
+                if (BudgetImpl::s_eventData[BudgetImpl::s_currentDepth].first != nullptr)
                 {
-                    BudgetImpl::s_eventData[BudgetImpl::s_currentDepth] = perfEvent;
                     char* buffer = BudgetImpl::s_eventData[BudgetImpl::s_currentDepth].first->m_buffer + BudgetImpl::s_eventData[BudgetImpl::s_currentDepth].second;
 
                     memcpy(buffer, m_name, m_impl->m_budgetNameLength);
@@ -103,15 +105,17 @@ namespace AZ::Debug
 
                     buffer += eventSize;
                     BudgetImpl::s_eventData[BudgetImpl::s_currentDepth].second += eventSize;
-                    AZStd::chrono::system_clock::time_point startTime = AZStd::chrono::high_resolution_clock::now();
-                    memcpy(buffer, &startTime, sizeof(AZStd::chrono::system_clock::time_point));
+                    BudgetImpl::s_timeStamps[BudgetImpl::s_currentDepth] = AZStd::chrono::high_resolution_clock::now();
+                }
+                else
+                {
+                    BudgetImpl::s_currentDepth--;
                 }
             }
             else
             {
                 BudgetImpl::s_currentDepth--;
                 AZ_Assert(false, "Max profile capture depth is %d", BudgetImpl::MaxProfileDepth);
-                return;
             }
         }
     }
@@ -122,11 +126,9 @@ namespace AZ::Debug
         {
             char *buffer = BudgetImpl::s_eventData[BudgetImpl::s_currentDepth].first->m_buffer + BudgetImpl::s_eventData[BudgetImpl::s_currentDepth].second;
             
-            AZStd::chrono::system_clock::time_point* startTime = reinterpret_cast<AZStd::chrono::system_clock::time_point*>(buffer);
             AZStd::chrono::system_clock::time_point endTime = AZStd::chrono::high_resolution_clock::now();
-            uint64_t duration = (endTime - *startTime).count();
-            
-            buffer += sizeof(AZStd::chrono::system_clock::time_point);
+            uint64_t duration = (endTime - BudgetImpl::s_timeStamps[BudgetImpl::s_currentDepth]).count();
+
             memcpy(buffer, &duration, sizeof(uint64_t));
 
             m_impl->m_eventLogger->RecordPerformanceEventEnd(BudgetImpl::s_eventData[BudgetImpl::s_currentDepth].first);

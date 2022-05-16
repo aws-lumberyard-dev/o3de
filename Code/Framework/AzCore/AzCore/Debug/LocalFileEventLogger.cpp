@@ -176,6 +176,7 @@ namespace AZ::Debug
         {
             Flush();
             m_file.Close();
+            GetThreadStorage().Reset(nullptr);
         }
         else
         {
@@ -316,27 +317,35 @@ namespace AZ::Debug
         RecordEventEnd();
     }
 
-    AZStd::pair<IEventLogger::ThreadData*, size_t> LocalFileEventLogger::RecordPerformanceEventBegin(EventNameHash id, uint16_t size, uint16_t flags)
+    void LocalFileEventLogger::RecordPerformanceEventBegin(EventNameHash id, uint16_t size, uint16_t flags, ThreadData*& outBuffer, size_t& outOffset)
     {
+        outBuffer = nullptr;
+        outOffset = 0;
+
         if (!m_performanceMode)
         {
             AZ_Assert(false, "Cannot record performance events when performance mode is disabled!");
-            return AZStd::make_pair<ThreadData*, size_t>(nullptr, 0);
+            return;
         }
+        
+        ThreadStorage& threadStorage = GetThreadStorage();
+        ThreadData* threadData = threadStorage.m_data;
+        ThreadData* deferredThreadData = threadStorage.m_pendingData;
         
         if (m_stopRequested)
         {
-            if (m_deferredDataBlocks.size() == 0)
+            if (threadData->m_refCount == 0 && deferredThreadData->m_refCount == 0)
             {
                 m_stopRequested = false;
                 m_performanceMode = false;
+
+                delete deferredThreadData;
+                threadStorage.m_pendingData = nullptr;
+
                 Stop();
             }
-            return AZStd::make_pair<ThreadData*, size_t>(nullptr, 0);
+            return;
         }
-
-        ThreadStorage& threadStorage = GetThreadStorage();
-        ThreadData* threadData = threadStorage.m_data;
 
         uint32_t writeSize = AZ_SIZE_ALIGN_UP(sizeof(EventHeader) + size, EventBoundary);
         if (threadData->m_usedBytes + writeSize >= ThreadData::BufferSize)
@@ -346,17 +355,16 @@ namespace AZ::Debug
                 AZStd::scoped_lock lock(m_fileWriteGuard);
                 WriteCacheToDisk(*threadData);
             }
+            else if (deferredThreadData->m_refCount == 0)
+            {
+                threadStorage.m_data = deferredThreadData;
+                threadStorage.m_pendingData = threadData;
+                threadData = threadStorage.m_data;
+            }
             else
             {
-                {
-                    AZStd::scoped_lock guard(m_fileGuard);
-                    threadStorage.m_owner->m_deferredDataBlocks.push_back(threadData);
-                }
-
-                ThreadData* data = new ThreadData();
-                data->m_threadId = azlossy_caster(AZStd::hash<AZStd::thread_id>{}(AZStd::this_thread::get_id()));
-                threadStorage.m_data = data;
-                threadData = threadStorage.m_data;
+                AZ_Assert(false, "Not all references of deferred thread data have been returned! Deferred thread data cannot be held for longer than 1 frame!");
+                return;
             }
         }
 
@@ -369,7 +377,8 @@ namespace AZ::Debug
         threadData->m_usedBytes += writeSize;
         threadData->m_refCount++;
 
-        return AZStd::make_pair<ThreadData*, size_t>(threadData, usedBytesBeforeEvent + sizeof(EventHeader));
+        outBuffer = threadData;
+        outOffset = usedBytesBeforeEvent + sizeof(EventHeader);
     }
 
     void LocalFileEventLogger::RecordPerformanceEventEnd(ThreadData* bufferData)
@@ -381,22 +390,13 @@ namespace AZ::Debug
 
         bufferData->m_refCount--;
 
-        if (bufferData->m_refCount == 0)
-        {
-            auto it = AZStd::find(m_deferredDataBlocks.begin(), m_deferredDataBlocks.end(), bufferData);
-            if (it != m_deferredDataBlocks.end())
-            {
-                {
-                    AZStd::scoped_lock guard(m_fileGuard);
-                    m_deferredDataBlocks.erase(it);
-                }
-                
-                {
-                    AZStd::scoped_lock guard(m_fileWriteGuard);
-                    WriteCacheToDisk(*bufferData);
-                }
+        ThreadStorage& threadStorage = GetThreadStorage();
 
-                delete bufferData;
+        if (bufferData->m_refCount == 0 && (bufferData == threadStorage.m_pendingData || m_stopRequested))
+        {                
+            {
+                AZStd::scoped_lock guard(m_fileWriteGuard);
+                WriteCacheToDisk(*bufferData);
             }
         }
     }
@@ -483,6 +483,12 @@ namespace AZ::Debug
             {
                 AZStd::scoped_lock guard(m_owner->m_fileGuard);
                 m_owner->m_threadDataBlocks.push_back(this);
+            }
+            else
+            {
+                ThreadData* deferredData = new ThreadData();
+                deferredData->m_threadId = azlossy_caster(AZStd::hash<AZStd::thread_id>{}(AZStd::this_thread::get_id()));
+                m_pendingData = deferredData;
             }
         }
     }

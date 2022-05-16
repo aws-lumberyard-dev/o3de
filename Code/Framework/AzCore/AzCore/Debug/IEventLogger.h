@@ -118,7 +118,7 @@ namespace AZ::Debug
         virtual void RecordStringEvent(EventNameHash id, AZStd::string_view text, uint16_t flags = 0) = 0;
 
         //!
-        virtual AZStd::pair<ThreadData*, size_t> RecordPerformanceEventBegin(EventNameHash id, uint16_t size, uint16_t flags) = 0;
+        virtual void RecordPerformanceEventBegin(EventNameHash id, uint16_t size, uint16_t flags, ThreadData*& outBuffer, size_t& outOffset) = 0;
 
         virtual void RecordPerformanceEventEnd(ThreadData* bufferData) = 0;
 

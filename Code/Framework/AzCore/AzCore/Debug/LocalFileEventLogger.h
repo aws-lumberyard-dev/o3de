@@ -69,7 +69,7 @@ namespace AZ::Debug
         void RecordEventEnd() override;
         void RecordStringEvent(EventNameHash id, AZStd::string_view text, uint16_t flags = 0) override;
 
-        AZStd::pair<ThreadData*, size_t> RecordPerformanceEventBegin(EventNameHash id, uint16_t size, uint16_t flags) override;
+        void RecordPerformanceEventBegin(EventNameHash id, uint16_t size, uint16_t flags, ThreadData*& outBuffer, size_t& outOffset) override;
         void RecordPerformanceEventEnd(ThreadData* bufferData) override;
 
         bool IsPerformanceModeEnabled() override;
@@ -94,8 +94,6 @@ namespace AZ::Debug
         ThreadStorage& GetThreadStorage();
 
         AZStd::fixed_vector<ThreadStorage*, MaxThreadCount> m_threadDataBlocks;
-
-        AZStd::fixed_vector<ThreadData*, MaxThreadCount> m_deferredDataBlocks;
 
         AZ::IO::SystemFile m_file;
         AZStd::recursive_mutex m_fileGuard;
