@@ -446,7 +446,7 @@ namespace AZ
         return true;
     }
 
-    bool JsonMapSerializer::ShouldClearContainer(JsonDeserializerContext& context)
+    bool JsonMapSerializer::ShouldClearContainer(const JsonDeserializerContext& context) const
     {
         return context.ShouldClearContainers();
     }

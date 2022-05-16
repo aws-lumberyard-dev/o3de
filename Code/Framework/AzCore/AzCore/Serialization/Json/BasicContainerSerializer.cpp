@@ -50,7 +50,7 @@ namespace AZ
         }
     }
 
-    bool JsonBasicContainerSerializer::ShouldClearContainer(JsonDeserializerContext& context)
+    bool JsonBasicContainerSerializer::ShouldClearContainer(const JsonDeserializerContext& context) const
     {
         return context.ShouldClearContainers();
     }
