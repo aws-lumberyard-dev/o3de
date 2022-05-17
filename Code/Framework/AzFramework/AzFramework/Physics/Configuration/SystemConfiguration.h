@@ -58,6 +58,6 @@ namespace AzPhysics
         // This is used instead of adding alignas(16) to the struct because that generates
         // warnings everywhere the struct is used indicating that padding is added, which 
         // causes compilation errors.
-        AZ::Vector4 m_padding;
+        AZ::Vector4 m_unusedPadding;
     };
 }
