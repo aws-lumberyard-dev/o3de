@@ -60,8 +60,11 @@ namespace AZ::Debug
         ~LocalFileEventLogger() override;
 
         bool Start(const AZ::IO::Path& filePath, bool performanceMode = false) override;
-        bool Start(AZStd::string_view outputPath, AZStd::string_view fileNameHint, bool performanceMode = false) override;
+        bool Start(AZStd::string_view outputPath, AZStd::string_view fileNameHint) override;
         void Stop() override;
+
+        bool StartPerformanceCapture(const AZ::IO::Path& filePath) override;
+        void StopPerformanceCapture() override;
 
         void Flush() override;
 
@@ -92,6 +95,8 @@ namespace AZ::Debug
 
         ThreadStorage& GetThreadStorage();
 
+        void ClearAllThreadStorage();
+
         AZStd::fixed_vector<ThreadStorage*, MaxThreadCount> m_threadDataBlocks;
 
         AZ::IO::SystemFile m_file;
@@ -100,6 +105,8 @@ namespace AZ::Debug
 
         bool m_performanceMode{ false };
         bool m_stopRequested{ false };
+        bool m_stopped{ false };
         AZStd::atomic<uint32_t> m_deferredDataCount{ 0 };
+        AZ::IO::Path m_logFilePath;
     };
 } // namespace AZ::Debug

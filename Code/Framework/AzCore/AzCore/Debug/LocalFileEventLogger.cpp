@@ -126,13 +126,14 @@ namespace AZ::Debug
         {
             LogHeader defaultHeader;
             m_file.Write(&defaultHeader, sizeof(LogHeader));
+            m_stopped = false;
             m_performanceMode = performanceMode;
             return true;
         }
         return false;
     }
 
-    bool LocalFileEventLogger::Start(AZStd::string_view outputPath, AZStd::string_view fileNameHint, bool performanceMode)
+    bool LocalFileEventLogger::Start(AZStd::string_view outputPath, AZStd::string_view fileNameHint)
     {
         using namespace AZ::IO;
 
@@ -167,21 +168,51 @@ namespace AZ::Debug
         filePath /= fileName;
         filePath.ReplaceExtension("azel");
 
-        return Start(filePath.c_str(), performanceMode);
+        return Start(filePath.c_str());
+    }
+
+    bool LocalFileEventLogger::StartPerformanceCapture(const AZ::IO::Path& filePath)
+    {
+        AZ_TracePrintf("EventLogger", "Starting performance capture");
+
+        if (m_file.IsOpen())
+        {
+            m_logFilePath = m_file.Name();
+            Stop();
+        }
+
+        ClearAllThreadStorage();
+
+        if (!Start(filePath, true))
+        {
+            Start(m_logFilePath);
+            AZ_Assert(false, "Failed to start performance capture!");
+            return false;
+        }
+
+        return true;
+    }
+
+    void LocalFileEventLogger::StopPerformanceCapture()
+    {
+        if (m_performanceMode)
+        {
+            m_stopRequested = true;
+        }
+        else
+        {
+            Stop();
+            ClearAllThreadStorage();
+            Start(m_logFilePath);
+            AZ_TracePrintf("EventLogger", "Stopped performance capture");
+        }
     }
 
     void LocalFileEventLogger::Stop()
     {
-        if (!m_performanceMode)
-        {
-            Flush();
-            m_file.Close();
-            GetThreadStorage().Reset(nullptr);
-        }
-        else
-        {
-            m_stopRequested = true;
-        }
+        Flush();
+        m_file.Close();
+        m_stopped = true;
     }
 
     void LocalFileEventLogger::Flush()
@@ -246,7 +277,7 @@ namespace AZ::Debug
 
     void* LocalFileEventLogger::RecordEventBegin(EventNameHash id, uint16_t size, uint16_t flags)
     {
-        if (m_performanceMode)
+        if (m_stopped || m_performanceMode)
         {
             return nullptr;
         }
@@ -282,7 +313,7 @@ namespace AZ::Debug
 
     void LocalFileEventLogger::RecordEventEnd()
     {
-        if (m_performanceMode)
+        if (m_stopped || m_performanceMode)
         {
             return;
         }
@@ -298,7 +329,7 @@ namespace AZ::Debug
 
     void LocalFileEventLogger::RecordStringEvent(EventNameHash id, AZStd::string_view text, uint16_t flags)
     {
-        if (m_performanceMode)
+        if (m_stopped || m_performanceMode)
         {
             return;
         }
@@ -344,7 +375,7 @@ namespace AZ::Debug
                 {
                     m_stopRequested = false;
                     m_performanceMode = false;
-                    Stop();
+                    StopPerformanceCapture();
                 }
             }
             return;
@@ -428,6 +459,22 @@ namespace AZ::Debug
         thread_local static ThreadStorage s_storage;
         s_storage.Reset(this);
         return s_storage;
+    }
+
+    void LocalFileEventLogger::ClearAllThreadStorage()
+    {
+        if (!m_stopped)
+        {
+            AZ_Assert(false, "Cannot reset thread local storage data when the EventLogger is still running!");
+            return;
+        }
+
+        for (int i = 0; i < m_threadDataBlocks.size(); i++)
+        {
+            m_threadDataBlocks[i]->Reset(nullptr);
+        }
+
+        m_threadDataBlocks.clear();
     }
 
     //

@@ -94,8 +94,11 @@ namespace AZ::Debug
         virtual ~IEventLogger() = default;
 
         virtual bool Start(const AZ::IO::Path& filePath, bool performanceMode = false) = 0;
-        virtual bool Start(AZStd::string_view outputPath, AZStd::string_view fileNameHint, bool performanceMode = false) = 0;
+        virtual bool Start(AZStd::string_view outputPath, AZStd::string_view fileNameHint) = 0;
         virtual void Stop() = 0;
+
+        virtual bool StartPerformanceCapture(const AZ::IO::Path& filePath) = 0;
+        virtual void StopPerformanceCapture() = 0;
 
         //! Writes and flushes all thread local buffers to disk and flushes the disk to store the recorded events.
         virtual void Flush() = 0;
