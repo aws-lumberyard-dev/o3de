@@ -79,7 +79,7 @@ namespace PhysX
         physx::PxFilterData CreateFilterData(const AzPhysics::CollisionLayer& layer, const AzPhysics::CollisionGroup& group) override;
         physx::PxCooking* GetCooking() override;
 
-        // Physics::SystemRequestBus::Handler overrides...
+        // Physics::SystemRequestBus overrides...
         AZStd::shared_ptr<Physics::Shape> CreateShape(const Physics::ColliderConfiguration& colliderConfiguration, const Physics::ShapeConfiguration& configuration) override;
         void ReleaseNativeMeshObject(void* nativeMeshObject) override;
         void ReleaseNativeHeightfieldObject(void* nativeHeightfieldObject) override;

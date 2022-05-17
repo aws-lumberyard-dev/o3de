@@ -79,7 +79,7 @@ namespace PhysX
             {
                 PHYSX_SCENE_READ_LOCK(pxHit.actor->getScene());
                 if (const auto* physicsMaterial = Utils::GetUserData(pxHit.shape->getMaterialFromInternalFaceIndex(pxHit.faceIndex));
-                    physicsMaterial)
+                    physicsMaterial != nullptr)
                 {
                     hit.m_physicsMaterialId = physicsMaterial->GetId();
                 }
@@ -87,7 +87,7 @@ namespace PhysX
             else if (hit.m_shape != nullptr)
             {
                 if (const auto& physicsMaterial = hit.m_shape->GetMaterial();
-                    physicsMaterial)
+                    physicsMaterial.get() != nullptr)
                 {
                     hit.m_physicsMaterialId = physicsMaterial->GetId();
                 }
