@@ -9,6 +9,9 @@
 #pragma once
 
 #include <AzCore/Component/Component.h>
+#include <AzCore/std/containers/vector.h>
+#include <AzCore/std/smart_ptr/unique_ptr.h>
+#include <AzCore/Asset/AssetManager.h>
 #include <AzFramework/Physics/SystemBus.h>
 #include <AzFramework/Physics/Common/PhysicsEvents.h>
 #include <AzToolsFramework/Editor/EditorContextMenuBus.h>
@@ -35,27 +38,23 @@ namespace PhysX
         AZ_COMPONENT(EditorSystemComponent, "{560F08DC-94F5-4D29-9AD4-CDFB3B57C654}");
         static void Reflect(AZ::ReflectContext* context);
 
+        static void GetProvidedServices(AZ::ComponentDescriptor::DependencyArrayType& provided);
+        static void GetIncompatibleServices(AZ::ComponentDescriptor::DependencyArrayType& incompatible);
+        static void GetRequiredServices(AZ::ComponentDescriptor::DependencyArrayType& required);
+        static void GetDependentServices(AZ::ComponentDescriptor::DependencyArrayType& dependent);
+
         EditorSystemComponent() = default;
-
-        // Physics::EditorWorldBus
-        AzPhysics::SceneHandle GetEditorSceneHandle() const override;
-
-    private:
-
-        static void GetProvidedServices(AZ::ComponentDescriptor::DependencyArrayType& provided)
-        {
-            provided.push_back(AZ_CRC("PhysXEditorService", 0x0a61cda5));
-        }
-
-        static void GetRequiredServices(AZ::ComponentDescriptor::DependencyArrayType& required)
-        {
-            required.push_back(AZ_CRC("PhysXService", 0x75beae2d));
-        }
+        EditorSystemComponent(const EditorSystemComponent&) = delete;
+        EditorSystemComponent& operator=(const EditorSystemComponent&) = delete;
 
         // AZ::Component
         void Activate() override;
         void Deactivate() override;
 
+        // Physics::EditorWorldBus
+        AzPhysics::SceneHandle GetEditorSceneHandle() const override;
+
+    private:
         // AzToolsFramework::EditorEntityContextNotificationBus
         void OnStartPlayInEditorBegin() override;
         void OnStopPlayInEditor() override;
@@ -67,5 +66,8 @@ namespace PhysX
         void NotifyRegisterViews() override;
 
         AzPhysics::SceneHandle m_editorWorldSceneHandle = AzPhysics::InvalidSceneHandle;
+
+        // Assets related data
+        AZStd::vector<AZStd::unique_ptr<AZ::Data::AssetHandler>> m_assetHandlers;
     };
 }
