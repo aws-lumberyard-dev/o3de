@@ -832,6 +832,36 @@ namespace AssetProcessor
         return ConflictResult{ ConflictResult::ConflictType::None };
     }
 
+    bool AssetProcessorManager::CheckForIntermediateAssetLoop(AZStd::string_view currentAsset, AZStd::string_view productAsset)
+    {
+        auto intermediateSources =
+            AssetUtilities::GetAllIntermediateSources(currentAsset, m_stateData);
+
+        auto sourceItr = AZStd::find_if(
+            intermediateSources.begin(), intermediateSources.end(),
+            [&currentAsset](auto path)
+            {
+                return AZ::StringFunc::Equal(path, currentAsset);
+            });
+
+        auto productItr = AZStd::find_if(
+            intermediateSources.begin(), intermediateSources.end(),
+            [&productAsset](auto path)
+            {
+                return AZ::StringFunc::Equal(path, productAsset);
+            });
+
+        if (sourceItr != intermediateSources.end() && productItr != intermediateSources.end())
+        {
+            if (AZStd::distance(sourceItr, productItr) <= 0)
+            {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
     void AssetProcessorManager::AssetProcessed_Impl()
     {
         using AssetBuilderSDK::ProductOutputFlags;
@@ -885,6 +915,24 @@ namespace AssetProcessor
 
                 AzToolsFramework::AssetDatabase::SourceDatabaseEntryContainer sources;
 
+
+                if (productWrapper.HasIntermediateProduct() && CheckForIntermediateAssetLoop(
+                        itProcessedAsset->m_entry.m_databaseSourceName.toUtf8().constData(), productPath.GetRelativePath()))
+                {
+                    // Loop detected
+                    auto errorMessage = AZStd::string::format(
+                        "An output loop has been detected.  File %s has already been output as an intermediate in the processing chain. "
+                        "This is most likely an issue that must be fixed in the builder (%s)",
+                        productPath.GetRelativePath().c_str(), itProcessedAsset->m_entry.m_builderGuid.ToString<AZStd::string>().c_str());
+
+                    AutoFailJob(errorMessage, errorMessage, itProcessedAsset);
+                    productWrapper.DeleteFiles(false);
+
+                    FailTopLevelSourceForIntermediate(itProcessedAsset->m_entry.m_databaseSourceName.toUtf8().constData(), errorMessage);
+                    remove = true;
+                    break;
+                }
+
                 // Check if there is an intermediate product that conflicts with a normal source asset
                 // Its possible for the intermediate product to process first, so we need to do this check
                 // for both the intermediate product and normal products
@@ -895,23 +943,30 @@ namespace AssetProcessor
                     if(result.m_type == ConflictResult::ConflictType::Intermediate)
                     {
                         auto errorMessage = AZStd::string::format(
-                            "Intermediate output product %s overrides existing source with the same path: %s.  "
-                            "Please move/rename one of the files to fix the conflict.",
-                            productPath.GetIntermediatePath().c_str(),
-                            result.m_conflictingFile.MakePreferred().c_str());
+                            "Asset (%s) has produced an intermediate asset file which conflicts with an existing source asset "
+                            "with the same relative path: " AZ_STRING_FORMAT ".  Please move/rename one of the files to fix the conflict.",
+                            itProcessedAsset->m_entry.m_databaseSourceName.toUtf8().constData(),
+                            AZ_STRING_ARG(result.m_conflictingFile.Native()));
 
                         // Fail this job and delete its files, since it might actually be the top level source, and since we haven't recorded it yet, FailTopLevelSourceForIntermediate will do nothing in that case
                         AutoFailJob(errorMessage, errorMessage, itProcessedAsset);
                         productWrapper.DeleteFiles(false);
 
-                        FailTopLevelSourceForIntermediate(itProcessedAsset->m_entry.m_databaseSourceName.toUtf8().constData(), result.m_conflictingFile);
+                        FailTopLevelSourceForIntermediate(itProcessedAsset->m_entry.m_databaseSourceName.toUtf8().constData(), errorMessage);
                         remove = true;
                         break;
                     }
                     else
                     {
+                        auto errorMessage = AZStd::string::format(
+                            "Asset (" AZ_STRING_FORMAT ") has produced an intermediate asset file which conflicts with an existing source asset "
+                            "with the same relative path: %s.  Please move/rename one of the files to fix the conflict.",
+                            AZ_STRING_ARG(result.m_conflictingFile.Native()),
+                            itProcessedAsset->m_entry.m_databaseSourceName.toUtf8().constData()
+                        );
+
                         // We need to fail the other, intermediate asset job
-                        FailTopLevelSourceForIntermediate(result.m_conflictingFile, itProcessedAsset->m_entry.m_databaseSourceName.toUtf8().constData());
+                        FailTopLevelSourceForIntermediate(result.m_conflictingFile, errorMessage);
                     }
                 }
 
@@ -1084,7 +1139,6 @@ namespace AssetProcessor
             job.m_platform = processedAsset.m_entry.m_platformInfo.m_identifier;
             job.m_builderGuid = processedAsset.m_entry.m_builderGuid;
             job.m_jobRunKey = processedAsset.m_entry.m_jobRunKey;
-
 
             if (!AZ::IO::FileIOBase::GetInstance()->Exists(job.m_lastLogFile.c_str()))
             {
@@ -2392,7 +2446,7 @@ namespace AssetProcessor
     }
 
     void AssetProcessorManager::FailTopLevelSourceForIntermediate(
-        AZ::IO::PathView relativePathToIntermediateProduct, AZ::IO::PathView conflictingSourcePath)
+        AZ::IO::PathView relativePathToIntermediateProduct, AZStd::string_view errorMessage)
     {
         auto topLevelSourceForIntermediateConflict =
             AssetUtilities::GetTopLevelSourceForProduct(relativePathToIntermediateProduct, m_stateData);
@@ -2429,11 +2483,6 @@ namespace AssetProcessor
                                job.m_fingerprint,
                                job.m_jobRunKey,
                                topLevelSourceForIntermediateConflict->m_sourceGuid };
-
-            auto errorMessage = AZStd::string::format(
-                "This asset (%s) or one of its downstream assets has produced an intermediate asset file which conflicts with an existing source asset "
-                "with the same relative path: " AZ_STRING_FORMAT ".  Please move/rename one of the files to fix the conflict.",
-                topLevelSourceForIntermediateConflict->m_sourceName.c_str(), AZ_STRING_ARG(conflictingSourcePath.Native()));
 
             AutoFailJob(
                 errorMessage, errorMessage,
@@ -2742,12 +2791,30 @@ namespace AssetProcessor
                 {
                     if (!IsInIntermediateAssetsFolder(overrider))
                     {
-                    // this file is being overridden by an earlier file.
-                    // ignore us, and pretend the other file changed:
-                    AZ_TracePrintf(AssetProcessor::DebugChannel, "File overridden by %s.\n", overrider.toUtf8().constData());
-                    CheckSource(FileEntry(overrider, false, examineFile.m_isFromScanner));
-                    continue;
-                }
+                        FileStateInfo foundFileInfo;
+                        bool found = AZ::Interface<IFileStateRequests>::Get()->GetFileInfo(overrider, &foundFileInfo);
+
+                        if(!found)
+                        {
+                            AZ_Error(AssetProcessor::ConsoleChannel, false, "ProcessFilesToExamineQueue: Found overrider %s for file %s, but FileStateCache has no information about this file.  File will not be processed.",
+                                overrider.toUtf8().constData(), normalizedPath.toUtf8().constData());
+                            continue;
+                        }
+
+                        if(foundFileInfo.m_isDirectory)
+                        {
+                            // It makes no sense for directories to override directories.  This happens usually because a directory was deleted, but we have no way of knowing it was a directory (since it's already deleted)
+                            // Since we know the overrider is a directory, ignore this overrider and continue on processing the actual directory.
+                        }
+                        else
+                        {
+                            // this file is being overridden by an earlier file.
+                            // ignore us, and pretend the other file changed:
+                            AZ_TracePrintf(AssetProcessor::DebugChannel, "File overridden by %s.\n", overrider.toUtf8().constData());
+                            CheckSource(FileEntry(overrider, false, examineFile.m_isFromScanner));
+                            continue;
+                        }
+                    }
                 }
 
                 // its an input file or a file we don't care about...
@@ -2884,7 +2951,7 @@ namespace AssetProcessor
 
         }
 
-        if (!isDelete && IsInIntermediateAssetsFolder(normalizedFullFile))
+        if (!isDelete &&  IsInIntermediateAssetsFolder(normalizedFullFile))
         {
             QString relativePath, scanfolderPath;
             m_platformConfig->ConvertToRelativePath(normalizedFullFile, relativePath, scanfolderPath);
@@ -3478,7 +3545,6 @@ namespace AssetProcessor
         // Either this job does not have any dependent jobs or all of its dependent jobs have been fingerprinted
         return true;
     }
-
 
     void AssetProcessorManager::ProcessBuilders(QString normalizedPath, QString databasePathToFile, const ScanFolderInfo* scanFolder, const AssetProcessor::BuilderInfoList& builderInfoList)
     {

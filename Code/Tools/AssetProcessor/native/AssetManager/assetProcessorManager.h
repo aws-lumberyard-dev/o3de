@@ -131,7 +131,6 @@ namespace AssetProcessor
                 , m_initialProcessTime(initialProcessTime)
             {
             }
-
         };
 
         struct AssetProcessedEntry
@@ -324,7 +323,7 @@ namespace AssetProcessor
         void CheckDeletedCacheFolder(QString normalizedPath);
         void CheckDeletedSourceFolder(QString normalizedPath, QString relativePath, const ScanFolderInfo* scanFolderInfo);
         void CheckCreatedSourceFolder(QString normalizedPath);
-        void FailTopLevelSourceForIntermediate(AZ::IO::PathView relativePathToIntermediateProduct, AZ::IO::PathView conflictingSourcePath);
+        void FailTopLevelSourceForIntermediate(AZ::IO::PathView relativePathToIntermediateProduct, AZStd::string_view errorMessage);
         void CheckMetaDataRealFiles(QString relativePath);
         bool DeleteProducts(const AzToolsFramework::AssetDatabase::ProductDatabaseEntryContainer& products);
         void DispatchFileChange();
@@ -438,6 +437,8 @@ namespace AssetProcessor
         bool IsInIntermediateAssetsFolder(QString path) const;
 
         ConflictResult CheckIntermediateProductConflict(bool isIntermediateProduct, const char* searchSourcePath);
+
+        bool CheckForIntermediateAssetLoop(AZStd::string_view currentAsset, AZStd::string_view productAsset);
 
         AssetProcessor::PlatformConfiguration* m_platformConfig = nullptr;
 
