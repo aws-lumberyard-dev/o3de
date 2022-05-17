@@ -83,6 +83,7 @@ namespace AZ::Debug
     {
         if (m_impl->m_eventLogger->IsPerformanceModeEnabled())
         {
+            AZStd::chrono::system_clock::time_point timestamp = AZStd::chrono::high_resolution_clock::now();
             BudgetImpl::s_currentDepth++;
             if (BudgetImpl::s_currentDepth < BudgetImpl::MaxProfileDepth)
             {
@@ -105,7 +106,7 @@ namespace AZ::Debug
 
                     buffer += eventSize;
                     BudgetImpl::s_eventData[BudgetImpl::s_currentDepth].second += eventSize;
-                    BudgetImpl::s_timeStamps[BudgetImpl::s_currentDepth] = AZStd::chrono::high_resolution_clock::now();
+                    BudgetImpl::s_timeStamps[BudgetImpl::s_currentDepth] = timestamp;
                 }
                 else
                 {
