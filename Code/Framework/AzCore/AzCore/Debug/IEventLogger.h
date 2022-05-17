@@ -124,8 +124,6 @@ namespace AZ::Debug
 
         virtual bool IsPerformanceModeEnabled() = 0;
 
-        virtual void EnablePerformanceMode(bool enable) = 0;
-
         //! Utility function to begin an event with a specific structure.
         //! For example this can be used as:
         //!      struct ThreadInfo

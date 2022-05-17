@@ -73,7 +73,6 @@ namespace AZ::Debug
         void RecordPerformanceEventEnd(ThreadData* bufferData) override;
 
         bool IsPerformanceModeEnabled() override;
-        void EnablePerformanceMode(bool enable) override;
 
     protected:
 

@@ -406,11 +406,6 @@ namespace AZ::Debug
         return m_performanceMode;
     }
 
-    void LocalFileEventLogger::EnablePerformanceMode(bool enable)
-    {
-        m_performanceMode = enable;
-    }
-
     void LocalFileEventLogger::WriteCacheToDisk(ThreadData& threadData)
     {
         // ensure the front loaded prolog is accurate, ThreadData objects
