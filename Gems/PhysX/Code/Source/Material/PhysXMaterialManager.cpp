@@ -20,7 +20,16 @@ namespace PhysX
             AZ::Data::AssetManager::Instance().CreateAsset<Physics::MaterialAsset>(
                 AZ::Data::AssetId(AZ::Uuid::CreateRandom()));
 
-        defaultMaterialAsset->SetData(Physics::MaterialConfiguration{});
+        // TODO: Add missing properties
+        const AZStd::unordered_map<AZStd::string, float> defaultMaterialProperties =
+        {
+            {"DynamicFriction", 0.5f},
+            {"StaticFriction", 0.5f},
+            {"Restitution", 0.5f},
+            {"Density", 1.0f}
+        };
+
+        defaultMaterialAsset->SetData(defaultMaterialProperties);
 
         return CreateMaterialInternal(
             Physics::MaterialId::CreateFromAssetId(defaultMaterialAsset.GetId()),

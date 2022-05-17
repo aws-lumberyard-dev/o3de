@@ -10,15 +10,15 @@
 #include <AzCore/Serialization/EditContext.h>
 
 #include <AzFramework/Physics/NameConstants.h>
-#include <AzFramework/Physics/Material/PhysicsMaterialConfiguration.h>
+#include <Editor/Source/Material/PhysXMaterialConfiguration.h>
 
-namespace Physics
+namespace PhysX
 {
     void MaterialConfiguration::Reflect(AZ::ReflectContext* context)
     {
         if (auto* serializeContext = azrtti_cast<AZ::SerializeContext*>(context))
         {
-            serializeContext->Class<Physics::MaterialConfiguration>()
+            serializeContext->Class<PhysX::MaterialConfiguration>()
                 ->Version(1)
                 ->Field("DynamicFriction", &MaterialConfiguration::m_dynamicFriction)
                 ->Field("StaticFriction", &MaterialConfiguration::m_staticFriction)
@@ -32,8 +32,8 @@ namespace Physics
             if (auto* editContext = serializeContext->GetEditContext())
             {
 
-                editContext->Class<Physics::MaterialConfiguration>("", "")
-                    ->ClassElement(AZ::Edit::ClassElements::EditorData, "Physics Material")
+                editContext->Class<PhysX::MaterialConfiguration>("", "")
+                    ->ClassElement(AZ::Edit::ClassElements::EditorData, "PhysX Material")
                     ->DataElement(AZ::Edit::UIHandlers::Default, &MaterialConfiguration::m_staticFriction, "Static friction", "Friction coefficient when object is still")
                         ->Attribute(AZ::Edit::Attributes::Min, 0.f)
                     ->DataElement(AZ::Edit::UIHandlers::Default, &MaterialConfiguration::m_dynamicFriction, "Dynamic friction", "Friction coefficient when object is moving")
@@ -52,12 +52,22 @@ namespace Physics
                         ->EnumAttribute(CombineMode::Maximum, "Maximum")
                         ->EnumAttribute(CombineMode::Multiply, "Multiply")
                     ->DataElement(AZ::Edit::UIHandlers::Default, &MaterialConfiguration::m_density, "Density", "Material density")
-                        ->Attribute(AZ::Edit::Attributes::Min, MaterialConfiguration::MinDensityLimit)
-                        ->Attribute(AZ::Edit::Attributes::Max, MaterialConfiguration::MaxDensityLimit)
+                        ->Attribute(AZ::Edit::Attributes::Min, &MaterialConfiguration::GetMinDensityLimit)
+                        ->Attribute(AZ::Edit::Attributes::Max, &MaterialConfiguration::GetMaxDensityLimit)
                         ->Attribute(AZ::Edit::Attributes::Suffix, " " + Physics::NameConstants::GetDensityUnit())
                     ->DataElement(AZ::Edit::UIHandlers::Color, &MaterialConfiguration::m_debugColor, "Debug Color", "Debug color to use for this material")
                     ;
             }
         }
     }
-} // namespace Physics
+
+    float MaterialConfiguration::GetMinDensityLimit()
+    {
+        return Material::MinDensityLimit;
+    }
+
+    float MaterialConfiguration::GetMaxDensityLimit()
+    {
+        return Material::MaxDensityLimit;
+    }
+} // namespace PhysX
