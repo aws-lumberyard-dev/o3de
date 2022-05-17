@@ -26,7 +26,6 @@
 #include <AzFramework/Physics/Configuration/RigidBodyConfiguration.h>
 #include <AzFramework/Physics/Configuration/SceneConfiguration.h>
 #include <AzFramework/Physics/Configuration/SimulatedBodyConfiguration.h>
-#include <AzFramework/Physics/Material.h>
 #include <AzFramework/Physics/Material/PhysicsMaterialAsset.h>
 #include <AzFramework/Physics/Material/PhysicsMaterialSlots.h>
 #include <AzFramework/Physics/SimulatedBodies/RigidBody.h>
