@@ -334,15 +334,18 @@ namespace AZ::Debug
         
         if (m_stopRequested)
         {
-            if (threadData->m_refCount == 0 && deferredThreadData->m_refCount == 0)
+            if (deferredThreadData && threadData->m_refCount == 0 && deferredThreadData->m_refCount == 0)
             {
-                m_stopRequested = false;
-                m_performanceMode = false;
-
                 delete deferredThreadData;
                 threadStorage.m_pendingData = nullptr;
+                m_deferredDataCount--;
 
-                Stop();
+                if (m_deferredDataCount.load() == 0)
+                {
+                    m_stopRequested = false;
+                    m_performanceMode = false;
+                    Stop();
+                }
             }
             return;
         }
@@ -484,6 +487,7 @@ namespace AZ::Debug
                 ThreadData* deferredData = new ThreadData();
                 deferredData->m_threadId = azlossy_caster(AZStd::hash<AZStd::thread_id>{}(AZStd::this_thread::get_id()));
                 m_pendingData = deferredData;
+                m_owner->m_deferredDataCount++;
             }
         }
     }

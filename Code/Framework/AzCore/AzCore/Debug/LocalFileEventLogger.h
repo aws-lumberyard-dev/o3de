@@ -98,7 +98,8 @@ namespace AZ::Debug
         AZStd::recursive_mutex m_fileGuard;
         AZStd::recursive_mutex m_fileWriteGuard;
 
-        bool m_performanceMode { false };
-        bool m_stopRequested { false };
+        bool m_performanceMode{ false };
+        bool m_stopRequested{ false };
+        AZStd::atomic<uint32_t> m_deferredDataCount{ 0 };
     };
 } // namespace AZ::Debug
