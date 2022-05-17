@@ -9,7 +9,7 @@
 #include <AzCore/std/string/wildcard.h>
 #include <AzToolsFramework/AssetBrowser/AssetBrowserBus.h>
 #include <AtomToolsFramework/Document/CreateDocumentDialog.h>
-#include <AtomToolsFramework\Util\Util.h>
+#include <AtomToolsFramework/Util/Util.h>
 #include <AzToolsFramework/API/ToolsApplicationAPI.h>
 #include <AtomLyIntegration/CommonFeatures/Material/EditorMaterialSystemComponentRequestBus.h>
 #include <Material/MaterialBrowserInteractions.h>
