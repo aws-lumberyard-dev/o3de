@@ -16,6 +16,7 @@
 #include <AzFramework/Physics/Common/PhysicsEvents.h>
 #include <AzToolsFramework/Editor/EditorContextMenuBus.h>
 #include <AzToolsFramework/Entity/EditorEntityContextBus.h>
+#include <Editor/Source/Material/PhysXEditorMaterialAssetBuilder.h>
 
 namespace AzPhysics
 {
@@ -69,5 +70,8 @@ namespace PhysX
 
         // Assets related data
         AZStd::vector<AZStd::unique_ptr<AZ::Data::AssetHandler>> m_assetHandlers;
+
+        // Asset builder for PhysX material asset
+        EditorMaterialAssetBuilder m_materialAssetBuilder;
     };
 }

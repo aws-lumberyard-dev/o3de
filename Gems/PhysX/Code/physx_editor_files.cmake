@@ -129,4 +129,6 @@ set(FILES
     Editor/Source/Material/PhysXMaterialConfiguration.h
     Editor/Source/Material/PhysXEditorMaterialAsset.cpp
     Editor/Source/Material/PhysXEditorMaterialAsset.h
+    Editor/Source/Material/PhysXEditorMaterialAssetBuilder.cpp
+    Editor/Source/Material/PhysXEditorMaterialAssetBuilder.h
 )

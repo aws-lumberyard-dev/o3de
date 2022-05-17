@@ -35,7 +35,7 @@ namespace PhysX
         MaterialConfiguration::Reflect(context);
         EditorMaterialAsset::Reflect(context);
 
-            AzFramework::StringFunc::Path::ReplaceExtension(relativePath, assetExtension.c_str());
+        if (auto serializeContext = azrtti_cast<AZ::SerializeContext*>(context))
         {
             serializeContext->Class<EditorSystemComponent, AZ::Component>()
                 ->Version(1)
@@ -71,9 +71,22 @@ namespace PhysX
         Physics::EditorWorldBus::Handler::BusConnect();
         AzToolsFramework::EditorContextMenuBus::Handler::BusConnect();
 
+        // Register PhysX Material Asset
         auto* materialAsset = aznew AzFramework::GenericAssetHandler<PhysX::EditorMaterialAsset>("PhysX Material", "PhysX Material", "physxmaterial");
         materialAsset->Register();
         m_assetHandlers.emplace_back(materialAsset);
+
+        // Register PhysX Material Asset Builder
+        AssetBuilderSDK::AssetBuilderDesc materialAssetBuilderDescriptor;
+        materialAssetBuilderDescriptor.m_name = "PhysX Material Asset Builder";
+        materialAssetBuilderDescriptor.m_version = 1;
+        materialAssetBuilderDescriptor.m_patterns.push_back(AssetBuilderSDK::AssetBuilderPattern(AZStd::string("*.physxmaterial"), AssetBuilderSDK::AssetBuilderPattern::PatternType::Wildcard));
+        materialAssetBuilderDescriptor.m_busId = azrtti_typeid<EditorMaterialAssetBuilder>();
+        materialAssetBuilderDescriptor.m_createJobFunction = AZStd::bind(&EditorMaterialAssetBuilder::CreateJobs, &m_materialAssetBuilder, AZStd::placeholders::_1, AZStd::placeholders::_2);
+        materialAssetBuilderDescriptor.m_processJobFunction = AZStd::bind(&EditorMaterialAssetBuilder::ProcessJob, &m_materialAssetBuilder, AZStd::placeholders::_1, AZStd::placeholders::_2);
+        m_materialAssetBuilder.BusConnect(materialAssetBuilderDescriptor.m_busId);
+        AssetBuilderSDK::AssetBuilderBus::Broadcast(&AssetBuilderSDK::AssetBuilderBus::Handler::RegisterBuilderInformation, materialAssetBuilderDescriptor);
+
         if (auto* physicsSystem = AZ::Interface<AzPhysics::SystemInterface>::Get())
         {
             AzPhysics::SceneConfiguration editorWorldConfiguration = physicsSystem->GetDefaultSceneConfiguration();
@@ -99,6 +112,8 @@ namespace PhysX
             physicsSystem->RemoveScene(m_editorWorldSceneHandle);
         }
         m_editorWorldSceneHandle = AzPhysics::InvalidSceneHandle;
+
+        m_materialAssetBuilder.BusDisconnect();
 
         m_assetHandlers.clear();
     }
