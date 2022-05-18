@@ -11,7 +11,7 @@
 #include <AssetBuilderSDK/AssetBuilderBusses.h>
 #include <AssetBuilderSDK/AssetBuilderSDK.h>
 
-#include <Editor/Source/Material/PhysXMaterialConfiguration.h>
+#include <PhysX/Material/PhysXMaterialConfiguration.h>
 
 namespace Physics
 {
@@ -38,9 +38,6 @@ namespace PhysX
         void ShutDown() override { }
 
     private:
-        AZ::Data::Asset<Physics::MaterialAsset> CreatePhysicsMaterialAsset(
-            const AssetBuilderSDK::ProcessJobRequest& request) const;
-
         AZStd::optional<MaterialConfiguration> GetMaterialConfigurationFromEditorMaterialAsset(
             const AZStd::string& assetFullPath) const;
 

@@ -8,7 +8,7 @@
 
 #pragma once
 
-#include <Editor/Source/Material/PhysXMaterialConfiguration.h>
+#include <PhysX/Material/PhysXMaterialConfiguration.h>
 
 namespace PhysX
 {

@@ -33,6 +33,10 @@ namespace PhysX
 
         AZ::Color m_debugColor = AZ::Colors::White;
 
+        //! Creates a Physics Material Asset with random Id from the
+        //! properties of material configuration.
+        AZ::Data::Asset<Physics::MaterialAsset> CreateMaterialAsset() const;
+
     private:
         static float GetMinDensityLimit();
         static float GetMaxDensityLimit();

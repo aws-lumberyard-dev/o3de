@@ -42,7 +42,14 @@ namespace PhysX
         const AssetBuilderSDK::ProcessJobRequest& request,
         AssetBuilderSDK::ProcessJobResponse& response) const
     {
-        AZ::Data::Asset<Physics::MaterialAsset> physicsMaterialAsset = CreatePhysicsMaterialAsset(request);
+        AZStd::optional<MaterialConfiguration> materialConfiguration = GetMaterialConfigurationFromEditorMaterialAsset(request.m_fullPath);
+        if (!materialConfiguration.has_value())
+        {
+            AZ_Error("EditorMaterialAssetBuilder", false, "Failed to obtain material configuration from PhysX EditorMaterialAsset: %s", request.m_fullPath.c_str());
+            return;
+        }
+
+        AZ::Data::Asset<Physics::MaterialAsset> physicsMaterialAsset = materialConfiguration->CreateMaterialAsset();
         if (!physicsMaterialAsset.IsReady())
         {
             AZ_Error("EditorMaterialAssetBuilder", false, "Failed to create physics material assset.");
@@ -58,30 +65,6 @@ namespace PhysX
         }
 
         response.m_resultCode = AssetBuilderSDK::ProcessJobResult_Success;
-    }
-
-    AZ::Data::Asset<Physics::MaterialAsset> EditorMaterialAssetBuilder::CreatePhysicsMaterialAsset(
-        [[maybe_unused]] const AssetBuilderSDK::ProcessJobRequest& request) const
-    {
-        AZStd::optional<MaterialConfiguration> materialConfiguration = GetMaterialConfigurationFromEditorMaterialAsset(request.m_fullPath);
-        if (!materialConfiguration.has_value())
-        {
-            AZ_Error("EditorMaterialAssetBuilder", false, "Failed to obtain material configuration from PhysX EditorMaterialAsset: %s", request.m_fullPath.c_str());
-            return {};
-        }
-
-        // TODO: Make this for generic types
-        const AZStd::unordered_map<AZStd::string, float> materialProperties =
-        {
-            {"DynamicFriction", materialConfiguration->m_dynamicFriction},
-            {"StaticFriction", materialConfiguration->m_staticFriction},
-            {"Restitution", materialConfiguration->m_restitution},
-            {"Density", materialConfiguration->m_density}
-        };
-
-        AZ::Data::Asset<Physics::MaterialAsset> physicsMaterialAsset(AZ::Uuid::CreateRandom(), aznew Physics::MaterialAsset, AZ::Data::AssetLoadBehavior::PreLoad);
-        physicsMaterialAsset->SetData(materialProperties);
-        return physicsMaterialAsset;
     }
 
     AZStd::optional<MaterialConfiguration> EditorMaterialAssetBuilder::GetMaterialConfigurationFromEditorMaterialAsset(const AZStd::string& assetFullPath) const

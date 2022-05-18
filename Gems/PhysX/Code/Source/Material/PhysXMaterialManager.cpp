@@ -10,26 +10,17 @@
 #include <AzCore/Asset/AssetManager.h>
 
 #include <PhysX/Material/PhysXMaterial.h>
+#include <PhysX/Material/PhysXMaterialConfiguration.h>
 #include <Source/Material/PhysXMaterialManager.h>
 
 namespace PhysX
 {
     AZStd::shared_ptr<Physics::Material> MaterialManager::CreateDefaultMaterialInternal()
     {
+        const MaterialConfiguration defaultMaterialConfiguration;
+
         AZ::Data::Asset<Physics::MaterialAsset> defaultMaterialAsset =
-            AZ::Data::AssetManager::Instance().CreateAsset<Physics::MaterialAsset>(
-                AZ::Data::AssetId(AZ::Uuid::CreateRandom()));
-
-        // TODO: Add missing properties
-        const AZStd::unordered_map<AZStd::string, float> defaultMaterialProperties =
-        {
-            {"DynamicFriction", 0.5f},
-            {"StaticFriction", 0.5f},
-            {"Restitution", 0.5f},
-            {"Density", 1.0f}
-        };
-
-        defaultMaterialAsset->SetData(defaultMaterialProperties);
+            defaultMaterialConfiguration.CreateMaterialAsset();
 
         return CreateMaterialInternal(
             Physics::MaterialId::CreateFromAssetId(defaultMaterialAsset.GetId()),

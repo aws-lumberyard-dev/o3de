@@ -8,9 +8,10 @@
 
 #include <AzCore/Serialization/SerializeContext.h>
 #include <AzCore/Serialization/EditContext.h>
+#include <AzCore/Asset/AssetManager.h>
 
 #include <AzFramework/Physics/NameConstants.h>
-#include <Editor/Source/Material/PhysXMaterialConfiguration.h>
+#include <PhysX/Material/PhysXMaterialConfiguration.h>
 
 namespace PhysX
 {
@@ -59,6 +60,26 @@ namespace PhysX
                     ;
             }
         }
+    }
+
+    AZ::Data::Asset<Physics::MaterialAsset> MaterialConfiguration::CreateMaterialAsset() const
+    {
+        AZ::Data::Asset<Physics::MaterialAsset> materialAsset =
+            AZ::Data::AssetManager::Instance().CreateAsset<Physics::MaterialAsset>(
+                AZ::Data::AssetId(AZ::Uuid::CreateRandom()));
+
+        // TODO: Make this for generic types
+        const AZStd::unordered_map<AZStd::string, float> materialProperties =
+        {
+            {"DynamicFriction", m_dynamicFriction},
+            {"StaticFriction", m_staticFriction},
+            {"Restitution", m_restitution},
+            {"Density", m_density}
+        };
+
+        materialAsset->SetData(materialProperties);
+
+        return materialAsset;
     }
 
     float MaterialConfiguration::GetMinDensityLimit()
