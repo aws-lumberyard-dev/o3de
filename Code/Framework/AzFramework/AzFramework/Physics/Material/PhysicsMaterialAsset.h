@@ -12,7 +12,8 @@
 
 namespace Physics
 {
-    //! MaterialAsset defines a single material, which includes the configuration to create a Material instance to use at runtime.
+    //! MaterialAsset defines a single material, which includes all the properties to create a Material instance to use at runtime.
+    //! This physics material asset is generic and independent from the physics backend used.
     class MaterialAsset
         : public AZ::Data::AssetData
     {

@@ -16,7 +16,7 @@
 
 namespace PhysX
 {
-    //! Properties of a Physics material.
+    //! Properties of a PhysX material.
     struct MaterialConfiguration
     {
         AZ_TYPE_INFO(PhysX::MaterialConfiguration, "{66213D20-9862-465D-AF4F-2D94317161F6}");

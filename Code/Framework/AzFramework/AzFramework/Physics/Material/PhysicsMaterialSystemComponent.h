@@ -12,6 +12,8 @@
 
 namespace Physics
 {
+    //! This system will take care of reflecting physics material classes and
+    //! registering the physics material asset.
     class MaterialSystemComponent
         : public AZ::Component
     {

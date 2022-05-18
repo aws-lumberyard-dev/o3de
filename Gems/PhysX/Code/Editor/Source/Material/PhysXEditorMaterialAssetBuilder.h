@@ -20,6 +20,8 @@ namespace Physics
 
 namespace PhysX
 {
+    //! Builder to convert PhysX Editor Material assets in the
+    //! source folder into Physics Material assets in the cache folder.
     class EditorMaterialAssetBuilder
         : public AssetBuilderSDK::AssetBuilderCommandBus::Handler
     {

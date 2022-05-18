@@ -12,6 +12,10 @@
 
 namespace PhysX
 {
+    //! EditorMaterialAsset defines a single PhysX material asset.
+    //! This is an editor asset and it's authored by Asset Editor.
+    //! When this asset is processed by Asset Processor it creates
+    //! a generic Physics material asset in the cache (agnostic to PhysX backend).
     class EditorMaterialAsset
         : public AZ::Data::AssetData
     {
