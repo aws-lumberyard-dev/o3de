@@ -32,7 +32,6 @@ namespace PhysX
         EditorJointLimitConeConfig::Reflect(context);
         EditorJointConfig::Reflect(context);
 
-        MaterialConfiguration::Reflect(context);
         EditorMaterialAsset::Reflect(context);
 
         if (auto serializeContext = azrtti_cast<AZ::SerializeContext*>(context))
@@ -57,11 +56,11 @@ namespace PhysX
     void EditorSystemComponent::GetRequiredServices([[maybe_unused]] AZ::ComponentDescriptor::DependencyArrayType& required)
     {
         required.push_back(AZ_CRC_CE("PhysXService"));
+        required.push_back(AZ_CRC_CE("PhysicsMaterialService"));
     }
 
     void EditorSystemComponent::GetDependentServices(AZ::ComponentDescriptor::DependencyArrayType& dependent)
     {
-        dependent.push_back(AZ_CRC_CE("PhysicsMaterialService"));
         dependent.push_back(AZ_CRC_CE("AssetDatabaseService"));
         dependent.push_back(AZ_CRC_CE("AssetCatalogService"));
     }
