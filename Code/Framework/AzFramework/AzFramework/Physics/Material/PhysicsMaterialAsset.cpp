@@ -7,6 +7,7 @@
  */
 
 #include <AzCore/Serialization/SerializeContext.h>
+#include <AzCore/Serialization/EditContext.h>
 #include <AzCore/RTTI/BehaviorContext.h>
 
 #include <AzFramework/Physics/Material/PhysicsMaterialAsset.h>
@@ -21,6 +22,12 @@ namespace Physics
                 ->Version(2)
                 ->Field("MaterialProperties", &MaterialAsset::m_materialProperties)
                 ;
+
+            if (auto* editContext = serializeContext->GetEditContext())
+            {
+                editContext->Class<Physics::MaterialAsset>("Physics MaterialAsset", "")
+                    ->ClassElement(AZ::Edit::ClassElements::EditorData, "");
+            }
         }
 
         if (AZ::BehaviorContext* behaviorContext = azrtti_cast<AZ::BehaviorContext*>(context))
