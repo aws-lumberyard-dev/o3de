@@ -72,15 +72,15 @@ namespace PhysX
         AzToolsFramework::EditorContextMenuBus::Handler::BusConnect();
 
         // Register PhysX Material Asset
-        auto* materialAsset = aznew AzFramework::GenericAssetHandler<PhysX::EditorMaterialAsset>("PhysX Material", "PhysX Material", "physxmaterial");
+        auto* materialAsset = aznew AzFramework::GenericAssetHandler<PhysX::EditorMaterialAsset>("PhysX Material", Physics::MaterialAsset::AssetGroup, EditorMaterialAsset::FileExtension);
         materialAsset->Register();
         m_assetHandlers.emplace_back(materialAsset);
 
         // Register PhysX Material Asset Builder
         AssetBuilderSDK::AssetBuilderDesc materialAssetBuilderDescriptor;
         materialAssetBuilderDescriptor.m_name = "PhysX Material Asset Builder";
-        materialAssetBuilderDescriptor.m_version = 1;
-        materialAssetBuilderDescriptor.m_patterns.push_back(AssetBuilderSDK::AssetBuilderPattern(AZStd::string("*.physxmaterial"), AssetBuilderSDK::AssetBuilderPattern::PatternType::Wildcard));
+        materialAssetBuilderDescriptor.m_version = 1; // bump this to rebuild all physxmaterial files
+        materialAssetBuilderDescriptor.m_patterns.push_back(AssetBuilderSDK::AssetBuilderPattern(AZStd::string::format("*.%s", EditorMaterialAsset::FileExtension), AssetBuilderSDK::AssetBuilderPattern::PatternType::Wildcard));
         materialAssetBuilderDescriptor.m_busId = azrtti_typeid<EditorMaterialAssetBuilder>();
         materialAssetBuilderDescriptor.m_createJobFunction = AZStd::bind(&EditorMaterialAssetBuilder::CreateJobs, &m_materialAssetBuilder, AZStd::placeholders::_1, AZStd::placeholders::_2);
         materialAssetBuilderDescriptor.m_processJobFunction = AZStd::bind(&EditorMaterialAssetBuilder::ProcessJob, &m_materialAssetBuilder, AZStd::placeholders::_1, AZStd::placeholders::_2);

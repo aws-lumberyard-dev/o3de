@@ -53,7 +53,7 @@ namespace Physics
 
     void MaterialSystemComponent::Activate()
     {
-        auto* materialAsset = aznew AzFramework::GenericAssetHandler<MaterialAsset>("Physics Material", "Physics Material", "physicsmaterial");
+        auto* materialAsset = aznew AzFramework::GenericAssetHandler<MaterialAsset>("Physics Material", MaterialAsset::AssetGroup, MaterialAsset::FileExtension);
         materialAsset->Register();
         m_assetHandlers.emplace_back(materialAsset);
     }

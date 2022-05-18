@@ -6,6 +6,11 @@
  *
  */
 
+#include <AzFramework/StringFunc/StringFunc.h>
+#include <AzFramework/Physics/Material/PhysicsMaterialAsset.h>
+
+#include <AssetBuilderSDK/SerializationDependencies.h>
+
 #include <Editor/Source/Material/PhysXEditorMaterialAssetBuilder.h>
 
 namespace PhysX
@@ -28,61 +33,74 @@ namespace PhysX
     }
 
     void EditorMaterialAssetBuilder::ProcessJob(
-        [[maybe_unused]] const AssetBuilderSDK::ProcessJobRequest& request,
-        [[]] AssetBuilderSDK::ProcessJobResponse& response) const
+        const AssetBuilderSDK::ProcessJobRequest& request,
+        AssetBuilderSDK::ProcessJobResponse& response) const
     {
-        response.m_resultCode = AssetBuilderSDK::ProcessJobResult_Failed;
-        /*
-        AZStd::string physxMaterialFilename = request.m_sourceFile;
-        AZStd::string physicsMaterialFilename = request.m_sourceFile;
-        AzFramework::StringFunc::Path::ReplaceExtension(physicsMaterialFilename, "physicsmaterial");
-
-        AssetBuilderSDK::JobProduct jobProduct;
-        jobProduct.m_productFileName = physicsMaterialFilename;
-        jobProduct.m_productAssetType = azrtti_typeid<Physics::MaterialAsset>();
-        jobProduct.m_productSubID = 0;
-        response.m_outputProducts.push_back(AZStd::move(jobProduct));
-
-        AZ::Data::Asset<Physics::MaterialAsset> physicsMaterialAsset;
-
-        if (!SerializeOutMaterialAsset(physicsMaterialAsset, request, response))
+        AZ::Data::Asset<Physics::MaterialAsset> physicsMaterialAsset = CreatePhysicsMaterialAsset(request);
+        if (!physicsMaterialAsset.IsReady())
         {
+            AZ_Error("EditorMaterialAssetBuilder", false, "Failed to create physics material assset.");
+            response.m_resultCode = AssetBuilderSDK::ProcessJobResult_Failed;
+            return;
+        }
+
+        if (!SerializeOutPhysicsMaterialAsset(physicsMaterialAsset, request, response))
+        {
+            AZ_Error("EditorMaterialAssetBuilder", false, "Failed to serialize out physics material asset.");
             response.m_resultCode = AssetBuilderSDK::ProcessJobResult_Failed;
             return;
         }
 
         response.m_resultCode = AssetBuilderSDK::ProcessJobResult_Success;
-        */
     }
 
-    /*bool EditorMaterialAssetBuilder::SerializeOutMaterialAsset(
+    AZ::Data::Asset<Physics::MaterialAsset> EditorMaterialAssetBuilder::CreatePhysicsMaterialAsset(
+        [[maybe_unused]] const AssetBuilderSDK::ProcessJobRequest& request) const
+    {
+        // TODO: Create map from PhysX Material Asset
+        const AZStd::unordered_map<AZStd::string, float> defaultMaterialProperties =
+        {
+            {"DynamicFriction", 0.5f},
+            {"StaticFriction", 0.5f},
+            {"Restitution", 0.5f},
+            {"Density", 1.0f}
+        };
+
+        AZ::Data::Asset<Physics::MaterialAsset> physicsMaterialAsset(AZ::Uuid::CreateRandom(), aznew Physics::MaterialAsset, AZ::Data::AssetLoadBehavior::PreLoad);
+        physicsMaterialAsset->SetData(defaultMaterialProperties);
+        return physicsMaterialAsset;
+    }
+
+    bool EditorMaterialAssetBuilder::SerializeOutPhysicsMaterialAsset(
         AZ::Data::Asset<Physics::MaterialAsset> physicsMaterialAsset,
         const AssetBuilderSDK::ProcessJobRequest& request,
-        AssetBuilderSDK::ProcessJobResponse& response)
+        AssetBuilderSDK::ProcessJobResponse& response) const
     {
-        AZStd::string physxMaterialFilename = request.m_sourceFile;
         AZStd::string physicsMaterialFilename = request.m_sourceFile;
-        AzFramework::StringFunc::Path::ReplaceExtension(physicsMaterialFilename, "physicsmaterial");
+        AzFramework::StringFunc::Path::ReplaceExtension(physicsMaterialFilename, Physics::MaterialAsset::FileExtension);
 
-        AZStd::string shaderAssetFileName = AZStd::string::format("%s.%s", shaderAsset->GetName().GetCStr(), RPI::ShaderAsset::Extension);
-        AZStd::string shaderAssetOutputPath;
-        AzFramework::StringFunc::Path::ConstructFull(request.m_tempDirPath.data(), shaderAssetFileName.data(), shaderAssetOutputPath, true);
+        AZStd::string physicsMaterialAssetOutputPath;
+        AzFramework::StringFunc::Path::ConstructFull(request.m_tempDirPath.c_str(), physicsMaterialFilename.c_str(), physicsMaterialAssetOutputPath, true);
 
-        if (!Utils::SaveObjectToFile(shaderAssetOutputPath, DataStream::ST_BINARY, shaderAsset.Get()))
+        if (!AZ::Utils::SaveObjectToFile(physicsMaterialAssetOutputPath, AZ::DataStream::ST_JSON, physicsMaterialAsset.Get()))
         {
-            AZ_Error(ShaderAssetBuilderName, false, "Failed to output Shader Descriptor");
+            AZ_Error("EditorMaterialAssetBuilder", false, "Failed to save physics material asset to file: %s", physicsMaterialAssetOutputPath.c_str());
             return false;
         }
 
-        AssetBuilderSDK::JobProduct materialJobProduct;
-        if (!AssetBuilderSDK::OutputObject(physicsMaterialAsset.Get(), shaderAssetOutputPath, azrtti_typeid<RPI::ShaderAsset>(),
-            aznumeric_cast<uint32_t>(RPI::ShaderAssetSubId::ShaderAsset), materialJobProduct))
+        AssetBuilderSDK::JobProduct physicsMaterialJobProduct;
+        if (!AssetBuilderSDK::OutputObject(
+            physicsMaterialAsset.Get(),
+            physicsMaterialAssetOutputPath,
+            azrtti_typeid<Physics::MaterialAsset>(),
+            Physics::MaterialAsset::AssetSubId,
+            physicsMaterialJobProduct))
         {
-            AZ_Error(ShaderAssetBuilderName, false, "Failed to output product dependencies.");
+            AZ_Error("EditorMaterialAssetBuilder", false, "Failed to output product dependencies.");
             return false;
         }
-        response.m_outputProducts.push_back(AZStd::move(shaderJobProduct));
 
+        response.m_outputProducts.push_back(AZStd::move(physicsMaterialJobProduct));
         return true;
-    }*/
+    }
 } // PhysX

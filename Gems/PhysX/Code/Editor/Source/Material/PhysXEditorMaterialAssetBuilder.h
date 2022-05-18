@@ -11,6 +11,11 @@
 #include <AssetBuilderSDK/AssetBuilderBusses.h>
 #include <AssetBuilderSDK/AssetBuilderSDK.h>
 
+namespace Physics
+{
+    class MaterialAsset;
+}
+
 namespace PhysX
 {
     class EditorMaterialAssetBuilder
@@ -27,5 +32,14 @@ namespace PhysX
 
         // AssetBuilderSDK::AssetBuilderCommandBus overrides...
         void ShutDown() override { }
+
+    private:
+        AZ::Data::Asset<Physics::MaterialAsset> CreatePhysicsMaterialAsset(
+            const AssetBuilderSDK::ProcessJobRequest& request) const;
+
+        bool SerializeOutPhysicsMaterialAsset(
+            AZ::Data::Asset<Physics::MaterialAsset> physicsMaterialAsset,
+            const AssetBuilderSDK::ProcessJobRequest& request,
+            AssetBuilderSDK::ProcessJobResponse& response) const;
     };
 } // PhysX

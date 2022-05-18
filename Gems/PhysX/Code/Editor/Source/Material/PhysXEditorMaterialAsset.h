@@ -19,6 +19,8 @@ namespace PhysX
         AZ_CLASS_ALLOCATOR(PhysX::EditorMaterialAsset, AZ::SystemAllocator, 0);
         AZ_RTTI(PhysX::EditorMaterialAsset, "{BC7B88B9-EE31-4FBF-A01E-2A93624C49D3}", AZ::Data::AssetData);
 
+        static constexpr const char* FileExtension = "physxmaterial";
+
         EditorMaterialAsset() = default;
         virtual ~EditorMaterialAsset() = default;
 
