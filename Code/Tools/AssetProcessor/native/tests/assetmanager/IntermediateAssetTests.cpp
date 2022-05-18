@@ -487,6 +487,85 @@ namespace UnitTests
         EXPECT_EQ(m_jobDetailsList[1].m_jobEntry.m_databaseSourceName, "test.stage1");
     }
 
+    TEST_F(IntermediateAssetTests, DeleteFileInIntermediateFolder_CorrectlyDeletesOneFile)
+    {
+        using namespace AzToolsFramework::AssetDatabase;
+
+        // Set up the test files and database entries
+        SourceDatabaseEntry source1{ m_scanfolder.m_scanFolderID, "folder/parent.txt", AZ::Uuid::CreateRandom(), "fingerprint" };
+        SourceDatabaseEntry source2{ m_platformConfig->GetIntermediateAssetsScanFolderId().value(), "folder/child.txt", AZ::Uuid::CreateRandom(), "fingerprint" };
+
+        auto sourceFile = AZ::IO::Path(m_scanfolder.m_scanFolder) / "folder/parent.txt";
+        auto intermediateFile = MakePath("folder/child.txt", true);
+        auto cacheFile = MakePath("pc/folder/product.txt", false);
+        auto cacheFile2 = MakePath("pc/folder/product777.txt", false);
+        UnitTestUtils::CreateDummyFile(sourceFile.Native().c_str(), QString("tempdata"));
+        UnitTestUtils::CreateDummyFile(intermediateFile.c_str(), QString("tempdata"));
+        UnitTestUtils::CreateDummyFile(cacheFile.c_str(), QString("tempdata"));
+        UnitTestUtils::CreateDummyFile(cacheFile2.c_str(), QString("tempdata"));
+
+        ASSERT_TRUE(m_stateData->SetSource(source1));
+        ASSERT_TRUE(m_stateData->SetSource(source2));
+
+        JobDatabaseEntry job1{ source1.m_sourceID,
+                               "Mock Job",
+                               1234,
+                               "pc",
+                               m_builderInfoHandler.m_builderDescMap.begin()->second.m_busId,
+                               AzToolsFramework::AssetSystem::JobStatus::Completed,
+                               999 };
+
+        JobDatabaseEntry job2{ source2.m_sourceID,
+                               "Mock Job",
+                               1234,
+                               "pc",
+                               m_builderInfoHandler.m_builderDescMap.begin()->second.m_busId,
+                               AzToolsFramework::AssetSystem::JobStatus::Completed,
+                               888 };
+
+        ASSERT_TRUE(m_stateData->SetJob(job1));
+        ASSERT_TRUE(m_stateData->SetJob(job2));
+
+        ProductDatabaseEntry product1{ job1.m_jobID,
+                                       0,
+                                       "pc/folder/product.txt",
+                                       AZ::Uuid::CreateName("one"),
+                                       AZ::Uuid::CreateName("product.txt"),
+                                       0,
+                                       static_cast<int>(AssetBuilderSDK::ProductOutputFlags::ProductAsset) };
+        ProductDatabaseEntry product2{ job2.m_jobID,
+                                       777,
+                                       "pc/folder/product777.txt",
+                                       AZ::Uuid::CreateName("two"),
+                                       AZ::Uuid::CreateName("product777.txt"),
+                                       0,
+                                       static_cast<int>(AssetBuilderSDK::ProductOutputFlags::ProductAsset) };
+
+        ASSERT_TRUE(m_stateData->SetProduct(product1));
+        ASSERT_TRUE(m_stateData->SetProduct(product2));
+
+        // Record the folder so its marked as a known folder
+        auto folderPath = MakePath("folder", true);
+        m_assetProcessorManager->RecordFoldersFromScanner(
+            QSet{ AssetProcessor::AssetFileInfo{ folderPath.c_str(), QDateTime::currentDateTime(), 0,
+                                                 m_platformConfig->GetScanFolderForFile(folderPath.c_str()), true } });
+
+        // Delete the file and folder in the intermediate folder
+        AZ::IO::LocalFileIO::GetInstance()->DestroyPath(folderPath.c_str());
+
+        QMetaObject::invokeMethod(
+            m_assetProcessorManager.get(), "AssessDeletedFile", Qt::QueuedConnection,
+            Q_ARG(QString, MakePath("folder", true).c_str()));
+        QCoreApplication::processEvents();
+
+        RunFile(0);
+
+        // Only 1 file (the one in the intermediate folder) should be marked for delete
+        m_assetProcessorManager->CheckActiveFiles(1);
+        m_assetProcessorManager->CheckFilesToExamine(0);
+        m_assetProcessorManager->CheckJobEntries(0);
+    }
+
     TEST_F(IntermediateAssetTests, Override_IntermediateFileProcessedFirst_CausesFailure)
     {
         using namespace AssetBuilderSDK;
