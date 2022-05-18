@@ -35,4 +35,9 @@ namespace PhysX
             }
         }
     }
+
+    const MaterialConfiguration& EditorMaterialAsset::GetMaterialConfiguration() const
+    {
+        return m_materialConfiguration;
+    }
 } // namespace PhysX

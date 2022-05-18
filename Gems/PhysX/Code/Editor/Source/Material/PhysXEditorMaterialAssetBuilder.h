@@ -11,6 +11,8 @@
 #include <AssetBuilderSDK/AssetBuilderBusses.h>
 #include <AssetBuilderSDK/AssetBuilderSDK.h>
 
+#include <Editor/Source/Material/PhysXMaterialConfiguration.h>
+
 namespace Physics
 {
     class MaterialAsset;
@@ -36,6 +38,9 @@ namespace PhysX
     private:
         AZ::Data::Asset<Physics::MaterialAsset> CreatePhysicsMaterialAsset(
             const AssetBuilderSDK::ProcessJobRequest& request) const;
+
+        AZStd::optional<MaterialConfiguration> GetMaterialConfigurationFromEditorMaterialAsset(
+            const AZStd::string& assetFullPath) const;
 
         bool SerializeOutPhysicsMaterialAsset(
             AZ::Data::Asset<Physics::MaterialAsset> physicsMaterialAsset,

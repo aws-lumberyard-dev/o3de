@@ -6,11 +6,17 @@
  *
  */
 
+#include <AzCore/IO/IOUtils.h>
+#include <AzCore/std/smart_ptr/make_shared.h>
+#include <AzCore/Asset/AssetManager.h>
+#include <AzCore/Asset/AssetDataStream.h>
+
 #include <AzFramework/StringFunc/StringFunc.h>
 #include <AzFramework/Physics/Material/PhysicsMaterialAsset.h>
 
 #include <AssetBuilderSDK/SerializationDependencies.h>
 
+#include <Editor/Source/Material/PhysXEditorMaterialAsset.h>
 #include <Editor/Source/Material/PhysXEditorMaterialAssetBuilder.h>
 
 namespace PhysX
@@ -57,18 +63,72 @@ namespace PhysX
     AZ::Data::Asset<Physics::MaterialAsset> EditorMaterialAssetBuilder::CreatePhysicsMaterialAsset(
         [[maybe_unused]] const AssetBuilderSDK::ProcessJobRequest& request) const
     {
-        // TODO: Create map from PhysX Material Asset
-        const AZStd::unordered_map<AZStd::string, float> defaultMaterialProperties =
+        AZStd::optional<MaterialConfiguration> materialConfiguration = GetMaterialConfigurationFromEditorMaterialAsset(request.m_fullPath);
+        if (!materialConfiguration.has_value())
         {
-            {"DynamicFriction", 0.5f},
-            {"StaticFriction", 0.5f},
-            {"Restitution", 0.5f},
-            {"Density", 1.0f}
+            AZ_Error("EditorMaterialAssetBuilder", false, "Failed to obtain material configuration from PhysX EditorMaterialAsset: %s", request.m_fullPath.c_str());
+            return {};
+        }
+
+        // TODO: Make this for generic types
+        const AZStd::unordered_map<AZStd::string, float> materialProperties =
+        {
+            {"DynamicFriction", materialConfiguration->m_dynamicFriction},
+            {"StaticFriction", materialConfiguration->m_staticFriction},
+            {"Restitution", materialConfiguration->m_restitution},
+            {"Density", materialConfiguration->m_density}
         };
 
         AZ::Data::Asset<Physics::MaterialAsset> physicsMaterialAsset(AZ::Uuid::CreateRandom(), aznew Physics::MaterialAsset, AZ::Data::AssetLoadBehavior::PreLoad);
-        physicsMaterialAsset->SetData(defaultMaterialProperties);
+        physicsMaterialAsset->SetData(materialProperties);
         return physicsMaterialAsset;
+    }
+
+    AZStd::optional<MaterialConfiguration> EditorMaterialAssetBuilder::GetMaterialConfigurationFromEditorMaterialAsset(const AZStd::string& assetFullPath) const
+    {
+        auto assetDataStream = AZStd::make_shared<AZ::Data::AssetDataStream>();
+        // Read in the data from a file to a buffer, then hand ownership of the buffer over to the assetDataStream
+        {
+            AZ::IO::FileIOStream stream(assetFullPath.c_str(), AZ::IO::OpenMode::ModeRead);
+            if (!AZ::IO::RetryOpenStream(stream))
+            {
+                AZ_Error("EditorMaterialAssetBuilder", false, "Source file '%s' could not be opened.", assetFullPath.c_str());
+                return AZStd::nullopt;
+            }
+            AZStd::vector<AZ::u8> fileBuffer(stream.GetLength());
+            size_t bytesRead = stream.Read(fileBuffer.size(), fileBuffer.data());
+            if (bytesRead != stream.GetLength())
+            {
+                AZ_Error("EditorMaterialAssetBuilder", false, "Source file '%s' could not be read.", assetFullPath.c_str());
+                return AZStd::nullopt;
+            }
+
+            assetDataStream->Open(AZStd::move(fileBuffer));
+        }
+
+        AZ::Data::Asset<EditorMaterialAsset> physxEditorMaterialAsset;
+        physxEditorMaterialAsset.Create(AZ::Data::AssetId(AZ::Uuid::CreateRandom()));
+
+        auto* physxEditorMaterialAssetHandler = AZ::Data::AssetManager::Instance().GetHandler(EditorMaterialAsset::RTTI_Type());
+        if (!physxEditorMaterialAssetHandler)
+        {
+            AZ_Error("EditorMaterialAssetBuilder", false, "Unable to find PhysX EditorMaterialAsset handler.");
+            return AZStd::nullopt;
+        }
+
+        if (physxEditorMaterialAssetHandler->LoadAssetDataFromStream(physxEditorMaterialAsset, assetDataStream, nullptr) != AZ::Data::AssetHandler::LoadResult::LoadComplete)
+        {
+            AZ_Error("EditorMaterialAssetBuilder", false, "Failed to load PhysX EditorMaterialAsset: '%s'", assetFullPath.c_str());
+            return AZStd::nullopt;
+        }
+
+        if (!physxEditorMaterialAsset)
+        {
+            AZ_Error("EditorMaterialAssetBuilder", false, "PhysX EditorMaterialAsset loaded with invalid data: '%s'", assetFullPath.c_str());
+            return AZStd::nullopt;
+        }
+
+        return physxEditorMaterialAsset->GetMaterialConfiguration();
     }
 
     bool EditorMaterialAssetBuilder::SerializeOutPhysicsMaterialAsset(
