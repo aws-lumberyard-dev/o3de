@@ -24,6 +24,7 @@ set(ENABLED_GEMS
     Camera
     EMotionFX
     AtomTressFX
+    EditorModeFeedback
     PhysX
     CameraFramework
     StartingPointMovement
@@ -60,4 +61,5 @@ set(ENABLED_GEMS
     TestAssetBuilder
     DevTextures
     PrimitiveAssets
+    Stars
 )
