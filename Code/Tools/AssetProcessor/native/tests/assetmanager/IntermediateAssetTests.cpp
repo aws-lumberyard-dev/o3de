@@ -626,4 +626,18 @@ namespace UnitTests
         // Start processing one.test, this should cause test.stage2 to also be placed in the processing queue
         RunFile(1, 1, 1);
     }
+
+    TEST_F(IntermediateAssetTests, RequestReprocess_ReprocessesAllIntermediates)
+    {
+        using namespace AssetBuilderSDK;
+
+        CreateBuilder("stage1", "*.stage1", "stage2", true, ProductOutputFlags::IntermediateAsset);
+        CreateBuilder("stage2", "*.stage2", "stage3", true, ProductOutputFlags::IntermediateAsset);
+        CreateBuilder("stage3", "*.stage3", "stage4", false, ProductOutputFlags::ProductAsset);
+
+        ProcessFileMultiStage(3, true);
+
+        EXPECT_EQ(m_assetProcessorManager->RequestReprocess(m_testFilePath.c_str()), 3);
+        EXPECT_EQ(m_assetProcessorManager->RequestReprocess(MakePath("test.stage2", true).c_str()), 3);
+    }
 } // namespace UnitTests
