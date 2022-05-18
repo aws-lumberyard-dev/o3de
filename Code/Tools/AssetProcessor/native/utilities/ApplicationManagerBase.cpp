@@ -1755,8 +1755,10 @@ bool ApplicationManagerBase::CheckSufficientDiskSpace(const QString& savePath, q
     if (createdDirectory)
     {
         // Clean up the folder so we're not leaving empty folders all over the place
+        // We need to walk up the path and try to delete each folder along the way since savePath might have created a series of folders
+        // Just deleting savePath would only delete the last folder created
         AZ::IO::Path path(savePath.toUtf8().constData());
-        while(AZ::IO::SystemFile::DeleteDir(path.c_str()))
+        while(AZ::IO::SystemFile::DeleteDir(path.c_str())) // DeleteDir should fail if the directory is not empty
         {
             if (path.HasParentPath())
             {
