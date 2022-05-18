@@ -175,14 +175,20 @@ namespace AZ::Debug
     {
         AZ_TracePrintf("EventLogger", "Starting performance capture");
 
+        // If the even logger's running, cache the path to the file
+        // and stop the logger. We're only interested in performance events.
         if (m_file.IsOpen())
         {
             m_logFilePath = m_file.Name();
             Stop();
         }
 
+        // Clear all the existing storage because we allocate memory differently
+        // for performance captures. At this point the event logger is already stopped.
+        // So the data in thread storage is already flushed.
         ClearAllThreadStorage();
 
+        // Start the event logger in performance capture mode.
         if (!Start(filePath, true))
         {
             Start(m_logFilePath);
@@ -197,12 +203,14 @@ namespace AZ::Debug
     {
         if (m_performanceMode)
         {
+            // We can't stop performance capture right away because the budget
+            // system might still be holding onto references. We wait for them
+            // to finish what they're doing. 
             m_stopRequested = true;
         }
         else
         {
             Stop();
-            ClearAllThreadStorage();
             Start(m_logFilePath);
             AZ_TracePrintf("EventLogger", "Stopped performance capture");
         }
@@ -365,12 +373,31 @@ namespace AZ::Debug
         
         if (m_stopRequested)
         {
+            // If we're stopping performance capture, we shouldn't be handing out buffers.
+            // Wait till both threadData and deferredThreadData have been written to disk.
+            // That is guaranteed to happen when the top level function completes execution.
+            // This will happen by end of the frame.
             if (deferredThreadData && threadData->m_refCount == 0 && deferredThreadData->m_refCount == 0)
             {
+                // Delete the extra ThreadData we allocated at the beginning of the 
+                // performance capture.
                 delete deferredThreadData;
                 threadStorage.m_pendingData = nullptr;
+                
+                {
+                    // We add this back in the vector so event logger can start using it for
+                    // regular logs. The ref count is 0 so we know the data was written to disk,
+                    // the prolog written to the buffer, and the used bytes count updated
+                    // to the size of the prolog.
+                    AZStd::scoped_lock guard(m_fileGuard);
+                    m_threadDataBlocks.push_back(&threadStorage);
+                }
+
                 m_deferredDataCount--;
 
+                // This atomic counter will only reach 0 when all threads have finished writing
+                // all their data and deleted any memory they allocated at the start of the
+                // performance capture. We can now properly halt performance capture.
                 if (m_deferredDataCount.load() == 0)
                 {
                     m_stopRequested = false;
@@ -386,17 +413,23 @@ namespace AZ::Debug
         {
             if (threadData->m_refCount == 0)
             {
+                // There are no pending events to be recorded into this buffer.
+                // Write to disk.
                 AZStd::scoped_lock lock(m_fileWriteGuard);
                 WriteCacheToDisk(*threadData);
             }
             else if (deferredThreadData->m_refCount == 0)
             {
+                // The primary buffer is full but references to it are still being held.
+                // We swap buffers and continue processing performance events.
                 threadStorage.m_data = deferredThreadData;
                 threadStorage.m_pendingData = threadData;
                 threadData = threadStorage.m_data;
             }
             else
             {
+                // This is bad. This will only happen if someone is trying to call this
+                // function from outside the Budget/PerfCapture system. 
                 AZ_Assert(false, "Not all references of deferred thread data have been returned! Deferred thread data cannot be held for longer than 1 frame!");
                 return;
             }
@@ -408,9 +441,15 @@ namespace AZ::Debug
         header->m_eventId = id;
         header->m_size = size;
         header->m_flags = flags;
+        
+        // Update the used bytes count past the event we're about to write.
+        // This way we can continue to record events into this buffer while
+        // earlier events are still pending. Increment the ref count.
         threadData->m_usedBytes += writeSize;
         threadData->m_refCount++;
 
+        // Give the whole thread data and the offset to write THIS event's
+        // data to the caller(Budget).
         outBuffer = threadData;
         outOffset = usedBytesBeforeEvent + sizeof(EventHeader);
     }
@@ -426,6 +465,10 @@ namespace AZ::Debug
 
         ThreadStorage& threadStorage = GetThreadStorage();
 
+        // If ref count for this buffer is 0 and the address is the same as 
+        // m_pendingData, it means the buffer is full and we should write to disk.
+        // If stop was requested and ref count is 0, we write to disk even if it's not
+        // pending data. No more buffer refs were handed out so no need to wait.
         if (bufferData->m_refCount == 0 && (bufferData == threadStorage.m_pendingData || m_stopRequested))
         {                
             {
@@ -469,11 +512,16 @@ namespace AZ::Debug
             return;
         }
 
+        // If the event logger is stopped, all the data has already been flushed.
+        // It's safe to reset thread local storage. They will be reset with the proper owner
+        // when the even logger is restarted.
         for (int i = 0; i < m_threadDataBlocks.size(); i++)
         {
             m_threadDataBlocks[i]->Reset(nullptr);
         }
 
+        // Clear this out. We won't be using it for performance captures.
+        // When we finsh capturing performance data, we'll put it back.
         m_threadDataBlocks.clear();
     }
 
@@ -524,6 +572,8 @@ namespace AZ::Debug
             data->m_threadId = azlossy_caster(AZStd::hash<AZStd::thread_id>{}(AZStd::this_thread::get_id()));
             m_data = data;
 
+            // If we're in performance capture mode, we don't want to do any flushes. So don't add our
+            // thread storage ref to m_threadDataBlocks.
             if (!m_owner->m_performanceMode)
             {
                 AZStd::scoped_lock guard(m_owner->m_fileGuard);
@@ -531,9 +581,13 @@ namespace AZ::Debug
             }
             else
             {
+                // We allocate memory for a second ThreadData here in performance capture mode so that
+                // we can just swap pointers when one buffer gets full, but it can't be written to disk
+                // because the Budget class is still holding onto references.
                 ThreadData* deferredData = new ThreadData();
                 deferredData->m_threadId = azlossy_caster(AZStd::hash<AZStd::thread_id>{}(AZStd::this_thread::get_id()));
                 m_pendingData = deferredData;
+                // Make sure to keep track of this in an atomic counter so we can clean up when we're done.
                 m_owner->m_deferredDataCount++;
             }
         }

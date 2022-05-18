@@ -33,12 +33,18 @@ namespace AZ::Debug
 
         BudgetImpl(AZStd::string_view name)
         {
+            // We can pre-compute the sizes of all things we're going to
+            // store in the buffer except the event string size.
             m_budgetNameLength = static_cast<uint8_t>(name.length());
             m_baseEventSize = m_budgetNameLength + sizeof(uint64_t);
             m_eventLogger = Interface<IEventLogger>::Get();
         }
         
-        static constexpr size_t MaxProfileDepth = 32;        
+        // This is the max depth of recursive profile macros. This will be less than(usually)
+        // or equal(if we have a profile macro for every function) to the call stack depth.
+        static constexpr size_t MaxProfileDepth = 32;
+        // NOTE: We can integrate the two arrays into a single struct array.
+        // Each thread has its own stack to hold buffer pointer, offset, and timestamp.
         thread_local static AZStd::pair<IEventLogger::ThreadData*, size_t> s_eventData[MaxProfileDepth];
         thread_local static AZStd::chrono::system_clock::time_point s_timeStamps[MaxProfileDepth];
         thread_local static int8_t s_currentDepth;
@@ -48,6 +54,7 @@ namespace AZ::Debug
         IEventLogger* m_eventLogger;
     };
 
+    // NOTE: We can integrate the two arrays into a single struct array.
     thread_local AZStd::pair<IEventLogger::ThreadData*, size_t> BudgetImpl::s_eventData[BudgetImpl::MaxProfileDepth];
     thread_local AZStd::chrono::system_clock::time_point BudgetImpl::s_timeStamps[BudgetImpl::MaxProfileDepth];
     thread_local int8_t BudgetImpl::s_currentDepth = -1;
@@ -83,19 +90,26 @@ namespace AZ::Debug
     {
         if (m_impl->m_eventLogger->IsPerformanceModeEnabled())
         {
+            // Get the timestamp here so we include this in our perf capture data.
             AZStd::chrono::system_clock::time_point timestamp = AZStd::chrono::high_resolution_clock::now();
             BudgetImpl::s_currentDepth++;
             if (BudgetImpl::s_currentDepth < BudgetImpl::MaxProfileDepth)
             {
                 uint16_t eventSize = static_cast<uint16_t>(event.length());
                 uint16_t bufferSize = m_impl->m_baseEventSize + eventSize;
+                
+                // Store event depth and length of the budget name string in flags.
                 uint16_t flags = BudgetImpl::s_currentDepth;
                 flags |= (m_impl->m_budgetNameLength << 8);
+
+                // Get the buffer and offset.
                 m_impl->m_eventLogger->RecordPerformanceEventBegin(m_budgetNameHash, bufferSize, flags
                     , BudgetImpl::s_eventData[BudgetImpl::s_currentDepth].first, BudgetImpl::s_eventData[BudgetImpl::s_currentDepth].second);
 
                 if (BudgetImpl::s_eventData[BudgetImpl::s_currentDepth].first != nullptr)
                 {
+                    // We have our bufer. Copy data into it and remember to update the offsets as well.
+                    // We don't need to use any locks here because only the thread that allocated the data has access to it.
                     char* buffer = BudgetImpl::s_eventData[BudgetImpl::s_currentDepth].first->m_buffer + BudgetImpl::s_eventData[BudgetImpl::s_currentDepth].second;
 
                     memcpy(buffer, m_name, m_impl->m_budgetNameLength);
@@ -110,6 +124,8 @@ namespace AZ::Debug
                 }
                 else
                 {
+                    // This will happen when a performance capture stop was requested
+                    // and we haven't stopped yet because of pending buffers. Do nothing.
                     BudgetImpl::s_currentDepth--;
                 }
             }
@@ -125,6 +141,7 @@ namespace AZ::Debug
     {
         if (m_impl->m_eventLogger->IsPerformanceModeEnabled() && BudgetImpl::s_currentDepth >= 0)
         {
+            // Compute the duration, write it, and return the buffer.
             char *buffer = BudgetImpl::s_eventData[BudgetImpl::s_currentDepth].first->m_buffer + BudgetImpl::s_eventData[BudgetImpl::s_currentDepth].second;
             
             AZStd::chrono::system_clock::time_point endTime = AZStd::chrono::high_resolution_clock::now();
