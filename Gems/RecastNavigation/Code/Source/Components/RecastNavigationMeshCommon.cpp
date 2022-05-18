@@ -9,6 +9,7 @@
 #include "RecastNavigationMeshCommon.h"
 
 #include <DetourNavMeshBuilder.h>
+#include <lz4hc.h>
 #include <AzCore/Console/Console.h>
 #include <AzCore/Debug/Profiler.h>
 #include <AzFramework/Entity/EntityDebugDisplayBus.h>
@@ -41,7 +42,7 @@ namespace RecastNavigation
         // Step 1. Initialize build config.
         //
 
-        // Init build configuration from GUI
+        // Init build configuration
         memset(&config, 0, sizeof(config));
         config.cs = meshConfig.m_cellSize;
         config.ch = meshConfig.m_cellHeight;
@@ -283,6 +284,130 @@ namespace RecastNavigation
         }
 
         return {};
+    }
+
+    int FastLZCompressor::maxCompressedSize(const int bufferSize)
+    {
+        return aznumeric_cast<int>(bufferSize * 1.05f);
+    }
+
+    dtStatus FastLZCompressor::compress(
+        const unsigned char* uncompData,
+        const int uncompSize,
+        unsigned char* compData,
+        const int maxCompressedSize,
+        int* compDataSize)
+    {
+        const int compWorstCaseSize = LZ4_compressBound(static_cast<int>(uncompSize));
+        if (compWorstCaseSize == 0)
+        {
+            return DT_FAILURE;
+        }
+
+        *compDataSize = LZ4_compress_HC(
+            reinterpret_cast<const char*>(uncompData),
+            reinterpret_cast<char*>(compData),
+            uncompSize,
+            maxCompressedSize,
+            0);
+
+        return DT_SUCCESS;
+    }
+
+    dtStatus FastLZCompressor::decompress(
+        const unsigned char* compData,
+        const int compDataSize,
+        unsigned char* uncompData,
+        const int uncompDataSize,
+        int* uncompSize)
+    {
+        *uncompSize = LZ4_decompress_safe(
+            reinterpret_cast<const char*>(compData),
+            reinterpret_cast<char*>(uncompData),
+            static_cast<int>(compDataSize),
+            static_cast<int>(uncompDataSize));
+
+        return *uncompSize < 0 ? DT_FAILURE : DT_SUCCESS;
+    }
+
+    LinearAllocator::LinearAllocator(const size_t cap): m_buffer(nullptr), m_capacity(0), m_top(0), m_high(0)
+    {
+        resize(cap);
+    }
+
+    LinearAllocator::~LinearAllocator()
+    {
+        dtFree(m_buffer);
+    }
+
+    void LinearAllocator::resize(const size_t cap)
+    {
+        if (m_buffer) dtFree(m_buffer);
+        m_buffer = static_cast<unsigned char*>(dtAlloc(cap, DT_ALLOC_PERM));
+        m_capacity = cap;
+    }
+
+    void LinearAllocator::reset()
+    {
+        m_high = AZStd::max(m_high, m_top);
+        m_top = 0;
+    }
+
+    void* LinearAllocator::alloc(const size_t size)
+    {
+        if (!m_buffer)
+            return nullptr;
+        if (m_top + size > m_capacity)
+            return nullptr;
+        unsigned char* mem = &m_buffer[m_top];
+        m_top += size;
+        return mem;
+    }
+
+    void LinearAllocator::free([[maybe_unused]] void* p)
+    {
+        // Empty
+    }
+
+    void MeshProcess::process([[maybe_unused]] dtNavMeshCreateParams* params, [[maybe_unused]] unsigned char* polyAreas, [[maybe_unused]] unsigned short* polyFlags)
+    {
+    }
+
+    bool RecastNavigationMeshCommon::CreateTileCache(const AZ::Vector3& origin, const RecastNavigationMeshConfig& meshConfig, int maxTiles)
+    {
+        // Tile cache params.
+        dtTileCacheParams tcparams = {};
+        rcVcopy(tcparams.orig, RecastVector3(origin).GetData());
+        tcparams.cs = meshConfig.m_cellSize;
+        tcparams.ch = meshConfig.m_cellHeight;
+        tcparams.width = static_cast<int>(meshConfig.m_tileSize / tcparams.cs);
+        tcparams.height = static_cast<int>(meshConfig.m_tileSize / tcparams.cs);
+        tcparams.walkableHeight = ceilf(meshConfig.m_agentHeight / tcparams.ch);
+        tcparams.walkableRadius = ceilf(meshConfig.m_agentRadius / tcparams.cs);
+        tcparams.walkableClimb = floorf(meshConfig.m_agentMaxClimb / tcparams.ch);
+        tcparams.maxSimplificationError = meshConfig.m_edgeMaxError;
+        tcparams.maxTiles = maxTiles;
+        tcparams.maxObstacles = meshConfig.m_maxObstacles;
+
+        m_tileCache.reset(dtAllocTileCache());
+        if (!m_tileCache)
+        {
+            AZ_Error("Navigation", false, "buildTiledNavigation: Could not allocate tile cache.");
+            return false;
+        }
+
+        m_linearAllocator = AZStd::make_unique<LinearAllocator>(32000);
+        m_compressor = AZStd::make_unique<FastLZCompressor>();
+        m_meshProcess = AZStd::make_unique<MeshProcess>();
+
+        const dtStatus status = m_tileCache->init(&tcparams, m_linearAllocator.get(), m_compressor.get(), m_meshProcess.get());
+        if (dtStatusFailed(status))
+        {
+            AZ_Error("Navigation", false, "buildTiledNavigation: Could not init tile cache.");
+            return false;
+        }
+
+        return true;
     }
 
     bool RecastNavigationMeshCommon::CreateNavigationMesh(AZ::EntityId meshEntityId, float tileSize)

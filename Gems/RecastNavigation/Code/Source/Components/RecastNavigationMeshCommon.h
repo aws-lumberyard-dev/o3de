@@ -8,16 +8,55 @@
 
 #pragma once
 
-#include "RecastNavigationDebugDraw.h"
-#include "RecastNavigationMeshConfig.h"
-
 #include <DetourNavMesh.h>
+#include <DetourTileCache.h>
+#include <DetourTileCacheBuilder.h>
 #include <Recast.h>
 #include <AzCore/Component/EntityId.h>
 #include <Components/RecastHelpers.h>
+#include <Components/RecastNavigationDebugDraw.h>
+#include <Components/RecastNavigationMeshConfig.h>
 
 namespace RecastNavigation
 {
+    struct FastLZCompressor : public dtTileCacheCompressor
+    {
+        int maxCompressedSize(const int bufferSize) override;
+
+        dtStatus compress(const unsigned char* uncompData, const int uncompSize,
+                          unsigned char* compData, const int maxCompressedSize, int* compDataSize) override;
+
+        dtStatus decompress(const unsigned char* compData, const int compDataSize,
+                            unsigned char* uncompData, const int uncompDataSize, int* uncompSize) override;
+    };
+
+    class LinearAllocator : public dtTileCacheAlloc
+    {
+    public:
+        unsigned char* m_buffer;
+        size_t m_capacity;
+        size_t m_top;
+        size_t m_high;
+
+        explicit LinearAllocator(const size_t cap);
+
+        ~LinearAllocator() override;
+
+        void resize(const size_t cap);
+
+        void reset() override;
+
+        void* alloc(const size_t size) override;
+
+        void free(void* /*ptr*/) override;
+    };
+
+    class MeshProcess : public dtTileCacheMeshProcess
+    {
+    public:
+        void process(struct dtNavMeshCreateParams* params, unsigned char* polyAreas, unsigned short* polyFlags) override;
+    };
+
     //! Common navigation mesh logic for Recast navigation components. Recommended use is as a base class.
     class RecastNavigationMeshCommon
     {
@@ -25,6 +64,8 @@ namespace RecastNavigation
         AZ_RTTI(RecastNavigationMeshCommon, "{D34CD5E0-8C29-4545-8734-9C7A92F03740}");
         virtual ~RecastNavigationMeshCommon() = default;
         
+        bool CreateTileCache(const AZ::Vector3& origin, const RecastNavigationMeshConfig& meshConfig, int maxTiles);
+
         //! Allocates and initializes Recast navigation mesh into @m_navMesh
         //! @param meshEntityId the entity's positions will be used as the center of the navigation mesh.
         //! @param tileSize the size of each square tile that form the navigation mesh. Recommended values are power of 2
@@ -54,6 +95,13 @@ namespace RecastNavigation
 
         //! Recast navigation query object can be used to find paths.
         RecastPointer<dtNavMeshQuery> m_navQuery;
+
+        //! Recast object to build tiles and add temporary obstacles to the navigation mesh.
+        RecastPointer<dtTileCache> m_tileCache;
+
+        AZStd::unique_ptr<FastLZCompressor> m_compressor;
+        AZStd::unique_ptr<LinearAllocator> m_linearAllocator;
+        AZStd::unique_ptr<MeshProcess> m_meshProcess;
     };
 
-} // namespace RecastNavigation
+}
