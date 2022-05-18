@@ -139,13 +139,13 @@ namespace AssetProcessor
             });
     }
 
-    bool ProductAssetWrapper::ExistOnDisk() const
+    bool ProductAssetWrapper::ExistOnDisk(bool printErrorMessage) const
     {
         return AZStd::all_of(
             m_products.begin(), m_products.end(),
-            [](const AZStd::unique_ptr<ProductAsset>& productAsset)
+            [printErrorMessage](const AZStd::unique_ptr<ProductAsset>& productAsset)
             {
-                return productAsset->ExistsOnDisk(true);
+                return productAsset->ExistsOnDisk(printErrorMessage);
             });
     }
 

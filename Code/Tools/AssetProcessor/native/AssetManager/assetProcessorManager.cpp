@@ -981,7 +981,7 @@ namespace AssetProcessor
                     continue;
                 }
 
-                if(!remove && !productWrapper.ExistOnDisk())
+                if(!remove && !productWrapper.ExistOnDisk(true))
                 {
                     remove = true;
                 }
@@ -1043,7 +1043,6 @@ namespace AssetProcessor
                                         // The product file path is always lower cased, we can't check that for existance.
                                         // Let rebuild a fs sensitive file path by replacing the cache path.
                                         // We assume any file paths normalized, ie no .. nor (back) slashes.
-                                        //const QString outputProductFilePath = m_cacheRootDir.filePath(outputProduct.m_productFileName.substr(m_normalizedCacheRootPath.length() + 1).c_str());
                                         AssetUtilities::ProductPath outputProductPath(outputProduct.m_productFileName, itProcessedAsset->m_entry.m_platformInfo.m_identifier);
                                         ProductAssetWrapper wrapper(outputProduct, outputProductPath);
 
@@ -1981,7 +1980,8 @@ namespace AssetProcessor
         QString normalizedRoot = AssetUtilities::NormalizeFilePath(root);
 
         // also track parent folders up to the specified root.
-        QString parentFolderName = QFileInfo(fullFile).absolutePath();
+        QFileInfo fullFileInfo(fullFile);
+        QString parentFolderName = fullFileInfo.isDir() ? fullFileInfo.absoluteFilePath() : fullFileInfo.absolutePath();
         QString normalizedParentFolder = AssetUtilities::NormalizeFilePath(parentFolderName);
 
         if (!normalizedParentFolder.startsWith(normalizedRoot, Qt::CaseInsensitive))
@@ -2197,7 +2197,7 @@ namespace AssetProcessor
                     auto productPath = AssetUtilities::ProductPath::FromDatabasePath(product.m_productName);
                     ProductAssetWrapper wrapper{ product, productPath };
 
-                    if(!wrapper.ExistOnDisk())
+                    if(!wrapper.ExistOnDisk(true))
                     {
                         shouldProcessAsset = true;
                     }
@@ -2310,10 +2310,12 @@ namespace AssetProcessor
 
         for (const auto& product : products)
         {
-            QString fileFound = m_cacheRootDir.absoluteFilePath(product.m_productName.c_str());
-            if (!QFile::exists(fileFound))
+            auto productPath = AssetUtilities::ProductPath::FromDatabasePath(product.m_productName);
+            ProductAssetWrapper productWrapper{ product, productPath };
+
+            if (!productWrapper.ExistOnDisk(false))
             {
-                AssessDeletedFile(fileFound);
+                AssessDeletedFile(productPath.GetCachePath().c_str());
             }
         }
 
@@ -2948,10 +2950,9 @@ namespace AssetProcessor
                     m_metaFilesWhichActuallyExistOnDisk.clear(); // invalidate the map, force a recompuation later.
                 }
             }
-
         }
 
-        if (!isDelete &&  IsInIntermediateAssetsFolder(normalizedFullFile))
+        if (!isDelete && IsInIntermediateAssetsFolder(normalizedFullFile) && !m_knownFolders.contains(normalizedFullFile))
         {
             QString relativePath, scanfolderPath;
             m_platformConfig->ConvertToRelativePath(normalizedFullFile, relativePath, scanfolderPath);
@@ -3081,6 +3082,16 @@ namespace AssetProcessor
         if (m_allowModtimeSkippingFeature)
         {
             AZ_TracePrintf(AssetProcessor::DebugChannel, "%d files reported from scanner.  %d unchanged files skipped, %d files processed\n", filePaths.size(), filePaths.size() - processedFileCount, processedFileCount);
+        }
+    }
+
+    void AssetProcessorManager::RecordFoldersFromScanner(QSet<AssetFileInfo> folderPaths)
+    {
+        // Record all the folders so we can differentiate between a folder delete and a file delete later on
+        // Sometimes a folder is empty, which is why its not sufficient to only record folders from the AssessFilesFromScanner event
+        for(const auto& folder : folderPaths)
+        {
+            AddKnownFoldersRecursivelyForFile(folder.m_filePath, folder.m_scanFolder->ScanPath());
         }
     }
 

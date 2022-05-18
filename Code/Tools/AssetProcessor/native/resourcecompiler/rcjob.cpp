@@ -724,20 +724,6 @@ namespace AssetProcessor
             return false;
         }
 
-        // if outputDirectory does not exist then create it
-        unsigned int waitTimeInSecs = 3;
-        if (!AssetUtilities::CreateDirectoryWithTimeout(QDir(cacheDirectory.AsPosix().c_str()), waitTimeInSecs))
-        {
-            AZ_TracePrintf(AssetBuilderSDK::ErrorWindow, "Failed to create output directory: %s\n", cacheDirectory.c_str());
-            return false;
-        }
-
-        if(!AssetUtilities::CreateDirectoryWithTimeout(QDir(intermediateDirectory.AsPosix().c_str()), waitTimeInSecs))
-        {
-            AZ_TracePrintf(AssetBuilderSDK::ErrorWindow, "Failed to create intermediate directory: %s\n", intermediateDirectory.c_str());
-            return false;
-        }
-
         // copy the built products into the appropriate location in the real cache and update the job status accordingly.
         // note that we go to the trouble of first doing all the checking for disk space and existence of the source files
         // before we notify the AP or start moving any of the files so that failures cause the least amount of damage possible.
@@ -748,6 +734,9 @@ namespace AssetProcessor
         outputsToCopy.reserve(static_cast<int>(response.m_outputProducts.size()));
         qint64 totalCacheFileSizeRequired = 0;
         qint64 totalIntermediateFileSizeRequired = 0;
+
+        bool needCacheDirectory = false;
+        bool needIntermediateDirectory = false;
 
         for (AssetBuilderSDK::JobProduct& product : response.m_outputProducts)
         {
@@ -790,6 +779,8 @@ namespace AssetProcessor
 
             if(outputToCache)
             {
+                needCacheDirectory = true;
+
                 if(!product.m_outputPathOverride.empty())
                 {
                     AZ_Error(AssetProcessor::ConsoleChannel, false, "%s specified m_outputPathOverride on a ProductAsset.  This is not supported."
@@ -807,6 +798,8 @@ namespace AssetProcessor
 
             if(outputToIntermediate)
             {
+                needIntermediateDirectory = true;
+
                 if(!product.m_outputPathOverride.empty())
                 {
                     relativeFilePath = product.m_outputPathOverride;
@@ -866,6 +859,20 @@ namespace AssetProcessor
         }
 
         // if we get here, we are good to go in terms of disk space and sources existing, so we make the best attempt we can.
+
+        // if outputDirectory does not exist then create it
+        unsigned int waitTimeInSecs = 3;
+        if (needCacheDirectory && !AssetUtilities::CreateDirectoryWithTimeout(QDir(cacheDirectory.AsPosix().c_str()), waitTimeInSecs))
+        {
+            AZ_TracePrintf(AssetBuilderSDK::ErrorWindow, "Failed to create output directory: %s\n", cacheDirectory.c_str());
+            return false;
+        }
+
+        if (needIntermediateDirectory && !AssetUtilities::CreateDirectoryWithTimeout(QDir(intermediateDirectory.AsPosix().c_str()), waitTimeInSecs))
+        {
+            AZ_TracePrintf(AssetBuilderSDK::ErrorWindow, "Failed to create intermediate directory: %s\n", intermediateDirectory.c_str());
+            return false;
+        }
 
         bool anyFileFailed = false;
 
