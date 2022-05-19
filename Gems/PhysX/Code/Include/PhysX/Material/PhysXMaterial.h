@@ -34,6 +34,23 @@ namespace PhysX
         Multiply
     };
 
+    namespace MaterialConstants
+    {
+        static constexpr AZStd::string_view MaterialAssetType = "PhysX";
+        static constexpr AZ::u32 MaterialAssetVersion = 1;
+
+        static constexpr AZStd::string_view DynamicFrictionName = "DynamicFriction";
+        static constexpr AZStd::string_view StaticFrictionName = "StaticFriction";
+        static constexpr AZStd::string_view RestitutionName = "Restitution";
+        static constexpr AZStd::string_view DensityName = "Density";
+        static constexpr AZStd::string_view RestitutionCombineModeName = "RestitutionCombineMode";
+        static constexpr AZStd::string_view FrictionCombineModeName = "FrictionCombineMode";
+        static constexpr AZStd::string_view DebugColorName = "DebugColor";
+
+        static constexpr float MinDensityLimit = 0.01f; //!< Minimum possible value of density.
+        static constexpr float MaxDensityLimit = 100000.0f; //!< Maximum possible value of density.
+    }
+
     //! Runtime PhysX material instance.
     //! It handles the reloading of its data if the material asset it
     //! was created from is modified.
@@ -56,7 +73,7 @@ namespace PhysX
 
         //! Function to create material instances from material slots.
         //! The material ids will be constructed from the asset ids of the assets assigned to the slots.
-        //! It will alway retun a valid list of materials, the slots with invalid or no assets will put
+        //! It will alway return a valid list of materials, the slots with invalid or no assets will put
         //! the default material instance.
         //! @param materialSlots Material slots with the list of material assets to create the material instances from.
         //! @return List of material instances created. It will always return a valid list.
@@ -68,14 +85,11 @@ namespace PhysX
         //! @return Material instance created. It can return nullptr if the creation failed or if the asset passed is invalid.
         static AZStd::shared_ptr<Material> CreateMaterialWithRandomId(const AZ::Data::Asset<Physics::MaterialAsset>& materialAsset);
 
-        static constexpr float MinDensityLimit = 0.01f; //!< Minimum possible value of density.
-        static constexpr float MaxDensityLimit = 100000.0f; //!< Maximum possible value of density.
-
         ~Material() override;
 
         // Physics::Material overrides ...
-        float GetProperty(const AZStd::string& propertyName) const override;
-        void SetProperty(const AZStd::string& propertyName, float value) override;
+        Physics::MaterialPropertyValue GetProperty(AZStd::string_view propertyName) const override;
+        void SetProperty(AZStd::string_view propertyName, Physics::MaterialPropertyValue value) override;
 
         float GetDynamicFriction() const;
         void SetDynamicFriction(float dynamicFriction);
