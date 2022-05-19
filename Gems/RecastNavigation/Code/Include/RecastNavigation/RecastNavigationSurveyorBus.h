@@ -23,6 +23,9 @@ namespace RecastNavigation
         //!               to their respective neighboring tiles, they need additional geometry in the near vicinity.
         //! @return a container with triangle data for each tile.
         virtual AZStd::vector<AZStd::shared_ptr<TileGeometry>> CollectGeometry(float tileSize, float borderSize) = 0;
+        
+        virtual void CollectGeometryAsync(float tileSize, float borderSize,
+            AZStd::function<void(AZStd::shared_ptr<TileGeometry>)> tileCallback) = 0;
 
         //! A navigation mesh is made up of tiles. Each tile is a square of the same size.
         //! @param tileSize size of square tile that make up a navigation mesh.

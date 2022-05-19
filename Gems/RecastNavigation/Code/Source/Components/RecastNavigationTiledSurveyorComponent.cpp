@@ -26,6 +26,8 @@ AZ_CVAR(
     float, cl_navmesh_showInputDataSeconds, 30.f, nullptr, AZ::ConsoleFunctorFlags::Null,
     "If enabled, keeps the debug triangle mesh input for the specified number of seconds");
 
+#pragma optimize("", off)
+
 namespace RecastNavigation
 {
     void RecastNavigationTiledSurveyorComponent::Reflect(AZ::ReflectContext* context)
@@ -60,7 +62,7 @@ namespace RecastNavigation
         required.push_back(AZ_CRC_CE("BoxShapeService"));
     }
 
-    void RecastNavigationTiledSurveyorComponent::CollectGeometryWithinVolume(const AZ::Aabb& volume, ShapeHits& overlapHits)
+    void RecastNavigationTiledSurveyorComponent::CollectGeometryWithinVolume(const AZ::Aabb& volume, QueryHits& overlapHits)
     {
         AZ::Vector3 dimension = volume.GetExtents();
         AZ::Transform pose = AZ::Transform::CreateFromQuaternionAndTranslation(AZ::Quaternion::CreateIdentity(), volume.GetCenter());
@@ -78,7 +80,7 @@ namespace RecastNavigation
             if (hit && ((hit->m_resultFlags & AzPhysics::SceneQuery::EntityId) != 0))
             {
                 const AzPhysics::SceneQueryHit& sceneQueryHit = *hit;
-                overlapHits.emplace_back(sceneQueryHit.m_entityId, sceneQueryHit.m_shape);
+                overlapHits.push_back(sceneQueryHit);
             }
 
             return true;
@@ -96,22 +98,25 @@ namespace RecastNavigation
 
     void RecastNavigationTiledSurveyorComponent::AppendColliderGeometry(
         TileGeometry& geometry,
-        const ShapeHits& overlapHits)
+        const QueryHits& overlapHits)
     {
         AZStd::vector<AZ::Vector3> vertices;
         AZStd::vector<AZ::u32> indices;
         AZStd::size_t indicesCount = geometry.m_indices.size();
 
-        for (const AZStd::pair<AZ::EntityId, Physics::Shape*>& overlapHit : overlapHits)
+        AzPhysics::SceneInterface* sceneInterface = AZ::Interface<AzPhysics::SceneInterface>::Get();
+        AzPhysics::SceneHandle sceneHandle = sceneInterface->GetSceneHandle(AzPhysics::DefaultPhysicsSceneName);
+
+        for (const auto& overlapHit : overlapHits)
         {
-            AZ::EntityId hitEntityId = overlapHit.first;
+            AzPhysics::SimulatedBody* body = sceneInterface->GetSimulatedBodyFromHandle(sceneHandle, overlapHit.m_bodyHandle);
+            if (!body)
+            {
+                continue;
+            }
 
-            AZ::Transform t = AZ::Transform::CreateIdentity();
-            AZ::TransformBus::EventResult(t, hitEntityId, &AZ::TransformBus::Events::GetWorldTM);
-            // Physical geometry already takes scale into account. Discard the scale.
-            t.SetUniformScale(1.0f);
-
-            overlapHit.second->GetGeometry(vertices, indices, nullptr);
+            AZ::Transform t = AZ::Transform::CreateFromQuaternionAndTranslation(body->GetOrientation(), body->GetPosition());
+            overlapHit.m_shape->GetGeometry(vertices, indices, nullptr);
 
             if (!vertices.empty())
             {
@@ -243,11 +248,11 @@ namespace RecastNavigation
                 AZ::Aabb tileVolume = AZ::Aabb::CreateFromMinMax(tileMin, tileMax);
                 AZ::Aabb scanVolume = AZ::Aabb::CreateFromMinMax(tileMin - border, tileMax + border);
 
-                ShapeHits results;
-                AZStd::shared_ptr<TileGeometry> geometryData = AZStd::make_unique<TileGeometry>();
-                geometryData->m_worldBounds = tileVolume;
+                QueryHits results;
                 CollectGeometryWithinVolume(scanVolume, results);
 
+                AZStd::shared_ptr<TileGeometry> geometryData = AZStd::make_unique<TileGeometry>();
+                geometryData->m_worldBounds = tileVolume;
                 AppendColliderGeometry(*geometryData, results);
 
                 geometryData->m_tileX = x;
@@ -257,6 +262,90 @@ namespace RecastNavigation
         }
 
         return tiles;
+    }
+
+    void RecastNavigationTiledSurveyorComponent::CollectGeometryAsync(
+        float tileSize,
+        float borderSize,
+        AZStd::function<void(AZStd::shared_ptr<TileGeometry>)> tileCallback)
+    {
+        if (tileSize == 0.f)
+        {
+            return;
+        }
+
+        if (!m_taskGraphEvent || m_taskGraphEvent->IsSignaled())
+        {
+            m_taskGraphEvent = AZStd::make_unique<AZ::TaskGraphEvent>();
+            m_taskGraph.Reset();
+
+            AZStd::vector<AZStd::shared_ptr<TileGeometry>> tiles;
+
+            const AZ::Aabb worldVolume = GetWorldBounds();
+
+            const AZ::Vector3 extents = worldVolume.GetExtents();
+            int tilesAlongX = static_cast<int>(AZStd::ceilf(extents.GetX() / tileSize));
+            int tilesAlongY = static_cast<int>(AZStd::ceilf(extents.GetY() / tileSize));
+
+            const AZ::Vector3& worldMin = worldVolume.GetMin();
+            const AZ::Vector3& worldMax = worldVolume.GetMax();
+
+            const AZ::Vector3 border = AZ::Vector3::CreateOne() * borderSize;
+
+            AZStd::vector<AZ::TaskToken*> tileTaskTokens;
+
+            for (int y = 0; y < tilesAlongY; ++y)
+            {
+                for (int x = 0; x < tilesAlongX; ++x)
+                {
+                    const AZ::Vector3 tileMin{
+                        worldMin.GetX() + aznumeric_cast<float>(x) * tileSize,
+                        worldMin.GetY() + aznumeric_cast<float>(y) * tileSize,
+                        worldMin.GetZ()
+                    };
+
+                    const AZ::Vector3 tileMax{
+                        worldMin.GetX() + aznumeric_cast<float>(x + 1) * tileSize,
+                        worldMin.GetY() + aznumeric_cast<float>(y + 1) * tileSize,
+                        worldMax.GetZ()
+                    };
+
+                    AZ::Aabb tileVolume = AZ::Aabb::CreateFromMinMax(tileMin, tileMax);
+                    AZ::Aabb scanVolume = AZ::Aabb::CreateFromMinMax(tileMin - border, tileMax + border);
+                    AZStd::shared_ptr<TileGeometry> geometryData = AZStd::make_unique<TileGeometry>();
+                    geometryData->m_tileCallback = tileCallback;
+                    geometryData->m_worldBounds = tileVolume;
+                    geometryData->m_scanBounds = scanVolume;
+                    geometryData->m_tileX = x;
+                    geometryData->m_tileY = y;
+
+                    AZ::TaskToken token = m_taskGraph.AddTask(
+                        m_taskDescriptor, [this, geometryData]()
+                        {
+                            QueryHits results;
+                            CollectGeometryWithinVolume(geometryData->m_scanBounds, results);
+                            AppendColliderGeometry(*geometryData, results);
+
+                            geometryData->m_tileCallback(geometryData);
+                        });
+
+                    tileTaskTokens.push_back(&token);
+                }
+            }
+
+            AZ::TaskToken finishToken = m_taskGraph.AddTask(
+                m_taskDescriptor, [tileCallback]()
+                {
+                    tileCallback({});
+                });
+
+            for (AZ::TaskToken* task : tileTaskTokens)
+            {
+                task->Precedes(finishToken);
+            }
+
+            m_taskGraph.SubmitOnExecutor(m_taskExecutor, m_taskGraphEvent.get());
+        }
     }
 
     AZ::Aabb RecastNavigationTiledSurveyorComponent::GetWorldBounds() const
@@ -277,3 +366,5 @@ namespace RecastNavigation
         return tilesAlongX * tilesAlongY;
     }
 } // namespace RecastNavigation
+
+#pragma optimize("", on)

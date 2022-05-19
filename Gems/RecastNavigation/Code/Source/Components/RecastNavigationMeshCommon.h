@@ -54,6 +54,8 @@ namespace RecastNavigation
 
         //! Recast navigation query object can be used to find paths.
         RecastPointer<dtNavMeshQuery> m_navQuery;
+
+        AZStd::mutex m_modifyingNavMeshMutex;
     };
 
 } // namespace RecastNavigation

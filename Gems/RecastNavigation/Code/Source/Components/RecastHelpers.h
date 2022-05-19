@@ -63,12 +63,15 @@ namespace RecastNavigation
     {
     public:
         AZ::Aabb m_worldBounds = AZ::Aabb::CreateNull();
+        AZ::Aabb m_scanBounds = AZ::Aabb::CreateNull(); // includes @m_worldBounds and additional border extends
 
         int m_tileX = 0; // tile coordinate within the navigation grid along X-axis
         int m_tileY = 0; // tile coordinate within the navigation grid along Y-axis
 
         AZStd::vector<RecastVector3> m_vertices;
         AZStd::vector<AZ::s32> m_indices;
+
+        AZStd::function<void(AZStd::shared_ptr<TileGeometry>)> m_tileCallback;
 
         bool IsEmpty() const
         {

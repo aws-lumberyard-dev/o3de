@@ -96,7 +96,8 @@
                 },
                 "Component_[2681084637176744288]": {
                     "$type": "EditorRecastNavigationMeshComponent",
-                    "Id": 2681084637176744288
+                    "Id": 2681084637176744288,
+                    "Debug Draw": true
                 },
                 "Component_[490606516712228268]": {
                     "$type": "{27F1E1A1-8D9D-4C3B-BD3A-AFB9762449C0} TransformComponent",
@@ -353,6 +354,44 @@
                                         "m_id": "{F9BD60F2-4899-4080-B49E-19A29D044A95}"
                                     },
                                     "VariableName": "NavMesh",
+                                    "InitialValueSource": 1
+                                }
+                            ],
+                            "overridesUnused": [
+                                {
+                                    "Datum": {
+                                        "scriptCanvasType": {
+                                            "m_type": 1
+                                        },
+                                        "isNullPointer": false,
+                                        "$type": "EntityId",
+                                        "value": "Entity_[11033547635888]"
+                                    },
+                                    "InputControlVisibility": {
+                                        "Value": 850104567
+                                    },
+                                    "VariableId": {
+                                        "m_id": "{F9BD60F2-4899-4080-B49E-19A29D044A95}"
+                                    },
+                                    "VariableName": "NavMesh",
+                                    "InitialValueSource": 1
+                                },
+                                {
+                                    "Datum": {
+                                        "scriptCanvasType": {
+                                            "m_type": 3
+                                        },
+                                        "isNullPointer": false,
+                                        "$type": "double",
+                                        "value": 3.0
+                                    },
+                                    "InputControlVisibility": {
+                                        "Value": 850104567
+                                    },
+                                    "VariableId": {
+                                        "m_id": "{8F61D3C2-8906-4F3A-A4C0-F95176EC06A2}"
+                                    },
+                                    "VariableName": "Speed",
                                     "InitialValueSource": 1
                                 }
                             ]

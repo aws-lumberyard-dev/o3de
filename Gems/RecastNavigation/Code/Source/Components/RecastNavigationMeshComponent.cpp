@@ -17,6 +17,8 @@ AZ_CVAR(
     bool, cl_navmesh_debug, false, nullptr, AZ::ConsoleFunctorFlags::Null,
     "If enabled, draw debug visual information about a navigation mesh");
 
+#pragma optimize("", off)
+
 namespace RecastNavigation
 {
     RecastNavigationMeshComponent::RecastNavigationMeshComponent(const RecastNavigationMeshConfig& config, bool drawDebug)
@@ -43,7 +45,8 @@ namespace RecastNavigation
                 ->Attribute(AZ::Script::Attributes::Scope, AZ::Script::Attributes::ScopeFlags::Common)
                 ->Attribute(AZ::Script::Attributes::Module, "navigation")
                 ->Attribute(AZ::Script::Attributes::Category, "Recast Navigation")
-                ->Event("UpdateNavigationMesh", &RecastNavigationMeshRequests::UpdateNavigationMeshBlockUntilCompleted)
+                ->Event("Update Navigation Mesh", &RecastNavigationMeshRequests::UpdateNavigationMeshBlockUntilCompleted)
+                ->Event("Update Navigation Mesh Async", &RecastNavigationMeshRequests::UpdateNavigationMeshAsync)
                 ;
 
             behaviorContext->Class<RecastNavigationMeshComponent>()->RequestBus("RecastNavigationMeshRequestBus");
@@ -79,7 +82,44 @@ namespace RecastNavigation
             }
         }
 
-        RecastNavigationMeshNotificationBus::Broadcast(&RecastNavigationMeshNotifications::OnNavigationMeshUpdated, GetEntityId());
+        RecastNavigationMeshNotificationBus::Event(GetEntityId(), &RecastNavigationMeshNotifications::OnNavigationMeshUpdated, GetEntityId());
+    }
+
+    void RecastNavigationMeshComponent::UpdateNavigationMeshAsync()
+    {
+        RecastNavigationSurveyorRequestBus::Event(GetEntityId(),
+            &RecastNavigationSurveyorRequests::CollectGeometryAsync,
+            m_meshConfig.m_tileSize, m_meshConfig.m_borderSize * m_meshConfig.m_cellSize, [this](AZStd::shared_ptr<TileGeometry> tile)
+            {
+                if (tile)
+                {
+                    if (tile->IsEmpty())
+                    {
+                        return;
+                    }
+
+                    NavigationTileData navigationTileData = CreateNavigationTile(tile.get(),
+                        m_meshConfig, m_context.get());
+
+                    {
+                        AZStd::lock_guard lock(m_modifyingNavMeshMutex);
+
+                        if (const dtTileRef tileRef = m_navMesh->getTileRefAt(tile->m_tileX, tile->m_tileY, 0))
+                        {
+                            m_navMesh->removeTile(tileRef, nullptr, nullptr);
+                        }
+                        if (navigationTileData.IsValid())
+                        {
+                            AttachNavigationTileToMesh(navigationTileData);
+                        }
+                    }
+                }
+                else
+                {
+                    RecastNavigationMeshNotificationBus::Broadcast(
+                        &RecastNavigationMeshNotifications::OnNavigationMeshUpdated, GetEntityId());
+                }
+            });
     }
 
     void RecastNavigationMeshComponent::Activate()
@@ -115,3 +155,5 @@ namespace RecastNavigation
         }
     }
 } // namespace RecastNavigation
+
+#pragma optimize("", on)

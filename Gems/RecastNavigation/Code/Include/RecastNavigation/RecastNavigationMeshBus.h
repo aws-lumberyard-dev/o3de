@@ -19,6 +19,8 @@ namespace RecastNavigation
     public:
         //! Re-calculates the navigation mesh withing the defined world area. Blocking call.
         virtual void UpdateNavigationMeshBlockUntilCompleted() = 0;
+
+        virtual void UpdateNavigationMeshAsync() = 0;
         
         //! @return returns the underlying navigation map object
         virtual dtNavMesh* GetNativeNavigationMap() const = 0;
