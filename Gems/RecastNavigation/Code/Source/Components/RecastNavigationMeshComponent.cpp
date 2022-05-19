@@ -19,6 +19,8 @@ AZ_CVAR(
 
 #pragma optimize("", off)
 
+AZ_DECLARE_BUDGET(Navigation);
+
 namespace RecastNavigation
 {
     RecastNavigationMeshComponent::RecastNavigationMeshComponent(const RecastNavigationMeshConfig& config, bool drawDebug)
@@ -87,6 +89,8 @@ namespace RecastNavigation
 
     void RecastNavigationMeshComponent::UpdateNavigationMeshAsync()
     {
+        AZ_PROFILE_SCOPE(Navigation, "Navigation: UpdateNavigationMeshAsync");
+
         RecastNavigationSurveyorRequestBus::Event(GetEntityId(),
             &RecastNavigationSurveyorRequests::CollectGeometryAsync,
             m_meshConfig.m_tileSize, m_meshConfig.m_borderSize * m_meshConfig.m_cellSize, [this](AZStd::shared_ptr<TileGeometry> tile)
@@ -102,6 +106,7 @@ namespace RecastNavigation
                         m_meshConfig, m_context.get());
 
                     {
+                        AZ_PROFILE_SCOPE(Navigation, "Navigation: UpdateNavigationMeshAsync - tile callback");
                         AZStd::lock_guard lock(m_modifyingNavMeshMutex);
 
                         if (const dtTileRef tileRef = m_navMesh->getTileRefAt(tile->m_tileX, tile->m_tileY, 0))
@@ -116,7 +121,7 @@ namespace RecastNavigation
                 }
                 else
                 {
-                    RecastNavigationMeshNotificationBus::Broadcast(
+                    RecastNavigationMeshNotificationBus::Event(GetEntityId(),
                         &RecastNavigationMeshNotifications::OnNavigationMeshUpdated, GetEntityId());
                 }
             });

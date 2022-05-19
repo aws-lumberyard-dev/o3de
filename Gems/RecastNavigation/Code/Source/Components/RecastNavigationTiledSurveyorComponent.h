@@ -66,7 +66,7 @@ namespace RecastNavigation
         //! Append the triangle geometry within a volume to a tile structure.
         void AppendColliderGeometry(TileGeometry& geometry, const QueryHits& overlapHits);
 
-        AZ::TaskExecutor m_taskExecutor{ 1 };
+        AZ::TaskExecutor m_taskExecutor{ 4 };
         AZ::TaskGraph m_taskGraph;
         AZStd::unique_ptr<AZ::TaskGraphEvent> m_taskGraphEvent;
         AZ::TaskDescriptor m_taskDescriptor{ "Collect Geometry", "Recast Navigation"};

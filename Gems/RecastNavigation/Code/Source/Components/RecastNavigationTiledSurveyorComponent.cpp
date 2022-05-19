@@ -28,6 +28,8 @@ AZ_CVAR(
 
 #pragma optimize("", off)
 
+AZ_DECLARE_BUDGET(Navigation);
+
 namespace RecastNavigation
 {
     void RecastNavigationTiledSurveyorComponent::Reflect(AZ::ReflectContext* context)
@@ -64,6 +66,8 @@ namespace RecastNavigation
 
     void RecastNavigationTiledSurveyorComponent::CollectGeometryWithinVolume(const AZ::Aabb& volume, QueryHits& overlapHits)
     {
+        AZ_PROFILE_SCOPE(Navigation, "Navigation: CollectGeometryWithinVolume");
+
         AZ::Vector3 dimension = volume.GetExtents();
         AZ::Transform pose = AZ::Transform::CreateFromQuaternionAndTranslation(AZ::Quaternion::CreateIdentity(), volume.GetCenter());
 
@@ -100,6 +104,8 @@ namespace RecastNavigation
         TileGeometry& geometry,
         const QueryHits& overlapHits)
     {
+        AZ_PROFILE_SCOPE(Navigation, "Navigation: AppendColliderGeometry");
+
         AZStd::vector<AZ::Vector3> vertices;
         AZStd::vector<AZ::u32> indices;
         AZStd::size_t indicesCount = geometry.m_indices.size();
@@ -216,6 +222,8 @@ namespace RecastNavigation
             return {};
         }
 
+        AZ_PROFILE_SCOPE(Navigation, "Navigation: CollectGeometry");
+
         AZStd::vector<AZStd::shared_ptr<TileGeometry>> tiles;
 
         const AZ::Aabb worldVolume = GetWorldBounds();
@@ -276,6 +284,8 @@ namespace RecastNavigation
 
         if (!m_taskGraphEvent || m_taskGraphEvent->IsSignaled())
         {
+            AZ_PROFILE_SCOPE(Navigation, "Navigation: CollectGeometryAsync");
+
             m_taskGraphEvent = AZStd::make_unique<AZ::TaskGraphEvent>();
             m_taskGraph.Reset();
 
@@ -322,6 +332,7 @@ namespace RecastNavigation
                     AZ::TaskToken token = m_taskGraph.AddTask(
                         m_taskDescriptor, [this, geometryData]()
                         {
+                            AZ_PROFILE_SCOPE(Navigation, "Navigation: task - computing tile");
                             QueryHits results;
                             CollectGeometryWithinVolume(geometryData->m_scanBounds, results);
                             AppendColliderGeometry(*geometryData, results);
