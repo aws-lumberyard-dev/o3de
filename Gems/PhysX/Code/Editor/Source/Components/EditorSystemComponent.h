@@ -48,22 +48,22 @@ namespace PhysX
         EditorSystemComponent(const EditorSystemComponent&) = delete;
         EditorSystemComponent& operator=(const EditorSystemComponent&) = delete;
 
-        // AZ::Component
+        // AZ::Component overrides...
         void Activate() override;
         void Deactivate() override;
 
-        // Physics::EditorWorldBus
+        // Physics::EditorWorldBus overrides...
         AzPhysics::SceneHandle GetEditorSceneHandle() const override;
 
     private:
-        // AzToolsFramework::EditorEntityContextNotificationBus
+        // AzToolsFramework::EditorEntityContextNotificationBus overrides...
         void OnStartPlayInEditorBegin() override;
         void OnStopPlayInEditor() override;
 
-        // AztoolsFramework::EditorContextMenuBus::Handler
+        // AztoolsFramework::EditorContextMenuBus overrides...
         void PopulateEditorGlobalContextMenu(QMenu* menu, const AZ::Vector2& point, int flags) override;
 
-        // AztoolsFramework::EditorEvents::Bus::Handler
+        // AztoolsFramework::EditorEvents overrides...
         void NotifyRegisterViews() override;
 
         AzPhysics::SceneHandle m_editorWorldSceneHandle = AzPhysics::InvalidSceneHandle;

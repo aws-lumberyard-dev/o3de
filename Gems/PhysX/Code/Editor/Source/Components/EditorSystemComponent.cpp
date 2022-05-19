@@ -81,8 +81,14 @@ namespace PhysX
         materialAssetBuilderDescriptor.m_version = 1; // bump this to rebuild all physxmaterial files
         materialAssetBuilderDescriptor.m_patterns.push_back(AssetBuilderSDK::AssetBuilderPattern(AZStd::string::format("*.%s", EditorMaterialAsset::FileExtension), AssetBuilderSDK::AssetBuilderPattern::PatternType::Wildcard));
         materialAssetBuilderDescriptor.m_busId = azrtti_typeid<EditorMaterialAssetBuilder>();
-        materialAssetBuilderDescriptor.m_createJobFunction = AZStd::bind(&EditorMaterialAssetBuilder::CreateJobs, &m_materialAssetBuilder, AZStd::placeholders::_1, AZStd::placeholders::_2);
-        materialAssetBuilderDescriptor.m_processJobFunction = AZStd::bind(&EditorMaterialAssetBuilder::ProcessJob, &m_materialAssetBuilder, AZStd::placeholders::_1, AZStd::placeholders::_2);
+        materialAssetBuilderDescriptor.m_createJobFunction = [this](const AssetBuilderSDK::CreateJobsRequest& request, AssetBuilderSDK::CreateJobsResponse& response)
+        {
+            m_materialAssetBuilder.CreateJobs(request, response);
+        };
+        materialAssetBuilderDescriptor.m_processJobFunction = [this](const AssetBuilderSDK::ProcessJobRequest& request, AssetBuilderSDK::ProcessJobResponse& response)
+        {
+            m_materialAssetBuilder.ProcessJob(request, response);
+        };
         m_materialAssetBuilder.BusConnect(materialAssetBuilderDescriptor.m_busId);
         AssetBuilderSDK::AssetBuilderBus::Broadcast(&AssetBuilderSDK::AssetBuilderBus::Handler::RegisterBuilderInformation, materialAssetBuilderDescriptor);
 

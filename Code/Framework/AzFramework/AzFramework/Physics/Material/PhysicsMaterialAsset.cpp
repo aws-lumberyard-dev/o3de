@@ -32,7 +32,7 @@ namespace Physics
             }
         }
 
-        if (AZ::BehaviorContext* behaviorContext = azrtti_cast<AZ::BehaviorContext*>(context))
+        if (auto* behaviorContext = azrtti_cast<AZ::BehaviorContext*>(context))
         {
             behaviorContext->Method("ReflectAssetPhysicsMaterialAsset", [](AZ::Data::Asset<MaterialAsset>) {});
         }
