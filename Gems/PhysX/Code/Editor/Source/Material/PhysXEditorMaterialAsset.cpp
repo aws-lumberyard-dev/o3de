@@ -57,4 +57,9 @@ namespace PhysX
     {
         return m_materialConfiguration;
     }
+
+    PhysicsLegacy::MaterialId EditorMaterialAsset::GetLegacyPhysicsMaterialId() const
+    {
+        return m_legacyPhysicsMaterialId;
+    }
 } // namespace PhysX

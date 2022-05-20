@@ -51,6 +51,8 @@ namespace PhysX
 
         const MaterialConfiguration& GetMaterialConfiguration() const;
 
+        PhysicsLegacy::MaterialId GetLegacyPhysicsMaterialId() const;
+
     protected:
         MaterialConfiguration m_materialConfiguration;
 

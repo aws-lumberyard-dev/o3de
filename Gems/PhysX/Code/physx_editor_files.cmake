@@ -131,4 +131,5 @@ set(FILES
     Editor/Source/Material/PhysXEditorMaterialAssetBuilder.h
     Editor/Source/Material/Conversion/LegacyPhysicsMaterialAssetConversion.cpp
     Editor/Source/Material/Conversion/LegacyPhysicsMaterialAssetConversion.h
+    Editor/Source/Material/Conversion/LegacyPhysicsMaterialPrefabConversion.cpp
 )
