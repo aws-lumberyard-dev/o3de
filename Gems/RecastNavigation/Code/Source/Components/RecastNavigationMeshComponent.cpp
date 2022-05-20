@@ -105,6 +105,7 @@ namespace RecastNavigation
                     NavigationTileData navigationTileData = CreateNavigationTile(tile.get(),
                         m_meshConfig, m_context.get());
 
+                    if (navigationTileData.IsValid())
                     {
                         AZ_PROFILE_SCOPE(Navigation, "Navigation: UpdateNavigationMeshAsync - tile callback");
                         AZStd::lock_guard lock(m_modifyingNavMeshMutex);

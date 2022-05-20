@@ -106,11 +106,6 @@ namespace RecastNavigationTests
             m_mockShapeComponent = e.CreateComponent<MockShapeComponent>();
             e.CreateComponent<RecastNavigationTiledSurveyorComponent>();
             e.CreateComponent<RecastNavigationMeshComponent>(RecastNavigationMeshConfig{}, true);
-
-            ON_CALL(*m_mockShapeComponent, GetEncompassingAabb()).WillByDefault([]() {
-                return AZ::Aabb::CreateCenterHalfExtents(
-                    AZ::Vector3::CreateZero(), AZ::Vector3::CreateOne() * 10);
-                });
         }
 
         void SetupNavigationMesh()
@@ -239,11 +234,6 @@ namespace RecastNavigationTests
             m_mockShapeComponent = e.CreateComponent<MockShapeComponent>();
             e.CreateComponent<RecastNavigationTiledSurveyorComponent>(true);
             e.CreateComponent<RecastNavigationMeshComponent>();
-
-            ON_CALL(*m_mockShapeComponent, GetEncompassingAabb()).WillByDefault([]() {
-                return AZ::Aabb::CreateCenterHalfExtents(
-                    AZ::Vector3::CreateZero(), AZ::Vector3::CreateOne() * 10);
-                });
         }
         ActivateEntity(e);
         SetupNavigationMesh();
@@ -267,11 +257,6 @@ namespace RecastNavigationTests
             m_mockShapeComponent = e.CreateComponent<MockShapeComponent>();
             e.CreateComponent<RecastNavigationTiledSurveyorComponent>(true);
             e.CreateComponent<RecastNavigationMeshComponent>();
-
-            ON_CALL(*m_mockShapeComponent, GetEncompassingAabb()).WillByDefault([]() {
-                return AZ::Aabb::CreateCenterHalfExtents(
-                    AZ::Vector3::CreateZero(), AZ::Vector3::CreateOne() * 10);
-                });
         }
         ActivateEntity(e);
         SetupNavigationMesh();
@@ -365,10 +350,7 @@ namespace RecastNavigationTests
 
         const Wait wait(AZ::EntityId(1));
         RecastNavigationMeshRequestBus::Event(e.GetId(), &RecastNavigationMeshRequests::UpdateNavigationMeshAsync);
-
-        while (wait.m_calls == 0)
-        {
-        }
+        wait.BlockUntilCalled(AZ::TimeMs{ 100 });
     }
 
     TEST_F(NavigationTest, AsyncEmpty)

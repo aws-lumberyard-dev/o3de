@@ -49,8 +49,12 @@ namespace RecastNavigationTests
             LmbrCentral::ShapeComponentRequestsBus::Handler::BusDisconnect();
         }
 
+        AZ::Aabb GetEncompassingAabb() override
+        {
+            return AZ::Aabb::CreateCenterHalfExtents(AZ::Vector3::CreateZero(), AZ::Vector3::CreateOne() * 10);
+        }
+
         MOCK_METHOD0(GetShapeType, AZ::Crc32());
-        MOCK_METHOD0(GetEncompassingAabb, AZ::Aabb());
         MOCK_METHOD2(GetTransformAndLocalBounds, void(AZ::Transform&, AZ::Aabb&));
         MOCK_METHOD1(IsPointInside, bool(const AZ::Vector3&));
         MOCK_METHOD1(DistanceSquaredFromPoint, float(const AZ::Vector3&));
@@ -193,13 +197,13 @@ namespace RecastNavigationTests
             m_calls = 0;
         }
 
-        void BlockUntilCalled(AZ::TimeMs timeout) const
+        void BlockUntilCalled(AZ::TimeMs timeout = AZ::TimeMs{ 100 }) const
         {
             const AZ::TimeMs timeStep{ 5 };
             AZ::TimeMs current{ 0 };
             while (current < timeout && m_calls == 0)
             {
-                AZStd::this_thread::sleep_for(AZStd::chrono::milliseconds((int)timeStep));
+                AZStd::this_thread::sleep_for(AZStd::chrono::milliseconds(static_cast<int>(timeStep)));
                 current += timeStep;                
             }
         }
