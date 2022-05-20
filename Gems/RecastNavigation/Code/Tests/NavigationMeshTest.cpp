@@ -16,7 +16,6 @@
 #include <AzCore/UnitTest/Mocks/MockITime.h>
 #include <AzFramework/Entity/EntityDebugDisplayBus.h>
 #include <AzFramework/Physics/PhysicsScene.h>
-#include <AzTest/AzTest.h>
 #include <Components/DetourNavigationComponent.h>
 #include <Components/RecastNavigationMeshComponent.h>
 #include <Components/RecastNavigationTiledSurveyorComponent.h>

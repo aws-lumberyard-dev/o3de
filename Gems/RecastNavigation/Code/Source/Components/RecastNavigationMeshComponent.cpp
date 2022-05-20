@@ -66,21 +66,27 @@ namespace RecastNavigation
             &RecastNavigationSurveyorRequests::CollectGeometry,
             m_meshConfig.m_tileSize, m_meshConfig.m_borderSize * m_meshConfig.m_cellSize);
 
-        for (AZStd::shared_ptr<TileGeometry>& tile : tiles)
         {
-            if (tile->IsEmpty())
+            AZStd::lock_guard lock(m_modifyingNavMeshMutex);
+            for (AZStd::shared_ptr<TileGeometry>& tile : tiles)
             {
-                continue;
-            }
+                if (tile->IsEmpty())
+                {
+                    continue;
+                }
 
-            NavigationTileData navigationTileData = CreateNavigationTile(tile.get(),
-                m_meshConfig, m_context.get());
+                NavigationTileData navigationTileData = CreateNavigationTile(tile.get(),
+                    m_meshConfig, m_context.get());
 
-            m_navMesh->removeTile(m_navMesh->getTileRefAt(tile->m_tileX, tile->m_tileY, 0), nullptr, nullptr);
+                if (const dtTileRef tileRef = m_navMesh->getTileRefAt(tile->m_tileX, tile->m_tileY, 0))
+                {
+                    m_navMesh->removeTile(tileRef, nullptr, nullptr);
+                }
 
-            if (navigationTileData.IsValid())
-            {
-                AttachNavigationTileToMesh(navigationTileData);
+                if (navigationTileData.IsValid())
+                {
+                    AttachNavigationTileToMesh(navigationTileData);
+                }
             }
         }
 
