@@ -9,10 +9,14 @@
 #include <AzCore/Component/Entity.h>
 #include <AzCore/Interface/Interface.h>
 #include <AzCore/UnitTest/TestTypes.h>
+#include <AzFramework/Entity/EntityDebugDisplayBus.h>
 #include <AzFramework/Physics/PhysicsScene.h>
-#include <AzFramework\Physics\Shape.h>
+#include <AzFramework/Physics/Shape.h>
 #include <AzTest/AzTest.h>
 #include <LmbrCentral/Shape/ShapeComponentBus.h>
+#include <RecastNavigation/RecastNavigationMeshBus.h>
+#include <AzCore/Time/ITime.h>
+#include <AzCore/Component/TransformBus.h>
 
 namespace RecastNavigationTests
 {
@@ -154,5 +158,75 @@ namespace RecastNavigationTests
             SimulatedBodyHandle&));
         MOCK_METHOD3(UnsuppressCollisionEvents, void(AzPhysics::SceneHandle, const AzPhysics::SimulatedBodyHandle&, const AzPhysics::
             SimulatedBodyHandle&));
+    };
+
+    class MockDebug : public AzFramework::DebugDisplayRequestBus::Handler
+    {
+    public:
+        MockDebug()
+        {
+            AzFramework::DebugDisplayRequestBus::Handler::BusConnect(AzFramework::g_defaultSceneEntityDebugDisplayId);
+        }
+
+        ~MockDebug() override
+        {
+            AzFramework::DebugDisplayRequestBus::Handler::BusDisconnect();
+        }
+    };
+
+    struct Wait : public RecastNavigation::RecastNavigationMeshNotificationBus::Handler
+    {
+        Wait(AZ::EntityId id)
+        {
+            RecastNavigation::RecastNavigationMeshNotificationBus::Handler::BusConnect(id);
+        }
+
+        void OnNavigationMeshUpdated(AZ::EntityId) override
+        {
+            m_calls++;
+        }
+
+        int m_calls = 0;
+
+        void Reset()
+        {
+            m_calls = 0;
+        }
+
+        void BlockUntilCalled(AZ::TimeMs timeout) const
+        {
+            const AZ::TimeMs timeStep{ 5 };
+            AZ::TimeMs current{ 0 };
+            while (current < timeout && m_calls == 0)
+            {
+                AZStd::this_thread::sleep_for(AZStd::chrono::milliseconds((int)timeStep));
+                current += timeStep;                
+            }
+        }
+    };
+
+    struct MockTransforms : AZ::TransformBus::MultiHandler
+    {
+        explicit MockTransforms(const AZStd::vector<AZ::EntityId>& entities)
+        {
+            for (AZ::EntityId id : entities)
+            {
+                AZ::TransformBus::MultiHandler::BusConnect(id);
+            }
+        }
+
+        ~MockTransforms() override
+        {
+            AZ::TransformBus::MultiHandler::BusDisconnect();
+        }
+
+        void BindTransformChangedEventHandler(TransformChangedEvent::Handler&) override {}
+        void BindParentChangedEventHandler(ParentChangedEvent::Handler&) override {}
+        void BindChildChangedEventHandler(ChildChangedEvent::Handler&) override {}
+        void NotifyChildChangedEvent(ChildChangeType, EntityId) override {}
+
+        MOCK_METHOD0(GetLocalTM, const Transform& ());
+        MOCK_METHOD0(GetWorldTM, const Transform& ());
+        MOCK_METHOD0(IsStaticTransform, bool());
     };
 }

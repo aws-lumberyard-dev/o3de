@@ -8,6 +8,7 @@
 
 #pragma once
 
+#include <DetourNavMesh.h>
 #include <AzCore/Component/ComponentBus.h>
 #include <AzCore/RTTI/BehaviorContext.h>
 

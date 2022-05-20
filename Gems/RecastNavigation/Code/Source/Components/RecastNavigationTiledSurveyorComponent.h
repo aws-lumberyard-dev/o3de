@@ -35,6 +35,7 @@ namespace RecastNavigation
     public:
         AZ_COMPONENT(RecastNavigationTiledSurveyorComponent, "{4bc92ce5-e179-4985-b0b1-f22bff6006dd}");
 
+        explicit RecastNavigationTiledSurveyorComponent(bool debugDrawInputData = false);
         static void Reflect(AZ::ReflectContext* context);
 
         static void GetProvidedServices(AZ::ComponentDescriptor::DependencyArrayType& provided);
@@ -70,5 +71,7 @@ namespace RecastNavigation
         AZ::TaskGraph m_taskGraph;
         AZStd::unique_ptr<AZ::TaskGraphEvent> m_taskGraphEvent;
         AZ::TaskDescriptor m_taskDescriptor{ "Collect Geometry", "Recast Navigation"};
+
+        bool m_debugDrawInputData;
     };
 } // namespace RecastNavigation

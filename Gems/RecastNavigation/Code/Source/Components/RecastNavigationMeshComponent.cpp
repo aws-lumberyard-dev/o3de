@@ -17,9 +17,9 @@ AZ_CVAR(
     bool, cl_navmesh_debug, false, nullptr, AZ::ConsoleFunctorFlags::Null,
     "If enabled, draw debug visual information about a navigation mesh");
 
-#pragma optimize("", off)
-
 AZ_DECLARE_BUDGET(Navigation);
+
+#pragma optimize("", off)
 
 namespace RecastNavigation
 {
@@ -129,7 +129,7 @@ namespace RecastNavigation
 
     void RecastNavigationMeshComponent::Activate()
     {
-        m_context = AZStd::make_unique<RecastCustomContext>();
+        m_context = AZStd::make_unique<rcContext>();
 
         CreateNavigationMesh(GetEntityId(), m_meshConfig.m_tileSize);
 

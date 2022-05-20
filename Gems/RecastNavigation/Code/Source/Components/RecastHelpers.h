@@ -49,15 +49,6 @@ namespace RecastNavigation
         float m_x = 0, m_y = 0, m_z = 0;
     };
 
-    class RecastCustomContext final : public rcContext
-    {
-    public:
-        void doLog(const rcLogCategory, const char* message, [[maybe_unused]] const int messageLength) override
-        {
-            AZ_Printf("Recast", "%s", message);
-        }
-    };
-    
     //! A collection of triangle data within a volume defined by an axis aligned bounding box.
     class TileGeometry
     {
@@ -80,13 +71,8 @@ namespace RecastNavigation
     };
     
     //! Navigation data in binary Recast form
-    class NavigationTileData
+    struct NavigationTileData
     {
-    public:
-        void Free()
-        {
-            dtFree(m_data);
-        }
 
         bool IsValid() const
         {

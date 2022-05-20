@@ -339,7 +339,7 @@ namespace RecastNavigation
             DT_TILE_FREE_DATA, 0, &tileRef);
         if (dtStatusFailed(status))
         {
-            navigationTileData.Free();
+            dtFree(navigationTileData.m_data);
             AZ_Error("Navigation", false, "Could not add navigation tile to the navmesh");
             return false;
         }

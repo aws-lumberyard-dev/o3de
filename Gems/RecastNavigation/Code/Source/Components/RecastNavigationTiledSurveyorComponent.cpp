@@ -28,10 +28,13 @@ AZ_CVAR(
 
 AZ_DECLARE_BUDGET(Navigation);
 
-#pragma optimize("", off)
-
 namespace RecastNavigation
 {
+    RecastNavigationTiledSurveyorComponent::RecastNavigationTiledSurveyorComponent(bool debugDrawInputData)
+        : m_debugDrawInputData(debugDrawInputData)
+    {
+    }
+
     void RecastNavigationTiledSurveyorComponent::Reflect(AZ::ReflectContext* context)
     {
         if (const auto serialize = azrtti_cast<AZ::SerializeContext*>(context))
@@ -138,7 +141,7 @@ namespace RecastNavigation
                         const AZ::Vector3 translated = t.TransformPoint(vertex);
                         geometry.m_vertices.push_back(RecastVector3(translated));
 
-                        if (cl_navmesh_showInputData)
+                        if (cl_navmesh_showInputData || m_debugDrawInputData)
                         {
                             transformed.push_back(translated);
                         }
@@ -147,7 +150,7 @@ namespace RecastNavigation
                         currentLocalIndex++;
                     }
 
-                    if (cl_navmesh_showInputData)
+                    if (cl_navmesh_showInputData || m_debugDrawInputData)
                     {
                         for (size_t i = 2; i < vertices.size(); i += 3)
                         {
@@ -169,7 +172,7 @@ namespace RecastNavigation
                         const AZ::Vector3 translated = t.TransformPoint(vertex);
                         geometry.m_vertices.push_back(RecastVector3(translated));
 
-                        if (cl_navmesh_showInputData)
+                        if (cl_navmesh_showInputData || m_debugDrawInputData)
                         {
                             transformed.push_back(translated);
                         }
@@ -182,7 +185,7 @@ namespace RecastNavigation
                         geometry.m_indices.push_back(aznumeric_cast<AZ::u32>(indicesCount + indices[i - 2]));
                     }
 
-                    if (cl_navmesh_showInputData)
+                    if (cl_navmesh_showInputData || m_debugDrawInputData)
                     {
                         for (size_t i = 2; i < indices.size(); i += 3)
                         {
@@ -379,5 +382,3 @@ namespace RecastNavigation
         return tilesAlongX * tilesAlongY;
     }
 } // namespace RecastNavigation
-
-#pragma optimize("", on)

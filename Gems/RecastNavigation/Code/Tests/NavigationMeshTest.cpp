@@ -9,6 +9,7 @@
 #include <MockInterfaces.h>
 #include <AzCore/Component/ComponentApplication.h>
 #include <AzCore/Component/Entity.h>
+#include <AzCore/Console/Console.h>
 #include <AzCore/EBus/EventSchedulerSystemComponent.h>
 #include <AzCore/std/smart_ptr/unique_ptr.h>
 #include <AzCore/UnitTest/TestTypes.h>
@@ -19,7 +20,6 @@
 #include <Components/DetourNavigationComponent.h>
 #include <Components/RecastNavigationMeshComponent.h>
 #include <Components/RecastNavigationTiledSurveyorComponent.h>
-#include <LmbrCentral/Shape/ShapeComponentBus.h>
 
 namespace RecastNavigationTests
 {
@@ -33,6 +33,7 @@ namespace RecastNavigationTests
     {
     public:
         unique_ptr<SerializeContext> m_sc;
+        unique_ptr<BehaviorContext> m_bc;
         unique_ptr<ComponentDescriptor> m_nd1;
         unique_ptr<ComponentDescriptor> m_nd2;
         unique_ptr<ComponentDescriptor> m_nd3;
@@ -43,13 +44,19 @@ namespace RecastNavigationTests
         unique_ptr<AzPhysics::SceneQueryHit> m_hit;
         unique_ptr<MockPhysicsShape> m_mockPhysicsShape;
         unique_ptr<MockSimulatedBody> m_mockSimulatedBody;
+        unique_ptr<AZ::Console> m_console;
 
         void SetUp() override
         {
             ::UnitTest::AllocatorsFixture::SetUp();
 
+            m_console.reset(aznew AZ::Console());
+            AZ::Interface<AZ::IConsole>::Register(m_console.get());
+
             // register components involved in testing
             m_sc = AZStd::make_unique<SerializeContext>();
+            m_sc->CreateEditContext();
+            m_bc = AZStd::make_unique<BehaviorContext>();
             RegisterComponent<RecastNavigationMeshComponent>(m_nd1);
             RegisterComponent<RecastNavigationTiledSurveyorComponent>(m_nd2);
             RegisterComponent<MockShapeComponent>(m_nd3);
@@ -76,8 +83,19 @@ namespace RecastNavigationTests
             m_nd4 = {};
             m_nd5 = {};
             m_sc = {};
+            m_bc = {};
 
+            AZ::Interface<AZ::IConsole>::Unregister(m_console.get());
+            m_console = {};
             ::UnitTest::AllocatorsFixture::TearDown();
+        }
+
+        template <typename T>
+        void RegisterComponent(unique_ptr<ComponentDescriptor>& descriptor)
+        {
+            descriptor.reset(T::CreateDescriptor());
+            descriptor->Reflect(m_sc.get());
+            descriptor->Reflect(m_bc.get());
         }
 
         // helper method
@@ -126,13 +144,6 @@ namespace RecastNavigationTests
             e.Activate();
         }
 
-        template <typename T>
-        void RegisterComponent(unique_ptr<ComponentDescriptor>& descriptor)
-        {
-            descriptor.reset(T::CreateDescriptor());
-            descriptor->Reflect(m_sc.get());
-        }
-
         MockShapeComponent* m_mockShapeComponent = nullptr;
 
         void AddTestGeometry(AZStd::vector<AZ::Vector3>& vertices, AZStd::vector<AZ::u32>& indices, bool indexed = true)
@@ -177,6 +188,28 @@ namespace RecastNavigationTests
         }
     };
 
+    TEST_F(NavigationTest, GetNativeNavMesh)
+    {
+        Entity e;
+        PopulateEntity(e);
+        ActivateEntity(e);
+        SetupNavigationMesh();
+
+        ON_CALL(*m_mockPhysicsShape.get(), GetGeometry(_, _, _)).WillByDefault(Invoke([this]
+        (AZStd::vector<AZ::Vector3>& vertices, AZStd::vector<AZ::u32>& indices, AZ::Aabb*)
+            {
+                AddTestGeometry(vertices, indices, true);
+            }));
+
+        const Wait wait(AZ::EntityId(1));
+        RecastNavigationMeshRequestBus::Event(e.GetId(), &RecastNavigationMeshRequests::UpdateNavigationMeshBlockUntilCompleted);
+
+        dtNavMesh* native = nullptr;
+        RecastNavigationMeshRequestBus::EventResult(native, e.GetId(), &RecastNavigationMeshRequests::GetNativeNavigationMap);
+
+        EXPECT_NE(native, nullptr);
+    }
+
     TEST_F(NavigationTest, BlockingTest)
     {
         Entity e;
@@ -190,6 +223,93 @@ namespace RecastNavigationTests
                 AddTestGeometry(vertices, indices, true);
             }));
 
+        const Wait wait(AZ::EntityId(1));
+        RecastNavigationMeshRequestBus::Event(e.GetId(), &RecastNavigationMeshRequests::UpdateNavigationMeshBlockUntilCompleted);
+
+        EXPECT_EQ(wait.m_calls, 1);
+    }
+
+    TEST_F(NavigationTest, BlockingTestWithDebugDraw)
+    {
+        Entity e;
+        {
+            // custom entity construction
+            e.SetId(AZ::EntityId{ 1 });
+            e.CreateComponent<EventSchedulerSystemComponent>();
+            m_mockShapeComponent = e.CreateComponent<MockShapeComponent>();
+            e.CreateComponent<RecastNavigationTiledSurveyorComponent>(true);
+            e.CreateComponent<RecastNavigationMeshComponent>();
+
+            ON_CALL(*m_mockShapeComponent, GetEncompassingAabb()).WillByDefault([]() {
+                return AZ::Aabb::CreateCenterHalfExtents(
+                    AZ::Vector3::CreateZero(), AZ::Vector3::CreateOne() * 10);
+                });
+        }
+        ActivateEntity(e);
+        SetupNavigationMesh();
+
+        ON_CALL(*m_mockPhysicsShape.get(), GetGeometry(_, _, _)).WillByDefault(Invoke([this]
+        (AZStd::vector<AZ::Vector3>& vertices, AZStd::vector<AZ::u32>& indices, AZ::Aabb*)
+            {
+                AddTestGeometry(vertices, indices, true);
+            }));
+
+        RecastNavigationMeshRequestBus::Event(e.GetId(), &RecastNavigationMeshRequests::UpdateNavigationMeshBlockUntilCompleted);
+    }
+
+    TEST_F(NavigationTest, BlockingNonIndexedWithDebugDraw)
+    {
+        Entity e;
+        {
+            // custom entity construction
+            e.SetId(AZ::EntityId{ 1 });
+            e.CreateComponent<EventSchedulerSystemComponent>();
+            m_mockShapeComponent = e.CreateComponent<MockShapeComponent>();
+            e.CreateComponent<RecastNavigationTiledSurveyorComponent>(true);
+            e.CreateComponent<RecastNavigationMeshComponent>();
+
+            ON_CALL(*m_mockShapeComponent, GetEncompassingAabb()).WillByDefault([]() {
+                return AZ::Aabb::CreateCenterHalfExtents(
+                    AZ::Vector3::CreateZero(), AZ::Vector3::CreateOne() * 10);
+                });
+        }
+        ActivateEntity(e);
+        SetupNavigationMesh();
+
+        ON_CALL(*m_mockPhysicsShape.get(), GetGeometry(_, _, _)).WillByDefault(Invoke([this]
+        (AZStd::vector<AZ::Vector3>& vertices, AZStd::vector<AZ::u32>& indices, AZ::Aabb*)
+            {
+                AddTestGeometry(vertices, indices, false);
+            }));
+
+        RecastNavigationMeshRequestBus::Event(e.GetId(), &RecastNavigationMeshRequests::UpdateNavigationMeshBlockUntilCompleted);
+    }
+
+    TEST_F(NavigationTest, BlockingTestRerun)
+    {
+        Entity e;
+        PopulateEntity(e);
+        ActivateEntity(e);
+        SetupNavigationMesh();
+
+        ON_CALL(*m_mockPhysicsShape.get(), GetGeometry(_, _, _)).WillByDefault(Invoke([this]
+        (AZStd::vector<AZ::Vector3>& vertices, AZStd::vector<AZ::u32>& indices, AZ::Aabb*)
+            {
+                AddTestGeometry(vertices, indices, true);
+            }));
+
+        RecastNavigationMeshRequestBus::Event(e.GetId(), &RecastNavigationMeshRequests::UpdateNavigationMeshBlockUntilCompleted);
+        RecastNavigationMeshRequestBus::Event(e.GetId(), &RecastNavigationMeshRequests::UpdateNavigationMeshBlockUntilCompleted);
+    }
+
+    TEST_F(NavigationTest, BlockingOnEmptyRerun)
+    {
+        Entity e;
+        PopulateEntity(e);
+        ActivateEntity(e);
+        SetupNavigationMesh();
+
+        RecastNavigationMeshRequestBus::Event(e.GetId(), &RecastNavigationMeshRequests::UpdateNavigationMeshBlockUntilCompleted);
         RecastNavigationMeshRequestBus::Event(e.GetId(), &RecastNavigationMeshRequests::UpdateNavigationMeshBlockUntilCompleted);
     }
 
@@ -226,20 +346,6 @@ namespace RecastNavigationTests
 
         RecastNavigationMeshRequestBus::Event(e.GetId(), &RecastNavigationMeshRequests::UpdateNavigationMeshBlockUntilCompleted);
 
-        class MockDebug : public AzFramework::DebugDisplayRequestBus::Handler
-        {
-        public:
-            MockDebug()
-            {
-                AzFramework::DebugDisplayRequestBus::Handler::BusConnect(AzFramework::g_defaultSceneEntityDebugDisplayId);
-            }
-
-            ~MockDebug() override
-            {
-                AzFramework::DebugDisplayRequestBus::Handler::BusDisconnect();
-            }
-        };
-
         MockDebug debug;
         TickBus::Broadcast(&TickBus::Events::OnTick, 0.1f, ScriptTimePoint{});
     }
@@ -257,28 +363,44 @@ namespace RecastNavigationTests
                 AddTestGeometry(vertices, indices, true);
             }));
 
-        RecastNavigationMeshRequestBus::Event(e.GetId(), &RecastNavigationMeshRequests::UpdateNavigationMeshAsync);
-
-        struct Wait : public RecastNavigationMeshNotificationBus::Handler
-        {
-            Wait()
-            {
-                RecastNavigationMeshNotificationBus::Handler::BusConnect(AZ::EntityId{ 1 });
-            }
-
-            void OnNavigationMeshUpdated(AZ::EntityId) override
-            {
-                m_calls++;
-            }
-
-            int m_calls = 0;
-        };
-
-        const Wait wait;
+        const Wait wait(AZ::EntityId(1));
         RecastNavigationMeshRequestBus::Event(e.GetId(), &RecastNavigationMeshRequests::UpdateNavigationMeshAsync);
 
         while (wait.m_calls == 0)
         {
+        }
+    }
+
+    TEST_F(NavigationTest, AsyncEmpty)
+    {
+        Entity e;
+        PopulateEntity(e);
+        ActivateEntity(e);
+        SetupNavigationMesh();
+
+        const Wait wait(AZ::EntityId(1));
+        RecastNavigationMeshRequestBus::Event(e.GetId(), &RecastNavigationMeshRequests::UpdateNavigationMeshAsync);
+        wait.BlockUntilCalled(AZ::TimeMs{ 100 });
+    }
+
+    TEST_F(NavigationTest, AsyncRerun)
+    {
+        Entity e;
+        PopulateEntity(e);
+        ActivateEntity(e);
+        SetupNavigationMesh();
+
+        ON_CALL(*m_mockPhysicsShape.get(), GetGeometry(_, _, _)).WillByDefault(Invoke([this]
+        (AZStd::vector<AZ::Vector3>& vertices, AZStd::vector<AZ::u32>& indices, AZ::Aabb*)
+            {
+                AddTestGeometry(vertices, indices, true);
+            }));
+
+        for (int i = 1; i <= 2; ++i)
+        {
+            const Wait wait(AZ::EntityId(1));
+            RecastNavigationMeshRequestBus::Event(e.GetId(), &RecastNavigationMeshRequests::UpdateNavigationMeshAsync);
+            wait.BlockUntilCalled(AZ::TimeMs{ 100 });
         }
     }
 
@@ -326,5 +448,49 @@ namespace RecastNavigationTests
             AZ::Vector3(0.f, 0, 0), AZ::Vector3(2.f, 2, 0));
 
         EXPECT_GT(waypoints.size(), 0);
+    }
+
+    TEST_F(NavigationTest, FindPathBetweenInvalidEntities)
+    {
+        Entity e;
+        PopulateEntity(e);
+        e.CreateComponent<DetourNavigationComponent>(e.GetId(), 3.f);
+        ActivateEntity(e);
+        SetupNavigationMesh();
+
+        ON_CALL(*m_mockPhysicsShape.get(), GetGeometry(_, _, _)).WillByDefault(Invoke([this]
+        (AZStd::vector<AZ::Vector3>& vertices, AZStd::vector<AZ::u32>& indices, AZ::Aabb*)
+            {
+                AddTestGeometry(vertices, indices, true);
+            }));
+
+        vector<Vector3> waypoints;
+        DetourNavigationRequestBus::EventResult(waypoints, AZ::EntityId(1), &DetourNavigationRequests::FindPathBetweenEntities,
+            AZ::EntityId(), AZ::EntityId());
+
+        EXPECT_EQ(waypoints.size(), 0);
+    }
+
+    TEST_F(NavigationTest, FindPathBetweenEntities)
+    {
+        Entity e;
+        PopulateEntity(e);
+        e.CreateComponent<DetourNavigationComponent>(e.GetId(), 3.f);
+        ActivateEntity(e);
+        SetupNavigationMesh();
+
+        MockTransforms mockTransforms({AZ::EntityId(1), AZ::EntityId(2) });
+
+        ON_CALL(*m_mockPhysicsShape.get(), GetGeometry(_, _, _)).WillByDefault(Invoke([this]
+        (AZStd::vector<AZ::Vector3>& vertices, AZStd::vector<AZ::u32>& indices, AZ::Aabb*)
+            {
+                AddTestGeometry(vertices, indices, true);
+            }));
+
+        vector<Vector3> waypoints;
+        DetourNavigationRequestBus::EventResult(waypoints, AZ::EntityId(1), &DetourNavigationRequests::FindPathBetweenEntities,
+            AZ::EntityId(1), AZ::EntityId(2));
+
+        EXPECT_EQ(waypoints.size(), 0);
     }
 }

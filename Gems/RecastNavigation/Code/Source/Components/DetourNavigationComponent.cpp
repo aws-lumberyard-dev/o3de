@@ -18,6 +18,8 @@
 
 AZ_DECLARE_BUDGET(Navigation);
 
+#pragma optimize("", off)
+
 namespace RecastNavigation
 {
     DetourNavigationComponent::DetourNavigationComponent(AZ::EntityId navQueryEntityId, float nearestDistance)
@@ -146,3 +148,5 @@ namespace RecastNavigation
         DetourNavigationRequestBus::Handler::BusDisconnect();
     }
 } // namespace RecastNavigation
+
+#pragma optimize("", on)
