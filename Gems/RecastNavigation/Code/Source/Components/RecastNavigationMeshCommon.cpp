@@ -301,7 +301,7 @@ namespace RecastNavigation
         dtNavMeshParams params = {};
         RecastNavigationSurveyorRequestBus::EventResult(worldVolume, meshEntityId, &RecastNavigationSurveyorRequests::GetWorldBounds);
 
-        const RecastVector3 worldCenter(worldVolume.GetMin());
+        const RecastVector3 worldCenter(worldVolume.GetCenter());
         rcVcopy(params.orig, &worldCenter.m_x);
 
         RecastNavigationSurveyorRequestBus::EventResult(params.maxTiles, meshEntityId, &RecastNavigationSurveyorRequests::GetNumberOfTiles, tileSize);

@@ -26,9 +26,9 @@ AZ_CVAR(
     float, cl_navmesh_showInputDataSeconds, 30.f, nullptr, AZ::ConsoleFunctorFlags::Null,
     "If enabled, keeps the debug triangle mesh input for the specified number of seconds");
 
-#pragma optimize("", off)
-
 AZ_DECLARE_BUDGET(Navigation);
+
+#pragma optimize("", off)
 
 namespace RecastNavigation
 {
@@ -92,12 +92,14 @@ namespace RecastNavigation
 
         request.m_unboundedOverlapHitCallback = unboundedOverlapHitCallback;
 
-        auto sceneInterface = AZ::Interface<AzPhysics::SceneInterface>::Get();
-        AzPhysics::SceneHandle sceneHandle = sceneInterface->GetSceneHandle(AzPhysics::DefaultPhysicsSceneName);
+        if (auto sceneInterface = AZ::Interface<AzPhysics::SceneInterface>::Get())
+        {
+            AzPhysics::SceneHandle sceneHandle = sceneInterface->GetSceneHandle(AzPhysics::DefaultPhysicsSceneName);
 
-        // Note: blocking call
-        AZ::Interface<AzPhysics::SceneInterface>::Get()->QueryScene(sceneHandle, &request);
-        // results are in overlapHits
+            // Note: blocking call
+            sceneInterface->QueryScene(sceneHandle, &request);
+            // results are in overlapHits
+        }
     }
 
     void RecastNavigationTiledSurveyorComponent::AppendColliderGeometry(

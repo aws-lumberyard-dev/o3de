@@ -137,6 +137,7 @@ if(PAL_TRAIT_BUILD_TESTS_SUPPORTED)
                     AZ::AzTest
                     AZ::AzFramework
                     Gem::RecastNavigation.Static
+                    Gem::LmbrCentral.API
         )
 
         # Add RecastNavigation.Tests to googletest

@@ -133,6 +133,11 @@ namespace RecastNavigation
 
     void DetourNavigationComponent::Activate()
     {
+        if (!m_navQueryEntityId.IsValid())
+        {
+            m_navQueryEntityId = GetEntityId();
+        }
+
         DetourNavigationRequestBus::Handler::BusConnect(GetEntityId());
     }
 
