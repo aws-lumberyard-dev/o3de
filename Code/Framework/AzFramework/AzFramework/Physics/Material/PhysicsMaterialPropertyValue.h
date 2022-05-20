@@ -49,19 +49,19 @@ namespace Physics
 
         // Constructors to allow implicit conversions
         MaterialPropertyValue() = default;
-        MaterialPropertyValue(const bool& value)
+        MaterialPropertyValue(bool value)
             : m_value(value)
         {
         }
-        MaterialPropertyValue(const AZ::s32& value)
+        MaterialPropertyValue(AZ::s32 value)
             : m_value(value)
         {
         }
-        MaterialPropertyValue(const AZ::u32& value)
+        MaterialPropertyValue(AZ::u32 value)
             : m_value(value)
         {
         }
-        MaterialPropertyValue(const float& value)
+        MaterialPropertyValue(float value)
             : m_value(value)
         {
         }
@@ -133,7 +133,7 @@ namespace Physics
         }
         bool operator!=(const MaterialPropertyValue& other) const
         {
-            return m_value != other.m_value;
+            return !(*this == other);
         }
 
         //! Attempt to cast the value to another type, handling numerical types (e.g. int to
