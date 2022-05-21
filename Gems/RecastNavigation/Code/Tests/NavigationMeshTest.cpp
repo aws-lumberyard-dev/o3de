@@ -503,6 +503,29 @@ namespace RecastNavigationTests
         EXPECT_GT(waypoints.size(), 0);
     }
 
+    TEST_F(NavigationTest, FindPathToOutOfBoundsDestination)
+    {
+        Entity e;
+        PopulateEntity(e);
+        e.CreateComponent<DetourNavigationComponent>(e.GetId(), 3.f);
+        ActivateEntity(e);
+        SetupNavigationMesh();
+
+        ON_CALL(*m_mockPhysicsShape.get(), GetGeometry(_, _, _)).WillByDefault(Invoke([this]
+        (AZStd::vector<AZ::Vector3>& vertices, AZStd::vector<AZ::u32>& indices, AZ::Aabb*)
+            {
+                AddTestGeometry(vertices, indices, true);
+            }));
+
+        RecastNavigationMeshRequestBus::Event(e.GetId(), &RecastNavigationMeshRequests::UpdateNavigationMeshBlockUntilCompleted);
+
+        vector<Vector3> waypoints;
+        DetourNavigationRequestBus::EventResult(waypoints, AZ::EntityId(1), &DetourNavigationRequests::FindPathBetweenPositions,
+            AZ::Vector3(0.f, 0, 0), AZ::Vector3(2000.f, 2000, 0));
+
+        EXPECT_EQ(waypoints.size(), 0);
+    }
+
     TEST_F(NavigationTest, FindPathOnEmptyNavMesh)
     {
         Entity e;

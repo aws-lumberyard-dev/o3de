@@ -19,8 +19,6 @@ AZ_CVAR(
 
 AZ_DECLARE_BUDGET(Navigation);
 
-#pragma optimize("", off)
-
 namespace RecastNavigation
 {
     RecastNavigationMeshComponent::RecastNavigationMeshComponent(const RecastNavigationMeshConfig& config, bool drawDebug)
@@ -177,5 +175,3 @@ namespace RecastNavigation
         }
     }
 } // namespace RecastNavigation
-
-#pragma optimize("", on)
