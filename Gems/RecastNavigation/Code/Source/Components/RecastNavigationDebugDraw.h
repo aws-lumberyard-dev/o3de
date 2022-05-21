@@ -20,7 +20,9 @@ namespace RecastNavigation
     class RecastNavigationDebugDraw final : public duDebugDraw
     {
     public:
-        //! duDebugDraw overrides
+        explicit RecastNavigationDebugDraw(bool drawLines = false);
+
+        //! duDebugDraw overrides...
         //! @{
         //! Not implemented
         void depthMask([[maybe_unused]] bool state) override {}

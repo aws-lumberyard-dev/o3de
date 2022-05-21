@@ -66,14 +66,12 @@
                 "Component_[10692851348396635202]": {
                     "$type": "EditorAxisAlignedBoxShapeComponent",
                     "Id": 10692851348396635202,
-                    "DisplayFilled": false,
                     "AxisAlignedBoxShape": {
                         "Configuration": {
-                            "IsFilled": false,
                             "Dimensions": [
-                                300.0,
-                                35.0,
-                                10.0
+                                90.0,
+                                30.0,
+                                30.0
                             ]
                         }
                     }
@@ -105,9 +103,9 @@
                     "Parent Entity": "Entity_[1146574390643]",
                     "Transform Data": {
                         "Translate": [
-                            130.4339599609375,
+                            15.982128143310547,
                             0.8937492370605469,
-                            -13.269109725952148
+                            -11.465877532958984
                         ]
                     }
                 },
@@ -425,7 +423,7 @@
                         "Translate": [
                             4.117232799530029,
                             -1.3845000267028809,
-                            -8.734391212463379
+                            -1.4104945659637451
                         ]
                     }
                 },
@@ -479,7 +477,8 @@
                 "Component_[4955382537529847057]": {
                     "$type": "EditorDetourNavigationComponent",
                     "Id": 4955382537529847057,
-                    "Navigation Mesh": "Entity_[11033547635888]"
+                    "Navigation Mesh": "Entity_[11033547635888]",
+                    "Nearest Distance": 30.0
                 },
                 "Component_[7943632093027999741]": {
                     "$type": "AZ::Render::EditorMeshComponent",
@@ -492,7 +491,8 @@
                                     "subId": 268721130
                                 },
                                 "assetHint": "materialeditor/viewportmodels/cylinder.azmodel"
-                            }
+                            },
+                            "SortKey": 1
                         }
                     }
                 },
@@ -872,14 +872,7 @@
                 "Component_[3548965413303308030]": {
                     "$type": "{27F1E1A1-8D9D-4C3B-BD3A-AFB9762449C0} TransformComponent",
                     "Id": 3548965413303308030,
-                    "Parent Entity": "Entity_[1146574390643]",
-                    "Transform Data": {
-                        "Translate": [
-                            -2.112384796142578,
-                            0.3631114959716797,
-                            -4.0
-                        ]
-                    }
+                    "Parent Entity": "Entity_[1146574390643]"
                 },
                 "Component_[4071636736892408760]": {
                     "$type": "EditorEntitySortComponent",
@@ -887,24 +880,7 @@
                 },
                 "Component_[5207706956597078320]": {
                     "$type": "EditorDisabledCompositionComponent",
-                    "Id": 5207706956597078320,
-                    "DisabledComponents": [
-                        {
-                            "$type": "AZ::Render::EditorMeshComponent",
-                            "Id": 10498514925954067796,
-                            "Controller": {
-                                "Configuration": {
-                                    "ModelAsset": {
-                                        "assetId": {
-                                            "guid": "{1EE46427-D1C2-5698-B30D-B4CCF46B15CD}",
-                                            "subId": 274434668
-                                        },
-                                        "assetHint": "objects/_primitives/_sphere_1x1.azmodel"
-                                    }
-                                }
-                            }
-                        }
-                    ]
+                    "Id": 5207706956597078320
                 },
                 "Component_[8110014651395032438]": {
                     "$type": "EditorPendingCompositionComponent",
@@ -1079,21 +1055,6 @@
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[835588300627230612]/Parent Entity",
                     "value": "../Entity_[1146574390643]"
-                },
-                {
-                    "op": "replace",
-                    "path": "/ContainerEntity/Components/Component_[835588300627230612]/Transform Data/Translate/0",
-                    "value": -3.8075923919677734
-                },
-                {
-                    "op": "replace",
-                    "path": "/ContainerEntity/Components/Component_[835588300627230612]/Transform Data/Translate/1",
-                    "value": 0.5483360290527344
-                },
-                {
-                    "op": "replace",
-                    "path": "/ContainerEntity/Components/Component_[835588300627230612]/Transform Data/Translate/2",
-                    "value": -8.0
                 }
             ]
         }

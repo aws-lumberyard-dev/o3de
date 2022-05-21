@@ -222,11 +222,6 @@ namespace RecastNavigation
     AZStd::vector<AZStd::shared_ptr<TileGeometry>> RecastNavigationTiledSurveyorComponent::CollectGeometry(
         float tileSize, float borderSize)
     {
-        if (tileSize == 0.f)
-        {
-            return {};
-        }
-
         AZ_PROFILE_SCOPE(Navigation, "Navigation: CollectGeometry");
 
         AZStd::vector<AZStd::shared_ptr<TileGeometry>> tiles;
@@ -282,11 +277,6 @@ namespace RecastNavigation
         float borderSize,
         AZStd::function<void(AZStd::shared_ptr<TileGeometry>)> tileCallback)
     {
-        if (tileSize == 0.f)
-        {
-            return;
-        }
-
         if (!m_taskGraphEvent || m_taskGraphEvent->IsSignaled())
         {
             AZ_PROFILE_SCOPE(Navigation, "Navigation: CollectGeometryAsync");

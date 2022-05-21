@@ -12,6 +12,10 @@
 
 namespace RecastNavigation
 {
+    RecastNavigationDebugDraw::RecastNavigationDebugDraw(bool drawLines) : m_drawLines(drawLines)
+    {
+    }
+
     void RecastNavigationDebugDraw::begin(duDebugDrawPrimitives prim, [[maybe_unused]] float size)
     {
         m_currentPrim = prim;

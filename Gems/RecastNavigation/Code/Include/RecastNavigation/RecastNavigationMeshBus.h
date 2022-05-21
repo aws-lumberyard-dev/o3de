@@ -24,10 +24,10 @@ namespace RecastNavigation
         virtual void UpdateNavigationMeshAsync() = 0;
         
         //! @return returns the underlying navigation map object
-        virtual dtNavMesh* GetNativeNavigationMap() const = 0;
+        virtual dtNavMesh* GetNativeNavigationMap() = 0;
         
         //! @return returns the underlying navigation query object
-        virtual dtNavMeshQuery* GetNativeNavigationQuery() const = 0;
+        virtual dtNavMeshQuery* GetNativeNavigationQuery() = 0;
     };
 
     using RecastNavigationMeshRequestBus = AZ::EBus<RecastNavigationMeshRequests>;

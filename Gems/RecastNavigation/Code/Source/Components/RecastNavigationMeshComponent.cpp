@@ -134,6 +134,16 @@ namespace RecastNavigation
             });
     }
 
+    dtNavMesh* RecastNavigationMeshComponent::GetNativeNavigationMap()
+    {
+        return m_navMesh.get();
+    }
+
+    dtNavMeshQuery* RecastNavigationMeshComponent::GetNativeNavigationQuery()
+    {
+        return m_navQuery.get();
+    }
+
     void RecastNavigationMeshComponent::Activate()
     {
         m_context = AZStd::make_unique<rcContext>();

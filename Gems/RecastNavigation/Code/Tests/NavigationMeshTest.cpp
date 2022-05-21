@@ -204,6 +204,40 @@ namespace RecastNavigationTests
         EXPECT_NE(native, nullptr);
     }
 
+    TEST_F(NavigationTest, TestAgainstEmptyPhysicalBody)
+    {
+        Entity e;
+        PopulateEntity(e);
+        ActivateEntity(e);
+        {
+            m_hit->m_resultFlags = AzPhysics::SceneQuery::EntityId;
+            m_hit->m_entityId = AZ::EntityId{ 1 };
+            m_hit->m_shape = m_mockPhysicsShape.get();
+
+            ON_CALL(*m_mockSceneInterface, QueryScene(_, _)).WillByDefault(Invoke([this]
+            (AzPhysics::SceneHandle, const AzPhysics::SceneQueryRequest* request)
+                {
+                    const AzPhysics::OverlapRequest* overlapRequest = static_cast<const AzPhysics::OverlapRequest*>(request);
+                    overlapRequest->m_unboundedOverlapHitCallback({ *m_hit });
+                    return AzPhysics::SceneQueryHits();
+                }));
+
+            ON_CALL(*m_mockSceneInterface, GetSimulatedBodyFromHandle(_, _)).WillByDefault(Invoke([]
+            (AzPhysics::SceneHandle, AzPhysics::SimulatedBodyHandle)
+                {
+                    return nullptr; // empty physical body
+                }));
+        }
+
+        const Wait wait(AZ::EntityId(1));
+        RecastNavigationMeshRequestBus::Event(e.GetId(), &RecastNavigationMeshRequests::UpdateNavigationMeshBlockUntilCompleted);
+
+        dtNavMesh* native = nullptr;
+        RecastNavigationMeshRequestBus::EventResult(native, e.GetId(), &RecastNavigationMeshRequests::GetNativeNavigationMap);
+
+        EXPECT_NE(native, nullptr);
+    }
+
     TEST_F(NavigationTest, BlockingTest)
     {
         Entity e;
@@ -334,6 +368,44 @@ namespace RecastNavigationTests
         TickBus::Broadcast(&TickBus::Events::OnTick, 0.1f, ScriptTimePoint{});
     }
 
+    TEST_F(NavigationTest, DirectTestOnDebugDrawQuad)
+    {
+        RecastNavigationDebugDraw debugDraw;
+        MockDebug debug;
+
+        debugDraw.begin(DU_DRAW_QUADS);
+        debugDraw.vertex(0, 0, 0, 0, 0, 0);
+        debugDraw.vertex(0, 1, 0, 0, 0, 0);
+        debugDraw.vertex(1, 1, 0, 0, 0, 0);
+        debugDraw.vertex(1, 0, 0, 0, 0, 0);
+        debugDraw.end();
+    }
+
+    TEST_F(NavigationTest, DirectTestOnDebugDrawLines)
+    {
+        RecastNavigationDebugDraw debugDraw(true);
+        MockDebug debug;
+
+        const float pos[] = {0, 0, 0};
+        const float uv[] = {0, 0, 0};
+        debugDraw.begin(DU_DRAW_LINES);
+        debugDraw.vertex(pos, 0, uv);
+        debugDraw.vertex(pos, 0, uv);
+        debugDraw.end();
+    }
+
+    TEST_F(NavigationTest, DirectTestOnDebugDrawWithoutDebugDisplayRequests)
+    {
+        RecastNavigationDebugDraw debugDraw(true);
+
+        const float pos[] = { 0, 0, 0 };
+        const float uv[] = { 0, 0, 0 };
+        debugDraw.begin(DU_DRAW_POINTS);
+        debugDraw.texture(true);
+        debugDraw.vertex(pos, 0, uv);
+        debugDraw.end();
+    }
+
     TEST_F(NavigationTest, Async)
     {
         Entity e;
@@ -431,6 +503,27 @@ namespace RecastNavigationTests
         EXPECT_GT(waypoints.size(), 0);
     }
 
+    TEST_F(NavigationTest, FindPathOnEmptyNavMesh)
+    {
+        Entity e;
+        PopulateEntity(e);
+        e.CreateComponent<DetourNavigationComponent>(AZ::EntityId(1337/*pointing to a non-existing entity*/), 3.f);
+        ActivateEntity(e);
+        SetupNavigationMesh();
+
+        ON_CALL(*m_mockPhysicsShape.get(), GetGeometry(_, _, _)).WillByDefault(Invoke([this]
+        (AZStd::vector<AZ::Vector3>& vertices, AZStd::vector<AZ::u32>& indices, AZ::Aabb*)
+            {
+                AddTestGeometry(vertices, indices, true);
+            }));
+
+        vector<Vector3> waypoints;
+        DetourNavigationRequestBus::EventResult(waypoints, AZ::EntityId(1), &DetourNavigationRequests::FindPathBetweenPositions,
+            AZ::Vector3(0.f, 0, 0), AZ::Vector3(2.f, 2, 0));
+
+        EXPECT_EQ(waypoints.size(), 0);
+    }
+
     TEST_F(NavigationTest, FindPathBetweenInvalidEntities)
     {
         Entity e;
@@ -452,7 +545,7 @@ namespace RecastNavigationTests
         EXPECT_EQ(waypoints.size(), 0);
     }
 
-    TEST_F(NavigationTest, FindPathBetweenEntities)
+    TEST_F(NavigationTest, FindPathBetweenEntitiesOnEmptyNavMesh)
     {
         Entity e;
         PopulateEntity(e);
@@ -460,7 +553,7 @@ namespace RecastNavigationTests
         ActivateEntity(e);
         SetupNavigationMesh();
 
-        MockTransforms mockTransforms({AZ::EntityId(1), AZ::EntityId(2) });
+        MockTransforms mockTransforms({ AZ::EntityId(1), AZ::EntityId(2) });
 
         ON_CALL(*m_mockPhysicsShape.get(), GetGeometry(_, _, _)).WillByDefault(Invoke([this]
         (AZStd::vector<AZ::Vector3>& vertices, AZStd::vector<AZ::u32>& indices, AZ::Aabb*)
@@ -473,5 +566,17 @@ namespace RecastNavigationTests
             AZ::EntityId(1), AZ::EntityId(2));
 
         EXPECT_EQ(waypoints.size(), 0);
+    }
+
+    TEST_F(NavigationTest, RecastNavigationMeshCommonTests)
+    {
+        RecastNavigationMeshCommon common;
+        EXPECT_EQ(strcmp(common.TYPEINFO_Name(), "RecastNavigationMeshCommon"), 0);
+    }
+
+    TEST_F(NavigationTest, RecastNavigationNotificationHandler)
+    {
+        RecastNavigationNotificationHandler handler;
+        handler.OnNavigationMeshUpdated(AZ::EntityId(1));
     }
 }
