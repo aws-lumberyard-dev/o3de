@@ -62,10 +62,10 @@ namespace RecastNavigation
 
         RecastNavigationSurveyorRequestBus::EventResult(tiles, GetEntityId(),
             &RecastNavigationSurveyorRequests::CollectGeometry,
-            m_meshConfig.m_tileSize, m_meshConfig.m_borderSize * m_meshConfig.m_cellSize);
+            m_meshConfig.m_tileSize, aznumeric_cast<float>(m_meshConfig.m_borderSize) * m_meshConfig.m_cellSize);
 
         {
-            AZStd::lock_guard lock(m_modifyingNavMeshMutex);
+            AZStd::lock_guard lock(m_navObjects->m_mutex);
             for (AZStd::shared_ptr<TileGeometry>& tile : tiles)
             {
                 if (tile->IsEmpty())
@@ -76,9 +76,9 @@ namespace RecastNavigation
                 NavigationTileData navigationTileData = CreateNavigationTile(tile.get(),
                     m_meshConfig, m_context.get());
 
-                if (const dtTileRef tileRef = m_navMesh->getTileRefAt(tile->m_tileX, tile->m_tileY, 0))
+                if (const dtTileRef tileRef = m_navObjects->m_mesh->getTileRefAt(tile->m_tileX, tile->m_tileY, 0))
                 {
-                    m_navMesh->removeTile(tileRef, nullptr, nullptr);
+                    m_navObjects->m_mesh->removeTile(tileRef, nullptr, nullptr);
                 }
 
                 if (navigationTileData.IsValid())
@@ -97,7 +97,8 @@ namespace RecastNavigation
 
         RecastNavigationSurveyorRequestBus::Event(GetEntityId(),
             &RecastNavigationSurveyorRequests::CollectGeometryAsync,
-            m_meshConfig.m_tileSize, m_meshConfig.m_borderSize * m_meshConfig.m_cellSize, [this](AZStd::shared_ptr<TileGeometry> tile)
+            m_meshConfig.m_tileSize, aznumeric_cast<float>(m_meshConfig.m_borderSize) * m_meshConfig.m_cellSize,
+            [this](AZStd::shared_ptr<TileGeometry> tile)
             {
                 if (tile)
                 {
@@ -112,11 +113,11 @@ namespace RecastNavigation
                     if (navigationTileData.IsValid())
                     {
                         AZ_PROFILE_SCOPE(Navigation, "Navigation: UpdateNavigationMeshAsync - tile callback");
-                        AZStd::lock_guard lock(m_modifyingNavMeshMutex);
+                        AZStd::lock_guard lock(m_navObjects->m_mutex);
 
-                        if (const dtTileRef tileRef = m_navMesh->getTileRefAt(tile->m_tileX, tile->m_tileY, 0))
+                        if (const dtTileRef tileRef = m_navObjects->m_mesh->getTileRefAt(tile->m_tileX, tile->m_tileY, 0))
                         {
-                            m_navMesh->removeTile(tileRef, nullptr, nullptr);
+                            m_navObjects->m_mesh->removeTile(tileRef, nullptr, nullptr);
                         }
                         if (navigationTileData.IsValid())
                         {
@@ -132,14 +133,9 @@ namespace RecastNavigation
             });
     }
 
-    dtNavMesh* RecastNavigationMeshComponent::GetNativeNavigationMap()
+    AZStd::shared_ptr<NavMeshQuery> RecastNavigationMeshComponent::GetNavigationObject()
     {
-        return m_navMesh.get();
-    }
-
-    dtNavMeshQuery* RecastNavigationMeshComponent::GetNativeNavigationQuery()
-    {
-        return m_navQuery.get();
+        return m_navObjects;
     }
 
     void RecastNavigationMeshComponent::Activate()
@@ -161,17 +157,16 @@ namespace RecastNavigation
         m_tickEvent.RemoveFromQueue();
 
         m_context = {};
-        m_navQuery = {};
-        m_navMesh = {};
+        m_navObjects = {};
 
         RecastNavigationMeshRequestBus::Handler::BusDisconnect();
     }
 
     void RecastNavigationMeshComponent::OnDebugDrawTick()
     {
-        if (m_navMesh && (cl_navmesh_debug || m_showNavigationMesh))
+        if (m_navObjects && m_navObjects->m_mesh && (cl_navmesh_debug || m_showNavigationMesh))
         {
-            duDebugDrawNavMesh(&m_customDebugDraw, *m_navMesh, DU_DRAWNAVMESH_COLOR_TILES);
+            duDebugDrawNavMesh(&m_customDebugDraw, *m_navObjects->m_mesh, DU_DRAWNAVMESH_COLOR_TILES);
         }
     }
 } // namespace RecastNavigation

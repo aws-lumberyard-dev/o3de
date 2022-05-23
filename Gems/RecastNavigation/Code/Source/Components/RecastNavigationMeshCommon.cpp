@@ -11,6 +11,7 @@
 #include <DetourNavMeshBuilder.h>
 #include <AzCore/Console/Console.h>
 #include <AzCore/Debug/Profiler.h>
+#include <AzCore/std/smart_ptr/make_shared.h>
 #include <AzFramework/Entity/EntityDebugDisplayBus.h>
 #include <AzFramework/Physics/PhysicsScene.h>
 #include <RecastNavigation/RecastNavigationSurveyorBus.h>
@@ -289,8 +290,9 @@ namespace RecastNavigation
     {
         AZ_PROFILE_SCOPE(Navigation, "Navigation: create mesh");
 
-        m_navMesh.reset(dtAllocNavMesh());
-        if (!m_navMesh)
+        m_navObjects = AZStd::make_shared<NavMeshQuery>();
+        m_navObjects->m_mesh.reset(dtAllocNavMesh());
+        if (!m_navObjects->m_mesh)
         {
             AZ_Error("Navigation", false, "Could not create Detour navmesh");
             return false;
@@ -310,16 +312,16 @@ namespace RecastNavigation
         params.tileWidth = tileSize;
         params.tileHeight = tileSize;
 
-        dtStatus status = m_navMesh->init(&params);
+        dtStatus status = m_navObjects->m_mesh->init(&params);
         if (dtStatusFailed(status))
         {
             AZ_Error("Navigation", false, "Could not init Detour navmesh");
             return false;
         }
+        
+        m_navObjects->m_query.reset(dtAllocNavMeshQuery());
 
-        m_navQuery.reset(dtAllocNavMeshQuery());
-
-        status = m_navQuery->init(m_navMesh.get(), 2048);
+        status = m_navObjects->m_query->init(m_navObjects->m_mesh.get(), 2048);
         if (dtStatusFailed(status))
         {
             AZ_Error("Navigation", false, "Could not init Detour navmesh query");
@@ -334,7 +336,7 @@ namespace RecastNavigation
         AZ_PROFILE_SCOPE(Navigation, "Navigation: addTile");
 
         dtTileRef tileRef = 0;
-        const dtStatus status = m_navMesh->addTile(
+        const dtStatus status = m_navObjects->m_mesh->addTile(
             navigationTileData.m_data, navigationTileData.m_size,
             DT_TILE_FREE_DATA, 0, &tileRef);
         if (dtStatusFailed(status))

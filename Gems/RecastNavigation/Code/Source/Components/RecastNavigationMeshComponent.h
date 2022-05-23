@@ -36,8 +36,7 @@ namespace RecastNavigation
         //! @{
         void UpdateNavigationMeshBlockUntilCompleted() override;
         void UpdateNavigationMeshAsync() override;
-        dtNavMesh* GetNativeNavigationMap() override;
-        dtNavMeshQuery* GetNativeNavigationQuery() override;
+        AZStd::shared_ptr<NavMeshQuery> GetNavigationObject() override;
         //! @}
 
         //! AZ::Component interface implementation

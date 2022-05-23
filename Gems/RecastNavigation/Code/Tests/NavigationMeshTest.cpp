@@ -198,10 +198,10 @@ namespace RecastNavigationTests
         const Wait wait(AZ::EntityId(1));
         RecastNavigationMeshRequestBus::Event(e.GetId(), &RecastNavigationMeshRequests::UpdateNavigationMeshBlockUntilCompleted);
 
-        dtNavMesh* native = nullptr;
-        RecastNavigationMeshRequestBus::EventResult(native, e.GetId(), &RecastNavigationMeshRequests::GetNativeNavigationMap);
+        AZStd::shared_ptr<NavMeshQuery> nav;
+        RecastNavigationMeshRequestBus::EventResult(nav, e.GetId(), &RecastNavigationMeshRequests::GetNavigationObject);
 
-        EXPECT_NE(native, nullptr);
+        EXPECT_NE(nav, nullptr);
     }
 
     TEST_F(NavigationTest, TestAgainstEmptyPhysicalBody)
@@ -232,10 +232,10 @@ namespace RecastNavigationTests
         const Wait wait(AZ::EntityId(1));
         RecastNavigationMeshRequestBus::Event(e.GetId(), &RecastNavigationMeshRequests::UpdateNavigationMeshBlockUntilCompleted);
 
-        dtNavMesh* native = nullptr;
-        RecastNavigationMeshRequestBus::EventResult(native, e.GetId(), &RecastNavigationMeshRequests::GetNativeNavigationMap);
+        AZStd::shared_ptr<NavMeshQuery> nav;
+        RecastNavigationMeshRequestBus::EventResult(nav, e.GetId(), &RecastNavigationMeshRequests::GetNavigationObject);
 
-        EXPECT_NE(native, nullptr);
+        EXPECT_NE(nav, nullptr);
     }
 
     TEST_F(NavigationTest, BlockingTest)
@@ -501,6 +501,32 @@ namespace RecastNavigationTests
             AZ::Vector3(0.f, 0, 0), AZ::Vector3(2.f, 2, 0));
 
         EXPECT_GT(waypoints.size(), 0);
+    }
+
+    TEST_F(NavigationTest, FindPathRightAfterUpdateAsync)
+    {
+        Entity e;
+        PopulateEntity(e);
+        e.CreateComponent<DetourNavigationComponent>(e.GetId(), 3.f);
+        ActivateEntity(e);
+        SetupNavigationMesh();
+
+        ON_CALL(*m_mockPhysicsShape.get(), GetGeometry(_, _, _)).WillByDefault(Invoke([this]
+        (AZStd::vector<AZ::Vector3>& vertices, AZStd::vector<AZ::u32>& indices, AZ::Aabb*)
+            {
+                AddTestGeometry(vertices, indices, true);
+            }));
+
+        const Wait wait(AZ::EntityId(1));
+        RecastNavigationMeshRequestBus::Event(e.GetId(), &RecastNavigationMeshRequests::UpdateNavigationMeshAsync);
+
+        vector<Vector3> waypoints;
+        DetourNavigationRequestBus::EventResult(waypoints, AZ::EntityId(1), &DetourNavigationRequests::FindPathBetweenPositions,
+            AZ::Vector3(0.f, 0, 0), AZ::Vector3(2.f, 2, 0));
+        // We should not get the path yet since the async update operation is still in progress.
+        EXPECT_EQ(waypoints.size(), 0);
+
+        wait.BlockUntilCalled(AZ::TimeMs{ 100 });
     }
 
     TEST_F(NavigationTest, FindPathToOutOfBoundsDestination)

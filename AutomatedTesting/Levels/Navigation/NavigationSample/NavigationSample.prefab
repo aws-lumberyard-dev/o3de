@@ -66,10 +66,12 @@
                 "Component_[10692851348396635202]": {
                     "$type": "EditorAxisAlignedBoxShapeComponent",
                     "Id": 10692851348396635202,
+                    "DisplayFilled": false,
                     "AxisAlignedBoxShape": {
                         "Configuration": {
+                            "IsFilled": false,
                             "Dimensions": [
-                                90.0,
+                                300.0,
                                 30.0,
                                 30.0
                             ]
@@ -94,8 +96,7 @@
                 },
                 "Component_[2681084637176744288]": {
                     "$type": "EditorRecastNavigationMeshComponent",
-                    "Id": 2681084637176744288,
-                    "Debug Draw": true
+                    "Id": 2681084637176744288
                 },
                 "Component_[490606516712228268]": {
                     "$type": "{27F1E1A1-8D9D-4C3B-BD3A-AFB9762449C0} TransformComponent",
@@ -103,7 +104,7 @@
                     "Parent Entity": "Entity_[1146574390643]",
                     "Transform Data": {
                         "Translate": [
-                            15.982128143310547,
+                            135.77735900878906,
                             0.8937492370605469,
                             -11.465877532958984
                         ]

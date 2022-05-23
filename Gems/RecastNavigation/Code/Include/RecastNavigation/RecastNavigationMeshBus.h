@@ -11,9 +11,24 @@
 #include <DetourNavMesh.h>
 #include <AzCore/Component/ComponentBus.h>
 #include <AzCore/RTTI/BehaviorContext.h>
+#include <Components/RecastSmartPointer.h>
 
 namespace RecastNavigation
 {
+    //! Holds a pointer to Recast navigation mesh and the associated mutex.
+    //! This structure is to be used when performing operations on a navigation mesh.
+    struct NavMeshQuery
+    {
+        //! Recast navigation mesh object.
+        RecastPointer<dtNavMesh> m_mesh;
+
+        //! Recast navigation query object can be used to find paths.
+        RecastPointer<dtNavMeshQuery> m_query;
+
+        //! Modifying either the mesh or the query object should be done while holding a lock on this mutex.
+        AZStd::mutex m_mutex;
+    };
+
     class RecastNavigationMeshRequests
         : public AZ::ComponentBus
     {
@@ -23,11 +38,8 @@ namespace RecastNavigation
 
         virtual void UpdateNavigationMeshAsync() = 0;
         
-        //! @return returns the underlying navigation map object
-        virtual dtNavMesh* GetNativeNavigationMap() = 0;
-        
-        //! @return returns the underlying navigation query object
-        virtual dtNavMeshQuery* GetNativeNavigationQuery() = 0;
+        //! @return returns the underlying navigation objects with the associated synchronization object
+        virtual AZStd::shared_ptr<NavMeshQuery> GetNavigationObject() = 0;
     };
 
     using RecastNavigationMeshRequestBus = AZ::EBus<RecastNavigationMeshRequests>;

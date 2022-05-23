@@ -8,17 +8,17 @@
 
 #pragma once
 
-#include "RecastNavigationDebugDraw.h"
-#include "RecastNavigationMeshConfig.h"
-
-#include <DetourNavMesh.h>
 #include <Recast.h>
 #include <AzCore/Component/EntityId.h>
 #include <Components/RecastHelpers.h>
+#include <Components/RecastNavigationDebugDraw.h>
+#include <Components/RecastNavigationMeshConfig.h>
+#include <RecastNavigation/RecastNavigationMeshBus.h>
 
 namespace RecastNavigation
 {
     //! Common navigation mesh logic for Recast navigation components. Recommended use is as a base class.
+    //! The method provided are not thread-safe. Use the mutex from @m_navObjects to synchronize as necessary at the higher level.
     class RecastNavigationMeshCommon
     {
     public:
@@ -49,13 +49,8 @@ namespace RecastNavigation
         //! Recast logging functionality and other optional tools.
         AZStd::unique_ptr<rcContext> m_context;
 
-        //! Recast navigation mesh object.
-        RecastPointer<dtNavMesh> m_navMesh;
-
-        //! Recast navigation query object can be used to find paths.
-        RecastPointer<dtNavMeshQuery> m_navQuery;
-
-        AZStd::mutex m_modifyingNavMeshMutex;
+        //! Recast navigation objects.
+        AZStd::shared_ptr<NavMeshQuery> m_navObjects;
     };
 
 } // namespace RecastNavigation
