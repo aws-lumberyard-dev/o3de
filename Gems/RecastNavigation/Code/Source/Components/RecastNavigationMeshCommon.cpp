@@ -289,7 +289,7 @@ namespace RecastNavigation
 
     int FastLZCompressor::maxCompressedSize(const int bufferSize)
     {
-        return aznumeric_cast<int>(bufferSize * 1.05f);
+        return aznumeric_cast<int>(1.05f * bufferSize);
     }
 
     dtStatus FastLZCompressor::compress(

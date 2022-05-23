@@ -8,6 +8,7 @@
 
 #pragma once
 
+#include <DetourTileCacheBuilder.h>
 #include <Recast.h>
 #include <AzCore/Component/EntityId.h>
 #include <Components/RecastHelpers.h>
@@ -82,6 +83,8 @@ namespace RecastNavigation
         //! @param context Recast context object, @rcContext
         //! @return the tile data that can be attached to the navigation mesh using @AttachNavigationTileToMesh
         NavigationTileData CreateNavigationTile(TileGeometry* geom, const RecastNavigationMeshConfig& meshConfig, rcContext* context);
+
+        NavigationTileData CreateNavigationTileForTileCache(TileGeometry* geom, const RecastNavigationMeshConfig& meshConfig, rcContext* context);
 
         //! Debug draw object for Recast navigation mesh.
         RecastNavigationDebugDraw m_customDebugDraw;
