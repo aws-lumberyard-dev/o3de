@@ -49,6 +49,8 @@ namespace RecastNavigation
         bool m_filterLowHangingObstacles = true;
         bool m_filterLedgeSpans = true;
         bool m_filterWalkableLowHeightSpans = true;
+
+        int m_maxObstacles = 128;
     };
 
 } // namespace RecastNavigation

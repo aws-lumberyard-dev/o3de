@@ -9,6 +9,7 @@
 #pragma once
 #include <DetourNavMesh.h>
 #include <DetourNavMeshQuery.h>
+#include <DetourTileCache.h>
 #include <Recast.h>
 #include <AzCore/std/smart_ptr/unique_ptr.h>
 
@@ -81,6 +82,15 @@ namespace RecastNavigation
         void operator ()( dtNavMeshQuery* p )
         {
             dtFreeNavMeshQuery( p );
+        }
+    };
+
+    template <>
+    struct CustomRecastDeleter<dtTileCache>
+    {
+        void operator ()(dtTileCache* p)
+        {
+            dtFreeTileCache(p);
         }
     };
 }
