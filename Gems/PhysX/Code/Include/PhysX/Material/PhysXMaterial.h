@@ -36,19 +36,19 @@ namespace PhysX
 
     namespace MaterialConstants
     {
-        static constexpr AZStd::string_view MaterialAssetType = "PhysX";
-        static constexpr AZ::u32 MaterialAssetVersion = 1;
+        inline constexpr AZStd::string_view MaterialAssetType = "PhysX";
+        inline constexpr AZ::u32 MaterialAssetVersion = 1;
 
-        static constexpr AZStd::string_view DynamicFrictionName = "DynamicFriction";
-        static constexpr AZStd::string_view StaticFrictionName = "StaticFriction";
-        static constexpr AZStd::string_view RestitutionName = "Restitution";
-        static constexpr AZStd::string_view DensityName = "Density";
-        static constexpr AZStd::string_view RestitutionCombineModeName = "RestitutionCombineMode";
-        static constexpr AZStd::string_view FrictionCombineModeName = "FrictionCombineMode";
-        static constexpr AZStd::string_view DebugColorName = "DebugColor";
+        inline constexpr AZStd::string_view DynamicFrictionName = "DynamicFriction";
+        inline constexpr AZStd::string_view StaticFrictionName = "StaticFriction";
+        inline constexpr AZStd::string_view RestitutionName = "Restitution";
+        inline constexpr AZStd::string_view DensityName = "Density";
+        inline constexpr AZStd::string_view RestitutionCombineModeName = "RestitutionCombineMode";
+        inline constexpr AZStd::string_view FrictionCombineModeName = "FrictionCombineMode";
+        inline constexpr AZStd::string_view DebugColorName = "DebugColor";
 
-        static constexpr float MinDensityLimit = 0.01f; //!< Minimum possible value of density.
-        static constexpr float MaxDensityLimit = 100000.0f; //!< Maximum possible value of density.
+        inline constexpr float MinDensityLimit = 0.01f; //!< Minimum possible value of density.
+        inline constexpr float MaxDensityLimit = 100000.0f; //!< Maximum possible value of density.
     }
 
     //! Runtime PhysX material instance.
@@ -73,7 +73,7 @@ namespace PhysX
 
         //! Function to create material instances from material slots.
         //! The material ids will be constructed from the asset ids of the assets assigned to the slots.
-        //! It will alway return a valid list of materials, the slots with invalid or no assets will put
+        //! It will always return a valid list of materials, the slots with invalid or no assets will have
         //! the default material instance.
         //! @param materialSlots Material slots with the list of material assets to create the material instances from.
         //! @return List of material instances created. It will always return a valid list.

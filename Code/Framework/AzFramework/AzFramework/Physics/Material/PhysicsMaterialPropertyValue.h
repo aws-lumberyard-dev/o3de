@@ -49,19 +49,19 @@ namespace Physics
 
         // Constructors to allow implicit conversions
         MaterialPropertyValue() = default;
-        MaterialPropertyValue(const bool& value)
+        MaterialPropertyValue(bool value)
             : m_value(value)
         {
         }
-        MaterialPropertyValue(const AZ::s32& value)
+        MaterialPropertyValue(AZ::s32 value)
             : m_value(value)
         {
         }
-        MaterialPropertyValue(const AZ::u32& value)
+        MaterialPropertyValue(AZ::u32 value)
             : m_value(value)
         {
         }
-        MaterialPropertyValue(const float& value)
+        MaterialPropertyValue(float value)
             : m_value(value)
         {
         }
@@ -112,7 +112,7 @@ namespace Physics
 
         //! Check if the type holding is T.
         template<typename T>
-        bool Is() const
+        constexpr bool Is() const
         {
             return AZStd::holds_alternative<T>(m_value);
         }
@@ -121,7 +121,7 @@ namespace Physics
         AZ::TypeId GetTypeId() const;
 
         //! Check if the variant is holding a valid value.
-        bool IsValid() const
+        constexpr bool IsValid() const
         {
             return !Is<AZStd::monostate>();
         }
@@ -133,7 +133,7 @@ namespace Physics
         }
         bool operator!=(const MaterialPropertyValue& other) const
         {
-            return m_value != other.m_value;
+            return !(*this == other);
         }
 
         //! Attempt to cast the value to another type, handling numerical types (e.g. int to
