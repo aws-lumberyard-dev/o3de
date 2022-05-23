@@ -112,7 +112,7 @@ namespace Physics
 
         //! Check if the type holding is T.
         template<typename T>
-        bool Is() const
+        constexpr bool Is() const
         {
             return AZStd::holds_alternative<T>(m_value);
         }
@@ -121,7 +121,7 @@ namespace Physics
         AZ::TypeId GetTypeId() const;
 
         //! Check if the variant is holding a valid value.
-        bool IsValid() const
+        constexpr bool IsValid() const
         {
             return !Is<AZStd::monostate>();
         }
