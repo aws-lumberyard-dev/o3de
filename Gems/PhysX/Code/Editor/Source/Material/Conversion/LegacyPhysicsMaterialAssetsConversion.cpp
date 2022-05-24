@@ -669,39 +669,46 @@ namespace PhysX
 
     void FixAssetsUsingPhysicsLegacyMaterials([[maybe_unused]] const AZ::ConsoleCommandContainer& commandArgs)
     {
-        bool prefabSystemEnabled = false;
-        AzFramework::ApplicationRequests::Bus::BroadcastResult(
-            prefabSystemEnabled, &AzFramework::ApplicationRequests::IsPrefabSystemEnabled);
-        if (!prefabSystemEnabled)
-        {
-            AZ_Error("PhysXMaterialConversion", false, "Prefabs system is not enabled.");
-            return;
-        }
-
-        AZ_TracePrintf("PhysXMaterialConversion", "Searching for prefabs with legacy physics material assets...\n");
-        AZStd::vector<PrefabInfo> prefabsWithLegacyMaterials = CollectPrefabsWithLegacyMaterials();
-        if (prefabsWithLegacyMaterials.empty())
-        {
-            AZ_TracePrintf("PhysXMaterialConversion", "No prefabs found that contain legacy physics materials.\n");
-            return;
-        }
-        AZ_TracePrintf(
-            "PhysXMaterialConversion", "Found %zu prefabs containing legacy physics materials.\n", prefabsWithLegacyMaterials.size());
-        AZ_TracePrintf("PhysXMaterialConversion", "\n");
-
         AZ_TracePrintf("PhysXMaterialConversion", "Searching for converted physics material assets...\n");
         LegacyMaterialIdToNewAssetIdMap legacyMaterialIdToNewAssetIdMap = CollectConvertedMaterialIds();
         if (legacyMaterialIdToNewAssetIdMap.empty())
         {
             AZ_TracePrintf("PhysXMaterialConversion", "No converted physics material assets found.\n");
+            AZ_TracePrintf("PhysXMaterialConversion", "Command stopped as there are no material assets with legacy information to be able to fix prefabs.\n");
             return;
         }
         AZ_TracePrintf("PhysXMaterialConversion", "Found %zu converted physics materials.\n", legacyMaterialIdToNewAssetIdMap.size());
         AZ_TracePrintf("PhysXMaterialConversion", "\n");
 
-        for (auto& prefabWithLegacyMaterials : prefabsWithLegacyMaterials)
+        // Fix prefabs
         {
-            FixPrefabPhysicsMaterials(prefabWithLegacyMaterials, legacyMaterialIdToNewAssetIdMap);
+            bool prefabSystemEnabled = false;
+            AzFramework::ApplicationRequests::Bus::BroadcastResult(
+                prefabSystemEnabled, &AzFramework::ApplicationRequests::IsPrefabSystemEnabled);
+            if (prefabSystemEnabled)
+            {
+                AZ_TracePrintf("PhysXMaterialConversion", "Searching for prefabs with legacy physics material assets...\n");
+                AZStd::vector<PrefabInfo> prefabsWithLegacyMaterials = CollectPrefabsWithLegacyMaterials();
+                if (prefabsWithLegacyMaterials.empty())
+                {
+                    AZ_TracePrintf("PhysXMaterialConversion", "No prefabs found that contain legacy physics materials.\n");
+                }
+                else
+                {
+                    AZ_TracePrintf("PhysXMaterialConversion", "Found %zu prefabs containing legacy physics materials.\n", prefabsWithLegacyMaterials.size());
+                }
+                AZ_TracePrintf("PhysXMaterialConversion", "\n");
+
+                for (auto& prefabWithLegacyMaterials : prefabsWithLegacyMaterials)
+                {
+                    FixPrefabPhysicsMaterials(prefabWithLegacyMaterials, legacyMaterialIdToNewAssetIdMap);
+                }
+            }
+            else
+            {
+                AZ_TracePrintf("PhysXMaterialConversion", "Prefabs system is not enabled. Prefabs won't be converted.\n");
+                AZ_TracePrintf("PhysXMaterialConversion", "\n");
+            }
         }
     }
 } // namespace PhysX
