@@ -72,8 +72,7 @@ namespace PhysicsLegacy
 
         static void Reflect(AZ::ReflectContext* context)
         {
-            AZ::SerializeContext* serializeContext = azrtti_cast<AZ::SerializeContext*>(context);
-            if (serializeContext)
+            if (auto* serializeContext = azrtti_cast<AZ::SerializeContext*>(context))
             {
                 serializeContext->Class<PhysicsLegacy::MaterialFromAssetConfiguration>()
                     ->Version(1)
