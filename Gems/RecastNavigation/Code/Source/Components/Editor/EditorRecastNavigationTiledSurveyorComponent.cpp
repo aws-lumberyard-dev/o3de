@@ -13,6 +13,11 @@
 
 namespace RecastNavigation
 {
+    EditorRecastNavigationTiledSurveyorComponent::EditorRecastNavigationTiledSurveyorComponent()
+        : RecastNavigationTiledSurveyorCommon(true)
+    {
+    }
+
     void EditorRecastNavigationTiledSurveyorComponent::Reflect(AZ::ReflectContext* context)
     {
         if (const auto serialize = azrtti_cast<AZ::SerializeContext*>(context))

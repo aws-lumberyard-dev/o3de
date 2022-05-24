@@ -8,15 +8,12 @@
 
 #pragma once
 
-#include "RecastNavigationDebugDraw.h"
-#include "RecastNavigationMeshConfig.h"
-
 #include <AzCore/Component/Component.h>
 #include <AzCore/Math/Aabb.h>
-#include <AzCore/Task/TaskExecutor.h>
-#include <AzCore/Task/TaskGraph.h>
-#include <AzFramework/Physics/Common/PhysicsSceneQueries.h>
 #include <Components/RecastHelpers.h>
+#include <Components/RecastNavigationDebugDraw.h>
+#include <Components/RecastNavigationMeshConfig.h>
+#include <Components/RecastNavigationTiledSurveyorCommon.h>
 #include <RecastNavigation/RecastNavigationSurveyorBus.h>
 
 namespace RecastNavigation
@@ -31,6 +28,7 @@ namespace RecastNavigation
     class RecastNavigationTiledSurveyorComponent final
         : public AZ::Component
         , public RecastNavigationSurveyorRequestBus::Handler
+        , public RecastNavigationTiledSurveyorCommon
     {
     public:
         AZ_COMPONENT(RecastNavigationTiledSurveyorComponent, "{4bc92ce5-e179-4985-b0b1-f22bff6006dd}");
@@ -57,21 +55,6 @@ namespace RecastNavigation
         //! @}
 
     private:
-
-        //! A container of shapes and their respective Entity Ids
-        using QueryHits = AZStd::vector<AzPhysics::SceneQueryHit>;
-
-        //! Collect all the shapes within a given volume.
-        void CollectGeometryWithinVolume(const AZ::Aabb& volume, QueryHits& overlapHits);
-
-        //! Append the triangle geometry within a volume to a tile structure.
-        void AppendColliderGeometry(TileGeometry& geometry, const QueryHits& overlapHits);
-
-        AZ::TaskExecutor m_taskExecutor{ 4 };
-        AZ::TaskGraph m_taskGraph;
-        AZStd::unique_ptr<AZ::TaskGraphEvent> m_taskGraphEvent;
-        AZ::TaskDescriptor m_taskDescriptor{ "Collect Geometry", "Recast Navigation"};
-
         bool m_debugDrawInputData;
     };
 } // namespace RecastNavigation

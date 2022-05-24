@@ -13,6 +13,11 @@
 
 namespace RecastNavigation
 {
+    EditorRecastNavigationMeshComponent::EditorRecastNavigationMeshComponent()
+        : m_updateEvent([this]() { OnUpdateEvent(); }, AZ::Name("EditorRecastNavigationMeshUpdate"))
+    {
+    }
+
     void EditorRecastNavigationMeshComponent::Reflect(AZ::ReflectContext* context)
     {
         if (const auto serialize = azrtti_cast<AZ::SerializeContext*>(context))
@@ -20,6 +25,7 @@ namespace RecastNavigation
             serialize->Class<EditorRecastNavigationMeshComponent, AZ::Component>()
                 ->Field("Configuration", &EditorRecastNavigationMeshComponent::m_meshConfig)
                 ->Field("Debug Draw", &EditorRecastNavigationMeshComponent::m_enableDebugDraw)
+                ->Field("AutoUpdate in Editor", &EditorRecastNavigationMeshComponent::m_enableAutoUpdateInEditor)
                 ->Version(1)
                 ;
 
@@ -34,7 +40,10 @@ namespace RecastNavigation
                         "Configuration", "Navigation Mesh configuration")
                     ->DataElement(nullptr, &EditorRecastNavigationMeshComponent::m_enableDebugDraw,
                         "Debug Draw", "If enabled, draw the navigation mesh")
-                    ;
+                    ->DataElement(nullptr, &EditorRecastNavigationMeshComponent::m_enableAutoUpdateInEditor,
+                        "AutoUpdate in Editor", "If enabled, calculates the navigation mesh in the editor viewport (outside of game mode)")
+                    ->Attribute(AZ::Edit::Attributes::AddNotify, &EditorRecastNavigationMeshComponent::OnAutoUpdateChanged);
+                ;
             }
         }
     }
@@ -57,6 +66,11 @@ namespace RecastNavigation
     void EditorRecastNavigationMeshComponent::Activate()
     {
         EditorComponentBase::Activate();
+
+        if (m_enableAutoUpdateInEditor)
+        {
+            m_updateEvent.Enqueue(AZ::TimeMs{ 1000 }, true);
+        }
     }
 
     void EditorRecastNavigationMeshComponent::Deactivate()
@@ -67,5 +81,21 @@ namespace RecastNavigation
     void EditorRecastNavigationMeshComponent::BuildGameEntity(AZ::Entity* gameEntity)
     {
         gameEntity->CreateComponent<RecastNavigationMeshComponent>(m_meshConfig, m_enableDebugDraw);
+    }
+
+    void EditorRecastNavigationMeshComponent::OnUpdateEvent()
+    {
+    }
+
+    void EditorRecastNavigationMeshComponent::OnAutoUpdateChanged()
+    {
+        if (m_enableAutoUpdateInEditor)
+        {
+            m_updateEvent.Enqueue(AZ::TimeMs{ 1000 }, true);
+        }
+        else
+        {
+            m_updateEvent.RemoveFromQueue();
+        }
     }
 } // namespace RecastNavigation

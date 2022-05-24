@@ -9,6 +9,10 @@
 #pragma once
 
 #include <AzCore/Component/Component.h>
+#include <AzCore/EBus/ScheduledEvent.h>
+#include <AzCore/Task/TaskExecutor.h>
+#include <AzCore/Task/TaskGraph.h>
+#include <Components/RecastNavigationMeshCommon.h>
 #include <Components/RecastNavigationMeshConfig.h>
 #include <ToolsComponents/EditorComponentBase.h>
 
@@ -17,10 +21,11 @@ namespace RecastNavigation
     //! Editor version of @RecastNavigationMeshComponent.
     class EditorRecastNavigationMeshComponent final
         : public AzToolsFramework::Components::EditorComponentBase
+        , public RecastNavigationMeshCommon
     {
     public:
         AZ_EDITOR_COMPONENT(EditorRecastNavigationMeshComponent, "{22D516D4-C98D-4783-85A4-1ABE23CAB4D4}", AzToolsFramework::Components::EditorComponentBase);
-
+        EditorRecastNavigationMeshComponent();
         static void Reflect(AZ::ReflectContext* context);
 
         static void GetProvidedServices(AZ::ComponentDescriptor::DependencyArrayType& provided);
@@ -37,5 +42,13 @@ namespace RecastNavigation
     private:
         RecastNavigationMeshConfig m_meshConfig;
         bool m_enableDebugDraw = false;
+
+        bool m_enableAutoUpdateInEditor = false;
+        AZ::ScheduledEvent m_updateEvent;
+        void OnUpdateEvent();
+        void OnAutoUpdateChanged();
+        AZ::TaskGraph m_taskGraph;
+        AZ::TaskGraphEvent m_taskGraphEvent;
+        AZ::TaskExecutor m_taskExecutor;
     };
 } // namespace RecastNavigation

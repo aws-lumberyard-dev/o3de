@@ -10,17 +10,19 @@
 
 #include <AzCore/Component/Component.h>
 #include <AzToolsFramework/ToolsComponents/EditorComponentBase.h>
+#include <Components/RecastNavigationTiledSurveyorCommon.h>
 
 namespace RecastNavigation
 {
     //! Editor version of @RecastNavigationTiledSurveyorComponent
     class EditorRecastNavigationTiledSurveyorComponent final
         : public AzToolsFramework::Components::EditorComponentBase
+        , public RecastNavigationTiledSurveyorCommon
     {
     public:
         AZ_EDITOR_COMPONENT(EditorRecastNavigationTiledSurveyorComponent,
             "{F1E57D0B-11A1-46C2-876D-720DD40CB14D}", AzToolsFramework::Components::EditorComponentBase);
-
+        EditorRecastNavigationTiledSurveyorComponent();
         static void Reflect(AZ::ReflectContext* context);
 
         static void GetProvidedServices(AZ::ComponentDescriptor::DependencyArrayType& provided);
