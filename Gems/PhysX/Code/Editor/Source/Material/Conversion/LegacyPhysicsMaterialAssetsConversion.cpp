@@ -29,13 +29,13 @@
 
 namespace PhysX
 {
-    void FixPrefabsWithPhysicsLegacyMaterials(const AZ::ConsoleCommandContainer& commandArgs);
+    void FixAssetsUsingPhysicsLegacyMaterials(const AZ::ConsoleCommandContainer& commandArgs);
 
     AZ_CONSOLEFREEFUNC(
-        "ed_physxFixPrefabsWithPhysicsLegacyMaterials",
-        FixPrefabsWithPhysicsLegacyMaterials,
+        "ed_physxFixAssetsUsingPhysicsLegacyMaterials",
+        FixAssetsUsingPhysicsLegacyMaterials,
         AZ::ConsoleFunctorFlags::Null,
-        "Finds prefabs that contain components using legacy physics material ids and fixes them by using new physics material assets.");
+        "Finds assets that reference legacy physics material ids and fixes them by using new physics material assets.");
 
     static const AZ::TypeId EditorBlastFamilyComponentTypeId = AZ::TypeId::CreateString("{ECB1689A-2B65-44D1-9227-9E62962A7FF7}");
 
@@ -584,7 +584,7 @@ namespace PhysX
         AZ_TracePrintf("PhysXMaterialConversion", "\n");
     }
 
-    void FixPrefabsWithPhysicsLegacyMaterials([[maybe_unused]] const AZ::ConsoleCommandContainer& commandArgs)
+    void FixAssetsUsingPhysicsLegacyMaterials([[maybe_unused]] const AZ::ConsoleCommandContainer& commandArgs)
     {
         bool prefabSystemEnabled = false;
         AzFramework::ApplicationRequests::Bus::BroadcastResult(
