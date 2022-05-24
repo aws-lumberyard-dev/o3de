@@ -483,6 +483,20 @@ namespace PhysX
                 RemoveMemberChainInPrefabComponent(oldMemberChain, component);
 
                 AZ_TracePrintf("PhysXMaterialConversion", "Legacy material selection will be replaced by physics material slots.\n");
+                if (!legacyMaterialSelection.m_materialIdsAssignedToSlots.empty())
+                {
+                    AZ_Assert(legacyMaterialSelection.m_materialIdsAssignedToSlots.size() == materialSlots.GetSlotsCount(),
+                        "Number of elements in legacy material selection (%zu) and match slots (%zu) do not match.",
+                        legacyMaterialSelection.m_materialIdsAssignedToSlots.size(), materialSlots.GetSlotsCount());
+
+                    for (size_t i = 0; i < materialSlots.GetSlotsCount(); ++i)
+                    {
+                        AZ_TracePrintf("PhysXMaterialConversion", "  Slot %zu) Legacy material id '%s' -> material asset '%s'.\n",
+                            i+1,
+                            legacyMaterialSelection.m_materialIdsAssignedToSlots[i].m_id.ToString<AZStd::string>().c_str(),
+                            materialSlots.GetMaterialAsset(i).GetHint().c_str());
+                    }
+                }
 
                 return true;
             }
@@ -503,7 +517,7 @@ namespace PhysX
                 if (!StoreObjectToPrefabComponent<AZ::Data::Asset<Physics::MaterialAsset>>(
                     newMemberChain, prefabWithLegacyMaterials.m_template->GetPrefabDom(), component, materialAsset))
                 {
-                    AZ_Warning("PhysXMaterialConversion", false, "Unable to set physics material asset to prefab.")
+                    AZ_Warning("PhysXMaterialConversion", false, "Unable to set physics material asset to prefab.");
                     return false;
                 }
 
@@ -563,28 +577,29 @@ namespace PhysX
                 PhysicsLegacy::MaterialSelection legacyDefaultMaterialSelection;
                 if (LoadObjectFromPrefabComponent<PhysicsLegacy::MaterialSelection>({ "Configuration", "DefaultMaterial" }, *component, legacyDefaultMaterialSelection))
                 {
+                    PhysicsLegacy::MaterialId legacyMaterialId;
                     if (!legacyDefaultMaterialSelection.m_materialIdsAssignedToSlots.empty())
                     {
-                        PhysicsLegacy::MaterialId legacyMaterialId = legacyDefaultMaterialSelection.m_materialIdsAssignedToSlots[0];
+                        legacyMaterialId = legacyDefaultMaterialSelection.m_materialIdsAssignedToSlots[0];
+                    }
 
-                        AZ::Data::Asset<Physics::MaterialAsset> materialAsset = ConvertLegacyMaterialIdToMaterialAsset(legacyMaterialId, legacyMaterialIdToNewAssetIdMap);
+                    AZ::Data::Asset<Physics::MaterialAsset> materialAsset = ConvertLegacyMaterialIdToMaterialAsset(legacyMaterialId, legacyMaterialIdToNewAssetIdMap);
 
-                        if (StoreObjectToPrefabComponent<AZ::Data::Asset<Physics::MaterialAsset>>(
-                            { "Configuration", "DefaultMaterialAsset" }, prefabWithLegacyMaterials.m_template->GetPrefabDom(), *component, materialAsset))
-                        {
-                            // Remove legacy material selection field
-                            RemoveMemberChainInPrefabComponent({ "Configuration", "DefaultMaterial" }, *component);
+                    if (StoreObjectToPrefabComponent<AZ::Data::Asset<Physics::MaterialAsset>>(
+                        { "Configuration", "DefaultMaterialAsset" }, prefabWithLegacyMaterials.m_template->GetPrefabDom(), *component, materialAsset))
+                    {
+                        // Remove legacy material selection field
+                        RemoveMemberChainInPrefabComponent({ "Configuration", "DefaultMaterial" }, * component);
 
-                            AZ_TracePrintf("PhysXMaterialConversion", "Legacy selection with one material (id '%s') will be replaced by physics material asset '%s'.\n",
-                                legacyMaterialId.m_id.ToString<AZStd::string>().c_str(),
-                                materialAsset.GetHint().c_str());
+                        AZ_TracePrintf("PhysXMaterialConversion", "Legacy selection with one material (id '%s') will be replaced by physics material asset '%s'.\n",
+                            legacyMaterialId.m_id.ToString<AZStd::string>().c_str(),
+                            materialAsset.GetHint().c_str());
 
-                            prefabDomModified = true;
-                        }
-                        else
-                        {
-                            AZ_Warning("PhysXMaterialConversion", false, "Unable to set physics material asset to prefab.");
-                        }
+                        prefabDomModified = true;
+                    }
+                    else
+                    {
+                        AZ_Warning("PhysXMaterialConversion", false, "Unable to set physics material asset to prefab.");
                     }
                 }
 
