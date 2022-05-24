@@ -38,6 +38,7 @@ namespace PhysX
         "Finds assets that reference legacy physics material ids and fixes them by using new physics material assets.");
 
     static const AZ::TypeId EditorBlastFamilyComponentTypeId = AZ::TypeId::CreateString("{ECB1689A-2B65-44D1-9227-9E62962A7FF7}");
+    static const AZ::TypeId EditorTerrainPhysicsColliderComponentTypeId = AZ::TypeId::CreateString("{C43FAB8F-3968-46A6-920E-E84AEDED3DF5}");
 
     AZStd::optional<AZStd::string> GetFullSourceAssetPathById(AZ::Data::AssetId assetId);
 
@@ -104,30 +105,36 @@ namespace PhysX
         return components;
     }
 
-    rapidjson::Document::MemberIterator FindMemberChainInPrefabComponent(
+    AzToolsFramework::Prefab::PrefabDomValue* FindMemberChainInPrefabComponent(
         const AZStd::vector<AZStd::string>& memberChain, AzToolsFramework::Prefab::PrefabDomValue& prefabComponent)
     {
-        auto memberEnd = prefabComponent.MemberEnd();
         if (memberChain.empty())
         {
-            return memberEnd;
+            return nullptr;
         }
 
         auto memberIter = prefabComponent.FindMember(memberChain[0].c_str());
         if (memberIter == prefabComponent.MemberEnd())
         {
-            return memberEnd;
+            return nullptr;
         }
 
         for (size_t i = 1; i < memberChain.size(); ++i)
         {
-            memberIter = memberIter->value.FindMember(memberChain[i].c_str());
-            if (memberIter == memberIter->value.MemberEnd())
+            auto memberFoundIter = memberIter->value.FindMember(memberChain[i].c_str());
+            if (memberFoundIter == memberIter->value.MemberEnd())
             {
-                return memberEnd;
+                return nullptr;
             }
+            memberIter = memberFoundIter;
         }
-        return memberIter;
+        return &memberIter->value;
+    }
+
+    const AzToolsFramework::Prefab::PrefabDomValue* FindConstMemberChainInPrefabComponent(
+        const AZStd::vector<AZStd::string>& memberChain, const AzToolsFramework::Prefab::PrefabDomValue& prefabComponent)
+    {
+        return FindMemberChainInPrefabComponent(memberChain, const_cast<AzToolsFramework::Prefab::PrefabDomValue&>(prefabComponent));
     }
 
     void RemoveMemberChainInPrefabComponent(
@@ -151,33 +158,28 @@ namespace PhysX
 
         for (size_t i = 1; i < memberChain.size()-1; ++i)
         {
-            memberIter = memberIter->value.FindMember(memberChain[i].c_str());
-            if (memberIter == memberIter->value.MemberEnd())
+            auto memberFoundIter = memberIter->value.FindMember(memberChain[i].c_str());
+            if (memberFoundIter == memberIter->value.MemberEnd())
             {
                 return;
             }
+            memberIter = memberFoundIter;
         }
 
         memberIter->value.RemoveMember(memberChain.back().c_str());
-    }
-
-    rapidjson::Document::ConstMemberIterator FindConstMemberChainInPrefabComponent(
-        const AZStd::vector<AZStd::string>& memberChain, const AzToolsFramework::Prefab::PrefabDomValue& prefabComponent)
-    {
-        return FindMemberChainInPrefabComponent(memberChain, const_cast<AzToolsFramework::Prefab::PrefabDomValue&>(prefabComponent));
     }
 
     template<class T>
     bool LoadObjectFromPrefabComponent(
         const AZStd::vector<AZStd::string>& memberChain, const AzToolsFramework::Prefab::PrefabDomValue& prefabComponent, T& object)
     {
-        auto memberIter = FindConstMemberChainInPrefabComponent(memberChain, prefabComponent);
-        if (memberIter == prefabComponent.MemberEnd())
+        const auto* member = FindConstMemberChainInPrefabComponent(memberChain, prefabComponent);
+        if (!member)
         {
             return false;
         }
 
-        auto result = AZ::JsonSerialization::Load(&object, azrtti_typeid<T>(), memberIter->value);
+        auto result = AZ::JsonSerialization::Load(&object, azrtti_typeid<T>(), *member);
 
         return result.GetProcessing() == AZ::JsonSerializationResult::Processing::Completed;
     }
@@ -189,8 +191,8 @@ namespace PhysX
         AzToolsFramework::Prefab::PrefabDomValue& prefabComponent,
         const T& object)
     {
-        auto memberIter = FindMemberChainInPrefabComponent(memberChain, prefabComponent);
-        if (memberIter == prefabComponent.MemberEnd())
+        auto* member = FindMemberChainInPrefabComponent(memberChain, prefabComponent);
+        if (!member)
         {
             return false;
         }
@@ -198,7 +200,7 @@ namespace PhysX
         T defaultObject;
 
         auto result =
-            AZ::JsonSerialization::Store(memberIter->value, prefabDom.GetAllocator(), &object, &defaultObject, azrtti_typeid<T>());
+            AZ::JsonSerialization::Store(*member, prefabDom.GetAllocator(), &object, &defaultObject, azrtti_typeid<T>());
 
         return result.GetProcessing() == AZ::JsonSerializationResult::Processing::Completed;
     }
@@ -262,6 +264,26 @@ namespace PhysX
                 if (componentHasLegacyMaterialSelection(*component, { "Configuration", "Material" }))
                 {
                     return true;
+                }
+            }
+
+            for (auto* component : GetPrefabComponents(EditorTerrainPhysicsColliderComponentTypeId, *entity))
+            {
+                if (componentHasLegacyMaterialSelection(*component, { "Configuration", "DefaultMaterial" }))
+                {
+                    return true;
+                }
+
+                const auto* mappingMember = FindConstMemberChainInPrefabComponent({ "Configuration", "Mappings" }, *component);
+                if (mappingMember)
+                {
+                    for (rapidjson_ly::SizeType i = 0; i < mappingMember->Size(); ++i)
+                    {
+                        if (componentHasLegacyMaterialId((*mappingMember)[i], { "Material" }))
+                        {
+                            return true;
+                        }
+                    }
                 }
             }
 
@@ -531,6 +553,50 @@ namespace PhysX
                     { "Configuration", "Material" }, { "Configuration", "MaterialSlots" }))
                 {
                     prefabDomModified = true;
+                }
+            }
+
+            for (auto* component : GetPrefabComponents(EditorTerrainPhysicsColliderComponentTypeId, *entity))
+            {
+                PhysicsLegacy::MaterialSelection legacyDefaultMaterialSelection;
+                if (LoadObjectFromPrefabComponent<PhysicsLegacy::MaterialSelection>({ "Configuration", "DefaultMaterial" }, *component, legacyDefaultMaterialSelection))
+                {
+                    if (!legacyDefaultMaterialSelection.m_materialIdsAssignedToSlots.empty())
+                    {
+                        PhysicsLegacy::MaterialId legacyMaterialId = legacyDefaultMaterialSelection.m_materialIdsAssignedToSlots[0];
+
+                        AZ::Data::Asset<Physics::MaterialAsset> materialAsset = ConvertLegacyMaterialIdToMaterialAsset(legacyMaterialId, legacyMaterialIdToNewAssetIdMap);
+
+                        if (StoreObjectToPrefabComponent<AZ::Data::Asset<Physics::MaterialAsset>>(
+                            { "Configuration", "DefaultMaterialAsset" }, prefabWithLegacyMaterials.m_template->GetPrefabDom(), *component, materialAsset))
+                        {
+                            // Remove legacy material selection field
+                            RemoveMemberChainInPrefabComponent({ "Configuration", "DefaultMaterial" }, *component);
+
+                            AZ_TracePrintf("PhysXMaterialConversion", "Legacy selection with one material (id '%s') will be replaced by physics material asset '%s'.\n",
+                                legacyMaterialId.m_id.ToString<AZStd::string>().c_str(),
+                                materialAsset.GetHint().c_str());
+
+                            prefabDomModified = true;
+                        }
+                        else
+                        {
+                            AZ_Warning("PhysXMaterialConversion", false, "Unable to set physics material asset to prefab.");
+                        }
+                    }
+                }
+
+                auto* mappingMember = FindMemberChainInPrefabComponent({ "Configuration", "Mappings" }, *component);
+                if (mappingMember)
+                {
+                    for (rapidjson_ly::SizeType i = 0; i < mappingMember->Size(); ++i)
+                    {
+                        if (fixComponentPhysicsMaterialId((*mappingMember)[i],
+                            { "Material" }, { "MaterialAsset" }))
+                        {
+                            prefabDomModified = true;
+                        }
+                    }
                 }
             }
 
