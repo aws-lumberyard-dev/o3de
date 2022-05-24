@@ -42,13 +42,15 @@ namespace RecastNavigation
     private:
         RecastNavigationMeshConfig m_meshConfig;
         bool m_enableDebugDraw = false;
+        AZ::ScheduledEvent m_debugDrawEvent{ [this]() { OnDebugDrawTick(); }, AZ::Name("EditorRecastNavigationDebugViewTick") };
+        void OnDebugDrawTick();
+        void OnDebugDrawChanged();
 
         bool m_enableAutoUpdateInEditor = false;
         AZ::ScheduledEvent m_updateEvent;
         void OnUpdateEvent();
         void OnAutoUpdateChanged();
-        AZ::TaskGraph m_taskGraph;
-        AZ::TaskGraphEvent m_taskGraphEvent;
-        AZ::TaskExecutor m_taskExecutor;
+
+        void CreateEditorNavigationMesh();
     };
 } // namespace RecastNavigation

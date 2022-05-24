@@ -27,7 +27,7 @@ namespace RecastNavigation
     {
         if (const auto serialize = azrtti_cast<AZ::SerializeContext*>(context))
         {
-            serialize->Class<RecastNavigationTiledSurveyorComponent, RecastNavigationTiledSurveyorCommon, AZ::Component>()
+            serialize->Class<RecastNavigationTiledSurveyorComponent, AZ::Component>()
                 ->Version(1)
                 ;
         }
@@ -57,9 +57,6 @@ namespace RecastNavigation
 
     void RecastNavigationTiledSurveyorComponent::Activate()
     {
-        AZ::Vector3 position = AZ::Vector3::CreateZero();
-        AZ::TransformBus::EventResult(position, GetEntityId(), &AZ::TransformBus::Events::GetWorldTranslation);
-
         RecastNavigationSurveyorRequestBus::Handler::BusConnect(GetEntityId());
     }
 
@@ -79,7 +76,7 @@ namespace RecastNavigation
         float borderSize,
         AZStd::function<void(AZStd::shared_ptr<TileGeometry>)> tileCallback)
     {
-        return CollectGeometryAsyncImpl(tileSize, borderSize, GetWorldBounds(), m_debugDrawInputData, tileCallback);
+        CollectGeometryAsyncImpl(tileSize, borderSize, GetWorldBounds(), m_debugDrawInputData, tileCallback);
     }
 
     AZ::Aabb RecastNavigationTiledSurveyorComponent::GetWorldBounds() const

@@ -78,13 +78,13 @@
                         }
                     }
                 },
+                "Component_[11601192487496805221]": {
+                    "$type": "EditorRecastNavigationTiledSurveyorComponent",
+                    "Id": 11601192487496805221
+                },
                 "Component_[13290287886519164115]": {
                     "$type": "EditorVisibilityComponent",
                     "Id": 13290287886519164115
-                },
-                "Component_[14251131704192087875]": {
-                    "$type": "EditorRecastNavigationTiledSurveyorComponent",
-                    "Id": 14251131704192087875
                 },
                 "Component_[1492307393600400301]": {
                     "$type": "SelectionComponent",
@@ -96,7 +96,9 @@
                 },
                 "Component_[2681084637176744288]": {
                     "$type": "EditorRecastNavigationMeshComponent",
-                    "Id": 2681084637176744288
+                    "Id": 2681084637176744288,
+                    "Debug Draw": true,
+                    "AutoUpdate in Editor": true
                 },
                 "Component_[490606516712228268]": {
                     "$type": "{27F1E1A1-8D9D-4C3B-BD3A-AFB9762449C0} TransformComponent",
@@ -422,7 +424,7 @@
                     "Parent Entity": "Entity_[1146574390643]",
                     "Transform Data": {
                         "Translate": [
-                            4.117232799530029,
+                            4.674095630645752,
                             -1.3845000267028809,
                             -1.4104945659637451
                         ]
@@ -1056,6 +1058,11 @@
                     "op": "replace",
                     "path": "/ContainerEntity/Components/Component_[835588300627230612]/Parent Entity",
                     "value": "../Entity_[1146574390643]"
+                },
+                {
+                    "op": "replace",
+                    "path": "/ContainerEntity/Components/Component_[835588300627230612]/Transform Data/Translate/0",
+                    "value": 0.2058112621307373
                 }
             ]
         }

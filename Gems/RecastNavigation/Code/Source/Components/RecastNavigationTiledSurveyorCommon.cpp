@@ -243,6 +243,8 @@ namespace RecastNavigation
     {
         if (!m_taskGraphEvent || m_taskGraphEvent->IsSignaled())
         {
+            AZ_Printf("TEST", __FUNCTION__);
+
             AZ_PROFILE_SCOPE(Navigation, "Navigation: CollectGeometryAsync");
 
             m_taskGraphEvent = AZStd::make_unique<AZ::TaskGraphEvent>();
@@ -305,6 +307,7 @@ namespace RecastNavigation
                 m_taskDescriptor, [tileCallback]()
                 {
                     tileCallback({});
+                    AZ_Printf("TEST", "CollectGeometryAsyncImpl completed");
                 });
 
             for (AZ::TaskToken* task : tileTaskTokens)

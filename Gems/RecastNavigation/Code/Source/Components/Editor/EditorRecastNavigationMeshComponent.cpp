@@ -8,8 +8,15 @@
 
 #include "EditorRecastNavigationMeshComponent.h"
 
+#include <DetourDebugDraw.h>
+#include <AzCore/Debug/Profiler.h>
 #include <AzCore/Serialization/EditContext.h>
 #include <Components/RecastNavigationMeshComponent.h>
+#include <RecastNavigation/RecastNavigationSurveyorBus.h>
+
+AZ_DECLARE_BUDGET(Navigation);
+
+#pragma optimize("", off)
 
 namespace RecastNavigation
 {
@@ -38,11 +45,14 @@ namespace RecastNavigation
                     ->Attribute(AZ::Edit::Attributes::AutoExpand, true)
                     ->DataElement(nullptr, &EditorRecastNavigationMeshComponent::m_meshConfig,
                         "Configuration", "Navigation Mesh configuration")
+
                     ->DataElement(nullptr, &EditorRecastNavigationMeshComponent::m_enableDebugDraw,
                         "Debug Draw", "If enabled, draw the navigation mesh")
+                    ->Attribute(AZ::Edit::Attributes::ChangeNotify, &EditorRecastNavigationMeshComponent::OnDebugDrawChanged)
+
                     ->DataElement(nullptr, &EditorRecastNavigationMeshComponent::m_enableAutoUpdateInEditor,
                         "AutoUpdate in Editor", "If enabled, calculates the navigation mesh in the editor viewport (outside of game mode)")
-                    ->Attribute(AZ::Edit::Attributes::AddNotify, &EditorRecastNavigationMeshComponent::OnAutoUpdateChanged);
+                    ->Attribute(AZ::Edit::Attributes::ChangeNotify, &EditorRecastNavigationMeshComponent::OnAutoUpdateChanged);
                 ;
             }
         }
@@ -69,12 +79,16 @@ namespace RecastNavigation
 
         if (m_enableAutoUpdateInEditor)
         {
-            m_updateEvent.Enqueue(AZ::TimeMs{ 1000 }, true);
+            OnAutoUpdateChanged();
+            OnDebugDrawChanged();
         }
     }
 
     void EditorRecastNavigationMeshComponent::Deactivate()
     {
+        m_updateEvent.RemoveFromQueue();
+        m_debugDrawEvent.RemoveFromQueue();
+
         EditorComponentBase::Deactivate();
     }
 
@@ -83,14 +97,73 @@ namespace RecastNavigation
         gameEntity->CreateComponent<RecastNavigationMeshComponent>(m_meshConfig, m_enableDebugDraw);
     }
 
+    void EditorRecastNavigationMeshComponent::OnDebugDrawTick()
+    {
+        if (m_navObjects && m_navObjects->m_mesh)
+        {
+            duDebugDrawNavMesh(&m_customDebugDraw, *m_navObjects->m_mesh, DU_DRAWNAVMESH_COLOR_TILES);
+        }
+    }
+
+    void EditorRecastNavigationMeshComponent::OnDebugDrawChanged()
+    {
+        if (m_enableDebugDraw)
+        {
+            m_debugDrawEvent.Enqueue(AZ::TimeMs{ 0 }, true);
+        }
+        else
+        {
+            m_debugDrawEvent.RemoveFromQueue();
+        }
+    }
+
     void EditorRecastNavigationMeshComponent::OnUpdateEvent()
     {
+        AZ_PROFILE_SCOPE(Navigation, "Navigation: (Editor) UpdateNavigationMeshAsync");
+
+        RecastNavigationSurveyorRequestBus::Event(GetEntityId(),
+            &RecastNavigationSurveyorRequests::CollectGeometryAsync,
+            m_meshConfig.m_tileSize, aznumeric_cast<float>(m_meshConfig.m_borderSize) * m_meshConfig.m_cellSize,
+            [this](AZStd::shared_ptr<TileGeometry> tile)
+            {
+                if (tile)
+                {
+                    if (tile->IsEmpty())
+                    {
+                        return;
+                    }
+
+                    NavigationTileData navigationTileData = CreateNavigationTile(tile.get(),
+                        m_meshConfig, m_context.get());
+
+                    if (navigationTileData.IsValid())
+                    {
+                        AZ_PROFILE_SCOPE(Navigation, "Navigation: (Editor) UpdateNavigationMeshAsync - tile callback");
+                        AZStd::lock_guard lock(m_navObjects->m_mutex);
+
+                        if (const dtTileRef tileRef = m_navObjects->m_mesh->getTileRefAt(tile->m_tileX, tile->m_tileY, 0))
+                        {
+                            m_navObjects->m_mesh->removeTile(tileRef, nullptr, nullptr);
+                        }
+                        if (navigationTileData.IsValid())
+                        {
+                            AttachNavigationTileToMesh(navigationTileData);
+                        }
+                    }
+                }
+                else
+                {
+                    RecastNavigationMeshNotificationBus::Event(GetEntityId(),
+                        &RecastNavigationMeshNotifications::OnNavigationMeshUpdated, GetEntityId());
+                }
+            });
     }
 
     void EditorRecastNavigationMeshComponent::OnAutoUpdateChanged()
     {
         if (m_enableAutoUpdateInEditor)
         {
+            CreateEditorNavigationMesh();
             m_updateEvent.Enqueue(AZ::TimeMs{ 1000 }, true);
         }
         else
@@ -98,4 +171,18 @@ namespace RecastNavigation
             m_updateEvent.RemoveFromQueue();
         }
     }
+
+    void EditorRecastNavigationMeshComponent::CreateEditorNavigationMesh()
+    {
+        if (!m_context)
+        {
+            m_context = AZStd::make_unique<rcContext>();
+        }
+        if (!m_navObjects)
+        {
+            CreateNavigationMesh(GetEntityId(), m_meshConfig.m_tileSize);
+        }
+    }
 } // namespace RecastNavigation
+
+#pragma optimize("", on)

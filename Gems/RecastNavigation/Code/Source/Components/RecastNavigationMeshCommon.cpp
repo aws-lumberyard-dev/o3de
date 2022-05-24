@@ -18,6 +18,8 @@
 
 AZ_DEFINE_BUDGET(Navigation);
 
+#pragma optimize("", off)
+
 namespace RecastNavigation
 {
     NavigationTileData RecastNavigationMeshCommon::CreateNavigationTile(TileGeometry* geom,
@@ -349,3 +351,5 @@ namespace RecastNavigation
         return true;
     }
 } // namespace RecastNavigation
+
+#pragma optimize("", on)

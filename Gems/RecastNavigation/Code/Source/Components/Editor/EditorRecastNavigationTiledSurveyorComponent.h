@@ -18,6 +18,7 @@ namespace RecastNavigation
     class EditorRecastNavigationTiledSurveyorComponent final
         : public AzToolsFramework::Components::EditorComponentBase
         , public RecastNavigationTiledSurveyorCommon
+        , public RecastNavigationSurveyorRequestBus::Handler
     {
     public:
         AZ_EDITOR_COMPONENT(EditorRecastNavigationTiledSurveyorComponent,
@@ -35,5 +36,19 @@ namespace RecastNavigation
         void Deactivate() override;
         void BuildGameEntity(AZ::Entity* gameEntity) override;
         //! @}
+
+        //! RecastNavigationSurveyorRequestBus interface implementation
+        //! @{
+        void CollectGeometryAsync(float tileSize, float borderSize, AZStd::function<void(AZStd::shared_ptr<TileGeometry>)> tileCallback) override;
+        //! Not implemented on purpose to avoid blocking the Editor.
+        AZStd::vector<AZStd::shared_ptr<TileGeometry>> CollectGeometry(float tileSize, float borderSize) override;
+        int GetNumberOfTiles(float tileSize) const override;
+        AZ::Aabb GetWorldBounds() const override;
+        //! @}
+
+    private:
+        bool m_debugDrawInputData = false;
+
+        AZStd::mutex m_asyncCollectionMutex;
     };
 } // namespace RecastNavigation
