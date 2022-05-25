@@ -8,7 +8,6 @@
 
 #include <AzCore/Serialization/SerializeContext.h>
 #include <AzCore/Console/IConsole.h>
-#include <AzCore/Asset/AssetCommon.h>
 #include <AzCore/Asset/AssetManager.h>
 #include <AzCore/IO/IOUtils.h>
 #include <AzCore/std/smart_ptr/make_shared.h>
@@ -19,6 +18,8 @@
 #include <AzToolsFramework/SourceControl/SourceControlAPI.h>
 
 #include <Editor/Source/Material/PhysXEditorMaterialAsset.h>
+
+#include <Editor/Source/Material/Conversion/LegacyPhysicsMaterialLibraryConversion.h>
 
 namespace PhysicsLegacy
 {
