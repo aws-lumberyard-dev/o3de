@@ -11,5 +11,5 @@
 
 namespace PhysX
 {
-    void FixPrefabPhysicsMaterials(const LegacyMaterialIdToNewAssetIdMap& legacyMaterialIdToNewAssetIdMap);
+    void FixPrefabsWithPhysicsLegacyMaterials(const LegacyMaterialIdToNewAssetIdMap& legacyMaterialIdToNewAssetIdMap);
 } // namespace PhysX

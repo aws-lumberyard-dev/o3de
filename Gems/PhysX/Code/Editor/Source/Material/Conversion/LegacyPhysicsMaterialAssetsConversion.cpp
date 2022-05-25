@@ -73,6 +73,6 @@ namespace PhysX
         AZ_TracePrintf("PhysXMaterialConversion", "Found %zu converted physics materials.\n", legacyMaterialIdToNewAssetIdMap.size());
         AZ_TracePrintf("PhysXMaterialConversion", "\n");
 
-        FixPrefabPhysicsMaterials(legacyMaterialIdToNewAssetIdMap);
+        FixPrefabsWithPhysicsLegacyMaterials(legacyMaterialIdToNewAssetIdMap);
     }
 } // namespace PhysX

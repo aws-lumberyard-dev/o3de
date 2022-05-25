@@ -472,7 +472,7 @@ namespace PhysX
         return modifiedTerrainPrefab;
     };
 
-    void FixPrefab(PrefabInfo& prefabInfo, const LegacyMaterialIdToNewAssetIdMap& legacyMaterialIdToNewAssetIdMap)
+    void FixPrefabPhysicsMaterials(PrefabInfo& prefabInfo, const LegacyMaterialIdToNewAssetIdMap& legacyMaterialIdToNewAssetIdMap)
     {
         bool prefabModified = false;
         for (auto* entity : GetPrefabEntities(prefabInfo.m_template->GetPrefabDom()))
@@ -571,7 +571,7 @@ namespace PhysX
         }
     }
 
-    void FixPrefabPhysicsMaterials(const LegacyMaterialIdToNewAssetIdMap& legacyMaterialIdToNewAssetIdMap)
+    void FixPrefabsWithPhysicsLegacyMaterials(const LegacyMaterialIdToNewAssetIdMap& legacyMaterialIdToNewAssetIdMap)
     {
         bool prefabSystemEnabled = false;
         AzFramework::ApplicationRequests::Bus::BroadcastResult(
@@ -596,7 +596,7 @@ namespace PhysX
 
         for (auto& prefab : prefabs)
         {
-            FixPrefab(prefab, legacyMaterialIdToNewAssetIdMap);
+            FixPrefabPhysicsMaterials(prefab, legacyMaterialIdToNewAssetIdMap);
         }
 
         AZ_TracePrintf("PhysXMaterialConversion", "Prefab conversion finished.\n");
