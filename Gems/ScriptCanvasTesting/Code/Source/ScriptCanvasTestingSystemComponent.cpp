@@ -17,7 +17,7 @@
 #include <Source/Nodes/Nodeables/NodeableTestingLibrary.h>
 #include <TestAutoGenFunctionRegistry.generated.h>
 
-REGISTER_SCRIPTCANVAS_AUTOGEN(ScriptCanvasTestingEditorStatic);
+REGISTER_SCRIPTCANVAS_AUTOGEN_FUNCTION(ScriptCanvasTestingEditorStatic);
 
 namespace ScriptCanvasTesting
 {

@@ -57,7 +57,7 @@ ly_add_target(
     NAME ScriptCanvas.Extensions STATIC
     NAMESPACE Gem
     FILES_CMAKE
-        scriptcanvasgem_autogen_files.cmake
+        scriptcanvasgem_extensions_files.cmake
     INCLUDE_DIRECTORIES
         PUBLIC
             Include/ScriptCanvas/AutoGen
@@ -71,6 +71,7 @@ ly_add_target(
     NAME ScriptCanvas.Static STATIC
     NAMESPACE Gem
     FILES_CMAKE
+        scriptcanvasgem_autogen_files.cmake
         scriptcanvasgem_headers.cmake
         scriptcanvasgem_common_files.cmake
         scriptcanvasgem_runtime_asset_files.cmake
@@ -97,8 +98,8 @@ ly_add_target(
             Gem::ScriptCanvasDebugger
             Gem::ScriptCanvas.Extensions
     AUTOGEN_RULES
-        *.ScriptCanvasFunction.xml,ScriptCanvasFunction_Header.jinja,AutoGenFunctionRegistry.generated.h
-        *.ScriptCanvasFunction.xml,ScriptCanvasFunction_Source.jinja,AutoGenFunctionRegistry.generated.cpp
+        *.ScriptCanvasFunction.xml,ScriptCanvasFunctionRegistry_Header.jinja,AutoGenFunctionRegistry.generated.h
+        *.ScriptCanvasFunction.xml,ScriptCanvasFunctionRegistry_Source.jinja,AutoGenFunctionRegistry.generated.cpp
         *.ScriptCanvasGrammar.xml,ScriptCanvasGrammar_Header.jinja,$path/$fileprefix.generated.h
         *.ScriptCanvasGrammar.xml,ScriptCanvasGrammar_Source.jinja,$path/$fileprefix.generated.cpp
         *.ScriptCanvasNodeable.xml,ScriptCanvasNodeable_Header.jinja,$path/$fileprefix.generated.h

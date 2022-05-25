@@ -17,7 +17,7 @@ namespace AZ
 }
 
 //! Macros to self-register AutoGen node into ScriptCanvas
-#define REGISTER_SCRIPTCANVAS_AUTOGEN(LIBRARY)\
+#define REGISTER_SCRIPTCANVAS_AUTOGEN_FUNCTION(LIBRARY)\
     static ScriptCanvas::LIBRARY##FunctionRegistry s_AutoGenFunctionRegistry;
 
 namespace ScriptCanvas
