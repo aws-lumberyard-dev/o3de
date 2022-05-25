@@ -128,7 +128,7 @@ namespace PhysX
     void ConvertMaterialLibrariesIntoIndividualMaterials([[maybe_unused]] const AZ::ConsoleCommandContainer& commandArgs);
 
     AZ_CONSOLEFREEFUNC("ed_physxConvertMaterialLibrariesIntoIndividualMaterials", ConvertMaterialLibrariesIntoIndividualMaterials, AZ::ConsoleFunctorFlags::Null,
-        "Finds legacy physics material library assets in the project and generates new individual physx material assets. Original library assets will be deleted.");
+        "Finds legacy physics material library assets in the project and generates new individual PhysX material assets. Original library assets will be deleted.");
 
     void ReflectLegacyMaterialClasses(AZ::ReflectContext* context)
     {
@@ -144,7 +144,7 @@ namespace PhysX
         AZ_Assert(!assetPath.empty(), "Asset Catalog returned an invalid path from an enumerated asset.");
         if (assetPath.empty())
         {
-            AZ_Warning("PhysXMaterialConversion", false, "Not able get asset path for asset with id %s.",
+            AZ_Warning("PhysXMaterialConversion", false, "Not able to get asset path for asset with id %s.",
                 assetId.ToString<AZStd::string>().c_str());
             return AZStd::nullopt;
         }
@@ -340,7 +340,7 @@ namespace PhysX
         auto* materialAssetHandler = AZ::Data::AssetManager::Instance().GetHandler(EditorMaterialAsset::RTTI_Type());
         if (!materialAssetHandler)
         {
-            AZ_Error("PhysXMaterialConversion", false, "Unable to find physx EditorMaterialAsset handler.");
+            AZ_Error("PhysXMaterialConversion", false, "Unable to find PhysX EditorMaterialAsset handler.");
             return;
         }
 
