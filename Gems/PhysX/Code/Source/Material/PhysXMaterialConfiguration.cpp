@@ -105,7 +105,7 @@ namespace PhysX
             "Material asset '%s' has unexpected material version (%u). Expected version is '%u'.",
             materialAsset.GetHint().c_str(), materialAsset->GetVersion(), MaterialConstants::MaterialAssetVersion);
 
-        const AZStd::vector<AZStd::string_view> materialPropertyNames =
+        const AZStd::fixed_vector materialPropertyNames =
         {
             MaterialConstants::DynamicFrictionName,
             MaterialConstants::StaticFrictionName,
