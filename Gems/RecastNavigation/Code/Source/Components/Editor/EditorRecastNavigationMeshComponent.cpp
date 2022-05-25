@@ -16,7 +16,7 @@
 
 AZ_DECLARE_BUDGET(Navigation);
 
-#pragma optimize("", off)
+//#pragma optimize("", off)
 
 namespace RecastNavigation
 {
@@ -208,4 +208,4 @@ namespace RecastNavigation
     }
 } // namespace RecastNavigation
 
-#pragma optimize("", on)
+//#pragma optimize("", on)

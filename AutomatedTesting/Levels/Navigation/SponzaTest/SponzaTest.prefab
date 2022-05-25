@@ -23,8 +23,8 @@
                     "Entity_[11033547635888]",
                     "Entity_[11265475869872]",
                     "Entity_[18584100142256]",
-                    "Instance_[316790562534997]/ContainerEntity",
-                    "Entity_[2169349350256]"
+                    "Entity_[1297933234875]",
+                    "Entity_[1297933234875]"
                 ]
             },
             "Component_[15230859088967841193]": {
@@ -66,14 +66,12 @@
                 "Component_[10692851348396635202]": {
                     "$type": "EditorAxisAlignedBoxShapeComponent",
                     "Id": 10692851348396635202,
-                    "DisplayFilled": false,
                     "AxisAlignedBoxShape": {
                         "Configuration": {
-                            "IsFilled": false,
                             "Dimensions": [
-                                300.0,
-                                30.0,
-                                30.0
+                                150.0,
+                                150.0,
+                                6.0
                             ]
                         }
                     }
@@ -97,10 +95,8 @@
                 "Component_[2681084637176744288]": {
                     "$type": "EditorRecastNavigationMeshComponent",
                     "Id": 2681084637176744288,
-                    "Configuration": {
-                        "Agent Radius": 0.5,
-                        "Voxel Size": 0.20000000298023224
-                    }
+                    "Debug Draw": true,
+                    "AutoUpdate in Editor": true
                 },
                 "Component_[490606516712228268]": {
                     "$type": "{27F1E1A1-8D9D-4C3B-BD3A-AFB9762449C0} TransformComponent",
@@ -108,9 +104,9 @@
                     "Parent Entity": "Entity_[1146574390643]",
                     "Transform Data": {
                         "Translate": [
-                            119.2940444946289,
-                            0.8937492370605469,
-                            -14.961109161376953
+                            -27.799072265625,
+                            -24.56694221496582,
+                            23.74808692932129
                         ]
                     }
                 },
@@ -188,66 +184,6 @@
                                     },
                                     "VariableName": "NavMesh",
                                     "InitialValueSource": 1
-                                },
-                                {
-                                    "Datum": {
-                                        "scriptCanvasType": {
-                                            "m_type": 3
-                                        },
-                                        "isNullPointer": false,
-                                        "$type": "double",
-                                        "value": 3.0
-                                    },
-                                    "VariableId": {
-                                        "m_id": "{8F61D3C2-8906-4F3A-A4C0-F95176EC06A2}"
-                                    },
-                                    "VariableName": "Speed",
-                                    "InitialValueSource": 1
-                                },
-                                {
-                                    "Datum": {
-                                        "scriptCanvasType": {
-                                            "m_type": 1
-                                        },
-                                        "isNullPointer": false,
-                                        "$type": "EntityId",
-                                        "value": ""
-                                    },
-                                    "VariableId": {
-                                        "m_id": "{F9BD60F2-4899-4080-B49E-19A29D044A95}"
-                                    },
-                                    "VariableName": "NavMesh",
-                                    "InitialValueSource": 1
-                                },
-                                {
-                                    "Datum": {
-                                        "scriptCanvasType": {
-                                            "m_type": 3
-                                        },
-                                        "isNullPointer": false,
-                                        "$type": "double",
-                                        "value": 3.0
-                                    },
-                                    "VariableId": {
-                                        "m_id": "{8F61D3C2-8906-4F3A-A4C0-F95176EC06A2}"
-                                    },
-                                    "VariableName": "Speed",
-                                    "InitialValueSource": 1
-                                },
-                                {
-                                    "Datum": {
-                                        "scriptCanvasType": {
-                                            "m_type": 1
-                                        },
-                                        "isNullPointer": false,
-                                        "$type": "EntityId",
-                                        "value": ""
-                                    },
-                                    "VariableId": {
-                                        "m_id": "{F9BD60F2-4899-4080-B49E-19A29D044A95}"
-                                    },
-                                    "VariableName": "NavMesh",
-                                    "InitialValueSource": 1
                                 }
                             ],
                             "overrides": [
@@ -286,116 +222,6 @@
                                     },
                                     "VariableName": "NavMesh",
                                     "InitialValueSource": 1
-                                },
-                                {
-                                    "Datum": {
-                                        "scriptCanvasType": {
-                                            "m_type": 3
-                                        },
-                                        "isNullPointer": false,
-                                        "$type": "double",
-                                        "value": 4.0
-                                    },
-                                    "InputControlVisibility": {
-                                        "Value": 850104567
-                                    },
-                                    "VariableId": {
-                                        "m_id": "{8F61D3C2-8906-4F3A-A4C0-F95176EC06A2}"
-                                    },
-                                    "VariableName": "Speed",
-                                    "InitialValueSource": 1
-                                },
-                                {
-                                    "Datum": {
-                                        "scriptCanvasType": {
-                                            "m_type": 1
-                                        },
-                                        "isNullPointer": false,
-                                        "$type": "EntityId",
-                                        "value": "Entity_[11033547635888]"
-                                    },
-                                    "InputControlVisibility": {
-                                        "Value": 850104567
-                                    },
-                                    "VariableId": {
-                                        "m_id": "{F9BD60F2-4899-4080-B49E-19A29D044A95}"
-                                    },
-                                    "VariableName": "NavMesh",
-                                    "InitialValueSource": 1
-                                },
-                                {
-                                    "Datum": {
-                                        "scriptCanvasType": {
-                                            "m_type": 3
-                                        },
-                                        "isNullPointer": false,
-                                        "$type": "double",
-                                        "value": 3.0
-                                    },
-                                    "InputControlVisibility": {
-                                        "Value": 850104567
-                                    },
-                                    "VariableId": {
-                                        "m_id": "{8F61D3C2-8906-4F3A-A4C0-F95176EC06A2}"
-                                    },
-                                    "VariableName": "Speed",
-                                    "InitialValueSource": 1
-                                },
-                                {
-                                    "Datum": {
-                                        "scriptCanvasType": {
-                                            "m_type": 1
-                                        },
-                                        "isNullPointer": false,
-                                        "$type": "EntityId",
-                                        "value": "Entity_[11033547635888]"
-                                    },
-                                    "InputControlVisibility": {
-                                        "Value": 850104567
-                                    },
-                                    "VariableId": {
-                                        "m_id": "{F9BD60F2-4899-4080-B49E-19A29D044A95}"
-                                    },
-                                    "VariableName": "NavMesh",
-                                    "InitialValueSource": 1
-                                }
-                            ],
-                            "overridesUnused": [
-                                {
-                                    "Datum": {
-                                        "scriptCanvasType": {
-                                            "m_type": 1
-                                        },
-                                        "isNullPointer": false,
-                                        "$type": "EntityId",
-                                        "value": "Entity_[11033547635888]"
-                                    },
-                                    "InputControlVisibility": {
-                                        "Value": 850104567
-                                    },
-                                    "VariableId": {
-                                        "m_id": "{F9BD60F2-4899-4080-B49E-19A29D044A95}"
-                                    },
-                                    "VariableName": "NavMesh",
-                                    "InitialValueSource": 1
-                                },
-                                {
-                                    "Datum": {
-                                        "scriptCanvasType": {
-                                            "m_type": 3
-                                        },
-                                        "isNullPointer": false,
-                                        "$type": "double",
-                                        "value": 3.0
-                                    },
-                                    "InputControlVisibility": {
-                                        "Value": 850104567
-                                    },
-                                    "VariableId": {
-                                        "m_id": "{8F61D3C2-8906-4F3A-A4C0-F95176EC06A2}"
-                                    },
-                                    "VariableName": "Speed",
-                                    "InitialValueSource": 1
                                 }
                             ]
                         }
@@ -426,9 +252,9 @@
                     "Parent Entity": "Entity_[1146574390643]",
                     "Transform Data": {
                         "Translate": [
-                            4.674095630645752,
-                            -1.3845000267028809,
-                            -1.4104945659637451
+                            -49.07308578491211,
+                            -27.625125885009766,
+                            21.08902359008789
                         ]
                     }
                 },
@@ -591,7 +417,7 @@
                     "Controller": {
                         "Configuration": {
                             "Field of View": 55.0,
-                            "EditorEntityId": 9281567451108926800
+                            "EditorEntityId": 13658616286025737263
                         }
                     }
                 },
@@ -793,6 +619,139 @@
                 }
             }
         },
+        "Entity_[1297933234875]": {
+            "Id": "Entity_[1297933234875]",
+            "Name": "Sponza",
+            "Components": {
+                "Component_[11030498254726093317]": {
+                    "$type": "EditorInspectorComponent",
+                    "Id": 11030498254726093317
+                },
+                "Component_[1287496061988778965]": {
+                    "$type": "AZ::Render::EditorMeshComponent",
+                    "Id": 1287496061988778965,
+                    "Controller": {
+                        "Configuration": {
+                            "ModelAsset": {
+                                "assetId": {
+                                    "guid": "{0E91A4B4-9A13-56A1-8007-4F9594DFB8FC}",
+                                    "subId": 282066894
+                                },
+                                "assetHint": "gem/sponza/assets/objects/sponza.azmodel"
+                            }
+                        }
+                    }
+                },
+                "Component_[14237385102455423639]": {
+                    "$type": "EditorEntitySortComponent",
+                    "Id": 14237385102455423639
+                },
+                "Component_[14821806959589807849]": {
+                    "$type": "EditorVisibilityComponent",
+                    "Id": 14821806959589807849
+                },
+                "Component_[16008621719442403572]": {
+                    "$type": "{27F1E1A1-8D9D-4C3B-BD3A-AFB9762449C0} TransformComponent",
+                    "Id": 16008621719442403572,
+                    "Parent Entity": "Entity_[1146574390643]",
+                    "Transform Data": {
+                        "Translate": [
+                            -42.15380859375,
+                            -36.6714973449707,
+                            20.79119300842285
+                        ],
+                        "UniformScale": 5.0
+                    }
+                },
+                "Component_[16022905433859512733]": {
+                    "$type": "EditorLockComponent",
+                    "Id": 16022905433859512733
+                },
+                "Component_[16345315862812094329]": {
+                    "$type": "EditorOnlyEntityComponent",
+                    "Id": 16345315862812094329
+                },
+                "Component_[17042080636100431779]": {
+                    "$type": "EditorDisabledCompositionComponent",
+                    "Id": 17042080636100431779
+                },
+                "Component_[18258028952302023539]": {
+                    "$type": "EditorEntityIconComponent",
+                    "Id": 18258028952302023539
+                },
+                "Component_[479542374278415618]": {
+                    "$type": "EditorColliderComponent",
+                    "Id": 479542374278415618,
+                    "ColliderConfiguration": {
+                        "MaterialSelection": {
+                            "MaterialIds": [
+                                {},
+                                {},
+                                {},
+                                {},
+                                {},
+                                {},
+                                {},
+                                {},
+                                {},
+                                {},
+                                {},
+                                {},
+                                {},
+                                {},
+                                {},
+                                {},
+                                {},
+                                {},
+                                {},
+                                {},
+                                {},
+                                {},
+                                {},
+                                {}
+                            ]
+                        }
+                    },
+                    "ShapeConfiguration": {
+                        "PhysicsAsset": {
+                            "Asset": {
+                                "assetId": {
+                                    "guid": "{0E91A4B4-9A13-56A1-8007-4F9594DFB8FC}",
+                                    "subId": 1590446891
+                                },
+                                "assetHint": "gem/sponza/assets/objects/sponza.pxmesh"
+                            },
+                            "Configuration": {
+                                "Scale": [
+                                    5.0,
+                                    5.0,
+                                    5.0
+                                ],
+                                "PhysicsAsset": {
+                                    "assetId": {
+                                        "guid": "{0E91A4B4-9A13-56A1-8007-4F9594DFB8FC}",
+                                        "subId": 1590446891
+                                    },
+                                    "loadBehavior": "QueueLoad",
+                                    "assetHint": "gem/sponza/assets/objects/sponza.pxmesh"
+                                }
+                            }
+                        }
+                    },
+                    "DebugDrawSettings": {
+                        "LocallyEnabled": false
+                    }
+                },
+                "Component_[6099126617141279927]": {
+                    "$type": "EditorPendingCompositionComponent",
+                    "Id": 6099126617141279927
+                },
+                "Component_[690113971138497351]": {
+                    "$type": "SelectionComponent",
+                    "Id": 690113971138497351
+                }
+            }
+        },
         "Entity_[18584100142256]": {
             "Id": "Entity_[18584100142256]",
             "Name": "HUD",
@@ -857,216 +816,6 @@
                     "Id": 868273601798984077
                 }
             }
-        },
-        "Entity_[2169349350256]": {
-            "Id": "Entity_[2169349350256]",
-            "Name": "City Generator",
-            "Components": {
-                "Component_[10361003406827242932]": {
-                    "$type": "SelectionComponent",
-                    "Id": 10361003406827242932
-                },
-                "Component_[14486982586661204257]": {
-                    "$type": "EditorInspectorComponent",
-                    "Id": 14486982586661204257
-                },
-                "Component_[15018736702510514286]": {
-                    "$type": "EditorOnlyEntityComponent",
-                    "Id": 15018736702510514286
-                },
-                "Component_[3548965413303308030]": {
-                    "$type": "{27F1E1A1-8D9D-4C3B-BD3A-AFB9762449C0} TransformComponent",
-                    "Id": 3548965413303308030,
-                    "Parent Entity": "Entity_[1146574390643]"
-                },
-                "Component_[4071636736892408760]": {
-                    "$type": "EditorEntitySortComponent",
-                    "Id": 4071636736892408760
-                },
-                "Component_[5207706956597078320]": {
-                    "$type": "EditorDisabledCompositionComponent",
-                    "Id": 5207706956597078320
-                },
-                "Component_[8110014651395032438]": {
-                    "$type": "EditorPendingCompositionComponent",
-                    "Id": 8110014651395032438
-                },
-                "Component_[8343231252649035386]": {
-                    "$type": "EditorVisibilityComponent",
-                    "Id": 8343231252649035386
-                },
-                "Component_[8377250430689149430]": {
-                    "$type": "EditorScriptCanvasComponent",
-                    "Id": 8377250430689149430,
-                    "configuration": {
-                        "sourceHandle": {
-                            "id": "{03AD6AC1-7EBA-56A0-919A-04FA6E62AD05}",
-                            "path": "git/o3de/AutomatedTesting/Levels/Navigation/NavigationSample/city_generator.scriptcanvas"
-                        },
-                        "sourceName": "city_generator.scriptcanvas",
-                        "propertyOverrides": {
-                            "source": {
-                                "id": "{03AD6AC1-7EBA-56A0-919A-04FA6E62AD05}",
-                                "path": "git/o3de/AutomatedTesting/Levels/Navigation/NavigationSample/city_generator.scriptcanvas"
-                            },
-                            "variables": [
-                                {
-                                    "Datum": {
-                                        "scriptCanvasType": {
-                                            "m_type": 4,
-                                            "m_azType": "{A96A5037-AD0D-43B6-9948-ED63438C4A52}"
-                                        },
-                                        "isNullPointer": false,
-                                        "$type": "AzFramework::Scripts::SpawnableScriptAssetRef"
-                                    },
-                                    "VariableId": {
-                                        "m_id": "{049485B9-175B-4CA3-A44E-9349A4F6DA6B}"
-                                    },
-                                    "VariableName": "Prefab",
-                                    "InitialValueSource": 1
-                                },
-                                {
-                                    "Datum": {
-                                        "scriptCanvasType": {
-                                            "m_type": 3
-                                        },
-                                        "isNullPointer": false,
-                                        "$type": "double",
-                                        "value": 4.0
-                                    },
-                                    "VariableId": {
-                                        "m_id": "{11F0A254-9F83-4E22-A78C-6A149E9192A3}"
-                                    },
-                                    "VariableName": "Street Length",
-                                    "InitialValueSource": 1
-                                },
-                                {
-                                    "Datum": {
-                                        "scriptCanvasType": {
-                                            "m_type": 3
-                                        },
-                                        "isNullPointer": false,
-                                        "$type": "double",
-                                        "value": 10.0
-                                    },
-                                    "VariableId": {
-                                        "m_id": "{28DC0F5A-A0BF-4848-8771-2FBA29AE6A60}"
-                                    },
-                                    "VariableName": "City Block Size",
-                                    "InitialValueSource": 1
-                                }
-                            ],
-                            "overrides": [
-                                {
-                                    "Datum": {
-                                        "scriptCanvasType": {
-                                            "m_type": 4,
-                                            "m_azType": "{A96A5037-AD0D-43B6-9948-ED63438C4A52}"
-                                        },
-                                        "isNullPointer": false,
-                                        "$type": "AzFramework::Scripts::SpawnableScriptAssetRef",
-                                        "value": {
-                                            "asset": {
-                                                "assetId": {
-                                                    "guid": "{E270A639-8C07-54DA-8432-105141DDF6BF}",
-                                                    "subId": 1483852
-                                                },
-                                                "assetHint": "levels/navigation/navigationsample/cityportion.spawnable"
-                                            }
-                                        }
-                                    },
-                                    "InputControlVisibility": {
-                                        "Value": 850104567
-                                    },
-                                    "VariableId": {
-                                        "m_id": "{049485B9-175B-4CA3-A44E-9349A4F6DA6B}"
-                                    },
-                                    "VariableName": "Prefab",
-                                    "InitialValueSource": 1
-                                },
-                                {
-                                    "Datum": {
-                                        "scriptCanvasType": {
-                                            "m_type": 3
-                                        },
-                                        "isNullPointer": false,
-                                        "$type": "double",
-                                        "value": 10.0
-                                    },
-                                    "InputControlVisibility": {
-                                        "Value": 850104567
-                                    },
-                                    "VariableId": {
-                                        "m_id": "{11F0A254-9F83-4E22-A78C-6A149E9192A3}"
-                                    },
-                                    "VariableName": "Street Length",
-                                    "InitialValueSource": 1
-                                },
-                                {
-                                    "Datum": {
-                                        "scriptCanvasType": {
-                                            "m_type": 3
-                                        },
-                                        "isNullPointer": false,
-                                        "$type": "double",
-                                        "value": 25.0
-                                    },
-                                    "InputControlVisibility": {
-                                        "Value": 850104567
-                                    },
-                                    "VariableId": {
-                                        "m_id": "{28DC0F5A-A0BF-4848-8771-2FBA29AE6A60}"
-                                    },
-                                    "VariableName": "City Block Size",
-                                    "InitialValueSource": 1
-                                }
-                            ]
-                        }
-                    }
-                },
-                "Component_[9407602502382042919]": {
-                    "$type": "EditorLockComponent",
-                    "Id": 9407602502382042919
-                },
-                "Component_[9419888318872631090]": {
-                    "$type": "EditorEntityIconComponent",
-                    "Id": 9419888318872631090
-                }
-            }
-        }
-    },
-    "Instances": {
-        "Instance_[316790562534997]": {
-            "Source": "Levels/Navigation/NavigationSample/CityPortion.prefab",
-            "Patches": [
-                {
-                    "op": "replace",
-                    "path": "/ContainerEntity/Components/Component_[17136984997565909930]/Child Entity Order/0",
-                    "value": "Entity_[11294716381325]"
-                },
-                {
-                    "op": "remove",
-                    "path": "/ContainerEntity/Components/Component_[17136984997565909930]/Child Entity Order/7"
-                },
-                {
-                    "op": "remove",
-                    "path": "/ContainerEntity/Components/Component_[17136984997565909930]/Child Entity Order/6"
-                },
-                {
-                    "op": "remove",
-                    "path": "/ContainerEntity/Components/Component_[17136984997565909930]/Child Entity Order/5"
-                },
-                {
-                    "op": "replace",
-                    "path": "/ContainerEntity/Components/Component_[835588300627230612]/Parent Entity",
-                    "value": "../Entity_[1146574390643]"
-                },
-                {
-                    "op": "replace",
-                    "path": "/ContainerEntity/Components/Component_[835588300627230612]/Transform Data/Translate/0",
-                    "value": 0.2058112621307373
-                }
-            ]
         }
     }
 }

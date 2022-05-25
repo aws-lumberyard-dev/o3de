@@ -18,7 +18,7 @@
 
 AZ_DEFINE_BUDGET(Navigation);
 
-#pragma optimize("", off)
+//#pragma optimize("", off)
 
 namespace RecastNavigation
 {
@@ -344,7 +344,6 @@ namespace RecastNavigation
         if (dtStatusFailed(status))
         {
             dtFree(navigationTileData.m_data);
-            AZ_Error("Navigation", false, "Could not add navigation tile to the navmesh");
             return false;
         }
 
@@ -352,4 +351,4 @@ namespace RecastNavigation
     }
 } // namespace RecastNavigation
 
-#pragma optimize("", on)
+//#pragma optimize("", on)

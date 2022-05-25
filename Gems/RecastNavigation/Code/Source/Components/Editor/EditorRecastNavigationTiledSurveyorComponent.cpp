@@ -12,7 +12,7 @@
 #include <Components/RecastNavigationTiledSurveyorComponent.h>
 #include <LmbrCentral/Shape/ShapeComponentBus.h>
 
-#pragma optimize("", off)
+//#pragma optimize("", off)
 
 namespace RecastNavigation
 {
@@ -119,4 +119,4 @@ namespace RecastNavigation
     }
 } // namespace RecastNavigation
 
-#pragma optimize("", on)
+//#pragma optimize("", on)
