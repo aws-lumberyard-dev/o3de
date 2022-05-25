@@ -320,7 +320,7 @@ namespace RecastNavigation
             AZ_Error("Navigation", false, "Could not init Detour navmesh");
             return false;
         }
-        
+
         m_navObjects->m_query.reset(dtAllocNavMeshQuery());
 
         status = m_navObjects->m_query->init(m_navObjects->m_mesh.get(), 2048);

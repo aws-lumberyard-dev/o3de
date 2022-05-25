@@ -37,6 +37,7 @@ namespace RecastNavigationTests
         static void GetProvidedServices(AZ::ComponentDescriptor::DependencyArrayType& provided)
         {
             provided.push_back(AZ_CRC_CE("BoxShapeService"));
+            provided.push_back(AZ_CRC_CE("AxisAlignedBoxShapeService"));
         }
 
         void Activate() override

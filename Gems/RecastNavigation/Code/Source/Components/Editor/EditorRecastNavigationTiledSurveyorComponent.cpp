@@ -60,7 +60,7 @@ namespace RecastNavigation
     {
         required.push_back(AZ_CRC_CE("AxisAlignedBoxShapeService"));
     }
-    
+
     void EditorRecastNavigationTiledSurveyorComponent::Activate()
     {
         EditorComponentBase::Activate();
@@ -69,15 +69,11 @@ namespace RecastNavigation
 
     void EditorRecastNavigationTiledSurveyorComponent::Deactivate()
     {
+        if (m_taskGraphEvent && m_taskGraphEvent->IsSignaled() == false)
         {
-            //AZStd::lock_guard lock(m_asyncCollectionMutex);
-            AZ_Printf("TEST", __FUNCTION__);
-            if (m_taskGraphEvent && m_taskGraphEvent->IsSignaled() == false)
-            {
-                m_taskGraphEvent->Wait();
-            }
-            m_taskGraphEvent = {};
+            m_taskGraphEvent->Wait();
         }
+        m_taskGraphEvent = {};
 
         EditorComponentBase::Deactivate();
         RecastNavigationSurveyorRequestBus::Handler::BusDisconnect();
@@ -93,8 +89,6 @@ namespace RecastNavigation
         float borderSize,
         AZStd::function<void(AZStd::shared_ptr<TileGeometry>)> tileCallback)
     {
-        //AZStd::lock_guard lock(m_asyncCollectionMutex);
-
         CollectGeometryAsyncImpl(tileSize, borderSize, GetWorldBounds(), m_debugDrawInputData, tileCallback);
     }
 

@@ -188,4 +188,32 @@ if(PAL_TRAIT_BUILD_HOST_TOOLS)
     ly_create_alias(NAME RecastNavigation.Tools    NAMESPACE Gem TARGETS Gem::RecastNavigation.Editor)
     ly_create_alias(NAME RecastNavigation.Builders NAMESPACE Gem TARGETS Gem::RecastNavigation.Editor)
 
+    # If we are a host platform we want to add tools test like editor tests here
+    if(PAL_TRAIT_BUILD_HOST_TOOLS)
+        # We are a host platform, see if Editor tests are supported on this platform
+        if(PAL_TRAIT_RECASTNAVIGATION_EDITOR_TEST_SUPPORTED)
+            # We support RecastNavigation.Editor.Tests on this platform, add RecastNavigation.Editor.Tests target which depends on
+            # private RecastNavigation.Editor.Private.Object target
+            ly_add_target(
+                NAME RecastNavigation.Editor.Tests ${PAL_TRAIT_TEST_TARGET_TYPE}
+                NAMESPACE Gem
+                FILES_CMAKE
+                    recastnavigation_editor_tests_files.cmake
+                INCLUDE_DIRECTORIES
+                    PRIVATE
+                        Tests
+                        Source
+                BUILD_DEPENDENCIES
+                    PRIVATE
+                        AZ::AzTest
+                        Gem::RecastNavigation.Editor.Static
+            )
+
+            # Add TestGem.Editor.Tests to googletest
+            ly_add_googletest(
+                NAME Gem::RecastNavigation.Editor.Tests
+            )
+        endif()
+    endif()
+
 endif()

@@ -10,7 +10,6 @@
 
 #include <AzCore/Component/Component.h>
 #include <AzCore/EBus/ScheduledEvent.h>
-#include <AzCore/Task/TaskExecutor.h>
 #include <AzCore/Task/TaskGraph.h>
 #include <Components/RecastNavigationMeshCommon.h>
 #include <Components/RecastNavigationMeshConfig.h>
@@ -39,18 +38,22 @@ namespace RecastNavigation
         void BuildGameEntity(AZ::Entity* gameEntity) override;
         //! @}
 
+        void OnDebugDrawTick();
+        void OnUpdateEvent();
+
     private:
         RecastNavigationMeshConfig m_meshConfig;
         bool m_enableDebugDraw = false;
-        AZ::ScheduledEvent m_debugDrawEvent{ [this]() { OnDebugDrawTick(); }, AZ::Name("EditorRecastNavigationDebugViewTick") };
-        void OnDebugDrawTick();
+        AZ::ScheduledEvent m_debugDrawEvent;
         void OnDebugDrawChanged();
 
         bool m_enableAutoUpdateInEditor = false;
         AZ::ScheduledEvent m_updateEvent;
-        void OnUpdateEvent();
         void OnAutoUpdateChanged();
 
         void CreateEditorNavigationMesh();
+        AZStd::atomic<bool> m_isUpdating{ false };
+
+        friend class EditorNavigationTest;
     };
 } // namespace RecastNavigation

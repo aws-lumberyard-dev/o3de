@@ -166,6 +166,7 @@ namespace RecastNavigation
     {
         if (m_navObjects && m_navObjects->m_mesh && (cl_navmesh_debug || m_showNavigationMesh))
         {
+            AZStd::lock_guard loc(m_navObjects->m_mutex);
             duDebugDrawNavMesh(&m_customDebugDraw, *m_navObjects->m_mesh, DU_DRAWNAVMESH_COLOR_TILES);
         }
     }

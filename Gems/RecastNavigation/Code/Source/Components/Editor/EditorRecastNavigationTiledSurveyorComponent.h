@@ -11,6 +11,7 @@
 #include <AzCore/Component/Component.h>
 #include <AzToolsFramework/ToolsComponents/EditorComponentBase.h>
 #include <Components/RecastNavigationTiledSurveyorCommon.h>
+#include <RecastNavigation/RecastNavigationSurveyorBus.h>
 
 namespace RecastNavigation
 {
@@ -48,7 +49,5 @@ namespace RecastNavigation
 
     private:
         bool m_debugDrawInputData = false;
-
-        AZStd::mutex m_asyncCollectionMutex;
     };
 } // namespace RecastNavigation

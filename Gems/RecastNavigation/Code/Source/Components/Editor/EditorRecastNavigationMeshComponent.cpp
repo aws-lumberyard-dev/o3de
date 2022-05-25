@@ -21,7 +21,16 @@ AZ_DECLARE_BUDGET(Navigation);
 namespace RecastNavigation
 {
     EditorRecastNavigationMeshComponent::EditorRecastNavigationMeshComponent()
-        : m_updateEvent([this]() { OnUpdateEvent(); }, AZ::Name("EditorRecastNavigationMeshUpdate"))
+        : m_debugDrawEvent(
+              [this]()
+              {
+                  OnDebugDrawTick();
+              }, AZ::Name("EditorRecastNavigationDebugViewTick"))
+          , m_updateEvent(
+              [this]()
+              {
+                  OnUpdateEvent();
+              }, AZ::Name("EditorRecastNavigationMeshUpdate"))
     {
     }
 
@@ -77,10 +86,13 @@ namespace RecastNavigation
     {
         EditorComponentBase::Activate();
 
+        if (m_enableDebugDraw)
+        {
+            OnDebugDrawChanged();
+        }
         if (m_enableAutoUpdateInEditor)
         {
             OnAutoUpdateChanged();
-            OnDebugDrawChanged();
         }
     }
 
@@ -99,9 +111,14 @@ namespace RecastNavigation
 
     void EditorRecastNavigationMeshComponent::OnDebugDrawTick()
     {
-        if (m_navObjects && m_navObjects->m_mesh)
+        if (m_navObjects)
         {
-            duDebugDrawNavMesh(&m_customDebugDraw, *m_navObjects->m_mesh, DU_DRAWNAVMESH_COLOR_TILES);
+            AZStd::lock_guard loc(m_navObjects->m_mutex);
+
+            if (m_navObjects->m_mesh)
+            {
+                duDebugDrawNavMesh(&m_customDebugDraw, *m_navObjects->m_mesh, DU_DRAWNAVMESH_COLOR_TILES);
+            }
         }
     }
 
@@ -121,42 +138,48 @@ namespace RecastNavigation
     {
         AZ_PROFILE_SCOPE(Navigation, "Navigation: (Editor) UpdateNavigationMeshAsync");
 
-        RecastNavigationSurveyorRequestBus::Event(GetEntityId(),
-            &RecastNavigationSurveyorRequests::CollectGeometryAsync,
-            m_meshConfig.m_tileSize, aznumeric_cast<float>(m_meshConfig.m_borderSize) * m_meshConfig.m_cellSize,
-            [this](AZStd::shared_ptr<TileGeometry> tile)
-            {
-                if (tile)
+        if (m_isUpdating == false)
+        {
+            m_isUpdating = true;
+
+            RecastNavigationSurveyorRequestBus::Event(GetEntityId(),
+                &RecastNavigationSurveyorRequests::CollectGeometryAsync,
+                m_meshConfig.m_tileSize, aznumeric_cast<float>(m_meshConfig.m_borderSize) * m_meshConfig.m_cellSize,
+                [this](AZStd::shared_ptr<TileGeometry> tile)
                 {
-                    if (tile->IsEmpty())
+                    if (tile)
                     {
-                        return;
-                    }
-
-                    NavigationTileData navigationTileData = CreateNavigationTile(tile.get(),
-                        m_meshConfig, m_context.get());
-
-                    if (navigationTileData.IsValid())
-                    {
-                        AZ_PROFILE_SCOPE(Navigation, "Navigation: (Editor) UpdateNavigationMeshAsync - tile callback");
-                        AZStd::lock_guard lock(m_navObjects->m_mutex);
-
-                        if (const dtTileRef tileRef = m_navObjects->m_mesh->getTileRefAt(tile->m_tileX, tile->m_tileY, 0))
+                        if (tile->IsEmpty())
                         {
-                            m_navObjects->m_mesh->removeTile(tileRef, nullptr, nullptr);
+                            return;
                         }
+
+                        NavigationTileData navigationTileData = CreateNavigationTile(tile.get(),
+                            m_meshConfig, m_context.get());
+
                         if (navigationTileData.IsValid())
                         {
-                            AttachNavigationTileToMesh(navigationTileData);
+                            AZ_PROFILE_SCOPE(Navigation, "Navigation: (Editor) UpdateNavigationMeshAsync - tile callback");
+                            AZStd::lock_guard lock(m_navObjects->m_mutex);
+
+                            if (const dtTileRef tileRef = m_navObjects->m_mesh->getTileRefAt(tile->m_tileX, tile->m_tileY, 0))
+                            {
+                                m_navObjects->m_mesh->removeTile(tileRef, nullptr, nullptr);
+                            }
+                            if (navigationTileData.IsValid())
+                            {
+                                AttachNavigationTileToMesh(navigationTileData);
+                            }
                         }
                     }
-                }
-                else
-                {
-                    RecastNavigationMeshNotificationBus::Event(GetEntityId(),
-                        &RecastNavigationMeshNotifications::OnNavigationMeshUpdated, GetEntityId());
-                }
-            });
+                    else
+                    {
+                        RecastNavigationMeshNotificationBus::Event(GetEntityId(),
+                            &RecastNavigationMeshNotifications::OnNavigationMeshUpdated, GetEntityId());
+                        m_isUpdating = false;
+                    }
+                });
+        }
     }
 
     void EditorRecastNavigationMeshComponent::OnAutoUpdateChanged()
