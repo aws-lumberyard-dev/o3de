@@ -5298,10 +5298,17 @@ namespace AssetProcessor
         {
             reprocessList.push_back(normalizedSourcePath.toUtf8().constData());
         }
+        return RequestReprocess(reprocessList);
+    }
 
+    AZ::u64 AssetProcessorManager::RequestReprocess(const QStringList& reprocessList)
+    {
         AZ::u64 filesFound{ 0 };
-        for (const auto& sourcePath : reprocessList)
+        for (QString sourcePath : reprocessList)
         {
+            // Remove invalid characters
+            sourcePath.remove(QRegExp("[\\n\\r]"));
+
             QString scanFolderName;
             QString relativePathToFile;
 
