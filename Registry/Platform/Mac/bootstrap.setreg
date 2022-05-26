@@ -1,0 +1,18 @@
+{
+    "Amazon": {
+        "AzCore": {
+            "Bootstrap": {
+                //"remote_filesystem": 1,
+                "assets": "mac",
+                //"allowed_list": "",
+                //"remote_ip": "127.0.0.1",
+                //"remote_port": 45644,
+                "connect_to_remote": 1,
+                //"wait_for_connect": 1,
+                //"connect_ap_timeout" : 30,
+                "launch_ap_timeout": 300,
+                //"wait_ap_ready_timeout": 1200
+            }
+        }
+    }
+}
