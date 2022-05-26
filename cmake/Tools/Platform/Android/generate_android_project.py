@@ -25,7 +25,7 @@ from cmake.Tools.Platform.Android import android_support
 
 GRADLE_ARGUMENT_NAME = '--gradle-install-path'
 GRADLE_MIN_VERSION = LooseVersion('6.5')
-GRADLE_MAX_VERSION = LooseVersion('7.0.2')
+GRADLE_MAX_VERSION = LooseVersion('7.4.2')
 GRADLE_VERSION_REGEX = re.compile(r"Gradle\s(\d+.\d+.?\d*)")
 GRADLE_EXECUTABLE = 'gradle.bat' if platform.system() == 'Windows' else 'gradle'
 
@@ -278,6 +278,14 @@ def main(args):
                         action='store_true',
                         help='Enable unity build')
 
+    parser.add_argument('--enable-monolithic-build',
+                        action='store_true',
+                        help='Enable monolithic build')
+
+    parser.add_argument('--engine-centric',
+                        action='store_true',
+                        help='Enable engine centric mode')
+
     parsed_args = parser.parse_args(args)
     wrap_parsed_args(parsed_args)
 
@@ -373,9 +381,27 @@ def main(args):
     android_ndk_package = android_sdk.install_package(package_install_path=android_ndk_package_name,
                                                       package_description='Android NDK')
 
+    # is_test_project is used to build the AzTestRunner, currently this only works in non monolithic mode
+    if parsed_args.unit_test and parsed_args.enable_monolithic_build:
+        raise common.LmbrCmdError(f"Invalid --is_test_project cannot be done with --enable-monolithic-build.",
+                                  common.ERROR_CODE_INVALID_PARAMETER)
+
+    # is_test_project is used to build the AzTestRunner, currently this only works in engine centric mode
+    if parsed_args.unit_test and not parsed_args.engine_centric:
+        raise common.LmbrCmdError(f"Invalid --is_test_project can only be done using --engine-centric mode.",
+                                  common.ERROR_CODE_INVALID_PARAMETER)
+
     # Verify the engine root path and project path
     verified_project_path, verified_engine_root = common.verify_project_and_engine_root(project_root=parsed_args.project_path,
                                                                                         engine_root=parsed_args.engine_root)
+
+    # If engine centric, then the project must be relative to the engine root
+    if parsed_args.engine_centric:
+        if verified_engine_root.as_posix() not in verified_project_path.as_posix():
+            raise common.LmbrCmdError(f"Invalid --project_path '{parsed_args.project_path} in engine-centric mode."
+                                      f" Project must be under the engine root {parsed_args.engine_root} in engine centric mode'.",
+                                      common.ERROR_CODE_INVALID_PARAMETER)
+
     is_test_project = parsed_args.unit_test
 
     # Verify the 3rd Party Root Path
@@ -392,6 +418,7 @@ def main(args):
                                                     key_password=parsed_args.get_argument(SIGNING_PROFILE_KEY_PASSWORD_ARGUMENT_NAME))
 
     logging.debug("Engine Root      : %s", str(verified_engine_root.resolve()))
+    logging.debug("Project Path     : %s", str(verified_project_path.resolve()))
     logging.debug("Build Path       : %s", str(build_dir.resolve()))
 
     # Prepare the generator and execute
@@ -419,7 +446,9 @@ def main(args):
                                                         unity_build_enabled=parsed_args.enable_unity_build,
                                                         native_build_path=parsed_args.native_build_path,
                                                         vulkan_validation_path=parsed_args.vulkan_validation_path,
-                                                        extra_cmake_configure_args=parsed_args.extra_cmake_configure_args)
+                                                        extra_cmake_configure_args=parsed_args.extra_cmake_configure_args,
+                                                        monolithic_build=parsed_args.enable_monolithic_build,
+                                                        engine_centric=parsed_args.engine_centric)
     generator.execute()
 
 

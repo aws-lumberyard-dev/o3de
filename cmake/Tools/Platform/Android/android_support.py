@@ -37,7 +37,15 @@ ANDROID_GRADLE_PLUGIN_COMPATIBILITY_MAP = {
     '4.2.2': {'min_gradle_version': '6.7.1',
               'sdk_build': '30.0.2',
               'default_ndk': '21.4.7075529',
-              'min_cmake_version': '3.20'}
+              'min_cmake_version': '3.20'},
+    '7.2.0': {'min_gradle_version': '7.2.0',
+              'sdk_build': '30.0.3',
+              'default_ndk': '22.1.7171670',
+              'min_cmake_version': '3.22'},
+    '7.2.1': {'min_gradle_version': '7.2.4',
+              'sdk_build': '32.0.0',
+              'default_ndk': '24.0.8215888',
+              'min_cmake_version': '3.23'}
 }
 
 APP_NAME = 'app'
@@ -377,7 +385,7 @@ CUSTOM_GRADLE_COPY_NATIVE_CONFIG_BUILD_ARTIFACTS_FORMAT_STR = """
         into  '{asset_layout_folder}'
     }}
 
-    compile{config}Sources.dependsOn copyNativeArtifacts{config}
+    compile{config}Aidl.dependsOn copyNativeArtifacts{config}
 """
 
 CUSTOM_GRADLE_COPY_NATIVE_CONFIG_BUILD_ARTIFACTS_DEPENDENCY_FORMAT_STR = """
@@ -410,7 +418,7 @@ CUSTOM_APPLY_ASSET_LAYOUT_TASK_FORMAT_STR = """
         commandLine '{python_full_path}', 'layout_tool.py', '--project-path', '{project_path}', '-p', 'Android', '-a', '{asset_type}', '-m', '{asset_mode}', '--create-layout-root', '-l', '{asset_layout_folder}'
     }}
     
-    compile{config}Sources.dependsOn syncLYLayoutMode{config}
+    compile{config}Aidl.dependsOn syncLYLayoutMode{config}
 
     syncLYLayoutMode{config}.mustRunAfter {{
         tasks.findAll {{ task->task.name.contains('externalNativeBuild{config}') }}
@@ -478,7 +486,7 @@ class AndroidProjectGenerator(object):
                  project_path, third_party_path, cmake_version, override_cmake_path, override_gradle_path, gradle_version, gradle_plugin_version,
                  override_ninja_path, include_assets_in_apk, asset_mode, asset_type, signing_config, native_build_path, vulkan_validation_path,
                  extra_cmake_configure_args, is_test_project=False,
-                 overwrite_existing=True, unity_build_enabled=False):
+                 overwrite_existing=True, unity_build_enabled=False, monolithic_build=False, engine_centric=False):
         """
         Initialize the object with all the required parameters needed to create an Android Project. The parameters should be verified before initializing this object
 
@@ -506,6 +514,9 @@ class AndroidProjectGenerator(object):
         :param extra_cmake_configure_args Additional arguments to supply cmake when configuring a project
         :param is_test_project:         Flag to indicate if this is a unit test runner project. (If true, project_path, asset_mode, asset_type, and include_assets_in_apk are ignored)
         :param overwrite_existing:      Flag to overwrite existing project files when being generated, or skip if they already exist.
+        :param unity_build_enabled:     Flag to enable unity building
+        :param monolithic_build:        Flag to enable monolithic mode, note release is always monolithic
+        :param engine_centric:          Flag to enable engine centric mode
         """
         self.env = {}
 
@@ -559,6 +570,10 @@ class AndroidProjectGenerator(object):
         self.overwrite_existing = overwrite_existing
 
         self.unity_build_enabled = unity_build_enabled
+
+        self.monolithic_build = monolithic_build
+
+        self.engine_centric = engine_centric
 
     def execute(self):
         """
@@ -797,6 +812,7 @@ class AndroidProjectGenerator(object):
         gradle_project_dependencies = [f"    api project(path: ':{project_dependency}')" for project_dependency in project_dependencies]
 
         template_engine_root = common.normalize_path_for_settings(self.engine_root)
+        template_project_path = common.normalize_path_for_settings(self.project_path)
         template_third_party_path = common.normalize_path_for_settings(self.third_party_path)
         template_ndk_path = common.normalize_path_for_settings(os.path.join(self.android_sdk_path, self.android_ndk.location))
         template_unity_build = 1 if self.unity_build_enabled else 0
@@ -805,9 +821,14 @@ class AndroidProjectGenerator(object):
 
         gradle_build_env = dict()
 
-        engine_root_as_path= pathlib.Path(self.engine_root)
+        engine_root_as_path = pathlib.Path(self.engine_root)
+        project_path_as_path = pathlib.Path(self.project_path)
 
-        absolute_cmakelist_path = (engine_root_as_path / 'CMakeLists.txt').resolve().as_posix()
+        if self.engine_centric:
+            absolute_cmakelist_path = (engine_root_as_path / 'CMakeLists.txt').resolve().as_posix()
+        else:
+            absolute_cmakelist_path = (project_path_as_path / 'CMakeLists.txt').resolve().as_posix()
+
         absolute_azandroid_path = (engine_root_as_path / 'Code/Framework/AzAndroid/java').resolve().as_posix()
 
         gradle_build_env['TARGET_TYPE'] = 'application'
@@ -825,21 +846,29 @@ class AndroidProjectGenerator(object):
             native_config_lower = native_config.lower()
 
             # Prepare the cmake argument list based on the collected android settings and each build config
-            cmake_argument_list = [
-                '"-GNinja"',
-                f'"-S{template_engine_root}"',
+            cmake_argument_list = ['"-GNinja"']
+
+            if self.engine_centric:
+                cmake_argument_list.append(f'"-S{template_engine_root}"')
+            else:
+                cmake_argument_list.append(f'"-S{template_project_path}"')
+
+            cmake_argument_list.extend([
                 f'"-DCMAKE_BUILD_TYPE={native_config_lower}"',
                 f'"-DCMAKE_TOOLCHAIN_FILE={template_engine_root}/cmake/Platform/Android/Toolchain_Android.cmake"',
                 f'"-DLY_3RDPARTY_PATH={template_third_party_path}"',
-                f'"-DLY_UNITY_BUILD={template_unity_build}"']
+                f'"-DLY_UNITY_BUILD={template_unity_build}"'])
 
             if self.vulkan_validation_path:
                 cmake_argument_list.append(f'"-DLY_ANDROID_VULKAN_VALIDATION_PATH={pathlib.PurePath(self.vulkan_validation_path).as_posix()}"')
 
-            if not self.is_test_project:
-                cmake_argument_list.append(f'"-DLY_PROJECTS={pathlib.PurePath(self.project_path).as_posix()}"')
-            else:
-                cmake_argument_list.append('"-DLY_TEST_PROJECT=1"')
+            # at the moment is_test_project = DLY_TEST_PROJECT=1 which builds the AzTestRunner
+            # which is only supported in engine-centric mode
+            if self.engine_centric:
+                if not self.is_test_project:
+                    cmake_argument_list.append(f'"-DLY_PROJECTS={pathlib.PurePath(self.project_path).as_posix()}"')
+                else:
+                    cmake_argument_list.append('"-DLY_TEST_PROJECT=1"')
 
             cmake_argument_list.extend([
                 f'"-DANDROID_NATIVE_API_LEVEL={self.android_native_api_level}"',
@@ -847,7 +876,7 @@ class AndroidProjectGenerator(object):
                 '"-DANDROID_STL=c++_shared"',
                 '"-Wno-deprecated"',
             ])
-            if native_config == 'Release':
+            if self.monolithic_build or native_config == 'Release':
                 cmake_argument_list.append('"-DLY_MONOLITHIC_GAME=1"')
 
             if self.override_ninja_path:
@@ -856,8 +885,9 @@ class AndroidProjectGenerator(object):
             if self.extra_cmake_configure_args:
                 cmake_argument_list.extend(map(json.dumps, self.extra_cmake_configure_args))
 
-            # Query the project_path from the project.json file
+            # Query the project name from the project.json file
             project_name = common.read_project_name_from_project_json(self.project_path)
+
             # Prepare the config-specific section to place the cmake argument list in the build.gradle for the app
             gradle_build_env[f'NATIVE_CMAKE_SECTION_{native_config_upper}_CONFIG'] = \
                 NATIVE_CMAKE_SECTION_BUILD_TYPE_CONFIG_FORMAT_STR.format(targets_section=f'targets "{project_name}.GameLauncher"'
@@ -897,9 +927,6 @@ class AndroidProjectGenerator(object):
                     # This is a dependency of the layout sync only if we are including assets in the APK
                     gradle_build_env[f'CUSTOM_APPLY_ASSET_LAYOUT_{native_config_upper}_TASK'] += \
                         CUSTOM_GRADLE_COPY_REGISTRY_FOLDER_DEPENDENCY_FORMAT_STR.format(config=native_config)
-
-
-
 
             if self.signing_config:
                 gradle_build_env[f'SIGNING_{native_config_upper}_CONFIG'] = f'signingConfig signingConfigs.{native_config_lower}' if self.signing_config else ''
