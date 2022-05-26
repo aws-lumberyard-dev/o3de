@@ -184,9 +184,12 @@ namespace PhysX
         }
         else if (memberChain.size() == 1)
         {
+            // If the member chain is only one member, just remove it from the component.
             prefabComponent.RemoveMember(memberChain[0].c_str());
             return;
         }
+
+        // If the chain is 2 or more members, find the member previous to last.
 
         auto memberIter = prefabComponent.FindMember(memberChain[0].c_str());
         if (memberIter == prefabComponent.MemberEnd())
@@ -204,6 +207,7 @@ namespace PhysX
             memberIter = memberFoundIter;
         }
 
+        // Remove the last member in the chain.
         memberIter->value.RemoveMember(memberChain.back().c_str());
     }
 

@@ -55,9 +55,9 @@ namespace Blast
         // Configurations
         AZ::Data::Asset<BlastAsset> m_blastAsset;
         AZ::Data::Asset<MaterialAsset> m_blastMaterialAsset;
-        BlastMaterialId m_legacyBlastMaterialId; // Kept to convert old blast material assets. It will be removed eventually.
+        BlastMaterialId m_legacyBlastMaterialId; // Kept to convert old blast material assets.
         AZ::Data::Asset<Physics::MaterialAsset> m_physicsMaterialAsset;
-        PhysicsLegacy::MaterialId m_legacyPhysicsMaterialId; // Kept to convert old physics material assets. It will be removed eventually.
+        PhysicsLegacy::MaterialId m_legacyPhysicsMaterialId; // Kept to convert old physics material assets.
 
         BlastActorConfiguration m_actorConfiguration;
     };
