@@ -107,7 +107,7 @@ bool SystemFile::PlatformOpen(int mode, int platformFlags)
         CreatePath(m_fileName.c_str());
     }
 
-    int errorCode = 0;
+    [[maybe_unused]] int errorCode = 0;
     if (isApkFile)
     {
         AZ::u64 size = 0;
