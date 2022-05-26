@@ -60,7 +60,7 @@ ly_add_target(
         scriptcanvasgem_extensions_files.cmake
     INCLUDE_DIRECTORIES
         PUBLIC
-            Include/ScriptCanvas/AutoGen
+            Include
     BUILD_DEPENDENCIES
         PUBLIC
             AZ::AzCore
@@ -255,7 +255,6 @@ if(PAL_TRAIT_BUILD_TESTS_SUPPORTED)
                 AZ::AzFramework
                 AZ::AzTest
                 Gem::ScriptCanvas.Static
-                Gem::ScriptCanvas.Extensions
     )
     ly_add_googletest(
         NAME Gem::ScriptCanvas.Tests

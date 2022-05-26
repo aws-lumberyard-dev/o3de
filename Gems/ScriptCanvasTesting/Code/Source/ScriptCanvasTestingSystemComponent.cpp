@@ -43,9 +43,7 @@ namespace ScriptCanvasTesting
 
         ScriptCanvasTestingNodes::BehaviorContextObjectTest::Reflect(context);
         ScriptCanvasTesting::Reflect(context);
-        // Reflect testing only autogen function
-        ScriptCanvas::AutoGenRegistry::ReflectFunction(
-            context, ScriptCanvas::ScriptCanvasTestingEditorStaticFunctionRegistry::GetRegistryName());
+        REFLECT_SCRIPTCANVAS_AUTOGEN(ScriptCanvasTestingEditorStatic, context);
     }
 
     void ScriptCanvasTestingSystemComponent::GetProvidedServices(AZ::ComponentDescriptor::DependencyArrayType& provided)

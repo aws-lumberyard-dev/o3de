@@ -131,8 +131,7 @@ namespace ScriptCanvasTests
             ScriptUnitTestEventHandler::Reflect(m_serializeContext);
             ScriptUnitTestEventHandler::Reflect(m_behaviorContext);
             REGISTER_SCRIPTCANVAS_AUTOGEN_FUNCTION(ScriptCanvasTestingEditorStatic);
-            ScriptCanvas::AutoGenRegistry::ReflectFunction(
-                m_behaviorContext, ScriptCanvas::ScriptCanvasTestingEditorStaticFunctionRegistry::GetRegistryName());
+            REFLECT_SCRIPTCANVAS_AUTOGEN(ScriptCanvasTestingEditorStatic, m_behaviorContext);
         }
 
         static void TearDownTestCase()

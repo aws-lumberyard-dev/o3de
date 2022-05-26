@@ -20,6 +20,10 @@ namespace AZ
 #define REGISTER_SCRIPTCANVAS_AUTOGEN_FUNCTION(LIBRARY)\
     static ScriptCanvas::LIBRARY##FunctionRegistry s_AutoGenFunctionRegistry;
 
+//! AutoGen registry util macros
+#define REFLECT_SCRIPTCANVAS_AUTOGEN(LIBRARY, CONTEXT)\
+    ScriptCanvas::AutoGenRegistry::Reflect(CONTEXT, #LIBRARY);
+
 namespace ScriptCanvas
 {
     class IScriptCanvasFunctionRegistry
@@ -39,11 +43,11 @@ namespace ScriptCanvas
 
         static AutoGenRegistry* GetInstance();
 
-        //! Reflect all AutoGen functions
+        //! Reflect all AutoGen regiestries
         static void Reflect(AZ::ReflectContext* context);
 
-        //! Reflect specified AutoGen function by given name
-        static void ReflectFunction(AZ::ReflectContext* context, const char* functionName);
+        //! Reflect specified AutoGen registry by given name
+        static void Reflect(AZ::ReflectContext* context, const char* registryName);
 
         //! Register function registry with its name
         void RegisterFunction(const char* functionName, IScriptCanvasFunctionRegistry* registry);
