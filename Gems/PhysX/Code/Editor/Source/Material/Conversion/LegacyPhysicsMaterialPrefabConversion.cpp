@@ -6,6 +6,7 @@
  *
  */
 
+<<<<<<< HEAD
 #include <AzFramework/API/ApplicationAPI.h>
 #include <AzFramework/Physics/Material/Legacy/LegacyPhysicsMaterialSelection.h>
 #include <AzFramework/Physics/Material/PhysicsMaterialSlots.h>
@@ -13,12 +14,31 @@
 #include <AzToolsFramework/SourceControl/SourceControlAPI.h>
 #include <AzToolsFramework/Physics/Material/Legacy/LegacyPhysicsMaterialConversionUtils.h>
 #include <AzToolsFramework/Physics/Material/Legacy/LegacyPhysicsPrefabConversionUtils.h>
+=======
+#include <AzCore/Asset/AssetCommon.h>
+#include <AzCore/Asset/AssetManager.h>
+
+#include <AzFramework/API/ApplicationAPI.h>
+#include <AzFramework/Physics/Material/Legacy/LegacyPhysicsMaterialSelection.h>
+#include <AzFramework/Physics/Material/PhysicsMaterialSlots.h>
+#include <AzFramework/Spawnable/Spawnable.h>
+
+#include <AzToolsFramework/API/EditorAssetSystemAPI.h>
+#include <AzToolsFramework/Prefab/PrefabDomUtils.h>
+#include <AzToolsFramework/Prefab/PrefabLoaderInterface.h>
+#include <AzToolsFramework/Prefab/PrefabSystemComponentInterface.h>
+#include <AzToolsFramework/SourceControl/SourceControlAPI.h>
+>>>>>>> PhysXMaterialRefactor
 
 #include <Source/EditorColliderComponent.h>
 #include <Source/EditorShapeColliderComponent.h>
 #include <Source/EditorHeightfieldColliderComponent.h>
 #include <Source/PhysXCharacters/Components/EditorCharacterControllerComponent.h>
 
+<<<<<<< HEAD
+=======
+#include <Editor/Source/Material/Conversion/LegacyPhysicsMaterialLibraryConversion.h>
+>>>>>>> PhysXMaterialRefactor
 #include <Editor/Source/Material/Conversion/LegacyPhysicsMaterialPrefabConversion.h>
 
 namespace PhysX
@@ -26,6 +46,7 @@ namespace PhysX
     static const AZ::TypeId EditorBlastFamilyComponentTypeId = AZ::TypeId::CreateString("{ECB1689A-2B65-44D1-9227-9E62962A7FF7}");
     static const AZ::TypeId EditorTerrainPhysicsColliderComponentTypeId = AZ::TypeId::CreateString("{C43FAB8F-3968-46A6-920E-E84AEDED3DF5}");
 
+<<<<<<< HEAD
     bool FixPhysicsMaterialSelection(
         Physics::Utils::PrefabInfo& prefabInfo,
         AzToolsFramework::Prefab::PrefabDomValue& component,
@@ -40,11 +61,319 @@ namespace PhysX
                 Physics::Utils::ConvertLegacyMaterialSelectionToMaterialSlots(legacyMaterialSelection, legacyMaterialIdToNewAssetIdMap);
 
             if (Physics::Utils::IsDefaultMaterialSlots(materialSlots))
+=======
+    struct PrefabInfo
+    {
+        AzToolsFramework::Prefab::TemplateId m_templateId;
+        AzToolsFramework::Prefab::Template* m_template = nullptr;
+        AZStd::string m_prefabFullPath;
+    };
+
+    AZStd::vector<PrefabInfo> CollectPrefabs()
+    {
+        AZStd::vector<PrefabInfo> prefabsWithLegacyMaterials;
+
+        auto* prefabLoader = AZ::Interface<AzToolsFramework::Prefab::PrefabLoaderInterface>::Get();
+        auto* prefabSystemComponent = AZ::Interface<AzToolsFramework::Prefab::PrefabSystemComponentInterface>::Get();
+
+        AZ::Data::AssetCatalogRequests::AssetEnumerationCB assetEnumerationCB =
+            [&prefabsWithLegacyMaterials, prefabLoader,
+             prefabSystemComponent](const AZ::Data::AssetId assetId, const AZ::Data::AssetInfo& assetInfo)
+        {
+            if (assetInfo.m_assetType != AzFramework::Spawnable::RTTI_Type())
+            {
+                return;
+            }
+
+            AZStd::optional<AZStd::string> assetFullPath = GetFullSourceAssetPathById(assetId);
+            if (!assetFullPath.has_value())
+            {
+                return;
+            }
+
+            if (auto templateId = prefabLoader->LoadTemplateFromFile(assetFullPath->c_str());
+                templateId != AzToolsFramework::Prefab::InvalidTemplateId)
+            {
+                if (auto templateResult = prefabSystemComponent->FindTemplate(templateId); templateResult.has_value())
+                {
+                    AzToolsFramework::Prefab::Template& templateRef = templateResult->get();
+                    prefabsWithLegacyMaterials.push_back({ templateId, &templateRef, AZStd::move(*assetFullPath) });
+                }
+            }
+        };
+
+        AZ::Data::AssetCatalogRequestBus::Broadcast(
+            &AZ::Data::AssetCatalogRequestBus::Events::EnumerateAssets, nullptr, assetEnumerationCB, nullptr);
+
+        return prefabsWithLegacyMaterials;
+    }
+
+    AZStd::vector<AzToolsFramework::Prefab::PrefabDomValue*> GetPrefabEntities(AzToolsFramework::Prefab::PrefabDom& prefab)
+    {
+        if (!prefab.IsObject())
+        {
+            return {};
+        }
+
+        AZStd::vector<AzToolsFramework::Prefab::PrefabDomValue*> entities;
+
+        if (auto entitiesIter = prefab.FindMember(AzToolsFramework::Prefab::PrefabDomUtils::EntitiesName);
+            entitiesIter != prefab.MemberEnd() && entitiesIter->value.IsObject())
+        {
+            entities.reserve(entitiesIter->value.MemberCount());
+
+            for (auto entityIter = entitiesIter->value.MemberBegin(); entityIter != entitiesIter->value.MemberEnd(); ++entityIter)
+            {
+                if (entityIter->value.IsObject())
+                {
+                    entities.push_back(&entityIter->value);
+                }
+            }
+        }
+
+        return entities;
+    }
+
+    AZStd::vector<AzToolsFramework::Prefab::PrefabDomValue*> GetEntityComponents(AzToolsFramework::Prefab::PrefabDomValue& entity)
+    {
+        AZStd::vector<AzToolsFramework::Prefab::PrefabDomValue*> components;
+
+        if (auto componentsIter = entity.FindMember(AzToolsFramework::Prefab::PrefabDomUtils::ComponentsName);
+            componentsIter != entity.MemberEnd() && componentsIter->value.IsObject())
+        {
+            components.reserve(componentsIter->value.MemberCount());
+
+            for (auto componentIter = componentsIter->value.MemberBegin(); componentIter != componentsIter->value.MemberEnd();
+                 ++componentIter)
+            {
+                if (!componentIter->value.IsObject())
+                {
+                    continue;
+                }
+
+                components.push_back(&componentIter->value);
+            }
+        }
+
+        return components;
+    }
+
+    AZ::TypeId GetComponentTypeId(const AzToolsFramework::Prefab::PrefabDomValue& component)
+    {
+        const auto typeFieldIter = component.FindMember(AzToolsFramework::Prefab::PrefabDomUtils::TypeName);
+        if (typeFieldIter == component.MemberEnd())
+        {
+            return AZ::TypeId::CreateNull();
+        }
+
+        AZ::TypeId typeId = AZ::TypeId::CreateNull();
+        AZ::JsonSerialization::LoadTypeId(typeId, typeFieldIter->value);
+
+        return typeId;
+    }
+
+    AzToolsFramework::Prefab::PrefabDomValue* FindMemberChainInPrefabComponent(
+        const AZStd::vector<AZStd::string>& memberChain, AzToolsFramework::Prefab::PrefabDomValue& prefabComponent)
+    {
+        if (memberChain.empty())
+        {
+            return nullptr;
+        }
+
+        auto memberIter = prefabComponent.FindMember(memberChain[0].c_str());
+        if (memberIter == prefabComponent.MemberEnd())
+        {
+            return nullptr;
+        }
+
+        for (size_t i = 1; i < memberChain.size(); ++i)
+        {
+            auto memberFoundIter = memberIter->value.FindMember(memberChain[i].c_str());
+            if (memberFoundIter == memberIter->value.MemberEnd())
+            {
+                return nullptr;
+            }
+            memberIter = memberFoundIter;
+        }
+        return &memberIter->value;
+    }
+
+    const AzToolsFramework::Prefab::PrefabDomValue* FindMemberChainInPrefabComponent(
+        const AZStd::vector<AZStd::string>& memberChain, const AzToolsFramework::Prefab::PrefabDomValue& prefabComponent)
+    {
+        return FindMemberChainInPrefabComponent(memberChain, const_cast<AzToolsFramework::Prefab::PrefabDomValue&>(prefabComponent));
+    }
+
+    void RemoveMemberChainInPrefabComponent(
+        const AZStd::vector<AZStd::string>& memberChain, AzToolsFramework::Prefab::PrefabDomValue& prefabComponent)
+    {
+        if (memberChain.empty())
+        {
+            return;
+        }
+        else if (memberChain.size() == 1)
+        {
+            // If the member chain is only one member, just remove it from the component.
+            prefabComponent.RemoveMember(memberChain[0].c_str());
+            return;
+        }
+
+        // If the chain is 2 or more members, find the member previous to last.
+
+        auto memberIter = prefabComponent.FindMember(memberChain[0].c_str());
+        if (memberIter == prefabComponent.MemberEnd())
+        {
+            return;
+        }
+
+        for (size_t i = 1; i < memberChain.size() - 1; ++i)
+        {
+            auto memberFoundIter = memberIter->value.FindMember(memberChain[i].c_str());
+            if (memberFoundIter == memberIter->value.MemberEnd())
+            {
+                return;
+            }
+            memberIter = memberFoundIter;
+        }
+
+        // Remove the last member in the chain.
+        memberIter->value.RemoveMember(memberChain.back().c_str());
+    }
+
+    template<class T>
+    bool LoadObjectFromPrefabComponent(
+        const AZStd::vector<AZStd::string>& memberChain, const AzToolsFramework::Prefab::PrefabDomValue& prefabComponent, T& object)
+    {
+        const auto* member = FindMemberChainInPrefabComponent(memberChain, prefabComponent);
+        if (!member)
+        {
+            return false;
+        }
+
+        auto result = AZ::JsonSerialization::Load(&object, azrtti_typeid<T>(), *member);
+
+        return result.GetProcessing() == AZ::JsonSerializationResult::Processing::Completed;
+    }
+
+    template<class T>
+    bool StoreObjectToPrefabComponent(
+        const AZStd::vector<AZStd::string>& memberChain,
+        AzToolsFramework::Prefab::PrefabDom& prefabDom,
+        AzToolsFramework::Prefab::PrefabDomValue& prefabComponent,
+        const T& object)
+    {
+        auto* member = FindMemberChainInPrefabComponent(memberChain, prefabComponent);
+        if (!member)
+        {
+            return false;
+        }
+
+        T defaultObject;
+
+        auto result = AZ::JsonSerialization::Store(*member, prefabDom.GetAllocator(), &object, &defaultObject, azrtti_typeid<T>());
+
+        return result.GetProcessing() == AZ::JsonSerializationResult::Processing::Completed;
+    }
+
+    AZ::Data::Asset<Physics::MaterialAsset> ConvertLegacyMaterialIdToMaterialAsset(
+        const PhysicsLegacy::MaterialId& legacyMaterialId,
+        const LegacyMaterialIdToNewAssetIdMap& legacyMaterialIdToNewAssetIdMap)
+    {
+        if (legacyMaterialId.m_id.IsNull())
+        {
+            return {};
+        }
+
+        auto it = legacyMaterialIdToNewAssetIdMap.find(legacyMaterialId.m_id);
+        if (it == legacyMaterialIdToNewAssetIdMap.end())
+        {
+            AZ_Warning(
+                "PhysXMaterialConversion", false, "Unable to find a physics material asset to replace legacy material id '%s' with.",
+                legacyMaterialId.m_id.ToString<AZStd::string>().c_str());
+            return {};
+        }
+
+        const AZ::Data::AssetId newMaterialAssetId = it->second;
+
+        AZ::Data::AssetInfo assetInfo;
+        AZ::Data::AssetCatalogRequestBus::BroadcastResult(assetInfo, &AZ::Data::AssetCatalogRequests::GetAssetInfoById, newMaterialAssetId);
+        AZ::Data::Asset<Physics::MaterialAsset> newMaterialAsset(newMaterialAssetId, assetInfo.m_assetType, assetInfo.m_relativePath);
+
+        return newMaterialAsset;
+    }
+
+    Physics::MaterialSlots ConvertLegacyMaterialSelectionToMaterialSlots(
+        const PhysicsLegacy::MaterialSelection& legacyMaterialSelection,
+        const LegacyMaterialIdToNewAssetIdMap& legacyMaterialIdToNewAssetIdMap)
+    {
+        if (legacyMaterialSelection.m_materialIdsAssignedToSlots.empty())
+        {
+            return {};
+        }
+
+        Physics::MaterialSlots newMaterialSlots;
+
+        if (legacyMaterialSelection.m_materialIdsAssignedToSlots.size() == 1)
+        {
+            // MaterialSlots by default has one slot called "Entire Object", keep that
+            // name if the selection only has one entry.
+            newMaterialSlots.SetMaterialAsset(0,
+                ConvertLegacyMaterialIdToMaterialAsset(
+                    legacyMaterialSelection.m_materialIdsAssignedToSlots[0], legacyMaterialIdToNewAssetIdMap));
+        }
+        else
+        {
+            AZStd::vector<AZStd::string> slotNames;
+            slotNames.reserve(legacyMaterialSelection.m_materialIdsAssignedToSlots.size());
+            for (size_t i = 0; i < legacyMaterialSelection.m_materialIdsAssignedToSlots.size(); ++i)
+            {
+                // Using Material 1, Material 2, etc. for slot names when there is more than one entry.
+                slotNames.push_back(AZStd::string::format("Material %d", i + 1));
+            }
+
+            newMaterialSlots.SetSlots(slotNames);
+            for (size_t i = 0; i < legacyMaterialSelection.m_materialIdsAssignedToSlots.size(); ++i)
+            {
+                newMaterialSlots.SetMaterialAsset(i,
+                    ConvertLegacyMaterialIdToMaterialAsset(
+                        legacyMaterialSelection.m_materialIdsAssignedToSlots[i], legacyMaterialIdToNewAssetIdMap));
+            }
+        }
+
+        return newMaterialSlots;
+    }
+
+    bool FixPhysicsMaterialSelection(
+        PrefabInfo& prefabInfo,
+        AzToolsFramework::Prefab::PrefabDomValue& component,
+        const LegacyMaterialIdToNewAssetIdMap& legacyMaterialIdToNewAssetIdMap,
+        const AZStd::vector<AZStd::string>& oldMemberChain,
+        const AZStd::vector<AZStd::string>& newMemberChain)
+    {
+        auto isDefaultMaterialSlots = [](const Physics::MaterialSlots& materialSlots)
+        {
+            const Physics::MaterialSlots defaultMaterialSlots;
+            return materialSlots.GetSlotsNames() == defaultMaterialSlots.GetSlotsNames() &&
+                materialSlots.GetMaterialAsset(0) == defaultMaterialSlots.GetMaterialAsset(0);
+        };
+
+        PhysicsLegacy::MaterialSelection legacyMaterialSelection;
+        if (LoadObjectFromPrefabComponent<PhysicsLegacy::MaterialSelection>(oldMemberChain, component, legacyMaterialSelection))
+        {
+            const Physics::MaterialSlots materialSlots =
+                ConvertLegacyMaterialSelectionToMaterialSlots(legacyMaterialSelection, legacyMaterialIdToNewAssetIdMap);
+
+            if (isDefaultMaterialSlots(materialSlots))
+>>>>>>> PhysXMaterialRefactor
             {
                 return false;
             }
 
+<<<<<<< HEAD
             if (!Physics::Utils::StoreObjectToPrefabComponent<Physics::MaterialSlots>(
+=======
+            if (!StoreObjectToPrefabComponent<Physics::MaterialSlots>(
+>>>>>>> PhysXMaterialRefactor
                     newMemberChain, prefabInfo.m_template->GetPrefabDom(), component, materialSlots))
             {
                 AZ_Warning(
@@ -54,7 +383,11 @@ namespace PhysX
             }
 
             // Remove legacy material selection field
+<<<<<<< HEAD
             Physics::Utils::RemoveMemberChainInPrefabComponent(oldMemberChain, component);
+=======
+            RemoveMemberChainInPrefabComponent(oldMemberChain, component);
+>>>>>>> PhysXMaterialRefactor
 
             AZ_TracePrintf("PhysXMaterialConversion", "Legacy material selection will be replaced by physics material slots.\n");
             if (!legacyMaterialSelection.m_materialIdsAssignedToSlots.empty())
@@ -67,8 +400,12 @@ namespace PhysX
                 for (size_t i = 0; i < materialSlots.GetSlotsCount(); ++i)
                 {
                     AZ_TracePrintf(
+<<<<<<< HEAD
                         "PhysXMaterialConversion", "  Slot %zu '%.*s') Legacy material id '%s' -> material asset '%s'.\n", i + 1,
                         AZ_STRING_ARG(materialSlots.GetSlotName(i)),
+=======
+                        "PhysXMaterialConversion", "  Slot %zu) Legacy material id '%s' -> material asset '%s'.\n", i + 1,
+>>>>>>> PhysXMaterialRefactor
                         legacyMaterialSelection.m_materialIdsAssignedToSlots[i].m_id.ToString<AZStd::string>().c_str(),
                         materialSlots.GetMaterialAsset(i).GetHint().c_str());
                 }
@@ -80,24 +417,41 @@ namespace PhysX
     };
 
     bool FixPhysicsMaterialId(
+<<<<<<< HEAD
         Physics::Utils::PrefabInfo& prefabInfo,
         AzToolsFramework::Prefab::PrefabDomValue& component,
         const Physics::Utils::LegacyMaterialIdToNewAssetIdMap& legacyMaterialIdToNewAssetIdMap,
+=======
+        PrefabInfo& prefabInfo,
+        AzToolsFramework::Prefab::PrefabDomValue& component,
+        const LegacyMaterialIdToNewAssetIdMap& legacyMaterialIdToNewAssetIdMap,
+>>>>>>> PhysXMaterialRefactor
         const AZStd::vector<AZStd::string>& oldMemberChain,
         const AZStd::vector<AZStd::string>& newMemberChain)
     {
         PhysicsLegacy::MaterialId legacyMaterialId;
+<<<<<<< HEAD
         if (Physics::Utils::LoadObjectFromPrefabComponent<PhysicsLegacy::MaterialId>(oldMemberChain, component, legacyMaterialId))
         {
             AZ::Data::Asset<Physics::MaterialAsset> materialAsset =
                 Physics::Utils::ConvertLegacyMaterialIdToMaterialAsset(legacyMaterialId, legacyMaterialIdToNewAssetIdMap);
+=======
+        if (LoadObjectFromPrefabComponent<PhysicsLegacy::MaterialId>(oldMemberChain, component, legacyMaterialId))
+        {
+            AZ::Data::Asset<Physics::MaterialAsset> materialAsset =
+                ConvertLegacyMaterialIdToMaterialAsset(legacyMaterialId, legacyMaterialIdToNewAssetIdMap);
+>>>>>>> PhysXMaterialRefactor
 
             if (!materialAsset.GetId().IsValid())
             {
                 return false;
             }
 
+<<<<<<< HEAD
             if (!Physics::Utils::StoreObjectToPrefabComponent<AZ::Data::Asset<Physics::MaterialAsset>>(
+=======
+            if (!StoreObjectToPrefabComponent<AZ::Data::Asset<Physics::MaterialAsset>>(
+>>>>>>> PhysXMaterialRefactor
                     newMemberChain, prefabInfo.m_template->GetPrefabDom(), component, materialAsset))
             {
                 AZ_Warning(
@@ -107,7 +461,11 @@ namespace PhysX
             }
 
             // Remove legacy material id field
+<<<<<<< HEAD
             Physics::Utils::RemoveMemberChainInPrefabComponent(oldMemberChain, component);
+=======
+            RemoveMemberChainInPrefabComponent(oldMemberChain, component);
+>>>>>>> PhysXMaterialRefactor
 
             AZ_TracePrintf(
                 "PhysXMaterialConversion", "Legacy material id '%s' will be replaced by physics material asset '%s'.\n",
@@ -119,9 +477,15 @@ namespace PhysX
     };
 
     bool FixTerrainPhysicsColliderMaterials(
+<<<<<<< HEAD
         Physics::Utils::PrefabInfo& prefabInfo,
         AzToolsFramework::Prefab::PrefabDomValue& component,
         const Physics::Utils::LegacyMaterialIdToNewAssetIdMap& legacyMaterialIdToNewAssetIdMap)
+=======
+        PrefabInfo& prefabInfo,
+        AzToolsFramework::Prefab::PrefabDomValue& component,
+        const LegacyMaterialIdToNewAssetIdMap& legacyMaterialIdToNewAssetIdMap)
+>>>>>>> PhysXMaterialRefactor
     {
         bool modifiedTerrainPrefab = false;
 
@@ -130,7 +494,11 @@ namespace PhysX
         // instead of material slots. So in this particular case it has convert the first legacy material id of the material
         // selection to a new material asset.
         PhysicsLegacy::MaterialSelection legacyDefaultMaterialSelection;
+<<<<<<< HEAD
         if (Physics::Utils::LoadObjectFromPrefabComponent<PhysicsLegacy::MaterialSelection>(
+=======
+        if (LoadObjectFromPrefabComponent<PhysicsLegacy::MaterialSelection>(
+>>>>>>> PhysXMaterialRefactor
                 { "Configuration", "DefaultMaterial" }, component, legacyDefaultMaterialSelection))
         {
             PhysicsLegacy::MaterialId legacyMaterialId;
@@ -140,6 +508,7 @@ namespace PhysX
             }
 
             AZ::Data::Asset<Physics::MaterialAsset> materialAsset =
+<<<<<<< HEAD
                 Physics::Utils::ConvertLegacyMaterialIdToMaterialAsset(legacyMaterialId, legacyMaterialIdToNewAssetIdMap);
 
             if (materialAsset.GetId().IsValid())
@@ -149,6 +518,17 @@ namespace PhysX
                 {
                     // Remove legacy material selection field
                     Physics::Utils::RemoveMemberChainInPrefabComponent({ "Configuration", "DefaultMaterial" }, component);
+=======
+                ConvertLegacyMaterialIdToMaterialAsset(legacyMaterialId, legacyMaterialIdToNewAssetIdMap);
+
+            if (materialAsset.GetId().IsValid())
+            {
+                if (StoreObjectToPrefabComponent<AZ::Data::Asset<Physics::MaterialAsset>>(
+                        { "Configuration", "DefaultMaterialAsset" }, prefabInfo.m_template->GetPrefabDom(), component, materialAsset))
+                {
+                    // Remove legacy material selection field
+                    RemoveMemberChainInPrefabComponent({ "Configuration", "DefaultMaterial" }, component);
+>>>>>>> PhysXMaterialRefactor
 
                     AZ_TracePrintf(
                         "PhysXMaterialConversion",
@@ -167,7 +547,11 @@ namespace PhysX
         }
 
         // Fix terrain mappings, which is an array of legacy material ids, which will be converted to new material assets.
+<<<<<<< HEAD
         if (auto* mappingMember = Physics::Utils::FindMemberChainInPrefabComponent({ "Configuration", "Mappings" }, component); mappingMember != nullptr)
+=======
+        if (auto* mappingMember = FindMemberChainInPrefabComponent({ "Configuration", "Mappings" }, component); mappingMember != nullptr)
+>>>>>>> PhysXMaterialRefactor
         {
             for (rapidjson_ly::SizeType i = 0; i < mappingMember->Size(); ++i)
             {
@@ -182,6 +566,7 @@ namespace PhysX
         return modifiedTerrainPrefab;
     };
 
+<<<<<<< HEAD
     void FixPrefabPhysicsMaterials(
         Physics::Utils::PrefabInfo& prefabInfo,
         const Physics::Utils::LegacyMaterialIdToNewAssetIdMap& legacyMaterialIdToNewAssetIdMap)
@@ -192,6 +577,16 @@ namespace PhysX
             for (auto* component : Physics::Utils::GetEntityComponents(*entity))
             {
                 const AZ::TypeId componentTypeId = Physics::Utils::GetComponentTypeId(*component);
+=======
+    void FixPrefabPhysicsMaterials(PrefabInfo& prefabInfo, const LegacyMaterialIdToNewAssetIdMap& legacyMaterialIdToNewAssetIdMap)
+    {
+        bool prefabModified = false;
+        for (auto* entity : GetPrefabEntities(prefabInfo.m_template->GetPrefabDom()))
+        {
+            for (auto* component : GetEntityComponents(*entity))
+            {
+                const AZ::TypeId componentTypeId = GetComponentTypeId(*component);
+>>>>>>> PhysXMaterialRefactor
 
                 if (componentTypeId == azrtti_typeid<EditorColliderComponent>())
                 {
@@ -262,7 +657,11 @@ namespace PhysX
                 [prefabInfo]([[maybe_unused]] bool success, const AzToolsFramework::SourceControlFileInfo& info)
                 {
                     // This is called from the main thread on the next frame from TickBus,
+<<<<<<< HEAD
                     // that is why 'prefabInfo' is captured as a copy.
+=======
+                    // that is why 'prefabWithLegacyMaterials' is captured as a copy.
+>>>>>>> PhysXMaterialRefactor
                     if (!info.IsReadOnly())
                     {
                         auto* prefabLoader = AZ::Interface<AzToolsFramework::Prefab::PrefabLoaderInterface>::Get();
@@ -283,7 +682,11 @@ namespace PhysX
         }
     }
 
+<<<<<<< HEAD
     void FixPrefabsWithPhysicsLegacyMaterials(const Physics::Utils::LegacyMaterialIdToNewAssetIdMap& legacyMaterialIdToNewAssetIdMap)
+=======
+    void FixPrefabsWithPhysicsLegacyMaterials(const LegacyMaterialIdToNewAssetIdMap& legacyMaterialIdToNewAssetIdMap)
+>>>>>>> PhysXMaterialRefactor
     {
         bool prefabSystemEnabled = false;
         AzFramework::ApplicationRequests::Bus::BroadcastResult(
@@ -298,15 +701,22 @@ namespace PhysX
         AZ_TracePrintf("PhysXMaterialConversion", "Searching for prefabs to convert...\n");
         AZ_TracePrintf("PhysXMaterialConversion", "\n");
 
+<<<<<<< HEAD
         AZStd::vector<Physics::Utils::PrefabInfo> prefabs = Physics::Utils::CollectPrefabs();
+=======
+        AZStd::vector<PrefabInfo> prefabs = CollectPrefabs();
+>>>>>>> PhysXMaterialRefactor
         if (prefabs.empty())
         {
             AZ_TracePrintf("PhysXMaterialConversion", "No prefabs found.\n");
             AZ_TracePrintf("PhysXMaterialConversion", "\n");
             return;
         }
+<<<<<<< HEAD
         AZ_TracePrintf("PhysXMaterialConversion", "Found %zu prefabs to check.\n", prefabs.size());
         AZ_TracePrintf("PhysXMaterialConversion", "\n");
+=======
+>>>>>>> PhysXMaterialRefactor
 
         for (auto& prefab : prefabs)
         {
