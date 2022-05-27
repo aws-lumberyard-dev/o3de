@@ -148,4 +148,11 @@ namespace Physics::Utils
 
         return fbxManifests;
     }
+
+    bool IsDefaultMaterialSlots(const Physics::MaterialSlots& materialSlots)
+    {
+        const Physics::MaterialSlots defaultMaterialSlots;
+        return materialSlots.GetSlotsNames() == defaultMaterialSlots.GetSlotsNames() &&
+            materialSlots.GetMaterialAsset(0) == defaultMaterialSlots.GetMaterialAsset(0);
+    };
 } // namespace Physics::Utils

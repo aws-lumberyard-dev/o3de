@@ -37,6 +37,8 @@ namespace Physics::Utils
 
     AZStd::set<AZStd::string> CollectFbxManifestsFromAssetType(AZ::TypeId assetType);
 
+    bool IsDefaultMaterialSlots(const Physics::MaterialSlots& materialSlots);
+
     // Bus to allow any gem to fix their assets that are using
     // legacy material libraries.
     class PhysicsMaterialConversionRequests
