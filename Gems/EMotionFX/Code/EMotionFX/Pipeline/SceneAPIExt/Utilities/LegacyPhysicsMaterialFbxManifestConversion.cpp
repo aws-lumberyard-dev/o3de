@@ -57,7 +57,8 @@ namespace EMotionFX::Pipeline::Utilities
                     for (size_t i = 0; i < materialSlots.GetSlotsCount(); ++i)
                     {
                         AZ_TracePrintf(
-                            "EMFXMaterialConversion", "  Slot %zu) Legacy material id '%s' -> material asset '%s'.\n", i + 1,
+                            "EMFXMaterialConversion", "  Slot %zu '%.*s') Legacy material id '%s' -> material asset '%s'.\n", i + 1,
+                            AZ_STRING_ARG(materialSlots.GetSlotName(i)),
                             colliderConfiguration->m_legacyMaterialSelection.m_materialIdsAssignedToSlots[i].m_id.ToString<AZStd::string>().c_str(),
                             materialSlots.GetMaterialAsset(i).GetHint().c_str());
                     }

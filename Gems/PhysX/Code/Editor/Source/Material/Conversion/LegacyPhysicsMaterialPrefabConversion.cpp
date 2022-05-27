@@ -33,20 +33,13 @@ namespace PhysX
         const AZStd::vector<AZStd::string>& oldMemberChain,
         const AZStd::vector<AZStd::string>& newMemberChain)
     {
-        auto isDefaultMaterialSlots = [](const Physics::MaterialSlots& materialSlots)
-        {
-            const Physics::MaterialSlots defaultMaterialSlots;
-            return materialSlots.GetSlotsNames() == defaultMaterialSlots.GetSlotsNames() &&
-                materialSlots.GetMaterialAsset(0) == defaultMaterialSlots.GetMaterialAsset(0);
-        };
-
         PhysicsLegacy::MaterialSelection legacyMaterialSelection;
         if (Physics::Utils::LoadObjectFromPrefabComponent<PhysicsLegacy::MaterialSelection>(oldMemberChain, component, legacyMaterialSelection))
         {
             const Physics::MaterialSlots materialSlots =
                 Physics::Utils::ConvertLegacyMaterialSelectionToMaterialSlots(legacyMaterialSelection, legacyMaterialIdToNewAssetIdMap);
 
-            if (isDefaultMaterialSlots(materialSlots))
+            if (Physics::Utils::IsDefaultMaterialSlots(materialSlots))
             {
                 return false;
             }
@@ -74,7 +67,8 @@ namespace PhysX
                 for (size_t i = 0; i < materialSlots.GetSlotsCount(); ++i)
                 {
                     AZ_TracePrintf(
-                        "PhysXMaterialConversion", "  Slot %zu) Legacy material id '%s' -> material asset '%s'.\n", i + 1,
+                        "PhysXMaterialConversion", "  Slot %zu '%.*s') Legacy material id '%s' -> material asset '%s'.\n", i + 1,
+                        AZ_STRING_ARG(materialSlots.GetSlotName(i)),
                         legacyMaterialSelection.m_materialIdsAssignedToSlots[i].m_id.ToString<AZStd::string>().c_str(),
                         materialSlots.GetMaterialAsset(i).GetHint().c_str());
                 }
