@@ -188,7 +188,7 @@ namespace EMotionFX::Pipeline::Utilities
 
     void FixFbxManifestsWithPhysicsLegacyMaterials(const Physics::Utils::LegacyMaterialIdToNewAssetIdMap& legacyMaterialIdToNewAssetIdMap)
     {
-        AZ_TracePrintf("EMFXMaterialConversion", "Searching for FBX manifests to convert...\n");
+        AZ_TracePrintf("EMFXMaterialConversion", "Searching for FBX manifests with actor assets...\n");
         AZ_TracePrintf("EMFXMaterialConversion", "\n");
 
         const AZStd::set<AZStd::string> fbxManifests = Physics::Utils::CollectFbxManifestsFromAssetType(EMotionFX::Integration::ActorAsset::RTTI_Type());
@@ -198,7 +198,7 @@ namespace EMotionFX::Pipeline::Utilities
             AZ_TracePrintf("EMFXMaterialConversion", "\n");
             return;
         }
-        AZ_TracePrintf("EMFXMaterialConversion", "Found %zu FBX manifests that generated ActorAssets.\n", fbxManifests.size());
+        AZ_TracePrintf("EMFXMaterialConversion", "Found %zu FBX manifests to check.\n", fbxManifests.size());
         AZ_TracePrintf("EMFXMaterialConversion", "\n");
 
         for (const auto& fbxManifest : fbxManifests)

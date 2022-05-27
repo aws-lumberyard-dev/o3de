@@ -222,7 +222,7 @@ namespace PhysX
         const LegacyMaterialNameToNewAssetIdsMap legacyMaterialNameToNewAssetIdsMap =
             ConvertMapToUseNames(legacyMaterialIdToNewAssetIdMap);
 
-        AZ_TracePrintf("PhysXMaterialConversion", "Searching for FBX manifests to convert...\n");
+        AZ_TracePrintf("PhysXMaterialConversion", "Searching for FBX manifests with PhysX mesh assets...\n");
         AZ_TracePrintf("PhysXMaterialConversion", "\n");
 
         const AZStd::set<AZStd::string> fbxManifests = Physics::Utils::CollectFbxManifestsFromAssetType(PhysX::Pipeline::MeshAsset::RTTI_Type());
@@ -232,7 +232,7 @@ namespace PhysX
             AZ_TracePrintf("PhysXMaterialConversion", "\n");
             return;
         }
-        AZ_TracePrintf("PhysXMaterialConversion", "Found %zu FBX manifests that generated PhysX MeshAssets.\n", fbxManifests.size());
+        AZ_TracePrintf("PhysXMaterialConversion", "Found %zu FBX manifests to check.\n", fbxManifests.size());
         AZ_TracePrintf("PhysXMaterialConversion", "\n");
 
         for (const auto& fbxManifest : fbxManifests)
