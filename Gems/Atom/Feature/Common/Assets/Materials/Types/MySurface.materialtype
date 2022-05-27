@@ -1,0 +1,69 @@
+{
+    "description": "Material Type like StandardPBR, but offset by 5 units in the x direction.",
+    "version": 1,
+    "propertyLayout": {
+        "propertyGroups": [
+            { 
+                "$import": "MaterialInputs/BaseColorPropertyGroup.json"
+            },
+            { 
+                "$import": "MaterialInputs/MetallicPropertyGroup.json"
+            },
+            { 
+                "$import": "MaterialInputs/RoughnessPropertyGroup.json"
+            },
+            { 
+                "$import": "MaterialInputs/SpecularPropertyGroup.json"
+            },
+            { 
+                "$import": "MaterialInputs/NormalPropertyGroup.json"
+            },
+            { 
+                "$import": "MaterialInputs/OcclusionPropertyGroup.json"
+            },
+            { 
+                "$import": "MaterialInputs/EmissivePropertyGroup.json"
+            },
+            { 
+                "$import": "MaterialInputs/ClearCoatPropertyGroup.json"
+            },
+            { 
+                "$import": "MaterialInputs/ParallaxPropertyGroup.json"
+            },
+            { 
+                "$import": "MaterialInputs/OpacityPropertyGroup.json"
+            },
+            { 
+                "$import": "MaterialInputs/UvPropertyGroup.json"
+            },
+            { 
+                "$import": "MaterialInputs/IrradiancePropertyGroup.json"
+            },
+            { 
+                "$import": "MaterialInputs/GeneralCommonPropertyGroup.json"
+            }
+        ]
+    },
+    "shaders": [
+        {
+            "file": "./MySurface_ForwardPass.shader",
+            "tag": "ForwardPass"
+        },
+        {
+            "file": "./MySurface_ForwardPass_EDS.shader",
+            "tag": "ForwardPass_EDS"
+        },
+        {
+            "file": "Shaders/Shadow/Shadowmap.shader",
+            "tag": "Shadowmap"
+        },
+        {
+            "file": "Shaders/Depth/MySurface_DepthPass.shader",
+            "tag": "DepthPass"
+        }   
+    ],
+    "uvNameMap": {
+        "UV0": "Tiled",
+        "UV1": "Unwrapped"
+    }
+}
