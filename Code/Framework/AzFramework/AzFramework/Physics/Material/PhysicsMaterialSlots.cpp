@@ -16,15 +16,12 @@
 
 namespace Physics
 {
-    namespace
-    {
-        const char* const EntireObjectSlotName = "Entire object";
-    }
+    const char* const MaterialSlots::EntireObjectSlotName = "Entire object";
 
     // Json serializer that clear containers before they are serialized.
     // This is necessary for MaterialSlots class because it adds
     // 1 element to its vector in the constructor to start with valid data,
-    // but by default json serializer do not clear containers and this casues
+    // but by default json serializer do not clear containers and this causes
     // to end up with more elements than should have.
     class JsonMaterialSlotContainerSerializer
         : public AZ::JsonBasicContainerSerializer

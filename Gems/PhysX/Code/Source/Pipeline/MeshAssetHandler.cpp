@@ -125,7 +125,38 @@ namespace PhysX
                 return AZ::Data::AssetHandler::LoadResult::Error;
             }
 
+            // PhysX Mesh Asset could have been saved with material assets that only have the hint valid (asset path in the cache).
+            // This could happen for example when MeshGroup was filled procedurally and the materials were only given the path (hint).
+            // Now in runtime after the PhysX Mesh is loaded let's complete the asset by looking for it in the catalog and
+            // assigning its id. At runtime physics material will always be in the catalog because it's a critical asset.
+            for (size_t slotId = 0; slotId < meshAsset->m_assetData.m_materialSlots.GetSlotsCount(); ++slotId)
+            {
+                AZ::Data::Asset<AZ::Data::AssetData> materialAsset = meshAsset->m_assetData.m_materialSlots.GetMaterialAsset(slotId);
+                if (FixUpAssetIdByHint(materialAsset))
+                {
+                    meshAsset->m_assetData.m_materialSlots.SetMaterialAsset(slotId, materialAsset);
+                }
+            }
+
             return AZ::Data::AssetHandler::LoadResult::LoadComplete;
+        }
+
+        bool MeshAssetHandler::FixUpAssetIdByHint(AZ::Data::Asset<AZ::Data::AssetData>& asset)
+        {
+            if (!asset.GetId().IsValid() && !asset.GetHint().empty())
+            {
+                AZ::Data::AssetId assetId;
+                AZ::Data::AssetCatalogRequestBus::BroadcastResult(
+                    assetId, &AZ::Data::AssetCatalogRequestBus::Events::GetAssetIdByPath, asset.GetHint().c_str(),
+                    AZ::Data::s_invalidAssetType, false);
+
+                if (assetId.IsValid())
+                {
+                    asset.Create(assetId, false);
+                    return true;
+                }
+            }
+            return false;
         }
 
         void MeshAssetHandler::DestroyAsset(AZ::Data::AssetPtr ptr)
@@ -227,7 +258,5 @@ namespace PhysX
                 colliderConfiguration.m_tag = *m_tag;
             }
         }
-
-
-} //namespace Pipeline
+    } //namespace Pipeline
 } // namespace PhysX

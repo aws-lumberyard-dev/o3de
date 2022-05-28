@@ -17,8 +17,6 @@ namespace PhysX
 {
     namespace Pipeline
     {
-
-
         /// Asset handler for loading and initializing PhysXMeshAsset assets.
         class MeshAssetHandler
             : public AZ::Data::AssetHandler
@@ -52,6 +50,9 @@ namespace PhysX
             const char* GetGroup() const override;
             AZ::Uuid GetComponentTypeId() const override;
             bool CanCreateComponent(const AZ::Data::AssetId& assetId) const override;
+
+        private:
+            bool FixUpAssetIdByHint(AZ::Data::Asset<AZ::Data::AssetData>& asset);
         };
     } // namespace Pipeline
 } // namespace PhysX
