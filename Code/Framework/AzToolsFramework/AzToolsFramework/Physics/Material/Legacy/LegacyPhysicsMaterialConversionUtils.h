@@ -39,8 +39,8 @@ namespace Physics::Utils
 
     bool IsDefaultMaterialSlots(const Physics::MaterialSlots& materialSlots);
 
-    // Bus to allow any gem to fix their assets that are using
-    // legacy material libraries.
+    //! Bus to allow any gem to fix their assets that are using
+    //! legacy material libraries.
     class PhysicsMaterialConversionRequests
         : public AZ::EBusTraits
     {
