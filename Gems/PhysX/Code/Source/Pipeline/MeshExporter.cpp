@@ -173,7 +173,7 @@ namespace PhysX
                 Physics::MaterialSlots newSlots;
                 newSlots.SetSlots(newMaterials);
 
-                // The new material list could have different names or in different order,
+                // The new material list could have different names or be in a different order,
                 // because they are obtained from the current mesh nodes selected.
                 // Go through the previous slots and keep the same physics material
                 // association if the slot name is the same.
