@@ -157,7 +157,7 @@ def update_manifest(scene):
                 "ShapeConfiguration": {
                     "PhysicsAsset": {
                         "Asset": {
-                            "assetHint": os.path.join(source_relative_path, source_filename_only + "_convex.pxmesh")
+                            "assetHint": os.path.join(source_relative_path, source_filename_only + "_triangle.pxmesh")
                         }
                     }
                 }
