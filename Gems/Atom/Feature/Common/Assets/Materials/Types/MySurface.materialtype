@@ -61,7 +61,7 @@
             "tag": "Shadowmap"
         },
         {
-            "file": "Shaders/Depth/MySurface_DepthPass.shader",
+            "file": "MySurface_DepthPass.shader",
             "tag": "DepthPass"
         }   
     ],
