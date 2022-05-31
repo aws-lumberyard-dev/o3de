@@ -20,6 +20,8 @@
 #include <AzFramework/Physics/Components/SimulatedBodyComponentBus.h>
 #include <AzFramework/Physics/Material/PhysicsMaterialManager.h>
 #include <PhysX/MockPhysXHeightfieldProviderComponent.h>
+#include <PhysX/Material/PhysXMaterial.h>
+#include <PhysX/Material/PhysXMaterialConfiguration.h>
 #include <AzCore/Casting/lossy_cast.h>
 #include <Utils.h>
 
@@ -44,23 +46,44 @@ namespace PhysXEditorTests
 
     AZStd::vector<AZ::Data::Asset<Physics::MaterialAsset>> GetMaterialList()
     {
+        const PhysX::MaterialConfiguration defaultMaterialConfiguration;
+        const Physics::MaterialAsset::MaterialProperties materialProperties =
+        {
+            {PhysX::MaterialConstants::DynamicFrictionName, defaultMaterialConfiguration.m_dynamicFriction},
+            {PhysX::MaterialConstants::StaticFrictionName, defaultMaterialConfiguration.m_staticFriction},
+            {PhysX::MaterialConstants::RestitutionName, defaultMaterialConfiguration.m_restitution},
+            {PhysX::MaterialConstants::DensityName, defaultMaterialConfiguration.m_density},
+            {PhysX::MaterialConstants::RestitutionCombineModeName, static_cast<AZ::u32>(defaultMaterialConfiguration.m_restitutionCombine)},
+            {PhysX::MaterialConstants::FrictionCombineModeName, static_cast<AZ::u32>(defaultMaterialConfiguration.m_frictionCombine)},
+            {PhysX::MaterialConstants::DebugColorName, defaultMaterialConfiguration.m_debugColor}
+        };
+
         AZ::Data::Asset<Physics::MaterialAsset> materialAsset1 =
             AZ::Data::AssetManager::Instance().FindOrCreateAsset<Physics::MaterialAsset>(
                 AZ::Data::AssetId(AZ::Uuid::CreateString("{EC976D51-2C26-4C1E-BBF2-75BAAAFA162C}")),
                 AZ::Data::AssetLoadBehavior::Default);
-        materialAsset1->SetData("", 0, {});
+        materialAsset1->SetData(
+            PhysX::MaterialConstants::MaterialAssetType,
+            PhysX::MaterialConstants::MaterialAssetVersion,
+            materialProperties);
 
         AZ::Data::Asset<Physics::MaterialAsset> materialAsset2 =
             AZ::Data::AssetManager::Instance().FindOrCreateAsset<Physics::MaterialAsset>(
                 AZ::Data::AssetId(AZ::Uuid::CreateString("{B9836F51-A235-4781-95E3-A6302BEE9EFF}")),
                 AZ::Data::AssetLoadBehavior::Default);
-        materialAsset2->SetData("", 0, {});
+        materialAsset2->SetData(
+            PhysX::MaterialConstants::MaterialAssetType,
+            PhysX::MaterialConstants::MaterialAssetVersion,
+            materialProperties);
 
         AZ::Data::Asset<Physics::MaterialAsset> materialAsset3 =
             AZ::Data::AssetManager::Instance().FindOrCreateAsset<Physics::MaterialAsset>(
                 AZ::Data::AssetId(AZ::Uuid::CreateString("{7E060707-BB03-47EB-B046-4503C7145B6E}")),
                 AZ::Data::AssetLoadBehavior::Default);
-        materialAsset3->SetData("", 0, {});
+        materialAsset3->SetData(
+            PhysX::MaterialConstants::MaterialAssetType,
+            PhysX::MaterialConstants::MaterialAssetVersion,
+            materialProperties);
 
         return {
             materialAsset1,
