@@ -51,6 +51,10 @@ ShaderResourceGroup MaterialSrg : SRG_PerMaterial
     Texture2D m_opacityMap;
     uint m_opacityMapUvIndex;
 
+    float m_xOffset;
+    float m_yOffset;
+    float m_zOffset;
+
     Sampler m_sampler
     {
         AddressU = Wrap;

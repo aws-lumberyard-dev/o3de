@@ -28,8 +28,6 @@ VSDepthOutput DepthPassVS(VSInput IN)
     float4 worldPosition = mul(objectToWorld, float4(IN.m_position, 1.0));
     OUT.m_position = mul(ViewSrg::m_viewProjectionMatrix, worldPosition);
 
-    OUT.m_position.x += 5.0;
-
     return OUT;
 }
 

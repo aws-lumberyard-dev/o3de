@@ -70,8 +70,10 @@ VSOutput MySurface_ForwardPassVS(VSInput IN)
 
     float3x3 objectToWorldIT = GetNormalToWorld();
     ConstructTBN(IN.m_normal, IN.m_tangent, IN.m_bitangent, objectToWorld, objectToWorldIT, OUT.m_normal, OUT.m_tangent, OUT.m_bitangent);
-
-    OUT.m_position.x += 5;
+    
+    OUT.m_position.x += MaterialSrg::m_xOffset;
+    OUT.m_position.y += MaterialSrg::m_yOffset;
+    OUT.m_position.z += MaterialSrg::m_zOffset;
 
     return OUT;
 }

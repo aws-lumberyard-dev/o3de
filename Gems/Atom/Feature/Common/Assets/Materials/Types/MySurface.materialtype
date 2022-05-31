@@ -41,6 +41,9 @@
             },
             { 
                 "$import": "MaterialInputs/GeneralCommonPropertyGroup.json"
+            },
+            {
+                "$import": "MaterialInputs/DetailBendingPropertyGroup.json"
             }
         ]
     },
