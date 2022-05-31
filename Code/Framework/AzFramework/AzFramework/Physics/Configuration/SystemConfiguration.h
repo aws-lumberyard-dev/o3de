@@ -8,7 +8,7 @@
 #pragma once
 
 #include <AzCore/RTTI/RTTI.h>
-#include <AzCore/Math/Vector4.h>
+#include <AzCore/Asset/AssetCommon.h>
 #include <AzFramework/Physics/Configuration/CollisionConfiguration.h>
 
 namespace AZ
@@ -58,6 +58,6 @@ namespace AzPhysics
         // This is used instead of adding alignas(16) to the struct because that generates
         // warnings everywhere the struct is used indicating that padding is added, which 
         // causes compilation errors.
-        AZ::Vector4 m_unusedPadding;
+        AZ::Data::Asset<AZ::Data::AssetData> m_unusedPadding;
     };
 }
