@@ -60,8 +60,17 @@ def add_physx_meshes(scene_manifest: sceneData.SceneManifest, source_file_name: 
             scene_manifest.physx_mesh_group_add_unselected_node(physx_box_group, node)
 
     # Add a Convex Mesh PhysX mesh with a comment
-    physx_convex_mesh_group = scene_manifest.add_physx_convex_mesh_group(source_file_name + "_convex", 0.08, .0004,
-                                                             True, True, True, True, True, 24, True, "physx/glass.physicsmaterial")
+    physx_convex_mesh_group = scene_manifest.add_physx_convex_mesh_group(source_file_name + "_convex",
+                                                             area_test_epsilon = 0.08,
+                                                             plane_tolerance = .0004,
+                                                             use_16bit_indices = True,
+                                                             check_zero_area_triangles = True,
+                                                             quantize_input = True,
+                                                             use_plane_shifting = True,
+                                                             shift_vertices = True,
+                                                             gauss_map_limit = 24,
+                                                             build_gpu_data = True,
+                                                             physics_material_asset_hint = "physx/glass.physicsmaterial")
     # Give a unique ID the PhysX mesh group
     physx_convex_mesh_group['id'] = '{' + str(uuid.uuid5(uuid.NAMESPACE_DNS, source_file_name + "_convex")) + '}'
     scene_manifest.physx_mesh_group_add_comment(physx_convex_mesh_group, "This is a convex mesh")
@@ -74,7 +83,13 @@ def add_physx_meshes(scene_manifest: sceneData.SceneManifest, source_file_name: 
                                                      0.06, 0.055, 0.00015, 3, 3, True, False)
 
     # Add a Triangle mesh
-    physx_triangle_mesh_group = scene_manifest.add_physx_triangle_mesh_group(source_file_name + "_triangle", False, True, True, True, True, True)
+    physx_triangle_mesh_group = scene_manifest.add_physx_triangle_mesh_group(source_file_name + "_triangle", 
+                                                                             merge_meshes = False,
+                                                                             weld_vertices = True,
+                                                                             disable_clean_mesh = True,
+                                                                             force_32bit_indices = True,
+                                                                             suppress_triangle_mesh_remap_table = True,
+                                                                             build_triangle_adjacencies = True)
     # Give a unique ID the PhysX mesh group
     physx_triangle_mesh_group['id'] = '{' + str(uuid.uuid5(uuid.NAMESPACE_DNS, source_file_name + "_triangle")) + '}'
     scene_manifest.physx_mesh_group_add_selected_unselected_nodes(physx_triangle_mesh_group, [first_mesh], all_except_first_mesh)
