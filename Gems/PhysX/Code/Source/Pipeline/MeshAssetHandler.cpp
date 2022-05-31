@@ -105,20 +105,19 @@ namespace PhysX
             return nullptr;
         }
 
+        // Fixes up an asset by querying the asset catalog for its id using its hint path.
+        // Returns true if it was able to find the asset in the catalog and set the asset id.
         static bool FixUpAssetIdByHint(AZ::Data::Asset<AZ::Data::AssetData>& asset)
         {
-            if (!asset.GetId().IsValid() && !asset.GetHint().empty())
-            {
-                AZ::Data::AssetId assetId;
-                AZ::Data::AssetCatalogRequestBus::BroadcastResult(
-                    assetId, &AZ::Data::AssetCatalogRequestBus::Events::GetAssetIdByPath, asset.GetHint().c_str(),
-                    AZ::Data::s_invalidAssetType, false);
+            AZ::Data::AssetId assetId;
+            AZ::Data::AssetCatalogRequestBus::BroadcastResult(
+                assetId, &AZ::Data::AssetCatalogRequestBus::Events::GetAssetIdByPath, asset.GetHint().c_str(),
+                AZ::Data::s_invalidAssetType, false);
 
-                if (assetId.IsValid())
-                {
-                    asset.Create(assetId, false);
-                    return true;
-                }
+            if (assetId.IsValid())
+            {
+                asset.Create(assetId, false);
+                return true;
             }
             return false;
         }
@@ -150,9 +149,21 @@ namespace PhysX
             for (size_t slotId = 0; slotId < meshAsset->m_assetData.m_materialSlots.GetSlotsCount(); ++slotId)
             {
                 AZ::Data::Asset<AZ::Data::AssetData> materialAsset = meshAsset->m_assetData.m_materialSlots.GetMaterialAsset(slotId);
-                if (FixUpAssetIdByHint(materialAsset))
+                // Does it need to resolve its id from the hint path?
+                if (!materialAsset.GetId().IsValid() && !materialAsset.GetHint().empty())
                 {
-                    meshAsset->m_assetData.m_materialSlots.SetMaterialAsset(slotId, materialAsset);
+                    if (FixUpAssetIdByHint(materialAsset))
+                    {
+                        meshAsset->m_assetData.m_materialSlots.SetMaterialAsset(slotId, materialAsset);
+                    }
+                    else
+                    {
+                        AZ_Warning("PhysX Mesh Asset", false,
+                            "Loading PhysX Mesh '%s' it didn't find physics material '%s', assigned to slot '%s'. Default physics material will be used.",
+                            asset.GetHint().c_str(),
+                            materialAsset.GetHint().c_str(),
+                            meshAsset->m_assetData.m_materialSlots.GetSlotName(slotId).c_str());
+                    }
                 }
             }
 
