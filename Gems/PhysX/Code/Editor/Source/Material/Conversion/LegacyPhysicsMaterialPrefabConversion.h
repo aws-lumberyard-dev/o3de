@@ -7,9 +7,9 @@
  */
 #pragma once
 
-#include <Editor/Source/Material/Conversion/LegacyPhysicsMaterialAssetsConversion.h>
+#include <AzToolsFramework/Physics/Material/Legacy/LegacyPhysicsMaterialConversionUtils.h>
 
 namespace PhysX
 {
-    void FixPrefabsWithPhysicsLegacyMaterials(const LegacyMaterialIdToNewAssetIdMap& legacyMaterialIdToNewAssetIdMap);
+    void FixPrefabsWithPhysicsLegacyMaterials(const Physics::Utils::LegacyMaterialIdToNewAssetIdMap& legacyMaterialIdToNewAssetIdMap);
 } // namespace PhysX
