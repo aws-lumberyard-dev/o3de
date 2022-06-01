@@ -132,7 +132,7 @@ namespace PhysX
         }
     };
 
-    // Converts all legacy material selections found inside FBX
+    // Converts all legacy material selections found inside an FBX
     // manifest (PhysX Mesh Group) into new material slots.
     void FixFbxManifestPhysicsMaterials(
         const AZStd::string& fbxManifestFullPath,

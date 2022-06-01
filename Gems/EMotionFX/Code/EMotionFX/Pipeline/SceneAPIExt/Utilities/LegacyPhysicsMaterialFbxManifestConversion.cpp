@@ -126,7 +126,7 @@ namespace EMotionFX::Pipeline::Utilities
         return physicsSetupModified;
     }
 
-    // Converts all legacy material selections found inside FBX
+    // Converts all legacy material selections found inside an FBX
     // manifest (Actor Group) into new material slots.
     void FixFbxManifestPhysicsMaterials(
         const AZStd::string& fbxManifestFullPath,

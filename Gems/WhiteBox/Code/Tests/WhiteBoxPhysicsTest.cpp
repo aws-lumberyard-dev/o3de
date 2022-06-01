@@ -26,7 +26,7 @@ namespace UnitTest
 {
     class EditorWhiteBoxPhysicsTestEnvironment : public AZ::Test::GemTestEnvironment
     {
-        // AZ::Test::GemTestEnvironment ...
+        // AZ::Test::GemTestEnvironment overrides ...
         void AddGemsAndComponents() override;
         AZ::ComponentApplication* CreateApplicationInstance() override;
 
