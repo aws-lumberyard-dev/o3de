@@ -52,18 +52,6 @@ namespace UnitTests
 
         m_data = AZStd::make_unique<StaticData>();
 
-        // We don't want the mock application manager to provide builder descriptors, mockBuilderInfoHandler will provide our own
-        m_mockApplicationManager->BusDisconnect();
-
-        m_data->m_mockBuilderInfoHandler.m_builderDesc = m_data->m_mockBuilderInfoHandler.CreateBuilderDesc(
-            "test builder", "{DF09DDC0-FD22-43B6-9E22-22C8574A6E1E}",
-            { AssetBuilderSDK::AssetBuilderPattern("*.txt", AssetBuilderSDK::AssetBuilderPattern::Wildcard) });
-        m_data->m_mockBuilderInfoHandler.BusConnect();
-
-        ASSERT_TRUE(m_mockApplicationManager->GetBuilderByID("txt files", m_data->m_builderTxtBuilder));
-
-        SetUpAssetProcessorManager();
-
         // Create the test file
         const auto& scanFolder = m_config->GetScanFolderAt(1);
         m_data->m_relativePathFromWatchFolder[0] = "modtimeTestFile.txt";
@@ -80,7 +68,18 @@ namespace UnitTests
             ASSERT_TRUE(UnitTestUtils::CreateDummyFile(path, ""));
         }
 
-        m_data->m_mockBuilderInfoHandler.m_dependencyFilePath = m_data->m_absolutePath[1].toUtf8().data();
+        // We don't want the mock application manager to provide builder descriptors, mockBuilderInfoHandler will provide our own
+        m_mockApplicationManager->BusDisconnect();
+
+        m_data->m_mockBuilderInfoHandler.CreateBuilderDesc(
+            "test builder", "{DF09DDC0-FD22-43B6-9E22-22C8574A6E1E}",
+            { AssetBuilderSDK::AssetBuilderPattern("*.txt", AssetBuilderSDK::AssetBuilderPattern::Wildcard) },
+            MockMultiBuilderInfoHandler::AssetBuilderExtraInfo{ "", m_data->m_absolutePath[1].toUtf8().data(), "", "", {} });
+        m_data->m_mockBuilderInfoHandler.BusConnect();
+
+        ASSERT_TRUE(m_mockApplicationManager->GetBuilderByID("txt files", m_data->m_builderTxtBuilder));
+
+        SetUpAssetProcessorManager();
 
         // Add file to database with no modtime
         {
@@ -596,9 +595,9 @@ namespace UnitTests
         // We don't want the mock application manager to provide builder descriptors, mockBuilderInfoHandler will provide our own
         m_mockApplicationManager->BusDisconnect();
 
-        m_data->m_mockBuilderInfoHandler.m_builderDesc = m_data->m_mockBuilderInfoHandler.CreateBuilderDesc(
+        m_data->m_mockBuilderInfoHandler.CreateBuilderDesc(
             "test builder", "{DF09DDC0-FD22-43B6-9E22-22C8574A6E1E}",
-            { AssetBuilderSDK::AssetBuilderPattern("*.txt", AssetBuilderSDK::AssetBuilderPattern::Wildcard) });
+            { AssetBuilderSDK::AssetBuilderPattern("*.txt", AssetBuilderSDK::AssetBuilderPattern::Wildcard) }, {});
         m_data->m_mockBuilderInfoHandler.BusConnect();
 
         ASSERT_TRUE(m_mockApplicationManager->GetBuilderByID("txt files", m_data->m_builderTxtBuilder));

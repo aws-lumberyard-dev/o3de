@@ -2706,7 +2706,7 @@ namespace AssetProcessor
                 // note that "ConvertToRelativePath" does add output prefix to it.
                 if (!m_platformConfig->ConvertToRelativePath(normalizedPath, databasePathToFile, scanFolderName))
                 {
-                    AZ_TracePrintf(AssetProcessor::DebugChannel, "ProcessFilesToExamineQueue: Unable to find the relative path.\n");
+                    AZ_TracePrintf(AssetProcessor::DebugChannel, "ProcessFilesToExamineQueue: Unable to find the relative path for %s.\n", normalizedPath.toUtf8().constData());
                     continue;
                 }
 
