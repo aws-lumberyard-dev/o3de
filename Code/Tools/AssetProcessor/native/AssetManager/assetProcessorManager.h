@@ -443,6 +443,8 @@ namespace AssetProcessor
 
         bool CheckForIntermediateAssetLoop(AZStd::string_view currentAsset, AZStd::string_view productAsset);
 
+        void UpdateForCacheServer(JobDetails& jobDetails);
+
         AssetProcessor::PlatformConfiguration* m_platformConfig = nullptr;
 
         bool m_queuedExamination = false;
