@@ -8,6 +8,9 @@
 
 #include <Atom/Features/PBR/DefaultObjectSrg.azsli>
 #include <MySurface_Common.azsli>
+
+option bool o_color_isBound;
+
 #include <MySurface_DepthPass.azsli>
 
 // Use the depth pass shader with the default object srg

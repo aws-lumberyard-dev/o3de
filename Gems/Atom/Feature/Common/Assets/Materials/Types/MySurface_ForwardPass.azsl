@@ -12,6 +12,8 @@
 
 #include <Atom/Features/PBR/DefaultObjectSrg.azsli>
 
+#include <scenesrg.srgi>
+
 // ---------- Material Parameters ----------
 
 COMMON_OPTIONS_BASE_COLOR()
@@ -23,6 +25,8 @@ COMMON_OPTIONS_CLEAR_COAT()
 COMMON_OPTIONS_OCCLUSION()
 COMMON_OPTIONS_EMISSIVE()
 // Note COMMON_OPTIONS_PARALLAX is in StandardPBR_Common.azsli because it's needed by all StandardPBR shaders.
+
+option bool o_color_isBound;
 
 // Alpha
 #include "MaterialInputs/AlphaInput.azsli"
