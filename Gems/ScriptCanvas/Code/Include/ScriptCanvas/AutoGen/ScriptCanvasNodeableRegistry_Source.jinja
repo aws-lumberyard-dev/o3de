@@ -28,12 +28,12 @@ namespace ScriptCanvas
 {
     {{autogenTargetName}}NodeableRegistry::{{autogenTargetName}}NodeableRegistry()
     {
-        ScriptCanvas::AutoGenRegistry::GetInstance()->RegisterNodeable(GetRegistryName(), this);
+        ScriptCanvas::AutoGenRegistry::GetInstance()->RegisterRegistry(GetRegistryName(), this);
     }
 
     {{autogenTargetName}}NodeableRegistry::~{{autogenTargetName}}NodeableRegistry()
     {
-        ScriptCanvas::AutoGenRegistry::GetInstance()->UnregisterNodeable(GetRegistryName());
+        ScriptCanvas::AutoGenRegistry::GetInstance()->UnregisterRegistry(GetRegistryName());
     }
 
     const char* {{autogenTargetName}}NodeableRegistry::GetRegistryName() {

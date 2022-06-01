@@ -37,13 +37,7 @@ namespace ScriptCanvas
 {
     struct NodeRegistry;
 
-    class IScriptCanvasFunctionRegistry
-    {
-    public:
-        virtual void Reflect(AZ::ReflectContext* context) = 0;
-    };
-
-    class IScriptCanvasNodeableRegistry
+    class IScriptCanvasRegistry
     {
     public:
         virtual void Init(NodeRegistry* nodeRegistry) = 0;
@@ -52,7 +46,7 @@ namespace ScriptCanvas
     };
 
     //! AutoGenRegistry
-    //! The registry contains all autogen functions which will be registered
+    //! The registry contains all autogen functions, nodeables and grammars which will be registered
     //! for ScriptCanvas
     class AutoGenRegistry
     {
@@ -80,19 +74,15 @@ namespace ScriptCanvas
         //! Reflect specified AutoGen registry by given name
         static void Reflect(AZ::ReflectContext* context, const char* registryName);
 
-        //! Register function registry with its name
-        void RegisterFunction(const char* registryName, IScriptCanvasFunctionRegistry* registry);
+        //! Get all expected autogen registry names
+        AZStd::vector<std::string> GetRegistryNames(const char* registryName);
 
-        //! Unregister function registry by using its name
-        void UnregisterFunction(const char* registryName);
+        //! Register autogen registry with its name
+        void RegisterRegistry(const char* registryName, IScriptCanvasRegistry* registry);
 
-        //! Register nodeable registry with its name
-        void RegisterNodeable(const char* registryName, IScriptCanvasNodeableRegistry* registry);
+        //! Unregister autogen function registry by using its name
+        void UnregisterRegistry(const char* registryName);
 
-        //! Unregister nodeable registry by using its name
-        void UnregisterNodeable(const char* registryName);
-
-        std::unordered_map<std::string, IScriptCanvasFunctionRegistry*> m_functions;
-        std::unordered_map<std::string, IScriptCanvasNodeableRegistry*> m_nodeables;
+        std::unordered_map<std::string, IScriptCanvasRegistry*> m_registries;
     };
 } // namespace ScriptCanvas
