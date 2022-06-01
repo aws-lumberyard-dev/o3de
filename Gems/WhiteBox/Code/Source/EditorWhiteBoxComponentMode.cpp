@@ -434,7 +434,7 @@ namespace WhiteBox
     void EditorWhiteBoxComponentMode::OnTransformChanged(
         [[maybe_unused]] const AZ::Transform& local, const AZ::Transform& world)
     {
-        m_worldFromLocal = AzToolsFramework::TransformUniformScale(world);
+        m_worldFromLocal = world;
     }
 
     void EditorWhiteBoxComponentMode::OnDefaultShapeTypeChanged([[maybe_unused]] const DefaultShapeType defaultShape)
@@ -478,6 +478,14 @@ namespace WhiteBox
         // create and register the buttons
         m_defaultModeButtonId = RegisterClusterButton(m_modeSelectionClusterId, "SketchMode");
         m_edgeRestoreModeButtonId = RegisterClusterButton(m_modeSelectionClusterId, "RestoreMode");
+
+        // set button tooltips
+        AzToolsFramework::ViewportUi::ViewportUiRequestBus::Event(
+            AzToolsFramework::ViewportUi::DefaultViewportId, &AzToolsFramework::ViewportUi::ViewportUiRequestBus::Events::SetClusterButtonTooltip, m_modeSelectionClusterId,
+            m_defaultModeButtonId, WhiteboxModeClusterDefaultTooltip);
+        AzToolsFramework::ViewportUi::ViewportUiRequestBus::Event(
+            AzToolsFramework::ViewportUi::DefaultViewportId, &AzToolsFramework::ViewportUi::ViewportUiRequestBus::Events::SetClusterButtonTooltip, m_modeSelectionClusterId,
+            m_edgeRestoreModeButtonId, WhiteboxModeClusterEdgeRestoreTooltip);
 
         auto onButtonClicked = [this](AzToolsFramework::ViewportUi::ButtonId buttonId)
         {

@@ -12,6 +12,15 @@ Set-MpPreference -DisableRealtimeMonitoring $true
 New-ItemProperty -Path HKLM:Software\Microsoft\Windows\CurrentVersion\policies\system -Name EnableLUA -PropertyType DWord -Value 0 -Force
 New-ItemProperty -Path HKLM:Software\Microsoft\Windows\CurrentVersion\policies\system -Name ConsentPromptBehaviorAdmin -PropertyType DWord -Value 0 -Force
 
+<<<<<<< HEAD:scripts/build/build_node/Platform/Windows/init-node-setup.ps1
+=======
+# Enable crash reporting (defaults to %LOCALAPPDATA%\CrashDumps as minidumps)
+New-Item -Path HKLM:Software\Microsoft\Windows\Windows Error Reporting\LocalDumps
+
+# Increase port number availablity (for P4) 
+netsh int ipv4 set dynamicport tcp start=1025 num=64511
+
+>>>>>>> development:scripts/build/build_node/Platform/Windows/init_setup.ps1
 # Install Chocolatey and Carbon (local user util)
 [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))
 $env:ChocolateyInstall = Convert-Path "$((Get-Command choco).Path)\..\.."   

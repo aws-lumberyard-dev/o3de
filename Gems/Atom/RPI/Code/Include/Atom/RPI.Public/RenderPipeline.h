@@ -11,6 +11,7 @@
 #include <Atom/RHI/DrawList.h>
 
 #include <Atom/RPI.Public/Base.h>
+#include <Atom/RPI.Public/Pass/PassTree.h>
 #include <Atom/RPI.Public/Pass/ParentPass.h>
 
 #include <Atom/RPI.Reflect/Pass/PassAsset.h>
@@ -61,11 +62,26 @@ namespace AZ
             RHI::DrawListMask m_drawListMask;
         };
 
+        //! Points to a pass binding for global access through the pipeline using a name for reference
+        struct PipelineGlobalBinding
+        {
+            // The name used to reference this binding in a global manner.
+            Name m_globalName;
+
+            // The referenced binding
+            PassAttachmentBinding* m_binding;
+
+            // The pass that owns the binding. Used to remove the global binding from the list when the pass is orphaned
+            Pass* m_pass;
+        };
+
         //! RenderPipeline describes how to render a scene. It has all the passes and views for rendering.
         //! A scene may have several pipelines. Each pipeline have its own render frequency. 
         //! Pipeline can be disabled and it won't be rendered if it's disabled.
         class RenderPipeline
         {
+            friend class Pass;
+            friend class PassSystem;
             friend class Scene;
 
         public:
@@ -122,6 +138,9 @@ namespace AZ
             RenderPipelineId GetId() const;
 
             const Ptr<ParentPass>& GetRootPass() const;
+
+            //! Processes passes in the pipeline that are queued for build, initialization or removal
+            void ProcessQueuedPassChanges();
 
             //! This function need to be called by Pass class when any passes are added/removed in this pipeline's pass tree.
             void SetPassModified();
@@ -204,6 +223,20 @@ namespace AZ
         private:
             RenderPipeline() = default;
 
+            // Adds a pass connection to the list of pipeline connections so it can be reference in a global way
+            // Should be called during the pass build phase
+            void AddPipelineGlobalConnection(const Name& globalName, PassAttachmentBinding* binding, Pass* pass);
+
+            // Removes all pipeline global connections associated with a specific pass
+            void RemovePipelineGlobalConnectionsFromPass(Pass* passOnwer);
+
+            // Retrieves a previously added pipeline global connection via name
+            const PipelineGlobalBinding* GetPipelineGlobalConnection(const Name& globalName) const;
+
+            // Clears the lists of global attachments and binding that passes use to reference attachments in a global manner
+            // This is called from the pipeline root pass during the pass reset phase
+            void ClearGlobalBindings();
+
             static void InitializeRenderPipeline(RenderPipeline* pipeline, const RenderPipelineDescriptor& desc);
 
             // Collect DrawListTags from passes that are using specified pipeline view
@@ -211,6 +244,12 @@ namespace AZ
 
             // Build pipeline views from the pipeline pass tree. It's usually called when pass tree changed.
             void BuildPipelineViews();
+
+            // Called by Pass System at the start of rendering the frame
+            void PassSystemFrameBegin(Pass::FramePrepareParams params);
+
+            // Called by Pass System at the end of rendering the frame
+            void PassSystemFrameEnd();
 
             //////////////////////////////////////////////////
             // Functions accessed by Scene class
@@ -233,15 +272,17 @@ namespace AZ
             // End of functions accessed by Scene class
             //////////////////////////////////////////////////
 
-
             RenderMode m_renderMode = RenderMode::RenderEveryTick;
 
             // The Scene this pipeline was added to.
             Scene* m_scene = nullptr;
 
-            // Pass tree which contains all the passes in this render pipeline.
-            Ptr<ParentPass> m_rootPass;
-            
+            // Holds the passes belonging to the pipeline
+            PassTree m_passTree;
+
+            // Attachment bindings/connections that can be referenced from any pass in the pipeline in a global manner
+            AZStd::vector<PipelineGlobalBinding> m_pipelineGlobalConnections;
+
             PipelineViewMap m_pipelineViewsByTag;
             
             // RenderPipeline's name id, it will be used to identify the render pipeline when it's added to a Scene

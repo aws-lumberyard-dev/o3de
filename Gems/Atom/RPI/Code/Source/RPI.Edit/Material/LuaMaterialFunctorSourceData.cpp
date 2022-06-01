@@ -147,8 +147,6 @@ namespace AZ
             }
             else if (!m_luaSourceFile.empty())
             {
-                // The sub ID for script assets must be explicit.
-                // LUA source files output a compiled as well as an uncompiled asset, sub Ids of 1 and 2.
                 auto loadOutcome =
                     RPI::AssetUtils::LoadAsset<ScriptAsset>(materialTypeSourceFilePath, m_luaSourceFile, ScriptAsset::CompiledAssetSubId);
                 if (!loadOutcome)
@@ -202,13 +200,13 @@ namespace AZ
                 functor->m_materialNameContext.ContextualizeProperty(propertyName);
 
                 MaterialPropertyIndex index = propertiesLayout->FindPropertyIndex(propertyName);
-                if (!index.IsValid())
+                if (index.IsValid())
                 {
-                    AZ_Error("LuaMaterialFunctorSourceData", false, "Property '%s' is not found in material type.", propertyName.GetCStr());
-                    return Failure();
+                    AddMaterialPropertyDependency(functor, index);
                 }
-
-                AddMaterialPropertyDependency(functor, index);
+                // This allows missing dependencies to make scripts more flexible - they can depend on properties that may
+                // or may not exist, and it's up to the script to call HasMaterialProperty() before accessing a property
+                // if necessary.
             }
 
             return Success(RPI::Ptr<MaterialFunctor>(functor));

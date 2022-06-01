@@ -25,12 +25,17 @@ namespace ScriptCanvasTestUtilitiesCPP
 {
     const char* k_defaultExtension = "scriptcanvas";
     const char* k_scriptEventExtension = "scriptevents";
-    const char* k_unitTestDirPathRelative = "@engroot@/Gems/ScriptCanvasTesting/Assets/ScriptCanvas/UnitTests";
+    const char* k_unitTestDirPathRelative = "@gemroot:ScriptCanvasTesting@/Assets/ScriptCanvas/UnitTests";
 }
 
 namespace ScriptCanvasTests
 {
     using namespace ScriptCanvas;
+
+    const char* GetUnitTestDirPathRelative()
+    {
+        return ScriptCanvasTestUtilitiesCPP::k_unitTestDirPathRelative;
+    }
 
     void ExpectParse(AZStd::string_view graphPath)
     {
@@ -88,10 +93,6 @@ namespace ScriptCanvasTests
         else if (!reporter.IsCompiled())
         {
             ADD_FAILURE() << "Graph failed to compile";
-        }
-        else if (!reporter.GetScriptCanvasId().IsValid())
-        {
-            ADD_FAILURE() << "Graph is not valid, wasn't assigned properly to an entity";
         }
         else if (reporter.IsReportFinished())
         {

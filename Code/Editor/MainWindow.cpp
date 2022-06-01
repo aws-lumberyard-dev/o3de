@@ -21,6 +21,10 @@
 #include <QAbstractEventDispatcher>
 #endif
 
+// Atom
+#include <Atom/RPI.Public/ViewportContext.h>
+#include <Atom/RPI.Public/ViewportContextBus.h>
+
 // AzCore
 #include <AzCore/Component/ComponentApplication.h>
 #include <AzCore/Interface/Interface.h>
@@ -35,13 +39,19 @@
 #include <AzFramework/Input/Devices/Mouse/InputDeviceMouse.h>
 #include <AzFramework/Network/SocketConnection.h>
 #include <AzFramework/Asset/AssetSystemComponent.h>
+#include <AzFramework/Viewport/CameraInput.h>
 
 // AzToolsFramework
+#include <AzToolsFramework/ActionManager/Action/ActionManagerInterface.h>
+#include <AzToolsFramework/ActionManager/Menu/MenuManagerInterface.h>
+#include <AzToolsFramework/API/EditorCameraBus.h>
 #include <AzToolsFramework/Application/Ticker.h>
 #include <AzToolsFramework/API/EditorWindowRequestBus.h>
 #include <AzToolsFramework/API/EditorAnimationSystemRequestBus.h>
-#include <AzToolsFramework/SourceControl/QtSourceControlNotificationHandler.h>
+#include <AzToolsFramework/Editor/ActionManagerUtils.h>
 #include <AzToolsFramework/PythonTerminal/ScriptTermDialog.h>
+#include <AzToolsFramework/SourceControl/QtSourceControlNotificationHandler.h>
+#include <AzToolsFramework/Viewport/ViewBookmarkLoaderInterface.h>
 #include <AzToolsFramework/Viewport/ViewportSettings.h>
 #include <AzToolsFramework/ViewportSelection/EditorTransformComponentSelectionRequestBus.h>
 
@@ -95,6 +105,7 @@
 #include <ImGuiBus.h>
 #include <AzToolsFramework/Viewport/ViewportMessages.h>
 #include <LmbrCentral/Audio/AudioSystemComponentBus.h>
+#include <Editor/EditorViewportCamera.h>
 
 using namespace AZ;
 using namespace AzQtComponents;
@@ -104,6 +115,17 @@ using namespace AzToolsFramework;
 #define LAYOUTS_EXTENSION ".layout"
 #define LAYOUTS_WILDCARD "*.layout"
 #define DUMMY_LAYOUT_NAME "Dummy_Layout"
+
+static constexpr const char* EditorMainWindowActionContextIdentifier = "o3de.context.editor.mainwindow";
+
+static constexpr const char* FileMenuIdentifier = "o3de.menu.editor.file";
+static constexpr const char* EditMenuIdentifier = "o3de.menu.editor.edit";
+static constexpr const char* GameMenuIdentifier = "o3de.menu.editor.game";
+static constexpr const char* ToolsMenuIdentifier = "o3de.menu.editor.tools";
+static constexpr const char* ViewMenuIdentifier = "o3de.menu.editor.view";
+static constexpr const char* HelpMenuIdentifier = "o3de.menu.editor.help";
+static constexpr const char* HelpDocumentationMenuIdentifier = "o3de.menu.editor.help.documentation";
+static constexpr const char* HelpGameDevResourcesMenuIdentifier = "o3de.menu.editor.help.gamedevresources";
 
 class CEditorOpenViewCommand
     : public _i_reference_target_t
@@ -286,15 +308,11 @@ MainWindow::MainWindow(QWidget* parent)
     : QMainWindow(parent)
     , m_oldMainFrame(nullptr)
     , m_viewPaneManager(QtViewPaneManager::instance())
-    , m_shortcutDispatcher(new ShortcutDispatcher(this))
-    , m_actionManager(new ActionManager(this, QtViewPaneManager::instance(), m_shortcutDispatcher))
     , m_undoStateAdapter(new UndoStackStateAdapter(this))
     , m_keyboardCustomization(nullptr)
     , m_activeView(nullptr)
     , m_settings("O3DE", "O3DE")
-    , m_toolbarManager(new ToolbarManager(m_actionManager, this))
     , m_assetImporterManager(new AssetImporterManager(this))
-    , m_levelEditorMenuHandler(new LevelEditorMenuHandler(this, m_viewPaneManager))
     , m_sourceControlNotifHandler(new AzToolsFramework::QtSourceControlNotificationHandler(this))
     , m_viewPaneHost(nullptr)
     , m_autoSaveTimer(nullptr)
@@ -302,6 +320,15 @@ MainWindow::MainWindow(QWidget* parent)
     , m_backgroundUpdateTimer(nullptr)
     , m_connectionLostTimer(new QTimer(this))
 {
+    // Determine which action manager classes should be enabled based on the current setting.
+    if (!IsNewActionManagerEnabled())
+    {
+        m_shortcutDispatcher = new ShortcutDispatcher(this);
+        m_actionManager = new ActionManager(this, QtViewPaneManager::instance(), m_shortcutDispatcher);
+        m_toolbarManager = new ToolbarManager(m_actionManager, this);
+        m_levelEditorMenuHandler = new LevelEditorMenuHandler(this, m_viewPaneManager);
+    }
+
     setObjectName("MainWindow"); // For IEditor::GetEditorMainWindow to work in plugins, where we can't link against MainWindow::instance()
     m_instance = this;
 
@@ -399,7 +426,11 @@ MainWindow::~MainWindow()
 {
     AzToolsFramework::SourceControlNotificationBus::Handler::BusDisconnect();
 
-    delete m_toolbarManager;
+    if (m_toolbarManager)
+    {
+        delete m_toolbarManager;
+    }
+
     m_connectionListener.reset();
     GetIEditor()->UnregisterNotifyListener(this);
 
@@ -440,7 +471,10 @@ void MainWindow::Initialize()
 {
     m_viewPaneManager->SetMainWindow(m_viewPaneHost, &m_settings, /*unused*/ QByteArray());
 
-    InitActions();
+    if (!IsNewActionManagerEnabled())
+    {
+        InitActions();
+    }
 
     RegisterStdViewClasses();
     InitCentralWidget();
@@ -448,12 +482,30 @@ void MainWindow::Initialize()
     // load toolbars ("shelves") and macros
     GetIEditor()->GetToolBoxManager()->Load(m_actionManager);
 
-    InitToolActionHandlers();
+    if (!IsNewActionManagerEnabled())
+    {
+        InitToolActionHandlers();
 
-    // Initialize toolbars before we setup the menu so that any tools can be added to the toolbar as needed
-    InitToolBars();
+        // Initialize toolbars before we setup the menu so that any tools can be added to the toolbar as needed
+        InitToolBars();
 
-    m_levelEditorMenuHandler->Initialize();
+        m_levelEditorMenuHandler->Initialize();
+    }
+    else
+    {
+        m_actionManagerInterface = AZ::Interface<AzToolsFramework::ActionManagerInterface>::Get();
+        if(m_actionManagerInterface)
+        {
+            InitializeActionContext();
+            InitializeActions();
+
+            m_menuManagerInterface = AZ::Interface<AzToolsFramework::MenuManagerInterface>::Get();
+            if (m_menuManagerInterface)
+            {
+                InitializeMenus();
+            }
+        }
+    }
 
     InitStatusBar();
 
@@ -845,78 +897,189 @@ void MainWindow::InitActions()
         .SetShortcut(tr("Z"))
         .SetToolTip(tr("Center on Selection (Z)"))
         .Connect(&QAction::triggered, this, &MainWindow::OnGotoSelected);
+
+    const auto goToViewBookmarkFn = [](int index)
+    {
+        AzToolsFramework::ViewBookmarkLoaderInterface* bookmarkLoader = AZ::Interface<ViewBookmarkLoaderInterface>::Get();
+        if (!bookmarkLoader)
+        {
+            AZ_Warning("Main Window", false, "Couldn't find View Bookmark Loader");
+            return false;
+        }
+
+        const AZStd::optional<AzToolsFramework::ViewBookmark> bookmark =
+            bookmarkLoader->LoadBookmarkAtIndex(index);
+
+        if (!bookmark.has_value())
+        {
+            return false;
+        }
+
+        // Check the bookmark we want to load is not exactly 0 
+        if (bookmark.value().IsZero())
+        {
+            QString tagConsoleText = tr("View Bookmark %1 has not been set yet").arg(index + 1);
+            AZ_Warning("Main Window", false, tagConsoleText.toUtf8().data());
+            return false;
+        }
+
+        auto viewportContextManager = AZ::Interface<AZ::RPI::ViewportContextRequestsInterface>::Get();
+        if (!viewportContextManager)
+        {
+            return false;
+        }
+
+        auto viewportContext = viewportContextManager->GetDefaultViewportContext();
+        if (!viewportContext)
+        {
+            return false;
+        }
+
+        SandboxEditor::InterpolateDefaultViewportCameraToTransform(
+            bookmark->m_position, bookmark->m_rotation.GetX(), bookmark->m_rotation.GetZ());
+
+        QString tagConsoleText = tr("View Bookmark %1 loaded position: x=%2, y=%3, z=%4")
+                                     .arg(index + 1)
+                                     .arg(bookmark->m_position.GetX(), 0, 'f', 2)
+                                     .arg(bookmark->m_position.GetY(), 0, 'f', 2)
+                                     .arg(bookmark->m_position.GetZ(), 0, 'f', 2);
+        AZ_Printf("MainWindow", tagConsoleText.toUtf8().data());
+        return true;
+    };
+
     am->AddAction(ID_GOTO_LOC1, tr("Location 1"))
         .SetShortcut(tr("Shift+F1"))
-        .SetToolTip(tr("Location 1 (Shift+F1)"));
+        .SetToolTip(tr("Go to Location 1 (Shift+F1)"))
+        .Connect(&QAction::triggered, [goToViewBookmarkFn](){ goToViewBookmarkFn(0);});
     am->AddAction(ID_GOTO_LOC2, tr("Location 2"))
         .SetShortcut(tr("Shift+F2"))
-        .SetToolTip(tr("Location 2 (Shift+F2)"));
+        .SetToolTip(tr("Go to Location 2 (Shift+F2)"))
+        .Connect(&QAction::triggered, [goToViewBookmarkFn](){ goToViewBookmarkFn(1);});
     am->AddAction(ID_GOTO_LOC3, tr("Location 3"))
         .SetShortcut(tr("Shift+F3"))
-        .SetToolTip(tr("Location 3 (Shift+F3)"));
+        .SetToolTip(tr("Go to Location 3 (Shift+F3)"))
+        .Connect(&QAction::triggered, [goToViewBookmarkFn](){ goToViewBookmarkFn(2);});
     am->AddAction(ID_GOTO_LOC4, tr("Location 4"))
         .SetShortcut(tr("Shift+F4"))
-        .SetToolTip(tr("Location 4 (Shift+F4)"));
+        .SetToolTip(tr("Go to Location 4 (Shift+F4)"))
+        .Connect(&QAction::triggered, [goToViewBookmarkFn](){ goToViewBookmarkFn(3);});
     am->AddAction(ID_GOTO_LOC5, tr("Location 5"))
         .SetShortcut(tr("Shift+F5"))
-        .SetToolTip(tr("Location 5 (Shift+F5)"));
+        .SetToolTip(tr("Go to Location 5 (Shift+F5)"))
+        .Connect(&QAction::triggered, [goToViewBookmarkFn](){ goToViewBookmarkFn(4);});
     am->AddAction(ID_GOTO_LOC6, tr("Location 6"))
         .SetShortcut(tr("Shift+F6"))
-        .SetToolTip(tr("Location 6 (Shift+F6)"));
+        .SetToolTip(tr("Go to Location 6 (Shift+F6)"))
+        .Connect(&QAction::triggered, [goToViewBookmarkFn](){ goToViewBookmarkFn(5);});
     am->AddAction(ID_GOTO_LOC7, tr("Location 7"))
         .SetShortcut(tr("Shift+F7"))
-        .SetToolTip(tr("Location 7 (Shift+F7)"));
+        .SetToolTip(tr("Go to Location 7 (Shift+F7)"))
+        .Connect(&QAction::triggered, [goToViewBookmarkFn](){ goToViewBookmarkFn(6);});
     am->AddAction(ID_GOTO_LOC8, tr("Location 8"))
         .SetShortcut(tr("Shift+F8"))
-        .SetToolTip(tr("Location 8 (Shift+F8)"));
+        .SetToolTip(tr("Go to Location 8 (Shift+F8)"))
+        .Connect(&QAction::triggered, [goToViewBookmarkFn](){ goToViewBookmarkFn(7);});
     am->AddAction(ID_GOTO_LOC9, tr("Location 9"))
         .SetShortcut(tr("Shift+F9"))
-        .SetToolTip(tr("Location 9 (Shift+F9)"));
+        .SetToolTip(tr("Go to Location 9 (Shift+F9)"))
+        .Connect(&QAction::triggered, [goToViewBookmarkFn](){ goToViewBookmarkFn(8);});
     am->AddAction(ID_GOTO_LOC10, tr("Location 10"))
         .SetShortcut(tr("Shift+F10"))
-        .SetToolTip(tr("Location 10 (Shift+F10)"));
+        .SetToolTip(tr("Go to Location 10 (Shift+F10)"))
+        .Connect(&QAction::triggered, [goToViewBookmarkFn](){ goToViewBookmarkFn(9);});
     am->AddAction(ID_GOTO_LOC11, tr("Location 11"))
         .SetShortcut(tr("Shift+F11"))
-        .SetToolTip(tr("Location 11 (Shift+F11)"));
+        .SetToolTip(tr("Go to Location 11 (Shift+F11)"))
+        .Connect(&QAction::triggered, [goToViewBookmarkFn](){ goToViewBookmarkFn(10);});
     am->AddAction(ID_GOTO_LOC12, tr("Location 12"))
         .SetShortcut(tr("Shift+F12"))
-        .SetToolTip(tr("Location 12 (Shift+F12)"));
+        .SetToolTip(tr("Go to Location 12 (Shift+F12)"))
+        .Connect(&QAction::triggered, [goToViewBookmarkFn](){ goToViewBookmarkFn(11);});
+
+    const auto tagViewBookmarkFn = [](int index)
+    {
+        AzToolsFramework::ViewBookmarkLoaderInterface* bookmarkLoader = AZ::Interface<ViewBookmarkLoaderInterface>::Get();
+        if (!bookmarkLoader)
+        {
+            QString tagConsoleText = tr("Failed to tag View Bookmark %1").arg(index + 1);
+            AZ_Warning("Main Window", false, tagConsoleText.toUtf8().data());
+            return false;
+        }
+
+        bool found = false;
+        AzFramework::CameraState cameraState;
+        Camera::EditorCameraRequestBus::BroadcastResult(
+            found, &Camera::EditorCameraRequestBus::Events::GetActiveCameraState, cameraState);
+
+        if (!found)
+        {
+            AZ_Warning("Main Window", false, "tagLocation: Couldn't find Active Camera State.");
+            return false;
+        }
+
+        ViewBookmark bookmark;
+        bookmark.m_position = cameraState.m_position;
+        bookmark.m_rotation =
+            AzFramework::EulerAngles(AZ::Matrix3x3::CreateFromColumns(cameraState.m_side, cameraState.m_forward, cameraState.m_up));
+
+        bookmarkLoader->ModifyBookmarkAtIndex(bookmark, index);
+        QString tagConsoleText = tr("View Bookmark %1 set to the position: x=%2, y=%3, z=%4")
+                                     .arg(index + 1)
+                                     .arg(bookmark.m_position.GetX(), 0, 'f', 2)
+                                     .arg(bookmark.m_position.GetY(), 0, 'f', 2)
+                                     .arg(bookmark.m_position.GetZ(), 0, 'f', 2);
+        AZ_Printf("MainWindow", tagConsoleText.toUtf8().data());
+        return true;
+    };
+
     am->AddAction(ID_TAG_LOC1, tr("Location 1"))
         .SetShortcut(tr("Ctrl+F1"))
-        .SetToolTip(tr("Location 1 (Ctrl+F1)"));
+        .SetToolTip(tr("Save Location 1 (Ctrl+F1)"))
+        .Connect(&QAction::triggered, [tagViewBookmarkFn](){ tagViewBookmarkFn(0); });
     am->AddAction(ID_TAG_LOC2, tr("Location 2"))
         .SetShortcut(tr("Ctrl+F2"))
-        .SetToolTip(tr("Location 2 (Ctrl+F2)"));
+        .SetToolTip(tr("Save Location 2 (Ctrl+F2)"))
+        .Connect(&QAction::triggered, [tagViewBookmarkFn](){ tagViewBookmarkFn(1); });
     am->AddAction(ID_TAG_LOC3, tr("Location 3"))
         .SetShortcut(tr("Ctrl+F3"))
-        .SetToolTip(tr("Location 3 (Ctrl+F3)"));
+        .SetToolTip(tr("Save Location 3 (Ctrl+F3)"))
+        .Connect(&QAction::triggered, [tagViewBookmarkFn](){ tagViewBookmarkFn(2); });
     am->AddAction(ID_TAG_LOC4, tr("Location 4"))
         .SetShortcut(tr("Ctrl+F4"))
-        .SetToolTip(tr("Location 4 (Ctrl+F4)"));
+        .SetToolTip(tr("Save Location 4 (Ctrl+F4)"))
+        .Connect(&QAction::triggered, [tagViewBookmarkFn](){ tagViewBookmarkFn(3); });
     am->AddAction(ID_TAG_LOC5, tr("Location 5"))
         .SetShortcut(tr("Ctrl+F5"))
-        .SetToolTip(tr("Location 5 (Ctrl+F5)"));
+        .SetToolTip(tr("Save Location 5 (Ctrl+F5)"))
+        .Connect(&QAction::triggered, [tagViewBookmarkFn](){ tagViewBookmarkFn(4); });
     am->AddAction(ID_TAG_LOC6, tr("Location 6"))
         .SetShortcut(tr("Ctrl+F6"))
-        .SetToolTip(tr("Location 6 (Ctrl+F6)"));
+        .SetToolTip(tr("Save Location 6 (Ctrl+F6)"))
+        .Connect(&QAction::triggered, [tagViewBookmarkFn](){ tagViewBookmarkFn(5); });
     am->AddAction(ID_TAG_LOC7, tr("Location 7"))
         .SetShortcut(tr("Ctrl+F7"))
-        .SetToolTip(tr("Location 7 (Ctrl+F7)"));
+        .SetToolTip(tr("Save Location 7 (Ctrl+F7)"))
+        .Connect(&QAction::triggered, [tagViewBookmarkFn](){ tagViewBookmarkFn(6); });
     am->AddAction(ID_TAG_LOC8, tr("Location 8"))
         .SetShortcut(tr("Ctrl+F8"))
-        .SetToolTip(tr("Location 8 (Ctrl+F8)"));
+        .SetToolTip(tr("Save Location 8 (Ctrl+F8)"))
+        .Connect(&QAction::triggered, [tagViewBookmarkFn](){ tagViewBookmarkFn(7); });
     am->AddAction(ID_TAG_LOC9, tr("Location 9"))
         .SetShortcut(tr("Ctrl+F9"))
-        .SetToolTip(tr("Location 9 (Ctrl+F9)"));
+        .SetToolTip(tr("Save Location 9 (Ctrl+F9)"))
+        .Connect(&QAction::triggered, [tagViewBookmarkFn](){ tagViewBookmarkFn(8); });
     am->AddAction(ID_TAG_LOC10, tr("Location 10"))
         .SetShortcut(tr("Ctrl+F10"))
-        .SetToolTip(tr("Location 10 (Ctrl+F10)"));
+        .SetToolTip(tr("Save Location 10 (Ctrl+F10)"))
+        .Connect(&QAction::triggered, [tagViewBookmarkFn](){ tagViewBookmarkFn(9); });
     am->AddAction(ID_TAG_LOC11, tr("Location 11"))
         .SetShortcut(tr("Ctrl+F11"))
-        .SetToolTip(tr("Location 11 (Ctrl+F11)"));
+        .SetToolTip(tr("Save Location 11 (Ctrl+F11)"))
+        .Connect(&QAction::triggered, [tagViewBookmarkFn](){ tagViewBookmarkFn(10); });
     am->AddAction(ID_TAG_LOC12, tr("Location 12"))
         .SetShortcut(tr("Ctrl+F12"))
-        .SetToolTip(tr("Location 12 (Ctrl+F12)"));
+        .SetToolTip(tr("Save Location 12 (Ctrl+F12)"))
+        .Connect(&QAction::triggered, [tagViewBookmarkFn](){ tagViewBookmarkFn(11); });
 
     if (CViewManager::IsMultiViewportEnabled())
     {
@@ -1466,11 +1629,10 @@ void MainWindow::ResetBackgroundUpdateTimer()
         m_backgroundUpdateTimer = nullptr;
     }
 
-    ICVar* pBackgroundUpdatePeriod = gEnv->pConsole->GetCVar("ed_backgroundUpdatePeriod");
-    if (pBackgroundUpdatePeriod && pBackgroundUpdatePeriod->GetIVal() > 0)
+    if (gSettings.backgroundUpdatePeriod > 0)
     {
         m_backgroundUpdateTimer = new QTimer(this);
-        m_backgroundUpdateTimer->start(pBackgroundUpdatePeriod->GetIVal());
+        m_backgroundUpdateTimer->start(gSettings.backgroundUpdatePeriod);
         connect(m_backgroundUpdateTimer, &QTimer::timeout, this, [&]() {
             // Make sure that visible editor window get low-fps updates while in the background
 
@@ -1844,7 +2006,7 @@ void MainWindow::OnViewPaneCreated(const QtViewPane* pane)
         id = pane->m_options.builtInActionId;
     }
 
-    if (m_actionManager->HasAction(id))
+    if (!IsNewActionManagerEnabled() && m_actionManager->HasAction(id))
     {
         action = m_actionManager->GetAction(id);
         action->setChecked(true);
@@ -2001,6 +2163,291 @@ bool MainWindow::focusNextPrevChild(bool next)
     }
 
     return QMainWindow::focusNextPrevChild(next);
+}
+
+void MainWindow::InitializeActionContext()
+{
+    ActionContextProperties contextProperties;
+    contextProperties.m_name = "O3DE Editor";
+
+    m_actionManagerInterface->RegisterActionContext("", EditorMainWindowActionContextIdentifier, contextProperties, this);
+}
+
+void MainWindow::InitializeActions()
+{
+    auto cryEdit = CCryEditApp::instance();
+
+    // --- Level Actions
+
+    // New Level
+    {
+        ActionProperties actionProperties;
+        actionProperties.m_name = "New Level";
+        actionProperties.m_description = "Create a new level";
+        actionProperties.m_category = "Level";
+
+        m_actionManagerInterface->RegisterAction(
+            EditorMainWindowActionContextIdentifier, "o3de.action.level.new", actionProperties,
+            [cryEdit]()
+            {
+                cryEdit->OnCreateLevel();
+            }
+        );
+    }
+
+    // Open Level
+    {
+        ActionProperties actionProperties;
+        actionProperties.m_name = "Open Level...";
+        actionProperties.m_description = "Open an existing level";
+        actionProperties.m_category = "Level";
+
+        m_actionManagerInterface->RegisterAction(
+            EditorMainWindowActionContextIdentifier, "o3de.action.level.open", actionProperties,
+            [cryEdit]()
+            {
+                cryEdit->OnOpenLevel();
+            }
+        );
+    }
+
+    // Save
+    {
+        ActionProperties actionProperties;
+        actionProperties.m_name = "Save";
+        actionProperties.m_description = "Save the current level";
+        actionProperties.m_category = "Level";
+
+        m_actionManagerInterface->RegisterAction(
+            EditorMainWindowActionContextIdentifier, "o3de.action.level.save", actionProperties,
+            [cryEdit]()
+            {
+                cryEdit->OnFileSave();
+            }
+        );
+    }
+
+    // --- Help Actions
+
+    // Tutorials
+    {
+        ActionProperties actionProperties;
+        actionProperties.m_name = "Tutorials";
+        actionProperties.m_category = "Help";
+
+        m_actionManagerInterface->RegisterAction(
+            EditorMainWindowActionContextIdentifier, "o3de.action.help.tutorials", actionProperties,
+            [cryEdit]()
+            {
+                cryEdit->OnDocumentationTutorials();
+            }
+        );
+    }
+
+    // Open 3D Engine Documentation
+    {
+        ActionProperties actionProperties;
+        actionProperties.m_name = "Open 3D Engine Documentation";
+        actionProperties.m_category = "Help";
+
+        m_actionManagerInterface->RegisterAction(
+            EditorMainWindowActionContextIdentifier, "o3de.action.help.documentation.o3de", actionProperties,
+            [cryEdit]()
+            {
+                cryEdit->OnDocumentationO3DE();
+            }
+        );
+    }
+
+    // GameLift Documentation
+    {
+        ActionProperties actionProperties;
+        actionProperties.m_name = "GameLift Documentation";
+        actionProperties.m_category = "Help";
+
+        m_actionManagerInterface->RegisterAction(
+            EditorMainWindowActionContextIdentifier, "o3de.action.help.documentation.gamelift", actionProperties,
+            [cryEdit]()
+            {
+                cryEdit->OnDocumentationGamelift();
+            }
+        );
+    }
+
+    // Release Notes
+    {
+        ActionProperties actionProperties;
+        actionProperties.m_name = "Release Notes";
+        actionProperties.m_category = "Help";
+
+        m_actionManagerInterface->RegisterAction(
+            EditorMainWindowActionContextIdentifier, "o3de.action.help.documentation.releasenotes", actionProperties,
+            [cryEdit]()
+            {
+                cryEdit->OnDocumentationReleaseNotes();
+            }
+        );
+    }
+
+    // GameDev Blog
+    {
+        ActionProperties actionProperties;
+        actionProperties.m_name = "GameDev Blog";
+        actionProperties.m_category = "Help";
+
+        m_actionManagerInterface->RegisterAction(
+            EditorMainWindowActionContextIdentifier, "o3de.action.help.resources.gamedevblog", actionProperties,
+            [cryEdit]()
+            {
+                cryEdit->OnDocumentationGameDevBlog();
+            }
+        );
+    }
+
+    // Forums
+    {
+        ActionProperties actionProperties;
+        actionProperties.m_name = "Forums";
+        actionProperties.m_category = "Help";
+
+        m_actionManagerInterface->RegisterAction(
+            EditorMainWindowActionContextIdentifier, "o3de.action.help.resources.forums", actionProperties,
+            [cryEdit]()
+            {
+                cryEdit->OnDocumentationForums();
+            }
+        );
+    }
+
+    // AWS Support
+    {
+        ActionProperties actionProperties;
+        actionProperties.m_name = "AWS Support";
+        actionProperties.m_category = "Help";
+
+        m_actionManagerInterface->RegisterAction(
+            EditorMainWindowActionContextIdentifier, "o3de.action.help.resources.awssupport", actionProperties,
+            [cryEdit]()
+            {
+                cryEdit->OnDocumentationAWSSupport();
+            }
+        );
+    }
+
+    // About O3DE
+    {
+        ActionProperties actionProperties;
+        actionProperties.m_name = "&About O3DE";
+        actionProperties.m_category = "Help";
+
+        m_actionManagerInterface->RegisterAction(
+            EditorMainWindowActionContextIdentifier, "o3de.action.help.abouto3de", actionProperties,
+            [cryEdit]()
+            {
+                cryEdit->OnAppAbout();
+            }
+        );
+    }
+
+    // Welcome
+    {
+        ActionProperties actionProperties;
+        actionProperties.m_name = "&Welcome";
+        actionProperties.m_category = "Help";
+
+        m_actionManagerInterface->RegisterAction(
+            EditorMainWindowActionContextIdentifier, "o3de.action.help.welcome", actionProperties,
+            [cryEdit]()
+            {
+                cryEdit->OnAppShowWelcomeScreen();
+            }
+        );
+    }
+
+}
+
+void MainWindow::InitializeMenus()
+{
+    // Initialize Menus
+    {
+        MenuProperties menuProperties;
+        menuProperties.m_name = "&File";
+        m_menuManagerInterface->RegisterMenu(FileMenuIdentifier, menuProperties);
+    }
+    {
+        MenuProperties menuProperties;
+        menuProperties.m_name = "&Edit";
+        m_menuManagerInterface->RegisterMenu(EditMenuIdentifier, menuProperties);
+    }
+    {
+        MenuProperties menuProperties;
+        menuProperties.m_name = "&Game";
+        m_menuManagerInterface->RegisterMenu(GameMenuIdentifier, menuProperties);
+    }
+    {
+        MenuProperties menuProperties;
+        menuProperties.m_name = "&Tools";
+        m_menuManagerInterface->RegisterMenu(ToolsMenuIdentifier, menuProperties);
+    }
+    {
+        MenuProperties menuProperties;
+        menuProperties.m_name = "&View";
+        m_menuManagerInterface->RegisterMenu(ViewMenuIdentifier, menuProperties);
+    }
+    {
+        MenuProperties menuProperties;
+        menuProperties.m_name = "&Help";
+        m_menuManagerInterface->RegisterMenu(HelpMenuIdentifier, menuProperties);
+    }
+    {
+        MenuProperties menuProperties;
+        menuProperties.m_name = "Documentation";
+        m_menuManagerInterface->RegisterMenu(HelpDocumentationMenuIdentifier, menuProperties);
+    }
+    {
+        MenuProperties menuProperties;
+        menuProperties.m_name = "GameDev Resources";
+        m_menuManagerInterface->RegisterMenu(HelpGameDevResourcesMenuIdentifier, menuProperties);
+    }
+
+    // Add Menus to MenuBar
+    QMenuBar* menuBar = this->menuBar();
+    menuBar->clear();
+    menuBar->addMenu(m_menuManagerInterface->GetMenu(FileMenuIdentifier));
+    menuBar->addMenu(m_menuManagerInterface->GetMenu(EditMenuIdentifier));
+    menuBar->addMenu(m_menuManagerInterface->GetMenu(GameMenuIdentifier));
+    menuBar->addMenu(m_menuManagerInterface->GetMenu(ToolsMenuIdentifier));
+    menuBar->addMenu(m_menuManagerInterface->GetMenu(ViewMenuIdentifier));
+    menuBar->addMenu(m_menuManagerInterface->GetMenu(HelpMenuIdentifier));
+
+    // Add actions to each menu
+
+    // File
+    {
+        m_menuManagerInterface->AddActionToMenu(FileMenuIdentifier, "o3de.action.level.new", 20);
+        m_menuManagerInterface->AddActionToMenu(FileMenuIdentifier, "o3de.action.level.open", 40);
+        m_menuManagerInterface->AddActionToMenu(FileMenuIdentifier, "o3de.action.level.save", 60);
+    }
+
+    // Help
+    {
+        m_menuManagerInterface->AddActionToMenu(HelpMenuIdentifier, "o3de.action.help.tutorials", 20);
+        m_menuManagerInterface->AddSubMenuToMenu(HelpMenuIdentifier, HelpDocumentationMenuIdentifier, 40);
+        {
+            m_menuManagerInterface->AddActionToMenu(HelpDocumentationMenuIdentifier, "o3de.action.help.documentation.o3de", 20);
+            m_menuManagerInterface->AddActionToMenu(HelpDocumentationMenuIdentifier, "o3de.action.help.documentation.gamelift", 40);
+            m_menuManagerInterface->AddActionToMenu(HelpDocumentationMenuIdentifier, "o3de.action.help.documentation.releasenotes", 60);
+        }
+        m_menuManagerInterface->AddSubMenuToMenu(HelpMenuIdentifier, HelpGameDevResourcesMenuIdentifier, 60);
+        {
+            m_menuManagerInterface->AddActionToMenu(HelpGameDevResourcesMenuIdentifier, "o3de.action.help.resources.gamedevblog", 20);
+            m_menuManagerInterface->AddActionToMenu(HelpGameDevResourcesMenuIdentifier, "o3de.action.help.resources.forums", 40);
+            m_menuManagerInterface->AddActionToMenu(HelpGameDevResourcesMenuIdentifier, "o3de.action.help.resources.awssupport", 60);
+        }
+        m_menuManagerInterface->AddSeparatorToMenu(HelpMenuIdentifier, 80);
+        m_menuManagerInterface->AddActionToMenu(HelpMenuIdentifier, "o3de.action.help.abouto3de", 100);
+        m_menuManagerInterface->AddActionToMenu(HelpMenuIdentifier, "o3de.action.help.welcome", 120);
+    }
 }
 
 namespace AzToolsFramework

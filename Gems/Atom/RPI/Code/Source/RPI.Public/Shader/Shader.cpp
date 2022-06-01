@@ -102,13 +102,27 @@ namespace AZ
                 RHI::RHISystemInterface* rhiSystem = RHI::RHISystemInterface::Get();
                 RHI::PhysicalDeviceDescriptor physicalDeviceDesc = rhiSystem->GetPhysicalDeviceDescriptor();
 
+                AZStd::string configString;
+                if (RHI::BuildOptions::IsDebugBuild)
+                {
+                    configString = "Debug";
+                }
+                else if (RHI::BuildOptions::IsProfileBuild)
+                {
+                    configString = "Profile";
+                }
+                else
+                {
+                    configString = "Release";
+                }
+                
                 char pipelineLibraryPathTemp[AZ_MAX_PATH_LEN];
                 azsnprintf(
-                    pipelineLibraryPathTemp, AZ_MAX_PATH_LEN, "@user@/Atom/PipelineStateCache_%s_%u_%u_Ver_%i/%s/%s_%s_%d.bin",
-                    ToString(physicalDeviceDesc.m_vendorId).data(), physicalDeviceDesc.m_deviceId, physicalDeviceDesc.m_driverVersion, PSOCacheVersion,
-                    platformName.GetCStr(),
-                    shaderName.GetCStr(),
-                    uuidString.data(),
+                    pipelineLibraryPathTemp, AZ_MAX_PATH_LEN, "@user@/Atom/PipelineStateCache_%s_%u_%u_%s_Ver_%i/%s/%s_%s_%d.bin",
+                    ToString(physicalDeviceDesc.m_vendorId).data(), physicalDeviceDesc.m_deviceId,
+                    physicalDeviceDesc.m_driverVersion, configString.data(),
+                    PSOCacheVersion, platformName.GetCStr(),
+                    shaderName.GetCStr(), uuidString.data(),
                     assetId.m_subId);
 
                 fileIOBase->ResolvePath(pipelineLibraryPathTemp, pipelineLibraryPath, pipelineLibraryPathLength);
@@ -134,7 +148,7 @@ namespace AZ
                 AZStd::unique_lock<decltype(m_variantCacheMutex)> lock(m_variantCacheMutex);
                 m_shaderVariants.clear();
             }
-            auto rootShaderVariantAsset = shaderAsset.GetRootVariant(m_supervariantIndex);
+            auto rootShaderVariantAsset = shaderAsset.GetRootVariantAsset(m_supervariantIndex);
             m_rootVariant.Init(m_asset, rootShaderVariantAsset, m_supervariantIndex);
 
             if (m_pipelineLibraryHandle.IsNull())
@@ -240,7 +254,7 @@ namespace AZ
 
                     AZStd::sys_time_t now = AZStd::GetTimeNowMicroSecond();
 
-                    const auto shaderVariantAsset = m_asset->GetRootVariant();
+                    const auto shaderVariantAsset = m_asset->GetRootVariantAsset();
                     ShaderReloadDebugTracker::Printf("{%p}->Shader::OnAssetReloaded for shader '%s' [build time %s] found variant '%s' [build time %s]", this,
                         m_asset.GetHint().c_str(), makeTimeString(m_asset->m_buildTimestamp, now).c_str(),
                         shaderVariantAsset.GetHint().c_str(), makeTimeString(shaderVariantAsset->GetBuildTimestamp(), now).c_str());
@@ -366,7 +380,7 @@ namespace AZ
 
         const ShaderVariant& Shader::GetVariant(const ShaderVariantId& shaderVariantId)
         {
-            Data::Asset<ShaderVariantAsset> shaderVariantAsset = m_asset->GetVariant(shaderVariantId, m_supervariantIndex);
+            Data::Asset<ShaderVariantAsset> shaderVariantAsset = m_asset->GetVariantAsset(shaderVariantId, m_supervariantIndex);
             if (!shaderVariantAsset || shaderVariantAsset->IsRootVariant())
             {
                 return m_rootVariant;
@@ -436,8 +450,8 @@ namespace AZ
 
             // By calling GetVariant, an asynchronous asset load request is enqueued if the variant
             // is not fully ready.
-            Data::Asset<ShaderVariantAsset> shaderVariantAsset = m_asset->GetVariant(shaderVariantStableId, m_supervariantIndex);
-            if (!shaderVariantAsset || shaderVariantAsset == m_asset->GetRootVariant())
+            Data::Asset<ShaderVariantAsset> shaderVariantAsset = m_asset->GetVariantAsset(shaderVariantStableId, m_supervariantIndex);
+            if (!shaderVariantAsset || shaderVariantAsset == m_asset->GetRootVariantAsset())
             {
                 // Return the root variant when the requested variant is not ready.
                 return m_rootVariant;

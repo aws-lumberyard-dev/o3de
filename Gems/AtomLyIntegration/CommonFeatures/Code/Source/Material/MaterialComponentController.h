@@ -48,6 +48,7 @@ namespace AZ
             //! MaterialComponentRequestBus overrides...
             MaterialAssignmentMap GetOriginalMaterialAssignments() const override;
             MaterialAssignmentId FindMaterialAssignmentId(const MaterialAssignmentLodIndex lod, const AZStd::string& label) const override;
+            AZ::Data::AssetId GetActiveMaterialAssetId(const MaterialAssignmentId& materialAssignmentId) const override;
             AZ::Data::AssetId GetDefaultMaterialAssetId(const MaterialAssignmentId& materialAssignmentId) const override;
             AZStd::string GetMaterialSlotLabel(const MaterialAssignmentId& materialAssignmentId) const override;
             void SetMaterialOverrides(const MaterialAssignmentMap& materials) override;
@@ -96,7 +97,7 @@ namespace AZ
             void ReleaseMaterials();
             //! Queue applying property overrides to material instances until tick
             void QueuePropertyChanges(const MaterialAssignmentId& materialAssignmentId);
-            //! Queue material instance recreation notifiucations until tick
+            //! Queue material instance recreation notifications until tick
             void QueueMaterialUpdateNotification();
 
             //! Converts property overrides storing image asset references into asset IDs. This addresses a problem where image property

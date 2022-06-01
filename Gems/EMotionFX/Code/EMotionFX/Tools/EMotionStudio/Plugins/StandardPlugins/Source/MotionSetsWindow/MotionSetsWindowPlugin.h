@@ -28,17 +28,12 @@
 #include <QDialog>
 #endif
 
-
 namespace EMStudio
 {
-    // forward declarations
-    class SaveDirtyMotionSetFilesCallback;
-
-
     class MotionSetsWindowPlugin
         : public EMStudio::DockWidgetPlugin
     {
-        Q_OBJECT
+        Q_OBJECT // AUTOMOC
         MCORE_MEMORYOBJECTCATEGORY(MotionSetsWindowPlugin, MCore::MCORE_DEFAULT_ALIGNMENT, MEMCATEGORY_STANDARDPLUGINS);
 
     public:
@@ -51,18 +46,15 @@ namespace EMStudio
         ~MotionSetsWindowPlugin();
 
         // overloaded
-        const char* GetCompileDate() const override     { return MCORE_DATE; }
         const char* GetName() const override            { return "Motion Sets"; }
         uint32 GetClassID() const override              { return MotionSetsWindowPlugin::CLASS_ID; }
-        const char* GetCreatorName() const override     { return "O3DE"; }
-        float GetVersion() const override               { return 1.0f;  }
         bool GetIsClosable() const override             { return true;  }
         bool GetIsFloatable() const override            { return true;  }
         bool GetIsVertical() const override             { return false; }
 
         // overloaded main init function
         bool Init() override;
-        EMStudioPlugin* Clone() override;
+        EMStudioPlugin* Clone() const override { return new MotionSetsWindowPlugin(); }
         void OnAfterLoadProject() override;
 
         void ReInit();
@@ -70,7 +62,6 @@ namespace EMStudio
         EMotionFX::MotionSet* GetSelectedSet() const;
 
         void SetSelectedSet(EMotionFX::MotionSet* motionSet);
-        int SaveDirtyMotionSet(EMotionFX::MotionSet* motionSet, MCore::CommandGroup* commandGroup, bool askBeforeSaving, bool showCancelButton = true);
 
         MotionSetManagementWindow*  GetManagementWindow()                                                       { return m_motionSetManagementWindow; }
         MotionSetWindow*            GetMotionSetWindow()                                                        { return m_motionSetWindow; }
@@ -100,7 +91,5 @@ namespace EMStudio
         MysticQt::DialogStack*                  m_dialogStack;
 
         EMotionFX::MotionSet*                   m_selectedSet;
-
-        SaveDirtyMotionSetFilesCallback*        m_dirtyFilesCallback;
     };
 } // namespace EMStudio

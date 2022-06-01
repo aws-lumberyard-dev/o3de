@@ -87,9 +87,8 @@ class TestFixtures(object):
         mock_config.getoption.return_value = None
 
         expected = os.path.join(mock_cwd,
-                                'TestResults',
-                                '2019-10-11T00-00-00-000000',
-                                'pytest_results')
+                                'pytest_results',
+                                '2019-10-11T00-00-00-000000')
         actual = test_tools_fixtures._get_output_path(mock_config)
 
         assert actual == expected
@@ -183,7 +182,7 @@ class TestFixtures(object):
         )
 
     @mock.patch('os.path.exists', mock.MagicMock(return_value=True))
-    @mock.patch("ly_test_tools.launchers.launcher_helper.create_launcher")
+    @mock.patch("ly_test_tools.launchers.launcher_helper.create_game_launcher")
     def test_Launcher_MockHelper_Passthrough(self, mock_create):
         retval = mock.MagicMock()
         mock_create.return_value = retval
@@ -202,7 +201,7 @@ class TestFixtures(object):
         assert retval is under_test
 
     @mock.patch('os.path.exists', mock.MagicMock(return_value=True))
-    @mock.patch("ly_test_tools.launchers.launcher_helper.create_launcher")
+    @mock.patch("ly_test_tools.launchers.launcher_helper.create_game_launcher")
     def test_Launcher_MockHelper_TeardownCalled(self, mock_create):
         retval = mock.MagicMock()
         retval.stop = mock.MagicMock()
@@ -234,7 +233,7 @@ class TestFixtures(object):
         _finalizer()
         retval.stop.assert_called_once()
 
-    @mock.patch("ly_test_tools.launchers.launcher_helper.create_dedicated_launcher")
+    @mock.patch("ly_test_tools.launchers.launcher_helper.create_server_launcher")
     def test_DedicatedLauncher_MockHelper_Passthrough(self, mock_create):
         retval = mock.MagicMock()
         mock_create.return_value = retval
@@ -244,7 +243,7 @@ class TestFixtures(object):
         mock_create.assert_called_once()
         assert retval is under_test
 
-    @mock.patch("ly_test_tools.launchers.launcher_helper.create_dedicated_launcher")
+    @mock.patch("ly_test_tools.launchers.launcher_helper.create_server_launcher")
     def test_DedicatedLauncher_MockHelper_TeardownCalled(self, mock_create):
         retval = mock.MagicMock()
         retval.stop = mock.MagicMock()

@@ -60,6 +60,13 @@ namespace ScriptCanvasBuilder
         ReflectEntityIdNodes,
         FixExecutionStateNodeableConstruction,
         SwitchAssetsToBinary,
+        ReinforcePreloadBehavior,
+        SeparateFromEntityComponentSystem,
+        DistinguishEntityScriptFromScript,
+        ExecutionStateAsLightUserdata,
+        UpdateDependencyHandling,
+        AddExplicitDestructCallForMemberVariables,
+
         // add new entries above
         Current,
     };
@@ -122,10 +129,6 @@ namespace ScriptCanvasBuilder
     };
 
     AZ::Outcome<AZ::Data::Asset<ScriptCanvas::RuntimeAsset>, AZStd::string> CreateRuntimeAsset(const ScriptCanvasEditor::SourceHandle& asset);
-
-    AZ::Outcome<ScriptCanvas::GraphData, AZStd::string> CompileGraphData(AZ::Entity* scriptCanvasEntity);
-
-    AZ::Outcome<ScriptCanvas::VariableData, AZStd::string> CompileVariableData(AZ::Entity* scriptCanvasEntity);
 
     AZ::Outcome<ScriptCanvas::Translation::LuaAssetResult, AZStd::string> CreateLuaAsset(const ScriptCanvasEditor::SourceHandle& editAsset, AZStd::string_view rawLuaFilePath);
 

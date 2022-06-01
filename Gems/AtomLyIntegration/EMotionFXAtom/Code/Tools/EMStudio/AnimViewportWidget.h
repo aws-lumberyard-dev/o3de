@@ -8,12 +8,15 @@
 #pragma once
 
 #include <QSettings>
+#include <QMouseEvent>
 #include <AtomToolsFramework/Viewport/RenderViewportWidget.h>
 #include <AzFramework/Viewport/CameraInput.h>
+#include <AzToolsFramework/ViewportUi/ViewportUiManager.h>
 
 #include <EMotionFX/Tools/EMotionStudio/EMStudioSDK/Source/RenderPlugin/ViewportPluginBus.h>
 #include <EMStudio/AnimViewportRequestBus.h>
 #include <Integration/Rendering/RenderFlag.h>
+
 
 namespace EMStudio
 {
@@ -42,6 +45,8 @@ namespace EMStudio
         void SetupCameras();
         void SetupCameraController();
 
+        void OnContextMenuEvent(QMouseEvent* event);
+
         // AnimViewportRequestBus::Handler overrides
         void UpdateCameraViewMode(RenderOptions::CameraViewMode mode);
         void UpdateCameraFollowUp(bool follow);
@@ -49,6 +54,13 @@ namespace EMStudio
 
         // ViewportPluginRequestBus::Handler overrides
         AZ::s32 GetViewportId() const;
+
+        // MouseEvent
+        void mousePressEvent(QMouseEvent* event) override;
+        void mouseMoveEvent(QMouseEvent* event) override;
+        void mouseReleaseEvent(QMouseEvent* event) override;
+
+        void resizeEvent(QResizeEvent* event) override;
 
         static constexpr float CameraDistance = 2.0f;
 
@@ -72,5 +84,14 @@ namespace EMStudio
         AZStd::shared_ptr<AzFramework::OrbitMotionDollyCameraInput> m_followScrollMotionCamera;
 
         AZ::Vector3 m_defaultOrbitPoint = AZ::Vector3::CreateZero();
+
+        // Properties related to the mouse event.
+        // Used to prevent right click option showing up when mouse moved between press and release.
+        QPoint m_prevMousePoint;
+        int m_pixelsSinceClick = 0;
+        const int MinMouseMovePixes = 5;
+
+        AzToolsFramework::ViewportUi::ViewportUiManager m_viewportUiManager;
+        QWidget m_renderOverlay;
     };
 }

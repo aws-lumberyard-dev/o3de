@@ -19,7 +19,7 @@
   "debug_pipe": {
     "TAGS": [
       "nightly-incremental",
-      "nightly-clean"
+      "weekly-clean-internal"
     ],
     "steps": [
       "debug",
@@ -122,7 +122,7 @@
   "profile_nounity": {
     "TAGS": [
       "nightly-incremental",
-      "nightly-clean",
+      "weekly-clean-internal",
       "weekly-build-metrics"
     ],
     "COMMAND": "build_windows.cmd",
@@ -155,8 +155,8 @@
   },
   "test_gpu_profile": {
     "TAGS":[
-      "nightly-incremental",
-      "nightly-clean"
+      "nightly-incremental-internal",
+      "weekly-clean-internal"
     ],
     "PIPELINE_ENV":{
       "NODE_LABEL":"windows-gpu"
@@ -179,7 +179,7 @@
     "TAGS": [
       "weekly-build-metrics",
       "nightly-incremental",
-      "nightly-clean"
+      "weekly-clean-internal"
     ],
     "COMMAND": "build_asset_windows.cmd",
     "PARAMETERS": {
@@ -196,8 +196,8 @@
   },
   "awsi_test_profile_pipe": {
     "TAGS": [
-      "nightly-incremental",
-      "nightly-clean"
+      "nightly-incremental-internal",
+      "weekly-clean-internal"
     ],
     "steps": [
       "awsi_deployment",
@@ -228,7 +228,7 @@
   "periodic_test_profile": {
     "TAGS": [
         "nightly-incremental",
-        "nightly-clean",
+        "weekly-clean-internal",
         "weekly-build-metrics"
     ],
     "COMMAND": "build_test_windows.cmd",
@@ -246,8 +246,8 @@
   },
   "periodic_test_gpu_profile": {
     "TAGS": [
-        "nightly-incremental",
-        "nightly-clean",
+        "nightly-incremental-internal",
+        "weekly-clean-internal",
         "weekly-build-metrics"
     ],
     "PIPELINE_ENV":{
@@ -269,7 +269,7 @@
   "sandbox_test_profile": {
     "TAGS": [
       "nightly-incremental",
-      "nightly-clean",
+      "weekly-clean-internal",
       "weekly-build-metrics"
     ],
     "PIPELINE_ENV": {
@@ -291,7 +291,7 @@
   "benchmark_test_profile": {
     "TAGS": [
       "nightly-incremental",
-      "nightly-clean",
+      "weekly-clean-internal",
       "weekly-build-metrics"
     ],
     "COMMAND": "build_test_windows.cmd",
@@ -311,7 +311,7 @@
     "TAGS": [
       "default",
       "nightly-incremental",
-      "nightly-clean",
+      "weekly-clean-internal",
       "weekly-build-metrics",
       "snapshot"
     ],
@@ -328,7 +328,7 @@
   "monolithic_release": {
     "TAGS": [
       "nightly-incremental",
-      "nightly-clean",
+      "weekly-clean-internal",
       "weekly-build-metrics"
     ],
     "COMMAND": "build_windows.cmd",
@@ -352,11 +352,18 @@
         "CMAKE_NATIVE_BUILD_ARGS": "/m /nologo"
     }
   },
-  "installer": {
+  "installer_pipe": { 
     "TAGS": [
-      "nightly-clean",
+      "weekly-clean-internal",
       "nightly-installer"
     ],
+    "steps": [
+      "installer",
+      "installer_test"
+    ]
+  },
+  "installer": {
+    "TAGS": [],
     "PIPELINE_ENV":{
       "NODE_LABEL":"windows-packaging"
     },
@@ -371,10 +378,21 @@
         "CMAKE_NATIVE_BUILD_ARGS": "/m /nologo"
     }
   },
+  "installer_test": {
+    "TAGS": [],
+    "PIPELINE_ENV":{
+      "NODE_LABEL":"windows-installer-test"
+    },
+    "COMMAND": "pytest_windows.cmd",
+    "PARAMETERS": {
+      "PYTEST_PATH": "cmake\\Platform\\Windows\\Packaging\\Tests",
+      "PYTEST_PARAMETERS": "--capture=no --log-file=%WORKSPACE%\\installer_test.log --install-root=%WORKSPACE%\\o3de_install --installer-uri=!INSTALLER_S3_BUCKET!/development/Latest/Windows/o3de_installer.exe --project-path=%WORKSPACE%\\TestProject"
+    }
+  },
   "install_profile_pipe": {
     "TAGS": [
       "nightly-incremental",
-      "nightly-clean"
+      "weekly-clean-internal"
     ],
     "PIPELINE_ENV": {
       "PROJECT_REPOSITORY_NAME": "TestProject"
@@ -439,7 +457,9 @@
       "NONBLOCKING_STEP": "True"
     },
     "COMMAND": "deploy_cdk_applications.cmd",
-    "PARAMETERS": {}
+    "PARAMETERS": {
+      "CDK_VERSION": "1.154.0"
+    }
   },
   "awsi_destruction": {
     "TAGS": [],
@@ -447,6 +467,8 @@
       "NONBLOCKING_STEP": "True"
     },
     "COMMAND": "destroy_cdk_applications.cmd",
-    "PARAMETERS": {}
+    "PARAMETERS": {
+      "CDK_VERSION": "1.154.0"
+    }
   }
 }

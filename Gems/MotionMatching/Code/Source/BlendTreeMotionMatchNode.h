@@ -29,6 +29,7 @@ namespace EMotionFX::MotionMatching
         {
             INPUTPORT_TARGETPOS = 0,
             INPUTPORT_TARGETFACINGDIR = 1,
+            INPUTPORT_USEFACINGDIR = 2,
             OUTPUTPORT_POSE = 0
         };
 
@@ -36,6 +37,7 @@ namespace EMotionFX::MotionMatching
         {
             PORTID_INPUT_TARGETPOS = 0,
             PORTID_INPUT_TARGETFACINGDIR = 1,
+            PORTID_INPUT_USEFACINGDIR = 2,
             PORTID_OUTPUT_POSE = 0
         };
 
@@ -82,12 +84,16 @@ namespace EMotionFX::MotionMatching
 
         static void Reflect(AZ::ReflectContext* context);
 
+        const FeatureSchema& GetFeatureSchema() const { return m_featureSchema; }
+
     private:
         void Output(AnimGraphInstance* animGraphInstance) override;
         void Update(AnimGraphInstance* animGraphInstance, float timePassedInSeconds) override;
         void PostUpdate(AnimGraphInstance* animGraphInstance, float timePassedInSeconds) override;
 
         AZ::Crc32 GetTrajectoryPathSettingsVisibility() const;
+        AZ::Crc32 OnVisualizeSchemaButtonClicked();
+        AZStd::string OnVisualizeSchemaButtonText() const;
 
         FeatureSchema m_featureSchema;
         AZStd::vector<AZStd::string> m_motionIds;

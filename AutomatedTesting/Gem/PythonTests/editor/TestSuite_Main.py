@@ -27,6 +27,12 @@ class TestAutomationNoAutoTestMode(EditorTestSuite):
     class test_BasicEditorWorkflows_ExistingLevel_EntityComponentCRUD(EditorSharedTest):
         from .EditorScripts import BasicEditorWorkflows_ExistingLevel_EntityComponentCRUD as test_module
 
+    class test_EditorWorkflow_ParentEntityTransform_Affects_ChildEntityTransform(EditorSharedTest):
+        from .EditorScripts import EditorWorkflow_ParentEntityTransform_Affects_ChildEntityTransform as test_module
+
+    class test_EditorWorkflow_ChildEntityTransform_Persists_After_ParentEntityTransform(EditorSharedTest):
+        from .EditorScripts import EditorWorkflow_ChildEntityTransform_Persists_After_ParentEntityTransform as test_module
+
     class test_BasicEditorWorkflows_LevelEntityComponentCRUD(EditorSingleTest):
         # Custom teardown to remove level created during test
         def teardown(self, request, workspace, editor, editor_test_results, launcher_platform):
@@ -63,10 +69,11 @@ class TestAutomationAutoTestMode(EditorTestSuite):
     class test_AssetBrowser_TreeNavigation(EditorSharedTest):
         from .EditorScripts import AssetBrowser_TreeNavigation as test_module
 
+    @pytest.mark.xfail(reason="Unknown failure. Investigation blocked by https://github.com/o3de/o3de/issues/8108")
     class test_ComponentCRUD_Add_Delete_Components(EditorSharedTest):
         from .EditorScripts import ComponentCRUD_Add_Delete_Components as test_module
 
-    @pytest.mark.skip("Passes locally/fails on Jenkins. https://github.com/o3de/o3de/issues/6747")
+    @pytest.mark.REQUIRES_gpu
     class test_Docking_BasicDockedTools(EditorSharedTest):
         from .EditorScripts import Docking_BasicDockedTools as test_module
 

@@ -66,6 +66,7 @@ namespace ScriptCanvas
 
         void MarkVersion();
         const VersionData& GetVersion() const;
+        bool HasDeprecatedNode() const;
 
         void Parse(ValidationResults& validationResults);
 
@@ -176,7 +177,9 @@ namespace ScriptCanvas
         VariableId FindAssetVariableIdByRuntimeVariableId(VariableId runtimeId) const override { return runtimeId; }
         AZ::EntityId FindAssetNodeIdByRuntimeNodeId(AZ::EntityId editorNode) const override { return editorNode; }
         AZ::EntityId FindRuntimeNodeIdByAssetNodeId(AZ::EntityId runtimeNode) const override { return runtimeNode; }
-        
+
+        void RefreshVariableReferences(const VariableId&) override {}
+
         VariableData* GetVariableData() override;
         
         const GraphVariableMapping* GetVariables() const override;

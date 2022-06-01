@@ -28,7 +28,7 @@ namespace AZ
             static const RHI::Format IrradianceImageFormat = RHI::Format::R16G16B16A16_FLOAT;
             static const RHI::Format DistanceImageFormat = RHI::Format::R32G32_FLOAT;
             static const RHI::Format ProbeDataImageFormat = RHI::Format::R16G16B16A16_FLOAT;
-            static const uint32_t GridDataBufferSize = 164;
+            static const uint32_t GridDataBufferSize = 180;
 
             RHI::Ptr<RHI::ImagePool> m_imagePool;          
             RHI::Ptr<RHI::BufferPool> m_bufferPool;
@@ -142,6 +142,7 @@ namespace AZ
             const Data::Instance<RPI::ShaderResourceGroup>& GetRenderObjectSrg() const { return m_renderObjectSrg; }
             const Data::Instance<RPI::ShaderResourceGroup>& GetVisualizationPrepareSrg() const { return m_visualizationPrepareSrg; }
             const Data::Instance<RPI::ShaderResourceGroup>& GetVisualizationRayTraceSrg() const { return m_visualizationRayTraceSrg; }
+            const Data::Instance<RPI::ShaderResourceGroup>& GetQuerySrg() const { return m_querySrg; }
 
             // Srg updates
             void UpdatePrepareSrg(const Data::Instance<RPI::Shader>& shader, const RHI::Ptr<RHI::ShaderResourceGroupLayout>& srgLayout);
@@ -155,6 +156,7 @@ namespace AZ
             void UpdateRenderObjectSrg();
             void UpdateVisualizationPrepareSrg(const Data::Instance<RPI::Shader>& shader, const RHI::Ptr<RHI::ShaderResourceGroupLayout>& srgLayout);
             void UpdateVisualizationRayTraceSrg(const Data::Instance<RPI::Shader>& shader, const RHI::Ptr<RHI::ShaderResourceGroupLayout>& srgLayout, const RHI::ImageView* outputImageView);
+            void UpdateQuerySrg(const Data::Instance<RPI::Shader>& shader, const RHI::Ptr<RHI::ShaderResourceGroupLayout>& srgLayout);
 
             // textures
             const RHI::Ptr<RHI::Image> GetRayTraceImage() { return m_rayTraceImage[m_currentImageIndex]; }
@@ -199,6 +201,9 @@ namespace AZ
             bool GetVisualizationTlasUpdateRequired() const;
             void ResetVisualizationTlasUpdateRequired() { m_visualizationTlasUpdateRequired = false; }
 
+            // query
+            bool ContainsPosition(const AZ::Vector3& position) const;
+
         private:
 
             // helper functions
@@ -242,7 +247,8 @@ namespace AZ
             float m_probeBrightnessThreshold = 1.0f;
             float m_probeIrradianceEncodingGamma = 5.0f;
             float m_probeMinFrontfaceDistance = 1.0f;
-            float m_probeBackfaceThreshold = 0.25f;
+            float m_probeRandomRayBackfaceThreshold = 0.1f;
+            float m_probeFixedRayBackfaceThreshold = 0.25f;
             float m_ambientMultiplier = 1.0f;
             bool  m_giShadows = true;
             bool  m_useDiffuseIbl = true;
@@ -313,6 +319,7 @@ namespace AZ
             Data::Instance<RPI::ShaderResourceGroup> m_relocationSrg;
             Data::Instance<RPI::ShaderResourceGroup> m_classificationSrg;
             Data::Instance<RPI::ShaderResourceGroup> m_renderObjectSrg;
+            Data::Instance<RPI::ShaderResourceGroup> m_querySrg;
             bool m_updateRenderObjectSrg = true;
 
             // attachment Ids

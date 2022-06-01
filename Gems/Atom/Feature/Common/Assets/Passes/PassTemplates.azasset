@@ -220,6 +220,10 @@
                 "Name": "EsmShadowmapsTemplate",
                 "Path": "Passes/EsmShadowmaps.pass"
             },
+	    {
+                "Name": "FullscreenShadowTemplate",
+                "Path": "Passes/FullscreenShadow.pass"
+            },            
             {
                 "Name": "LightCullingHeatmapTemplate",
                 "Path": "Passes/LightCullingHeatmap.pass"
@@ -493,6 +497,10 @@
                 "Path": "Passes/DiffuseProbeGridVisualizationRayTracing.pass"
             },
             {
+                "Name": "DiffuseProbeGridQueryPassTemplate",
+                "Path": "Passes/DiffuseProbeGridQuery.pass"
+            },
+            {
                 "Name": "DiffuseProbeGridVisualizationCompositePassTemplate",
                 "Path": "Passes/DiffuseProbeGridVisualizationComposite.pass"
             },
@@ -571,6 +579,10 @@
             {
                 "Name": "LutGenerationTemplate",
                 "Path": "Passes/LutGeneration.pass"
+            },
+            {
+                "Name": "ChromaticAberrationTemplate",
+                "Path": "Passes/ChromaticAberration.pass"
             }
         ]
     }

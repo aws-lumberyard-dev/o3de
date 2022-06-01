@@ -201,13 +201,17 @@ namespace AZ
 
 
             // Helper function to wait for end of TaskGraph and then delete the TaskGraphEvent
-            void WaitAndCleanTGEvent(AZStd::unique_ptr<AZ::TaskGraphEvent>&& completionTGEvent);
+            void WaitAndCleanTGEvent();
 
             // Helper function for wait and clean up a completion job
             void WaitAndCleanCompletionJob(AZ::JobCompletion*& completionJob);
 
             // Add a created feature processor to this scene
             void AddFeatureProcessor(FeatureProcessorPtr fp);
+
+            // Check each of the added render pipelines and set its recreate flag if it's allowed to be modified by any feature processors
+            // This is usually called when a feature processor was added and removed after scene was activated
+            void CheckRecreateRenderPipeline();
 
             // Send out event to PrepareSceneSrgEvent::Handlers so they can update scene srg as needed
             // This happens in UpdateSrgs()

@@ -75,6 +75,7 @@ set(FILES
     Asset/Benchmark/BenchmarkCommands.h
     Asset/Benchmark/BenchmarkSettingsAsset.cpp
     Asset/Benchmark/BenchmarkSettingsAsset.h
+    AutoGen/AzFramework.AutoPackets.xml
     CommandLine/CommandLine.h
     CommandLine/CommandRegistrationBus.h
     Viewport/ViewportBus.h
@@ -135,6 +136,29 @@ set(FILES
     Components/AzFrameworkConfigurationSystemComponent.cpp
     Components/NonUniformScaleComponent.h
     Components/NonUniformScaleComponent.cpp
+    DocumentPropertyEditor/AdapterBuilder.cpp
+    DocumentPropertyEditor/AdapterBuilder.h
+    DocumentPropertyEditor/BasicAdapter.cpp
+    DocumentPropertyEditor/BasicAdapter.h
+    DocumentPropertyEditor/DocumentAdapter.cpp
+    DocumentPropertyEditor/DocumentAdapter.h
+    DocumentPropertyEditor/DocumentSchema.h
+    DocumentPropertyEditor/PropertyEditorNodes.cpp
+    DocumentPropertyEditor/PropertyEditorNodes.h
+    DocumentPropertyEditor/PropertyEditorSystem.cpp
+    DocumentPropertyEditor/PropertyEditorSystem.h
+    DocumentPropertyEditor/PropertyEditorSystemInterface.h
+    DocumentPropertyEditor/CvarAdapter.cpp
+    DocumentPropertyEditor/CvarAdapter.h
+    DocumentPropertyEditor/RoutingAdapter.cpp
+    DocumentPropertyEditor/RoutingAdapter.h
+    DocumentPropertyEditor/ReflectionAdapter.cpp
+    DocumentPropertyEditor/ReflectionAdapter.h
+    DocumentPropertyEditor/Reflection/Attribute.h
+    DocumentPropertyEditor/Reflection/LegacyReflectionBridge.cpp
+    DocumentPropertyEditor/Reflection/LegacyReflectionBridge.h
+    DocumentPropertyEditor/Reflection/Visitor.cpp
+    DocumentPropertyEditor/Reflection/Visitor.h
     FileFunc/FileFunc.h
     FileFunc/FileFunc.cpp
     Font/FontInterface.h
@@ -215,6 +239,8 @@ set(FILES
     Physics/Configuration/SimulatedBodyConfiguration.cpp
     Physics/Configuration/SystemConfiguration.h
     Physics/Configuration/SystemConfiguration.cpp
+    Physics/DebugDraw/CharacterPhysicsDebugDraw.h
+    Physics/DebugDraw/CharacterPhysicsDebugDraw.cpp
     Physics/HeightfieldProviderBus.h
     Physics/HeightfieldProviderBus.cpp
     Physics/SimulatedBodies/RigidBody.h
@@ -272,11 +298,21 @@ set(FILES
     Render/Intersector.h
     Render/IntersectorInterface.h
     Spawnable/RootSpawnableInterface.h
+    Spawnable/Script/SpawnableScriptAssetRef.cpp
+    Spawnable/Script/SpawnableScriptAssetRef.h
+    Spawnable/Script/SpawnableScriptBus.h
+    Spawnable/Script/SpawnableScriptMediator.cpp
+    Spawnable/Script/SpawnableScriptMediator.h
+    Spawnable/Script/SpawnableScriptNotificationsHandler.h
+    Spawnable/InMemorySpawnableAssetContainer.cpp
+    Spawnable/InMemorySpawnableAssetContainer.h
     Spawnable/Spawnable.cpp
     Spawnable/Spawnable.h
     Spawnable/SpawnableAssetBus.h
     Spawnable/SpawnableAssetHandler.h
     Spawnable/SpawnableAssetHandler.cpp
+    Spawnable/SpawnableAssetUtils.h
+    Spawnable/SpawnableAssetUtils.cpp
     Spawnable/SpawnableEntitiesContainer.h
     Spawnable/SpawnableEntitiesContainer.cpp
     Spawnable/SpawnableEntitiesInterface.h
@@ -286,6 +322,7 @@ set(FILES
     Spawnable/SpawnableMetaData.cpp
     Spawnable/SpawnableMetaData.h
     Spawnable/SpawnableMonitor.h
+    Spawnable/SpawnableMonitor.cpp
     Spawnable/SpawnableMonitor.cpp
     Spawnable/SpawnableSystemComponent.h
     Spawnable/SpawnableSystemComponent.cpp
@@ -379,7 +416,6 @@ set(FILES
     Input/Utils/AdjustAnalogInputForDeadZone.h
     Input/Utils/IsAnyKeyOrButton.h
     Input/Utils/ProcessRawInputEventQueues.h
-    TargetManagement/NeighborhoodAPI.cpp
     TargetManagement/NeighborhoodAPI.h
     TargetManagement/TargetManagementAPI.h
     TargetManagement/TargetManagementComponent.cpp

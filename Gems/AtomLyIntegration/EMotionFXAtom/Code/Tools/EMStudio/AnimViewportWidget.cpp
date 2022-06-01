@@ -11,6 +11,7 @@
 #include <AtomToolsFramework/Viewport/ModularViewportCameraController.h>
 #include <AzCore/Math/MatrixUtils.h>
 #include <AzFramework/Viewport/CameraInput.h>
+#include <AzFramework/Viewport/ViewportBus.h>
 #include <AzFramework/Viewport/ViewportControllerList.h>
 #include <EMotionFX/Tools/EMotionStudio/EMStudioSDK/Source/EMStudioManager.h>
 
@@ -24,6 +25,7 @@ namespace EMStudio
     AnimViewportWidget::AnimViewportWidget(AtomRenderPlugin* parentPlugin)
         : AtomToolsFramework::RenderViewportWidget(parentPlugin->GetInnerWidget())
         , m_plugin(parentPlugin)
+        , m_renderOverlay(m_plugin->GetInnerWidget())
     {
         setObjectName(QString::fromUtf8("AtomViewportWidget"));
         QSizePolicy qSize(QSizePolicy::Preferred, QSizePolicy::Preferred);
@@ -43,10 +45,22 @@ namespace EMStudio
 
         AnimViewportRequestBus::Handler::BusConnect();
         ViewportPluginRequestBus::Handler::BusConnect();
+
+        m_renderOverlay.setVisible(true);
+        m_renderOverlay.setUpdatesEnabled(false);
+        m_renderOverlay.setMouseTracking(true);
+        m_renderOverlay.setObjectName("renderOverlay");
+        m_renderOverlay.setContentsMargins(0, 0, 0, 0);
+        m_renderOverlay.winId(); // Force the render overlay to create a backing native window
+        m_renderOverlay.lower();
+
+        m_viewportUiManager.InitializeViewportUi(this, &m_renderOverlay);
+        m_viewportUiManager.ConnectViewportUiBus(GetViewportId());
     }
 
     AnimViewportWidget::~AnimViewportWidget()
     {
+        m_viewportUiManager.DisconnectViewportUiBus();
         ViewportPluginRequestBus::Handler::BusDisconnect();
         AnimViewportRequestBus::Handler::BusDisconnect();
     }
@@ -241,7 +255,7 @@ namespace EMStudio
         CalculateCameraProjection();
         RenderCustomPluginData();
         FollowCharacter();
-        m_renderer->CheckBounds();
+        m_viewportUiManager.Update();
     }
 
     void AnimViewportWidget::CalculateCameraProjection()
@@ -263,11 +277,16 @@ namespace EMStudio
 
     void AnimViewportWidget::RenderCustomPluginData()
     {
-        const size_t numPlugins = GetPluginManager()->GetNumActivePlugins();
-        for (size_t i = 0; i < numPlugins; ++i)
+        const EMotionFX::ActorRenderFlagsNamespace::ActorRenderFlags renderFlags = m_plugin->GetRenderOptions()->GetRenderFlags();
+
+        for (EMStudioPlugin* plugin : GetPluginManager()->GetActivePlugins())
         {
-            EMStudioPlugin* plugin = GetPluginManager()->GetActivePlugin(i);
-            plugin->Render(m_plugin->GetRenderOptions()->GetRenderFlags());
+            plugin->Render(renderFlags);
+        }
+
+        for (const AZStd::unique_ptr<PersistentPlugin>& plugin : GetPluginManager()->GetPersistentPlugins())
+        {
+            plugin->Render(renderFlags);
         }
     }
 
@@ -278,6 +297,8 @@ namespace EMStudio
             AtomToolsFramework::ModularViewportCameraControllerRequestBus::Event(
                 GetViewportId(), &AtomToolsFramework::ModularViewportCameraControllerRequestBus::Events::SetCameraPivotAttached,
                 m_renderer->GetCharacterCenter());
+
+            m_renderer->UpdateGroundplane();
         }
     }
 
@@ -289,5 +310,103 @@ namespace EMStudio
     AZ::s32 AnimViewportWidget::GetViewportId() const
     {
         return GetViewportContext()->GetId();
+    }
+
+    void AnimViewportWidget::mousePressEvent(QMouseEvent* event)
+    {
+        m_pixelsSinceClick = 0;
+        m_prevMousePoint = event->globalPos();
+    }
+
+    void AnimViewportWidget::mouseMoveEvent(QMouseEvent* event)
+    {
+        int deltaX = event->globalX() - m_prevMousePoint.x();
+        int deltaY = event->globalY() - m_prevMousePoint.y();
+
+        m_pixelsSinceClick += AZStd::abs(deltaX) + AZStd::abs(deltaY);
+    }
+
+    void AnimViewportWidget::mouseReleaseEvent(QMouseEvent* event)
+    {
+        if (event->button() == Qt::RightButton && m_pixelsSinceClick < MinMouseMovePixes)
+        {
+            OnContextMenuEvent(event);
+        }
+    }
+
+    void AnimViewportWidget::OnContextMenuEvent(QMouseEvent* event)
+    {
+        QMenu* menu = new QMenu(this);
+
+        {
+            QMenu* cameraMenu = menu->addMenu("Camera Options");
+            QAction* frontAction = cameraMenu->addAction("Front");
+            QAction* backAction = cameraMenu->addAction("Back");
+            QAction* topAction = cameraMenu->addAction("Top");
+            QAction* bottomAction = cameraMenu->addAction("Bottom");
+            QAction* leftAction = cameraMenu->addAction("Left");
+            QAction* rightAction = cameraMenu->addAction("Right");
+            cameraMenu->addSeparator();
+            QAction* resetCamAction = cameraMenu->addAction("Reset Camera");
+            cameraMenu->addSeparator();
+            QAction* followAction = cameraMenu->addAction("Follow Character");
+            followAction->setCheckable(true);
+            followAction->setChecked(m_plugin->GetRenderOptions()->GetCameraFollowUp());
+            connect(frontAction, &QAction::triggered, this, [this]()
+                {
+                    UpdateCameraViewMode(RenderOptions::CameraViewMode::FRONT);
+                });
+            connect(backAction, &QAction::triggered, this, [this]()
+                {
+                    UpdateCameraViewMode(RenderOptions::CameraViewMode::BACK);
+                });
+            connect(topAction, &QAction::triggered, this, [this]()
+                {
+                    UpdateCameraViewMode(RenderOptions::CameraViewMode::TOP);
+                });
+            connect(bottomAction, &QAction::triggered, this, [this]()
+                {
+                    UpdateCameraViewMode(RenderOptions::CameraViewMode::BOTTOM);
+                });
+            connect(leftAction, &QAction::triggered, this, [this]()
+                {
+                    UpdateCameraViewMode(RenderOptions::CameraViewMode::LEFT);
+                });
+            connect(rightAction, &QAction::triggered, this, [this]()
+                {
+                    UpdateCameraViewMode(RenderOptions::CameraViewMode::RIGHT);
+                });
+            connect(resetCamAction, &QAction::triggered, this, [this]()
+                {
+                    UpdateCameraViewMode(RenderOptions::CameraViewMode::DEFAULT);
+                });
+            connect(followAction, &QAction::triggered, this, [this, followAction]()
+                {
+                    m_plugin->GetRenderOptions()->SetCameraFollowUp(followAction->isChecked());
+                    AnimViewportRequestBus::Broadcast(&AnimViewportRequestBus::Events::UpdateCameraFollowUp, followAction->isChecked());
+                });
+        }
+
+        if (m_renderer && m_renderer->GetEntityId() != AZ::EntityId())
+        {
+            QAction* resetAction = menu->addAction("Move Character to Origin");
+            connect(resetAction, &QAction::triggered, this, [this]()
+                {
+                    m_renderer->MoveActorEntitiesToOrigin();
+                    UpdateCameraViewMode(RenderOptions::CameraViewMode::DEFAULT);
+                });
+        }
+
+        if (!menu->isEmpty())
+        {
+            menu->popup(event->globalPos());
+        }
+    }
+
+    void AnimViewportWidget::resizeEvent(QResizeEvent* event)
+    {
+        QWidget::resizeEvent(event);
+        m_renderOverlay.setGeometry(geometry());
+        m_viewportUiManager.Update();
     }
 } // namespace EMStudio

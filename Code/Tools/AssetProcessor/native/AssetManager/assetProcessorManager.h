@@ -194,6 +194,7 @@ namespace AssetProcessor
         void SetQueryLogging(bool enableLogging);
 
         void SetBuilderDebugFlag(bool enabled);
+        bool GetBuilderDebugFlag() const { return m_builderDebugFlag; }
 
         //! Scans assets that match the given pattern for content that looks like a missing product dependency.
         //! Note that the database pattern is used as an SQL query, so use SQL syntax for the search (wildcard is %, not *).
@@ -222,6 +223,7 @@ namespace AssetProcessor
 
         //! Request to invalidate and reprocess a source asset or folder containing source assets
         AZ::u64 RequestReprocess(const QString& sourcePath);
+        AZ::u64 RequestReprocess(const QStringList& reprocessList);
     Q_SIGNALS:
         void NumRemainingJobsChanged(int newNumJobs);
 
@@ -380,7 +382,7 @@ namespace AssetProcessor
 
         //! Checks whether the AP is aware of any source file that has indicated the inputted
         //! source file as its dependency, and if found do we need to put that file back in the asset pipeline queue again
-        QStringList GetSourceFilesWhichDependOnSourceFile(const QString& sourcePath);
+        QStringList GetSourceFilesWhichDependOnSourceFile(const QString& sourcePath, const ProductInfoList& updatedProducts);
 
         /** Given a BuilderSDK SourceFileDependency, try to find out what actual database source name is.
         *   If it cannot be resolved but a UUID is available, the string result will contain the UUID (and we will return true).
@@ -404,6 +406,8 @@ namespace AssetProcessor
 
         //! Analyzes and forward the job to the RCController if the job requires processing
         void ProcessJob(JobDetails& jobDetails);
+
+        void UpdateForCacheServer(JobDetails& jobDetails);
 
         AssetProcessor::PlatformConfiguration* m_platformConfig = nullptr;
 

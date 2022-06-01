@@ -45,8 +45,8 @@ namespace MaterialEditor
         }
     }
 
-    MaterialDocument::MaterialDocument(const AZ::Crc32& toolId)
-        : AtomToolsFramework::AtomToolsDocument(toolId)
+    MaterialDocument::MaterialDocument(const AZ::Crc32& toolId, const AtomToolsFramework::DocumentTypeInfo& documentTypeInfo)
+        : AtomToolsFramework::AtomToolsDocument(toolId, documentTypeInfo)
     {
         MaterialDocumentRequestBus::Handler::BusConnect(m_id);
     }
@@ -77,7 +77,7 @@ namespace MaterialEditor
         return &m_materialTypeSourceData;
     }
 
-    void MaterialDocument::SetPropertyValue(const AZ::Name& propertyId, const AZStd::any& value)
+    void MaterialDocument::SetPropertyValue(const AZStd::string& propertyId, const AZStd::any& value)
     {
         if (!IsOpen())
         {
@@ -85,11 +85,13 @@ namespace MaterialEditor
             return;
         }
 
+        const AZ::Name propertyName(propertyId);
+
         AtomToolsFramework::DynamicProperty* foundProperty = {};
         TraverseGroups(m_groups, [&, this](auto& group) {
             for (auto& property : group->m_properties)
             {
-                if (property.GetId() == propertyId)
+                if (property.GetId() == propertyName)
                 {
                     foundProperty = &property;
 
@@ -98,7 +100,7 @@ namespace MaterialEditor
 
                     property.SetValue(AtomToolsFramework::ConvertToEditableType(propertyValue));
 
-                    const auto propertyIndex = m_materialInstance->FindPropertyIndex(propertyId);
+                    const auto propertyIndex = m_materialInstance->FindPropertyIndex(propertyName);
                     if (!propertyIndex.IsNull())
                     {
                         if (m_materialInstance->SetPropertyValue(propertyIndex, propertyValue))
@@ -124,11 +126,11 @@ namespace MaterialEditor
 
         if (!foundProperty)
         {
-            AZ_Error("MaterialDocument", false, "Document property could not be found: '%s'.", propertyId.GetCStr());
+            AZ_Error("MaterialDocument", false, "Document property could not be found: '%s'.", propertyId.c_str());
         }
     }
 
-    const AZStd::any& MaterialDocument::GetPropertyValue(const AZ::Name& propertyId) const
+    const AZStd::any& MaterialDocument::GetPropertyValue(const AZStd::string& propertyId) const
     {
         if (!IsOpen())
         {
@@ -136,17 +138,35 @@ namespace MaterialEditor
             return m_invalidValue;
         }
 
-        auto property = FindProperty(propertyId);
+        auto property = FindProperty(AZ::Name(propertyId));
         if (!property)
         {
-            AZ_Error("MaterialDocument", false, "Document property could not be found: '%s'.", propertyId.GetCStr());
+            AZ_Error("MaterialDocument", false, "Document property could not be found: '%s'.", propertyId.c_str());
             return m_invalidValue;
         }
 
         return property->GetValue();
     }
 
-    AZStd::vector<AtomToolsFramework::DocumentObjectInfo> MaterialDocument::GetObjectInfo() const
+    AtomToolsFramework::DocumentTypeInfo MaterialDocument::BuildDocumentTypeInfo()
+    {
+        AtomToolsFramework::DocumentTypeInfo documentType;
+        documentType.m_documentTypeName = "Material";
+        documentType.m_documentFactoryCallback = [](const AZ::Crc32& toolId, const AtomToolsFramework::DocumentTypeInfo& documentTypeInfo) {
+            return aznew MaterialDocument(toolId, documentTypeInfo); };
+        documentType.m_supportedExtensionsToCreate.push_back({ "Material Type", AZ::RPI::MaterialTypeSourceData::Extension });
+        documentType.m_supportedExtensionsToCreate.push_back({ "Material", AZ::RPI::MaterialSourceData::Extension });
+        documentType.m_supportedExtensionsToOpen.push_back({ "Material Type", AZ::RPI::MaterialTypeSourceData::Extension });
+        documentType.m_supportedExtensionsToOpen.push_back({ "Material", AZ::RPI::MaterialSourceData::Extension });
+        documentType.m_supportedExtensionsToSave.push_back({ "Material", AZ::RPI::MaterialSourceData::Extension });
+        documentType.m_supportedAssetTypesToCreate.insert(azrtti_typeid<AZ::RPI::MaterialTypeAsset>());
+        documentType.m_defaultAssetIdToCreate = AtomToolsFramework::GetSettingsObject<AZ::Data::AssetId>(
+            "/O3DE/Atom/MaterialEditor/DefaultMaterialTypeAsset",
+            AZ::RPI::AssetUtils::GetAssetIdForProductPath("materials/types/standardpbr.azmaterialtype"));
+        return documentType;
+    }
+
+    AtomToolsFramework::DocumentObjectInfoVector MaterialDocument::GetObjectInfo() const
     {
         if (!IsOpen())
         {
@@ -154,7 +174,7 @@ namespace MaterialEditor
             return {};
         }
 
-        AZStd::vector<AtomToolsFramework::DocumentObjectInfo> objects;
+        AtomToolsFramework::DocumentObjectInfoVector objects;
         objects.reserve(m_groups.size());
 
         AtomToolsFramework::DocumentObjectInfo objectInfo;
@@ -202,7 +222,7 @@ namespace MaterialEditor
         return SaveSucceeded();
     }
 
-    bool MaterialDocument::SaveAsCopy(AZStd::string_view savePath)
+    bool MaterialDocument::SaveAsCopy(const AZStd::string& savePath)
     {
         if (!AtomToolsDocument::SaveAsCopy(savePath))
         {
@@ -234,7 +254,7 @@ namespace MaterialEditor
         return SaveSucceeded();
     }
 
-    bool MaterialDocument::SaveAsChild(AZStd::string_view savePath)
+    bool MaterialDocument::SaveAsChild(const AZStd::string& savePath)
     {
         if (!AtomToolsDocument::SaveAsChild(savePath))
         {
@@ -294,11 +314,6 @@ namespace MaterialEditor
         return result;
     }
 
-    bool MaterialDocument::IsSavable() const
-    {
-        return AzFramework::StringFunc::Path::IsExtension(m_absolutePath.c_str(), AZ::RPI::MaterialSourceData::Extension);
-    }
-
     bool MaterialDocument::BeginEdit()
     {
         // Save the current properties as a momento for undo before any changes are applied
@@ -323,7 +338,7 @@ namespace MaterialEditor
         {
             const auto& propertyName = propertyBeforeEditPair.first;
             const auto& propertyValueForUndo = propertyBeforeEditPair.second;
-            const auto& propertyValueForRedo = GetPropertyValue(propertyName);
+            const auto& propertyValueForRedo = GetPropertyValue(propertyName.GetStringView());
             if (!AtomToolsFramework::ArePropertyValuesEqual(propertyValueForUndo, propertyValueForRedo))
             {
                 propertyValuesForUndo[propertyName] = propertyValueForUndo;
@@ -398,7 +413,7 @@ namespace MaterialEditor
         return true;
     }
 
-    bool MaterialDocument::Open(AZStd::string_view loadPath)
+    bool MaterialDocument::Open(const AZStd::string& loadPath)
     {
         if (!AtomToolsDocument::Open(loadPath))
         {
@@ -635,7 +650,7 @@ namespace MaterialEditor
                         propertyConfig.m_dataChangeCallback = [documentId = m_id, propertyId = propertyConfig.m_id](const AZStd::any& value)
                         {
                             MaterialDocumentRequestBus::Event(
-                                documentId, &MaterialDocumentRequestBus::Events::SetPropertyValue, propertyId, value);
+                                documentId, &MaterialDocumentRequestBus::Events::SetPropertyValue, propertyId.GetStringView(), value);
                             return AZ::Edit::PropertyRefreshLevels::AttributesAndValues;
                         };
 
@@ -776,7 +791,7 @@ namespace MaterialEditor
         {
             const auto& propertyName = propertyValuePair.first;
             const auto& propertyValue = propertyValuePair.second;
-            SetPropertyValue(propertyName, propertyValue);
+            SetPropertyValue(propertyName.GetStringView(), propertyValue);
         }
     }
 
@@ -887,6 +902,13 @@ namespace MaterialEditor
         objectInfo.m_description = group->m_description;
         objectInfo.m_objectType = azrtti_typeid<AtomToolsFramework::DynamicPropertyGroup>();
         objectInfo.m_objectPtr = const_cast<AtomToolsFramework::DynamicPropertyGroup*>(group);
+        objectInfo.m_nodeIndicatorFunction = [](const AzToolsFramework::InstanceDataNode* node)
+        {
+            const auto property = AtomToolsFramework::FindAncestorInstanceDataNodeByType<AtomToolsFramework::DynamicProperty>(node);
+            return property && !AtomToolsFramework::ArePropertyValuesEqual(property->GetValue(), property->GetConfig().m_parentValue)
+                ? ":/Icons/changed_property.svg"
+                : ":/Icons/blank.png";
+        };
         return objectInfo;
     }
 

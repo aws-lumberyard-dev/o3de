@@ -90,6 +90,10 @@ namespace EMStudio
             CreateViewOptionEntry(contextMenu, "Simulated Object Colliders", EMotionFX::ActorRenderFlagIndex::SIMULATEDOBJECT_COLLIDERS, true,
                 ":/EMotionFXAtom/SimulatedObjectCollider.svg");
             CreateViewOptionEntry(contextMenu, "Simulated Joints", EMotionFX::ActorRenderFlagIndex::SIMULATEJOINTS);
+
+            contextMenu->addSeparator();
+            CreateViewOptionEntry(contextMenu, "Motion Extraction", EMotionFX::ActorRenderFlagIndex::MOTIONEXTRACTION);
+            CreateViewOptionEntry(contextMenu, "Debug Rendering", EMotionFX::ActorRenderFlagIndex::EMFX_DEBUG);
         }
 
         // Add the camera button
@@ -140,6 +144,12 @@ namespace EMStudio
                     AnimViewportRequestBus::Broadcast(
                         &AnimViewportRequestBus::Events::UpdateCameraFollowUp, m_followCharacterAction->isChecked());
                     ;
+                });
+
+            connect(cameraMenu, &QMenu::aboutToShow, this,
+                [this]()
+                {
+                    m_followCharacterAction->setChecked(m_plugin->GetRenderOptions()->GetCameraFollowUp());
                 });
 
             cameraButton->setMenu(cameraMenu);
