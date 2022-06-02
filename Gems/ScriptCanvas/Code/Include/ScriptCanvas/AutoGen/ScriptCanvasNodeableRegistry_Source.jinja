@@ -19,7 +19,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 #include "{{filename}}.h"
 #include <AzCore/RTTI/BehaviorContext.h>
 #include <AzCore/Component/Component.h>
-#include <ScriptCanvas/Libraries/ScriptCanvasCustomLibrary.h>
+#include <ScriptCanvas/Libraries/ScriptCanvasNodeRegistryLibrary.h>
 {% for ScriptCanvas in dataFiles %}
 #include <{{ ScriptCanvas.attrib['Include'] }}>
 {% endfor %}
@@ -28,12 +28,12 @@ namespace ScriptCanvas
 {
     {{autogenTargetName}}NodeableRegistry::{{autogenTargetName}}NodeableRegistry()
     {
-        ScriptCanvas::AutoGenRegistry::GetInstance()->RegisterRegistry(GetRegistryName(), this);
+        ScriptCanvas::AutoGenRegistryManager::GetInstance()->RegisterRegistry(GetRegistryName(), this);
     }
 
     {{autogenTargetName}}NodeableRegistry::~{{autogenTargetName}}NodeableRegistry()
     {
-        ScriptCanvas::AutoGenRegistry::GetInstance()->UnregisterRegistry(GetRegistryName());
+        ScriptCanvas::AutoGenRegistryManager::GetInstance()->UnregisterRegistry(GetRegistryName());
     }
 
     const char* {{autogenTargetName}}NodeableRegistry::GetRegistryName() {
@@ -53,7 +53,7 @@ namespace ScriptCanvas
 {%         endif %}
 {%         if Class.attrib['BaseClass'] is not defined or Class.attrib['BaseClass'].lower() == "false" %}
             {
-                auto& nodes = nodeRegistry->m_nodeMap[AZ::AzTypeInfo<Library::Custom>::Uuid()];
+                auto& nodes = nodeRegistry->m_nodeMap[AZ::AzTypeInfo<Library::CustomLibrary>::Uuid()];
                 nodes.push_back({ AZ::AzTypeInfo<{{namespaceName}}Nodes::{{nodeName}}Node>::Uuid(),
                                   AZ::AzTypeInfo<{{namespaceName}}Nodes::{{nodeName}}Node>::Name() });
             }

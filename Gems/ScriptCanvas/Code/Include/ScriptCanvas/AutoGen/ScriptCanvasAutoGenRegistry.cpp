@@ -8,7 +8,7 @@
 
 #include <AzCore/RTTI/ReflectContext.h>
 #include <AzCore/std/string/fixed_string.h>
-#include <ScriptCanvas/Libraries/ScriptCanvasCustomLibrary.h>
+#include <ScriptCanvas/Libraries/ScriptCanvasNodeRegistryLibrary.h>
 
 #include "ScriptCanvasAutoGenRegistry.h"
 
@@ -16,32 +16,32 @@ namespace ScriptCanvas
 {
     static constexpr const char ScriptCanvasAutoGenFunctionRegistrySuffix[] = "FunctionRegistry";
     static constexpr const char ScriptCanvasAutoGenNodeableRegistrySuffix[] = "NodeableRegistry";
-    static constexpr const char ScriptCanvasAutoGenRegistryName[] = "AutoGenRegistry";
+    static constexpr const char ScriptCanvasAutoGenRegistryName[] = "AutoGenRegistryManager";
     static constexpr int MaxMessageLength = 4096;
     static constexpr const char ScriptCanvasAutoGenRegistrationWarningMessage[] = "[Warning] Registry name %s is occupied already, ignore AutoGen registry registration.\n";
 
-    AutoGenRegistry::~AutoGenRegistry()
+    AutoGenRegistryManager::~AutoGenRegistryManager()
     {
         m_registries.clear();
     }
 
-    AutoGenRegistry* AutoGenRegistry::GetInstance()
+    AutoGenRegistryManager* AutoGenRegistryManager::GetInstance()
     {
         // Use static object so each module will keep its own registry collection
-        static AutoGenRegistry s_autogenRegistry;
+        static AutoGenRegistryManager s_autogenRegistry;
 
         return &s_autogenRegistry;
     }
 
-    AZStd::vector<std::string> AutoGenRegistry::GetRegistryNames(const char* registryName)
+    AZStd::vector<AZStd::string> AutoGenRegistryManager::GetRegistryNames(const char* registryName)
     {
-        AZStd::vector<std::string> result;
+        AZStd::vector<AZStd::string> result;
         result.push_back(AZStd::string::format("%s%s", registryName, ScriptCanvasAutoGenFunctionRegistrySuffix).c_str());
         result.push_back(AZStd::string::format("%s%s", registryName, ScriptCanvasAutoGenNodeableRegistrySuffix).c_str());
         return result;
     }
 
-    void AutoGenRegistry::Init()
+    void AutoGenRegistryManager::Init()
     {
         auto registry = GetInstance();
         auto nodeRegistry = GetNodeRegistry();
@@ -57,7 +57,7 @@ namespace ScriptCanvas
         }
     }
 
-    void AutoGenRegistry::Init(const char* registryName)
+    void AutoGenRegistryManager::Init(const char* registryName)
     {
         auto registry = GetInstance();
         auto nodeRegistry = GetNodeRegistry();
@@ -66,7 +66,7 @@ namespace ScriptCanvas
             auto registryNames = registry->GetRegistryNames(registryName);
             for (auto name : registryNames)
             {
-                auto registryIter = registry->m_registries.find(name);
+                auto registryIter = registry->m_registries.find(name.c_str());
                 if (registryIter != registry->m_registries.end())
                 {
                     registryIter->second->Init(nodeRegistry);
@@ -75,7 +75,7 @@ namespace ScriptCanvas
         }
     }
 
-    AZStd::vector<AZ::ComponentDescriptor*> AutoGenRegistry::GetComponentDescriptors()
+    AZStd::vector<AZ::ComponentDescriptor*> AutoGenRegistryManager::GetComponentDescriptors()
     {
         AZStd::vector<AZ::ComponentDescriptor*> descriptors;
         if (auto registry = GetInstance())
@@ -92,7 +92,7 @@ namespace ScriptCanvas
         return descriptors;
     }
 
-    AZStd::vector<AZ::ComponentDescriptor*> AutoGenRegistry::GetComponentDescriptors(const char* registryName)
+    AZStd::vector<AZ::ComponentDescriptor*> AutoGenRegistryManager::GetComponentDescriptors(const char* registryName)
     {
         AZStd::vector<AZ::ComponentDescriptor*> descriptors;
         if (auto registry = GetInstance())
@@ -100,7 +100,7 @@ namespace ScriptCanvas
             auto registryNames = registry->GetRegistryNames(registryName);
             for (auto name : registryNames)
             {
-                auto registryIter = registry->m_registries.find(name);
+                auto registryIter = registry->m_registries.find(name.c_str());
                 if (registryIter != registry->m_registries.end())
                 {
                     auto registryDescriptors = registryIter->second->GetComponentDescriptors();
@@ -111,7 +111,7 @@ namespace ScriptCanvas
         return descriptors;
     }
 
-    void AutoGenRegistry::Reflect(AZ::ReflectContext* context)
+    void AutoGenRegistryManager::Reflect(AZ::ReflectContext* context)
     {
         if (auto registry = GetInstance())
         {
@@ -125,14 +125,14 @@ namespace ScriptCanvas
         }
     }
 
-    void AutoGenRegistry::Reflect(AZ::ReflectContext* context, const char* registryName)
+    void AutoGenRegistryManager::Reflect(AZ::ReflectContext* context, const char* registryName)
     {
         if (auto registry = GetInstance())
         {
             auto registryNames = registry->GetRegistryNames(registryName);
             for (auto name : registryNames)
             {
-                auto registryIter = registry->m_registries.find(name);
+                auto registryIter = registry->m_registries.find(name.c_str());
                 if (registryIter != registry->m_registries.end())
                 {
                     registryIter->second->Reflect(context);
@@ -141,7 +141,7 @@ namespace ScriptCanvas
         }
     }
 
-    void AutoGenRegistry::RegisterRegistry(const char* registryName, IScriptCanvasRegistry* registry)
+    void AutoGenRegistryManager::RegisterRegistry(const char* registryName, ScriptCanvasRegistry* registry)
     {
         if (m_registries.find(registryName) != m_registries.end())
         {
@@ -155,7 +155,7 @@ namespace ScriptCanvas
         }
     }
 
-    void AutoGenRegistry::UnregisterRegistry(const char* registryName)
+    void AutoGenRegistryManager::UnregisterRegistry(const char* registryName)
     {
         m_registries.erase(registryName);
     }

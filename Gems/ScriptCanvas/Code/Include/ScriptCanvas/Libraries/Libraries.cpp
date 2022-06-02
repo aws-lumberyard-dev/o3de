@@ -52,7 +52,7 @@ namespace ScriptCanvas
         Spawning::Reflect(reflectContext);
         String::Reflect(reflectContext);
         Operators::Reflect(reflectContext);
-        Custom::Reflect(reflectContext);
+        CustomLibrary::Reflect(reflectContext);
 
         DeprecatedNodeLibrary::Reflect(reflectContext);
 

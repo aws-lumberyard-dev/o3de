@@ -69,14 +69,14 @@ namespace ScriptCanvas
             }
         };
 
-        struct Custom
+        struct CustomLibrary
             : public LibraryDefinition
         {
-            AZ_RTTI(Custom, "{C8AF36B8-90B4-4DFE-949F-A6A52ED8AA2E}", LibraryDefinition);
+            AZ_RTTI(CustomLibrary, "{C8AF36B8-90B4-4DFE-949F-A6A52ED8AA2E}", LibraryDefinition);
 
             static void Reflect(AZ::ReflectContext*);
 
-            ~Custom() override = default;
+            ~CustomLibrary() override = default;
         };
     } // namespace Library
 

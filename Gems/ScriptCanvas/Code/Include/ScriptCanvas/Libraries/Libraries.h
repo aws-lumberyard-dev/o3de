@@ -12,7 +12,7 @@
 #include <AzCore/std/string/string.h>
 #include <AzCore/std/containers/vector.h>
 #include <AzCore/std/containers/unordered_map.h>
-#include <ScriptCanvas/Libraries/ScriptCanvasCustomLibrary.h>
+#include <ScriptCanvas/Libraries/ScriptCanvasNodeRegistryLibrary.h>
 
 #define REFLECT_GENERIC_FUNCTION_NODE(GenericFunction, Guid)\
     struct GenericFunction\

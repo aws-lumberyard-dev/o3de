@@ -33,13 +33,13 @@ namespace ScriptCanvas
     //! {{autogenTargetName}}NodeableRegistry
     //! AutoGen registry to register nodeable required metadata into system
     class {{autogenTargetName}}NodeableRegistry
-        : public IScriptCanvasRegistry
+        : public ScriptCanvasRegistry
     {
     public:
         {{autogenTargetName}}NodeableRegistry();
         virtual ~{{autogenTargetName}}NodeableRegistry();
  
-        //! IScriptCanvasRegistry
+        //! ScriptCanvasRegistry
         void Init(NodeRegistry* nodeRegistry) override;
         void Reflect(AZ::ReflectContext* context) override;
         AZStd::vector<AZ::ComponentDescriptor*> GetComponentDescriptors() override;

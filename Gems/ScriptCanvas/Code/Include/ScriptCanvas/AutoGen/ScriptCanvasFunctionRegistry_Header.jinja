@@ -33,13 +33,13 @@ namespace ScriptCanvas
     //! {{autogenTargetName}}FunctionRegistry
     //! AutoGen registry to register function required metadata into system
     class {{autogenTargetName}}FunctionRegistry
-        : public IScriptCanvasRegistry
+        : public ScriptCanvasRegistry
     {
     public:
         {{autogenTargetName}}FunctionRegistry();
         virtual ~{{autogenTargetName}}FunctionRegistry();
  
-        //! IScriptCanvasRegistry
+        //! ScriptCanvasRegistry
         void Reflect(AZ::ReflectContext* context) override;
         void Init([[maybe_unused]] NodeRegistry* nodeRegistry) override {}
         AZStd::vector<AZ::ComponentDescriptor*> GetComponentDescriptors() override { return {}; }

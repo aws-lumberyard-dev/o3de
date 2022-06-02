@@ -6,7 +6,7 @@
  *
  */
 
-#include "ScriptCanvasCustomLibrary.h"
+#include "ScriptCanvasNodeRegistryLibrary.h"
 
 #include <AzCore/RTTI/ReflectContext.h>
 #include <AzCore/Serialization/EditContext.h>
@@ -39,15 +39,15 @@ namespace ScriptCanvas
         g_nodeRegistry.Reset();
     }
 
-    void Library::Custom::Reflect(AZ::ReflectContext* reflection)
+    void Library::CustomLibrary::Reflect(AZ::ReflectContext* reflection)
     {
         if (AZ::SerializeContext* serializeContext = azrtti_cast<AZ::SerializeContext*>(reflection))
         {
-            serializeContext->Class<Custom, LibraryDefinition>()->Version(0);
+            serializeContext->Class<CustomLibrary, LibraryDefinition>()->Version(0);
 
             if (AZ::EditContext* editContext = serializeContext->GetEditContext())
             {
-                editContext->Class<Custom>("Custom", "")
+                editContext->Class<CustomLibrary>("Custom", "")
                     ->ClassElement(AZ::Edit::ClassElements::EditorData, "")
                     ->Attribute(AZ::Edit::Attributes::Icon, "Icons/ScriptCanvas/Libraries/Entity.png");
             }

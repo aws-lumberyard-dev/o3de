@@ -12,6 +12,7 @@
 #include <unordered_map>
 
 #include <AzCore/std/containers/vector.h>
+#include <AzCore/std/string/string.h>
 
 namespace AZ
 {
@@ -27,17 +28,17 @@ namespace AZ
 
 //! AutoGen registry util macros
 #define INIT_SCRIPTCANVAS_AUTOGEN(LIBRARY)\
-    ScriptCanvas::AutoGenRegistry::Init(#LIBRARY);
+    ScriptCanvas::AutoGenRegistryManager::Init(#LIBRARY);
 #define REFLECT_SCRIPTCANVAS_AUTOGEN(LIBRARY, CONTEXT)\
-    ScriptCanvas::AutoGenRegistry::Reflect(CONTEXT, #LIBRARY);
+    ScriptCanvas::AutoGenRegistryManager::Reflect(CONTEXT, #LIBRARY);
 #define GET_SCRIPTCANVAS_AUTOGEN_COMPONENT_DESCRIPTORS(LIBRARY)\
-    ScriptCanvas::AutoGenRegistry::GetComponentDescriptors(#LIBRARY)
+    ScriptCanvas::AutoGenRegistryManager::GetComponentDescriptors(#LIBRARY)
 
 namespace ScriptCanvas
 {
     struct NodeRegistry;
 
-    class IScriptCanvasRegistry
+    class ScriptCanvasRegistry
     {
     public:
         virtual void Init(NodeRegistry* nodeRegistry) = 0;
@@ -45,16 +46,16 @@ namespace ScriptCanvas
         virtual AZStd::vector<AZ::ComponentDescriptor*> GetComponentDescriptors() = 0;
     };
 
-    //! AutoGenRegistry
-    //! The registry contains all autogen functions, nodeables and grammars which will be registered
+    //! AutoGenRegistryManager
+    //! The registry manager contains all autogen functions, nodeables and grammars metadata which will be registered
     //! for ScriptCanvas
-    class AutoGenRegistry
+    class AutoGenRegistryManager
     {
     public:
-        AutoGenRegistry() = default;
-        ~AutoGenRegistry();
+        AutoGenRegistryManager() = default;
+        ~AutoGenRegistryManager();
 
-        static AutoGenRegistry* GetInstance();
+        static AutoGenRegistryManager* GetInstance();
 
         //! Init all AutoGen registries
         static void Init();
@@ -75,14 +76,14 @@ namespace ScriptCanvas
         static void Reflect(AZ::ReflectContext* context, const char* registryName);
 
         //! Get all expected autogen registry names
-        AZStd::vector<std::string> GetRegistryNames(const char* registryName);
+        AZStd::vector<AZStd::string> GetRegistryNames(const char* registryName);
 
         //! Register autogen registry with its name
-        void RegisterRegistry(const char* registryName, IScriptCanvasRegistry* registry);
+        void RegisterRegistry(const char* registryName, ScriptCanvasRegistry* registry);
 
         //! Unregister autogen function registry by using its name
         void UnregisterRegistry(const char* registryName);
 
-        std::unordered_map<std::string, IScriptCanvasRegistry*> m_registries;
+        std::unordered_map<std::string, ScriptCanvasRegistry*> m_registries;
     };
 } // namespace ScriptCanvas

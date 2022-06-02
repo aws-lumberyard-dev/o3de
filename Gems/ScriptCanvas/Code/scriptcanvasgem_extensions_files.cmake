@@ -10,6 +10,6 @@ set(FILES
     Include/ScriptCanvas/AutoGen/ScriptCanvasFunction.xsd
     Include/ScriptCanvas/AutoGen/ScriptCanvasAutoGenRegistry.cpp
     Include/ScriptCanvas/AutoGen/ScriptCanvasAutoGenRegistry.h
-    Include/ScriptCanvas/Libraries/ScriptCanvasCustomLibrary.cpp
-    Include/ScriptCanvas/Libraries/ScriptCanvasCustomLibrary.h
+    Include/ScriptCanvas/Libraries/ScriptCanvasNodeRegistryLibrary.cpp
+    Include/ScriptCanvas/Libraries/ScriptCanvasNodeRegistryLibrary.h
 )
