@@ -8,6 +8,7 @@
 
 #include <MockInterfaces.h>
 #include <RecastNavigationSystemComponent.h>
+#include <platform.h>
 #include <AzCore/Component/ComponentApplication.h>
 #include <AzCore/Component/Entity.h>
 #include <AzCore/Console/Console.h>
@@ -792,5 +793,36 @@ namespace RecastNavigationTests
             0.f, 0.f);
 
         EXPECT_EQ(tiles.size(), 0);
+    }
+
+    TEST_F(NavigationTest, AsyncDeactivateRightBeforeStartingToProcessATile)
+    {
+        using RecastNavigation::RecastNavigationMeshComponent;
+
+        Entity e;
+        PopulateEntity(e);
+        ActivateEntity(e);
+        SetupNavigationMesh();
+
+        ON_CALL(*m_mockPhysicsShape.get(), GetGeometry(_, _, _)).WillByDefault(Invoke([this]
+        (AZStd::vector<AZ::Vector3>& vertices, AZStd::vector<AZ::u32>& indices, const AZ::Aabb*)
+            {
+                AddTestGeometry(vertices, indices, true);
+            }));
+
+        INIT_BARRIER(RecastNavigationMeshComponent::BarrierAfterReceivedAllTiles, 2);
+        INIT_BARRIER(RecastNavigationMeshComponent::BarrierOnDeactivateAndBeforeProcessingFirstTile, 2);
+
+        const Wait wait(AZ::EntityId(1));
+        RecastNavigationMeshRequestBus::Event(e.GetId(), &RecastNavigationMeshRequests::UpdateNavigationMeshAsync);
+
+        ENTER_BARRIER_IF_ENABLED(RecastNavigationMeshComponent::BarrierAfterReceivedAllTiles);
+
+        AZ::TickBus::Broadcast(&AZ::TickBus::Events::OnTick, 0.1f, AZ::ScriptTimePoint{});
+
+        //ENTER_BARRIER_IF_ENABLED(RecastNavigationMeshComponent::BarrierOnDeactivateAndBeforeProcessingFirstTile);
+
+        // Deactivate the entity now.
+        e.Deactivate();
     }
 }

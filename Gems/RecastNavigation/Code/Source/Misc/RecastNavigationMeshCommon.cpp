@@ -18,6 +18,9 @@ AZ_DEFINE_BUDGET(Navigation);
 
 namespace RecastNavigation
 {
+    Barrier RecastNavigationMeshCommon::BarrierAfterReceivedAllTiles = Barrier();
+    Barrier RecastNavigationMeshCommon::BarrierOnDeactivateAndBeforeProcessingFirstTile = Barrier();
+
     NavigationTileData RecastNavigationMeshCommon::CreateNavigationTile(TileGeometry* geom,
         const RecastNavigationMeshConfig& meshConfig, rcContext* context)
     {
@@ -331,6 +334,9 @@ namespace RecastNavigation
     void RecastNavigationMeshCommon::OnDeactivate()
     {
         m_deactivating = true;
+
+        ENTER_BARRIER_IF_ENABLED(BarrierOnDeactivateAndBeforeProcessingFirstTile);
+
         if (m_taskGraphEvent && m_taskGraphEvent->IsSignaled() == false)
         {
             // If the tasks are still in progress, wait until the task graph is finished.
@@ -403,7 +409,7 @@ namespace RecastNavigation
         return true;
     }
 
-    void RecastNavigationMeshCommon::ReceivedAllNewTilesImpl(const RecastNavigationMeshConfig& config, AZ::ScheduledEvent& sendNotificationEvent)
+    void RecastNavigationMeshCommon::CreateTaskGraphToProcessTiles(const RecastNavigationMeshConfig& config, AZ::ScheduledEvent& sendNotificationEvent)
     {
         if (!m_taskGraphEvent || m_taskGraphEvent->IsSignaled())
         {
@@ -426,7 +432,9 @@ namespace RecastNavigation
                 AZ::TaskToken token = m_taskGraph.AddTask(
                     m_taskDescriptor, [this, tile, &config]()
                     {
-                        if (m_deactivating)
+                        ENTER_BARRIER_IF_ENABLED(BarrierOnDeactivateAndBeforeProcessingFirstTile);
+
+                        if (m_deactivating == true)
                         {
                             return;
                         }

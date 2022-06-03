@@ -21,6 +21,43 @@
 
 namespace RecastNavigation
 {
+    //! SynchronizationBarrier across threads within a process.
+    class Barrier
+    {
+    public:
+        Barrier() = default;
+
+        void Initialize(int expectedThreadCount)
+        {
+            m_initialized = InitializeSynchronizationBarrier(&m_synchronizationBarrier, expectedThreadCount, -1);
+        }
+
+        bool IsInitialized() const
+        {
+            return m_initialized;
+        }
+
+        void Enter()
+        {
+            if (m_initialized)
+            {
+                EnterSynchronizationBarrier(&m_synchronizationBarrier, 0);
+            }
+        }
+
+    private:
+        SYNCHRONIZATION_BARRIER m_synchronizationBarrier;
+        bool m_initialized = false;
+    };
+
+#ifdef _DEBUG
+    #define INIT_BARRIER(BARRIER, EXPECTED_THREAD_COUNT) BARRIER.Initialize(EXPECTED_THREAD_COUNT)
+    #define ENTER_BARRIER_IF_ENABLED(BARRIER) BARRIER.Enter()
+#else
+    #define INIT_BARRIER()
+    #define ENTER_BARRIER_IF_ENABLED(BARRIER) BARRIER.Enter()
+#endif
+    
     //! Common navigation mesh logic for Recast navigation components. Recommended use is as a base class.
     //! The method provided are not thread-safe. Use the mutex from @m_navObject to synchronize as necessary at the higher level.
     class RecastNavigationMeshCommon
@@ -53,7 +90,10 @@ namespace RecastNavigation
         //! Creates a task graph with tasks to process received tile data.
         //! @param config navigation mesh configuration to apply to the tile data
         //! @param sendNotificationEvent once all the tiles are processed and added to the navigation update notify on the main thread
-        void ReceivedAllNewTilesImpl(const RecastNavigationMeshConfig& config, AZ::ScheduledEvent& sendNotificationEvent);
+        void CreateTaskGraphToProcessTiles(const RecastNavigationMeshConfig& config, AZ::ScheduledEvent& sendNotificationEvent);
+
+        static Barrier BarrierAfterReceivedAllTiles;
+        static Barrier BarrierOnDeactivateAndBeforeProcessingFirstTile;
 
     protected:
         //! Debug draw object for Recast navigation mesh.

@@ -170,7 +170,7 @@ namespace RecastNavigation
 
     void RecastNavigationMeshComponent::OnReceivedAllNewTiles()
     {
-        ReceivedAllNewTilesImpl(m_meshConfig, m_sendNotificationEvent);        
+        CreateTaskGraphToProcessTiles(m_meshConfig, m_sendNotificationEvent);
     }
 
     void RecastNavigationMeshComponent::OnTileProcessedEvent(AZStd::shared_ptr<TileGeometry> tile)
@@ -185,6 +185,8 @@ namespace RecastNavigation
         {
             // The async operation to receive all tiled has finished. Kick off processing of received tiles on the main thread.
             m_receivedAllNewTilesEvent.Enqueue(AZ::TimeMs{ 0 });
+
+            ENTER_BARRIER_IF_ENABLED(BarrierAfterReceivedAllTiles);
         }
     }
 } // namespace RecastNavigation
