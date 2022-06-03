@@ -30,11 +30,11 @@ VSDepthOutput DepthPassVS(VSInput IN)
     float4 worldPosition = mul(objectToWorld, float4(IN.m_position, 1.0));
     OUT.m_position = mul(ViewSrg::m_viewProjectionMatrix, worldPosition);
 
-    if (o_color_isBound) {
-        OUT.m_position.x += MaterialSrg::m_xOffset * sin(SceneSrg::m_time);
+    //if (o_color_isBound) {
+        OUT.m_position.x += MaterialSrg::m_xOffset; //* sin(SceneSrg::m_time);
         OUT.m_position.y += MaterialSrg::m_yOffset * sin(SceneSrg::m_time);
         OUT.m_position.z += MaterialSrg::m_zOffset * sin(SceneSrg::m_time);
-    }
+    //}
 
     return OUT;
 }
