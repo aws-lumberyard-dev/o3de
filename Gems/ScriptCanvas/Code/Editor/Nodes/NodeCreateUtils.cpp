@@ -107,6 +107,7 @@ namespace ScriptCanvasEditor::Nodes
         scriptCanvasEntity->Init();
         nodeIdPair.m_scriptCanvasId = scriptCanvasEntity->GetId();
         ScriptCanvas::SystemRequestBus::BroadcastResult(node, &ScriptCanvas::SystemRequests::CreateNodeOnEntity, scriptCanvasEntity->GetId(), scriptCanvasId, classId);
+        
         if (onCreateCallback)
         {
             onCreateCallback(node);
