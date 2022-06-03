@@ -820,9 +820,12 @@ namespace RecastNavigationTests
 
         AZ::TickBus::Broadcast(&AZ::TickBus::Events::OnTick, 0.1f, AZ::ScriptTimePoint{});
 
-        //ENTER_BARRIER_IF_ENABLED(RecastNavigationMeshComponent::BarrierOnDeactivateAndBeforeProcessingFirstTile);
+        /*
+         * Now we have a setup where all the tiles were received and about to be queued up.
+         * Deactivate will block in @BarrierOnDeactivateAndBeforeProcessingFirstTile barrier until the first tile
+         * is about to be processed in a task.
+         */
 
-        // Deactivate the entity now.
         e.Deactivate();
     }
 }

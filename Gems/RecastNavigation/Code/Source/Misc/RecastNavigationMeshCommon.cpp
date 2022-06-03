@@ -409,7 +409,7 @@ namespace RecastNavigation
         return true;
     }
 
-    void RecastNavigationMeshCommon::CreateTaskGraphToProcessTiles(const RecastNavigationMeshConfig& config, AZ::ScheduledEvent& sendNotificationEvent)
+    void RecastNavigationMeshCommon::ReceivedAllNewTilesImpl(const RecastNavigationMeshConfig& config, AZ::ScheduledEvent& sendNotificationEvent)
     {
         if (!m_taskGraphEvent || m_taskGraphEvent->IsSignaled())
         {

@@ -90,7 +90,7 @@ namespace RecastNavigation
         //! Creates a task graph with tasks to process received tile data.
         //! @param config navigation mesh configuration to apply to the tile data
         //! @param sendNotificationEvent once all the tiles are processed and added to the navigation update notify on the main thread
-        void CreateTaskGraphToProcessTiles(const RecastNavigationMeshConfig& config, AZ::ScheduledEvent& sendNotificationEvent);
+        void ReceivedAllNewTilesImpl(const RecastNavigationMeshConfig& config, AZ::ScheduledEvent& sendNotificationEvent);
 
         static Barrier BarrierAfterReceivedAllTiles;
         static Barrier BarrierOnDeactivateAndBeforeProcessingFirstTile;

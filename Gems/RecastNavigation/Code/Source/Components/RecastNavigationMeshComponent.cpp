@@ -170,7 +170,7 @@ namespace RecastNavigation
 
     void RecastNavigationMeshComponent::OnReceivedAllNewTiles()
     {
-        CreateTaskGraphToProcessTiles(m_meshConfig, m_sendNotificationEvent);
+        ReceivedAllNewTilesImpl(m_meshConfig, m_sendNotificationEvent);
     }
 
     void RecastNavigationMeshComponent::OnTileProcessedEvent(AZStd::shared_ptr<TileGeometry> tile)
