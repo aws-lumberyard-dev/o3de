@@ -223,7 +223,7 @@ namespace AssetProcessor
 
         //! Request to invalidate and reprocess a source asset or folder containing source assets
         AZ::u64 RequestReprocess(const QString& sourcePath);
-        AZ::u64 RequestReprocess(const QStringList& reprocessList);
+        AZ::u64 RequestReprocess(const AZStd::list<AZStd::string>& reprocessList);
     Q_SIGNALS:
         void NumRemainingJobsChanged(int newNumJobs);
 

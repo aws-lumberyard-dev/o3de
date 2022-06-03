@@ -2706,7 +2706,7 @@ namespace AssetProcessor
                 // note that "ConvertToRelativePath" does add output prefix to it.
                 if (!m_platformConfig->ConvertToRelativePath(normalizedPath, databasePathToFile, scanFolderName))
                 {
-                    AZ_TracePrintf(AssetProcessor::DebugChannel, "ProcessFilesToExamineQueue: Unable to find the relative path.\n");
+                    AZ_TracePrintf(AssetProcessor::DebugChannel, "ProcessFilesToExamineQueue: Unable to find the relative path for %s.\n", normalizedPath.toUtf8().constData());
                     continue;
                 }
 
@@ -5333,21 +5333,23 @@ namespace AssetProcessor
         {
             reprocessList.push_back(normalizedSourcePath.toUtf8().constData());
         }
+
         return RequestReprocess(reprocessList);
     }
 
-    AZ::u64 AssetProcessorManager::RequestReprocess(const QStringList& reprocessList)
+    AZ::u64 AssetProcessorManager::RequestReprocess(const AZStd::list<AZStd::string>& reprocessList)
     {
         AZ::u64 filesFound{ 0 };
-        for (QString sourcePath : reprocessList)
+        for (const AZStd::string& entry : reprocessList)
         {
             // Remove invalid characters
+            QString sourcePath = entry.c_str();
             sourcePath.remove(QRegExp("[\\n\\r]"));
 
             QString scanFolderName;
             QString relativePathToFile;
 
-            if (!m_platformConfig->ConvertToRelativePath(sourcePath.c_str(), relativePathToFile, scanFolderName))
+            if (!m_platformConfig->ConvertToRelativePath(sourcePath, relativePathToFile, scanFolderName))
             {
                 continue;
             }
@@ -5366,7 +5368,7 @@ namespace AssetProcessor
                 if (jobs.size())
                 {
                     filesFound++;
-                    AssessModifiedFile(sourcePath.c_str());
+                    AssessModifiedFile(sourcePath);
                 }
             }
         }
