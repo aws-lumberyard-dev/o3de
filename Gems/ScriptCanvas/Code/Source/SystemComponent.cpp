@@ -27,6 +27,7 @@
 #include <ScriptCanvas/Serialization/RuntimeVariableSerializer.h>
 #include <ScriptCanvas/SystemComponent.h>
 #include <ScriptCanvas/Variable/GraphVariableManagerComponent.h>
+#include <ScriptCanvas/Core/Contracts/MathOperatorContract.h>
 
 #if defined(SC_EXECUTION_TRACE_ENABLED)
 #include <ScriptCanvas/Asset/ExecutionLogAsset.h>
@@ -258,13 +259,27 @@ namespace ScriptCanvas
             ScriptCanvas::Node* node = aznew Node;
             node->SetNodeName("++");
 
+            // This contract ensures the user can only increment incrementable types
+            ContractDescriptor operatorMethodContract;
+            operatorMethodContract.m_createFunc = []() -> MathOperatorContract*
+            {
+                auto mathContract = aznew MathOperatorContract();
+                AZStd::unordered_set<Data::Type> supportedTypes = {
+                    Data::Type::Number()
+                };
+                mathContract->SetSupportedNativeTypes(supportedTypes);
+                return mathContract;
+            };
+
             DynamicDataSlotConfiguration inputPin;
 
             inputPin.m_name = " ";
             inputPin.m_toolTip = "Input";
+            inputPin.m_contractDescs.push_back(AZStd::move(operatorMethodContract));
             inputPin.SetConnectionType(ConnectionType::Input);
+            inputPin.m_dynamicGroup = AZ_CRC("DisplayType", 0x4271e42f);
             inputPin.m_dynamicDataType = DynamicDataType::Any;
-            inputPin.m_displayType = Data::Type::Number();
+            inputPin.m_displayGroup = "DisplayType";
 
             node->AddSlot(inputPin, true);
 
@@ -272,9 +287,11 @@ namespace ScriptCanvas
 
             outputPin.m_name = " ";
             outputPin.m_toolTip = "Output";
+            outputPin.m_contractDescs.push_back(AZStd::move(operatorMethodContract));
             outputPin.SetConnectionType(ConnectionType::Output);
+            outputPin.m_dynamicGroup = AZ_CRC("DisplayType", 0x4271e42f);
             outputPin.m_dynamicDataType = DynamicDataType::Any;
-            outputPin.m_displayType = Data::Type::Number();
+            outputPin.m_displayGroup = "DisplayType";
 
             node->AddSlot(outputPin, true);
 
