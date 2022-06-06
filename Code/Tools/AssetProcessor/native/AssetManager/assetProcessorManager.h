@@ -194,6 +194,7 @@ namespace AssetProcessor
         void SetQueryLogging(bool enableLogging);
 
         void SetBuilderDebugFlag(bool enabled);
+        bool GetBuilderDebugFlag() const { return m_builderDebugFlag; }
 
         //! Scans assets that match the given pattern for content that looks like a missing product dependency.
         //! Note that the database pattern is used as an SQL query, so use SQL syntax for the search (wildcard is %, not *).
@@ -222,6 +223,7 @@ namespace AssetProcessor
 
         //! Request to invalidate and reprocess a source asset or folder containing source assets
         AZ::u64 RequestReprocess(const QString& sourcePath);
+        AZ::u64 RequestReprocess(const AZStd::list<AZStd::string>& reprocessList);
     Q_SIGNALS:
         void NumRemainingJobsChanged(int newNumJobs);
 
@@ -440,6 +442,8 @@ namespace AssetProcessor
         ConflictResult CheckIntermediateProductConflict(bool isIntermediateProduct, const char* searchSourcePath);
 
         bool CheckForIntermediateAssetLoop(AZStd::string_view currentAsset, AZStd::string_view productAsset);
+
+        void UpdateForCacheServer(JobDetails& jobDetails);
 
         AssetProcessor::PlatformConfiguration* m_platformConfig = nullptr;
 

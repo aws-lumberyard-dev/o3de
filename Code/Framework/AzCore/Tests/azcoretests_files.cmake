@@ -143,8 +143,12 @@ set(FILES
     Math/CrcTestsCompileTimeLiterals.h
     Math/FrustumTests.cpp
     Math/FrustumPerformanceTests.cpp
+    Math/IntersectionPerformanceTests.cpp
+    Math/IntersectionTestHelpers.cpp
+    Math/IntersectionTestHelpers.h
     Math/IntersectionTests.cpp
     Math/MathIntrinsicsTests.cpp
+    Math/IntersectPointTest.cpp
     Math/MathStringsTests.cpp
     Math/MathUtilsTests.cpp
     Math/Matrix3x3PerformanceTests.cpp

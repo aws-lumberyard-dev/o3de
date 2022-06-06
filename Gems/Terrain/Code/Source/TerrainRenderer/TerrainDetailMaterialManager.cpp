@@ -812,7 +812,7 @@ namespace Terrain
     {
         
         AZ::Aabb untouchedRegion = AZ::Aabb::CreateNull();
-        ClipmapBounds::ClipmapBoundsRegionList edgeUpdatedRegions =
+        ClipmapBoundsRegionList edgeUpdatedRegions =
             m_detailMaterialIdBounds.UpdateCenter(AZ::Vector2(cameraPosition.GetX(), cameraPosition.GetY()), &untouchedRegion);
         
         if (!m_detailTextureImage)
@@ -827,7 +827,7 @@ namespace Terrain
             m_detailTextureImage = AZ::RPI::AttachmentImage::Create(*imagePool.get(), imageDescriptor, TerrainDetailName, nullptr, nullptr);
             AZ_Error(TerrainDetailMaterialManagerName, m_detailTextureImage, "Failed to initialize the detail texture image.");
 
-            ClipmapBounds::ClipmapBoundsRegionList updateRegions = m_detailMaterialIdBounds.TransformRegion(m_detailMaterialIdBounds.GetWorldBounds());
+            ClipmapBoundsRegionList updateRegions = m_detailMaterialIdBounds.TransformRegion(m_detailMaterialIdBounds.GetWorldBounds());
             for (const auto& region : updateRegions)
             {
                 UpdateDetailTexture(region.m_worldAabb, region.m_localAabb);
@@ -846,7 +846,7 @@ namespace Terrain
                 m_dirtyDetailRegion = m_dirtyDetailRegion.GetClamped(untouchedRegion);
                 if (m_dirtyDetailRegion.IsValid())
                 {
-                    ClipmapBounds::ClipmapBoundsRegionList updateRegions = m_detailMaterialIdBounds.TransformRegion(m_dirtyDetailRegion);
+                    ClipmapBoundsRegionList updateRegions = m_detailMaterialIdBounds.TransformRegion(m_dirtyDetailRegion);
                     for (const auto& region : updateRegions)
                     {
                         UpdateDetailTexture(region.m_worldAabb, region.m_localAabb);
@@ -955,9 +955,11 @@ namespace Terrain
         AZ::Vector2 stepSize(m_detailTextureScale);
         AZ::Aabb offsetWorldAabb = worldUpdateAabb.GetTranslated(AZ::Vector3(m_detailTextureScale * 0.5f)); // offset by half a pixel
 
+        AzFramework::Terrain::TerrainQueryRegion queryRegion(offsetWorldAabb.GetMin(), width, height, stepSize);
         AzFramework::Terrain::TerrainDataRequestBus::Broadcast(
-            &AzFramework::Terrain::TerrainDataRequests::ProcessSurfaceWeightsFromRegion, offsetWorldAabb, stepSize, perPositionCallback,
-            AzFramework::Terrain::TerrainDataRequests::Sampler::EXACT);
+            &AzFramework::Terrain::TerrainDataRequests::QueryRegion, queryRegion,
+            AzFramework::Terrain::TerrainDataRequests::TerrainDataMask::SurfaceData, perPositionCallback,
+            AzFramework::Terrain::TerrainDataRequests::Sampler::DEFAULT);
 
         const int32_t left = textureUpdateAabb.m_min.m_x;
         const int32_t top = textureUpdateAabb.m_min.m_y;
