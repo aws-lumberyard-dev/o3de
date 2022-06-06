@@ -5,7 +5,7 @@
  * SPDX-License-Identifier: Apache-2.0 OR MIT
  *
  */
-
+#pragma optimize("", off)
 #include <AzCore/Component/Entity.h>
 #include <AzCore/Component/TransformBus.h>
 #include <AzCore/Script/ScriptSystemBus.h>
@@ -622,6 +622,27 @@ namespace AzToolsFramework
         return false;
     }
 
+    void PrefabEditorEntityOwnershipService::RegisterOverridePrefix(AZ::Dom::Path path, Prefab::PrefabDomValue* value)
+    {
+        m_overrideTree.SetValue(path, value);
+    }
+
+    void PrefabEditorEntityOwnershipService::PrintOverrides()
+    {
+        AZStd::vector<AZStd::pair<AZ::Dom::Path, Prefab::PrefabDomValue*>> results;
+        auto visitorFn = [&results](const AZ::Dom::Path& path, Prefab::PrefabDomValue* patchValue)
+        {
+            results.emplace_back(path, patchValue);
+        };
+
+        m_overrideTree.VisitPath(AZ::Dom::Path(), AZ::Dom::PrefixTreeMatch::PathAndSubpaths, visitorFn);
+
+        for (const auto& pair : results)
+        {
+            Prefab::PrefabDomUtils::PrintPrefabDomValue("Patch is ",  * (pair.second));
+        }
+    }
+
     //////////////////////////////////////////////////////////////////////////
     // Slice Buses implementation with Assert(false), this will exist only during Slice->Prefab
     // development to pinpoint and replace specific calls to Slice system
@@ -767,3 +788,5 @@ namespace AzToolsFramework
         return nullptr;
     }
 }
+
+#pragma optimize("", on)

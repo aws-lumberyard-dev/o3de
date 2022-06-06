@@ -8,6 +8,8 @@
 
 #pragma once
 
+#include <AzCore/DOM/DomPrefixTree.h>
+
 #include <AzFramework/Entity/PrefabEntityOwnershipService.h>
 #include <AzFramework/Entity/SliceEntityOwnershipServiceBus.h>
 #include <AzFramework/Slice/SliceEntityBus.h>
@@ -206,6 +208,9 @@ namespace AzToolsFramework
         Prefab::TemplateId GetRootPrefabTemplateId() override;
 
         const AzFramework::InMemorySpawnableAssetContainer::SpawnableAssets& GetPlayInEditorAssetData() const override;
+
+        void RegisterOverridePrefix(AZ::Dom::Path path, Prefab::PrefabDomValue* value) override;
+        void PrintOverrides() override;
         //////////////////////////////////////////////////////////////////////////
 
         void OnEntityRemoved(AZ::EntityId entityId);
@@ -227,5 +232,6 @@ namespace AzToolsFramework
         AZ::SerializeContext m_serializeContext;
         AZ::Event<GameModeState> m_gameModeEvent;
         bool m_isRootPrefabAssigned = false;
+        AZ::Dom::DomPrefixTree<Prefab::PrefabDomValue*> m_overrideTree;
     };
 }

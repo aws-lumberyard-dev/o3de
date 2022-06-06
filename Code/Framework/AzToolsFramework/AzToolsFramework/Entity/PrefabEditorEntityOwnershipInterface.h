@@ -10,6 +10,7 @@
 
 #include <AzCore/Asset/AssetCommon.h>
 #include <AzCore/Component/Entity.h>
+#include <AzCore/DOM/DomPath.h>
 #include <AzCore/IO/GenericStreams.h>
 #include <AzCore/std/smart_ptr/unique_ptr.h>
 #include <AzCore/std/string/string.h>
@@ -91,5 +92,8 @@ namespace AzToolsFramework
             Prefab::RootAliasPath rootAliasPath, const AZStd::function<bool(const Prefab::InstanceOptionalReference)>& callback) const = 0;
 
         virtual void RegisterGameModeEventHandler(AZ::Event<GameModeState>::Handler& handler) = 0;
+        virtual void RegisterOverridePrefix(AZ::Dom::Path path, Prefab::PrefabDomValue* value) = 0;
+
+        virtual void PrintOverrides() = 0;
     };
 }

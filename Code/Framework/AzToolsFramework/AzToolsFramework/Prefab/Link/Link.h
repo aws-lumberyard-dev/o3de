@@ -10,6 +10,7 @@
 
 #include <AzCore/Memory/SystemAllocator.h>
 #include <AzCore/Serialization/Json/JsonSerialization.h>
+#include <AzToolsFramework/Entity/PrefabEditorEntityOwnershipInterface.h>
 #include <AzToolsFramework/Prefab/PrefabDomTypes.h>
 #include <AzToolsFramework/Prefab/PrefabIdTypes.h>
 
@@ -102,6 +103,8 @@ namespace AzToolsFramework
             LinkId m_id = InvalidLinkId;
 
             PrefabSystemComponentInterface* m_prefabSystemComponentInterface = nullptr;
+
+            PrefabEditorEntityOwnershipInterface* m_prefabEditorEntityOwnershipInterface = nullptr;
         };
     } // namespace Prefab
 } // namespace AzToolsFramework

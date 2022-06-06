@@ -42,6 +42,8 @@ namespace AzToolsFramework
             AZ_Assert(m_prefabSystemComponentInterface != nullptr,
                 "Prefab System Component Interface could not be found. "
                 "It is a requirement for the Link class. Check that it is being correctly initialized.");
+            m_prefabEditorEntityOwnershipInterface = AZ::Interface<AzToolsFramework::PrefabEditorEntityOwnershipInterface>::Get();
+            AZ_Assert(m_prefabEditorEntityOwnershipInterface, "PrefabEditorEntityOwnershipInterface is not found.");
         }
 
         Link& Link::operator=(const Link& other)
@@ -177,6 +179,18 @@ namespace AzToolsFramework
             }
             else
             {
+                for (PrefabDomValue& entry : patchesReference->get().GetArray())
+                {
+                    auto path = entry.FindMember("path");
+                    auto value = entry.FindMember("value");
+                    if (path != entry.MemberEnd() && value != entry.MemberEnd())
+                    {
+                        AZStd::string_view patchPath(path->value.GetString(), path->value.GetStringLength());
+                        m_prefabEditorEntityOwnershipInterface->RegisterOverridePrefix(AZ::Dom::Path(patchPath), &entry);
+                    }
+                }
+                m_prefabEditorEntityOwnershipInterface->PrintOverrides();
+
                 AZ::JsonSerializationResult::ResultCode applyPatchResult =
                     PrefabDomUtils::ApplyPatches(sourceTemplateDomCopy, targetTemplatePrefabDom.GetAllocator(), patchesReference->get());
                 linkedInstanceDom.CopyFrom(sourceTemplateDomCopy, targetTemplatePrefabDom.GetAllocator());
