@@ -5349,7 +5349,7 @@ namespace AssetProcessor
             QString scanFolderName;
             QString relativePathToFile;
 
-            if (!m_platformConfig->ConvertToRelativePath(sourcePath.c_str(), relativePathToFile, scanFolderName))
+            if (!m_platformConfig->ConvertToRelativePath(sourcePath, relativePathToFile, scanFolderName))
             {
                 continue;
             }
@@ -5368,7 +5368,7 @@ namespace AssetProcessor
                 if (jobs.size())
                 {
                     filesFound++;
-                    AssessModifiedFile(sourcePath.c_str());
+                    AssessModifiedFile(sourcePath);
                 }
             }
         }

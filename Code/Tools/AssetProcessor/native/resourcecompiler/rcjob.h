@@ -36,14 +36,14 @@ namespace AssetProcessor
 
         virtual ~IRCJobSignal() = default;
 
-        virtual void Started(){};
-        virtual void Finished(){};
+        virtual void Started(){}
+        virtual void Finished(){}
     };
 
     //! Scoped class to automatically signal job start and stop
-    struct ScopedJobSignaller
+    struct ScopedJobSignaler
     {
-        ScopedJobSignaller()
+        ScopedJobSignaler()
         {
             auto signalReciever = AZ::Interface<IRCJobSignal>::Get();
 
@@ -53,7 +53,7 @@ namespace AssetProcessor
             }
         }
 
-        ~ScopedJobSignaller()
+        ~ScopedJobSignaler()
         {
             auto signalReciever = AZ::Interface<IRCJobSignal>::Get();
 
