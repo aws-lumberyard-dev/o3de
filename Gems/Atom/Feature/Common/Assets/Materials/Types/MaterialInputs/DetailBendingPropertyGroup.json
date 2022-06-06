@@ -4,52 +4,13 @@
   "description": "Properties for configuring the offset of the material.",
   "properties": [
     {
-      "name": "xOffset",
-      "displayName": "xOffset",
-      "description": "The offset in the x direction.",
-      "type": "Float",
-      "defaultValue": 0.0,
-      "min": 0.0,
-      "max": 10.0,
-      "connection": {
-        "type": "ShaderInput",
-        "name": "m_xOffset"
-      }
-    },
-    {
-      "name": "yOffset",
-      "displayName": "yOffset",
-      "description": "The offset in the y direction.",
-      "type": "Float",
-      "defaultValue": 0.0,
-      "min": 0.0,
-      "max": 10.0,
-      "connection": {
-        "type": "ShaderInput",
-        "name": "m_yOffset"
-      }
-    },
-    {
-      "name": "zOffset",
-      "displayName": "zOffset",
-      "description": "The offset in the z direction.",
-      "type": "Float",
-      "defaultValue": 0.0,
-      "min": 0.0,
-      "max": 10.0,
-      "connection": {
-        "type": "ShaderInput",
-        "name": "m_zOffset"
-      }
-    },
-    {
       "name": "AnimFrequency",
       "displayName": "Wind Frequency",
       "description": "Wind Frequency.",
       "type": "Float",
       "defaultValue": 0.0,
       "min": 0.0,
-      "max": 10.0,
+      "max": 1.0,
       "connection": {
         "type": "ShaderInput",
         "name": "m_frequency"
@@ -62,7 +23,7 @@
       "type": "Float",
       "defaultValue": 0.0,
       "min": 0.0,
-      "max": 10.0,
+      "max": 1.0,
       "connection": {
         "type": "ShaderInput",
         "name": "m_ampWav0"
@@ -75,7 +36,7 @@
       "type": "Float",
       "defaultValue": 0.0,
       "min": 0.0,
-      "max": 10.0,
+      "max": 1.0,
       "connection": {
         "type": "ShaderInput",
         "name": "m_ampWav2"
@@ -88,7 +49,7 @@
       "type": "Float",
       "defaultValue": 0.0,
       "min": 0.0,
-      "max": 10.0,
+      "max": 1.0,
       "connection": {
         "type": "ShaderInput",
         "name": "m_phase"
@@ -101,7 +62,7 @@
       "type": "Float",
       "defaultValue": 0.0,
       "min": 0.0,
-      "max": 10.0,
+      "max": 1.0,
       "connection": {
         "type": "ShaderInput",
         "name": "m_detailFreq"
@@ -114,7 +75,7 @@
       "type": "Float",
       "defaultValue": 0.0,
       "min": 0.0,
-      "max": 10.0,
+      "max": 1.0,
       "connection": {
         "type": "ShaderInput",
         "name": "m_detailLeafAmp"
@@ -127,7 +88,7 @@
       "type": "Float",
       "defaultValue": 0.0,
       "min": 0.0,
-      "max": 10.0,
+      "max": 1.0,
       "connection": {
         "type": "ShaderInput",
         "name": "m_detailBranchAmp"
@@ -140,7 +101,7 @@
       "type": "Float",
       "defaultValue": 0.0,
       "min": 0.0,
-      "max": 10.0,
+      "max": 1.0,
       "connection": {
         "type": "ShaderInput",
         "name": "m_detailSpeed"
@@ -153,7 +114,7 @@
       "type": "Float",
       "defaultValue": 0.0,
       "min": 0.0,
-      "max": 10.0,
+      "max": 1.0,
       "connection": {
         "type": "ShaderInput",
         "name": "m_windDirX"
@@ -166,7 +127,7 @@
       "type": "Float",
       "defaultValue": 0.0,
       "min": 0.0,
-      "max": 10.0,
+      "max": 1.0,
       "connection": {
         "type": "ShaderInput",
         "name": "m_windDirY"
@@ -179,7 +140,7 @@
       "type": "Float",
       "defaultValue": 0.0,
       "min": 0.0,
-      "max": 10.0,
+      "max": 1.0,
       "connection": {
         "type": "ShaderInput",
         "name": "m_bendingStrength"
