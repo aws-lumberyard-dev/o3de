@@ -146,6 +146,7 @@ SEditorSettings::SEditorSettings()
     viewports.bTopMapSwapXY = false;
     viewports.bShowGridGuide = true;
     viewports.bHideMouseCursorWhenCaptured = true;
+    viewports.bCursorModeWrap = false;
     viewports.nDragSquareSize = 0; // We must initialize this after the Qt application object is available; see QtApplicationListener
     viewports.bEnableContextMenu = true;
     viewports.fWarningIconsDrawDistance = 50.0f;
@@ -497,6 +498,7 @@ void SEditorSettings::Save(bool isEditorClosing)
     SaveValue("Settings", "MapSwapXY", viewports.bTopMapSwapXY);
     SaveValue("Settings", "ShowGridGuide", viewports.bShowGridGuide);
     SaveValue("Settings", "HideMouseCursorOnCapture", viewports.bHideMouseCursorWhenCaptured);
+    SaveValue("Settings", "CursorModeWrap", viewports.bCursorModeWrap);
     SaveValue("Settings", "DragSquareSize", viewports.nDragSquareSize);
     SaveValue("Settings", "EnableContextMenu", viewports.bEnableContextMenu);
     SaveValue("Settings", "ToolbarIconSizeV2", gui.nToolbarIconSize);

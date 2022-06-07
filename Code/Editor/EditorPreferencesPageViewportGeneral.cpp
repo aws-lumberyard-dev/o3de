@@ -285,6 +285,7 @@ void CEditorPreferencesPage_ViewportGeneral::InitializeSettings()
     m_display.m_highlightSelVegetation = gSettings.viewports.bHighlightSelectedVegetation;
     m_display.m_highlightOnMouseOver = gSettings.viewports.bHighlightMouseOverGeometry;
     m_display.m_hideMouseCursorWhenCaptured = gSettings.viewports.bHideMouseCursorWhenCaptured;
+    m_display.m_cursorModeWrap = gSettings.viewports.bCursorModeWrap;
     m_display.m_dragSquareSize = gSettings.viewports.nDragSquareSize;
     m_display.m_displayLinks = ds->IsDisplayLinks();
     m_display.m_displayTracks = ds->IsDisplayTracks();
