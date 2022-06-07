@@ -146,7 +146,6 @@ SEditorSettings::SEditorSettings()
     viewports.bTopMapSwapXY = false;
     viewports.bShowGridGuide = true;
     viewports.bHideMouseCursorWhenCaptured = true;
-    viewports.bCursorModeWrap = false;
     viewports.nDragSquareSize = 0; // We must initialize this after the Qt application object is available; see QtApplicationListener
     viewports.bEnableContextMenu = true;
     viewports.fWarningIconsDrawDistance = 50.0f;

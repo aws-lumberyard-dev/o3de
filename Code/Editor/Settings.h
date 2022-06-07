@@ -429,7 +429,8 @@ AZ_POP_DISABLE_DLL_EXPORT_BASECLASS_WARNING
 
     int backgroundUpdatePeriod;
     const char* g_TemporaryLevelName;
-        SSliceSettings sliceSettings;
+    
+    SSliceSettings sliceSettings;
 
     SLevelSaveSettings levelSaveSettings;
 
