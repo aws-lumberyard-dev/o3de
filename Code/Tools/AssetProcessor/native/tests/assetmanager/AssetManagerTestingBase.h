@@ -16,6 +16,7 @@
 #include <native/AssetManager/assetProcessorManager.h>
 #include <resourcecompiler/rccontroller.h>
 #include <tests/UnitTestUtilities.h>
+#include <QCoreApplication>
 
 namespace UnitTests
 {
