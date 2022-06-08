@@ -342,6 +342,9 @@ namespace AssetProcessor
     {
         // Note: this occurs inside a worker thread.
 
+        // Signal start and end of the job
+        ScopedJobSignaler signaler;
+
         // listen for the user quitting (CTRL-C or otherwise)
         AssetUtilities::QuitListener listener;
         listener.BusConnect();

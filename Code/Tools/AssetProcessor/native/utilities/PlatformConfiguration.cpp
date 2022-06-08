@@ -968,7 +968,7 @@ namespace AssetProcessor
         {
             // Add the common platform if we have some other platforms enabled.  For now, this is only intended for intermediate assets
             // So we don't want to enable it unless at least one actual platform is available, to avoid hiding an error state of no real platforms being active
-            EnablePlatform(AssetBuilderSDK::PlatformInfo{ AssetBuilderSDK::CommonPlatformName, AZStd::unordered_set<AZStd::string>{ "common" }});
+            EnableCommonPlatform();
         }
 
         if (scanFolderOverride)
@@ -1903,6 +1903,11 @@ namespace AssetProcessor
     int PlatformConfiguration::GetMaxJobs() const
     {
         return m_maxJobs;
+    }
+
+    void PlatformConfiguration::EnableCommonPlatform()
+    {
+        EnablePlatform(AssetBuilderSDK::PlatformInfo{ AssetBuilderSDK::CommonPlatformName, AZStd::unordered_set<AZStd::string>{ "common" } });
     }
 
     void PlatformConfiguration::AddIntermediateScanFolder()
