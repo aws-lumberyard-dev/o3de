@@ -1822,11 +1822,11 @@ namespace AssetProcessor
 
             successfullyRemoved = wrapper.DeleteFiles(true);
 
-                if(!successfullyRemoved)
-                {
-                    AZ_TracePrintf(AssetProcessor::ConsoleChannel, "Failed to delete product files for %s\n", product.m_productName.c_str());
-                }
-                else
+            if(!successfullyRemoved)
+            {
+                AZ_TracePrintf(AssetProcessor::ConsoleChannel, "Failed to delete product files for %s\n", product.m_productName.c_str());
+            }
+            else
             {
                 if (!m_stateData->RemoveProduct(product.m_productID))
                 {
@@ -1853,6 +1853,14 @@ namespace AssetProcessor
                         message.m_legacyAssetIds.push_back(legacySourceAssetId);
                     }
                     Q_EMIT AssetMessage( message);
+                }
+
+                if (wrapper.HasIntermediateProduct())
+                {
+                    CheckDeletedSourceFile(
+                        productPath.GetIntermediatePath().c_str(), productPath.GetRelativePath().c_str(),
+                        productPath.GetRelativePath().c_str(),
+                        AZStd::chrono::system_clock::now());
                 }
 
                 m_checkFoldersToRemove.insert(productPath.GetCachePath().c_str());
@@ -2532,8 +2540,6 @@ namespace AssetProcessor
             return;
         }
 
-
-
         for (auto& job : jobs)
         {
             JobEntry jobEntry{ topLevelSourceScanFolder.m_scanFolder.c_str(),
@@ -2554,6 +2560,8 @@ namespace AssetProcessor
         AzToolsFramework::AssetDatabase::ProductDatabaseEntryContainer products;
         m_stateData->GetProductsBySourceID(topLevelSourceForIntermediateConflict->m_sourceID, products);
         DeleteProducts(products);
+
+        m_stateData->RemoveSource(topLevelSourceForIntermediateConflict->m_sourceID);
     }
 
     void AssetProcessorManager::ProcessFilesToExamineQueue()
@@ -2708,6 +2716,12 @@ namespace AssetProcessor
                 {
                     AZ_TracePrintf(AssetProcessor::DebugChannel, "ProcessFilesToExamineQueue: Unable to find the relative path for %s.\n", normalizedPath.toUtf8().constData());
                     continue;
+                }
+
+                if (normalizedPath == scanFolderName)
+                {
+                    // We found a scanfolder, record it
+                    m_knownFolders.insert(scanFolderName);
                 }
 
                 const ScanFolderInfo* scanFolderInfo = m_platformConfig->GetScanFolderForFile(normalizedPath);
@@ -2876,6 +2890,16 @@ namespace AssetProcessor
                             CheckSource(FileEntry(overrider, false, examineFile.m_isFromScanner));
                             continue;
                         }
+                    }
+                    else
+                    {
+                        auto errorMessage = AZStd::string::format(
+                            "Intermediate asset (%s) conflicts with an existing source asset "
+                            "with the same relative path: %s.  Please move/rename one of the files to fix the conflict.",
+                            overrider.toUtf8().constData(),
+                            normalizedPath.toUtf8().constData());
+
+                        FailTopLevelSourceForIntermediate(databasePathToFile.toUtf8().constData(), errorMessage);
                     }
                 }
 
@@ -5254,7 +5278,7 @@ namespace AssetProcessor
     {
         if (!consoleMsg.empty())
         {
-            AZ_TracePrintf(AssetProcessor::ConsoleChannel, AZ_STRING_FORMAT, AZ_STRING_ARG(consoleMsg));
+            AZ_TracePrintf(AssetProcessor::ConsoleChannel, AZ_STRING_FORMAT "\n", AZ_STRING_ARG(consoleMsg));
         }
 
         JobDetails jobdetail;

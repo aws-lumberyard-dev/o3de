@@ -20,10 +20,19 @@
 
 namespace UnitTests
 {
-    class MockDiskSpaceResponder : public AssetProcessor::DiskSpaceInfoBus::Handler
+    struct MockDiskSpaceResponder : AssetProcessor::DiskSpaceInfoBus::Handler
     {
-    public:
         MOCK_METHOD3(CheckSufficientDiskSpace, bool(const QString&, qint64, bool));
+
+        MockDiskSpaceResponder()
+        {
+            BusConnect();
+        }
+
+        ~MockDiskSpaceResponder()
+        {
+            BusDisconnect();
+        }
     };
 
     class TestingDatabaseLocationListener : public AzToolsFramework::AssetDatabase::AssetDatabaseRequests::Bus::Handler
@@ -80,10 +89,11 @@ namespace UnitTests
     {
         void SetUp() override;
         void TearDown() override;
+
         void CreateTestData(AZ::u64 hashA, AZ::u64 hashB, bool useSubId);
         void RunTest(bool firstProductChanged, bool secondProductChanged);
 
-        void RunFile(AZStd::vector<AssetProcessor::JobDetails>& jobDetailsList);
+        void RunFile(int expectedJobCount, int expectedFileCount = 1, int dependencyFileCount = 0);
         void ProcessJob(AssetProcessor::RCController& rcController, const AssetProcessor::JobDetails& jobDetails);
 
         int m_argc = 0;
@@ -96,6 +106,7 @@ namespace UnitTests
         AZStd::unique_ptr<AssetProcessor::PlatformConfiguration> m_platformConfig;
         AZStd::unique_ptr<AZ::SettingsRegistryImpl> m_settingsRegistry;
         AZStd::shared_ptr<AssetProcessor::AssetDatabaseConnection> m_stateData;
+        AZStd::unique_ptr<::testing::NiceMock<MockDiskSpaceResponder>> m_diskSpaceResponder;
         AZ::Test::ScopedAutoTempDirectory m_tempDir;
         TestingDatabaseLocationListener m_databaseLocationListener;
         AzToolsFramework::AssetDatabase::ScanFolderDatabaseEntry m_scanfolder;
@@ -106,6 +117,6 @@ namespace UnitTests
         AZ::Entity* m_jobManagerEntity{};
         AZ::ComponentDescriptor* m_descriptor{};
 
-        AZ::Uuid m_assetType = AZ::Uuid::CreateName("test");
+        AZStd::vector<AssetProcessor::JobDetails> m_jobDetailsList;
     };
 } // namespace UnitTests
