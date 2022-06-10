@@ -35,6 +35,15 @@ namespace AZ::Dom
         SubpathsOnly,
     };
 
+    //! Specifies the order in which values are traversed when visting a DomPrefixTree.
+    //! \see DomPrefixTree::VisitPath
+    enum class PrefixTreeTraversalOrder
+    {
+        //! (Default) Walks the tree from the shortest matching subpath matching the specified path and
+        //! PrefixTreeMatch criteria and visits
+        MostToLeastSpecific,
+    };
+
     template<class Range, class T, class = void>
     constexpr bool RangeConvertibleToPrefixTree = false;
 
@@ -63,10 +72,12 @@ namespace AZ::Dom
         DomPrefixTree& operator=(const DomPrefixTree&) = default;
         DomPrefixTree& operator=(DomPrefixTree&&) = default;
 
-        using VisitorFunction = AZStd::function<void(const Path&, const T&)>;
+        using VisitorFunction = AZStd::function<void(const Path&, T&)>;
+        using ConstVisitorFunction = AZStd::function<void(const Path&, const T&)>;
 
         //! Visits a path and calls a visitor for each matching path and value.
-        void VisitPath(const Path& path, PrefixTreeMatch match, const VisitorFunction& visitor) const;
+        void VisitPath(const Path& path, PrefixTreeMatch match, const VisitorFunction& visitor);
+        void VisitPath(const Path& path, PrefixTreeMatch match, const ConstVisitorFunction& visitor) const;
         //! Visits a path and returns the most specific matching value, or null if none was found.
         T* ValueAtPath(const Path& path, PrefixTreeMatch match);
         //! \see ValueAtPath

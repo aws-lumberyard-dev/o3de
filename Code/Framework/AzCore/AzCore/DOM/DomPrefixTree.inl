@@ -62,9 +62,9 @@ namespace AZ::Dom
     }
 
     template<class T>
-    void DomPrefixTree<T>::VisitPath(const Path& path, PrefixTreeMatch match, const VisitorFunction& visitor) const
+    void DomPrefixTree<T>::VisitPath(const Path& path, PrefixTreeMatch match, const VisitorFunction& visitor)
     {
-        const Node* rootNode = GetNodeForPath(path);
+        Node* rootNode = GetNodeForPath(path);
         if (rootNode == nullptr)
         {
             return;
@@ -84,7 +84,7 @@ namespace AZ::Dom
         struct PopPathEntry
         {
         };
-        using StackEntry = AZStd::variant<const Node*, PathEntry, PopPathEntry>;
+        using StackEntry = AZStd::variant<Node*, PathEntry, PopPathEntry>;
         AZStd::stack<StackEntry> stack({ rootNode });
         while (!stack.empty())
         {
@@ -94,14 +94,14 @@ namespace AZ::Dom
                 [&](auto&& value)
                 {
                     using CurrentType = AZStd::decay_t<decltype(value)>;
-                    if constexpr (AZStd::is_same_v<CurrentType, const Node*>)
+                    if constexpr (AZStd::is_same_v<CurrentType, Node*>)
                     {
                         if (value != rootNode && value->m_data.has_value())
                         {
                             visitor(currentPath, value->m_data.value());
                         }
 
-                        for (const auto& entry : value->m_values)
+                        for (auto& entry : value->m_values)
                         {
                             // The stack runs this in reverse order, so we'll:
                             // 1) Push the current path entry to currentPath
@@ -124,6 +124,16 @@ namespace AZ::Dom
                 },
                 entry);
         }
+    }
+
+    template<class T>
+    void DomPrefixTree<T>::VisitPath(const Path& path, PrefixTreeMatch match, const ConstVisitorFunction& visitor) const
+    {
+        // Break const to reuse the non-const implementation with our const visitor function
+        const_cast<DomPrefixTree<T>*>(this)->VisitPath(path, match, [&visitor](const Path& path, T& value)
+            {
+                visitor(path, value);
+            });
     }
 
     template<class T>

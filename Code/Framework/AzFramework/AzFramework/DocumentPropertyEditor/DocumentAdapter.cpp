@@ -22,6 +22,12 @@ AZ_CVAR(
 
 namespace AZ::DocumentPropertyEditor
 {
+    const AZ::Name BoundAdapterMessage::s_typeField = AZ::Name::FromStringLiteral("$type");
+    const AZ::Name BoundAdapterMessage::s_adapterField = AZ::Name::FromStringLiteral("adapter");
+    const AZ::Name BoundAdapterMessage::s_messageNameField = AZ::Name::FromStringLiteral("messageName");
+    const AZ::Name BoundAdapterMessage::s_messageOriginField = AZ::Name::FromStringLiteral("messageOrigin");
+    const AZ::Name BoundAdapterMessage::s_contextDataField = AZ::Name::FromStringLiteral("contextData");
+
     Dom::Value DocumentAdapter::GetContents() const
     {
         if (m_cachedContents.IsNull())
@@ -100,5 +106,62 @@ namespace AZ::DocumentPropertyEditor
             }
         }
         m_changedEvent.Signal(patch);
+    }
+
+    Dom::Value DocumentAdapter::SendMessage(const AdapterMessage& message)
+    {
+        // First, fire HandleMessage to allow descendants to handle the message.
+        Dom::Value result = HandleMessage(message);
+        // Then, notify any consumers (e.g. the DocumentPropertyEditor) in case they want to handle the message
+        m_messageEvent.Signal(message, result);
+        return result;
+    }
+
+    Dom::Value DocumentAdapter::HandleMessage([[maybe_unused]] const AdapterMessage& message)
+    {
+        // By default, just ignore any messages. This can be overridden by subclasses.
+        return Dom::Value();
+    }
+
+    Dom::Value BoundAdapterMessage::operator()(const Dom::Value& parameters)
+    {
+        AdapterMessage message;
+        message.m_contextData = m_contextData;
+        message.m_messageName = m_messageName;
+        message.m_messageOrigin = m_messageOrigin;
+        message.m_messageParameters = parameters;
+        return m_adapter->SendMessage(message);
+    }
+
+    Dom::Value BoundAdapterMessage::MarshalToDom() const
+    {
+        Dom::Value result(Dom::Type::Object);
+        result[s_typeField] = Dom::Value(s_typeName, false);
+        result[s_adapterField] = Dom::Utils::ValueFromType(m_adapter);
+        result[s_messageNameField] = Dom::Value(m_messageName.GetStringView(), true);
+        result[s_messageOriginField] = Dom::Value(m_messageOrigin.ToString(), true);
+        result[s_contextDataField] = m_contextData;
+        return result;
+    }
+
+    AZStd::optional<BoundAdapterMessage> BoundAdapterMessage::TryMarshalFromDom(const Dom::Value& value)
+    {
+        if (!value.IsObject())
+        {
+            return {};
+        }
+
+        auto typeFieldIt = value.FindMember(s_typeField);
+        if (typeFieldIt == value.MemberEnd() || typeFieldIt->second != Dom::Value(s_typeName, false))
+        {
+            return {};
+        }
+
+        BoundAdapterMessage message;
+        message.m_adapter = Dom::Utils::ValueToTypeUnsafe<DocumentAdapter*>(value[s_adapterField]);
+        message.m_messageName = AZ::Name(value[s_messageNameField].GetString());
+        message.m_messageOrigin = Dom::Path(value[s_messageOriginField].GetString());
+        message.m_contextData = value[s_contextDataField];
+        return message;
     }
 } // namespace AZ::DocumentPropertyEditor

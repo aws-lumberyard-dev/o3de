@@ -22,6 +22,59 @@ namespace AZ::DocumentPropertyEditor
     using DocumentAdapterPtr = AZStd::shared_ptr<DocumentAdapter>;
     using ConstDocumentAdapterPtr = AZStd::shared_ptr<const DocumentAdapter>;
 
+    struct AdapterMessage
+    {
+        //! The name of this message (derived from the CallbackAttribute's name)
+        AZ::Name m_messageName;
+        //! The path in the adapter from which this message originated
+        Dom::Path m_messageOrigin;
+        //! A DOM array value containing marshalled arguments for this message.
+        Dom::Value m_messageParameters;
+        //! An arbitrary, user-specified DOM value containing additional context data.
+        //! This is used to supplement message parameters on the adapter level.
+        Dom::Value m_contextData;
+
+        Dom::Value Match() const
+        {
+            return {};
+        }
+
+        template <typename CallbackAttribute, typename Callback, typename... Rest>
+        Dom::Value Match(const CallbackAttribute& attribute, const Callback& callback, Rest... rest) const
+        {
+            Dom::Value result;
+            if (attribute.MatchMessage(*this, result, callback))
+            {
+                return result;
+            }
+            return Match(rest...);
+        }
+    };
+
+    struct BoundAdapterMessage
+    {
+        DocumentAdapter* m_adapter;
+        AZ::Name m_messageName;
+        Dom::Path m_messageOrigin;
+        Dom::Value m_contextData;
+
+        Dom::Value operator()(const Dom::Value& parameters);
+
+        static const AZ::Name s_typeField;
+        static constexpr AZStd::string_view s_typeName = "BoundAdapterMessage";
+        static const AZ::Name s_adapterField;
+        static const AZ::Name s_messageNameField;
+        static const AZ::Name s_messageOriginField;
+        static const AZ::Name s_contextDataField;
+
+        //! Marshal this bound message to a DOM::Value.
+        //! This is not a serializable DOM::Value, as m_adapter is stored as a pointer.
+        Dom::Value MarshalToDom() const;
+        //! Attempts to recreate a BoundAdapterMessage from a value marshalled via MarshalToDom.
+        //! Returns the BoundAdapterMessage if successful.
+        static AZStd::optional<BoundAdapterMessage> TryMarshalFromDom(const Dom::Value& value);
+    };
+
     //! A DocumentAdapter provides an interface for transforming data from an arbitrary
     //! source into a DOM hierarchy that can be viewed and edited by a DocumentPropertyView.
     //!
@@ -39,8 +92,11 @@ namespace AZ::DocumentPropertyEditor
     class DocumentAdapter
     {
     public:
+        AZ_RTTI(DocumentAdapter, "{8CEFE485-45C2-4ECC-B9D1-BBE75C7B02AB}");
+
         using ResetEvent = Event<>;
         using ChangedEvent = Event<const Dom::Patch&>;
+        using MessageEvent = Event<const AdapterMessage&, Dom::Value&>;
 
         virtual ~DocumentAdapter() = default;
 
@@ -57,10 +113,13 @@ namespace AZ::DocumentPropertyEditor
         //! The provided patch contains all the changes provided (i.e. it shall apply cleanly on top of the last
         //! GetContents() result).
         void ConnectChangedHandler(ChangedEvent::Handler& handler);
+        void ConnectMessageHandler(MessageEvent::Handler& handler);
 
         //! Sets a router responsible for chaining nested adapters, if supported.
         //! \see RoutingAdapter
         virtual void SetRouter(RoutingAdapter* router, const Dom::Path& route);
+
+        Dom::Value SendMessage(const AdapterMessage& message);
 
         //! If true, debug mode is enabled for all DocumentAdapters.
         //! \see SetDebugModeEnabled
@@ -77,6 +136,8 @@ namespace AZ::DocumentPropertyEditor
         //! NotifyResetDocument or NotifyContentsChanged must be used.
         //! \see AdapterBuilder for building out this DOM structure.
         virtual Dom::Value GenerateContents() = 0;
+
+        virtual Dom::Value HandleMessage(const AdapterMessage& message);
 
         //! Specifies the type of reset operation triggered in NotifyResetDocument.
         enum class DocumentResetType
@@ -101,6 +162,7 @@ namespace AZ::DocumentPropertyEditor
     private:
         ResetEvent m_resetEvent;
         ChangedEvent m_changedEvent;
+        MessageEvent m_messageEvent;
 
         mutable Dom::Value m_cachedContents;
     };

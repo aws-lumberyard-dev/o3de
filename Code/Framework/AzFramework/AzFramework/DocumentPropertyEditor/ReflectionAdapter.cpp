@@ -6,6 +6,7 @@
  *
  */
 
+#include <AzCore/DOM/DomPrefixTree.h>
 #include <AzCore/DOM/DomUtils.h>
 #include <AzFramework/DocumentPropertyEditor/AdapterBuilder.h>
 #include <AzFramework/DocumentPropertyEditor/PropertyEditorNodes.h>
@@ -18,6 +19,7 @@ namespace AZ::DocumentPropertyEditor
     {
         ReflectionAdapter* m_adapter;
         AdapterBuilder m_builder;
+        AZStd::unordered_map<AZ::Dom::Path, AZStd::function<Dom::Value(const Dom::Value&)>> m_onChangedCallbacks;
 
         ReflectionAdapterReflectionImpl(ReflectionAdapter* adapter)
             : m_adapter(adapter)
@@ -90,12 +92,8 @@ namespace AZ::DocumentPropertyEditor
 
             m_builder.BeginPropertyEditor(GetPropertyEditor(attributes), AZStd::move(value));
             ForwardAttributes(attributes);
-            m_builder.OnEditorChanged(
-                [this, onChanged](const Dom::Path& path, const Dom::Value& value, Nodes::PropertyEditor::ValueChangeType changeType)
-                {
-                    Dom::Value newValue = onChanged(value);
-                    m_adapter->OnContentsChanged(path, newValue, changeType);
-                });
+            m_onChangedCallbacks[m_builder.GetCurrentPath()] = AZStd::move(onChanged);
+            m_builder.AddMessageHandler(m_adapter, Nodes::PropertyEditor::OnChanged);
             m_builder.EndPropertyEditor();
 
             if (createRow)
@@ -118,7 +116,8 @@ namespace AZ::DocumentPropertyEditor
                         value = AZStd::move(extractedValue.value());
                     }
                     return Dom::Utils::ValueFromType(value);
-                }, true);
+                },
+                true);
         }
 
         void Visit(bool& value, const Reflection::IAttributes& attributes) override
@@ -189,15 +188,19 @@ namespace AZ::DocumentPropertyEditor
                     {
                         value = newValue.GetString();
                         return newValue;
-                    }, false);
+                    },
+                    false);
                 return;
             }
 
             AZ::Dom::Value instancePointerValue = AZ::Dom::Utils::ValueFromType<void*>(access.Get());
-            VisitValue(AZ::Dom::Utils::ValueFromType<void*>(access.Get()), attributes, [](const Dom::Value& newValue)
+            VisitValue(
+                AZ::Dom::Utils::ValueFromType<void*>(access.Get()), attributes,
+                [](const Dom::Value& newValue)
                 {
                     return newValue;
-                }, false);
+                },
+                false);
         }
 
         void VisitObjectEnd() override
@@ -213,7 +216,8 @@ namespace AZ::DocumentPropertyEditor
                 {
                     access.Set(newValue.GetString());
                     return newValue;
-                }, true);
+                },
+                true);
         }
 
         void Visit([[maybe_unused]] Reflection::IArrayAccess& access, [[maybe_unused]] const Reflection::IAttributes& attributes) override
@@ -224,11 +228,15 @@ namespace AZ::DocumentPropertyEditor
         {
         }
 
-        void Visit([[maybe_unused]] Reflection::IDictionaryAccess& access, [[maybe_unused]] const Reflection::IAttributes& attributes) override
+        void Visit(
+            [[maybe_unused]] Reflection::IDictionaryAccess& access, [[maybe_unused]] const Reflection::IAttributes& attributes) override
         {
         }
 
-        void Visit([[maybe_unused]] AZ::s64 value, [[maybe_unused]] const Reflection::IEnumAccess& access, [[maybe_unused]] const Reflection::IAttributes& attributes) override
+        void Visit(
+            [[maybe_unused]] AZ::s64 value,
+            [[maybe_unused]] const Reflection::IEnumAccess& access,
+            [[maybe_unused]] const Reflection::IAttributes& attributes) override
         {
         }
 
@@ -274,6 +282,7 @@ namespace AZ::DocumentPropertyEditor
     Dom::Value ReflectionAdapter::GenerateContents()
     {
         m_impl->m_builder.BeginAdapter();
+        m_impl->m_onChangedCallbacks.clear();
         if (m_instance != nullptr)
         {
             Reflection::VisitLegacyInMemoryInstance(m_impl.get(), m_instance, m_typeId);
@@ -282,8 +291,21 @@ namespace AZ::DocumentPropertyEditor
         return m_impl->m_builder.FinishAndTakeResult();
     }
 
-    void ReflectionAdapter::OnContentsChanged(const Dom::Path& path, const Dom::Value& value, [[maybe_unused]] Nodes::PropertyEditor::ValueChangeType changeType)
+    Dom::Value ReflectionAdapter::HandleMessage(const AdapterMessage& message)
     {
-        NotifyContentsChanged({ Dom::PatchOperation::ReplaceOperation(path, value) });
+        using Nodes::PropertyEditor;
+
+        auto handlePropertyEditorChanged =
+            [&](const Dom::Value& valueFromEditor, [[maybe_unused]] PropertyEditor::ValueChangeType changeType)
+        {
+            auto changeHandlerIt = m_impl->m_onChangedCallbacks.find(message.m_messageOrigin);
+            AZ_Assert(changeHandlerIt != m_impl->m_onChangedCallbacks.end(), "Unable to lookup change handler");
+            if (changeHandlerIt != m_impl->m_onChangedCallbacks.end())
+            {
+                Dom::Value newValue = changeHandlerIt->second(valueFromEditor);
+                NotifyContentsChanged({ Dom::PatchOperation::ReplaceOperation(message.m_messageOrigin / "Value", newValue) });
+            }
+        };
+        return message.Match(PropertyEditor::OnChanged, handlePropertyEditorChanged);
     }
 } // namespace AZ::DocumentPropertyEditor
