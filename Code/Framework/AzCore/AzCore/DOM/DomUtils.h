@@ -95,6 +95,27 @@ namespace AZ::Dom::Utils
     template<typename T>
     using DomValueWrapperType = typename DomValueWrapper<T>::Type;
 
+    static const AZ::Name TypeFieldName = AZ::Name::FromStringLiteral("$type");
+    static const AZ::Name PointerTypeName = AZ::Name::FromStringLiteral("pointer");
+    static const AZ::Name PointerValueFieldName = AZ::Name::FromStringLiteral("value");
+    static const AZ::Name PointerTypeFieldName = AZ::Name::FromStringLiteral("pointerType");
+
+    Dom::Value MarshalTypedPointerToValue(void* value, const AZ::TypeId& typeId);
+    void* TryMarshalValueToPointer(const AZ::Dom::Value& value, const AZ::TypeId& expectedType = AZ::TypeId::CreateNull());
+
+    template <typename T>
+    Dom::Value MarshalOpaqueValue(T value)
+    {
+        if constexpr (AZStd::is_pointer_v<T>)
+        {
+            return MarshalTypedPointerToValue(reinterpret_cast<void*>(value), azrtti_typeid<T>());
+        }
+        else
+        {
+            return Dom::Value::FromOpaqueValue(AZStd::any(value));
+        }
+    }
+
     template<typename T>
     Dom::Value ValueFromType(T value)
     {
@@ -106,7 +127,7 @@ namespace AZ::Dom::Utils
         else if constexpr (AZStd::is_reference_v<T> || !AZStd::is_copy_constructible_v<T>)
         {
             WrapperType wrapper = &value;
-            return Dom::Value::FromOpaqueValue(AZStd::any(wrapper));
+            return MarshalOpaqueValue(wrapper);
         }
         else if constexpr (AZStd::is_same_v<WrapperType, Dom::Value>)
         {
@@ -126,7 +147,7 @@ namespace AZ::Dom::Utils
         }
         else
         {
-            return Dom::Value::FromOpaqueValue(AZStd::any(value));
+            return MarshalOpaqueValue(value);
         }
     }
 
@@ -158,6 +179,13 @@ namespace AZ::Dom::Utils
         }
         else
         {
+            if constexpr (AZStd::is_pointer_v<WrapperType>)
+            {
+                if (TryMarshalValueToPointer(value) != nullptr)
+                {
+                    return true;
+                }
+            }
             if (!value.IsOpaqueValue())
             {
                 return false;
@@ -173,6 +201,14 @@ namespace AZ::Dom::Utils
         using WrapperType = DomValueWrapperType<T>;
         auto ExtractOpaqueValue = [&value]() -> AZStd::optional<WrapperType>
         {
+            if constexpr (AZStd::is_pointer_v<WrapperType>)
+            {
+                void* valuePointer = TryMarshalValueToPointer(value);
+                if (valuePointer != nullptr)
+                {
+                    return reinterpret_cast<WrapperType>(valuePointer);
+                }
+            }
             if (!value.IsOpaqueValue())
             {
                 return {};

@@ -66,7 +66,7 @@ namespace AZ::Dom::Utils
         JsonSerialization::StoreTypeId(buffer, buffer.GetAllocator(), typeId);
         if (!buffer.IsString())
         {
-            return ValueFromType(typeId);
+            return Value("", false);
         }
         AZ_Assert(buffer.IsString(), "TypeId should be stored as a string");
         return Value(AZStd::string_view(buffer.GetString(), buffer.GetStringLength()), true);
@@ -281,6 +281,37 @@ namespace AZ::Dom::Utils
         AZStd::unique_ptr<Visitor> writer = copiedValue.GetWriteHandler();
         value.Accept(*writer, copyStrings);
         return copiedValue;
+    }
+
+    void* TryMarshalValueToPointer(const AZ::Dom::Value& value, const AZ::TypeId& expectedType)
+    {
+        if (!value.IsObject())
+        {
+            return nullptr;
+        }
+        auto typeIdIt = value.FindMember(TypeFieldName);
+        if (typeIdIt != value.MemberEnd() && typeIdIt->second.GetString() == PointerTypeName.GetStringView())
+        {
+            if (!expectedType.IsNull())
+            {
+                AZ::TypeId actualTypeId = DomValueToTypeId(value[PointerTypeFieldName]);
+                if (actualTypeId != expectedType)
+                {
+                    return nullptr;
+                }
+            }
+            return reinterpret_cast<void*>(value[PointerValueFieldName].GetUint64());
+        }
+        return nullptr;
+    }
+
+    Dom::Value MarshalTypedPointerToValue(void* value, const AZ::TypeId& typeId)
+    {
+        Dom::Value result(Dom::Type::Object);
+        result[TypeFieldName] = Dom::Value(PointerTypeName.GetStringView(), false);
+        result[PointerValueFieldName] = Dom::Value(reinterpret_cast<AZ::u64>(value));
+        result[PointerTypeFieldName] = TypeIdToDomValue(typeId);
+        return result;
     }
 
     const AZ::TypeId& GetValueTypeId(const Dom::Value& value)

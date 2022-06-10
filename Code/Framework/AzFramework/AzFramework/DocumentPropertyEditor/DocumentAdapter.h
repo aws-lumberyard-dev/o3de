@@ -34,20 +34,27 @@ namespace AZ::DocumentPropertyEditor
         //! This is used to supplement message parameters on the adapter level.
         Dom::Value m_contextData;
 
-        Dom::Value Match() const
+        bool Match([[maybe_unused]] Dom::Value& result) const
         {
-            return {};
+            return false;
+        }
+
+        template <typename CallbackAttribute, typename Callback, typename... Rest>
+        bool Match(Dom::Value& result, const CallbackAttribute& attribute, const Callback& callback, Rest... rest) const
+        {
+            if (attribute.MatchMessage(*this, result, callback))
+            {
+                return true;
+            }
+            return Match(result, rest...);
         }
 
         template <typename CallbackAttribute, typename Callback, typename... Rest>
         Dom::Value Match(const CallbackAttribute& attribute, const Callback& callback, Rest... rest) const
         {
             Dom::Value result;
-            if (attribute.MatchMessage(*this, result, callback))
-            {
-                return result;
-            }
-            return Match(rest...);
+            Match(result, attribute, callback, rest...);
+            return result;
         }
     };
 

@@ -47,6 +47,11 @@ namespace AZ::DocumentPropertyEditor
         handler.Connect(m_changedEvent);
     }
 
+    void DocumentAdapter::ConnectMessageHandler(MessageEvent::Handler& handler)
+    {
+        handler.Connect(m_messageEvent);
+    }
+
     void DocumentAdapter::SetRouter(RoutingAdapter* /*router*/, const Dom::Path& /*route*/)
     {
         // By default, setting a router is a no-op, this only matters for nested routing adapters

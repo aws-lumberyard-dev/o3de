@@ -193,9 +193,9 @@ namespace AZ::DocumentPropertyEditor
                 return;
             }
 
-            AZ::Dom::Value instancePointerValue = AZ::Dom::Utils::ValueFromType<void*>(access.Get());
+            AZ::Dom::Value instancePointerValue = AZ::Dom::Utils::MarshalTypedPointerToValue(access.Get(), access.GetType());
             VisitValue(
-                AZ::Dom::Utils::ValueFromType<void*>(access.Get()), attributes,
+                instancePointerValue, attributes,
                 [](const Dom::Value& newValue)
                 {
                     return newValue;
