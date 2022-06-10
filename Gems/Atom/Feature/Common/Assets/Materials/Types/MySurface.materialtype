@@ -1,5 +1,5 @@
 {
-  "description": "Material Type like StandardPBR, but offset by 5 units in the x direction.",
+  "description": "Material Type like StandardPBR, but has detail bending.",
   "version": 1,
   "propertyLayout": {
     "propertyGroups": [

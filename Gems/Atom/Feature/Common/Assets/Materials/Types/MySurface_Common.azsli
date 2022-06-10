@@ -52,10 +52,6 @@ ShaderResourceGroup MaterialSrg : SRG_PerMaterial
     uint m_opacityMapUvIndex;
 
     // Bending parameters
-    float m_xOffset;
-    float m_yOffset;
-    float m_zOffset;
-
     float m_frequency;
     float m_ampWav0;
     float m_ampWav2;
@@ -64,7 +60,6 @@ ShaderResourceGroup MaterialSrg : SRG_PerMaterial
     float m_detailFreq;
     float m_detailLeafAmp;
     float m_detailBranchAmp;
-    float m_detailSpeed;
 
     float m_windDirX;
     float m_windDirY;

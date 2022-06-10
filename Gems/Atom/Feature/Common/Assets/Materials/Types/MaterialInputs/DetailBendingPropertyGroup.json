@@ -95,19 +95,6 @@
       }
     },
     {
-      "name": "DetailBendSpeed",
-      "displayName": "Detail bend speed",
-      "description": "Detail bend speed.",
-      "type": "Float",
-      "defaultValue": 0.0,
-      "min": 0.0,
-      "max": 1.0,
-      "connection": {
-        "type": "ShaderInput",
-        "name": "m_detailSpeed"
-      }
-    },
-    {
       "name": "WindDirX",
       "displayName": "Wind direction x",
       "description": "Wind direction x.",
