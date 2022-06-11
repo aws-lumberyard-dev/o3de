@@ -294,7 +294,12 @@ namespace AZ::Dom::Utils
         {
             if (!expectedType.IsNull())
             {
-                AZ::TypeId actualTypeId = DomValueToTypeId(value[PointerTypeFieldName]);
+                auto typeFieldIt = value.FindMember(PointerTypeFieldName);
+                if (typeFieldIt == value.MemberEnd())
+                {
+                    return nullptr;
+                }
+                AZ::TypeId actualTypeId = DomValueToTypeId(typeFieldIt->second);
                 if (actualTypeId != expectedType)
                 {
                     return nullptr;
@@ -310,7 +315,11 @@ namespace AZ::Dom::Utils
         Dom::Value result(Dom::Type::Object);
         result[TypeFieldName] = Dom::Value(PointerTypeName.GetStringView(), false);
         result[PointerValueFieldName] = Dom::Value(reinterpret_cast<AZ::u64>(value));
-        result[PointerTypeFieldName] = TypeIdToDomValue(typeId);
+        Dom::Value typeName = TypeIdToDomValue(typeId);
+        if (!typeName.GetString().empty())
+        {
+            result[PointerTypeFieldName] = AZStd::move(typeName);
+        }
         return result;
     }
 

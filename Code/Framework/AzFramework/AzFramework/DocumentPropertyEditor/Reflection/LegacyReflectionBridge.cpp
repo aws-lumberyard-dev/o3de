@@ -25,6 +25,7 @@ namespace AZ::Reflection
         const Name Handler = Name::FromStringLiteral("Handler");
         const Name Label = Name::FromStringLiteral("Label");
         const Name SerializedPath = Name::FromStringLiteral("SerializedPath");
+        const Name Container = Name::FromStringLiteral("Container");
     } // namespace DescriptorAttributes
 
     namespace LegacyReflectionInternal
@@ -326,6 +327,10 @@ namespace AZ::Reflection
                 }
                 nodeData.m_cachedAttributes.push_back({ group, AZ::DocumentPropertyEditor::Nodes::PropertyEditor::ValueType.GetName(),
                                                         AZ::Dom::Utils::TypeIdToDomValue(nodeData.m_typeId) });
+                if (nodeData.m_classData->m_container)
+                {
+                    nodeData.m_cachedAttributes.push_back({ group, DescriptorAttributes::Container, Dom::Utils::ValueFromType<void*>(nodeData.m_classData->m_container) });
+                }
             }
 
             AttributeDataType Find(Name name) const override

@@ -26,7 +26,7 @@ namespace AzToolsFramework
             auto subWidget = layoutItem->widget();
             if (subWidget)
             {
-                subWidget->deleteLater();
+                delete subWidget;
             }
             delete layoutItem;
         }
@@ -146,6 +146,7 @@ namespace AzToolsFramework
              propertyWidgetIter != endIter; ++propertyWidgetIter)
         {
             m_columnLayout->removeWidget(propertyWidgetIter->first);
+            propertyWidgetIter->first->setParent(nullptr);
             if (dpe)
             {
                 dpe->ReleaseHandler(AZStd::move(propertyWidgetIter->second));
@@ -153,7 +154,7 @@ namespace AzToolsFramework
         }
         m_widgetToPropertyHandler.clear();
 
-        DestroyLayoutContents(m_columnLayout);
+        // DestroyLayoutContents(m_columnLayout);
 
         // delete all child rows, this will also remove them from the layout
         for (auto entry : m_domOrderedChildren)
@@ -161,7 +162,7 @@ namespace AzToolsFramework
             DPERowWidget* rowChild = qobject_cast<DPERowWidget*>(entry.data());
             if (rowChild)
             {
-                rowChild->deleteLater();
+                delete rowChild;
             }
         }
     }
@@ -295,7 +296,7 @@ namespace AzToolsFramework
                 domOperation.GetType() == AZ::Dom::PatchOperation::Type::Replace)
             {
                 const auto childIterator = m_domOrderedChildren.begin() + childIndex;
-                (*childIterator)->deleteLater(); // deleting the widget also automatically removes it from the layout
+                delete *childIterator; // deleting the widget also automatically removes it from the layout
                 m_domOrderedChildren.erase(childIterator);
             }
 
@@ -398,7 +399,7 @@ namespace AzToolsFramework
 
     DocumentPropertyEditor::~DocumentPropertyEditor()
     {
-        DestroyLayoutContents(GetVerticalLayout());
+        // DestroyLayoutContents(GetVerticalLayout());
     }
 
     void DocumentPropertyEditor::SetAdapter(AZ::DocumentPropertyEditor::DocumentAdapter* theAdapter)

@@ -76,6 +76,10 @@ namespace AZ::DocumentPropertyEditor::Nodes
         system->RegisterPropertyEditor<Button>();
         system->RegisterNodeAttribute<Button>(Button::ButtonText);
 
+        system->RegisterPropertyEditor<ContainerActionButton>();
+        system->RegisterNodeAttribute<ContainerActionButton>(ContainerActionButton::Action);
+        system->RegisterNodeAttribute<ContainerActionButton>(ContainerActionButton::OnActivate);
+
         system->RegisterPropertyEditor<CheckBox>();
         system->RegisterPropertyEditor<Color>();
         system->RegisterPropertyEditor<ComboBox>();

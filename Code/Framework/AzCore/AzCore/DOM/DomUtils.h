@@ -209,22 +209,29 @@ namespace AZ::Dom::Utils
                     return reinterpret_cast<WrapperType>(valuePointer);
                 }
             }
-            if (!value.IsOpaqueValue())
+            if constexpr (AZ::Internal::HasAZTypeInfoIntrusive<T>::value)
             {
-                return {};
-            }
-            const AZStd::any& opaqueValue = value.GetOpaqueValue();
-            if (!opaqueValue.is<WrapperType>())
-            {
-                // Marshal void* into our type - CanConvertToType will not register this as correct,
-                // but this is an important safety hatch for marshalling out non-primitive UI elements in the DocumentPropertyEditor
-                if (opaqueValue.is<void*>())
+                if (!value.IsOpaqueValue())
                 {
-                    return *reinterpret_cast<WrapperType*>(AZStd::any_cast<void*>(opaqueValue));
+                    return {};
                 }
+                const AZStd::any& opaqueValue = value.GetOpaqueValue();
+                if (!opaqueValue.is<WrapperType>())
+                {
+                    // Marshal void* into our type - CanConvertToType will not register this as correct,
+                    // but this is an important safety hatch for marshalling out non-primitive UI elements in the DocumentPropertyEditor
+                    if (opaqueValue.is<void*>())
+                    {
+                        return *reinterpret_cast<WrapperType*>(AZStd::any_cast<void*>(opaqueValue));
+                    }
+                    return {};
+                }
+                return AZStd::any_cast<WrapperType>(opaqueValue);
+            }
+            else
+            {
                 return {};
             }
-            return AZStd::any_cast<WrapperType>(opaqueValue);
         };
 
         if constexpr (AZStd::is_same_v<AZStd::decay_t<T>, Dom::Value>)

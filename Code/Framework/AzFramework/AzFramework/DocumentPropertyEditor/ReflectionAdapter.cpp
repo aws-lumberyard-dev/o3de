@@ -69,7 +69,7 @@ namespace AZ::DocumentPropertyEditor
                         return;
                     }
 
-                    if (name == Reflection::DescriptorAttributes::Label || name == Reflection::DescriptorAttributes::Handler)
+                    if (name == Reflection::DescriptorAttributes::Label || name == Reflection::DescriptorAttributes::Handler || name == Reflection::DescriptorAttributes::Container)
                     {
                         return;
                     }
@@ -193,14 +193,24 @@ namespace AZ::DocumentPropertyEditor
                 return;
             }
 
-            AZ::Dom::Value instancePointerValue = AZ::Dom::Utils::MarshalTypedPointerToValue(access.Get(), access.GetType());
-            VisitValue(
-                instancePointerValue, attributes,
-                [](const Dom::Value& newValue)
-                {
-                    return newValue;
-                },
-                false);
+            auto containerAttribute = attributes.Find(AZ::Reflection::DescriptorAttributes::Container);
+            if (!containerAttribute.IsNull())
+            {
+                auto container = AZ::Dom::Utils::ValueToTypeUnsafe<AZ::SerializeContext::IDataContainer*>(containerAttribute);
+                m_builder.Label(AZStd::string::format("%i elements", container->Size(access.Get())));
+                //container->Re
+            }
+            else
+            {
+                AZ::Dom::Value instancePointerValue = AZ::Dom::Utils::MarshalTypedPointerToValue(access.Get(), access.GetType());
+                VisitValue(
+                    instancePointerValue, attributes,
+                    [](const Dom::Value& newValue)
+                    {
+                        return newValue;
+                    },
+                    false);
+            }
         }
 
         void VisitObjectEnd() override

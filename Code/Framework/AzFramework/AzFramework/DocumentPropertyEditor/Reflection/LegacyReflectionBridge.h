@@ -29,6 +29,7 @@ namespace AZ::Reflection
         //! relative to the instance parameter to a Visit call.
         //! Type: String (can be parsed by AZ::Dom::Path)
         extern const Name SerializedPath;
+        extern const Name Container;
     } // namespace DescriptorAttributes
 
     AZStd::shared_ptr<AZ::Attribute> WriteDomValueToGenericAttribute(const AZ::Dom::Value& value);
