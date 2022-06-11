@@ -30,6 +30,8 @@ namespace AZ::Reflection
         //! Type: String (can be parsed by AZ::Dom::Path)
         extern const Name SerializedPath;
         extern const Name Container;
+        extern const Name ParentContainer;
+        extern const Name ParentContainerInstance;
     } // namespace DescriptorAttributes
 
     AZStd::shared_ptr<AZ::Attribute> WriteDomValueToGenericAttribute(const AZ::Dom::Value& value);

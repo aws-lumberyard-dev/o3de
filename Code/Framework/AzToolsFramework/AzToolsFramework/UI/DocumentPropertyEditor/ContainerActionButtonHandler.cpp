@@ -14,11 +14,13 @@ namespace AzToolsFramework
     {
         setAutoRaise(true);
 
-        connect(this, &QToolButton::clicked, this, [this]()
-        {
-            using AZ::DocumentPropertyEditor::Nodes::ContainerActionButton;
-            ContainerActionButton::OnActivate.InvokeOnDomNode(m_node);
-        });
+        connect(
+            this, &QToolButton::clicked, this,
+            [this]()
+            {
+                using AZ::DocumentPropertyEditor::Nodes::ContainerActionButton;
+                ContainerActionButton::OnActivate.InvokeOnDomNode(m_node);
+            });
     }
 
     void ContainerActionButtonHandler::SetValueFromDom(const AZ::Dom::Value& node)

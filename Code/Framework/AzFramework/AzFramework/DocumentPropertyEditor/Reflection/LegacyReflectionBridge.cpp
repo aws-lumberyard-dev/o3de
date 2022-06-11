@@ -26,6 +26,8 @@ namespace AZ::Reflection
         const Name Label = Name::FromStringLiteral("Label");
         const Name SerializedPath = Name::FromStringLiteral("SerializedPath");
         const Name Container = Name::FromStringLiteral("Container");
+        const Name ParentContainer = Name::FromStringLiteral("ParentContainer");
+        const Name ParentContainerInstance = Name::FromStringLiteral("ParentContainerInstance");
     } // namespace DescriptorAttributes
 
     namespace LegacyReflectionInternal
@@ -221,7 +223,9 @@ namespace AZ::Reflection
 
                         // See if any registered attributes can read this attribute.
                         Dom::Value attributeValue;
-                        propertyEditorSystem->EnumerateRegisteredAttributes(name, [&](const AZ::DocumentPropertyEditor::AttributeDefinitionInterface& attributeReader)
+                        propertyEditorSystem->EnumerateRegisteredAttributes(
+                            name,
+                            [&](const AZ::DocumentPropertyEditor::AttributeDefinitionInterface& attributeReader)
                             {
                                 if (attributeValue.IsNull())
                                 {
@@ -284,7 +288,8 @@ namespace AZ::Reflection
                             labelAttributeValue = nodeData.m_classElement->m_name;
                         }
 
-                        for (auto it = nodeData.m_classElement->m_attributes.begin(); it != nodeData.m_classElement->m_attributes.end(); ++it)
+                        for (auto it = nodeData.m_classElement->m_attributes.begin(); it != nodeData.m_classElement->m_attributes.end();
+                             ++it)
                         {
                             AZ::AttributePair pair;
                             pair.first = it->first;
@@ -313,6 +318,14 @@ namespace AZ::Reflection
                 {
                     StackEntry& parentNode = m_stack[m_stack.size() - 2];
                     checkNodeAttributes(parentNode, true);
+
+                    if (parentNode.m_classData && parentNode.m_classData->m_container)
+                    {
+                        nodeData.m_cachedAttributes.push_back({ group, DescriptorAttributes::ParentContainer,
+                                                                Dom::Utils::ValueFromType<void*>(parentNode.m_classData->m_container) });
+                        nodeData.m_cachedAttributes.push_back({ group, DescriptorAttributes::ParentContainerInstance,
+                                                                Dom::Utils::ValueFromType<void*>(parentNode.m_instance) });
+                    }
                 }
 
                 if (!handlerName.IsEmpty())
@@ -329,7 +342,8 @@ namespace AZ::Reflection
                                                         AZ::Dom::Utils::TypeIdToDomValue(nodeData.m_typeId) });
                 if (nodeData.m_classData->m_container)
                 {
-                    nodeData.m_cachedAttributes.push_back({ group, DescriptorAttributes::Container, Dom::Utils::ValueFromType<void*>(nodeData.m_classData->m_container) });
+                    nodeData.m_cachedAttributes.push_back(
+                        { group, DescriptorAttributes::Container, Dom::Utils::ValueFromType<void*>(nodeData.m_classData->m_container) });
                 }
             }
 

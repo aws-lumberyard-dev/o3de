@@ -71,6 +71,7 @@ namespace DPEDebugView
 
         int m_simpleInt = 5;
         double m_doubleSlider = 3.25;
+        AZStd::vector<AZStd::string> m_vector;
         AZStd::map<AZStd::string, float> m_map;
         AZStd::unordered_map<AZStd::pair<int, double>, int> m_unorderedMap;
         AZStd::unordered_map<EnumType, int> m_simpleEnum;
@@ -90,6 +91,7 @@ namespace DPEDebugView
                 serializeContext->Class<TestContainer>()
                     ->Field("simpleInt", &TestContainer::m_simpleInt)
                     ->Field("doubleSlider", &TestContainer::m_doubleSlider)
+                    ->Field("vector", &TestContainer::m_vector)
                     ->Field("map", &TestContainer::m_map)
                     ->Field("unorderedMap", &TestContainer::m_unorderedMap)
                     ->Field("simpleEnum", &TestContainer::m_simpleEnum)
@@ -122,6 +124,7 @@ namespace DPEDebugView
                         ->DataElement(AZ::Edit::UIHandlers::Slider, &TestContainer::m_doubleSlider, "double slider", "")
                         ->Attribute(AZ::Edit::Attributes::Min, -10.0)
                         ->Attribute(AZ::Edit::Attributes::Max, 10.0)
+                        ->DataElement(AZ::Edit::UIHandlers::Default, &TestContainer::m_vector, "vector<string>", "")
                         ->DataElement(AZ::Edit::UIHandlers::Default, &TestContainer::m_map, "map<string, float>", "")
                         ->Attribute(AZ::Edit::Attributes::Visibility, AZ::Edit::PropertyVisibility::ShowChildrenOnly)
                         ->Attribute(AZ::Edit::Attributes::AutoExpand, true)

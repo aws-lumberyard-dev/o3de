@@ -102,6 +102,11 @@ namespace AZ::DocumentPropertyEditor::Nodes
         static constexpr auto EnumValue = AttributeDefinition<Dom::Value>("EnumValue");
         static constexpr auto ChangeNotify = CallbackAttributeDefinition<PropertyRefreshLevel()>("ChangeNotify");
         static constexpr auto RequestTreeUpdate = CallbackAttributeDefinition<void(PropertyRefreshLevel)>("RequestTreeUpdate");
+
+        // Container attributes
+        static constexpr auto AddNotify = CallbackAttributeDefinition<void()>("AddNotify");
+        static constexpr auto RemoveNotify = CallbackAttributeDefinition<void()>("RemoveNotify");
+        static constexpr auto ClearNotify = CallbackAttributeDefinition<void()>("ClearNotify");
     };
 
     struct UIElement : PropertyEditor

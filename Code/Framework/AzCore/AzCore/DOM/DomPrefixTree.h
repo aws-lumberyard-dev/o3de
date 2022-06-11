@@ -35,15 +35,6 @@ namespace AZ::Dom
         SubpathsOnly,
     };
 
-    //! Specifies the order in which values are traversed when visting a DomPrefixTree.
-    //! \see DomPrefixTree::VisitPath
-    enum class PrefixTreeTraversalOrder
-    {
-        //! (Default) Walks the tree from the shortest matching subpath matching the specified path and
-        //! PrefixTreeMatch criteria and visits
-        MostToLeastSpecific,
-    };
-
     template<class Range, class T, class = void>
     constexpr bool RangeConvertibleToPrefixTree = false;
 
