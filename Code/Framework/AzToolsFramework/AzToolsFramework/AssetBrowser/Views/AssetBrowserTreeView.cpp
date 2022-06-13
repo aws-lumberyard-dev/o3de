@@ -81,7 +81,6 @@ namespace AzToolsFramework
                     RenameEntry();
                 });
             addAction(renameAction);
-
         }
 
         AssetBrowserTreeView::~AssetBrowserTreeView()
@@ -296,6 +295,22 @@ namespace AzToolsFramework
             return GetEntryFromIndex<SourceAssetBrowserEntry>(index) == nullptr;
         }
 
+        void AssetBrowserTreeView::OpenItemForEditing(const QModelIndex& index)
+        {
+            QModelIndex proxyIndex = m_assetBrowserSortFilterProxyModel->mapFromSource(index);
+
+            if (proxyIndex.isValid())
+            {
+                selectionModel()->clear();
+                selectionModel()->select(proxyIndex, QItemSelectionModel::Select);
+                setCurrentIndex(proxyIndex);
+
+                scrollTo(proxyIndex);
+
+                RenameEntry();
+            }
+        }
+
         bool AssetBrowserTreeView::SelectProduct(const QModelIndex& idxParent, AZ::Data::AssetId assetID)
         {
             int elements = model()->rowCount(idxParent);
@@ -310,6 +325,7 @@ namespace AzToolsFramework
                     setCurrentIndex(rowIdx);
                     return true;
                 }
+
                 if (SelectProduct(rowIdx, assetID))
                 {
                     expand(rowIdx);
