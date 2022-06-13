@@ -20,7 +20,7 @@ namespace ScriptCanvas::Developer
         registry->m_nodes.push_back(AZ::AzTypeInfo<ScriptCanvas::Developer::Nodes::WrapperMock>::Uuid());
     }
 
-    AZStd::vector<AZ::ComponentDescriptor*> Developer::GetComponentDescriptors()
+    AZStd::vector<AZ::ComponentDescriptor*> GetComponentDescriptors()
     {
         return AZStd::vector<AZ::ComponentDescriptor*>({
             ScriptCanvas::Developer::Nodes::Mock::CreateDescriptor(),
