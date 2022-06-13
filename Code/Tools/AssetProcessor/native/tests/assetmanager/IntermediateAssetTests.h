@@ -12,13 +12,15 @@
 
 namespace UnitTests
 {
-    struct IntermediateAssetTests
-        : AssetManagerTestingBase
-        , AZ::Debug::TraceMessageBus::Handler
+    class IntermediateAssetTests
+        : public AssetManagerTestingBase
+        , protected AZ::Debug::TraceMessageBus::Handler
     {
+    public:
         void SetUp() override;
         void TearDown() override;
 
+    protected:
         bool OnPreAssert(const char*, int, const char*, const char* message) override;
         bool OnPreError(const char*, const char*, int, const char*, const char* message) override;
 

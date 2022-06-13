@@ -74,7 +74,7 @@ namespace UnitTests
 
     size_t FileProcessorTests::Send([[maybe_unused]] unsigned int serial, [[maybe_unused]] const AzFramework::AssetSystem::BaseAssetProcessorMessage& message)
     {
-        m_messagesSent++;
+        ++m_messagesSent;
 
         return 0;
     }

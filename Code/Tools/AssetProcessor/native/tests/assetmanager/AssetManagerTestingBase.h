@@ -20,8 +20,9 @@
 
 namespace UnitTests
 {
-    struct MockDiskSpaceResponder : AssetProcessor::DiskSpaceInfoBus::Handler
+    class MockDiskSpaceResponder : public AssetProcessor::DiskSpaceInfoBus::Handler
     {
+    public:
         MOCK_METHOD3(CheckSufficientDiskSpace, bool(const QString&, qint64, bool));
 
         MockDiskSpaceResponder()
@@ -52,8 +53,9 @@ namespace UnitTests
         AZStd::string m_databaseLocation;
     };
 
-    struct JobSignalReceiver : AZ::Interface<AssetProcessor::IRCJobSignal>::Registrar
+    class JobSignalReceiver : AZ::Interface<AssetProcessor::IRCJobSignal>::Registrar
     {
+    public:
         AZ_RTTI(JobSignalReceiver, "{8C1BEBF9-655C-4352-84DB-3BBB421CB3D3}", AssetProcessor::IRCJobSignal);
 
         void Finished() override
@@ -66,14 +68,16 @@ namespace UnitTests
             m_signal.acquire();
         }
 
+    protected:
         AZStd::binary_semaphore m_signal;
     };
 
-    struct AssetManagerTestingBase;
+    class AssetManagerTestingBase;
 
-    struct TestingAssetProcessorManager : AssetProcessor::AssetProcessorManager
+    class TestingAssetProcessorManager : public AssetProcessor::AssetProcessorManager
     {
-        friend struct AssetManagerTestingBase;
+    public:
+        friend class AssetManagerTestingBase;
 
         TestingAssetProcessorManager(AssetProcessor::PlatformConfiguration* config, QObject* parent = nullptr)
             : AssetProcessorManager(config, parent)
@@ -85,11 +89,13 @@ namespace UnitTests
         void CheckJobEntries(int count);
     };
 
-    struct AssetManagerTestingBase : UnitTest::ScopedAllocatorSetupFixture
+    class AssetManagerTestingBase : public UnitTest::ScopedAllocatorSetupFixture
     {
+    public:
         void SetUp() override;
         void TearDown() override;
 
+    protected:
         void CreateTestData(AZ::u64 hashA, AZ::u64 hashB, bool useSubId);
         void RunTest(bool firstProductChanged, bool secondProductChanged);
 
