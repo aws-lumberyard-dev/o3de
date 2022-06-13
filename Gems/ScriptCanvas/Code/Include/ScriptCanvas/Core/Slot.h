@@ -183,6 +183,8 @@ namespace ScriptCanvas
 
         bool IsLatent() const;
 
+        bool NeedsNodeProperyDisplay() const;
+
         // Here to allow conversion of the previously untyped any slots into the dynamic type any.
         void SetDynamicDataType(DynamicDataType dynamicDataType);
 
