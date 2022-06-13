@@ -34,6 +34,7 @@ namespace GraphCanvas
         static void Reflect(AZ::ReflectContext*);
 
         GeneralNodeFrameComponent();
+        GeneralNodeFrameComponent(const AZStd::string& nodeType);
         ~GeneralNodeFrameComponent() override;
 
         // AZ::Component
@@ -80,6 +81,7 @@ namespace GraphCanvas
         const GeneralNodeFrameComponent& operator=(const GeneralNodeFrameComponent&) = delete;
         bool                            m_shouldDeleteFrame;
         GeneralNodeFrameGraphicsWidget* m_frameWidget;
+        const AZStd::string m_nodeType;
     };
 
     //! The QGraphicsItem for the generic frame.
@@ -94,6 +96,7 @@ namespace GraphCanvas
         static void Reflect(AZ::ReflectContext*) = delete;
 
         GeneralNodeFrameGraphicsWidget(const AZ::EntityId& nodeVisual);
+        GeneralNodeFrameGraphicsWidget(const AZ::EntityId& nodeVisual, const AZStd::string& nodeType);
         ~GeneralNodeFrameGraphicsWidget() override = default;
 
         // SceneMemberUIRequestBus
@@ -103,5 +106,7 @@ namespace GraphCanvas
         // QGraphicsWidget
         void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget = nullptr) override;
         ////
+    private:
+        const AZStd::string m_nodeType;
     };
 }

@@ -42,8 +42,16 @@ namespace GraphCanvas
     GeneralNodeFrameComponent::GeneralNodeFrameComponent()
         : m_frameWidget(nullptr)
         , m_shouldDeleteFrame(true)
+        , m_nodeType("")
     {
 
+    }
+
+    GeneralNodeFrameComponent::GeneralNodeFrameComponent(const AZStd::string& nodeType)
+        : m_frameWidget(nullptr)
+        , m_shouldDeleteFrame(true)
+        , m_nodeType(nodeType)
+    {
     }
 
     GeneralNodeFrameComponent::~GeneralNodeFrameComponent()
@@ -56,7 +64,7 @@ namespace GraphCanvas
 
     void GeneralNodeFrameComponent::Init()
     {
-        m_frameWidget = aznew GeneralNodeFrameGraphicsWidget(GetEntityId());
+        m_frameWidget = aznew GeneralNodeFrameGraphicsWidget(GetEntityId(), m_nodeType);
     }
 
     void GeneralNodeFrameComponent::Activate()
@@ -98,6 +106,13 @@ namespace GraphCanvas
 
     GeneralNodeFrameGraphicsWidget::GeneralNodeFrameGraphicsWidget(const AZ::EntityId& entityKey)
         : NodeFrameGraphicsWidget(entityKey)
+        , m_nodeType("")
+    {
+    }
+
+    GeneralNodeFrameGraphicsWidget::GeneralNodeFrameGraphicsWidget(const AZ::EntityId& entityKey, const AZStd::string& nodeType)
+        : NodeFrameGraphicsWidget(entityKey)
+        , m_nodeType(nodeType)
     {
     }
 
@@ -132,7 +147,7 @@ namespace GraphCanvas
 
         if (border.style() != Qt::NoPen || background.color().alpha() > 0)
         {
-            qreal cornerRadius = GetCornerRadius();
+            qreal cornerRadius = m_nodeType == ".small" ? 20 : GetCornerRadius();
 
             border.setJoinStyle(Qt::PenJoinStyle::MiterJoin); // sharp corners
             painter->setPen(border);

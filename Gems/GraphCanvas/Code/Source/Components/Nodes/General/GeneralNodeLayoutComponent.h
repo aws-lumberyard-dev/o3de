@@ -34,6 +34,7 @@ namespace GraphCanvas
         static AZ::Entity* CreateGeneralNodeEntity(const char* nodeType, const NodeConfiguration& nodeConfiguration = NodeConfiguration());
 
         GeneralNodeLayoutComponent();
+        GeneralNodeLayoutComponent(const AZStd::string& nodeType);
         ~GeneralNodeLayoutComponent();
 
         // AZ::Component
@@ -69,5 +70,12 @@ namespace GraphCanvas
 
         QGraphicsLinearLayout* m_title;
         QGraphicsLinearLayout* m_slots;
+
+        QGraphicsLinearLayout* m_inputSlots;
+        QGraphicsLinearLayout* m_outputSlots;
+
+        Qt::Orientation m_layoutOrientation;
+
+        const AZStd::string m_nodeType;
     };
 }
