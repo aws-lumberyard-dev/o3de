@@ -108,7 +108,8 @@ namespace AZ::Dom::Utils
     {
         if constexpr (AZStd::is_pointer_v<T>)
         {
-            return MarshalTypedPointerToValue(reinterpret_cast<void*>(value), azrtti_typeid<T>());
+            // C-style cast to break const
+            return MarshalTypedPointerToValue((void*)(value), azrtti_typeid<T>());
         }
         else
         {

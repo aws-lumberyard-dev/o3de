@@ -105,7 +105,7 @@ namespace AZ::DocumentPropertyEditor::Nodes
 
         // Container attributes
         static constexpr auto AddNotify = CallbackAttributeDefinition<void()>("AddNotify");
-        static constexpr auto RemoveNotify = CallbackAttributeDefinition<void()>("RemoveNotify");
+        static constexpr auto RemoveNotify = CallbackAttributeDefinition<void(size_t)>("RemoveNotify");
         static constexpr auto ClearNotify = CallbackAttributeDefinition<void()>("ClearNotify");
     };
 

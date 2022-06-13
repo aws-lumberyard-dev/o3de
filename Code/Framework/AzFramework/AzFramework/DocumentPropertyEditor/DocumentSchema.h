@@ -398,6 +398,10 @@ namespace AZ::DocumentPropertyEditor
         template<typename... Args>
         typename CallbackTraits::ResultType InvokeOnDomNode(const AZ::Dom::Value& value, Args... args) const
         {
+            if (!value.IsNode())
+            {
+                return AZ::Failure<ErrorType>("Value is not a Node");
+            }
             auto attributeIt = value.FindMember(this->GetName());
             if (attributeIt == value.MemberEnd())
             {

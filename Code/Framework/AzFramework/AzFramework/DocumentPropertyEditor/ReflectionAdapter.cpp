@@ -28,15 +28,54 @@ namespace AZ::DocumentPropertyEditor
             AZ::SerializeContext::IDataContainer* m_container;
             void* m_instance;
             void* m_elementInstance = nullptr;
+            size_t m_elementIndex = 0;
 
-            void OnClear(ReflectionAdapterReflectionImpl* impl)
+            Dom::Value GetContainerNode(ReflectionAdapterReflectionImpl* impl, const AZ::Dom::Path& path)
+            {
+                // Find the row that contains the PropertyEditor for our actual container (if it exists)
+                Dom::Value containerRow;
+                impl->m_containers.VisitPath(path, AZ::Dom::PrefixTreeMatch::PathAndSubpaths, [&](const AZ::Dom::Path& nodePath, const BoundContainer& container)
+                    {
+                        if (containerRow.IsNull() && container.m_container == m_container && container.m_elementInstance == nullptr)
+                        {
+                            containerRow = impl->m_adapter->GetContents()[nodePath];
+                        }
+                    });
+
+                if (containerRow.IsNode())
+                {
+                    // Look within the Row for a PropertyEditor that has a SerializedPath field.
+                    // This will be the container's editor w/ attributes.
+                    for (auto it = containerRow.ArrayBegin(); it != containerRow.ArrayEnd(); ++it)
+                    {
+                        if (it->IsNode() && it->GetNodeName() == GetNodeName<Nodes::PropertyEditor>())
+                        {
+                            auto serializedFieldIt = it->FindMember(Reflection::DescriptorAttributes::SerializedPath);
+                            if (serializedFieldIt != it->MemberEnd())
+                            {
+                                return *it;
+                            }
+                        }
+                    }
+                }
+                return {};
+            }
+
+            void OnClear(ReflectionAdapterReflectionImpl* impl, const AZ::Dom::Path& path)
             {
                 m_container->ClearElements(m_instance, impl->m_serializeContext);
+
+                auto containerNode = GetContainerNode(impl, path);
+                for (AZ::s64 i = m_container->Size(m_instance) - 1; i >= 0; --i)
+                {
+                    Nodes::PropertyEditor::RemoveNotify.InvokeOnDomNode(containerNode, i);
+                }
+                Nodes::PropertyEditor::ClearNotify.InvokeOnDomNode(containerNode);
 
                 impl->m_adapter->NotifyResetDocument();
             }
 
-            void OnAddElement(ReflectionAdapterReflectionImpl* impl)
+            void OnAddElement(ReflectionAdapterReflectionImpl* impl, const AZ::Dom::Path& path)
             {
                 if (m_container->IsFixedCapacity() && m_container->Size(m_instance) >= m_container->Capacity(m_instance))
                 {
@@ -48,13 +87,17 @@ namespace AZ::DocumentPropertyEditor
                 void* dataAddress = m_container->ReserveElement(m_instance, containerClassElement);
                 m_container->StoreElement(m_instance, dataAddress);
 
+                Nodes::PropertyEditor::AddNotify.InvokeOnDomNode(GetContainerNode(impl, path));
+
                 impl->m_adapter->NotifyResetDocument();
             }
 
-            void OnRemoveElement(ReflectionAdapterReflectionImpl* impl)
+            void OnRemoveElement(ReflectionAdapterReflectionImpl* impl, const AZ::Dom::Path& path)
             {
                 AZ_Assert(m_elementInstance != nullptr, "Attempted to remove an element without a defined element instance");
                 m_container->RemoveElement(m_instance, m_elementInstance, impl->m_serializeContext);
+
+                Nodes::PropertyEditor::RemoveNotify.InvokeOnDomNode(GetContainerNode(impl, path), m_elementIndex);
 
                 impl->m_adapter->NotifyResetDocument();
             }
@@ -289,17 +332,15 @@ namespace AZ::DocumentPropertyEditor
 
                 CheckContainerElement(access.Get(), attributes);
             }
-            else
-            {
-                AZ::Dom::Value instancePointerValue = AZ::Dom::Utils::MarshalTypedPointerToValue(access.Get(), access.GetType());
-                VisitValue(
-                    instancePointerValue, access.Get(), attributes,
-                    [](const Dom::Value& newValue)
-                    {
-                        return newValue;
-                    },
-                    false);
-            }
+
+            AZ::Dom::Value instancePointerValue = AZ::Dom::Utils::MarshalTypedPointerToValue(access.Get(), access.GetType());
+            VisitValue(
+                instancePointerValue, access.Get(), attributes,
+                [](const Dom::Value& newValue)
+                {
+                    return newValue;
+                },
+                false);
         }
 
         void VisitObjectEnd() override
@@ -370,6 +411,24 @@ namespace AZ::DocumentPropertyEditor
         NotifyResetDocument();
     }
 
+    void ReflectionAdapter::InvokeChangeNotify(const AZ::Dom::Value& domNode)
+    {
+        using Nodes::PropertyEditor;
+        using Nodes::PropertyRefreshLevel;
+
+        // Trigger ChangeNotify
+        auto changeNotify = PropertyEditor::ChangeNotify.InvokeOnDomNode(domNode);
+        if (changeNotify.IsSuccess())
+        {
+            // If we were told to issue a property refresh, notify our adapter via RequestTreeUpdate
+            PropertyRefreshLevel value = changeNotify.GetValue();
+            if (value != PropertyRefreshLevel::Undefined && value != PropertyRefreshLevel::None)
+            {
+                PropertyEditor::RequestTreeUpdate.InvokeOnDomNode(domNode, value);
+            }
+        }
+    }
+
     Dom::Value ReflectionAdapter::GenerateContents()
     {
         m_impl->m_builder.BeginAdapter();
@@ -418,13 +477,13 @@ namespace AZ::DocumentPropertyEditor
                 switch (action.value())
                 {
                 case ContainerAction::AddElement:
-                    containerEntry->OnAddElement(m_impl.get());
+                    containerEntry->OnAddElement(m_impl.get(), message.m_messageOrigin);
                     break;
                 case ContainerAction::RemoveElement:
-                    containerEntry->OnRemoveElement(m_impl.get());
+                    containerEntry->OnRemoveElement(m_impl.get(), message.m_messageOrigin);
                     break;
                 case ContainerAction::Clear:
-                    containerEntry->OnClear(m_impl.get());
+                    containerEntry->OnClear(m_impl.get(), message.m_messageOrigin);
                     break;
                 }
             }

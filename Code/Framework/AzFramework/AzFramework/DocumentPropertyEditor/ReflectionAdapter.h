@@ -34,6 +34,8 @@ namespace AZ::DocumentPropertyEditor
         //! this adapter will produce a property grid based on its contents.
         void SetValue(void* instance, AZ::TypeId typeId);
 
+        static void InvokeChangeNotify(const AZ::Dom::Value& domNode);
+
     protected:
         Dom::Value GenerateContents() override;
         Dom::Value HandleMessage(const AdapterMessage& message) override;
