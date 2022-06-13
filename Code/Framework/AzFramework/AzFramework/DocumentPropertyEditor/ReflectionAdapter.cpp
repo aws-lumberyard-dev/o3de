@@ -34,13 +34,18 @@ namespace AZ::DocumentPropertyEditor
             {
                 // Find the row that contains the PropertyEditor for our actual container (if it exists)
                 Dom::Value containerRow;
-                impl->m_containers.VisitPath(path, AZ::Dom::PrefixTreeMatch::PathAndSubpaths, [&](const AZ::Dom::Path& nodePath, const BoundContainer& container)
+                impl->m_containers.VisitPath(
+                    path,
+                    [&](const AZ::Dom::Path& nodePath, const BoundContainer& container)
                     {
                         if (containerRow.IsNull() && container.m_container == m_container && container.m_elementInstance == nullptr)
                         {
                             containerRow = impl->m_adapter->GetContents()[nodePath];
+                            return false; // we've found our container row, we can stop the visitor
                         }
-                    });
+                        return true;
+                    },
+                    Dom::PrefixTreeTraversalFlags::ExcludeChildPaths);
 
                 if (containerRow.IsNode())
                 {
@@ -71,6 +76,7 @@ namespace AZ::DocumentPropertyEditor
                     Nodes::PropertyEditor::RemoveNotify.InvokeOnDomNode(containerNode, i);
                 }
                 Nodes::PropertyEditor::ClearNotify.InvokeOnDomNode(containerNode);
+                Nodes::PropertyEditor::ChangeNotify.InvokeOnDomNode(containerNode);
 
                 impl->m_adapter->NotifyResetDocument();
             }
@@ -87,7 +93,9 @@ namespace AZ::DocumentPropertyEditor
                 void* dataAddress = m_container->ReserveElement(m_instance, containerClassElement);
                 m_container->StoreElement(m_instance, dataAddress);
 
-                Nodes::PropertyEditor::AddNotify.InvokeOnDomNode(GetContainerNode(impl, path));
+                auto containerNode = GetContainerNode(impl, path);
+                Nodes::PropertyEditor::AddNotify.InvokeOnDomNode(containerNode);
+                Nodes::PropertyEditor::ChangeNotify.InvokeOnDomNode(containerNode);
 
                 impl->m_adapter->NotifyResetDocument();
             }
@@ -97,7 +105,9 @@ namespace AZ::DocumentPropertyEditor
                 AZ_Assert(m_elementInstance != nullptr, "Attempted to remove an element without a defined element instance");
                 m_container->RemoveElement(m_instance, m_elementInstance, impl->m_serializeContext);
 
-                Nodes::PropertyEditor::RemoveNotify.InvokeOnDomNode(GetContainerNode(impl, path), m_elementIndex);
+                auto containerNode = GetContainerNode(impl, path);
+                Nodes::PropertyEditor::RemoveNotify.InvokeOnDomNode(containerNode, m_elementIndex);
+                Nodes::PropertyEditor::ChangeNotify.InvokeOnDomNode(containerNode);
 
                 impl->m_adapter->NotifyResetDocument();
             }
@@ -271,8 +281,7 @@ namespace AZ::DocumentPropertyEditor
             {
                 auto parentContainer = AZ::Dom::Utils::ValueToTypeUnsafe<AZ::SerializeContext::IDataContainer*>(parentContainerAttribute);
                 auto parentContainerInstance = AZ::Dom::Utils::ValueToTypeUnsafe<void*>(parentContainerInstanceAttribute);
-                m_containers.SetValue(
-                    m_builder.GetCurrentPath(), BoundContainer{ parentContainer, parentContainerInstance, instance });
+                m_containers.SetValue(m_builder.GetCurrentPath(), BoundContainer{ parentContainer, parentContainerInstance, instance });
 
                 if (!parentContainer->IsFixedSize())
                 {
@@ -348,7 +357,10 @@ namespace AZ::DocumentPropertyEditor
             m_builder.EndRow();
         }
 
-        void Visit([[maybe_unused]] const AZStd::string_view value, [[maybe_unused]] Reflection::IStringAccess& access, [[maybe_unused]] const Reflection::IAttributes& attributes) override
+        void Visit(
+            [[maybe_unused]] const AZStd::string_view value,
+            [[maybe_unused]] Reflection::IStringAccess& access,
+            [[maybe_unused]] const Reflection::IAttributes& attributes) override
         {
         }
 
@@ -464,7 +476,7 @@ namespace AZ::DocumentPropertyEditor
             {
                 return;
             }
-            auto containerEntry = m_impl->m_containers.ValueAtPath(message.m_messageOrigin, AZ::Dom::PrefixTreeMatch::SubpathsOnly);
+            auto containerEntry = m_impl->m_containers.ValueAtPath(message.m_messageOrigin, AZ::Dom::PrefixTreeMatch::ParentsOnly);
             if (containerEntry != nullptr)
             {
                 using Nodes::ContainerAction;
