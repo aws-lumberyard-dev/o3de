@@ -76,6 +76,9 @@ namespace RecastNavigation
             &RecastNavigationProviderRequests::CollectGeometry,
             m_configuration.m_tileSize, aznumeric_cast<float>(m_configuration.m_borderSize) * m_configuration.m_cellSize);
 
+        RecastNavigationMeshNotificationBus::Event(m_entityComponentIdPair.GetEntityId(),
+            &RecastNavigationMeshNotificationBus::Events::OnNavigationMeshRecalculating, m_entityComponentIdPair.GetEntityId());
+
         {
             for (AZStd::shared_ptr<TileGeometry>& tile : tiles)
             {
@@ -411,6 +414,9 @@ namespace RecastNavigation
             }
 
             m_taskGraph.SubmitOnExecutor(m_taskExecutor, m_taskGraphEvent.get());
+
+            RecastNavigationMeshNotificationBus::Event(m_entityComponentIdPair.GetEntityId(),
+                &RecastNavigationMeshNotificationBus::Events::OnNavigationMeshRecalculating, m_entityComponentIdPair.GetEntityId());
         }
     }
 } // namespace RecastNavigation
