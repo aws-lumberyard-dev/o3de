@@ -61,6 +61,7 @@ namespace AZ::Reflection
                 DocumentPropertyEditor::Nodes::PropertyVisibility m_computedVisibility =
                     DocumentPropertyEditor::Nodes::PropertyVisibility::Show;
                 bool m_entryClosed = false;
+                size_t m_childElementIndex = 0;
             };
             AZStd::deque<StackEntry> m_stack;
 
@@ -125,8 +126,14 @@ namespace AZ::Reflection
             bool BeginNode(
                 void* instance, const AZ::SerializeContext::ClassData* classData, const AZ::SerializeContext::ClassElement* classElement)
             {
-                AZStd::string path = m_stack.back().m_path;
-                if (classElement)
+                StackEntry& parentData = m_stack.back();
+                AZStd::string path = parentData.m_path;
+                if (parentData.m_classData && parentData.m_classData->m_container)
+                {
+                    path.append("/");
+                    path.append(AZStd::string::format("%zu", parentData.m_childElementIndex));
+                }
+                else if (classElement)
                 {
                     path.append("/");
                     path.append(classElement->m_name);
@@ -163,6 +170,10 @@ namespace AZ::Reflection
                     m_visitor->VisitObjectEnd(*this, *this);
                 }
                 m_stack.pop_back();
+                if (!m_stack.empty())
+                {
+                    ++m_stack.back().m_childElementIndex;
+                }
                 return true;
             }
 
@@ -198,6 +209,7 @@ namespace AZ::Reflection
                 AZStd::unordered_set<Name> visitedAttributes;
 
                 AZStd::string_view labelAttributeValue;
+                AZStd::fixed_string<128> labelAttributeBuffer;
 
                 DocumentPropertyEditor::PropertyEditorSystemInterface* propertyEditorSystem =
                     AZ::Interface<DocumentPropertyEditor::PropertyEditorSystemInterface>::Get();
@@ -349,6 +361,8 @@ namespace AZ::Reflection
                                                                 Dom::Utils::ValueFromType<void*>(parentNode.m_classData->m_container) });
                         nodeData.m_cachedAttributes.push_back({ group, DescriptorAttributes::ParentContainerInstance,
                                                                 Dom::Utils::ValueFromType<void*>(parentNode.m_instance) });
+                        labelAttributeBuffer = decltype(labelAttributeBuffer)::format("[%zu]", parentNode.m_childElementIndex);
+                        labelAttributeValue = labelAttributeBuffer;
                     }
                 }
 
@@ -360,7 +374,9 @@ namespace AZ::Reflection
                 nodeData.m_cachedAttributes.push_back({ group, DescriptorAttributes::SerializedPath, Dom::Value(nodeData.m_path, true) });
                 if (!labelAttributeValue.empty())
                 {
-                    nodeData.m_cachedAttributes.push_back({ group, DescriptorAttributes::Label, Dom::Value(labelAttributeValue, false) });
+                    // If we allocated a local label buffer we need to make a copy to store the label
+                    const bool shouldCopy = !labelAttributeBuffer.empty();
+                    nodeData.m_cachedAttributes.push_back({ group, DescriptorAttributes::Label, Dom::Value(labelAttributeValue, shouldCopy) });
                 }
                 nodeData.m_cachedAttributes.push_back({ group, AZ::DocumentPropertyEditor::Nodes::PropertyEditor::ValueType.GetName(),
                                                         AZ::Dom::Utils::TypeIdToDomValue(nodeData.m_typeId) });
