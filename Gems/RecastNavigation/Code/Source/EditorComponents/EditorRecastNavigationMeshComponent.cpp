@@ -11,8 +11,6 @@
 #include <AzCore/Serialization/EditContext.h>
 #include <Components/RecastNavigationMeshComponent.h>
 
-#pragma optimize("", off)
-
 namespace RecastNavigation
 {
     void EditorRecastNavigationMeshComponent::Reflect(AZ::ReflectContext* context)
@@ -204,5 +202,3 @@ namespace RecastNavigation
         m_controller.UpdateNavigationMeshAsync();
     }
 } // namespace RecastNavigation
-
-#pragma optimize("", on)

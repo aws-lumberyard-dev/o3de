@@ -27,8 +27,6 @@ AZ_CVAR(
 
 AZ_DECLARE_BUDGET(Navigation);
 
-#pragma optimize("", off)
-
 namespace RecastNavigation
 {
     void RecastNavigationPhysXProviderComponentController::Reflect(AZ::ReflectContext* context)
@@ -396,5 +394,3 @@ namespace RecastNavigation
         return false;
     }
 } // namespace RecastNavigation
-
-#pragma optimize("", on)

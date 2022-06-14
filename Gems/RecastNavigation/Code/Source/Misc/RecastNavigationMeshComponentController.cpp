@@ -30,8 +30,6 @@ AZ_CVAR(
     AZ::u32, bg_navmesh_threads, 2, nullptr, AZ::ConsoleFunctorFlags::Null,
     "Number of threads to use to process tiles for each RecastNavigationMeshComponentController");
 
-#pragma optimize("", off)
-
 namespace RecastNavigation
 {
     void RecastNavigationMeshComponentController::Reflect(AZ::ReflectContext* context)
@@ -447,5 +445,3 @@ namespace RecastNavigation
         }
     }
 } // namespace RecastNavigation
-
-#pragma optimize("", on)
