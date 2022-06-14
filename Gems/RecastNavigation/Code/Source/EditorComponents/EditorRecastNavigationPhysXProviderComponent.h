@@ -29,6 +29,8 @@ namespace RecastNavigation
         EditorRecastNavigationPhysXProviderComponent() = default;
         explicit EditorRecastNavigationPhysXProviderComponent(const RecastNavigationPhysXProviderConfig& config);
 
+        void Activate() override;
+        void Deactivate() override;
         void BuildGameEntity(AZ::Entity* gameEntity) override;
     };
 } // namespace RecastNavigation

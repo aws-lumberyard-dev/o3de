@@ -30,6 +30,8 @@ AZ_CVAR(
     AZ::u32, bg_navmesh_threads, 2, nullptr, AZ::ConsoleFunctorFlags::Null,
     "Number of threads to use to process tiles for each RecastNavigationMeshComponentController");
 
+#pragma optimize("", off)
+
 namespace RecastNavigation
 {
     void RecastNavigationMeshComponentController::Reflect(AZ::ReflectContext* context)
@@ -121,13 +123,20 @@ namespace RecastNavigation
         {
             AZ_PROFILE_SCOPE(Navigation, "Navigation: UpdateNavigationMeshAsync");
 
-            RecastNavigationProviderRequestBus::Event(m_entityComponentIdPair.GetEntityId(),
+            bool operationScheduled = false;
+            RecastNavigationProviderRequestBus::EventResult(operationScheduled, m_entityComponentIdPair.GetEntityId(),
                 &RecastNavigationProviderRequests::CollectGeometryAsync,
                 m_configuration.m_tileSize, aznumeric_cast<float>(m_configuration.m_borderSize) * m_configuration.m_cellSize,
                 [this](AZStd::shared_ptr<TileGeometry> tile)
                 {
                     OnTileProcessedEvent(tile);
                 });
+
+            if (!operationScheduled)
+            {
+                m_updateInProgress = false;
+                return false;
+            }
             return true;
         }
 
@@ -159,17 +168,22 @@ namespace RecastNavigation
 
     void RecastNavigationMeshComponentController::Deactivate()
     {
-        m_shouldProcessTiles = false;
-        if (m_taskGraphEvent && m_taskGraphEvent->IsSignaled() == false)
-        {
-            // If the tasks are still in progress, wait until the task graph is finished.
-            m_taskGraphEvent->Wait();
-        }
-
         m_tickEvent.RemoveFromQueue();
+
+        if (m_updateInProgress)
+        {
+            m_shouldProcessTiles = false;
+            if (m_taskGraphEvent && m_taskGraphEvent->IsSignaled() == false)
+            {
+                // If the tasks are still in progress, wait until the task graph is finished.
+                m_taskGraphEvent->Wait();
+            }
+        }
 
         m_context = {};
         m_navObject = {};
+        m_taskGraphEvent = {};
+        m_updateInProgress = false;
 
         RecastNavigationMeshRequestBus::Handler::BusDisconnect();
     }
@@ -424,3 +438,5 @@ namespace RecastNavigation
         }
     }
 } // namespace RecastNavigation
+
+#pragma optimize("", on)

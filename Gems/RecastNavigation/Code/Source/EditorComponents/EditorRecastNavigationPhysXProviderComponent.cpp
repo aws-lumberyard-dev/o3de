@@ -37,6 +37,17 @@ namespace RecastNavigation
     {
     }
 
+    void EditorRecastNavigationPhysXProviderComponent::Activate()
+    {
+        m_controller.m_config.m_useEditorScene = true;
+        BaseClass::Activate();
+    }
+
+    void EditorRecastNavigationPhysXProviderComponent::Deactivate()
+    {
+        BaseClass::Deactivate();
+    }
+
     void EditorRecastNavigationPhysXProviderComponent::BuildGameEntity(AZ::Entity* gameEntity)
     {
         m_controller.m_config.m_useEditorScene = false;
