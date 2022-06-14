@@ -157,7 +157,7 @@ namespace RecastNavigation
         // The actual navigation data will be passed at a later time.
         CreateNavigationMesh(m_entityComponentIdPair.GetEntityId(), m_configuration.m_tileSize);
 
-        if (cl_navmesh_debug || m_configuration.m_enableDebugDraw)
+        if (IsDebugDrawEnabled())
         {
             m_tickEvent.Enqueue(AZ::TimeMs{ 0 }, true);
         }
@@ -204,17 +204,26 @@ namespace RecastNavigation
             &RecastNavigationMeshNotifications::OnNavigationMeshUpdated, m_entityComponentIdPair.GetEntityId());
         m_updateInProgress = false;
     }
+
+    bool RecastNavigationMeshComponentController::IsDebugDrawEnabled() const
+    {
+        return cl_navmesh_debug || m_configuration.m_enableDebugDraw || m_configuration.m_enableEditorPreview;
+    }
+
     void RecastNavigationMeshComponentController::OnDebugDrawTick()
     {
-        NavMeshQuery::LockGuard lock(*m_navObject);
-
-        if (lock.GetNavMesh() && (cl_navmesh_debug || m_configuration.m_enableDebugDraw))
+        if (IsDebugDrawEnabled())
         {
-            AZ::Transform cameraTransform = AZ::Transform::CreateIdentity();
-            Camera::ActiveCameraRequestBus::BroadcastResult(cameraTransform, &Camera::ActiveCameraRequestBus::Events::GetActiveCameraTransform);
-            m_customDebugDraw.SetViewableAabb(AZ::Aabb::CreateCenterRadius(cameraTransform.GetTranslation(), cl_navmesh_debugRadius));
+            NavMeshQuery::LockGuard lock(*m_navObject);
 
-            duDebugDrawNavMesh(&m_customDebugDraw, *lock.GetNavMesh(), DU_DRAWNAVMESH_COLOR_TILES);
+            if (lock.GetNavMesh())
+            {
+                AZ::Transform cameraTransform = AZ::Transform::CreateIdentity();
+                Camera::ActiveCameraRequestBus::BroadcastResult(cameraTransform, &Camera::ActiveCameraRequestBus::Events::GetActiveCameraTransform);
+                m_customDebugDraw.SetViewableAabb(AZ::Aabb::CreateCenterRadius(cameraTransform.GetTranslation(), cl_navmesh_debugRadius));
+
+                duDebugDrawNavMesh(&m_customDebugDraw, *lock.GetNavMesh(), DU_DRAWNAVMESH_COLOR_TILES);
+            }
         }
     }
 

@@ -106,10 +106,9 @@
                     "Id": 15323900898074703000,
                     "Controller": {
                         "Configuration": {
-                            "Debug Draw": true
+                            "Editor Preview": true
                         }
-                    },
-                    "Auto-update in Editor": true
+                    }
                 },
                 "Component_[15394602174106695453]": {
                     "$type": "EditorRecastNavigationPhysXProviderComponent",

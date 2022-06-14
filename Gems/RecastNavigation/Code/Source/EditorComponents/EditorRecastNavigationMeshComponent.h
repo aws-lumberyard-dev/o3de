@@ -39,8 +39,6 @@ namespace RecastNavigation
         void OnEditorUpdateTick();
 
     private:
-        bool m_autoUpdateInEditor = false;
-
         AZ::ScheduledEvent m_inEditorUpdateTick{ [this]() {OnEditorUpdateTick(); }, AZ::Name("EditorRecastNavigationMeshTick") };
 
         friend class EditorNavigationTest;

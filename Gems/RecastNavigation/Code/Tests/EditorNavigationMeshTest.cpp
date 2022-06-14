@@ -7,7 +7,7 @@
  */
 
 #include <MockInterfaces.h>
-#include <RecastNavigationSystemComponent.h>
+#include <RecastNavigationEditorSystemComponent.h>
 #include <API/EditorPythonConsoleBus.h>
 #include <AzCore/Component/ComponentApplication.h>
 #include <AzCore/Component/Entity.h>
@@ -86,7 +86,7 @@ namespace RecastNavigation
 
             RegisterComponent<MockShapeComponent>();
             RegisterComponent<EventSchedulerSystemComponent>();
-            RegisterComponent<RecastNavigationSystemComponent>();
+            RegisterComponent<RecastNavigationEditorSystemComponent>();
 
             m_timeSystem = AZStd::make_unique<NiceMock<AZ::MockTimeSystem>>();
             m_mockSceneInterface = AZStd::make_unique<NiceMock<UnitTest::MockSceneInterface>>();
@@ -133,13 +133,13 @@ namespace RecastNavigation
         {
             e.SetId(AZ::EntityId{ 1 });
             e.CreateComponent<EventSchedulerSystemComponent>();
-            e.CreateComponent<RecastNavigationSystemComponent>();
+            e.CreateComponent<RecastNavigationEditorSystemComponent>();
             m_mockShapeComponent = e.CreateComponent<MockShapeComponent>();
             e.CreateComponent<EditorRecastNavigationPhysXProviderComponent>(RecastNavigationPhysXProviderConfig{});
             e.CreateComponent<EditorDetourNavigationComponent>();
 
             m_editorRecastNavigationMeshComponent = e.CreateComponent<EditorRecastNavigationMeshComponent>(RecastNavigationMeshConfig{});
-            m_editorRecastNavigationMeshComponent->m_autoUpdateInEditor = true;
+            m_editorRecastNavigationMeshComponent->m_controller.m_configuration.m_enableEditorPreview = true;
         }
 
         void SetupNavigationMesh()
@@ -222,7 +222,7 @@ namespace RecastNavigation
 
         void SetEditorMeshConfig(EditorRecastNavigationMeshComponent* component, bool autoUpdate)
         {
-            component->m_autoUpdateInEditor = autoUpdate;
+            component->m_controller.m_configuration.m_enableEditorPreview = autoUpdate;
 
             component->OnAutoUpdateChanged();
         }
@@ -242,7 +242,7 @@ namespace RecastNavigation
         }
     };
 
-    TEST_F(EditorNavigationTest, InEditor)
+    TEST_F(EditorNavigationTest, InEditorUpdateTick)
     {
         Entity e;
         PopulateEntity(e);
@@ -318,7 +318,6 @@ namespace RecastNavigation
         {
             const Wait wait(AZ::EntityId(1));
             Tick();
-            Tick();
             wait.BlockUntilCalled();
             EXPECT_EQ(wait.m_updatedCalls, 1);
         }
@@ -352,7 +351,7 @@ namespace RecastNavigation
         wait.BlockUntilNavigationMeshRecalculating(AZ::TimeMs{ 100 });
         EXPECT_EQ(wait.m_recalculatingCalls, 1);
 
-        e.Deactivate(); // the expectation is that that update is running on a thread as we are deactivate here
+        e.Deactivate(); // The expectation is that that update is running on a thread as we deactivate here.
 
         wait.BlockUntilCalled(AZ::TimeMs{ 100 });
         EXPECT_EQ(wait.m_updatedCalls, 0);
@@ -389,5 +388,85 @@ namespace RecastNavigation
         inComponent->BuildGameEntity(&outEntity);
 
         EXPECT_NE(outEntity.FindComponent<DetourNavigationComponent>(), nullptr);
+    }
+
+    TEST_F(EditorNavigationTest, ActivateDeactivateThenTickToPreviewEditor)
+    {
+        Entity e;
+        PopulateEntity(e);
+        ActivateEntity(e);
+        SetupNavigationMesh();
+
+        AddTestGeometry(true);
+
+        e.Deactivate();
+        e.Activate();
+
+        ON_CALL(*m_timeSystem, GetElapsedTimeMs()).WillByDefault(Return(AZ::TimeMs{ 1500 }));
+        {
+            const Wait wait(AZ::EntityId(1));
+            Tick();
+            wait.BlockUntilCalled();
+            EXPECT_EQ(wait.m_updatedCalls, 1);
+        }
+    }
+
+    TEST_F(EditorNavigationTest, ActivateRunThenDeactivateThenTickToPreviewEditor)
+    {
+        Entity e;
+        PopulateEntity(e);
+        ActivateEntity(e);
+        SetupNavigationMesh();
+
+        AddTestGeometry(true);
+
+        ON_CALL(*m_timeSystem, GetElapsedTimeMs()).WillByDefault(Return(AZ::TimeMs{ 1500 }));
+        {
+            const Wait wait(AZ::EntityId(1));
+            Tick();
+            wait.BlockUntilCalled();
+            EXPECT_EQ(wait.m_updatedCalls, 1);
+        }
+
+        e.Deactivate();
+        e.Activate();
+
+        // Advance time forward.
+        ON_CALL(*m_timeSystem, GetElapsedTimeMs()).WillByDefault(Return(AZ::TimeMs{ 3500 }));
+        {
+            const Wait wait(AZ::EntityId(1));
+            Tick();
+            wait.BlockUntilCalled();
+            EXPECT_EQ(wait.m_updatedCalls, 1);
+        }
+    }
+
+    TEST_F(EditorNavigationTest, DeactivateRightAfterRecalculatingEventThenActivateAndPreviewEditor)
+    {
+        Entity e;
+        PopulateEntity(e);
+        ActivateEntity(e);
+        SetupNavigationMesh();
+        AddTestGeometry(true);
+
+        ON_CALL(*m_timeSystem, GetElapsedTimeMs()).WillByDefault(Return(AZ::TimeMs{ 1500 }));
+        {
+            const Wait wait(AZ::EntityId(1));
+            Tick();
+            wait.BlockUntilNavigationMeshRecalculating(AZ::TimeMs{ 100 });
+            EXPECT_EQ(wait.m_recalculatingCalls, 1);
+        }
+
+        e.Deactivate(); // The expectation is that that update is running on a thread as we deactivate here.
+        e.Activate();
+
+        // Advance time forward.
+        ON_CALL(*m_timeSystem, GetElapsedTimeMs()).WillByDefault(Return(AZ::TimeMs{ 3500 }));
+        {
+            const Wait wait(AZ::EntityId(1));
+            Tick();
+            wait.BlockUntilCalled();
+            EXPECT_EQ(wait.m_updatedCalls, 1);
+        }
     }
 }
