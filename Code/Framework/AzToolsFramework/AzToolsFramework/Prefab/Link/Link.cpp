@@ -159,7 +159,7 @@ namespace AzToolsFramework
             return m_instanceName;
         }
 
-        bool Link::UpdateTarget()
+        bool Link::UpdateTarget(AZ::Dom::Path instanceAlias)
         {
             PrefabDomValue& linkedInstanceDom = GetLinkedInstanceDom();
             PrefabDom& targetTemplatePrefabDom = m_prefabSystemComponentInterface->FindTemplateDom(m_targetTemplateId);
@@ -186,7 +186,7 @@ namespace AzToolsFramework
                     if (path != entry.MemberEnd() && value != entry.MemberEnd())
                     {
                         AZStd::string_view patchPath(path->value.GetString(), path->value.GetStringLength());
-                        m_prefabEditorEntityOwnershipInterface->RegisterOverridePrefix(AZ::Dom::Path(patchPath), &entry);
+                        m_prefabEditorEntityOwnershipInterface->RegisterOverridePrefix(instanceAlias/patchPath, &entry);
                     }
                 }
                 m_prefabEditorEntityOwnershipInterface->PrintOverrides();

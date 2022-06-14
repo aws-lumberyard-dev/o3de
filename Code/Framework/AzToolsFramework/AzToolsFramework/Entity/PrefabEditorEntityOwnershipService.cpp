@@ -639,7 +639,8 @@ namespace AzToolsFramework
 
         for (const auto& pair : results)
         {
-            Prefab::PrefabDomUtils::PrintPrefabDomValue("Patch is ",  * (pair.second));
+            Prefab::PrefabDomUtils::PrintPrefabDomValue(
+                AZStd::string::format("Patch value matching key '%s' is ", pair.first.ToString().c_str()), *(pair.second));
         }
     }
 

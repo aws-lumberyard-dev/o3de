@@ -75,7 +75,8 @@ namespace AzToolsFramework
             return newTemplateId;
         }
 
-        TemplateId PrefabLoader::LoadTemplateFromFile(AZ::IO::PathView filePath, AZStd::unordered_set<AZ::IO::Path>& progressedFilePathsSet)
+        TemplateId PrefabLoader::LoadTemplateFromFile(
+            AZ::IO::PathView filePath, AZStd::unordered_set<AZ::IO::Path>& progressedFilePathsSet, AZ::Dom::Path instanceAlias)
         {
             if (!IsValidPrefabPath(filePath))
             {
@@ -101,21 +102,22 @@ namespace AzToolsFramework
                 return InvalidTemplateId;
             }
 
-            return LoadTemplateFromString(readResult.GetValue(), filePath, progressedFilePathsSet);
+            return LoadTemplateFromString(readResult.GetValue(), filePath, progressedFilePathsSet, instanceAlias);
         }
 
         TemplateId PrefabLoader::LoadTemplateFromString(
-            AZStd::string_view content, AZ::IO::PathView originPath)
+            AZStd::string_view content, AZ::IO::PathView originPath, AZ::Dom::Path instanceAlias)
         {
             AZStd::unordered_set<AZ::IO::Path> progressedFilePathsSet;
-            TemplateId newTemplateId = LoadTemplateFromString(content, originPath, progressedFilePathsSet);
+            TemplateId newTemplateId = LoadTemplateFromString(content, originPath, progressedFilePathsSet, instanceAlias);
             return newTemplateId;
         }
 
         TemplateId PrefabLoader::LoadTemplateFromString(
             AZStd::string_view fileContent,
             AZ::IO::PathView originPath,
-            AZStd::unordered_set<AZ::IO::Path>& progressedFilePathsSet)
+            AZStd::unordered_set<AZ::IO::Path>& progressedFilePathsSet,
+            AZ::Dom::Path instanceAlias)
         {
             if (!IsValidPrefabPath(originPath))
             {
@@ -243,7 +245,8 @@ namespace AzToolsFramework
 
         bool PrefabLoader::LoadNestedInstance(
             PrefabDomValue::MemberIterator& instanceIterator, TemplateId targetTemplateId,
-            AZStd::unordered_set<AZ::IO::Path>& progressedFilePathsSet)
+            AZStd::unordered_set<AZ::IO::Path>& progressedFilePathsSet,
+            AZ::Dom::Path instanceAlias)
         {
             const PrefabDomValue& instance = instanceIterator->value;
             AZ::IO::PathView instancePath = AZStd::string_view(instanceIterator->name.GetString(), instanceIterator->name.GetStringLength());
@@ -278,7 +281,9 @@ namespace AzToolsFramework
             // If source Template is already loaded, get the id from Template File Path To Id Map,
             // else load the source Template by calling 'LoadTemplate' recursively.
 
-            TemplateId nestedTemplateId = LoadTemplateFromFile(nestedTemplatePath, progressedFilePathsSet);
+            AZ::Dom::Path pathFromRoot =
+                instanceAlias / instanceIterator->name.GetString();
+            TemplateId nestedTemplateId = LoadTemplateFromFile(nestedTemplatePath, progressedFilePathsSet, pathFromRoot);
             TemplateReference nestedTemplateReference = m_prefabSystemComponentInterface->FindTemplate(nestedTemplateId);
             if (!nestedTemplateReference.has_value() || !nestedTemplateReference->get().IsValid())
             {
@@ -293,8 +298,8 @@ namespace AzToolsFramework
             }
 
             // After source template has been loaded, create Link between source/target Template.
-            LinkId newLinkId =
-                m_prefabSystemComponentInterface->AddLink(nestedTemplateId, targetTemplateId, instanceIterator, AZStd::nullopt);
+            LinkId newLinkId = m_prefabSystemComponentInterface->AddLink(
+                nestedTemplateId, targetTemplateId, instanceIterator, AZStd::nullopt, pathFromRoot);
             if (newLinkId == InvalidLinkId)
             {
                 AZ_Error(

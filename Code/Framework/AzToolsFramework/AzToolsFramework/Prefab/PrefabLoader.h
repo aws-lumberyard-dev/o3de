@@ -62,7 +62,10 @@ namespace AzToolsFramework
              * @param originPath Path that will be used for the prefab in case of saved into a file.
              * @return A unique id of Template on filePath loaded. Return invalid template id if loading Template on filePath failed.
              */
-            TemplateId LoadTemplateFromString(AZStd::string_view content, AZ::IO::PathView originPath = GeneratePath()) override;
+            TemplateId LoadTemplateFromString(
+                AZStd::string_view content,
+                AZ::IO::PathView originPath = GeneratePath(),
+                AZ::Dom::Path instanceAlias = AZ::Dom::Path()) override;
 
             /**
              * Saves a Prefab Template to the the source path registered with the template.
@@ -135,7 +138,8 @@ namespace AzToolsFramework
              */
             TemplateId LoadTemplateFromFile(
                 AZ::IO::PathView filePath,
-                AZStd::unordered_set<AZ::IO::Path>& progressedFilePathsSet);
+                AZStd::unordered_set<AZ::IO::Path>& progressedFilePathsSet,
+                AZ::Dom::Path instanceAlias = AZ::Dom::Path());
 
             /**
              * Load Prefab Template from given string to memory and return the id of loaded Template.
@@ -147,7 +151,8 @@ namespace AzToolsFramework
             TemplateId LoadTemplateFromString(
                 AZStd::string_view fileContent,
                 AZ::IO::PathView filePath,
-                AZStd::unordered_set<AZ::IO::Path>& progressedFilePathsSet);
+                AZStd::unordered_set<AZ::IO::Path>& progressedFilePathsSet,
+                AZ::Dom::Path instanceAlias = AZ::Dom::Path());
 
             /**
              * Load nested instance given a nested instance value iterator and target Template with its id.
@@ -159,7 +164,8 @@ namespace AzToolsFramework
             bool LoadNestedInstance(
                 PrefabDomValue::MemberIterator& instanceIterator,
                 TemplateId targetTemplateId,
-                AZStd::unordered_set<AZ::IO::Path>& progressedFilePathsSet);
+                AZStd::unordered_set<AZ::IO::Path>& progressedFilePathsSet,
+                AZ::Dom::Path instanceAlias = AZ::Dom::Path());
 
             /*
              * Manipulate the provided PrefabDom into the right format to be stored in memory for editor usage.
