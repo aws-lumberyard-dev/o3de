@@ -16,12 +16,12 @@ namespace RecastNavigation
     {
         BaseClass::Reflect(context);
 
-        if (auto serialize = azrtti_cast<AZ::SerializeContext*>(context))
+        if (auto serializeContext = azrtti_cast<AZ::SerializeContext*>(context))
         {
-            serialize->Class<EditorRecastNavigationPhysXProviderComponent, BaseClass>()
+            serializeContext->Class<EditorRecastNavigationPhysXProviderComponent, BaseClass>()
                 ->Version(1);
 
-            if (AZ::EditContext* editContext = serialize->GetEditContext())
+            if (AZ::EditContext* editContext = serializeContext->GetEditContext())
             {
                 editContext->Class<EditorRecastNavigationPhysXProviderComponent>("Recast Navigation PhysX Provider",
                     "[Collects triangle geometry from PhysX scene for navigation mesh within the area defined by a shape component.]")

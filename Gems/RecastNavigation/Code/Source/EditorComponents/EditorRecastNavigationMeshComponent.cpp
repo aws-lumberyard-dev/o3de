@@ -17,12 +17,12 @@ namespace RecastNavigation
     {
         BaseClass::Reflect(context);
 
-        if (auto serialize = azrtti_cast<AZ::SerializeContext*>(context))
+        if (auto serializeContext = azrtti_cast<AZ::SerializeContext*>(context))
         {
-            serialize->Class<EditorRecastNavigationMeshComponent, BaseClass>()
+            serializeContext->Class<EditorRecastNavigationMeshComponent, BaseClass>()
                 ->Version(1);
 
-            if (AZ::EditContext* editContext = serialize->GetEditContext())
+            if (AZ::EditContext* editContext = serializeContext->GetEditContext())
             {
                 editContext->Class<EditorRecastNavigationMeshComponent>("Recast Navigation Mesh",
                     "[Calculates the walkable navigation mesh within a specified area.]")
@@ -133,7 +133,7 @@ namespace RecastNavigation
                     ->Attribute(AZ::Edit::Attributes::Suffix, " world units")
 
                     ->DataElement(nullptr, &Config::m_filterLedgeSpans, "Filter Ledge Spans",
-                        "A ledge is a span with one or more neighbors whose maximum is further away than @p walkableClimb "
+                        "A ledge is a span with one or more neighbors whose maximum is further away than walkableClimb "
                         " from the current span's maximum."
                         " This method removes the impact of the overestimation of conservative voxelization"
                         " so the resulting mesh will not have regions hanging in the air over ledges.")
