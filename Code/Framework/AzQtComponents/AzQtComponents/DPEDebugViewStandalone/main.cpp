@@ -219,6 +219,9 @@ int main(int argc, char** argv)
 
     // store a list of selectable adapters to switch between
     DPEDebugView::TestContainer testContainer;
+    testContainer.m_map["A"] = 1.f;
+    testContainer.m_map["B"] = 2.f;
+
     AZStd::vector<AZStd::pair<QString, AZStd::shared_ptr<AZ::DocumentPropertyEditor::DocumentAdapter>>> adapters;
     adapters.emplace_back("CVar Adapter", AZStd::make_shared<AZ::DocumentPropertyEditor::CvarAdapter>());
     adapters.emplace_back("Example Adapter", AZStd::make_shared<AZ::DocumentPropertyEditor::ExampleAdapter>());

@@ -272,6 +272,7 @@ namespace AZ
                             if (callContext->m_beginElemCB)
                             {
                                 SerializeContext::ClassElement syntheticClassElement;
+                                syntheticClassElement.m_flags = SerializeContext::ClassElement::Flags::FLG_UI_ELEMENT;
                                 syntheticClassElement.m_editData = &element;
                                 callContext->m_beginElemCB(ptr, dataClassInfo, &syntheticClassElement);
                             }

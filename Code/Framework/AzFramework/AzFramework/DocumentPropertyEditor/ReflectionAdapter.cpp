@@ -163,8 +163,11 @@ namespace AZ::DocumentPropertyEditor
                         return;
                     }
 
-                    if (name == Reflection::DescriptorAttributes::Label || name == Reflection::DescriptorAttributes::Handler ||
-                        name == Reflection::DescriptorAttributes::Container)
+                    const AZStd::array ignoredAttributes = { Reflection::DescriptorAttributes::Label,
+                                                             Reflection::DescriptorAttributes::Handler,
+                                                             Reflection::DescriptorAttributes::Container,
+                                                             Nodes::PropertyEditor::Visibility.GetName() };
+                    if (AZStd::find(ignoredAttributes.begin(), ignoredAttributes.end(), name) != ignoredAttributes.end())
                     {
                         return;
                     }
@@ -293,8 +296,15 @@ namespace AZ::DocumentPropertyEditor
             }
         }
 
-        void VisitObjectBegin([[maybe_unused]] Reflection::IObjectAccess& access, const Reflection::IAttributes& attributes) override
+        void VisitObjectBegin(Reflection::IObjectAccess& access, const Reflection::IAttributes& attributes) override
         {
+            auto visibilityAttribute = attributes.Find(Nodes::PropertyEditor::Visibility.GetName());
+            Nodes::PropertyVisibility visibility = Nodes::PropertyEditor::Visibility.DomToValue(visibilityAttribute).value_or(Nodes::PropertyVisibility::Show);
+            if (visibility == Nodes::PropertyVisibility::Hide || visibility == Nodes::PropertyVisibility::ShowChildrenOnly)
+            {
+                return;
+            }
+
             m_builder.BeginRow();
             ExtractLabel(attributes);
             if (access.GetType() == azrtti_typeid<AZStd::string>())
@@ -352,8 +362,14 @@ namespace AZ::DocumentPropertyEditor
                 false);
         }
 
-        void VisitObjectEnd() override
+        void VisitObjectEnd([[maybe_unused]] Reflection::IObjectAccess& access, const Reflection::IAttributes& attributes) override
         {
+            auto visibilityAttribute = attributes.Find(Nodes::PropertyEditor::Visibility.GetName());
+            Nodes::PropertyVisibility visibility = Nodes::PropertyEditor::Visibility.DomToValue(visibilityAttribute).value_or(Nodes::PropertyVisibility::Show);
+            if (visibility == Nodes::PropertyVisibility::Hide || visibility == Nodes::PropertyVisibility::ShowChildrenOnly)
+            {
+                return;
+            }
             m_builder.EndRow();
         }
 
@@ -500,7 +516,16 @@ namespace AZ::DocumentPropertyEditor
                 }
             }
         };
+
+        auto handleTreeUpdate = [&](Nodes::PropertyRefreshLevel)
+        {
+            // For now just trigger a soft reset.
+            // This will still only send the view patches for what's actually changed.
+            NotifyResetDocument();
+        };
+
         return message.Match(
-            PropertyEditor::OnChanged, handlePropertyEditorChanged, ContainerActionButton::OnActivate, handleContainerOperation);
+            PropertyEditor::OnChanged, handlePropertyEditorChanged, ContainerActionButton::OnActivate, handleContainerOperation,
+            PropertyEditor::RequestTreeUpdate, handleTreeUpdate);
     }
 } // namespace AZ::DocumentPropertyEditor

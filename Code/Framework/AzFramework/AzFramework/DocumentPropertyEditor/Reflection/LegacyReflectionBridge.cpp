@@ -58,6 +58,8 @@ namespace AZ::Reflection
                 const SerializeContext::ClassElement* m_classElement = nullptr;
                 AZStd::vector<AttributeData> m_cachedAttributes;
                 AZStd::string m_path;
+                DocumentPropertyEditor::Nodes::PropertyVisibility m_computedVisibility =
+                    DocumentPropertyEditor::Nodes::PropertyVisibility::Show;
                 bool m_entryClosed = false;
             };
             AZStd::deque<StackEntry> m_stack;
@@ -156,12 +158,11 @@ namespace AZ::Reflection
 
             bool EndNode()
             {
-                StackEntry nodeData = AZStd::move(m_stack.back());
-                m_stack.pop_back();
-                if (!nodeData.m_entryClosed)
+                if (!m_stack.back().m_entryClosed)
                 {
-                    m_visitor->VisitObjectEnd();
+                    m_visitor->VisitObjectEnd(*this, *this);
                 }
+                m_stack.pop_back();
                 return true;
             }
 
@@ -202,6 +203,10 @@ namespace AZ::Reflection
                     AZ::Interface<DocumentPropertyEditor::PropertyEditorSystemInterface>::Get();
                 AZ_Assert(propertyEditorSystem != nullptr, "LegacyReflectionBridge: Unable to retrieve PropertyEditorSystem");
 
+                using DocumentPropertyEditor::Nodes::PropertyEditor;
+                using DocumentPropertyEditor::Nodes::PropertyVisibility;
+                PropertyVisibility visibility = PropertyVisibility::Show;
+
                 AZ::Name handlerName;
 
                 auto checkAttribute = [&](const AZ::AttributePair* it, StackEntry& nodeData, bool shouldDescribeChildren)
@@ -220,6 +225,15 @@ namespace AZ::Reflection
                             return;
                         }
                         visitedAttributes.insert(name);
+
+                        // Handle visibility calculations internally, as we calculate and emit an aggregate visiblity value.
+                        if (name == PropertyEditor::Visibility.GetName())
+                        {
+                            visibility =
+                                PropertyEditor::Visibility
+                                    .DomToValue(PropertyEditor::Visibility.LegacyAttributeToDomValue(nodeData.m_instance, it->second))
+                                    .value_or(visibility);
+                        }
 
                         // See if any registered attributes can read this attribute.
                         Dom::Value attributeValue;
@@ -300,6 +314,16 @@ namespace AZ::Reflection
 
                     if (nodeData.m_classData)
                     {
+                        if (!isParentAttribute && labelAttributeValue.empty() && nodeData.m_classData->m_name)
+                        {
+                            // Don't inject labels from class data for UI elements
+                            if (nodeData.m_classElement == nullptr ||
+                                (nodeData.m_classElement->m_flags & SerializeContext::ClassElement::Flags::FLG_UI_ELEMENT) == 0)
+                            {
+                                labelAttributeValue = nodeData.m_classData->m_name;
+                            }
+                        }
+
                         for (auto it = nodeData.m_classData->m_attributes.begin(); it != nodeData.m_classData->m_attributes.end(); ++it)
                         {
                             AZ::AttributePair pair;
@@ -345,6 +369,21 @@ namespace AZ::Reflection
                     nodeData.m_cachedAttributes.push_back(
                         { group, DescriptorAttributes::Container, Dom::Utils::ValueFromType<void*>(nodeData.m_classData->m_container) });
                 }
+
+                // Calculate our visibility, going through parent nodes in reverse order to see if we should be hidden
+                for (size_t i = 1; i < m_stack.size(); ++i)
+                {
+                    auto& entry = m_stack[m_stack.size() - 1 - i];
+                    if (entry.m_computedVisibility == PropertyVisibility::Hide ||
+                        entry.m_computedVisibility == PropertyVisibility::HideChildren)
+                    {
+                        visibility = PropertyVisibility::Hide;
+                        break;
+                    }
+                }
+                nodeData.m_computedVisibility = visibility;
+                nodeData.m_cachedAttributes.push_back(
+                    { group, PropertyEditor::Visibility.GetName(), Dom::Utils::ValueFromType(visibility) });
             }
 
             AttributeDataType Find(Name name) const override
