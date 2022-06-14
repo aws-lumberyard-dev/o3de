@@ -348,8 +348,6 @@ namespace AZ::DocumentPropertyEditor
                     m_builder.AddMessageHandler(m_adapter, Nodes::ContainerActionButton::OnActivate.GetName());
                     m_builder.EndPropertyEditor();
                 }
-
-                CheckContainerElement(access.Get(), attributes);
             }
 
             AZ::Dom::Value instancePointerValue = AZ::Dom::Utils::MarshalTypedPointerToValue(access.Get(), access.GetType());
