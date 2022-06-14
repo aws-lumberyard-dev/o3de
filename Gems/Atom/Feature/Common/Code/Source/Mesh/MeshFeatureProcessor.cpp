@@ -467,7 +467,7 @@ namespace AZ
 
         void MeshFeatureProcessor::SetVisible(const MeshHandle& meshHandle, bool visible)
         {
-            if (meshHandle.IsValid())
+            if (meshHandle.IsValid() && (meshHandle->m_visible != visible))
             {
                 meshHandle->SetVisible(visible);
 
