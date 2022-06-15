@@ -141,6 +141,8 @@ namespace GraphCanvas
         Styling::StyleHelper m_style;
         NodeFrameDisplayState m_displayState;
 
+        AZStd::string m_nodeType;
+
         bool m_enabledSteppedSizing = true;
         EditorId m_editorId;
 

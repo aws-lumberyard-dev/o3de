@@ -106,7 +106,5 @@ namespace GraphCanvas
         // QGraphicsWidget
         void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget = nullptr) override;
         ////
-    private:
-        const AZStd::string m_nodeType;
     };
 }

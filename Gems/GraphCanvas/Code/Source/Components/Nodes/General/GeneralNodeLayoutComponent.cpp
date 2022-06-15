@@ -79,7 +79,7 @@ namespace GraphCanvas
     {
         NodeLayoutComponent::Init();
 
-        m_layoutOrientation = m_nodeType == ".small" ? Qt::Horizontal : Qt::Vertical;
+        m_layoutOrientation = m_nodeType == Styling::Elements::Small ? Qt::Horizontal : Qt::Vertical;
 
         m_layout = new QGraphicsLinearLayout(m_layoutOrientation);
         m_layout->setInstantInvalidatePropagation(true);

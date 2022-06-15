@@ -285,7 +285,7 @@ namespace ScriptCanvasEditor::Nodes
         EditorGraphRequestBus::EventResult(graphCanvasGraphId, nodeData.m_scriptCanvasId, &EditorGraphRequests::GetGraphCanvasGraphId);
 
         NodeReplacementConfiguration nodeConfiguration;
-        nodeConfiguration.m_nodeSubStyle = ".small";
+        nodeConfiguration.m_nodeSubStyle = GraphCanvas::Styling::Elements::Small;
 
         nodeIdPair.m_graphCanvasId = DisplayGeneralScriptCanvasNode(graphCanvasGraphId, node, nodeConfiguration);
 

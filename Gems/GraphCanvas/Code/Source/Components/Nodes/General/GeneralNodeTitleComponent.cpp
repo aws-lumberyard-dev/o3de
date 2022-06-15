@@ -465,7 +465,7 @@ namespace GraphCanvas
     void GeneralNodeTitleGraphicsWidget::OnAddedToScene(const AZ::EntityId& scene)
     {
         SceneNotificationBus::Handler::BusConnect(scene);
-        if (m_nodeType == ".small")
+        if (m_nodeType == Styling::Elements::Small)
             m_titleWidget->SetAlignment(Qt::AlignCenter);
         UpdateStyles();
         RefreshDisplay();
@@ -491,7 +491,7 @@ namespace GraphCanvas
     {
         GRAPH_CANVAS_DETAILED_PROFILE_FUNCTION();
 
-        if (m_nodeType == ".small")
+        if (m_nodeType == Styling::Elements::Small)
             return;
 
         // Background

@@ -106,14 +106,13 @@ namespace GraphCanvas
 
     GeneralNodeFrameGraphicsWidget::GeneralNodeFrameGraphicsWidget(const AZ::EntityId& entityKey)
         : NodeFrameGraphicsWidget(entityKey)
-        , m_nodeType("")
     {
     }
 
     GeneralNodeFrameGraphicsWidget::GeneralNodeFrameGraphicsWidget(const AZ::EntityId& entityKey, const AZStd::string& nodeType)
         : NodeFrameGraphicsWidget(entityKey)
-        , m_nodeType(nodeType)
     {
+        m_nodeType = nodeType;
     }
 
     QPainterPath GeneralNodeFrameGraphicsWidget::GetOutline() const
@@ -147,7 +146,7 @@ namespace GraphCanvas
 
         if (border.style() != Qt::NoPen || background.color().alpha() > 0)
         {
-            qreal cornerRadius = m_nodeType == ".small" ? 20 : GetCornerRadius();
+            qreal cornerRadius = GetCornerRadius();
 
             border.setJoinStyle(Qt::PenJoinStyle::MiterJoin); // sharp corners
             painter->setPen(border);
