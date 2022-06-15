@@ -6,6 +6,7 @@
  *
  */
 
+ #pragma optimize("", off)
 #include <AzToolsFramework/Prefab/Link/Link.h>
 
 #include <AzToolsFramework/Prefab/PrefabDomUtils.h>
@@ -186,7 +187,7 @@ namespace AzToolsFramework
                     if (path != entry.MemberEnd() && value != entry.MemberEnd())
                     {
                         AZStd::string_view patchPath(path->value.GetString(), path->value.GetStringLength());
-                        m_prefabEditorEntityOwnershipInterface->RegisterOverridePrefix(instanceAlias/patchPath, &entry);
+                        m_prefabEditorEntityOwnershipInterface->RegisterOverridePrefix(instanceAlias/AZ::Dom::Path(patchPath), &entry);
                     }
                 }
                 m_prefabEditorEntityOwnershipInterface->PrintOverrides();
@@ -265,3 +266,4 @@ namespace AzToolsFramework
 
     } // namespace Prefab
 } // namespace AzToolsFramework
+#pragma optimize("", on)
