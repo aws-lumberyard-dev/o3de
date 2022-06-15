@@ -6,7 +6,7 @@
  *
  */
 
- #pragma optimize("", off)
+#pragma optimize("", off)
 #include <AzToolsFramework/Prefab/Link/Link.h>
 
 #include <AzToolsFramework/Prefab/PrefabDomUtils.h>
@@ -59,6 +59,8 @@ namespace AzToolsFramework
                 AZ_Assert(m_prefabSystemComponentInterface != nullptr,
                     "Prefab System Component Interface could not be found. "
                     "It is a requirement for the Link class. Check that it is being correctly initialized.");
+                m_prefabEditorEntityOwnershipInterface = AZStd::move(other.m_prefabEditorEntityOwnershipInterface);
+                AZ_Assert(m_prefabSystemComponentInterface != nullptr, "PrefabEditorEntityOwnershipInterface could not be found.");
                 m_linkDom.CopyFrom(
                     other.m_linkDom, m_linkDom.GetAllocator());
             }
@@ -72,8 +74,10 @@ namespace AzToolsFramework
             , m_targetTemplateId(AZStd::move(other.m_targetTemplateId))
             , m_instanceName(AZStd::move(other.m_instanceName))
             , m_prefabSystemComponentInterface(AZStd::move(other.m_prefabSystemComponentInterface))
+            , m_prefabEditorEntityOwnershipInterface(AZStd::move(other.m_prefabEditorEntityOwnershipInterface))
         {
             other.m_prefabSystemComponentInterface = nullptr;
+            other.m_prefabEditorEntityOwnershipInterface = nullptr;
             m_linkDom.Swap(other.m_linkDom);
         }
 
@@ -91,6 +95,9 @@ namespace AzToolsFramework
                     "Prefab System Component Interface could not be found. "
                     "It is a requirement for the Link class. Check that it is being correctly initialized.");
                 other.m_prefabSystemComponentInterface = nullptr;
+                m_prefabEditorEntityOwnershipInterface = AZStd::move(other.m_prefabEditorEntityOwnershipInterface);
+                AZ_Assert(m_prefabSystemComponentInterface != nullptr, "PrefabEditorEntityOwnershipInterface could not be found.");
+                other.m_prefabEditorEntityOwnershipInterface = nullptr;
                 m_linkDom.Swap(other.m_linkDom);
             }
 
