@@ -95,8 +95,7 @@ namespace GraphCanvas
         // Do not allow Serialization of Graphics Ui classes
         static void Reflect(AZ::ReflectContext*) = delete;
 
-        GeneralNodeFrameGraphicsWidget(const AZ::EntityId& nodeVisual);
-        GeneralNodeFrameGraphicsWidget(const AZ::EntityId& nodeVisual, const AZStd::string& nodeType);
+        explicit GeneralNodeFrameGraphicsWidget(const AZ::EntityId& nodeVisual, AZStd::string nodeType = "");
         ~GeneralNodeFrameGraphicsWidget() override = default;
 
         // SceneMemberUIRequestBus

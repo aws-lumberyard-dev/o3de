@@ -33,8 +33,7 @@ namespace GraphCanvas
         
         static AZ::Entity* CreateGeneralNodeEntity(const char* nodeType, const NodeConfiguration& nodeConfiguration = NodeConfiguration());
 
-        GeneralNodeLayoutComponent();
-        GeneralNodeLayoutComponent(const AZStd::string& nodeType);
+        explicit GeneralNodeLayoutComponent(AZStd::string nodeType = "");
         ~GeneralNodeLayoutComponent();
 
         // AZ::Component

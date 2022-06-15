@@ -240,7 +240,7 @@ namespace GraphCanvas
 
     qreal NodeFrameGraphicsWidget::GetCornerRadius() const
     {
-        return m_nodeType == Styling::Elements::Small ? 25 : m_style.GetAttribute(Styling::Attribute::BorderRadius, 5.0);
+        return m_nodeType == Styling::Elements::Small ? 25.0 : m_style.GetAttribute(Styling::Attribute::BorderRadius, 5.0);
     }
 
     qreal NodeFrameGraphicsWidget::GetBorderWidth() const

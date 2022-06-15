@@ -104,12 +104,7 @@ namespace GraphCanvas
     // GeneralNodeFrameGraphicsWidget
     ///////////////////////////////////
 
-    GeneralNodeFrameGraphicsWidget::GeneralNodeFrameGraphicsWidget(const AZ::EntityId& entityKey)
-        : NodeFrameGraphicsWidget(entityKey)
-    {
-    }
-
-    GeneralNodeFrameGraphicsWidget::GeneralNodeFrameGraphicsWidget(const AZ::EntityId& entityKey, const AZStd::string& nodeType)
+    GeneralNodeFrameGraphicsWidget::GeneralNodeFrameGraphicsWidget(const AZ::EntityId& entityKey, AZStd::string nodeType)
         : NodeFrameGraphicsWidget(entityKey)
     {
         m_nodeType = nodeType;

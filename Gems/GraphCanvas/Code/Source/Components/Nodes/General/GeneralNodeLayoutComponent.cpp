@@ -57,15 +57,8 @@ namespace GraphCanvas
         return entity;
     }
 
-    GeneralNodeLayoutComponent::GeneralNodeLayoutComponent()
-        : m_nodeType("")
-        , m_title(nullptr)
-        , m_slots(nullptr)
-    {
-    }
-
-    GeneralNodeLayoutComponent::GeneralNodeLayoutComponent(const AZStd::string& nodeType)
-        : m_nodeType(nodeType)
+    GeneralNodeLayoutComponent::GeneralNodeLayoutComponent(AZStd::string nodeType)
+        : m_nodeType(AZStd::move(nodeType))
         , m_title(nullptr)
         , m_slots(nullptr)
     {
@@ -84,19 +77,16 @@ namespace GraphCanvas
         m_layout = new QGraphicsLinearLayout(m_layoutOrientation);
         m_layout->setInstantInvalidatePropagation(true);
 
+        m_title = new QGraphicsLinearLayout(m_layoutOrientation);
+        m_title->setInstantInvalidatePropagation(true);
+
         if (m_layoutOrientation == Qt::Vertical)
         {
-            m_title = new QGraphicsLinearLayout(Qt::Vertical);
-            m_title->setInstantInvalidatePropagation(true);
-
             m_slots = new QGraphicsLinearLayout(Qt::Vertical);
             m_slots->setInstantInvalidatePropagation(true);
         }
         else
         {
-            m_title = new QGraphicsLinearLayout(Qt::Horizontal);
-            m_title->setInstantInvalidatePropagation(true);
-
             m_inputSlots = new QGraphicsLinearLayout(Qt::Horizontal);
             m_inputSlots->setInstantInvalidatePropagation(true);
 
