@@ -98,6 +98,10 @@ namespace GraphCanvas
         explicit GeneralNodeFrameGraphicsWidget(const AZ::EntityId& nodeVisual, AZStd::string nodeType = "");
         ~GeneralNodeFrameGraphicsWidget() override = default;
 
+        // NodeFrameGraphicsWidget
+        qreal GetCornerRadius() const override;
+        ////
+
         // SceneMemberUIRequestBus
         QPainterPath GetOutline() const override;
         ////
@@ -105,5 +109,9 @@ namespace GraphCanvas
         // QGraphicsWidget
         void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget = nullptr) override;
         ////
+
+    private:
+
+        AZStd::string m_nodeType;
     };
 }

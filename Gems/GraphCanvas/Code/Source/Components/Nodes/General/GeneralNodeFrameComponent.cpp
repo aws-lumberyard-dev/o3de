@@ -106,8 +106,13 @@ namespace GraphCanvas
 
     GeneralNodeFrameGraphicsWidget::GeneralNodeFrameGraphicsWidget(const AZ::EntityId& entityKey, AZStd::string nodeType)
         : NodeFrameGraphicsWidget(entityKey)
+        , m_nodeType(AZStd::move(nodeType))
     {
-        m_nodeType = nodeType;
+    }
+
+    qreal GeneralNodeFrameGraphicsWidget::GetCornerRadius() const
+    {
+        return m_nodeType == Styling::Elements::Small ? 25.0 : m_style.GetAttribute(Styling::Attribute::BorderRadius, 5.0);
     }
 
     QPainterPath GeneralNodeFrameGraphicsWidget::GetOutline() const
