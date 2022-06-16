@@ -370,7 +370,11 @@ namespace AZ
             // However, any customization should be reverted and never submitted. The default logic just checks
             // the pass's name against the TargetedPassDebuggingName
 
-            if (!pass->GetName().IsEmpty() && pass->GetName() == GetTargetedPassDebuggingName())
+            Name breakName("Root.RenderToTexture_pipeline1.Pipeline.Shadows.Cascades.0");
+
+            breakName = m_targetedPassDebugName;
+
+            if (!pass->GetName().IsEmpty() && pass->GetPathName() == breakName)
             {
                 AZ::Debug::Trace::Break();
             }

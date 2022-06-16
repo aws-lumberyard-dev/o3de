@@ -77,11 +77,11 @@ namespace AZ::RPI
         if (m_passesChangedThisFrame)
         {
 #if AZ_RPI_ENABLE_PASS_DEBUGGING
-            if (!m_isHotReloading)
-            {
-                AZ_Printf("PassSystem", "\nFinished building passes:\n");
-                DebugPrintPassHierarchy();
-            }
+            //if (!m_isHotReloading)
+            //{
+            //    AZ_Printf("PassSystem", "\nFinished building passes:\n");
+            //    DebugPrintPassHierarchy();
+            //}
 #endif
         }
     }

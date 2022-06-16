@@ -125,7 +125,7 @@
                     ]
                 },
                 {
-                    "Name": "ShadowPass",
+                    "Name": "Shadows",
                     "TemplateName": "ShadowParentTemplate",
                     "Connections": [
                         {
@@ -158,28 +158,28 @@
                         {
                             "LocalSlot": "DirectionalShadowmap",
                             "AttachmentRef": {
-                                "Pass": "ShadowPass",
+                                "Pass": "Shadows",
                                 "Attachment": "DirectionalShadowmap"
                             }
                         },
                         {
                             "LocalSlot": "DirectionalESM",
                             "AttachmentRef": {
-                                "Pass": "ShadowPass",
+                                "Pass": "Shadows",
                                 "Attachment": "DirectionalESM"
                             }
                         },
                         {
                             "LocalSlot": "ProjectedShadowmap",
                             "AttachmentRef": {
-                                "Pass": "ShadowPass",
+                                "Pass": "Shadows",
                                 "Attachment": "ProjectedShadowmap"
                             }
                         },
                         {
                             "LocalSlot": "ProjectedESM",
                             "AttachmentRef": {
-                                "Pass": "ShadowPass",
+                                "Pass": "Shadows",
                                 "Attachment": "ProjectedESM"
                             }
                         },
@@ -227,28 +227,28 @@
                         {
                             "LocalSlot": "DirectionalShadowmap",
                             "AttachmentRef": {
-                                "Pass": "ShadowPass",
+                                "Pass": "Shadows",
                                 "Attachment": "DirectionalShadowmap"
                             }
                         },
                         {
                             "LocalSlot": "DirectionalESM",
                             "AttachmentRef": {
-                                "Pass": "ShadowPass",
+                                "Pass": "Shadows",
                                 "Attachment": "DirectionalESM"
                             }
                         },
                         {
                             "LocalSlot": "ProjectedShadowmap",
                             "AttachmentRef": {
-                                "Pass": "ShadowPass",
+                                "Pass": "Shadows",
                                 "Attachment": "ProjectedShadowmap"
                             }
                         },
                         {
                             "LocalSlot": "ProjectedESM",
                             "AttachmentRef": {
-                                "Pass": "ShadowPass",
+                                "Pass": "Shadows",
                                 "Attachment": "ProjectedESM"
                             }
                         },
@@ -480,34 +480,14 @@
                     ]
                 },
                 {
-                    "Name": "SlowClearPass",
-                    "TemplateName": "SlowClearPassTemplate",
-                    "PassData": {
-                        "$type": "SlowClearPassData",
-                        "ClearValue" : {
-                            "Type" : "Vector4Float",
-                            "Value" : [1.0, 1.0, 0.0, 1.0]
-                        }
-                    },
-                    "Connections": [
-                        {
-                            "LocalSlot": "ClearInputOutput",
-                            "AttachmentRef": {
-                                "Pass": "UIPass",
-                                "Attachment": "InputOutput"
-                            }
-                        }
-                    ]
-                },
-                {
                     "Name": "CopyToSwapChain",
                     "TemplateName": "FullscreenCopyTemplate",
                     "Connections": [
                         {
                             "LocalSlot": "Input",
                             "AttachmentRef": {
-                                "Pass": "SlowClearPass",
-                                "Attachment": "ClearInputOutput"
+                                "Pass": "UIPass",
+                                "Attachment": "InputOutput"
                             }
                         },
                         {
