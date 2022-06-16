@@ -1530,7 +1530,7 @@ namespace ScriptCanvasEditor
         ScriptCanvas::Slot* slot = nullptr;
         ScriptCanvas::NodeRequestBus::EventResult(slot, scriptCanvasNodeId, &ScriptCanvas::NodeRequests::GetSlot, scriptCanvasSlotId);
 
-        if (slot == nullptr || slot->IsUserAdded())
+        if (slot == nullptr || slot->IsUserAdded() || !slot->CanHaveInputField())
         {
             return nullptr;
         }
@@ -1553,10 +1553,11 @@ namespace ScriptCanvasEditor
 
         // ScriptCanvas has access to better typing information regarding the slots than is exposed to GraphCanvas.
         // So let ScriptCanvas check the types based on it's own information rather than relying on the information passed back from GraphCanvas.
+
         ScriptCanvas::Data::Type slotType = slot->GetDataType();
+        GraphCanvas::DataInterface* dataInterface = nullptr;
 
         {
-            GraphCanvas::DataInterface* dataInterface = nullptr;
             GraphCanvas::NodePropertyDisplay* dataDisplay = nullptr;
 
             if (slotType.IS_A(ScriptCanvas::Data::Type::Boolean()))
