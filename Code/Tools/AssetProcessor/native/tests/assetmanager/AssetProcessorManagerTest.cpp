@@ -3585,7 +3585,7 @@ TEST_F(AssetProcessorManagerTest, SourceFile_With_NonASCII_Characters_Fail_Job_O
     folderPathDir.removeRecursively();
     m_assetProcessorManager.get()->AssessDeletedFile(folderPath);
     ASSERT_TRUE(BlockUntilIdle(5000));
-    EXPECT_EQ(deletedFolderPath, "Test\xD0");
+    EXPECT_EQ(deletedFolderPath, folderPath);
 }
 
 TEST_F(AssetProcessorManagerTest, SourceFileProcessFailure_ClearsFingerprint)
