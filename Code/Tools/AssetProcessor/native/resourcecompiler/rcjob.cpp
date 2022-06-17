@@ -970,6 +970,7 @@ namespace AssetProcessor
         for (AssetBuilderSDK::JobProduct& product : jobResponse.m_outputProducts)
         {
             // Try to handle Absolute paths within the temp folder
+            AzFramework::StringFunc::Path::Normalize(product.m_productFileName);
             if (!AzFramework::StringFunc::Replace(product.m_productFileName, normalizedTempFolderPath.c_str(), s_tempString))
             {
                 // From CopyCompiledAssets:
@@ -988,7 +989,6 @@ namespace AssetProcessor
                     AzFramework::StringFunc::Path::Normalize(sourceFile);
                     AzFramework::StringFunc::Path::StripFullName(sourceFile);
 
-                    AzFramework::StringFunc::Path::Normalize(product.m_productFileName);
                     size_t sourcePathPos = product.m_productFileName.find(sourceFile.c_str());
                     if(sourcePathPos != AZStd::string::npos)
                     {
@@ -997,7 +997,9 @@ namespace AssetProcessor
                     }
                     else
                     {
-                        AZ_Warning(AssetBuilderSDK::WarningWindow, false, "Failed to find source path %s or temp path %s in non relative path in %s", sourceFile.c_str(), normalizedTempFolderPath.c_str(), product.m_productFileName.c_str());
+                        AZ_Warning(AssetBuilderSDK::WarningWindow, false,
+                            "Failed to find source path %s or temp path %s in non relative path in %s",
+                            sourceFile.c_str(), normalizedTempFolderPath.c_str(), product.m_productFileName.c_str());
                     }
                 }
             }
@@ -1061,8 +1063,8 @@ namespace AssetProcessor
 
             if(jobLogResponse.m_jobLog.find("No log file found") != AZStd::string::npos)
             {
-                AZ_TracePrintf(AssetProcessor::DebugChannel, "Unable to find job log from the server. This could happen if you are trying to use the server cache with a copy job,\
-please check the assetprocessorplatformconfig.ini file and ensure that server cache is disabled for the job.\n");
+                AZ_TracePrintf(AssetProcessor::DebugChannel, "Unable to find job log from the server. This could happen if you are trying to use the server cache with a copy job, "
+                    "please check the assetprocessorplatformconfig.ini file and ensure that server cache is disabled for the job.\n");
             }
 
             return false;
@@ -1072,9 +1074,9 @@ please check the assetprocessorplatformconfig.ini file and ensure that server ca
         AZ_TracePrintf(AssetProcessor::DebugChannel, "------------SERVER BEGIN----------\n");
         AzToolsFramework::Logging::LogLine::ParseLog(jobLogResponse.m_jobLog.c_str(), jobLogResponse.m_jobLog.size(),
             [&jobLogTraceListener](AzToolsFramework::Logging::LogLine& line)
-        {
-            jobLogTraceListener.AppendLog(line);
-        });
+            {
+                jobLogTraceListener.AppendLog(line);
+            });
         AZ_TracePrintf(AssetProcessor::DebugChannel, "------------SERVER END----------\n");
         return true;
     }

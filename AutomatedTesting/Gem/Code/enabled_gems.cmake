@@ -62,4 +62,5 @@ set(ENABLED_GEMS
     DevTextures
     PrimitiveAssets
     Stars
+    RecastNavigation
 )
