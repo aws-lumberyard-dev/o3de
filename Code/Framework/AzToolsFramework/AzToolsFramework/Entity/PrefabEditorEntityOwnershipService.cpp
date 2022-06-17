@@ -639,8 +639,13 @@ namespace AzToolsFramework
 
         for (const auto& pair : results)
         {
-            Prefab::PrefabDomUtils::PrintPrefabDomValue(
-                AZStd::string::format("Patch value matching key '%s' is ", pair.first.ToString().c_str()), *(pair.second));
+            // TODO: when the value is null, we should probably clean up the entry from prefix tree as well since it
+            // represents a patch that could have been deleted.
+            if (pair.second->IsNull() == false)
+            {
+                Prefab::PrefabDomUtils::PrintPrefabDomValue(
+                    AZStd::string::format("Patch value matching key '%s' is ", pair.first.ToString().c_str()), *(pair.second));
+            }
         }
     }
 

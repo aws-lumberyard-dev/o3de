@@ -187,17 +187,23 @@ namespace AzToolsFramework
             }
             else
             {
-                for (PrefabDomValue& entry : patchesReference->get().GetArray())
+                // Using as a quick way to see if path from root is provided or not
+                if (instanceAlias.IsEmpty() == false)
                 {
-                    auto path = entry.FindMember("path");
-                    auto value = entry.FindMember("value");
-                    if (path != entry.MemberEnd() && value != entry.MemberEnd())
+                    for (PrefabDomValue& entry : patchesReference->get().GetArray())
                     {
-                        AZStd::string_view patchPath(path->value.GetString(), path->value.GetStringLength());
-                        m_prefabEditorEntityOwnershipInterface->RegisterOverridePrefix(instanceAlias/AZ::Dom::Path(patchPath), &entry);
+                        auto path = entry.FindMember("path");
+                        auto value = entry.FindMember("value");
+                        if (path != entry.MemberEnd() && value != entry.MemberEnd())
+                        {
+                            AZStd::string_view patchPath(path->value.GetString(), path->value.GetStringLength());
+                            m_prefabEditorEntityOwnershipInterface->RegisterOverridePrefix(
+                                instanceAlias / AZ::Dom::Path(patchPath), &entry);
+                        }
                     }
+                    m_prefabEditorEntityOwnershipInterface->PrintOverrides();
                 }
-                m_prefabEditorEntityOwnershipInterface->PrintOverrides();
+                
 
                 AZ::JsonSerializationResult::ResultCode applyPatchResult =
                     PrefabDomUtils::ApplyPatches(sourceTemplateDomCopy, targetTemplatePrefabDom.GetAllocator(), patchesReference->get());
