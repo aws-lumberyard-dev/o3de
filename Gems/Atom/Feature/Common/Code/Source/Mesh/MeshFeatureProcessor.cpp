@@ -240,6 +240,11 @@ namespace AZ
 
             return {};
         }
+        
+        const MeshDrawPacketLods& MeshFeatureProcessor::GetDrawPackets(const MeshHandle& meshHandle) const
+        {
+            return meshHandle.IsValid() ? meshHandle->m_drawPacketListsByLod : m_emptyDrawPacketLods;
+        }
 
         const AZStd::vector<Data::Instance<RPI::ShaderResourceGroup>>& MeshFeatureProcessor::GetObjectSrgs(const MeshHandle& meshHandle) const
         {
@@ -465,7 +470,18 @@ namespace AZ
             if (meshHandle.IsValid())
             {
                 meshHandle->SetVisible(visible);
-                SetRayTracingEnabled(meshHandle, visible);
+
+                if (m_rayTracingFeatureProcessor && meshHandle->m_descriptor.m_isRayTracingEnabled)
+                {
+                    // always remove from ray tracing first
+                    m_rayTracingFeatureProcessor->RemoveMesh(meshHandle->m_objectId);
+
+                    // now add if it's visible
+                    if (visible)
+                    {
+                        meshHandle->SetRayTracingData();
+                    }
+                }
             }
         }
 
@@ -687,8 +703,8 @@ namespace AZ
         {
             RPI::ModelLod& modelLod = *m_model->GetLods()[modelLodIndex];
             const size_t meshCount = modelLod.GetMeshes().size();
-
-            ModelDataInstance::DrawPacketList& drawPacketListOut = m_drawPacketListsByLod[modelLodIndex];
+            
+            MeshDrawPacketList& drawPacketListOut = m_drawPacketListsByLod[modelLodIndex];
             drawPacketListOut.clear();
             drawPacketListOut.reserve(meshCount);
 
@@ -1069,8 +1085,8 @@ namespace AZ
                     {
                         AZ_Warning(
                             "MeshFeatureProcessor", false,
-                            "No irradiance.manualColor or irradiance.color field found. Defaulting to black.");
-                        subMesh.m_irradianceColor = AZ::Colors::Black;
+                            "No irradiance.manualColor or irradiance.color field found. Defaulting to 1.0f.");
+                        subMesh.m_irradianceColor = AZ::Colors::White;
                     }
                 }
             }
@@ -1148,8 +1164,8 @@ namespace AZ
             else
             {
                 AZ_Warning("MeshFeatureProcessor", false, "Unknown irradianceColorSource value: %s, "
-                        "defaulting to black.", irradianceColorSource.GetCStr());
-                subMesh.m_irradianceColor = AZ::Colors::Black;
+                        "defaulting to 1.0f.", irradianceColorSource.GetCStr());
+                subMesh.m_irradianceColor = AZ::Colors::White;
             }
 
 
@@ -1348,24 +1364,30 @@ namespace AZ
                     RHI::ShaderInputImageIndex reflectionCubeMapImageIndex = objectSrg->FindShaderInputImageIndex(reflectionCubeMapImageName);
                     AZ_Error("ModelDataInstance", reflectionCubeMapImageIndex.IsValid(), "Failed to find shader image index [%s]", reflectionCubeMapImageName.GetCStr());
 
-                    // retrieve the list of probes that contain the centerpoint of the mesh
+                    // retrieve the list of probes that overlap the mesh bounds
                     TransformServiceFeatureProcessor* transformServiceFeatureProcessor = m_scene->GetFeatureProcessor<TransformServiceFeatureProcessor>();
                     Transform transform = transformServiceFeatureProcessor->GetTransformForId(m_objectId);
 
-                    ReflectionProbeFeatureProcessor::ReflectionProbeVector reflectionProbes;
-                    reflectionProbeFeatureProcessor->FindReflectionProbes(transform.GetTranslation(), reflectionProbes);
+                    Aabb aabbWS = m_aabb;
+                    aabbWS.ApplyTransform(transform);
 
-                    if (!reflectionProbes.empty() && reflectionProbes[0])
+                    ReflectionProbeHandleVector reflectionProbeHandles;
+                    reflectionProbeFeatureProcessor->FindReflectionProbes(aabbWS, reflectionProbeHandles);
+
+                    if (!reflectionProbeHandles.empty())
                     {
-                        objectSrg->SetConstant(modelToWorldConstantIndex, reflectionProbes[0]->GetTransform());
-                        objectSrg->SetConstant(modelToWorldInverseConstantIndex, Matrix3x4::CreateFromTransform(reflectionProbes[0]->GetTransform()).GetInverseFull());
-                        objectSrg->SetConstant(outerObbHalfLengthsConstantIndex, reflectionProbes[0]->GetOuterObbWs().GetHalfLengths());
-                        objectSrg->SetConstant(innerObbHalfLengthsConstantIndex, reflectionProbes[0]->GetInnerObbWs().GetHalfLengths());
-                        objectSrg->SetConstant(useReflectionProbeConstantIndex, true);
-                        objectSrg->SetConstant(useParallaxCorrectionConstantIndex, reflectionProbes[0]->GetUseParallaxCorrection());
-                        objectSrg->SetConstant(exposureConstantIndex, reflectionProbes[0]->GetRenderExposure());
+                        // take the last handle from the list, which will be the smallest (most influential) probe
+                        ReflectionProbeHandle handle = reflectionProbeHandles.back();
 
-                        objectSrg->SetImage(reflectionCubeMapImageIndex, reflectionProbes[0]->GetCubeMapImage());
+                        objectSrg->SetConstant(modelToWorldConstantIndex, reflectionProbeFeatureProcessor->GetTransform(handle));
+                        objectSrg->SetConstant(modelToWorldInverseConstantIndex, Matrix3x4::CreateFromTransform(reflectionProbeFeatureProcessor->GetTransform(handle)).GetInverseFull());
+                        objectSrg->SetConstant(outerObbHalfLengthsConstantIndex, reflectionProbeFeatureProcessor->GetOuterObbWs(handle).GetHalfLengths());
+                        objectSrg->SetConstant(innerObbHalfLengthsConstantIndex, reflectionProbeFeatureProcessor->GetInnerObbWs(handle).GetHalfLengths());
+                        objectSrg->SetConstant(useReflectionProbeConstantIndex, true);
+                        objectSrg->SetConstant(useParallaxCorrectionConstantIndex, reflectionProbeFeatureProcessor->GetUseParallaxCorrection(handle));
+                        objectSrg->SetConstant(exposureConstantIndex, reflectionProbeFeatureProcessor->GetRenderExposure(handle));
+
+                        objectSrg->SetImage(reflectionCubeMapImageIndex, reflectionProbeFeatureProcessor->GetCubeMap(handle));
                     }
                     else
                     {

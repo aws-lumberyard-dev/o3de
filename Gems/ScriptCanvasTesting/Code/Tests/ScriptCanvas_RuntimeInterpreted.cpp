@@ -83,17 +83,12 @@ public:
     }
 };
 
-TEST_F(ScriptCanvasTestFixture, InterpretedHelloWorld)
-{
-    RunUnitTestGraph("LY_SC_UnitTest_HelloWorld");
-}
-
 TEST_F(ScriptCanvasTestFixture, EntityIdInputForOnGraphStart)
 {
-    RunUnitTestGraph("LY_SC_UnitTest_EntityIdInputForOnGraphStart");
+    ExpectParseError("LY_SC_UnitTest_EntityIdInputForOnGraphStart");
 }
 
-TEST_F(ScriptCanvasTestFixture, ParseErrorOnKnownNull)
+TEST_F(ScriptCanvasTestFixture, DISABLED_ParseErrorOnKnownNull)
 {
     ExpectParseError("LY_SC_UnitTest_ParseErrorOnKnownNull");
 }
@@ -676,6 +671,11 @@ TEST_F(ScriptCanvasTestFixture, InterpretedMultipleReturnResultsByValue)
     RunUnitTestGraph("LY_SC_UnitTest_MultipleReturnResultsByValue", ExecutionMode::Interpreted);
 }
 
+TEST_F(ScriptCanvasTestFixture, InterpretedMultipleReturnSameTypeResults)
+{
+    RunUnitTestGraph("LY_SC_UnitTest_MultipleReturnSameTypeResults", ExecutionMode::Interpreted);
+}
+
 TEST_F(ScriptCanvasTestFixture, InterpretedMultipleStartNodes)
 {
     RunUnitTestGraph("LY_SC_UnitTest_MultipleStartNodes");
@@ -953,4 +953,14 @@ TEST_F(ScriptCanvasTestFixture, GlobalMultipleReturnResults)
 TEST_F(ScriptCanvasTestFixture, GlobalMultipleReturnResultsByValue)
 {
     RunUnitTestGraph("LY_SC_UnitTest_GlobalMultipleReturnResultsByValue", ExecutionMode::Interpreted);
+}
+
+TEST_F(ScriptCanvasTestFixture, StringFormatSquareBracketTranslation)
+{
+    RunUnitTestGraph("LY_SC_UnitTest_StringFormatSquareBracketTranslation", ExecutionMode::Interpreted);
+}
+
+TEST_F(ScriptCanvasTestFixture, AutoGenFunctions)
+{
+    RunUnitTestGraph("LY_SC_UnitTest_AutoGenFunctions", ExecutionMode::Interpreted);
 }
