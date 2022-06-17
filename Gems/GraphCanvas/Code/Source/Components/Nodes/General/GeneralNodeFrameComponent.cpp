@@ -146,7 +146,7 @@ namespace GraphCanvas
 
         if (border.style() != Qt::NoPen || background.color().alpha() > 0)
         {
-            qreal cornerRadius = m_nodeType == ".small" ? 20 : GetCornerRadius();
+            qreal cornerRadius = GetCornerRadius();
 
             border.setJoinStyle(Qt::PenJoinStyle::MiterJoin); // sharp corners
             painter->setPen(border);
