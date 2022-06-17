@@ -24,6 +24,16 @@ namespace UnitTests
     {
     public:
         MOCK_METHOD3(CheckSufficientDiskSpace, bool(const QString&, qint64, bool));
+
+        MockDiskSpaceResponder()
+        {
+            BusConnect();
+        }
+
+        ~MockDiskSpaceResponder()
+        {
+            BusDisconnect();
+        }
     };
 
     class TestingDatabaseLocationListener : public AzToolsFramework::AssetDatabase::AssetDatabaseRequests::Bus::Handler
@@ -43,8 +53,9 @@ namespace UnitTests
         AZStd::string m_databaseLocation;
     };
 
-    struct JobSignalReceiver : AZ::Interface<AssetProcessor::IRCJobSignal>::Registrar
+    class JobSignalReceiver : AZ::Interface<AssetProcessor::IRCJobSignal>::Registrar
     {
+    public:
         AZ_RTTI(JobSignalReceiver, "{8C1BEBF9-655C-4352-84DB-3BBB421CB3D3}", AssetProcessor::IRCJobSignal);
 
         void Finished() override
@@ -57,14 +68,16 @@ namespace UnitTests
             m_signal.acquire();
         }
 
+    protected:
         AZStd::binary_semaphore m_signal;
     };
 
-    struct AssetManagerTestingBase;
+    class AssetManagerTestingBase;
 
-    struct TestingAssetProcessorManager : AssetProcessor::AssetProcessorManager
+    class TestingAssetProcessorManager : public AssetProcessor::AssetProcessorManager
     {
-        friend struct AssetManagerTestingBase;
+    public:
+        friend class AssetManagerTestingBase;
 
         TestingAssetProcessorManager(AssetProcessor::PlatformConfiguration* config, QObject* parent = nullptr)
             : AssetProcessorManager(config, parent)
@@ -76,14 +89,17 @@ namespace UnitTests
         void CheckJobEntries(int count);
     };
 
-    struct AssetManagerTestingBase : UnitTest::ScopedAllocatorSetupFixture
+    class AssetManagerTestingBase : public UnitTest::ScopedAllocatorSetupFixture
     {
+    public:
         void SetUp() override;
         void TearDown() override;
+
+    protected:
         void CreateTestData(AZ::u64 hashA, AZ::u64 hashB, bool useSubId);
         void RunTest(bool firstProductChanged, bool secondProductChanged);
 
-        void RunFile(AZStd::vector<AssetProcessor::JobDetails>& jobDetailsList);
+        void RunFile(int expectedJobCount, int expectedFileCount = 1, int dependencyFileCount = 0);
         void ProcessJob(AssetProcessor::RCController& rcController, const AssetProcessor::JobDetails& jobDetails);
 
         int m_argc = 0;
@@ -96,6 +112,7 @@ namespace UnitTests
         AZStd::unique_ptr<AssetProcessor::PlatformConfiguration> m_platformConfig;
         AZStd::unique_ptr<AZ::SettingsRegistryImpl> m_settingsRegistry;
         AZStd::shared_ptr<AssetProcessor::AssetDatabaseConnection> m_stateData;
+        AZStd::unique_ptr<::testing::NiceMock<MockDiskSpaceResponder>> m_diskSpaceResponder;
         AZ::Test::ScopedAutoTempDirectory m_tempDir;
         TestingDatabaseLocationListener m_databaseLocationListener;
         AzToolsFramework::AssetDatabase::ScanFolderDatabaseEntry m_scanfolder;
@@ -106,6 +123,6 @@ namespace UnitTests
         AZ::Entity* m_jobManagerEntity{};
         AZ::ComponentDescriptor* m_descriptor{};
 
-        AZ::Uuid m_assetType = AZ::Uuid::CreateName("test");
+        AZStd::vector<AssetProcessor::JobDetails> m_jobDetailsList;
     };
 } // namespace UnitTests
