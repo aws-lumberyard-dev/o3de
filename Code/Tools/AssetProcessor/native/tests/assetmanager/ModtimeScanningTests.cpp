@@ -685,7 +685,7 @@ namespace UnitTests
         ASSERT_TRUE(BlockUntilIdle(5000));
 
         ASSERT_THAT(m_data->m_deletedSources, testing::UnorderedElementsAre("textures/a.txt"));
-        ASSERT_THAT(deletedFolders, testing::UnorderedElementsAre("textures"));
+        ASSERT_THAT(deletedFolders, testing::UnorderedElementsAre(absPath.toUtf8().constData()));
     }
 
     TEST_F(LockedFileTest, DeleteFile_LockedProduct_DeleteFails)

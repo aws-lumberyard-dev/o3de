@@ -2424,7 +2424,7 @@ namespace AssetProcessor
 
         m_knownFolders.remove(normalizedPath);
 
-        SourceFolderDeleted(sourceName);
+        SourceFolderDeleted(normalizedPath);
     }
 
     namespace
