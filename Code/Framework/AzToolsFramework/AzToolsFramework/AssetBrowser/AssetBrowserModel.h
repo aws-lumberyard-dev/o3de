@@ -100,6 +100,7 @@ namespace AzToolsFramework
 
         private:
             bool GetEntryIndex(AssetBrowserEntry* entry, QModelIndex& index) const;
+            void WatchForExpectedAssets(AssetBrowserEntry* entry);
 
             //Non owning pointer 
             AssetBrowserFilterModel* m_filterModel = nullptr;
