@@ -26,6 +26,7 @@
 #include <System/PhysXSystem.h>
 
 #include <utility>
+#include <Pipeline/HeightFieldAssetHandler.h>
 
 namespace PhysX
 {
@@ -42,6 +43,9 @@ namespace PhysX
                 ->Version(1)
                 ->Field("ColliderConfiguration", &EditorHeightfieldColliderComponent::m_colliderConfig)
                 ->Field("DebugDrawSettings", &EditorHeightfieldColliderComponent::m_colliderDebugDraw)
+                ->Field("UseBakedHeightfield", &EditorHeightfieldColliderComponent::m_useBakedHeightfield)
+                ->Field("BakedHeightfieldRelativePath", &EditorHeightfieldColliderComponent::m_bakedHeightfieldRelativePath)
+                ->Field("BakedHeightfieldAsset", &EditorHeightfieldColliderComponent::m_bakedHeightfieldAsset)
                 ;
 
             if (auto editContext = serializeContext->GetEditContext())
@@ -61,6 +65,22 @@ namespace PhysX
                         "Configuration of the collider")
                         ->Attribute(AZ::Edit::Attributes::Visibility, AZ::Edit::PropertyVisibility::ShowChildrenOnly)
                         ->Attribute(AZ::Edit::Attributes::ChangeNotify, &EditorHeightfieldColliderComponent::OnConfigurationChanged)
+
+                    ->DataElement(
+                        AZ::Edit::UIHandlers::Default, &EditorHeightfieldColliderComponent::m_useBakedHeightfield, "Use Baked Heightfield", "Selects between a cubemap that captures the environment at location in the scene or a preauthored cubemap")
+                        ->Attribute(AZ::Edit::Attributes::ChangeNotify, &EditorHeightfieldColliderComponent::OnToggleBakedHeightfield)
+
+                    ->UIElement(AZ::Edit::UIHandlers::Button, "Bake Heightfield", "Bake Heightfield")
+                        ->Attribute(AZ::Edit::Attributes::NameLabelOverride, "")
+                        ->Attribute(AZ::Edit::Attributes::ButtonText, "Bake Heightfield")
+                        ->Attribute(AZ::Edit::Attributes::ChangeNotify, &EditorHeightfieldColliderComponent::RequestHeightfieldBaking)
+                        ->Attribute(AZ::Edit::Attributes::Visibility, &EditorHeightfieldColliderComponent::GetBakedHeightfieldVisibilitySetting)
+
+                    ->DataElement(
+                        AZ::Edit::UIHandlers::MultiLineEdit, &EditorHeightfieldColliderComponent::m_bakedHeightfieldRelativePath, "bakedHeightfieldRelativePath", "bakedHeightfieldRelativePath")
+                        ->Attribute(AZ::Edit::Attributes::ReadOnly, true)
+                        ->Attribute(AZ::Edit::Attributes::Visibility, &EditorHeightfieldColliderComponent::GetBakedHeightfieldVisibilitySetting)
+
                     ->DataElement(
                         AZ::Edit::UIHandlers::Default, &EditorHeightfieldColliderComponent::m_colliderDebugDraw, "Debug draw settings",
                         "Debug draw settings")
@@ -68,6 +88,13 @@ namespace PhysX
                     ;
             }
         }
+    }
+
+    AZ::u32 EditorHeightfieldColliderComponent::GetBakedHeightfieldVisibilitySetting()
+    {
+        // controls specific to baked heightfields call this to determine their visibility
+        // they are visible when the mode is set to baked, otherwise hidden
+        return m_useBakedHeightfield ? AZ::Edit::PropertyVisibility::Show : AZ::Edit::PropertyVisibility::Hide;
     }
 
     void EditorHeightfieldColliderComponent::GetProvidedServices(AZ::ComponentDescriptor::DependencyArrayType& provided)
@@ -97,6 +124,7 @@ namespace PhysX
                       &AzToolsFramework::PropertyEditorGUIMessages::RequestRefresh,
                       AzToolsFramework::PropertyModificationRefreshLevel::Refresh_AttributesAndValues);
               })
+        , m_heightfieldAssetBakingJob(this)
     {
         // By default, disable heightfield collider debug drawing. This doesn't need to be viewed in the common case.
         m_colliderDebugDraw.SetDisplayFlag(false);
@@ -136,7 +164,6 @@ namespace PhysX
         // Debug drawing
         m_colliderDebugDraw.Connect(entityId);
         m_colliderDebugDraw.SetDisplayCallback(this);
-
     }
 
     void EditorHeightfieldColliderComponent::Deactivate()
@@ -160,12 +187,180 @@ namespace PhysX
     {
         auto* heightfieldColliderComponent = gameEntity->CreateComponent<HeightfieldColliderComponent>();
         heightfieldColliderComponent->SetColliderConfiguration(*m_colliderConfig);
+        heightfieldColliderComponent->SetBakedHeightfieldAsset(m_bakedHeightfieldAsset);
     }
 
     AZ::u32 EditorHeightfieldColliderComponent::OnConfigurationChanged()
     {
         m_heightfieldCollider->RefreshHeightfield(Physics::HeightfieldProviderNotifications::HeightfieldChangeMask::Settings);
         return AZ::Edit::PropertyRefreshLevels::None;
+    }
+
+    AZ::u32 EditorHeightfieldColliderComponent::SaveHeightfieldAssetToDisk()
+    {
+        auto assetType = AZ::AzTypeInfo<PhysX::Pipeline::HeightFieldAsset>::Uuid();
+        auto assetHandler = const_cast<AZ::Data::AssetHandler*>(AZ::Data::AssetManager::Instance().GetHandler(assetType));
+        if (assetHandler)
+        {
+            char projectPath[AZ_MAX_PATH_LEN];
+            AZ::IO::FileIOBase::GetInstance()->ResolvePath("@projectroot@", projectPath, AZ_MAX_PATH_LEN);
+
+            AZStd::string heightfieldFullPath;
+            AzFramework::StringFunc::Path::ConstructFull(projectPath, m_bakedHeightfieldRelativePath.c_str(), heightfieldFullPath, true);
+
+            AZ::IO::FileIOStream fileStream(heightfieldFullPath.c_str(), AZ::IO::OpenMode::ModeWrite);
+            if (fileStream.IsOpen())
+            {
+                if (!assetHandler->SaveAssetData(m_bakedHeightfieldAsset, &fileStream))
+                {
+                    AZ_Error("PhysX", false, "Unable to save heightfield asset %s", heightfieldFullPath.c_str());
+                }
+            }
+        }
+        return 0;
+    }
+
+    void EditorHeightfieldColliderComponent::StartHeightfieldBakingJob()
+    {
+        m_heightfieldAssetBakingJob.m_stopProcessing = true;
+
+        FinishHeightfieldBakingJob();
+
+        m_bakingCompletion.Reset(true /*isClearDependent*/);
+        m_heightfieldAssetBakingJob.Reset(true);
+        m_heightfieldAssetBakingJob.m_stopProcessing = false;
+
+        m_heightfieldAssetBakingJob.SetDependent(&m_bakingCompletion);
+        m_heightfieldAssetBakingJob.Start();
+    }
+
+    void EditorHeightfieldColliderComponent::FinishHeightfieldBakingJob()
+    {
+        m_bakingCompletion.StartAndWaitForCompletion();
+    }
+
+    bool EditorHeightfieldColliderComponent::CheckHeightfieldPathExists()
+    {
+        if (!m_bakedHeightfieldRelativePath.empty())
+        {
+            char projectPath[AZ_MAX_PATH_LEN];
+            AZ::IO::FileIOBase::GetInstance()->ResolvePath("@projectroot@", projectPath, AZ_MAX_PATH_LEN);
+
+            // retrieve the source heightfield path from the configuration
+            // we need to make sure to use the same source heightfield for each baking
+
+            // test to see if the heightfield file is actually there, if it was removed we need to
+            // generate a new filename, otherwise it will cause an error in the asset system
+            AZStd::string fullPath;
+            AzFramework::StringFunc::Path::Join(projectPath,
+                m_bakedHeightfieldRelativePath.c_str(), fullPath,
+                /*bCaseInsensitive*/true, /*bNormalize*/true);
+
+            if (!AZ::IO::FileIOBase::GetInstance()->Exists(fullPath.c_str()))
+            {
+                // clear it to force the generation of a new filename
+                m_bakedHeightfieldRelativePath.clear();
+            }
+        }
+
+        return !m_bakedHeightfieldRelativePath.empty();
+    }
+
+    void EditorHeightfieldColliderComponent::GenerateHeightfieldAsset()
+    {
+        AZStd::string entityName = GetEntity()->GetName();
+
+        // the file name is a combination of the entity name, a UUID, and the filemask
+        AZ::Uuid uuid = AZ::Uuid::CreateRandom();
+        AZStd::string uuidString;
+        uuid.ToString(uuidString);
+        m_bakedHeightfieldRelativePath = "Heightfields/" + entityName + "_" + uuidString;
+
+        // replace any invalid filename characters
+        auto invalidCharacters = [](char letter)
+        {
+            return
+                letter == ':' || letter == '"' || letter == '\'' ||
+                letter == '{' || letter == '}' ||
+                letter == '<' || letter == '>';
+        };
+        AZStd::replace_if(m_bakedHeightfieldRelativePath.begin(), m_bakedHeightfieldRelativePath.end(), invalidCharacters, '_');
+        m_bakedHeightfieldRelativePath += AZ_FILESYSTEM_EXTENSION_SEPARATOR;
+        m_bakedHeightfieldRelativePath += Pipeline::HeightFieldAssetHandler::s_assetFileExtension;
+
+        {
+            AZ::Data::AssetId generatedAssetId;
+            AZ::Data::AssetCatalogRequestBus::BroadcastResult(generatedAssetId, &AZ::Data::AssetCatalogRequests::GenerateAssetIdTEMP, m_bakedHeightfieldRelativePath.c_str());
+
+            AZ::Data::Asset<Pipeline::HeightFieldAsset> asset = AZ::Data::AssetManager::Instance().FindAsset(generatedAssetId, AZ::Data::AssetLoadBehavior::Default);
+            if (!asset.GetId().IsValid())
+            {
+                asset = AZ::Data::AssetManager::Instance().CreateAsset<PhysX::Pipeline::HeightFieldAsset>(generatedAssetId);
+            }
+
+            m_bakedHeightfieldAsset = asset;
+
+            physx::PxHeightField* pxHeightfield = static_cast<physx::PxHeightField*>(m_shapeConfig->GetCachedNativeHeightfield());
+            pxHeightfield->acquireReference();
+
+            m_bakedHeightfieldAsset.Get()->SetHeightField(pxHeightfield);
+            m_bakedHeightfieldAsset.Get()->SetMinHeight(m_shapeConfig->GetMinHeightBounds());
+            m_bakedHeightfieldAsset.Get()->SetMaxHeight(m_shapeConfig->GetMaxHeightBounds());
+        }
+    }
+
+    bool EditorHeightfieldColliderComponent::CheckoutHeightfieldAsset() const
+    {
+        char projectPath[AZ_MAX_PATH_LEN];
+        AZ::IO::FileIOBase::GetInstance()->ResolvePath("@projectroot@", projectPath, AZ_MAX_PATH_LEN);
+
+        AZStd::string heightfieldFullPath;
+        AzFramework::StringFunc::Path::ConstructFull(projectPath, m_bakedHeightfieldRelativePath.c_str(), heightfieldFullPath, true);
+
+        // make sure the folder is created
+        AZStd::string heightfieldCaptureFolderPath;
+        AzFramework::StringFunc::Path::GetFolderPath(heightfieldFullPath.data(), heightfieldCaptureFolderPath);
+        AZ::IO::SystemFile::CreateDir(heightfieldCaptureFolderPath.c_str());
+
+        // check out the file in source control                
+        bool checkedOutSuccessfully = false;
+        AzToolsFramework::ToolsApplicationRequestBus::BroadcastResult(
+            checkedOutSuccessfully,
+            &AzToolsFramework::ToolsApplicationRequestBus::Events::RequestEditForFileBlocking,
+            heightfieldFullPath.c_str(),
+            "Checking out for edit...",
+            AzToolsFramework::ToolsApplicationRequestBus::Events::RequestEditProgressCallback());
+
+        if (!checkedOutSuccessfully)
+        {
+            AZ_Error("CubeMapCapture", false, "Source control checkout failed for file [%s]", heightfieldFullPath.c_str());
+            return false;
+        }
+
+        return true;
+    }
+
+    void EditorHeightfieldColliderComponent::RequestHeightfieldBaking() /*override*/ // TODO: Add ebus for this or below
+    {
+        if (!CheckHeightfieldPathExists())
+        {
+            GenerateHeightfieldAsset();
+        }
+
+        if (CheckoutHeightfieldAsset())
+        {
+            StartHeightfieldBakingJob();
+        }
+    }
+
+    AZ::u32 EditorHeightfieldColliderComponent::OnToggleBakedHeightfield()
+    {
+        if (m_useBakedHeightfield)
+        {
+            RequestHeightfieldBaking();
+        }
+
+        return AZ::Edit::PropertyRefreshLevels::AttributesAndValues;
     }
 
     // AzToolsFramework::EntitySelectionEvents
@@ -225,6 +420,24 @@ namespace PhysX
                 debugDisplay.DrawWireBox(boundsAabb.GetMin(), boundsAabb.GetMax());
             }
         }
+    }
+
+    void EditorHeightfieldColliderComponent::HeightfieldBakingJob::Process()
+    {
+        if (m_owner)
+        {
+            m_owner->SaveHeightfieldAssetToDisk();
+        }
+    }
+
+    EditorHeightfieldColliderComponent::HeightfieldBakingJob::HeightfieldBakingJob(EditorHeightfieldColliderComponent* owner) : AZ::Job(false, nullptr), m_owner(owner)
+    {
+
+    }
+
+    void EditorHeightfieldColliderComponent::HeightfieldBakingJob::Stop()
+    {
+
     }
 
 } // namespace PhysX

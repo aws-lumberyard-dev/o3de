@@ -5,6 +5,7 @@
  * SPDX-License-Identifier: Apache-2.0 OR MIT
  *
  */
+#include <Source/HeightfieldColliderComponent.h>
 
 #include <AzCore/Component/Entity.h>
 #include <AzCore/Component/TransformBus.h>
@@ -16,7 +17,6 @@
 #include <AzFramework/Physics/Configuration/StaticRigidBodyConfiguration.h>
 #include <AzFramework/Physics/Utils.h>
 
-#include <Source/HeightfieldColliderComponent.h>
 #include <Source/RigidBodyStatic.h>
 #include <Source/SystemComponent.h>
 #include <Source/Utils.h>
@@ -34,6 +34,7 @@ namespace PhysX
             serializeContext->Class<HeightfieldColliderComponent, AZ::Component>()
                 ->Version(2)
                 ->Field("ColliderConfiguration", &HeightfieldColliderComponent::m_colliderConfig)
+                ->Field("BakedHeightfieldAsset", &HeightfieldColliderComponent::m_bakedHeightfieldAsset)
                 ;
         }
     }
@@ -62,6 +63,38 @@ namespace PhysX
     {
     }
 
+
+    void HeightfieldColliderComponent::OnAssetReady(AZ::Data::Asset<AZ::Data::AssetData> asset)
+    {
+        if (asset == m_bakedHeightfieldAsset)
+        {
+            m_bakedHeightfieldAsset = asset;
+
+            Physics::HeightfieldShapeConfiguration& configuration = static_cast<Physics::HeightfieldShapeConfiguration&>(*m_shapeConfig.second);
+            configuration = Utils::CreateBaseHeightfieldShapeConfiguration(GetEntityId());
+
+            // Update material selection from the mapping
+            Physics::ColliderConfiguration* colliderConfig = m_shapeConfig.first.get();
+            Utils::SetMaterialsFromHeightfieldProvider(GetEntityId(), colliderConfig->m_materialSelection);
+
+            Pipeline::HeightFieldAsset* heightfieldAsset = m_bakedHeightfieldAsset.Get();
+
+            float minHeight = heightfieldAsset->GetMinHeight();
+            float maxHeight = heightfieldAsset->GetMaxHeight();
+
+            bool minMaxHeightsMatch = AZ::IsClose(configuration.GetMinHeightBounds(), minHeight)
+                && AZ::IsClose(configuration.GetMaxHeightBounds(), maxHeight);
+
+            if (minMaxHeightsMatch)
+            {
+                physx::PxHeightField* pxHeightfield = heightfieldAsset->GetHeightField();
+                pxHeightfield->acquireReference();
+                configuration.SetCachedNativeHeightfield(pxHeightfield);
+                InitStaticRigidBody();
+            }
+        }
+    }
+
     void HeightfieldColliderComponent::Activate()
     {
         const AZ::EntityId entityId = GetEntityId();
@@ -74,10 +107,22 @@ namespace PhysX
 
         ColliderComponentRequestBus::Handler::BusConnect(entityId);
         Physics::CollisionFilteringRequestBus::Handler::BusConnect(entityId);
+
+        if (m_bakedHeightfieldAsset.GetId().IsValid())
+        {
+            if (m_bakedHeightfieldAsset.GetStatus() == AZ::Data::AssetData::AssetStatus::Error ||
+                m_bakedHeightfieldAsset.GetStatus() == AZ::Data::AssetData::AssetStatus::NotLoaded)
+            {
+                m_bakedHeightfieldAsset.QueueLoad();
+            }
+
+            AZ::Data::AssetBus::Handler::BusConnect(m_bakedHeightfieldAsset.GetId());
+        }
     }
 
     void HeightfieldColliderComponent::Deactivate()
     {
+        AZ::Data::AssetBus::Handler::BusDisconnect();
         Physics::CollisionFilteringRequestBus::Handler::BusDisconnect();
         ColliderComponentRequestBus::Handler::BusDisconnect();
 
@@ -102,6 +147,11 @@ namespace PhysX
             return;
         }
         *m_colliderConfig = colliderConfig;
+    }
+
+    void HeightfieldColliderComponent::SetBakedHeightfieldAsset(const AZ::Data::Asset<Pipeline::HeightFieldAsset>& heightfieldAsset)
+    {
+        m_bakedHeightfieldAsset = heightfieldAsset;
     }
 
     // ColliderComponentRequestBus

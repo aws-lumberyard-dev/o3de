@@ -16,6 +16,8 @@
 
 #include <PhysX/ColliderComponentBus.h>
 #include <PhysX/ColliderShapeBus.h>
+#include <PhysX/HeightFieldAsset.h>
+#include <AzCore/Asset/AssetCommon.h>
 
 #include <Source/HeightfieldCollider.h>
 
@@ -38,6 +40,7 @@ namespace PhysX
         : public AZ::Component
         , public ColliderComponentRequestBus::Handler
         , protected Physics::CollisionFilteringRequestBus::Handler
+        , private AZ::Data::AssetBus::Handler
     {
     public:
         using Configuration = Physics::HeightfieldShapeConfiguration;
@@ -55,6 +58,7 @@ namespace PhysX
         void Deactivate() override;
 
         void SetColliderConfiguration(const Physics::ColliderConfiguration& colliderConfig);
+        void SetBakedHeightfieldAsset(const AZ::Data::Asset<Pipeline::HeightFieldAsset>& heightfieldAsset);
 
         void BlockOnPendingJobs();
 
@@ -70,6 +74,9 @@ namespace PhysX
         AZStd::string GetCollisionGroupName() override;
         void ToggleCollisionLayer(const AZStd::string& layerName, AZ::Crc32 filterTag, bool enabled) override;
 
+        // AZ::Data::AssetBus::Handler overrides ...
+        void OnAssetReady(AZ::Data::Asset<AZ::Data::AssetData> asset);
+
     private:
         AZStd::shared_ptr<Physics::Shape> GetHeightfieldShape();
 
@@ -79,5 +86,7 @@ namespace PhysX
         AZStd::shared_ptr<Physics::HeightfieldShapeConfiguration> m_shapeConfig{ aznew Physics::HeightfieldShapeConfiguration() };
         //! Contains all of the runtime logic for creating / updating / destroying the heightfield collider.
         AZStd::unique_ptr<HeightfieldCollider> m_heightfieldCollider;
+        AZ::Data::Asset<Pipeline::HeightFieldAsset> m_bakedHeightfieldAsset;
+
     };
 } // namespace PhysX
