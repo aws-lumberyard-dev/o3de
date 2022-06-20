@@ -2,8 +2,8 @@
 
 <ScriptCanvas Include="Include/ScriptCanvas/Libraries/String/Print.h" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <Class Name="Print"
-	    QualifiedName="ScriptCanvas::Nodes::String::Print"
-	    PreferredClassName="Print"
+        QualifiedName="ScriptCanvas::Nodes::String::Print"
+        PreferredClassName="Print"
         Uuid="{E1940FB4-83FE-4594-9AFF-375FF7603338}"
         Base="ScriptCanvas::Nodes::Internal::StringFormatted"
         Category="Utilities/Debug"

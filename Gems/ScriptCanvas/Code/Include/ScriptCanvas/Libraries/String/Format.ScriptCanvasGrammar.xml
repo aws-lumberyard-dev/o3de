@@ -2,8 +2,8 @@
 
 <ScriptCanvas Include="Include/ScriptCanvas/Libraries/String/Format.h" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <Class Name="Format"
-	    QualifiedName="ScriptCanvas::Nodes::String::Format"
-	    PreferredClassName="Build String"
+        QualifiedName="ScriptCanvas::Nodes::String::Format"
+        PreferredClassName="Build String"
         Uuid="{B16259BA-9CF6-4143-B09B-5A0F3B4585E6}"
         Base="ScriptCanvas::Nodes::Internal::StringFormatted"
         Category="String"

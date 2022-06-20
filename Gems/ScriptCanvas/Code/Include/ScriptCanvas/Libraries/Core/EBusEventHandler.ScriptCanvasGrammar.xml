@@ -2,8 +2,8 @@
 
 <ScriptCanvas Include="Include/ScriptCanvas/Libraries/Core/EBusEventHandler.h" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <Class Name="EBusEventHandler"
-	    QualifiedName="ScriptCanvas::Nodes::Core::EBusEventHandler"
-	    PreferredClassName="Event Handler"
+        QualifiedName="ScriptCanvas::Nodes::Core::EBusEventHandler"
+        PreferredClassName="Event Handler"
         Uuid="{33E12915-EFCA-4AA7-A188-D694DAD58980}"
         Version="5"
         VersionConverter="ScriptCanvas::VersionConverters::EBusEventHandlerVersionConverter"

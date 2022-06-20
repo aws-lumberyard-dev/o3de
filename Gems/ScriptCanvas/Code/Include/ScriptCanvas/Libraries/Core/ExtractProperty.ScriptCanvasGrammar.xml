@@ -2,8 +2,8 @@
 
 <ScriptCanvas Include="Include/ScriptCanvas/Libraries/Core/ExtractProperty.h" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <Class Name="ExtractProperty"
-	    QualifiedName="ScriptCanvas::Nodes::Core::ExtractProperty"
-	    PreferredClassName="Extract Properties"
+        QualifiedName="ScriptCanvas::Nodes::Core::ExtractProperty"
+        PreferredClassName="Extract Properties"
         Uuid="{D4C9DA8E-838B-41C6-B870-C75294C323DC}"
         Category="Utilities"
         Version="1"

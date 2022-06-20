@@ -2,8 +2,8 @@
 
 <ScriptCanvas Include="Include/ScriptCanvas/Libraries/Core/Start.h" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <Class Name="Start"
-	    QualifiedName="ScriptCanvas::Nodes::Core::Start"
-	    PreferredClassName="On Graph Start"
+        QualifiedName="ScriptCanvas::Nodes::Core::Start"
+        PreferredClassName="On Graph Start"
         Uuid="{F200B22A-5903-483A-BF63-5241BC03632B}"
         Category="Timing"
         Version="2"

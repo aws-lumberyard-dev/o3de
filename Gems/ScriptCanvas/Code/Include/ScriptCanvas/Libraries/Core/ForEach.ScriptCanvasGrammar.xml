@@ -2,8 +2,8 @@
 
 <ScriptCanvas Include="Include/ScriptCanvas/Libraries/Core/ForEach.h" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <Class Name="ForEach"
-	    QualifiedName="ScriptCanvas::Nodes::Core::ForEach"
-	    PreferredClassName="For Each"
+        QualifiedName="ScriptCanvas::Nodes::Core::ForEach"
+        PreferredClassName="For Each"
         Uuid="{31823035-A3FF-4B8D-A3A6-819519478B7C}"
         Category="Containers"
         Version="2"
