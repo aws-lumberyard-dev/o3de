@@ -87,6 +87,15 @@ namespace PhysX
                         ->Attribute(AZ::Edit::Attributes::Visibility, AZ::Edit::PropertyVisibility::ShowChildrenOnly)
                     ;
             }
+
+            if (auto behaviorContext = azrtti_cast<AZ::BehaviorContext*>(context))
+            {
+                behaviorContext->EBus<EditorHeightfieldColliderBus>("EditorHeightfieldColliderBus")
+                    ->Attribute(AZ::Script::Attributes::Scope, AZ::Script::Attributes::ScopeFlags::Common)
+                    ->Attribute(AZ::Script::Attributes::Module, "physics")
+                    ->Event("RequestHeightfieldBaking", &EditorHeightfieldColliderInterface::RequestHeightfieldBaking);
+
+            }
         }
     }
 
@@ -145,6 +154,7 @@ namespace PhysX
     // AZ::Component
     void EditorHeightfieldColliderComponent::Activate()
     {
+        EditorHeightfieldColliderBus::Handler::BusConnect(GetEntityId());
 
         AzPhysics::SceneHandle sceneHandle = AzPhysics::InvalidSceneHandle;
         if (auto sceneInterface = AZ::Interface<AzPhysics::SceneInterface>::Get())
@@ -171,6 +181,7 @@ namespace PhysX
         m_colliderDebugDraw.Disconnect();
         AzToolsFramework::EntitySelectionEvents::Bus::Handler::BusDisconnect();
         AzToolsFramework::Components::EditorComponentBase::Deactivate();
+        EditorHeightfieldColliderBus::Handler::BusDisconnect();
 
         m_heightfieldCollider.reset();
     }

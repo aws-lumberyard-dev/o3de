@@ -17,6 +17,7 @@
 
 #include <Source/HeightfieldCollider.h>
 #include <PhysX/HeightFieldAsset.h>
+#include <PhysX/EditorHeightfieldColliderBus.h>
 #include <AzCore/Jobs/Job.h>
 #include <AzCore/Jobs/JobCompletion.h>
 
@@ -27,6 +28,7 @@ namespace PhysX
         : public AzToolsFramework::Components::EditorComponentBase
         , protected AzToolsFramework::EntitySelectionEvents::Bus::Handler
         , protected DebugDraw::DisplayCallback
+        , private EditorHeightfieldColliderBus::Handler
     {
     public:
         AZ_EDITOR_COMPONENT(
@@ -63,15 +65,17 @@ namespace PhysX
         AZ::u32 OnConfigurationChanged();
         AZ::u32 OnToggleBakedHeightfield();
         AZ::u32 GetBakedHeightfieldVisibilitySetting();
+
+        void RequestHeightfieldBaking() override;
+
+        // Utility functions for heightfield baking
         void StartHeightfieldBakingJob();
         void FinishHeightfieldBakingJob();
         bool CheckHeightfieldPathExists();
         void GenerateHeightfieldAsset();
         bool CheckoutHeightfieldAsset() const;
 
-
-        void RequestHeightfieldBaking(); /*override*/; // TODO: Add ebus for this 
-
+        // Note: This function is called from a Job thread.
         AZ::u32 SaveHeightfieldAssetToDisk();
 
         DebugDraw::Collider m_colliderDebugDraw; //!< Handles drawing the collider
