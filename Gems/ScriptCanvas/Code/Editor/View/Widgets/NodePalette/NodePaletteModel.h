@@ -206,11 +206,11 @@ namespace ScriptCanvasEditor
     struct DataDrivenNodeModelInformation
         : public NodePaletteModelInformation
     {
-        AZ_RTTI(CustomNodeModelInformation, "{D44D697D-7462-456B-B305-E9931FC02E6B}", NodePaletteModelInformation);
+        AZ_RTTI(DataDrivenNodeModelInformation, "{D44D697D-7462-456B-B305-E9931FC02E6B}", NodePaletteModelInformation);
         AZ_CLASS_ALLOCATOR(DataDrivenNodeModelInformation, AZ::SystemAllocator, 0);
 
-        AZ::Crc32 m_mimeId;
-        AZStd::any m_nodeData;
+        AZ::Crc32 m_nodeId;
+        AZStd::any m_userData;
     };
 
     struct ScriptEventHandlerNodeModelInformation

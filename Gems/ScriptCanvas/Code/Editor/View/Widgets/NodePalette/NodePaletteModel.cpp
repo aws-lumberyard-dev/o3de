@@ -748,14 +748,14 @@ namespace
         increment->m_displayName = "++";
         increment->m_categoryPath = "Math/Small Operators";
         increment->m_toolTip = "Increments a value";
-        increment->m_mimeId = AZ_CRC_CE("++");
+        increment->m_nodeId = AZ_CRC_CE("++");
 
         ScriptCanvasEditor::Nodes::SmallOperatorCreationData data;
         data.m_title = "++";    // Right now the title is enough info to ensure data gets passed along properly. Later I will add data types too
 
-        increment->m_nodeData = data;   // This can be aaaaanything (that can be serialized)
+        increment->m_userData = data;   // This can be aaaaanything (that can be serialized)
 
-        nodePaletteModel.RegisterNode(increment, 0);    // Since the node registry is stored as a map, we still need to give these nodes identifiers
+        nodePaletteModel.RegisterNode(increment, increment->m_nodeId);
     }
 
     // Helper function for populating the node palette model.
