@@ -8,7 +8,7 @@
 
 #include "Atom/Features/ShaderQualityOptions.azsli"
 
-#include "MySurface_Common.azsli"
+#include "VegetationBending_Common.azsli"
 
 #include <Atom/Features/PBR/DefaultObjectSrg.azsli>
 
@@ -39,4 +39,4 @@ option bool o_color_isBound;
 #include "MaterialFunctions/StandardGetAlphaAndClip.azsli"
 #include "MaterialFunctions/StandardTransformUvs.azsli"
 
-#include "MySurface_ForwardPass.azsli"
+#include "VegetationBending_ForwardPass.azsli"

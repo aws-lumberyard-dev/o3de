@@ -5,24 +5,18 @@
  * SPDX-License-Identifier: Apache-2.0 OR MIT
  *
  */
- 
-#define SHADOWMAP 1 
-#define ENABLE_ALPHA_CLIP 1
 
-#include <scenesrg.srgi>
-#include "MySurface_Common.azsli"
+#include "./VegetationBending_Common.azsli"
 #include <Atom/Features/PBR/DefaultObjectSrg.azsli>
-
-#include "MaterialInputs/AlphaInput.azsli"
-#include "MaterialInputs/ParallaxInput.azsli"
 
 #include "MaterialFunctions/StandardGetObjectToWorld.azsli"
 #include "MaterialFunctions/StandardGetNormalToWorld.azsli"
 #include "MaterialFunctions/StandardGetAlphaAndClip.azsli"
-#include "MaterialFunctions/StandardTransformUvs.azsli"
 #include "MaterialFunctions/EvaluateTangentFrame.azsli"
+#include "MaterialFunctions/StandardTransformUvs.azsli"
 #include "MaterialFunctions/ParallaxDepth.azsli"
 
 option bool o_color_isBound;
 
-#include "MySurface_DepthPass_WithPS.azsli"
+#define ENABLE_ALPHA_CLIP 1
+#include "VegetationBending_DepthPass_WithPS.azsli"

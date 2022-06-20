@@ -1,5 +1,5 @@
 {
-  "description": "Material Type like StandardPBR, but has detail bending.",
+  "description": "Material Type like StandardPBR, but does bending for vegetation.",
   "version": 1,
   "propertyLayout": {
     "propertyGroups": [
@@ -43,17 +43,17 @@
         "$import": "MaterialInputs/GeneralCommonPropertyGroup.json"
       },
       {
-        "$import": "MaterialInputs/DetailBendingPropertyGroup.json"
+        "$import": "MaterialInputs/VegetationBendingPropertyGroup.json"
       }
     ]
   },
   "shaders": [
     {
-      "file": "./MySurface_ForwardPass.shader",
+      "file": "./VegetationBending_ForwardPass.shader",
       "tag": "ForwardPass"
     },
     {
-      "file": "./MySurface_ForwardPass_EDS.shader",
+      "file": "./VegetationBending_ForwardPass_EDS.shader",
       "tag": "ForwardPass_EDS"
     },
     {
@@ -61,23 +61,27 @@
       "tag": "Shadowmap"
     },
     {
-      "file": "./MySurface_Shadowmap_WithPS.shader",
+      "file": "./VegetationBending_Shadowmap_WithPS.shader",
       "tag": "Shadowmap_WithPS"
     },
     {
-      "file": "MySurface_DepthPass.shader",
+      "file": "VegetationBending_DepthPass.shader",
       "tag": "DepthPass"
     },
     {
-      "file": "./MySurface_DepthPass_WithPS.shader",
+      "file": "./VegetationBending_DepthPass_WithPS.shader",
       "tag": "DepthPass_WithPS"
+    },
+    {
+      "file": "./MeshMotionVectorVegetationBending.shader",
+      "tag": "MeshMotionVector"
     }
   ],
   "functors": [
     {
       "type": "Lua",
       "args": {
-        "file": "Materials/Types/MySurface_ShaderEnable.lua"
+        "file": "Materials/Types/VegetationBending_ShaderEnable.lua"
       }
     }
   ],

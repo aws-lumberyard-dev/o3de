@@ -1,5 +1,5 @@
 {
-    "Source" : "./MySurface_ForwardPass.azsl",
+    "Source" : "./VegetationBending_ForwardPass.azsl",
 
     "DepthStencilState" :
     {
@@ -35,11 +35,11 @@
       "EntryPoints":
       [
         {
-          "name": "MySurface_ForwardPassVS",
+          "name": "VegetationBending_ForwardPassVS",
           "type": "Vertex"
         },
         {
-          "name": "MySurface_ForwardPassPS",
+          "name": "VegetationBending_ForwardPassPS_EDS",
           "type": "Fragment"
         }
       ]
@@ -47,4 +47,3 @@
 
     "DrawList" : "forward"
 }
-

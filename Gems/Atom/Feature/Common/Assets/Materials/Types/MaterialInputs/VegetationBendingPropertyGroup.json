@@ -1,60 +1,8 @@
 {
-  "name": "detailBending",
-  "displayName": "Detail Bending",
-  "description": "Properties for configuring the offset of the material.",
+  "name": "vegetationBending",
+  "displayName": "Vegetation Bending",
+  "description": "Properties for configuring the bending.",
   "properties": [
-    {
-      "name": "AnimFrequency",
-      "displayName": "Wind Frequency",
-      "description": "Wind Frequency.",
-      "type": "Float",
-      "defaultValue": 0.0,
-      "min": 0.0,
-      "max": 1.0,
-      "connection": {
-        "type": "ShaderInput",
-        "name": "m_frequency"
-      }
-    },
-    {
-      "name": "AnimAmplitudeWav0",
-      "displayName": "Wind wave0 amplitude",
-      "description": "Wind wave0 amplitude.",
-      "type": "Float",
-      "defaultValue": 0.0,
-      "min": 0.0,
-      "max": 1.0,
-      "connection": {
-        "type": "ShaderInput",
-        "name": "m_ampWav0"
-      }
-    },
-    {
-      "name": "AnimAmplitudeWav2",
-      "displayName": "Wind wave2 amplitude",
-      "description": "Wind wave2 amplitude.",
-      "type": "Float",
-      "defaultValue": 0.0,
-      "min": 0.0,
-      "max": 1.0,
-      "connection": {
-        "type": "ShaderInput",
-        "name": "m_ampWav2"
-      }
-    },
-    {
-      "name": "AnimPhase",
-      "displayName": "Wind phase",
-      "description": "Wind phase.",
-      "type": "Float",
-      "defaultValue": 0.0,
-      "min": 0.0,
-      "max": 1.0,
-      "connection": {
-        "type": "ShaderInput",
-        "name": "m_phase"
-      }
-    },
     {
       "name": "DetailBendFrequency",
       "displayName": "Detail bend frequency",
@@ -95,12 +43,12 @@
       }
     },
     {
-      "name": "WindDirX",
+      "name": "WindX",
       "displayName": "Wind direction x",
       "description": "Wind direction x.",
       "type": "Float",
       "defaultValue": 0.0,
-      "min": 0.0,
+      "min": -1.0,
       "max": 1.0,
       "connection": {
         "type": "ShaderInput",
@@ -108,12 +56,12 @@
       }
     },
     {
-      "name": "WindDirY",
+      "name": "WindY",
       "displayName": "Wind direction y",
       "description": "Wind direction y.",
       "type": "Float",
       "defaultValue": 0.0,
-      "min": 0.0,
+      "min": -1.0,
       "max": 1.0,
       "connection": {
         "type": "ShaderInput",
@@ -121,13 +69,13 @@
       }
     },
     {
-      "name": "BendingStrength",
+      "name": "WindBendingStrength",
       "displayName": "Bending strength",
       "description": "Bending strength.",
       "type": "Float",
       "defaultValue": 0.0,
       "min": 0.0,
-      "max": 1.0,
+      "max": 7.0,
       "connection": {
         "type": "ShaderInput",
         "name": "m_bendingStrength"

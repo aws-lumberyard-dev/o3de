@@ -271,7 +271,9 @@ namespace AZ
             RHI::Ptr<RHI::DrawFilterTagRegistry> m_drawFilterTagRegistry;
 
             RHI::ShaderInputConstantIndex m_timeInputIndex;
+            RHI::ShaderInputConstantIndex m_prevTimeInputIndex;
             float m_simulationTime;
+            float m_prevSimulationTime;
         };
 
         // --- Template functions ---

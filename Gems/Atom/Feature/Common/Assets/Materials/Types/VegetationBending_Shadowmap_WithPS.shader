@@ -1,5 +1,5 @@
 {
-    "Source" : "./MySurface_Shadowmap_WithPS.azsl",
+    "Source" : "./VegetationBending_Shadowmap_WithPS.azsl",
 
     "DepthStencilState" : { 
         "Depth" : { "Enable" : true, "CompareFunc" : "LessEqual" }

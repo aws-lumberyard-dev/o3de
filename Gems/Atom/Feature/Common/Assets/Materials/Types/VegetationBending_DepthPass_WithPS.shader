@@ -1,5 +1,5 @@
 {
-    "Source" : "./MySurface_DepthPass_WithPS.azsl",
+    "Source" : "./VegetationBending_DepthPass_WithPS.azsl",
 
     "DepthStencilState" : { 
         "Depth" : { "Enable" : true, "CompareFunc" : "GreaterEqual" }

@@ -50,18 +50,17 @@ struct VSOutput
     float3 m_worldPosition : UV0;
 
     // Extended fields (only referenced in this azsl file)...
-    float2 m_uv[UvSetCount] : UV1;
+    float2 m_uv[UvSetCount] : UV2;
 };
 
 #include <Atom/Features/Vertex/VertexHelper.azsli>
 
-VSOutput MySurface_ForwardPassVS(VSInput IN)
+VSOutput VegetationBending_ForwardPassVS(VSInput IN)
 {
     VSOutput OUT;
 
     float4x4 objectToWorld = GetObjectToWorld();
     float4 worldPosition = mul(objectToWorld, float4(IN.m_position, 1.0));
-    OUT.m_worldPosition = worldPosition.xyz;
 
     OUT.m_position = float4(IN.m_position, 1.0);
 
@@ -79,73 +78,13 @@ VSOutput MySurface_ForwardPassVS(VSInput IN)
         float currentTime = SceneSrg::m_time;
 
         // Overall wind
-        float2 wind = float2(MaterialSrg::m_windDirX, MaterialSrg::m_windDirY);
-        float bendStr = MaterialSrg::m_bendingStrength;
-        float2 amp = float2(wind.x * 0.4 + wind.y * 0.2, wind.y * 0.4 - wind.x * 0.2);
-        float2 freq = float2(0.9, 0.9 * 1.125);
-        float2 phase = float2(worldPosition.x * 0.08f, worldPosition.y * 0.08f);
-
-        float2 addBending = float2(sin(currentTime * freq.x + phase.x) * amp.x, sin(currentTime * freq.y + phase.y) * amp.y);
-
-        float4 result;
-        result.x = addBending.x + wind.x;
-        result.y = addBending.y + wind.y;
-        result.z = sqrt(wind.x * wind.x + wind.y * wind.y);
-        result *= bendStr * 2.5;
-        float2 totalBending = addBending + wind;
-        result.w = sqrt(totalBending.x * totalBending.x + totalBending.y * totalBending.y) * 0.3f; 
-
-        // Wind
-        float fAnimAmplitudeWav1 = (MaterialSrg::m_ampWav0 + MaterialSrg::m_ampWav2)*0.5;
-        float4 vWavesAmp = float4(MaterialSrg::m_ampWav0*0.573, MaterialSrg::m_ampWav0, fAnimAmplitudeWav1, MaterialSrg::m_ampWav2) * 0.01;
-        const float4 vWavesPhases = float4(0.5 + 0.3799, 0.5 + 0.575, 0.5 + 0.795, 0.5 + 1.099);
-
-        float fAnimPhase = dot(IN.m_position, MaterialSrg::m_phase);
-        float fSpeed = MaterialSrg::m_frequency;
-
-        float4 vWaves = (frac((currentTime + fAnimPhase) * vWavesPhases) * 2.0 - 1.0) *fSpeed;
-        vWaves = abs(frac(vWaves + 0.5) * 2.0 - 1.0);
-
-        float fWaveSum = dot(vWavesAmp.xyzw, vWaves.xyzw);
-
-        OUT.m_position.xyz += fWaveSum * IN.m_optional_color.w * IN.m_normal;
+        float4 currentBending = setUpWindBending(currentTime, worldPosition);
 
         // Detail bending
-        float dfSpeed = result.w;
+        float3 currentOutPosition = detailBending(IN.m_position, IN.m_normal, IN.m_optional_color, currentTime, worldPosition, currentBending.w);
 
-        float fEdgeInfo = IN.m_optional_color.x;
-        float fBranchPhase = IN.m_optional_color.y;
-        float fBranchBendAmount = 1-IN.m_optional_color.z;
-
-        // Phases (object, vertex, branch)
-        float fObjPhase = (dot(worldPosition.xyz, 2));
-        fBranchPhase += fObjPhase;
-        float fVtxPhase = (dot(OUT.m_position.xyz, fBranchPhase)); 
-
-        // Detail bending for leaves/grass
-        // x: is used for edges, y is used for branch
-        float2 vWavesIn = currentTime;
-        vWavesIn += float2(fVtxPhase, fBranchPhase);
-
-        float4 dvWaves = (frac(vWavesIn.xxyy * float4(1.975, 0.793, 0.375,  0.193)) * 2.0 - 1.0) * MaterialSrg::m_detailFreq * dfSpeed;
-        dvWaves = abs(frac(dvWaves + 0.5) * 2.0 - 1.0);
-
-        // x: is used for edges, y is used for branches
-        float2 vWavesSum = ((dvWaves.xz + dvWaves.yw));
-
-        // Edge and branch bending (xy is used for edges, z for branches)
-        OUT.m_position.xyz += vWavesSum.xxy * float3(fEdgeInfo * MaterialSrg::m_detailLeafAmp * IN.m_normal.xy, fBranchBendAmount * MaterialSrg::m_detailBranchAmp);
-
-        // Bend factor
-        float fBF = OUT.m_position.z * result.z;
-        fBF *= fBF; 
-
-        float fLength = length(OUT.m_position.xyz); 
-
-        float3 vNewPos = OUT.m_position.xyz;
-        vNewPos.xy += float2(result.x, result.y) * fBF;
-
-        OUT.m_position.xyz = normalize(vNewPos) * fLength;  
+        // Main bending
+        OUT.m_position.xyz = mainBending(currentOutPosition, currentBending);
     }
 
     worldPosition = mul(objectToWorld, OUT.m_position);
@@ -323,7 +262,7 @@ PbrLightingOutput ForwardPassPS_Common(VSOutput IN, bool isFrontFace, out float 
     return lightingOutput;
 }
 
-ForwardPassOutputWithDepth MySurface_ForwardPassPS(VSOutput IN, bool isFrontFace : SV_IsFrontFace)
+ForwardPassOutputWithDepth VegetationBending_ForwardPassPS(VSOutput IN, bool isFrontFace : SV_IsFrontFace)
 {
     ForwardPassOutputWithDepth OUT;
     float depth;
@@ -346,7 +285,7 @@ ForwardPassOutputWithDepth MySurface_ForwardPassPS(VSOutput IN, bool isFrontFace
 }
 
 [earlydepthstencil]
-ForwardPassOutput MySurface_ForwardPassPS_EDS(VSOutput IN, bool isFrontFace : SV_IsFrontFace)
+ForwardPassOutput VegetationBending_ForwardPassPS_EDS(VSOutput IN, bool isFrontFace : SV_IsFrontFace)
 {
     ForwardPassOutput OUT;
     float depth;

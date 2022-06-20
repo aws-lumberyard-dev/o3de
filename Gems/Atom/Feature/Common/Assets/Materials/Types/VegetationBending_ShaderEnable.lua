@@ -52,6 +52,9 @@ function Process(context)
     local shadowMapWithPS = context:GetShaderByTag("Shadowmap_WithPS")
     local forwardPass = context:GetShaderByTag("ForwardPass")
 
+    local motionPass = context:GetShaderByTag("MeshMotionVector")
+    motionPass:SetEnabled(true)
+
     -- Use TryGetShaderByTag because these shaders only exist in StandardPBR but this script is also used for EnhancedPBR
     local lowEndForwardEDS = TryGetShaderByTag(context, "LowEndForward_EDS")
     local lowEndForward = TryGetShaderByTag(context, "LowEndForward")
