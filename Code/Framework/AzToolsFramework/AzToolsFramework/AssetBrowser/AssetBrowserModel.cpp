@@ -206,7 +206,8 @@ namespace AzToolsFramework
             AssetBrowserEntry* item = static_cast<AssetBrowserEntry*>(index.internalPointer());
             Path oldPath = item->GetFullPath();
             PathView extension = oldPath.Extension();
-            PathView newFile = value.toString().toUtf8().data();
+            QByteArray newName = value.toString().toUtf8().data();
+            PathView newFile = newName.data();
             if (newFile.Native().empty() || !AzQtComponents::FileDialog::IsValidFileName(newFile.Native().data()))
             {
                 return false;
@@ -217,12 +218,11 @@ namespace AzToolsFramework
             using SCCommandBus = AzToolsFramework::SourceControlCommandBus;
             SCCommandBus::Broadcast(
                 &SCCommandBus::Events::RequestRename, oldPath.c_str(), newPath.c_str(),
-                [this, index, item, newFile, extension](bool success, [[maybe_unused]] const AzToolsFramework::SourceControlFileInfo& info)
+                [this, index](bool success, [[maybe_unused]] const AzToolsFramework::SourceControlFileInfo& info)
                 {
                     if (success)
                     {
-                        item->SetFileData(newFile, extension);
-                        emit dataChanged(index, index);
+                        emit dataChanged(index.parent(), index);
                     }
                 });
             return false;
