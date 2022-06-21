@@ -745,7 +745,7 @@ namespace
     {
         // Increment
         ScriptCanvasEditor::RegisterSmallOperatorNodeInformation incrementInfo;
-        incrementInfo.m_lexiconId = AZ_CRC_CE("Increment");
+        incrementInfo.m_nodeLexicalId = AZ_CRC_CE("Increment");
         incrementInfo.m_nodeTitle = "++";
         incrementInfo.m_nodeToolTip = "Increments the input number by 1";
         incrementInfo.m_nodeDataType = ScriptCanvas::Data::Type::Number();
@@ -754,7 +754,7 @@ namespace
 
         // Decrement
         ScriptCanvasEditor::RegisterSmallOperatorNodeInformation decrementInfo;
-        decrementInfo.m_lexiconId = AZ_CRC_CE("Decrement");
+        decrementInfo.m_nodeLexicalId = AZ_CRC_CE("Decrement");
         decrementInfo.m_nodeTitle = "--";
         decrementInfo.m_nodeToolTip = "Decrements the input number by 1";
         decrementInfo.m_nodeDataType = ScriptCanvas::Data::Type::Number();
@@ -763,7 +763,7 @@ namespace
 
         // Double
         ScriptCanvasEditor::RegisterSmallOperatorNodeInformation doubleInfo;
-        doubleInfo.m_lexiconId = AZ_CRC_CE("Double");
+        doubleInfo.m_nodeLexicalId = AZ_CRC_CE("Double");
         doubleInfo.m_nodeTitle = "*2";
         doubleInfo.m_nodeToolTip = "Multiplies the input number by 2";
         doubleInfo.m_nodeDataType = ScriptCanvas::Data::Type::Number();
@@ -772,7 +772,7 @@ namespace
 
         // Negative
         ScriptCanvasEditor::RegisterSmallOperatorNodeInformation negativeInfo;
-        negativeInfo.m_lexiconId = AZ_CRC_CE("Negative");
+        negativeInfo.m_nodeLexicalId = AZ_CRC_CE("Negative");
         negativeInfo.m_nodeTitle = "*-1";
         negativeInfo.m_nodeToolTip = "Multiplies the input number by -1";
         negativeInfo.m_nodeDataType = ScriptCanvas::Data::Type::Number();
@@ -781,7 +781,7 @@ namespace
 
         // Square
         ScriptCanvasEditor::RegisterSmallOperatorNodeInformation squareInfo;
-        squareInfo.m_lexiconId = AZ_CRC_CE("Square");
+        squareInfo.m_nodeLexicalId = AZ_CRC_CE("Square");
         squareInfo.m_nodeTitle = "^2";
         squareInfo.m_nodeToolTip = "Raises the input number to the power of 2";
         squareInfo.m_nodeDataType = ScriptCanvas::Data::Type::Number();
@@ -790,7 +790,7 @@ namespace
 
         // Cube
         ScriptCanvasEditor::RegisterSmallOperatorNodeInformation cubeInfo;
-        cubeInfo.m_lexiconId = AZ_CRC_CE("Cube");
+        cubeInfo.m_nodeLexicalId = AZ_CRC_CE("Cube");
         cubeInfo.m_nodeTitle = "^3";
         cubeInfo.m_nodeToolTip = "Raises the input number to the power of 3";
         cubeInfo.m_nodeDataType = ScriptCanvas::Data::Type::Number();
@@ -799,7 +799,7 @@ namespace
 
         // Square Root
         ScriptCanvasEditor::RegisterSmallOperatorNodeInformation squareRootInfo;
-        squareRootInfo.m_lexiconId = AZ_CRC_CE("Square Root");
+        squareRootInfo.m_nodeLexicalId = AZ_CRC_CE("Square Root");
         squareRootInfo.m_nodeTitle = "sqrt";
         squareRootInfo.m_nodeToolTip = "Gets the square root of the input number";
         squareRootInfo.m_nodeDataType = ScriptCanvas::Data::Type::Number();
@@ -808,7 +808,7 @@ namespace
 
         // Cube Root
         ScriptCanvasEditor::RegisterSmallOperatorNodeInformation cubeRootInfo;
-        cubeRootInfo.m_lexiconId = AZ_CRC_CE("Cube Root");
+        cubeRootInfo.m_nodeLexicalId = AZ_CRC_CE("Cube Root");
         cubeRootInfo.m_nodeTitle = "cbrt";
         cubeRootInfo.m_nodeToolTip = "Gets the cube root of the input number";
         cubeRootInfo.m_nodeDataType = ScriptCanvas::Data::Type::Number();
@@ -817,7 +817,7 @@ namespace
 
         // Invert Vector 2
         ScriptCanvasEditor::RegisterSmallOperatorNodeInformation invertVector2Info;
-        invertVector2Info.m_lexiconId = AZ_CRC_CE("Invert Vector 2");
+        invertVector2Info.m_nodeLexicalId = AZ_CRC_CE("Invert Vector 2");
         invertVector2Info.m_nodeTitle = "inv";
         invertVector2Info.m_nodeToolTip = "Inverts the input vector 2";
         invertVector2Info.m_nodeDataType = ScriptCanvas::Data::Type::Vector2();
@@ -826,7 +826,7 @@ namespace
 
         // Invert Vector 3
         ScriptCanvasEditor::RegisterSmallOperatorNodeInformation invertVector3Info;
-        invertVector3Info.m_lexiconId = AZ_CRC_CE("Invert Vector 3");
+        invertVector3Info.m_nodeLexicalId = AZ_CRC_CE("Invert Vector 3");
         invertVector3Info.m_nodeTitle = "inv";
         invertVector3Info.m_nodeToolTip = "Inverts the input vector 3";
         invertVector3Info.m_nodeDataType = ScriptCanvas::Data::Type::Vector3();
@@ -835,7 +835,7 @@ namespace
 
         // Invert Vector 4
         ScriptCanvasEditor::RegisterSmallOperatorNodeInformation invertVector4Info;
-        invertVector4Info.m_lexiconId = AZ_CRC_CE("Invert Vector 4");
+        invertVector4Info.m_nodeLexicalId = AZ_CRC_CE("Invert Vector 4");
         invertVector4Info.m_nodeTitle = "inv";
         invertVector4Info.m_nodeToolTip = "Inverts the input vector 4";
         invertVector4Info.m_nodeDataType = ScriptCanvas::Data::Type::Vector4();
@@ -998,9 +998,9 @@ namespace ScriptCanvasEditor
         paletteData->m_displayName = info.m_paletteTitle;
         paletteData->m_toolTip = info.m_paletteToolTip;
         paletteData->m_categoryPath = info.m_palettePath;
-        paletteData->m_nodeDefaultsId = info.m_lexiconId;
+        paletteData->m_nodeLexicalId = info.m_nodeLexicalId;
         paletteData->m_userData = nodeData;
-        RegisterDataDrivenNode(paletteData, info.m_lexiconId);
+        RegisterDataDrivenNode(paletteData, info.m_nodeLexicalId);
     }
 
     // Register a node given its specific attributes

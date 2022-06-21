@@ -53,9 +53,8 @@ namespace ScriptCanvasEditor::Nodes
     NodeIdPair CreateEbusWrapperNode(AZStd::string_view busName, const ScriptCanvas::ScriptCanvasId& scriptCanvasId);
 
     // Create methods for data driven nodes
-    NodeIdPair CreateDataDrivenNode(
-        const AZStd::any& nodeData, const AZ::Crc32& nodeId, const ScriptCanvas::ScriptCanvasId& scriptCanvasId);
-    NodeIdPair CreateSmallOperatorNode(const SmallOperatorCreationData& smallOperatorNodeData, const ScriptCanvas::ScriptCanvasId& scriptCanvasId);
+    NodeIdPair CreateDataDrivenNode(const AZStd::any& nodeData, const AZ::Crc32& nodeLexicalId, const ScriptCanvas::ScriptCanvasId& scriptCanvasId);
+    NodeIdPair CreateSmallOperatorNode(const SmallOperatorCreationData& smallOperatorNodeData, const AZ::Crc32& nodeLexicalId, const ScriptCanvas::ScriptCanvasId& scriptCanvasId);
 
     // Script Events
     NodeIdPair CreateScriptEventReceiverNode(const ScriptCanvas::ScriptCanvasId& scriptCanvasId, const AZ::Data::AssetId& assetId);

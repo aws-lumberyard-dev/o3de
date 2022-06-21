@@ -2990,21 +2990,24 @@ namespace ScriptCanvas
         return m_name;
     }
 
-    AZStd::string Node::GetNodeToolTip() const
+    const AZStd::string& Node::GetNodeToolTip() const
     {
         return m_toolTip;
     }
 
-    Node* Node::SetNodeName(AZStd::string name)
+    void Node::SetNodeName(const AZStd::string& name)
     {
         m_name = name;
-        return this;
     }
 
-    Node* Node::SetNodeToolTip(AZStd::string toolTip)
+    void Node::SetNodeToolTip(const AZStd::string& toolTip)
     {
         m_toolTip = toolTip;
-        return this;
+    }
+
+    void Node::SetNodenodeLexicalId(const AZ::Crc32& nodeLexicalId)
+    {
+        m_nodeLexicalId = nodeLexicalId;
     }
 
     bool Node::IsEntryPoint() const

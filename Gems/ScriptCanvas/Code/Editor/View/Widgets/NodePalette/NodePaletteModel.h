@@ -63,7 +63,7 @@ namespace ScriptCanvasEditor
 
     struct RegisterSmallOperatorNodeInformation
     {
-        AZ::Crc32 m_lexiconId;
+        AZ::Crc32 m_nodeLexicalId;
         AZStd::string m_nodeTitle;
         AZStd::string m_nodeToolTip;
         ScriptCanvas::Data::Type m_nodeDataType;
@@ -220,7 +220,7 @@ namespace ScriptCanvasEditor
         AZ_RTTI(DataDrivenNodeModelInformation, "{D44D697D-7462-456B-B305-E9931FC02E6B}", NodePaletteModelInformation);
         AZ_CLASS_ALLOCATOR(DataDrivenNodeModelInformation, AZ::SystemAllocator, 0);
 
-        AZ::Crc32 m_nodeDefaultsId;
+        AZ::Crc32 m_nodeLexicalId;
         AZStd::any m_userData;
     };
 

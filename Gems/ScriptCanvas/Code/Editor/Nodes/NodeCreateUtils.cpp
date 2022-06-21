@@ -253,17 +253,18 @@ namespace ScriptCanvasEditor::Nodes
         return nodeIdPair;
     }
 
-    NodeIdPair CreateDataDrivenNode(const AZStd::any& nodeData, [[maybe_unused]] const AZ::Crc32& nodeId, const ScriptCanvas::ScriptCanvasId& scriptCanvasId)
+    NodeIdPair CreateDataDrivenNode(const AZStd::any& nodeData, const AZ::Crc32& nodeLexicalId, const ScriptCanvas::ScriptCanvasId& scriptCanvasId)
     {
         // TODO: Make this check what types nodeData can be cast to and decide what create function to run based on that
-        return CreateSmallOperatorNode(AZStd::any_cast<SmallOperatorCreationData>(nodeData), scriptCanvasId);
+        return CreateSmallOperatorNode(AZStd::any_cast<SmallOperatorCreationData>(nodeData), nodeLexicalId, scriptCanvasId);
     }
 
-    NodeIdPair CreateSmallOperatorNode(const SmallOperatorCreationData& nodeData, const ScriptCanvas::ScriptCanvasId& scriptCanvasId)
+    NodeIdPair CreateSmallOperatorNode(const SmallOperatorCreationData& nodeData, const AZ::Crc32& nodeLexicalId, const ScriptCanvas::ScriptCanvasId& scriptCanvasId)
     {
         ScriptCanvas::Node* node = aznew ScriptCanvas::Node();
         node->SetNodeName(nodeData.m_title);
         node->SetNodeToolTip(nodeData.m_toolTip);
+        node->SetNodenodeLexicalId(nodeLexicalId);
 
         ScriptCanvas::DynamicDataSlotConfiguration inputPin;
         inputPin.m_name = " ";

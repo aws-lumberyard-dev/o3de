@@ -332,20 +332,20 @@ namespace ScriptCanvasEditor
         {
             serializeContext->Class<CreateDataDrivenNodeMimeEvent, GraphCanvas::GraphCanvasMimeEvent>()
                 ->Version(0)
-                ->Field("NodeDefaultsId", &CreateDataDrivenNodeMimeEvent::m_nodeDefaultsId)
+                ->Field("nodeLexicalId", &CreateDataDrivenNodeMimeEvent::m_nodeLexicalId)
                 ->Field("NodeData", &CreateDataDrivenNodeMimeEvent::m_userData);
         }
     }
 
-    CreateDataDrivenNodeMimeEvent::CreateDataDrivenNodeMimeEvent(const AZ::Crc32& nodeId, const AZStd::any& nodeData)
-        : m_nodeDefaultsId(nodeId)
+    CreateDataDrivenNodeMimeEvent::CreateDataDrivenNodeMimeEvent(const AZ::Crc32& nodeLexicalId, const AZStd::any& nodeData)
+        : m_nodeLexicalId(nodeLexicalId)
         , m_userData(nodeData)
     {
     }
 
     ScriptCanvasEditor::NodeIdPair CreateDataDrivenNodeMimeEvent::CreateNode(const ScriptCanvas::ScriptCanvasId& scriptCanvasId) const
     {
-        return Nodes::CreateDataDrivenNode(m_userData, m_nodeDefaultsId, scriptCanvasId);
+        return Nodes::CreateDataDrivenNode(m_userData, m_nodeLexicalId, scriptCanvasId);
     }
 
     //////////////////////////////
@@ -360,6 +360,6 @@ namespace ScriptCanvasEditor
 
     GraphCanvas::GraphCanvasMimeEvent* DataDrivenNodePaletteTreeItem::CreateMimeEvent() const
     {
-        return aznew CreateDataDrivenNodeMimeEvent(m_info.m_nodeDefaultsId, m_info.m_userData);
+        return aznew CreateDataDrivenNodeMimeEvent(m_info.m_nodeLexicalId, m_info.m_userData);
     }
 }
