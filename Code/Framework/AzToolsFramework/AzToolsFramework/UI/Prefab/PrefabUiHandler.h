@@ -15,9 +15,11 @@
 namespace AzToolsFramework
 {
     class ContainerEntityInterface;
+    class PrefabEditorEntityOwnershipInterface;
 
     namespace Prefab
     {
+        class InstanceToTemplateInterface;
         class PrefabFocusPublicInterface;
         class PrefabPublicInterface;
     };
@@ -57,6 +59,8 @@ namespace AzToolsFramework
         ContainerEntityInterface* m_containerEntityInterface = nullptr;
         Prefab::PrefabFocusPublicInterface* m_prefabFocusPublicInterface = nullptr;
         Prefab::PrefabPublicInterface* m_prefabPublicInterface = nullptr;
+        Prefab::InstanceToTemplateInterface* m_instanceToTemplateInterface = nullptr;
+        PrefabEditorEntityOwnershipInterface* m_prefabEditorEntityOwnershipInterface = nullptr;
 
         static bool IsLastVisibleChild(const QModelIndex& parent, const QModelIndex& child);
         static QModelIndex GetLastVisibleChild(const QModelIndex& parent);
@@ -82,6 +86,8 @@ namespace AzToolsFramework
         QColor m_prefabCapsuleColor = QColor("#1E252F");
         QColor m_prefabCapsuleDisabledColor = QColor("#35383C");
         QColor m_prefabCapsuleEditColor = QColor("#4A90E2");
+        QColor m_editEntityOverrideColor = QColor("#FFA500");
+        QColor m_addEntityOverrideColor = QColor("#50C878");
         QString m_prefabIconPath = QString(":/Entity/prefab.svg");
         QString m_prefabEditIconPath = QString(":/Entity/prefab_edit.svg");
         QString m_prefabEditOpenIconPath = QString(":/Entity/prefab_edit_open.svg");

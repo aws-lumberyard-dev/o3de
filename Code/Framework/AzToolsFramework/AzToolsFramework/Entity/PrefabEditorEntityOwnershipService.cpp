@@ -627,6 +627,18 @@ namespace AzToolsFramework
         m_overrideTree.SetValue(path, value);
     }
 
+    Prefab::PrefabOverrides PrefabEditorEntityOwnershipService::GetOverridesAtPath(AZ::Dom::Path path)
+    {
+        Prefab::PrefabOverrides results;
+        auto visitorFn = [&results](const AZ::Dom::Path& path, Prefab::PrefabDomValue* patchValue)
+        {
+            results.emplace_back(path, patchValue);
+        };
+
+        m_overrideTree.VisitPath(AZ::Dom::Path(), AZ::Dom::PrefixTreeMatch::PathAndSubpaths, visitorFn);
+        return AZStd::move(results);
+    }
+
     void PrefabEditorEntityOwnershipService::PrintOverrides()
     {
         AZStd::vector<AZStd::pair<AZ::Dom::Path, Prefab::PrefabDomValue*>> results;

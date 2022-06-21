@@ -11,6 +11,8 @@
 #include <AzFramework/API/ApplicationAPI.h>
 
 #include <AzToolsFramework/ContainerEntity/ContainerEntityInterface.h>
+#include <AzToolsFramework/Entity/PrefabEditorEntityOwnershipInterface.h>
+#include <AzToolsFramework/Prefab/Instance/InstanceToTemplateInterface.h>
 #include <AzToolsFramework/Prefab/PrefabFocusPublicInterface.h>
 #include <AzToolsFramework/Prefab/PrefabPublicInterface.h>
 #include <AzToolsFramework/UI/Outliner/EntityOutlinerListModel.hxx>
@@ -51,6 +53,20 @@ namespace AzToolsFramework
         if (m_prefabFocusPublicInterface == nullptr)
         {
             AZ_Assert(false, "PrefabUiHandler - could not get PrefabFocusPublicInterface on PrefabUiHandler construction.");
+            return;
+        }
+
+        m_instanceToTemplateInterface = AZ::Interface<Prefab::InstanceToTemplateInterface>::Get();
+        if (m_instanceToTemplateInterface == nullptr)
+        {
+            AZ_Assert(false, "PrefabUiHandler - could not get InstanceToTemplateInterface on PrefabUiHandler construction.");
+            return;
+        }
+
+        m_prefabEditorEntityOwnershipInterface = AZ::Interface<PrefabEditorEntityOwnershipInterface>::Get();
+        if (m_prefabEditorEntityOwnershipInterface == nullptr)
+        {
+            AZ_Assert(false, "PrefabUiHandler - could not get PrefabEditorEntityOwnershipInterface on PrefabUiHandler construction.");
             return;
         }
 
@@ -214,6 +230,7 @@ namespace AzToolsFramework
         }
 
         AZ::EntityId entityId = GetEntityIdFromIndex(index);
+        AZ::EntityId descendantEntityId = GetEntityIdFromIndex(descendantIndex);
 
         // If the owning prefab is focused, the border will be painted in the foreground.
         if (m_prefabFocusPublicInterface->IsOwningPrefabBeingFocused(entityId))
@@ -225,6 +242,20 @@ namespace AzToolsFramework
         if (m_prefabFocusPublicInterface->IsOwningPrefabInFocusHierarchy(entityId))
         {
             borderColor = m_prefabCapsuleColor;
+        }
+
+        if (!descendantEntityId.IsValid())
+        {
+            AZ_TracePrintf("PrefabUiHandler", "descendant entity id is invalid.");
+        }
+
+        AZ::Dom::Path absoluteEntityAliasPath = m_instanceToTemplateInterface->GenerateAbsoluteEntityAliasPath(descendantEntityId);
+        
+        Prefab::PrefabOverrides entityOverridePatches = m_prefabEditorEntityOwnershipInterface->GetOverridesAtPath(absoluteEntityAliasPath);
+
+        if (entityOverridePatches.size() > 0)
+        {
+            borderColor = m_editEntityOverrideColor;
         }
 
         PaintDescendantBorder(painter, option, index, descendantIndex, borderColor);
@@ -240,6 +271,12 @@ namespace AzToolsFramework
         }
 
         AZ::EntityId entityId = GetEntityIdFromIndex(index);
+        AZ::EntityId descendantEntityId = GetEntityIdFromIndex(descendantIndex);
+
+        if (!descendantEntityId.IsValid())
+        {
+            AZ_TracePrintf("PrefabUiHandler", "descendant entity id is invalid.");
+        }
 
         // If the owning prefab is not focused, the border will be painted in the background.
         if (!m_prefabFocusPublicInterface->IsOwningPrefabBeingFocused(entityId))
@@ -247,7 +284,19 @@ namespace AzToolsFramework
             return;
         }
 
-        PaintDescendantBorder(painter, option, index, descendantIndex, m_prefabCapsuleEditColor);
+        AZ::Dom::Path absoluteEntityAliasPath = m_instanceToTemplateInterface->GenerateAbsoluteEntityAliasPath(descendantEntityId);
+
+        Prefab::PrefabOverrides entityOverridePatches = m_prefabEditorEntityOwnershipInterface->GetOverridesAtPath(absoluteEntityAliasPath);
+
+        if (entityOverridePatches.size() > 0)
+        {
+            PaintDescendantBorder(painter, option, index, descendantIndex, m_editEntityOverrideColor);
+        }
+        else
+        {
+            PaintDescendantBorder(painter, option, index, descendantIndex, m_prefabCapsuleEditColor);
+        }
+        
     }
 
     void PrefabUiHandler::PaintDescendantBorder(

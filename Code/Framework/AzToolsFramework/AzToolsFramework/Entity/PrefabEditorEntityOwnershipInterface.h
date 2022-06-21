@@ -27,6 +27,8 @@ namespace AzToolsFramework
         //! that do not have visibility over InstanceOptionalReferences, or that need to store Instance handles
         //! for longer than just the span of a function without the risk of them going out of scope.
         using RootAliasPath = AliasPath;
+
+        using PrefabOverrides = AZStd::vector<AZStd::pair<AZ::Dom::Path, Prefab::PrefabDomValue*>>;
     }
 
     enum class GameModeState
@@ -95,5 +97,6 @@ namespace AzToolsFramework
         virtual void RegisterOverridePrefix(AZ::Dom::Path path, Prefab::PrefabDomValue* value) = 0;
 
         virtual void PrintOverrides() = 0;
+        virtual Prefab::PrefabOverrides GetOverridesAtPath(AZ::Dom::Path path) = 0;
     };
 }

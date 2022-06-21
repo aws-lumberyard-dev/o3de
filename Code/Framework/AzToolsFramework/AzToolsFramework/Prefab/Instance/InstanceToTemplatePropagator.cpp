@@ -137,6 +137,30 @@ namespace AzToolsFramework
             return AZStd::move(entityAliasPath);
         }
 
+        AZ::Dom::Path InstanceToTemplatePropagator::GenerateAbsoluteEntityAliasPath(AZ::EntityId entityId)
+        {
+            InstanceOptionalReference owningInstance = m_instanceEntityMapperInterface->FindOwningInstance(entityId);
+            if (!owningInstance.has_value())
+            {
+                AZ_Error("Prefab", false, "Failed to find an owning instance for entity with id %llu.", static_cast<AZ::u64>(entityId));
+                return AZ::Dom::Path();
+            }
+            AZ::IO::Path absoluteInstancePath = owningInstance->get().GetAbsoluteInstanceAliasPath();
+
+            auto pathIterator = AZStd::next(absoluteInstancePath.begin());
+            AZ::Dom::Path domPathFormat((*pathIterator).c_str());
+            pathIterator++;
+            while (pathIterator != absoluteInstancePath.end())
+            {
+                domPathFormat.Push("Instances");
+                domPathFormat.Push((*pathIterator).c_str());
+                pathIterator++;
+            }
+            AZStd::string entityPath = GenerateEntityAliasPath(entityId);
+            domPathFormat = domPathFormat / AZ::Dom::Path(entityPath);
+            return domPathFormat;
+        }
+
         void InstanceToTemplatePropagator::AppendEntityAliasToPatchPaths(PrefabDom& providedPatch, const AZ::EntityId& entityId)
         {
             if (!providedPatch.IsArray())

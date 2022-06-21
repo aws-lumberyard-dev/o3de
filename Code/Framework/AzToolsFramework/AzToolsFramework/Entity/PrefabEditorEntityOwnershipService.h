@@ -211,6 +211,7 @@ namespace AzToolsFramework
 
         void RegisterOverridePrefix(AZ::Dom::Path path, Prefab::PrefabDomValue* value) override;
         void PrintOverrides() override;
+        Prefab::PrefabOverrides GetOverridesAtPath(AZ::Dom::Path path) override;
         //////////////////////////////////////////////////////////////////////////
 
         void OnEntityRemoved(AZ::EntityId entityId);
