@@ -1026,7 +1026,7 @@ namespace ScriptCanvasEditor
     }
 
     void NodePaletteModel::RegisterSmallOperatorNode(
-        const AZ::Crc32& nodeId,
+        const AZ::Crc32& nodeDefaultsId,
         const AZStd::string& nodeTitle,
         const AZStd::string& nodeToolTip,
         const ScriptCanvas::Data::Type& nodeDataType,
@@ -1039,12 +1039,12 @@ namespace ScriptCanvasEditor
         nodeData.m_toolTip = nodeToolTip;
         nodeData.m_dataType = nodeDataType;
         ScriptCanvasEditor::DataDrivenNodeModelInformation* paletteData = aznew ScriptCanvasEditor::DataDrivenNodeModelInformation();
-        paletteData->m_displayName = paletteTitle == "" ? nodeTitle : paletteTitle;
-        paletteData->m_toolTip = paletteToolTip == "" ? nodeToolTip : paletteToolTip;
+        paletteData->m_displayName = paletteTitle.empty() ? nodeTitle : paletteTitle;
+        paletteData->m_toolTip = paletteToolTip.empty() ? nodeToolTip : paletteToolTip;
         paletteData->m_categoryPath = palettePath;
-        paletteData->m_nodeId = nodeId;
+        paletteData->m_nodeDefaultsId = nodeDefaultsId;
         paletteData->m_userData = nodeData;
-        RegisterDataDrivenNode(paletteData, nodeId);
+        RegisterDataDrivenNode(paletteData, nodeDefaultsId);
     }
 
     // Register a node given its specific attributes

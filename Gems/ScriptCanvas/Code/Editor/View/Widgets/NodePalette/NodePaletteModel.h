@@ -80,7 +80,7 @@ namespace ScriptCanvasEditor
         void RepopulateModel();
 
         void RegisterSmallOperatorNode(
-            const AZ::Crc32& nodeId,
+            const AZ::Crc32& nodeDefaultsId,
             const AZStd::string& nodeTitle,
             const AZStd::string& nodeToolTip,
             const ScriptCanvas::Data::Type& nodeDataType,
@@ -216,7 +216,7 @@ namespace ScriptCanvasEditor
         AZ_RTTI(DataDrivenNodeModelInformation, "{D44D697D-7462-456B-B305-E9931FC02E6B}", NodePaletteModelInformation);
         AZ_CLASS_ALLOCATOR(DataDrivenNodeModelInformation, AZ::SystemAllocator, 0);
 
-        AZ::Crc32 m_nodeId;
+        AZ::Crc32 m_nodeDefaultsId;
         AZStd::any m_userData;
     };
 

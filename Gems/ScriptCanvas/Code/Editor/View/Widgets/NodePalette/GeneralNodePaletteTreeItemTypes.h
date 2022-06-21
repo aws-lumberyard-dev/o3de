@@ -184,7 +184,7 @@ namespace ScriptCanvasEditor
         ScriptCanvasEditor::NodeIdPair CreateNode(const ScriptCanvas::ScriptCanvasId& scriptCanvasId) const override;
 
     private:
-        const AZ::Crc32 m_nodeId;
+        const AZ::Crc32 m_nodeDefaultsId;
         const AZStd::any m_userData;
     };
 
