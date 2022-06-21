@@ -177,7 +177,7 @@ namespace ScriptCanvasEditor
         static void Reflect(AZ::ReflectContext* reflectContext);
 
         CreateDataDrivenNodeMimeEvent() = default;
-        CreateDataDrivenNodeMimeEvent(const AZ::Crc32& mimeId, const AZStd::any& nodeData);
+        CreateDataDrivenNodeMimeEvent(const AZ::Crc32& nodeId, const AZStd::any& nodeData);
         ~CreateDataDrivenNodeMimeEvent() = default;
 
     protected:

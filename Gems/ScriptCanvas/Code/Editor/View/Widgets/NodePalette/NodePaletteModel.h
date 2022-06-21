@@ -79,8 +79,15 @@ namespace ScriptCanvasEditor
 
         void RepopulateModel();
 
-        
-        void RegisterNode(NodePaletteModelInformation* nodeInformation, const ScriptCanvas::NodeTypeIdentifier& id);
+        void RegisterSmallOperatorNode(
+            const AZ::Crc32& nodeId,
+            const AZStd::string& nodeTitle,
+            const AZStd::string& nodeToolTip,
+            const ScriptCanvas::Data::Type& nodeDataType,
+            const AZStd::string& paletteTitle = "",
+            const AZStd::string& paletteToolTip = "",
+            const AZStd::string& palettePath = "Math/Small Operators");
+        void RegisterDataDrivenNode(NodePaletteModelInformation* nodeInformation, const ScriptCanvas::NodeTypeIdentifier& id);
 
         void RegisterCustomNode(AZStd::string_view categoryPath, const AZ::Uuid& uuid, AZStd::string_view name, const AZ::SerializeContext::ClassData* classData);
         void RegisterClassNode(const AZStd::string& categoryPath, const AZStd::string& methodClass, const AZStd::string& methodName, const AZ::BehaviorMethod* behaviorMethod, const AZ::BehaviorContext* behaviorContext, ScriptCanvas::PropertyStatus propertyStatus, bool isOverload);

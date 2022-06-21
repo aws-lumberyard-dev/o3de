@@ -435,6 +435,7 @@ namespace ScriptCanvas
 
     private:
         AZStd::string m_name = "";
+        AZStd::string m_toolTip = "";
         struct IteratorCache
         {
         public:
@@ -538,7 +539,10 @@ namespace ScriptCanvas
         virtual AZStd::string GetNodeTypeName() const;
         virtual AZStd::string GetDebugName() const;
         virtual AZStd::string GetNodeName() const;
-        virtual void SetNodeName(AZStd::string name);
+        virtual AZStd::string GetNodeToolTip() const;
+
+        virtual Node* SetNodeName(AZStd::string name);
+        virtual Node* SetNodeToolTip(AZStd::string toolTip);
 
         AZStd::string GetSlotName(const SlotId& slotId) const;
 

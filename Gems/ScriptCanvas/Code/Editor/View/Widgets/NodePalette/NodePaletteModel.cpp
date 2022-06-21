@@ -741,21 +741,144 @@ namespace
         }
     }
 
-    void PopulateDataDrivenNodes(
-        ScriptCanvasEditor::NodePaletteModel& nodePaletteModel)
+    void PopulateDataDrivenNodes(ScriptCanvasEditor::NodePaletteModel& nodePaletteModel)
     {
-        ScriptCanvasEditor::DataDrivenNodeModelInformation* increment = aznew ScriptCanvasEditor::DataDrivenNodeModelInformation();
-        increment->m_displayName = "++";
-        increment->m_categoryPath = "Math/Small Operators";
-        increment->m_toolTip = "Increments a value";
-        increment->m_nodeId = AZ_CRC_CE("++");
+        // Increment
+        nodePaletteModel.RegisterSmallOperatorNode(
+            AZ_CRC_CE("Increment"),
+            "++",
+            "Increments the input number by 1",
+            ScriptCanvas::Data::Type::Number(),
+            "Increment");
 
-        ScriptCanvasEditor::Nodes::SmallOperatorCreationData data;
-        data.m_title = "++";    // Right now the title is enough info to ensure data gets passed along properly. Later I will add data types too
+        // Decrement
+        nodePaletteModel.RegisterSmallOperatorNode(
+            AZ_CRC_CE("Decrement"),
+            "--",
+            "Decrements the input number by 1",
+            ScriptCanvas::Data::Type::Number(),
+            "Decrement");
 
-        increment->m_userData = data;   // This can be aaaaanything (that can be serialized)
+        // Double
+        nodePaletteModel.RegisterSmallOperatorNode(
+            AZ_CRC_CE("Double"),
+            "*2",
+            "Multiplies the input number by 2",
+            ScriptCanvas::Data::Type::Number(),
+            "Double");
 
-        nodePaletteModel.RegisterNode(increment, increment->m_nodeId);
+        // Negative
+        nodePaletteModel.RegisterSmallOperatorNode(
+            AZ_CRC_CE("Negative"),
+            "*-1",
+            "Multiplies the input number by -1",
+            ScriptCanvas::Data::Type::Number(),
+            "Negative");
+
+        // Square
+        nodePaletteModel.RegisterSmallOperatorNode(
+            AZ_CRC_CE("Square"),
+            "^2",
+            "Raises the input number to the power of 2",
+            ScriptCanvas::Data::Type::Number(),
+            "Square");
+
+        // Cube
+        nodePaletteModel.RegisterSmallOperatorNode(
+            AZ_CRC_CE("Cube"),
+            "^3",
+            "Raises the input number to the power of 3",
+            ScriptCanvas::Data::Type::Number(),
+            "Cube");
+
+        // Square Root
+        nodePaletteModel.RegisterSmallOperatorNode(
+            AZ_CRC_CE("Square Root"),
+            "sqrt",
+            "Gets the square root of the input number",
+            ScriptCanvas::Data::Type::Number(),
+            "Square Root");
+
+        // Cube Root
+        nodePaletteModel.RegisterSmallOperatorNode(
+            AZ_CRC_CE("Cube Root"),
+            "cbrt",
+            "Gets the square root of the input number",
+            ScriptCanvas::Data::Type::Number(),
+            "Cube Root");
+
+        // Vector 2 Invert
+        nodePaletteModel.RegisterSmallOperatorNode(
+            AZ_CRC_CE("Invert Vector 2"),
+            "inv",
+            "Inverts the input vector 2",
+            ScriptCanvas::Data::Type::Vector2(),
+            "Invert Vector 2");
+
+        // Vector 3 Invert
+        nodePaletteModel.RegisterSmallOperatorNode(
+            AZ_CRC_CE("Invert Vector 3"), 
+            "inv",
+            "Inverts the input vector 3",
+            ScriptCanvas::Data::Type::Vector3(),
+            "Invert Vector 3");
+
+        // Vector 4 Invert
+        nodePaletteModel.RegisterSmallOperatorNode(
+            AZ_CRC_CE("Invert Vector 4"), 
+            "inv",
+            "Inverts the input vector 4",
+            ScriptCanvas::Data::Type::Vector4(),
+            "Invert Vector 4");
+
+        // Vector 2 Cross
+        nodePaletteModel.RegisterSmallOperatorNode(
+            AZ_CRC_CE("Cross Vector 2"), 
+            "x",
+            "Applies cross product to the input vector 2",
+            ScriptCanvas::Data::Type::Vector2(),
+            "Cross Vector 2");
+
+        // Vector 3 Cross
+        nodePaletteModel.RegisterSmallOperatorNode(
+            AZ_CRC_CE("Cross Vector 3"), 
+            "x",
+            "Applies cross product to the input vector 3",
+            ScriptCanvas::Data::Type::Vector3(),
+            "Cross Vector 3");
+
+        // Vector 4 Cross
+        nodePaletteModel.RegisterSmallOperatorNode(
+            AZ_CRC_CE("Cross Vector 4"), 
+            "x",
+            "Applies cross product to the input vector 4",
+            ScriptCanvas::Data::Type::Vector4(),
+            "Cross Vector 4");
+
+        // Vector 2 Dot
+        nodePaletteModel.RegisterSmallOperatorNode(
+            AZ_CRC_CE("Dot Vector 2"), 
+            "dot",
+            "Applies dot product to the input vector 2",
+            ScriptCanvas::Data::Type::Vector2(),
+            "Dot Vector 2");
+
+        // Vector 3 Dot
+        nodePaletteModel.RegisterSmallOperatorNode(
+            AZ_CRC_CE("Dot Vector 3"), 
+            "dot",
+            "Applies dot product to the input vector 3",
+            ScriptCanvas::Data::Type::Vector3(),
+            "Dot Vector 3");
+
+        // Vector 4 Dot
+        nodePaletteModel.RegisterSmallOperatorNode(
+            AZ_CRC_CE("Dot Vector 4"), 
+            "dot",
+            "Applies dot product to the input vector 4",
+            ScriptCanvas::Data::Type::Vector4(),
+            "Dot Vector 4");
+
     }
 
     // Helper function for populating the node palette model.
@@ -902,13 +1025,33 @@ namespace ScriptCanvasEditor
         NodePaletteModelNotificationBus::Event(m_paletteId, &NodePaletteModelNotifications::OnAssetModelRepopulated);
     }
 
+    void NodePaletteModel::RegisterSmallOperatorNode(
+        const AZ::Crc32& nodeId,
+        const AZStd::string& nodeTitle,
+        const AZStd::string& nodeToolTip,
+        const ScriptCanvas::Data::Type& nodeDataType,
+        const AZStd::string& paletteTitle,
+        const AZStd::string& paletteToolTip,
+        const AZStd::string& palettePath)
+    {
+        ScriptCanvasEditor::Nodes::SmallOperatorCreationData nodeData;
+        nodeData.m_title = nodeTitle;
+        nodeData.m_toolTip = nodeToolTip;
+        nodeData.m_dataType = nodeDataType;
+        ScriptCanvasEditor::DataDrivenNodeModelInformation* paletteData = aznew ScriptCanvasEditor::DataDrivenNodeModelInformation();
+        paletteData->m_displayName = paletteTitle == "" ? nodeTitle : paletteTitle;
+        paletteData->m_toolTip = paletteToolTip == "" ? nodeToolTip : paletteToolTip;
+        paletteData->m_categoryPath = palettePath;
+        paletteData->m_nodeId = nodeId;
+        paletteData->m_userData = nodeData;
+        RegisterDataDrivenNode(paletteData, nodeId);
+    }
 
     // Register a node given its specific attributes
-    void NodePaletteModel::RegisterNode(NodePaletteModelInformation* nodeInformation, const ScriptCanvas::NodeTypeIdentifier& id)
+    void NodePaletteModel::RegisterDataDrivenNode(NodePaletteModelInformation* nodeInformation, const ScriptCanvas::NodeTypeIdentifier& id)
     {
         m_registeredNodes.emplace(AZStd::make_pair(id, nodeInformation));
     }
-
 
     void NodePaletteModel::RegisterCustomNode(AZStd::string_view categoryPath, const AZ::Uuid& uuid, AZStd::string_view name, const AZ::SerializeContext::ClassData* classData)
     {

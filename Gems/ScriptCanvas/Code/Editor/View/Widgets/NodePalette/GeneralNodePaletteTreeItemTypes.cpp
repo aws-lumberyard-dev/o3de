@@ -332,20 +332,20 @@ namespace ScriptCanvasEditor
         {
             serializeContext->Class<CreateDataDrivenNodeMimeEvent, GraphCanvas::GraphCanvasMimeEvent>()
                 ->Version(0)
-                ->Field("MimeId", &CreateDataDrivenNodeMimeEvent::m_nodeId)
+                ->Field("NodeId", &CreateDataDrivenNodeMimeEvent::m_nodeId)
                 ->Field("NodeData", &CreateDataDrivenNodeMimeEvent::m_userData);
         }
     }
 
-    CreateDataDrivenNodeMimeEvent::CreateDataDrivenNodeMimeEvent(const AZ::Crc32& mimeId, const AZStd::any& nodeData)
-        : m_nodeId(mimeId)
+    CreateDataDrivenNodeMimeEvent::CreateDataDrivenNodeMimeEvent(const AZ::Crc32& nodeId, const AZStd::any& nodeData)
+        : m_nodeId(nodeId)
         , m_userData(nodeData)
     {
     }
 
     ScriptCanvasEditor::NodeIdPair CreateDataDrivenNodeMimeEvent::CreateNode(const ScriptCanvas::ScriptCanvasId& scriptCanvasId) const
     {
-        return Nodes::CreateDataDrivenNode(m_userData, scriptCanvasId);
+        return Nodes::CreateDataDrivenNode(m_userData, m_nodeId, scriptCanvasId);
     }
 
     //////////////////////////////

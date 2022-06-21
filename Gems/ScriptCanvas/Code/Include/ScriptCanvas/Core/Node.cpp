@@ -2990,9 +2990,21 @@ namespace ScriptCanvas
         return m_name;
     }
 
-    void Node::SetNodeName(AZStd::string name)
+    AZStd::string Node::GetNodeToolTip() const
+    {
+        return m_toolTip;
+    }
+
+    Node* Node::SetNodeName(AZStd::string name)
     {
         m_name = name;
+        return this;
+    }
+
+    Node* Node::SetNodeToolTip(AZStd::string toolTip)
+    {
+        m_toolTip = toolTip;
+        return this;
     }
 
     bool Node::IsEntryPoint() const
