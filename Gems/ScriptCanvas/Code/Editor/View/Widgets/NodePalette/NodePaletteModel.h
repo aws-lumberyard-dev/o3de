@@ -61,6 +61,17 @@ namespace ScriptCanvasEditor
         AZStd::string m_tooltip;
     };
 
+    struct RegisterSmallOperatorNodeInformation
+    {
+        AZ::Crc32 m_lexiconId;
+        AZStd::string m_nodeTitle;
+        AZStd::string m_nodeToolTip;
+        ScriptCanvas::Data::Type m_nodeDataType;
+        AZStd::string m_paletteTitle = m_nodeTitle;
+        AZStd::string m_paletteToolTip = m_nodeToolTip;
+        AZStd::string m_palettePath = "Math/Small Operators";
+    };
+
     class NodePaletteModel
         : public GraphCanvas::CategorizerInterface
         , UpgradeNotificationsBus::Handler
@@ -79,14 +90,7 @@ namespace ScriptCanvasEditor
 
         void RepopulateModel();
 
-        void RegisterSmallOperatorNode(
-            const AZ::Crc32& nodeDefaultsId,
-            const AZStd::string& nodeTitle,
-            const AZStd::string& nodeToolTip,
-            const ScriptCanvas::Data::Type& nodeDataType,
-            const AZStd::string& paletteTitle = "",
-            const AZStd::string& paletteToolTip = "",
-            const AZStd::string& palettePath = "Math/Small Operators");
+        void RegisterSmallOperatorNode(const RegisterSmallOperatorNodeInformation& info);
         void RegisterDataDrivenNode(NodePaletteModelInformation* nodeInformation, const ScriptCanvas::NodeTypeIdentifier& id);
 
         void RegisterCustomNode(AZStd::string_view categoryPath, const AZ::Uuid& uuid, AZStd::string_view name, const AZ::SerializeContext::ClassData* classData);
