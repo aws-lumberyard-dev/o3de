@@ -5,6 +5,7 @@
         Namespace="StartingPointInput"
         QualifiedName="StartingPointInput::InputHandlerNodeable"
         PreferredClassName="Input Handler"
+        Category="Input"
         GraphEntryPoint="True"
         Description="Handle processed input events found in input binding assets">
 

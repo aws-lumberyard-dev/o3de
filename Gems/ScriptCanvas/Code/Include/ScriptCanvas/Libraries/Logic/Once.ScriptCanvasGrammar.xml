@@ -5,6 +5,7 @@
         QualifiedName="ScriptCanvas::Nodes::Logic::Once"
         PreferredClassName="Once"
         Uuid="{0E37D3CA-2862-4667-BFDB-7393DD48241B}"
+        Category="Logic"
         Description="An execution flow gate that will only activate once. The gate will reopen if it receives a Reset pulse.">
         <In Name="In" Description="Input signal"/>
         <In Name="Reset" Description="Reset signal"/>
