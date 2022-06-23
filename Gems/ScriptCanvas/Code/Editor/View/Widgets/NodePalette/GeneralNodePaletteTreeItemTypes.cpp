@@ -332,8 +332,8 @@ namespace ScriptCanvasEditor
         {
             serializeContext->Class<CreateDataDrivenNodeMimeEvent, GraphCanvas::GraphCanvasMimeEvent>()
                 ->Version(0)
-                ->Field("nodeLexicalId", &CreateDataDrivenNodeMimeEvent::m_nodeLexicalId)
-                ->Field("NodeData", &CreateDataDrivenNodeMimeEvent::m_userData);
+                ->Field("NodeLexicalId", &CreateDataDrivenNodeMimeEvent::m_nodeLexicalId)
+                ->Field("UserData", &CreateDataDrivenNodeMimeEvent::m_userData);
         }
     }
 
