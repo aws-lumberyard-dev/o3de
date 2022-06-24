@@ -255,7 +255,17 @@ namespace AzToolsFramework
 
         if (entityOverridePatches.size() > 0)
         {
-            borderColor = m_editEntityOverrideColor;
+            QPainterPath backgroundPath;
+            backgroundPath.setFillRule(Qt::WindingFill);
+
+            QRect tempRect = option.rect;
+            tempRect.setTop(tempRect.top() + 1);
+            backgroundPath.addRect(tempRect);
+
+            painter->save();
+            painter->setRenderHint(QPainter::Antialiasing, true);
+            painter->fillPath(backgroundPath.simplified(), m_editEntityOverrideColor);
+            painter->restore();
         }
 
         PaintDescendantBorder(painter, option, index, descendantIndex, borderColor);
@@ -290,7 +300,8 @@ namespace AzToolsFramework
 
         if (entityOverridePatches.size() > 0)
         {
-            PaintDescendantBorder(painter, option, index, descendantIndex, m_editEntityOverrideColor);
+            painter->setBackground(m_editEntityOverrideColor);
+            PaintDescendantBorder(painter, option, index, descendantIndex, m_prefabCapsuleEditColor);
         }
         else
         {
