@@ -272,8 +272,6 @@ namespace AZ
 
             RHI::ShaderInputConstantIndex m_timeInputIndex;
             float m_simulationTime;
-            RHI::ShaderInputConstantIndex m_prevTimeInputIndex;
-            float m_prevSimulationTime;
         };
 
         // --- Template functions ---
