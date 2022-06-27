@@ -18,20 +18,6 @@ OpacityMode_Cutout = 1
 OpacityMode_Blended = 2
 OpacityMode_TintedTransparent = 3
 
-function TryGetShaderByTag(context, shaderTag)
-    if context:HasShaderWithTag(shaderTag) then
-        return context:GetShaderByTag(shaderTag)
-    else
-        return nil
-    end
-end
-
-function TrySetShaderEnabled(shader, enabled)
-    if shader then 
-        shader:SetEnabled(enabled)
-    end
-end
-
 function Process(context)
     
     local opacityMode = OpacityMode_Opaque
@@ -51,13 +37,6 @@ function Process(context)
     local depthPassWithPS = context:GetShaderByTag("DepthPass_WithPS")
     local shadowMapWithPS = context:GetShaderByTag("Shadowmap_WithPS")
     local forwardPass = context:GetShaderByTag("ForwardPass")
-
-    local motionPass = context:GetShaderByTag("MeshMotionVector")
-    motionPass:SetEnabled(true)
-
-    -- Use TryGetShaderByTag because these shaders only exist in StandardPBR but this script is also used for EnhancedPBR
-    local lowEndForwardEDS = TryGetShaderByTag(context, "LowEndForward_EDS")
-    local lowEndForward = TryGetShaderByTag(context, "LowEndForward")
     
     if parallaxEnabled and parallaxPdoEnabled then
         depthPass:SetEnabled(false)
@@ -67,9 +46,6 @@ function Process(context)
         depthPassWithPS:SetEnabled(true)
         shadowMapWithPS:SetEnabled(true)
         forwardPass:SetEnabled(true)
-
-        TrySetShaderEnabled(lowEndForwardEDS, false)
-        TrySetShaderEnabled(lowEndForward, true)
     else
         depthPass:SetEnabled(opacityMode == OpacityMode_Opaque)
         shadowMap:SetEnabled(opacityMode == OpacityMode_Opaque)
@@ -78,17 +54,5 @@ function Process(context)
         depthPassWithPS:SetEnabled(opacityMode == OpacityMode_Cutout)
         shadowMapWithPS:SetEnabled(opacityMode == OpacityMode_Cutout)
         forwardPass:SetEnabled(opacityMode == OpacityMode_Cutout)
-
-        -- Only enable lowEndForwardEDS in Opaque mode, Transparent mode will be handled by forwardPassEDS. The transparent pass uses the "transparent" draw tag
-        -- for both standard and low end pipelines, so this keeps both shaders from rendering to the transparent draw list.
-        TrySetShaderEnabled(lowEndForwardEDS, opacityMode == OpacityMode_Opaque)
-        TrySetShaderEnabled(lowEndForward, opacityMode == OpacityMode_Cutout)
-    end
-    
-    if context:HasShaderWithTag("DepthPassTransparentMin") then
-        context:GetShaderByTag("DepthPassTransparentMin"):SetEnabled((opacityMode == OpacityMode_Blended) or (opacityMode == OpacityMode_TintedTransparent))
-    end
-    if context:HasShaderWithTag("DepthPassTransparentMax") then
-        context:GetShaderByTag("DepthPassTransparentMax"):SetEnabled((opacityMode == OpacityMode_Blended) or (opacityMode == OpacityMode_TintedTransparent))
     end
 end

@@ -65,25 +65,21 @@
       "tag": "Shadowmap_WithPS"
     },
     {
-      "file": "VegetationBending_DepthPass.shader",
+      "file": "./VegetationBending_DepthPass.shader",
       "tag": "DepthPass"
     },
     {
       "file": "./VegetationBending_DepthPass_WithPS.shader",
       "tag": "DepthPass_WithPS"
-    },
-    {
-      "file": "./MeshMotionVectorVegetationBending.shader",
-      "tag": "MeshMotionVector"
     }
   ],
   "functors": [
-    {
-      "type": "Lua",
-      "args": {
+      {
+        "type": "Lua",
+        "args": {
         "file": "Materials/Types/VegetationBending_ShaderEnable.lua"
+        }
       }
-    }
   ],
   "uvNameMap": {
     "UV0": "Tiled",

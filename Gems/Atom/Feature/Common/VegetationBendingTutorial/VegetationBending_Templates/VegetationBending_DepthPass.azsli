@@ -15,7 +15,6 @@ struct VSInput
 {
     float3 m_position : POSITION;
     float3 m_normal : NORMAL;
-    float4 m_optional_color : COLOR0;
 };
  
 struct VSDepthOutput
@@ -29,24 +28,7 @@ VSDepthOutput DepthPassVS(VSInput IN)
  
     float4x4 objectToWorld = ObjectSrg::GetWorldMatrix();
     float4 worldPosition = mul(objectToWorld, float4(IN.m_position, 1.0));
-
-    OUT.m_position = float4(IN.m_position, 1.0);
-
-    // Bending
-    if (o_color_isBound) {
-        float currentTime = SceneSrg::m_time;
-
-        // Overall wind
-        float4 currentBending = setUpWindBending(currentTime, worldPosition);
-
-        // Detail bending
-        float3 currentOutPosition = detailBending(IN.m_position, IN.m_normal, IN.m_optional_color, currentTime, worldPosition, currentBending.w);
-
-        // Main bending
-        OUT.m_position.xyz = mainBending(currentOutPosition, currentBending);
-    }
-
-    worldPosition = mul(objectToWorld, OUT.m_position);
+    
     OUT.m_position = mul(ViewSrg::m_viewProjectionMatrix, worldPosition);
 
     return OUT;

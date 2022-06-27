@@ -51,7 +51,7 @@ ShaderResourceGroup MaterialSrg : SRG_PerMaterial
     Texture2D m_opacityMap;
     uint m_opacityMapUvIndex;
 
-    // Bending parameters
+    // Detail bending parameters
     float m_detailFreq;
     float m_detailLeafAmp;
     float m_detailBranchAmp;
@@ -105,13 +105,13 @@ bool ShouldHandleParallaxInDepthShaders()
     return ShouldHandleParallax() && (o_parallax_enablePixelDepthOffset || o_opacity_mode == OpacityMode::Cutout);
 }
 
-// This can be optimized by performing this function in the CPU for the object as a whole instead of being done in the GPU for each vertex.
 float4 setUpWindBending(float currentTime, float4 worldPosition) {
+
     float2 wind = float2(MaterialSrg::m_windDirX, MaterialSrg::m_windDirY);
     float bendStr = MaterialSrg::m_bendingStrength;
     float2 amp = float2(wind.x * 0.4 + wind.y * 0.2, wind.y * 0.4 - wind.x * 0.2);
     float2 freq = float2(0.8, 0.8 * 1.125);
-    float2 phase = float2(worldPosition.x * 0.08f, worldPosition.y * 0.08f);
+    float2 phase = float2(worldPosition.x * 0.08, worldPosition.y * 0.08);
 
     float2 addBending = float2(sin(currentTime * freq.x + phase.x) * amp.x, sin(currentTime * freq.y + phase.y) * amp.y);
 
@@ -121,33 +121,33 @@ float4 setUpWindBending(float currentTime, float4 worldPosition) {
     result.z = sqrt(wind.x * wind.x + wind.y * wind.y);
     result *= bendStr * 0.08;
     float2 totalBending = addBending + wind;
-    result.w = sqrt(totalBending.x * totalBending.x + totalBending.y * totalBending.y) * 0.3f;
+    result.w = sqrt(totalBending.x * totalBending.x + totalBending.y * totalBending.y) * 0.3;
 
     return result;
 }
 
 float3 detailBending(float3 position, float3 normal, float4 color, float currentTime, float4 worldPosition, float bendLength) {
+    // The information from the vertex colors about how to bend this vertex.
     float edgeInfo = color.x;
     float branchPhase = color.y;
     float branchBendAmount = color.z;
 
     // Phases (object, vertex, branch)
-    float objPhase = (dot(worldPosition.xyz, 2));
+    float objPhase = (dot(worldPosition.xyz, 2.0)); 
     branchPhase += objPhase;
     float vtxPhase = (dot(position, branchPhase)); 
 
-    // Detail bending for leaves/grass
-    // x: is used for edges, y is used for branch
+    // Detail bending for leaves
+    // x: is used for leaves, y is used for branch
     float2 wavesIn = currentTime;
     wavesIn += float2(vtxPhase, branchPhase);
-
     float4 waves = (frac(wavesIn.xxyy * float4(1.975, 0.793, 0.375,  0.193)) * 2.0 - 1.0) * MaterialSrg::m_detailFreq * bendLength;
     waves = abs(frac(waves + 0.5) * 2.0 - 1.0);
 
-    // x: is used for edges, y is used for branches
+    // x: is used for leaves, y is used for branches
     float2 wavesSum = ((waves.xz + waves.yw));
 
-    // Edge and branch bending (xy is used for edges, z for branches)
+    // Leaf and branch bending (xy is used for leaves, z for branches)
     return position + (wavesSum.xxy * float3(edgeInfo * MaterialSrg::m_detailLeafAmp * normal.xy, branchBendAmount * MaterialSrg::m_detailBranchAmp));
 }
 

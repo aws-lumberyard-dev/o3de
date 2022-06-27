@@ -7,8 +7,5 @@
  */
 
 #include <Atom/Features/PBR/DefaultObjectSrg.azsli>
-
-option bool o_color_isBound;
-
 #include <VegetationBending_Common.azsli>
 #include <MeshMotionVectorVegetationBending.azsli>

@@ -13,6 +13,8 @@
 
 #include <Atom/RPI/ShaderResourceGroups/DefaultDrawSrg.azsli>
 
+option bool o_color_isBound;
+
 struct VSInput
 {
     float3 m_position : POSITION;
@@ -43,33 +45,24 @@ VSOutput MainVS(VSInput IN)
     float4x4 prevObjectToWorld = SceneSrg::GetObjectToWorldMatrixPrev(ObjectSrg::m_objectId);
     float4 prevWorldPosition = mul(prevObjectToWorld, float4(IN.m_position, 1.0));
 
-    OUT.m_position = float4(IN.m_position, 1.0);
-    float4 prevPosition = float4(IN.m_position, 1.0);
-
     // Bending
-    //if (o_color_isBound) {
+    if (o_color_isBound) {
         float currentTime = SceneSrg::m_time;
-        float prevTime = SceneSrg::m_prevTime;
 
         // Overall wind
         float4 currentBending = setUpWindBending(currentTime, worldPosition);
-        float4 prevBending = setUpWindBending(prevTime, prevWorldPosition);
 
         // Detail bending
         float3 currentOutPosition = detailBending(IN.m_position, IN.m_normal, IN.m_optional_color, currentTime, worldPosition, currentBending.w);
-        float3 prevOutPosition = detailBending(IN.m_position, IN.m_normal, IN.m_optional_color, prevTime, prevWorldPosition, prevBending.w);
 
         // Main bending
         OUT.m_position.xyz = mainBending(currentOutPosition, currentBending);
-        prevPosition.xyz = mainBending(prevOutPosition, prevBending);
-    //}
 
-    worldPosition = mul(objectToWorld, OUT.m_position);
+        worldPosition = mul(objectToWorld, float4(OUT.m_position.xyz, 1.0));
+    }
+
     OUT.m_worldPos = worldPosition.xyz;
-
-    prevWorldPosition = mul(prevObjectToWorld, prevPosition);
     OUT.m_worldPosPrev = prevWorldPosition.xyz;
-    
     OUT.m_position = mul(ViewSrg::m_viewProjectionMatrix, worldPosition);
 
     return OUT;

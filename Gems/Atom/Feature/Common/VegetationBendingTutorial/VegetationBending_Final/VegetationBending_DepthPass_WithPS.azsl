@@ -16,7 +16,5 @@
 #include "MaterialFunctions/StandardTransformUvs.azsli"
 #include "MaterialFunctions/ParallaxDepth.azsli"
 
-option bool o_color_isBound;
-
 #define ENABLE_ALPHA_CLIP 1
 #include "VegetationBending_DepthPass_WithPS.azsli"
