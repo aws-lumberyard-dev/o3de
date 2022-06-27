@@ -301,11 +301,10 @@ namespace AzToolsFramework
 
             if (proxyIndex.isValid())
             {
-                selectionModel()->clear();
-                selectionModel()->select(proxyIndex, QItemSelectionModel::Select);
+                selectionModel()->select(proxyIndex, QItemSelectionModel::ClearAndSelect);
                 setCurrentIndex(proxyIndex);
 
-                scrollTo(proxyIndex);
+                scrollTo(proxyIndex, QAbstractItemView::ScrollHint::PositionAtCenter);
 
                 RenameEntry();
             }
