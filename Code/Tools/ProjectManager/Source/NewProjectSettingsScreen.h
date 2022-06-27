@@ -24,7 +24,7 @@ namespace O3DE::ProjectManager
     class NewProjectSettingsScreen
         : public ProjectSettingsScreen
     {
-        Q_OBJECT
+        Q_OBJECT 
 
     public:
         explicit NewProjectSettingsScreen(QWidget* parent = nullptr);
