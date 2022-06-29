@@ -206,13 +206,13 @@ namespace AZ
 
                 const uint32_t shadowFilterMethod = m_shadowData.at(nullptr).GetData(m_shadowingLightHandle.GetIndex()).m_shadowFilterMethod;
                 RPI::ShaderSystemInterface::Get()->SetGlobalShaderOption(m_directionalShadowFilteringMethodName, AZ::RPI::ShaderOptionValue{shadowFilterMethod});
-                RPI::ShaderSystemInterface::Get()->SetGlobalShaderOption(m_directionalShadowReceiverPlaneBiasEnableName, AZ::RPI::ShaderOptionValue{ m_shadowProperties.GetData(m_shadowingLightHandle.GetIndex()).m_isReceiverPlaneBiasEnabled });
+                RPI::ShaderSystemInterface::Get()->SetGlobalShaderOption(m_directionalShadowReceiverPlaneBiasEnableName, AZ::RPI::ShaderOptionValue{ GetShadowProperty(m_shadowingLightHandle).m_isReceiverPlaneBiasEnabled });
 
                 const uint32_t cascadeCount = m_shadowData.at(nullptr).GetData(m_shadowingLightHandle.GetIndex()).m_cascadeCount;
 
-                RPI::ShaderSystemInterface::Get()->SetGlobalShaderOption(m_BlendBetweenCascadesEnableName, AZ::RPI::ShaderOptionValue{cascadeCount > 1 && m_shadowProperties.GetData(m_shadowingLightHandle.GetIndex()).m_blendBetwenCascades });
+                RPI::ShaderSystemInterface::Get()->SetGlobalShaderOption(m_BlendBetweenCascadesEnableName, AZ::RPI::ShaderOptionValue{cascadeCount > 1 && GetShadowProperty(m_shadowingLightHandle).m_blendBetwenCascades });
 
-                ShadowProperty& property = m_shadowProperties.GetData(m_shadowingLightHandle.GetIndex());
+                ShadowProperty& property = GetShadowProperty(m_shadowingLightHandle);
                 bool segmentsNeedUpdate = property.m_segments.empty();
                 for (const auto& passIt : m_cascadedShadowmapsPasses)
                 {
@@ -274,7 +274,7 @@ namespace AZ
         {
             if (m_shadowingLightHandle.IsValid())
             {
-                const ShadowProperty& property = m_shadowProperties.GetData(m_shadowingLightHandle.GetIndex());
+                const ShadowProperty& property = GetShadowProperty(m_shadowingLightHandle);
                 for (const auto& segmentIt : property.m_segments)
                 {
                     for (const CascadeSegment& segment : segmentIt.second)
@@ -397,7 +397,7 @@ namespace AZ
                 {
                     it.second.GetData(handle.GetIndex()) = it.second.GetData(sourceLightHandle.GetIndex());
                 }
-                m_shadowProperties.GetData(handle.GetIndex()) = m_shadowProperties.GetData(sourceLightHandle.GetIndex());
+                GetShadowProperty(handle) = GetShadowProperty(sourceLightHandle);
 
                 m_lightBufferNeedsUpdate = true;
                 m_shadowBufferNeedsUpdate = true;
@@ -454,7 +454,7 @@ namespace AZ
 
         void DirectionalLightFeatureProcessor::SetShadowmapFrustumSplitSchemeRatio(LightHandle handle, float ratio)
         {
-            ShadowProperty& property = m_shadowProperties.GetData(handle.GetIndex());
+            ShadowProperty& property = GetShadowProperty(handle);
             property.m_isShadowmapFrustumSplitAutomatic = true;
             property.m_shadowmapFrustumSplitSchemeRatio = ratio;
             property.m_borderDepthsForSegmentsNeedsUpdate = true;
@@ -463,7 +463,7 @@ namespace AZ
 
         void DirectionalLightFeatureProcessor::SetCascadeFarDepth(LightHandle handle, uint16_t cascadeIndex, float farDepth)
         {
-            ShadowProperty& property = m_shadowProperties.GetData(handle.GetIndex());
+            ShadowProperty& property = GetShadowProperty(handle);
             property.m_isShadowmapFrustumSplitAutomatic = false;
             property.m_borderDepthsForSegmentsNeedsUpdate = true;
             property.m_shadowmapViewNeedsUpdate = true;
@@ -480,7 +480,7 @@ namespace AZ
             const Camera::Configuration& baseCameraConfiguration,
             const RPI::RenderPipelineId& renderPipelineId)
         {
-            ShadowProperty& property = m_shadowProperties.GetData(handle.GetIndex());
+            ShadowProperty& property = GetShadowProperty(handle);
             auto update = [&property, &baseCameraConfiguration](const RPI::View* view)
             {
                 CascadeShadowCameraConfiguration& cameraConfig = property.m_cameraConfigurations[view];
@@ -508,7 +508,7 @@ namespace AZ
             const Transform&,
             const RPI::RenderPipelineId&)
         {
-            ShadowProperty& property = m_shadowProperties.GetData(handle.GetIndex());
+            ShadowProperty& property = GetShadowProperty(handle);
             property.m_shadowmapViewNeedsUpdate = true;
         }
 
@@ -526,14 +526,14 @@ namespace AZ
 
         void DirectionalLightFeatureProcessor::SetGroundHeight(LightHandle handle, float groundHeight)
         {
-            ShadowProperty& property = m_shadowProperties.GetData(handle.GetIndex());
+            ShadowProperty& property = GetShadowProperty(handle);
             property.m_groundHeight = groundHeight;
             property.m_shadowmapViewNeedsUpdate = property.m_isViewFrustumCorrectionEnabled;
         }
 
         void DirectionalLightFeatureProcessor::SetViewFrustumCorrectionEnabled(LightHandle handle, bool enabled)
         {
-            ShadowProperty& property = m_shadowProperties.GetData(handle.GetIndex());
+            ShadowProperty& property = GetShadowProperty(handle);
             property.m_isViewFrustumCorrectionEnabled = enabled;
             property.m_shadowmapViewNeedsUpdate = true;
         }
@@ -549,7 +549,7 @@ namespace AZ
 
         void DirectionalLightFeatureProcessor::SetShadowFilterMethod(LightHandle handle, ShadowFilterMethod method)
         {
-            m_shadowProperties.GetData(handle.GetIndex()).m_shadowFilterMethod = method;
+            GetShadowProperty(handle).m_shadowFilterMethod = method;
             for (auto& dataIt : m_shadowData)
             {
                 dataIt.second.GetData(handle.GetIndex()).m_shadowFilterMethod = aznumeric_cast<uint32_t>(method);
@@ -586,12 +586,12 @@ namespace AZ
 
         void DirectionalLightFeatureProcessor::SetShadowReceiverPlaneBiasEnabled(LightHandle handle, bool enable)
         {
-            m_shadowProperties.GetData(handle.GetIndex()).m_isReceiverPlaneBiasEnabled = enable;
+            GetShadowProperty(handle).m_isReceiverPlaneBiasEnabled = enable;
         }
 
         void DirectionalLightFeatureProcessor::SetCascadeBlendingEnabled(LightHandle handle, bool enable)
         {
-            m_shadowProperties.GetData(handle.GetIndex()).m_blendBetwenCascades = enable;
+            GetShadowProperty(handle).m_blendBetwenCascades = enable;
         }
 
         void DirectionalLightFeatureProcessor::SetShadowBias(LightHandle handle, float bias) 
@@ -614,19 +614,19 @@ namespace AZ
 
         void DirectionalLightFeatureProcessor::SetFullscreenBlurEnabled(LightHandle handle, bool enable)
         {
-            ShadowProperty& property = m_shadowProperties.GetData(handle.GetIndex());
+            ShadowProperty& property = GetShadowProperty(handle);
             property.m_fullscreenBlurEnabled = enable;
         }
 
         void DirectionalLightFeatureProcessor::SetFullscreenBlurConstFalloff(LightHandle handle, float blurConstFalloff)
         {
-            ShadowProperty& property = m_shadowProperties.GetData(handle.GetIndex());
+            ShadowProperty& property = GetShadowProperty(handle);
             property.m_fullscreenBlurConstFalloff = blurConstFalloff;
         }
 
         void DirectionalLightFeatureProcessor::SetFullscreenBlurDepthFalloffStrength(LightHandle handle, float blurDepthFalloffStrength)
         {
-            ShadowProperty& property = m_shadowProperties.GetData(handle.GetIndex());
+            ShadowProperty& property = GetShadowProperty(handle);
             property.m_fullscreenBlurDepthFalloffStrength = blurDepthFalloffStrength;
         }
 
@@ -946,17 +946,16 @@ namespace AZ
             {
                 return;
             }
-            const ShadowProperty& property = m_shadowProperties.GetData(m_shadowingLightHandle.GetIndex());
+            const ShadowProperty& property = GetShadowProperty(m_shadowingLightHandle);
 
             for (const auto& passIt : m_cascadedShadowmapsPasses)
             {
                 RPI::RenderPipeline* pipeline = passIt.second.front()->GetRenderPipeline();
                 const RPI::View* cameraView = pipeline->GetDefaultView().get();
 
-                const ShadowProperty& property2 = m_shadowProperties.GetData(m_shadowingLightHandle.GetIndex());
-                if (property2.m_segments.find(cameraView) != property2.m_segments.end())
+                if (property.m_segments.find(cameraView) != property.m_segments.end())
                 {
-                    const size_t cascadeCount = property2.m_segments.at(cameraView).size();
+                    const size_t cascadeCount = property.m_segments.at(cameraView).size();
                     if (cascadeCount > 0)
                     {
                         SetCascadeCount(m_shadowingLightHandle, aznumeric_cast<uint16_t>(cascadeCount));
@@ -989,7 +988,7 @@ namespace AZ
 
         uint16_t DirectionalLightFeatureProcessor::GetCascadeCount(LightHandle handle) const
         {
-            const auto& segments = m_shadowProperties.GetData(handle.GetIndex()).m_segments;
+            const auto& segments = GetShadowProperty(handle).m_segments;
             if (!segments.empty())
             {
                 return aznumeric_cast<uint16_t>(segments.begin()->second.size());
@@ -999,7 +998,7 @@ namespace AZ
 
         const CascadeShadowCameraConfiguration& DirectionalLightFeatureProcessor::GetCameraConfiguration(LightHandle handle, const RPI::View* cameraView) const
         {
-            const ShadowProperty& property = m_shadowProperties.GetData(handle.GetIndex());
+            const ShadowProperty& property = GetShadowProperty(handle);
             const auto findIt = property.m_cameraConfigurations.find(cameraView);
             if (findIt != property.m_cameraConfigurations.end())
             {
@@ -1010,7 +1009,7 @@ namespace AZ
 
         void DirectionalLightFeatureProcessor::UpdateFrustums(LightHandle handle)
         {
-            ShadowProperty& property = m_shadowProperties.GetData(handle.GetIndex());
+            ShadowProperty& property = GetShadowProperty(handle);
             for (const auto& segmentIt : property.m_segments)
             {
                 const CascadeShadowCameraConfiguration& cameraConfig = GetCameraConfiguration(handle, segmentIt.first);
@@ -1092,7 +1091,7 @@ namespace AZ
                 return;
             }
 
-            ShadowProperty& property = m_shadowProperties.GetData(handle.GetIndex());
+            ShadowProperty& property = GetShadowProperty(handle);
             for (const auto& passIt : m_cascadedShadowmapsPasses)
             {
                 CascadedShadowmapsPass* shadowPass = passIt.second.front();
@@ -1140,7 +1139,7 @@ namespace AZ
                 return;
             }
 
-            ShadowProperty& property = m_shadowProperties.GetData(handle.GetIndex());
+            ShadowProperty& property = GetShadowProperty(handle);
             for (const auto& segmentIt : property.m_segments)
             {
                 DirectionalLightShadowData& shadowData = m_shadowData.at(segmentIt.first).GetData(handle.GetIndex());
@@ -1263,7 +1262,7 @@ namespace AZ
 
         void DirectionalLightFeatureProcessor::UpdateBorderDepthsForSegments(LightHandle handle)
         {
-            ShadowProperty& property = m_shadowProperties.GetData(handle.GetIndex());
+            ShadowProperty& property = GetShadowProperty(handle);
             if (property.m_isShadowmapFrustumSplitAutomatic)
             {
                 const float ratio = property.m_shadowmapFrustumSplitSchemeRatio;
@@ -1331,7 +1330,7 @@ namespace AZ
 
         void DirectionalLightFeatureProcessor::UpdateShadowmapViews(LightHandle handle)
         {
-            ShadowProperty& property = m_shadowProperties.GetData(handle.GetIndex());
+            ShadowProperty& property = GetShadowProperty(handle);
 
             const DirectionalLightData light = m_lightData.GetData(handle.GetIndex());
             static const Vector3 position = Vector3::CreateZero();
@@ -1385,7 +1384,7 @@ namespace AZ
             uint16_t cascadeIndex,
             const Matrix3x4& lightTransform)
         {
-            ShadowProperty& property = m_shadowProperties.GetData(handle.GetIndex());
+            ShadowProperty& property = GetShadowProperty(handle);
 
             // The least detailed segment is not corrected.
             const bool shouldBeCorrected =
@@ -1459,7 +1458,7 @@ namespace AZ
             float& outDepthNear,
             float& outDepthFar) const
         {
-            const ShadowProperty& property = m_shadowProperties.GetData(handle.GetIndex());
+            const ShadowProperty& property = GetShadowProperty(handle);
             outDepthNear = (cascadeIndex == 0) ?
                 GetCameraConfiguration(handle, cameraView).GetDepthNear() :
                 property.m_segments.at(cameraView)[cascadeIndex - 1].m_borderFarDepth;
@@ -1536,7 +1535,7 @@ namespace AZ
             //                       the remarkable point
             // We assume the normal vector of the ground is (0, 0, 1) and
             // the camera height is given in m_cameraHeight in this correction.
-            const ShadowProperty& property = m_shadowProperties.GetData(handle.GetIndex());
+            const ShadowProperty& property = GetShadowProperty(handle);
             const Vector3& boundaryCenter = GetWorldCenterPosition(handle, cameraView, depthNear, depthFar);
             const CascadeShadowCameraConfiguration& cameraConfiguration = GetCameraConfiguration(handle, cameraView);
             const Transform cameraTransform = cameraView->GetCameraTransform();
@@ -1615,7 +1614,7 @@ namespace AZ
                 return;
             }
 
-            const ShadowProperty& property = m_shadowProperties.GetData(handle.GetIndex());
+            const ShadowProperty& property = GetShadowProperty(handle);
             for (const auto& it : m_cascadedShadowmapsPasses)
             {
                 const RPI::View* cameraView = it.second.front()->GetRenderPipeline()->GetDefaultView().get();
@@ -1670,7 +1669,7 @@ namespace AZ
                 const auto direction = Vector3::CreateFromFloat3(light.m_direction.data());
                 const auto transformOrigin = Matrix3x4::CreateLookAt(Vector3::CreateZero(), direction);
 
-                const ShadowProperty& property = m_shadowProperties.GetData(handle.GetIndex());
+                const ShadowProperty& property = GetShadowProperty(handle);
                 for (uint16_t cascadeIndex = 0; cascadeIndex < GetCascadeCount(handle); ++cascadeIndex)
                 {
                     const CascadeSegment& segment = property.m_segments.at(cameraView)[cascadeIndex];
@@ -1701,7 +1700,7 @@ namespace AZ
 
         void DirectionalLightFeatureProcessor::SetFullscreenPassSettings()
         {
-            ShadowProperty& shadowProperty = m_shadowProperties.GetData(m_shadowingLightHandle.GetIndex());
+            ShadowProperty& shadowProperty = GetShadowProperty(m_shadowingLightHandle);
 
             if (m_fullscreenShadowPass)
             {

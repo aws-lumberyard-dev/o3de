@@ -251,6 +251,7 @@ namespace AZ
             const Data::Instance<RPI::Buffer> GetLightBuffer() const { return m_lightBufferHandler.GetBuffer(); }
             uint32_t GetLightCount() const { return m_lightBufferHandler.GetElementCount(); }
             ShadowProperty& GetShadowProperty(LightHandle handle) { return m_shadowProperties.GetData(handle.GetIndex()); }
+            const ShadowProperty& GetShadowProperty(LightHandle handle) const { return m_shadowProperties.GetData(handle.GetIndex()); }
 
         private:
             // RPI::SceneNotificationBus::Handler overrides...
