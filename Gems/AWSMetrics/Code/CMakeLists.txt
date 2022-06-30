@@ -36,6 +36,8 @@ ly_add_target(
         PRIVATE
             Source
     BUILD_DEPENDENCIES
+        PUBLIC
+            Gem::AWSCore
         PRIVATE
             AZ::AzCore
             AZ::AzFramework
