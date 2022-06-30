@@ -554,7 +554,7 @@ namespace AzToolsFramework
                 Link& link = findLinkResult->get();
 
                 PrefabDomPath instancePath = link.GetInstancePath();
-                PrefabDom& linkDom = link.GetLinkDom();
+                const PrefabDom& linkDom = link.GetLinkDom();
 
                 // Get the instance value of the Template copy
                 // This currently stores a fully realized nested Template Dom

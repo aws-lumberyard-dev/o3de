@@ -45,6 +45,7 @@ namespace AzToolsFramework
             void SetSourceTemplateId(TemplateId id);
             void SetTargetTemplateId(TemplateId id);
             void SetLinkDom(const PrefabDomValue& linkDom);
+            void AddPatchesToLink(const PrefabDom& patches);
             void SetInstanceName(const char* instanceName);
 
             bool IsValid() const;
@@ -54,7 +55,6 @@ namespace AzToolsFramework
 
             LinkId GetId() const;
 
-            PrefabDom& GetLinkDom();
             const PrefabDom& GetLinkDom() const;
 
             PrefabDomPath GetInstancePath() const;

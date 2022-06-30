@@ -5,8 +5,8 @@
  * SPDX-License-Identifier: Apache-2.0 OR MIT
  *
  */
-
 #pragma optimize("", off)
+#include <AzCore/DOM/Backends/JSON/JsonSerializationUtils.h>
 #include <AzToolsFramework/Prefab/Link/Link.h>
 
 #include <AzToolsFramework/Prefab/PrefabDomUtils.h>
@@ -119,6 +119,18 @@ namespace AzToolsFramework
             m_linkDom.CopyFrom(linkDom, m_linkDom.GetAllocator());
         }
 
+        void Link::AddPatchesToLink(const PrefabDom& patches)
+        {
+            /*
+            If the original allocator the patches were created with gets destroyed, then the patches would become garbage in the
+            linkDom. Since we cannot guarantee the lifecycle of the patch allocators, we are doing a copy of the patches here to
+            associate them with the linkDom's allocator.
+            */
+            PrefabDom patchesCopy;
+            patchesCopy.CopyFrom(patches, m_linkDom.GetAllocator());
+            m_linkDom.AddMember(rapidjson::StringRef(PrefabDomUtils::PatchesName), patchesCopy, m_linkDom.GetAllocator());
+        }
+
         void Link::SetInstanceName(const char* instanceName)
         {
             m_instanceName = instanceName;
@@ -147,13 +159,36 @@ namespace AzToolsFramework
             return m_id;
         }
 
+        /*
         PrefabDom& Link::GetLinkDom()
         {
-            return m_linkDom;
+            return const_cast<PrefabDom&>(const_cast<const Link*>(this)->GetLinkDom());
         }
+        */
 
         const PrefabDom& Link::GetLinkDom() const
         {
+            AZ::Dom::Value output;
+            auto outputWriter = output.GetWriteHandler();
+            auto convertToAzDomResult = AZ::Dom::Json::VisitRapidJsonValue(m_linkDom, *outputWriter, AZ::Dom::Lifetime::Temporary);
+
+            if (!convertToAzDomResult.IsSuccess())
+            {
+                AZ_Assert(false, "Link Dom cannot be converted from rapidjson::Document to AZ::Dom::Value");
+            }
+
+            rapidjson::Document buffer;
+            auto convertToRapidjsonResult = AZ::Dom::Json::WriteToRapidJsonValue(
+                buffer, buffer.GetAllocator(),
+                [output](AZ::Dom::Visitor& visitor)
+                {
+                    const bool copyStrings = false;
+                    return output.Accept(visitor, copyStrings);
+                });
+            if (!convertToRapidjsonResult.IsSuccess())
+            {
+                AZ_Assert(false, "Link Dom cannot be converted from AZ::Dom::Value to rapidjson::Document");
+            }
             return m_linkDom;
         }
 

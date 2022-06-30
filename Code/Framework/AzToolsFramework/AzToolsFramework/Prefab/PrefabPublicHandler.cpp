@@ -5,7 +5,7 @@
  * SPDX-License-Identifier: Apache-2.0 OR MIT
  *
  */
-
+#pragma optimize("", off)
 #include <AzCore/Component/TransformBus.h>
 #include <AzCore/JSON/stringbuffer.h>
 #include <AzCore/JSON/writer.h>
@@ -538,10 +538,10 @@ namespace AzToolsFramework
                 "A valid link was not found for one of the instances provided as input for the CreatePrefab operation.");    
 
             PrefabDom patchesCopyForUndoSupport;
-            PrefabDomReference nestedInstanceLinkDom = nestedInstanceLink->get().GetLinkDom();
+            PrefabDomConstReference nestedInstanceLinkDom = nestedInstanceLink->get().GetLinkDom();
             if (nestedInstanceLinkDom.has_value())
             {
-                PrefabDomValueReference nestedInstanceLinkPatches =
+                PrefabDomValueConstReference nestedInstanceLinkPatches =
                     PrefabDomUtils::FindPrefabDomValue(nestedInstanceLinkDom->get(), PrefabDomUtils::PatchesName);
                 if (nestedInstanceLinkPatches.has_value())
                 {
@@ -2122,3 +2122,4 @@ namespace AzToolsFramework
 
     } // namespace Prefab
 } // namespace AzToolsFramework
+#pragma optimize("", on)
