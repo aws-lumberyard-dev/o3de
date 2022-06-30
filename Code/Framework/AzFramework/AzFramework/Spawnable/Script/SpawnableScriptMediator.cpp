@@ -123,6 +123,10 @@ namespace AzFramework::Scripts
                 transformConfig.m_localTransform = AZ::Transform(translation, rotationQuat, scale);
                 entityTransform->SetConfiguration(transformConfig);
             }
+            else
+            {
+                AZ_Error("Spawnables", false, "Missing transform component");
+            }
         };
 
         auto spawnCompleteCB =
