@@ -146,13 +146,10 @@ namespace AzToolsFramework
                     auto linkRef = m_prefabSystemComponentInterface->FindLink(detachingInstanceLinkId);
                     AZ_Assert(linkRef.has_value(), "Unable to find link with id '%llu' during prefab creation.", detachingInstanceLinkId);
 
-                    PrefabDomValueReference linkPatches = linkRef->get().GetLinkPatches();
-                    AZ_Assert(
-                        linkPatches.has_value(), "Unable to get patches on link with id '%llu' during prefab creation.",
-                        detachingInstanceLinkId);
+                    PrefabDom linkPatches = linkRef->get().GetLinkPatches();
 
                     PrefabDom linkPatchesCopy;
-                    linkPatchesCopy.CopyFrom(linkPatches->get(), linkPatchesCopy.GetAllocator());
+                    linkPatchesCopy.CopyFrom(linkPatches, linkPatchesCopy.GetAllocator());
                     nestedInstanceLinkPatchesMap.emplace(nestedInstance, AZStd::move(linkPatchesCopy));
 
                     RemoveLink(outInstance, commonRootEntityOwningInstance->get().GetTemplateId(), undoBatch.GetUndoBatch());
@@ -538,15 +535,12 @@ namespace AzToolsFramework
                 "A valid link was not found for one of the instances provided as input for the CreatePrefab operation.");    
 
             PrefabDom patchesCopyForUndoSupport;
-            PrefabDomConstReference nestedInstanceLinkDom = nestedInstanceLink->get().GetLinkDom();
-            if (nestedInstanceLinkDom.has_value())
+            PrefabDom nestedInstanceLinkDom = nestedInstanceLink->get().GetLinkDom();
+            PrefabDomValueConstReference nestedInstanceLinkPatches =
+                PrefabDomUtils::FindPrefabDomValue(nestedInstanceLinkDom, PrefabDomUtils::PatchesName);
+            if (nestedInstanceLinkPatches.has_value())
             {
-                PrefabDomValueConstReference nestedInstanceLinkPatches =
-                    PrefabDomUtils::FindPrefabDomValue(nestedInstanceLinkDom->get(), PrefabDomUtils::PatchesName);
-                if (nestedInstanceLinkPatches.has_value())
-                {
-                    patchesCopyForUndoSupport.CopyFrom(nestedInstanceLinkPatches->get(), patchesCopyForUndoSupport.GetAllocator());
-                }
+                patchesCopyForUndoSupport.CopyFrom(nestedInstanceLinkPatches->get(), patchesCopyForUndoSupport.GetAllocator());
             }
 
             PrefabUndoHelpers::RemoveLink(
@@ -889,10 +883,7 @@ namespace AzToolsFramework
                     if (linkRef.has_value())
                     {
                         auto patches = linkRef->get().GetLinkPatches();
-                        if (patches.has_value())
-                        {
-                            oldLinkPatches.CopyFrom(patches->get(), oldLinkPatches.GetAllocator());
-                        }
+                        oldLinkPatches.CopyFrom(patches, oldLinkPatches.GetAllocator());
                     }
 
                     auto nestedInstanceUniquePtr = beforeOwningInstance->get().DetachNestedInstance(nestedInstance->GetInstanceAlias());
@@ -1159,13 +1150,10 @@ namespace AzToolsFramework
                         linkRef.has_value(), "Unable to find link with id '%llu' during instance duplication.",
                         oldLinkId);
 
-                    PrefabDomValueReference linkPatches = linkRef->get().GetLinkPatches();
-                    AZ_Assert(
-                        linkPatches.has_value(), "Link with id '%llu' is missing patches.",
-                        oldLinkId);
+                    PrefabDom linkPatches = linkRef->get().GetLinkPatches();
 
                     PrefabDom linkPatchesCopy;
-                    linkPatchesCopy.CopyFrom(linkPatches->get(), linkPatchesCopy.GetAllocator());
+                    linkPatchesCopy.CopyFrom(linkPatches, linkPatchesCopy.GetAllocator());
 
                     // If the instance was duplicated as part of an ancestor's nested hierarchy, the container's parent patch
                     // will need to be refreshed to point to the new duplicated parent entity

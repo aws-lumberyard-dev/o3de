@@ -8,11 +8,13 @@
 
 #pragma once
 
+#include <AzCore/DOM/DomValue.h>
 #include <AzCore/Memory/SystemAllocator.h>
 #include <AzCore/Serialization/Json/JsonSerialization.h>
 #include <AzToolsFramework/Entity/PrefabEditorEntityOwnershipInterface.h>
 #include <AzToolsFramework/Prefab/PrefabDomTypes.h>
 #include <AzToolsFramework/Prefab/PrefabIdTypes.h>
+
 
 namespace AzToolsFramework
 {
@@ -24,6 +26,7 @@ namespace AzToolsFramework
         class PrefabSystemComponentInterface;
 
         using LinkReference = AZStd::optional<AZStd::reference_wrapper<Link>>;
+        using LinkPatchesContainer = AZStd::vector<AZStd::shared_ptr<AZ::Dom::Value>, AZ::Dom::StdValueAllocator>;
 
         // A link is the primary point of communication between prefab templates.
         class Link
@@ -55,7 +58,7 @@ namespace AzToolsFramework
 
             LinkId GetId() const;
 
-            const PrefabDom& GetLinkDom() const;
+            PrefabDom GetLinkDom() const;
 
             PrefabDomPath GetInstancePath() const;
             const AZStd::string& GetInstanceName() const;
@@ -76,7 +79,7 @@ namespace AzToolsFramework
              */
             void AddLinkIdToInstanceDom(PrefabDomValue& instanceDomValue);
 
-            PrefabDomValueReference GetLinkPatches();
+            PrefabDom GetLinkPatches();
 
         private:
 
@@ -88,6 +91,9 @@ namespace AzToolsFramework
              */
             void AddLinkIdToInstanceDom(PrefabDomValue& instanceDomValue, PrefabDom::AllocatorType& allocator);
 
+            PrefabDom ConstructRapidJsonPatchesArray();
+
+
             // Target template id for propagation during updating templates.
             TemplateId m_targetTemplateId = InvalidTemplateId;
 
@@ -95,7 +101,8 @@ namespace AzToolsFramework
             TemplateId m_sourceTemplateId = InvalidTemplateId;
 
             // JSON patches for overrides in Template.
-            PrefabDom m_linkDom;
+            //PrefabDom m_linkDom;
+            LinkPatchesContainer m_linkDom;
 
             // Name of the nested instance of target Template.
             AZStd::string m_instanceName;

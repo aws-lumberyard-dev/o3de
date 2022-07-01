@@ -7,6 +7,7 @@
  */
 #pragma optimize("", off)
 #include <AzCore/DOM/Backends/JSON/JsonSerializationUtils.h>
+#include <AzCore/std/smart_ptr/make_shared.h>
 #include <AzToolsFramework/Prefab/Link/Link.h>
 
 #include <AzToolsFramework/Prefab/PrefabDomUtils.h>
@@ -27,8 +28,11 @@ namespace AzToolsFramework
             AZ_Assert(m_prefabSystemComponentInterface != nullptr,
                 "Prefab System Component Interface could not be found. "
                 "It is a requirement for the Link class. Check that it is being correctly initialized.");
+            /*
             m_linkDom.CopyFrom(
                 other.m_linkDom, m_linkDom.GetAllocator());
+                */
+            m_linkDom = other.m_linkDom;
         }
         
         Link::Link()
@@ -61,8 +65,11 @@ namespace AzToolsFramework
                     "It is a requirement for the Link class. Check that it is being correctly initialized.");
                 m_prefabEditorEntityOwnershipInterface = AZStd::move(other.m_prefabEditorEntityOwnershipInterface);
                 AZ_Assert(m_prefabSystemComponentInterface != nullptr, "PrefabEditorEntityOwnershipInterface could not be found.");
+                /*
                 m_linkDom.CopyFrom(
                     other.m_linkDom, m_linkDom.GetAllocator());
+                    */
+                m_linkDom = other.m_linkDom;
             }
 
             return *this;
@@ -78,7 +85,9 @@ namespace AzToolsFramework
         {
             other.m_prefabSystemComponentInterface = nullptr;
             other.m_prefabEditorEntityOwnershipInterface = nullptr;
-            m_linkDom.Swap(other.m_linkDom);
+            //m_linkDom.swap(other.m_linkDom);
+            m_linkDom = AZStd::move(other.m_linkDom);
+            other.m_linkDom.clear();
         }
 
 
@@ -98,7 +107,8 @@ namespace AzToolsFramework
                 m_prefabEditorEntityOwnershipInterface = AZStd::move(other.m_prefabEditorEntityOwnershipInterface);
                 AZ_Assert(m_prefabSystemComponentInterface != nullptr, "PrefabEditorEntityOwnershipInterface could not be found.");
                 other.m_prefabEditorEntityOwnershipInterface = nullptr;
-                m_linkDom.Swap(other.m_linkDom);
+                //m_linkDom.Swap(other.m_linkDom);
+                m_linkDom = AZStd::move(other.m_linkDom);
             }
 
             return *this;
@@ -116,7 +126,29 @@ namespace AzToolsFramework
 
         void Link::SetLinkDom(const PrefabDomValue& linkDom)
         {
-            m_linkDom.CopyFrom(linkDom, m_linkDom.GetAllocator());
+            m_linkDom.clear();
+            AZ::Dom::Value output;
+            auto outputWriter = output.GetWriteHandler();
+            auto convertToAzDomResult = AZ::Dom::Json::VisitRapidJsonValue(linkDom, *outputWriter, AZ::Dom::Lifetime::Temporary);
+            AZ::Dom::Object::ConstIterator linkDomIterator = output.FindMember(PrefabDomUtils::PatchesName);
+            if (linkDomIterator != output.MemberEnd())
+            {
+                if (linkDomIterator->second.IsArray())
+                {
+                    for (auto patch : linkDomIterator->second.GetArray())
+                    {
+                        AZStd::shared_ptr<AZ::Dom::Value> patchPointer = AZStd::allocate_shared<AZ::Dom::Value>(AZ::Dom::StdValueAllocator(), patch);
+                        m_linkDom.emplace_back(patchPointer);
+                    }
+                }
+            }
+
+            if (!convertToAzDomResult.IsSuccess())
+            {
+                AZ_Assert(false, "Link Dom cannot be converted from rapidjson::Document to AZ::Dom::Value");
+            }
+
+            //m_linkDom.CopyFrom(linkDom, m_linkDom.GetAllocator());
         }
 
         void Link::AddPatchesToLink(const PrefabDom& patches)
@@ -127,8 +159,12 @@ namespace AzToolsFramework
             associate them with the linkDom's allocator.
             */
             PrefabDom patchesCopy;
+            /*
             patchesCopy.CopyFrom(patches, m_linkDom.GetAllocator());
             m_linkDom.AddMember(rapidjson::StringRef(PrefabDomUtils::PatchesName), patchesCopy, m_linkDom.GetAllocator());
+            */
+
+            SetLinkDom(patches);
         }
 
         void Link::SetInstanceName(const char* instanceName)
@@ -166,16 +202,22 @@ namespace AzToolsFramework
         }
         */
 
-        const PrefabDom& Link::GetLinkDom() const
+        PrefabDom Link::GetLinkDom() const
         {
             AZ::Dom::Value output;
-            auto outputWriter = output.GetWriteHandler();
-            auto convertToAzDomResult = AZ::Dom::Json::VisitRapidJsonValue(m_linkDom, *outputWriter, AZ::Dom::Lifetime::Temporary);
-
-            if (!convertToAzDomResult.IsSuccess())
+            TemplateReference targetTemplate = m_prefabSystemComponentInterface->FindTemplate(m_targetTemplateId);
+            AZStd::string_view templateSourcePath =
+                targetTemplate->get().GetFilePath().c_str();
+            AZStd::string_view templateSourceKey = PrefabDomUtils::SourceName;
+            output.AddMember(templateSourceKey, AZ::Dom::Value(templateSourcePath, true));
+            AZStd::string_view patchesSourceKey = PrefabDomUtils::PatchesName;
+            AZ::Dom::Value patchesArray;
+            patchesArray.SetArray();
+            for (auto patchEntry : m_linkDom)
             {
-                AZ_Assert(false, "Link Dom cannot be converted from rapidjson::Document to AZ::Dom::Value");
+                patchesArray.ArrayPushBack(*(patchEntry.get()));
             }
+            output.AddMember(patchesSourceKey, patchesArray);
 
             rapidjson::Document buffer;
             auto convertToRapidjsonResult = AZ::Dom::Json::WriteToRapidJsonValue(
@@ -189,7 +231,7 @@ namespace AzToolsFramework
             {
                 AZ_Assert(false, "Link Dom cannot be converted from AZ::Dom::Value to rapidjson::Document");
             }
-            return m_linkDom;
+            return AZStd::move(buffer);
         }
 
         PrefabDomPath Link::GetInstancePath() const
@@ -212,7 +254,9 @@ namespace AzToolsFramework
             PrefabDom sourceTemplateDomCopy;
             sourceTemplateDomCopy.CopyFrom(sourceTemplatePrefabDom, sourceTemplatePrefabDom.GetAllocator());
 
-            PrefabDomValueReference patchesReference = PrefabDomUtils::FindPrefabDomValue(m_linkDom, PrefabDomUtils::PatchesName);
+            
+            PrefabDom patchesDom = ConstructRapidJsonPatchesArray();
+            PrefabDomValueReference patchesReference = PrefabDomUtils::FindPrefabDomValue(patchesDom, PrefabDomUtils::PatchesName);
             if (!patchesReference.has_value())
             {
                 if (AZ::JsonSerialization::Compare(linkedInstanceDom, sourceTemplateDomCopy) != AZ::JsonSerializerCompareResult::Equal)
@@ -307,9 +351,37 @@ namespace AzToolsFramework
             }
         }
 
-        PrefabDomValueReference Link::GetLinkPatches()
+        PrefabDom Link::ConstructRapidJsonPatchesArray()
         {
-            return PrefabDomUtils::FindPrefabDomValue(m_linkDom, PrefabDomUtils::PatchesName);
+            AZ::Dom::Value patchesDom;
+            patchesDom.SetObject();
+            AZ::Dom::Value patchesArray;
+            patchesArray.SetArray();
+            for (auto patchEntry : m_linkDom)
+            {
+                patchesArray.ArrayPushBack(*(patchEntry.get()));
+            }
+            AZStd::string_view patchesSourceKey = PrefabDomUtils::PatchesName;
+            patchesDom.AddMember(patchesSourceKey, patchesArray);
+            rapidjson::Document buffer;
+            auto convertToRapidjsonResult = AZ::Dom::Json::WriteToRapidJsonValue(
+                buffer, buffer.GetAllocator(),
+                [patchesDom](AZ::Dom::Visitor& visitor)
+                {
+                    const bool copyStrings = false;
+                    return patchesDom.Accept(visitor, copyStrings);
+                });
+            if (!convertToRapidjsonResult.IsSuccess())
+            {
+                AZ_Assert(false, "Link Dom cannot be converted from AZ::Dom::Value to rapidjson::Document");
+            }
+            return AZStd::move(buffer);
+        }
+
+        PrefabDom Link::GetLinkPatches()
+        {
+            //return PrefabDomUtils::FindPrefabDomValue(m_linkDom, PrefabDomUtils::PatchesName);
+            return AZStd::move(ConstructRapidJsonPatchesArray());
         }
 
     } // namespace Prefab
