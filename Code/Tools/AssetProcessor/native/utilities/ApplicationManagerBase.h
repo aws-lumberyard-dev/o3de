@@ -43,6 +43,7 @@ namespace AssetProcessor
     class PlatformConfiguration;
     class RCController;
     class SettingsRegistryBuilder;
+    class UserPropertyRegistryBuilder;
 }
 
 class ApplicationServer;
@@ -217,6 +218,7 @@ protected:
     // The internal builders
     AZStd::shared_ptr<AssetProcessor::InternalRecognizerBasedBuilder> m_internalBuilder;
     AZStd::shared_ptr<AssetProcessor::SettingsRegistryBuilder> m_settingsRegistryBuilder;
+    AZStd::shared_ptr<AssetProcessor::UserPropertyRegistryBuilder> m_userPropertyRegistryBuilder;
 
     bool m_builderRegistrationComplete = false;
 

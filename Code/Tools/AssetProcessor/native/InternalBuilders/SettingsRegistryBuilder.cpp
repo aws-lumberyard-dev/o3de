@@ -11,11 +11,200 @@
 #include <AzCore/Component/ComponentApplicationBus.h>
 #include <AzCore/Settings/SettingsRegistryImpl.h>
 #include <AzCore/Settings/SettingsRegistryMergeUtils.h>
+#include <AzCore/Settings/SettingsRegistryVisitorUtils.h>
 #include <AzCore/Utils/Utils.h>
 #include <AzFramework/Platform/PlatformDefaults.h>
 #include <AzFramework/StringFunc/StringFunc.h>
 #include <native/InternalBuilders/SettingsRegistryBuilder.h>
 #include <native/utilities/PlatformConfiguration.h>
+
+namespace AssetProcessor
+{
+    //"Property": "o3de_default_material",
+    //    "ValueType" : "string",
+    //    "Description" : "Relative asset path to an azmaterial product asset",
+    //    "NodeType" : "MeshData",
+    //    "Group" : "Default"
+
+    struct UserPropertyBlock
+    {
+        AZ_TYPE_INFO(UserPropertyBlock, "{E771000C-530F-482D-8182-B903FDFCA328}");
+
+        AZStd::string m_property;
+        AZStd::string m_valueType;
+        AZStd::string m_description;
+        AZStd::string m_nodeType;
+        AZStd::string m_group;
+        int m_groupOrder {0};
+    };
+
+    UserPropertyRegistryBuilder::UserPropertyRegistryBuilder()
+        : m_builderId("{7D51FF16-F46D-45A2-A633-53B21876A75E}")
+        , m_assetType("{0A066B16-5563-455B-81A5-CC6B890716B6}")
+    {
+        AssetBuilderSDK::AssetBuilderCommandBus::Handler::BusConnect(m_builderId);
+    }
+
+    UserPropertyRegistryBuilder::~UserPropertyRegistryBuilder()
+    {
+        AssetBuilderSDK::AssetBuilderCommandBus::Handler::BusDisconnect(m_builderId);
+    }
+
+    bool UserPropertyRegistryBuilder::Initialize()
+    {
+        AZ::SerializeContext* serializeContext = nullptr;
+        AZ::ComponentApplicationBus::BroadcastResult(serializeContext, &AZ::ComponentApplicationBus::Events::GetSerializeContext);
+        serializeContext->Class<UserPropertyBlock>()
+            ->Field("Property", &UserPropertyBlock::m_property)
+            ->Field("ValueType", &UserPropertyBlock::m_valueType)
+            ->Field("Description", &UserPropertyBlock::m_description)
+            ->Field("NodeType", &UserPropertyBlock::m_nodeType)
+            ->Field("Group", &UserPropertyBlock::m_group)
+            ->Field("GroupOrder", &UserPropertyBlock::m_groupOrder);
+
+        AssetBuilderSDK::AssetBuilderDesc builderDesc;
+        builderDesc.m_name = "User Defined Property Builder";
+        builderDesc.m_patterns.emplace_back("*/engine.json", AssetBuilderSDK::AssetBuilderPattern::PatternType::Wildcard);
+        builderDesc.m_builderType = AssetBuilderSDK::AssetBuilderDesc::AssetBuilderType::Internal;
+        builderDesc.m_busId = m_builderId;
+        builderDesc.m_createJobFunction = AZStd::bind(&UserPropertyRegistryBuilder::CreateJobs, this, AZStd::placeholders::_1, AZStd::placeholders::_2);
+        builderDesc.m_processJobFunction = AZStd::bind(&UserPropertyRegistryBuilder::ProcessJob, this, AZStd::placeholders::_1, AZStd::placeholders::_2);
+        builderDesc.m_version = 1;
+
+        AssetBuilderSDK::AssetBuilderBus::Broadcast(&AssetBuilderSDK::AssetBuilderBusTraits::RegisterBuilderInformation, builderDesc);
+        return true;
+    }
+
+    void UserPropertyRegistryBuilder::Uninitialize()
+    {
+    }
+
+    void UserPropertyRegistryBuilder::ShutDown()
+    {
+        m_isShuttingDown = true;
+    }
+
+    void UserPropertyRegistryBuilder::CreateJobs(const AssetBuilderSDK::CreateJobsRequest& request, AssetBuilderSDK::CreateJobsResponse& response)
+    {
+        if (m_isShuttingDown)
+        {
+            response.m_result = AssetBuilderSDK::CreateJobsResultCode::ShuttingDown;
+            return;
+        }
+
+        for (const AssetBuilderSDK::PlatformInfo& info : request.m_enabledPlatforms)
+        {
+            AssetBuilderSDK::JobDescriptor job;
+            job.m_jobKey = "User Defined Property Job";
+            job.SetPlatformIdentifier(info.m_identifier.c_str());
+            response.m_createJobOutputs.push_back(AZStd::move(job));
+        }
+
+        auto dependencyList = GatherSourceFileDependencyList();
+        for(const auto& dependency : dependencyList)
+        {
+            response.m_sourceFileDependencyList.emplace_back(
+                AZStd::move(dependency),
+                AZ::Uuid::CreateNull(),
+                AssetBuilderSDK::SourceFileDependency::SourceFileDependencyType::Wildcards);
+        }
+
+        response.m_result = AssetBuilderSDK::CreateJobsResultCode::Success;
+    }
+
+    void UserPropertyRegistryBuilder::ProcessJob(const AssetBuilderSDK::ProcessJobRequest& request, AssetBuilderSDK::ProcessJobResponse& response)
+    {
+        if (m_isShuttingDown)
+        {
+            response.m_resultCode = AssetBuilderSDK::ProcessJobResult_Cancelled;
+            return;
+        }
+        response.m_resultCode = AssetBuilderSDK::ProcessJobResult_Failed;
+
+        auto settingsRegistry = AZ::Interface<AZ::SettingsRegistryInterface>::Get();
+        if (settingsRegistry == nullptr)
+        {
+            return;
+        }
+
+        AZStd::vector<UserPropertyBlock> arrayOfUserProps;
+        auto visitorCallback =
+            [settingsRegistry, &arrayOfUserProps](AZStd::string_view path, AZStd::string_view, AZ::SettingsRegistryInterface::Type type)
+        {
+            if (type == AZ::SettingsRegistryInterface::Type::Object)
+            {
+                UserPropertyBlock block;
+                settingsRegistry->GetObject<UserPropertyBlock>(block, path);
+                arrayOfUserProps.emplace_back(AZStd::move(block));
+            }
+        };
+
+        AZ::SettingsRegistryVisitorUtils::VisitArray(*settingsRegistry, visitorCallback, "/O3DE/SceneAPI/UserProperties");
+
+        // TODO
+        // Write out the UserPropertyBlock list data out to a JSON file
+
+        // TODO
+        //const AZ::u32 hashedSpecialization = static_cast<AZ::u32>(AZStd::hash<AZStd::string_view>{}(specializationString));
+        //AZ_Assert(hashedSpecialization != 0, "Product ID generation failed for specialization %.*s."
+        //    " This can result in a product ID collision with other builders for this asset.",
+        //    AZ_STRING_ARG(specializationString));
+        //response.m_outputProducts.emplace_back(outputPath, m_assetType, hashedSpecialization);
+        //response.m_outputProducts.back().m_dependenciesHandled = true;
+
+        if (request.m_sourceFile.c_str())
+        {
+            response.m_resultCode = AssetBuilderSDK::ProcessJobResult_Success;
+        }
+    }
+
+    AZStd::vector<AZStd::string> UserPropertyRegistryBuilder::GatherSourceFileDependencyList() const
+    {
+        AZStd::vector<AZStd::string> dependencyList;
+
+        AZ::IO::Path settingsRegistryWildcard = AZStd::string_view(AZ::Utils::GetEnginePath());
+        settingsRegistryWildcard /= AZ::SettingsRegistryInterface::RegistryFolder;
+        settingsRegistryWildcard /= "*.setreg";
+        dependencyList.emplace_back(AZStd::move(settingsRegistryWildcard.Native()));
+
+        auto projectPath = AZ::IO::Path(AZStd::string_view(AZ::Utils::GetProjectPath()));
+        dependencyList.emplace_back(
+            AZStd::move(projectPath / AZ::SettingsRegistryInterface::RegistryFolder / "*.setreg").Native());
+
+        dependencyList.emplace_back(
+            AZStd::move(projectPath / AZ::SettingsRegistryInterface::DevUserRegistryFolder / "*.setreg").Native());
+
+        if (auto settingsRegistry = AZ::Interface<AZ::SettingsRegistryInterface>::Get(); settingsRegistry != nullptr)
+        {
+            AZStd::vector<AzFramework::GemInfo> gemInfos;
+            if (AzFramework::GetGemsInfo(gemInfos, *settingsRegistry))
+            {
+                // Gather unique list of Settings Registry wildcard directories
+                AZStd::vector<AZ::IO::Path> gemSettingsRegistryWildcards;
+                for (const AzFramework::GemInfo& gemInfo : gemInfos)
+                {
+                    for (const AZ::IO::Path& absoluteSourcePath : gemInfo.m_absoluteSourcePaths)
+                    {
+                        auto gemSettingsRegistryWildcard = absoluteSourcePath / AZ::SettingsRegistryInterface::RegistryFolder / "*.setreg";
+                        if (auto foundIt = AZStd::find(gemSettingsRegistryWildcards.begin(), gemSettingsRegistryWildcards.end(), gemSettingsRegistryWildcard);
+                            foundIt == gemSettingsRegistryWildcards.end())
+                        {
+                            gemSettingsRegistryWildcards.emplace_back(gemSettingsRegistryWildcard);
+                        }
+                    }
+                }
+
+                // Add to the Source File Dependency list
+                for (AZ::IO::Path& gemSettingsRegistryWildcard : gemSettingsRegistryWildcards)
+                {
+                    dependencyList.emplace_back(AZStd::move(gemSettingsRegistryWildcard.Native()));
+                }
+            }
+        }
+
+        return AZStd::move(dependencyList);
+    }
+}
 
 namespace AssetProcessor
 {

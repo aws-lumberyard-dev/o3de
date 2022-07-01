@@ -63,6 +63,11 @@ ApplicationManagerBase::~ApplicationManagerBase()
     AssetBuilderSDK::AssetBuilderBus::Handler::BusDisconnect();
     AssetProcessor::AssetBuilderInfoBus::Handler::BusDisconnect();
 
+    if (m_userPropertyRegistryBuilder)
+    {
+        m_userPropertyRegistryBuilder->Uninitialize();
+    }
+
     if (m_settingsRegistryBuilder)
     {
         m_settingsRegistryBuilder->Uninitialize();
@@ -1572,6 +1577,9 @@ bool ApplicationManagerBase::InitializeInternalBuilders()
 
     m_settingsRegistryBuilder = AZStd::make_shared<AssetProcessor::SettingsRegistryBuilder>();
     result = m_settingsRegistryBuilder->Initialize() && result;
+
+    m_userPropertyRegistryBuilder = AZStd::make_shared<AssetProcessor::UserPropertyRegistryBuilder>();
+    result = m_userPropertyRegistryBuilder->Initialize() && result;
 
     return result;
 }

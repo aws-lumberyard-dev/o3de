@@ -16,6 +16,33 @@
 
 namespace AssetProcessor
 {
+    class UserPropertyRegistryBuilder
+        : public AssetBuilderSDK::AssetBuilderCommandBus::Handler
+    {
+    public:
+        UserPropertyRegistryBuilder();
+        ~UserPropertyRegistryBuilder() override;
+
+        bool Initialize();
+        void Uninitialize();
+
+        void ShutDown() override;
+
+        void CreateJobs(const AssetBuilderSDK::CreateJobsRequest& request, AssetBuilderSDK::CreateJobsResponse& response);
+        void ProcessJob(const AssetBuilderSDK::ProcessJobRequest& request, AssetBuilderSDK::ProcessJobResponse& response);
+
+    protected:
+        AZStd::vector<AZStd::string> GatherSourceFileDependencyList() const;
+
+    private:
+        AZ::Uuid m_builderId;
+        AZ::Data::AssetType m_assetType;
+        bool m_isShuttingDown{ false };
+    };
+}
+
+namespace AssetProcessor
+{
     class SettingsRegistryBuilder
         : public AssetBuilderSDK::AssetBuilderCommandBus::Handler
     {
