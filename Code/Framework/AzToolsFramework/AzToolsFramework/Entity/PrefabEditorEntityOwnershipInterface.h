@@ -28,7 +28,7 @@ namespace AzToolsFramework
         //! for longer than just the span of a function without the risk of them going out of scope.
         using RootAliasPath = AliasPath;
 
-        using PrefabOverrides = AZStd::vector<AZStd::pair<AZ::Dom::Path, Prefab::PrefabDomValue*>>;
+        using PrefabOverrides = AZStd::vector<AZStd::pair<AZ::Dom::Path, AZStd::weak_ptr<AZ::Dom::Value>>>;
     }
 
     enum class GameModeState
@@ -94,9 +94,9 @@ namespace AzToolsFramework
             Prefab::RootAliasPath rootAliasPath, const AZStd::function<bool(const Prefab::InstanceOptionalReference)>& callback) const = 0;
 
         virtual void RegisterGameModeEventHandler(AZ::Event<GameModeState>::Handler& handler) = 0;
-        virtual void RegisterOverridePrefix(AZ::Dom::Path path, Prefab::PrefabDomValue* value) = 0;
+        virtual void RegisterOverridePrefix(AZ::Dom::Path path, AZStd::weak_ptr<AZ::Dom::Value> value) = 0;
 
         virtual void PrintOverrides() = 0;
-        virtual Prefab::PrefabOverrides GetOverridesAtPath(AZ::Dom::Path path) = 0;
+        virtual bool IsOverridePresent(AZ::Dom::Path path) = 0;
     };
 }

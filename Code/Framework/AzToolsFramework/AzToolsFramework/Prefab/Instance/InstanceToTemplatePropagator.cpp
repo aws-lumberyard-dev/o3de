@@ -146,8 +146,7 @@ namespace AzToolsFramework
             AZ::IO::Path absoluteInstancePath = owningInstance->get().GetAbsoluteInstanceAliasPath();
 
             auto pathIterator = AZStd::next(absoluteInstancePath.begin());
-            AZ::Dom::Path domPathFormat((*pathIterator).c_str());
-            pathIterator++;
+            AZ::Dom::Path domPathFormat;
             while (pathIterator != absoluteInstancePath.end())
             {
                 domPathFormat.Push("Instances");

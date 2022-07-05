@@ -137,7 +137,21 @@ namespace AzToolsFramework
                 {
                     for (auto patch : linkDomIterator->second.GetArray())
                     {
-                        AZStd::shared_ptr<AZ::Dom::Value> patchPointer = AZStd::allocate_shared<AZ::Dom::Value>(AZ::Dom::StdValueAllocator(), patch);
+                        AZStd::shared_ptr<AZ::Dom::Value> patchPointer =
+                            AZStd::allocate_shared<AZ::Dom::Value>(AZ::Dom::StdValueAllocator(), patch);
+                        AZStd::weak_ptr<AZ::Dom::Value> weakPtr = patchPointer;
+                        
+                        auto path = patch.FindMember("path");
+                        auto value = patch.FindMember("value");
+                        if (path != patch.MemberEnd() && value != patch.MemberEnd())
+                        {
+                            AZStd::string_view patchPath = path->second.GetString();
+                            AZStd::string patchRelativePath = "/Instances/" + m_instanceName;
+                            patchRelativePath.append(patchPath);
+                            m_prefabEditorEntityOwnershipInterface->RegisterOverridePrefix(
+                                AZ::Dom::Path(patchRelativePath), weakPtr);
+                        }
+                        
                         m_linkDom.emplace_back(patchPointer);
                     }
                 }
@@ -266,24 +280,6 @@ namespace AzToolsFramework
             }
             else
             {
-                // Using as a quick way to see if path from root is provided or not
-                if (instanceAlias.IsEmpty() == false)
-                {
-                    for (PrefabDomValue& entry : patchesReference->get().GetArray())
-                    {
-                        auto path = entry.FindMember("path");
-                        auto value = entry.FindMember("value");
-                        if (path != entry.MemberEnd() && value != entry.MemberEnd())
-                        {
-                            AZStd::string_view patchPath(path->value.GetString(), path->value.GetStringLength());
-                            m_prefabEditorEntityOwnershipInterface->RegisterOverridePrefix(
-                                instanceAlias / AZ::Dom::Path(patchPath), &entry);
-                        }
-                    }
-                    m_prefabEditorEntityOwnershipInterface->PrintOverrides();
-                }
-                
-
                 AZ::JsonSerializationResult::ResultCode applyPatchResult =
                     PrefabDomUtils::ApplyPatches(sourceTemplateDomCopy, targetTemplatePrefabDom.GetAllocator(), patchesReference->get());
                 linkedInstanceDom.CopyFrom(sourceTemplateDomCopy, targetTemplatePrefabDom.GetAllocator());

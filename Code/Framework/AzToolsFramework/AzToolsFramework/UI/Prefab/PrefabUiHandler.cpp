@@ -251,9 +251,9 @@ namespace AzToolsFramework
 
         AZ::Dom::Path absoluteEntityAliasPath = m_instanceToTemplateInterface->GenerateAbsoluteEntityAliasPath(descendantEntityId);
         
-        Prefab::PrefabOverrides entityOverridePatches = m_prefabEditorEntityOwnershipInterface->GetOverridesAtPath(absoluteEntityAliasPath);
+        bool isEntityOverridden = m_prefabEditorEntityOwnershipInterface->IsOverridePresent(absoluteEntityAliasPath);
 
-        if (entityOverridePatches.size() > 0)
+        if (isEntityOverridden)
         {
             QPainterPath backgroundPath;
             backgroundPath.setFillRule(Qt::WindingFill);
@@ -296,9 +296,9 @@ namespace AzToolsFramework
 
         AZ::Dom::Path absoluteEntityAliasPath = m_instanceToTemplateInterface->GenerateAbsoluteEntityAliasPath(descendantEntityId);
 
-        Prefab::PrefabOverrides entityOverridePatches = m_prefabEditorEntityOwnershipInterface->GetOverridesAtPath(absoluteEntityAliasPath);
+        bool isEntityOverridden = m_prefabEditorEntityOwnershipInterface->IsOverridePresent(absoluteEntityAliasPath);
 
-        if (entityOverridePatches.size() > 0)
+        if (isEntityOverridden)
         {
             painter->setBackground(m_editEntityOverrideColor);
             PaintDescendantBorder(painter, option, index, descendantIndex, m_prefabCapsuleEditColor);

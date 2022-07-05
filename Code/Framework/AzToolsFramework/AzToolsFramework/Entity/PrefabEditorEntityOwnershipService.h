@@ -209,9 +209,9 @@ namespace AzToolsFramework
 
         const AzFramework::InMemorySpawnableAssetContainer::SpawnableAssets& GetPlayInEditorAssetData() const override;
 
-        void RegisterOverridePrefix(AZ::Dom::Path path, Prefab::PrefabDomValue* value) override;
+        void RegisterOverridePrefix(AZ::Dom::Path path, AZStd::weak_ptr<AZ::Dom::Value> value) override;
         void PrintOverrides() override;
-        Prefab::PrefabOverrides GetOverridesAtPath(AZ::Dom::Path path) override;
+        bool IsOverridePresent(AZ::Dom::Path path) override;
         //////////////////////////////////////////////////////////////////////////
 
         void OnEntityRemoved(AZ::EntityId entityId);
@@ -233,6 +233,6 @@ namespace AzToolsFramework
         AZ::SerializeContext m_serializeContext;
         AZ::Event<GameModeState> m_gameModeEvent;
         bool m_isRootPrefabAssigned = false;
-        AZ::Dom::DomPrefixTree<Prefab::PrefabDomValue*> m_overrideTree;
+        AZ::Dom::DomPrefixTree<AZStd::weak_ptr<AZ::Dom::Value>> m_overrideTree;
     };
 }
