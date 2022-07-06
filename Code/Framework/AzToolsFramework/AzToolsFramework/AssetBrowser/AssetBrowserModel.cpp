@@ -447,7 +447,8 @@ namespace AzToolsFramework
             }
 
             int row = entry->row();
-            index = createIndex(row, aznumeric_cast<int>(AssetBrowserEntry::Column::DisplayName), entry);
+            int column = m_filterModel->LeftmostColumn();
+            index = createIndex(row, column, entry);
             return true;
         }
 
