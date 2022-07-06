@@ -11,7 +11,7 @@
 #include <AzFramework/API/ApplicationAPI.h>
 
 #include <AzToolsFramework/ContainerEntity/ContainerEntityInterface.h>
-#include <AzToolsFramework/Entity/PrefabEditorEntityOwnershipInterface.h>
+#include <AzToolsFramework/Prefab/Overrides/PrefabOverrideInterface.h>
 #include <AzToolsFramework/Prefab/Instance/InstanceToTemplateInterface.h>
 #include <AzToolsFramework/Prefab/PrefabFocusPublicInterface.h>
 #include <AzToolsFramework/Prefab/PrefabPublicInterface.h>
@@ -63,10 +63,10 @@ namespace AzToolsFramework
             return;
         }
 
-        m_prefabEditorEntityOwnershipInterface = AZ::Interface<PrefabEditorEntityOwnershipInterface>::Get();
-        if (m_prefabEditorEntityOwnershipInterface == nullptr)
+        m_prefabOverrideInterface = AZ::Interface<Prefab::PrefabOverrideInterface>::Get();
+        if (m_prefabOverrideInterface == nullptr)
         {
-            AZ_Assert(false, "PrefabUiHandler - could not get PrefabEditorEntityOwnershipInterface on PrefabUiHandler construction.");
+            AZ_Assert(false, "PrefabUiHandler - could not get PrefabOverrideInterface on PrefabUiHandler construction.");
             return;
         }
 
@@ -251,7 +251,7 @@ namespace AzToolsFramework
 
         AZ::Dom::Path absoluteEntityAliasPath = m_instanceToTemplateInterface->GenerateAbsoluteEntityAliasPath(descendantEntityId);
         
-        bool isEntityOverridden = m_prefabEditorEntityOwnershipInterface->IsOverridePresent(absoluteEntityAliasPath);
+        bool isEntityOverridden = m_prefabOverrideInterface->IsOverridePresent(absoluteEntityAliasPath);
 
         if (isEntityOverridden)
         {
@@ -296,7 +296,7 @@ namespace AzToolsFramework
 
         AZ::Dom::Path absoluteEntityAliasPath = m_instanceToTemplateInterface->GenerateAbsoluteEntityAliasPath(descendantEntityId);
 
-        bool isEntityOverridden = m_prefabEditorEntityOwnershipInterface->IsOverridePresent(absoluteEntityAliasPath);
+        bool isEntityOverridden = m_prefabOverrideInterface->IsOverridePresent(absoluteEntityAliasPath);
 
         if (isEntityOverridden)
         {

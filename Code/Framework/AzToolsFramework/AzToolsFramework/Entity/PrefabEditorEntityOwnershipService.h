@@ -8,8 +8,6 @@
 
 #pragma once
 
-#include <AzCore/DOM/DomPrefixTree.h>
-
 #include <AzFramework/Entity/PrefabEntityOwnershipService.h>
 #include <AzFramework/Entity/SliceEntityOwnershipServiceBus.h>
 #include <AzFramework/Slice/SliceEntityBus.h>
@@ -17,6 +15,7 @@
 #include <AzToolsFramework/Entity/EntityTypes.h>
 #include <AzToolsFramework/Entity/PrefabEditorEntityOwnershipInterface.h>
 #include <AzToolsFramework/Entity/SliceEditorEntityOwnershipServiceBus.h>
+#include <AzToolsFramework/Prefab/Overrides/PrefabOverrideHandler.h>
 #include <AzToolsFramework/Prefab/Spawnable/PrefabInMemorySpawnableConverter.h>
 
 namespace AzToolsFramework
@@ -209,9 +208,6 @@ namespace AzToolsFramework
 
         const AzFramework::InMemorySpawnableAssetContainer::SpawnableAssets& GetPlayInEditorAssetData() const override;
 
-        void RegisterOverridePrefix(AZ::Dom::Path path, AZStd::weak_ptr<AZ::Dom::Value> value) override;
-        void PrintOverrides() override;
-        bool IsOverridePresent(AZ::Dom::Path path) override;
         //////////////////////////////////////////////////////////////////////////
 
         void OnEntityRemoved(AZ::EntityId entityId);
@@ -225,6 +221,7 @@ namespace AzToolsFramework
 
         AZStd::string m_rootPath;
         AZStd::unique_ptr<Prefab::Instance> m_rootInstance;
+        Prefab::PrefabOverrideHandler m_prefabOverrideHandler;
 
         Prefab::PrefabFocusInterface* m_prefabFocusInterface = nullptr;
         Prefab::PrefabSystemComponentInterface* m_prefabSystemComponent = nullptr;
@@ -233,6 +230,5 @@ namespace AzToolsFramework
         AZ::SerializeContext m_serializeContext;
         AZ::Event<GameModeState> m_gameModeEvent;
         bool m_isRootPrefabAssigned = false;
-        AZ::Dom::DomPrefixTree<AZStd::weak_ptr<AZ::Dom::Value>> m_overrideTree;
     };
 }

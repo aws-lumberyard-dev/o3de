@@ -213,5 +213,25 @@ namespace AzToolsFramework
         {
             m_filePath = path;
         }
+
+        void Template::RegisterOverridePrefix(AZ::Dom::Path path, AZStd::weak_ptr<AZ::Dom::Value> value)
+        {
+            m_overrideTree.SetValue(path, value);
+        }
+
+        bool Template::IsOverridePresent(AZ::Dom::Path path)
+        {
+            Prefab::PrefabOverrides results;
+            auto visitorFn = [&results](const AZ::Dom::Path& path, AZStd::weak_ptr<AZ::Dom::Value> patchValue)
+            {
+                if (patchValue.lock() != nullptr)
+                {
+                    results.emplace_back(path, patchValue);
+                }
+            };
+
+            m_overrideTree.VisitPath(path, AZ::Dom::PrefixTreeMatch::PathAndSubpaths, visitorFn);
+            return (results.size() > 0);
+        }
     } // namespace Prefab
 } // namespace AzToolsFramework

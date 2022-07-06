@@ -11,6 +11,7 @@
 #include <AzCore/Component/Entity.h>
 
 #include <AzToolsFramework/Prefab/Instance/Instance.h>
+#include <AzToolsFramework/Prefab/PrefabFocusInterface.h>
 #include <AzToolsFramework/Prefab/Instance/InstanceEntityIdMapper.h>
 #include <AzToolsFramework/Prefab/Instance/InstanceToTemplatePropagator.h>
 #include <AzToolsFramework/Prefab/PrefabDomUtils.h>
@@ -143,19 +144,15 @@ namespace AzToolsFramework
                 AZ_Error("Prefab", false, "Failed to find an owning instance for entity with id %llu.", static_cast<AZ::u64>(entityId));
                 return AZ::Dom::Path();
             }
-            AZ::IO::Path absoluteInstancePath = owningInstance->get().GetAbsoluteInstanceAliasPath();
 
-            auto pathIterator = AZStd::next(absoluteInstancePath.begin());
-            AZ::Dom::Path domPathFormat;
-            while (pathIterator != absoluteInstancePath.end())
-            {
-                domPathFormat.Push("Instances");
-                domPathFormat.Push((*pathIterator).c_str());
-                pathIterator++;
-            }
+            auto* prefabFocusInterface = AZ::Interface<PrefabFocusInterface>::Get();
+            auto focusedInstance = prefabFocusInterface->GetFocusedPrefabInstance(AZ::Uuid::CreateNull());
+            AZStd::string relativePathFromFocusedInstance;
+            PrefabDomUtils::ClimbUpToTargetInstance(&(owningInstance->get()), &(focusedInstance->get()), relativePathFromFocusedInstance);
+            AZ::Dom::Path domPathFormat1(relativePathFromFocusedInstance);
             AZStd::string entityPath = GenerateEntityAliasPath(entityId);
-            domPathFormat = domPathFormat / AZ::Dom::Path(entityPath);
-            return domPathFormat;
+            domPathFormat1 = domPathFormat1 / AZ::Dom::Path(entityPath);
+            return domPathFormat1;
         }
 
         void InstanceToTemplatePropagator::AppendEntityAliasToPatchPaths(PrefabDom& providedPatch, const AZ::EntityId& entityId)

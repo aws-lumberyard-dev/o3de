@@ -15,13 +15,13 @@
 namespace AzToolsFramework
 {
     class ContainerEntityInterface;
-    class PrefabEditorEntityOwnershipInterface;
 
     namespace Prefab
     {
         class InstanceToTemplateInterface;
         class PrefabFocusPublicInterface;
         class PrefabPublicInterface;
+        class PrefabOverrideInterface;
     };
 
     class PrefabUiHandler
@@ -60,7 +60,7 @@ namespace AzToolsFramework
         Prefab::PrefabFocusPublicInterface* m_prefabFocusPublicInterface = nullptr;
         Prefab::PrefabPublicInterface* m_prefabPublicInterface = nullptr;
         Prefab::InstanceToTemplateInterface* m_instanceToTemplateInterface = nullptr;
-        PrefabEditorEntityOwnershipInterface* m_prefabEditorEntityOwnershipInterface = nullptr;
+        Prefab::PrefabOverrideInterface* m_prefabOverrideInterface = nullptr;
 
         static bool IsLastVisibleChild(const QModelIndex& parent, const QModelIndex& child);
         static QModelIndex GetLastVisibleChild(const QModelIndex& parent);

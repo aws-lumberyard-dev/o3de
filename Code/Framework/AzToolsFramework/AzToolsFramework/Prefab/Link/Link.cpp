@@ -148,8 +148,8 @@ namespace AzToolsFramework
                             AZStd::string_view patchPath = path->second.GetString();
                             AZStd::string patchRelativePath = "/Instances/" + m_instanceName;
                             patchRelativePath.append(patchPath);
-                            m_prefabEditorEntityOwnershipInterface->RegisterOverridePrefix(
-                                AZ::Dom::Path(patchRelativePath), weakPtr);
+                            TemplateReference targetTemplate = m_prefabSystemComponentInterface->FindTemplate(m_targetTemplateId);
+                            targetTemplate->get().RegisterOverridePrefix(AZ::Dom::Path(patchRelativePath), weakPtr);
                         }
                         
                         m_linkDom.emplace_back(patchPointer);
@@ -219,6 +219,7 @@ namespace AzToolsFramework
         PrefabDom Link::GetLinkDom() const
         {
             AZ::Dom::Value output;
+            output.SetObject();
             TemplateReference targetTemplate = m_prefabSystemComponentInterface->FindTemplate(m_targetTemplateId);
             AZStd::string_view templateSourcePath =
                 targetTemplate->get().GetFilePath().c_str();

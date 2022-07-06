@@ -622,49 +622,6 @@ namespace AzToolsFramework
         return false;
     }
 
-    void PrefabEditorEntityOwnershipService::RegisterOverridePrefix(AZ::Dom::Path path, AZStd::weak_ptr<AZ::Dom::Value> value)
-    {
-        m_overrideTree.SetValue(path, value);
-    }
-
-    bool PrefabEditorEntityOwnershipService::IsOverridePresent(AZ::Dom::Path path)
-    {
-        Prefab::PrefabOverrides results;
-        auto visitorFn = [&results](const AZ::Dom::Path& path, AZStd::weak_ptr<AZ::Dom::Value> patchValue)
-        {
-            if (patchValue.lock() != nullptr)
-            {
-                results.emplace_back(path, patchValue);
-            }
-        };
-
-        m_overrideTree.VisitPath(path, AZ::Dom::PrefixTreeMatch::PathAndSubpaths, visitorFn);
-        return (results.size() > 0);
-    }
-
-    void PrefabEditorEntityOwnershipService::PrintOverrides()
-    {
-        /*
-        AZStd::vector<AZStd::pair<AZ::Dom::Path, Prefab::PrefabDomValue*>> results;
-        auto visitorFn = [&results](const AZ::Dom::Path& path, Prefab::PrefabDomValue* patchValue)
-        {
-            results.emplace_back(path, patchValue);
-        };
-
-        m_overrideTree.VisitPath(AZ::Dom::Path(), AZ::Dom::PrefixTreeMatch::PathAndSubpaths, visitorFn);
-
-        for (const auto& pair : results)
-        {
-            // TODO: when the value is null, we should probably clean up the entry from prefix tree as well since it
-            // represents a patch that could have been deleted.
-            if (pair.second->IsNull() == false)
-            {
-                Prefab::PrefabDomUtils::PrintPrefabDomValue(
-                    AZStd::string::format("Patch value matching key '%s' is ", pair.first.ToString().c_str()), *(pair.second));
-            }
-        }*/
-    }
-
     //////////////////////////////////////////////////////////////////////////
     // Slice Buses implementation with Assert(false), this will exist only during Slice->Prefab
     // development to pinpoint and replace specific calls to Slice system
