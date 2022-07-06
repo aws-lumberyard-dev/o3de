@@ -104,9 +104,9 @@ namespace AzToolsFramework
             return m_shownColumns.find(source_column) != m_shownColumns.end();
         }
 
-        int AssetBrowserFilterModel::LeftmostColumn(void)
+        int AssetBrowserFilterModel::LeftmostColumn()
         {
-            int retval{ 0 };
+            int retval{ -1 };
             for (int i = 0 ; i < static_cast<int>(AssetBrowserEntry::Column::Count) ; ++i)
             {
                 if (filterAcceptsColumn(i, QModelIndex()))
