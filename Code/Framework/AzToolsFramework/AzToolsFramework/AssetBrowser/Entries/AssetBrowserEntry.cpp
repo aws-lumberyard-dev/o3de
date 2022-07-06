@@ -284,20 +284,6 @@ namespace AzToolsFramework
             }
         }
 
-        void AssetBrowserEntry::SetFileData(AZ::IO::PathView filename, AZ::IO::PathView extension)
-        {
-            AZStd::string name = filename.Native();
-            name += extension.Native();
-
-            m_name = name;
-            m_displayName = name.c_str();
-            m_fullPath.ReplaceFilename(filename);
-            m_fullPath.ReplaceExtension(extension);
-            m_relativePath.ReplaceFilename(filename);
-            m_relativePath.ReplaceExtension(extension);
-        }
-
-
     } // namespace AssetBrowser
 } // namespace AzToolsFramework
 
