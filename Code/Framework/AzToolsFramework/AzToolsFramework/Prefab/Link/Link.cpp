@@ -172,13 +172,13 @@ namespace AzToolsFramework
             linkDom. Since we cannot guarantee the lifecycle of the patch allocators, we are doing a copy of the patches here to
             associate them with the linkDom's allocator.
             */
+            PrefabDom linkDom;
+            linkDom.SetObject();
             PrefabDom patchesCopy;
-            /*
-            patchesCopy.CopyFrom(patches, m_linkDom.GetAllocator());
-            m_linkDom.AddMember(rapidjson::StringRef(PrefabDomUtils::PatchesName), patchesCopy, m_linkDom.GetAllocator());
-            */
+            patchesCopy.CopyFrom(patches, linkDom.GetAllocator());
+            linkDom.AddMember(rapidjson::StringRef(PrefabDomUtils::PatchesName), AZStd::move(patchesCopy), linkDom.GetAllocator());
 
-            SetLinkDom(patches);
+            SetLinkDom(linkDom);
         }
 
         void Link::SetInstanceName(const char* instanceName)
