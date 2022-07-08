@@ -1,0 +1,25 @@
+These tests are mostly done with files that have a different extension between source and product.
+The source scan is done first, and will catch files in the source path.
+Product path searching is resolved using "endsWith" logic.
+testassets/a.auto_test_asset
+Back slashes
+testassets\b.auto_test_asset
+Double back slashes
+testassets\\c.auto_test_asset
+Casing doesn't match
+TESTassets/D.auto_TEST_asset
+Some files have multiple extensions, this verifies that won't trip up the scanner.
+testassets/e.etc.etc.auto_test_asset
+Path inline testassets/f.auto_test_asset test
+Path after=testassets/g.auto_test_asset equal sign
+
+Multiple paths on one line
+Multiple testassets/h.auto_test_asset paths testassets/i.auto_test_asset on one line
+Path before a UUID for SelfReferenceUUID text file
+Path testassets/j.auto_test_asset before 33BCEE02-F322-5688-ABEE-534F6058593F a UUID
+Path before an asset ID for InvalidAssetIdNoReport . txt
+Path testassets/k.auto_test_asset before an e68A85B0131D5A82B2D5BC58EE4062AE:0 asset ID
+Path after a UUID for SelfReferenceAssetID text file
+Path after 785A05D2-483E-5B43-A2B9-92ACDAE6E938 a testassets/l.auto_test_asset UUID
+Path after an asset ID for MaxIteration31Deep . txt file
+Path after {3F642A0F-DC82-5696-A70A-1DA5709744DF}:[0] an testassets/m.auto_test_asset asset ID

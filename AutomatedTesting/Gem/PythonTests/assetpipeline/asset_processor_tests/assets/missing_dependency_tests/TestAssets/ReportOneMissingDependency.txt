@@ -1,0 +1,5 @@
+This is the UUID for TestAssets / a . auto_test_input
+53DA027D5A085CB08310586B7805A3A0
+This is an invalid UUID
+33bdee92F3225688ABEE534F6058593F
+This is another invalid UUID B076CDDC-14DK-50F4-A5E9-7518ABB3E851

@@ -45,11 +45,19 @@ def local_resources(request, workspace, ap_setup_fixture):
     # Test-level asset folder. Directory contains a subfolder for each test (i.e. C1234567)
     ap_setup_fixture["tests_dir"] = os.path.dirname(os.path.realpath(__file__))
 
+@pytest.fixture
+def do_setup(asset_processor, ap_setup_fixture, missing_dep_helper):
+    asset_processor.prepare_test_environment(ap_setup_fixture["tests_dir"],
+                                             "missing_dependency_tests", existing_function_name='')
+
+    missing_dep_helper.asset_db = os.path.join(asset_processor.temp_asset_root(), "Cache",
+                                               "assetdb.sqlite")
 
 @pytest.mark.parametrize("project", targetProjects)
 @pytest.mark.assetpipeline
 @pytest.mark.usefixtures("asset_processor")
 @pytest.mark.usefixtures("workspace")
+@pytest.mark.usefixtures("local_resources", "do_setup")
 @pytest.mark.SUITE_periodic
 class TestsMissingDependencies_WindowsAndMac(object):
 
@@ -58,15 +66,6 @@ class TestsMissingDependencies_WindowsAndMac(object):
         self._workspace = workspace
         self._asset_processor = asset_processor
         self._missing_dep_helper = missing_dep_helper
-        self._asset_processor.create_temp_asset_root()
-        self._asset_processor.add_source_folder_assets(f"AutomatedTesting\\TestAssets")
-        missing_dep_helper.asset_db = os.path.join(asset_processor.temp_asset_root(), "Cache",
-                                                   "assetdb.sqlite")
-        self._asset_processor.add_source_folder_assets(f"{self._workspace.project}\\Prefabs")
-        self._asset_processor.add_source_folder_assets(f"{self._workspace.project}\\Materials")
-        self._asset_processor.add_source_folder_assets(f"{self._workspace.project}\\textures")
-        self._asset_processor.add_source_folder_assets(f"{self._workspace.project}\\UI")
-        self._asset_processor.add_source_folder_assets(f"{self._workspace.project}\\libs\\particles")
 
     def do_missing_dependency_test(self, source_product, expected_dependencies,
                                    dsp_param,
@@ -85,8 +84,6 @@ class TestsMissingDependencies_WindowsAndMac(object):
         if not isinstance(platforms, list):
             platforms = [platforms]
 
-        self._asset_processor.batch_process(platforms=platforms)
-
         """Run a single test"""
         for asset_platform in platforms:
             db_product_path = db_utils.get_db_product_path(self._workspace, source_product, asset_platform)
@@ -102,6 +99,7 @@ class TestsMissingDependencies_WindowsAndMac(object):
         logger.info(f"Running apbatch dependency search for {platforms} dependency search {dependency_search_params}")
         _, ap_batch_output = self._asset_processor.batch_process(capture_output=True,
                                                               extra_params=dependency_search_params)
+
         self._missing_dep_helper.validate_expected_dependencies(expected_product, expected_dependencies, ap_batch_output,
                                                           platforms)
 
@@ -185,12 +183,12 @@ class TestsMissingDependencies_WindowsAndMac(object):
         # Expected missing dependencies
         expected_dependencies = [
             #            String                                                  Asset                     #
-            # _dev_Red.tif
-            ('2ef92b8D044E5C278E2BB1AC0374A4E7:1000', '{2EF92B8D-044E-5C27-8E2B-B1AC0374A4E7}:3e8'),
-            # _dev_Purple.tif
-            ('A2482826-053D-5634-A27B-084B1326AAE5}:[1002', '{A2482826-053D-5634-A27B-084B1326AAE5}:3ea'),
-            # _dev_White.tif
-            ('D83B36F1-61A6-5001-B191-4D0CE282E236}-1002', '{D83B36F1-61A6-5001-B191-4D0CE282E236}:3ea'),
+            # TestAssets/a.auto_test_input
+            ('53DA027D-5A08-5CB0-8310-586B7805A3A0}:[1234', '{53DA027D-5A08-5CB0-8310-586B7805A3A0}:4d2'),
+            # TestAssets/InvalidAssetIdNoReport.txt
+            ('E68A85B0131D5A82B2D5BC58EE4062AE:0', '{E68A85B0-131D-5A82-B2D5-BC58EE4062AE}:0'),
+            # TestAssets/InvalidRelativePathsNoReport.txt
+            ('B3EF12DD-306C-520E-B0A8-A6B0D031A195}-0', '{B3EF12DD-306C-520E-B0A8-A6B0D031A195}:0'),
         ]
 
         self.do_missing_dependency_test(expected_product, expected_dependencies,
@@ -239,8 +237,7 @@ class TestsMissingDependencies_WindowsAndMac(object):
             #            String                               Asset                     #
             ('TestAssets\\WildcardScanTest1.txt', '{1CB10C43-F324-5B93-A294-C602ADEF95F9}:0'),
             ('TESTASSETS/ReportONEmISSINGdEPENDENCY.tXT', '{BE5E2373-245E-59E4-B4C6-7370EEAA2EFD}:0'),
-            ('textures/_dev_Purple.tif', '{A2482826-053D-5634-A27B-084B1326AAE5}:3e8'),
-            ('textures/_dev_Purple.tif', '{A2482826-053D-5634-A27B-084B1326AAE5}:3ea'),
+            ('TestAssets/a.auto_test_input', '{53DA027D-5A08-5CB0-8310-586B7805A3A0}:4d2'),
             ('TestAssets/InvalidAssetIdNoReport.txt', '{E68A85B0-131D-5A82-B2D5-BC58EE4062AE}:0'),
             ('TestAssets/RelativeProductPathsNotDependencies.txt', '{B772953C-A08A-5D20-9491-530E87D11504}:0'),
         ]
@@ -286,27 +283,27 @@ class TestsMissingDependencies_WindowsAndMac(object):
         expected_product = f"testassets\\relativeproductpathsnotdependencies.txt"
         expected_dependencies = [
             #            String                                 Asset                     #
-            ('textures/_dev_purple.tif.streamingimage', '{A2482826-053D-5634-A27B-084B1326AAE5}:3e8'),
-            ('textures\\_dev_stucco.tif.streamingimage', '{70114D85-D712-5AEB-A816-8FE3A37087AF}:3e8'),
-            ('textures\\\\_dev_tan.tif.streamingimage', '{8F2BCEF5-C8CE-5B80-8103-8C1D694D012C}:3e8'),
-            ('TEXTURES/_DEV_WHITE.tif.streamingimage', '{D83B36F1-61A6-5001-B191-4D0CE282E236}:3e8'),
-            ('textures/_dev_yellow_light.tif.1002.imagemipchain', '{6C40868F-3FC1-5115-96EA-DD0A9E33DEE4}:3ea'),
-            ('textures/_dev_woodland.tif.1002.imagemipchain', '{F3DD193C-5845-569C-A974-AA338B30CF86}:3ea'),
-            ('textures/_dev_woodland.tif.streamingimage', '{F3DD193C-5845-569C-A974-AA338B30CF86}:3e8'),
-            ('textures/_dev_yellow_light.tif.streamingimage', '{6C40868F-3FC1-5115-96EA-DD0A9E33DEE4}:3e8'),
-            ('textures/_dev_yellow_med.tif.1002.imagemipchain', '{BB4DFF57-52BD-525B-9628-68232E31802C}:3ea'),
-            ('textures/lights/flare01.tif.streamingimage', '{D8E49CC4-C743-5F31-A1EC-4AA89163B8F5}:3e8'),
-            # SelfReferenceUUID.txt
+            ('testassets/a.auto_test_asset', '{53DA027D-5A08-5CB0-8310-586B7805A3A0}:4d2'),
+            ('testassets\\b.auto_test_asset', '{9CB13A38-DBC0-5647-B7AE-3834A3C3E184}:4d2'),
+            ('testassets\\\\c.auto_test_asset', '{701EFB7B-FEF5-50B3-BD60-C3F856FFA34A}:4d2'),
+            ('TESTassets/D.auto_TEST_asset', '{0660164D-831E-5C12-AE05-6DBD5DF3B960}:4d2'),
+            ('testassets/e.etc.etc.auto_test_asset', '{E6096386-F5C3-56F6-886C-36A5F58060D3}:4d2'),
+            ('testassets/f.auto_test_asset', '{9660E7AF-EC5C-5882-8A93-7D44FBB9F19C}:4d2'),
+            ('testassets/g.auto_test_asset', '{B894D8E3-8C1D-51B1-BBBB-87E34A8A547F}:4d2'),
+            ('testassets/h.auto_test_asset', '{FE899210-E7C3-5084-B9CE-C2B838ACF643}:4d2'),
+            ('testassets/i.auto_test_asset', '{9ADA4410-458C-5C47-8F40-220E03399C19}:4d2'),
+            ('testassets/j.auto_test_asset', '{C31031E1-3AB8-5DEA-87CF-93EF2A3C3B40}:4d2'),
+            ('testassets/k.auto_test_asset', '{78F89EC1-8213-53B0-943C-671903D15E19}:4d2'),
+            ('testassets/l.auto_test_asset', '{DC92E4C9-9684-5572-AE70-2304CC7B81FF}:4d2'),
+            ('testassets/m.auto_test_asset', '{CACE0B44-52CE-5D85-81A4-D32C1E35554B}:4d2'),
+            # SelfReferenceUUID
             ('33BCEE02-F322-5688-ABEE-534F6058593F', '{33BCEE02-F322-5688-ABEE-534F6058593F}:0'),
-            ('textures/test_texture_sequence/test_texture_sequence000.png.streamingimage', '{6CC90BEE-0A9F-57A8-9013-7C1D643C0E8E}:3e8'),
-            # _dev_red.tif.streamingimage
-            ('2ef92b8D044E5C278E2BB1AC0374A4E7:1002', '{2EF92B8D-044E-5C27-8E2B-B1AC0374A4E7}:3ea'),
-            # SelfReferenceAssetID.txt
+            # MaxIteration31Deep
+            ('3F642A0F-DC82-5696-A70A-1DA5709744DF}:[0', '{3F642A0F-DC82-5696-A70A-1DA5709744DF}:0'),
+            # SelfReferenceAssetID
             ('785A05D2-483E-5B43-A2B9-92ACDAE6E938', '{785A05D2-483E-5B43-A2B9-92ACDAE6E938}:0'),
-            ('textures/test_texture_sequence/test_texture_sequence001.png.streamingimage', '{8A8A37DD-01B9-5D70-92E4-925E2C0FE826}:3e8'),
-            # _dev_purple.tif.1002.imagemipchain
-            ('A2482826-053D-5634-A27B-084B1326AAE5}:[1002', '{A2482826-053D-5634-A27B-084B1326AAE5}:3ea'),
-            ('textures/_dev_purple_glass.tif.1002.imagemipchain', '{2FCDD831-77D1-5BE1-A4C8-CA47E4F89F19}:3ea'),
+            # InvalidAssetIdNoReport
+            ('e68A85B0131D5A82B2D5BC58EE4062AE:0', '{E68A85B0-131D-5A82-B2D5-BC58EE4062AE}:0'),
         ]
 
         self.do_missing_dependency_test(expected_product, expected_dependencies,
@@ -364,7 +361,7 @@ class TestsMissingDependencies_WindowsAndMac(object):
         expected_product = f"testassets\\reportonemissingdependency.txt"
 
         # The only expected missing dependency
-        expected_dependencies = [('6BDE282B49C957F7B0714B26579BCA9A', '{6BDE282B-49C9-57F7-B071-4B26579BCA9A}:0'),]
+        expected_dependencies = [('53DA027D5A085CB08310586B7805A3A0', '{53DA027D-5A08-5CB0-8310-586B7805A3A0}:4d2')]
 
         self.do_missing_dependency_test(expected_product, expected_dependencies,
                                         "%reportonemissingdependency.txt")
@@ -471,7 +468,7 @@ class TestsMissingDependencies_WindowsAndMac(object):
         # Expected missing dependency hiding 31 dependencies deep
         expected_dependencies = [
             #            String                                        Asset                     #
-            ("6BDE282B-49C9-57F7-B071-4B26579BCA9A", "{6BDE282B-49C9-57F7-B071-4B26579BCA9A}:0")
+            ("53DA027D-5A08-5CB0-8310-586B7805A3A0", "{53DA027D-5A08-5CB0-8310-586B7805A3A0}:4d2")
         ]
 
         self.do_missing_dependency_test(expected_product, expected_dependencies,
@@ -481,7 +478,7 @@ class TestsMissingDependencies_WindowsAndMac(object):
     @pytest.mark.assetpipeline
     @pytest.mark.test_case_id("C17226567")
     # fmt:off
-    def test_WindowsAndMac_PotentialMatchesLongerThanUUIDString_OnlyReportsCorrectLengthUUIDs(self):
+    def test_WindowsAndMac_PotentialMatchesLongerThanUUIDString_OnlyReportsCorrectLengthUUIDs(self, asset_processor, ap_setup_fixture):
         # fmt:on
         """
         Tests that dependency references that are longer than expected are ignored
@@ -500,7 +497,7 @@ class TestsMissingDependencies_WindowsAndMac(object):
             ('D92C4661C8985E19BD3597CB2318CFA6', '{D92C4661-C898-5E19-BD35-97CB2318CFA6}:0'),
             ('837412DFD05F576D81AAACF360463749', '{837412DF-D05F-576D-81AA-ACF360463749}:0'),
             ('785A05D2483E5B43A2B992ACDAE6E938', '{785A05D2-483E-5B43-A2B9-92ACDAE6E938}:0'),
-            ('BAB4D64A05BC5E6FB9E3FC9695D1DBB3', '{BAB4D64A-05BC-5E6F-B9E3-FC9695D1DBB3}:0'),
+            ('B3EF12DD306C520EB0A8A6B0D031A195', '{B3EF12DD-306C-520E-B0A8-A6B0D031A195}:0'),
         ]
 
         self.do_missing_dependency_test( expected_product, expected_dependencies,

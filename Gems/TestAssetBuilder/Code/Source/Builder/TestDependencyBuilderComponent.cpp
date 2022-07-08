@@ -20,6 +20,8 @@
 
 namespace TestAssetBuilder
 {
+    static constexpr int AssetSubId = 1234; // SubId of the output asset.  A non-zero value is useful for testing the non-default case
+
     namespace Details
     {
         AzFramework::GenericAssetHandler<TestAsset>* s_testAssetHandler = nullptr;
@@ -64,7 +66,7 @@ namespace TestAssetBuilder
 
         AssetBuilderSDK::AssetBuilderDesc builderDescriptor;
         builderDescriptor.m_name = "Test Dependency Builder";
-        builderDescriptor.m_version = 1;
+        builderDescriptor.m_version = 2;
         builderDescriptor.m_patterns.emplace_back("*.auto_test_input", AssetBuilderSDK::AssetBuilderPattern::PatternType::Wildcard);
         builderDescriptor.m_busId = AZ::Uuid("{13D338AD-745F-442C-B0AA-48EFA6F3F044}");
         builderDescriptor.m_createJobFunction = AZStd::bind(
@@ -177,8 +179,10 @@ namespace TestAssetBuilder
                     return;
                 }
 
-                // It's not technically correct to use the source AssetId as a product asset reference, however we know the output will have
-                // a subId of 0 (the default) so we don't actually need that bit of data, we just need the UUID
+                // It's not technically correct to use the source AssetId as a product asset reference, however since this builder
+                // is responsible for creating the product being referenced, the subId is known, so that bit of data isn't actually needed.
+                // The UUID is sufficient for this use-case
+                assetInfo.m_assetId.m_subId = AssetSubId;
                 auto assetRef = AZ::Data::Asset<TestAsset>(assetInfo.m_assetId, azrtti_typeid<TestAsset>(), path);
                 assetRef.SetAutoLoadBehavior(AZ::Data::PreLoad);
                 outputAsset.m_referencedAssets.push_back(AZStd::move(assetRef));
@@ -191,7 +195,7 @@ namespace TestAssetBuilder
         AZ::JsonSerializationUtils::SaveObjectToFile(&outputAsset, outputPath.StringAsPosix());
 
         AssetBuilderSDK::JobProduct jobProduct;
-        AssetBuilderSDK::OutputObject(&outputAsset, outputPath.FixedMaxPathStringAsPosix(), azrtti_typeid<TestAsset>(), 0, jobProduct);
+        AssetBuilderSDK::OutputObject(&outputAsset, outputPath.FixedMaxPathStringAsPosix(), azrtti_typeid<TestAsset>(), AssetSubId, jobProduct);
 
         response.m_outputProducts.push_back(jobProduct);
         response.m_resultCode = AssetBuilderSDK::ProcessJobResult_Success;

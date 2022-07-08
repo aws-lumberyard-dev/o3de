@@ -1,0 +1,7 @@
+File extensions are separated from file names, so the missing dependency scanner doesn't find when scanning, and only finds the asset IDs in this file.
+
+TestAssets / a . auto_test_input
+{53DA027D-5A08-5CB0-8310-586B7805A3A0}:[1234]
+TestAssets / InvalidAssetIdNoReport . txt, different formatting.
+E68A85B0131D5A82B2D5BC58EE4062AE:0
+TestAssets / InvalidRelativePathsNoReport . txt, {B3EF12DD-306C-520E-B0A8-A6B0D031A195}-0 asset ID inline.
