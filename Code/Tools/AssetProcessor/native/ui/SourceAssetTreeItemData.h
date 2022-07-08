@@ -7,8 +7,9 @@
  */
 #pragma once
 
-#include "AssetTreeItem.h"
+#include <ui/SourceAssetTreeItem.h>
 #include <AzToolsFramework/AssetDatabase/AssetDatabaseConnection.h>
+#include <QTime>
 
 namespace AssetProcessor
 {
@@ -29,13 +30,16 @@ namespace AssetProcessor
             const AzToolsFramework::AssetDatabase::ScanFolderDatabaseEntry* scanFolderInfo,
             const AZStd::string& assetDbName,
             QString name,
-            bool isFolder);
+            bool isFolder,
+            AZ::s64 analysisJobDuration = -1);
 
         ~SourceAssetTreeItemData() override {}
 
         AzToolsFramework::AssetDatabase::SourceDatabaseEntry m_sourceInfo;
         AzToolsFramework::AssetDatabase::ScanFolderDatabaseEntry m_scanFolderInfo;
         bool m_hasDatabaseInfo = false;
+        QTime m_analysisDuration;
     };
+
     AZ::Outcome<QString> GetAbsolutePathToSource(const AssetTreeItem& source);
 } // AssetProcessor

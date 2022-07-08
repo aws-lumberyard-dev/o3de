@@ -61,18 +61,19 @@ namespace AssetProcessor
         void EraseChild(AssetTreeItem* child);
 
         int getChildCount() const;
-        int GetColumnCount() const;
+        virtual int GetColumnCount() const;
         int GetRow() const;
-        QVariant GetDataForColumn(int column) const;
+        virtual QVariant GetDataForColumn(int column) const;
         QIcon GetIcon() const;
         AssetTreeItem* GetParent() const;
         AssetTreeItem* GetChildFolder(QString folder) const;
 
         AZStd::shared_ptr<AssetTreeItemData> GetData() const { return m_data; }
 
+    protected:
+        AZStd::shared_ptr<AssetTreeItemData> m_data;
     private:
         AZStd::vector<AZStd::unique_ptr<AssetTreeItem>> m_childItems;
-        AZStd::shared_ptr<AssetTreeItemData> m_data;
         AssetTreeItem* m_parent = nullptr;
         QIcon m_errorIcon;
         QIcon m_folderIcon;
