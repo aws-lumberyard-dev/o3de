@@ -14,18 +14,7 @@
 namespace AZ
 {
     namespace Render
-    {
-        namespace
-        {
-            const char* const Window = "EditorModeFeedback";
-        }
-
-        void EditorModeFeatureProcessor::Reflect(ReflectContext* context)
-        {
-            if (auto* serializeContext = azrtti_cast<SerializeContext*>(context))
-            {
-                serializeContext->Class<EditorModeFeatureProcessor, RPI::FeatureProcessor>()->Version(0);
-            }
+    {}
         }
 
         void EditorModeFeatureProcessor::Activate()
