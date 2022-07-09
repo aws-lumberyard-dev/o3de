@@ -14,9 +14,7 @@
 #define ENABLE_ALPHA_CLIP 0
 #endif
 
-option bool o_color_isBound;
-
-struct VSInput
+struct VegetationVSInput
 {
     float3 m_position : POSITION;
     float2 m_uv0 : UV0;
@@ -37,25 +35,8 @@ struct VSInput
     float4 m_optional_blendMask : COLOR1;
 #endif
 };
- 
-struct VSDepthOutput
-{
-    // "centroid" is needed for SV_Depth to compile
-    precise linear centroid float4 m_position : SV_Position;
-    float2 m_uv[UvSetCount] : UV1;
 
-    // only used for parallax depth calculation
-    float3 m_normal : NORMAL;
-    float3 m_tangent : TANGENT; 
-    float3 m_bitangent : BITANGENT; 
-    float3 m_worldPosition : UV0;
-
-#if MULTILAYER
-    float3 m_blendMask : UV3;
-#endif
-};
-
-VSDepthOutput MainVS(VSInput IN)
+VSDepthOutput VegetationVS(VSInput IN)
 {
     VSDepthOutput OUT;
  
@@ -85,52 +66,6 @@ VSDepthOutput MainVS(VSInput IN)
     {
         OUT.m_blendMask = float3(0,0,0);
     }
-#endif
-
-    return OUT;
-}
-
-struct PSDepthOutput
-{
-    precise float m_depth : SV_Depth;
-};
-
-PSDepthOutput MainPS(VSDepthOutput IN, bool isFrontFace : SV_IsFrontFace)
-{
-    const float3 vertexNormal = normalize(IN.m_normal);
-
-    PSDepthOutput OUT;
-
-    OUT.m_depth = IN.m_position.z;
-
-    if(ShouldHandleParallaxInDepthShaders())
-    {
-        float3 tangents[UvSetCount] = { IN.m_tangent, IN.m_tangent };
-        float3 bitangents[UvSetCount] = { IN.m_bitangent, IN.m_bitangent };
-
-        for (int i = 0; i != UvSetCount; ++i)
-        {
-            EvaluateTangentFrame(
-                vertexNormal,
-                IN.m_worldPosition, 
-                isFrontFace,
-                IN.m_uv[i],
-                i,
-                IN.m_tangent,
-                IN.m_bitangent,
-                tangents[i],
-                bitangents[i]);
-        }
-
-#if MULTILAYER
-        MultilayerSetPixelDepth(IN.m_blendMask, IN.m_worldPosition, vertexNormal, tangents, bitangents, IN.m_uv, isFrontFace, OUT.m_depth);
-#else
-        SetPixelDepth(IN.m_worldPosition, vertexNormal, tangents, bitangents, IN.m_uv, isFrontFace, OUT.m_depth);
-#endif
-    }
-    
-#if ENABLE_ALPHA_CLIP
-    GetAlphaAndClip(IN.m_uv);
 #endif
 
     return OUT;

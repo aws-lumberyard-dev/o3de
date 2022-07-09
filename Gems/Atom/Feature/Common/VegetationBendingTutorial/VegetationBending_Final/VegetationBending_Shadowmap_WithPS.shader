@@ -20,7 +20,7 @@
       "EntryPoints":
       [
         {
-          "name": "MainVS",
+          "name": "VegetationVS",
           "type": "Vertex"
         },
         {

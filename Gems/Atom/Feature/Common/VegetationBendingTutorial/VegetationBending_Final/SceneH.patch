@@ -1,0 +1,14 @@
+diff --git a/Scene.h b/SceneEdited.h
+index aa9d0795eb..ed973c1761 100644
+--- a/Scene.h
++++ b/SceneEdited.h
+@@ -271,7 +271,9 @@ namespace AZ
+             RHI::Ptr<RHI::DrawFilterTagRegistry> m_drawFilterTagRegistry;
+ 
+             RHI::ShaderInputConstantIndex m_timeInputIndex;
++            RHI::ShaderInputConstantIndex m_prevTimeInputIndex;
+             float m_simulationTime;
++            float m_prevSimulationTime;
+         };
+ 
+         // --- Template functions ---

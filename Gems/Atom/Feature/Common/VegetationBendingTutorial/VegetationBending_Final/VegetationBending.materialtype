@@ -4,46 +4,46 @@
   "propertyLayout": {
     "propertyGroups": [
       {
-        "$import": "MaterialInputs/BaseColorPropertyGroup.json"
-      },
-      {
-        "$import": "MaterialInputs/MetallicPropertyGroup.json"
-      },
-      {
-        "$import": "MaterialInputs/RoughnessPropertyGroup.json"
-      },
-      {
-        "$import": "MaterialInputs/SpecularPropertyGroup.json"
-      },
-      {
-        "$import": "MaterialInputs/NormalPropertyGroup.json"
-      },
-      {
-        "$import": "MaterialInputs/OcclusionPropertyGroup.json"
-      },
-      {
-        "$import": "MaterialInputs/EmissivePropertyGroup.json"
-      },
-      {
-        "$import": "MaterialInputs/ClearCoatPropertyGroup.json"
-      },
-      {
-        "$import": "MaterialInputs/ParallaxPropertyGroup.json"
-      },
-      {
-        "$import": "MaterialInputs/OpacityPropertyGroup.json"
-      },
-      {
-        "$import": "MaterialInputs/UvPropertyGroup.json"
-      },
-      {
-        "$import": "MaterialInputs/IrradiancePropertyGroup.json"
-      },
-      {
-        "$import": "MaterialInputs/GeneralCommonPropertyGroup.json"
-      },
-      {
         "$import": "MaterialInputs/VegetationBendingPropertyGroup.json"
+      },
+      {
+        "$import": "C:/Users/njud/o3de/Gems/Atom/Feature/Common/Assets/Materials/Types/MaterialInputs/BaseColorPropertyGroup.json"
+      },
+      {
+        "$import": "C:/Users/njud/o3de/Gems/Atom/Feature/Common/Assets/Materials/Types/MaterialInputs/MetallicPropertyGroup.json"
+      },
+      {
+        "$import": "C:/Users/njud/o3de/Gems/Atom/Feature/Common/Assets/Materials/Types/MaterialInputs/RoughnessPropertyGroup.json"
+      },
+      {
+        "$import": "C:/Users/njud/o3de/Gems/Atom/Feature/Common/Assets/Materials/Types/MaterialInputs/SpecularPropertyGroup.json"
+      },
+      {
+        "$import": "C:/Users/njud/o3de/Gems/Atom/Feature/Common/Assets/Materials/Types/MaterialInputs/NormalPropertyGroup.json"
+      },
+      {
+        "$import": "C:/Users/njud/o3de/Gems/Atom/Feature/Common/Assets/Materials/Types/MaterialInputs/OcclusionPropertyGroup.json"
+      },
+      {
+        "$import": "C:/Users/njud/o3de/Gems/Atom/Feature/Common/Assets/Materials/Types/MaterialInputs/EmissivePropertyGroup.json"
+      },
+      {
+        "$import": "C:/Users/njud/o3de/Gems/Atom/Feature/Common/Assets/Materials/Types/MaterialInputs/ClearCoatPropertyGroup.json"
+      },
+      {
+        "$import": "C:/Users/njud/o3de/Gems/Atom/Feature/Common/Assets/Materials/Types/MaterialInputs/ParallaxPropertyGroup.json"
+      },
+      {
+        "$import": "C:/Users/njud/o3de/Gems/Atom/Feature/Common/Assets/Materials/Types/MaterialInputs/OpacityPropertyGroup.json"
+      },
+      {
+        "$import": "C:/Users/njud/o3de/Gems/Atom/Feature/Common/Assets/Materials/Types/MaterialInputs/UvPropertyGroup.json"
+      },
+      {
+        "$import": "C:/Users/njud/o3de/Gems/Atom/Feature/Common/Assets/Materials/Types/MaterialInputs/IrradiancePropertyGroup.json"
+      },
+      {
+        "$import": "C:/Users/njud/o3de/Gems/Atom/Feature/Common/Assets/Materials/Types/MaterialInputs/GeneralCommonPropertyGroup.json"
       }
     ]
   },
@@ -71,13 +71,17 @@
     {
       "file": "./VegetationBending_DepthPass_WithPS.shader",
       "tag": "DepthPass_WithPS"
+    },
+    {
+      "file": "./MeshMotionVectorVegetationBending.shader",
+      "tag": "MeshMotionVector"
     }
   ],
   "functors": [
       {
         "type": "Lua",
         "args": {
-        "file": "Materials/Types/VegetationBending_ShaderEnable.lua"
+          "file": "VegetationBending_ShaderEnable.lua"
         }
       }
   ],

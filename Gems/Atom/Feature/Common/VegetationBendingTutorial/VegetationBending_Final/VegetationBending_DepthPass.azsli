@@ -11,8 +11,6 @@
 #include <viewsrg.srgi>
 #include <scenesrg.srgi>
 
-option bool o_color_isBound;
-
 struct VSInput
 {
     float3 m_position : POSITION;
@@ -33,19 +31,8 @@ VSDepthOutput DepthPassVS(VSInput IN)
     float4x4 objectToWorld = ObjectSrg::GetWorldMatrix();
     float4 worldPosition = mul(objectToWorld, float4(IN.m_position, 1.0));
 
-    if (o_color_isBound) {
-        float currentTime = SceneSrg::m_time;
-
-        // Overall wind
-        float4 currentBending = setUpWindBending(currentTime, worldPosition);
-
-        // Detail bending
-        float3 currentOutPosition = detailBending(IN.m_position, IN.m_normal, IN.m_optional_color, currentTime, worldPosition, currentBending.w);
-
-        currentOutPosition = mainBending(currentOutPosition, currentBending);
-
-        worldPosition = mul(objectToWorld, float4(currentOutPosition, 1.0));
-    }
+    float currentTime = SceneSrg::m_time;
+    worldPosition = ProcessBending(currentTime, IN.m_position, IN.m_normal, IN.m_optional_color, worldPosition, objectToWorld);
 
     OUT.m_position = mul(ViewSrg::m_viewProjectionMatrix, worldPosition);
     return OUT;

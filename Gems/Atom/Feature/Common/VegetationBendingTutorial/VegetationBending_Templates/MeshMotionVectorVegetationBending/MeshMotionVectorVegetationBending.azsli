@@ -13,8 +13,6 @@
 
 #include <Atom/RPI/ShaderResourceGroups/DefaultDrawSrg.azsli>
 
-option bool o_color_isBound;
-
 struct VSInput
 {
     float3 m_position : POSITION;
@@ -44,22 +42,9 @@ VSOutput MainVS(VSInput IN)
     
     float4x4 prevObjectToWorld = SceneSrg::GetObjectToWorldMatrixPrev(ObjectSrg::m_objectId);
     float4 prevWorldPosition = mul(prevObjectToWorld, float4(IN.m_position, 1.0));
-
-    // Bending
-    if (o_color_isBound) {
-        float currentTime = SceneSrg::m_time;
-
-        // Overall wind
-        float4 currentBending = setUpWindBending(currentTime, worldPosition);
-
-        // Detail bending
-        float3 currentOutPosition = detailBending(IN.m_position, IN.m_normal, IN.m_optional_color, currentTime, worldPosition, currentBending.w);
-
-        // Main bending
-        OUT.m_position.xyz = mainBending(currentOutPosition, currentBending);
-
-        worldPosition = mul(objectToWorld, float4(OUT.m_position.xyz, 1.0));
-    }
+   
+    float currentTime = SceneSrg::m_time;
+    worldPosition = ProcessBending(currentTime, IN.m_position, IN.m_normal, IN.m_optional_color, worldPosition, objectToWorld);
 
     OUT.m_worldPos = worldPosition.xyz;
     OUT.m_worldPosPrev = prevWorldPosition.xyz;
@@ -78,7 +63,7 @@ PSOutput MainPS(VSOutput IN)
     // Reprojected last frame's clip position, for skinned mesh it also implies last key frame
     float4 clipPosPrev = mul(ViewSrg::m_viewProjectionPrevMatrix, float4(IN.m_worldPosPrev, 1.0));
 
-    float2 motion = (clipPos.xy / clipPos.w - clipPosPrev.xy / clipPosPrev.w) * 10000.0;
+    float2 motion = (clipPos.xy / clipPos.w - clipPosPrev.xy / clipPosPrev.w) * 0.5;
 
     OUT.m_motion = motion;
     

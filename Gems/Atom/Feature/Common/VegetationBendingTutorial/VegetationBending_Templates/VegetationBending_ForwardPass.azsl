@@ -27,14 +27,14 @@ COMMON_OPTIONS_EMISSIVE()
 // Note COMMON_OPTIONS_PARALLAX is in StandardPBR_Common.azsli because it's needed by all StandardPBR shaders.
 
 // Alpha
-#include "MaterialInputs/AlphaInput.azsli"
+#include "Atom/Feature/Common/Assets/Materials/Types/MaterialInputs/AlphaInput.azsli"
+#include "Atom/Feature/Common/Assets/Materials/Types/MaterialFunctions/EvaluateStandardSurface.azsli"
+#include "Atom/Feature/Common/Assets/Materials/Types/MaterialFunctions/EvaluateTangentFrame.azsli"
+#include "Atom/Feature/Common/Assets/Materials/Types/MaterialFunctions/ParallaxDepth.azsli"
+#include "Atom/Feature/Common/Assets/Materials/Types/MaterialFunctions/StandardGetNormalToWorld.azsli"
+#include "Atom/Feature/Common/Assets/Materials/Types/MaterialFunctions/StandardGetObjectToWorld.azsli"
+#include "Atom/Feature/Common/Assets/Materials/Types/MaterialFunctions/StandardGetAlphaAndClip.azsli"
+#include "Atom/Feature/Common/Assets/Materials/Types/MaterialFunctions/StandardTransformUvs.azsli"
 
-#include "MaterialFunctions/EvaluateStandardSurface.azsli"
-#include "MaterialFunctions/EvaluateTangentFrame.azsli"
-#include "MaterialFunctions/ParallaxDepth.azsli"
-#include "MaterialFunctions/StandardGetNormalToWorld.azsli"
-#include "MaterialFunctions/StandardGetObjectToWorld.azsli"
-#include "MaterialFunctions/StandardGetAlphaAndClip.azsli"
-#include "MaterialFunctions/StandardTransformUvs.azsli"
-
+#include "Atom/Feature/Common/Assets/Materials/Types/StandardSurface_ForwardPass.azsli"
 #include "VegetationBending_ForwardPass.azsli"

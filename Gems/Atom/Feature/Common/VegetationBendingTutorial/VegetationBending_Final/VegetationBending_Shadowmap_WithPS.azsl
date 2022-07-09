@@ -13,14 +13,15 @@
 #include "VegetationBending_Common.azsli"
 #include <Atom/Features/PBR/DefaultObjectSrg.azsli>
 
-#include "MaterialInputs/AlphaInput.azsli"
-#include "MaterialInputs/ParallaxInput.azsli"
+#include "Atom/Feature/Common/Assets/Materials/Types/MaterialInputs/AlphaInput.azsli"
+#include "Atom/Feature/Common/Assets/Materials/Types/MaterialInputs/ParallaxInput.azsli"
 
-#include "MaterialFunctions/StandardGetObjectToWorld.azsli"
-#include "MaterialFunctions/StandardGetNormalToWorld.azsli"
-#include "MaterialFunctions/StandardGetAlphaAndClip.azsli"
-#include "MaterialFunctions/StandardTransformUvs.azsli"
-#include "MaterialFunctions/EvaluateTangentFrame.azsli"
-#include "MaterialFunctions/ParallaxDepth.azsli"
+#include "Atom/Feature/Common/Assets/Materials/Types/MaterialFunctions/StandardGetObjectToWorld.azsli"
+#include "Atom/Feature/Common/Assets/Materials/Types/MaterialFunctions/StandardGetNormalToWorld.azsli"
+#include "Atom/Feature/Common/Assets/Materials/Types/MaterialFunctions/StandardGetAlphaAndClip.azsli"
+#include "Atom/Feature/Common/Assets/Materials/Types/MaterialFunctions/StandardTransformUvs.azsli"
+#include "Atom/Feature/Common/Assets/Materials/Types/MaterialFunctions/EvaluateTangentFrame.azsli"
+#include "Atom/Feature/Common/Assets/Materials/Types/MaterialFunctions/ParallaxDepth.azsli"
 
+#include "Atom/Feature/Common/Assets/Materials/Types/DepthPass_WithPS.azsli"
 #include "VegetationBending_DepthPass_WithPS.azsli"

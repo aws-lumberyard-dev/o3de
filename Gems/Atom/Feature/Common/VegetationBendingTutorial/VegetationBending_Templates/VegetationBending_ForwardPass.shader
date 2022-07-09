@@ -39,7 +39,7 @@
           "type": "Vertex"
         },
         {
-          "name": "VegetationBending_ForwardPassPS",
+          "name": "StandardPbr_ForwardPassPS",
           "type": "Fragment"
         }
       ]

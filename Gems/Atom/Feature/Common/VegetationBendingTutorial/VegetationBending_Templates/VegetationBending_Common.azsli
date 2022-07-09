@@ -14,16 +14,16 @@
 #include <Atom/Features/PBR/LightingOptions.azsli>
 #include <Atom/Features/PBR/AlphaUtils.azsli>
 
-#include "MaterialInputs/BaseColorInput.azsli"
-#include "MaterialInputs/RoughnessInput.azsli"
-#include "MaterialInputs/MetallicInput.azsli"
-#include "MaterialInputs/SpecularInput.azsli"
-#include "MaterialInputs/NormalInput.azsli"
-#include "MaterialInputs/ClearCoatInput.azsli"
-#include "MaterialInputs/OcclusionInput.azsli"
-#include "MaterialInputs/EmissiveInput.azsli"
-#include "MaterialInputs/ParallaxInput.azsli"
-#include "MaterialInputs/UvSetCount.azsli"
+#include "Atom/Feature/Common/Assets/Materials/Types/MaterialInputs/BaseColorInput.azsli"
+#include "Atom/Feature/Common/Assets/Materials/Types/MaterialInputs/RoughnessInput.azsli"
+#include "Atom/Feature/Common/Assets/Materials/Types/MaterialInputs/MetallicInput.azsli"
+#include "Atom/Feature/Common/Assets/Materials/Types/MaterialInputs/SpecularInput.azsli"
+#include "Atom/Feature/Common/Assets/Materials/Types/MaterialInputs/NormalInput.azsli"
+#include "Atom/Feature/Common/Assets/Materials/Types/MaterialInputs/ClearCoatInput.azsli"
+#include "Atom/Feature/Common/Assets/Materials/Types/MaterialInputs/OcclusionInput.azsli"
+#include "Atom/Feature/Common/Assets/Materials/Types/MaterialInputs/EmissiveInput.azsli"
+#include "Atom/Feature/Common/Assets/Materials/Types/MaterialInputs/ParallaxInput.azsli"
+#include "Atom/Feature/Common/Assets/Materials/Types/MaterialInputs/UvSetCount.azsli"
 
 ShaderResourceGroup MaterialSrg : SRG_PerMaterial
 {
