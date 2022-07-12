@@ -399,8 +399,6 @@ set(FILES
     Memory/AllocatorScope.h
     Memory/Config.h
     Memory/dlmalloc.inl
-    Memory/HeapSchema.cpp
-    Memory/HeapSchema.h
     Memory/HphaSchema.cpp
     Memory/HphaSchema.h
     Memory/IAllocator.cpp
@@ -680,10 +678,4 @@ set(FILES
     XML/rapidxml_iterators.h
     XML/rapidxml_print.h
     XML/rapidxml_utils.h
-)
-
-# Prevent the following files from being grouped in UNITY builds
-set(SKIP_UNITY_BUILD_INCLUSION_FILES
-    # In some platforms, dlmalloc.inl gives issues when compiled in unity because there is a getpagesize defined differently
-    Memory/HeapSchema.cpp
 )
