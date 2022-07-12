@@ -43,10 +43,15 @@ namespace AzToolsFramework
         bool IsExpanded() const;
 
         // QLayout overrides
+        void invalidate() override;
         QSize sizeHint() const override;
         QSize minimumSize() const override;
         void setGeometry(const QRect& rect) override;
         Qt::Orientations expandingDirections() const override;
+
+    Q_SIGNALS:
+        void LayoutSizeWasCalculated(int width, int height) const;
+        void MinLayoutSizeWasCalculated(int width, int height) const;
 
     protected slots:
         void onCheckstateChanged(int expanderState);
@@ -59,7 +64,16 @@ namespace AzToolsFramework
         bool m_showExpander = false;
         bool m_expanded = true;
         QCheckBox* m_expanderWidget = nullptr;
+
+    private slots:
+        void CacheLayoutSize(int width, int height);
+        void CacheMinLayoutSize(int width, int height);
+
+    private:
+        QSize m_cachedLayoutSize;
+        QSize m_cachedMinLayoutSize;
     };
+
     class DPERowWidget : public QWidget
     {
         Q_OBJECT

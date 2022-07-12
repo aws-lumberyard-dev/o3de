@@ -58,7 +58,10 @@ namespace AzToolsFramework
         : QHBoxLayout(parentWidget)
         , m_depth(depth)
     {
+        connect(this, &DPELayout::LayoutSizeWasCalculated, this, &DPELayout::CacheLayoutSize);
+        connect(this, &DPELayout::MinLayoutSizeWasCalculated, this, &DPELayout::CacheMinLayoutSize);
     }
+
     DPELayout::~DPELayout()
     {
         if (m_expanderWidget)
@@ -104,8 +107,20 @@ namespace AzToolsFramework
         return m_expanded;
     }
 
+    void DPELayout::invalidate()
+    {
+        QHBoxLayout::invalidate();
+        m_cachedLayoutSize = QSize();
+        m_cachedMinLayoutSize = QSize();
+    }
+
     QSize DPELayout::sizeHint() const
     {
+        if (m_cachedLayoutSize.isValid())
+        {
+            return m_cachedLayoutSize;
+        }
+
         int cumulativeWidth = 0;
         int preferredHeight = 0;
 
@@ -117,11 +132,20 @@ namespace AzToolsFramework
             cumulativeWidth += widgetSizeHint.width();
             preferredHeight = AZStd::max(widgetSizeHint.height(), preferredHeight);
         }
+
+        emit LayoutSizeWasCalculated(cumulativeWidth, preferredHeight);
+
         return { cumulativeWidth, preferredHeight };
     }
 
     QSize DPELayout::minimumSize() const
     {
+        if (m_cachedMinLayoutSize.isValid())
+        {
+            return m_cachedMinLayoutSize;
+        }
+
+
         int cumulativeWidth = 0;
         int minimumHeight = 0;
 
@@ -140,6 +164,9 @@ namespace AzToolsFramework
                 minimumHeight = AZStd::max(widgetChild->sizeHint().height(), minimumHeight);
             }
         }
+
+        emit MinLayoutSizeWasCalculated(cumulativeWidth, minimumHeight);
+
         return { cumulativeWidth, minimumHeight };
     }
 
@@ -215,6 +242,16 @@ namespace AzToolsFramework
         m_expanderWidget->setCheckState(m_expanded ? Qt::Checked : Qt::Unchecked);
         AzQtComponents::CheckBox::applyExpanderStyle(m_expanderWidget);
         connect(m_expanderWidget, &QCheckBox::stateChanged, this, &DPELayout::onCheckstateChanged);
+    }
+
+    void DPELayout::CacheLayoutSize(int width, int height)
+    {
+        m_cachedLayoutSize = QSize(width, height);
+    }
+
+    void DPELayout::CacheMinLayoutSize(int width, int height)
+    {
+        m_cachedMinLayoutSize = QSize(width, height);
     }
 
     DPERowWidget::DPERowWidget(int depth, DPERowWidget* parentRow)
