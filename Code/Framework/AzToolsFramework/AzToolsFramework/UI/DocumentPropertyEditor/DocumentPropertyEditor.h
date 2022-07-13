@@ -66,7 +66,7 @@ namespace AzToolsFramework
         friend class DocumentPropertyEditor;
 
     public:
-        explicit DPERowWidget(int depth, DPERowWidget* parentRow);
+        explicit DPERowWidget(int depth, DPERowWidget* parentRow, DocumentPropertyEditor* parentDpe);
         ~DPERowWidget();
 
         void Clear(); //!< destroy all layout contents and clear DOM children
@@ -94,6 +94,8 @@ namespace AzToolsFramework
         DPERowWidget* m_parentRow = nullptr;
         int m_depth = 0; //!< number of levels deep in the tree. Used for indentation
         DPELayout* m_columnLayout = nullptr;
+
+        DocumentPropertyEditor* m_parentDpe = nullptr;
 
         //! widget children in DOM specified order; mix of row and column widgets
         AZStd::deque<QWidget*> m_domOrderedChildren;

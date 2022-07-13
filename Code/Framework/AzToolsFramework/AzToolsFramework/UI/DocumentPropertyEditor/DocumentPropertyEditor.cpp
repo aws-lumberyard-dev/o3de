@@ -217,11 +217,12 @@ namespace AzToolsFramework
         connect(m_expanderWidget, &QCheckBox::stateChanged, this, &DPELayout::onCheckstateChanged);
     }
 
-    DPERowWidget::DPERowWidget(int depth, DPERowWidget* parentRow)
+    DPERowWidget::DPERowWidget(int depth, DPERowWidget* parentRow, DocumentPropertyEditor* parentDpe)
         : QWidget(nullptr) // parent will be set when the row is added to its layout
         , m_parentRow(parentRow)
         , m_depth(depth)
         , m_columnLayout(new DPELayout(depth, this))
+        , m_parentDpe(parentDpe)
     {
         // allow horizontal stretching, but use the vertical size hint exactly
         setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
@@ -276,7 +277,7 @@ namespace AzToolsFramework
             if (IsExpanded())
             {
                 // determine where to put this new row in the main DPE layout
-                auto newRow = new DPERowWidget(m_depth + 1, this);
+                auto newRow = new DPERowWidget(m_depth + 1, this, m_parentDpe);
                 DPERowWidget* priorWidgetInLayout = nullptr;
 
                 // search for an existing row sibling with a lower dom index
@@ -523,15 +524,7 @@ namespace AzToolsFramework
 
     DocumentPropertyEditor* DPERowWidget::GetDPE() const
     {
-        DocumentPropertyEditor* theDPE = nullptr;
-        QWidget* ancestorWidget = parentWidget();
-        while (ancestorWidget && !theDPE)
-        {
-            theDPE = qobject_cast<DocumentPropertyEditor*>(ancestorWidget);
-            ancestorWidget = ancestorWidget->parentWidget();
-        }
-        AZ_Assert(theDPE, "the top level widget in any DPE hierarchy must be the DocumentPropertyEditor itself!");
-        return theDPE;
+        return m_parentDpe;
     }
 
     void DPERowWidget::AddDomChildWidget(int domIndex, QWidget* childWidget)
@@ -862,7 +855,7 @@ namespace AzToolsFramework
 
         if (indexInRange)
         {
-            auto newRow = new DPERowWidget(0, nullptr);
+            auto newRow = new DPERowWidget(0, nullptr, this);
 
             if (rowIndex == 0)
             {
