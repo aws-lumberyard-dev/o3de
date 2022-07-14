@@ -27,6 +27,8 @@ ly_add_target(
            AZ::AzCore
 )
 
+find_package(Onnx REQUIRED)
+
 # The ONNXRuntime.Private.Object target is an internal target
 # It should not be used outside of this Gems CMakeLists.txt
 ly_add_target(
@@ -41,12 +43,26 @@ ly_add_target(
         PRIVATE
             Include
             Source
+            Assets/rsz_twoV2.png
+            ${Onnx_INCLUDE_DIR}
     BUILD_DEPENDENCIES
         PUBLIC
             AZ::AzCore
             AZ::AzFramework
-            # Add onnx library name here
+            "${Onnx_LIBS_DIR}/onnxruntime.lib"
 )
+
+# target_link_libraries(
+#     ONNXRuntime.Private.Object
+#     PRIVATE "${Onnx_LIBS_DIR}/onnxruntime.lib"
+# )
+
+# target_include_directories(
+#     ONNXRuntime.Private.Object
+#     PRIVATE "${Onnx_INCLUDE_DIR}"
+# )
+
+# add_subdirectory(mnist Source/MNIST)
 
 # Here add ONNXRuntime target, it depends on the Private Object library and Public API interface
 ly_add_target(

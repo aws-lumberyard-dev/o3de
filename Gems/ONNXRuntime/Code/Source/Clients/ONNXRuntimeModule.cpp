@@ -2,7 +2,6 @@
 
 #include <ONNXRuntimeModuleInterface.h>
 #include "ONNXRuntimeSystemComponent.h"
-// #include <../../3rdParty/onnxruntime-win-x64-1.11.1/include/onnxruntime_cxx_api.h>
 
 namespace ONNXRuntime
 {

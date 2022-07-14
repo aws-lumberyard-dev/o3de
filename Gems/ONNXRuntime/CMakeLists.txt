@@ -7,4 +7,6 @@ o3de_pal_dir(pal_dir ${CMAKE_CURRENT_LIST_DIR}/Platform/${PAL_PLATFORM_NAME} "${
 
 # ly_add_external_target_path(${CMAKE_CURRENT_LIST_DIR}/3rdParty)
 
+list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/External")
+
 add_subdirectory(Code)

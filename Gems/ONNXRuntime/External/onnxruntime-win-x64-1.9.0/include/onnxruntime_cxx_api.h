@@ -27,15 +27,9 @@
 #include <iostream>
 #endif
 
-/** \brief All C++ Onnxruntime APIs are defined inside this namespace
-* 
-*/
 namespace Ort {
 
-/** \brief All C++ methods that can fail will throw an exception of this type
-* 
-* If <tt>ORT_NO_EXCEPTIONS</tt> is defined, then any error will result in a call to abort()
-*/
+// All C++ methods that can fail will throw an exception of this type
 struct Exception : std::exception {
   Exception(std::string&& string, OrtErrorCode code) : message_{std::move(string)}, code_{code} {}
 
@@ -56,12 +50,8 @@ struct Exception : std::exception {
     abort();                                  \
   } while (false)
 #else
-// The #ifndef is for the very special case where the user of this library wants to define their own way of handling errors.
-// NOTE: This header expects control flow to not continue after calling ORT_CXX_API_THROW
-#ifndef ORT_CXX_API_THROW
 #define ORT_CXX_API_THROW(string, code) \
   throw Ort::Exception(string, code)
-#endif
 #endif
 
 // This is used internally by the C++ API. This class holds the global variable that points to the OrtApi, it's in a template so that we can define a global variable in a header and make
@@ -72,27 +62,20 @@ struct Global {
 };
 
 // If macro ORT_API_MANUAL_INIT is defined, no static initialization will be performed. Instead, user must call InitApi() before using it.
+
 template <typename T>
 #ifdef ORT_API_MANUAL_INIT
 const OrtApi* Global<T>::api_{};
 inline void InitApi() { Global<void>::api_ = OrtGetApiBase()->GetApi(ORT_API_VERSION); }
 #else
-#if defined(_MSC_VER) && !defined(__clang__)
-#pragma warning(push)
-// "Global initializer calls a non-constexpr function." Therefore you can't use ORT APIs in the other global initializers.
-// Please define ORT_API_MANUAL_INIT if it conerns you.
-#pragma warning(disable : 26426)
-#endif
 const OrtApi* Global<T>::api_ = OrtGetApiBase()->GetApi(ORT_API_VERSION);
-#if defined(_MSC_VER) && !defined(__clang__)
-#pragma warning(pop)
-#endif
 #endif
 
-/// This returns a reference to the OrtApi interface in use
+// This returns a reference to the OrtApi interface in use, in case someone wants to use the C API functions
 inline const OrtApi& GetApi() { return *Global<void>::api_; }
 
-/// This is a C++ wrapper for OrtApi::GetAvailableProviders() and returns a vector of strings representing the available execution providers.
+// This is a C++ wrapper for GetAvailableProviders() C API and returns
+// a vector of strings representing the available execution providers.
 std::vector<std::string> GetAvailableProviders();
 
 // This is used internally by the C++ API. This macro is to make it easy to generate overloaded methods for all of the various OrtRelease* functions for every Ort* type
@@ -117,9 +100,8 @@ ORT_DEFINE_RELEASE(ThreadingOptions);
 ORT_DEFINE_RELEASE(IoBinding);
 ORT_DEFINE_RELEASE(ArenaCfg);
 
-#undef ORT_DEFINE_RELEASE
-
-/** \brief IEEE 754 half-precision floating point data type
+/*! \class Ort::Float16_t
+  * \brief it is a structure that represents float16 data.
   * \details It is necessary for type dispatching to make use of C++ API
   * The type is implicitly convertible to/from uint16_t.
   * The size of the structure should align with uint16_t and one can freely cast
@@ -169,7 +151,8 @@ struct Float16_t {
 
 static_assert(sizeof(Float16_t) == sizeof(uint16_t), "Sizes must match");
 
-/** \brief bfloat16 (Brain Floating Point) data type
+/*! \class Ort::BFloat16_t
+  * \brief is a structure that represents bfloat16 data.
   * \details It is necessary for type dispatching to make use of C++ API
   * The type is implicitly convertible to/from uint16_t.
   * The size of the structure should align with uint16_t and one can freely cast
@@ -188,13 +171,7 @@ struct BFloat16_t {
 
 static_assert(sizeof(BFloat16_t) == sizeof(uint16_t), "Sizes must match");
 
-/** \brief Used internally by the C++ API. C++ wrapper types inherit from this
-* 
-* This is a zero cost abstraction to wrap the C API objects and delete them on destruction.
-* There is a secondary class 'Unowned<T>' that is used to prevent deletion on destruction (Used for return types that are
-* not owned by the caller)
-* 
-*/
+// This is used internally by the C++ API. This is the common base class used by the wrapper objects.
 template <typename T>
 struct Base {
   using contained_type = T;
@@ -209,7 +186,6 @@ struct Base {
   operator T*() { return p_; }
   operator const T*() const { return p_; }
 
-  /// \brief Releases ownership of the contained pointer
   T* release() {
     T* p = p_;
     p_ = nullptr;
@@ -222,7 +198,8 @@ struct Base {
   Base(Base&& v) noexcept : p_{v.p_} { v.p_ = nullptr; }
   void operator=(Base&& v) noexcept {
     OrtRelease(p_);
-    p_ = v.release();
+    p_ = v.p_;
+    v.p_ = nullptr;
   }
 
   T* p_{};
@@ -231,13 +208,34 @@ struct Base {
   friend struct Unowned;  // This friend line is needed to keep the centos C++ compiler from giving an error
 };
 
-/** \brief Wraps an object that inherits from Ort::Base and stops it from deleting the contained pointer on destruction
-* 
-* This has the effect of making it not own the memory held by Ort::Base.
-*/
+template <typename T>
+struct Base<const T> {
+  using contained_type = const T;
+
+  Base() = default;
+  Base(const T* p) : p_{p} {
+    if (!p)
+      ORT_CXX_API_THROW("Invalid instance ptr", ORT_INVALID_ARGUMENT);
+  }
+  ~Base() = default;
+
+  operator const T*() const { return p_; }
+
+ protected:
+  Base(const Base&) = delete;
+  Base& operator=(const Base&) = delete;
+  Base(Base&& v) noexcept : p_{v.p_} { v.p_ = nullptr; }
+  void operator=(Base&& v) noexcept {
+    p_ = v.p_;
+    v.p_ = nullptr;
+  }
+
+  const T* p_{};
+};
+
 template <typename T>
 struct Unowned : T {
-  Unowned(typename T::contained_type* p) : T{p} {}
+  Unowned(decltype(T::p_) p) : T{p} {}
   Unowned(Unowned&& v) : T{v.p_} {}
   ~Unowned() { this->release(); }
 };
@@ -249,244 +247,174 @@ struct TypeInfo;
 struct Value;
 struct ModelMetadata;
 
-/** \brief The Env (Environment)
-*
-* The Env holds the logging state used by all other objects.
-* <b>Note:</b> One Env must be created before using any other Onnxruntime functionality
-*/
 struct Env : Base<OrtEnv> {
-  explicit Env(std::nullptr_t) {}  ///< Create an empty Env object, must be assigned a valid one to be used
-
-  /// \brief Wraps OrtApi::CreateEnv
+  Env(std::nullptr_t) {}
   Env(OrtLoggingLevel logging_level = ORT_LOGGING_LEVEL_WARNING, _In_ const char* logid = "");
-
-  /// \brief Wraps OrtApi::CreateEnvWithCustomLogger
-  Env(OrtLoggingLevel logging_level, const char* logid, OrtLoggingFunction logging_function, void* logger_param);
-
-  /// \brief Wraps OrtApi::CreateEnvWithGlobalThreadPools
   Env(const OrtThreadingOptions* tp_options, OrtLoggingLevel logging_level = ORT_LOGGING_LEVEL_WARNING, _In_ const char* logid = "");
-
-  /// \brief Wraps OrtApi::CreateEnvWithCustomLoggerAndGlobalThreadPools
+  Env(OrtLoggingLevel logging_level, const char* logid, OrtLoggingFunction logging_function, void* logger_param);
   Env(const OrtThreadingOptions* tp_options, OrtLoggingFunction logging_function, void* logger_param,
       OrtLoggingLevel logging_level = ORT_LOGGING_LEVEL_WARNING, _In_ const char* logid = "");
-
-  /// \brief C Interop Helper
   explicit Env(OrtEnv* p) : Base<OrtEnv>{p} {}
 
-  Env& EnableTelemetryEvents();   ///< Wraps OrtApi::EnableTelemetryEvents
-  Env& DisableTelemetryEvents();  ///< Wraps OrtApi::DisableTelemetryEvents
+  Env& EnableTelemetryEvents();
+  Env& DisableTelemetryEvents();
 
-  Env& CreateAndRegisterAllocator(const OrtMemoryInfo* mem_info, const OrtArenaCfg* arena_cfg);  ///< Wraps OrtApi::CreateAndRegisterAllocator
+  Env& CreateAndRegisterAllocator(const OrtMemoryInfo* mem_info, const OrtArenaCfg* arena_cfg);
+
+  static const OrtApi* s_api;
 };
 
-/** \brief Custom Op Domain
-*
-*/
 struct CustomOpDomain : Base<OrtCustomOpDomain> {
-  explicit CustomOpDomain(std::nullptr_t) {}  ///< Create an empty CustomOpDomain object, must be assigned a valid one to be used
-
-  /// \brief Wraps OrtApi::CreateCustomOpDomain
+  explicit CustomOpDomain(std::nullptr_t) {}
   explicit CustomOpDomain(const char* domain);
 
-  void Add(OrtCustomOp* op);  ///< Wraps CustomOpDomain_Add
+  void Add(OrtCustomOp* op);
 };
 
 struct RunOptions : Base<OrtRunOptions> {
-  explicit RunOptions(std::nullptr_t) {}  ///< Create an empty RunOptions object, must be assigned a valid one to be used
-  RunOptions();                           ///< Wraps OrtApi::CreateRunOptions
+  RunOptions(std::nullptr_t) {}
+  RunOptions();
 
-  RunOptions& SetRunLogVerbosityLevel(int);  ///< Wraps OrtApi::RunOptionsSetRunLogVerbosityLevel
-  int GetRunLogVerbosityLevel() const;       ///< Wraps OrtApi::RunOptionsGetRunLogVerbosityLevel
+  RunOptions& SetRunLogVerbosityLevel(int);
+  int GetRunLogVerbosityLevel() const;
 
-  RunOptions& SetRunLogSeverityLevel(int);  ///< Wraps OrtApi::RunOptionsSetRunLogSeverityLevel
-  int GetRunLogSeverityLevel() const;       ///< Wraps OrtApi::RunOptionsGetRunLogSeverityLevel
+  RunOptions& SetRunLogSeverityLevel(int);
+  int GetRunLogSeverityLevel() const;
 
-  RunOptions& SetRunTag(const char* run_tag);  ///< wraps OrtApi::RunOptionsSetRunTag
-  const char* GetRunTag() const;               ///< Wraps OrtApi::RunOptionsGetRunTag
+  RunOptions& SetRunTag(const char* run_tag);
+  const char* GetRunTag() const;
 
-  RunOptions& AddConfigEntry(const char* config_key, const char* config_value);  ///< Wraps OrtApi::AddRunConfigEntry
+  RunOptions& AddConfigEntry(const char* config_key, const char* config_value);
 
-  /** \brief Terminates all currently executing Session::Run calls that were made using this RunOptions instance
-  *
-  * If a currently executing session needs to be force terminated, this can be called from another thread to force it to fail with an error
-  * Wraps OrtApi::RunOptionsSetTerminate 
-  */
+  // terminate ALL currently executing Session::Run calls that were made using this RunOptions instance
   RunOptions& SetTerminate();
-
-  /** \brief Clears the terminate flag so this RunOptions instance can be used in a new Session::Run call without it instantly terminating
-  *
-  * Wraps OrtApi::RunOptionsUnsetTerminate
-  */
+  // unset the terminate flag so this RunOptions instance can be used in a new Session::Run call
   RunOptions& UnsetTerminate();
 };
 
-/** \brief Options object used when creating a new Session object
-*
-* Wraps ::OrtSessionOptions object and methods
-*/
 struct SessionOptions : Base<OrtSessionOptions> {
-  explicit SessionOptions(std::nullptr_t) {}                                     ///< Create an empty SessionOptions object, must be assigned a valid one to be used
-  SessionOptions();                                                              ///< Wraps OrtApi::CreateSessionOptions
-  explicit SessionOptions(OrtSessionOptions* p) : Base<OrtSessionOptions>{p} {}  ///< Used for interop with the C API
+  explicit SessionOptions(std::nullptr_t) {}
+  SessionOptions();
+  explicit SessionOptions(OrtSessionOptions* p) : Base<OrtSessionOptions>{p} {}
 
-  SessionOptions Clone() const;  ///< Creates and returns a copy of this SessionOptions object. Wraps OrtApi::CloneSessionOptions
+  SessionOptions Clone() const;
 
-  SessionOptions& SetIntraOpNumThreads(int intra_op_num_threads);                              ///< Wraps OrtApi::SetIntraOpNumThreads
-  SessionOptions& SetInterOpNumThreads(int inter_op_num_threads);                              ///< Wraps OrtApi::SetInterOpNumThreads
-  SessionOptions& SetGraphOptimizationLevel(GraphOptimizationLevel graph_optimization_level);  ///< Wraps OrtApi::SetSessionGraphOptimizationLevel
+  SessionOptions& SetIntraOpNumThreads(int intra_op_num_threads);
+  SessionOptions& SetInterOpNumThreads(int inter_op_num_threads);
+  SessionOptions& SetGraphOptimizationLevel(GraphOptimizationLevel graph_optimization_level);
 
-  SessionOptions& EnableCpuMemArena();   ///< Wraps OrtApi::EnableCpuMemArena
-  SessionOptions& DisableCpuMemArena();  ///< Wraps OrtApi::DisableCpuMemArena
+  SessionOptions& EnableCpuMemArena();
+  SessionOptions& DisableCpuMemArena();
 
-  SessionOptions& SetOptimizedModelFilePath(const ORTCHAR_T* optimized_model_file);  ///< Wraps OrtApi::SetOptimizedModelFilePath
+  SessionOptions& SetOptimizedModelFilePath(const ORTCHAR_T* optimized_model_file);
 
-  SessionOptions& EnableProfiling(const ORTCHAR_T* profile_file_prefix);  ///< Wraps OrtApi::EnableProfiling
-  SessionOptions& DisableProfiling();                                     ///< Wraps OrtApi::DisableProfiling
+  SessionOptions& EnableProfiling(const ORTCHAR_T* profile_file_prefix);
+  SessionOptions& DisableProfiling();
 
-  SessionOptions& EnableOrtCustomOps();  ///< Wraps OrtApi::EnableOrtCustomOps
+  SessionOptions& EnableOrtCustomOps();
 
-  SessionOptions& EnableMemPattern();   ///< Wraps OrtApi::EnableMemPattern
-  SessionOptions& DisableMemPattern();  ///< Wraps OrtApi::DisableMemPattern
+  SessionOptions& EnableMemPattern();
+  SessionOptions& DisableMemPattern();
 
-  SessionOptions& SetExecutionMode(ExecutionMode execution_mode);  ///< Wraps OrtApi::SetSessionExecutionMode
+  SessionOptions& SetExecutionMode(ExecutionMode execution_mode);
 
-  SessionOptions& SetLogId(const char* logid);     ///< Wraps OrtApi::SetSessionLogId
-  SessionOptions& SetLogSeverityLevel(int level);  ///< Wraps OrtApi::SetSessionLogSeverityLevel
+  SessionOptions& SetLogId(const char* logid);
+  SessionOptions& SetLogSeverityLevel(int level);
 
-  SessionOptions& Add(OrtCustomOpDomain* custom_op_domain);  ///< Wraps OrtApi::AddCustomOpDomain
+  SessionOptions& Add(OrtCustomOpDomain* custom_op_domain);
 
-  SessionOptions& DisablePerSessionThreads();  ///< Wraps OrtApi::DisablePerSessionThreads
+  SessionOptions& DisablePerSessionThreads();
 
-  SessionOptions& AddConfigEntry(const char* config_key, const char* config_value);  ///< Wraps OrtApi::AddSessionConfigEntry
-  SessionOptions& AddInitializer(const char* name, const OrtValue* ort_val);         ///< Wraps OrtApi::AddInitializer
+  SessionOptions& AddConfigEntry(const char* config_key, const char* config_value);
+  SessionOptions& AddInitializer(const char* name, const OrtValue* ort_val);
 
-  SessionOptions& AppendExecutionProvider_CUDA(const OrtCUDAProviderOptions& provider_options);          ///< Wraps OrtApi::SessionOptionsAppendExecutionProvider_CUDA
-  SessionOptions& AppendExecutionProvider_ROCM(const OrtROCMProviderOptions& provider_options);          ///< Wraps OrtApi::SessionOptionsAppendExecutionProvider_ROCM
-  SessionOptions& AppendExecutionProvider_OpenVINO(const OrtOpenVINOProviderOptions& provider_options);  ///< Wraps OrtApi::SessionOptionsAppendExecutionProvider_OpenVINO
-  SessionOptions& AppendExecutionProvider_TensorRT(const OrtTensorRTProviderOptions& provider_options);  ///< Wraps OrtApi::SessionOptionsAppendExecutionProvider_TensorRT
-  SessionOptions& AppendExecutionProvider_TensorRT_V2(const OrtTensorRTProviderOptionsV2& provider_options); ///< Wraps OrtApi::SessionOptionsAppendExecutionProvider_TensorRT
-  SessionOptions& AppendExecutionProvider_MIGraphX(const OrtMIGraphXProviderOptions& provider_options); ///< Wraps OrtApi::SessionOptionsAppendExecutionProvider_MIGraphX
-
-  SessionOptions& SetCustomCreateThreadFn(OrtCustomCreateThreadFn ort_custom_create_thread_fn);  ///< Wraps OrtApi::SessionOptionsSetCustomCreateThreadFn
-  SessionOptions& SetCustomThreadCreationOptions(void* ort_custom_thread_creation_options);   ///< Wraps OrtApi::SessionOptionsSetCustomThreadCreationOptions
-  SessionOptions& SetCustomJoinThreadFn(OrtCustomJoinThreadFn ort_custom_join_thread_fn);        ///< Wraps OrtApi::SessionOptionsSetCustomJoinThreadFn
+  SessionOptions& AppendExecutionProvider_CUDA(const OrtCUDAProviderOptions& provider_options);
+  SessionOptions& AppendExecutionProvider_ROCM(const OrtROCMProviderOptions& provider_options);
+  SessionOptions& AppendExecutionProvider_OpenVINO(const OrtOpenVINOProviderOptions& provider_options);
+  SessionOptions& AppendExecutionProvider_TensorRT(const OrtTensorRTProviderOptions& provider_options);
 };
 
-/** \brief Wrapper around ::OrtModelMetadata
-*
-*/
 struct ModelMetadata : Base<OrtModelMetadata> {
-  explicit ModelMetadata(std::nullptr_t) {}                                   ///< Create an empty ModelMetadata object, must be assigned a valid one to be used
-  explicit ModelMetadata(OrtModelMetadata* p) : Base<OrtModelMetadata>{p} {}  ///< Used for interop with the C API
+  explicit ModelMetadata(std::nullptr_t) {}
+  explicit ModelMetadata(OrtModelMetadata* p) : Base<OrtModelMetadata>{p} {}
 
-  char* GetProducerName(OrtAllocator* allocator) const;                                     ///< Wraps OrtApi::ModelMetadataGetProducerName
-  char* GetGraphName(OrtAllocator* allocator) const;                                        ///< Wraps OrtApi::ModelMetadataGetGraphName
-  char* GetDomain(OrtAllocator* allocator) const;                                           ///< Wraps OrtApi::ModelMetadataGetDomain
-  char* GetDescription(OrtAllocator* allocator) const;                                      ///< Wraps OrtApi::ModelMetadataGetDescription
-  char* GetGraphDescription(OrtAllocator* allocator) const;                                 ///< Wraps OrtApi::ModelMetadataGetGraphDescription
-  char** GetCustomMetadataMapKeys(OrtAllocator* allocator, _Out_ int64_t& num_keys) const;  ///< Wraps OrtApi::ModelMetadataGetCustomMetadataMapKeys
-  char* LookupCustomMetadataMap(const char* key, OrtAllocator* allocator) const;            ///< Wraps OrtApi::ModelMetadataLookupCustomMetadataMap
-  int64_t GetVersion() const;                                                               ///< Wraps OrtApi::ModelMetadataGetVersion
+  char* GetProducerName(OrtAllocator* allocator) const;
+  char* GetGraphName(OrtAllocator* allocator) const;
+  char* GetDomain(OrtAllocator* allocator) const;
+  char* GetDescription(OrtAllocator* allocator) const;
+  char* GetGraphDescription(OrtAllocator* allocator) const;
+  char** GetCustomMetadataMapKeys(OrtAllocator* allocator, _Out_ int64_t& num_keys) const;
+  char* LookupCustomMetadataMap(const char* key, OrtAllocator* allocator) const;
+  int64_t GetVersion() const;
 };
 
-/** \brief Wrapper around ::OrtSession
-*
-*/
 struct Session : Base<OrtSession> {
-  explicit Session(std::nullptr_t) {}                                                                                                        ///< Create an empty Session object, must be assigned a valid one to be used
-  Session(Env& env, const ORTCHAR_T* model_path, const SessionOptions& options);                                                             ///< Wraps OrtApi::CreateSession
-  Session(Env& env, const ORTCHAR_T* model_path, const SessionOptions& options, OrtPrepackedWeightsContainer* prepacked_weights_container);  ///< Wraps OrtApi::CreateSessionWithPrepackedWeightsContainer
-  Session(Env& env, const void* model_data, size_t model_data_length, const SessionOptions& options);                                        ///< Wraps OrtApi::CreateSessionFromArray
+  explicit Session(std::nullptr_t) {}
+  Session(Env& env, const ORTCHAR_T* model_path, const SessionOptions& options);
+  Session(Env& env, const ORTCHAR_T* model_path, const SessionOptions& options, OrtPrepackedWeightsContainer* prepacked_weights_container);
+  Session(Env& env, const void* model_data, size_t model_data_length, const SessionOptions& options);
 
-  /** \brief Run the model returning results in an Ort allocated vector.
-  * 
-  * Wraps OrtApi::Run
-  *
-  * The caller provides a list of inputs and a list of the desired outputs to return.
-  *
-  * See the output logs for more information on warnings/errors that occur while processing the model.
-  * Common errors are.. (TODO)
-  * 
-  * \param[in] run_options
-  * \param[in] input_names Array of null terminated strings of length input_count that is the list of input names
-  * \param[in] input_values Array of Value objects of length input_count that is the list of input values
-  * \param[in] input_count Number of inputs (the size of the input_names & input_values arrays)
-  * \param[in] output_names Array of C style strings of length output_count that is the list of output names
-  * \param[in] output_count Number of outputs (the size of the output_names array)
-  * \return A std::vector of Value objects that directly maps to the output_count (eg. output_name[0] is the first entry of the returned vector)
-  */
+  // Run that will allocate the output values
   std::vector<Value> Run(const RunOptions& run_options, const char* const* input_names, const Value* input_values, size_t input_count,
                          const char* const* output_names, size_t output_count);
-
-  /** \brief Run the model returning results in user provided outputs
-  * Same as Run(const RunOptions&, const char* const*, const Value*, size_t,const char* const*, size_t)
-  */
+  // Run for when there is a list of preallocated outputs
   void Run(const RunOptions& run_options, const char* const* input_names, const Value* input_values, size_t input_count,
            const char* const* output_names, Value* output_values, size_t output_count);
 
-  void Run(const RunOptions& run_options, const struct IoBinding&);  ///< Wraps OrtApi::RunWithBinding
+  void Run(const RunOptions& run_options, const struct IoBinding&);
 
-  size_t GetInputCount() const;                   ///< Returns the number of model inputs
-  size_t GetOutputCount() const;                  ///< Returns the number of model outputs
-  size_t GetOverridableInitializerCount() const;  ///< Returns the number of inputs that have defaults that can be overridden
+  size_t GetInputCount() const;
+  size_t GetOutputCount() const;
+  size_t GetOverridableInitializerCount() const;
 
-  char* GetInputName(size_t index, OrtAllocator* allocator) const;                   ///< Wraps OrtApi::SessionGetInputName
-  char* GetOutputName(size_t index, OrtAllocator* allocator) const;                  ///< Wraps OrtApi::SessionGetOutputName
-  char* GetOverridableInitializerName(size_t index, OrtAllocator* allocator) const;  ///< Wraps OrtApi::SessionGetOverridableInitializerName
-  char* EndProfiling(OrtAllocator* allocator) const;                                 ///< Wraps OrtApi::SessionEndProfiling
-  uint64_t GetProfilingStartTimeNs() const;                                          ///< Wraps OrtApi::SessionGetProfilingStartTimeNs
-  ModelMetadata GetModelMetadata() const;                                            ///< Wraps OrtApi::SessionGetModelMetadata
+  char* GetInputName(size_t index, OrtAllocator* allocator) const;
+  char* GetOutputName(size_t index, OrtAllocator* allocator) const;
+  char* GetOverridableInitializerName(size_t index, OrtAllocator* allocator) const;
+  char* EndProfiling(OrtAllocator* allocator) const;
+  uint64_t GetProfilingStartTimeNs() const;
+  ModelMetadata GetModelMetadata() const;
 
-  TypeInfo GetInputTypeInfo(size_t index) const;                   ///< Wraps OrtApi::SessionGetInputTypeInfo
-  TypeInfo GetOutputTypeInfo(size_t index) const;                  ///< Wraps OrtApi::SessionGetOutputTypeInfo
-  TypeInfo GetOverridableInitializerTypeInfo(size_t index) const;  ///< Wraps OrtApi::SessionGetOverridableInitializerTypeInfo
+  TypeInfo GetInputTypeInfo(size_t index) const;
+  TypeInfo GetOutputTypeInfo(size_t index) const;
+  TypeInfo GetOverridableInitializerTypeInfo(size_t index) const;
 };
 
-/** \brief Wrapper around ::OrtTensorTypeAndShapeInfo
-*
-*/
 struct TensorTypeAndShapeInfo : Base<OrtTensorTypeAndShapeInfo> {
-  explicit TensorTypeAndShapeInfo(std::nullptr_t) {}                                                     ///< Create an empty TensorTypeAndShapeInfo object, must be assigned a valid one to be used
-  explicit TensorTypeAndShapeInfo(OrtTensorTypeAndShapeInfo* p) : Base<OrtTensorTypeAndShapeInfo>{p} {}  ///< Used for interop with the C API
+  explicit TensorTypeAndShapeInfo(std::nullptr_t) {}
+  explicit TensorTypeAndShapeInfo(OrtTensorTypeAndShapeInfo* p) : Base<OrtTensorTypeAndShapeInfo>{p} {}
 
-  ONNXTensorElementDataType GetElementType() const;  ///< Wraps OrtApi::GetTensorElementType
-  size_t GetElementCount() const;                    ///< Wraps OrtApi::GetTensorShapeElementCount
+  ONNXTensorElementDataType GetElementType() const;
+  size_t GetElementCount() const;
 
-  size_t GetDimensionsCount() const;                                           ///< Wraps OrtApi::GetDimensionsCount
-  void GetDimensions(int64_t* values, size_t values_count) const;              ///< Wraps OrtApi::GetDimensions
-  void GetSymbolicDimensions(const char** values, size_t values_count) const;  ///< Wraps OrtApi::GetSymbolicDimensions
+  size_t GetDimensionsCount() const;
+  void GetDimensions(int64_t* values, size_t values_count) const;
+  void GetSymbolicDimensions(const char** values, size_t values_count) const;
 
-  std::vector<int64_t> GetShape() const;  ///< Uses GetDimensionsCount & GetDimensions to return a std::vector of the shape
+  std::vector<int64_t> GetShape() const;
 };
 
-/** \brief Wrapper around ::OrtSequenceTypeInfo
-*
-*/
 struct SequenceTypeInfo : Base<OrtSequenceTypeInfo> {
-  explicit SequenceTypeInfo(std::nullptr_t) {}                                         ///< Create an empty SequenceTypeInfo object, must be assigned a valid one to be used
-  explicit SequenceTypeInfo(OrtSequenceTypeInfo* p) : Base<OrtSequenceTypeInfo>{p} {}  ///< Used for interop with the C API
+  explicit SequenceTypeInfo(std::nullptr_t) {}
+  explicit SequenceTypeInfo(OrtSequenceTypeInfo* p) : Base<OrtSequenceTypeInfo>{p} {}
 
-  TypeInfo GetSequenceElementType() const;  ///< Wraps OrtApi::GetSequenceElementType
+  TypeInfo GetSequenceElementType() const;
 };
 
-/** \brief Wrapper around ::OrtMapTypeInfo
-*
-*/
 struct MapTypeInfo : Base<OrtMapTypeInfo> {
-  explicit MapTypeInfo(std::nullptr_t) {}                               ///< Create an empty MapTypeInfo object, must be assigned a valid one to be used
-  explicit MapTypeInfo(OrtMapTypeInfo* p) : Base<OrtMapTypeInfo>{p} {}  ///< Used for interop with the C API
+  explicit MapTypeInfo(std::nullptr_t) {}
+  explicit MapTypeInfo(OrtMapTypeInfo* p) : Base<OrtMapTypeInfo>{p} {}
 
-  ONNXTensorElementDataType GetMapKeyType() const;  ///< Wraps OrtApi::GetMapKeyType
-  TypeInfo GetMapValueType() const;                 ///< Wraps OrtApi::GetMapValueType
+  ONNXTensorElementDataType GetMapKeyType() const;
+  TypeInfo GetMapValueType() const;
 };
 
 struct TypeInfo : Base<OrtTypeInfo> {
-  explicit TypeInfo(std::nullptr_t) {}                         ///< Create an empty TypeInfo object, must be assigned a valid one to be used
-  explicit TypeInfo(OrtTypeInfo* p) : Base<OrtTypeInfo>{p} {}  ///< C API Interop
+  explicit TypeInfo(std::nullptr_t) {}
+  explicit TypeInfo(OrtTypeInfo* p) : Base<OrtTypeInfo>{p} {}
 
-  Unowned<TensorTypeAndShapeInfo> GetTensorTypeAndShapeInfo() const;  ///< Wraps OrtApi::CastTypeInfoToTensorInfo
-  Unowned<SequenceTypeInfo> GetSequenceTypeInfo() const;              ///< Wraps OrtApi::CastTypeInfoToSequenceTypeInfo
-  Unowned<MapTypeInfo> GetMapTypeInfo() const;                        ///< Wraps OrtApi::CastTypeInfoToMapTypeInfo
+  Unowned<TensorTypeAndShapeInfo> GetTensorTypeAndShapeInfo() const;
+  Unowned<SequenceTypeInfo> GetSequenceTypeInfo() const;
+  Unowned<MapTypeInfo> GetMapTypeInfo() const;
 
   ONNXType GetONNXType() const;
 };
@@ -516,25 +444,8 @@ struct Value : Base<OrtValue> {
     size_t shape_len;
   };
 
-  /** \brief Creates a tensor with a user supplied buffer. Wraps OrtApi::CreateTensorWithDataAsOrtValue.
-   * \tparam T The numeric datatype. This API is not suitable for strings.
-   * \param info Memory description of where the p_data buffer resides (CPU vs GPU etc).
-   * \param p_data Pointer to the data buffer.
-   * \param p_data_element_count The number of elements in the data buffer.
-   * \param shape Pointer to the tensor shape dimensions.
-   * \param shape_len The number of tensor shape dimensions.
-   */
   template <typename T>
   static Value CreateTensor(const OrtMemoryInfo* info, T* p_data, size_t p_data_element_count, const int64_t* shape, size_t shape_len);
-
-  /** \brief Creates a tensor with a user supplied buffer. Wraps OrtApi::CreateTensorWithDataAsOrtValue.
-   * \param info Memory description of where the p_data buffer resides (CPU vs GPU etc).
-   * \param p_data Pointer to the data buffer.
-   * \param p_data_byte_count The number of bytes in the data buffer.
-   * \param shape Pointer to the tensor shape dimensions.
-   * \param shape_len The number of tensor shape dimensions.
-   * \param type The data type.
-   */
   static Value CreateTensor(const OrtMemoryInfo* info, void* p_data, size_t p_data_byte_count, const int64_t* shape, size_t shape_len,
                             ONNXTensorElementDataType type);
 
@@ -606,21 +517,8 @@ struct Value : Base<OrtValue> {
 
 #endif  // !defined(DISABLE_SPARSE_TENSORS)
 
-  /** \brief Creates a tensor using a supplied OrtAllocator. Wraps OrtApi::CreateTensorAsOrtValue.
-   * \tparam T The numeric datatype. This API is not suitable for strings.
-   * \param allocator The allocator to use.
-   * \param shape Pointer to the tensor shape dimensions.
-   * \param shape_len The number of tensor shape dimensions.
-   */
   template <typename T>
   static Value CreateTensor(OrtAllocator* allocator, const int64_t* shape, size_t shape_len);
-
-  /** \brief Creates a tensor using a supplied OrtAllocator. Wraps OrtApi::CreateTensorAsOrtValue.
-   * \param allocator The allocator to use.
-   * \param shape Pointer to the tensor shape dimensions.
-   * \param shape_len The number of tensor shape dimensions.
-   * \param type The data type.
-   */
   static Value CreateTensor(OrtAllocator* allocator, const int64_t* shape, size_t shape_len, ONNXTensorElementDataType type);
 
 #if !defined(DISABLE_SPARSE_TENSORS)
@@ -667,7 +565,7 @@ struct Value : Base<OrtValue> {
   /// at difference device than the allocator, a X-device copy will be performed if possible.
   /// </summary>
   /// <param name="data_mem_info">specified buffer memory description</param>
-  /// <param name="values">values buffer information</param>
+  /// <param name="values_param">values buffer information</param>
   /// <param name="inner_indices_data">csr inner indices pointer or nullptr for fully sparse tensors</param>
   /// <param name="inner_indices_num">number of csr inner indices or 0 for fully sparse tensors</param>
   /// <param name="outer_indices_data">pointer to csr indices data or nullptr for fully sparse tensors</param>
@@ -683,7 +581,7 @@ struct Value : Base<OrtValue> {
   /// at difference device than the allocator, a X-device copy will be performed if possible.
   /// </summary>
   /// <param name="data_mem_info">specified buffer memory description</param>
-  /// <param name="values">values buffer information</param>
+  /// <param name="values_param">values buffer information</param>
   /// <param name="indices_shape">indices shape. use {0} for fully sparse tensors</param>
   /// <param name="indices_data">pointer to indices data or nullptr for fully sparse tensors</param>
   void FillSparseTensorBlockSparse(const OrtMemoryInfo* data_mem_info,
@@ -711,9 +609,9 @@ struct Value : Base<OrtValue> {
   /// indices have their own enum values even if a give format has more than one kind of indices.
   /// Use GetSparseTensorIndicesData() to obtain pointer to indices buffer.
   /// </summary>
-  /// <param name="format">enum requested</param>
+  /// <param name="">enum requested</param>
   /// <returns>type and shape information</returns>
-  TensorTypeAndShapeInfo GetSparseTensorIndicesTypeShapeInfo(OrtSparseIndicesFormat format) const;
+  TensorTypeAndShapeInfo GetSparseTensorIndicesTypeShapeInfo(OrtSparseIndicesFormat) const;
 
   /// <summary>
   /// The API retrieves a pointer to the internal indices buffer. The API merely performs
@@ -729,22 +627,21 @@ struct Value : Base<OrtValue> {
 
 #endif  // !defined(DISABLE_SPARSE_TENSORS)
 
-  static Value CreateMap(Value& keys, Value& values);       ///< Wraps OrtApi::CreateValue
-  static Value CreateSequence(std::vector<Value>& values);  ///< Wraps OrtApi::CreateValue
+  static Value CreateMap(Value& keys, Value& values);
+  static Value CreateSequence(std::vector<Value>& values);
 
   template <typename T>
-  static Value CreateOpaque(const char* domain, const char* type_name, const T&);  ///< Wraps OrtApi::CreateOpaqueValue
+  static Value CreateOpaque(const char* domain, const char* type_name, const T&);
 
   template <typename T>
-  void GetOpaqueData(const char* domain, const char* type_name, T&) const;  ///< Wraps OrtApi::GetOpaqueValue
+  void GetOpaqueData(const char* domain, const char* type_name, T&) const;
 
-  explicit Value(std::nullptr_t) {}                   ///< Create an empty Value object, must be assigned a valid one to be used
-  explicit Value(OrtValue* p) : Base<OrtValue>{p} {}  ///< Used for interop with the C API
+  explicit Value(std::nullptr_t) {}
+  explicit Value(OrtValue* p) : Base<OrtValue>{p} {}
   Value(Value&&) = default;
   Value& operator=(Value&&) = default;
 
-  bool IsTensor() const;  ///< Returns true if Value is a tensor, false for other types like map/sequence/etc
-  bool HasValue() const;  /// < Return true if OrtValue contains data and returns false if the OrtValue is a None
+  bool IsTensor() const;
 
 #if !defined(DISABLE_SPARSE_TENSORS)
   /// <summary>
@@ -782,10 +679,10 @@ struct Value : Base<OrtValue> {
   void GetStringTensorContent(void* buffer, size_t buffer_length, size_t* offsets, size_t offsets_count) const;
 
   template <typename T>
-  T* GetTensorMutableData();  ///< Wraps OrtApi::GetTensorMutableData
+  T* GetTensorMutableData();
 
   template <typename T>
-  const T* GetTensorData() const;  ///< Wraps OrtApi::GetTensorMutableData
+  const T* GetTensorData() const;
 
 #if !defined(DISABLE_SPARSE_TENSORS)
   /// <summary>
@@ -876,19 +773,33 @@ struct AllocatorWithDefaultOptions {
   OrtAllocator* p_{};
 };
 
-struct MemoryInfo : Base<OrtMemoryInfo> {
-  static MemoryInfo CreateCpu(OrtAllocatorType type, OrtMemType mem_type1);
-
-  explicit MemoryInfo(std::nullptr_t) {}
-  explicit MemoryInfo(OrtMemoryInfo* p) : Base<OrtMemoryInfo>{p} {}  ///< Used for interop with the C API
-  MemoryInfo(const char* name, OrtAllocatorType type, int id, OrtMemType mem_type);
+template <typename B>
+struct BaseMemoryInfo : B {
+  BaseMemoryInfo() = default;
+  explicit BaseMemoryInfo(typename B::contained_type* p) : B(p) {}
+  ~BaseMemoryInfo() = default;
+  BaseMemoryInfo(BaseMemoryInfo&&) = default;
+  BaseMemoryInfo& operator=(BaseMemoryInfo&&) = default;
 
   std::string GetAllocatorName() const;
   OrtAllocatorType GetAllocatorType() const;
   int GetDeviceId() const;
   OrtMemType GetMemoryType() const;
+  template <typename U>
+  bool operator==(const BaseMemoryInfo<U>& o) const;
+};
 
-  bool operator==(const MemoryInfo& o) const;
+struct UnownedMemoryInfo : BaseMemoryInfo<Base<const OrtMemoryInfo> > {
+  explicit UnownedMemoryInfo(std::nullptr_t) {}
+  explicit UnownedMemoryInfo(const OrtMemoryInfo* p) : BaseMemoryInfo(p) {}
+};
+
+struct MemoryInfo : BaseMemoryInfo<Base<OrtMemoryInfo> > {
+  static MemoryInfo CreateCpu(OrtAllocatorType type, OrtMemType mem_type1);
+
+  explicit MemoryInfo(std::nullptr_t) {}
+  explicit MemoryInfo(OrtMemoryInfo* p) : BaseMemoryInfo(p) {}
+  MemoryInfo(const char* name, OrtAllocatorType type, int id, OrtMemType mem_type);
 };
 
 struct Allocator : public Base<OrtAllocator> {
@@ -898,10 +809,15 @@ struct Allocator : public Base<OrtAllocator> {
   // The return value will own the allocation
   MemoryAllocation GetAllocation(size_t size);
   void Free(void* p) const;
-  Unowned<const MemoryInfo> GetInfo() const;
+  UnownedMemoryInfo GetInfo() const;
 };
 
 struct IoBinding : public Base<OrtIoBinding> {
+ private:
+  std::vector<std::string> GetOutputNamesHelper(OrtAllocator*) const;
+  std::vector<Value> GetOutputValuesHelper(OrtAllocator*) const;
+
+ public:
   explicit IoBinding(Session& session);
   void BindInput(const char* name, const Value&);
   void BindOutput(const char* name, const Value&);
@@ -912,12 +828,6 @@ struct IoBinding : public Base<OrtIoBinding> {
   std::vector<Value> GetOutputValues(Allocator&) const;
   void ClearBoundInputs();
   void ClearBoundOutputs();
-  void SynchronizeInputs();
-  void SynchronizeOutputs();
-
- private:
-  std::vector<std::string> GetOutputNamesHelper(OrtAllocator*) const;
-  std::vector<Value> GetOutputValuesHelper(OrtAllocator*) const;
 };
 
 /*! \struct Ort::ArenaCfg
@@ -925,9 +835,8 @@ struct IoBinding : public Base<OrtIoBinding> {
   * \details Please see docs/C_API.md for details
   */
 struct ArenaCfg : Base<OrtArenaCfg> {
-  explicit ArenaCfg(std::nullptr_t) {}  ///< Create an empty ArenaCfg object, must be assigned a valid one to be used
+  explicit ArenaCfg(std::nullptr_t) {}
   /**
-  * Wraps OrtApi::CreateArenaCfg
   * \param max_mem - use 0 to allow ORT to choose the default
   * \param arena_extend_strategy -  use -1 to allow ORT to choose the default, 0 = kNextPowerOfTwo, 1 = kSameAsRequested
   * \param initial_chunk_size_bytes - use -1 to allow ORT to choose the default
@@ -959,15 +868,12 @@ struct CustomOpApi {
   template <typename T>
   const T* GetTensorData(_Inout_ const OrtValue* value);
 
-  const OrtMemoryInfo* GetTensorMemoryInfo(_In_ const OrtValue* value);
-
   std::vector<int64_t> GetTensorShape(const OrtTensorTypeAndShapeInfo* info);
   void ReleaseTensorTypeAndShapeInfo(OrtTensorTypeAndShapeInfo* input);
   size_t KernelContext_GetInputCount(const OrtKernelContext* context);
   const OrtValue* KernelContext_GetInput(const OrtKernelContext* context, _In_ size_t index);
   size_t KernelContext_GetOutputCount(const OrtKernelContext* context);
   OrtValue* KernelContext_GetOutput(OrtKernelContext* context, _In_ size_t index, _In_ const int64_t* dim_values, size_t dim_count);
-  void* KernelContext_GetGPUComputeStream(const OrtKernelContext* context);
 
   void ThrowOnError(OrtStatus* result);
 
@@ -991,14 +897,8 @@ struct CustomOpBase : OrtCustomOp {
     OrtCustomOp::GetOutputType = [](const OrtCustomOp* this_, size_t index) { return static_cast<const TOp*>(this_)->GetOutputType(index); };
 
     OrtCustomOp::KernelCompute = [](void* op_kernel, OrtKernelContext* context) { static_cast<TKernel*>(op_kernel)->Compute(context); };
-#if defined(_MSC_VER) && !defined(__clang__)
-#pragma warning(push)
-#pragma warning(disable : 26409)
-#endif
     OrtCustomOp::KernelDestroy = [](void* op_kernel) { delete static_cast<TKernel*>(op_kernel); };
-#if defined(_MSC_VER) && !defined(__clang__)
-#pragma warning(pop)
-#endif
+
     OrtCustomOp::GetInputCharacteristic = [](const OrtCustomOp* this_, size_t index) { return static_cast<const TOp*>(this_)->GetInputCharacteristic(index); };
     OrtCustomOp::GetOutputCharacteristic = [](const OrtCustomOp* this_, size_t index) { return static_cast<const TOp*>(this_)->GetOutputCharacteristic(index); };
   }
