@@ -4,6 +4,18 @@
     "description": "Six point lighting settings.",
     "properties": [
         {
+            "name": "texturePackMode",
+            "displayName": "Texture Pack Mode",
+            "description": "Determins how the textures are sampled.",
+            "type": "Enum",
+            "enumValues": [ "TpLftRtBt_FrBck", "LftRtTp_FrBckBt" ],
+            "defaultValue": "TpLftRtBt_FrBck",
+            "connection": {
+                "type": "ShaderOption",
+                "name": "o_sixPointTexutrePackMode"
+            }
+        },
+        {
             "name": "TLRB",
             "displayName": "Top Left Right Bottom",
             "description": "Top Left Right Bottom Lightmap",
@@ -44,17 +56,12 @@
             }
         },
         {
-            "name": "texturePackMode",
-            "displayName": "Texture Pack Mode",
-            "description": "Determins how the textures are sampled.",
-            "type": "Enum",
-            "enumValues": [ "TpLftRtBt_FrBck", "LftRtTp_FrBckBt" ],
-            "defaultValue": "TpLftRtBt_FrBck",
-            "connection": {
-                "type": "ShaderOption",
-                "name": "o_sixPointTexutrePackMode"
-            }
-        },                
+            "name": "useDepthTexture",
+            "displayName": "Use Depth",
+            "description": "Whether to use the depth map.",
+            "type": "Bool",
+            "defaultValue": false
+        },
         {
             "name": "depthMap",
             "displayName": "Depth",
@@ -63,17 +70,6 @@
             "connection": {
                 "type": "ShaderInput",
                 "name": "m_depthMap"
-            }
-        },
-        {
-            "name": "useDepthTexture",
-            "displayName": "Use Depth",
-            "description": "Whether to use the depth map.",
-            "type": "Bool",
-            "defaultValue": false,
-            "connection": {
-                "type": "ShaderOption",
-                "name": "o_enableDepthTexture"
             }
         },
         {
