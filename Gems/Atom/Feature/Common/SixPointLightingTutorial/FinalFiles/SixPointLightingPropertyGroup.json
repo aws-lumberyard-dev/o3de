@@ -1,0 +1,152 @@
+{
+    "name": "sixPointLighting",
+    "displayName": "Six Point Lighting",
+    "description": "Six point lighting settings.",
+    "properties": [
+        {
+            "name": "TLRB",
+            "displayName": "Top Left Right Bottom",
+            "description": "Top Left Right Bottom Lightmap",
+            "type": "Image",
+            "connection": {
+                "type": "ShaderInput",
+                "name": "m_topLeftRightBottomMap"
+            }
+        },
+        {
+            "name": "FB",
+            "displayName": "Front Back",
+            "description": "Front Back Lightmap",
+            "type": "Image",
+            "connection": {
+                "type": "ShaderInput",
+                "name": "m_frontBackMap"
+            }
+        },
+        {
+            "name": "LRT",
+            "displayName": "Left Right Top",
+            "description": "Left Right Top Lightmap",
+            "type": "Image",
+            "connection": {
+                "type": "ShaderInput",
+                "name": "m_leftRightTopMap"
+            }
+        },
+        {
+            "name": "FBB",
+            "displayName": "Front Back Bottom",
+            "description": "Front Back Bottom Lightmap",
+            "type": "Image",
+            "connection": {
+                "type": "ShaderInput",
+                "name": "m_frontBackBottomMap"
+            }
+        },
+        {
+            "name": "texturePackMode",
+            "displayName": "Texture Pack Mode",
+            "description": "Determins how the textures are sampled.",
+            "type": "Enum",
+            "enumValues": [ "TpLftRtBt_FrBck", "LftRtTp_FrBckBt" ],
+            "defaultValue": "TpLftRtBt_FrBck",
+            "connection": {
+                "type": "ShaderOption",
+                "name": "o_sixPointTexutrePackMode"
+            }
+        },                
+        {
+            "name": "depthMap",
+            "displayName": "Depth",
+            "description": "Depth texture map",
+            "type": "Image",
+            "connection": {
+                "type": "ShaderInput",
+                "name": "m_depthMap"
+            }
+        },
+        {
+            "name": "useDepthTexture",
+            "displayName": "Use Depth",
+            "description": "Whether to use the depth map.",
+            "type": "Bool",
+            "defaultValue": false,
+            "connection": {
+                "type": "ShaderOption",
+                "name": "o_enableDepthTexture"
+            }
+        },
+        {
+            "name": "depthScale",
+            "displayName": "Scale the Depth Texture",
+            "description": "Multiplier for the depth texture",
+            "type": "Float",
+            "defaultValue": 10.0,
+            "min": 0.01,
+            "connection": {
+                "type": "ShaderInput",
+                "name": "m_depthScale"
+            }
+        },
+        {
+            "name": "rowCount",
+            "displayName": "Rows in Flipbook",
+            "description": "Total rows of animation in the flipbook",
+            "type": "Float",
+            "defaultValue": 8.0,
+            "min": 1.0,
+            "step": 1.0,
+            "connection": {
+                "type": "ShaderInput",
+                "name": "m_rowCount"
+            }
+        },
+        {
+            "name": "columnCount",
+            "displayName": "Columns in Flipbook",
+            "description": "Total columns of animation in the flipbook",
+            "type": "Float",
+            "defaultValue": 8.0,
+            "min": 1.0,
+            "step": 1.0,
+            "connection": {
+                "type": "ShaderInput",
+                "name": "m_columnCount"
+            }
+        },
+        {
+            "name": "enableDebugFrame",
+            "displayName": "Enable debugging a specific frame",
+            "description": "Locks the frame of the animation",
+            "type": "Bool",
+            "defaultValue": false,
+            "connection": {
+                "type": "ShaderOption",
+                "name": "o_enableDebugFrame"
+            }
+        },
+        {
+            "name": "debugFrame",
+            "displayName": "Debug Frame",
+            "description": "The frame you want to debug",
+            "type": "Float",
+            "defaultValue": 1.0,
+            "min": 1.0,
+            "step": 1.0,
+            "connection": {
+                "type": "ShaderInput",
+                "name": "m_debugFrame"
+            }
+        }
+    ],
+    "functors": [
+        {
+            "type": "UseTexture",
+            "args": {
+                "textureProperty": "depthMap",
+                "useTextureProperty": "useDepthTexture",
+                "shaderOption": "o_enableDepthTexture"
+            }
+        }
+    ]
+}
