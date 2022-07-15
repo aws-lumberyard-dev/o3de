@@ -1,23 +1,23 @@
 
 #pragma once
 
-#include <Clients/ONNXRuntimeSystemComponent.h>
+#include <Clients/ONNXSystemComponent.h>
 #include <AzToolsFramework/API/ToolsApplicationAPI.h>
 
-namespace ONNXRuntime
+namespace ONNX
 {
-    /// System component for ONNXRuntime editor
-    class ONNXRuntimeEditorSystemComponent
-        : public ONNXRuntimeSystemComponent
+    /// System component for ONNX editor
+    class ONNXEditorSystemComponent
+        : public ONNXSystemComponent
         , public AzToolsFramework::EditorEvents::Bus::Handler
     {
-        using BaseSystemComponent = ONNXRuntimeSystemComponent;
+        using BaseSystemComponent = ONNXSystemComponent;
     public:
-        AZ_COMPONENT(ONNXRuntimeEditorSystemComponent, "{D8218124-0EF5-4336-90D3-FC3545681352}", BaseSystemComponent);
+        AZ_COMPONENT(ONNXEditorSystemComponent, "{761BD9F8-5707-4104-B182-CF3A5C0C412E}", BaseSystemComponent);
         static void Reflect(AZ::ReflectContext* context);
 
-        ONNXRuntimeEditorSystemComponent();
-        ~ONNXRuntimeEditorSystemComponent();
+        ONNXEditorSystemComponent();
+        ~ONNXEditorSystemComponent();
 
     private:
         static void GetProvidedServices(AZ::ComponentDescriptor::DependencyArrayType& provided);
@@ -29,4 +29,4 @@ namespace ONNXRuntime
         void Activate() override;
         void Deactivate() override;
     };
-} // namespace ONNXRuntime
+} // namespace ONNX

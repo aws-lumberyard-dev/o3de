@@ -1,9 +1,10 @@
 
-#include "ONNXRuntimeSystemComponent.h"
+#include "ONNXSystemComponent.h"
 
 #include <AzCore/Serialization/SerializeContext.h>
 #include <AzCore/Serialization/EditContext.h>
 #include <AzCore/Serialization/EditContextConstants.inl>
+#include <AzCore/Debug/Timer.h>
 
 #include <onnxruntime_cxx_api.h>
 #include "upng.h"
@@ -64,7 +65,7 @@ struct MNIST
 
 private:
     Ort::Env env;
-    Ort::Session session_{ env, L"model.onnx", Ort::SessionOptions{ nullptr } };
+    Ort::Session session_{ env, L"C:/Users/kubciu/dev/o3de/Gems/ONNX/Assets/model.onnx", Ort::SessionOptions{ nullptr } };
 
     Ort::Value input_tensor_{ nullptr };
     std::array<int64_t, 4> input_shape_{ 1, 1, width_, height_ };
@@ -73,19 +74,19 @@ private:
     std::array<int64_t, 2> output_shape_{ 1, 10 };
 };
 
-namespace ONNXRuntime
+namespace ONNX
 {
-    void ONNXRuntimeSystemComponent::Reflect(AZ::ReflectContext* context)
+    void ONNXSystemComponent::Reflect(AZ::ReflectContext* context)
     {
         if (AZ::SerializeContext* serialize = azrtti_cast<AZ::SerializeContext*>(context))
         {
-            serialize->Class<ONNXRuntimeSystemComponent, AZ::Component>()
+            serialize->Class<ONNXSystemComponent, AZ::Component>()
                 ->Version(0)
                 ;
 
             if (AZ::EditContext* ec = serialize->GetEditContext())
             {
-                ec->Class<ONNXRuntimeSystemComponent>("ONNXRuntime", "[Description of functionality provided by this System Component]")
+                ec->Class<ONNXSystemComponent>("ONNX", "[Description of functionality provided by this System Component]")
                     ->ClassElement(AZ::Edit::ClassElements::EditorData, "")
                         ->Attribute(AZ::Edit::Attributes::AppearsInAddComponentMenu, AZ_CRC("System"))
                         ->Attribute(AZ::Edit::Attributes::AutoExpand, true)
@@ -94,51 +95,50 @@ namespace ONNXRuntime
         }
     }
 
-    void ONNXRuntimeSystemComponent::GetProvidedServices(AZ::ComponentDescriptor::DependencyArrayType& provided)
+    void ONNXSystemComponent::GetProvidedServices(AZ::ComponentDescriptor::DependencyArrayType& provided)
     {
-        provided.push_back(AZ_CRC_CE("ONNXRuntimeService"));
+        provided.push_back(AZ_CRC_CE("ONNXService"));
     }
 
-    void ONNXRuntimeSystemComponent::GetIncompatibleServices(AZ::ComponentDescriptor::DependencyArrayType& incompatible)
+    void ONNXSystemComponent::GetIncompatibleServices(AZ::ComponentDescriptor::DependencyArrayType& incompatible)
     {
-        incompatible.push_back(AZ_CRC_CE("ONNXRuntimeService"));
+        incompatible.push_back(AZ_CRC_CE("ONNXService"));
     }
 
-    void ONNXRuntimeSystemComponent::GetRequiredServices([[maybe_unused]] AZ::ComponentDescriptor::DependencyArrayType& required)
-    {
-    }
-
-    void ONNXRuntimeSystemComponent::GetDependentServices([[maybe_unused]] AZ::ComponentDescriptor::DependencyArrayType& dependent)
+    void ONNXSystemComponent::GetRequiredServices([[maybe_unused]] AZ::ComponentDescriptor::DependencyArrayType& required)
     {
     }
 
-    ONNXRuntimeSystemComponent::ONNXRuntimeSystemComponent()
+    void ONNXSystemComponent::GetDependentServices([[maybe_unused]] AZ::ComponentDescriptor::DependencyArrayType& dependent)
     {
-        if (ONNXRuntimeInterface::Get() == nullptr)
+    }
+
+    ONNXSystemComponent::ONNXSystemComponent()
+    {
+        if (ONNXInterface::Get() == nullptr)
         {
-            ONNXRuntimeInterface::Register(this);
+            ONNXInterface::Register(this);
         }
     }
 
-    ONNXRuntimeSystemComponent::~ONNXRuntimeSystemComponent()
+    ONNXSystemComponent::~ONNXSystemComponent()
     {
-        if (ONNXRuntimeInterface::Get() == this)
+        if (ONNXInterface::Get() == this)
         {
-            ONNXRuntimeInterface::Unregister(this);
+            ONNXInterface::Unregister(this);
         }
     }
 
-    void ONNXRuntimeSystemComponent::Init()
+    void ONNXSystemComponent::Init()
     {
     }
 
-    // Put here
-    void ONNXRuntimeSystemComponent::Activate()
+    void ONNXSystemComponent::Activate()
     {
-        ONNXRuntimeRequestBus::Handler::BusConnect();
+        ONNXRequestBus::Handler::BusConnect();
         AZ::TickBus::Handler::BusConnect();
 
-        upng_t* upng = upng_new_from_file("C:/Users/kubciu/dev/onnx_mnist/MNIST/rsz_twov3.png");
+        upng_t* upng = upng_new_from_file("C:/Users/kubciu/dev/o3de/Gems/ONNX/Assets/rsz_twov2.png");
         upng_decode(upng);
         int width = upng_get_width(upng);
         // int height = upng_get_height(upng);
@@ -161,6 +161,7 @@ namespace ONNXRuntime
         // std::cout << components << "\n";
         // std::cout << format << "\n";
         // std::cout << buffer << "\n";
+
         int counter = 1;
         int stage = 1;
         for (int i = 0; i < size * 8; i++)
@@ -203,14 +204,14 @@ namespace ONNXRuntime
         std::cout << "Result: " << mnist_.result_ << "\n";
     }
 
-    void ONNXRuntimeSystemComponent::Deactivate()
+    void ONNXSystemComponent::Deactivate()
     {
         AZ::TickBus::Handler::BusDisconnect();
-        ONNXRuntimeRequestBus::Handler::BusDisconnect();
+        ONNXRequestBus::Handler::BusDisconnect();
     }
 
-    void ONNXRuntimeSystemComponent::OnTick([[maybe_unused]] float deltaTime, [[maybe_unused]] AZ::ScriptTimePoint time)
+    void ONNXSystemComponent::OnTick([[maybe_unused]] float deltaTime, [[maybe_unused]] AZ::ScriptTimePoint time)
     {
     }
 
-} // namespace ONNXRuntime
+} // namespace ONNX

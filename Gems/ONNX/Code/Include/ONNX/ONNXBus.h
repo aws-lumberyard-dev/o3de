@@ -1,0 +1,31 @@
+
+#pragma once
+
+#include <AzCore/EBus/EBus.h>
+#include <AzCore/Interface/Interface.h>
+
+namespace ONNX
+{
+    class ONNXRequests
+    {
+    public:
+        AZ_RTTI(ONNXRequests, "{F8599C7E-CDC7-4A72-A296-2C043D1E525A}");
+        virtual ~ONNXRequests() = default;
+        // Put your public methods here
+    };
+    
+    class ONNXBusTraits
+        : public AZ::EBusTraits
+    {
+    public:
+        //////////////////////////////////////////////////////////////////////////
+        // EBusTraits overrides
+        static constexpr AZ::EBusHandlerPolicy HandlerPolicy = AZ::EBusHandlerPolicy::Single;
+        static constexpr AZ::EBusAddressPolicy AddressPolicy = AZ::EBusAddressPolicy::Single;
+        //////////////////////////////////////////////////////////////////////////
+    };
+
+    using ONNXRequestBus = AZ::EBus<ONNXRequests, ONNXBusTraits>;
+    using ONNXInterface = AZ::Interface<ONNXRequests>;
+
+} // namespace ONNX

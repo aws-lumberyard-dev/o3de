@@ -1,5 +1,6 @@
 
 #include <AzCore/Serialization/SerializeContext.h>
+#include <AzToolsFramework/API/ToolsApplicationAPI.h>
 #include "ONNXRuntimeEditorSystemComponent.h"
 
 namespace ONNXRuntime
