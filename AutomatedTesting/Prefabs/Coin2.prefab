@@ -1,0 +1,259 @@
+{
+    "ContainerEntity": {
+        "Id": "ContainerEntity",
+        "Name": "Coin2",
+        "Components": {
+            "Component_[10463165564248006912]": {
+                "$type": "SelectionComponent",
+                "Id": 10463165564248006912
+            },
+            "Component_[12094520581834420691]": {
+                "$type": "EditorDisabledCompositionComponent",
+                "Id": 12094520581834420691
+            },
+            "Component_[13045609885920185990]": {
+                "$type": "EditorPrefabComponent",
+                "Id": 13045609885920185990
+            },
+            "Component_[14463002737983920284]": {
+                "$type": "EditorOnlyEntityComponent",
+                "Id": 14463002737983920284
+            },
+            "Component_[1706859564600286489]": {
+                "$type": "EditorVisibilityComponent",
+                "Id": 1706859564600286489
+            },
+            "Component_[2336312283468224305]": {
+                "$type": "EditorEntityIconComponent",
+                "Id": 2336312283468224305
+            },
+            "Component_[3065070674273811710]": {
+                "$type": "EditorLockComponent",
+                "Id": 3065070674273811710
+            },
+            "Component_[3671102525327940883]": {
+                "$type": "EditorEntitySortComponent",
+                "Id": 3671102525327940883,
+                "Child Entity Order": [
+                    "Entity_[3834585085529]"
+                ]
+            },
+            "Component_[5648411924605541690]": {
+                "$type": "EditorInspectorComponent",
+                "Id": 5648411924605541690
+            },
+            "Component_[747914601398706990]": {
+                "$type": "EditorPendingCompositionComponent",
+                "Id": 747914601398706990
+            },
+            "Component_[9697312270163276023]": {
+                "$type": "{27F1E1A1-8D9D-4C3B-BD3A-AFB9762449C0} TransformComponent",
+                "Id": 9697312270163276023,
+                "Parent Entity": ""
+            }
+        }
+    },
+    "Entities": {
+        "Entity_[3834585085529]": {
+            "Id": "Entity_[3834585085529]",
+            "Name": "Coin",
+            "Components": {
+                "Component_[11104679815619424415]": {
+                    "$type": "EditorMaterialComponent",
+                    "Id": 11104679815619424415,
+                    "Controller": {
+                        "Configuration": {
+                            "materials": {
+                                "{}": {
+                                    "MaterialAsset": {
+                                        "assetId": {
+                                            "guid": "{5BC13D95-377E-53EA-9A93-156384BE8B04}"
+                                        },
+                                        "assetHint": "materials/presets/pbr/metal_gold_matte.azmaterial"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "Component_[12203331660222608645]": {
+                    "$type": "EditorDisabledCompositionComponent",
+                    "Id": 12203331660222608645,
+                    "DisabledComponents": [
+                        {
+                            "$type": "EditorColliderComponent",
+                            "Id": 13279206155861080571,
+                            "ColliderConfiguration": {
+                                "Position": [
+                                    0.0,
+                                    0.0,
+                                    0.03999999910593033
+                                ],
+                                "MaterialSlots": {
+                                    "Slots": [
+                                        {
+                                            "Name": "Entire object",
+                                            "MaterialAsset": {
+                                                "assetId": {
+                                                    "guid": "{92A5EC27-1AC1-523E-88BB-9A6278DBD853}",
+                                                    "subId": 1
+                                                },
+                                                "assetHint": "physx/metal.physicsmaterial"
+                                            }
+                                        }
+                                    ]
+                                }
+                            },
+                            "ShapeConfiguration": {
+                                "ShapeType": 1,
+                                "Box": {
+                                    "Configuration": [
+                                        1.0,
+                                        1.0,
+                                        0.07000000029802322
+                                    ]
+                                },
+                                "Capsule": {
+                                    "Radius": 0.49999988079071045
+                                }
+                            }
+                        }
+                    ]
+                },
+                "Component_[12378476894365803501]": {
+                    "$type": "EditorLockComponent",
+                    "Id": 12378476894365803501
+                },
+                "Component_[14048361388506322883]": {
+                    "$type": "SelectionComponent",
+                    "Id": 14048361388506322883
+                },
+                "Component_[15119199377140971308]": {
+                    "$type": "EditorShapeColliderComponent",
+                    "Id": 15119199377140971308,
+                    "ColliderConfiguration": {
+                        "MaterialSlots": {
+                            "Slots": [
+                                {
+                                    "Name": "Entire object",
+                                    "MaterialAsset": {
+                                        "assetId": {
+                                            "guid": "{92A5EC27-1AC1-523E-88BB-9A6278DBD853}",
+                                            "subId": 1
+                                        },
+                                        "assetHint": "physx/metal.physicsmaterial"
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "ShapeConfigs": [
+                        {
+                            "$type": "CookedMeshShapeConfiguration",
+                            "CookedData": "TlhTAUNWWE0NAAAAAAAAAElDRQFDTEhMCQAAACAAAAAwAAAAEgAAAGAAAAAa70M+XoPsvuxROD3jzYwzAAAAv+xROD3jzYwzAAAAv+xROL0a70M+XoPsvuxROL31BLU+8QS1vuxROL31BLU+8QS1vuxROD0X70O+XoPsPuxROL30BLW+8gS1PuxROL30BLW+8gS1PuxROD0X70O+XoPsPuxROD0uvbuyAAAAP+xROD0uvbuyAAAAP+xROL1eg+y+GO9DvuxROL3yBLW+9AS1vuxROL3yBLW+9AS1vuxROD1eg+y+GO9DvuxROD0AAAC/Lr07s+xROD0AAAC/Lr07s+xROL1gg+w+EO9DvuxROD1gg+w+EO9DvuxROL0AAAA/AAAAAOxROL0AAAA/AAAAAOxROD1eg+w+Fu9DPuxROD3zBLU+8wS1PuxROD0U70M+X4PsPuxROD1fg+y+E+9DPuxROD0R70O+X4PsvuxROD0U70M+X4PsPuxROL3zBLU+8wS1PuxROL1fg+y+E+9DPuxROL0R70O+X4PsvuxROL1eg+w+Fu9DPuxROL0AAAAAAAAAAAAAgD/uUTi9AAAQAsbFRz6+FHu/AAAAAL8U+74QAAQG3jkOPzDbVL8AAAAAwBT7vhQABAbbOQ6/MNtUPwAAAAC+FPu+GAAEAMbFR76+FHs/AAAAAL8U+74cAAQAMNtUv9w5Dr8AAAAAvhT7viAABBa+FHu/xsVHvgAAAAC/FPu+JAAEFDLbVD/ZOQ6/AAAAAL4U+74oAAQHvxR7P7fFR74AAAAAvhT7viwABBC9xUc+vhR7PwAAAAC+FPu+MAAEAds5Dj8x21Q/AAAAAL8U+740AAQNvxR7v73FRz4AAAAAvxT7vjgABBIx21S/2TkOPwAAAAC+FPu+PAAEBL3FR76+FHu/AAAAAL4U+75AAAQK2DkOvzPbVL8AAAAAvhT7vkQABBgx21Q/2jkOPwAAAAC+FPu+SAAEDL4Uez/GxUc+AAAAAL8U+75MAAQMAAAAAAAAAAAAAIC/7lE4vVAAEAASFRYXGAoJCBkQDw4aAQAFAAECAwADBAUGBwgJBgkKCwwNDg8MDxAREgUEExITFBUbCwoYGxgXHB0REBkdGQgHHgIBGh4aDg0fHBcWHxYVFB8UEwQDAh4NDBEdBwYLGxwACAAQAA8ACgAJAAQAAwAMAAsABgAFAA4ADQABAAIABwENAREBAgIRAgcDEQMMAwQECQQRBREFDgUGBgsGEQcRBwgIEQgQCREJCgoPChELEQsMDBENEQ0ODhEPEQ8QEBEAAQIAAQ0BDREBAhECBxEAAgcDBBEDDBEAAwwAAwQABAkECREFBhEFDhEABQ4ABQYABgsGCxEABwgHCBEIEBEACBAADxAACg8ACQoACwwADQ4JChEKDxELDBENDhEPEBEAAAAAAAAAvwAAAL/sUTi9AAAAPwAAAD/sUTg9ihKNPToEizuhPgQvMSmVrKE+BC86BIs77+5unTEplazv7m6dMH4JPGyrMjIuOzgv9bjSLgAAgL/uUTg9oFr9PgbW1DwG1tQ8",
+                            "Type": 1
+                        }
+                    ]
+                },
+                "Component_[15166447717368124417]": {
+                    "$type": "EditorCylinderShapeComponent",
+                    "Id": 15166447717368124417,
+                    "CylinderShape": {
+                        "Configuration": {
+                            "Height": 0.09000000357627869
+                        }
+                    }
+                },
+                "Component_[2079721549664869839]": {
+                    "$type": "EditorVisibilityComponent",
+                    "Id": 2079721549664869839
+                },
+                "Component_[2587722627250856725]": {
+                    "$type": "EditorOnlyEntityComponent",
+                    "Id": 2587722627250856725
+                },
+                "Component_[2813115842963123082]": {
+                    "$type": "EditorEntityIconComponent",
+                    "Id": 2813115842963123082
+                },
+                "Component_[2902255634250344174]": {
+                    "$type": "EditorRigidBodyComponent",
+                    "Id": 2902255634250344174,
+                    "Configuration": {
+                        "entityId": "",
+                        "Mass": 554.50830078125,
+                        "Centre of mass offset": [
+                            1.0399940464367319e-8,
+                            1.6755727361150718e-10,
+                            9.582549337361357e-11
+                        ],
+                        "Inertia tensor": [
+                            34.151702880859375,
+                            0.0,
+                            0.0,
+                            0.0,
+                            34.151702880859375,
+                            0.0,
+                            0.0,
+                            0.0,
+                            67.5548095703125
+                        ]
+                    }
+                },
+                "Component_[3395247571172926125]": {
+                    "$type": "EditorPendingCompositionComponent",
+                    "Id": 3395247571172926125
+                },
+                "Component_[5937414884418193344]": {
+                    "$type": "AZ::Render::EditorMeshComponent",
+                    "Id": 5937414884418193344,
+                    "Controller": {
+                        "Configuration": {
+                            "ModelAsset": {
+                                "assetId": {
+                                    "guid": "{9D0B19C3-4443-5BE2-9578-0EFBA89A5623}",
+                                    "subId": 275355485
+                                },
+                                "assetHint": "objects/coin.azmodel"
+                            }
+                        }
+                    }
+                },
+                "Component_[7994277624062186618]": {
+                    "$type": "EditorEntitySortComponent",
+                    "Id": 7994277624062186618
+                },
+                "Component_[7995142281021428791]": {
+                    "$type": "EditorInspectorComponent",
+                    "Id": 7995142281021428791,
+                    "ComponentOrderEntryArray": [
+                        {
+                            "ComponentId": 9249239901075791237
+                        },
+                        {
+                            "ComponentId": 5937414884418193344,
+                            "SortIndex": 1
+                        },
+                        {
+                            "ComponentId": 11104679815619424415,
+                            "SortIndex": 2
+                        },
+                        {
+                            "ComponentId": 13279206155861080571,
+                            "SortIndex": 3
+                        },
+                        {
+                            "ComponentId": 2902255634250344174,
+                            "SortIndex": 4
+                        }
+                    ]
+                },
+                "Component_[9249239901075791237]": {
+                    "$type": "{27F1E1A1-8D9D-4C3B-BD3A-AFB9762449C0} TransformComponent",
+                    "Id": 9249239901075791237,
+                    "Parent Entity": "ContainerEntity"
+                }
+            }
+        }
+    }
+}
