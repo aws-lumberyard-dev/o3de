@@ -107,6 +107,24 @@ namespace AzManipulatorTestFramework
         MouseMoveAfterButton();
     }
 
+    void ImmediateModeActionDispatcher::MouseRButtonDownImpl()
+    {
+        ToggleOn(GetMouseInteractionEvent()->m_mouseInteraction.m_mouseButtons.m_mouseButtons, MouseButton::Right);
+        GetMouseInteractionEvent()->m_mouseEvent = AzToolsFramework::ViewportInteraction::MouseEvent::Down;
+        m_manipulatorViewportInteraction.GetManipulatorManager().ConsumeMouseInteractionEvent(*m_event);
+        // the mouse position will be the same as the previous event, thus the delta will be 0
+        MouseMoveAfterButton();
+    }
+
+    void ImmediateModeActionDispatcher::MouseRButtonUpImpl()
+    {
+        GetMouseInteractionEvent()->m_mouseEvent = AzToolsFramework::ViewportInteraction::MouseEvent::Up;
+        m_manipulatorViewportInteraction.GetManipulatorManager().ConsumeMouseInteractionEvent(*m_event);
+        ToggleOff(GetMouseInteractionEvent()->m_mouseInteraction.m_mouseButtons.m_mouseButtons, MouseButton::Right);
+        // the mouse position will be the same as the previous event, thus the delta will be 0
+        MouseMoveAfterButton();
+    }
+
     void ImmediateModeActionDispatcher::MouseLButtonDoubleClickImpl()
     {
         GetMouseInteractionEvent()->m_mouseEvent = AzToolsFramework::ViewportInteraction::MouseEvent::DoubleClick;
