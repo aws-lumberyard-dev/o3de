@@ -121,17 +121,17 @@ namespace AzToolsFramework
     static const char* const EntitiesDeselectUndoRedoDesc = "Deselect Entities";
     static const char* const ChangeEntitySelectionUndoRedoDesc = "Change Selected Entity";
     static const char* const EntitySelectUndoRedoDesc = "Select Entity";
-    static const char* const DittoManipulatorUndoRedoDesc = "Ditto Manipulator";
+    static const char* const MatchManipulatorUndoRedoDesc = "Match Manipulator";
     static const char* const ResetManipulatorTranslationUndoRedoDesc = "Reset Manipulator Translation";
     static const char* const ResetManipulatorOrientationUndoRedoDesc = "Reset Manipulator Orientation";
-    static const char* const DittoEntityOrientationIndividualUndoRedoDesc = "Ditto orientation individual";
-    static const char* const DittoEntityOrientationGroupUndoRedoDesc = "Ditto orientation group";
+    static const char* const MatchEntityOrientationIndividualUndoRedoDesc = "Match orientation individual";
+    static const char* const MatchEntityOrientationGroupUndoRedoDesc = "Match orientation group";
     static const char* const ResetTranslationToParentUndoRedoDesc = "Reset translation to parent";
     static const char* const ResetOrientationToParentUndoRedoDesc = "Reset orientation to parent";
-    static const char* const DittoTranslationGroupUndoRedoDesc = "Ditto translation group";
-    static const char* const DittoTranslationIndividualUndoRedoDesc = "Ditto translation individual";
-    static const char* const DittoScaleIndividualWorldUndoRedoDesc = "Ditto scale individual world";
-    static const char* const DittoScaleIndividualLocalUndoRedoDesc = "Ditto scale individual local";
+    static const char* const MatchTranslationGroupUndoRedoDesc = "Match translation group";
+    static const char* const MatchTranslationIndividualUndoRedoDesc = "Match translation individual";
+    static const char* const MatchScaleIndividualWorldUndoRedoDesc = "Match scale individual world";
+    static const char* const MatchScaleIndividualLocalUndoRedoDesc = "Match scale individual local";
     static const char* const SnapToWorldGridUndoRedoDesc = "Snap to world grid";
     static const char* const ShowAllEntitiesUndoRedoDesc = ShowAllTitle;
     static const char* const LockSelectionUndoRedoDesc = LockSelectionTitle;
@@ -216,7 +216,7 @@ namespace AzToolsFramework
                 mouseInteraction.m_mouseInteraction.m_mouseButtons.Left();
         }
 
-        static bool GroupDitto(const ViewportInteraction::MouseInteractionEvent& mouseInteraction)
+        static bool GroupMatch(const ViewportInteraction::MouseInteractionEvent& mouseInteraction)
         {
             return mouseInteraction.m_mouseInteraction.m_mouseButtons.Middle() &&
                 mouseInteraction.m_mouseEvent == ViewportInteraction::MouseEvent::Down &&
@@ -224,7 +224,7 @@ namespace AzToolsFramework
                 mouseInteraction.m_mouseInteraction.m_keyboardModifiers.Ctrl();
         }
 
-        static bool IndividualDitto(const ViewportInteraction::MouseInteractionEvent& mouseInteraction)
+        static bool IndividualMatch(const ViewportInteraction::MouseInteractionEvent& mouseInteraction)
         {
             return mouseInteraction.m_mouseInteraction.m_mouseButtons.Middle() &&
                 mouseInteraction.m_mouseEvent == ViewportInteraction::MouseEvent::Down &&
@@ -240,7 +240,7 @@ namespace AzToolsFramework
                 mouseInteraction.m_mouseInteraction.m_keyboardModifiers.Ctrl();
         }
 
-        static bool ManipulatorDitto(
+        static bool ManipulatorMatch(
             const AzFramework::ClickDetector::ClickOutcome clickOutcome, const ViewportInteraction::MouseInteractionEvent& mouseInteraction)
         {
             return clickOutcome == AzFramework::ClickDetector::ClickOutcome::Click &&
@@ -248,7 +248,7 @@ namespace AzToolsFramework
                 mouseInteraction.m_mouseInteraction.m_keyboardModifiers.Alt();
         }
 
-        static bool ManipulatorDittoExact(
+        static bool ManipulatorMatchExact(
             const AzFramework::ClickDetector::ClickOutcome clickOutcome, const ViewportInteraction::MouseInteractionEvent& mouseInteraction)
         {
             return clickOutcome == AzFramework::ClickDetector::ClickOutcome::Click &&
@@ -1907,29 +1907,29 @@ namespace AzToolsFramework
                 return false;
             }
 
-            // group copying/alignment to specific entity - 'ditto' position/orientation for group
-            if (Input::GroupDitto(mouseInteraction) && PerformGroupDitto(entityIdUnderCursor))
+            // group copying/alignment to specific entity - 'Match' position/orientation for group
+            if (Input::GroupMatch(mouseInteraction) && PerformGroupMatch(entityIdUnderCursor))
             {
                 return false;
             }
 
-            // individual copying/alignment to specific entity - 'ditto' position/orientation for individual
-            if (Input::IndividualDitto(mouseInteraction) && PerformIndividualDitto(entityIdUnderCursor))
+            // individual copying/alignment to specific entity - 'Match' position/orientation for individual
+            if (Input::IndividualMatch(mouseInteraction) && PerformIndividualMatch(entityIdUnderCursor))
             {
                 return false;
             }
 
             // set manipulator pivot override translation or orientation (update manipulators)
-            const bool manipulatorDitto = Input::ManipulatorDitto(clickOutcome, mouseInteraction);
-            const bool manipulatorDittoExact = Input::ManipulatorDittoExact(clickOutcome, mouseInteraction);
-            if (manipulatorDitto || manipulatorDittoExact)
+            const bool manipulatorMatch = Input::ManipulatorMatch(clickOutcome, mouseInteraction);
+            const bool manipulatorMatchExact = Input::ManipulatorMatchExact(clickOutcome, mouseInteraction);
+            if (manipulatorMatch || manipulatorMatchExact)
             {
-                PerformManipulatorDitto(
+                PerformManipulatorMatch(
                     entityIdUnderCursor,
-                    [manipulatorDitto, manipulatorDittoExact, &mouseInteraction,
+                    [manipulatorMatch, manipulatorMatchExact, &mouseInteraction,
                      entityId = entityIdUnderCursor]() -> AZStd::optional<AZ::Vector3>
                     {
-                        if (manipulatorDitto)
+                        if (manipulatorMatch)
                         {
                             if (entityId.IsValid())
                             {
@@ -1939,7 +1939,7 @@ namespace AzToolsFramework
                             return AZStd::nullopt;
                         }
 
-                        if (manipulatorDittoExact)
+                        if (manipulatorMatchExact)
                         {
                             return EtcsPickEntity(entityId, mouseInteraction);
                         }
@@ -1972,7 +1972,7 @@ namespace AzToolsFramework
         return false;
     }
 
-    bool EditorTransformComponentSelection::PerformGroupDitto(const AZ::EntityId entityId)
+    bool EditorTransformComponentSelection::PerformGroupMatch(const AZ::EntityId entityId)
     {
         if (entityId.IsValid())
         {
@@ -2001,7 +2001,7 @@ namespace AzToolsFramework
         return false;
     }
 
-    bool EditorTransformComponentSelection::PerformIndividualDitto(const AZ::EntityId entityId)
+    bool EditorTransformComponentSelection::PerformIndividualMatch(const AZ::EntityId entityId)
     {
         if (entityId.IsValid())
         {
@@ -2045,11 +2045,11 @@ namespace AzToolsFramework
                 GetDefaultEntityPlacementDistance());
 
             // handle modifier alternatives
-            if (Input::IndividualDitto(mouseInteraction))
+            if (Input::IndividualMatch(mouseInteraction))
             {
                 CopyTranslationToSelectedEntitiesIndividual(worldPosition);
             }
-            else if (Input::GroupDitto(mouseInteraction))
+            else if (Input::GroupMatch(mouseInteraction))
             {
                 CopyTranslationToSelectedEntitiesGroup(worldPosition);
             }
@@ -2057,11 +2057,11 @@ namespace AzToolsFramework
         else if (m_mode == Mode::Rotation)
         {
             // handle modifier alternatives
-            if (Input::IndividualDitto(mouseInteraction))
+            if (Input::IndividualMatch(mouseInteraction))
             {
                 CopyOrientationToSelectedEntitiesIndividual(AZ::Quaternion::CreateIdentity());
             }
-            else if (Input::GroupDitto(mouseInteraction))
+            else if (Input::GroupMatch(mouseInteraction))
             {
                 CopyOrientationToSelectedEntitiesGroup(AZ::Quaternion::CreateIdentity());
             }
@@ -2069,12 +2069,12 @@ namespace AzToolsFramework
     }
 
     template<typename ManipulatorTranslationFn>
-    void EditorTransformComponentSelection::PerformManipulatorDitto(
+    void EditorTransformComponentSelection::PerformManipulatorMatch(
         const AZ::EntityId entityId, ManipulatorTranslationFn&& manipulatorTranslationFn)
     {
         if (m_entityIdManipulators.m_manipulators)
         {
-            ScopedUndoBatch undoBatch(DittoManipulatorUndoRedoDesc);
+            ScopedUndoBatch undoBatch(MatchManipulatorUndoRedoDesc);
 
             auto manipulatorCommand =
                 AZStd::make_unique<EntityManipulatorCommand>(CreateManipulatorCommandStateFromSelf(), ManipulatorUndoRedoName);
@@ -3005,7 +3005,7 @@ namespace AzToolsFramework
 
         if (m_entityIdManipulators.m_manipulators)
         {
-            ScopedUndoBatch undoBatch(DittoTranslationGroupUndoRedoDesc);
+            ScopedUndoBatch undoBatch(MatchTranslationGroupUndoRedoDesc);
 
             // store previous translation manipulator position
             const AZ::Vector3 previousPivotTranslation = m_entityIdManipulators.m_manipulators->GetLocalTransform().GetTranslation();
@@ -3060,7 +3060,7 @@ namespace AzToolsFramework
 
         if (m_entityIdManipulators.m_manipulators)
         {
-            ScopedUndoBatch undoBatch(DittoTranslationIndividualUndoRedoDesc);
+            ScopedUndoBatch undoBatch(MatchTranslationIndividualUndoRedoDesc);
 
             auto manipulatorCommand =
                 AZStd::make_unique<EntityManipulatorCommand>(CreateManipulatorCommandStateFromSelf(), ManipulatorUndoRedoName);
@@ -3097,7 +3097,7 @@ namespace AzToolsFramework
     {
         AZ_PROFILE_FUNCTION(AzToolsFramework);
 
-        ScopedUndoBatch undoBatch(DittoScaleIndividualWorldUndoRedoDesc);
+        ScopedUndoBatch undoBatch(MatchScaleIndividualWorldUndoRedoDesc);
 
         ManipulatorEntityIds manipulatorEntityIds;
         BuildSortedEntityIdVectorFromEntityIdMap(m_entityIdManipulators.m_lookups, manipulatorEntityIds.m_entityIds);
@@ -3131,7 +3131,7 @@ namespace AzToolsFramework
     {
         AZ_PROFILE_FUNCTION(AzToolsFramework);
 
-        ScopedUndoBatch undoBatch(DittoScaleIndividualLocalUndoRedoDesc);
+        ScopedUndoBatch undoBatch(MatchScaleIndividualLocalUndoRedoDesc);
 
         ManipulatorEntityIds manipulatorEntityIds;
         BuildSortedEntityIdVectorFromEntityIdMap(m_entityIdManipulators.m_lookups, manipulatorEntityIds.m_entityIds);
@@ -3152,7 +3152,7 @@ namespace AzToolsFramework
 
         if (m_entityIdManipulators.m_manipulators)
         {
-            ScopedUndoBatch undoBatch{ DittoEntityOrientationIndividualUndoRedoDesc };
+            ScopedUndoBatch undoBatch{ MatchEntityOrientationIndividualUndoRedoDesc };
 
             auto manipulatorCommand =
                 AZStd::make_unique<EntityManipulatorCommand>(CreateManipulatorCommandStateFromSelf(), ManipulatorUndoRedoName);
@@ -3190,7 +3190,7 @@ namespace AzToolsFramework
 
         if (m_entityIdManipulators.m_manipulators)
         {
-            ScopedUndoBatch undoBatch(DittoEntityOrientationGroupUndoRedoDesc);
+            ScopedUndoBatch undoBatch(MatchEntityOrientationGroupUndoRedoDesc);
 
             auto manipulatorCommand =
                 AZStd::make_unique<EntityManipulatorCommand>(CreateManipulatorCommandStateFromSelf(), ManipulatorUndoRedoName);

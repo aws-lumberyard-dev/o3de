@@ -294,14 +294,14 @@ namespace AzToolsFramework
         void SetEntityLocalRotation(AZ::EntityId entityId, const AZ::Quaternion& localRotation);
         //!@}
 
-        // Note: 'Ditto' is an immediate copy (it updates part of one entity transform to perfectly match
+        // Note: 'Match' is an immediate copy (it updates part of one entity transform to perfectly match
         // another depending on the transform mode - translate/rotate/scale).
-        bool PerformGroupDitto(AZ::EntityId entityId);
-        bool PerformIndividualDitto(AZ::EntityId entityId);
-        //! ManipulatorTranslationFn returns the position to use when 'dittoing' the manipulator.
+        bool PerformGroupMatch(AZ::EntityId entityId);
+        bool PerformIndividualMatch(AZ::EntityId entityId);
+        //! ManipulatorTranslationFn returns the position to use when 'Matching' the manipulator.
         //! @note: signature - AZ::Vector3(void).
         template<typename ManipulatorTranslationFn>
-        void PerformManipulatorDitto(AZ::EntityId entityId, ManipulatorTranslationFn&& manipulatorTranslationFn);
+        void PerformManipulatorMatch(AZ::EntityId entityId, ManipulatorTranslationFn&& manipulatorTranslationFn);
         void PerformSnapToSurface(const ViewportInteraction::MouseInteractionEvent& mouseInteraction);
 
         //! Responsible for keeping the space cluster in sync with the current reference frame.
