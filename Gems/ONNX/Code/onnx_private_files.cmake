@@ -5,4 +5,6 @@ set(FILES
     Source/Clients/ONNXSystemComponent.h
     Source/Clients/upng.cpp
     Source/Clients/upng.h
+    Source/Clients/Model.h
+    Source/Clients/Model.cpp
 )

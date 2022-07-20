@@ -4,6 +4,7 @@
 #include <AzCore/Component/Component.h>
 #include <AzCore/Component/TickBus.h>
 #include <ONNX/ONNXBus.h>
+#include <AzCore/std/smart_ptr/unique_ptr.h>
 
 namespace ONNX
 {
@@ -21,6 +22,9 @@ namespace ONNX
         static void GetIncompatibleServices(AZ::ComponentDescriptor::DependencyArrayType& incompatible);
         static void GetRequiredServices(AZ::ComponentDescriptor::DependencyArrayType& required);
         static void GetDependentServices(AZ::ComponentDescriptor::DependencyArrayType& dependent);
+
+        AZStd::unique_ptr<Ort::Env> m_env;
+        Ort::Env* GetEnv() override;
 
         ONNXSystemComponent();
         ~ONNXSystemComponent();
