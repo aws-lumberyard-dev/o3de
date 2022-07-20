@@ -6,7 +6,7 @@
  *
  */
 
-#include <Atom/Features/PBR/Surfaces/6PointSurface.azsli>
+#include <../SixPointSurface.azsli>
 #include <Atom/Features/MatrixUtility.azsli>
 
 void EvaluateSixPointSurface(
@@ -36,7 +36,7 @@ void EvaluateSixPointSurface(
     float specularF0Factor = MaterialSrg::m_specularF0Factor;
     surface.SetAlbedoAndSpecularF0(baseColor, specularF0Factor, metallic);
     
-    if(o_sixPointTexutrePackMode == SixPointTexturePackMode::TpLftRtBt_FrBck)
+    if(o_sixPointTexturePackMode == SixPointTexturePackMode::TpLftRtBt_FrBck)
     {
         float4 topLeftRightBottom = MaterialSrg::m_topLeftRightBottomMap.Sample(MaterialSrg::m_sampler, sixPointUv);
         float4 frontBack = MaterialSrg::m_frontBackMap.Sample(MaterialSrg::m_sampler, sixPointUv);
@@ -49,14 +49,14 @@ void EvaluateSixPointSurface(
     }
     else
     {
-        float4 leftRightTop = MaterialSrg::m_leftRightTopMap.Sample(MaterialSrg::m_sampler, sixPointUv);
-        float4 frontBackBottom = MaterialSrg::m_frontBackBottomMap.Sample(MaterialSrg::m_sampler, sixPointUv);
-        surface.left = leftRightTop.r;
-        surface.right = leftRightTop.g;
-        surface.top = leftRightTop.b;
-        surface.frontside = frontBackBottom.r;
-        surface.backside = frontBackBottom.g;
-        surface.bottom = frontBackBottom.b;
+        float4 rightLeftTop = MaterialSrg::m_rightLeftTopMap.Sample(MaterialSrg::m_sampler, sixPointUv);
+        float4 bottomBackFront = MaterialSrg::m_bottomBackFrontMap.Sample(MaterialSrg::m_sampler, sixPointUv);
+        surface.right = rightLeftTop.r;
+        surface.left = rightLeftTop.g;
+        surface.top = rightLeftTop.b;
+        surface.bottom = bottomBackFront.r;
+        surface.backside = bottomBackFront.g;
+        surface.frontside = bottomBackFront.b;
     }
     surface.tangent = tangents[0];
     surface.bitangent = bitangents[0];

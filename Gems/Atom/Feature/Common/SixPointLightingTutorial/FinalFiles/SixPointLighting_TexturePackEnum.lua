@@ -10,7 +10,7 @@
 ----------------------------------------------------------------------------------------------------
 
 TexturePackMode_TpLftRtBt_FrBck = 0;
-TexturePackMode_LftRtTp_FrBckBt = 1;
+TexturePackMode_RtLftTp_BtBckTp = 1;
 
 function GetMaterialPropertyDependencies()
     return {"sixPointLighting.texturePackMode"}
@@ -21,16 +21,16 @@ function ProcessEditor(context)
 
     -- Depending on which texture pack mode is being used, display the correct one
     if(texturePackMode == TexturePackMode_TpLftRtBt_FrBck) then
-        -- TpLftRtBt is the first texture, FrBck is the second. Disable LftRtTp and FrBckBt.
+        -- TopLeftRightBack is the first texture, FrontBack is the second. Disable RightLeftTop and BottomBackFront.
         context:SetMaterialPropertyVisibility("sixPointLighting.TLRB", MaterialPropertyVisibility_Enabled)
         context:SetMaterialPropertyVisibility("sixPointLighting.FB", MaterialPropertyVisibility_Enabled)
-        context:SetMaterialPropertyVisibility("sixPointLighting.LRT", MaterialPropertyVisibility_Hidden)
-        context:SetMaterialPropertyVisibility("sixPointLighting.FBB", MaterialPropertyVisibility_Hidden)
-    elseif(texturePackMode == TexturePackMode_LftRtTp_FrBckBt) then
-        -- LftRtTp is the first texture, FrBckBt is the second. Disable TpLftRtBt and FrBck.
+        context:SetMaterialPropertyVisibility("sixPointLighting.RLT", MaterialPropertyVisibility_Hidden)
+        context:SetMaterialPropertyVisibility("sixPointLighting.BBF", MaterialPropertyVisibility_Hidden)
+    elseif(texturePackMode == TexturePackMode_RtLftTp_BtBckTp) then
+        -- RightLeftTop is the first texture, BottomBackFront is the second. Disable TopLeftRightBack and FrontBack.
         context:SetMaterialPropertyVisibility("sixPointLighting.TLRB", MaterialPropertyVisibility_Hidden)
         context:SetMaterialPropertyVisibility("sixPointLighting.FB", MaterialPropertyVisibility_Hidden)
-        context:SetMaterialPropertyVisibility("sixPointLighting.LRT", MaterialPropertyVisibility_Enabled)
-        context:SetMaterialPropertyVisibility("sixPointLighting.FBB", MaterialPropertyVisibility_Enabled)
+        context:SetMaterialPropertyVisibility("sixPointLighting.RLT", MaterialPropertyVisibility_Enabled)
+        context:SetMaterialPropertyVisibility("sixPointLighting.BBF", MaterialPropertyVisibility_Enabled)
     end
 end

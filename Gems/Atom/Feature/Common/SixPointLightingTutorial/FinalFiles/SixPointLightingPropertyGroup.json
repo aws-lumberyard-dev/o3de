@@ -6,13 +6,13 @@
         {
             "name": "texturePackMode",
             "displayName": "Texture Pack Mode",
-            "description": "Determins how the textures are sampled.",
+            "description": "Determines how the textures are sampled.",
             "type": "Enum",
-            "enumValues": [ "TpLftRtBt_FrBck", "LftRtTp_FrBckBt" ],
+            "enumValues": [ "TpLftRtBt_FrBck", "RtLftTp_BtBckTp" ],
             "defaultValue": "TpLftRtBt_FrBck",
             "connection": {
                 "type": "ShaderOption",
-                "name": "o_sixPointTexutrePackMode"
+                "name": "o_sixPointTexturePackMode"
             }
         },
         {
@@ -36,23 +36,23 @@
             }
         },
         {
-            "name": "LRT",
-            "displayName": "Left Right Top",
-            "description": "Left Right Top Lightmap",
+            "name": "RLT",
+            "displayName": "Right Left Top",
+            "description": "Right Left Top Lightmap",
             "type": "Image",
             "connection": {
                 "type": "ShaderInput",
-                "name": "m_leftRightTopMap"
+                "name": "m_rightLeftTopMap"
             }
         },
         {
-            "name": "FBB",
-            "displayName": "Front Back Bottom",
-            "description": "Front Back Bottom Lightmap",
+            "name": "BBF",
+            "displayName": "Bottom Back Front",
+            "description": "Bottom Back Front Lightmap",
             "type": "Image",
             "connection": {
                 "type": "ShaderInput",
-                "name": "m_frontBackBottomMap"
+                "name": "m_bottomBackFrontMap"
             }
         },
         {

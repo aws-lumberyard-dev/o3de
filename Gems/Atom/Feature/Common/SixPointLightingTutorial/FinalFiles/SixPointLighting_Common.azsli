@@ -30,8 +30,8 @@ ShaderResourceGroup MaterialSrg : SRG_PerMaterial
 {
     Texture2D m_topLeftRightBottomMap;
     Texture2D m_frontBackMap;
-    Texture2D m_leftRightTopMap;
-    Texture2D m_frontBackBottomMap;
+    Texture2D m_rightLeftTopMap;
+    Texture2D m_bottomBackFrontMap;
     Texture2D m_depthMap;
     float m_depthScale;
     float m_rowCount;

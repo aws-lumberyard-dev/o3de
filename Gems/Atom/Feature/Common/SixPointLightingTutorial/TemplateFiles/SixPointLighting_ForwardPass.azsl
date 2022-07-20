@@ -38,7 +38,7 @@ COMMON_OPTIONS_CLEAR_COAT()
 COMMON_OPTIONS_OCCLUSION()
 COMMON_OPTIONS_EMISSIVE()
 
-enum class SixPointTexturePackMode { TpLftRtBt_FrBck, LftRtTp_FrBckBt };
+enum class SixPointTexturePackMode { TpLftRtBt_FrBck, RtLftTp_BtBckTp };
 option SixPointTexturePackMode o_sixPointTexutrePackMode = SixPointTexturePackMode::TpLftRtBt_FrBck;
 
 // Alpha
