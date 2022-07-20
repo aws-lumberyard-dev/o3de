@@ -85,6 +85,9 @@ namespace AzManipulatorTestFramework
         MouseInteractionEvent* GetMouseInteractionEvent();
         const MouseInteractionEvent* GetMouseInteractionEvent() const;
 
+        void MouseButtonDownImplInternal(AzToolsFramework::ViewportInteraction::MouseButton mouseButton);
+        void MouseButtonUpImplInternal(AzToolsFramework::ViewportInteraction::MouseButton mouseButton);
+
         mutable AZStd::unique_ptr<MouseInteractionEvent> m_event;
         ManipulatorViewportInteraction& m_manipulatorViewportInteraction;
 
