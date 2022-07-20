@@ -13,6 +13,7 @@
 #include <Atom/RPI.Public/Culling.h>
 #include <Atom/RPI.Public/RenderPipeline.h>
 #include <Atom/RPI.Public/Pass/Specific/SwapChainPass.h>
+#include <Atom/RPI.Public/ViewportContext.h>
 #include <Atom/RHI/DrawListTagRegistry.h>
 
 #include <AzCore/Casting/lossy_cast.h>
@@ -55,6 +56,7 @@ namespace AZ
             AZ::Matrix4x4 viewToClipMatrix;
             AZ::MakePerspectiveFovMatrixRH(viewToClipMatrix, AZ::Constants::HalfPi, 1, 0.1f, 1000.f, true);
             SetViewToClipMatrix(viewToClipMatrix);
+            //SetViewRotation(0);
 
             TryCreateShaderResourceGroup();
 
@@ -160,6 +162,7 @@ namespace AZ
             m_viewToWorldMatrix = AZ::Matrix4x4::CreateFromRowMajorFloat16(viewToWorldMatrixRaw);
 
             m_worldToViewMatrix = m_viewToWorldMatrix.GetInverseFast();
+            //m_worldToViewMatrix = m_viewRotationMatrix * m_viewToWorldMatrix.GetInverseFast();
 
             m_worldToClipMatrix = m_viewToClipMatrix * m_worldToViewMatrix;
             m_clipToWorldMatrix = m_worldToClipMatrix.GetInverseFull();
@@ -208,6 +211,12 @@ namespace AZ
         {
             m_clipSpaceOffset.Set(xOffset, yOffset);
         }
+
+        /*void View::SetViewRotation(float angle)
+        {
+            //AZ_TracePrintf("View", "UpdateCamera view rotation %f!", angle);
+            m_viewRotationMatrix = AZ::Matrix4x4::CreateRotationZ(angle);
+        }*/
 
         const AZ::Matrix4x4& View::GetWorldToViewMatrix() const
         {
@@ -431,42 +440,90 @@ namespace AZ
 
         void View::UpdateSrg()
         {
-            if (m_clipSpaceOffset.IsZero())
+            // Fix matrices to consider swapchain rotation
+            Matrix4x4 worldToViewPrevMatrix = m_worldToViewPrevMatrix;
+            Matrix4x4 worldToViewMatrix = m_worldToViewMatrix;
+            Matrix4x4 viewToClipPrevMatrix = m_viewToClipPrevMatrix;
+            Matrix4x4 viewToClipMatrix = m_viewToClipMatrix;
+            Vector4 unprojectionConstants = m_unprojectionConstants;
+            Vector3 clipSpaceOffset(m_clipSpaceOffset.GetX(), m_clipSpaceOffset.GetY(), 0.0f);
+            if (false && m_viewportContext &&
+                m_viewportContext->GetWindowContext()->GetViewport().m_rotZ != 0.0f)
+            {
+                const float viewRotation = m_viewportContext->GetWindowContext()->GetViewport().m_rotZ;
+                AZ_TracePrintf("View", "UpdateSrg %f!", viewRotation);
+                if (AZ::IsClose(viewRotation, -AZ::Constants::HalfPi) || 
+                    AZ::IsClose(viewRotation, AZ::Constants::HalfPi))
+                {
+                    const float viewWidth = m_viewportContext->GetViewportSize().m_width;
+                    const float viewHeight = m_viewportContext->GetViewportSize().m_height;
+                    const float aspectRatio = viewWidth / viewHeight;
+
+                    auto fixFOV = [aspectRatio](Matrix4x4& matrix)
+                    {
+                        const float fovY = AZ::GetPerspectiveMatrixFOV(matrix);
+
+                        float sinFovY, cosFovY;
+                        AZ::SinCos(0.5f * fovY, sinFovY, cosFovY);
+                        const float tanFovX = (sinFovY / cosFovY) / aspectRatio;
+                        const float fovX = 2.0f * AZStd::atan(tanFovX);
+
+                        AZ::SetPerspectiveMatrixFOV(matrix, fovX, aspectRatio);
+                    };
+
+                    fixFOV(viewToClipPrevMatrix);
+                    fixFOV(viewToClipMatrix);
+                    
+                    double tanHalfFovX = 1.0 / viewToClipMatrix.GetElement(0, 0);
+                    double tanHalfFovY = 1.0 / viewToClipMatrix.GetElement(1, 1);
+                    unprojectionConstants.SetX(float(2.0 * tanHalfFovX));
+                    unprojectionConstants.SetY(float(-2.0 * tanHalfFovY));
+                    unprojectionConstants.SetZ(float(-tanHalfFovX));
+                    unprojectionConstants.SetW(float(tanHalfFovY));
+                    
+                    AZ_TracePrintf("View", "UpdateSrg viewRotation %f viewWidth %f viewHeight %f ar %f tanHalfFovX %f tanHalfFovY %f", 
+                        viewRotation, viewWidth, viewHeight, aspectRatio, tanHalfFovX, tanHalfFovY);
+                }
+                const Matrix4x4 viewRotationMatrix = AZ::Matrix4x4::CreateRotationZ(viewRotation);
+                worldToViewPrevMatrix = viewRotationMatrix * worldToViewPrevMatrix;
+                worldToViewMatrix = viewRotationMatrix * worldToViewMatrix;
+                clipSpaceOffset = viewRotationMatrix * clipSpaceOffset;
+            }
+
+            if (clipSpaceOffset.IsZero())
             {
                 if (m_shaderResourceGroup)
                 {
-                    Matrix4x4 worldToClipPrevMatrix = m_viewToClipPrevMatrix * m_worldToViewPrevMatrix;
+                    Matrix4x4 worldToClipPrevMatrix = viewToClipPrevMatrix * worldToViewPrevMatrix;
+                    Matrix4x4 worldToClipMatrix = viewToClipMatrix * worldToViewMatrix;
                     m_shaderResourceGroup->SetConstant(m_worldToClipPrevMatrixConstantIndex, worldToClipPrevMatrix);
-                    m_shaderResourceGroup->SetConstant(m_viewProjectionMatrixConstantIndex, m_worldToClipMatrix);
-                    m_shaderResourceGroup->SetConstant(m_projectionMatrixConstantIndex, m_viewToClipMatrix);
-                    m_shaderResourceGroup->SetConstant(m_clipToWorldMatrixConstantIndex, m_clipToWorldMatrix);
-                    m_shaderResourceGroup->SetConstant(m_projectionMatrixInverseConstantIndex, m_viewToClipMatrix.GetInverseFull());
+                    m_shaderResourceGroup->SetConstant(m_viewProjectionMatrixConstantIndex, worldToClipMatrix);
+                    m_shaderResourceGroup->SetConstant(m_projectionMatrixConstantIndex, viewToClipMatrix);
+                    m_shaderResourceGroup->SetConstant(m_clipToWorldMatrixConstantIndex, worldToClipMatrix.GetInverseFull());
+                    m_shaderResourceGroup->SetConstant(m_projectionMatrixInverseConstantIndex, viewToClipMatrix.GetInverseFull());
                 }
             }
             else
             {
                 // Offset the current and previous frame clip matrices
-                Matrix4x4 offsetViewToClipMatrix = m_viewToClipMatrix;
-                offsetViewToClipMatrix.SetElement(0, 2, m_clipSpaceOffset.GetX());
-                offsetViewToClipMatrix.SetElement(1, 2, m_clipSpaceOffset.GetY());
+                Matrix4x4 offsetViewToClipMatrix = viewToClipMatrix;
+                offsetViewToClipMatrix.SetElement(0, 2, clipSpaceOffset.GetX());
+                offsetViewToClipMatrix.SetElement(1, 2, clipSpaceOffset.GetY());
 
-                Matrix4x4 offsetViewToClipPrevMatrix = m_viewToClipPrevMatrix;
-                offsetViewToClipPrevMatrix.SetElement(0, 2, m_clipSpaceOffset.GetX());
-                offsetViewToClipPrevMatrix.SetElement(1, 2, m_clipSpaceOffset.GetY());
+                Matrix4x4 offsetViewToClipPrevMatrix = viewToClipPrevMatrix;
+                offsetViewToClipPrevMatrix.SetElement(0, 2, clipSpaceOffset.GetX());
+                offsetViewToClipPrevMatrix.SetElement(1, 2, clipSpaceOffset.GetY());
 
                 // Build other matrices dependent on the view to clip matrices
-                Matrix4x4 offsetWorldToClipMatrix = offsetViewToClipMatrix * m_worldToViewMatrix;
-                Matrix4x4 offsetWorldToClipPrevMatrix = offsetViewToClipPrevMatrix * m_worldToViewPrevMatrix;
-            
-                Matrix4x4 offsetClipToViewMatrix = offsetViewToClipMatrix.GetInverseFull();
-                Matrix4x4 offsetClipToWorldMatrix = m_viewToWorldMatrix * offsetClipToViewMatrix;
+                Matrix4x4 offsetWorldToClipMatrix = offsetViewToClipMatrix * worldToViewMatrix;
+                Matrix4x4 offsetWorldToClipPrevMatrix = offsetViewToClipPrevMatrix * worldToViewPrevMatrix;
 
                 if (m_shaderResourceGroup)
                 {
                     m_shaderResourceGroup->SetConstant(m_worldToClipPrevMatrixConstantIndex, offsetWorldToClipPrevMatrix);
                     m_shaderResourceGroup->SetConstant(m_viewProjectionMatrixConstantIndex, offsetWorldToClipMatrix);
                     m_shaderResourceGroup->SetConstant(m_projectionMatrixConstantIndex, offsetViewToClipMatrix);
-                    m_shaderResourceGroup->SetConstant(m_clipToWorldMatrixConstantIndex, offsetClipToWorldMatrix);
+                    m_shaderResourceGroup->SetConstant(m_clipToWorldMatrixConstantIndex, offsetWorldToClipMatrix.GetInverseFull());
                     m_shaderResourceGroup->SetConstant(m_projectionMatrixInverseConstantIndex, offsetViewToClipMatrix.GetInverseFull());
                 }
             }
@@ -474,10 +531,10 @@ namespace AZ
             if (m_shaderResourceGroup)
             {
                 m_shaderResourceGroup->SetConstant(m_worldPositionConstantIndex, m_position);
-                m_shaderResourceGroup->SetConstant(m_viewMatrixConstantIndex, m_worldToViewMatrix);
-                m_shaderResourceGroup->SetConstant(m_viewMatrixInverseConstantIndex, m_worldToViewMatrix.GetInverseFull());
+                m_shaderResourceGroup->SetConstant(m_viewMatrixConstantIndex, worldToViewMatrix);
+                m_shaderResourceGroup->SetConstant(m_viewMatrixInverseConstantIndex, worldToViewMatrix.GetInverseFull());
                 m_shaderResourceGroup->SetConstant(m_zConstantsConstantIndex, m_nearZ_farZ_farZTimesNearZ_farZMinusNearZ);
-                m_shaderResourceGroup->SetConstant(m_unprojectionConstantsIndex, m_unprojectionConstants);
+                m_shaderResourceGroup->SetConstant(m_unprojectionConstantsIndex, unprojectionConstants);
 
                 m_shaderResourceGroup->Compile();
             }

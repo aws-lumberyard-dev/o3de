@@ -238,9 +238,11 @@ namespace AZ
                 if (auto it = AZStd::find(associatedViews.begin(), associatedViews.end(), view); it != associatedViews.end())
                 {
                     // Remove from its existing position, if any, before re-adding below
+                    view->SetViewportContext(nullptr);
                     associatedViews.erase(it);
                 }
 
+                view->SetViewportContext(GetViewportContextByName(context));
                 associatedViews.push_back(view);
             }
 
@@ -268,6 +270,7 @@ namespace AZ
                 {
                     return false;
                 }
+                (*viewIt)->SetViewportContext(nullptr);
                 associatedViews.erase(viewIt);
             }
 
@@ -294,6 +297,7 @@ namespace AZ
             {
                 Name defaultViewName = Name(AZStd::string::format("%s (Root Camera)", context.GetCStr()));
                 ViewPtr defaultView = View::CreateView(defaultViewName, View::UsageFlags::UsageCamera);
+                defaultView->SetViewportContext(GetViewportContextByName(context));
                 viewStack.push_back(AZStd::move(defaultView));
             }
             return viewStack;

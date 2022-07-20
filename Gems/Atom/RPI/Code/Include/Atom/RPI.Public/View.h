@@ -90,6 +90,9 @@ namespace AZ
             //! Sets a pixel offset on the view, usually used for jittering the camera for anti-aliasing techniques.
             void SetClipSpaceOffset(float xOffset, float yOffset);
 
+            //! Sets the pre-rotation matrix which will be applied to the world to view matrix.
+            //void SetViewRotation(float angle);
+
             const AZ::Matrix4x4& GetWorldToViewMatrix() const;
             //! Use GetViewToWorldMatrix().GetTranslation() to get the camera's position.
             const AZ::Matrix4x4& GetViewToWorldMatrix() const;
@@ -141,6 +144,11 @@ namespace AZ
             //! This is called by RenderPipeline when this view is added to the pipeline.
             void OnAddToRenderPipeline();
 
+            void SetViewportContext(ViewportContextPtr viewportContext)
+            {
+                m_viewportContext = viewportContext;
+            }
+
         private:
             View() = delete;
             View(const AZ::Name& name, UsageFlags usage);
@@ -157,6 +165,8 @@ namespace AZ
 
             AZ::Name m_name;
             UsageFlags m_usageFlags;
+
+            ViewportContextPtr m_viewportContext;
 
             // Shader resource group used per view
             Data::Instance<RPI::ShaderResourceGroup> m_shaderResourceGroup;
@@ -184,6 +194,7 @@ namespace AZ
             Matrix4x4 m_viewToWorldMatrix;
             Matrix4x4 m_viewToClipMatrix;
             Matrix4x4 m_clipToWorldMatrix;
+            //Matrix4x4 m_viewRotationMatrix;
 
             // View's position in world space
             Vector3 m_position;

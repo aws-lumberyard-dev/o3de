@@ -26,6 +26,7 @@ namespace AzFramework
                         const WindowStyleMasks& styleMasks) override;
         NativeWindowHandle GetWindowHandle() const override;
         uint32_t GetDisplayRefreshRate() const override;
+        void ResizeClientArea(WindowSize clientAreaSize) override;
     private:
         ANativeWindow* m_nativeWindow = nullptr;
     };
@@ -44,6 +45,24 @@ namespace AzFramework
         m_width = geometry.m_width;
         m_height = geometry.m_height;
 
+        AZ_Printf("NativeWindowImpl_Android", "InitWindow %u, %u", m_width, m_height);
+
+        int windowWidth = 0;
+        int windowHeight = 0;
+        if (AZ::Android::Utils::GetWindowSize(windowWidth, windowHeight))
+        {
+            // Use native screen resolution
+            m_width = windowWidth;
+            m_height = windowHeight;
+            
+            const bool isWindowVertical = windowWidth < windowHeight;
+            const float windowAspectRatio = static_cast<float>(windowWidth) / static_cast<float>(windowHeight);
+            
+            AZ_Printf("NativeWindowImpl_Android", "Native window aspect ratio %f: %u, %u vertical: %s", 
+                windowAspectRatio, windowWidth, windowHeight,
+                m_width, m_height, isWindowVertical ? "YES" : "NO");
+        }
+
         if (m_nativeWindow)
         {
             ANativeWindow_setBuffersGeometry(m_nativeWindow, m_width, m_height, ANativeWindow_getFormat(m_nativeWindow));
@@ -60,5 +79,12 @@ namespace AzFramework
         // [GFX TODO][GHI - 2678]
         // Using 60 for now until proper support is added
         return 60;
+    }
+
+    void NativeWindowImpl_Android::ResizeClientArea(WindowSize clientAreaSize)
+    {
+        m_width = clientAreaSize.m_width;
+        m_height = clientAreaSize.m_height;
+        AZ_Printf("NativeWindowImpl_Android", "ResizeClientArea %u, %u", m_width, m_height);
     }
 } // namespace AzFramework

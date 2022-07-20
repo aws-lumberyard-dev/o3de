@@ -275,6 +275,7 @@ void AZ::FFont::DrawStringUInternal(
     {
         AZ::RPI::ViewPtr view = viewportContext->GetDefaultView();
         modelViewProjMat = view->GetWorldToClipMatrix();
+        //modelViewProjMat = view->GetViewToClipMatrix() * AZ::Matrix4x4::CreateRotationZ(viewport.m_rotZ) * view->GetWorldToViewMatrix();
     }
     else
     {
@@ -283,6 +284,7 @@ void AZ::FFont::DrawStringUInternal(
             return;
         }
         AZ::MakeOrthographicMatrixRH(modelViewProjMat, viewX, viewX + viewWidth, viewY + viewHeight, viewY, zn, zf);
+        //modelViewProjMat = AZ::Matrix4x4::CreateRotationZ(viewport.m_rotZ) * modelViewProjMat;
     }
 
     size_t startingVertexCount = m_vertexCount;
@@ -341,6 +343,8 @@ void AZ::FFont::DrawStringUInternal(
         AZ::RPI::Ptr<AZ::RPI::DynamicDrawContext> dynamicDraw = AZ::AtomBridge::PerViewportDynamicDraw::Get()->GetDynamicDrawContextForViewport(m_dynamicDrawContextName, viewportContext->GetId());
         if (dynamicDraw)
         {
+            //const Matrix4x4 modelViewProjRotMat = AZ::Matrix4x4::CreateRotationZ(viewport.m_rotZ) * modelViewProjMat;
+
             //setup per draw srg
             auto drawSrg = dynamicDraw->NewDrawSrg();
             drawSrg->SetConstant(m_fontShaderData.m_viewProjInputIndex, modelViewProjMat);

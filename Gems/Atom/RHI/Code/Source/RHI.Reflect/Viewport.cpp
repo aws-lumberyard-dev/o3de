@@ -23,7 +23,8 @@ namespace AZ
                     ->Field("m_minY", &Viewport::m_minY)
                     ->Field("m_maxY", &Viewport::m_maxY)
                     ->Field("m_minZ", &Viewport::m_minZ)
-                    ->Field("m_maxZ", &Viewport::m_maxZ);
+                    ->Field("m_maxZ", &Viewport::m_maxZ)
+                    ->Field("m_rotZ", &Viewport::m_rotZ);
             }
         }
 
@@ -57,6 +58,7 @@ namespace AZ
             viewport.m_maxY = Lerp(m_minY, m_maxY, normalizedMaxY);
             viewport.m_minZ = Lerp(m_minZ, m_maxZ, normalizedMinZ);
             viewport.m_maxZ = Lerp(m_minZ, m_maxZ, normalizedMaxZ);
+            viewport.m_rotZ = m_rotZ;
             return viewport;
         }
 

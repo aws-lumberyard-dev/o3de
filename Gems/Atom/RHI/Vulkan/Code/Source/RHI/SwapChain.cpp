@@ -286,6 +286,7 @@ namespace AZ
                 // VK_SUBOPTIMAL_KHR is treated as success, but we better update the surface info as well.
                 if (result == VK_ERROR_OUT_OF_DATE_KHR || result == VK_SUBOPTIMAL_KHR)
                 {
+                    AZ_Warning("SwapChain", false, "Needs to recreate swap chain!");
                     m_pendingRecreation = true;
                 }
                 else
@@ -476,11 +477,15 @@ namespace AZ
             createInfo.imageSharingMode = VK_SHARING_MODE_EXCLUSIVE;
             createInfo.queueFamilyIndexCount = aznumeric_cast<uint32_t>(familyIndices.size());
             createInfo.pQueueFamilyIndices = familyIndices.empty() ? nullptr : familyIndices.data();
-            createInfo.preTransform = VK_SURFACE_TRANSFORM_IDENTITY_BIT_KHR;
+            // By setting the current transform we're telling the compositor that we will handle the rotation.
+            createInfo.preTransform = m_surfaceCapabilities.currentTransform;
             createInfo.compositeAlpha = m_compositeAlphaFlagBits;
             createInfo.presentMode = m_presentMode;
             createInfo.clipped = VK_FALSE;
             createInfo.oldSwapchain = m_oldNativeSwapChain;
+
+            AZ_TracePrintf("Vulkan", "Build native swapchain with transform %d and dimensions width: %u height: %u rotation: %f!",
+                           (int)m_surfaceCapabilities.currentTransform, extent.width, extent.height, m_dimensions.m_imageRotation);
 
             const VkResult result = vkCreateSwapchainKHR(device.GetNativeDevice(), &createInfo, nullptr, &m_nativeSwapChain);
             AssertSuccess(result);
@@ -569,6 +574,12 @@ namespace AZ
             m_presentMode = GetSupportedPresentMode(GetDescriptor().m_verticalSyncInterval);
             m_compositeAlphaFlagBits = GetSupportedCompositeAlpha(); 
 
+            AZ_TracePrintf("Vulkan", "Create swapchain desire width %u height: %u!",
+                           m_dimensions.m_imageWidth, m_dimensions.m_imageHeight);
+            AZ_TracePrintf("Vulkan", "Surface Capabilities min width %u height: %u, max width %u height: %u!",
+                           m_surfaceCapabilities.minImageExtent.width, m_surfaceCapabilities.minImageExtent.height,
+                           m_surfaceCapabilities.maxImageExtent.width, m_surfaceCapabilities.maxImageExtent.height);
+
             if (!ValidateSurfaceDimensions(m_dimensions))
             {
                 uint32_t oldHeight = m_dimensions.m_imageHeight;
@@ -586,9 +597,33 @@ namespace AZ
                     oldWidth, oldHeight, m_dimensions.m_imageWidth, m_dimensions.m_imageHeight);
             }
 
+            switch (m_surfaceCapabilities.currentTransform)
+            {
+                case VK_SURFACE_TRANSFORM_ROTATE_90_BIT_KHR:
+                    AZStd::swap(m_dimensions.m_imageHeight, m_dimensions.m_imageWidth);
+                    m_dimensions.m_imageRotation = -AZ::Constants::HalfPi;
+                    break;
+                case VK_SURFACE_TRANSFORM_ROTATE_180_BIT_KHR:
+                    m_dimensions.m_imageRotation = AZ::Constants::Pi;
+                    break;
+                case VK_SURFACE_TRANSFORM_ROTATE_270_BIT_KHR:
+                    AZStd::swap(m_dimensions.m_imageHeight, m_dimensions.m_imageWidth);
+                    m_dimensions.m_imageRotation = AZ::Constants::HalfPi;
+                    break;
+                default:
+                    m_dimensions.m_imageRotation = 0.0f;
+                    break;
+            }
+            
+            AZ_TracePrintf("Vulkan", "Create swapchain with transform %d and dimensions width: %u height: %u rotation: %f!",
+                       (int)m_surfaceCapabilities.currentTransform, 
+                       m_dimensions.m_imageWidth, m_dimensions.m_imageHeight,
+                       m_dimensions.m_imageRotation);
+
             RHI::ResultCode result = BuildNativeSwapChain(m_dimensions);
             RETURN_RESULT_IF_UNSUCCESSFUL(result);
-            AZ_TracePrintf("Vulkan", "Swapchain created. Width: %u, Height: %u.\n", m_dimensions.m_imageWidth, m_dimensions.m_imageHeight);
+            AZ_TracePrintf("Vulkan", "Swapchain created. Width: %u, Height: %u Rotation: %0.3f.\n", 
+                m_dimensions.m_imageWidth, m_dimensions.m_imageHeight, m_dimensions.m_imageRotation);
 
             // Do not recycle the semaphore because they may not ever get signaled and since
             // we can't recycle Vulkan semaphores we just delete them.

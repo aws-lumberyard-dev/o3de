@@ -251,7 +251,22 @@ namespace AZ
             {
                 if (imGuiPass->GetRenderPipeline() == renderPipeline.get())
                 {
-                    imGuiPass->RenderImguiDrawData(drawData);
+                    /*if (const float viewRotation = viewportContext->GetWindowContext()->GetViewport().m_viewRotation;
+                        viewRotation != 0.0f)
+                    {
+                        const AZ::Vector3 rotatedPos =
+                            AZ::Matrix4x4::CreateRotationZ(viewRotation) *
+                            AZ::Vector3(drawData.DisplayPos.x, drawData.DisplayPos.y, 0.0f);
+
+                        ImDrawData rotatedDrawData = drawData;
+                        rotatedDrawData.DisplayPos.x = rotatedPos.GetX();
+                        rotatedDrawData.DisplayPos.y = rotatedPos.GetY();
+                        imGuiPass->RenderImguiDrawData(rotatedDrawData);
+                    }
+                    else*/
+                    {
+                        imGuiPass->RenderImguiDrawData(drawData);
+                    }
                     return true;
                 }
             }

@@ -74,6 +74,7 @@ namespace AZ
                 AZ::Name(AZStd::string::format("Camera View (entity: \"%s\")", GetEntity()->GetName().c_str())) :
                 AZ::Name("Camera view (unknown entity)");
             m_view = RPI::View::CreateView(viewName, RPI::View::UsageCamera);
+            //m_view->SetViewRotation(m_componentConfig.m_target->GetViewport().m_viewRotation);
             m_auxGeomFeatureProcessor = RPI::Scene::GetFeatureProcessorForEntity<RPI::AuxGeomFeatureProcessorInterface>(GetEntityId());
             if (m_auxGeomFeatureProcessor)
             {

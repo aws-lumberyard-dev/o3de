@@ -519,6 +519,10 @@ namespace Camera
             }
             auto windowSize = viewportContext->GetViewportSize();
             const float aspectRatio = aznumeric_cast<float>(windowSize.m_width) / aznumeric_cast<float>(windowSize.m_height);
+            //const float viewRotation = viewportContext->GetWindowContext()->GetViewport().m_viewRotation;
+            //AZ_Printf("CameraComponentController", "UpdateCamera  aspect ration %f: %u, %u. rotation %f", 
+            //    aspectRatio, windowSize.m_width, windowSize.m_height, viewRotation);
+            //m_atomCamera->SetViewRotation(viewRotation);
 
             // This assumes a reversed depth buffer, in line with other LY Atom integration
             if (m_config.m_orthographic)
@@ -534,8 +538,16 @@ namespace Camera
             }
             else
             {
+                float fovY = AZ::DegToRad(m_config.m_fov);
+                /*if (AZ::IsClose(viewRotation, -AZ::Constants::HalfPi) || AZ::IsClose(viewRotation, AZ::Constants::HalfPi))
+                {
+                    float sinFov, cosFov;
+                    AZ::SinCos(0.5f * fovY, sinFov, cosFov);
+                    fovY = 2 * AZStd::atan((sinFov/cosFov)/aspectRatio);
+                }*/
+
                 AZ::MakePerspectiveFovMatrixRH(viewToClipMatrix,
-                    AZ::DegToRad(m_config.m_fov),
+                    fovY,
                     aspectRatio,
                     m_config.m_nearClipDistance,
                     m_config.m_farClipDistance,

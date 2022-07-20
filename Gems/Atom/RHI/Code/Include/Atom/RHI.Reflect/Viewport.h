@@ -48,6 +48,8 @@ namespace AZ
             float m_minZ = 0.0f;
             float m_maxZ = 1.0f;
 
+            float m_rotZ = 0.0f;
+
             float GetWidth() const;
             float GetHeight() const;
             float GetDepth() const;

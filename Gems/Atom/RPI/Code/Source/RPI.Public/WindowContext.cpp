@@ -25,11 +25,21 @@ namespace AZ
         {
             m_windowHandle = windowHandle;
 
+            AZ_TracePrintf("WindowContext", "Initialize window context!");
+
             CreateSwapChains(device);
 
             RHI::Ptr<RHI::SwapChain> defaultSwapChain = GetSwapChain(SwapChainMode::Default);
-            FillWindowState(defaultSwapChain->GetDescriptor().m_dimensions.m_imageWidth,
-                            defaultSwapChain->GetDescriptor().m_dimensions.m_imageHeight);
+            AZ_TracePrintf("WindowContext", "Initialized window context swap chain: width: %u height: %u rotation: %f!", 
+                defaultSwapChain->GetDescriptor().m_dimensions.m_imageWidth,
+                defaultSwapChain->GetDescriptor().m_dimensions.m_imageHeight,
+                defaultSwapChain->GetDescriptor().m_dimensions.m_imageRotation);
+
+            const auto defaultViewport = GetViewport(SwapChainMode::Default);
+            AZ_TracePrintf("WindowContext", "Initialized window context viewport: width: %f height: %f rotation: %f!", 
+                defaultViewport.m_maxX-defaultViewport.m_minX,
+                defaultViewport.m_maxY-defaultViewport.m_minY,
+                defaultViewport.m_rotZ);
 
             AzFramework::WindowNotificationBus::Handler::BusConnect(m_windowHandle);
             AzFramework::ExclusiveFullScreenRequestBus::Handler::BusConnect(m_windowHandle);
@@ -165,6 +175,8 @@ namespace AZ
             uint32_t width = AZStd::max(windowSize.m_width, 1u);
             uint32_t height = AZStd::max(windowSize.m_height, 1u);
 
+            AZ_TracePrintf("WindowContext", "GetClientAreaSize client area width: %u height: %u!", width, height);
+
             const RHI::WindowHandle windowHandle = RHI::WindowHandle(reinterpret_cast<uintptr_t>(m_windowHandle));
 
             uint32_t syncInterval = 1;
@@ -181,19 +193,44 @@ namespace AZ
 
             AZStd::string attachmentName = AZStd::string::format("WindowContextAttachment_%p", m_windowHandle);
             descriptor.m_attachmentId = RHI::AttachmentId{ attachmentName.c_str() };
+            AZ_TracePrintf("WindowContext", "Pre Init swapchain width: %u height: %u!", width, height);
             swapChain->Init(device, descriptor);
+            descriptor = swapChain->GetDescriptor(); // Get descriptorfrom swapchain because it can have different values during init.
+            AZ_TracePrintf("WindowContext", "GetClientAreaSize client area width: %u height: %u rotation: %f!", 
+                descriptor.m_dimensions.m_imageWidth,
+                descriptor.m_dimensions.m_imageHeight,
+                descriptor.m_dimensions.m_imageRotation);
+
+            // The final width and height is determined by the swapchain initialization,
+            // if the final values are different then resize the client area.
+            if (windowSize.m_width != descriptor.m_dimensions.m_imageWidth ||
+                windowSize.m_height != descriptor.m_dimensions.m_imageHeight)
+            {
+                AZ_TracePrintf("WindowContext", "Resize client area width: %u height: %u!", descriptor.m_dimensions.m_imageWidth, descriptor.m_dimensions.m_imageHeight);
+                const AzFramework::WindowSize newSize = AzFramework::WindowSize(descriptor.m_dimensions.m_imageWidth, descriptor.m_dimensions.m_imageHeight);
+                AzFramework::WindowRequestBus::Event(m_windowHandle, &AzFramework::WindowRequestBus::Events::ResizeClientArea, newSize);
+            }
+
+            RHI::Viewport viewport;
+            viewport.m_maxX = static_cast<float>(descriptor.m_dimensions.m_imageWidth);
+            viewport.m_maxY = static_cast<float>(descriptor.m_dimensions.m_imageHeight);
+            viewport.m_rotZ = descriptor.m_dimensions.m_imageRotation;
+
+            RHI::Scissor scissor;
+            scissor.m_maxX = static_cast<int16_t>(descriptor.m_dimensions.m_imageWidth);
+            scissor.m_maxY = static_cast<int16_t>(descriptor.m_dimensions.m_imageHeight);
 
             uint32_t defaultSwapChainIndex = static_cast<uint32_t>(SwapChainMode::Default);
             if (defaultSwapChainIndex < m_swapChainsData.size())
             {
                 m_swapChainsData[defaultSwapChainIndex].m_swapChain = swapChain;
-                m_swapChainsData[defaultSwapChainIndex].m_viewport = RHI::Viewport{};
-                m_swapChainsData[defaultSwapChainIndex].m_scissor = RHI::Scissor{};
+                m_swapChainsData[defaultSwapChainIndex].m_viewport = viewport;
+                m_swapChainsData[defaultSwapChainIndex].m_scissor = scissor;
             }
             else
             {
                 m_swapChainsData.insert(
-                    m_swapChainsData.begin() + defaultSwapChainIndex, SwapChainData{ swapChain, RHI::Viewport{}, RHI::Scissor{} });
+                    m_swapChainsData.begin() + defaultSwapChainIndex, SwapChainData{ swapChain, viewport, scissor });
             }
 
             // Add XR pipelines if it is active
@@ -216,10 +253,12 @@ namespace AZ
                     attachmentName = AZStd::string::format("XRSwapChain_View_%i", i);
                     xrDescriptor.m_attachmentId = RHI::AttachmentId{ attachmentName.c_str() };
                     xrSwapChain->Init(device, xrDescriptor);
+                    xrDescriptor = xrSwapChain->GetDescriptor(); // Get descriptorfrom swapchain because it can have different values during init.
 
                     RHI::Viewport xrViewport;
                     xrViewport.m_maxX = static_cast<float>(xrDescriptor.m_dimensions.m_imageWidth);
                     xrViewport.m_maxY = static_cast<float>(xrDescriptor.m_dimensions.m_imageHeight);
+                    xrViewport.m_rotZ = xrDescriptor.m_dimensions.m_imageRotation;
 
                     RHI::Scissor xrScissor;
                     xrScissor.m_maxX = static_cast<int16_t>(xrDescriptor.m_dimensions.m_imageWidth);
