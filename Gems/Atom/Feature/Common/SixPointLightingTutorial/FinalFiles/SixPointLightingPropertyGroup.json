@@ -8,7 +8,7 @@
             "displayName": "Texture Pack Mode",
             "description": "Determines how the textures are sampled.",
             "type": "Enum",
-            "enumValues": [ "TpLftRtBt_FrBck", "RtLftTp_BtBckTp" ],
+            "enumValues": [ "TpLftRtBt_FrBck", "RtLftTp_BtBckFr" ],
             "defaultValue": "TpLftRtBt_FrBck",
             "connection": {
                 "type": "ShaderOption",

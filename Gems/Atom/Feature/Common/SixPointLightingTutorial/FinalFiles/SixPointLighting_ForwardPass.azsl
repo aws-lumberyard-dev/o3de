@@ -39,7 +39,7 @@ COMMON_OPTIONS_CLEAR_COAT()
 COMMON_OPTIONS_OCCLUSION()
 COMMON_OPTIONS_EMISSIVE()
 
-enum class SixPointTexturePackMode { TpLftRtBt_FrBck, RtLftTp_BtBckTp };
+enum class SixPointTexturePackMode { TpLftRtBt_FrBck, RtLftTp_BtBckFr };
 option SixPointTexturePackMode o_sixPointTexturePackMode = SixPointTexturePackMode::TpLftRtBt_FrBck;
 
 // Note COMMON_OPTIONS_PARALLAX is in SixPointLighting_Common.azsli because it's needed by all StandardPBR shaders.

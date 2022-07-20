@@ -10,7 +10,7 @@
 ----------------------------------------------------------------------------------------------------
 
 TexturePackMode_TpLftRtBt_FrBck = 0;
-TexturePackMode_RtLftTp_BtBckTp = 1;
+TexturePackMode_RtLftTp_BtBckFr = 1;
 
 function GetMaterialPropertyDependencies()
     return {"sixPointLighting.texturePackMode"}
@@ -26,7 +26,7 @@ function ProcessEditor(context)
         context:SetMaterialPropertyVisibility("sixPointLighting.FB", MaterialPropertyVisibility_Enabled)
         context:SetMaterialPropertyVisibility("sixPointLighting.RLT", MaterialPropertyVisibility_Hidden)
         context:SetMaterialPropertyVisibility("sixPointLighting.BBF", MaterialPropertyVisibility_Hidden)
-    elseif(texturePackMode == TexturePackMode_RtLftTp_BtBckTp) then
+    elseif(texturePackMode == TexturePackMode_RtLftTp_BtBckFr) then
         -- RightLeftTop is the first texture, BottomBackFront is the second. Disable TopLeftRightBack and FrontBack.
         context:SetMaterialPropertyVisibility("sixPointLighting.TLRB", MaterialPropertyVisibility_Hidden)
         context:SetMaterialPropertyVisibility("sixPointLighting.FB", MaterialPropertyVisibility_Hidden)
