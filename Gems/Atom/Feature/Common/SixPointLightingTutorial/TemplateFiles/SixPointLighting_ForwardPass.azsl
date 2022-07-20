@@ -39,7 +39,7 @@ COMMON_OPTIONS_OCCLUSION()
 COMMON_OPTIONS_EMISSIVE()
 
 enum class SixPointTexturePackMode { TpLftRtBt_FrBck, RtLftTp_BtBckTp };
-option SixPointTexturePackMode o_sixPointTexutrePackMode = SixPointTexturePackMode::TpLftRtBt_FrBck;
+option SixPointTexturePackMode o_sixPointTexturePackMode = SixPointTexturePackMode::TpLftRtBt_FrBck;
 
 // Alpha
 #include "Atom/Feature/Common/Assets/Materials/Types/MaterialInputs/AlphaInput.azsli"
