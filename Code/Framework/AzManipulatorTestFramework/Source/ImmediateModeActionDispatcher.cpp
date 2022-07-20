@@ -26,6 +26,7 @@ namespace AzManipulatorTestFramework
     }
 
     using MouseButton = AzToolsFramework::ViewportInteraction::MouseButton;
+    using MouseEvent = AzToolsFramework::ViewportInteraction::MouseEvent;
     using KeyboardModifier = AzToolsFramework::ViewportInteraction::KeyboardModifier;
     using MouseInteractionEvent = AzToolsFramework::ViewportInteraction::MouseInteractionEvent;
 
@@ -71,58 +72,52 @@ namespace AzManipulatorTestFramework
         m_manipulatorViewportInteraction.GetViewportInteraction().SetCameraState(cameraState);
     }
 
-    void ImmediateModeActionDispatcher::MouseLButtonDownImpl()
+    void ImmediateModeActionDispatcher::MouseButtonDownImplInternal(const MouseButton mouseButton)
     {
-        ToggleOn(GetMouseInteractionEvent()->m_mouseInteraction.m_mouseButtons.m_mouseButtons, MouseButton::Left);
-        GetMouseInteractionEvent()->m_mouseEvent = AzToolsFramework::ViewportInteraction::MouseEvent::Down;
+        ToggleOn(GetMouseInteractionEvent()->m_mouseInteraction.m_mouseButtons.m_mouseButtons, mouseButton);
+        GetMouseInteractionEvent()->m_mouseEvent = MouseEvent::Down;
         m_manipulatorViewportInteraction.GetManipulatorManager().ConsumeMouseInteractionEvent(*m_event);
         // the mouse position will be the same as the previous event, thus the delta will be 0
         MouseMoveAfterButton();
+    }
+
+    void ImmediateModeActionDispatcher::MouseButtonUpImplInternal(const MouseButton mouseButton)
+    {
+        GetMouseInteractionEvent()->m_mouseEvent = AzToolsFramework::ViewportInteraction::MouseEvent::Up;
+        m_manipulatorViewportInteraction.GetManipulatorManager().ConsumeMouseInteractionEvent(*m_event);
+        ToggleOff(GetMouseInteractionEvent()->m_mouseInteraction.m_mouseButtons.m_mouseButtons, mouseButton);
+        // the mouse position will be the same as the previous event, thus the delta will be 0
+        MouseMoveAfterButton();
+    }
+
+    void ImmediateModeActionDispatcher::MouseLButtonDownImpl()
+    {
+        MouseButtonDownImplInternal(MouseButton::Left);
     }
 
     void ImmediateModeActionDispatcher::MouseLButtonUpImpl()
     {
-        GetMouseInteractionEvent()->m_mouseEvent = AzToolsFramework::ViewportInteraction::MouseEvent::Up;
-        m_manipulatorViewportInteraction.GetManipulatorManager().ConsumeMouseInteractionEvent(*m_event);
-        ToggleOff(GetMouseInteractionEvent()->m_mouseInteraction.m_mouseButtons.m_mouseButtons, MouseButton::Left);
-        // the mouse position will be the same as the previous event, thus the delta will be 0
-        MouseMoveAfterButton();
+        MouseButtonUpImplInternal(MouseButton::Left);
     }
 
     void ImmediateModeActionDispatcher::MouseMButtonDownImpl()
     {
-        ToggleOn(GetMouseInteractionEvent()->m_mouseInteraction.m_mouseButtons.m_mouseButtons, MouseButton::Middle);
-        GetMouseInteractionEvent()->m_mouseEvent = AzToolsFramework::ViewportInteraction::MouseEvent::Down;
-        m_manipulatorViewportInteraction.GetManipulatorManager().ConsumeMouseInteractionEvent(*m_event);
-        // the mouse position will be the same as the previous event, thus the delta will be 0
-        MouseMoveAfterButton();
+        MouseButtonDownImplInternal(MouseButton::Middle);
     }
 
     void ImmediateModeActionDispatcher::MouseMButtonUpImpl()
     {
-        GetMouseInteractionEvent()->m_mouseEvent = AzToolsFramework::ViewportInteraction::MouseEvent::Up;
-        m_manipulatorViewportInteraction.GetManipulatorManager().ConsumeMouseInteractionEvent(*m_event);
-        ToggleOff(GetMouseInteractionEvent()->m_mouseInteraction.m_mouseButtons.m_mouseButtons, MouseButton::Middle);
-        // the mouse position will be the same as the previous event, thus the delta will be 0
-        MouseMoveAfterButton();
+        MouseButtonUpImplInternal(MouseButton::Middle);
     }
 
     void ImmediateModeActionDispatcher::MouseRButtonDownImpl()
     {
-        ToggleOn(GetMouseInteractionEvent()->m_mouseInteraction.m_mouseButtons.m_mouseButtons, MouseButton::Right);
-        GetMouseInteractionEvent()->m_mouseEvent = AzToolsFramework::ViewportInteraction::MouseEvent::Down;
-        m_manipulatorViewportInteraction.GetManipulatorManager().ConsumeMouseInteractionEvent(*m_event);
-        // the mouse position will be the same as the previous event, thus the delta will be 0
-        MouseMoveAfterButton();
+        MouseButtonDownImplInternal(MouseButton::Right);
     }
 
     void ImmediateModeActionDispatcher::MouseRButtonUpImpl()
     {
-        GetMouseInteractionEvent()->m_mouseEvent = AzToolsFramework::ViewportInteraction::MouseEvent::Up;
-        m_manipulatorViewportInteraction.GetManipulatorManager().ConsumeMouseInteractionEvent(*m_event);
-        ToggleOff(GetMouseInteractionEvent()->m_mouseInteraction.m_mouseButtons.m_mouseButtons, MouseButton::Right);
-        // the mouse position will be the same as the previous event, thus the delta will be 0
-        MouseMoveAfterButton();
+        MouseButtonUpImplInternal(MouseButton::Right);
     }
 
     void ImmediateModeActionDispatcher::MouseLButtonDoubleClickImpl()

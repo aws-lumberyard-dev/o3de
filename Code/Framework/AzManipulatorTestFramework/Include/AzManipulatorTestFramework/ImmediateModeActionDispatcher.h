@@ -82,6 +82,9 @@ namespace AzManipulatorTestFramework
         // note: This is to remain consistent with event behavior in the Editor.
         void MouseMoveAfterButton();
 
+        void MouseButtonDownImplInternal(AzToolsFramework::ViewportInteraction::MouseButton mouseButton);
+        void MouseButtonUpImplInternal(AzToolsFramework::ViewportInteraction::MouseButton mouseButton);
+
         MouseInteractionEvent* GetMouseInteractionEvent();
         const MouseInteractionEvent* GetMouseInteractionEvent() const;
 
