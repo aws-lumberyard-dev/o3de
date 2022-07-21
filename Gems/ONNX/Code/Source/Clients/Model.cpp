@@ -26,11 +26,12 @@ namespace ONNX {
         m_inputShape = m_init_settings.m_inputShape;
         auto m_memory_info = Ort::MemoryInfo::CreateCpu(OrtDeviceAllocator, OrtMemTypeCPU);
         m_inputTensor = Ort::Value::CreateTensor<float>(m_memory_info, m_input.data(), m_input.size(), m_inputShape.data(), m_inputShape.size());
-        Ort::AllocatorWithDefaultOptions allocator;
+        Ort::AllocatorWithDefaultOptions* m_allocator;
+        ONNXRequestBus::BroadcastResult(m_allocator, &ONNXRequestBus::Events::GetAllocator);
         m_inputCount = m_session.GetInputCount();
         AZ_Printf("\nONNX", " Input Count: %d", m_inputCount);
         for (size_t i = 0; i < m_inputCount; i++) {
-            const char* in_name = m_session.GetInputName(i, allocator);
+            const char* in_name = m_session.GetInputName(i, *m_allocator);
             m_inputNames.push_back(in_name);
             AZ_Printf("\nONNX", " Input Name %d: %s", i, in_name);
         }
@@ -40,7 +41,7 @@ namespace ONNX {
         m_outputCount = m_session.GetOutputCount();
         AZ_Printf("\nONNX", " Output Count: %d", m_outputCount);
         for (size_t i = 0; i < m_outputCount; i++) {
-            const char* out_name = m_session.GetOutputName(i, allocator);
+            const char* out_name = m_session.GetOutputName(i, *m_allocator);
             m_outputNames.push_back(out_name);
             AZ_Printf("\nONNX", " Output Name %d: %s", i, out_name);
         }

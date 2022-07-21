@@ -6,6 +6,7 @@
 
 namespace Ort {
     struct Env;
+    struct AllocatorWithDefaultOptions;
 }
 
 namespace ONNX
@@ -17,6 +18,7 @@ namespace ONNX
         virtual ~ONNXRequests() = default;
         // Put your public methods here
         virtual Ort::Env* GetEnv() = 0;
+        virtual Ort::AllocatorWithDefaultOptions* GetAllocator() = 0;
     };
     
     class ONNXBusTraits

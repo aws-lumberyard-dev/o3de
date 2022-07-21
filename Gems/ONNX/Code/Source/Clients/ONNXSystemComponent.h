@@ -26,6 +26,9 @@ namespace ONNX
         AZStd::unique_ptr<Ort::Env> m_env;
         Ort::Env* GetEnv() override;
 
+        AZStd::unique_ptr<Ort::AllocatorWithDefaultOptions> m_allocator;
+        Ort::AllocatorWithDefaultOptions* GetAllocator() override;
+
         ONNXSystemComponent();
         ~ONNXSystemComponent();
 

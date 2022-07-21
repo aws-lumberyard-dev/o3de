@@ -71,6 +71,10 @@ namespace ONNX
         return m_env.get();
     }
 
+    Ort::AllocatorWithDefaultOptions* ONNXSystemComponent::GetAllocator() {
+        return m_allocator.get();
+    }
+
     void OnnxLoggingFunction(void*, OrtLoggingLevel, const char* category, const char* logid, const char* code_location, const char* message) {
         AZ_Printf("\nONNX", "%s %s %s %s", category, logid, code_location, message);
     }
@@ -79,6 +83,7 @@ namespace ONNX
     {
         void* ptr;
         m_env = AZStd::make_unique<Ort::Env>(ORT_LOGGING_LEVEL_VERBOSE, "test_log", OnnxLoggingFunction, ptr);
+        m_allocator = AZStd::make_unique<Ort::AllocatorWithDefaultOptions>();
     }
 
     void ONNXSystemComponent::Activate()
