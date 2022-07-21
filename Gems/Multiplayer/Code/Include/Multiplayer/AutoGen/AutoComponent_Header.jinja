@@ -303,28 +303,28 @@ namespace {{ Component.attrib['Namespace'] }}
 
 {% set networkPropertyCount = {'value' : 0} %}
 {% call(Property) AutoComponentMacros.ParseNetworkProperties(Component, 'Authority', 'Client') %}
-{%-      if networkPropertyCount.update({'value': networkPropertyCount.value + 1}) %}{% endif -%} 
+{%-      if networkPropertyCount.update({'value': networkPropertyCount.value + 1}) %}{% endif -%}
 {% endcall %}
 {% if networkPropertyCount.value > 0 %}
         AzNetworking::FixedSizeBitsetView m_authorityToClient;
 {% endif %}
 {% set networkPropertyCount = {'value' : 0} %}
 {% call(Property) AutoComponentMacros.ParseNetworkProperties(Component, 'Authority', 'Server') %}
-{%-      if networkPropertyCount.update({'value': networkPropertyCount.value + 1}) %}{% endif -%} 
+{%-      if networkPropertyCount.update({'value': networkPropertyCount.value + 1}) %}{% endif -%}
 {% endcall %}
 {% if networkPropertyCount.value > 0 %}
         AzNetworking::FixedSizeBitsetView m_authorityToServer;
 {% endif %}
 {% set networkPropertyCount = {'value' : 0} %}
 {% call(Property) AutoComponentMacros.ParseNetworkProperties(Component, 'Authority', 'Autonomous') %}
-{%-      if networkPropertyCount.update({'value': networkPropertyCount.value + 1}) %}{% endif -%} 
+{%-      if networkPropertyCount.update({'value': networkPropertyCount.value + 1}) %}{% endif -%}
 {% endcall %}
 {% if networkPropertyCount.value > 0 %}
         AzNetworking::FixedSizeBitsetView m_authorityToAutonomous;
 {% endif %}
 {% set networkPropertyCount = {'value' : 0} %}
 {% call(Property) AutoComponentMacros.ParseNetworkProperties(Component, 'Autonomous', 'Authority') %}
-{%-      if networkPropertyCount.update({'value': networkPropertyCount.value + 1}) %}{% endif -%} 
+{%-      if networkPropertyCount.update({'value': networkPropertyCount.value + 1}) %}{% endif -%}
 {% endcall %}
 {% if networkPropertyCount.value > 0 %}
         AzNetworking::FixedSizeBitsetView m_autonomousToAuthority;
@@ -347,11 +347,11 @@ namespace {{ Component.attrib['Namespace'] }}
     {
     public:
 {%      if NetworkInputsExposedToScriptCount > 0 %}
-        AZ_TYPE_INFO({{ ComponentName }}NetworkInput, "{{ (ComponentName ~ "NetworkInput") | createHashGuid }}") 
+        AZ_TYPE_INFO({{ ComponentName }}NetworkInput, "{{ (ComponentName ~ "NetworkInput") | createHashGuid }}")
         {{ ComponentName }}NetworkInput() = default;
         {{ ComponentName }}NetworkInput({{ AutoComponentMacros.GetCommaSeparatedParamListOfScriptableNetworkInputs(Component) }});
         static void Reflect(AZ::ReflectContext* context);
-        
+
 {%      endif%}
         Multiplayer::NetComponentId GetNetComponentId() const override;
         bool Serialize(AzNetworking::ISerializer& serializer) override;
@@ -527,7 +527,7 @@ namespace {{ Component.attrib['Namespace'] }}
         bool SerializeStateDeltaMessage(Multiplayer::ReplicationRecord& replicationRecord, AzNetworking::ISerializer& serializer) override;
         void NotifyStateDeltaChanges(Multiplayer::ReplicationRecord& replicationRecord) override;
         bool HasController() const override;
-        Multiplayer::MultiplayerController* GetController() override;
+        {{ ControllerBaseName }}* GetController() override;
 
     protected:
         void ConstructController() override;
