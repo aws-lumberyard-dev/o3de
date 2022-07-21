@@ -7,7 +7,7 @@
         "$import": "MaterialInputs/VegetationBendingPropertyGroup.json"
       },
       // Currently we cannot import property groups across gems, so we are hard coding the full path, even though it is not portable, as a proof of concept. 
-      // There is a GHI to enable importing across gems at o3de#10623.
+      // There is a GHI to enable importing across gems at https://github.com/o3de/o3de/issues/10623.
       {
         "$import": "{your-path-to-o3de}/o3de/Gems/Atom/Feature/Common/Assets/Materials/Types/MaterialInputs/BaseColorPropertyGroup.json"
       },
