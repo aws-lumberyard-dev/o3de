@@ -26,23 +26,28 @@ namespace ONNX {
         m_inputShape = m_init_settings.m_inputShape;
         auto m_memory_info = Ort::MemoryInfo::CreateCpu(OrtDeviceAllocator, OrtMemTypeCPU);
         m_inputTensor = Ort::Value::CreateTensor<float>(m_memory_info, m_input.data(), m_input.size(), m_inputShape.data(), m_inputShape.size());
-        m_inputCount = m_init_settings.m_inputCount;
-        m_inputNames = m_init_settings.m_inputNames;
-        for (int i = 0; i < m_inputCount; i++) {
-            m_cachedInputNames.push_back(m_inputNames[i].c_str());
+        Ort::AllocatorWithDefaultOptions allocator;
+        m_inputCount = m_session.GetInputCount();
+        AZ_Printf("\nONNX", " Input Count: %d", m_inputCount);
+        for (size_t i = 0; i < m_inputCount; i++) {
+            const char* in_name = m_session.GetInputName(i, allocator);
+            m_inputNames.push_back(in_name);
+            AZ_Printf("\nONNX", " Input Name %d: %s", i, in_name);
         }
         m_output = m_init_settings.m_output;
         m_outputShape = m_init_settings.m_outputShape;
         m_outputTensor = Ort::Value::CreateTensor<float>(m_memory_info, m_output.data(), m_output.size(), m_outputShape.data(), m_outputShape.size());
-        m_outputCount = m_init_settings.m_outputCount;
-        m_outputNames = m_init_settings.m_outputNames;
-        for (int i = 0; i < m_outputCount; i++) {
-            m_cachedOutputNames.push_back(m_outputNames[i].c_str());
+        m_outputCount = m_session.GetOutputCount();
+        AZ_Printf("\nONNX", " Output Count: %d", m_outputCount);
+        for (size_t i = 0; i < m_outputCount; i++) {
+            const char* out_name = m_session.GetOutputName(i, allocator);
+            m_outputNames.push_back(out_name);
+            AZ_Printf("\nONNX", " Output Name %d: %s", i, out_name);
         }
     }
 
     void Model::Run() {
-        m_session.Run(Ort::RunOptions{ nullptr }, m_cachedInputNames.data(), &m_inputTensor, m_inputCount, m_cachedOutputNames.data(), &m_outputTensor, m_outputCount);
+        m_session.Run(Ort::RunOptions{ nullptr }, m_inputNames.data(), &m_inputTensor, m_inputCount, m_outputNames.data(), &m_outputTensor, m_outputCount);
     }
 
     std::ptrdiff_t MNIST::GetResult() {
@@ -52,7 +57,7 @@ namespace ONNX {
     }
 
     void MnistExample() {
-        upng_t* upng = upng_new_from_file("C:/Users/kubciu/dev/o3de/Gems/ONNX/Assets/rsz_twov2.png");
+        upng_t* upng = upng_new_from_file("C:/Users/kubciu/dev/o3de/Gems/ONNX/Assets/rsz_zerov2.png");
         upng_decode(upng);
         int width = upng_get_width(upng);
         int height = upng_get_height(upng);
@@ -96,13 +101,9 @@ namespace ONNX {
 
         init_settings.m_input = mnist_input_image;
         init_settings.m_inputShape = { 1, 1, 28, 28 };
-        init_settings.m_inputNames = { "Input3" };
-        init_settings.m_inputCount = 1;
         std::vector<float> output(10);
         init_settings.m_output = output;
         init_settings.m_outputShape = { 1, 10 };
-        init_settings.m_outputNames = { "Plus214_Output_0" };
-        init_settings.m_outputCount = 1;
 
         mnist_.Load(init_settings);
         mnist_.m_timer.Stamp();

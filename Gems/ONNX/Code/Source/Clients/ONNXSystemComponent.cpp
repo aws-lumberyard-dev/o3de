@@ -72,7 +72,7 @@ namespace ONNX
     }
 
     void OnnxLoggingFunction(void*, OrtLoggingLevel, const char* category, const char* logid, const char* code_location, const char* message) {
-        AZ_Printf("\nONNX", "CATEGORY: %s LOGID: %s CODE_LOCATION: %s MESSAGE: %s", category, logid, code_location, message);
+        AZ_Printf("\nONNX", "%s %s %s %s", category, logid, code_location, message);
     }
 
     void ONNXSystemComponent::Init()

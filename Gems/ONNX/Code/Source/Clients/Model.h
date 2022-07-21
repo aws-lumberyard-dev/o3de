@@ -20,15 +20,11 @@ namespace ONNX {
         }
 
         struct InitSettings {
-            std::wstring m_modelFile = L"C:/Users/kubciu/dev/o3de/Gems/ONNX/Assets/model.onnx";
+            std::wstring m_modelFile = L"C:/Users/kubciu/dev/o3de/Gems/ONNX/Assets/mnist.onnx";
             std::vector<float> m_input;
             std::vector<int64_t> m_inputShape;
-            AZStd::vector<AZStd::string> m_inputNames;
-            size_t m_inputCount;
             std::vector<float> m_output;
             std::vector<int64_t> m_outputShape;
-            AZStd::vector<AZStd::string> m_outputNames;
-            size_t m_outputCount;
         };
 
         void Load(InitSettings& m_init_settings);
@@ -44,14 +40,12 @@ namespace ONNX {
         Ort::Session m_session{ nullptr };
         Ort::Value m_inputTensor{ nullptr };
         std::vector<int64_t> m_inputShape;
-        AZStd::vector<AZStd::string> m_inputNames;
-        AZStd::vector<const char*> m_cachedInputNames;
         size_t m_inputCount;
+        AZStd::vector<const char*> m_inputNames;
         Ort::Value m_outputTensor{ nullptr };
         std::vector<int64_t> m_outputShape;
-        AZStd::vector<AZStd::string> m_outputNames;
-        AZStd::vector<const char*> m_cachedOutputNames;
         size_t m_outputCount;
+        AZStd::vector<const char*> m_outputNames;
     };
 
     template<typename T>
