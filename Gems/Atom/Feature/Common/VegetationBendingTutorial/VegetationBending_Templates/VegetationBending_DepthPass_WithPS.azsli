@@ -6,10 +6,6 @@
  *
  */
 
-#ifndef MULTILAYER
-#define MULTILAYER 0
-#endif
-
 #ifndef ENABLE_ALPHA_CLIP
 #define ENABLE_ALPHA_CLIP 0
 #endif
@@ -26,14 +22,6 @@ struct VegetationVSInput
     float3 m_bitangent : BITANGENT; 
 
     float4 m_optional_color : COLOR0;
-
-#if MULTILAYER
-    // This gets set automatically by the system at runtime only if it's available.
-    // There is a soft naming convention that associates this with o_blendMask_isBound, which will be set to true whenever m_optional_blendMask is available.
-    // (search "m_optional_" in ShaderVariantAssetBuilder for details on the naming convention).
-    // [GFX TODO][ATOM-14475]: Come up with a more elegant way to associate the isBound flag with the input stream.
-    float4 m_optional_blendMask : COLOR1;
-#endif
 };
 
 VSDepthOutput VegetationVS(VSInput IN)
@@ -56,17 +44,6 @@ VSDepthOutput VegetationVS(VSInput IN)
 
     OUT.m_worldPosition = worldPosition.xyz;
     OUT.m_position = mul(ViewSrg::m_viewProjectionMatrix, worldPosition);
-
-#if MULTILAYER
-    if(o_blendMask_isBound)
-    {
-        OUT.m_blendMask = IN.m_optional_blendMask.rgb;
-    }
-    else
-    {
-        OUT.m_blendMask = float3(0,0,0);
-    }
-#endif
 
     return OUT;
 }
