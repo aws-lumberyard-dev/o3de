@@ -495,11 +495,20 @@ def init_o3de_core(engine_path=_O3DE_DEV,
     # There are numerous ways to build, e.g. project-centric or engine-centric
 
     # when using the installer with pre-built engine (CMakeCache doesn't exist)
-    _PATH_O3DE_BUILD = Path(azpy.config_utils.get_o3de_build_path(_O3DE_DEV,
-                                                                  'CMakeCache.txt'))
+    # so this may not currently work with those builds if you don't set
+    # values in Env_Dev.bat files
+    _PATH_O3DE_BUILD = Path(os.getenv('PATH_O3DE_BUILD',
+                                      azpy.config_utils.get_o3de_build_path(_O3DE_DEV,
+                                                                            'CMakeCache.txt'))).resolve()
+    # this ensure the locally derived default replaces the envar
     os.environ["DYNACONF_PATH_O3DE_BUILD"] = str(_PATH_O3DE_BUILD.as_posix())
 
-    _PATH_O3DE_BIN = Path(STR_PATH_O3DE_BIN.format(_PATH_O3DE_BUILD))
+    # this needs improved, it wasn't to assume this default
+    _PATH_O3DE_BIN = Path(STR_PATH_O3DE_BIN.format(_PATH_O3DE_BUILD)).resolve()
+    # but we want to let it be overridden if explicitly defined in external env
+    # if it's not externally defined, we accept the default and hope it works
+    _PATH_O3DE_BIN = Path(os.getenv('PATH_O3DE_BIN',
+                                    _PATH_O3DE_BIN)).resolve()
     os.environ["DYNACONF_PATH_O3DE_BIN"] = str(_PATH_O3DE_BIN.as_posix())
 
     # hard check
