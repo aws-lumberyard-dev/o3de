@@ -48,16 +48,4 @@ namespace ONNX {
         size_t m_outputCount;
         AZStd::vector<const char*> m_outputNames;
     };
-
-    struct MNIST : public Model
-    {
-        template<typename T>
-        static void softmax(T& input);
-
-        std::ptrdiff_t GetResult();
-
-        int64_t m_result{ 0 };
-    };
-
-    void RunMnistSuite();
 }

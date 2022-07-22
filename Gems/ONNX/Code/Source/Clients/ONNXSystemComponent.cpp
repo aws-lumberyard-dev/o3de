@@ -4,7 +4,7 @@
 #include <AzCore/Serialization/SerializeContext.h>
 #include <AzCore/Serialization/EditContext.h>
 #include <AzCore/Serialization/EditContextConstants.inl>
-#include "Model.h"
+#include "Mnist.h"
 
 // This is the structure to interface with the MNIST model
 // After instantiation, set the input_image_ data to be the 28x28 pixel image of the number to recognize
