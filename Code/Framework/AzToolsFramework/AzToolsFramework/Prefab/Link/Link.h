@@ -9,6 +9,7 @@
 #pragma once
 
 #include <AzCore/DOM/DomValue.h>
+#include <AzCore/DOM/DomPrefixTree.h>
 #include <AzCore/Memory/SystemAllocator.h>
 #include <AzCore/Serialization/Json/JsonSerialization.h>
 #include <AzToolsFramework/Entity/PrefabEditorEntityOwnershipInterface.h>
@@ -79,6 +80,8 @@ namespace AzToolsFramework
              */
             void AddLinkIdToInstanceDom(PrefabDomValue& instanceDomValue);
 
+            bool IsOverridePresent(AZ::Dom::Path path);
+
             PrefabDom GetLinkPatches();
 
         private:
@@ -93,6 +96,8 @@ namespace AzToolsFramework
 
             PrefabDom ConstructRapidJsonPatchesArray();
 
+            AZ::Dom::DomPrefixTree<PrefabDomValue> m_linkPatchesTree;
+            PrefabDom m_cachedLinkDom;
 
             // Target template id for propagation during updating templates.
             TemplateId m_targetTemplateId = InvalidTemplateId;

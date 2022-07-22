@@ -82,6 +82,7 @@ namespace AzToolsFramework
             , m_instanceName(AZStd::move(other.m_instanceName))
             , m_prefabSystemComponentInterface(AZStd::move(other.m_prefabSystemComponentInterface))
             , m_prefabEditorEntityOwnershipInterface(AZStd::move(other.m_prefabEditorEntityOwnershipInterface))
+            , m_linkPatchesTree(AZStd::move(other.m_linkPatchesTree))
         {
             other.m_prefabSystemComponentInterface = nullptr;
             other.m_prefabEditorEntityOwnershipInterface = nullptr;
@@ -109,6 +110,7 @@ namespace AzToolsFramework
                 other.m_prefabEditorEntityOwnershipInterface = nullptr;
                 //m_linkDom.Swap(other.m_linkDom);
                 m_linkDom = AZStd::move(other.m_linkDom);
+                m_linkPatchesTree = AZStd::move(other.m_linkPatchesTree);
             }
 
             return *this;
@@ -156,6 +158,23 @@ namespace AzToolsFramework
                     }
                 }
             }
+
+            PrefabDomValueConstReference patchesReference = PrefabDomUtils::FindPrefabDomValue(linkDom, PrefabDomUtils::PatchesName);
+            if (patchesReference.has_value() && patchesReference->get().IsArray())
+            {
+                for (auto& patchesIterator : patchesReference->get().GetArray())
+                {
+                    PrefabDomValue patchEntry(patchesIterator, m_cachedLinkDom.GetAllocator());
+                    auto path = patchesIterator.FindMember("path");
+                    if (path != patchesIterator.MemberEnd())
+                    {
+                        AZ::Dom::Path domPath(path->value.GetString());
+                        m_linkPatchesTree.SetValue(domPath, AZStd::move(patchEntry));
+                    }
+                }
+            }
+            
+            
 
             if (!convertToAzDomResult.IsSuccess())
             {
@@ -379,6 +398,18 @@ namespace AzToolsFramework
         {
             //return PrefabDomUtils::FindPrefabDomValue(m_linkDom, PrefabDomUtils::PatchesName);
             return AZStd::move(ConstructRapidJsonPatchesArray());
+        }
+
+        bool Link::IsOverridePresent(AZ::Dom::Path path)
+        {
+            AZStd::vector<AZStd::pair<const AZ::Dom::Path&,const PrefabDomValue&>> results;
+            auto visitorFn = [&results](const AZ::Dom::Path& path, const PrefabDomValue& patch)
+            {
+                results.emplace_back(path, patch);
+            };
+
+            m_linkPatchesTree.VisitPath(path, AZ::Dom::PrefixTreeMatch::PathAndSubpaths, visitorFn);
+            return (results.size() > 0);
         }
 
     } // namespace Prefab
