@@ -25,8 +25,45 @@ import time
 import sys
 import os
 import re
+import site
 
 # azpy bootstrapping and extensions
+
+#### This would all occur in the maya/config.py ####
+# so we'd only import one line of code to get all of this
+# but I added this to make sure I could get to Qt / PySide2
+# maya has not yet been updated to the config.py patterns
+#
+# This ensures basic code access to the DCCsi
+# <o3de>/Gems/AtomLyIntegration/TechnicalArt/<DCCsi>
+_MODULE_PATH = Path(__file__)
+_PATH_DCCSIG = _MODULE_PATH.parents[5]
+site.addsitedir(_PATH_DCCSIG.as_posix())
+
+# now we know we will have known dccsi azpy api access
+import azpy.config_utils
+
+# set envar with modules locally derived value
+# to ensure we bootstrap with it (config.py)
+from azpy.constants import ENVAR_PATH_DCCSIG
+os.environ[ENVAR_PATH_DCCSIG] = _PATH_DCCSIG.as_posix()
+
+# this will bootstrap access to the dccsi managed package dependencies
+# <DCCsi>\3rdParty\Python\Lib\3.x\3.x.x (based on python version)
+# know we know we'll have package dependancy access before other code runs
+_PATH_DCCSI_PYTHON_LIB = azpy.config_utils.bootstrap_dccsi_py_libs()
+site.addsitedir(_PATH_DCCSI_PYTHON_LIB.as_posix())
+
+# This will import and retrieve the core <dccsi>/config.py and settings
+_DCCSI_CORE_CONFIG = azpy.config_utils.get_dccsi_config(_PATH_DCCSIG)
+
+# now standalone we can validate the config, env, settings.
+# I want to make sure that I am boostrapping Qt/PySide
+_SETTINGS = _DCCSI_CORE_CONFIG.get_config_settings(enable_o3de_python=False,
+                                                   enable_o3de_pyside2=True,
+                                                   set_env=True)
+####################################################
+
 from azpy.constants import FRMT_LOG_LONG
 
 # O3DE Qt/PySide2
@@ -63,6 +100,50 @@ _LOGGER = logging.getLogger('kitbash_converter.main')
 # TODO - Add Blender support
 # TODO - Put in a better system for processing all available file types (blend, fbx, mb, ma).
 
+#### I modified this code ####
+# ideally all or most of this would just be pulled from settings like
+#
+# _all_properties_location = Path(settings.O3DE_CACHE, 'pc', 'materials', 'types',
+#                                'standardpbr_allproperties.material').resolve()
+#
+# But the cache was not previously considered, so not plumbed into config prior
+#
+# so I was hacking, I made a string of changes until the tool ran.
+# and not that many... there are way more comments here then actual code changes.
+# and some of these code changes I would actually streamline if I wasn't hacking.
+#
+# this would generally be your engine code repository, in fact it is (c:\o3de-ben\...)
+# In my Env_Dev.bat this is: "set O3DE_DEV=c:\depot\o3de-ben"
+_engine_root = Path(os.getenv('O3DE_DEV', _PATH_DCCSIG.parents[4])).resolve()
+
+# this would generally be your engine build binaries folder
+# However, I switched this in the Env_Dev.bat to my already built engine bin folder
+# In my Env_Dev.bat this is: set "PATH_O3DE_BIN=c:\depot\o3de-dev\build\bin\profile"
+# if the envar key:value isn't set, it's gonna try a default location
+# but if not set in Env_Dev.bat (or otherwise specified), the default fallback likely is wrong
+# because engine-centric or project-centric build,
+# or user specified build directory folder name for cmake,
+# or the predetermined bin path for installer builds.
+# the point is ... we don't know which engine, we don't know the bin path
+# developers often work differently then downstream end user csutomers.
+_engine_bin = Path(os.getenv('PATH_O3DE_BIN', Path(_engine_root, 'build/bin/profile'))).resolve()
+
+# I want to get to the cache, it used to be under the legacy engine ...
+# now it's always under a project, but unless the user can specify which project
+# we don't have a good way to know in a standalone tool which cache to access
+# we would know if starting from the o3de editor, or a launcher that let them pick
+# I am not doing either of those things, right now I just wanted to:
+# 1) either start this tool from IDE
+# 2) or start this tool from some command line, and then remote debug in IDE
+# I just wanted a easy way to specify which cache and move on
+# so this was set in my Env_Dev.bat files, so I didn't have to write new code
+# set "PATH_O3DE_CACHE=C:\depot\MPS-test-project\Cache"
+_PATH_O3DE_CACHE = Path(os.getenv('PATH_O3DE_CACHE')).resolve()
+
+_all_properties_location = Path(_PATH_O3DE_CACHE, 'pc', 'materials', 'types',
+                                'standardpbr_allproperties.material').resolve()
+
+##############################
 
 class KitbashConverter(QtWidgets.QDialog):
     def __init__(self, parent=None):
@@ -77,8 +158,7 @@ class KitbashConverter(QtWidgets.QDialog):
         self.setWindowFlags(self.windowFlags() & ~QtCore.Qt.WindowMinMaxButtonsHint)
 
         self.default_search_path = Path(__file__).as_posix()
-        self.all_properties_location = 'E:/Depot/EnginePythonTesting/Cache/pc/materials/types/' \
-                                       'standardpbr_allproperties.material'
+        self.all_properties_location = _all_properties_location.as_posix()
         self.autodesk_directory = Path(os.environ['ProgramFiles']) / 'Autodesk'
         self.default_material_definition = 'standardPBR.template.material'
         self.supported_file_extensions = ['.fbx', '.ma', '.mb']
@@ -1053,7 +1133,7 @@ def launch_kitbash_converter():
     app.setStyle('Fusion')
     converter = KitbashConverter()
     converter.show()
-    sys.exit(app.exec_()) 
+    sys.exit(app.exec_())
 
 
 if __name__ == '__main__':

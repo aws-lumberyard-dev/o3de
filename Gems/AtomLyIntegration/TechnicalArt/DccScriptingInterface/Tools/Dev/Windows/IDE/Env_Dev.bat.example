@@ -17,20 +17,49 @@ echo.
 echo ~    local env settings
 echo.
 
-set O3DE_BUILD_FOO=True
-echo     O3DE_BUILD_FOO = %O3DE_BUILD_FOO%
+:: set O3DE_BUILD_FOO=True
+::echo     O3DE_BUILD_FOO = %O3DE_BUILD_FOO%
 
+:: this is your engine root locally, I pulled your branch - I did not build your branch
+set O3DE_DEV=c:\depot\o3de-ben
+echo     O3DE_DEV = %O3DE_DEV%
+
+:: devs when they configuyre with cmake, can specify their build folder name
+:: there is not a standard and could be entirely unknown, I use build, some people use build/windows2019
 set O3DE_BUILD_FOLDER=build
 echo     O3DE_BUILD_FOLDER = %O3DE_BUILD_FOLDER%
 
-set DCCSI_GDEBUG=True
+:: this assumes building in an engine centric way, which is how I work.
+:: this is not the only way to work, there are project centric builds.
+set "PATH_O3DE_BUILD=%O3DE_DEV%\%O3DE_BUILD_FOLDER%"
+echo     PATH_O3DE_BUILD = %PATH_O3DE_BUILD%
+
+:: 
+::set "PATH_O3DE_BIN=%PATH_O3DE_BUILD%\bin\profile"
+::set "PATH_O3DE_BIN=%O3DE_DEV%\build\bin\profile"
+
+:: I didn't want to build the engine just so I could get to PySide2 and Qt .dlls
+:: I already have the engine built, so I just pointed to mine other engine repo here
+:: You can just point this directly to your build bin folder
+set "PATH_O3DE_BIN=c:\depot\o3de-dev\build\bin\profile"
+echo     PATH_O3DE_BIN = %PATH_O3DE_BIN%
+
+:: and I just wanted a quick way to get to my cache for the standardpbr_allproperties.material
+:: note: we should make the cache folder a legit thing to access from config.py / settings
+:: you can set this to any cache folder you want to pull from
+set "PATH_O3DE_CACHE=C:\depot\MPS-test-project\Cache"
+echo     PATH_O3DE_CACHE = %PATH_O3DE_CACHE%
+
+set DCCSI_GDEBUG=False
 echo     DCCSI_GDEBUG = %DCCSI_GDEBUG%
 
-set DCCSI_DEV_MODE=True
+set DCCSI_DEV_MODE=False
 echo     DCCSI_DEV_MODE = %DCCSI_DEV_MODE%
 
 set DCCSI_GDEBUGGER=WING
 echo     DCCSI_GDEBUGGER = %DCCSI_GDEBUGGER%
 
+:: even though I disable global debug flag, which does some additional checks/tests and is way more verbose.
+:: I can still seperetly enable debug logging, so I can still important breadcrumbs.
 set DCCSI_LOGLEVEL=10
 echo     DCCSI_LOGLEVEL = %DCCSI_LOGLEVEL%
