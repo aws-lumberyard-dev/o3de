@@ -3,8 +3,8 @@
 
 #include <AzCore/Component/Component.h>
 #include <AzCore/Component/TickBus.h>
-#include <ONNX/ONNXBus.h>
 #include <AzCore/std/smart_ptr/unique_ptr.h>
+#include <ONNX/ONNXBus.h>
 
 namespace ONNX
 {

@@ -4,10 +4,11 @@
 #include <AzCore/EBus/EBus.h>
 #include <AzCore/Interface/Interface.h>
 
-namespace Ort {
+namespace Ort
+{
     struct Env;
     struct AllocatorWithDefaultOptions;
-}
+} // namespace Ort
 
 namespace ONNX
 {
@@ -20,9 +21,8 @@ namespace ONNX
         virtual Ort::Env* GetEnv() = 0;
         virtual Ort::AllocatorWithDefaultOptions* GetAllocator() = 0;
     };
-    
-    class ONNXBusTraits
-        : public AZ::EBusTraits
+
+    class ONNXBusTraits : public AZ::EBusTraits
     {
     public:
         //////////////////////////////////////////////////////////////////////////

@@ -1,10 +1,10 @@
 
 #include "ONNXSystemComponent.h"
 
-#include <AzCore/Serialization/SerializeContext.h>
+#include "Mnist.h"
 #include <AzCore/Serialization/EditContext.h>
 #include <AzCore/Serialization/EditContextConstants.inl>
-#include "Mnist.h"
+#include <AzCore/Serialization/SerializeContext.h>
 
 // This is the structure to interface with the MNIST model
 // After instantiation, set the input_image_ data to be the 28x28 pixel image of the number to recognize
@@ -17,17 +17,14 @@ namespace ONNX
     {
         if (AZ::SerializeContext* serialize = azrtti_cast<AZ::SerializeContext*>(context))
         {
-            serialize->Class<ONNXSystemComponent, AZ::Component>()
-                ->Version(0)
-                ;
+            serialize->Class<ONNXSystemComponent, AZ::Component>()->Version(0);
 
             if (AZ::EditContext* ec = serialize->GetEditContext())
             {
                 ec->Class<ONNXSystemComponent>("ONNX", "[Description of functionality provided by this System Component]")
                     ->ClassElement(AZ::Edit::ClassElements::EditorData, "")
-                        ->Attribute(AZ::Edit::Attributes::AppearsInAddComponentMenu, AZ_CRC("System"))
-                        ->Attribute(AZ::Edit::Attributes::AutoExpand, true)
-                    ;
+                    ->Attribute(AZ::Edit::Attributes::AppearsInAddComponentMenu, AZ_CRC("System"))
+                    ->Attribute(AZ::Edit::Attributes::AutoExpand, true);
             }
         }
     }
@@ -50,7 +47,6 @@ namespace ONNX
     {
     }
 
-
     ONNXSystemComponent::ONNXSystemComponent()
     {
         if (ONNXInterface::Get() == nullptr)
@@ -67,15 +63,19 @@ namespace ONNX
         }
     }
 
-    Ort::Env* ONNXSystemComponent::GetEnv() {
+    Ort::Env* ONNXSystemComponent::GetEnv()
+    {
         return m_env.get();
     }
 
-    Ort::AllocatorWithDefaultOptions* ONNXSystemComponent::GetAllocator() {
+    Ort::AllocatorWithDefaultOptions* ONNXSystemComponent::GetAllocator()
+    {
         return m_allocator.get();
     }
 
-    void OnnxLoggingFunction(void*, OrtLoggingLevel, const char* category, const char* logid, const char* code_location, const char* message) {
+    void OnnxLoggingFunction(
+        void*, OrtLoggingLevel, const char* category, const char* logid, const char* code_location, const char* message)
+    {
         AZ_Printf("\nONNX", "%s %s %s %s", category, logid, code_location, message);
     }
 
