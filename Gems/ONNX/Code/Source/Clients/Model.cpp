@@ -3,7 +3,7 @@
 namespace ONNX {
 
     template<typename T>
-    static void softmax(T& input)
+    static void MNIST::softmax(T& input)
     {
         float rowmax = *std::max_element(input.begin(), input.end());
         std::vector<float> y(input.size());
@@ -29,21 +29,21 @@ namespace ONNX {
         Ort::AllocatorWithDefaultOptions* m_allocator;
         ONNXRequestBus::BroadcastResult(m_allocator, &ONNXRequestBus::Events::GetAllocator);
         m_inputCount = m_session.GetInputCount();
-        AZ_Printf("\nONNX", " Input Count: %d", m_inputCount);
+        //AZ_Printf("\nONNX", " Input Count: %d", m_inputCount);
         for (size_t i = 0; i < m_inputCount; i++) {
             const char* in_name = m_session.GetInputName(i, *m_allocator);
             m_inputNames.push_back(in_name);
-            AZ_Printf("\nONNX", " Input Name %d: %s", i, in_name);
+            //AZ_Printf("\nONNX", " Input Name %d: %s", i, in_name);
         }
         m_output = m_init_settings.m_output;
         m_outputShape = m_init_settings.m_outputShape;
         m_outputTensor = Ort::Value::CreateTensor<float>(m_memory_info, m_output.data(), m_output.size(), m_outputShape.data(), m_outputShape.size());
         m_outputCount = m_session.GetOutputCount();
-        AZ_Printf("\nONNX", " Output Count: %d", m_outputCount);
+        //AZ_Printf("\nONNX", " Output Count: %d", m_outputCount);
         for (size_t i = 0; i < m_outputCount; i++) {
             const char* out_name = m_session.GetOutputName(i, *m_allocator);
             m_outputNames.push_back(out_name);
-            AZ_Printf("\nONNX", " Output Name %d: %s", i, out_name);
+            //AZ_Printf("\nONNX", " Output Name %d: %s", i, out_name);
         }
     }
 
@@ -57,44 +57,32 @@ namespace ONNX {
         return m_result;
     }
 
-    void MnistExample() {
-        upng_t* upng = upng_new_from_file("C:/Users/kubciu/dev/o3de/Gems/ONNX/Assets/rsz_zerov2.png");
+    struct MnistReturnValues {
+        int64_t m_inference;
+        float m_runtime;
+    };
+
+    MnistReturnValues MnistExample(const char* path) {
+        upng_t* upng = upng_new_from_file(path);
         upng_decode(upng);
         int width = upng_get_width(upng);
         int height = upng_get_height(upng);
+        int size = upng_get_size(upng);
         const unsigned char* buffer = upng_get_buffer(upng);
-        const int bit_array_size = (width * height);
-        std::vector<unsigned char> bit_buffer(bit_array_size);
-        std::vector<float> mnist_input_image(bit_array_size);
+        std::vector<float> mnist_input_image(size);
 
-        int counter = 1;
-        int stage = 1;
-        for (int i = 0; i < bit_array_size; i++)
-        {
-            int index = (stage * 8) - counter;
-            bit_buffer[index] = !(((1 << (i % 8)) & (buffer[i / 8])) >> (i % 8));
-            if (counter % 8 == 0)
-            {
-                counter = 1;
-                stage += 1;
+        for (int y = 0; y < height; y++) {
+            for (int x = 0; x < width; x++) {
+                int content = static_cast<int>(buffer[(y)*width + x]);
+                if (content == 0) {
+                    mnist_input_image[height * y + x] = 0.0f;
+                }
+                else {
+                    mnist_input_image[height * y + x] = 1.0f;
+                }
+                std::cout << mnist_input_image[height * y + x];
             }
-            else
-            {
-                counter += 1;
-            }
-        }
-        for (int j = 0; j < bit_array_size; j++)
-        {
-            std::cout << static_cast<int>(bit_buffer[j]);
-            if ((j + 1) % width == 0)
-            {
-                std::cout << "\n";
-            }
-        }
-
-        for (int k = 0; k < bit_array_size; k++)
-        {
-            mnist_input_image[bit_array_size - 1 - k] = bit_buffer[k];
+            std::cout << "\n";
         }
 
         MNIST mnist_;
@@ -110,14 +98,46 @@ namespace ONNX {
         mnist_.m_timer.Stamp();
         mnist_.Run();
         float delta = 1000 * mnist_.m_timer.GetDeltaTimeInSeconds();
-        AZ_Printf("\nONNX", " Runtime: %f \n", delta);
+        //AZ_Printf("\nONNX", " Runtime: %f \n", delta);
         mnist_.GetResult();
 
-        for (int z = 0; z < 10; z++)
-        {
-            AZ_Printf("ONNX", " %d: %f\n", z, mnist_.m_output[z]);
+        //for (int z = 0; z < 10; z++)
+        //{
+            //AZ_Printf("ONNX", " %d: %f\n", z, mnist_.m_output[z]);
+        //}
+        
+        //AZ_Printf("ONNX", " Result: %d\n", mnist_.m_result);
+
+        MnistReturnValues returnValues;
+        returnValues.m_inference = mnist_.m_result;
+        returnValues.m_runtime = delta;
+        return(returnValues);
+    }
+
+    void RunMnistSuite() {
+
+        int numOfEach = 2;
+        int totalFiles = (numOfEach * 10);
+        int64_t numOfCorrectInferences = 0;
+        float totalRuntimeInMilliseconds = 0;
+
+        for (int digit = 0; digit < 10; digit++) {
+            std::filesystem::directory_iterator iterator = std::filesystem::directory_iterator{ "C:/Users/kubciu/dev/o3de/Gems/ONNX/Assets/testing/" + std::to_string(digit) + "/"};
+            for (int version = 0; version < numOfEach; version++) {
+                std::string filepath = iterator->path().string();
+                MnistReturnValues returnedValues = MnistExample(filepath.c_str());
+                if (returnedValues.m_inference == digit) {
+                    numOfCorrectInferences += 1;
+                }
+                totalRuntimeInMilliseconds += returnedValues.m_runtime;
+                iterator++;
+            }
         }
 
-        AZ_Printf("ONNX", " Result: %d\n", mnist_.m_result);
+        float accuracy = ((float)numOfCorrectInferences / (float)totalFiles) * 100.0f;
+        float avgRuntimeInMilliseconds = totalRuntimeInMilliseconds / (totalFiles);
+
+        AZ_Printf("\nONNX", " Evaluated: %d  Correct: %d  Accuracy: %f%%", totalFiles, numOfCorrectInferences, accuracy);
+        AZ_Printf("\nONNX", " Total Runtime: %fms  Avg Runtime: %fms", totalRuntimeInMilliseconds, avgRuntimeInMilliseconds);
     }
 }

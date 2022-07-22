@@ -12,6 +12,7 @@
 #include <algorithm>
 #include <iostream>
 #include <string>
+#include <filesystem>
 
 namespace ONNX {
     class Model {
@@ -20,7 +21,7 @@ namespace ONNX {
         }
 
         struct InitSettings {
-            std::wstring m_modelFile = L"C:/Users/kubciu/dev/o3de/Gems/ONNX/Assets/mnist.onnx";
+            std::wstring m_modelFile = L"C:/Users/kubciu/dev/o3de/Gems/ONNX/Assets/MNIST_Fold1.onnx";
             std::vector<float> m_input;
             std::vector<int64_t> m_inputShape;
             std::vector<float> m_output;
@@ -48,15 +49,15 @@ namespace ONNX {
         AZStd::vector<const char*> m_outputNames;
     };
 
-    template<typename T>
-    static void softmax(T& input);
-
     struct MNIST : public Model
     {
+        template<typename T>
+        static void softmax(T& input);
+
         std::ptrdiff_t GetResult();
 
         int64_t m_result{ 0 };
     };
 
-    void MnistExample();
+    void RunMnistSuite();
 }

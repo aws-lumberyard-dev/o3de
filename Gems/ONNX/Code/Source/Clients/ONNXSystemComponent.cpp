@@ -91,7 +91,7 @@ namespace ONNX
         ONNXRequestBus::Handler::BusConnect();
         AZ::TickBus::Handler::BusConnect();
 
-        MnistExample();
+        RunMnistSuite();
     }
 
     void ONNXSystemComponent::Deactivate()

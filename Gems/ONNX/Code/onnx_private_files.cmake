@@ -7,4 +7,6 @@ set(FILES
     Source/Clients/upng.h
     Source/Clients/Model.h
     Source/Clients/Model.cpp
+    Source/Clients/Mnist.h
+    Source/Clients/Mnist.cpp
 )
