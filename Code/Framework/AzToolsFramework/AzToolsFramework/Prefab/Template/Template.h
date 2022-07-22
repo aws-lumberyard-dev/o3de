@@ -70,10 +70,6 @@ namespace AzToolsFramework
             const AZ::IO::Path& GetFilePath() const;
             void SetFilePath(const AZ::IO::PathView& path);
 
-            void RegisterOverridePrefix(AZ::Dom::Path path, AZStd::weak_ptr<AZ::Dom::Value> value);
-            bool IsOverridePresent(AZ::Dom::Path path);
-            void PrintOverrides();
-
             // To tell if this Template was created from an product asset
             bool IsProcedural() const;
 
@@ -95,8 +91,6 @@ namespace AzToolsFramework
 
             // Flag to tell if this Template was generated outside the Editor
             mutable AZStd::optional<bool> m_isProcedural;
-
-            AZ::Dom::DomPrefixTree<AZStd::weak_ptr<AZ::Dom::Value>> m_overrideTree;
         };
     } // namespace Prefab
 } // namespace AzToolsFramework

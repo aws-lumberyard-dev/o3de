@@ -150,8 +150,6 @@ namespace AzToolsFramework
                             AZStd::string_view patchPath = path->second.GetString();
                             AZStd::string patchRelativePath = "/Instances/" + m_instanceName;
                             patchRelativePath.append(patchPath);
-                            TemplateReference targetTemplate = m_prefabSystemComponentInterface->FindTemplate(m_targetTemplateId);
-                            targetTemplate->get().RegisterOverridePrefix(AZ::Dom::Path(patchRelativePath), weakPtr);
                         }
                         
                         m_linkDom.emplace_back(patchPointer);
@@ -180,8 +178,6 @@ namespace AzToolsFramework
             {
                 AZ_Assert(false, "Link Dom cannot be converted from rapidjson::Document to AZ::Dom::Value");
             }
-
-            //m_linkDom.CopyFrom(linkDom, m_linkDom.GetAllocator());
         }
 
         void Link::AddPatchesToLink(const PrefabDom& patches)
@@ -227,13 +223,6 @@ namespace AzToolsFramework
         {
             return m_id;
         }
-
-        /*
-        PrefabDom& Link::GetLinkDom()
-        {
-            return const_cast<PrefabDom&>(const_cast<const Link*>(this)->GetLinkDom());
-        }
-        */
 
         PrefabDom Link::GetLinkDom() const
         {

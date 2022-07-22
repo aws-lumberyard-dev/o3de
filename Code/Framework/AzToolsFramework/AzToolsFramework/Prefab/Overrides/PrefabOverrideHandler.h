@@ -21,9 +21,7 @@ namespace AzToolsFramework
             PrefabOverrideHandler();
             virtual ~PrefabOverrideHandler();
 
-            void RegisterOverridePrefix(AZ::Dom::Path path, AZStd::weak_ptr<AZ::Dom::Value> value) override;
             bool IsOverridePresent(AZ::Dom::Path path) override;
-            void PrintOverrides() override;
         };
     } // namespace Prefab
 } // namespace AzToolsFramework
