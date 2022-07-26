@@ -19,6 +19,17 @@
 // m_result holds the index with highest probability (aka the number the model thinks is in the image)
 namespace ONNX
 {
+    void ONNXSystemComponent::SetPrecomputedTimingData(int totalCount, int64_t correctCount, float totalTime, float avgTime) {
+        m_precomputedTimingData->m_totalNumberOfInferences = totalCount;
+        m_precomputedTimingData->m_numberOfCorrectInferences = correctCount;
+        m_precomputedTimingData->m_totalPrecomputedRuntime = totalTime;
+        m_precomputedTimingData->m_averagePrecomputedRuntime = avgTime;
+    }
+
+    PrecomputedTimingData* ONNXSystemComponent::GetPrecomputedTimingData() {
+        return m_precomputedTimingData.get();
+    }
+
     void ONNXSystemComponent::AddTimingSample(const char* modelName, float inferenceTimeInMilliseconds)
     {
         m_timingStats.PushHistogramValue(modelName, inferenceTimeInMilliseconds, AZ::Color::CreateFromRgba(229, 56, 59, 255));
@@ -31,16 +42,26 @@ namespace ONNX
             return;
         }
 
+        PrecomputedTimingData* timingData;
+        ONNXRequestBus::BroadcastResult(timingData, &ONNXRequestBus::Events::GetPrecomputedTimingData);
+
         if (ImGui::Begin("ONNX"))
         {
-            if (ImGui::CollapsingHeader("Mnist Example", ImGuiTreeNodeFlags_DefaultOpen | ImGuiTreeNodeFlags_Framed))
+            if (ImGui::CollapsingHeader("Mnist (Precomputed)", ImGuiTreeNodeFlags_DefaultOpen | ImGuiTreeNodeFlags_Framed))
             {
-                if (ImGui::BeginTable("Mnist", 2))
+                if (ImGui::BeginTable("Mnist", 3))
                 {
                     ImGui::TableNextColumn();
-                    ImGui::Text("Total Inference Runtime: %.2f ms", 456.0f);
+                    ImGui::Text("Total Inference Runtime: %.2f ms", timingData->m_totalPrecomputedRuntime);
                     ImGui::TableNextColumn();
-                    ImGui::Text("Average Inference Runtime: %.2f ms", 0.1987f);
+                    ImGui::Text("Average Inference Runtime: %.2f ms", timingData->m_averagePrecomputedRuntime);
+                    ImGui::TableNextRow();
+                    ImGui::TableNextColumn();
+                    ImGui::Text("Total No. Of Inferences: %d", timingData->m_totalNumberOfInferences);
+                    ImGui::TableNextColumn();
+                    ImGui::Text("No. Of Correct Inferences: %d", timingData->m_numberOfCorrectInferences);
+                    ImGui::TableNextColumn();
+                    ImGui::Text("Accuracy: %.2f%%", ((float)timingData->m_numberOfCorrectInferences / (float)timingData->m_totalNumberOfInferences) * 100.0f);
                     ImGui::EndTable();
                 }
             }
@@ -136,6 +157,7 @@ namespace ONNX
         void* ptr;
         m_env = AZStd::make_unique<Ort::Env>(ORT_LOGGING_LEVEL_VERBOSE, "test_log", OnnxLoggingFunction, ptr);
         m_allocator = AZStd::make_unique<Ort::AllocatorWithDefaultOptions>();
+        m_precomputedTimingData = AZStd::make_unique<PrecomputedTimingData>();
     }
 
     void ONNXSystemComponent::Activate()
@@ -156,7 +178,7 @@ namespace ONNX
         MNIST::InitSettings modelInitSettings;
         modelInitSettings.m_inputShape = { 1, 1, 28, 28 };
         modelInitSettings.m_outputShape = { 1, 10 };
-        modelInitSettings.m_modelName = "";
+        modelInitSettings.m_modelName = "MNIST_Fold1 (Realtime)";
 
         m_mnist->Load(modelInitSettings);
         upng_t* upng = upng_new_from_file("C:/Users/kubciu/dev/o3de/Gems/ONNX/Assets/testing/3/30.png");

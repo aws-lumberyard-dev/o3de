@@ -91,6 +91,7 @@ namespace ONNX
         MNIST::InitSettings modelInitSettings;
         modelInitSettings.m_inputShape = { 1, 1, 28, 28 };
         modelInitSettings.m_outputShape = { 1, 10 };
+        modelInitSettings.m_modelName = "MNIST_Fold1 (Precomputed)";
 
         mnist.Load(modelInitSettings);
 
@@ -118,6 +119,8 @@ namespace ONNX
 
         float accuracy = ((float)numOfCorrectInferences / (float)totalFiles) * 100.0f;
         float avgRuntimeInMilliseconds = totalRuntimeInMilliseconds / (totalFiles);
+
+        ONNXRequestBus::Broadcast(&ONNXRequestBus::Events::SetPrecomputedTimingData, totalFiles, numOfCorrectInferences, totalRuntimeInMilliseconds, avgRuntimeInMilliseconds);
 
         AZ_Printf("\nONNX", " Evaluated: %d  Correct: %d  Accuracy: %f%%", totalFiles, numOfCorrectInferences, accuracy);
         AZ_Printf("\nONNX", " Total Runtime: %fms  Avg Runtime: %fms", totalRuntimeInMilliseconds, avgRuntimeInMilliseconds);

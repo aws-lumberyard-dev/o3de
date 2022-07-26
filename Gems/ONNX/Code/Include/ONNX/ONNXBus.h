@@ -19,6 +19,13 @@ namespace Ort
 
 namespace ONNX
 {
+    struct PrecomputedTimingData {
+        float m_totalPrecomputedRuntime;
+        float m_averagePrecomputedRuntime;
+        int m_totalNumberOfInferences;
+        int64_t m_numberOfCorrectInferences;
+    };
+
     class ONNXRequests
     {
     public:
@@ -28,6 +35,8 @@ namespace ONNX
         virtual Ort::Env* GetEnv() = 0;
         virtual Ort::AllocatorWithDefaultOptions* GetAllocator() = 0;
         virtual void AddTimingSample(const char* modelName, float inferenceTimeInMilliseconds) = 0;
+        virtual PrecomputedTimingData* GetPrecomputedTimingData() = 0;
+        virtual void SetPrecomputedTimingData(int totalCount, int64_t correctCount, float totalTime, float avgTime) = 0;
     };
 
     class ONNXBusTraits : public AZ::EBusTraits

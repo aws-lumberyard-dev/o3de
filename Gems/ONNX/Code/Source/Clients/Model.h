@@ -34,7 +34,7 @@ namespace ONNX
         struct InitSettings
         {
             std::wstring m_modelFile = L"C:/Users/kubciu/dev/o3de/Gems/ONNX/Assets/MNIST_Fold1_v2.onnx";
-            std::string m_modelName = "MNIST_Fold1";
+            std::string m_modelName = "";
             std::vector<int64_t> m_inputShape;
             std::vector<int64_t> m_outputShape;
         };

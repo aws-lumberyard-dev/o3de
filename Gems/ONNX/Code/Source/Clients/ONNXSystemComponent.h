@@ -49,6 +49,11 @@ namespace ONNX
 
         AZStd::unique_ptr<MNIST> m_mnist;
 
+        PrecomputedTimingData* GetPrecomputedTimingData() override;
+        void SetPrecomputedTimingData(int totalCount, int64_t correctCount, float totalTime, float avgTime) override;
+
+        AZStd::unique_ptr<PrecomputedTimingData> m_precomputedTimingData;
+
         ONNXSystemComponent();
         ~ONNXSystemComponent();
 
