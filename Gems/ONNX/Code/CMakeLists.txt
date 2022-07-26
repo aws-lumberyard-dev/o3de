@@ -1,3 +1,10 @@
+#
+# Copyright (c) Contributors to the Open 3D Engine Project.
+# For complete copyright and license terms please see the LICENSE at the root of this distribution.
+#
+# SPDX-License-Identifier: Apache-2.0 OR MIT
+#
+#
 
 # Currently we are in the Code folder: ${CMAKE_CURRENT_LIST_DIR}
 # Get the platform specific folder ${pal_dir} for the current folder: ${CMAKE_CURRENT_LIST_DIR}/Platform/${PAL_PLATFORM_NAME}
@@ -27,6 +34,9 @@ ly_add_target(
     BUILD_DEPENDENCIES
         INTERFACE
            AZ::AzCore
+           Gem::ImguiAtom.Static
+           Gem::ImGui.Static
+           Gem::ImGui.ImGuiLYUtils
 )
 
 # The ONNX.Private.Object target is an internal target
@@ -50,6 +60,9 @@ ly_add_target(
             AZ::AzCore
             AZ::AzFramework
             "${Onnx_LIBS_DIR}/onnxruntime.lib"
+            Gem::ImguiAtom.Static
+            Gem::ImGui.Static
+            Gem::ImGui.ImGuiLYUtils
 )
 
 # Here add ONNX target, it depends on the Private Object library and Public API interface
@@ -70,6 +83,10 @@ ly_add_target(
             "${Onnx_LIBS_DIR}/onnxruntime.lib"
         PRIVATE
             Gem::ONNX.Private.Object
+        INTERFACE
+            Gem::ImguiAtom.Static
+            Gem::ImGui.Static
+            Gem::ImGui.ImGuiLYUtils
 )
 
 # By default, we will specify that the above target ONNX would be used by
@@ -97,6 +114,9 @@ if(PAL_TRAIT_BUILD_HOST_TOOLS)
         BUILD_DEPENDENCIES
             INTERFACE
                 AZ::AzToolsFramework
+                Gem::ImguiAtom.Static
+                Gem::ImGui.Static
+                Gem::ImGui.ImGuiLYUtils
     )
 
     # The ONNX.Editor.Private.Object target is an internal target
@@ -118,6 +138,10 @@ if(PAL_TRAIT_BUILD_HOST_TOOLS)
                 AZ::AzToolsFramework
                 $<TARGET_OBJECTS:Gem::ONNX.Private.Object>
                 "${Onnx_LIBS_DIR}/onnxruntime.lib"
+                Gem::ImGui.Static
+                Gem::ImGui.ImGuiLYUtils
+            INTERFACE
+                Gem::ImguiAtom.Static
     )
 
     ly_add_target(
@@ -137,6 +161,10 @@ if(PAL_TRAIT_BUILD_HOST_TOOLS)
                 "${Onnx_LIBS_DIR}/onnxruntime.lib"
             PRIVATE
                 Gem::ONNX.Editor.Private.Object
+            INTERFACE
+                Gem::ImguiAtom.Static
+                Gem::ImGui.Static
+                Gem::ImGui.ImGuiLYUtils
     )
 
     # By default, we will specify that the above target ONNX would be used by

@@ -1,3 +1,11 @@
+/*
+ * Copyright (c) Contributors to the Open 3D Engine Project.
+ * For complete copyright and license terms please see the LICENSE at the root of this distribution.
+ *
+ * SPDX-License-Identifier: Apache-2.0 OR MIT
+ *
+ */
+
 #include "Mnist.h"
 
 namespace ONNX
@@ -25,6 +33,11 @@ namespace ONNX
         return m_result;
     }
 
+    void MNIST::OnTick([[maybe_unused]] float deltaTime, [[maybe_unused]] AZ::ScriptTimePoint time)
+    {
+        Run(m_input, m_output);
+    }
+
     struct MnistReturnValues
     {
         int64_t m_inference;
@@ -50,23 +63,13 @@ namespace ONNX
                 {
                     mnist.m_input[mnist.m_imageHeight * y + x] = 1.0f;
                 }
-                // std::cout << mnist.m_input[mnist.m_imageHeight * y + x];
             }
-            // std::cout << "\n";
         }
-
-        mnist.m_timer.Stamp();
+        AZ::Debug::Timer timer;
+        timer.Stamp();
         mnist.Run(mnist.m_input, mnist.m_output);
-        float delta = 1000 * mnist.m_timer.GetDeltaTimeInSeconds();
-        // AZ_Printf("\nONNX", " Runtime: %f \n", delta);
+        float delta = 1000 * timer.GetDeltaTimeInSeconds();
         mnist.GetResult();
-
-        // for (int z = 0; z < 10; z++)
-        //{
-        // AZ_Printf("ONNX", " %d: %f\n", z, mnist_.m_output[z]);
-        //}
-
-        // AZ_Printf("ONNX", " Result: %d\n", mnist_.m_result);
 
         MnistReturnValues returnValues;
         returnValues.m_inference = mnist.m_result;
@@ -76,8 +79,6 @@ namespace ONNX
 
     void RunMnistSuite()
     {
-        AZ_Printf("ONNX", "%s", std::filesystem::current_path().string().c_str());
-
         MNIST mnist;
         mnist.m_imageWidth = 28;
         mnist.m_imageHeight = 28;
@@ -93,7 +94,7 @@ namespace ONNX
 
         mnist.Load(modelInitSettings);
 
-        int numOfEach = 2;
+        int numOfEach = 20;
         int totalFiles = (numOfEach * 10);
         int64_t numOfCorrectInferences = 0;
         float totalRuntimeInMilliseconds = 0;

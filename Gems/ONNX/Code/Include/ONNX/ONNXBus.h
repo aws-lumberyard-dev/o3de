@@ -1,3 +1,10 @@
+/*
+ * Copyright (c) Contributors to the Open 3D Engine Project.
+ * For complete copyright and license terms please see the LICENSE at the root of this distribution.
+ *
+ * SPDX-License-Identifier: Apache-2.0 OR MIT
+ *
+ */
 
 #pragma once
 
@@ -20,6 +27,7 @@ namespace ONNX
         // Put your public methods here
         virtual Ort::Env* GetEnv() = 0;
         virtual Ort::AllocatorWithDefaultOptions* GetAllocator() = 0;
+        virtual void AddTimingSample(const char* modelName, float inferenceTimeInMilliseconds) = 0;
     };
 
     class ONNXBusTraits : public AZ::EBusTraits
