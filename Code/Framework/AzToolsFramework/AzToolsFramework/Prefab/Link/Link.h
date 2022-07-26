@@ -27,7 +27,48 @@ namespace AzToolsFramework
         class PrefabSystemComponentInterface;
 
         using LinkReference = AZStd::optional<AZStd::reference_wrapper<Link>>;
-        using LinkPatchesContainer = AZStd::vector<AZStd::shared_ptr<AZ::Dom::Value>, AZ::Dom::StdValueAllocator>;
+
+        class PrefabOverrideMetadata
+        {
+        public:
+
+            PrefabOverrideMetadata(PrefabDom&& patch, AZ::u16 patchIndex)
+                : m_patch(AZStd::move(patch))
+                , m_patchIndex(patchIndex)
+            {
+            }
+
+            PrefabOverrideMetadata(const PrefabOverrideMetadata& other)
+            {
+                this->m_patch.CopyFrom(other.m_patch, this->m_patch.GetAllocator());
+                this->m_patchIndex = other.m_patchIndex;
+            }
+
+            PrefabOverrideMetadata& operator=(PrefabOverrideMetadata&& other) noexcept
+            {
+                if (this != &other)
+                {
+                    m_patch = AZStd::move(other.m_patch);
+                    m_patchIndex = other.m_patchIndex;
+                }
+
+                return *this;
+            }
+
+            PrefabOverrideMetadata(PrefabOverrideMetadata&& other)
+                : m_patch(AZStd::move(other.m_patch))
+                , m_patchIndex(other.m_patchIndex)
+            {
+            }
+
+            bool operator<(const PrefabOverrideMetadata& other) const
+            {
+                return (this->m_patchIndex < other.m_patchIndex);
+            }
+
+            PrefabDom m_patch;
+            AZ::u16 m_patchIndex;
+        };
 
         // A link is the primary point of communication between prefab templates.
         class Link
@@ -94,9 +135,9 @@ namespace AzToolsFramework
              */
             void AddLinkIdToInstanceDom(PrefabDomValue& instanceDomValue, PrefabDom::AllocatorType& allocator);
 
-            PrefabDom ConstructRapidJsonPatchesArray();
+            PrefabDom ConstructLinkDomFromPatches() const;
 
-            AZ::Dom::DomPrefixTree<PrefabDomValue> m_linkPatchesTree;
+            AZ::Dom::DomPrefixTree<PrefabOverrideMetadata> m_linkPatchesTree;
             PrefabDom m_cachedLinkDom;
 
             // Target template id for propagation during updating templates.
@@ -104,10 +145,6 @@ namespace AzToolsFramework
 
             // Source template id for unlink templates if needed.
             TemplateId m_sourceTemplateId = InvalidTemplateId;
-
-            // JSON patches for overrides in Template.
-            //PrefabDom m_linkDom;
-            LinkPatchesContainer m_linkDom;
 
             // Name of the nested instance of target Template.
             AZStd::string m_instanceName;
