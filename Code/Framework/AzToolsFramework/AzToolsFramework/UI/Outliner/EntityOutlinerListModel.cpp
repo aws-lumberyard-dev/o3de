@@ -49,6 +49,8 @@
 #include <AzToolsFramework/Entity/EditorEntityInfoBus.h>
 #include <AzToolsFramework/Entity/ReadOnly/ReadOnlyEntityInterface.h>
 #include <AzToolsFramework/FocusMode/FocusModeInterface.h>
+#include <AzToolsFramework/Prefab/Instance/InstanceToTemplateInterface.h>
+#include <AzToolsFramework/Prefab/Overrides/PrefabOverrideInterface.h>
 #include <AzToolsFramework/ToolsComponents/ComponentAssetMimeDataContainer.h>
 #include <AzToolsFramework/ToolsComponents/ComponentMimeData.h>
 #include <AzToolsFramework/ToolsComponents/EditorEntityIdContainer.h>
@@ -322,6 +324,14 @@ namespace AzToolsFramework
         if (!isInitiallyActive)
         {
             return QIcon(QString(":/Entity/entity_notactive.svg"));
+        }
+
+        auto* instanceToTemplateInterface = AZ::Interface<Prefab::InstanceToTemplateInterface>::Get();
+        AZ::Dom::Path absoluteEntityAliasPath = instanceToTemplateInterface->GenerateAbsoluteEntityAliasPath(id);
+        auto* prefabOverrideInterface = AZ::Interface<Prefab::PrefabOverrideInterface>::Get();
+        if (prefabOverrideInterface->IsOverridePresent(absoluteEntityAliasPath))
+        {
+            return QIcon(QString(":/Entity/entity_overridden.svg"));
         }
 
         return QIcon(QString(":/Entity/entity.svg"));

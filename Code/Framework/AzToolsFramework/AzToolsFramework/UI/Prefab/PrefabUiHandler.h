@@ -90,6 +90,7 @@ namespace AzToolsFramework
         QColor m_addEntityOverrideColor = QColor("#50C878");
         QString m_prefabIconPath = QString(":/Entity/prefab.svg");
         QString m_prefabEditIconPath = QString(":/Entity/prefab_edit.svg");
+        QString m_OverridingPrefabIconPath = QString(":/Entity/overriding_prefab.svg");
         QString m_prefabEditOpenIconPath = QString(":/Entity/prefab_edit_open.svg");
         QString m_prefabEditCloseIconPath = QString(":/Entity/prefab_edit_close.svg");
     };

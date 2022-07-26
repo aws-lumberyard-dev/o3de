@@ -15,7 +15,9 @@
         <file alias="entity.svg">Entity/entity.svg</file>
         <file alias="entity_editoronly.svg">Entity/entity_editoronly.svg</file>
         <file alias="entity_notactive.svg">Entity/entity_notactive.svg</file>
+        <file alias="entity_overridden.svg">Entity/entity_overridden.svg</file>
         <file alias="layer.svg">Entity/layer.svg</file>
+        <file alias="overriding_prefab.svg">Entity/overriding_prefab.svg</file>
         <file alias="prefab.svg">Entity/prefab.svg</file>
         <file alias="prefab_edit.svg">Entity/prefab_edit.svg</file>
         <file alias="prefab_edit_open.svg">Entity/prefab_edit_open.svg</file>

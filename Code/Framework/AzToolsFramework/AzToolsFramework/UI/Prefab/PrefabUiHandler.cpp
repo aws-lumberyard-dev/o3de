@@ -249,25 +249,6 @@ namespace AzToolsFramework
             AZ_TracePrintf("PrefabUiHandler", "descendant entity id is invalid.");
         }
 
-        AZ::Dom::Path absoluteEntityAliasPath = m_instanceToTemplateInterface->GenerateAbsoluteEntityAliasPath(descendantEntityId);
-        
-        bool isEntityOverridden = m_prefabOverrideInterface->IsOverridePresent(absoluteEntityAliasPath);
-
-        if (isEntityOverridden)
-        {
-            QPainterPath backgroundPath;
-            backgroundPath.setFillRule(Qt::WindingFill);
-
-            QRect tempRect = option.rect;
-            tempRect.setTop(tempRect.top() + 1);
-            backgroundPath.addRect(tempRect);
-
-            painter->save();
-            painter->setRenderHint(QPainter::Antialiasing, true);
-            painter->fillPath(backgroundPath.simplified(), m_editEntityOverrideColor);
-            painter->restore();
-        }
-
         PaintDescendantBorder(painter, option, index, descendantIndex, borderColor);
     }
 
@@ -294,20 +275,7 @@ namespace AzToolsFramework
             return;
         }
 
-        AZ::Dom::Path absoluteEntityAliasPath = m_instanceToTemplateInterface->GenerateAbsoluteEntityAliasPath(descendantEntityId);
-
-        bool isEntityOverridden = m_prefabOverrideInterface->IsOverridePresent(absoluteEntityAliasPath);
-
-        if (isEntityOverridden)
-        {
-            painter->setBackground(m_editEntityOverrideColor);
-            PaintDescendantBorder(painter, option, index, descendantIndex, m_prefabCapsuleEditColor);
-        }
-        else
-        {
-            PaintDescendantBorder(painter, option, index, descendantIndex, m_prefabCapsuleEditColor);
-        }
-        
+        PaintDescendantBorder(painter, option, index, descendantIndex, m_prefabCapsuleEditColor);   
     }
 
     void PrefabUiHandler::PaintDescendantBorder(
