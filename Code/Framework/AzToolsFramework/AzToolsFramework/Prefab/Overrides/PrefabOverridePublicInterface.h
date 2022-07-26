@@ -8,20 +8,19 @@
 
 #pragma once
 
-#include <AzToolsFramework/Prefab/Overrides/PrefabOverrideInterface.h>
+#include <AzCore/Component/EntityId.h>
+#include <AzCore/RTTI/RTTI.h>
 
 namespace AzToolsFramework
 {
     namespace Prefab
     {
-        class PrefabOverrideHandler
-            : private PrefabOverrideInterface
+        class PrefabOverridePublicInterface
         {
         public:
-            PrefabOverrideHandler();
-            virtual ~PrefabOverrideHandler();
+            AZ_RTTI(PrefabOverridePublicInterface, "{19F080A2-BDD7-476F-AA50-C1581401FC81}");
 
-            bool IsOverridePresent(AZ::Dom::Path path, LinkId linkId) override;
+            virtual bool IsOverridePresent(AZ::EntityId entityId) = 0;
         };
     } // namespace Prefab
 } // namespace AzToolsFramework

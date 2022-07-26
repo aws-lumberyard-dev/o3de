@@ -9,8 +9,7 @@
 #pragma once
 
 #include <AzCore/DOM/DomPath.h>
-#include <AzCore/DOM/DomValue.h>
-#include <AzCore/std/smart_ptr/weak_ptr.h>
+#include <AzToolsFramework/Prefab/PrefabIdTypes.h>
 
 namespace AzToolsFramework
 {
@@ -21,7 +20,7 @@ namespace AzToolsFramework
         public:
             AZ_RTTI(PrefabFocusInterface, "{CF2B9E08-9235-4E4F-81A5-1A20E0DF453B}");
 
-            virtual bool IsOverridePresent(AZ::Dom::Path path) = 0;
+            virtual bool IsOverridePresent(AZ::Dom::Path path, LinkId linkId) = 0;
         };
     } // namespace Prefab
 }

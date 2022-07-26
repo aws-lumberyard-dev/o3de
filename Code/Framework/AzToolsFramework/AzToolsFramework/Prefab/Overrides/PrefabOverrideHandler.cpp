@@ -25,36 +25,15 @@
             AZ::Interface<PrefabOverrideInterface>::Unregister(this);
         }
 
-        bool PrefabOverrideHandler::IsOverridePresent(AZ::Dom::Path path)
+        bool PrefabOverrideHandler::IsOverridePresent(AZ::Dom::Path path, LinkId linkId)
         {
-            PrefabFocusInterface* prefabFocusInterface = AZ::Interface<PrefabFocusInterface>::Get();
-            if (prefabFocusInterface != nullptr)
+            PrefabSystemComponentInterface* prefabSystemComponentInterface = AZ::Interface<PrefabSystemComponentInterface>::Get();
+            if (prefabSystemComponentInterface != nullptr)
             {
-                PrefabSystemComponentInterface* prefabSystemComponentInterface = AZ::Interface<PrefabSystemComponentInterface>::Get();
-                if (prefabSystemComponentInterface != nullptr)
+                LinkReference link = prefabSystemComponentInterface->FindLink(linkId);
+                if (link.has_value())
                 {
-                    AzFramework::EntityContextId editorEntityContextId;
-                    AzToolsFramework::EditorEntityContextRequestBus::BroadcastResult(
-                        editorEntityContextId, &AzToolsFramework::EditorEntityContextRequests::GetEditorEntityContextId);
-                    Prefab::InstanceOptionalReference focusedInstance = prefabFocusInterface->GetFocusedPrefabInstance(editorEntityContextId);
-                    if (focusedInstance.has_value() && path.size() > 1)
-                    {
-                        AZStd::string_view overriddenInstanceKey = path[1].GetKey().GetStringView();
-                        Prefab::InstanceOptionalReference overriddenInstance =
-                            focusedInstance->get().FindNestedInstance(overriddenInstanceKey);
-                        if (overriddenInstance.has_value())
-                        {
-                            auto pathIterator = path.begin();
-                            pathIterator++;
-                            pathIterator++;
-                            AZ::Dom::Path modifiedPath(pathIterator, path.end());
-                            LinkReference link = prefabSystemComponentInterface->FindLink(overriddenInstance->get().GetLinkId());
-                            if (link.has_value())
-                            {
-                                return link->get().IsOverridePresent(modifiedPath);
-                            }
-                        }
-                    }
+                    return link->get().IsOverridePresent(path);
                 }
             }
             return false;
