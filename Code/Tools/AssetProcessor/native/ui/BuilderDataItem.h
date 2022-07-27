@@ -66,4 +66,4 @@ namespace AssetProcessor
     };
 }
 
-Q_DECLARE_METATYPE(AssetProcessor::BuilderDataItem*)
+Q_DECLARE_METATYPE(AssetProcessor::BuilderDataItem*);
