@@ -19,14 +19,16 @@
 // m_result holds the index with highest probability (aka the number the model thinks is in the image)
 namespace ONNX
 {
-    void ONNXSystemComponent::SetPrecomputedTimingData(int totalCount, int64_t correctCount, float totalTime, float avgTime) {
+    void ONNXSystemComponent::SetPrecomputedTimingData(int totalCount, int64_t correctCount, float totalTime, float avgTime)
+    {
         m_precomputedTimingData->m_totalNumberOfInferences = totalCount;
         m_precomputedTimingData->m_numberOfCorrectInferences = correctCount;
         m_precomputedTimingData->m_totalPrecomputedRuntime = totalTime;
         m_precomputedTimingData->m_averagePrecomputedRuntime = avgTime;
     }
 
-    PrecomputedTimingData* ONNXSystemComponent::GetPrecomputedTimingData() {
+    PrecomputedTimingData* ONNXSystemComponent::GetPrecomputedTimingData()
+    {
         return m_precomputedTimingData.get();
     }
 
@@ -61,7 +63,9 @@ namespace ONNX
                     ImGui::TableNextColumn();
                     ImGui::Text("No. Of Correct Inferences: %d", timingData->m_numberOfCorrectInferences);
                     ImGui::TableNextColumn();
-                    ImGui::Text("Accuracy: %.2f%%", ((float)timingData->m_numberOfCorrectInferences / (float)timingData->m_totalNumberOfInferences) * 100.0f);
+                    ImGui::Text(
+                        "Accuracy: %.2f%%",
+                        ((float)timingData->m_numberOfCorrectInferences / (float)timingData->m_totalNumberOfInferences) * 100.0f);
                     ImGui::EndTable();
                 }
             }
@@ -203,7 +207,7 @@ namespace ONNX
 
         m_mnist->BusConnect();
 
-        RunMnistSuite();
+        // RunMnistSuite(20);
     }
 
     void ONNXSystemComponent::Deactivate()

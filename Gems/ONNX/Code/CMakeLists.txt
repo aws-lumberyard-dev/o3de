@@ -191,11 +191,17 @@ if(PAL_TRAIT_BUILD_TESTS_SUPPORTED)
             NAME ONNX.Tests ${PAL_TRAIT_TEST_TARGET_TYPE}
             NAMESPACE Gem
             FILES_CMAKE
+                onnx_private_files.cmake
                 onnx_tests_files.cmake
+            TARGET_PROPERTIES
+                O3DE_PRIVATE_TARGET TRUE
             INCLUDE_DIRECTORIES
-                PRIVATE
+                PUBLIC
                     Tests
                     Source
+                    Source/Clients
+                    ${Onnx_INCLUDE_DIR}
+                    Include
             BUILD_DEPENDENCIES
                 PRIVATE
                     AZ::AzTest
@@ -203,6 +209,7 @@ if(PAL_TRAIT_BUILD_TESTS_SUPPORTED)
                     Gem::ONNX.Private.Object
                 PUBLIC
                     "${Onnx_LIBS_DIR}/onnxruntime.lib"
+                    Gem::ONNX.API
         )
 
         # Add ONNX.Tests to googletest
