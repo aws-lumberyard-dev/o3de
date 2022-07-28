@@ -508,6 +508,11 @@ void MainWindow::Activate()
     connect(ui->builderList->selectionModel(), &QItemSelectionModel::selectionChanged, this, &MainWindow::BuilderTabSelectionChanged);
     connect(m_guiApplicationManager, &GUIApplicationManager::OnBuildersRegistered, [this]()
     {
+        if (m_builderData)
+        {
+            m_builderData->Reset();
+        }
+
         if(m_builderList)
         {
             m_builderList->Reset();

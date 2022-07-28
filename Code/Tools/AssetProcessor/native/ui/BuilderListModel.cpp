@@ -9,38 +9,41 @@
 #include <native/ui/BuilderListModel.h>
 #include <utilities/AssetUtilEBusHelper.h>
 
-int BuilderListModel::rowCount(const QModelIndex& /*parent*/) const
+namespace AssetProcessor
 {
-    AssetProcessor::BuilderInfoList builders;
-    AssetProcessor::AssetBuilderInfoBus::Broadcast(&AssetProcessor::AssetBuilderInfoBus::Events::GetAllBuildersInfo, builders);
-
-    return aznumeric_caster(builders.size());
-}
-
-QVariant BuilderListModel::data(const QModelIndex& index, int role) const
-{
-    AssetProcessor::BuilderInfoList builders;
-    AssetProcessor::AssetBuilderInfoBus::Broadcast(&AssetProcessor::AssetBuilderInfoBus::Events::GetAllBuildersInfo, builders);
-    
-    AZ_Assert(index.isValid(), "BuilderListModel index out of bounds");
-
-    const auto& assetBuilderDesc = builders[index.row()];
-
-    if (role == Qt::DisplayRole)
+    int BuilderListModel::rowCount(const QModelIndex& /*parent*/) const
     {
-        return QString(assetBuilderDesc.m_name.c_str());
+        AssetProcessor::BuilderInfoList builders;
+        AssetProcessor::AssetBuilderInfoBus::Broadcast(&AssetProcessor::AssetBuilderInfoBus::Events::GetAllBuildersInfo, builders);
+
+        return aznumeric_caster(builders.size());
     }
 
-    return {};
-}
+    QVariant BuilderListModel::data(const QModelIndex& index, int role) const
+    {
+        AssetProcessor::BuilderInfoList builders;
+        AssetProcessor::AssetBuilderInfoBus::Broadcast(&AssetProcessor::AssetBuilderInfoBus::Events::GetAllBuildersInfo, builders);
 
-void BuilderListModel::Reset()
-{
-    beginResetModel();
-    endResetModel();
-}
+        AZ_Assert(index.isValid(), "BuilderListModel index out of bounds");
 
-bool BuilderListSortFilterProxy::lessThan(const QModelIndex& source_left, const QModelIndex& source_right) const
-{
-    return sourceModel()->data(source_left).toString().compare(sourceModel()->data(source_right).toString(), Qt::CaseInsensitive) < 0;
+        const auto& assetBuilderDesc = builders[index.row()];
+
+        if (role == Qt::DisplayRole)
+        {
+            return QString(assetBuilderDesc.m_name.c_str());
+        }
+
+        return {};
+    }
+
+    void BuilderListModel::Reset()
+    {
+        beginResetModel();
+        endResetModel();
+    }
+
+    bool BuilderListSortFilterProxy::lessThan(const QModelIndex& source_left, const QModelIndex& source_right) const
+    {
+        return sourceModel()->data(source_left).toString().compare(sourceModel()->data(source_right).toString(), Qt::CaseInsensitive) < 0;
+    }
 }

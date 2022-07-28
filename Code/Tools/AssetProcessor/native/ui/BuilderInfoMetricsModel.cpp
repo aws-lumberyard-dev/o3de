@@ -57,7 +57,7 @@ namespace AssetProcessor
     void BuilderInfoMetricsModel::Reset()
     {
         beginResetModel();
-        m_data->Reset();
+        // m_data->Reset();
         endResetModel();
     }
 
