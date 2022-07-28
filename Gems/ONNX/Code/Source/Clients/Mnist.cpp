@@ -65,15 +65,12 @@ namespace ONNX
                 }
             }
         }
-        AZ::Debug::Timer timer;
-        timer.Stamp();
         mnist.Run(mnist.m_input, mnist.m_output);
-        float delta = 1000 * timer.GetDeltaTimeInSeconds();
         mnist.GetResult();
 
         MnistReturnValues returnValues;
         returnValues.m_inference = mnist.m_result;
-        returnValues.m_runtime = delta;
+        returnValues.m_runtime = mnist.m_delta;
         return (returnValues);
     }
 

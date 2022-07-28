@@ -59,6 +59,7 @@ namespace ONNX
         runOptions.SetRunLogVerbosityLevel(ORT_LOGGING_LEVEL_VERBOSE);
         m_session.Run(runOptions, m_inputNames.data(), &inputTensor, m_inputCount, m_outputNames.data(), &outputTensor, m_outputCount);
         float delta = 1000 * m_timer.GetDeltaTimeInSeconds();
+        m_delta = delta;
         AZ_Printf("\nONNX", " %s", m_modelName.c_str());
         if (delta < 10.0f)
         {

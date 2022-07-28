@@ -44,11 +44,12 @@ namespace ONNX
 
         void Run(std::vector<float>& input, std::vector<float>& output);
 
-        AZ::Debug::Timer m_timer;
+        float m_delta;
         std::string m_modelName;
 
     protected:
         bool m_cudaEnable;
+        AZ::Debug::Timer m_timer;
         Ort::MemoryInfo m_memoryInfo{ nullptr };
         Ort::Session m_session{ nullptr };
         std::vector<int64_t> m_inputShape;
