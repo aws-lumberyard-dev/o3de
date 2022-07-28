@@ -12,6 +12,7 @@
 #include <AzCore/std/smart_ptr/shared_ptr.h>
 #include <native/utilities/assetUtils.h>
 #include <QDir>  // used in the inl file.
+#include <AzCore/Interface/Interface.h>
 #include <utilities/Builder.h>
 #include <utilities/BuilderList.h>
 
@@ -24,26 +25,19 @@ namespace AssetProcessor
     //! Indicates if job request files should be created on success.  Can be useful for debugging
     static const bool s_createRequestFileForSuccessfulJob = false;
 
-    //! This EBUS is used to request a free builder from the builder manager pool
-    class BuilderManagerBusTraits
-        : public AZ::EBusTraits
+    struct IBuilderManagerRequests
     {
-    public:
-        static const AZ::EBusAddressPolicy AddressPolicy = AZ::EBusAddressPolicy::Single;
-        static const AZ::EBusHandlerPolicy HandlerPolicy = AZ::EBusHandlerPolicy::Single;
-        using MutexType = AZStd::recursive_mutex;
+        AZ_RTTI(IBuilderManagerRequests, "{12CC2217-7583-475E-841C-E7786509D079}");
 
-        virtual ~BuilderManagerBusTraits() = default;
+        virtual ~IBuilderManagerRequests() = default;
 
         //! Returns a builder for doing work
         virtual BuilderRef GetBuilder(BuilderPurpose purpose) = 0;
 
-        virtual void AddAssetToBuilderProcessedList(const AZ::Uuid& /*builderId*/, const AZStd::string& /*sourceAsset*/)
+        virtual void AddAssetToBuilderProcessedList([[maybe_unused]] const AZ::Uuid& builderId, [[maybe_unused]] const AZStd::string& sourceAsset)
         {
         }
     };
-
-    using BuilderManagerBus = AZ::EBus<BuilderManagerBusTraits>;
 
     class BuilderDebugOutput
     {
@@ -53,13 +47,15 @@ namespace AssetProcessor
 
     //! Manages the builder pool
     class BuilderManager
-        : public BuilderManagerBus::Handler
+        : public AZ::Interface<IBuilderManagerRequests>::Registrar
     {
     public:
-        explicit BuilderManager(ConnectionManager* connectionManager);
-        ~BuilderManager();
+        AZ_RTTI(BuilderManager, "{20421AB0-DBC0-46E8-8CF6-BA25744FA680}", IBuilderManagerRequests);
 
-        // Disable copy
+        explicit BuilderManager(ConnectionManager* connectionManager);
+        ~BuilderManager() override;
+
+        // Disable move/copy
         AZ_DISABLE_COPY_MOVE(BuilderManager);
 
         void ConnectionLost(AZ::u32 connId);
@@ -89,6 +85,7 @@ namespace AssetProcessor
         // Track debug output generated per builder.
         // This is done this way so that it can be output in order, to track down race conditions with asset builders.
         AZStd::unordered_map<AZ::Uuid, BuilderDebugOutput> m_builderDebugOutput;
+        AZStd::mutex m_builderDebugOutputMutex;
 
         //! Indicates if we allow builders to connect that we haven't started up ourselves.  Useful for debugging
         bool m_allowUnmanagedBuilderConnections = false;

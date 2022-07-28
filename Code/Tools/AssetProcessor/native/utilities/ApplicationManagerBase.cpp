@@ -1518,8 +1518,15 @@ bool ApplicationManagerBase::Activate()
         desc,
         []()
         {
-            AssetProcessor::BuilderRef builder;
-            AssetProcessor::BuilderManagerBus::BroadcastResult(builder, &AssetProcessor::BuilderManagerBus::Events::GetBuilder, AssetProcessor::BuilderPurpose::Registration);
+            auto* builderManagerInterface = AZ::Interface<AssetProcessor::IBuilderManagerRequests>::Get();
+
+            if (!builderManagerInterface)
+            {
+                AZ_Assert(false, "Coding error: BuilderManager interface is not available.");
+                AssetProcessor::MessageInfoBus::Broadcast(&AssetProcessor::MessageInfoBus::Events::OnBuilderRegistrationFailure);
+            }
+
+            AssetProcessor::BuilderRef builder = builderManagerInterface->GetBuilder(AssetProcessor::BuilderPurpose::Registration);
 
             if (!builder)
             {
@@ -1590,8 +1597,16 @@ static void HandleConditionalRetry(const AssetProcessor::BuilderRunJobOutcome& r
             AZStd::string oldBuilderId = builderRef->GetUuid().ToString<AZStd::string>();
             builderRef.release();
 
-            AssetProcessor::BuilderManagerBus::BroadcastResult(builderRef, &AssetProcessor::BuilderManagerBusTraits::GetBuilder, purpose);
-            
+            auto* builderManagerInterface = AZ::Interface<AssetProcessor::IBuilderManagerRequests>::Get();
+
+            if (!builderManagerInterface)
+            {
+                AZ_Assert(false, "Coding error: BuilderManager interface is not available");
+                return;
+            }
+
+            builderRef = builderManagerInterface->GetBuilder(purpose);
+
             if (builderRef)
             {
                 AZ_TracePrintf(AssetProcessor::ConsoleChannel, "Lost connection to builder %s. Retrying with a new builder %s (Attempt %d with %d second delay)",
@@ -1653,8 +1668,15 @@ void ApplicationManagerBase::RegisterBuilderInformation(const AssetBuilderSDK::A
         modifiedBuilderDesc.m_createJobFunction =
             [this](const AssetBuilderSDK::CreateJobsRequest& request, AssetBuilderSDK::CreateJobsResponse& response)
         {
-            AssetProcessor::BuilderRef builderRef;
-            AssetProcessor::BuilderManagerBus::BroadcastResult(builderRef, &AssetProcessor::BuilderManagerBusTraits::GetBuilder, AssetProcessor::BuilderPurpose::CreateJobs);
+            auto* builderManagerInterface = AZ::Interface<AssetProcessor::IBuilderManagerRequests>::Get();
+
+            if (!builderManagerInterface)
+            {
+                AZ_Assert(false, "Coding error: BuilderManager interface is not available");
+                return;
+            }
+
+            AssetProcessor::BuilderRef builderRef = builderManagerInterface->GetBuilder(AssetProcessor::BuilderPurpose::CreateJobs);
 
             if (builderRef)
             {
@@ -1691,15 +1713,21 @@ void ApplicationManagerBase::RegisterBuilderInformation(const AssetBuilderSDK::A
         {
             AssetBuilderSDK::JobCancelListener jobCancelListener(request.m_jobId);
 
-            AssetProcessor::BuilderRef builderRef;
-            AssetProcessor::BuilderManagerBus::BroadcastResult(builderRef, &AssetProcessor::BuilderManagerBusTraits::GetBuilder, AssetProcessor::BuilderPurpose::ProcessJob);
+            auto* builderManagerInterface = AZ::Interface<AssetProcessor::IBuilderManagerRequests>::Get();
+
+            if (!builderManagerInterface)
+            {
+                AZ_Assert(false, "Coding error: BuilderManager interface is not available");
+                return;
+            }
+
+            AssetProcessor::BuilderRef builderRef = builderManagerInterface->GetBuilder(AssetProcessor::BuilderPurpose::ProcessJob);
 
             if (builderRef)
             {
                 if (debugOutput)
                 {
-                    AssetProcessor::BuilderManagerBus::Broadcast(
-                        &AssetProcessor::BuilderManagerBusTraits::AddAssetToBuilderProcessedList, builderRef->GetUuid(),
+                    builderManagerInterface->AddAssetToBuilderProcessedList(builderRef->GetUuid(),
                         request.m_fullPath);
                 }
 
@@ -1719,7 +1747,7 @@ void ApplicationManagerBase::RegisterBuilderInformation(const AssetBuilderSDK::A
                     {
                         return; // exit early if you're shutting down!
                     }
-                    
+
                     retryCount++;
                     result = builderRef->RunJob<AssetBuilder::ProcessJobNetRequest, AssetBuilder::ProcessJobNetResponse>(
                         request, response, s_MaximumProcessJobsTimeSeconds, "process", "", &jobCancelListener, request.m_tempDirPath);
