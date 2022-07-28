@@ -60,13 +60,16 @@ namespace ONNX
         m_session.Run(runOptions, m_inputNames.data(), &inputTensor, m_inputCount, m_outputNames.data(), &outputTensor, m_outputCount);
         float delta = 1000 * m_timer.GetDeltaTimeInSeconds();
         AZ_Printf("\nONNX", " %s", m_modelName.c_str());
-        if (m_cudaEnable)
+        if (delta < 10.0f)
         {
-            ONNXRequestBus::Broadcast(&ONNXRequestBus::Events::AddTimingSampleCuda, m_modelName.c_str(), delta);
-        }
-        else
-        {
-            ONNXRequestBus::Broadcast(&ONNXRequestBus::Events::AddTimingSample, m_modelName.c_str(), delta);
+            if (m_cudaEnable)
+            {
+                ONNXRequestBus::Broadcast(&ONNXRequestBus::Events::AddTimingSampleCuda, m_modelName.c_str(), delta);
+            }
+            else
+            {
+                ONNXRequestBus::Broadcast(&ONNXRequestBus::Events::AddTimingSample, m_modelName.c_str(), delta);
+            }
         }
     }
 } // namespace ONNX

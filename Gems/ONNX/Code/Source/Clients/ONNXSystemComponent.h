@@ -51,6 +51,8 @@ namespace ONNX
         AZStd::unique_ptr<MNIST> m_mnist;
         AZStd::unique_ptr<MNIST> m_mnistCuda;
 
+        void InitRuntimeMnistExamples();
+
         PrecomputedTimingData* GetPrecomputedTimingData() override;
         void SetPrecomputedTimingData(int totalCount, int64_t correctCount, float totalTime, float avgTime) override;
         PrecomputedTimingData* GetPrecomputedTimingDataCuda() override;

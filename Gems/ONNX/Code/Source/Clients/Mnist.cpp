@@ -105,7 +105,7 @@ namespace ONNX
         mnist.Load(modelInitSettings);
 
         int numOfEach = testsPerDigit;
-        int totalFiles = (numOfEach * 10);
+        int totalFiles = 0;
         int64_t numOfCorrectInferences = 0;
         float totalRuntimeInMilliseconds = 0;
 
@@ -117,12 +117,16 @@ namespace ONNX
             {
                 std::string filepath = iterator->path().string();
                 MnistReturnValues returnedValues = MnistExample(mnist, filepath.c_str());
-                if (returnedValues.m_inference == digit)
+                if (returnedValues.m_runtime < 10.0f)
                 {
-                    numOfCorrectInferences += 1;
+                    if (returnedValues.m_inference == digit)
+                    {
+                        numOfCorrectInferences += 1;
+                    }
+                    totalRuntimeInMilliseconds += returnedValues.m_runtime;
+                    iterator++;
+                    totalFiles++;
                 }
-                totalRuntimeInMilliseconds += returnedValues.m_runtime;
-                iterator++;
             }
         }
 

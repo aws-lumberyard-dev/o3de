@@ -13,10 +13,6 @@
 #include <AzCore/Serialization/EditContextConstants.inl>
 #include <AzCore/Serialization/SerializeContext.h>
 
-// This is the structure to interface with the MNIST model
-// After instantiation, set the input_image_ data to be the 28x28 pixel image of the number to recognize
-// Then call Run() to fill in the results_ data with the probabilities of each
-// m_result holds the index with highest probability (aka the number the model thinks is in the image)
 namespace ONNX
 {
     void ONNXSystemComponent::SetPrecomputedTimingData(int totalCount, int64_t correctCount, float totalTime, float avgTime)
@@ -202,6 +198,8 @@ namespace ONNX
         AZ_Printf("\nONNX", "%s %s %s %s", category, logid, code_location, message);
     }
 
+    // The global environment and memory allocator are initialised with the system component, and are accessed via the EBus from within the model.
+    // m_precomputedTimingData and m_precomputedTimingDataCuda are structs holding the test inference statistics run before the editor starts up.
     void ONNXSystemComponent::Init()
     {
         void* ptr;
@@ -211,8 +209,7 @@ namespace ONNX
         m_precomputedTimingDataCuda = AZStd::make_unique<PrecomputedTimingData>();
     }
 
-    void ONNXSystemComponent::Activate()
-    {
+    void ONNXSystemComponent::InitRuntimeMnistExamples() {
         ONNXRequestBus::Handler::BusConnect();
         AZ::TickBus::Handler::BusConnect();
 
@@ -274,6 +271,14 @@ namespace ONNX
 
         m_mnist->BusConnect();
         m_mnistCuda->BusConnect();
+    }
+
+    void ONNXSystemComponent::Activate()
+    {
+        ONNXRequestBus::Handler::BusConnect();
+        AZ::TickBus::Handler::BusConnect();
+
+        InitRuntimeMnistExamples();
 
         RunMnistSuite(20, false);
         RunMnistSuite(20, true);
