@@ -32,9 +32,27 @@ namespace ONNX
         return m_precomputedTimingData.get();
     }
 
+    void ONNXSystemComponent::SetPrecomputedTimingDataCuda(int totalCount, int64_t correctCount, float totalTime, float avgTime)
+    {
+        m_precomputedTimingDataCuda->m_totalNumberOfInferences = totalCount;
+        m_precomputedTimingDataCuda->m_numberOfCorrectInferences = correctCount;
+        m_precomputedTimingDataCuda->m_totalPrecomputedRuntime = totalTime;
+        m_precomputedTimingDataCuda->m_averagePrecomputedRuntime = avgTime;
+    }
+
+    PrecomputedTimingData* ONNXSystemComponent::GetPrecomputedTimingDataCuda()
+    {
+        return m_precomputedTimingDataCuda.get();
+    }
+
     void ONNXSystemComponent::AddTimingSample(const char* modelName, float inferenceTimeInMilliseconds)
     {
         m_timingStats.PushHistogramValue(modelName, inferenceTimeInMilliseconds, AZ::Color::CreateFromRgba(229, 56, 59, 255));
+    }
+
+    void ONNXSystemComponent::AddTimingSampleCuda(const char* modelName, float inferenceTimeInMilliseconds)
+    {
+        m_timingStatsCuda.PushHistogramValue(modelName, inferenceTimeInMilliseconds, AZ::Color::CreateFromRgba(56, 229, 59, 255));
     }
 
     void ONNXSystemComponent::OnImGuiUpdate()
@@ -47,11 +65,14 @@ namespace ONNX
         PrecomputedTimingData* timingData;
         ONNXRequestBus::BroadcastResult(timingData, &ONNXRequestBus::Events::GetPrecomputedTimingData);
 
+        PrecomputedTimingData* timingDataCuda;
+        ONNXRequestBus::BroadcastResult(timingDataCuda, &ONNXRequestBus::Events::GetPrecomputedTimingDataCuda);
+
         if (ImGui::Begin("ONNX"))
         {
-            if (ImGui::CollapsingHeader("Mnist (Precomputed)", ImGuiTreeNodeFlags_DefaultOpen | ImGuiTreeNodeFlags_Framed))
+            if (ImGui::CollapsingHeader("MNIST (Precomputed)", ImGuiTreeNodeFlags_DefaultOpen | ImGuiTreeNodeFlags_Framed))
             {
-                if (ImGui::BeginTable("Mnist", 3))
+                if (ImGui::BeginTable("MNIST", 3))
                 {
                     ImGui::TableNextColumn();
                     ImGui::Text("Total Inference Runtime: %.2f ms", timingData->m_totalPrecomputedRuntime);
@@ -69,8 +90,29 @@ namespace ONNX
                     ImGui::EndTable();
                 }
             }
-
             m_timingStats.OnImGuiUpdate();
+
+            if (ImGui::CollapsingHeader("MNIST CUDA (Precomputed)", ImGuiTreeNodeFlags_DefaultOpen | ImGuiTreeNodeFlags_Framed))
+            {
+                if (ImGui::BeginTable("MNIST", 3))
+                {
+                    ImGui::TableNextColumn();
+                    ImGui::Text("Total Inference Runtime: %.2f ms", timingDataCuda->m_totalPrecomputedRuntime);
+                    ImGui::TableNextColumn();
+                    ImGui::Text("Average Inference Runtime: %.2f ms", timingDataCuda->m_averagePrecomputedRuntime);
+                    ImGui::TableNextRow();
+                    ImGui::TableNextColumn();
+                    ImGui::Text("Total No. Of Inferences: %d", timingDataCuda->m_totalNumberOfInferences);
+                    ImGui::TableNextColumn();
+                    ImGui::Text("No. Of Correct Inferences: %d", timingDataCuda->m_numberOfCorrectInferences);
+                    ImGui::TableNextColumn();
+                    ImGui::Text(
+                        "Accuracy: %.2f%%",
+                        ((float)timingDataCuda->m_numberOfCorrectInferences / (float)timingDataCuda->m_totalNumberOfInferences) * 100.0f);
+                    ImGui::EndTable();
+                }
+            }
+            m_timingStatsCuda.OnImGuiUpdate();
         }
     }
 
@@ -79,6 +121,7 @@ namespace ONNX
         if (ImGui::BeginMenu("ONNX"))
         {
             ImGui::MenuItem(m_timingStats.GetName(), "", &m_timingStats.m_show);
+            ImGui::MenuItem(m_timingStatsCuda.GetName(), "", &m_timingStatsCuda.m_show);
             ImGui::EndMenu();
         }
     }
@@ -124,8 +167,11 @@ namespace ONNX
             ONNXInterface::Register(this);
         }
 
-        m_timingStats.SetName("Timing Statistics");
+        m_timingStats.SetName("MNIST Timing Statistics");
         m_timingStats.SetHistogramBinCount(200);
+
+        m_timingStatsCuda.SetName("MNIST CUDA Timing Statistics");
+        m_timingStatsCuda.SetHistogramBinCount(200);
 
         ImGui::ImGuiUpdateListenerBus::Handler::BusConnect();
     }
@@ -162,6 +208,7 @@ namespace ONNX
         m_env = AZStd::make_unique<Ort::Env>(ORT_LOGGING_LEVEL_VERBOSE, "test_log", OnnxLoggingFunction, ptr);
         m_allocator = AZStd::make_unique<Ort::AllocatorWithDefaultOptions>();
         m_precomputedTimingData = AZStd::make_unique<PrecomputedTimingData>();
+        m_precomputedTimingDataCuda = AZStd::make_unique<PrecomputedTimingData>();
     }
 
     void ONNXSystemComponent::Activate()
@@ -170,21 +217,39 @@ namespace ONNX
         AZ::TickBus::Handler::BusConnect();
 
         m_mnist = AZStd::make_unique<MNIST>();
+        m_mnistCuda = AZStd::make_unique<MNIST>();
 
         m_mnist->m_imageWidth = 28;
+        m_mnistCuda->m_imageWidth = 28;
+
         m_mnist->m_imageHeight = 28;
+        m_mnistCuda->m_imageHeight = 28;
+
         m_mnist->m_imageSize = m_mnist->m_imageWidth * m_mnist->m_imageHeight;
+        m_mnistCuda->m_imageSize = m_mnistCuda->m_imageWidth * m_mnistCuda->m_imageHeight;
+
         std::vector<float> input(m_mnist->m_imageSize);
         m_mnist->m_input = input;
+        m_mnistCuda->m_input = input;
+
         std::vector<float> output(10);
         m_mnist->m_output = output;
+        m_mnistCuda->m_output = output;
 
         MNIST::InitSettings modelInitSettings;
         modelInitSettings.m_inputShape = { 1, 1, 28, 28 };
         modelInitSettings.m_outputShape = { 1, 10 };
         modelInitSettings.m_modelName = "MNIST_Fold1 (Realtime)";
 
+        MNIST::InitSettings modelInitSettingsCuda;
+        modelInitSettingsCuda.m_inputShape = { 1, 1, 28, 28 };
+        modelInitSettingsCuda.m_outputShape = { 1, 10 };
+        modelInitSettingsCuda.m_modelName = "MNIST_Fold1 CUDA (Realtime)";
+        modelInitSettingsCuda.m_cudaEnable = true;
+
         m_mnist->Load(modelInitSettings);
+        m_mnistCuda->Load(modelInitSettingsCuda);
+
         upng_t* upng = upng_new_from_file("C:/Users/kubciu/dev/o3de/Gems/ONNX/Assets/testing/3/30.png");
         upng_decode(upng);
         const unsigned char* buffer = upng_get_buffer(upng);
@@ -197,17 +262,21 @@ namespace ONNX
                 if (content == 0)
                 {
                     m_mnist->m_input[m_mnist->m_imageWidth * y + x] = 0.0f;
+                    m_mnistCuda->m_input[m_mnist->m_imageWidth * y + x] = 0.0f;
                 }
                 else
                 {
                     m_mnist->m_input[m_mnist->m_imageHeight * y + x] = 1.0f;
+                    m_mnistCuda->m_input[m_mnist->m_imageHeight * y + x] = 1.0f;
                 }
             }
         }
 
         m_mnist->BusConnect();
+        m_mnistCuda->BusConnect();
 
-        // RunMnistSuite(20);
+        RunMnistSuite(20, false);
+        RunMnistSuite(20, true);
     }
 
     void ONNXSystemComponent::Deactivate()

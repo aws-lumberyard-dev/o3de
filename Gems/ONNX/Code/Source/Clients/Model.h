@@ -37,6 +37,7 @@ namespace ONNX
             std::string m_modelName = "";
             std::vector<int64_t> m_inputShape;
             std::vector<int64_t> m_outputShape;
+            bool m_cudaEnable = false;
         };
 
         void Load(InitSettings& m_init_settings);
@@ -47,6 +48,7 @@ namespace ONNX
         std::string m_modelName;
 
     protected:
+        bool m_cudaEnable;
         Ort::MemoryInfo m_memoryInfo{ nullptr };
         Ort::Session m_session{ nullptr };
         std::vector<int64_t> m_inputShape;

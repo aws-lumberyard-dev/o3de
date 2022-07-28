@@ -17,33 +17,25 @@ namespace ONNX
         void SetUp() override
         {
             Fixture::SetUp();
-
-            mnist.m_imageWidth = 28;
-            mnist.m_imageHeight = 28;
-            mnist.m_imageSize = mnist.m_imageWidth * mnist.m_imageHeight;
-            std::vector<float> input(mnist.m_imageSize);
-            mnist.m_input = input;
-            std::vector<float> output(10);
-            mnist.m_output = output;
-
-            MNIST::InitSettings modelInitSettings;
-            modelInitSettings.m_inputShape = { 1, 1, 28, 28 };
-            modelInitSettings.m_outputShape = { 1, 10 };
-            modelInitSettings.m_modelName = "MNIST_Fold1 (Test)";
-
-            mnist.Load(modelInitSettings);
         }
-        MNIST mnist;
     };
 
-    TEST_F(MnistFixture, ModelAccuracyGreaterThan90Percent)
+    TEST_F(MnistFixture, ModelAccuracyGreaterThan90PercentWithCpu)
     {
-        RunMnistSuite(200);
-
         PrecomputedTimingData* timingData;
         ONNXRequestBus::BroadcastResult(timingData, &ONNXRequestBus::Events::GetPrecomputedTimingData);
 
         float accuracy = (float)timingData->m_numberOfCorrectInferences / (float)timingData->m_totalNumberOfInferences;
+
+        EXPECT_GT(accuracy, 0.9f);
+    }
+
+    TEST_F(MnistFixture, ModelAccuracyGreaterThan90PercentWithCuda)
+    {
+        PrecomputedTimingData* timingDataCuda;
+        ONNXRequestBus::BroadcastResult(timingDataCuda, &ONNXRequestBus::Events::GetPrecomputedTimingDataCuda);
+
+        float accuracy = (float)timingDataCuda->m_numberOfCorrectInferences / (float)timingDataCuda->m_totalNumberOfInferences;
 
         EXPECT_GT(accuracy, 0.9f);
     }

@@ -19,7 +19,16 @@ namespace ONNX
         m_modelName = initSettings.m_modelName;
         Ort::Env* m_env;
         ONNXRequestBus::BroadcastResult(m_env, &ONNXRequestBus::Events::GetEnv);
-        m_session = Ort::Session::Session(*m_env, initSettings.m_modelFile.c_str(), Ort::SessionOptions{ nullptr });
+        Ort::SessionOptions sessionOptions;
+
+        if (initSettings.m_cudaEnable)
+        {
+            OrtCUDAProviderOptions cuda_options;
+            sessionOptions.AppendExecutionProvider_CUDA(cuda_options);
+        }
+
+        m_cudaEnable = initSettings.m_cudaEnable;
+        m_session = Ort::Session::Session(*m_env, initSettings.m_modelFile.c_str(), sessionOptions);
         m_memoryInfo = Ort::MemoryInfo::CreateCpu(OrtDeviceAllocator, OrtMemTypeCPU);
         Ort::AllocatorWithDefaultOptions* m_allocator;
         ONNXRequestBus::BroadcastResult(m_allocator, &ONNXRequestBus::Events::GetAllocator);
@@ -46,16 +55,18 @@ namespace ONNX
             Ort::Value::CreateTensor<float>(m_memoryInfo, input.data(), input.size(), m_inputShape.data(), m_inputShape.size());
         Ort::Value outputTensor =
             Ort::Value::CreateTensor<float>(m_memoryInfo, output.data(), output.size(), m_outputShape.data(), m_outputShape.size());
-        m_session.Run(
-            Ort::RunOptions{ nullptr },
-            m_inputNames.data(),
-            &inputTensor,
-            m_inputCount,
-            m_outputNames.data(),
-            &outputTensor,
-            m_outputCount);
+        Ort::RunOptions runOptions;
+        runOptions.SetRunLogVerbosityLevel(ORT_LOGGING_LEVEL_VERBOSE);
+        m_session.Run(runOptions, m_inputNames.data(), &inputTensor, m_inputCount, m_outputNames.data(), &outputTensor, m_outputCount);
         float delta = 1000 * m_timer.GetDeltaTimeInSeconds();
         AZ_Printf("\nONNX", " %s", m_modelName.c_str());
-        ONNXRequestBus::Broadcast(&ONNXRequestBus::Events::AddTimingSample, m_modelName.c_str(), delta);
+        if (m_cudaEnable)
+        {
+            ONNXRequestBus::Broadcast(&ONNXRequestBus::Events::AddTimingSampleCuda, m_modelName.c_str(), delta);
+        }
+        else
+        {
+            ONNXRequestBus::Broadcast(&ONNXRequestBus::Events::AddTimingSample, m_modelName.c_str(), delta);
+        }
     }
 } // namespace ONNX

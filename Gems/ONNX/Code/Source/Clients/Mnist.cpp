@@ -77,7 +77,7 @@ namespace ONNX
         return (returnValues);
     }
 
-    void RunMnistSuite(int testsPerDigit)
+    void RunMnistSuite(int testsPerDigit, bool cudaEnable)
     {
         MNIST mnist;
         mnist.m_imageWidth = 28;
@@ -91,7 +91,16 @@ namespace ONNX
         MNIST::InitSettings modelInitSettings;
         modelInitSettings.m_inputShape = { 1, 1, 28, 28 };
         modelInitSettings.m_outputShape = { 1, 10 };
-        modelInitSettings.m_modelName = "MNIST_Fold1 (Precomputed)";
+
+        if (cudaEnable)
+        {
+            modelInitSettings.m_modelName = "MNIST_Fold1 CUDA (Precomputed)";
+            modelInitSettings.m_cudaEnable = true;
+        }
+        else
+        {
+            modelInitSettings.m_modelName = "MNIST_Fold1 (Precomputed)";
+        }
 
         mnist.Load(modelInitSettings);
 
@@ -120,12 +129,24 @@ namespace ONNX
         float accuracy = ((float)numOfCorrectInferences / (float)totalFiles) * 100.0f;
         float avgRuntimeInMilliseconds = totalRuntimeInMilliseconds / (totalFiles);
 
-        ONNXRequestBus::Broadcast(
-            &ONNXRequestBus::Events::SetPrecomputedTimingData,
-            totalFiles,
-            numOfCorrectInferences,
-            totalRuntimeInMilliseconds,
-            avgRuntimeInMilliseconds);
+        if (cudaEnable)
+        {
+            ONNXRequestBus::Broadcast(
+                &ONNXRequestBus::Events::SetPrecomputedTimingDataCuda,
+                totalFiles,
+                numOfCorrectInferences,
+                totalRuntimeInMilliseconds,
+                avgRuntimeInMilliseconds);
+        }
+        else
+        {
+            ONNXRequestBus::Broadcast(
+                &ONNXRequestBus::Events::SetPrecomputedTimingData,
+                totalFiles,
+                numOfCorrectInferences,
+                totalRuntimeInMilliseconds,
+                avgRuntimeInMilliseconds);
+        }
 
         AZ_Printf("\nONNX", " Evaluated: %d  Correct: %d  Accuracy: %f%%", totalFiles, numOfCorrectInferences, accuracy);
         AZ_Printf("\nONNX", " Total Runtime: %fms  Avg Runtime: %fms", totalRuntimeInMilliseconds, avgRuntimeInMilliseconds);

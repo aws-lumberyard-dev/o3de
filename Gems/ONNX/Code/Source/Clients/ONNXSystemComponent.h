@@ -40,6 +40,7 @@ namespace ONNX
         void OnImGuiMainMenuUpdate() override;
 
         void AddTimingSample(const char* modelName, float inferenceTimeInMilliseconds) override;
+        void AddTimingSampleCuda(const char* modelName, float inferenceTimeInMilliseconds) override;
 
         AZStd::unique_ptr<Ort::Env> m_env;
         Ort::Env* GetEnv() override;
@@ -48,17 +49,22 @@ namespace ONNX
         Ort::AllocatorWithDefaultOptions* GetAllocator() override;
 
         AZStd::unique_ptr<MNIST> m_mnist;
+        AZStd::unique_ptr<MNIST> m_mnistCuda;
 
         PrecomputedTimingData* GetPrecomputedTimingData() override;
         void SetPrecomputedTimingData(int totalCount, int64_t correctCount, float totalTime, float avgTime) override;
+        PrecomputedTimingData* GetPrecomputedTimingDataCuda() override;
+        void SetPrecomputedTimingDataCuda(int totalCount, int64_t correctCount, float totalTime, float avgTime) override;
 
         AZStd::unique_ptr<PrecomputedTimingData> m_precomputedTimingData;
+        AZStd::unique_ptr<PrecomputedTimingData> m_precomputedTimingDataCuda;
 
         ONNXSystemComponent();
         ~ONNXSystemComponent();
 
     protected:
         ImGui::LYImGuiUtils::HistogramGroup m_timingStats;
+        ImGui::LYImGuiUtils::HistogramGroup m_timingStatsCuda;
 
         ////////////////////////////////////////////////////////////////////////
         // ONNXRequestBus interface implementation

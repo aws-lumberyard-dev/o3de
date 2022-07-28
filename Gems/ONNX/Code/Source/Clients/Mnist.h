@@ -32,5 +32,5 @@ namespace ONNX
         virtual void OnTick(float deltaTime, AZ::ScriptTimePoint time) override;
     };
 
-    void RunMnistSuite(int testsPerDigit);
+    void RunMnistSuite(int testsPerDigit, bool cudaEnable);
 } // namespace ONNX
