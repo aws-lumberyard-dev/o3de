@@ -31,9 +31,6 @@
                 "$import": "{your-path-to-o3de}/o3de/Gems/Atom/Feature/Common/Assets/Materials/Types/MaterialInputs/ClearCoatPropertyGroup.json"
             },
             { 
-                "$import": "{your-path-to-o3de}/o3de/Gems/Atom/Feature/Common/Assets/Materials/Types/MaterialInputs/ParallaxPropertyGroup.json"
-            },
-            { 
                 "$import": "{your-path-to-o3de}/o3de/Gems/Atom/Feature/Common/Assets/Materials/Types/MaterialInputs/OpacityPropertyGroup.json"
             },
             { 

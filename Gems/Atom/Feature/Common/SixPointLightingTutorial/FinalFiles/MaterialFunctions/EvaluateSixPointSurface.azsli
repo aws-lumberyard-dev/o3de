@@ -23,12 +23,7 @@ void EvaluateSixPointSurface(
     float2 sixPointUv = GetUvForCurrentFrame(baseColorUv);
     float3 sampledColor = GetBaseColorInput(MaterialSrg::m_baseColorMap, MaterialSrg::m_sampler, sixPointUv, MaterialSrg::m_baseColor.rgb, o_baseColor_useTexture);
     float3 baseColor = BlendBaseColor(sampledColor, MaterialSrg::m_baseColor.rgb, MaterialSrg::m_baseColorFactor, o_baseColorTextureBlendMode, o_baseColor_useTexture);
-
-    if(o_parallax_highlightClipping && displacementIsClipped)
-    {
-        ApplyParallaxClippingHighlight(baseColor);
-    }
-
+    
     // ------- Metallic -------
     float metallic = MaterialSrg::m_metallicFactor;
 

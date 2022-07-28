@@ -24,7 +24,6 @@
 #include "Atom/Feature/Common/Assets/Materials/Types/MaterialInputs/ClearCoatInput.azsli"
 #include "Atom/Feature/Common/Assets/Materials/Types/MaterialInputs/OcclusionInput.azsli"
 #include "Atom/Feature/Common/Assets/Materials/Types/MaterialInputs/EmissiveInput.azsli"
-#include "Atom/Feature/Common/Assets/Materials/Types/MaterialInputs/ParallaxInput.azsli"
 #include "Atom/Feature/Common/Assets/Materials/Types/MaterialInputs/UvSetCount.azsli"
 
 ShaderResourceGroup MaterialSrg : SRG_PerMaterial
@@ -46,12 +45,8 @@ ShaderResourceGroup MaterialSrg : SRG_PerMaterial
     COMMON_SRG_INPUTS_SPECULAR_F0()
     COMMON_SRG_INPUTS_NORMAL()
     COMMON_SRG_INPUTS_CLEAR_COAT()
-    COMMON_SRG_INPUTS_OCCLUSION()     
-    COMMON_SRG_INPUTS_EMISSIVE()     
-    COMMON_SRG_INPUTS_PARALLAX()
-    
-    uint m_parallaxUvIndex;
-    float m_parallax_pdo_shadowFactor;
+    COMMON_SRG_INPUTS_OCCLUSION()
+    COMMON_SRG_INPUTS_EMISSIVE()
 
     float3x3 m_uvMatrix;
     float4 m_pad1; // [GFX TODO][ATOM-14595] This is a workaround for a data stomping bug. Remove once it's fixed.
@@ -83,28 +78,6 @@ ShaderResourceGroup MaterialSrg : SRG_PerMaterial
         MagFilter = Linear;
         MipFilter = Linear;
     };
-}
-
-// Callback function for ParallaxMapping.azsli
-DepthResult GetDepth(float2 uv, float2 uv_ddx, float2 uv_ddy)
-{
-    return SampleDepthFromHeightmap(MaterialSrg::m_heightmap, MaterialSrg::m_sampler, uv, uv_ddx, uv_ddy);
-}
-
-
-COMMON_OPTIONS_PARALLAX()
-
-bool ShouldHandleParallax()
-{
-    // Parallax mapping's non uniform uv transformations break screen space subsurface scattering, disable it when subsurface scattering is enabled.
-    return !o_enableSubsurfaceScattering && o_parallax_feature_enabled && o_useHeightmap;
-}
-
-bool ShouldHandleParallaxInDepthShaders()
-{
-    // The depth pass shaders need to calculate parallax when the result could affect the depth buffer, or when
-    // parallax could affect texel clipping.
-    return ShouldHandleParallax() && (o_parallax_enablePixelDepthOffset || o_opacity_mode == OpacityMode::Cutout);
 }
 
 // Allows you to specify a specific frame of the flipbook to render in MaterialSrg::m_debugFrame
