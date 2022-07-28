@@ -11,6 +11,8 @@ import git
 import pathlib
 
 # Basic representation of a git repository
+
+
 class Repo:
     def __init__(self, repo_path: str):
         self._repo = git.Repo(repo_path)
@@ -33,7 +35,7 @@ class Repo:
 
         @param src_commit_hash: The hash for the source commit.
         @param dst_commit_hash: The hash for the destination commit.
-        @param multi_branch:    The two commits are on different branches so view the changes on the 
+        @param multi_branch:    The two commits are on different branches so view the changes on the
                                 branch containing and up to dst_commit, starting at a common ancestor of both.
         @param output_path:     The path to the file to write the diff to.
         """
@@ -45,7 +47,8 @@ class Repo:
                 output_path.unlink()
             output_path.parent.mkdir(exist_ok=True)
         except EnvironmentError as e:
-            raise RuntimeError(f"Could not create path for output file '{output_path}'")
+            raise RuntimeError(
+                f"Could not create path for output file '{output_path}'")
 
         args = ["git", "diff", "--name-status", f"--output={output_path}"]
         if multi_branch:
@@ -57,7 +60,25 @@ class Repo:
         # git diff will only write to the output file if both commit hashes are valid
         subprocess.run(args)
         if not output_path.is_file():
-            raise RuntimeError(f"Source commit '{src_commit_hash}' and/or destination commit '{dst_commit_hash}' are invalid")
+            raise RuntimeError(
+                f"Source commit '{src_commit_hash}' and/or destination commit '{dst_commit_hash}' are invalid")
+        self._try_git_in_code(output_path, src_commit_hash, dst_commit_hash)
+
+    def _try_git_in_code(self, output_path: str, src_commit_hash: str, dst_commit_hash: str):
+        commit1 = self._repo.commit(src_commit_hash)
+        commit2 = self._repo.commit(dst_commit_hash)
+        diff = commit1.diff(commit2)
+        new_file = str(output_path) + "_code_version"
+        with open(new_file, 'w+') as f:
+            for index in diff:
+                f.write(f"{index.change_type}\t{index.a_path}\n")
+
+        with open(new_file, "r") as code:
+            with open(output_path, "r") as subprocess:
+                code_data = code.read()
+                subprocess_data = subprocess.read()
+                equality = code.read() == subprocess.read()
+                print(f"Subprocess and Code git equality: {equality}")
 
     def is_descendent(self, src_commit_hash: str, dst_commit_hash: str):
         """
@@ -70,7 +91,8 @@ class Repo:
 
         if not src_commit_hash and not dst_commit_hash:
             return False
-        result = subprocess.run(["git", "merge-base", "--is-ancestor", src_commit_hash, dst_commit_hash])
+        result = subprocess.run(
+            ["git", "merge-base", "--is-ancestor", src_commit_hash, dst_commit_hash])
         return result.returncode == 0
 
     # Returns the distance between two commits
@@ -85,5 +107,6 @@ class Repo:
 
         if not src_commit_hash and not dst_commit_hash:
             return None
-        commits = self._repo.iter_commits(src_commit_hash + '..' + dst_commit_hash)
+        commits = self._repo.iter_commits(
+            src_commit_hash + '..' + dst_commit_hash)
         return len(list(commits))
