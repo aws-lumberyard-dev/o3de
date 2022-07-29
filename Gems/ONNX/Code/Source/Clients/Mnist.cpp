@@ -39,8 +39,10 @@ namespace ONNX
         DispatchTimingSample();
     }
 
-    void MNIST::DispatchTimingSample() {
-        // Ignore any unusually large inference times - this is mostly an issue with the first inference on CUDA, where the average runtimes and ImGui graphs are distorted by anomalies.
+    void MNIST::DispatchTimingSample()
+    {
+        // Ignore any unusually large inference times - this is mostly an issue with the first inference on CUDA, where the average runtimes
+        // and ImGui graphs are distorted by anomalies.
         if (m_delta < 10.0f)
         {
             // CPU and CUDA executions have different ImGui histogram groups, and so the inference data must be dispatched accordingly.
@@ -55,7 +57,8 @@ namespace ONNX
         }
     }
 
-    void MNIST::LoadImage(const char* path) {
+    void MNIST::LoadImage(const char* path)
+    {
         // Gets the png image from file and decodes using upng library.
         upng_t* upng = upng_new_from_file(path);
         upng_decode(upng);
@@ -110,12 +113,12 @@ namespace ONNX
 
         if (cudaEnable)
         {
-            modelInitSettings.m_modelName = "MNIST_Fold1 CUDA (Precomputed)";
+            modelInitSettings.m_modelName = "MNIST CUDA (Precomputed)";
             modelInitSettings.m_cudaEnable = true;
         }
         else
         {
-            modelInitSettings.m_modelName = "MNIST_Fold1 (Precomputed)";
+            modelInitSettings.m_modelName = "MNIST (Precomputed)";
         }
 
         mnist.Load(modelInitSettings);
@@ -130,13 +133,14 @@ namespace ONNX
         for (int digit = 0; digit < 10; digit++)
         {
             std::filesystem::directory_iterator iterator =
-                std::filesystem::directory_iterator{ std::wstring{ GEM_ASSETS_PATH } + L"/testing/" + std::to_wstring(digit) + L"/" };
+                std::filesystem::directory_iterator{ std::wstring{ W_GEM_ASSETS_PATH } + L"/testing/" + std::to_wstring(digit) + L"/" };
             for (int version = 0; version < numOfEach; version++)
             {
                 std::string filepath = iterator->path().string();
                 MnistReturnValues returnedValues = MnistExample(mnist, filepath.c_str());
 
-                // Ignore any unusually large inference times (>10ms) - this is mostly an issue with the first inference on CUDA, where the average runtimes and ImGui graphs are distorted by anomalies.
+                // Ignore any unusually large inference times (>10ms) - this is mostly an issue with the first inference on CUDA, where the
+                // average runtimes and ImGui graphs are distorted by anomalies.
                 if (returnedValues.m_runtime < 10.0f)
                 {
                     if (returnedValues.m_inference == digit)

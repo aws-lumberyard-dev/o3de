@@ -21,13 +21,13 @@ namespace ONNX
     };
 
     //! Extension of ONNX Model used for Mnist example.
-    //! Implements additional functionality useful to have for the example, such as keeping hold of the input and output vectors, and result (which the model doesn't do).
+    //! Implements additional functionality useful to have for the example, such as keeping hold of the input and output vectors, and result
+    //! (which the model doesn't do).
     struct MNIST
         : public Model
         , public AZ::TickBus::Handler
     {
     public:
-
         //! Loads an image from file into the correct format in m_input.
         //! @path is the file location of the image you want to inference (this NEEDS to be an 8-bit color depth png else it won't work).
         void LoadImage(const char* path);
@@ -36,7 +36,8 @@ namespace ONNX
         //! Directly mutates m_output and m_result.
         std::ptrdiff_t GetResult();
 
-        //! Invokes the correct setter function in ONNXBus, adding the value currently held in m_delta into an ImGui histogram group based on the m_modelName.
+        //! Invokes the correct setter function in ONNXBus, adding the value currently held in m_delta into an ImGui histogram group based
+        //! on the m_modelName.
         void DispatchTimingSample();
 
         //! The MNIST dataset images are all 28 x 28 px, so you should probably be loading 28 x 28 images into the example.
@@ -46,7 +47,9 @@ namespace ONNX
 
         std::vector<float> m_input; //!< This is the input that gets passed into Run(). A binary representation of the pixels in the image.
         std::vector<float> m_output; //!< This is the output that gets passed into Run().
-        int64_t m_result{ 0 }; //!< This will be the digit with the highest probability from the inference (what the model thinks the input number was).
+        int64_t m_result{
+            0
+        }; //!< This will be the digit with the highest probability from the inference (what the model thinks the input number was).
 
     private:
         // Converts vector of output values into vector of probabilities.
@@ -65,7 +68,8 @@ namespace ONNX
     MnistReturnValues MnistExample(MNIST& mnist, const char* path);
 
     //! Runs through library of test mnist images in png format, calculating inference accuracy.
-    //! @testsPerDigit specifies how many runs to do on each digit 0-9. Each run will be done on a unique image of that digit. Limit is ~5,000.
+    //! @testsPerDigit specifies how many runs to do on each digit 0-9. Each run will be done on a unique image of that digit. Limit is
+    //! ~5,000.
     //! @cudaEnable just specifies if the inferences should be run on gpu using CUDA or default cpu.
     void RunMnistSuite(int testsPerDigit, bool cudaEnable);
 } // namespace ONNX

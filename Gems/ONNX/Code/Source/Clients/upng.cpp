@@ -24,6 +24,10 @@ freely, subject to the following restrictions:
 		distribution.
 */
 
+/*
+    THIS VERSION OF THE SOFTWARE HAS BEEN MODIFIED FROM THE ORIGINAL
+*/
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>

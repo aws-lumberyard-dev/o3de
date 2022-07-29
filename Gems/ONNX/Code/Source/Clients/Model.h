@@ -35,7 +35,7 @@ namespace ONNX
         struct InitSettings
         {
             //! Source of onnx model file.
-            std::wstring m_modelFile = std::wstring{ GEM_ASSETS_PATH } + std::wstring{ L"/MNIST_Fold1_v2.onnx" };
+            std::wstring m_modelFile = std::wstring{ W_GEM_ASSETS_PATH } + std::wstring{ L"/model.onnx" };
             std::string m_modelName = ""; //!< Used to create groupings for ImGui dashboard graphs in editor.
             std::vector<int64_t> m_inputShape; //!< Specifies dimensions of input.
             std::vector<int64_t> m_outputShape; //!< Specifies dimensions of output.
@@ -44,7 +44,8 @@ namespace ONNX
         //! Initialises necessary params in order to run inference.
         //! Must be run before Run() function.
         //! Creates the session, memory info, and extracts input and output names and count from onnx model file.
-        //! Only needs to be run once, inferences using the same onnx model file can be run by providing different input/output params to Run().
+        //! Only needs to be run once, inferences using the same onnx model file can be run by providing different input/output params to
+        //! Run().
         void Load(InitSettings& m_init_settings);
 
         //! Runs the inference using the loaded model.

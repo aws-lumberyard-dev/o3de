@@ -62,8 +62,8 @@ namespace ONNX
     {
         m_timer.Stamp(); // Start timing of inference.
 
-        // As far as I'm aware, there is no way of directly modifying the data of a tensor, so these must be initialised every time an inference is run.
-        // Through testing this seems to be relatively lightweight with minimal performance impact.
+        // As far as I'm aware, there is no way of directly modifying the data of a tensor, so these must be initialised every time an
+        // inference is run. Through testing this seems to be relatively lightweight with minimal performance impact.
         Ort::Value inputTensor =
             Ort::Value::CreateTensor<float>(m_memoryInfo, input.data(), input.size(), m_inputShape.data(), m_inputShape.size());
         Ort::Value outputTensor =
