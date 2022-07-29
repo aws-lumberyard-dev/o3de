@@ -22,6 +22,7 @@
 #include <AzCore/RTTI/BehaviorContext.h>
 #include <AzCore/Serialization/EditContext.h>
 #include <AzCore/Serialization/SerializeContext.h>
+#include <AzFramework/IO/FileOperations.h>
 #include <Document/MaterialDocument.h>
 
 namespace MaterialEditor
@@ -404,12 +405,46 @@ namespace MaterialEditor
             return false;
         }
 
+#if 1
         if (!AZ::RPI::JsonUtils::SaveObjectToFile(m_savePathNormalized, sourceData))
         {
             AZ_Error("MaterialDocument", false, "Document could not be saved: '%s'.", m_savePathNormalized.c_str());
             return false;
         }
+#else
+        AZStd::string tmpFileName;
+        if (!AZ::IO::CreateTempFileName(m_savePathNormalized.c_str(), tmpFileName))
+        {
+            return false;
+        }
 
+        if (!AZ::RPI::JsonUtils::SaveObjectToFile(tmpFileName, sourceData))
+        {
+            AZ_Error("MaterialDocument", false, "Document could not be saved: '%s'.", m_savePathNormalized.c_str());
+            AZ::IO::FileIOBase* fileIO = AZ::IO::FileIOBase::GetInstance();
+            if (fileIO->Exists(tmpFileName.data()))
+            {
+                fileIO->Remove(tmpFileName.data());
+            }
+            return false;
+        }
+
+        if (!AZ::IO::SmartMove(tmpFileName.c_str(), m_savePathNormalized.c_str()))
+        {
+            AZ::IO::FileIOBase* fileIO = AZ::IO::FileIOBase::GetInstance();
+            if (fileIO->Exists(tmpFileName.data()))
+            {
+                fileIO->Remove(tmpFileName.data());
+            }
+            return false;
+        }
+
+        AZ::IO::FileIOBase* fileIO = AZ::IO::FileIOBase::GetInstance();
+        if (fileIO->Exists(tmpFileName.data()))
+        {
+            fileIO->Remove(tmpFileName.data());
+        }
+#endif
         return true;
     }
 
