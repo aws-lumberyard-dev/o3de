@@ -199,7 +199,7 @@ namespace ONNX
     }
 
     // The global environment and memory allocator are initialised with the system component, and are accessed via the EBus from within the model.
-    // m_precomputedTimingData and m_precomputedTimingDataCuda are structs holding the test inference statistics run before the editor starts up.
+    // m_precomputedTimingData and m_precomputedTimingDataCuda are structs holding the test inference statistics run before the editor starts up, and used by the ImGui dashboard.
     void ONNXSystemComponent::Init()
     {
         void* ptr;
@@ -209,21 +209,13 @@ namespace ONNX
         m_precomputedTimingDataCuda = AZStd::make_unique<PrecomputedTimingData>();
     }
 
+    // Creates two mnist model instances that live in the system component and hooks them into the game tick. These are used for the realtime inferencing demo in the editor.
     void ONNXSystemComponent::InitRuntimeMnistExamples() {
         ONNXRequestBus::Handler::BusConnect();
         AZ::TickBus::Handler::BusConnect();
 
         m_mnist = AZStd::make_unique<MNIST>();
         m_mnistCuda = AZStd::make_unique<MNIST>();
-
-        m_mnist->m_imageWidth = 28;
-        m_mnistCuda->m_imageWidth = 28;
-
-        m_mnist->m_imageHeight = 28;
-        m_mnistCuda->m_imageHeight = 28;
-
-        m_mnist->m_imageSize = m_mnist->m_imageWidth * m_mnist->m_imageHeight;
-        m_mnistCuda->m_imageSize = m_mnistCuda->m_imageWidth * m_mnistCuda->m_imageHeight;
 
         std::vector<float> input(m_mnist->m_imageSize);
         m_mnist->m_input = input;
@@ -247,27 +239,9 @@ namespace ONNX
         m_mnist->Load(modelInitSettings);
         m_mnistCuda->Load(modelInitSettingsCuda);
 
-        upng_t* upng = upng_new_from_file("C:/Users/kubciu/dev/o3de/Gems/ONNX/Assets/testing/3/30.png");
-        upng_decode(upng);
-        const unsigned char* buffer = upng_get_buffer(upng);
-
-        for (int y = 0; y < m_mnist->m_imageHeight; y++)
-        {
-            for (int x = 0; x < m_mnist->m_imageWidth; x++)
-            {
-                int content = static_cast<int>(buffer[(y)*m_mnist->m_imageWidth + x]);
-                if (content == 0)
-                {
-                    m_mnist->m_input[m_mnist->m_imageWidth * y + x] = 0.0f;
-                    m_mnistCuda->m_input[m_mnist->m_imageWidth * y + x] = 0.0f;
-                }
-                else
-                {
-                    m_mnist->m_input[m_mnist->m_imageHeight * y + x] = 1.0f;
-                    m_mnistCuda->m_input[m_mnist->m_imageHeight * y + x] = 1.0f;
-                }
-            }
-        }
+        // For simplicity, the demo inferences the same test image on each tick.
+        m_mnist->LoadImage("C:/Users/kubciu/dev/o3de/Gems/ONNX/Assets/testing/3/30.png");
+        m_mnistCuda->LoadImage("C:/Users/kubciu/dev/o3de/Gems/ONNX/Assets/testing/3/30.png");
 
         m_mnist->BusConnect();
         m_mnistCuda->BusConnect();
@@ -278,10 +252,14 @@ namespace ONNX
         ONNXRequestBus::Handler::BusConnect();
         AZ::TickBus::Handler::BusConnect();
 
-        InitRuntimeMnistExamples();
-
+        // Sample collections of inferences are run both on CPU and GPU.
+        // These are run before the editor opens, and are used to compare the differences in inference times between precomputed and realtime execution.
+        // Using this we are able to observe that both CPU and GPU inference times are far greater when run in real time in the game tick.
+        // The results for these runs are displayed alongside the realtime data in the ImGui dashboard.
         RunMnistSuite(20, false);
         RunMnistSuite(20, true);
+
+        InitRuntimeMnistExamples();
     }
 
     void ONNXSystemComponent::Deactivate()

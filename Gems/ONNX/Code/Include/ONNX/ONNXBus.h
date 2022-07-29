@@ -32,7 +32,7 @@ namespace ONNX
     public:
         AZ_RTTI(ONNXRequests, "{F8599C7E-CDC7-4A72-A296-2C043D1E525A}");
         virtual ~ONNXRequests() = default;
-        // Put your public methods here
+
         virtual Ort::Env* GetEnv() = 0;
         virtual Ort::AllocatorWithDefaultOptions* GetAllocator() = 0;
 

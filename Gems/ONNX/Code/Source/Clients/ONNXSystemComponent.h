@@ -39,12 +39,6 @@ namespace ONNX
         void OnImGuiUpdate() override;
         void OnImGuiMainMenuUpdate() override;
 
-        void AddTimingSample(const char* modelName, float inferenceTimeInMilliseconds) override;
-        void AddTimingSampleCuda(const char* modelName, float inferenceTimeInMilliseconds) override;
-
-        AZStd::unique_ptr<Ort::Env> m_env;
-        Ort::Env* GetEnv() override;
-
         AZStd::unique_ptr<Ort::AllocatorWithDefaultOptions> m_allocator;
         Ort::AllocatorWithDefaultOptions* GetAllocator() override;
 
@@ -52,11 +46,6 @@ namespace ONNX
         AZStd::unique_ptr<MNIST> m_mnistCuda;
 
         void InitRuntimeMnistExamples();
-
-        PrecomputedTimingData* GetPrecomputedTimingData() override;
-        void SetPrecomputedTimingData(int totalCount, int64_t correctCount, float totalTime, float avgTime) override;
-        PrecomputedTimingData* GetPrecomputedTimingDataCuda() override;
-        void SetPrecomputedTimingDataCuda(int totalCount, int64_t correctCount, float totalTime, float avgTime) override;
 
         AZStd::unique_ptr<PrecomputedTimingData> m_precomputedTimingData;
         AZStd::unique_ptr<PrecomputedTimingData> m_precomputedTimingDataCuda;
@@ -70,7 +59,17 @@ namespace ONNX
 
         ////////////////////////////////////////////////////////////////////////
         // ONNXRequestBus interface implementation
+        AZStd::unique_ptr<Ort::Env> m_env;
+        Ort::Env* GetEnv() override;
 
+        PrecomputedTimingData* GetPrecomputedTimingData() override;
+        void SetPrecomputedTimingData(int totalCount, int64_t correctCount, float totalTime, float avgTime) override;
+
+        PrecomputedTimingData* GetPrecomputedTimingDataCuda() override;
+        void SetPrecomputedTimingDataCuda(int totalCount, int64_t correctCount, float totalTime, float avgTime) override;
+
+        void AddTimingSample(const char* modelName, float inferenceTimeInMilliseconds) override;
+        void AddTimingSampleCuda(const char* modelName, float inferenceTimeInMilliseconds) override;
         ////////////////////////////////////////////////////////////////////////
 
         ////////////////////////////////////////////////////////////////////////

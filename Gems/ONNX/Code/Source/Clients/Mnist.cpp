@@ -36,35 +36,55 @@ namespace ONNX
     void MNIST::OnTick([[maybe_unused]] float deltaTime, [[maybe_unused]] AZ::ScriptTimePoint time)
     {
         Run(m_input, m_output);
+        DispatchTimingSample();
     }
 
-    struct MnistReturnValues
-    {
-        int64_t m_inference;
-        float m_runtime;
-    };
+    void MNIST::DispatchTimingSample() {
+        // Ignore any unusually large inference times - this is mostly an issue with the first inference on CUDA, where the average runtimes and ImGui graphs are distorted by anomalies.
+        if (m_delta < 10.0f)
+        {
+            // CPU and CUDA executions have different ImGui histogram groups, and so the inference data must be dispatched accordingly.
+            if (m_cudaEnable)
+            {
+                ONNXRequestBus::Broadcast(&ONNXRequestBus::Events::AddTimingSampleCuda, m_modelName.c_str(), m_delta);
+            }
+            else
+            {
+                ONNXRequestBus::Broadcast(&ONNXRequestBus::Events::AddTimingSample, m_modelName.c_str(), m_delta);
+            }
+        }
+    }
 
-    MnistReturnValues MnistExample(MNIST& mnist, const char* path)
-    {
+    void MNIST::LoadImage(const char* path) {
+        // Gets the png image from file and decodes using upng library.
         upng_t* upng = upng_new_from_file(path);
         upng_decode(upng);
         const unsigned char* buffer = upng_get_buffer(upng);
 
-        for (int y = 0; y < mnist.m_imageHeight; y++)
+        // Converts image from buffer into binary greyscale representation.
+        // i.e. a pure black pixel is a 0, anything else is a 1.
+        // Bear in mind that the images in the dataset are flipped compared to how we'd usually think,
+        // so the background is black and the actual digit is white.
+        for (int y = 0; y < m_imageHeight; y++)
         {
-            for (int x = 0; x < mnist.m_imageWidth; x++)
+            for (int x = 0; x < m_imageWidth; x++)
             {
-                int content = static_cast<int>(buffer[(y)*mnist.m_imageWidth + x]);
+                int content = static_cast<int>(buffer[(y)*m_imageWidth + x]);
                 if (content == 0)
                 {
-                    mnist.m_input[mnist.m_imageWidth * y + x] = 0.0f;
+                    m_input[m_imageWidth * y + x] = 0.0f;
                 }
                 else
                 {
-                    mnist.m_input[mnist.m_imageHeight * y + x] = 1.0f;
+                    m_input[m_imageHeight * y + x] = 1.0f;
                 }
             }
         }
+    }
+
+    MnistReturnValues MnistExample(MNIST& mnist, const char* path)
+    {
+        mnist.LoadImage(path);
         mnist.Run(mnist.m_input, mnist.m_output);
         mnist.GetResult();
 
@@ -76,10 +96,9 @@ namespace ONNX
 
     void RunMnistSuite(int testsPerDigit, bool cudaEnable)
     {
+        // Initialises and loads the mnist model.
+        // The same instance of the model is used for all runs.
         MNIST mnist;
-        mnist.m_imageWidth = 28;
-        mnist.m_imageHeight = 28;
-        mnist.m_imageSize = mnist.m_imageWidth * mnist.m_imageHeight;
         std::vector<float> input(mnist.m_imageSize);
         mnist.m_input = input;
         std::vector<float> output(10);
@@ -106,20 +125,25 @@ namespace ONNX
         int64_t numOfCorrectInferences = 0;
         float totalRuntimeInMilliseconds = 0;
 
+        // This bit cycles through the folder with all the mnist test images, calling MnistExample() for the specified number of each digit.
+        // The structure of the folder is as such: /testing/{digit}/{random_integer}.png    e.g /testing/3/10.png
         for (int digit = 0; digit < 10; digit++)
         {
             std::filesystem::directory_iterator iterator =
-                std::filesystem::directory_iterator{ "C:/Users/kubciu/dev/o3de/Gems/ONNX/Assets/testing/" + std::to_string(digit) + "/" };
+                std::filesystem::directory_iterator{ std::wstring{ GEM_ASSETS_PATH } + L"/testing/" + std::to_wstring(digit) + L"/" };
             for (int version = 0; version < numOfEach; version++)
             {
                 std::string filepath = iterator->path().string();
                 MnistReturnValues returnedValues = MnistExample(mnist, filepath.c_str());
+
+                // Ignore any unusually large inference times (>10ms) - this is mostly an issue with the first inference on CUDA, where the average runtimes and ImGui graphs are distorted by anomalies.
                 if (returnedValues.m_runtime < 10.0f)
                 {
                     if (returnedValues.m_inference == digit)
                     {
                         numOfCorrectInferences += 1;
                     }
+                    mnist.DispatchTimingSample();
                     totalRuntimeInMilliseconds += returnedValues.m_runtime;
                     iterator++;
                     totalFiles++;
@@ -130,6 +154,8 @@ namespace ONNX
         float accuracy = ((float)numOfCorrectInferences / (float)totalFiles) * 100.0f;
         float avgRuntimeInMilliseconds = totalRuntimeInMilliseconds / (totalFiles);
 
+        // The stats for the run are broadcast to their respective timing data members in the system component.
+        // This data is used to populate the header in the ImGui dashboard in the editor.
         if (cudaEnable)
         {
             ONNXRequestBus::Broadcast(
@@ -149,6 +175,7 @@ namespace ONNX
                 avgRuntimeInMilliseconds);
         }
 
+        AZ_Printf("\nONNX", " Run Type: %s", cudaEnable ? "CUDA" : "CPU");
         AZ_Printf("\nONNX", " Evaluated: %d  Correct: %d  Accuracy: %f%%", totalFiles, numOfCorrectInferences, accuracy);
         AZ_Printf("\nONNX", " Total Runtime: %fms  Avg Runtime: %fms", totalRuntimeInMilliseconds, avgRuntimeInMilliseconds);
     }
