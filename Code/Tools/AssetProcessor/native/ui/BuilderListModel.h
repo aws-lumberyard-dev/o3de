@@ -17,7 +17,7 @@ namespace AssetProcessor
 {
     class BuilderData;
 
-    class BuilderListModel : QAbstractItemModel
+    class BuilderListModel : public QAbstractItemModel
     {
         Q_OBJECT;
 
