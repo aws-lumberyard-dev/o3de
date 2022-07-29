@@ -6,6 +6,7 @@
  *
  */
 #include <native/ui/BuilderDataItem.h>
+#include <QTime>
 
 namespace AssetProcessor
 {
@@ -91,6 +92,40 @@ namespace AssetProcessor
         }
 
         return entry;
+    }
+    QString BuilderDataItem::DurationToQString(AZ::s64 durationInMs)
+    {
+        const AZ::s64 dayInMs = 86400000;
+        if (durationInMs < 0)
+        {
+            return QString();
+        }
+
+        AZ::s64 dayCount = durationInMs / dayInMs;
+        QTime duration = QTime::fromMSecsSinceStartOfDay(durationInMs % dayInMs);
+        if (dayCount > 0)
+        {
+            return duration.toString("zzz' ms, 'ss' sec, 'mm' min, 'hh' hr, %1 day'").arg(dayCount);
+        }
+
+        if (duration.isValid())
+        {
+            if (duration.hour() > 0)
+            {
+                return duration.toString("zzz' ms, 'ss' sec, 'mm' min, 'hh' hr'");
+            }
+            if (duration.minute() > 0)
+            {
+                return duration.toString("zzz' ms, 'ss' sec, 'mm' min'");
+            }
+            if (duration.second() > 0)
+            {
+                return duration.toString("zzz' ms, 'ss' sec'");
+            }
+            return duration.toString("zzz' ms'");
+        }
+
+        return QString();
     }
     bool BuilderDataItem::InitializeBuilder(AZStd::weak_ptr<BuilderDataItem> builderWeakPointer)
     {

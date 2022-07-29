@@ -12,6 +12,7 @@
 #include <AzCore/std/smart_ptr/shared_ptr.h>
 #include <AzCore/std/smart_ptr/weak_ptr.h>
 #include <AzCore/std/string/string.h>
+#include <QString>
 #include <QMetaType>
 
 namespace AssetProcessor
@@ -51,6 +52,7 @@ namespace AssetProcessor
         bool InitializeBuilder(AZStd::weak_ptr<BuilderDataItem> builderWeakPointer);
         AZStd::shared_ptr<BuilderDataItem> UpdateOrInsertEntry(
             JobType jobType, const AZStd::string& name, AZ::s64 jobCount, AZ::s64 totalDuration);
+        static QString DurationToQString(AZ::s64 durationInMs);
     private:
         void UpdateMetrics(AZ::s64 jobCountDiff, AZ::s64 totalDurationDiff);
 

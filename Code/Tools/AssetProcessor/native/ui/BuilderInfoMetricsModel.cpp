@@ -9,45 +9,9 @@
 #include <ui/BuilderDataItem.h>
 #include <ui/BuilderData.h>
 #include <AssetBuilderSDK/AssetBuilderSDK.h>
-#include <QTime>
 
 namespace AssetProcessor
 {
-    QString DurationToQString(AZ::s64 durationInMs)
-    {
-        const AZ::s64 dayInMs = 86400000;
-        if (durationInMs < 0)
-        {
-            return QString();
-        }
-
-        AZ::s64 dayCount = durationInMs / dayInMs;
-        QTime duration = QTime::fromMSecsSinceStartOfDay(durationInMs % dayInMs);
-        if (dayCount > 0)
-        {
-            return duration.toString("zzz' ms, 'ss' sec, 'mm' min, 'hh' hr, %1 day'").arg(dayCount);
-        }
-        
-        if (duration.isValid())
-        {
-            if (duration.hour() > 0)
-            {
-                return duration.toString("zzz' ms, 'ss' sec, 'mm' min, 'hh' hr'");
-            }
-            if (duration.minute() > 0)
-            {
-                return duration.toString("zzz' ms, 'ss' sec, 'mm' min'");
-            }
-            if (duration.second() > 0)
-            {
-                return duration.toString("zzz' ms, 'ss' sec'");
-            }
-            return duration.toString("zzz' ms'");
-        }
-
-        return QString();
-    }
-
     BuilderInfoMetricsModel::BuilderInfoMetricsModel(BuilderData* builderData, QObject* parent)
         : QAbstractItemModel(parent)
         , m_data(builderData)
@@ -160,9 +124,9 @@ namespace AssetProcessor
                 {
                     return QVariant();
                 }
-                return DurationToQString(item->GetTotalDuration() / item->GetJobCount());
+                return BuilderDataItem::DurationToQString(item->GetTotalDuration() / item->GetJobCount());
             case aznumeric_cast<int>(Column::TotalDuration):
-                return DurationToQString(item->GetTotalDuration());
+                return BuilderDataItem::DurationToQString(item->GetTotalDuration());
             default:
                 break;
             }
