@@ -168,8 +168,6 @@ MainWindow::MainWindow(GUIApplicationManager* guiApplicationManager, QWidget* pa
     , ui(new Ui::MainWindow)
     , m_loggingPanel(nullptr)
     , m_fileSystemWatcher(new QFileSystemWatcher(this))
-    , m_builderList(new BuilderListModel(this))
-    , m_builderListSortFilterProxy(new BuilderListSortFilterProxy(this))
     , m_builderInfoPatterns(new AssetProcessor::BuilderInfoPatternsModel(this))
 {
     ui->setupUi(this);
@@ -491,10 +489,8 @@ void MainWindow::Activate()
 
     // Builders Tab:
     m_builderData = new BuilderData(m_sharedDbConnection, this);
-    m_builderListSortFilterProxy->setDynamicSortFilter(true);
-    m_builderListSortFilterProxy->setSourceModel(m_builderList);
-    m_builderListSortFilterProxy->sort(0);
-    ui->builderList->setModel(m_builderListSortFilterProxy);
+    m_builderList = new BuilderListModel(m_builderData, this);
+    ui->builderList->setModel(m_builderList);
     ui->builderInfoPatternsTableView->setModel(m_builderInfoPatterns);
     m_builderInfoMetrics = new BuilderInfoMetricsModel(m_builderData, this);
     m_builderInfoMetricsSort = new BuilderInfoMetricsSortModel(this);
@@ -516,11 +512,6 @@ void MainWindow::Activate()
         if(m_builderList)
         {
             m_builderList->Reset();
-
-            if(m_builderListSortFilterProxy)
-            {
-                m_builderListSortFilterProxy->sort(0);
-            }
         }
 
         if (m_builderInfoMetrics)
@@ -586,12 +577,7 @@ void MainWindow::BuilderTabSelectionChanged(const QItemSelection& selected, cons
 {
     if (selected.size() > 0)
     {
-        const auto proxyIndex = selected.indexes().at(0);
-        if (!proxyIndex.isValid())
-        {
-            return;
-        }
-        const auto& index = m_builderListSortFilterProxy->mapToSource(proxyIndex);
+        const auto index = selected.indexes().at(0);
 
         AssetProcessor::BuilderInfoList builders;
         AssetProcessor::AssetBuilderInfoBus::Broadcast(&AssetProcessor::AssetBuilderInfoBus::Events::GetAllBuildersInfo, builders);

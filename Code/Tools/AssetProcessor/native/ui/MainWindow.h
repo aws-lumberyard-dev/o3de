@@ -158,7 +158,6 @@ private:
 
     AssetProcessor::BuilderData* m_builderData = nullptr;
     AssetProcessor::BuilderListModel* m_builderList = nullptr;
-    AssetProcessor::BuilderListSortFilterProxy* m_builderListSortFilterProxy = nullptr;
     AssetProcessor::BuilderInfoPatternsModel* m_builderInfoPatterns = nullptr;
     AssetProcessor::BuilderInfoMetricsModel* m_builderInfoMetrics = nullptr;
     AssetProcessor::BuilderInfoMetricsSortModel* m_builderInfoMetricsSort = nullptr;

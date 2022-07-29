@@ -41,9 +41,4 @@ namespace AssetProcessor
         beginResetModel();
         endResetModel();
     }
-
-    bool BuilderListSortFilterProxy::lessThan(const QModelIndex& source_left, const QModelIndex& source_right) const
-    {
-        return sourceModel()->data(source_left).toString().compare(sourceModel()->data(source_right).toString(), Qt::CaseInsensitive) < 0;
-    }
 }

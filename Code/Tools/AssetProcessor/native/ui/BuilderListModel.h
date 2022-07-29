@@ -48,15 +48,4 @@ namespace AssetProcessor
     private:
         QPointer<BuilderData> m_data;
     };
-
-    struct BuilderListSortFilterProxy : QSortFilterProxyModel
-    {
-        BuilderListSortFilterProxy(QObject* parent)
-            : QSortFilterProxyModel(parent)
-        {
-        }
-
-    protected:
-        bool lessThan(const QModelIndex& source_left, const QModelIndex& source_right) const override;
-    };
 }
