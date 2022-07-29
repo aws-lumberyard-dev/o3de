@@ -22,6 +22,8 @@ namespace UnitTests
             m_connectionId = connectionId;
         }
 
+        static int s_startupDelayMs;
+
     protected:
         AZ::Outcome<void, AZStd::string> Start(AssetProcessor::BuilderPurpose purpose) override;
     };

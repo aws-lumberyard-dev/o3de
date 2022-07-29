@@ -14,6 +14,8 @@
 
 namespace UnitTests
 {
+    int TestBuilder::s_startupDelayMs = 0;
+
     class BuilderManagerTest : public UnitTest::ScopedAllocatorSetupFixture
     {
 
@@ -56,6 +58,11 @@ namespace UnitTests
 
     AZ::Outcome<void, AZStd::string> TestBuilder::Start(AssetProcessor::BuilderPurpose /*purpose*/)
     {
+        if (TestBuilder::s_startupDelayMs > 0)
+        {
+            AZStd::this_thread::sleep_for(AZStd::chrono::milliseconds(TestBuilder::s_startupDelayMs));
+        }
+
         return AZ::Success();
     }
 
@@ -77,5 +84,72 @@ namespace UnitTests
         m_builderList.AddBuilder(builder, purpose);
 
         return builder;
+    }
+
+    TEST_F(BuilderManagerTest, GetBuilder_DoesntBlockOnCreation)
+    {
+        // Tests that requests to GetBuilder don't block during process startup
+
+        ConnectionManager connectionManager{ nullptr };
+        TestBuilderManager builderManager(&connectionManager);
+
+        constexpr int NumberOfThreads = 20;
+
+        // Set an artificial process start up delay
+        TestBuilder::s_startupDelayMs = 20;
+
+        // Wait just slightly longer than the start up time
+        constexpr int WaitIntervalMs = 30;
+
+        AZStd::vector<AZStd::thread> threads;
+        AZStd::atomic_int numRemainingThreads = NumberOfThreads;
+        AZStd::binary_semaphore doneSignal;
+
+        // Hold on to the builder refs we get so they don't get re-used
+        AZStd::array<BuilderRef, NumberOfThreads> builders;
+
+        for (int i = 0; i < NumberOfThreads; ++i)
+        {
+            threads.push_back(AZStd::thread(
+                [&numRemainingThreads, &doneSignal, &builders, i]()
+                {
+                    auto* builderManagerInterface = AZ::Interface<IBuilderManagerRequests>::Get();
+
+                    if (!builderManagerInterface)
+                    {
+                        AZ_Assert(false, "Coding error: BuilderManager interface is not available");
+                        return;
+                    }
+
+                    BuilderRef builderRef = builderManagerInterface->GetBuilder(BuilderPurpose::ProcessJob);
+
+                    builders[i] = AZStd::move(builderRef);
+
+                    --numRemainingThreads;
+                    doneSignal.release();
+                }));
+        }
+
+        auto startTime = AZStd::chrono::monotonic_clock::now();
+
+        while (numRemainingThreads > 0)
+        {
+            doneSignal.try_acquire_for(AZStd::chrono::milliseconds(WaitIntervalMs));
+        }
+
+        auto endTime = AZStd::chrono::monotonic_clock::now();
+        auto duration = endTime - startTime;
+
+        for (auto&& thread : threads)
+        {
+            if (thread.joinable())
+            {
+                thread.join();
+            }
+        }
+
+        ASSERT_LT(duration, AZStd::chrono::seconds(WaitIntervalMs));
+
+        ASSERT_EQ(builderManager.GetBuilderCreationCount(), NumberOfThreads + 1); // +1 because the manager starts one up to begin with
     }
 }
