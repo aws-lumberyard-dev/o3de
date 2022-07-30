@@ -342,7 +342,7 @@ namespace AtomToolsFramework
             &AzToolsFramework::SourceControlCommandBus::Events::RequestEdit, m_savePathNormalized.c_str(), true,
             [](bool, const AzToolsFramework::SourceControlFileInfo&) {});
 
-#if 0
+#if 1
         // Bump the slice asset up in the asset processor's queue.
         AzFramework::AssetSystemRequestBus::Broadcast(
             &AzFramework::AssetSystem::AssetSystemRequests::EscalateAssetBySearchTerm, m_savePathNormalized.c_str());

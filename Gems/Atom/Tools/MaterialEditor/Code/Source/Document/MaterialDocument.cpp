@@ -405,7 +405,7 @@ namespace MaterialEditor
             return false;
         }
 
-#if 1
+#if 0
         if (!AZ::RPI::JsonUtils::SaveObjectToFile(m_savePathNormalized, sourceData))
         {
             AZ_Error("MaterialDocument", false, "Document could not be saved: '%s'.", m_savePathNormalized.c_str());
