@@ -32,11 +32,13 @@ namespace ONNX
 
     TEST_F(MnistFixture, ModelAccuracyGreaterThan90PercentWithCuda)
     {
-        PrecomputedTimingData* timingDataCuda;
-        ONNXRequestBus::BroadcastResult(timingDataCuda, &ONNXRequestBus::Events::GetPrecomputedTimingDataCuda);
+        if (ENABLE_CUDA) {
+            PrecomputedTimingData* timingDataCuda;
+            ONNXRequestBus::BroadcastResult(timingDataCuda, &ONNXRequestBus::Events::GetPrecomputedTimingDataCuda);
 
-        float accuracy = (float)timingDataCuda->m_numberOfCorrectInferences / (float)timingDataCuda->m_totalNumberOfInferences;
+            float accuracy = (float)timingDataCuda->m_numberOfCorrectInferences / (float)timingDataCuda->m_totalNumberOfInferences;
 
-        EXPECT_GT(accuracy, 0.9f);
+            EXPECT_GT(accuracy, 0.9f);
+        }
     }
 } // namespace ONNX

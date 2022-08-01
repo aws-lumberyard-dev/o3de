@@ -39,6 +39,9 @@ namespace ONNX
         void OnImGuiUpdate() override;
         void OnImGuiMainMenuUpdate() override;
 
+        AZStd::unique_ptr<Ort::Env> m_env;
+        Ort::Env* GetEnv() override;
+
         AZStd::unique_ptr<Ort::AllocatorWithDefaultOptions> m_allocator;
         Ort::AllocatorWithDefaultOptions* GetAllocator() override;
 
@@ -47,20 +50,17 @@ namespace ONNX
 
         void InitRuntimeMnistExamples();
 
-        AZStd::unique_ptr<PrecomputedTimingData> m_precomputedTimingData;
-        AZStd::unique_ptr<PrecomputedTimingData> m_precomputedTimingDataCuda;
-
         ONNXSystemComponent();
         ~ONNXSystemComponent();
 
     protected:
+        ////////////////////////////////////////////////////////////////////////
+        // ONNXRequestBus interface implementation
         ImGui::LYImGuiUtils::HistogramGroup m_timingStats;
         ImGui::LYImGuiUtils::HistogramGroup m_timingStatsCuda;
 
-        ////////////////////////////////////////////////////////////////////////
-        // ONNXRequestBus interface implementation
-        AZStd::unique_ptr<Ort::Env> m_env;
-        Ort::Env* GetEnv() override;
+        AZStd::unique_ptr<PrecomputedTimingData> m_precomputedTimingData;
+        AZStd::unique_ptr<PrecomputedTimingData> m_precomputedTimingDataCuda;
 
         PrecomputedTimingData* GetPrecomputedTimingData() override;
         void SetPrecomputedTimingData(int totalCount, int64_t correctCount, float totalTime, float avgTime) override;
