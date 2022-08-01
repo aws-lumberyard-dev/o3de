@@ -15,7 +15,7 @@
 #include <ONNX/ONNXBus.h>
 #include <onnxruntime_cxx_api.h>
 
-#include "upng.h"
+#include "upng/upng.h"
 
 #include <algorithm>
 #include <array>
