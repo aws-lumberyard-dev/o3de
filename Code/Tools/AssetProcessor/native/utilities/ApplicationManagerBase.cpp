@@ -822,6 +822,11 @@ void ApplicationManagerBase::InitFileStateCache()
     m_fileStateCache = AZStd::make_unique<AssetProcessor::FileStateCache>();
 }
 
+void ApplicationManagerBase::InitUuidManager()
+{
+    m_uuidManager = AZStd::make_unique<AssetProcessor::UuidManager>();
+}
+
 ApplicationManager::BeforeRunStatus ApplicationManagerBase::BeforeRun()
 {
     ApplicationManager::BeforeRunStatus status = ApplicationManager::BeforeRun();
@@ -1446,6 +1451,7 @@ bool ApplicationManagerBase::Activate()
     InitFileStateCache();
     InitFileProcessor();
 
+    InitUuidManager();
     InitAssetCatalog();
     InitFileMonitor(AZStd::make_unique<FileWatcher>());
     InitAssetScanner();
@@ -1560,6 +1566,18 @@ bool ApplicationManagerBase::PostActivate()
     return true;
 }
 
+void ApplicationManagerBase::Reflect()
+{
+    AZ::SerializeContext* context;
+    AZ::ComponentApplicationBus::BroadcastResult(context, &AZ::ComponentApplicationBus::Events::GetSerializeContext);
+
+    AZ_Assert(context, "SerializeContext is not available");
+
+    ApplicationManager::Reflect();
+
+    AssetProcessor::UuidManager::Reflect(context);
+}
+
 void ApplicationManagerBase::CreateQtApplication()
 {
     m_qApp = new QCoreApplication(*m_frameworkApp.GetArgC(), *m_frameworkApp.GetArgV());
@@ -1593,7 +1611,7 @@ static void HandleConditionalRetry(const AssetProcessor::BuilderRunJobOutcome& r
             builderRef.release();
 
             AssetProcessor::BuilderManagerBus::BroadcastResult(builderRef, &AssetProcessor::BuilderManagerBusTraits::GetBuilder, purpose);
-            
+
             if (builderRef)
             {
                 AZ_TracePrintf(AssetProcessor::ConsoleChannel, "Lost connection to builder %s. Retrying with a new builder %s (Attempt %d with %d second delay)",
@@ -1721,7 +1739,7 @@ void ApplicationManagerBase::RegisterBuilderInformation(const AssetBuilderSDK::A
                     {
                         return; // exit early if you're shutting down!
                     }
-                    
+
                     retryCount++;
                     result = builderRef->RunJob<AssetBuilder::ProcessJobNetRequest, AssetBuilder::ProcessJobNetResponse>(
                         request, response, s_MaximumProcessJobsTimeSeconds, "process", "", &jobCancelListener, request.m_tempDirPath);
