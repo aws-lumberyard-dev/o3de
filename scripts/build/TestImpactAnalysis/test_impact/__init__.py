@@ -6,6 +6,7 @@
 #
 #
 
+from .. import get_logger
 from .runtime_test_impact_args import RuntimeArgs
 from .base_test_impact import BaseTestImpact
 from .native_test_impact import NativeTestImpact

@@ -6,11 +6,14 @@
 #
 #
 
+import os
+import sys
+sys.path.insert(0, os.path.abspath("...."))
 
 from logging import getLogger
 from typing import Counter
-from test_impact import NativeTestImpact, BaseTestImpact, PythonTestImpact
-from tiaf_driver import main
+from scripts.build.TestImpactAnalysis.test_impact import NativeTestImpact, BaseTestImpact, PythonTestImpact
+from scripts.build.TestImpactAnalysis.tiaf_driver import main
 import pytest
 logging = getLogger("tiaf")
 

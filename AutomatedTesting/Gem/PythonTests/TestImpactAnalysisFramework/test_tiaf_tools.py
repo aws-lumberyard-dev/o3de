@@ -6,12 +6,15 @@
 #
 #
 
+import os
+import sys
+sys.path.insert(0, os.path.abspath("...."))
 
 from logging import getLogger
-from tiaf_tools import run
-import os
+from scripts.build.TestImpactAnalysis.tiaf_tools import run
 import json
 from pathlib import Path
+
 logging = getLogger("tiaf_tools")
 
 class TestTIAFToolsLocal():

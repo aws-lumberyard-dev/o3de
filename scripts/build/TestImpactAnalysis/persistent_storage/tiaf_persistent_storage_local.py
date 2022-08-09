@@ -7,9 +7,8 @@
 #
 
 import pathlib
-import logging
-from persistent_storage import PersistentStorage
-from tiaf_logger import get_logger
+from . import PersistentStorage
+from . import get_logger
 
 logger = get_logger(__file__)
 

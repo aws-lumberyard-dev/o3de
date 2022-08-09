@@ -10,8 +10,8 @@ import os
 import json
 from io import BytesIO
 from pathlib import Path
-from tiaf_logger import get_logger
-from storage_query_tool import StorageQueryTool
+from . import get_logger
+from . import StorageQueryTool
 import datetime
 
 logger = get_logger(__file__)

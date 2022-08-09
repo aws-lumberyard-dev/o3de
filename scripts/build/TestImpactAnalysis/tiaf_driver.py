@@ -7,13 +7,13 @@
 #
 
 import argparse
-import mars_utils
+from .mars_utils import *
 import sys
 import pathlib
 import traceback
 import re
-from test_impact import NativeTestImpact
-from tiaf_logger import get_logger
+from .test_impact import NativeTestImpact
+from . import get_logger
 
 logger = get_logger(__file__)
 

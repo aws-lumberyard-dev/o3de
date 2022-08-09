@@ -6,8 +6,8 @@
 #
 #
 
-from test_impact import BaseTestImpact
-from tiaf_logger import get_logger
+from . import BaseTestImpact
+from . import get_logger
 
 logger = get_logger(__file__)
 

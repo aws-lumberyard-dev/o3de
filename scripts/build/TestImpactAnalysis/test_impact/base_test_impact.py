@@ -13,10 +13,10 @@ import json
 import subprocess
 import re
 import os
-from test_impact import RuntimeArgs
-from git_utils import Repo
-from persistent_storage import PersistentStorageLocal, PersistentStorageS3
-from tiaf_tools import get_logger
+from . import RuntimeArgs
+from .. import Repo
+from ..persistent_storage import PersistentStorageLocal, PersistentStorageS3
+from . import get_logger
 
 logger = get_logger(__file__)
 

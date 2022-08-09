@@ -8,10 +8,9 @@
 
 import argparse
 import pathlib
-from tiaf_logger import get_logger
-from storage_query_tool import S3StorageQueryTool
-from storage_query_tool import LocalStorageQueryTool
-import sys
+from .tiaf_logger import get_logger
+from .storage_query_tool import S3StorageQueryTool
+from .storage_query_tool import LocalStorageQueryTool
 logger = get_logger(__file__)
 
 

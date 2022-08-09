@@ -9,8 +9,7 @@
 import json
 import pathlib
 from abc import ABC, abstractmethod
-from tiaf_logger import get_logger
-
+from . import get_logger
 logger = get_logger(__file__)
 
 # Abstraction for the persistent storage required by TIAF to store and retrieve the branch coverage data and other meta-data

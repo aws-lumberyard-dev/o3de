@@ -6,6 +6,7 @@
 #
 #
 
+from .. import get_logger
 from .tiaf_persistent_storage import PersistentStorage
 from .tiaf_persistent_storage_local import PersistentStorageLocal
 from .tiaf_persistent_storage_s3 import PersistentStorageS3
