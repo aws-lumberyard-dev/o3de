@@ -50,7 +50,7 @@ class TestTiafInitialiseStorage():
         expected_storage_args = config_data, tiaf_args['suite'], tiaf_args[
             'commit']
         mock_local = mocker.patch(
-            "persistent_storage.PersistentStorageLocal.__init__", side_effect=SystemError(), return_value=None)
+            "scripts.build.TestImpactAnalysis.persistent_storage.PersistentStorageLocal.__init__", side_effect=SystemError(), return_value=None)
         # when:
         # We create a TestImpact object.
         tiaf = ConcreteBaseTestImpact(tiaf_args)
@@ -68,7 +68,7 @@ class TestTiafInitialiseStorage():
         tiaf_args['s3_bucket'] = bucket_name
         tiaf_args['s3_top_level_dir'] = top_level_dir
         mock_storage = mocker.patch(
-            "persistent_storage.PersistentStorageS3.__init__", side_effect=SystemError())
+            "scripts.build.TestImpactAnalysis.persistent_storage.PersistentStorageS3.__init__", side_effect=SystemError())
 
         expected_storage_args = config_data, tiaf_args['suite'], tiaf_args[
             'commit'], bucket_name, expected_top_level_dir, tiaf_args['src_branch']
@@ -87,7 +87,7 @@ class TestTiafInitialiseStorage():
         tiaf_args['s3_bucket'] = None
         tiaf_args['s3_top_level_dir'] = None
         mock_storage = mocker.patch(
-            "persistent_storage.PersistentStorageS3.__init__", return_value=None)
+            "scripts.build.TestImpactAnalysis.persistent_storage.PersistentStorageS3.__init__", return_value=None)
 
         # when:
         # We create a TestImpact object.
@@ -103,7 +103,7 @@ class TestTiafInitialiseStorage():
         tiaf_args['s3_bucket'] = None
         tiaf_args['s3_top_level_dir'] = "test_dir"
         mock_storage = mocker.patch(
-            "persistent_storage.PersistentStorageS3.__init__", return_value=None)
+            "scripts.build.TestImpactAnalysis.persistent_storage.PersistentStorageS3.__init__", return_value=None)
 
         # when:
         # We create a TestImpact object.
@@ -152,7 +152,7 @@ class TestTIAFNativeUnitTests():
         tiaf_args['s3_bucket'] = bucket_name
         tiaf_args['s3_top_level_dir'] = top_level_dir
         mock_storage = mocker.patch(
-            "persistent_storage.PersistentStorageS3.__init__", side_effect=SystemError())
+            "scripts.build.TestImpactAnalysis.persistent_storage.PersistentStorageS3.__init__", side_effect=SystemError())
         expected_storage_args = config_data, tiaf_args['suite'], tiaf_args[
             'commit'], bucket_name, expected_top_level_dir, tiaf_args['src_branch']
 
@@ -174,7 +174,7 @@ class TestTIAFPythonUnitTests():
         tiaf_args['s3_bucket'] = bucket_name
         tiaf_args['s3_top_level_dir'] = top_level_dir
         mock_storage = mocker.patch(
-            "persistent_storage.PersistentStorageS3.__init__", side_effect=SystemError())
+            "scripts.build.TestImpactAnalysis.persistent_storage.PersistentStorageS3.__init__", side_effect=SystemError())
         expected_storage_args = config_data, tiaf_args['suite'], tiaf_args[
             'commit'], bucket_name, expected_top_level_dir, tiaf_args['src_branch']
 
@@ -268,7 +268,7 @@ class TestTIAFBaseUnitTests():
         # Default args + mars_index_prefix being provided,
         # and transmit_report_to_mars is patched to intercept the call.
         tiaf_args['mars_index_prefix'] = "test_prefix"
-        mock_mars = mocker.patch("mars_utils.transmit_report_to_mars")
+        mock_mars = mocker.patch("scripts.build.TestImpactAnalysis.mars_utils.transmit_report_to_mars")
 
         # when:
         # We run Tiaf through the driver.
@@ -282,7 +282,7 @@ class TestTIAFBaseUnitTests():
     def test_run_Tiaf_mars_index_prefix_is_not_supplied(self, caplog, tiaf_args, mock_runtime, mocker):
         # given:
         # Default_args - mars index is not supplied.
-        mock_mars = mocker.patch("mars_utils.transmit_report_to_mars")
+        mock_mars = mocker.patch("scripts.build.TestImpactAnalysis.mars_utils.transmit_report_to_mars")
 
         # when:
         # We run tiaf through the driver.

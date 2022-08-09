@@ -7,7 +7,7 @@
 #
 
 import argparse
-from .mars_utils import *
+from . import mars_utils
 import sys
 import pathlib
 import traceback
