@@ -9,7 +9,7 @@
 import datetime
 import json
 import socket
-from tiaf_logger import get_logger
+from . import get_logger
 
 logger = get_logger(__file__)
 
