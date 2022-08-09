@@ -15,7 +15,7 @@ if(PAL_TRAIT_TEST_IMPACT_FRAMEWORK_SUPPORTED)
     add_subdirectory(Frontend)
     ly_add_pytest(
         NAME TiafToolsTest
-        PATH ${LY_ROOT_FOLDER}/scripts/build/TestImpactAnalysis/Testing/test_tiaf_tools.py
+        PATH ${LY_ROOT_FOLDER}/AutomatedTesting/Gem/PythonTests/TestImpactAnalysisFramework/test_tiaf_tools.py
         TEST_SERIAL
         COMPONENT 
             TestImpactFramework
@@ -24,7 +24,7 @@ if(PAL_TRAIT_TEST_IMPACT_FRAMEWORK_SUPPORTED)
     
     ly_add_pytest(
         NAME TiafPythonUnitTest
-        PATH ${LY_ROOT_FOLDER}/scripts/build/TestImpactAnalysis/Testing/test_tiaf_unit_tests.py
+        PATH ${LY_ROOT_FOLDER}/AutomatedTesting/Gem/PythonTests/TestImpactAnalysisFramework/test_tiaf_unit_tests.py
         TEST_SERIAL
         COMPONENT
             TestImpactFramework
