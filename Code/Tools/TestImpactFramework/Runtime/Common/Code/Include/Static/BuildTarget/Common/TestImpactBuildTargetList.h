@@ -9,6 +9,7 @@
 #pragma once
 
 #include <BuildTarget/Common/TestImpactBuildTargetException.h>
+#include <BuildTarget/Common/TestImpactBuildTarget.h>
 #include <Target/Common/TestImpactTargetList.h>
 
 #include <AzCore/std/containers/variant.h>
@@ -47,6 +48,9 @@ namespace TestImpact
         //! @param outputName The output name of the target to get.
         AZStd::string GetTargetNameFromOutputNameOrThrow(const AZStd::string& outputName) const;
 
+        //! Get the vector of build targets in the repository.
+        const AZStd::vector<BuildTarget<ProductionTarget, TestTarget>>& GetBuildTargets() const;
+
         //! Get the list of test targets in the repository.
         const TargetList<TestTarget>& GetTestTargetList() const;
 
@@ -59,6 +63,9 @@ namespace TestImpact
         //! The sorted list of unique production targets in the repository.
         TargetList<ProductionTarget> m_productionTargets;
 
+        //! The list of all build targets in the repository.
+        AZStd::vector<BuildTarget<ProductionTarget, TestTarget>> m_buildTargets;
+
         //! Mapping of target output names to their targets.
         AZStd::unordered_map<AZStd::string, AZStd::string> m_outputNameToTargetNameMapping;
     };
@@ -69,15 +76,17 @@ namespace TestImpact
         : m_testTargets(AZStd::move(testTargetList))
         , m_productionTargets(AZStd::move(productionTargetList))
     {
-        for (const auto& target : m_testTargets.GetTargets())
+        const auto compileTargetMetaData = [this](const auto& targets)
         {
-            m_outputNameToTargetNameMapping[target.GetOutputName()] = target.GetName();
-        }
+            for (const auto& target : targets.GetTargets())
+            {
+                m_outputNameToTargetNameMapping[target.GetOutputName()] = target.GetName();
+                m_buildTargets.emplace_back(&target);
+            }
+        };
 
-        for (const auto& target : m_productionTargets.GetTargets())
-        {
-            m_outputNameToTargetNameMapping[target.GetOutputName()] = target.GetName();
-        }
+        compileTargetMetaData(m_productionTargets);
+        compileTargetMetaData(m_testTargets);
     }
 
     template<typename ProductionTarget, typename TestTarget>
@@ -110,6 +119,12 @@ namespace TestImpact
         auto buildTarget = GetBuildTarget(name);
         AZ_TestImpact_Eval(buildTarget.has_value(), TargetException, AZStd::string::format("Couldn't find target %s", name.c_str()).c_str());
         return buildTarget.value();
+    }
+
+    template<typename ProductionTarget, typename TestTarget>
+    const AZStd::vector<BuildTarget<ProductionTarget, TestTarget>>& BuildTargetList<ProductionTarget, TestTarget>::GetBuildTargets() const
+    {
+        return m_buildTargets;
     }
 
     template<typename ProductionTarget, typename TestTarget>

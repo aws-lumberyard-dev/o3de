@@ -30,13 +30,14 @@ set(FILES
     Include/Static/Process/JobRunner/TestImpactProcessJobMeta.h
     Include/Static/Process/JobRunner/TestImpactProcessJobRunner.h
     Include/Static/Process/Scheduler/TestImpactProcessScheduler.h
-    Include/Static/Dependency/TestImpactDynamicDependencyMap.h
+    Include/Static/Dependency/TestImpactBuildTargetDependencyGraph.h
     Include/Static/Dependency/TestImpactChangeDependencyList.h
     Include/Static/Dependency/TestImpactDependencyException.h
-    Include/Static/Dependency/TestImpactSourceDependency.h
-    Include/Static/Dependency/TestImpactTestSelectorAndPrioritizer.h
+    Include/Static/Dependency/TestImpactDynamicDependencyMap.h
     Include/Static/Dependency/TestImpactSourceCoveringTestsList.h
     Include/Static/Dependency/TestImpactSourceCoveringTestsSerializer.h
+    Include/Static/Dependency/TestImpactSourceDependency.h
+    Include/Static/Dependency/TestImpactTestSelectorAndPrioritizer.h
     Include/Static/Target/Common/TestImpactTarget.h
     Include/Static/Target/Common/TestImpactTargetList.h
     Include/Static/Target/Common/TestImpactTargetException.h
