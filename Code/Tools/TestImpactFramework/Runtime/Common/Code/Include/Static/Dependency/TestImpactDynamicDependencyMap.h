@@ -115,7 +115,7 @@ namespace TestImpact
     template<typename ProductionTarget, typename TestTarget>
     DynamicDependencyMap<ProductionTarget, TestTarget>::DynamicDependencyMap(const BuildTargetList<ProductionTarget, TestTarget>* buildTargetList)
         : m_buildTargetList(buildTargetList)
-        , m_buildTargetDependecyGraph(m_buildTargetList)
+        , m_buildTargetDependecyGraph(*m_buildTargetList)
     {
         const auto mapBuildTargetSources = [this](const auto* target)
         {

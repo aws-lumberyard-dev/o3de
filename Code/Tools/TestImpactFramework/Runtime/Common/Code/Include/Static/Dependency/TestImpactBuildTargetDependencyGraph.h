@@ -14,39 +14,34 @@
 
 namespace TestImpact
 {
-    //template<typename ProductionTarget, typename TestTarget>
-    //class BuildTargetDependencyGraph
-    //{
-    //public:
-    //    //!
-    //    BuildTargetDependencyGraph([[maybe_unused]] const BuildTargetList<ProductionTarget, TestTarget>* buildTargetList)
-    //    {
-    //    }
-    //};
+    //!
+    template<typename ProductionTarget, typename TestTarget>
+    struct BuildTargetDependencyGraphNode;
+    
+    //!
+    template<typename ProductionTarget, typename TestTarget>
+    using BuildTargetDependencyList = AZStd::vector<const BuildTargetDependencyGraphNode<ProductionTarget, TestTarget>*>;
+    
+    //!
+    template<typename ProductionTarget, typename TestTarget>
+    struct BuildTargetDependencies
+    {
+        BuildTargetDependencyList<ProductionTarget, TestTarget> m_build; //!<
+        BuildTargetDependencyList<ProductionTarget, TestTarget> m_runtime; //!<
+    };
+    
+    //!
+    template<typename ProductionTarget, typename TestTarget>
+    struct BuildTargetDependencyGraphNode
+    {
+        BuildTargetDependencyGraphNode(BuildTarget<ProductionTarget, TestTarget> buildTarget)
+            : m_buildTarget(buildTarget)
+        {
+        }
 
-    ////!
-    //template<typename ProductionTarget, typename TestTarget>
-    //struct BuildTargetDependencyGraphNode;
-    //
-    ////!
-    //template<typename ProductionTarget, typename TestTarget>
-    //using BuildTargetDependencyList = AZStd::vector<BuildTargetDependencyGraphNode<ProductionTarget*, TestTarget>>;
-    //
-    ////!
-    //template<typename ProductionTarget, typename TestTarget>
-    //struct BuildTargetDependencies
-    //{
-    //    BuildTargetDependencyList<ProductionTarget, TestTarget> m_build; //!<
-    //    BuildTargetDependencyList<ProductionTarget, TestTarget> m_runtime; //!<
-    //};
-    //
-    ////!
-    //template<typename ProductionTarget, typename TestTarget>
-    //struct BuildTargetDependencyGraphNode
-    //{
-    //    BuildTarget<ProductionTarget, TestTarget> m_buildTarget; //!<
-    //    BuildTargetDependencies<ProductionTarget, TestTarget> m_dependencies; //!<
-    //};
+        BuildTarget<ProductionTarget, TestTarget> m_buildTarget; //!<
+        BuildTargetDependencies<ProductionTarget, TestTarget> m_dependencies; //!<
+    };
     
     //!
     template<typename ProductionTarget, typename TestTarget>
@@ -62,22 +57,51 @@ namespace TestImpact
         //    const BuildTarget<ProductionTarget, TestTarget>& buildTarget) const;
     
     private:
-        //AZStd::unordered_map<BuildTarget<ProductionTarget, TestTarget>, BuildTargetDependencyGraphNode<ProductionTarget, TestTarget>>
-        //    m_buildTargetDependencyMap;
+        AZStd::unordered_map<BuildTarget<ProductionTarget, TestTarget>, BuildTargetDependencyGraphNode<ProductionTarget, TestTarget>>
+            m_buildTargetDependencyMap;
     };
     
     template<typename ProductionTarget, typename TestTarget>
     BuildTargetDependencyGraph<ProductionTarget, TestTarget>::BuildTargetDependencyGraph(
-        const BuildTargetList<ProductionTarget, TestTarget>& buildTargetList)
+        [[maybe_unused]] const BuildTargetList<ProductionTarget, TestTarget>& buildTargetList)
     {
-        //for (const auto& buildTarget : buildTargetList.GetBuildTargets())
-        //{
-        //    auto& node = m_buildTargetDependencyMap[buildTarget];
-        //    for (const auto& buildDependency : buildTarget.GetTarget().GetDependencies().m_build)
-        //    {
-        //
-        //    }
-        //}
+        for (const auto& buildTarget : buildTargetList.GetBuildTargets())
+        {
+            const auto addOrRetrieveNode = [this](const BuildTarget<ProductionTarget, TestTarget>& buildTarget)
+            {
+                auto it = m_buildTargetDependencyMap.find(buildTarget);
+                if (it == m_buildTargetDependencyMap.end())
+                {
+                    return &m_buildTargetDependencyMap
+                                .emplace(
+                                    AZStd::piecewise_construct, AZStd::forward_as_tuple(buildTarget), AZStd::forward_as_tuple(buildTarget))
+                                .first->second;
+                }
+                else
+                {
+                    return &it->second;
+                }
+            };
+
+            auto* node = addOrRetrieveNode(buildTarget);
+            for (const auto& buildDependency : buildTarget.GetTarget()->GetDependencies().m_build)
+            {
+                const auto buildDependencyTarget = buildTargetList.GetBuildTarget(buildDependency);
+                if (!buildDependencyTarget.has_value())
+                {
+                    AZ_Warning(
+                        "BuildTargetDependencyGraph",
+                        false,
+                        "Couldn't find build dependency '%s' for build target '%s'",
+                        buildDependency.c_str(),
+                        buildTarget.GetTarget()->GetName().c_str());
+                    continue;
+                }
+
+                const auto buildDependencyNode = addOrRetrieveNode(buildDependencyTarget.value());
+                node->m_dependencies.m_build.push_back(buildDependencyNode);
+            }
+        }
     }
 } // namespace TestImpact
 

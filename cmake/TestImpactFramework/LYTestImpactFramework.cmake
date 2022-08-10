@@ -330,25 +330,24 @@ function(ly_extract_target_dependencies INPUT_DEPENDENCY_LIST OUTPUT_DEPENDENCY_
     # Walk the dependency list
     foreach(target_name_components ${INPUT_DEPENDENCY_LIST})
         # Extract just the target name, ignoring the namespace
-        string(REPLACE "::" ";" target_name_components ${target_name_components})
-        list(LENGTH target_name_components num_name_components)
-        if(num_name_components GREATER 1)
-            list(GET target_name_components 0 target_namespace)
-            list(GET target_name_components 1 target_name)
-            # Skipt third party dependencies
-            if(NOT target_namespace STREQUAL "3rdParty")
+        if(TARGET ${target_name_components})
+            string(REPLACE "::" ";" target_name_components ${target_name_components})
+            list(LENGTH target_name_components num_name_components)
+            if(num_name_components GREATER 1)
+                list(GET target_name_components 0 target_namespace)
+                list(GET target_name_components 1 target_name)
+                # Skipt third party dependencies
+                if(NOT target_namespace STREQUAL "3rdParty")
+                    list(APPEND dependencies "\"${target_name}\"")
+                endif()
+            else()
                 list(APPEND dependencies "\"${target_name}\"")
+                
             endif()
-        else()
-            set(target_name ${target_name_components})
-            list(APPEND dependencies "\"${target_name}\"")
         endif()
     endforeach()
 
-    # Remove the access modifiers and convert to a comma separated list
-    string (REPLACE "\"PUBLIC\";" "" dependencies "${dependencies}")
-    string (REPLACE "\"PRIVATE\";" "" dependencies "${dependencies}")
-    string (REPLACE "\"INTERFACE\";" "" dependencies "${dependencies}")
+    # Convert to a comma separated list
     string (REPLACE ";" ",\n" dependencies "${dependencies}")
     set(${OUTPUT_DEPENDENCY_LIST} ${dependencies} PARENT_SCOPE)
 endfunction()
