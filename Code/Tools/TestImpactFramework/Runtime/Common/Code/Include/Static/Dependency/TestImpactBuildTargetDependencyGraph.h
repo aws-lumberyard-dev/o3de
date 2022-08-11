@@ -83,38 +83,31 @@ namespace TestImpact
                 }
             };
 
-            auto* node = addOrRetrieveNode(buildTarget);
-            for (const auto& buildDependency : buildTarget.GetTarget()->GetDependencies().m_build)
+            const auto resolveDependencies = [&](const DependencyList& unresolvedDependencies,
+                                                 BuildTargetDependencyList<ProductionTarget, TestTarget>& resolveDependencies)
             {
-                const auto buildDependencyTarget = buildTargetList.GetBuildTarget(buildDependency);
-                if (!buildDependencyTarget.has_value())
+                for (const auto& buildDependency : unresolvedDependencies)
                 {
-                    AZ_Warning(
-                        "BuildTargetDependencyGraph",
-                        false,
-                        "Couldn't find build dependency '%s' for build target '%s'",
-                        buildDependency.c_str(),
-                        buildTarget.GetTarget()->GetName().c_str());
-                    continue;
-                }
+                    const auto buildDependencyTarget = buildTargetList.GetBuildTarget(buildDependency);
+                    if (!buildDependencyTarget.has_value())
+                    {
+                        AZ_Warning(
+                            "BuildTargetDependencyGraph",
+                            false,
+                            "Couldn't find build dependency '%s' for build target '%s'",
+                            buildDependency.c_str(),
+                            buildTarget.GetTarget()->GetName().c_str());
+                        continue;
+                    }
 
-                const auto buildDependencyNode = addOrRetrieveNode(buildDependencyTarget.value());
-                node->m_dependencies.m_build.push_back(buildDependencyNode);
-            }
+                    const auto buildDependencyNode = addOrRetrieveNode(buildDependencyTarget.value());
+                    resolveDependencies.push_back(buildDependencyNode);
+                }
+            };
+
+            auto* node = addOrRetrieveNode(buildTarget);
+            resolveDependencies(buildTarget.GetTarget()->GetDependencies().m_build, node->m_dependencies.m_build);
+            resolveDependencies(buildTarget.GetTarget()->GetDependencies().m_runtime, node->m_dependencies.m_runtime);
         }
     }
 } // namespace TestImpact
-
-//namespace AZStd
-//{
-//    //! Hash function for BuildTarget types for use in maps and sets.
-//    template<typename ProductionTarget, typename TestTarget>
-//    struct hash<TestImpact::BuildTargetDependencyGraphNode<ProductionTarget, TestTarget>>
-//    {
-//        size_t operator()(
-//            const TestImpact::BuildTargetDependencyGraphNode<ProductionTarget, TestTarget>& node) const noexcept
-//        {
-//            return reinterpret_cast<size_t>(node.m_buildTarget.GetTarget());
-//        }
-//    };
-//} // namespace AZStd
