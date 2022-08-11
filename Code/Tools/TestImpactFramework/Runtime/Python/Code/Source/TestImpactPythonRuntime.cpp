@@ -12,7 +12,6 @@
 #include <TestImpactRuntimeUtils.h>
 #include <Artifact/Static/TestImpactPythonTestTargetMeta.h>
 #include <Artifact/Factory/TestImpactPythonTestTargetMetaMapFactory.h>
-#include <Dependency/TestImpactBuildTargetDependencyGraph.h>
 #include <Dependency/TestImpactSourceCoveringTestsSerializer.h>
 #include <Dependency/TestImpactTestSelectorAndPrioritizer.h>
 #include <Target/Python/TestImpactPythonProductionTarget.h>

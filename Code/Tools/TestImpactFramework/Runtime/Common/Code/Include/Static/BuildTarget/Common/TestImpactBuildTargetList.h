@@ -8,8 +8,9 @@
 
 #pragma once
 
-#include <BuildTarget/Common/TestImpactBuildTargetException.h>
+#include <BuildTarget/Common/TestImpactBuildGraph.h>
 #include <BuildTarget/Common/TestImpactBuildTarget.h>
+#include <BuildTarget/Common/TestImpactBuildTargetException.h>
 #include <Target/Common/TestImpactTargetList.h>
 
 #include <AzCore/std/containers/variant.h>
@@ -56,6 +57,9 @@ namespace TestImpact
 
         //! Get the list of production targets in the repository.
         const TargetList<ProductionTarget>& GetProductionTargetList() const;
+
+        //! Get the repository build graph with the dependency and depender graphs.
+        const BuildGraph<ProductionTarget, TestTarget>& GetBuildGraph() const;
     private:
         //! The sorted list of unique test targets in the repository.
         TargetList<TestTarget> m_testTargets;
@@ -68,6 +72,9 @@ namespace TestImpact
 
         //! Mapping of target output names to their targets.
         AZStd::unordered_map<AZStd::string, AZStd::string> m_outputNameToTargetNameMapping;
+
+        //! Dependency and depender graph for each build target in the repository.
+        BuildGraph<ProductionTarget, TestTarget> m_buildGraph;
     };
 
     template<typename ProductionTarget, typename TestTarget>
@@ -75,6 +82,7 @@ namespace TestImpact
         TargetList<TestTarget>&& testTargetList, TargetList<ProductionTarget>&& productionTargetList)
         : m_testTargets(AZStd::move(testTargetList))
         , m_productionTargets(AZStd::move(productionTargetList))
+        , m_buildGraph(*this)
     {
         const auto compileTargetMetaData = [this](const auto& targets)
         {
@@ -160,5 +168,11 @@ namespace TestImpact
             TargetException,
             AZStd::string::format("Couldn't find target with output name %s", outputName.c_str()).c_str());
         return targetName;
+    }
+
+    template<typename ProductionTarget, typename TestTarget>
+    const BuildGraph<ProductionTarget, TestTarget>& BuildTargetList<ProductionTarget, TestTarget>::GetBuildGraph() const
+    {
+        return m_buildGraph;
     }
 } // namespace TestImpact

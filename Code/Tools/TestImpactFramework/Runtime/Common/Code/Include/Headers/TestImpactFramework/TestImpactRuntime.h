@@ -22,9 +22,6 @@
 
 namespace TestImpact
 {
-    template<typename ProductionTarget, typename TestTarget>
-    class BuildTargetDependencyGraph;
-
     template<typename TestTarget, typename ProdutionTarget>
     class ChangeDependencyList;
 

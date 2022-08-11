@@ -12,7 +12,6 @@
 #include <TestImpactRuntimeUtils.h>
 #include <Artifact/Factory/TestImpactNativeTestTargetMetaMapFactory.h>
 #include <BuildTarget/Common/TestImpactBuildTarget.h>
-#include <Dependency/TestImpactBuildTargetDependencyGraph.h>
 #include <Dependency/TestImpactDependencyException.h>
 #include <Dependency/TestImpactDynamicDependencyMap.h>
 #include <Dependency/TestImpactSourceCoveringTestsSerializer.h>

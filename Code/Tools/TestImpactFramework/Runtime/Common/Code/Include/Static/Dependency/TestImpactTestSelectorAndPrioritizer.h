@@ -21,9 +21,6 @@ namespace TestImpact
     template<typename ProductionTarget, typename TestTarget>
     class DynamicDependencyMap;
 
-    template<typename ProductionTarget, typename TestTarget>
-    class BuildTargetDependencyGraph;
-
     class Target;
 
     //! Selects the test targets that cover a given set of changes based on the CRUD rules and optionally prioritizes the test
@@ -35,7 +32,6 @@ namespace TestImpact
     public:
         //! Constructs the test selector and prioritizer for the given dynamic dependency map.
         //! @param dynamicDependencyMap The dynamic dependency map representing the repository source tree.
-        //! @param dependencyGraphDataMap The map of build targets and their dependency graph data for use in test prioritization.
         TestSelectorAndPrioritizer(
             const DynamicDependencyMap<ProductionTarget, TestTarget>& dynamicDependencyMap);
 
@@ -57,14 +53,13 @@ namespace TestImpact
         SelectedTestTargetAndDependerMap SelectTestTargets(const ChangeDependencyList<ProductionTarget, TestTarget>& changeDependencyList);
 
         //! Prioritizes the selected tests according to the specified test selection strategy,
-        //! @note If no dependency graph data exists for a given test target then that test target still be selected albeit not prioritized.
         //! @param selectedTestTargetAndDependerMap The selected tests to prioritize.
         //! @param testSelectionStrategy The test selection strategy to prioritize the selected tests.
         //! @returns The selected tests either in either arbitrary order or in prioritized with highest priority first.
         AZStd::vector<const TestTarget*> PrioritizeSelectedTestTargets(
             const SelectedTestTargetAndDependerMap& selectedTestTargetAndDependerMap, Policy::TestPrioritization testSelectionStrategy);
 
-        const DynamicDependencyMap<ProductionTarget, TestTarget>& m_dynamicDependencyMap;
+        const DynamicDependencyMap<ProductionTarget, TestTarget>* m_dynamicDependencyMap;
 
     protected:
         //! Action to perform when production sources are created.
@@ -107,7 +102,7 @@ namespace TestImpact
     template<typename ProductionTarget, typename TestTarget>
     TestSelectorAndPrioritizer<ProductionTarget, TestTarget>::TestSelectorAndPrioritizer(
         const DynamicDependencyMap<ProductionTarget, TestTarget>& dynamicDependencyMap)
-        : m_dynamicDependencyMap(dynamicDependencyMap)
+        : m_dynamicDependencyMap(&dynamicDependencyMap)
     {
     }
 
@@ -126,7 +121,7 @@ namespace TestImpact
     {
         // Action
         // 1. Select all test targets covering the parent production targets
-        const auto coverage = m_dynamicDependencyMap.GetCoveringTestTargetsForProductionTarget(*target);
+        const auto coverage = m_dynamicDependencyMap->GetCoveringTestTargetsForProductionTarget(*target);
         for (const auto* testTarget : coverage)
         {
             selectedTestTargetMap[testTarget].insert(target);

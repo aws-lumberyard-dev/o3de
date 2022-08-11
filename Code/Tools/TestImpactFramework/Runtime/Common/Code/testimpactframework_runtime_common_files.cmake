@@ -21,6 +21,7 @@ set(FILES
     Include/Static/BuildTarget/Common/TestImpactBuildTargetException.h
     Include/Static/BuildTarget/Common/TestImpactBuildTargetList.h
     Include/Static/BuildTarget/Common/TestImpactBuildTarget.h
+    Include/Static/BuildTarget/Common/TestImpactBuildGraph.h
     Include/Static/Process/TestImpactProcess.h
     Include/Static/Process/TestImpactProcessException.h
     Include/Static/Process/TestImpactProcessInfo.h
@@ -30,7 +31,6 @@ set(FILES
     Include/Static/Process/JobRunner/TestImpactProcessJobMeta.h
     Include/Static/Process/JobRunner/TestImpactProcessJobRunner.h
     Include/Static/Process/Scheduler/TestImpactProcessScheduler.h
-    Include/Static/Dependency/TestImpactBuildTargetDependencyGraph.h
     Include/Static/Dependency/TestImpactChangeDependencyList.h
     Include/Static/Dependency/TestImpactDependencyException.h
     Include/Static/Dependency/TestImpactDynamicDependencyMap.h

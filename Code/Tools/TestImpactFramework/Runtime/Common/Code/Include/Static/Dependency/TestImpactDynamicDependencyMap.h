@@ -107,15 +107,11 @@ namespace TestImpact
 
         //! The list of build targets (both test and production) in the repository.
         const BuildTargetList<ProductionTarget, TestTarget>* m_buildTargetList;
-
-        //! The dependecy graph of all the build targets in the repository.
-        BuildTargetDependencyGraph<ProductionTarget, TestTarget> m_buildTargetDependecyGraph;
     };
 
     template<typename ProductionTarget, typename TestTarget>
     DynamicDependencyMap<ProductionTarget, TestTarget>::DynamicDependencyMap(const BuildTargetList<ProductionTarget, TestTarget>* buildTargetList)
         : m_buildTargetList(buildTargetList)
-        , m_buildTargetDependecyGraph(*m_buildTargetList)
     {
         const auto mapBuildTargetSources = [this](const auto* target)
         {
