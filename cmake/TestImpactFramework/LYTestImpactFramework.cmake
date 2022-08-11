@@ -324,6 +324,9 @@ function(ly_test_impact_write_gem_target_enumeration_file GEM_TARGET_TEMPLATE_FI
      configure_file(${GEM_TARGET_TEMPLATE_FILE} ${mapping_path})
 endfunction()
 
+#! ly_extract_aliased_target_dependencies: recursively extracts the aliases of a target to retrieve the true de-aliased target.
+#
+# \arg:TARGET target to de-alias
 function(ly_extract_aliased_target_dependencies TARGET)
     if(ARGN STREQUAL "")
         # Entry point of recursive call, set the parent target and clear any existing aliases
@@ -353,7 +356,6 @@ function(ly_extract_target_dependencies INPUT_DEPENDENCY_LIST OUTPUT_DEPENDENCY_
     foreach(target_name_components ${INPUT_DEPENDENCY_LIST})
         # Extract just the target name, ignoring the namespace
         if(TARGET ${target_name_components})
-        
             set(target_to_add "")
             string(REPLACE "::" ";" target_name_components ${target_name_components})
             list(LENGTH target_name_components num_name_components)
@@ -369,6 +371,7 @@ function(ly_extract_target_dependencies INPUT_DEPENDENCY_LIST OUTPUT_DEPENDENCY_
             endif()
 
             if(NOT ${target_to_add} STREQUAL "")
+                # Extract the targets this target may alias
                 ly_extract_aliased_target_dependencies(${target_to_add})
                 get_property(de_aliased_targets GLOBAL PROPERTY LY_DE_ALIASED_TARGETS_${target_to_add})
                 foreach(de_aliased_target ${de_aliased_targets})
