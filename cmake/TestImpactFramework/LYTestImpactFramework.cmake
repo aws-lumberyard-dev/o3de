@@ -324,6 +324,28 @@ function(ly_test_impact_write_gem_target_enumeration_file GEM_TARGET_TEMPLATE_FI
      configure_file(${GEM_TARGET_TEMPLATE_FILE} ${mapping_path})
 endfunction()
 
+function(ly_extract_aliased_target_dependencies TARGET)
+    if(ARGN STREQUAL "")
+        # Entry point of recursive call, set the parent target and clear any existing aliases
+        set(PARENT_TARGET ${TARGET})
+        set_property(GLOBAL PROPERTY LY_DE_ALIASED_TARGETS_${PARENT_TARGET} "")
+    endif()
+
+    # Check for aliases of this target
+    get_property(aliased_targets GLOBAL PROPERTY LY_ALIASED_TARGETS_${TARGET} SET)
+    if(${aliased_targets})
+        # One or more aliases for this target has been found
+        get_property(aliased_targets GLOBAL PROPERTY LY_ALIASED_TARGETS_${TARGET})
+        foreach(aliased_target ${aliased_targets})
+            # Recursively extract any aliases of the alias of this target
+            ly_extract_aliased_target_dependencies(${aliased_target} ${PARENT_TARGET})
+        endforeach()
+    else()
+        # No more aliases found for this target, add this target as an alias for the parent target
+        set_property(GLOBAL APPEND PROPERTY LY_DE_ALIASED_TARGETS_${PARENT_TARGET} ${TARGET})
+    endif()
+endfunction()
+
 #! ly_extract_target_dependencies: extracts the target dependencies for the specified target as a comma separated list.
 function(ly_extract_target_dependencies INPUT_DEPENDENCY_LIST OUTPUT_DEPENDENCY_LIST)
     set(dependencies "")
@@ -331,6 +353,8 @@ function(ly_extract_target_dependencies INPUT_DEPENDENCY_LIST OUTPUT_DEPENDENCY_
     foreach(target_name_components ${INPUT_DEPENDENCY_LIST})
         # Extract just the target name, ignoring the namespace
         if(TARGET ${target_name_components})
+        
+            set(target_to_add "")
             string(REPLACE "::" ";" target_name_components ${target_name_components})
             list(LENGTH target_name_components num_name_components)
             if(num_name_components GREATER 1)
@@ -338,11 +362,18 @@ function(ly_extract_target_dependencies INPUT_DEPENDENCY_LIST OUTPUT_DEPENDENCY_
                 list(GET target_name_components 1 target_name)
                 # Skipt third party dependencies
                 if(NOT target_namespace STREQUAL "3rdParty")
-                    list(APPEND dependencies "\"${target_name}\"")
+                    set(target_to_add ${target_name})
                 endif()
             else()
-                list(APPEND dependencies "\"${target_name}\"")
-                
+                set(target_to_add ${target_name})
+            endif()
+
+            if(NOT ${target_to_add} STREQUAL "")
+                ly_extract_aliased_target_dependencies(${target_to_add})
+                get_property(de_aliased_targets GLOBAL PROPERTY LY_DE_ALIASED_TARGETS_${target_to_add})
+                foreach(de_aliased_target ${de_aliased_targets})
+                    list(APPEND dependencies "\"${de_aliased_target}\"")
+                endforeach()
             endif()
         endif()
     endforeach()
