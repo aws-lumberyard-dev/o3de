@@ -57,6 +57,7 @@
 #endif // defined(AZ_PLATFORM_LINUX)
 
 #include <sstream>
+#include "UuidManager.h"
 
 namespace AssetUtilsInternal
 {
@@ -855,13 +856,16 @@ namespace AssetUtilities
 
     AZ::Uuid CreateSafeSourceUUIDFromName(const char* sourceName, bool caseInsensitive)
     {
-        AZStd::string lowerVersion(sourceName);
-        if (caseInsensitive)
+        auto* uuidManager = AZ::Interface<AssetProcessor::IUuidRequests>::Get();
+
+        AZ_Assert(uuidManager, "IUuidRequests not available yet");
+
+        if(caseInsensitive)
         {
-            AZStd::to_lower(lowerVersion.begin(), lowerVersion.end());
+            return uuidManager->GetUuidRelPathAndScanfolder("", sourceName);
         }
-        AzFramework::StringFunc::Replace(lowerVersion, '\\', '/');
-        return AZ::Uuid::CreateName(lowerVersion.c_str());
+
+        return uuidManager->GetLegacyUuidRelPathAndScanfolder("", sourceName);
     }
 
     void NormalizeFilePaths(QStringList& filePaths)

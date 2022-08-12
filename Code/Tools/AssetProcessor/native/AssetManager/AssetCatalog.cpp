@@ -18,6 +18,7 @@
 
 #include <QElapsedTimer>
 #include "PathDependencyManager.h"
+#include <utilities/UuidManager.h>
 
 namespace AssetProcessor
 {
@@ -476,12 +477,23 @@ namespace AssetProcessor
         {
             auto inserted = m_registries.insert(platform, AzFramework::AssetRegistry());
             AzFramework::AssetRegistry& currentRegistry = inserted.value();
+            AZStd::vector<AzToolsFramework::AssetDatabase::SourceDatabaseEntry>
+                sourceEntriesToUpdate; // list of source entries in the database that need to have their UUID updated
 
             QElapsedTimer timer;
             timer.start();
             auto databaseQueryCallback = [&](AzToolsFramework::AssetDatabase::CombinedDatabaseEntry& combined)
                 {
-                    AZ::Data::AssetId assetId(combined.m_sourceGuid, combined.m_subID);
+                    //AZ::Uuid sourceUuid = AssetUtilities::CreateSafeSourceUUIDFromName(combined.m_sourceName.c_str());
+                AZ::Uuid sourceUuid = AZ::Interface<IUuidRequests>::Get()->GetUuidRelPathAndScanfolder(
+                    combined.m_scanFolder.c_str(), combined.m_sourceName.c_str());
+                    AZ::Data::AssetId assetId(sourceUuid, combined.m_subID);
+
+                    if (sourceUuid != combined.m_sourceGuid)
+                    {
+                        sourceEntriesToUpdate.emplace_back(
+                            combined.m_sourceID, combined.m_scanFolderID, combined.m_sourceName.c_str(), sourceUuid, combined.m_analysisFingerprint.c_str());
+                    }
 
                     // relative file path is gotten by removing the platform and game from the product name
                     AZStd::string_view relativeProductPath = AssetUtilities::StripAssetPlatformNoCopy(combined.m_productName);
@@ -495,7 +507,9 @@ namespace AssetProcessor
 
                     // also register it at the legacy id(s) if its different:
                     AZ::Data::AssetId legacyAssetId(combined.m_legacyGuid, 0);
-                    AZ::Uuid  legacySourceUuid = AssetUtilities::CreateSafeSourceUUIDFromName(combined.m_sourceName.c_str(), false);
+                    //AZ::Uuid  legacySourceUuid = AssetUtilities::CreateSafeSourceUUIDFromName(combined.m_sourceName.c_str(), false);
+                    auto legacySourceUuid = AZ::Interface<AssetProcessor::IUuidRequests>::Get()->GetLegacyUuidRelPathAndScanfolder(
+                        combined.m_scanFolder.c_str(), combined.m_sourceName.c_str());
                     AZ::Data::AssetId legacySourceAssetId(legacySourceUuid, combined.m_subID);
 
                     currentRegistry.RegisterAsset(assetId, info);
@@ -540,6 +554,12 @@ namespace AssetProcessor
 
                 return true;
             });
+
+            // Update any old source UUIDs
+            for (auto& sourceDatabaseEntry : sourceEntriesToUpdate)
+            {
+                m_db->SetSource(sourceDatabaseEntry);
+            }
 
             AZ_TracePrintf("Catalog", "Read %u assets from database for %s in %fs\n", currentRegistry.m_assetIdToInfo.size(), platform.toUtf8().constData(), timer.elapsed() / 1000.0f);
         }

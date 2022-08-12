@@ -824,7 +824,7 @@ void ApplicationManagerBase::InitFileStateCache()
 
 void ApplicationManagerBase::InitUuidManager()
 {
-    m_uuidManager = AZStd::make_unique<AssetProcessor::UuidManager>();
+    m_uuidManager = AZStd::make_unique<AssetProcessor::UuidManager>(m_platformConfiguration);
 }
 
 ApplicationManager::BeforeRunStatus ApplicationManagerBase::BeforeRun()
