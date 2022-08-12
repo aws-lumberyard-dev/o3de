@@ -28,8 +28,8 @@ namespace Mnist
 
     void Mnist::GetResult()
     {
-        Softmax(m_output);
-        m_result = AZStd::distance(m_output.begin(), AZStd::ranges::max_element(m_output.begin(), m_output.end()));
+        Softmax(m_outputs[0]);
+        m_result = AZStd::distance(m_outputs[0].begin(), AZStd::ranges::max_element(m_outputs[0].begin(), m_outputs[0].end()));
     }
 
     void Mnist::LoadImage(const char* path)
@@ -50,11 +50,11 @@ namespace Mnist
                 int content = static_cast<int>(buffer[(y)*m_imageWidth + x]);
                 if (content == 0)
                 {
-                    m_input[m_imageWidth * y + x] = 0.0f;
+                    m_input[0][m_imageWidth * y + x] = 0.0f;
                 }
                 else
                 {
-                    m_input[m_imageHeight * y + x] = 1.0f;
+                    m_input[0][m_imageHeight * y + x] = 1.0f;
                 }
             }
         }
@@ -63,7 +63,7 @@ namespace Mnist
     MnistReturnValues MnistExample(Mnist& mnist, const char* path)
     {
         mnist.LoadImage(path);
-        mnist.Run(mnist.m_input, mnist.m_output);
+        mnist.Run(mnist.m_input);
         mnist.GetResult();
 
         MnistReturnValues returnValues;
@@ -77,10 +77,12 @@ namespace Mnist
         // Initialises and loads the mnist model.
         // The same instance of the model is used for all runs.
         Mnist mnist;
-        AZStd::vector<float> input(mnist.m_imageSize);
+        AZStd::vector<AZStd::vector<float>> input(0);
+        AZStd::vector<float> image(mnist.m_imageSize);
+        input.push_back(image);
         mnist.m_input = input;
-        AZStd::vector<float> output(10);
-        mnist.m_output = output;
+        //AZStd::vector<float> output(10);
+        //mnist.m_output = output;
 
         Mnist::InitSettings modelInitSettings;
 

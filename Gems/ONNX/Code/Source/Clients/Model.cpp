@@ -63,43 +63,70 @@ namespace ONNX
         Ort::AllocatorWithDefaultOptions* m_allocator;
         ONNXRequestBus::BroadcastResult(m_allocator, &ONNXRequestBus::Events::GetAllocator);
 
-        // Retrieve input shape from model file
-        std::vector inputShape = m_session.GetInputTypeInfo(0).GetTensorTypeAndShapeInfo().GetShape();
-        m_inputShape.assign(inputShape.begin(), inputShape.end());
-
-        // Retrieve output shape from model file
-        std::vector outputShape = m_session.GetOutputTypeInfo(0).GetTensorTypeAndShapeInfo().GetShape();
-        m_outputShape.assign(outputShape.begin(), outputShape.end());
-
-        // Extract input and output names from model file and put into const char* vectors.
+        // Extract input names from model file and put into const char* vectors.
+        // Extract input shapes from model file and put into AZStd::vector<int64_t>.
         m_inputCount = m_session.GetInputCount();
         for (size_t i = 0; i < m_inputCount; i++)
         {
             const char* in_name = m_session.GetInputName(i, *m_allocator);
             m_inputNames.push_back(in_name);
+
+            const std::vector inputShape = m_session.GetInputTypeInfo(i).GetTensorTypeAndShapeInfo().GetShape();
+            const AZStd::vector azInputShape(inputShape.begin(), inputShape.end());
+            m_inputShapes.push_back(azInputShape);
         }
+
+        // Extract output names from model file and put into const char* vectors.
+        // Extract output shapes from model file and put into AZStd::vector<int64_t>.
+        // Initialize m_outputs vector using output shape and count.
         m_outputCount = m_session.GetOutputCount();
+        AZStd::vector<AZStd::vector<float>> outputs(m_outputCount);
         for (size_t i = 0; i < m_outputCount; i++)
         {
             const char* out_name = m_session.GetOutputName(i, *m_allocator);
             m_outputNames.push_back(out_name);
+
+            const std::vector outputShape = m_session.GetOutputTypeInfo(0).GetTensorTypeAndShapeInfo().GetShape();
+            const AZStd::vector azOutputShape(outputShape.begin(), outputShape.end());
+            m_outputShapes.push_back(azOutputShape);
+
+            int64_t outputSize = 1;
+            for (int j = 0; j < m_outputShapes[i].size(); j++)
+            {
+                // The size of each output is simply all the magnitudes of the shape dimensions multiplied together.
+                outputSize *= m_outputShapes[i][j];
+            }
+            AZStd::vector<float> output(outputSize);
+            outputs[i] = output;
         }
+        m_outputs = outputs;
     }
 
-    void Model::Run(AZStd::vector<float>& input, AZStd::vector<float>& output)
+    void Model::Run(AZStd::vector<AZStd::vector<float>>& inputs)
     {
         m_timer.Stamp(); // Start timing of inference.
 
         // As far as I'm aware, there is no way of directly modifying the data of a tensor, so these must be initialised every time an
         // inference is run. Through testing this seems to be relatively lightweight with minimal performance impact.
-        Ort::Value inputTensor =
-            Ort::Value::CreateTensor<float>(m_memoryInfo, input.data(), input.size(), m_inputShape.data(), m_inputShape.size());
-        Ort::Value outputTensor =
-            Ort::Value::CreateTensor<float>(m_memoryInfo, output.data(), output.size(), m_outputShape.data(), m_outputShape.size());
+        AZStd::vector<Ort::Value> inputTensors;
+        for (int i = 0; i < m_inputCount; i++)
+        {
+            Ort::Value inputTensor =
+                Ort::Value::CreateTensor<float>(m_memoryInfo, inputs[i].data(), inputs[i].size(), m_inputShapes[i].data(), m_inputShapes[i].size());
+            inputTensors.push_back(std::move(inputTensor));
+        }
+
+        AZStd::vector<Ort::Value> outputTensors;
+        for (int i = 0; i < m_outputCount; i++)
+        {
+            Ort::Value outputTensor =
+                Ort::Value::CreateTensor<float>(m_memoryInfo, m_outputs[i].data(), m_outputs[i].size(), m_outputShapes[i].data(), m_outputShapes[i].size());
+            outputTensors.push_back(std::move(outputTensor));
+        }
 
         Ort::RunOptions runOptions;
         runOptions.SetRunLogVerbosityLevel(ORT_LOGGING_LEVEL_VERBOSE); // Gives more useful logging info if m_session.Run() fails.
-        m_session.Run(runOptions, m_inputNames.data(), &inputTensor, m_inputCount, m_outputNames.data(), &outputTensor, m_outputCount);
+        m_session.Run(runOptions, m_inputNames.data(), inputTensors.data(), m_inputCount, m_outputNames.data(), outputTensors.data(), m_outputCount);
 
         float delta = 1000 * m_timer.GetDeltaTimeInSeconds(); // Finish timing of inference and get time in milliseconds.
         m_delta = delta;
