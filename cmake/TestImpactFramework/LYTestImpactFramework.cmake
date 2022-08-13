@@ -405,6 +405,14 @@ function(ly_test_impact_export_source_target_mappings MAPPING_TEMPLATE_FILE)
         get_target_property(target_path_abs ${target} SOURCE_DIR)
         file(RELATIVE_PATH target_path ${LY_ROOT_FOLDER} ${target_path_abs})
 
+        # Target type
+        get_property(LY_ALL_TESTS_DE_NAMSPACED GLOBAL PROPERTY LY_ALL_TESTS_DE_NAMSPACED)
+        if(${target_name} IN_LIST LY_ALL_TESTS_DE_NAMSPACED)
+            set(target_type "test")
+        else()
+            set(target_type "production")
+        endif()
+
         # Output name
         get_target_property(target_output_name ${target} OUTPUT_NAME)
         if (target_output_name STREQUAL "target_output_name-NOTFOUND")

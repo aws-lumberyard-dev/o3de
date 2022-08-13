@@ -41,6 +41,15 @@ namespace TestImpact
         //! @param productionTarget The production target to retrieve the covering tests for.
         AZStd::vector<const TestTarget*> GetCoveringTestTargetsForProductionTarget(const ProductionTarget& productionTarget) const;
 
+        //! Returns the test targets that cover one or more sources in the repository.
+        AZStd::vector<const TestTarget*> GetCoveringTests() const;
+
+        //! Returns the test targets that do not cover any sources in the repository.
+        AZStd::vector<const TestTarget*> GetNotCoveringTests() const;
+
+        //! Returns all the production targets with test coverage.
+        AZStd::unordered_set<const TestTarget*> GetCoveredProductionTargets() const;
+
         //! Gets the source dependency for the specified source file.
         //! @note Autogen input source dependencies are the consolidated source dependencies of all of their generated output sources.
         //! @returns If found, the source dependency information for the specified source file, otherwise empty.
@@ -72,15 +81,6 @@ namespace TestImpact
 
         //! Removes the specified test target from all source coverage.
         void RemoveTestTargetFromSourceCoverage(const TestTarget* testTarget);
-
-        //! Returns the test targets that cover one or more sources in the repository.
-        AZStd::vector<const TestTarget*> GetCoveringTests() const;
-
-        //! Returns the test targets that do not cover any sources in the repository.
-        AZStd::vector<const TestTarget*> GetNotCoveringTests() const;
-
-        //! Returns all the production targets with test coverage.
-        AZStd::unordered_set<const TestTarget*> GetCoveredProductionTargets() const;
 
     private:
         //! Internal handler for ReplaceSourceCoverage where the pruning of parentless and coverageless source depenencies after the

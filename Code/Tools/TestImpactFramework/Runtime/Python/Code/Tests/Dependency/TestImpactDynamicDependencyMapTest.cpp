@@ -44,7 +44,7 @@ namespace UnitTest
 
         void ValidateBuildTarget(const NativeBuildTarget& buildTarget, const TestImpact::NativeTestTarget& expectedTestTarget)
         {
-            EXPECT_EQ(buildTarget.GetTargetType(), TestImpact::BuildTargetType::TestTarget);
+            EXPECT_EQ(buildTarget.GetType(), TestImpact::TargetType::TestTarget);
 
             buildTarget.Visit(
             [&expectedTestTarget](auto&& target)
@@ -56,7 +56,7 @@ namespace UnitTest
         void ValidateBuildTarget(
             const NativeBuildTarget& buildTarget, const TestImpact::NativeProductionTarget& expectedProductionTarget)
         {
-            EXPECT_EQ(buildTarget.GetTargetType(), TestImpact::BuildTargetType::ProductionTarget);
+            EXPECT_EQ(buildTarget.GetType(), TestImpact::TargetType::ProductionTarget);
 
             buildTarget.Visit(
             [&expectedProductionTarget](auto&& target)

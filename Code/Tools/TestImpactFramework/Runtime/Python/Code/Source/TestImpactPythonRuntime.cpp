@@ -675,7 +675,14 @@ namespace TestImpact
 
         ////////////////////////////////
 
-        AZStd::unordered_set<BuildTarget<ProductionTarget, TestTarget>> coveredTargets;
+        AZStd::unordered_map<BuildTarget<ProductionTarget, TestTarget>, AZStd::unordered_set<const TestTarget*>> coveredTargets;
+        AZStd::unordered_map<BuildTarget<ProductionTarget, TestTarget>, AZStd::unordered_set<const TestTarget*>> discoveredTargets;
+
+        const auto isCovered = [&](const auto& buildTarget)
+        {
+            return coveredTargets.count(buildTarget) || discoveredTargets.count(buildTarget);
+        };
+
         for (const auto& testJob : testJobs)
         {
             if (testJob.GetCoverge().has_value())
@@ -686,7 +693,7 @@ namespace TestImpact
                     const auto buildTargetName =
                         m_dynamicDependencyMap->GetBuildTargetList()->GetTargetNameFromOutputNameOrThrow(moduleName);
                     auto buildTarget = m_dynamicDependencyMap->GetBuildTargetList()->GetBuildTargetOrThrow(buildTargetName);
-                    coveredTargets.insert(buildTarget);
+                    coveredTargets[buildTarget].insert(testJob.GetTestTarget());
                 }
             }
         }
@@ -696,32 +703,51 @@ namespace TestImpact
         // 2. If a given dependency is exclusively depended on by covered targets, add the dependency to the covered target list#
         // 3. Otherwise, stop walking the branch of that dependency
         const auto& buildGraph = m_buildTargets->GetBuildGraph();
-        for (const auto& coveredTarget : coveredTargets)
+        for (const auto& keyVal : coveredTargets)
         {
+            // Structured bindings cannot be captured by lambdas
+            const auto& coveredTarget = keyVal.first;
+            const auto& coveringTestTargets = keyVal.second;
+
+            //const auto coveredTarget = m_buildTargets->GetBuildTargetOrThrow("WhiteBox.Editor");
             AZ_Printf(coveredTarget.GetTarget()->GetName().c_str(), "Walking dependencies...\n");
             buildGraph.WalkBuildDependencies(
                 coveredTarget,
                 [&]([[maybe_unused]] const BuildGraphVertex<ProductionTarget, TestTarget>& dependency)
                 {
-                    AZ_Printf(
-                        AZStd::string::format("--->%s", dependency.m_buildTarget.GetTarget()->GetName().c_str()).c_str(),
-                        "Walking dependers...\n");
+                    //AZ_Printf(
+                    //    AZStd::string::format("--->%s", dependency.m_buildTarget.GetTarget()->GetName().c_str()).c_str(),
+                    //    "Walking dependers...\n");
                     bool exclusive = true;
                     buildGraph.WalkBuildDependers(
                         dependency.m_buildTarget,
                         [&]([[maybe_unused]] const BuildGraphVertex<ProductionTarget, TestTarget>& depender)
                         {
-                            if (depender.m_buildTarget.GetTargetType() == BuildTargetType::TestTarget || coveredTargets.contains(depender.m_buildTarget))
+                            if (m_buildTargets->GetBuildTarget(
+                                    AZStd::string::format("%s.Editor", depender.m_buildTarget.GetTarget()->GetName().c_str())))
                             {
-                                AZ_Printf(
-                                    AZStd::string::format("**********>%s", depender.m_buildTarget.GetTarget()->GetName().c_str()).c_str(),
-                                    "Is covered or is a test target :)\n");
+                                //discoveredTargets.insert(dependency.m_buildTarget);
+
+                                auto& discoveredCoveringTests = discoveredTargets[dependency.m_buildTarget];
+                                for (const auto& coveringTestTarget : coveringTestTargets)
+                                {
+                                    discoveredCoveringTests.insert(coveringTestTarget);
+                                }
+
                                 return BuildGraphVertexVisitResult::Continue;
                             }
 
-                            AZ_Printf(
-                                AZStd::string::format("**********>%s", depender.m_buildTarget.GetTarget()->GetName().c_str()).c_str(),
-                                "Is not covered :(\n");
+                            if (isCovered(depender.m_buildTarget))
+                            {
+                                //AZ_Printf(
+                                //    AZStd::string::format("**********>%s", depender.m_buildTarget.GetTarget()->GetName().c_str()).c_str(),
+                                //    "Is covered :)\n");
+                                return BuildGraphVertexVisitResult::Continue;
+                            }
+
+                            //AZ_Printf(
+                            //    AZStd::string::format("**********>%s", depender.m_buildTarget.GetTarget()->GetName().c_str()).c_str(),
+                            //    "Is not covered :(\n");
                             exclusive = false;
                             return BuildGraphVertexVisitResult::AbortGraphTraversal;
                         });
@@ -731,12 +757,20 @@ namespace TestImpact
                         AZ_Printf(
                             AZStd::string::format("--->%s", dependency.m_buildTarget.GetTarget()->GetName().c_str()).c_str(),
                             "Exclusively covered dependers found :)\n");
+                        //discoveredTargets.insert(dependency.m_buildTarget);
+
+                        auto& discoveredCoveringTests = discoveredTargets[dependency.m_buildTarget];
+                        for (const auto& coveringTestTarget : coveringTestTargets)
+                        {
+                            discoveredCoveringTests.insert(coveringTestTarget);
+                        }
+
                         return BuildGraphVertexVisitResult::Continue;
                     }
 
-                    AZ_Printf(
-                        AZStd::string::format("--->%s", dependency.m_buildTarget.GetTarget()->GetName().c_str()).c_str(),
-                        "Exclusively covered dependers not found :(\n");
+                    //AZ_Printf(
+                    //    AZStd::string::format("--->%s", dependency.m_buildTarget.GetTarget()->GetName().c_str()).c_str(),
+                    //    "Exclusively covered dependers not found :(\n");
                     return BuildGraphVertexVisitResult::AbortBranchTraversal;
                 });
         }
