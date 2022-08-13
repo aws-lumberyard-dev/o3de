@@ -9,7 +9,7 @@
 #include <TestImpactFramework/TestImpactUtils.h>
 #include <TestImpactFramework/Native/TestImpactNativeRuntime.h>
 
-#include <TestImpactRuntimeUtils.h>
+#include <TestImpactRuntime.h>
 #include <Artifact/Factory/TestImpactNativeTestTargetMetaMapFactory.h>
 #include <BuildTarget/Common/TestImpactBuildTarget.h>
 #include <Dependency/TestImpactDependencyException.h>

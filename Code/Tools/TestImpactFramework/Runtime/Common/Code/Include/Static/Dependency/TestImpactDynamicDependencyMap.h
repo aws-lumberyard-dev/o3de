@@ -79,6 +79,9 @@ namespace TestImpact
         //! Returns the test targets that do not cover any sources in the repository.
         AZStd::vector<const TestTarget*> GetNotCoveringTests() const;
 
+        //! Returns all the production targets with test coverage.
+        AZStd::unordered_set<const TestTarget*> GetCoveredProductionTargets() const;
+
     private:
         //! Internal handler for ReplaceSourceCoverage where the pruning of parentless and coverageless source depenencies after the
         //! source coverage has been replaced must be explicitly stated.
@@ -567,5 +570,20 @@ namespace TestImpact
         }
 
         return notCovering;
+    }
+
+    template<typename ProductionTarget, typename TestTarget>
+    AZStd::unordered_set<const TestTarget*> DynamicDependencyMap<ProductionTarget, TestTarget>::GetCoveredProductionTargets() const
+    {
+        AZStd::unordered_set coveredProductionTargets;
+        for (const auto& [source, dependencyData] : m_sourceDependencyMap)
+        {
+            for(const auto* parentTarget : dependencyData.GetParentTargets())
+            {
+                coveredProductionTargets.insert(parentTarget);
+            }
+        }
+
+        return coveredProductionTargets;
     }
 } // namespace TestImpact

@@ -11,13 +11,26 @@
 #include <BuildTarget/Common/TestImpactBuildTargetException.h>
 #include <BuildTarget/Common/TestImpactBuildTargetList.h>
 
+#include <AzCore/std/containers/queue.h>
 #include <AzCore/std/containers/unordered_map.h>
 #include <AzCore/std/containers/unordered_set.h>
+#include <AzCore/std/functional.h>
 
 namespace TestImpact
 {
+    //! Result to return when visiting vertices in the build graph.
+    enum class BuildGraphVertexVisitResult : AZ::u8
+    {
+        Continue, //!< Continue traversing the build graph.
+        AbortBranchTraversal, //!< Abort traversal of this particular branch in the build graph.
+        AbortGraphTraversal //!< Abort traversal of the build graph.
+    };
+
     template<typename ProductionTarget, typename TestTarget>
     struct BuildGraphVertex;
+
+    template<typename ProductionTarget, typename TestTarget>
+    using BuildGraphVertexVisitor = AZStd::function<BuildGraphVertexVisitResult(const BuildGraphVertex<ProductionTarget, TestTarget>& vertex)>;
     
     //! Build graph target set for dependencies or dependers.
     template<typename ProductionTarget, typename TestTarget>
@@ -31,7 +44,7 @@ namespace TestImpact
         TargetBuildGraphSet<ProductionTarget, TestTarget> m_runtime; //!< Runtime dependencies/dependers.
     };
     
-    //! Vertex in the build graph
+    //! Vertex in the build graph containing the build target and its dependencies/dependers.
     template<typename ProductionTarget, typename TestTarget>
     struct BuildGraphVertex
     {
@@ -59,8 +72,34 @@ namespace TestImpact
         //! Returns the vertex for the specified build target, else throws `BuildTargetException`.
         const BuildGraphVertex<ProductionTarget, TestTarget>& GetVertexOrThrow(
             const BuildTarget<ProductionTarget, TestTarget>& buildTarget) const;
-            
+
+        //! Performs a breadth-first search of the this build target and its build dependencies.
+        void WalkBuildDependencies(
+            const BuildTarget<ProductionTarget, TestTarget>& buildTarget,
+            const BuildGraphVertexVisitor<ProductionTarget, TestTarget>& visitor) const;
+
+        //! Performs a breadth-first search of the this build target and its build dependers.
+        void WalkBuildDependers(
+            const BuildTarget<ProductionTarget, TestTarget>& buildTarget,
+            const BuildGraphVertexVisitor<ProductionTarget, TestTarget>& visitor) const;
+
+        //! Performs a breadth-first search of the this build target and its runtime dependencies.
+        void WalkRuntimeDependencies(
+            const BuildTarget<ProductionTarget, TestTarget>& buildTarget,
+            const BuildGraphVertexVisitor<ProductionTarget, TestTarget>& visitor) const;
+
+        //! Performs a breadth-first search of the this build target and its runtime dependers.
+        void WalkRuntimeDependers(
+            const BuildTarget<ProductionTarget, TestTarget>& buildTarget,
+            const BuildGraphVertexVisitor<ProductionTarget, TestTarget>& visitor) const;
+
     private:
+        void WalkTargetBuildGraphSet(
+            TargetBuildGraph<ProductionTarget, TestTarget> BuildGraphVertex<ProductionTarget, TestTarget>::*graph,
+            TargetBuildGraphSet<ProductionTarget, TestTarget> TargetBuildGraph<ProductionTarget, TestTarget>::*set,
+            const BuildTarget<ProductionTarget, TestTarget>& buildTarget,
+            const BuildGraphVertexVisitor<ProductionTarget, TestTarget>& visitor) const;
+
         //! Map of all graph vertices, identified by build target.
         AZStd::unordered_map<BuildTarget<ProductionTarget, TestTarget>, BuildGraphVertex<ProductionTarget, TestTarget>>
             m_buildGraphVertices;
@@ -75,8 +114,8 @@ namespace TestImpact
         {
             const auto addOrRetrieveVertex = [this](const BuildTarget<ProductionTarget, TestTarget>& buildTarget)
             {
-                auto it = m_buildGraphVertices.find(buildTarget);
-                if (it == m_buildGraphVertices.end())
+                if (auto it = m_buildGraphVertices.find(buildTarget);
+                    it == m_buildGraphVertices.end())
                 {
                     return &m_buildGraphVertices
                                 .emplace(
@@ -137,7 +176,8 @@ namespace TestImpact
     const BuildGraphVertex<ProductionTarget, TestTarget>* BuildGraph<ProductionTarget, TestTarget>::GetVertex(
         const BuildTarget<ProductionTarget, TestTarget>& buildTarget) const
     {
-        if (const auto it = m_buildGraphVertices.find(buildTarget) != m_buildGraphVertices.end())
+        if (const auto it = m_buildGraphVertices.find(buildTarget);
+            it != m_buildGraphVertices.end())
         {
             return &it->second;
         }
@@ -151,12 +191,103 @@ namespace TestImpact
         const BuildTarget<ProductionTarget, TestTarget>& buildTarget) const
     {
         const auto vertex = GetVertex(buildTarget);
-        TestImpact_Eval(
+        AZ_TestImpact_Eval(
             vertex, 
             BuildTargetException, 
-            AZStd::string::format().c_str("Couldn't find build target '%s'", 
-            buildTarget.GetTarget()->GetName().c_str()));
-        return vertex;
+            AZStd::string::format("Couldn't find build target '%s'",
+            buildTarget.GetTarget()->GetName().c_str()).c_str());
+
+        return *vertex;
+    }
+
+    template<typename ProductionTarget, typename TestTarget>
+    void BuildGraph<ProductionTarget, TestTarget>::WalkTargetBuildGraphSet(
+        TargetBuildGraph<ProductionTarget, TestTarget> BuildGraphVertex<ProductionTarget, TestTarget>::*graph,
+        TargetBuildGraphSet<ProductionTarget, TestTarget> TargetBuildGraph<ProductionTarget, TestTarget>::*set,
+        const BuildTarget<ProductionTarget, TestTarget>& buildTarget,
+        const BuildGraphVertexVisitor<ProductionTarget, TestTarget>& visitor) const
+    {
+        AZStd::queue<const BuildGraphVertex<ProductionTarget, TestTarget>*> vertexQueue;
+        AZStd::unordered_set<const BuildGraphVertex<ProductionTarget, TestTarget>*> visitedVertices;
+
+        // Skip visiting the vertex and start visiting its children instead
+        const auto& parentVertex = GetVertexOrThrow(buildTarget);
+        for (const auto* child : parentVertex.*graph.*set)
+        {
+            vertexQueue.push(child);
+        }
+
+        while (!vertexQueue.empty())
+        {
+            const auto* vertex = vertexQueue.front();
+            vertexQueue.pop();
+
+            if (const auto result = visitor(*vertex);
+                result == BuildGraphVertexVisitResult::AbortGraphTraversal)
+            {
+                return;
+            }
+            else if (result == BuildGraphVertexVisitResult::AbortBranchTraversal)
+            {
+                continue;
+            }
+
+            for (const auto* child : vertex->*graph.*set)
+            {
+                if (!visitedVertices.contains(child))
+                {
+                    visitedVertices.insert(child);
+                    vertexQueue.push(child);
+                }
+            }
+        }
+    }
+
+    template<typename ProductionTarget, typename TestTarget>
+    void BuildGraph<ProductionTarget, TestTarget>::WalkBuildDependencies(
+        const BuildTarget<ProductionTarget, TestTarget>& buildTarget, const BuildGraphVertexVisitor<ProductionTarget, TestTarget>& visitor) const
+    {
+        WalkTargetBuildGraphSet(
+            &BuildGraphVertex<ProductionTarget, TestTarget>::m_dependencies,
+            &TargetBuildGraph<ProductionTarget, TestTarget>::m_build,
+            buildTarget,
+            visitor);
+    }
+
+    template<typename ProductionTarget, typename TestTarget>
+    void BuildGraph<ProductionTarget, TestTarget>::WalkBuildDependers(
+        const BuildTarget<ProductionTarget, TestTarget>& buildTarget,
+        const BuildGraphVertexVisitor<ProductionTarget, TestTarget>& visitor) const
+    {
+        WalkTargetBuildGraphSet(
+            &BuildGraphVertex<ProductionTarget, TestTarget>::m_dependers,
+            &TargetBuildGraph<ProductionTarget, TestTarget>::m_build,
+            buildTarget,
+            visitor);
+    }
+
+    template<typename ProductionTarget, typename TestTarget>
+    void BuildGraph<ProductionTarget, TestTarget>::WalkRuntimeDependencies(
+        const BuildTarget<ProductionTarget, TestTarget>& buildTarget,
+        const BuildGraphVertexVisitor<ProductionTarget, TestTarget>& visitor) const
+    {
+        WalkTargetBuildGraphSet(
+            &BuildGraphVertex<ProductionTarget, TestTarget>::m_dependencies,
+            &TargetBuildGraph<ProductionTarget, TestTarget>::m_runtime,
+            buildTarget,
+            visitor);
+    }
+
+    template<typename ProductionTarget, typename TestTarget>
+    void BuildGraph<ProductionTarget, TestTarget>::WalkRuntimeDependers(
+        const BuildTarget<ProductionTarget, TestTarget>& buildTarget,
+        const BuildGraphVertexVisitor<ProductionTarget, TestTarget>& visitor) const
+    {
+        WalkTargetBuildGraphSet(
+            &BuildGraphVertex<ProductionTarget, TestTarget>::m_dependers,
+            &TargetBuildGraph<ProductionTarget, TestTarget>::m_runtime,
+            buildTarget,
+            visitor);
     }
 } // namespace TestImpact
 

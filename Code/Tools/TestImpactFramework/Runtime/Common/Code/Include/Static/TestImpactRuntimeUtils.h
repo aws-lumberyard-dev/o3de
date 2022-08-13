@@ -110,7 +110,8 @@ namespace TestImpact
             const auto sparTiaData = SerializeSourceCoveringTestsList(sparTia);
             WriteFileContents<RuntimeException>(sparTiaData, sparTiaFile);
             return true;
-        } catch (const RuntimeException& e)
+        }
+        catch (const RuntimeException& e)
         {
             if (integrationFailurePolicy == Policy::IntegrityFailure::Abort)
             {

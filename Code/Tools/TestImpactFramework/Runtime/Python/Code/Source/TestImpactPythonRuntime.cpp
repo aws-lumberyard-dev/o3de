@@ -9,7 +9,7 @@
 #include <TestImpactFramework/TestImpactUtils.h>
 #include <TestImpactFramework/Python/TestImpactPythonRuntime.h>
 
-#include <TestImpactRuntimeUtils.h>
+#include <TestImpactRuntime.h>
 #include <Artifact/Static/TestImpactPythonTestTargetMeta.h>
 #include <Artifact/Factory/TestImpactPythonTestTargetMetaMapFactory.h>
 #include <Dependency/TestImpactSourceCoveringTestsSerializer.h>
@@ -610,11 +610,11 @@ namespace TestImpact
     }
 
     Client::SeedSequenceReport PythonRuntime::SeededTestSequence(
-        [[maybe_unused]] AZStd::optional<AZStd::chrono::milliseconds> testTargetTimeout,
-        [[maybe_unused]] AZStd::optional<AZStd::chrono::milliseconds> globalTimeout,
-        [[maybe_unused]] AZStd::optional<TestSequenceStartCallback> testSequenceStartCallback,
-        [[maybe_unused]] AZStd::optional<TestSequenceCompleteCallback<Client::SeedSequenceReport>> testSequenceEndCallback,
-        [[maybe_unused]] AZStd::optional<TestRunCompleteCallback> testCompleteCallback)
+        AZStd::optional<AZStd::chrono::milliseconds> testTargetTimeout,
+        AZStd::optional<AZStd::chrono::milliseconds> globalTimeout,
+        AZStd::optional<TestSequenceStartCallback> testSequenceStartCallback,
+        AZStd::optional<TestSequenceCompleteCallback<Client::SeedSequenceReport>> testSequenceEndCallback,
+        AZStd::optional<TestRunCompleteCallback> testCompleteCallback)
     {
         const Timer sequenceTimer;
         AZStd::vector<const TestTarget*> includedTestTargets;
@@ -670,9 +670,79 @@ namespace TestImpact
         {
             (*testSequenceEndCallback)(sequenceReport);
         }
-        
+                
         ClearDynamicDependencyMapAndRemoveExistingFile();
-        
+
+        ////////////////////////////////
+
+        AZStd::unordered_set<BuildTarget<ProductionTarget, TestTarget>> coveredTargets;
+        for (const auto& testJob : testJobs)
+        {
+            if (testJob.GetCoverge().has_value())
+            {
+                for (const auto& coveredModule : testJob.GetCoverge()->GetModuleCoverages())
+                {
+                    const auto moduleName = AZ::IO::Path(coveredModule.m_path.Stem()).String();
+                    const auto buildTargetName =
+                        m_dynamicDependencyMap->GetBuildTargetList()->GetTargetNameFromOutputNameOrThrow(moduleName);
+                    auto buildTarget = m_dynamicDependencyMap->GetBuildTargetList()->GetBuildTargetOrThrow(buildTargetName);
+                    coveredTargets.insert(buildTarget);
+                }
+            }
+        }
+
+        // For each covered target:
+        // 1. Walk the dependencies
+        // 2. If a given dependency is exclusively depended on by covered targets, add the dependency to the covered target list#
+        // 3. Otherwise, stop walking the branch of that dependency
+        const auto& buildGraph = m_buildTargets->GetBuildGraph();
+        for (const auto& coveredTarget : coveredTargets)
+        {
+            AZ_Printf(coveredTarget.GetTarget()->GetName().c_str(), "Walking dependencies...\n");
+            buildGraph.WalkBuildDependencies(
+                coveredTarget,
+                [&]([[maybe_unused]] const BuildGraphVertex<ProductionTarget, TestTarget>& dependency)
+                {
+                    AZ_Printf(
+                        AZStd::string::format("--->%s", dependency.m_buildTarget.GetTarget()->GetName().c_str()).c_str(),
+                        "Walking dependers...\n");
+                    bool exclusive = true;
+                    buildGraph.WalkBuildDependers(
+                        dependency.m_buildTarget,
+                        [&]([[maybe_unused]] const BuildGraphVertex<ProductionTarget, TestTarget>& depender)
+                        {
+                            if (depender.m_buildTarget.GetTargetType() == BuildTargetType::TestTarget || coveredTargets.contains(depender.m_buildTarget))
+                            {
+                                AZ_Printf(
+                                    AZStd::string::format("**********>%s", depender.m_buildTarget.GetTarget()->GetName().c_str()).c_str(),
+                                    "Is covered or is a test target :)\n");
+                                return BuildGraphVertexVisitResult::Continue;
+                            }
+
+                            AZ_Printf(
+                                AZStd::string::format("**********>%s", depender.m_buildTarget.GetTarget()->GetName().c_str()).c_str(),
+                                "Is not covered :(\n");
+                            exclusive = false;
+                            return BuildGraphVertexVisitResult::AbortGraphTraversal;
+                        });
+
+                    if (exclusive)
+                    {
+                        AZ_Printf(
+                            AZStd::string::format("--->%s", dependency.m_buildTarget.GetTarget()->GetName().c_str()).c_str(),
+                            "Exclusively covered dependers found :)\n");
+                        return BuildGraphVertexVisitResult::Continue;
+                    }
+
+                    AZ_Printf(
+                        AZStd::string::format("--->%s", dependency.m_buildTarget.GetTarget()->GetName().c_str()).c_str(),
+                        "Exclusively covered dependers not found :(\n");
+                    return BuildGraphVertexVisitResult::AbortBranchTraversal;
+                });
+        }
+
+        ////////////////////////////////
+
         m_hasImpactAnalysisData = UpdateAndSerializeDynamicDependencyMap(
                                       *m_dynamicDependencyMap.get(),
                                       testJobs,
