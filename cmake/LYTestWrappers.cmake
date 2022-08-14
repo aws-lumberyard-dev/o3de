@@ -265,18 +265,18 @@ function(ly_add_test)
         string(REPLACE "::" ";" test_components ${test_target})
         list(LENGTH test_components num_test_components)
         if(num_test_components GREATER 1)
-            list(GET test_components 1 test_namespace)
+            list(GET test_components 0 test_namespace)
             list(GET test_components 1 test_name)
         else()
             set(test_namespace "")
             set(test_name ${test_components})
         endif()
-    
         set_property(GLOBAL APPEND PROPERTY LY_ALL_TESTS_DE_NAMSPACED ${test_name})
+        set_property(GLOBAL PROPERTY LY_ALL_TESTS_DE_NAMSPACED_${test_name}_NAMESPACE ${test_namespace})
 
         # This is the first reference to this test target so add it to the global list
         set_property(GLOBAL APPEND PROPERTY LY_ALL_TESTS ${test_target})
-        set_property(GLOBAL  PROPERTY LY_ALL_TESTS_${test_target}_TEST_LIBRARY ${ly_add_test_TEST_LIBRARY})
+        set_property(GLOBAL PROPERTY LY_ALL_TESTS_${test_target}_TEST_LIBRARY ${ly_add_test_TEST_LIBRARY})
     endif()
     # Add the test suite and timeout value to the test target params
     set(LY_TEST_PARAMS "${LY_TEST_PARAMS}#${ly_add_test_TEST_SUITE}")

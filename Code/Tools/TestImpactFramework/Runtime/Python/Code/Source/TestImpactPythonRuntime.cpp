@@ -145,6 +145,33 @@ namespace TestImpact
 
     PythonRuntime::~PythonRuntime() = default;
 
+    AZStd::pair<AZStd::vector<const PythonTestTarget*>, AZStd::vector<const PythonTestTarget*>> PythonRuntime::SelectCoveringTestTargets(
+        const ChangeList& changeList, Policy::TestPrioritization testPrioritizationPolicy)
+    {
+        AZStd::vector<const TestTarget*> discardedTestTargets;
+
+        // Select and prioritize the test targets pertinent to this change list
+        const auto changeDependencyList = m_dynamicDependencyMap->ApplyAndResoveChangeList(changeList, m_integrationFailurePolicy);
+        const auto selectedTestTargets = m_testSelectorAndPrioritizer->SelectTestTargets(changeDependencyList, testPrioritizationPolicy);
+
+        // Populate a set with the selected test targets so that we can infer the discarded test target not selected for this change list
+        const AZStd::unordered_set<const TestTarget*> selectedTestTargetSet(selectedTestTargets.begin(), selectedTestTargets.end());
+
+        // Update the enumeration caches of mutated targets regardless of the current sharding policy
+        // EnumerateMutatedTestTargets(changeDependencyList);
+
+        // The test targets in the main list not in the selected test target set are the test targets not selected for this change list
+        for (const auto& testTarget : m_dynamicDependencyMap->GetBuildTargetList()->GetTestTargetList().GetTargets())
+        {
+            if (!selectedTestTargetSet.contains(&testTarget))
+            {
+                discardedTestTargets.push_back(&testTarget);
+            }
+        }
+
+        return { selectedTestTargets, discardedTestTargets };
+    }
+
     void PythonRuntime::ClearDynamicDependencyMapAndRemoveExistingFile()
     {
         m_dynamicDependencyMap->ClearAllSourceCoverage();
@@ -168,6 +195,18 @@ namespace TestImpact
     SequencePolicyState PythonRuntime::GenerateSequencePolicyState() const
     {
         return { GeneratePolicyStateBase() };
+    }
+
+    SafeImpactAnalysisSequencePolicyState PythonRuntime::GenerateSafeImpactAnalysisSequencePolicyState(
+        Policy::TestPrioritization testPrioritizationPolicy) const
+    {
+        return { GeneratePolicyStateBase(), testPrioritizationPolicy };
+    }
+
+    ImpactAnalysisSequencePolicyState PythonRuntime::GenerateImpactAnalysisSequencePolicyState(
+        Policy::TestPrioritization testPrioritizationPolicy, Policy::DynamicDependencyMap dynamicDependencyMapPolicy) const
+    {
+        return { GeneratePolicyStateBase(), testPrioritizationPolicy, dynamicDependencyMapPolicy };
     }
 
     Client::RegularSequenceReport PythonRuntime::RegularTestSequence(
@@ -262,11 +301,11 @@ namespace TestImpact
         [[maybe_unused]] AZStd::optional<TestSequenceCompleteCallback<Client::ImpactAnalysisSequenceReport>> testSequenceEndCallback,
         [[maybe_unused]] AZStd::optional<TestRunCompleteCallback> testCompleteCallback)
     {
-        //const Timer sequenceTimer;
-        //
-        //// Draft in the test targets that have no coverage entries in the dynamic dependency map
+        const Timer sequenceTimer;
+        
+        // Draft in the test targets that have no coverage entries in the dynamic dependency map
         //const AZStd::vector<const NativeTestTarget*> draftedTestTargets = m_dynamicDependencyMap->GetNotCoveringTests();
-        //
+        
         //const auto selectCoveringTestTargetsAndPruneDraftedFromDiscarded =
         //    [this, &draftedTestTargets, &changeList, testPrioritizationPolicy]()
         //{
@@ -288,124 +327,113 @@ namespace TestImpact
         //};
         //
         //const auto [selectedTestTargets, discardedTestTargets] = selectCoveringTestTargetsAndPruneDraftedFromDiscarded();
-        //
-        //// The subset of selected test targets that are not on the configuration's exclude list and those that are
-        //const auto [includedSelectedTestTargets, excludedSelectedTestTargets] =
-        //    SelectTestTargetsByExcludeList(*m_instrumentedTestTargetExcludeList, selectedTestTargets);
-        //
-        //// Functor for running instrumented test targets
-        //const auto instrumentedTestRun = [this, &testTargetTimeout](
-        //                                     const AZStd::vector<const NativeTestTarget*>& testsTargets,
-        //                                     TestRunCompleteCallbackHandler& testRunCompleteHandler,
-        //                                     AZStd::optional<AZStd::chrono::milliseconds> globalTimeout)
-        //{
-        //    return m_testEngine->InstrumentedRun(
-        //        testsTargets,
-        //        m_executionFailurePolicy,
-        //        m_integrationFailurePolicy,
-        //        m_testFailurePolicy,
-        //        m_targetOutputCapture,
-        //        testTargetTimeout,
-        //        globalTimeout,
-        //        AZStd::ref(testRunCompleteHandler));
-        //};
-        //
-        //// Functor for running uninstrumented test targets
-        //const auto regularTestRun = [this, &testTargetTimeout](
-        //                                const AZStd::vector<const NativeTestTarget*>& testsTargets,
-        //                                TestRunCompleteCallbackHandler& testRunCompleteHandler,
-        //                                AZStd::optional<AZStd::chrono::milliseconds> globalTimeout)
-        //{
-        //    return m_testEngine->RegularRun(
-        //        testsTargets,
-        //        m_executionFailurePolicy,
-        //        m_testFailurePolicy,
-        //        m_targetOutputCapture,
-        //        testTargetTimeout,
-        //        globalTimeout,
-        //        AZStd::ref(testRunCompleteHandler));
-        //};
-        //
-        //if (dynamicDependencyMapPolicy == Policy::DynamicDependencyMap::Update)
-        //{
-        //    AZStd::optional<AZStd::function<void(const AZStd::vector<TestEngineInstrumentedRun<NativeTestTarget, TestCoverage>>& jobs)>>
-        //        updateCoverage = [this](const AZStd::vector<TestEngineInstrumentedRun<NativeTestTarget, TestCoverage>>& jobs)
-        //    {
-        //        m_hasImpactAnalysisData = UpdateAndSerializeDynamicDependencyMap(
-        //                                      m_dynamicDependencyMap.get(),
-        //                                      jobs,
-        //                                      m_failedTestCoveragePolicy,
-        //                                      m_integrationFailurePolicy,
-        //                                      m_config.m_commonConfig.m_repo.m_root,
-        //                                      m_sparTiaFile)
-        //                                      .value_or(m_hasImpactAnalysisData);
-        //    };
-        //
-        //    return ImpactAnalysisTestSequenceWrapper(
-        //        m_maxConcurrency,
-        //        GenerateImpactAnalysisSequencePolicyState(testPrioritizationPolicy, dynamicDependencyMapPolicy),
-        //        m_suiteFilter,
-        //        sequenceTimer,
-        //        instrumentedTestRun,
-        //        includedSelectedTestTargets,
-        //        excludedSelectedTestTargets,
-        //        discardedTestTargets,
-        //        draftedTestTargets,
-        //        testTargetTimeout,
-        //        globalTimeout,
-        //        testSequenceStartCallback,
-        //        testSequenceEndCallback,
-        //        testCompleteCallback,
-        //        updateCoverage);
-        //}
-        //else
-        //{
-        //    return ImpactAnalysisTestSequenceWrapper(
-        //        m_maxConcurrency,
-        //        GenerateImpactAnalysisSequencePolicyState(testPrioritizationPolicy, dynamicDependencyMapPolicy),
-        //        m_suiteFilter,
-        //        sequenceTimer,
-        //        regularTestRun,
-        //        includedSelectedTestTargets,
-        //        excludedSelectedTestTargets,
-        //        discardedTestTargets,
-        //        draftedTestTargets,
-        //        testTargetTimeout,
-        //        globalTimeout,
-        //        testSequenceStartCallback,
-        //        testSequenceEndCallback,
-        //        testCompleteCallback,
-        //        AZStd::optional<AZStd::function<void(const AZStd::vector<TestEngineRegularRun<NativeTestTarget>>& jobs)>>{
-        //            AZStd::nullopt });
-        //}
 
-        return Client::ImpactAnalysisSequenceReport(
-            1,
-            AZStd::nullopt,
-            AZStd::nullopt,
-            ImpactAnalysisSequencePolicyState{},
-            m_suiteFilter,
-            Client::TestRunSelection(),
-            {},
-            {},
-            Client::TestRunReport(
-                TestSequenceResult::Success,
-                AZStd::chrono::high_resolution_clock::time_point(),
-                AZStd::chrono::milliseconds{ 0 },
-                {},
-                {},
-                {},
-                {},
-                {}),
-            Client::TestRunReport(
-                TestSequenceResult::Success,
-                AZStd::chrono::high_resolution_clock::time_point(),
-                AZStd::chrono::milliseconds{ 0 },
-                {},
-                {},
-                {},
-                {},
-                {}));
+        // draft previously failing tests????????
+
+        // The test targets that were selected for the change list by the dynamic dependency map and the test targets that were not
+        const auto [selectedTestTargets, discardedTestTargets] = SelectCoveringTestTargets(changeList, testPrioritizationPolicy);
+        
+        // The subset of selected test targets that are not on the configuration's exclude list and those that are
+        const auto [includedSelectedTestTargets, excludedSelectedTestTargets] =
+            SelectTestTargetsByExcludeList(*m_testTargetExcludeList, selectedTestTargets);
+        
+        // Functor for running instrumented test targets
+        const auto instrumentedTestRun = [this, &testTargetTimeout](
+                                             const AZStd::vector<const TestTarget*>& testsTargets,
+                                             TestRunCompleteCallbackHandler<TestTarget>& testRunCompleteHandler,
+                                             AZStd::optional<AZStd::chrono::milliseconds> globalTimeout)
+        {
+            return m_testEngine->InstrumentedRun(
+                testsTargets,
+                m_executionFailurePolicy,
+                m_integrationFailurePolicy,
+                m_testFailurePolicy,
+                m_targetOutputCapture,
+                testTargetTimeout,
+                globalTimeout,
+                AZStd::ref(testRunCompleteHandler));
+        };
+        
+        if (dynamicDependencyMapPolicy == Policy::DynamicDependencyMap::Update)
+        {
+            AZStd::optional<AZStd::function<void(const AZStd::vector<TestEngineInstrumentedRun<TestTarget, TestCoverage>>& jobs)>>
+                updateCoverage = [this](const AZStd::vector<TestEngineInstrumentedRun<TestTarget, TestCoverage>>& jobs)
+            {
+                m_hasImpactAnalysisData = UpdateAndSerializeDynamicDependencyMap(
+                                              *m_dynamicDependencyMap.get(),
+                                              jobs,
+                                              m_failedTestCoveragePolicy,
+                                              m_integrationFailurePolicy,
+                                              m_config.m_commonConfig.m_repo.m_root,
+                                              m_sparTiaFile)
+                                              .value_or(m_hasImpactAnalysisData);
+            };
+        
+            return ImpactAnalysisTestSequenceWrapper(
+                1,
+                GenerateImpactAnalysisSequencePolicyState(testPrioritizationPolicy, dynamicDependencyMapPolicy),
+                m_suiteFilter,
+                sequenceTimer,
+                instrumentedTestRun,
+                includedSelectedTestTargets,
+                excludedSelectedTestTargets,
+                discardedTestTargets,
+                {}, // draftedTestTargets,
+                testTargetTimeout,
+                globalTimeout,
+                testSequenceStartCallback,
+                testSequenceEndCallback,
+                testCompleteCallback,
+                updateCoverage);
+        }
+        else
+        {
+            return ImpactAnalysisTestSequenceWrapper(
+                1,
+                GenerateImpactAnalysisSequencePolicyState(testPrioritizationPolicy, dynamicDependencyMapPolicy),
+                m_suiteFilter,
+                sequenceTimer,
+                instrumentedTestRun,
+                includedSelectedTestTargets,
+                excludedSelectedTestTargets,
+                discardedTestTargets,
+                {}, // draftedTestTargets,
+                testTargetTimeout,
+                globalTimeout,
+                testSequenceStartCallback,
+                testSequenceEndCallback,
+                testCompleteCallback,
+                AZStd::optional<AZStd::function<void(const AZStd::vector<TestEngineInstrumentedRun<TestTarget, TestCoverage>>& jobs)>>{
+                    AZStd::nullopt });
+        }
+
+        //return Client::ImpactAnalysisSequenceReport(
+        //    1,
+        //    AZStd::nullopt,
+        //    AZStd::nullopt,
+        //    ImpactAnalysisSequencePolicyState{},
+        //    m_suiteFilter,
+        //    Client::TestRunSelection(),
+        //    {},
+        //    {},
+        //    Client::TestRunReport(
+        //        TestSequenceResult::Success,
+        //        AZStd::chrono::high_resolution_clock::time_point(),
+        //        AZStd::chrono::milliseconds{ 0 },
+        //        {},
+        //        {},
+        //        {},
+        //        {},
+        //        {}),
+        //    Client::TestRunReport(
+        //        TestSequenceResult::Success,
+        //        AZStd::chrono::high_resolution_clock::time_point(),
+        //        AZStd::chrono::milliseconds{ 0 },
+        //        {},
+        //        {},
+        //        {},
+        //        {},
+        //        {}));
     }
 
     Client::SafeImpactAnalysisSequenceReport PythonRuntime::SafeImpactAnalysisTestSequence(
@@ -678,7 +706,7 @@ namespace TestImpact
         AZStd::unordered_map<BuildTarget<ProductionTarget, TestTarget>, AZStd::unordered_set<const TestTarget*>> coveredTargets;
         AZStd::unordered_map<BuildTarget<ProductionTarget, TestTarget>, AZStd::unordered_set<const TestTarget*>> discoveredTargets;
 
-        const auto isCovered = [&](const auto& buildTarget)
+        const auto isCovered = [&](const BuildTarget<ProductionTarget, TestTarget>& buildTarget)
         {
             return coveredTargets.count(buildTarget) || discoveredTargets.count(buildTarget);
         };
@@ -723,11 +751,10 @@ namespace TestImpact
                         dependency.m_buildTarget,
                         [&]([[maybe_unused]] const BuildGraphVertex<ProductionTarget, TestTarget>& depender)
                         {
-                            if (m_buildTargets->GetBuildTarget(
-                                    AZStd::string::format("%s.Editor", depender.m_buildTarget.GetTarget()->GetName().c_str())))
+                            const auto editorTarget =
+                                m_buildTargets->GetBuildTarget(depender.m_buildTarget.GetTarget()->GetName() + ".Editor");
+                            if (editorTarget && isCovered(*editorTarget))
                             {
-                                //discoveredTargets.insert(dependency.m_buildTarget);
-
                                 auto& discoveredCoveringTests = discoveredTargets[dependency.m_buildTarget];
                                 for (const auto& coveringTestTarget : coveringTestTargets)
                                 {
@@ -739,9 +766,6 @@ namespace TestImpact
 
                             if (isCovered(depender.m_buildTarget))
                             {
-                                //AZ_Printf(
-                                //    AZStd::string::format("**********>%s", depender.m_buildTarget.GetTarget()->GetName().c_str()).c_str(),
-                                //    "Is covered :)\n");
                                 return BuildGraphVertexVisitResult::Continue;
                             }
 
@@ -754,9 +778,9 @@ namespace TestImpact
 
                     if (exclusive)
                     {
-                        AZ_Printf(
-                            AZStd::string::format("--->%s", dependency.m_buildTarget.GetTarget()->GetName().c_str()).c_str(),
-                            "Exclusively covered dependers found :)\n");
+                        //AZ_Printf(
+                        //    AZStd::string::format("--->%s", dependency.m_buildTarget.GetTarget()->GetName().c_str()).c_str(),
+                        //    "Exclusively covered dependers found :)\n");
                         //discoveredTargets.insert(dependency.m_buildTarget);
 
                         auto& discoveredCoveringTests = discoveredTargets[dependency.m_buildTarget];
@@ -775,11 +799,53 @@ namespace TestImpact
                 });
         }
 
+        AZStd::unordered_map<const TestTarget*, AZStd::unordered_set<BuildTarget<ProductionTarget, TestTarget>>> expandedCoverage;
+
+        AZ_Printf("", "Known covered targets:\n");
+        for (const auto& [target, tests] : coveredTargets)
+        {
+            AZ_Printf("---->", "%s\n", target.GetTarget()->GetName().c_str());
+            for (const auto& test : tests)
+            {
+                expandedCoverage[test].insert(target);
+            }
+        }
+
+        AZ_Printf("", "Discovered targets:\n");
+        for (const auto& [target, tests] : discoveredTargets)
+        {
+            AZ_Printf("---->", "%s\n", target.GetTarget()->GetName().c_str());
+            for (const auto& test : tests)
+            {
+                expandedCoverage[test].insert(target);
+            }
+        }
+
+        AZStd::vector<TestEngineInstrumentedRun<TestTarget, typename PythonTestEngine::TestCaseCoverageType>> expandedTestJobs;
+        expandedTestJobs.reserve(testJobs.size());
+        for (const auto& testJob : testJobs)
+        {
+            AZStd::optional<TestRun> run = testJob.GetTestRun();
+            AZStd::vector<ModuleCoverage> moduleCoverages;
+            const auto& thisCoveredTargets = expandedCoverage[testJob.GetTestTarget()];
+            for (const auto& coveredTarget : thisCoveredTargets)
+            {
+                moduleCoverages.emplace_back(AZStd::string::format("%s.dll", coveredTarget.GetTarget()->GetOutputName().c_str()), AZStd::vector<SourceCoverage>{});
+            }
+
+            TestEngineInstrumentedRun<TestTarget, typename PythonTestEngine::TestCaseCoverageType> foo(
+                TestEngineJob<TestTarget>(testJob),
+                AZStd::pair<AZStd::optional<TestRun>, typename PythonTestEngine::TestCaseCoverageType>{
+                    run, TestCoverage(AZStd::move(moduleCoverages)) });
+            expandedTestJobs.push_back(foo);
+        }
+       
         ////////////////////////////////
 
         m_hasImpactAnalysisData = UpdateAndSerializeDynamicDependencyMap(
                                       *m_dynamicDependencyMap.get(),
-                                      testJobs,
+                                      expandedTestJobs,
+                                      //testJobs,
                                       m_failedTestCoveragePolicy,
                                       m_integrationFailurePolicy,
                                       m_config.m_commonConfig.m_repo.m_root,

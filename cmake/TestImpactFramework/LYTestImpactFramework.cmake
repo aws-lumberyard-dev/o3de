@@ -386,6 +386,23 @@ function(ly_extract_target_dependencies INPUT_DEPENDENCY_LIST OUTPUT_DEPENDENCY_
     set(${OUTPUT_DEPENDENCY_LIST} ${dependencies} PARENT_SCOPE)
 endfunction()
 
+#! ly_get_target_type: retrieves the tyype of target, either production or test target.
+#
+# \arg:TARGET target to get the type for
+# \arg:TARGET_TYPE the retrieved target type
+function(ly_get_target_type TARGET TARGET_TYPE)
+    get_property(LY_ALL_TESTS_DE_NAMSPACED GLOBAL PROPERTY LY_ALL_TESTS_DE_NAMSPACED)
+    if(${target_name} IN_LIST LY_ALL_TESTS_DE_NAMSPACED)
+        set(target_type "test")
+    else()
+        set(target_type "production")
+    endif()
+
+    set(${TARGET_TYPE} ${target_type} PARENT_SCOPE)
+    set(${TYPE_META} ${type_meta} PARENT_SCOPE)
+
+endfunction()
+
 #! ly_test_impact_export_source_target_mappings: exports the static source to target mappings to file.
 #
 # \arg:MAPPING_TEMPLATE_FILE path to source to target template file
@@ -406,12 +423,7 @@ function(ly_test_impact_export_source_target_mappings MAPPING_TEMPLATE_FILE)
         file(RELATIVE_PATH target_path ${LY_ROOT_FOLDER} ${target_path_abs})
 
         # Target type
-        get_property(LY_ALL_TESTS_DE_NAMSPACED GLOBAL PROPERTY LY_ALL_TESTS_DE_NAMSPACED)
-        if(${target_name} IN_LIST LY_ALL_TESTS_DE_NAMSPACED)
-            set(target_type "test")
-        else()
-            set(target_type "production")
-        endif()
+        ly_get_target_type(${target_name} target_type)
 
         # Output name
         get_target_property(target_output_name ${target} OUTPUT_NAME)
