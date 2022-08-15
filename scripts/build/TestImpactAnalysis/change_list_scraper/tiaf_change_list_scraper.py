@@ -43,6 +43,7 @@ def parse_args():
 
     parser.add_argument(
         "--pr",
+        type=int,
         help="Number of Pull Requests to get information on.",
         required=True
     )
@@ -74,7 +75,7 @@ def parse_args():
 RAW_PATH_FILE = "commits_raw.json"
 
 
-def main(include_filters=[], get_from_git=False, repo_path=None, prs_to_get=None, csv_file_path=None, change_lists_folder=None):
+def main(include_filters=[], get_from_git=False, repo_path=None, prs_to_get=None, csv_file_path=None, change_lists_folder=None, path_analysis=None):
     files_by_extension = {}
     extension_statistics = {}
     total_changes = 0
@@ -99,6 +100,8 @@ def main(include_filters=[], get_from_git=False, repo_path=None, prs_to_get=None
     if(change_lists_folder):
         DataWriter.dump_tiaf_compatible_change_lists_to_json(
             pr_commits, change_lists_folder)
+    if(path_analysis):
+        pass
     if(DEBUG):
         DataWriter.print_extension_statistics(
             extension_statistics, include_filters)
@@ -122,4 +125,5 @@ if __name__ == "__main__":
         repo_path=args.get('repo'),
         prs_to_get=args.get('pr'),
         csv_file_path=args.get('csv', None),
-        change_lists_folder=args.get('changelists', None))
+        change_lists_folder=args.get('changelists', None),
+        path_analysis=args.get('path_analysis', None))
