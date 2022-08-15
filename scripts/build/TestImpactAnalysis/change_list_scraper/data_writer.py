@@ -8,7 +8,7 @@
 
 import json
 import csv
-from .extension_statistics import ExtensionStatistics
+from extension_statistics import ExtensionStatistics
 
 class DataWriter():
     """
