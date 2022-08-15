@@ -726,6 +726,21 @@ namespace TestImpact
             }
         }
 
+        {
+            const auto& buildGraph = m_buildTargets->GetBuildGraph();
+            const auto coveredTarget = m_buildTargets->GetBuildTargetOrThrow("WhiteBox.Editor");
+            buildGraph.WalkBuildDependencies(
+                BuildGraphTraversalOrder::BreadthFirst,
+                coveredTarget,
+                [&](const BuildGraphVertex<ProductionTarget, TestTarget>& dependency)
+                {
+                    AZ_Printf(
+                        AZStd::string::format("--->%s", dependency.m_buildTarget.GetTarget()->GetName().c_str()).c_str(),
+                        AZStd::string::format("Distance: %zu\n", 0).c_str());
+                    return BuildGraphVertexVisitResult::Continue;
+                });
+        }
+
         // For each covered target:
         // 1. Walk the dependencies
         // 2. If a given dependency is exclusively depended on by covered targets, add the dependency to the covered target list#
@@ -740,16 +755,18 @@ namespace TestImpact
             //const auto coveredTarget = m_buildTargets->GetBuildTargetOrThrow("WhiteBox.Editor");
             AZ_Printf(coveredTarget.GetTarget()->GetName().c_str(), "Walking dependencies...\n");
             buildGraph.WalkBuildDependencies(
+                BuildGraphTraversalOrder::BreadthFirst,
                 coveredTarget,
-                [&]([[maybe_unused]] const BuildGraphVertex<ProductionTarget, TestTarget>& dependency)
+                [&](const BuildGraphVertex<ProductionTarget, TestTarget>& dependency)
                 {
                     //AZ_Printf(
                     //    AZStd::string::format("--->%s", dependency.m_buildTarget.GetTarget()->GetName().c_str()).c_str(),
                     //    "Walking dependers...\n");
                     bool exclusive = true;
                     buildGraph.WalkBuildDependers(
+                        BuildGraphTraversalOrder::BreadthFirst,
                         dependency.m_buildTarget,
-                        [&]([[maybe_unused]] const BuildGraphVertex<ProductionTarget, TestTarget>& depender)
+                        [&](const BuildGraphVertex<ProductionTarget, TestTarget>& depender)
                         {
                             const auto editorTarget =
                                 m_buildTargets->GetBuildTarget(depender.m_buildTarget.GetTarget()->GetName() + ".Editor");
