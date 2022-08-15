@@ -6,11 +6,71 @@
 #
 #
 
-from .git_scraper import GitScraper
-from .extension_statistics import ExtensionStatistics
-from .data_writer import DataWriter
+from git_scraper import GitScraper
+from extension_statistics import ExtensionStatistics
+from data_writer import DataWriter
+import argparse
+import pathlib
 
-DEBUG = True
+
+def parse_args():
+    parser = argparse.ArgumentParser()
+
+    def valid_folder(value):
+        if(pathlib.Path(value).is_dir()):
+            return value
+        raise FileNotFoundError(value)
+
+    parser.add_argument(
+        "--git",
+        action="store_true",
+        help="Set this flag to get data from github rather than from local storage.",
+        required=False
+    )
+
+    parser.add_argument(
+        "--include-extensions",
+        help="File extensions to include in our filtering, delinated by commas. I.Et \".xyz, .yyx ,\".",
+        required=False
+    )
+
+    parser.add_argument(
+        "--repo",
+        type=valid_folder,
+        help="The location of the local folder with the repository we want to scrape.",
+        required=True
+    )
+
+    parser.add_argument(
+        "--pr",
+        help="Number of Pull Requests to get information on.",
+        required=True
+    )
+
+    parser.add_argument(
+        "--csv",
+        help="Path to where to store csv data.",
+        required=False
+    )
+
+    parser.add_argument(
+        "--changelists",
+        type=valid_folder,
+        help="Path to the folder to store the TIAF compatible change lists for each pull request.",
+        required=False
+    )
+
+    parser.add_argument(
+        "--debug",
+        action="store_true",
+        required=False
+    )
+
+    args = parser.parse_args()
+
+    return args
+
+
 RAW_PATH_FILE = "commits_raw.json"
 
 
@@ -32,16 +92,34 @@ def main(include_filters=[], get_from_git=False, repo_path=None, prs_to_get=None
     for file, entry in files_by_extension.items():
         count = len(entry)
         percentage = count/total_changes * 100
-        statistics_obj = ExtensionStatistics(file_extension=file, count=count, percentage=percentage)
+        statistics_obj = ExtensionStatistics(
+            file_extension=file, count=count, percentage=percentage)
         extension_statistics[file] = statistics_obj
 
     if(change_lists_folder):
-        DataWriter.dump_tiaf_compatible_change_lists_to_json(pr_commits, change_lists_folder)
+        DataWriter.dump_tiaf_compatible_change_lists_to_json(
+            pr_commits, change_lists_folder)
     if(DEBUG):
-        DataWriter.print_extension_statistics(extension_statistics, include_filters)
+        DataWriter.print_extension_statistics(
+            extension_statistics, include_filters)
     if(csv_file_path):
         DataWriter.dump_to_csv(extension_statistics, csv_file_path)
 
+
 if __name__ == "__main__":
-    include_filters = [".h", ".hpp", ".hxx", ".inl", ".c", ".cpp", ".cxx", ".py", ".xml"]
-    main(include_filters=include_filters, get_from_git=True, repo_path="C:/o3de", prs_to_get=10, csv_file_path="commit_info.csv")
+    default_filters = [".h", ".hpp", ".hxx",
+                       ".inl", ".c", ".cpp", ".cxx", ".py", ".xml"]
+
+    args = vars(parse_args())
+
+    DEBUG = args.get('debug', False)
+    include_filters = args.get('include_extensions', default_filters)
+    if(isinstance(include_filters, str)):
+        include_filters = include_filters.split(',')
+    main(
+        include_filters=include_filters,
+        get_from_git=args.get('git', False),
+        repo_path=args.get('repo'),
+        prs_to_get=args.get('pr'),
+        csv_file_path=args.get('csv', None),
+        change_lists_folder=args.get('changelists', None))
