@@ -85,6 +85,8 @@ class GitScraper():
             out_map[pr_count] = tiaf_change_list_map
             pr_count += 1
 
+        return out_map
+
     @property
     def total_changes(self):
         return self.file_count

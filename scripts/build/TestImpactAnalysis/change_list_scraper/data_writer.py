@@ -64,34 +64,16 @@ class DataWriter():
             print(extension)
 
     @classmethod
-    def dump_tiaf_compatible_change_lists_to_json(self, pr_commits, file_path):
+    def dump_tiaf_compatible_change_lists_to_json(self, changelist_map, file_path):
         """
         Takes a the pr_commits map and breaks it down into individual created, updated, and deleted changelists for each commit, dumps it to the location file_path as json.
         @param pr_commits: A dictionary mapping pr_commits to their associated change objects.
         @param file_path: The location to store our JSON.
-        """
-        change_type_to_tiaf_type = {'M':'updatedFiles', 'D':'deletedFiles', 'A':'createdFiles'}
-
-        out_map = {}
-        
-        # For each commit, we have an associated map of changes
-        pr_count = 1
-        for commit, change_map in pr_commits.items():
-            tiaf_change_list_map = {"commit": commit, "createdFiles" : [], "updatedFiles" : [], "deletedFiles" : []}
-            # For each change type, we have an associated list of changes of that type
-            for change_type, change_type_list in change_map.items():
-                # We try to convert the change_type to the associated type TIAF is expecting.
-                try:
-                    tiaf_change_list_type = change_type_to_tiaf_type[change_type]
-                    change_list = tiaf_change_list_map[tiaf_change_list_type]
-                    # Add all the paths for changes of this change_type to our change_list, which is stored in tiaf_change_list_map
-                    for path, type in change_type_list:
-                        change_list.append(path)
-                except KeyError as e:
-                    print(f"KeyError, key not found. {e}")
-            out_map[pr_count] = tiaf_change_list_map
-            pr_count += 1
-            DataWriter.dump_to_file(out_map, f"{file_path}/{commit}_changelist.json")
+        """        
+        # For each commit, we have an associated map of changes. Write out that map.
+        for pr, change_map in changelist_map.items():
+            commit = change_map['commit']
+            DataWriter.dump_to_file(change_map, f"{file_path}/{commit}_changelist.json")
 
     @classmethod
     def dump_to_file(self, data, file_path):
