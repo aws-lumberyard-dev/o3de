@@ -72,7 +72,7 @@ def parse_args():
     return args
 
 
-RAW_PATH_FILE = "commits_raw.json"
+RAW_PATH_FILE = "build/commits_raw.json"
 
 
 def main(include_filters=[], get_from_git=False, repo_path=None, prs_to_get=None, csv_file_path=None, change_lists_folder=None, path_analysis=None):
