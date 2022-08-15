@@ -7,9 +7,12 @@ class GitScraper():
         self.file_count = 0
 
     def get_commit_data_from_file(self, file_path) -> dict:
-        with open(file_path) as f:
-            data = json.load(f)
-        return data
+        try:
+            with open(file_path) as f:
+                data = json.load(f)
+            return data
+        except FileNotFoundError as e:
+            print("Error, file not found. Perhaps it hasn't been generated yet! Try running with --git")
 
     def get_commit_data_from_git(self, repo_path, prs_to_get) -> dict:
         """

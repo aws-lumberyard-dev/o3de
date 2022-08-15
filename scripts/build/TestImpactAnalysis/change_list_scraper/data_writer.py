@@ -88,8 +88,7 @@ class DataWriter():
                     print(f"KeyError, key not found. {e}")
             out_map[pr_count] = tiaf_change_list_map
             pr_count += 1
-            with open(f"{file_path}/changelist_{commit}.json", "w+") as f:
-                json.dump(out_map, f, indent=4, sort_keys=True)
+            DataWriter.dump_to_file(out_map, file_path)
 
     @classmethod
     def dump_to_file(self, data, file_path):
@@ -99,6 +98,6 @@ class DataWriter():
         @param file_path: The file path to store the data at.
         """
         with open(file_path, "w+") as f:
-            json.dump(data, f)
+            json.dump(data, f, indent=4, sort_keys=True)
 
         
