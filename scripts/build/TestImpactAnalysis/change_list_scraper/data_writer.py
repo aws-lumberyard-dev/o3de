@@ -23,14 +23,17 @@ class DataWriter():
         @param extension_statistics: A map of file extensions to their respective extension_statistics objects
         @param csv_file_path: Path to store our csv at.
         """
-        with open(f"{csv_file_path}.csv", "w+", newline='') as file:
-            writer = csv.writer(file, delimiter=",")
-            writer.writerow(ExtensionStatistics.writeable_properties)
-            for extension, obj in extension_statistics.items():
-                property_values = []
-                for property_name in ExtensionStatistics.writeable_properties:
-                    property_values.append(getattr(obj, property_name))
-                writer.writerow(property_values)
+        try:
+            with open(f"{csv_file_path}.csv", "w+", newline='') as file:
+                writer = csv.writer(file, delimiter=",")
+                writer.writerow(ExtensionStatistics.writeable_properties)
+                for extension, obj in extension_statistics.items():
+                    property_values = []
+                    for property_name in ExtensionStatistics.writeable_properties:
+                        property_values.append(getattr(obj, property_name))
+                    writer.writerow(property_values)
+        except PermissionError or FileExistsError or FileNotFoundError as e:
+            print(e)
 
     @classmethod
     def print_extension_statistics(self, extension_statistics, include_filters):
@@ -88,7 +91,7 @@ class DataWriter():
                     print(f"KeyError, key not found. {e}")
             out_map[pr_count] = tiaf_change_list_map
             pr_count += 1
-            DataWriter.dump_to_file(out_map, file_path)
+            DataWriter.dump_to_file(out_map, f"{file_path}/{commit}_changelist.json")
 
     @classmethod
     def dump_to_file(self, data, file_path):
@@ -97,7 +100,9 @@ class DataWriter():
         @param data: The data to store.
         @param file_path: The file path to store the data at.
         """
-        with open(file_path, "w+") as f:
-            json.dump(data, f, indent=4, sort_keys=True)
-
-        
+        try:
+            with open(file_path, "w") as f:
+                json.dump(data, f, indent=4, sort_keys=True)
+        except PermissionError or FileExistsError or FileNotFoundError as e:
+            print(e)
+                    
