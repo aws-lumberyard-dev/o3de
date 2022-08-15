@@ -70,8 +70,6 @@ set(FILES
     Include/Static/TestImpactRuntimeUtils.cpp
     Include/Static/TestImpactRuntimeUtils.h
     Include/Static/TestImpactTestTargetExclusionList.h
-    Include/Static/TestImpactRuntimeUtils.cpp
-    Include/Static/TestImpactRuntimeUtils.h
     Source/Artifact/Factory/TestImpactTestEnumerationSuiteFactory.cpp
     Source/Artifact/Factory/TestImpactTestRunSuiteFactory.cpp
     Source/Artifact/Factory/TestImpactModuleCoverageFactory.cpp
