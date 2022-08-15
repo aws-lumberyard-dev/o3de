@@ -98,8 +98,9 @@ def main(include_filters=[], get_from_git=False, repo_path=None, prs_to_get=None
         extension_statistics[file] = statistics_obj
 
     if(change_lists_folder):
+        change_list_map = scraper.extract_change_lists(pr_commits)
         DataWriter.dump_tiaf_compatible_change_lists_to_json(
-            pr_commits, change_lists_folder)
+            change_list_map, change_lists_folder)
     if(path_analysis):
         pass
     if(DEBUG):
