@@ -12,6 +12,8 @@ set(FILES
     Source/MotionMatchingSystemComponent.cpp
     Source/MotionMatchingSystemComponent.h
     Source/Allocators.h
+    Source/AnimGraphOnnxNode.cpp
+    Source/AnimGraphOnnxNode.h
     Source/BlendTreeMotionMatchNode.cpp
     Source/BlendTreeMotionMatchNode.h
     Source/CsvSerializers.cpp

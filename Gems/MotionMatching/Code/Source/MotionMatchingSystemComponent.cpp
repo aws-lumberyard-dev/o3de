@@ -17,6 +17,7 @@
 
 #include <Integration/EMotionFXBus.h>
 
+#include <AnimGraphOnnxNode.h>
 #include <BlendTreeMotionMatchNode.h>
 #include <Feature.h>
 #include <FeatureAngularVelocity.h>
@@ -65,6 +66,8 @@ namespace EMotionFX::MotionMatching
                     ;
             }
         }
+
+        EMotionFX::MotionMatching::AnimGraphOnnxNode::Reflect(context);
 
         EMotionFX::MotionMatching::DiscardFrameEventData::Reflect(context);
         EMotionFX::MotionMatching::TagEventData::Reflect(context);
@@ -134,6 +137,17 @@ namespace EMotionFX::MotionMatching
                 EMotionFX::Integration::EMotionFXRequestBus::Broadcast(&EMotionFX::Integration::EMotionFXRequests::RegisterAnimGraphObjectType, animGraphNode);
             }
             delete animGraphObject;
+        }
+
+        // Register the anim graph onnx node.
+        {
+            EMotionFX::AnimGraphObject* animGraphOnnxObject = EMotionFX::AnimGraphObjectFactory::Create(azrtti_typeid<EMotionFX::MotionMatching::AnimGraphOnnxNode>());
+            auto animGraphOnnxNode = azdynamic_cast<EMotionFX::MotionMatching::AnimGraphOnnxNode*>(animGraphOnnxObject);
+            if (animGraphOnnxNode)
+            {
+                EMotionFX::Integration::EMotionFXRequestBus::Broadcast(&EMotionFX::Integration::EMotionFXRequests::RegisterAnimGraphObjectType, animGraphOnnxNode);
+            }
+            delete animGraphOnnxObject;
         }
 
         // Register the joint velocities pose data.
