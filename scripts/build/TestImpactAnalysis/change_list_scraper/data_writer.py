@@ -71,9 +71,11 @@ class DataWriter():
         @param file_path: The location to store our JSON.
         """        
         # For each commit, we have an associated map of changes. Write out that map.
+        count = 1
         for pr, change_map in changelist_map.items():
             commit = change_map['commit']
-            DataWriter.dump_to_file(change_map, f"{file_path}/{commit}_changelist.json")
+            DataWriter.dump_to_file(change_map, f"{file_path}/{count}_{commit}_changelist.json")
+            count += 1
 
     @classmethod
     def dump_to_file(self, data, file_path):
