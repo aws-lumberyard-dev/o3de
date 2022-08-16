@@ -15,6 +15,7 @@
 #include <EMotionFX/Source/EventManager.h>
 #include <EMotionFX/Source/Motion.h>
 #include <BlendTreeMotionMatchNode.h>
+#include <FeatureSchema.h>
 #include <FeatureSchemaDefault.h>
 #include <MotionMatching/MotionMatchingBus.h>
 #include <EMotionFX/Source/MotionSet.h>
@@ -173,6 +174,23 @@ namespace EMotionFX::MotionMatching
         AZ_Printf("Motion Matching", "Finished in %.2f seconds (mem usage=%d bytes or %.2f mb)", initTime, memUsage, memUsage / (float)(1024 * 1024));
         //---------------------------------
 
+        {
+            // Settings
+            const size_t sampleRate = 60;
+            AZStd::string folderPath = "D:\\"; // make sure to include ending slash
+
+            AZ_Printf("MotionMatching", "Starting exporting motion matching database to .CSV");
+            MotionMatchingData mmData(animGraphNode->m_featureSchema);
+            settings.m_frameImportSettings.m_sampleRate = sampleRate;
+            mmData.Init(settings);
+
+            const AZStd::string posesCsvFilename = AZStd::string::format("%sMotionMatchingDatabase_Poses_%zuHz.csv", folderPath.c_str(), sampleRate);
+            mmData.GetFrameDatabase().SaveAsCsv(posesCsvFilename.c_str(), actorInstance);
+
+            const AZStd::string featureMatrixCsvFilename = AZStd::string::format("%sMotionMatchingDatabase_Features_%zuHz.csv", folderPath.c_str(), sampleRate);
+            mmData.GetFeatureMatrix().SaveAsCsv(featureMatrixCsvFilename, &animGraphNode->m_featureSchema);
+        }
+
         SetHasError(false);
     }
 
@@ -302,6 +320,12 @@ namespace EMotionFX::MotionMatching
 
         Pose& outTransformPose = outputPose->GetPose();
         instance->Output(outTransformPose);
+
+        if (instance && instance->m_queryVectorWritten)
+        {
+            instance->m_poseWriter.WritePose(outTransformPose);
+            instance->m_queryVectorWritten = false;
+        }
 
         // Performance metrics
         m_outputTimeInMs = m_timer.GetDeltaTimeInSeconds() * 1000.0f;

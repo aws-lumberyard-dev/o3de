@@ -18,6 +18,7 @@
 #include <TrajectoryQuery.h>
 
 #include <MotionMatching/MotionMatchingBus.h>
+#include <CsvSerializers.h>
 
 namespace AZ
 {
@@ -82,6 +83,11 @@ namespace EMotionFX::MotionMatching
         const TrajectoryQuery& GetTrajectoryQuery() const { return m_trajectoryQuery; }
         const TrajectoryHistory& GetTrajectoryHistory() const { return m_trajectoryHistory; }
         const Transform& GetMotionExtractionDelta() const { return m_motionExtractionDelta; }
+
+        PoseWriterCsv m_poseWriter;
+        QueryVectorWriterCsv m_queryVectorWriter;
+        BestMatchingFrameWriterCsv m_bestMatchingFrameWriter;
+        bool m_queryVectorWritten = false;
 
     private:
         MotionInstance* CreateMotionInstance() const;
