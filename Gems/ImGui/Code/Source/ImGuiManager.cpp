@@ -9,6 +9,8 @@
 #include "ImGuiManager.h"
 #include <ImGuiContextScope.h>
 #include <AzCore/PlatformIncl.h>
+#include <AzCore/Serialization/SerializeContext.h>
+#include <AzCore/Serialization/EditContext.h>
 #include <OtherActiveImGuiBus.h>
 
 #ifdef IMGUI_ENABLED
@@ -82,6 +84,55 @@ namespace
         const auto& it = AZStd::find(touches.cbegin(), touches.cend(), inputChannelId);
         return it != touches.cend() ? static_cast<unsigned int>(it - touches.cbegin()) : UINT_MAX;
     }
+}
+
+void ImGuiManager::Reflect(AZ::ReflectContext* context)
+{
+    if (AZ::SerializeContext* serialize = azrtti_cast<AZ::SerializeContext*>(context))
+    {
+        serialize->Class<ImGuiManager, AZ::Component>()
+            ->Version(0)
+            ;
+
+        if (AZ::EditContext* ec = serialize->GetEditContext())
+        {
+            ec->Class<ImGuiManager>("ImGuiManager", "[Manager of the central ImGui tools interface.]")
+                ->ClassElement(AZ::Edit::ClassElements::EditorData, "")
+                ->Attribute(AZ::Edit::Attributes::AppearsInAddComponentMenu, AZ_CRC("System"))
+                ->Attribute(AZ::Edit::Attributes::AutoExpand, true)
+                ;
+        }
+    }
+}
+
+void ImGuiManager::GetProvidedServices(AZ::ComponentDescriptor::DependencyArrayType& provided)
+{
+    provided.push_back(AZ_CRC("ImGuiManager"));
+}
+
+void ImGuiManager::GetIncompatibleServices(AZ::ComponentDescriptor::DependencyArrayType& incompatible)
+{
+    incompatible.push_back(AZ_CRC("ImGuiManager"));
+}
+
+void ImGuiManager::GetRequiredServices(AZ::ComponentDescriptor::DependencyArrayType& required)
+{
+    required.push_back(AZ_CRC("InputSystemService", 0x5438d51a));
+}
+
+void ImGuiManager::GetDependentServices(AZ::ComponentDescriptor::DependencyArrayType& dependent)
+{
+    AZ_UNUSED(dependent);
+}
+
+void ImGuiManager::Activate()
+{
+    Initialize();
+}
+
+void ImGuiManager::Deactivate()
+{
+    Shutdown();
 }
 
 void ImGuiManager::Initialize()

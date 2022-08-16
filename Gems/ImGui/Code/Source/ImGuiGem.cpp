@@ -7,32 +7,48 @@
  */
 
 #include "ImGuiGem.h"
+#include <ImGuiManager.h>
 
 namespace ImGui
 {
-    void ImGuiModule::OnSystemEvent([[maybe_unused]] ESystemEvent event, [[maybe_unused]] UINT_PTR wparam, [[maybe_unused]] UINT_PTR lparam)
+    ImGuiModule::ImGuiModule()
     {
-#ifdef IMGUI_ENABLED
-        switch (event)
-        {
-            case ESYSTEM_EVENT_GAME_POST_INIT:
-            {
-                manager.Initialize();
-                lyCommonMenu.Initialize();
-                break;
-            }
-            case ESYSTEM_EVENT_FULL_SHUTDOWN:
-            case ESYSTEM_EVENT_FAST_SHUTDOWN:
-                manager.Shutdown();
-                lyCommonMenu.Shutdown();
-                break;
-            case ESYSTEM_EVENT_GAME_POST_INIT_DONE:
-                // Register CVARS after Init is done
-                manager.RegisterImGuiCVARs();
-                break;
-        }
-#endif //IMGUI_ENABLED
+        m_descriptors.insert(m_descriptors.end(), {
+                ImGuiManager::CreateDescriptor()
+            });
     }
+
+    AZ::ComponentTypeList ImGuiModule::GetRequiredSystemComponents() const
+    {
+        return AZ::ComponentTypeList{
+            azrtti_typeid<ImGuiManager>()
+        };
+    }
+
+//    void ImGuiModule::OnSystemEvent([[maybe_unused]] ESystemEvent event, [[maybe_unused]] UINT_PTR wparam, [[maybe_unused]] UINT_PTR lparam)
+//    {
+//#ifdef IMGUI_ENABLED
+//        switch (event)
+//        {
+//            case ESYSTEM_EVENT_GAME_POST_INIT:
+//            {
+//                manager.Initialize();
+//                lyCommonMenu.Initialize();
+//                break;
+//            }
+//            case ESYSTEM_EVENT_FULL_SHUTDOWN:
+//            case ESYSTEM_EVENT_FAST_SHUTDOWN:
+//                manager.Shutdown();
+//                lyCommonMenu.Shutdown();
+//                break;
+//            case ESYSTEM_EVENT_GAME_POST_INIT_DONE:
+//                // Register CVARS after Init is done
+//                manager.RegisterImGuiCVARs();
+//                break;
+//        }
+//#endif //IMGUI_ENABLED
+//    }
+
 }
 
 #if !defined(IMGUI_GEM_EDITOR)

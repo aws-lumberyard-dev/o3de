@@ -8,6 +8,7 @@
 
 #include <Window/MaterialEditorMainWindow.h>
 #include <Window/MaterialEditorViewportContent.h>
+#include <Atom/RPI.Public/ViewportContext.h>
 
 #include <QApplication>
 #include <QMessageBox>
@@ -37,6 +38,9 @@ namespace MaterialEditor
         // Initialize the atom scene and pipeline that will bind to the viewport window to render entities and presets
         auto viewportScene = AZStd::make_shared<AtomToolsFramework::EntityPreviewViewportScene>(
             m_toolId, m_materialViewport, entityContext, "MaterialEditorViewportWidget", "passes/MainRenderPipeline.azasset");
+
+
+        m_materialViewport->GetViewportContext()->SetRenderScene(viewportScene->GetScene());
 
         // Viewport content will instantiate all of the entities that will be displayed and controlled by the viewport
         auto viewportContent = AZStd::make_shared<MaterialEditorViewportContent>(m_toolId, m_materialViewport, entityContext);

@@ -27,12 +27,26 @@
 namespace ImGui
 {
     class ImGuiManager
-        : public AzFramework::InputChannelEventListener
+        : public AZ::Component
+        , public AzFramework::InputChannelEventListener
         , public AzFramework::InputTextEventListener
         , public ImGuiManagerBus::Handler
         , public AzFramework::WindowNotificationBus::Handler
     {
     public:
+        AZ_COMPONENT(ImGuiManager, "{D215710D-8130-4C50-97B2-AE2C0DD47E1C}");
+
+        static void Reflect(AZ::ReflectContext* context);
+
+        static void GetProvidedServices(AZ::ComponentDescriptor::DependencyArrayType& provided);
+        static void GetIncompatibleServices(AZ::ComponentDescriptor::DependencyArrayType& incompatible);
+        static void GetRequiredServices(AZ::ComponentDescriptor::DependencyArrayType& required);
+        static void GetDependentServices(AZ::ComponentDescriptor::DependencyArrayType& dependent);
+
+        // AZ::Component interface implementation
+        void Activate() override;
+        void Deactivate() override;
+
         void Initialize();
         void Shutdown();
 

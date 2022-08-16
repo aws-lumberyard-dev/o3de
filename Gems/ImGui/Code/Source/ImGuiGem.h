@@ -9,6 +9,7 @@
 
 #include <IGem.h>
 #include "ImGuiManager.h"
+#include <AzCore/Module/Module.h>
 //#include "Private/ImGuiManagerImpl.h"
 #ifdef IMGUI_ENABLED
 #include "LYCommonMenu/ImGuiLYCommonMenu.h"
@@ -20,12 +21,15 @@ namespace ImGui
     * The ImGui::Module class coordinates with the application
     * to reflect classes and create system components.
     */
-    class ImGuiModule : public CryHooksModule
+    class ImGuiModule
+        : public AZ::Module
     {
     public:
-        AZ_RTTI(ImGuiModule, "{ECA9F41C-716E-4395-A096-5A519227F9A4}", CryHooksModule);
+        AZ_RTTI(ImGuiModule, "{C8BD76C6-27B0-4A2D-8A95-7F3576633C48}", AZ::Module);
 
-        void OnSystemEvent(ESystemEvent event, UINT_PTR wparam, UINT_PTR lparam) override;
+        ImGuiModule();
+
+        AZ::ComponentTypeList GetRequiredSystemComponents() const override;
 
     private:
         #ifdef IMGUI_ENABLED
