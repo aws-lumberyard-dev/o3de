@@ -261,18 +261,15 @@ function(ly_add_test)
     # Check to see whether or not this test target has been stored in the global list for walking by the test impact analysis framework
     get_property(all_tests GLOBAL PROPERTY LY_ALL_TESTS)
     if(NOT "${test_target}" IN_LIST all_tests)
-        # Extract the namespace and the test target name from the Namespace::TestTargetName composite
+        # Extract the test target name from the namespace::target_name composite
         string(REPLACE "::" ";" test_components ${test_target})
         list(LENGTH test_components num_test_components)
         if(num_test_components GREATER 1)
-            list(GET test_components 0 test_namespace)
             list(GET test_components 1 test_name)
         else()
-            set(test_namespace "")
             set(test_name ${test_components})
         endif()
-        set_property(GLOBAL APPEND PROPERTY LY_ALL_TESTS_DE_NAMSPACED ${test_name})
-        set_property(GLOBAL PROPERTY LY_ALL_TESTS_DE_NAMSPACED_${test_name}_NAMESPACE ${test_namespace})
+        set_property(GLOBAL APPEND PROPERTY O3DE_ALL_TESTS_DE_NAMSPACED ${test_name})
 
         # This is the first reference to this test target so add it to the global list
         set_property(GLOBAL APPEND PROPERTY LY_ALL_TESTS ${test_target})

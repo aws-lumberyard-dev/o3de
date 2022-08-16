@@ -293,7 +293,7 @@ namespace TestImpact
         const Timer sequenceTimer;
 
         // Draft in the test targets that have no coverage entries in the dynamic dependency map
-        const AZStd::vector<const TestTarget*> draftedTestTargets = m_dynamicDependencyMap->GetNotCoveringTests();
+        const AZStd::vector<const TestTarget*> draftedTestTargets = m_dynamicDependencyMap->GetNotCoveringTests(); /// WHAT ABOUT EXCLUDED TSTS???????????
 
         const auto selectCoveringTestTargetsAndPruneDraftedFromDiscarded =
             [this, &draftedTestTargets, &changeList, testPrioritizationPolicy]()

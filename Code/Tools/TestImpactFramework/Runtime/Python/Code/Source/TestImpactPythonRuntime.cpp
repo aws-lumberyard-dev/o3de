@@ -18,6 +18,7 @@
 #include <Target/Python/TestImpactPythonTargetListCompiler.h>
 #include <Target/Python/TestImpactPythonTestTarget.h>
 #include <TestEngine/Python/TestImpactPythonTestEngine.h>
+#include <TestRunner/Common/Run/TestImpactTestCoverage.h>
 
 #include <AzCore/std/string/regex.h>
 
@@ -209,6 +210,176 @@ namespace TestImpact
         return { GeneratePolicyStateBase(), testPrioritizationPolicy, dynamicDependencyMapPolicy };
     }
 
+    
+
+    TestEngineInstrumentedRunResult<PythonTestTarget, TestCoverage> DoThing(
+        const DynamicDependencyMap<PythonProductionTarget, PythonTestTarget>* m_dynamicDependencyMap,
+        TestEngineInstrumentedRunResult<PythonTestTarget, TestCoverage> resultAndJobs)
+    {
+        const auto* m_buildTargets = m_dynamicDependencyMap->GetBuildTargetList();
+        using ProductionTarget = PythonProductionTarget;
+        using TestTarget = PythonTestTarget;
+        ////////////////////////////////
+
+        const auto [result, testJobs] = resultAndJobs;
+
+        AZStd::unordered_map<BuildTarget<ProductionTarget, TestTarget>, AZStd::unordered_set<const TestTarget*>> coveredTargets;
+        AZStd::unordered_map<BuildTarget<ProductionTarget, TestTarget>, AZStd::unordered_set<const TestTarget*>> discoveredTargets;
+
+        const auto isCovered = [&](const BuildTarget<ProductionTarget, TestTarget>& buildTarget)
+        {
+            return coveredTargets.count(buildTarget) || discoveredTargets.count(buildTarget);
+        };
+
+        for (const auto& testJob : testJobs)
+        {
+            if (testJob.GetCoverge().has_value())
+            {
+                for (const auto& coveredModule : testJob.GetCoverge()->GetModuleCoverages())
+                {
+                    const auto moduleName = AZ::IO::Path(coveredModule.m_path.Stem()).String();
+                    const auto buildTargetName =
+                        m_dynamicDependencyMap->GetBuildTargetList()->GetTargetNameFromOutputNameOrThrow(moduleName);
+                    auto buildTarget = m_dynamicDependencyMap->GetBuildTargetList()->GetBuildTargetOrThrow(buildTargetName);
+                    coveredTargets[buildTarget].insert(testJob.GetTestTarget());
+                }
+            }
+        }
+
+        {
+            const auto& buildGraph = m_buildTargets->GetBuildGraph();
+            const auto coveredTarget = m_buildTargets->GetBuildTargetOrThrow("TestImpact.Frontend.Console.Python");
+            buildGraph.WalkBuildDependencies(
+                coveredTarget,
+                [&](const BuildGraphVertex<ProductionTarget, TestTarget>& dependency, size_t level)
+                {
+                    AZ_Printf(
+                        AZStd::string::format("--->%s", dependency.m_buildTarget.GetTarget()->GetName().c_str()).c_str(),
+                        AZStd::string::format("Distance: %zu\n", level).c_str());
+                    return BuildGraphVertexVisitResult::Continue;
+                });
+        }
+
+        // For each covered target:
+        // 1. Walk the dependencies
+        // 2. If a given dependency is exclusively depended on by covered targets, add the dependency to the covered target list#
+        // 3. Otherwise, stop walking the branch of that dependency
+        const auto& buildGraph = m_buildTargets->GetBuildGraph();
+        for (const auto& keyVal : coveredTargets)
+        {
+            // Structured bindings cannot be captured by lambdas
+            const auto& coveredTarget = keyVal.first;
+            const auto& coveringTestTargets = keyVal.second;
+
+            // const auto coveredTarget = m_buildTargets->GetBuildTargetOrThrow("WhiteBox.Editor");
+            AZ_Printf(coveredTarget.GetTarget()->GetName().c_str(), "Walking dependencies...\n");
+            buildGraph.WalkBuildDependencies(
+                coveredTarget,
+                [&](const BuildGraphVertex<ProductionTarget, TestTarget>& dependency, [[maybe_unused]] size_t level)
+                {
+                    // AZ_Printf(
+                    //     AZStd::string::format("--->%s", dependency.m_buildTarget.GetTarget()->GetName().c_str()).c_str(),
+                    //     "Walking dependers...\n");
+                    bool exclusive = true;
+                    buildGraph.WalkBuildDependers(
+                        dependency.m_buildTarget,
+                        [&](const BuildGraphVertex<ProductionTarget, TestTarget>& depender, [[maybe_unused]] size_t level)
+                        {
+                            const auto editorTarget =
+                                m_buildTargets->GetBuildTarget(depender.m_buildTarget.GetTarget()->GetName() + ".Editor");
+                            if (editorTarget && isCovered(*editorTarget))
+                            {
+                                auto& discoveredCoveringTests = discoveredTargets[dependency.m_buildTarget];
+                                for (const auto& coveringTestTarget : coveringTestTargets)
+                                {
+                                    discoveredCoveringTests.insert(coveringTestTarget);
+                                }
+
+                                return BuildGraphVertexVisitResult::Continue;
+                            }
+
+                            if (isCovered(depender.m_buildTarget))
+                            {
+                                return BuildGraphVertexVisitResult::Continue;
+                            }
+
+                            // AZ_Printf(
+                            //     AZStd::string::format("**********>%s", depender.m_buildTarget.GetTarget()->GetName().c_str()).c_str(),
+                            //     "Is not covered :(\n");
+                            exclusive = false;
+                            return BuildGraphVertexVisitResult::AbortGraphTraversal;
+                        });
+
+                    if (exclusive)
+                    {
+                        // AZ_Printf(
+                        //     AZStd::string::format("--->%s", dependency.m_buildTarget.GetTarget()->GetName().c_str()).c_str(),
+                        //     "Exclusively covered dependers found :)\n");
+                        // discoveredTargets.insert(dependency.m_buildTarget);
+
+                        auto& discoveredCoveringTests = discoveredTargets[dependency.m_buildTarget];
+                        for (const auto& coveringTestTarget : coveringTestTargets)
+                        {
+                            discoveredCoveringTests.insert(coveringTestTarget);
+                        }
+
+                        return BuildGraphVertexVisitResult::Continue;
+                    }
+
+                    // AZ_Printf(
+                    //     AZStd::string::format("--->%s", dependency.m_buildTarget.GetTarget()->GetName().c_str()).c_str(),
+                    //     "Exclusively covered dependers not found :(\n");
+                    return BuildGraphVertexVisitResult::AbortBranchTraversal;
+                });
+        }
+
+        AZStd::unordered_map<const TestTarget*, AZStd::unordered_set<BuildTarget<ProductionTarget, TestTarget>>> expandedCoverage;
+
+        AZ_Printf("", "Known covered targets:\n");
+        for (const auto& [target, tests] : coveredTargets)
+        {
+            AZ_Printf("---->", "%s\n", target.GetTarget()->GetName().c_str());
+            for (const auto& test : tests)
+            {
+                expandedCoverage[test].insert(target);
+            }
+        }
+
+        AZ_Printf("", "Discovered targets:\n");
+        for (const auto& [target, tests] : discoveredTargets)
+        {
+            AZ_Printf("---->", "%s\n", target.GetTarget()->GetName().c_str());
+            for (const auto& test : tests)
+            {
+                expandedCoverage[test].insert(target);
+            }
+        }
+
+        AZStd::vector<TestEngineInstrumentedRun<TestTarget, typename PythonTestEngine::TestCaseCoverageType>> expandedTestJobs;
+        expandedTestJobs.reserve(testJobs.size());
+        for (const auto& testJob : testJobs)
+        {
+            AZStd::optional<TestRun> run = testJob.GetTestRun();
+            AZStd::vector<ModuleCoverage> moduleCoverages;
+            const auto& thisCoveredTargets = expandedCoverage[testJob.GetTestTarget()];
+            for (const auto& coveredTarget : thisCoveredTargets)
+            {
+                moduleCoverages.emplace_back(
+                    AZStd::string::format("%s.dll", coveredTarget.GetTarget()->GetOutputName().c_str()), AZStd::vector<SourceCoverage>{});
+            }
+
+            TestEngineInstrumentedRun<TestTarget, typename PythonTestEngine::TestCaseCoverageType> foo(
+                TestEngineJob<TestTarget>(testJob),
+                AZStd::pair<AZStd::optional<TestRun>, typename PythonTestEngine::TestCaseCoverageType>{
+                    run, TestCoverage(AZStd::move(moduleCoverages)) });
+            expandedTestJobs.push_back(foo);
+        }
+
+        ////////////////////////////////
+
+        return { result, expandedTestJobs };
+    }
+
     Client::RegularSequenceReport PythonRuntime::RegularTestSequence(
         [[maybe_unused]] AZStd::optional<AZStd::chrono::milliseconds> testTargetTimeout,
         [[maybe_unused]] AZStd::optional<AZStd::chrono::milliseconds> globalTimeout,
@@ -330,12 +501,37 @@ namespace TestImpact
 
         // draft previously failing tests????????
 
+        AZStd::vector<const TestTarget*> draftedTestTargets;
+        if (!HasImpactAnalysisData())
+        {
+            const auto notCovered = m_dynamicDependencyMap->GetNotCoveringTests();
+            for (const auto& testTarget : notCovered)
+            {
+                if (!m_testTargetExcludeList->IsTestTargetFullyExcluded(testTarget))
+                {
+                    draftedTestTargets.push_back(testTarget);
+                }
+            }
+        }
+
         // The test targets that were selected for the change list by the dynamic dependency map and the test targets that were not
         const auto [selectedTestTargets, discardedTestTargets] = SelectCoveringTestTargets(changeList, testPrioritizationPolicy);
         
         // The subset of selected test targets that are not on the configuration's exclude list and those that are
         const auto [includedSelectedTestTargets, excludedSelectedTestTargets] =
             SelectTestTargetsByExcludeList(*m_testTargetExcludeList, selectedTestTargets);
+
+        for (const auto& file : changeList.m_createdFiles)
+        {
+            const auto sourceDependency = m_dynamicDependencyMap->GetSourceDependency(file);
+            if (sourceDependency.has_value())
+            {
+                if (sourceDependency->GetCoveringTestTargets().empty())
+                {
+                    AZ_Error("SELECTION", false, "Source has no coverage: '%s'", file.c_str());
+                }
+            }
+        }
         
         // Functor for running instrumented test targets
         const auto instrumentedTestRun = [this, &testTargetTimeout](
@@ -343,7 +539,7 @@ namespace TestImpact
                                              TestRunCompleteCallbackHandler<TestTarget>& testRunCompleteHandler,
                                              AZStd::optional<AZStd::chrono::milliseconds> globalTimeout)
         {
-            return m_testEngine->InstrumentedRun(
+            return DoThing(m_dynamicDependencyMap.get(), m_testEngine->InstrumentedRun(
                 testsTargets,
                 m_executionFailurePolicy,
                 m_integrationFailurePolicy,
@@ -351,7 +547,7 @@ namespace TestImpact
                 m_targetOutputCapture,
                 testTargetTimeout,
                 globalTimeout,
-                AZStd::ref(testRunCompleteHandler));
+                AZStd::ref(testRunCompleteHandler)));
         };
         
         if (dynamicDependencyMapPolicy == Policy::DynamicDependencyMap::Update)
@@ -378,7 +574,7 @@ namespace TestImpact
                 includedSelectedTestTargets,
                 excludedSelectedTestTargets,
                 discardedTestTargets,
-                {}, // draftedTestTargets,
+                draftedTestTargets,
                 testTargetTimeout,
                 globalTimeout,
                 testSequenceStartCallback,
@@ -397,7 +593,7 @@ namespace TestImpact
                 includedSelectedTestTargets,
                 excludedSelectedTestTargets,
                 discardedTestTargets,
-                {}, // draftedTestTargets,
+                draftedTestTargets,
                 testTargetTimeout,
                 globalTimeout,
                 testSequenceStartCallback,
@@ -672,7 +868,7 @@ namespace TestImpact
         
         // Run the test targets and collect the test run results
         const Timer testRunTimer;
-        const auto [result, testJobs] = m_testEngine->InstrumentedRun(
+        const auto [result, testJobs] = DoThing(m_dynamicDependencyMap.get(), m_testEngine->InstrumentedRun(
             includedTestTargets,
             m_executionFailurePolicy,
             m_integrationFailurePolicy,
@@ -680,7 +876,8 @@ namespace TestImpact
             m_targetOutputCapture,
             testTargetTimeout,
             globalTimeout,
-            TestRunCompleteCallbackHandler<TestTarget>(includedTestTargets.size(), testCompleteCallback));
+            TestRunCompleteCallbackHandler<TestTarget>(includedTestTargets.size(), testCompleteCallback)));
+
         const auto testRunDuration = testRunTimer.GetElapsedMs();
         
         // Generate the sequence report for the client
@@ -701,164 +898,9 @@ namespace TestImpact
                 
         ClearDynamicDependencyMapAndRemoveExistingFile();
 
-        ////////////////////////////////
-
-        AZStd::unordered_map<BuildTarget<ProductionTarget, TestTarget>, AZStd::unordered_set<const TestTarget*>> coveredTargets;
-        AZStd::unordered_map<BuildTarget<ProductionTarget, TestTarget>, AZStd::unordered_set<const TestTarget*>> discoveredTargets;
-
-        const auto isCovered = [&](const BuildTarget<ProductionTarget, TestTarget>& buildTarget)
-        {
-            return coveredTargets.count(buildTarget) || discoveredTargets.count(buildTarget);
-        };
-
-        for (const auto& testJob : testJobs)
-        {
-            if (testJob.GetCoverge().has_value())
-            {
-                for (const auto& coveredModule : testJob.GetCoverge()->GetModuleCoverages())
-                {
-                    const auto moduleName = AZ::IO::Path(coveredModule.m_path.Stem()).String();
-                    const auto buildTargetName =
-                        m_dynamicDependencyMap->GetBuildTargetList()->GetTargetNameFromOutputNameOrThrow(moduleName);
-                    auto buildTarget = m_dynamicDependencyMap->GetBuildTargetList()->GetBuildTargetOrThrow(buildTargetName);
-                    coveredTargets[buildTarget].insert(testJob.GetTestTarget());
-                }
-            }
-        }
-
-        {
-            const auto& buildGraph = m_buildTargets->GetBuildGraph();
-            const auto coveredTarget = m_buildTargets->GetBuildTargetOrThrow("TestImpact.Frontend.Console.Python");
-            buildGraph.WalkBuildDependencies(
-                coveredTarget,
-                [&](const BuildGraphVertex<ProductionTarget, TestTarget>& dependency, size_t level)
-                {
-                    AZ_Printf(
-                        AZStd::string::format("--->%s", dependency.m_buildTarget.GetTarget()->GetName().c_str()).c_str(),
-                        AZStd::string::format("Distance: %zu\n", level).c_str());
-                    return BuildGraphVertexVisitResult::Continue;
-                });
-        }
-
-        // For each covered target:
-        // 1. Walk the dependencies
-        // 2. If a given dependency is exclusively depended on by covered targets, add the dependency to the covered target list#
-        // 3. Otherwise, stop walking the branch of that dependency
-        const auto& buildGraph = m_buildTargets->GetBuildGraph();
-        for (const auto& keyVal : coveredTargets)
-        {
-            // Structured bindings cannot be captured by lambdas
-            const auto& coveredTarget = keyVal.first;
-            const auto& coveringTestTargets = keyVal.second;
-
-            //const auto coveredTarget = m_buildTargets->GetBuildTargetOrThrow("WhiteBox.Editor");
-            AZ_Printf(coveredTarget.GetTarget()->GetName().c_str(), "Walking dependencies...\n");
-            buildGraph.WalkBuildDependencies(
-                coveredTarget,
-                [&](const BuildGraphVertex<ProductionTarget, TestTarget>& dependency, [[maybe_unused]] size_t level)
-                {
-                    //AZ_Printf(
-                    //    AZStd::string::format("--->%s", dependency.m_buildTarget.GetTarget()->GetName().c_str()).c_str(),
-                    //    "Walking dependers...\n");
-                    bool exclusive = true;
-                    buildGraph.WalkBuildDependers(
-                        dependency.m_buildTarget,
-                        [&](const BuildGraphVertex<ProductionTarget, TestTarget>& depender, [[maybe_unused]] size_t level)
-                        {
-                            const auto editorTarget =
-                                m_buildTargets->GetBuildTarget(depender.m_buildTarget.GetTarget()->GetName() + ".Editor");
-                            if (editorTarget && isCovered(*editorTarget))
-                            {
-                                auto& discoveredCoveringTests = discoveredTargets[dependency.m_buildTarget];
-                                for (const auto& coveringTestTarget : coveringTestTargets)
-                                {
-                                    discoveredCoveringTests.insert(coveringTestTarget);
-                                }
-
-                                return BuildGraphVertexVisitResult::Continue;
-                            }
-
-                            if (isCovered(depender.m_buildTarget))
-                            {
-                                return BuildGraphVertexVisitResult::Continue;
-                            }
-
-                            //AZ_Printf(
-                            //    AZStd::string::format("**********>%s", depender.m_buildTarget.GetTarget()->GetName().c_str()).c_str(),
-                            //    "Is not covered :(\n");
-                            exclusive = false;
-                            return BuildGraphVertexVisitResult::AbortGraphTraversal;
-                        });
-
-                    if (exclusive)
-                    {
-                        //AZ_Printf(
-                        //    AZStd::string::format("--->%s", dependency.m_buildTarget.GetTarget()->GetName().c_str()).c_str(),
-                        //    "Exclusively covered dependers found :)\n");
-                        //discoveredTargets.insert(dependency.m_buildTarget);
-
-                        auto& discoveredCoveringTests = discoveredTargets[dependency.m_buildTarget];
-                        for (const auto& coveringTestTarget : coveringTestTargets)
-                        {
-                            discoveredCoveringTests.insert(coveringTestTarget);
-                        }
-
-                        return BuildGraphVertexVisitResult::Continue;
-                    }
-
-                    //AZ_Printf(
-                    //    AZStd::string::format("--->%s", dependency.m_buildTarget.GetTarget()->GetName().c_str()).c_str(),
-                    //    "Exclusively covered dependers not found :(\n");
-                    return BuildGraphVertexVisitResult::AbortBranchTraversal;
-                });
-        }
-
-        AZStd::unordered_map<const TestTarget*, AZStd::unordered_set<BuildTarget<ProductionTarget, TestTarget>>> expandedCoverage;
-
-        AZ_Printf("", "Known covered targets:\n");
-        for (const auto& [target, tests] : coveredTargets)
-        {
-            AZ_Printf("---->", "%s\n", target.GetTarget()->GetName().c_str());
-            for (const auto& test : tests)
-            {
-                expandedCoverage[test].insert(target);
-            }
-        }
-
-        AZ_Printf("", "Discovered targets:\n");
-        for (const auto& [target, tests] : discoveredTargets)
-        {
-            AZ_Printf("---->", "%s\n", target.GetTarget()->GetName().c_str());
-            for (const auto& test : tests)
-            {
-                expandedCoverage[test].insert(target);
-            }
-        }
-
-        AZStd::vector<TestEngineInstrumentedRun<TestTarget, typename PythonTestEngine::TestCaseCoverageType>> expandedTestJobs;
-        expandedTestJobs.reserve(testJobs.size());
-        for (const auto& testJob : testJobs)
-        {
-            AZStd::optional<TestRun> run = testJob.GetTestRun();
-            AZStd::vector<ModuleCoverage> moduleCoverages;
-            const auto& thisCoveredTargets = expandedCoverage[testJob.GetTestTarget()];
-            for (const auto& coveredTarget : thisCoveredTargets)
-            {
-                moduleCoverages.emplace_back(AZStd::string::format("%s.dll", coveredTarget.GetTarget()->GetOutputName().c_str()), AZStd::vector<SourceCoverage>{});
-            }
-
-            TestEngineInstrumentedRun<TestTarget, typename PythonTestEngine::TestCaseCoverageType> foo(
-                TestEngineJob<TestTarget>(testJob),
-                AZStd::pair<AZStd::optional<TestRun>, typename PythonTestEngine::TestCaseCoverageType>{
-                    run, TestCoverage(AZStd::move(moduleCoverages)) });
-            expandedTestJobs.push_back(foo);
-        }
-       
-        ////////////////////////////////
-
         m_hasImpactAnalysisData = UpdateAndSerializeDynamicDependencyMap(
                                       *m_dynamicDependencyMap.get(),
-                                      expandedTestJobs,
+                                      testJobs,
                                       //testJobs,
                                       m_failedTestCoveragePolicy,
                                       m_integrationFailurePolicy,
