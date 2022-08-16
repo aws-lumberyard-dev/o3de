@@ -156,18 +156,17 @@ namespace AZ::Render
                         {
                             ImGui::Text("Material: %s", selectedDrawPacket->GetMaterial()->GetAsset().GetHint().c_str());
 
-                            for (const AZ::RPI::MeshDrawPacket::ShaderData& shaderData : selectedDrawPacket->GetActiveShaderList())
+                            for (size_t shaderIndex = 0; shaderIndex < selectedDrawPacket->GetActiveShaderList().size(); ++shaderIndex)
                             {
-                                const ImGuiTreeNodeFlags shaderNodeFlags = ImGuiTreeNodeFlags_None;
+                                const AZ::RPI::MeshDrawPacket::ShaderData& shaderData = selectedDrawPacket->GetActiveShaderList()[shaderIndex];
+
+                                const ImGuiTreeNodeFlags shaderNodeFlags = ImGuiTreeNodeFlags_DefaultOpen;
 
                                 if (ImGui::TreeNodeEx(AZStd::string::format("Shader: %s - %s", shaderData.m_shaderTag.GetCStr(), shaderData.m_shader->GetAsset().GetHint().c_str()).c_str(), shaderNodeFlags))
                                 {
                                     ImGui::Indent();
 
-                                    ImGuiShaderUtils::DrawShaderVariantTable(
-                                        shaderData.m_shader->GetAsset()->GetShaderOptionGroupLayout(),
-                                        shaderData.m_requestedShaderVariantId,
-                                        shaderData.m_activeShaderVariantId);
+                                    ImGuiShaderUtils::DrawShaderDetails(shaderData);
 
                                     ImGui::Unindent();
 

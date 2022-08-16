@@ -34,6 +34,7 @@ namespace AZ
                 Name m_shaderTag;
                 ShaderVariantId m_requestedShaderVariantId;
                 ShaderVariantId m_activeShaderVariantId;
+                ShaderVariantStableId m_activeShaderVariantStableId;
             };
 
             using ShaderList = AZStd::vector<ShaderData>;
