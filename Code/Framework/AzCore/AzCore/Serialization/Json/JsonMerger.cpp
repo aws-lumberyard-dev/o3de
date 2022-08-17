@@ -11,6 +11,8 @@
 #include <AzCore/Serialization/Json/JsonMerger.h>
 #include <AzCore/Serialization/Json/JsonSerialization.h>
 #include <AzCore/Serialization/Json/StackedString.h>
+#include <AzCore/std/containers/unordered_map.h>
+#include <AzCore/std/containers/unordered_set.h>
 #include <AzCore/std/string/fixed_string.h>
 #include <AzCore/std/string/osstring.h>
 
@@ -545,13 +547,23 @@ namespace AZ
         if (source.IsObject() && target.IsObject())
         {
             ResultCode resultCode(Tasks::CreatePatch);
+            AZStd::unordered_map<const char*, const rapidjson::Value&> sourceKeys;
+            AZStd::unordered_set<const char*> targetKeys;
+            for (const auto& field : target.GetObject())
+            {
+                targetKeys.emplace(field.name.GetString());
+            }
+            for (const auto& field : source.GetObject())
+            {
+                sourceKeys.emplace(field.name.GetString(), field.value);
+            }
             for (const auto& field : target.GetObject())
             {
                 ScopedStackedString entryName(element, AZStd::string_view(field.name.GetString(), field.name.GetStringLength()));
-                auto sourceField = source.FindMember(field.name);
-                if (sourceField != source.MemberEnd())
+                auto sourceKeyIterator = sourceKeys.find(field.name.GetString());
+                if (sourceKeyIterator != sourceKeys.end())
                 {
-                    resultCode.Combine(CreatePatchInternal(patch, allocator, sourceField->value, field.value, element, settings));
+                    resultCode.Combine(CreatePatchInternal(patch, allocator, sourceKeyIterator->second, field.value, element, settings));
                     if (resultCode.GetProcessing() == Processing::Halted)
                     {
                         return resultCode;
@@ -569,9 +581,8 @@ namespace AZ
             for (const auto& field : source.GetObject())
             {
                 ScopedStackedString entryName(element, AZStd::string_view(field.name.GetString(), field.name.GetStringLength()));
-
-                auto targetField = target.FindMember(field.name);
-                if (targetField == target.MemberEnd())
+                auto targetKeyIterator = targetKeys.find(field.name.GetString());
+                if (targetKeyIterator != targetKeys.end())
                 {
                     patch.PushBack(CreatePatchInternal_Remove(allocator, element), allocator);
                     resultCode.Combine(settings.m_reporting("Removed member from object in JSON Patch.",
