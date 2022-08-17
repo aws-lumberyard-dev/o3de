@@ -126,7 +126,7 @@ namespace EMotionFX::MotionMatching
                 m_trajectorySecsToTrack);
         }
 
-        m_poseWriter.Begin("E:\\RuntimeRecording_Poses.csv", m_actorInstance);
+        m_poseWriter.Begin("E:\\RuntimeRecording_Poses.csv", m_actorInstance, true, true);
         m_queryVectorWriter.Begin("E:\\RuntimeRecording_Features.csv", &featureSchema);
         m_bestMatchingFrameWriter.Begin("E:\\RuntimeRecording_BestMatchingFrames.csv");
     }
