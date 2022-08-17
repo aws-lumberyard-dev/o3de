@@ -50,11 +50,32 @@ namespace ScriptCanvasEditor
         AzToolsFramework::EditorEntityContextNotificationBus::Handler::BusDisconnect();
     }
 
+    void EditorScriptCanvasComponent::SetAssetId(const SourceHandle& assetId)
+    {
+        if (assetId.IsDescriptionValid()
+            && (!m_configuration.HasSource() || m_configuration.GetSource().Describe() != assetId.Describe()))
+        {
+            this->SetPrimaryAsset(assetId.Id());
+        }
+    }
+
+    bool EditorScriptCanvasComponent::HasAssetId() const
+    {
+        return m_configuration.HasSource() && m_configuration.GetSource().IsDescriptionValid();
+    }
+
     void EditorScriptCanvasComponent::Activate()
     {
         using namespace AzToolsFramework;
 
         EditorComponentBase::Activate();
+
+        auto entityId = GetEntityId();
+        if (entityId.IsValid())
+        {
+            EditorScriptCanvasComponentRequestBus::Handler::BusConnect(entityId);
+        }
+
         AzToolsFramework::EditorEntityContextNotificationBus::Handler::BusConnect();
         m_handlerSourceCompiled = m_configuration.ConnectToSourceCompiled([](const Configuration&)
             {
@@ -72,6 +93,8 @@ namespace ScriptCanvasEditor
     void EditorScriptCanvasComponent::Deactivate()
     {
         EditorComponentBase::Deactivate();
+
+        EditorScriptCanvasComponentRequestBus::Handler::BusDisconnect();
         AzToolsFramework::EditorEntityContextNotificationBus::Handler::BusDisconnect();
     }
 

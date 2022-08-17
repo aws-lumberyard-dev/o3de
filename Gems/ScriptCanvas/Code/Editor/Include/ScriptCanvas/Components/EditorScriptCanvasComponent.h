@@ -13,6 +13,7 @@
 #include <Editor/Framework/Configuration.h>
 #include <ScriptCanvas/Components/EditorDeprecationData.h>
 #include <ScriptCanvas/Components/EditorScriptCanvasComponentSerializer.h>
+#include <ScriptCanvas/Bus/EditorScriptCanvasBus.h>
 
 namespace ScriptCanvasEditor
 {
@@ -23,6 +24,7 @@ namespace ScriptCanvasEditor
     class EditorScriptCanvasComponent final
         : public AzToolsFramework::Components::EditorComponentBase
         , private AzToolsFramework::EditorEntityContextNotificationBus::Handler
+        , private EditorScriptCanvasComponentRequestBus::Handler
     {
     public:
         AZ_COMPONENT(EditorScriptCanvasComponent, "{C28E2D29-0746-451D-A639-7F113ECF5D72}", AzToolsFramework::Components::EditorComponentBase);
@@ -46,6 +48,9 @@ namespace ScriptCanvasEditor
         EditorScriptCanvasComponent();
         EditorScriptCanvasComponent(const SourceHandle& sourceHandle);
         ~EditorScriptCanvasComponent() override;
+
+        void SetAssetId(const SourceHandle& assetId) override;
+        bool HasAssetId() const override;
                         
     protected:
         static void GetProvidedServices(AZ::ComponentDescriptor::DependencyArrayType& provided)
