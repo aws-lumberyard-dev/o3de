@@ -56,7 +56,7 @@ namespace EMotionFX::MotionMatching
     public:
         virtual ~PoseWriterCsv() = default;
 
-        bool Begin(const char* filename, ActorInstance* actorInstance);
+        bool Begin(const char* filename, ActorInstance* actorInstance, bool writePositions, bool writeRotations);
         void WritePose(Pose& pose, const ETransformSpace transformSpace);
         void End() override;
 
@@ -65,6 +65,8 @@ namespace EMotionFX::MotionMatching
         void SavePoseToString(Pose& pose, const ETransformSpace transformSpace, AZStd::string& outText);
 
         ActorInstance* m_actorInstance = nullptr;
+        bool m_writePositions = true;
+        bool m_writeRotations = true;
     };
 
     //! Store a list of query vectors in a table
@@ -101,7 +103,7 @@ namespace EMotionFX::MotionMatching
     public:
         ~PoseReaderCsv();
 
-        bool Begin(const char* filename);
+        bool Begin(const char* filename, bool readPositions, bool readRotations);
         void ApplyPose(ActorInstance* actorInstance, Pose& pose, const ETransformSpace transformSpace, size_t index);
         size_t GetNumPoses() const { return m_poseValueLines.size(); }
         void End();
@@ -109,5 +111,7 @@ namespace EMotionFX::MotionMatching
     private:
         AZStd::string m_columnNamesLine;
         AZStd::vector<AZStd::string> m_poseValueLines;
+        bool m_readPositions = true;
+        bool m_readRotations = true;
     };
 } // namespace EMotionFX::MotionMatching

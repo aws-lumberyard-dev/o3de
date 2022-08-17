@@ -63,8 +63,11 @@ namespace EMotionFX::MotionMatching
 
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    bool PoseWriterCsv::Begin(const char* filename, ActorInstance* actorInstance)
+    bool PoseWriterCsv::Begin(const char* filename, ActorInstance* actorInstance, bool writePositions, bool writeRotations)
     {
+        m_writePositions = writePositions;
+        m_writeRotations = writeRotations;
+
         if (!actorInstance)
         {
             return false;
@@ -99,11 +102,17 @@ namespace EMotionFX::MotionMatching
             const Node* joint = skeleton->GetNode(jointIndex);
 
             // Position
-            SaveVector3ColumnNames(outText, joint->GetName(), "Pos");
+            if (m_writePositions)
+            {
+                SaveVector3ColumnNames(outText, joint->GetName(), "Pos");
+            }
 
             // Rotation
-            SaveVector3ColumnNames(outText, joint->GetName(), "RotBasisX");
-            SaveVector3ColumnNames(outText, joint->GetName(), "RotBasisY");
+            if (m_writeRotations)
+            {
+                SaveVector3ColumnNames(outText, joint->GetName(), "RotBasisX");
+                SaveVector3ColumnNames(outText, joint->GetName(), "RotBasisY");
+            }
         }
 
         WriteLine(m_tempBuffer);
@@ -140,15 +149,21 @@ namespace EMotionFX::MotionMatching
             }
 
             // Position
-            const AZ::Vector3 position = transform.m_position;
-            WriteVector3ToString(position, outText);
+            if (m_writePositions)
+            {
+                const AZ::Vector3 position = transform.m_position;
+                WriteVector3ToString(position, outText);
+            }
 
             // Rotation
             // Store rotation as the X and Y axes The Z axis can be reconstructed by the cross product of the X and Y axes.
-            const AZ::Quaternion rotation = transform.m_rotation;
-            AZ::Matrix3x3 rotationMatrix = AZ::Matrix3x3::CreateFromQuaternion(rotation);
-            WriteVector3ToString(rotationMatrix.GetBasisX().GetNormalizedSafe(), outText);
-            WriteVector3ToString(rotationMatrix.GetBasisY().GetNormalizedSafe(), outText);
+            if (m_writeRotations)
+            {
+                const AZ::Quaternion rotation = transform.m_rotation;
+                AZ::Matrix3x3 rotationMatrix = AZ::Matrix3x3::CreateFromQuaternion(rotation);
+                WriteVector3ToString(rotationMatrix.GetBasisX().GetNormalizedSafe(), outText);
+                WriteVector3ToString(rotationMatrix.GetBasisY().GetNormalizedSafe(), outText);
+            }
         }
     }
 
@@ -231,8 +246,11 @@ namespace EMotionFX::MotionMatching
         End();
     }
 
-    bool PoseReaderCsv::Begin(const char* filename)
+    bool PoseReaderCsv::Begin(const char* filename, bool readPositions, bool readRotations)
     {
+        m_readPositions = readPositions;
+        m_readRotations = readRotations;
+
         AZ::IO::SystemFile file;
         if (!file.Open(filename, AZ::IO::SystemFile::SF_OPEN_READ_ONLY))
         {
@@ -264,6 +282,8 @@ namespace EMotionFX::MotionMatching
         AZStd::vector<AZStd::string> valueTokens;
         AZ::StringFunc::Tokenize(m_poseValueLines[index], valueTokens, ',');
 
+        Pose* bindPose = actorInstance->GetTransformData()->GetBindPose();
+
         Transform transform;
         size_t valueIndex = 0;
         const size_t numEnabledJoints = actorInstance->GetNumEnabledNodes();
@@ -271,7 +291,7 @@ namespace EMotionFX::MotionMatching
         {
             const size_t jointIndex = actorInstance->GetEnabledNode(i);
 
-            transform = Transform::CreateIdentity();
+            transform = bindPose->GetLocalSpaceTransform(jointIndex);
             switch (transformSpace)
             {
             case TRANSFORM_SPACE_LOCAL: { transform = pose.GetLocalSpaceTransform(jointIndex); break; }
@@ -288,9 +308,13 @@ namespace EMotionFX::MotionMatching
             };
 
             // Position
-            LoadVector3FromString(valueIndex, transform.m_position);
+            if (m_readPositions)
+            {
+                LoadVector3FromString(valueIndex, transform.m_position);
+            }
 
             // Rotation
+            if (m_readRotations)
             {
                 // Load the X and Y axes.
                 AZ::Vector3 basisX = AZ::Vector3::CreateZero();
