@@ -41,7 +41,7 @@ namespace EMotionFX::MotionMatching
 
         InitInternalAttributesForAllInstances();
 
-        poseReaderCsv.Begin("D:/InferencedPoses.csv");
+        poseReaderCsv.Begin("D:/InferencedPosesModelToModel.csv");
 
         Reinit();
         return true;
@@ -69,7 +69,7 @@ namespace EMotionFX::MotionMatching
         AnimGraphPose* outputPose = GetOutputPose(animGraphInstance, OUTPUTPORT_RESULT)->GetValue();
 
         outputPose->InitFromBindPose(animGraphInstance->GetActorInstance());
-        poseReaderCsv.ApplyPose(animGraphInstance->GetActorInstance(), outputPose->GetPose(), currentFrame);
+        poseReaderCsv.ApplyPose(animGraphInstance->GetActorInstance(), outputPose->GetPose(), ETransformSpace::TRANSFORM_SPACE_MODEL, currentFrame);
         const size_t rootMotionNodeIndex = animGraphInstance->GetActorInstance()->GetActor()->GetMotionExtractionNodeIndex();
         outputPose->GetPose().SetLocalSpaceTransform(
             rootMotionNodeIndex,

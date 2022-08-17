@@ -288,7 +288,11 @@ namespace EMotionFX::MotionMatching
             };
 
             // Position
-            LoadVector3FromString(valueIndex, transform.m_position);
+            // LoadVector3FromString(valueIndex, transform.m_position);
+            transform.m_position = actorInstance->GetActor()->GetBindPose()->GetLocalSpaceTransform(jointIndex).m_position;
+            AZ::Vector3 throwaway;
+            LoadVector3FromString(valueIndex, throwaway);
+
 
             // Rotation
             {
