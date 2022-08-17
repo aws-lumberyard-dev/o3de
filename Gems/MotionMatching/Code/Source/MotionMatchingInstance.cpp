@@ -125,6 +125,10 @@ namespace EMotionFX::MotionMatching
                 m_cachedTrajectoryFeature->GetFacingAxisDir(),
                 m_trajectorySecsToTrack);
         }
+
+        m_poseWriter.Begin("E:\\RuntimeRecording_Poses.csv", m_actorInstance);
+        m_queryVectorWriter.Begin("E:\\RuntimeRecording_Features.csv", &featureSchema);
+        m_bestMatchingFrameWriter.Begin("E:\\RuntimeRecording_BestMatchingFrames.csv");
     }
 
     void MotionMatchingInstance::DebugDraw(AzFramework::DebugDisplayRequests& debugDisplay)
@@ -505,6 +509,9 @@ namespace EMotionFX::MotionMatching
             {
                 transformer->Transform(m_queryVector.GetData());
             }
+
+            m_queryVectorWriter.Write(&m_queryVector);
+            m_queryVectorWritten = true;
         }
 
         // 2. Broad-phase search using KD-tree
@@ -623,6 +630,7 @@ namespace EMotionFX::MotionMatching
             ImGuiMonitorRequestBus::Broadcast(&ImGuiMonitorRequests::PushCostHistogramValue, "Total Cost", minCost, AZ::Color::CreateFromRgba(202,255,191,255));
         }
 
+        m_bestMatchingFrameWriter.Write(minCostFrameIndex);
         return minCostFrameIndex;
     }
 } // namespace EMotionFX::MotionMatching
