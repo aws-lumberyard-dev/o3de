@@ -184,9 +184,19 @@ namespace EMotionFX::MotionMatching
             settings.m_frameImportSettings.m_sampleRate = sampleRate;
             mmData.Init(settings);
 
-            const AZStd::string posesCsvFilename = AZStd::string::format("%sMotionMatchingDatabase_Poses_%zuHz.csv", folderPath.c_str(), sampleRate);
-            mmData.GetFrameDatabase().SaveAsCsv(posesCsvFilename.c_str(), actorInstance);
+            // Save motion database (Local space)
+            {
+                const AZStd::string posesCsvFilename = AZStd::string::format("%sMotionMatchingDatabase_Poses_LocalSpace_%zuHz.csv", folderPath.c_str(), sampleRate);
+                mmData.GetFrameDatabase().SaveAsCsv(posesCsvFilename.c_str(), actorInstance, ETransformSpace::TRANSFORM_SPACE_LOCAL);
+            }
 
+            // Save motion database (Model space)
+            {
+                const AZStd::string posesCsvFilename = AZStd::string::format("%sMotionMatchingDatabase_Poses_ModelSpace_%zuHz.csv", folderPath.c_str(), sampleRate);
+                mmData.GetFrameDatabase().SaveAsCsv(posesCsvFilename.c_str(), actorInstance, ETransformSpace::TRANSFORM_SPACE_MODEL);
+            }
+
+            // Save features (which are always in model space)
             const AZStd::string featureMatrixCsvFilename = AZStd::string::format("%sMotionMatchingDatabase_Features_%zuHz.csv", folderPath.c_str(), sampleRate);
             mmData.GetFeatureMatrix().SaveAsCsv(featureMatrixCsvFilename, &animGraphNode->m_featureSchema);
         }
@@ -323,7 +333,7 @@ namespace EMotionFX::MotionMatching
 
         if (instance && instance->m_queryVectorWritten)
         {
-            instance->m_poseWriter.WritePose(outTransformPose);
+            instance->m_poseWriter.WritePose(outTransformPose, ETransformSpace::TRANSFORM_SPACE_LOCAL);
             instance->m_queryVectorWritten = false;
         }
 
