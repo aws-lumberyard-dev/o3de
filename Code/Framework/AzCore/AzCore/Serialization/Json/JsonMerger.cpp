@@ -547,23 +547,28 @@ namespace AZ
         if (source.IsObject() && target.IsObject())
         {
             ResultCode resultCode(Tasks::CreatePatch);
-            AZStd::unordered_map<const char*, const rapidjson::Value&> sourceKeys;
-            AZStd::unordered_set<const char*> targetKeys;
+            AZStd::unordered_set<AZStd::string_view> sourceKeys;
+            AZStd::unordered_set<AZStd::string_view> targetKeys;
             for (const auto& field : target.GetObject())
             {
-                targetKeys.emplace(field.name.GetString());
+                targetKeys.emplace(AZStd::string_view(field.name.GetString(), field.name.GetStringLength()));
             }
             for (const auto& field : source.GetObject())
             {
-                sourceKeys.emplace(field.name.GetString(), field.value);
+                sourceKeys.emplace(AZStd::string_view(field.name.GetString(), field.name.GetStringLength()));
             }
             for (const auto& field : target.GetObject())
             {
                 ScopedStackedString entryName(element, AZStd::string_view(field.name.GetString(), field.name.GetStringLength()));
+
                 auto sourceKeyIterator = sourceKeys.find(field.name.GetString());
                 if (sourceKeyIterator != sourceKeys.end())
                 {
-                    resultCode.Combine(CreatePatchInternal(patch, allocator, sourceKeyIterator->second, field.value, element, settings));
+                    AZStd::string ss("/");
+                    ss.append(sourceKeyIterator->begin(), sourceKeyIterator->end());
+                    rapidjson::Pointer sourceKeyPath(ss.data(), ss.size());
+
+                    resultCode.Combine(CreatePatchInternal(patch, allocator, *(sourceKeyPath.Get(source)), field.value, element, settings));
                     if (resultCode.GetProcessing() == Processing::Halted)
                     {
                         return resultCode;
@@ -582,7 +587,7 @@ namespace AZ
             {
                 ScopedStackedString entryName(element, AZStd::string_view(field.name.GetString(), field.name.GetStringLength()));
                 auto targetKeyIterator = targetKeys.find(field.name.GetString());
-                if (targetKeyIterator != targetKeys.end())
+                if (targetKeyIterator == targetKeys.end())
                 {
                     patch.PushBack(CreatePatchInternal_Remove(allocator, element), allocator);
                     resultCode.Combine(settings.m_reporting("Removed member from object in JSON Patch.",
