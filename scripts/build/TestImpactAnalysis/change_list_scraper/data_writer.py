@@ -74,7 +74,7 @@ class DataWriter():
         count = 1
         for pr, change_map in changelist_map.items():
             commit = change_map['commit']
-            DataWriter.dump_to_file(change_map, f"{file_path}/{count}_{commit}_changelist.json")
+            DataWriter.dump_to_file(change_map, f"{file_path}/{count}_changelist.json")
             count += 1
 
     @classmethod
