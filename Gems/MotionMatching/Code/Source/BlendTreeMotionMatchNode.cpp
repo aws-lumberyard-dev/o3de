@@ -184,16 +184,28 @@ namespace EMotionFX::MotionMatching
             settings.m_frameImportSettings.m_sampleRate = sampleRate;
             mmData.Init(settings);
 
-            // Save motion database (Local space)
+            // Save motion database (Local space) (Positions & Rotations)
             {
-                const AZStd::string posesCsvFilename = AZStd::string::format("%sMotionMatchingDatabase_Poses_LocalSpace_%zuHz.csv", folderPath.c_str(), sampleRate);
-                mmData.GetFrameDatabase().SaveAsCsv(posesCsvFilename.c_str(), actorInstance, ETransformSpace::TRANSFORM_SPACE_LOCAL);
+                const AZStd::string posesCsvFilename = AZStd::string::format("%sMotionMatchingDatabase_Poses_PosRot_LocalSpace_%zuHz.csv", folderPath.c_str(), sampleRate);
+                mmData.GetFrameDatabase().SaveAsCsv(posesCsvFilename.c_str(), actorInstance, ETransformSpace::TRANSFORM_SPACE_LOCAL, /*writePositions=*/true, /*writeRotations=*/true);
             }
 
-            // Save motion database (Model space)
+            // Save motion database (Local space) (Rotations ONLY)
             {
-                const AZStd::string posesCsvFilename = AZStd::string::format("%sMotionMatchingDatabase_Poses_ModelSpace_%zuHz.csv", folderPath.c_str(), sampleRate);
-                mmData.GetFrameDatabase().SaveAsCsv(posesCsvFilename.c_str(), actorInstance, ETransformSpace::TRANSFORM_SPACE_MODEL);
+                const AZStd::string posesCsvFilename = AZStd::string::format("%sMotionMatchingDatabase_Poses_Rot_LocalSpace_%zuHz.csv", folderPath.c_str(), sampleRate);
+                mmData.GetFrameDatabase().SaveAsCsv(posesCsvFilename.c_str(), actorInstance, ETransformSpace::TRANSFORM_SPACE_LOCAL, /*writePositions=*/false, /*writeRotations=*/true);
+            }
+
+            // Save motion database (Model space) (Positions & Rotations)
+            {
+                const AZStd::string posesCsvFilename = AZStd::string::format("%sMotionMatchingDatabase_Poses_PosRot_ModelSpace_%zuHz.csv", folderPath.c_str(), sampleRate);
+                mmData.GetFrameDatabase().SaveAsCsv(posesCsvFilename.c_str(), actorInstance, ETransformSpace::TRANSFORM_SPACE_MODEL, /*writePositions=*/true, /*writeRotations=*/true);
+            }
+
+            // Save motion database (Model space) (Rotations ONLY)
+            {
+                const AZStd::string posesCsvFilename = AZStd::string::format("%sMotionMatchingDatabase_Poses_Rot_ModelSpace_%zuHz.csv", folderPath.c_str(), sampleRate);
+                mmData.GetFrameDatabase().SaveAsCsv(posesCsvFilename.c_str(), actorInstance, ETransformSpace::TRANSFORM_SPACE_MODEL, /*writePositions=*/false, /*writeRotations=*/true);
             }
 
             // Save features (which are always in model space)

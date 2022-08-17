@@ -248,10 +248,10 @@ namespace EMotionFX::MotionMatching
         return InvalidIndex;
     }
 
-    void FrameDatabase::SaveAsCsv(const char* filename, ActorInstance* actorInstance, const ETransformSpace transformSpace) const
+    void FrameDatabase::SaveAsCsv(const char* filename, ActorInstance* actorInstance, const ETransformSpace transformSpace, bool writePositions, bool writeRotations) const
     {
         PoseWriterCsv poseWriter;
-        poseWriter.Begin(filename, actorInstance);
+        poseWriter.Begin(filename, actorInstance, writePositions, writeRotations);
 
         Pose pose;
         pose.LinkToActorInstance(actorInstance);
