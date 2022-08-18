@@ -181,6 +181,8 @@ namespace ScriptCanvas
 
     private:
 
+        AZStd::string_view GetChildNameOverride() const;
+
         AZStd::vector<AZStd::pair<unsigned char, AZStd::string>> GetPropertyChoices() const
         {
             AZStd::vector< AZStd::pair<unsigned char, AZStd::string>> choices;

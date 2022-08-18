@@ -189,7 +189,7 @@ namespace ScriptCanvas
                 editContext->Class<GraphVariable>("Variable", "Represents a Variable field within a Script Canvas Graph")
                     ->ClassElement(AZ::Edit::ClassElements::EditorData, "")
                     ->Attribute(AZ::Edit::Attributes::Visibility, &GraphVariable::GetVisibility)
-                    ->Attribute(AZ::Edit::Attributes::ChildNameLabelOverride, &GraphVariable::GetVariableName)
+                    ->Attribute(AZ::Edit::Attributes::ChildNameLabelOverride, &GraphVariable::GetChildNameOverride)
                     ->Attribute(AZ::Edit::Attributes::NameLabelOverride, &GraphVariable::GetVariableName)
                     ->Attribute(AZ::Edit::Attributes::DescriptionTextOverride, &GraphVariable::GetDescriptionOverride)
 
@@ -358,6 +358,11 @@ namespace ScriptCanvas
     AZStd::string_view GraphVariable::GetVariableName() const
     {
         return m_variableName;
+    }
+
+    AZStd::string_view GraphVariable::GetChildNameOverride() const
+    {
+        return "Default Value";
     }
 
     void GraphVariable::SetScriptInputControlVisibility(const AZ::Crc32& inputControlVisibility)
