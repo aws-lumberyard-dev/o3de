@@ -166,7 +166,6 @@ namespace EMotionFX::MotionMatching
             }
         }
     }
-    }
 
     void PoseWriterCsv::End()
     {
