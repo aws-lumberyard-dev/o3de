@@ -105,7 +105,7 @@ namespace AssetProcessor
     public:
         AZ_RTTI(UuidManager, "{49FA0129-7272-4256-A5C6-D789C156E6BA}", IUuidRequests);
 
-        static constexpr const char* UuidKey = "UUID";
+        static constexpr const char* UuidKey = "/UUID";
 
         explicit UuidManager(const PlatformConfiguration* platformConfiguration)
             : m_platformConfiguration(platformConfiguration)
@@ -189,26 +189,14 @@ namespace AssetProcessor
                 return itr->second;
             }
 
-            auto value = GetMetadataManager()->Get(sourceIdentifier.AbsolutePath(), UuidKey);
+            CachedUuid cachedUuid;
+            bool result = GetMetadataManager()->Get(sourceIdentifier.AbsolutePath(), UuidKey, &cachedUuid, azrtti_typeid<CachedUuid>());
 
-            if (!value.empty())
+            if (result)
             {
-                if (value.type() == azrtti_typeid<CachedUuid>())
-                {
-                    m_uuids[key] = AZStd::any_cast<CachedUuid>(value);
+                m_uuids[key] = cachedUuid;
 
-                    return m_uuids[key];
-                }
-
-                AZ_Error(
-                    "UuidManager",
-                    false,
-                    "Metadata file has key %s but type is %s instead of %s",
-                    key.c_str(),
-                    value.type().ToFixedString().c_str(),
-                    azrtti_typeid<CachedUuid>().ToFixedString().c_str());
-
-                return {};
+                return m_uuids[key];
             }
 
             CachedUuid newUuid;
@@ -216,7 +204,7 @@ namespace AssetProcessor
             newUuid.m_uuid = CreateUuid();
             newUuid.m_legacyUuid = CreateLegacyUuid(sourceIdentifier.RelativePath());
 
-            GetMetadataManager()->Set(sourceIdentifier.AbsolutePath(), UuidKey, AZStd::any(newUuid));
+            GetMetadataManager()->Set(sourceIdentifier.AbsolutePath(), UuidKey, &newUuid, azrtti_typeid<CachedUuid>());
 
             return newUuid;
         }
