@@ -193,7 +193,6 @@ set(FILES
     Memory/HphaSchema.cpp
     Memory/HphaSchemaErrorDetection.cpp
     Memory/LeakDetection.cpp
-    Memory/MallocSchema.cpp
     AZStd/Algorithms.cpp
     AZStd/Allocators.cpp
     AZStd/Atomics.cpp
