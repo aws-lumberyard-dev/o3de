@@ -406,8 +406,6 @@ set(FILES
     Memory/HphaSchema.h
     Memory/IAllocator.cpp
     Memory/IAllocator.h
-    Memory/MallocSchema.cpp
-    Memory/MallocSchema.h
     Memory/Memory.cpp
     Memory/Memory.h
     Memory/MemoryComponent.cpp
