@@ -41,7 +41,7 @@ namespace EMotionFX::MotionMatching
 
         InitInternalAttributesForAllInstances();
 
-        poseReaderCsv.Begin("D:/InferencedPoses_PosRotFeatureLocal_To_RotLocal.csv", false, true);
+        poseReaderCsv.Begin("D:/InferencedPoses_PosRotFeatureLocal_To_RotLocal.csv", {false, true});
 
         Reinit();
         return true;
