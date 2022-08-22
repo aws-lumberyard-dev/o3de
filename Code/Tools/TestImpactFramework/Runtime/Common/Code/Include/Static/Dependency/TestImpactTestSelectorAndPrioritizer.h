@@ -89,8 +89,8 @@ namespace TestImpact
             const TestTarget* target,
             SelectedTestTargetAndDependerMap& selectedTestTargetMap);
 
-        //! Action to perform when sources that cannot be determined to be production or test sources without coverage are updated.
-        virtual void UpdateIndeterminateSourceWithoutCoverageAction(
+        //! Action to perform when sources that cannot be determined to be production or test sources with coverage are updated.
+        virtual void UpdateIndeterminateSourceWithCoverageAction(
             SelectedTestTargetAndDependerMap& selectedTestTargetMap,
             const SourceDependency<ProductionTarget, TestTarget>& sourceDependency);
 
@@ -179,13 +179,13 @@ namespace TestImpact
     }
 
     template<typename ProductionTarget, typename TestTarget>
-    void TestSelectorAndPrioritizer<ProductionTarget, TestTarget>::UpdateIndeterminateSourceWithoutCoverageAction(
+    void TestSelectorAndPrioritizer<ProductionTarget, TestTarget>::UpdateIndeterminateSourceWithCoverageAction(
         SelectedTestTargetAndDependerMap& selectedTestTargetMap, const SourceDependency<ProductionTarget, TestTarget>& sourceDependency)
     {
         // Action
-        // 1. Log potential orphaned source file warning (handled prior by DynamicDependencyMap)
+        // 1. Log potential orphaned source file warning (handled prior by DynamicDependencyMap::ApplyAndResoveChangeList)
         // 2. Select all test targets covering this file
-        // 3. Delete the existing coverage data from the source covering test list (handled prior by DynamicDependencyMap)
+        // 3. Delete the existing coverage data from the source covering test list (handled prior by DynamicDependencyMap::ApplyAndResoveChangeList)
 
         for (const auto* testTarget : sourceDependency.GetCoveringTestTargets())
         {
@@ -199,7 +199,7 @@ namespace TestImpact
     {
         // Action
         // 1. Select all test targets covering this file
-        // 2. Delete the existing coverage data from the source covering test list (handled prior by DynamicDependencyMap)
+        // 2. Delete the existing coverage data from the source covering test list (handled prior by DynamicDependencyMap::ApplyAndResoveChangeList)
         for (const auto* testTarget : sourceDependency.GetCoveringTestTargets())
         {
             selectedTestTargetMap.insert(testTarget);
@@ -215,32 +215,90 @@ namespace TestImpact
         // Create operations
         for (const auto& sourceDependency : changeDependencyList.GetCreateSourceDependencies())
         {
-            for (const auto& parentTarget : sourceDependency.GetParentTargets())
+            if (sourceDependency.GetNumParentTargets())
             {
-
-                if (parentTarget.GetTarget()->GetType() == TargetType::ProductionTarget)
+                if (sourceDependency.GetNumCoveringTestTargets())
                 {
                     // Parent Targets: Yes
-                    // Coverage Data : No
-                    // Source Type   : Production
+                    // Coverage Data : Yes
+                    // Source Type   : Irrelevant
                     //
                     // Scenario
-                    // 1. The file has been newly created
-                    // 2. This file exists in one or more source to production target mapping artifacts
-                    // 3. There exists no coverage data for this file in the source covering test list
-                    CreateProductionSourceAction(parentTarget.GetProductionTarget(), selectedTestTargetMap);
+                    // 1. This file previously existed in one or more source to target mapping artifacts
+                    // 2. The file has since been deleted yet no delete crud operation acted upon:
+                    //    a) The coverage data for this file was not deleted from the Source Covering Test List
+                    // 3. The file has since been recreated
+                    // 4. This file exists in one or more source to target mapping artifacts
+                    //
+                    // Action (handled prior by DynamicDependencyMap::ApplyAndResoveChangeList)
+                    // 1. Log Source Covering Test List compromised error
+                    // 2. Throw exception
+                    continue;
                 }
                 else
                 {
-                    // Parent Targets: Yes
+                    for (const auto& parentTarget : sourceDependency.GetParentTargets())
+                    {
+                        if (parentTarget.GetTarget()->GetType() == TargetType::ProductionTarget)
+                        {
+                            // Parent Targets: Yes
+                            // Coverage Data : No
+                            // Source Type   : Production
+                            //
+                            // Scenario
+                            // 1. The file has been newly created
+                            // 2. This file exists in one or more source to production target mapping artifacts
+                            // 3. There exists no coverage data for this file in the source covering test list
+                            CreateProductionSourceAction(parentTarget.GetProductionTarget(), selectedTestTargetMap);
+                        }
+                        else
+                        {
+                            // Parent Targets: Yes
+                            // Coverage Data : No
+                            // Source Type   : Test
+                            //
+                            // Scenario
+                            // 1. The file has been newly created
+                            // 2. This file exists in one or more source to test target mapping artifacts
+                            // 3. There exists no coverage data for this file in the source covering test list
+                            CreateTestSourceAction(parentTarget.GetTestTarget(), selectedTestTargetMap);
+                        }
+                    }
+                }
+            }
+            else
+            {
+                if (sourceDependency.GetNumCoveringTestTargets())
+                {
+                    // Parent Targets: No
+                    // Coverage Data : Yes
+                    // Source Type   : Indeterminate
+                    //
+                    // Scenario
+                    // 1. This file previously existed in one or more source to target mapping artifacts
+                    // 2. The file has since been deleted yet no delete crud operation acted upon:
+                    //    a) The coverage data for this file was not deleted from the Source Covering Test List
+                    // 3. The file has since been recreated
+                    // 4. This file does not exist in any source to target mapping artifacts
+                    //
+                    // Action (handled prior by DynamicDependencyMap::ApplyAndResoveChangeList)
+                    // 1. Log Source Covering Test List compromised error
+                    // 2. Throw exception
+                    continue;
+                }
+                else
+                {
+                    // Parent Targets: No
                     // Coverage Data : No
-                    // Source Type   : Test
+                    // Source Type   : Irrelevant
                     //
                     // Scenario
                     // 1. The file has been newly created
-                    // 2. This file exists in one or more source to test target mapping artifacts
-                    // 3. There exists no coverage data for this file in the source covering test list
-                    CreateTestSourceAction(parentTarget.GetTestTarget(), selectedTestTargetMap);
+                    // 2. This file does not exists in any source to target mapping artifacts.
+                    //
+                    // Action (handled prior by DynamicDependencyMap::ApplyAndResoveChangeList)
+                    // 1. Skip the file
+                    continue;
                 }
             }
         }
@@ -313,37 +371,111 @@ namespace TestImpact
             }
             else
             {
-                // Parent Targets: No
-                // Coverage Data : Yes
-                // Source Type   : Indeterminate
-                //
-                // Scenario
-                // 1. The existing file has been modified
-                // 2. Either:
-                //  a) This file previously existed in one or more source to target mapping artifacts
-                //  b) This file no longer exists in any source to target mapping artifacts
-                //  c) The coverage data for this file was has yet to be deleted from the source covering test list
-                // 3. Or:
-                //  a) The file is being used by build targets but has erroneously not been explicitly added to the build
-                //     system (e.g. include directive pulling in a header from the repository that has not been added to
-                //     any build targets due to an oversight)
-                UpdateIndeterminateSourceWithoutCoverageAction(selectedTestTargetMap, sourceDependency);
+                if (sourceDependency.GetNumCoveringTestTargets())
+                {
+                    // Parent Targets: No
+                    // Coverage Data : Yes
+                    // Source Type   : Indeterminate
+                    //
+                    // Scenario
+                    // 1. The existing file has been modified
+                    // 2. Either:
+                    //  a) This file previously existed in one or more source to target mapping artifacts
+                    //  b) This file no longer exists in any source to target mapping artifacts
+                    //  c) The coverage data for this file was has yet to be deleted from the source covering test list
+                    // 3. Or:
+                    //  a) The file is being used by build targets but has erroneously not been explicitly added to the build
+                    //     system (e.g. include directive pulling in a header from the repository that has not been added to
+                    //     any build targets due to an oversight)
+                    UpdateIndeterminateSourceWithCoverageAction(selectedTestTargetMap, sourceDependency);
+                }
+                else
+                {
+                    // Parent Targets: No
+                    // Coverage Data : No
+                    // Source Type   : Indeterminate
+                    //
+                    // Scenario
+                    // 1. The existing file has been modified
+                    // 2. This file does not exist in any source to target mapping artifacts
+                    // 3. There exists no coverage data for this file in the Source Covering Test List
+                    //
+                    // Action (handled prior by DynamicDependencyMap::ApplyAndResoveChangeList)
+                    // 1. Skip the file
+                    continue;
+                }
             }
         }
 
         // Delete operations
         for (const auto& sourceDependency : changeDependencyList.GetDeleteSourceDependencies())
         {
-            // Parent Targets: No
-            // Coverage Data : Yes
-            // Source Type   : Indeterminate
-            //
-            // Scenario
-            // 1. The existing file has been deleted
-            // 2. This file previously existed in one or more source to target mapping artifacts
-            // 2. This file does not exist in any source to target mapping artifacts
-            // 4. The coverage data for this file was has yet to be deleted from the source covering test list
-            DeleteIndeterminateSourceWithoutCoverageAction(selectedTestTargetMap, sourceDependency);
+            if (sourceDependency.GetNumParentTargets())
+            {
+                if (sourceDependency.GetNumCoveringTestTargets())
+                {
+                    // Parent Targets: Yes
+                    // Coverage Data : Yes
+                    // Source Type   : Irrelevant
+                    //
+                    // Scenario
+                    // 1. The file has been deleted.
+                    // 2. This file still exists in one or more source to target mapping artifacts
+                    // 2. There exists coverage data for this file in the Source Covering Test List
+                    //
+                    // Action (handled prior by DynamicDependencyMap::ApplyAndResoveChangeList)
+                    // 1. Log source to target mapping and Source Covering Test List integrity compromised error
+                    // 2. Throw exception
+                    continue;
+                }
+                else
+                {
+                    // Parent Targets: Yes
+                    // Coverage Data : No
+                    // Source Type   : Irrelevant
+                    //
+                    // Scenario
+                    // 1. The file has been deleted.
+                    // 2. This file still exists in one or more source to target mapping artifacts
+                    // 2. There exists no coverage data for this file in the Source Covering Test List
+                    //
+                    // Action (handled prior by DynamicDependencyMap::ApplyAndResoveChangeList)
+                    // 1. Log source to target mapping and Source Covering Test List integrity compromised error
+                    // 2. Throw exception
+                    continue;
+                }
+            }
+            else
+            {
+                if (sourceDependency.GetNumCoveringTestTargets())
+                {
+                    // Parent Targets: No
+                    // Coverage Data : Yes
+                    // Source Type   : Indeterminate
+                    //
+                    // Scenario
+                    // 1. The existing file has been deleted
+                    // 2. This file previously existed in one or more source to target mapping artifacts
+                    // 2. This file does not exist in any source to target mapping artifacts
+                    // 4. The coverage data for this file was has yet to be deleted from the source covering test list
+                    DeleteIndeterminateSourceWithoutCoverageAction(selectedTestTargetMap, sourceDependency);
+                }
+                else
+                {
+                    // Parent Targets: No
+                    // Coverage Data : No
+                    // Source Type   : Indeterminate
+                    //
+                    // Scenario
+                    // 1. The file has been deleted
+                    // 2. This file does not exist in any source to target mapping artifacts
+                    // 3. There exists no coverage data for this file in the Source Covering Test List
+                    //
+                    // Action (handled prior by DynamicDependencyMap::ApplyAndResoveChangeList)
+                    // 1. Skip the file
+                    continue;
+                }
+            }
         }
 
         return selectedTestTargetMap;
