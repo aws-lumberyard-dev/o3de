@@ -30,16 +30,25 @@ public:
     MOCK_METHOD0(GetAWSCredentials, Aws::Auth::AWSCredentials());
 };
 
+class InstanceProfileCredentialsProviderMock
+    : public Aws::Auth::InstanceProfileCredentialsProvider
+{
+public:
+    MOCK_METHOD0(GetAWSCredentials, Aws::Auth::AWSCredentials());
+};
+
 class AWSDefaultCredentialHandlerMock
     : public AWSDefaultCredentialHandler
 {
 public:
     void SetupMocks(
         std::shared_ptr<EnvironmentAWSCredentialsProviderMock> environmentCredentialsProviderMock,
-        std::shared_ptr<ProfileConfigFileAWSCredentialsProviderMock> profileCredentialsProviderMock)
+        std::shared_ptr<ProfileConfigFileAWSCredentialsProviderMock> profileCredentialsProviderMock,
+        std::shared_ptr<InstanceProfileCredentialsProviderMock> instanceProfileCredentialsProviderMock)
     {
         SetEnvironmentCredentialsProvider(environmentCredentialsProviderMock);
         SetProfileCredentialsProvider(profileCredentialsProviderMock);
+        SetInstanceProfileCredentialsProvider(instanceProfileCredentialsProviderMock);
     }
 };
 
@@ -58,9 +67,11 @@ public:
         AWSCoreInternalRequestBus::Handler::BusConnect();
         m_environmentCredentialsProviderMock = Aws::MakeShared<EnvironmentAWSCredentialsProviderMock>(AWSDEFAULTCREDENTIALHANDLERTEST_ALLOC_TAG);
         m_profileCredentialsProviderMock = Aws::MakeShared<ProfileConfigFileAWSCredentialsProviderMock>(AWSDEFAULTCREDENTIALHANDLERTEST_ALLOC_TAG);
+        m_instanceProfileCredentialsProviderMock = Aws::MakeShared<InstanceProfileCredentialsProviderMock>(AWSDEFAULTCREDENTIALHANDLERTEST_ALLOC_TAG);
         m_credentialHandler = AZStd::make_unique<AWSDefaultCredentialHandlerMock>();
         m_credentialHandler->ActivateHandler();
-        m_credentialHandler->SetupMocks(m_environmentCredentialsProviderMock, m_profileCredentialsProviderMock);
+        m_credentialHandler->SetupMocks(
+            m_environmentCredentialsProviderMock, m_profileCredentialsProviderMock, m_instanceProfileCredentialsProviderMock);
     }
 
     void TearDown() override
@@ -69,6 +80,7 @@ public:
         m_credentialHandler.reset();
         m_profileCredentialsProviderMock.reset();
         m_environmentCredentialsProviderMock.reset();
+        m_instanceProfileCredentialsProviderMock.reset();
         AWSCoreInternalRequestBus::Handler::BusDisconnect();
 
         AWSCoreFixture::TearDownFixture();
@@ -81,6 +93,7 @@ public:
 
     std::shared_ptr<EnvironmentAWSCredentialsProviderMock> m_environmentCredentialsProviderMock;
     std::shared_ptr<ProfileConfigFileAWSCredentialsProviderMock> m_profileCredentialsProviderMock;
+    std::shared_ptr<InstanceProfileCredentialsProviderMock> m_instanceProfileCredentialsProviderMock;
     AZStd::unique_ptr<AWSDefaultCredentialHandlerMock> m_credentialHandler;
     AZStd::string m_profileName;
 };
@@ -90,6 +103,7 @@ TEST_F(AWSDefaultCredentialHandlerTest, GetCredentialsProvider_EnvironmentCreden
     Aws::Auth::AWSCredentials nonEmptyCredential(AWS_ACCESS_KEY, AWS_SECRET_KEY);
     EXPECT_CALL(*m_environmentCredentialsProviderMock, GetAWSCredentials()).Times(1).WillOnce(::testing::Return(nonEmptyCredential));
     EXPECT_CALL(*m_profileCredentialsProviderMock, GetAWSCredentials()).Times(0);
+    EXPECT_CALL(*m_instanceProfileCredentialsProviderMock, GetAWSCredentials()).Times(0);
     auto credentialProvider = m_credentialHandler->GetCredentialsProvider();
     EXPECT_TRUE(credentialProvider == m_environmentCredentialsProviderMock);
 }
@@ -100,6 +114,7 @@ TEST_F(AWSDefaultCredentialHandlerTest, GetCredentialsProvider_ProfileCredential
     Aws::Auth::AWSCredentials nonEmptyCredential(AWS_ACCESS_KEY, AWS_SECRET_KEY);
     EXPECT_CALL(*m_environmentCredentialsProviderMock, GetAWSCredentials()).Times(1).WillOnce(::testing::Return(emptyCredential));
     EXPECT_CALL(*m_profileCredentialsProviderMock, GetAWSCredentials()).Times(1).WillOnce(::testing::Return(nonEmptyCredential));
+    EXPECT_CALL(*m_instanceProfileCredentialsProviderMock, GetAWSCredentials()).Times(0);
     auto credentialProvider = m_credentialHandler->GetCredentialsProvider();
     EXPECT_TRUE(credentialProvider == m_profileCredentialsProviderMock);
 }
@@ -110,9 +125,22 @@ TEST_F(AWSDefaultCredentialHandlerTest, GetCredentialsProvider_ProfileNameHasBee
     Aws::Auth::AWSCredentials nonEmptyCredential(AWS_ACCESS_KEY, AWS_SECRET_KEY);
     EXPECT_CALL(*m_environmentCredentialsProviderMock, GetAWSCredentials()).Times(1).WillOnce(::testing::Return(emptyCredential));
     EXPECT_CALL(*m_profileCredentialsProviderMock, GetAWSCredentials()).Times(0);
+    EXPECT_CALL(*m_instanceProfileCredentialsProviderMock, GetAWSCredentials()).Times(1).WillOnce(::testing::Return(emptyCredential));
     m_profileName = "dummyProfile";
     auto credentialProvider = m_credentialHandler->GetCredentialsProvider();
     EXPECT_TRUE(credentialProvider != m_profileCredentialsProviderMock);
+}
+
+TEST_F(
+    AWSDefaultCredentialHandlerTest, GetCredentialsProvider_InstanceProfileProviderReturnsNonEmptyCredentials_GetExpectedCredentialProvider)
+{
+    Aws::Auth::AWSCredentials emptyCredential;
+    Aws::Auth::AWSCredentials nonEmptyCredential(AWS_ACCESS_KEY, AWS_SECRET_KEY);
+    EXPECT_CALL(*m_environmentCredentialsProviderMock, GetAWSCredentials()).Times(1).WillOnce(::testing::Return(emptyCredential));
+    EXPECT_CALL(*m_profileCredentialsProviderMock, GetAWSCredentials()).Times(1).WillOnce(::testing::Return(emptyCredential));
+    EXPECT_CALL(*m_instanceProfileCredentialsProviderMock, GetAWSCredentials()).Times(1).WillOnce(::testing::Return(nonEmptyCredential));
+    auto credentialProvider = m_credentialHandler->GetCredentialsProvider();
+    EXPECT_TRUE(credentialProvider == m_instanceProfileCredentialsProviderMock);
 }
 
 TEST_F(AWSDefaultCredentialHandlerTest, GetCredentialsProvider_NoCredentialFoundInChain_GetNullPointer)
@@ -120,6 +148,7 @@ TEST_F(AWSDefaultCredentialHandlerTest, GetCredentialsProvider_NoCredentialFound
     Aws::Auth::AWSCredentials emptyCredential;
     EXPECT_CALL(*m_environmentCredentialsProviderMock, GetAWSCredentials()).Times(1).WillOnce(::testing::Return(emptyCredential));
     EXPECT_CALL(*m_profileCredentialsProviderMock, GetAWSCredentials()).Times(1).WillOnce(::testing::Return(emptyCredential));
+    EXPECT_CALL(*m_instanceProfileCredentialsProviderMock, GetAWSCredentials()).Times(1).WillOnce(::testing::Return(emptyCredential));
     auto credentialProvider = m_credentialHandler->GetCredentialsProvider();
     EXPECT_FALSE(credentialProvider);
 }
