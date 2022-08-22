@@ -251,7 +251,8 @@ namespace EMotionFX::MotionMatching
     void FrameDatabase::SaveAsCsv(const char* filename, ActorInstance* actorInstance, const ETransformSpace transformSpace, bool writePositions, bool writeRotations) const
     {
         PoseWriterCsv poseWriter;
-        poseWriter.Begin(filename, actorInstance, writePositions, writeRotations);
+        PoseWriterCsv::WriteSettings writeSettings{ writePositions, writeRotations };
+        poseWriter.Begin(filename, actorInstance, writeSettings);
 
         Pose pose;
         pose.LinkToActorInstance(actorInstance);

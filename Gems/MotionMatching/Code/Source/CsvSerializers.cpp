@@ -63,10 +63,9 @@ namespace EMotionFX::MotionMatching
 
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    bool PoseWriterCsv::Begin(const char* filename, ActorInstance* actorInstance, bool writePositions, bool writeRotations)
+    bool PoseWriterCsv::Begin(const char* filename, ActorInstance* actorInstance, const WriteSettings& writeSettings)
     {
-        m_writePositions = writePositions;
-        m_writeRotations = writeRotations;
+        m_settings = writeSettings;
 
         if (!actorInstance)
         {
@@ -102,13 +101,13 @@ namespace EMotionFX::MotionMatching
             const Node* joint = skeleton->GetNode(jointIndex);
 
             // Position
-            if (m_writePositions)
+            if (m_settings.m_writePositions)
             {
                 SaveVector3ColumnNames(outText, joint->GetName(), "Pos");
             }
 
             // Rotation
-            if (m_writeRotations)
+            if (m_settings.m_writeRotations)
             {
                 SaveVector3ColumnNames(outText, joint->GetName(), "RotBasisX");
                 SaveVector3ColumnNames(outText, joint->GetName(), "RotBasisY");
@@ -160,7 +159,7 @@ namespace EMotionFX::MotionMatching
             }
 
             // Position
-            if (m_writePositions)
+            if (m_settings.m_writePositions)
             {
                 const AZ::Vector3 position = transform.m_position;
                 WriteVector3ToString(position, outText);
@@ -168,7 +167,7 @@ namespace EMotionFX::MotionMatching
 
             // Rotation
             // Store rotation as the X and Y axes The Z axis can be reconstructed by the cross product of the X and Y axes.
-            if (m_writeRotations)
+            if (m_settings.m_writeRotations)
             {
                 const AZ::Quaternion rotation = transform.m_rotation;
                 AZ::Matrix3x3 rotationMatrix = AZ::Matrix3x3::CreateFromQuaternion(rotation);
@@ -257,10 +256,9 @@ namespace EMotionFX::MotionMatching
         End();
     }
 
-    bool PoseReaderCsv::Begin(const char* filename, bool readPositions, bool readRotations)
+    bool PoseReaderCsv::Begin(const char* filename, const ReadSettings& readSettings)
     {
-        m_readPositions = readPositions;
-        m_readRotations = readRotations;
+        m_settings = readSettings;
 
         AZ::IO::SystemFile file;
         if (!file.Open(filename, AZ::IO::SystemFile::SF_OPEN_READ_ONLY))
@@ -330,13 +328,13 @@ namespace EMotionFX::MotionMatching
             };
 
             // Position
-            if (m_readPositions)
+            if (m_settings.m_readPositions)
             {
                 LoadVector3FromString(valueIndex, transform.m_position);
             }
 
             // Rotation
-            if (m_readRotations)
+            if (m_settings.m_readRotations)
             {
                 // Load the X and Y axes.
                 AZ::Vector3 basisX = AZ::Vector3::CreateZero();
