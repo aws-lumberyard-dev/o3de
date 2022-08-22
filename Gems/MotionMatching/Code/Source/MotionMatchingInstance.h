@@ -20,6 +20,8 @@
 #include <MotionMatching/MotionMatchingBus.h>
 #include <CsvSerializers.h>
 
+#include <ONNX/Model.h>
+
 namespace AZ
 {
     class ReflectContext;
@@ -33,6 +35,8 @@ namespace EMotionFX
 
 namespace EMotionFX::MotionMatching
 {
+    #define ONNX_ENABLED true
+
     class MotionMatchingData;
 
     //! The instance is where everything comes together. It stores the trajectory history, the trajectory query along with the query vector, knows about the
@@ -129,5 +133,11 @@ namespace EMotionFX::MotionMatching
         /// Buffers used for FindLowestCostFrameIndex().
         AZStd::vector<float> m_tempCosts;
         AZStd::vector<float> m_minCosts;
+
+#ifdef ONNX_ENABLED
+        ONNX::Model m_onnxModel;
+        AZStd::vector<AZStd::vector<float>> m_onnxInput;
+        size_t m_currentFrame = 0;
+#endif
     };
 } // namespace EMotionFX::MotionMatching

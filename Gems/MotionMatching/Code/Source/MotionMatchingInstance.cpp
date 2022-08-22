@@ -126,9 +126,18 @@ namespace EMotionFX::MotionMatching
                 m_trajectorySecsToTrack);
         }
 
-        m_poseWriter.Begin("D:\\RuntimeRecording_Poses.csv", m_actorInstance, true, true);
-        m_queryVectorWriter.Begin("D:\\RuntimeRecording_Features.csv", &featureSchema);
-        m_bestMatchingFrameWriter.Begin("D:\\RuntimeRecording_BestMatchingFrames.csv");
+        // m_poseWriter.Begin("D:\\RuntimeRecording_Poses.csv", m_actorInstance, true, true);
+        // m_queryVectorWriter.Begin("D:\\RuntimeRecording_Features.csv", &featureSchema);
+        // m_bestMatchingFrameWriter.Begin("D:\\RuntimeRecording_BestMatchingFrames.csv");
+
+#ifdef ONNX_ENABLED
+        ONNX::Model::InitSettings onnxInitSettings;
+        onnxInitSettings.m_modelFile = "D:/OnnxModel_PosRotFeatureLocal_To_RotLocal_Unnormalized.onnx";
+        m_onnxModel.Load(onnxInitSettings);
+
+        AZStd::vector<float> motionMatchingOnnxInput(1706);
+        m_onnxInput.push_back(motionMatchingOnnxInput);
+#endif
     }
 
     void MotionMatchingInstance::DebugDraw(AzFramework::DebugDisplayRequests& debugDisplay)
@@ -289,6 +298,102 @@ namespace EMotionFX::MotionMatching
             return;
         }
 
+#ifdef ONNX_ENABLED
+        const FeatureMatrix& featureMatrix = m_data->GetFeatureMatrix();
+        const FrameDatabase& frameDatabase = m_data->GetFrameDatabase();
+        const Frame& currentFrame = frameDatabase.GetFrame(m_currentFrame);
+        size_t featureCount = featureMatrix.cols();
+
+        currentFrame.SamplePose(&outputPose);
+
+        const size_t numEnabledJoints = m_actorInstance->GetNumEnabledNodes();
+
+        size_t onnxInputVectorIndex = 0;
+
+        for (size_t i = 0; i < numEnabledJoints; ++i)
+        {
+            const size_t jointIndex = m_actorInstance->GetEnabledNode(i);
+
+            Transform transform = Transform::CreateIdentity();
+            transform = outputPose.GetLocalSpaceTransform(jointIndex);
+
+            // Position
+            const AZ::Vector3 position = transform.m_position;
+            m_onnxInput[0][onnxInputVectorIndex] = position.GetX();
+            m_onnxInput[0][onnxInputVectorIndex+1] = position.GetY();
+            m_onnxInput[0][onnxInputVectorIndex+2] = position.GetZ();
+
+            // Rotation
+            // Store rotation as the X and Y axes The Z axis can be reconstructed by the cross product of the X and Y axes.
+            const AZ::Quaternion rotation = transform.m_rotation;
+            AZ::Matrix3x3 rotationMatrix = AZ::Matrix3x3::CreateFromQuaternion(rotation);
+            AZ::Vector3 rotationMatrixBasisX = rotationMatrix.GetBasisX().GetNormalizedSafe();
+            AZ::Vector3 rotationMatrixBasisY = rotationMatrix.GetBasisY().GetNormalizedSafe();
+            m_onnxInput[0][onnxInputVectorIndex+3] = rotationMatrixBasisX.GetX();
+            m_onnxInput[0][onnxInputVectorIndex+4] = rotationMatrixBasisX.GetY();
+            m_onnxInput[0][onnxInputVectorIndex+5] = rotationMatrixBasisX.GetZ();
+            m_onnxInput[0][onnxInputVectorIndex+6] = rotationMatrixBasisY.GetX();
+            m_onnxInput[0][onnxInputVectorIndex+7] = rotationMatrixBasisY.GetY();
+            m_onnxInput[0][onnxInputVectorIndex+8] = rotationMatrixBasisY.GetZ();
+
+            onnxInputVectorIndex += 9;
+        }
+
+        for (size_t i = 0; i < featureCount; i++)
+        {
+            m_onnxInput[0][onnxInputVectorIndex + i] = featureMatrix(m_currentFrame, i);
+        }
+
+        ONNX::Model* onnxModel = &m_onnxModel;
+
+        onnxModel->Run(m_onnxInput);
+
+        Pose* bindPose = m_actorInstance->GetTransformData()->GetBindPose();
+
+        size_t valueIndex = 0;
+        for (size_t i = 0; i < numEnabledJoints; ++i)
+        {
+            const size_t jointIndex = m_actorInstance->GetEnabledNode(i);
+
+            Transform transform = bindPose->GetLocalSpaceTransform(jointIndex);
+
+            auto LoadVector3 = [onnxModel](size_t& valueIndex, AZ::Vector3& outVec)
+            {
+                outVec.SetX(onnxModel->m_outputs[0][valueIndex + 0]);
+                outVec.SetY(onnxModel->m_outputs[0][valueIndex + 1]);
+                outVec.SetZ(onnxModel->m_outputs[0][valueIndex + 2]);
+                valueIndex += 3;
+            };
+
+            // Rotation
+            // Load the X and Y axes.
+            AZ::Vector3 basisX = AZ::Vector3::CreateZero();
+            AZ::Vector3 basisY = AZ::Vector3::CreateZero();
+            LoadVector3(valueIndex, basisX);
+            LoadVector3(valueIndex, basisY);
+            basisX.NormalizeSafe();
+            basisY.NormalizeSafe();
+
+            // Create a 3x3 rotation matrix by the X and Y axes and construct the Z-axis as the
+            // cross-product of the X and Y axes.
+            AZ::Matrix3x3 rotationMatrix = AZ::Matrix3x3::CreateIdentity();
+            rotationMatrix.SetBasisX(basisX);
+            rotationMatrix.SetBasisY(basisY);
+            rotationMatrix.SetBasisZ(basisX.Cross(basisY));
+            rotationMatrix.GetBasisZ().NormalizeSafe();
+
+            // Convert the rotation matrix to a quaternion.
+            transform.m_rotation = AZ::Quaternion::CreateFromMatrix3x3(rotationMatrix);
+
+            outputPose.SetLocalSpaceTransform(jointIndex, transform);
+        }
+
+        m_currentFrame++;
+        if (m_currentFrame % frameDatabase.GetNumFrames() == 0)
+        {
+            m_currentFrame = 0;
+        }
+#else
         // Sample the motions and blend the results when needed.
         if (m_blendWeight >= 1.0f - AZ::Constants::FloatEpsilon)
         {
@@ -324,6 +429,7 @@ namespace EMotionFX::MotionMatching
             }
             outputPose = m_blendSourcePose;
         }
+#endif
     }
 
     void MotionMatchingInstance::Update(float timePassedInSeconds,

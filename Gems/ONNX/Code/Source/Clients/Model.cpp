@@ -6,7 +6,7 @@
  *
  */
 
-#include "Model.h"
+#include <ONNX/Model.h>
 
 namespace ONNX
 {
@@ -71,8 +71,15 @@ namespace ONNX
             const char* in_name = m_session.GetInputName(i, *m_allocator);
             m_inputNames.push_back(in_name);
 
-            const std::vector inputShape = m_session.GetInputTypeInfo(i).GetTensorTypeAndShapeInfo().GetShape();
-            const AZStd::vector azInputShape(inputShape.begin(), inputShape.end());
+            std::vector<int64_t> inputShape = m_session.GetInputTypeInfo(i).GetTensorTypeAndShapeInfo().GetShape();
+            AZStd::vector<int64_t> azInputShape(inputShape.begin(), inputShape.end());
+            for (int index = 0; index < azInputShape.size(); index++)
+            {
+                if (azInputShape[index] == -1)
+                {
+                    azInputShape[index] = 1;
+                }
+            }
             m_inputShapes.push_back(azInputShape);
         }
 
@@ -86,15 +93,25 @@ namespace ONNX
             const char* out_name = m_session.GetOutputName(i, *m_allocator);
             m_outputNames.push_back(out_name);
 
-            const std::vector outputShape = m_session.GetOutputTypeInfo(0).GetTensorTypeAndShapeInfo().GetShape();
-            const AZStd::vector azOutputShape(outputShape.begin(), outputShape.end());
+            std::vector<int64_t> outputShape = m_session.GetOutputTypeInfo(0).GetTensorTypeAndShapeInfo().GetShape();
+            AZStd::vector<int64_t> azOutputShape(outputShape.begin(), outputShape.end());
+            for (int index = 0; index < azOutputShape.size(); index++)
+            {
+                if (azOutputShape[index] == -1)
+                {
+                    azOutputShape[index] = 1;
+                }
+            }
             m_outputShapes.push_back(azOutputShape);
 
             int64_t outputSize = 1;
             for (int j = 0; j < m_outputShapes[i].size(); j++)
             {
                 // The size of each output is simply all the magnitudes of the shape dimensions multiplied together.
-                outputSize *= m_outputShapes[i][j];
+                if (m_outputShapes[i][j] > 0)
+                {
+                    outputSize *= m_outputShapes[i][j];
+                }
             }
             AZStd::vector<float> output(outputSize);
             outputs[i] = output;

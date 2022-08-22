@@ -7,7 +7,7 @@
  */
 
 #include "ONNXSystemComponent.h"
-#include "Model.h"
+#include <ONNX/Model.h>
 
 #include <AzCore/Serialization/EditContext.h>
 #include <AzCore/Serialization/EditContextConstants.inl>

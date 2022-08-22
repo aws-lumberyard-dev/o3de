@@ -23,6 +23,7 @@ ly_add_target(
             AZ::AzFramework
             Gem::EMotionFXStaticLib
             Gem::ImguiAtom.Static
+            ONNX.Private.Object
 )
 
 # Here add MotionMatching target, it depends on the MotionMatching.Static

@@ -10,7 +10,7 @@
 
 #include <AzCore/IO/SystemFile.h>
 
-#include "Model.h"
+#include <ONNX/Model.h>
 #include "upng/upng.h"
 
 namespace Mnist

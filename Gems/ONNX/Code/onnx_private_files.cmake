@@ -7,9 +7,9 @@
 #
 
 set(FILES
+    Include/ONNX/Model.h
+    Source/Clients/Model.cpp
     Source/ONNXModuleInterface.h
     Source/Clients/ONNXSystemComponent.cpp
     Source/Clients/ONNXSystemComponent.h
-    Source/Clients/Model.h
-    Source/Clients/Model.cpp
 )

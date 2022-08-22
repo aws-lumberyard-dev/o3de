@@ -11,6 +11,7 @@
 // include the required headers
 #include <EMotionFX/Source/EMotionFXConfig.h>
 #include <EMotionFX/Source/AnimGraphNode.h>
+#include <ONNX/Model.h>
 #include "CsvSerializers.h"
 
 
@@ -58,6 +59,8 @@ namespace EMotionFX::MotionMatching
 
         PoseReaderCsv poseReaderCsv;
         size_t currentFrame = 0;
+
+        ONNX::Model m_onnxModel;
 
     private:
         void Output(AnimGraphInstance* animGraphInstance) override;

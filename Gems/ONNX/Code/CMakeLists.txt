@@ -27,12 +27,17 @@ ly_add_target(
     INCLUDE_DIRECTORIES
         INTERFACE
             Include
+            Source
+            ${Onnx_INCLUDE_DIR}
     BUILD_DEPENDENCIES
         INTERFACE
            AZ::AzCore
+           AZ::AzFramework
+           AZ::AzToolsFramework
            Gem::ImguiAtom.Static
            Gem::ImGui.Static
            Gem::ImGui.ImGuiLYUtils
+           ${Onnx_LIB}
 )
 
 # The ONNX.Private.Object target is an internal target
@@ -48,7 +53,7 @@ ly_add_target(
     TARGET_PROPERTIES
         O3DE_PRIVATE_TARGET TRUE
     INCLUDE_DIRECTORIES
-        PRIVATE
+        PUBLIC
             Include
             Source
             ${Onnx_INCLUDE_DIR}

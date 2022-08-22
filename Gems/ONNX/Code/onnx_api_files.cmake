@@ -8,4 +8,5 @@
 
 set(FILES
     Include/ONNX/ONNXBus.h
+    Include/ONNX/Model.h
 )

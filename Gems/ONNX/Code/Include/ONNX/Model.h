@@ -43,7 +43,7 @@ namespace ONNX
         //! ie if onnx model has output count of 2 each with shapes of {1, 1, 28, 28} then m_outputs will hold 2 vectors of length 784 each.
         //! Only needs to be executed once, inferences using the same onnx model file can be run by providing different input/output params to
         //! Run().
-        void Load(const InitSettings& m_init_settings);
+        void Load(const InitSettings& initSettings);
 
         //! Executes the inference using the loaded model.
         //! Input and output vectors are used to generate their respective tensors.

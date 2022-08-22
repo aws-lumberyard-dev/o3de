@@ -41,7 +41,11 @@ namespace EMotionFX::MotionMatching
 
         InitInternalAttributesForAllInstances();
 
-        poseReaderCsv.Begin("D:/InferencedPoses_PosRotFeatureLocal_To_RotLocal.csv", false, true);
+        ONNX::Model::InitSettings onnxModelInitSettings;
+        onnxModelInitSettings.m_modelFile = "D:/OnnxModel_PosRotFeatureLocal_To_RotLocal_Unnormalized.onnx";
+        m_onnxModel.Load(onnxModelInitSettings);
+
+        poseReaderCsv.Begin("D:/InferencedPoses_PosRotFeatureLocal_To_RotLocal_Unnormalized.csv", false, true);
 
         Reinit();
         return true;

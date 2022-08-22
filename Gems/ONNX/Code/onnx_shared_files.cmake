@@ -8,4 +8,9 @@
 
 set(FILES
     Source/Clients/ONNXModule.cpp
+    Include/ONNX/Model.h
+    Source/Clients/Model.cpp
+    Source/ONNXModuleInterface.h
+    Source/Clients/ONNXSystemComponent.cpp
+    Source/Clients/ONNXSystemComponent.h
 )
