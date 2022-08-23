@@ -32,7 +32,7 @@ namespace TestImpact
     {
         using Cache = NativeTestEnumerator::JobData::Cache;
 
-        const auto enumerationArtifact = GenerateTargetEnumerationArtifactFilePath(testTarget, m_artifactDir.m_enumerationCacheDirectory);
+        const auto enumerationArtifact = GenerateTargetEnumerationArtifactFilePath(testTarget, m_artifactDir.m_enumerationArtifactDirectory);
         const Command args = { AZStd::string::format(
             "%s --gtest_list_tests --gtest_output=xml:\"%s\"",
             GenerateLaunchArgument(testTarget, m_targetBinaryDir, m_testRunnerBinary).c_str(), enumerationArtifact.c_str()) };
