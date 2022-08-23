@@ -31,6 +31,7 @@ namespace TestImpact
             "coverage_artifact_dir",
             "enumeration_cache_dir",
             "test_impact_data_file",
+            "enumeration_artifact_dir",
             "temp",
             "active",
             "target_sources",
@@ -80,6 +81,7 @@ namespace TestImpact
             CoverageArtifactDir,
             EnumerationCacheDir,
             TestImpactDataFile,
+            EnumerationArtifactDir,
             TempWorkspace,
             ActiveWorkspace,
             TargetSources,
@@ -168,7 +170,7 @@ namespace TestImpact
         ArtifactDir tempWorkspaceConfig;
         tempWorkspaceConfig.m_testRunArtifactDirectory = tempWorkspace[Config::Keys[Config::RunArtifactDir]].GetString();
         tempWorkspaceConfig.m_coverageArtifactDirectory = tempWorkspace[Config::Keys[Config::CoverageArtifactDir]].GetString();
-        tempWorkspaceConfig.m_enumerationCacheDirectory = tempWorkspace[Config::Keys[Config::EnumerationCacheDir]].GetString();
+        tempWorkspaceConfig.m_enumerationArtifactDirectory = tempWorkspace[Config::Keys[Config::EnumerationArtifactDir]].GetString();
         return tempWorkspaceConfig;
     }
 
@@ -178,6 +180,7 @@ namespace TestImpact
         const auto& relativePaths = activeWorkspace[Config::Keys[Config::RelativePaths]];
         activeWorkspaceConfig.m_root = activeWorkspace[Config::Keys[Config::Root]].GetString();
         activeWorkspaceConfig.m_sparTiaFile = relativePaths[Config::Keys[Config::TestImpactDataFile]].GetString();
+        activeWorkspaceConfig.m_enumerationCacheDirectory = relativePaths[Config::Keys[Config::EnumerationCacheDir]].GetString();
         return activeWorkspaceConfig;
     }
 

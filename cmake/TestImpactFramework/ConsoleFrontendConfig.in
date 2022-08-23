@@ -54,13 +54,14 @@
         "root": "${native_temp_dir}",
         "run_artifact_dir": "${GTEST_XML_OUTPUT_DIR}",
         "coverage_artifact_dir": "${native_temp_dir}/Coverage",
-        "enumeration_cache_dir": "${native_temp_dir}/EnumerationCache"
+        "enumeration_artifact_dir": "${python_temp_dir}/Enumeration"
       },
       "active": {
         "root": "${native_active_dir}",
         "relative_paths": {
           "test_impact_data_file": "TestImpactData.spartia",
-          "previous_test_run_data_file": "PreviousTestRunData.json"
+          "previous_test_run_data_file": "PreviousTestRunData.json",
+          "enumeration_cache_dir" : "EnumerationCache"
         }
       },
       "historic": {
@@ -103,13 +104,14 @@
         "root": "${python_temp_dir}",
         "run_artifact_dir": "${PYTEST_XML_OUTPUT_DIR}",
         "coverage_artifact_dir": "${python_temp_dir}/Coverage",
-        "enumeration_cache_dir": "${python_temp_dir}/EnumerationCache"
+        "enumeration_artifact_dir": "${python_temp_dir}/Enumeration"
       },
       "active": {
         "root": "${python_active_dir}",
         "relative_paths": {
           "test_impact_data_file": "TestImpactData.spartia",
-          "previous_test_run_data_file": "PreviousTestRunData.json"
+          "previous_test_run_data_file": "PreviousTestRunData.json",
+          "enumeration_cache_dir" : "EnumerationCache"
         }
       },
       "historic": {

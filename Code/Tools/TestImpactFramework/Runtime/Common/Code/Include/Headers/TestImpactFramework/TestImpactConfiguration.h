@@ -36,7 +36,7 @@ namespace TestImpact
     {
         RepoPath m_testRunArtifactDirectory; //!< Path to read and write test run artifacts to and from.
         RepoPath m_coverageArtifactDirectory; //!< Path to read and write coverage artifacts to and from.
-        RepoPath m_enumerationCacheDirectory; //!< Path to the test enumerations cache.
+        RepoPath m_enumerationArtifactDirectory; //!< Path to read and write test enumeration artifacts to and from.
     };
 
     //! Test impact analysis framework workspace configuration.
@@ -47,6 +47,7 @@ namespace TestImpact
         {
             RepoPath m_root; //!< Path to the persistent workspace tracked by the repository.
             RepoPath m_sparTiaFile; //!< Paths to the test impact analysis data file.
+            RepoPath m_enumerationCacheDirectory; //!< Path to the test enumerations cache.
         };
 
         ArtifactDir m_temp;
