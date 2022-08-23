@@ -20,6 +20,7 @@ set(FILES
     Source/TestRunner/Python/TestImpactPythonTestRunnerBase.cpp
     Source/TestRunner/Python/TestImpactPythonTestRunnerBase.h
     Source/TestRunner/Python/TestImpactPythonTestRunner.h
+    Source/TestRunner/Python/TestImpactPythonTestEnumerator.h
     Source/TestRunner/Python/TestImpactPythonNullTestRunner.cpp
     Source/TestRunner/Python/TestImpactPythonNullTestRunner.h
     Source/TestRunner/Python/Job/TestImpactPythonTestJobInfoGenerator.cpp
