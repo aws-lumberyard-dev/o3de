@@ -89,12 +89,13 @@ namespace TestImpact
 
     namespace Python
     {
-        AZStd::vector<PythonTestEnumerationSuite> TestEnumerationSuitesFactory(const AZStd::string& testEnumerationData)
+        AZStd::vector<TestEnumerationSuite> TestEnumerationSuitesFactory(const AZStd::string& testEnumerationData)
         {
             size_t startLine = 0;
             size_t endLine = 0;
 
             AZStd::map<AZStd::string, AZStd::vector<TestEnumerationSuite>> testSuiteMap;
+            AZStd::vector<TestEnumerationSuite> testSuites;
             AZStd::string previousTestFixture;
 
             while ((startLine = testEnumerationData.find_first_not_of('\n', endLine)) != AZStd::string::npos)
@@ -126,24 +127,21 @@ namespace TestImpact
                     const AZStd::string testFixture = matchResults[TestFixture];
                     const AZStd::string testName = matchResults[TestName];
 
-                    // Fetch or create the vector for this script
-                    AZStd::vector<TestEnumerationSuite>& suitesForThisScript = testSuiteMap[absoluteScriptPath];
-
-                    if (previousTestFixture != testFixture || suitesForThisScript.empty())
+                    if (previousTestFixture != testFixture || testSuites.empty())
                     {
                         // If we're not working with the same fixture as our prevous iteration, or our suites vector is empty, create a test
                         // suite, add the current test case to it, and add the suite to our vector
                         TestEnumerationSuite currentTestSuite =
                             TestEnumerationSuite{ testFixture, true, AZStd::vector<TestEnumerationCase>() };
                         currentTestSuite.m_tests.emplace_back(TestEnumerationCase{ testName, true });
-                        suitesForThisScript.push_back(currentTestSuite);
+                        testSuites.push_back(currentTestSuite);
                     }
                     else
                     {
                         // Else, find the test suite in our vector, get the reference to it and add our current test case to it
                         TestEnumerationSuite* currentTestSuitePointer = AZStd::find_if(
-                            suitesForThisScript.begin(),
-                            suitesForThisScript.end(),
+                            testSuites.begin(),
+                            testSuites.end(),
                             [&](const TestEnumerationSuite& suite)
                             {
                                 return suite.m_name == testFixture;
@@ -158,7 +156,7 @@ namespace TestImpact
             }
 
             // Extract the key/value pairs from our testSuiteMap and put them in our pairs output variable
-            return AZStd::vector(testSuiteMap.begin(), testSuiteMap.end());
+            return testSuites;
         }
     } // namespace Python
 } // namespace TestImpact
