@@ -15,6 +15,7 @@
 #include <TestRunner/Common/Enumeration/TestImpactTestEnumeration.h>
 #include <TestRunner/Common/Job/TestImpactTestEnumerationJobData.h>
 #include <TestRunner/Common/Job/TestImpactTestJobRunner.h>
+#include <TestRunner/Common/Enumeration/TestImpactTestEnumerationSerializer.h>
 
 namespace TestImpact
 {
@@ -96,15 +97,15 @@ namespace TestImpact
                     if (enumeration.has_value())
                     {
                         // Cache read successfully, this job will not be placed in the job queue
-                        cachedJobs.emplace_back(Job(*jobInfo, AZStd::move(meta), AZStd::move(enumeration)));
+                        cachedJobs.emplace_back(typename TestJobRunner::Job(*jobInfo, AZStd::move(meta), AZStd::move(enumeration)));
 
-                        if (clientCallback.has_value() && (*clientCallback)(*jobInfo, meta) == ProcessCallbackResult::Abort)
+                        if (clientCallback.has_value() && (*clientCallback)(*jobInfo, meta, {}) == ProcessCallbackResult::Abort)
                         {
                             // Client chose to abort so we will copy over the existing cache enumerations and fill the rest with blanks
-                            AZStd::vector<Job> jobs(cachedJobs);
+                            AZStd::vector<typename TestJobRunner::Job> jobs(cachedJobs);
                             for (auto emptyJobInfo = ++jobInfo; emptyJobInfo != jobInfos.end(); ++emptyJobInfo)
                             {
-                                jobs.emplace_back(Job(*emptyJobInfo, {}, AZStd::nullopt));
+                                jobs.emplace_back(typename TestJobRunner::Job(*emptyJobInfo, {}, AZStd::nullopt));
                             }
 
                             return { ProcessSchedulerResult::UserAborted, jobs };
