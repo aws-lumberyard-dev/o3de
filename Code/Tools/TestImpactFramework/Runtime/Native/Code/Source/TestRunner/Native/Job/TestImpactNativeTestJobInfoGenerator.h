@@ -54,7 +54,7 @@ namespace TestImpact
         ArtifactDir m_artifactDir;
         RepoPath m_testRunnerBinary;
 
-        NativeTestEnumerator::JobInfo::CachePolicy m_cachePolicy;
+        NativeTestEnumerator::JobInfo::CachePolicy m_cachePolicy = NativeTestEnumerator::JobInfo::CachePolicy::Write;;
     };
 
     //! Generates job information for the different test job runner types.
