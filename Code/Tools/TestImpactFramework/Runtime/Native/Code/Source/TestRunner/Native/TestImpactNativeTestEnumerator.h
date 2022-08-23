@@ -18,17 +18,11 @@
 
 namespace TestImpact
 {
-    struct NativeTestEnumerationJobData
-        : public TestEnumerationJobData
-    {
-        using TestEnumerationJobData::TestEnumerationJobData;
-    };
-
     class NativeTestEnumerator
-        : public TestEnumerator<NativeTestEnumerationJobData>
+        : public TestEnumerator<TestEnumerationJobData>
     {
     public:
-        using TestEnumerator<NativeTestEnumerationJobData>::TestEnumerator;
+        using TestEnumerator<TestEnumerationJobData>::TestEnumerator;
 
     protected:
         JobPayloadOutcome PayloadExtractor(const JobInfo& jobData, [[maybe_unused]] const JobMeta& jobMeta) override
