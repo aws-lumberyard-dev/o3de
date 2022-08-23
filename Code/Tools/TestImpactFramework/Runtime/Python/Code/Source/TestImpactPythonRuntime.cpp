@@ -87,7 +87,9 @@ namespace TestImpact
         m_testEngine = AZStd::make_unique<PythonTestEngine>(
             m_config.m_commonConfig.m_repo.m_root,
             m_config.m_commonConfig.m_repo.m_build,
+            m_config.m_workspace.m_active.m_root / RepoPath(SuiteTypeAsString(m_suiteFilter)) / m_config.m_workspace.m_active.m_enumerationCacheDirectory,
             m_config.m_workspace.m_temp,
+            m_config.m_testEngine.m_testRunner.m_pythonCmd,
             true);
 
         try

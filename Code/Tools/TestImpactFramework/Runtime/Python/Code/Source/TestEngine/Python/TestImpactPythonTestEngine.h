@@ -24,6 +24,7 @@ namespace TestImpact
 {
     class PythonTestTarget;
     class PythonTestRunJobInfoGenerator;
+    class PythonTestEnumerationJobInfoGenerator;
     class PythonTestEnumerator;
     class PythonTestRunner;
     class PythonNullTestRunner;
@@ -44,7 +45,9 @@ namespace TestImpact
         PythonTestEngine(
             const RepoPath& repoDir,
             const RepoPath& buildDir,
+            const RepoPath& cacheDir,
             const ArtifactDir& artifactDir,
+            const RepoPath& pythonCommand,
             bool useNullTestRunner = false);
 
         ~PythonTestEngine();
@@ -76,9 +79,11 @@ namespace TestImpact
         //! Cleans up the artifacts directory of any artifacts from previous runs.
         void DeleteArtifactXmls() const;
 
-        AZStd::unique_ptr<PythonTestRunJobInfoGenerator> m_testJobInfoGenerator;
+        AZStd::unique_ptr<PythonTestRunJobInfoGenerator> m_testRunJobInfoGenerator;
+        AZStd::unique_ptr<PythonTestEnumerationJobInfoGenerator> m_testEnumerationJobInfoGenerator;
         AZStd::unique_ptr<PythonTestRunner> m_testRunner;
         AZStd::unique_ptr<PythonNullTestRunner> m_nullTestRunner;
+        AZStd::unique_ptr<PythonTestEnumerator> m_testEnumerator;
         ArtifactDir m_artifactDir;
         bool m_useNullTestRunner = false;
     };
