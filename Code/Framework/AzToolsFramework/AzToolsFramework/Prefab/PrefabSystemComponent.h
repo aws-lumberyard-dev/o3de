@@ -56,7 +56,7 @@ namespace AzToolsFramework
         {
         public:
 
-            using TargetTemplateIdToLinkIdMap = AZStd::unordered_map<TemplateId, AZStd::pair<AZStd::unordered_set<LinkId>, bool>>;
+            using TargetTemplateIdToLinkIdMap = AZStd::unordered_map<TemplateId, AZStd::unordered_set<LinkId>>;
 
             AZ_COMPONENT(PrefabSystemComponent, "{27203AE6-A398-4614-881B-4EEB5E9B34E9}");
 

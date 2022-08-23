@@ -163,47 +163,42 @@ namespace AzToolsFramework
             PrefabDom& targetTemplatePrefabDom = m_prefabSystemComponentInterface->FindTemplateDom(m_targetTemplateId);
             PrefabDom& sourceTemplatePrefabDom = m_prefabSystemComponentInterface->FindTemplateDom(m_sourceTemplateId);
 
-            // Copy the source template dom so that the actual template DOM does not change and only the linked instance DOM does.
-            PrefabDom sourceTemplateDomCopy;
-            sourceTemplateDomCopy.CopyFrom(sourceTemplatePrefabDom, sourceTemplatePrefabDom.GetAllocator());
-
             PrefabDomValueReference patchesReference = PrefabDomUtils::FindPrefabDomValue(m_linkDom, PrefabDomUtils::PatchesName);
             if (!patchesReference.has_value())
             {
-                if (AZ::JsonSerialization::Compare(linkedInstanceDom, sourceTemplateDomCopy) != AZ::JsonSerializerCompareResult::Equal)
+                if (AZ::JsonSerialization::Compare(linkedInstanceDom, sourceTemplatePrefabDom) != AZ::JsonSerializerCompareResult::Equal)
                 {
-                    linkedInstanceDom.CopyFrom(sourceTemplateDomCopy, targetTemplatePrefabDom.GetAllocator());
+                    linkedInstanceDom.CopyFrom(sourceTemplatePrefabDom, targetTemplatePrefabDom.GetAllocator());
                 }
             }
             else
             {
-                AZ::JsonSerializationResult::ResultCode applyPatchResult =
-                    PrefabDomUtils::ApplyPatches(sourceTemplateDomCopy, targetTemplatePrefabDom.GetAllocator(), patchesReference->get());
-                linkedInstanceDom.CopyFrom(sourceTemplateDomCopy, targetTemplatePrefabDom.GetAllocator());
-
-                [[maybe_unused]] PrefabDomValueReference sourceTemplateName =
-                    PrefabDomUtils::FindPrefabDomValue(sourceTemplateDomCopy, PrefabDomUtils::SourceName);
-                AZ_Assert(sourceTemplateName && sourceTemplateName->get().IsString(), "A valid source template name couldn't be found");
-                [[maybe_unused]] PrefabDomValueReference targetTemplateName =
-                    PrefabDomUtils::FindPrefabDomValue(targetTemplatePrefabDom, PrefabDomUtils::SourceName);
-                AZ_Assert(targetTemplateName && targetTemplateName->get().IsString(), "A valid target template name couldn't be found");
-
-                if (applyPatchResult.GetProcessing() != AZ::JsonSerializationResult::Processing::Completed)
+                if (!ApplyLinkPatches(linkedInstanceDom, targetTemplatePrefabDom, patchesReference->get()))
                 {
-                    AZ_Error(
-                        "Prefab", false,
-                        "Link::UpdateTarget - ApplyPatches failed for Prefab DOM from source Template '%u' and target Template '%u'.",
-                        m_sourceTemplateId, m_targetTemplateId);
                     return false;
                 }
-                if (applyPatchResult.GetOutcome() == AZ::JsonSerializationResult::Outcomes::PartialSkip ||
-                    applyPatchResult.GetOutcome() == AZ::JsonSerializationResult::Outcomes::Skipped)
+            }
+
+            // This is a guardrail to ensure the linked instance dom always has the LinkId value
+            // in case the template copy or the patch application removed it.
+            AddLinkIdToInstanceDom(linkedInstanceDom, targetTemplatePrefabDom.GetAllocator());
+            return true;
+        }
+
+        bool Link::AddNestedInstaceDomToTargetTemplate()
+        {
+            PrefabDomValue& linkedInstanceDom = GetLinkedInstanceDom();
+            PrefabDom& targetTemplatePrefabDom = m_prefabSystemComponentInterface->FindTemplateDom(m_targetTemplateId);
+            PrefabDom& sourceTemplatePrefabDom = m_prefabSystemComponentInterface->FindTemplateDom(m_sourceTemplateId);
+
+            linkedInstanceDom.CopyFrom(sourceTemplatePrefabDom, targetTemplatePrefabDom.GetAllocator());
+
+            PrefabDomValueReference patchesReference = PrefabDomUtils::FindPrefabDomValue(m_linkDom, PrefabDomUtils::PatchesName);
+            if (patchesReference.has_value())
+            {
+                if (!ApplyLinkPatches(linkedInstanceDom, targetTemplatePrefabDom, patchesReference->get()))
                 {
-                    AZ_Warning(
-                        "Prefab", false,
-                        "Link::UpdateTarget - Some of the patches couldn't be applied on the source template '%s' present under the  "
-                        "target Template '%s'.",
-                        sourceTemplateName->get().GetString(), targetTemplateName->get().GetString());
+                    return false;
                 }
             }
 
@@ -222,6 +217,42 @@ namespace AzToolsFramework
             AZ_Assert(instanceValue,"Link::GetLinkDom - Invalid value for instance pointed by the link in template with id '%u'.",
                     m_targetTemplateId);
             return *instanceValue;
+        }
+
+        bool Link::ApplyLinkPatches(PrefabDomValue& linkedInstanceDom, PrefabDom& targetTemplateDom, PrefabDomValue& patches)
+        {
+            AZ::JsonSerializationResult::ResultCode applyPatchResult =
+                PrefabDomUtils::ApplyPatches(linkedInstanceDom, targetTemplateDom.GetAllocator(), patches);
+
+            [[maybe_unused]] PrefabDomValueReference sourceTemplateName =
+                PrefabDomUtils::FindPrefabDomValue(linkedInstanceDom, PrefabDomUtils::SourceName);
+            AZ_Assert(sourceTemplateName && sourceTemplateName->get().IsString(), "A valid source template name couldn't be found");
+            [[maybe_unused]] PrefabDomValueReference targetTemplateName =
+                PrefabDomUtils::FindPrefabDomValue(targetTemplateDom, PrefabDomUtils::SourceName);
+            AZ_Assert(targetTemplateName && targetTemplateName->get().IsString(), "A valid target template name couldn't be found");
+
+            if (applyPatchResult.GetProcessing() != AZ::JsonSerializationResult::Processing::Completed)
+            {
+                AZ_Error(
+                    "Prefab",
+                    false,
+                    "Link::UpdateTarget - ApplyPatches failed for Prefab DOM from source Template '%u' and target Template '%u'.",
+                    m_sourceTemplateId,
+                    m_targetTemplateId);
+                return false;
+            }
+            if (applyPatchResult.GetOutcome() == AZ::JsonSerializationResult::Outcomes::PartialSkip ||
+                applyPatchResult.GetOutcome() == AZ::JsonSerializationResult::Outcomes::Skipped)
+            {
+                AZ_Warning(
+                    "Prefab",
+                    false,
+                    "Link::UpdateTarget - Some of the patches couldn't be applied on the source template '%s' present under the  "
+                    "target Template '%s'.",
+                    sourceTemplateName->get().GetString(),
+                    targetTemplateName->get().GetString());
+            }
+            return true;
         }
 
         void Link::AddLinkIdToInstanceDom(PrefabDomValue& instanceDom)

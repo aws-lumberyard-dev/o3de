@@ -59,6 +59,8 @@ namespace AzToolsFramework
             PrefabDomPath GetInstancePath() const;
             const AZStd::string& GetInstanceName() const;
 
+            bool AddNestedInstaceDomToTargetTemplate();
+
             bool UpdateTarget();
 
             /**
@@ -86,6 +88,8 @@ namespace AzToolsFramework
              * @param allocator The allocator used while adding the linkId object to the instance DOM.
              */
             void AddLinkIdToInstanceDom(PrefabDomValue& instanceDomValue, PrefabDom::AllocatorType& allocator);
+
+            bool ApplyLinkPatches(PrefabDomValue& linkedInstanceDom, PrefabDom& targetTemplateDom, PrefabDomValue& patches);
 
             // Target template id for propagation during updating templates.
             TemplateId m_targetTemplateId = InvalidTemplateId;

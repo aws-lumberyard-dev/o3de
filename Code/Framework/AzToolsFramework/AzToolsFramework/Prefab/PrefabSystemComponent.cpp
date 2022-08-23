@@ -274,11 +274,11 @@ namespace AzToolsFramework
                 auto templateIdToLinkIdsIterator = targetTemplateIdToLinkIdMap.find(targetTemplateId);
                 if (templateIdToLinkIdsIterator == targetTemplateIdToLinkIdMap.end())
                 {
-                    targetTemplateIdToLinkIdMap.emplace(targetTemplateId, AZStd::make_pair(LinkIdSet{linkIdToUpdate}, false));
+                    targetTemplateIdToLinkIdMap.emplace(targetTemplateId, LinkIdSet{linkIdToUpdate});
                 }
                 else
                 {
-                    targetTemplateIdToLinkIdMap[targetTemplateId].first.insert(linkIdToUpdate);
+                    targetTemplateIdToLinkIdMap[targetTemplateId].insert(linkIdToUpdate);
                 }
             }
         }
@@ -288,23 +288,11 @@ namespace AzToolsFramework
         {
             Link& linkToUpdate = m_linkIdMap[linkIdToUpdate];
             TemplateId targetTemplateId = linkToUpdate.GetTargetTemplateId();
-            PrefabDomValue& linkdedInstanceDom = linkToUpdate.GetLinkedInstanceDom();
-            PrefabDomValue linkDomBeforeUpdate;
-            linkDomBeforeUpdate.CopyFrom(linkdedInstanceDom, m_templateIdMap[targetTemplateId].GetPrefabDom().GetAllocator());
             linkToUpdate.UpdateTarget();
-
-            // If any of the templates links are already updated, we don't need to check whether the linkedInstance DOM differs
-            // in content because the template is already marked to be sent for change propagation.
-            bool isTemplateUpdated = targetTemplateIdToLinkIdMap[targetTemplateId].second;
-            if (isTemplateUpdated ||
-                AZ::JsonSerialization::Compare(linkDomBeforeUpdate, linkdedInstanceDom) != AZ::JsonSerializerCompareResult::Equal)
-            {
-                targetTemplateIdToLinkIdMap[targetTemplateId].second = true;
-            }
 
             if (targetTemplateIdToLinkIdMap.find(targetTemplateId) != targetTemplateIdToLinkIdMap.end())
             {
-                targetTemplateIdToLinkIdMap[targetTemplateId].first.erase(linkIdToUpdate);
+                targetTemplateIdToLinkIdMap[targetTemplateId].erase(linkIdToUpdate);
                 UpdateTemplateChangePropagationQueue(targetTemplateIdToLinkIdMap, targetTemplateId, linkIdsQueue);
             }
         }
@@ -313,8 +301,7 @@ namespace AzToolsFramework
             TargetTemplateIdToLinkIdMap& targetTemplateIdToLinkIdMap,
             const TemplateId targetTemplateId, AZStd::queue<LinkIds>& linkIdsQueue)
         {
-            if (targetTemplateIdToLinkIdMap[targetTemplateId].first.empty() &&
-                targetTemplateIdToLinkIdMap[targetTemplateId].second)
+            if (targetTemplateIdToLinkIdMap[targetTemplateId].empty())
             {
                 auto templateToLinkIter = m_templateToLinkIdsMap.find(targetTemplateId);
                 if (templateToLinkIter != m_templateToLinkIdsMap.end())
@@ -800,7 +787,7 @@ namespace AzToolsFramework
             }
 
             //update the target template dom to have the proper values for the source template dom
-            if (!newLink.UpdateTarget())
+            if (!newLink.AddNestedInstaceDomToTargetTemplate())
             {
                 AZ_Error("Prefab", false, "Failed to update link with template information");
             }
@@ -1031,7 +1018,7 @@ namespace AzToolsFramework
                     instanceObject.Move(), targetTemplatePrefabDom.GetAllocator());
             }
             //initialize link 
-            if (!link.UpdateTarget())
+            if (!link.AddNestedInstaceDomToTargetTemplate())
             {
                 AZ_Error("Prefab", false,
                     "PrefabSystemComponent::ConnectTemplates - "
