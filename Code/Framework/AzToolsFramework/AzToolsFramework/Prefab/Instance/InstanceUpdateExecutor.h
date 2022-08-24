@@ -16,7 +16,6 @@
 #include <AzToolsFramework/Prefab/Instance/InstanceUpdateExecutorInterface.h>
 #include <AzToolsFramework/Prefab/PrefabDomTypes.h>
 #include <AzToolsFramework/Prefab/PrefabIdTypes.h>
-#include <AzToolsFramework/UI/PropertyEditor/PropertyEditorAPI.h>
 
 namespace AzToolsFramework
 {
@@ -26,10 +25,10 @@ namespace AzToolsFramework
         class PrefabFocusInterface;
         class PrefabSystemComponentInterface;
         class TemplateInstanceMapperInterface;
+        class InstanceDomGeneratorInterface;
 
         class InstanceUpdateExecutor
             : public InstanceUpdateExecutorInterface
-            , private PropertyEditorGUIMessages::Bus::Handler
         {
         public:
             AZ_RTTI(InstanceUpdateExecutor, "{E21DB0D4-0478-4DA9-9011-31BC96F55837}", InstanceUpdateExecutorInterface);
@@ -40,38 +39,29 @@ namespace AzToolsFramework
             void AddInstanceToQueue(InstanceOptionalReference instance) override;
             void AddTemplateInstancesToQueue(TemplateId instanceTemplateId, InstanceOptionalConstReference instanceToExclude = AZStd::nullopt) override;
             bool UpdateTemplateInstancesInQueue() override;
-            void RemoveTemplateInstanceFromQueue(const Instance* instance) override;
+            void RemoveTemplateInstanceFromQueue(Instance* instance) override;
             void QueueRootPrefabLoadedNotificationForNextPropagation() override;
+
+            void SetShouldPauseInstancePropagation(bool shouldPausePropagation) override;
 
             void RegisterInstanceUpdateExecutorInterface();
             void UnregisterInstanceUpdateExecutorInterface();
 
         private:
-            PrefabFocusInterface* m_prefabFocusInterface = nullptr;
-
-            // focusedInstance is the pointer to the focused instance.
-            // instanceDom is the dom of the instance that is being propagated, and will be edited by this function.
-            const void ReplaceFocusedContainerTransformAccordingToRoot(const Instance* focusedInstance, PrefabDom& focusedInstanceDom) const;
-
-            bool GenerateInstanceDomAccordingToCurrentFocus(const Instance* instance, PrefabDom& instanceDom);
-
-            ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-            // PropertyEditorGUIMessages::Bus::Handler
-            //! When making property changes in the editor, listening to the below notifications and pausing propagation accordingly will
-            //! prevent the user from losing control of the properties they are editing.
-            void RequestWrite(QWidget* editorGUI) override;
-            void OnEditingFinished(QWidget* editorGUI) override;
-            ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-            
             //! Connect the game mode event handler in a lazy fashion rather than at construction of this class.
             //! This is required because the event won't be ready for connection during construction as EditorEntityContextComponent
-            //! gets initialized after the PrefabSystemComponent
+            //! gets initialized after the PrefabSystemComponent.
             void LazyConnectGameModeEventHandler();
+
+            void AddInstanceToQueue(Instance* instance);
 
             PrefabSystemComponentInterface* m_prefabSystemComponentInterface = nullptr;
             TemplateInstanceMapperInterface* m_templateInstanceMapperInterface = nullptr;
+            InstanceDomGeneratorInterface* m_instanceDomGeneratorInterface = nullptr;
             AZ::IO::Path m_rootPrefabInstanceSourcePath;
             AZStd::deque<Instance*> m_instancesUpdateQueue;
+            AZStd::unordered_set<Instance*> m_uniqueInstancesForPropagation;
+
             AZ::Event<GameModeState>::Handler m_GameModeEventHandler;
             int m_instanceCountToUpdateInBatch = 0;
             static AzFramework::EntityContextId s_editorEntityContextId;

@@ -51,7 +51,7 @@ namespace AzToolsFramework
                 TemplateId linkTargetId, TemplateId linkSourceId, const InstanceAlias& instanceAlias,
                 const PrefabDomConstReference linkPatches, const LinkId& linkId = InvalidLinkId) = 0;
 
-            virtual void RemoveLink(const LinkId& linkId) = 0;
+            virtual bool RemoveLink(const LinkId& linkId) = 0;
 
             virtual TemplateId GetTemplateIdFromFilePath(AZ::IO::PathView filePath) const = 0;
 

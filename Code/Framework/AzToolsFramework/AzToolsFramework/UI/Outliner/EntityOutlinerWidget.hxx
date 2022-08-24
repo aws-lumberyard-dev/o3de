@@ -113,8 +113,8 @@ namespace AzToolsFramework
 
         // PrefabFocusNotificationBus overrides ...
         void OnPrefabEditScopeChanged() override;
-        
-        // PrefabPublicNotificationBus overrides ...
+
+        // PrefabPublicNotificationBus  overrides ...
         void OnPrefabInstancePropagationBegin() override;
         void OnPrefabInstancePropagationEnd() override;
         void OnPrefabTemplateDirtyFlagUpdated(Prefab::TemplateId templateId, bool status) override;

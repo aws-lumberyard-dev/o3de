@@ -595,6 +595,12 @@ namespace AZ::Render
 
     void AtomActorInstance::RegisterActor()
     {
+        if (!m_skinnedMeshInstance)
+        {
+            AZ_Error("AtomActorInstance", m_skinnedMeshInstance, "SkinnedMeshInstance must be created before register this actor.");
+            return;
+        }
+        
         MaterialAssignmentMap materials;
         MaterialComponentRequestBus::EventResult(materials, m_entityId, &MaterialComponentRequests::GetMaterialMap);
         CreateRenderProxy(materials);
@@ -609,6 +615,8 @@ namespace AZ::Render
 
         const Data::Instance<RPI::Model> model = m_meshFeatureProcessor->GetModel(*m_meshHandle);
         MeshComponentNotificationBus::Event(m_entityId, &MeshComponentNotificationBus::Events::OnModelReady, GetModelAsset(), model);
+
+        m_meshFeatureProcessor->SetVisible(*m_meshHandle, IsVisible());
     }
 
     void AtomActorInstance::UnregisterActor()

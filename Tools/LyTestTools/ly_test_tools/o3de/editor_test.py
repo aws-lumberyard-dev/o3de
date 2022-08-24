@@ -51,6 +51,59 @@ __test__ = False  # This file contains ready-to-use test functions which are not
 
 logger = logging.getLogger(__name__)
 
+def compile_test_case_name(request, test_spec):
+    """
+    Compile a test case name for consumption by the TIAF python coverage listener gem.
+    @param request: The fixture request.
+    @param test_spec: The test spec for this test case.
+    """
+    test_case_prefix = "::".join(str.split(str(request.node.nodeid), "::")[:2])
+    regex_result = re.search("\<class \'(.*)\'\>", str(test_spec))   
+    try:         
+        class_name = str.split(regex_result.group(1), ".")[-1:] 
+        test_case_name = f"{'::'.join([test_case_prefix, class_name[0]])}"
+        callspec = request.node.callspec.id
+        compiled_test_case_name = f"{test_case_name}[{callspec}]"
+    except Exception as e:
+        logging.warning(f"Error reading test case name for TIAF. {e}")
+        compiled_test_case_name = "ERROR"
+    return compiled_test_case_name
+
+def _split_batched_editor_log_file(workspace, starting_path, destination_file, log_file_to_split):
+    """
+    Splits a batched editor log file into separate log files for each test case in the log
+    :param workspace: The LyTestTools Workspace object
+    :param starting_path: the original path for the logs
+    :param destination_file: the destination path for the logs
+    :param log_file_to_split: the log file to split
+    """
+    # text that designates the start of logging for a new test
+    test_case_split = ".py (testcase )"
+    dir_name = os.path.dirname(starting_path)
+
+    # the current log we are writing to
+    current_new_log_path = os.path.join(dir_name, f"SetUp" + ".log")
+    current_new_log = open(current_new_log_path, "a+")
+
+    # loop through the log to split, and write to the split logs
+    with open(destination_file) as log_file:
+        for line in log_file:
+            split_line = line.split(test_case_split)
+            if len(split_line) > 1:
+                # found a new test case, we need to split the log, line below is an example of what we're splitting
+                # <13:22:34> (python) - Running automated test: C:\\Git\\o3de\\AutomatedTesting\\Gem\\PythonTests\\largeworlds\\dyn_veg\\EditorScripts\\LayerSpawner_InstancesPlantInAllSupportedShapes'
+                new_log_name = split_line[0].split(os.sep)[-1] + ".log"
+                # resulting in LayerSpawner_InstancesPlantInAllSupportedShapes.log
+                current_new_log.close()
+                workspace.artifact_manager.save_artifact(current_new_log.name)
+                current_new_log = open(os.path.join(dir_name, new_log_name), "a+")
+                current_new_log.write(line)
+            else:
+                current_new_log.write(line)
+        # make sure to save the last log
+        last_log_name = current_new_log.name
+        current_new_log.close()
+        workspace.artifact_manager.save_artifact(last_log_name)
 
 class EditorTest(abc.ABC):
     """
@@ -407,7 +460,6 @@ class EditorTestSuite:
         yield test_data  # yield to pytest while test-class executes
         # resumed by pytest after each test-class finishes
         if test_data.asset_processor:  # was assigned an AP to manage
-            test_data.asset_processor.stop(1)
             test_data.asset_processor.teardown()
             test_data.asset_processor = None
             editor_utils.kill_all_ly_processes(include_asset_processor=True)
@@ -589,7 +641,7 @@ class EditorTestSuite:
 
     @staticmethod
     def pytest_custom_makeitem(collector, name, obj):
-        return EditorTestSuite.EditorTestClass(name, collector)
+        return EditorTestSuite.EditorTestClass.from_parent(collector, name=name)
 
     @classmethod
     def pytest_custom_modify_items(cls, session: _pytest.main.Session, items: list[EditorTest],
@@ -850,8 +902,10 @@ class EditorTestSuite:
         test_result = None
         results = {}
         test_filename = editor_utils.get_testcase_module_filepath(test_spec.test_module)
+        test_case_name = compile_test_case_name(request, test_spec)
         cmdline = [
             "--runpythontest", test_filename,
+            f"-pythontestcase={test_case_name}",
             "-logfile", f"@log@/{log_name}",
             "-project-log-path", editor_utils.retrieve_log_path(run_id, workspace)] + test_cmdline_args
         editor.args.extend(cmdline)
@@ -935,19 +989,36 @@ class EditorTestSuite:
 
         results = {}
 
-        # We create a file containing a semicolon separated list for the Editor to read
-        temp_batched_file = tempfile.NamedTemporaryFile(mode='w', delete=False, suffix='.txt')
-        for test_spec in test_spec_list[:-1]:
-            temp_batched_file.write(editor_utils.get_testcase_module_filepath(test_spec.test_module)
-                                    .replace('\\', '\\\\')+';')
-        # The last entry does not have a semicolon
-        temp_batched_file.write(editor_utils.get_testcase_module_filepath(test_spec_list[-1].test_module)
-                                .replace('\\', '\\\\'))
-        temp_batched_file.flush()
-        temp_batched_file.close()
+        # We create a files containing a semicolon separated scipts and test cases for the Editor to read
+        test_script_list = ""
+        test_case_list = ""
+
+        for test_spec in test_spec_list:
+            # Test script
+            test_script_list += editor_utils.get_testcase_module_filepath(test_spec.test_module) + ';'
+
+            # Test case
+            test_case_name = compile_test_case_name(request, test_spec)
+            test_case_list += f"{test_case_name};"
+
+        # Remove the trailing semicolon from the last entry
+        test_script_list = test_script_list[:-1]
+        test_script_list = test_script_list.replace('\\', '/')
+        test_case_list = test_case_list[:-1]
+
+        temp_batched_script_file = tempfile.NamedTemporaryFile(mode='w', delete=False, suffix='.txt')
+        temp_batched_script_file.write(test_script_list.replace('\\', '\\\\'))
+        temp_batched_script_file.flush()
+        temp_batched_script_file.close()
+
+        temp_batched_case_file = tempfile.NamedTemporaryFile(mode='w', delete=False, suffix='.txt')
+        temp_batched_case_file.write(test_case_list)
+        temp_batched_case_file.flush()
+        temp_batched_case_file.close()
 
         cmdline = [
-            "--runpythontest", temp_batched_file.name,
+            "-runpythontest", temp_batched_script_file.name,
+            "-pythontestcase", temp_batched_case_file.name,
             "-logfile", f"@log@/{log_name}",
             "-project-log-path", editor_utils.retrieve_log_path(run_id, workspace)] + test_cmdline_args
         editor.args.extend(cmdline)
@@ -962,8 +1033,10 @@ class EditorTestSuite:
             editor_log_content = editor_utils.retrieve_editor_log_content(run_id, log_name, workspace)
             # Save the editor log
             try:
-                workspace.artifact_manager.save_artifact(
-                    os.path.join(editor_utils.retrieve_log_path(run_id, workspace), log_name), f'({run_id}){log_name}')
+                path_to_artifact = os.path.join(editor_utils.retrieve_log_path(run_id, workspace), log_name)
+                full_log_name = f'({run_id}){log_name}'
+                destination_path = workspace.artifact_manager.save_artifact(path_to_artifact, full_log_name)
+                _split_batched_editor_log_file(workspace, path_to_artifact, destination_path, full_log_name)
             except FileNotFoundError:
                 # Error logging is already performed and we don't want this to fail the test
                 pass
@@ -1044,8 +1117,10 @@ class EditorTestSuite:
                                                          results[test_spec_name].output,
                                                          self.timeout_editor_shared_test, result.editor_log)
         finally:
-            if temp_batched_file:
-                os.unlink(temp_batched_file.name)
+            if temp_batched_script_file:
+                os.unlink(temp_batched_script_file.name)
+            if temp_batched_case_file:
+                os.unlink(temp_batched_case_file.name)
         return results
     
     def _run_single_test(self, request: _pytest.fixtures.FixtureRequest,

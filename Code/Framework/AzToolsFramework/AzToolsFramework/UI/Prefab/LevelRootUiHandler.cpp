@@ -19,11 +19,8 @@
 
 namespace AzToolsFramework
 {
-    AzFramework::EntityContextId LevelRootUiHandler::s_editorEntityContextId = AzFramework::EntityContextId::CreateNull();
 
     const QColor LevelRootUiHandler::s_levelRootBorderColor = QColor("#656565");
-    const QColor LevelRootUiHandler::s_levelRootEditColor = QColor("#4A90E2");
-    const QColor LevelRootUiHandler::s_levelRootOverrideColor = QColor("#C76D0E");
     const QString LevelRootUiHandler::s_levelRootIconPath = QString(":/Level/level.svg");
 
     LevelRootUiHandler::LevelRootUiHandler()
@@ -85,7 +82,8 @@ namespace AzToolsFramework
         return false;
     }
 
-    void LevelRootUiHandler::PaintItemBackground(QPainter* painter, const QStyleOptionViewItem& option, const QModelIndex& index) const
+
+    void LevelRootUiHandler::PaintItemBackground(QPainter* painter, const QStyleOptionViewItem& option, [[maybe_unused]] const QModelIndex& index) const
     {
         if (!painter)
         {
@@ -93,44 +91,13 @@ namespace AzToolsFramework
             return;
         }
 
-        const QSize iconSize = QSize(32, 16);
-        QModelIndex firstColumnIndex = index.siblingAtColumn(EntityOutlinerListModel::ColumnName);
-        AZ::EntityId entityId(firstColumnIndex.data(EntityOutlinerListModel::EntityIdRole).value<AZ::u64>());
         QPen borderLinePen(s_levelRootBorderColor, s_levelRootBorderThickness);
-
         QRect rect = option.rect;
-
-        /*
-        QString prefabEditScopeIconPath = ":/stylesheet/img/UI20/toggleswitch/unchecked.svg";
-        if (m_prefabFocusPublicInterface->GetPrefabEditScope(s_editorEntityContextId) == Prefab::PrefabEditScope::NESTED_INSTANCES)
-        {
-            backgroundColor = s_levelRootOverrideColor;
-            prefabEditScopeIconPath = ":/stylesheet/img/UI20/toggleswitch/checked.svg";
-        }
-        */
 
         painter->save();
         painter->setRenderHint(QPainter::Antialiasing, true);
-        /*
-        // Draw background if the root is focused.
-        if (m_prefabFocusPublicInterface->GetOpenInstanceMode() == 1 && m_prefabFocusPublicInterface->IsOwningPrefabBeingFocused(entityId))
-        {
-            // Paint toggle icon
-            if (index.column() == EntityOutlinerListModel::ColumnVisibilityToggle || index.column() == EntityOutlinerListModel::ColumnLockToggle)
-            {
-                QPoint offset = QPoint(6, 4);
-                if (index.column() == EntityOutlinerListModel::ColumnLockToggle)
-                {
-                    offset = QPoint(-14, 4);
-                }
 
-                QIcon openIcon = QIcon(prefabEditScopeIconPath);
-                painter->drawPixmap(option.rect.topLeft() + offset, openIcon.pixmap(iconSize));
-            }
-        }
-        */
-
-        // Draw border at the bottom.
+        // Draw border at the bottom
         painter->setPen(borderLinePen);
         painter->drawLine(rect.bottomLeft(), rect.bottomRight());
 
@@ -142,29 +109,6 @@ namespace AzToolsFramework
         [[maybe_unused]] const QStyleOptionViewItem& option,
         [[maybe_unused]] const QModelIndex& index) const
     {
-        /*
-        QModelIndex firstColumnIndex = index.siblingAtColumn(EntityOutlinerListModel::ColumnName);
-        AZ::EntityId entityId(firstColumnIndex.data(EntityOutlinerListModel::EntityIdRole).value<AZ::u64>());
-
-        if (index.column() == EntityOutlinerListModel::ColumnVisibilityToggle ||
-            index.column() == EntityOutlinerListModel::ColumnLockToggle)
-        {
-            if (m_prefabFocusPublicInterface->IsOwningPrefabBeingFocused(entityId) && option.rect.contains(position))
-            {
-                if (m_prefabFocusPublicInterface->GetPrefabEditScope(s_editorEntityContextId) == Prefab::PrefabEditScope::NESTED_TEMPLATES)
-                {
-                    m_prefabFocusPublicInterface->SetPrefabEditScope(s_editorEntityContextId, Prefab::PrefabEditScope::NESTED_INSTANCES);
-                }
-                else
-                {
-                    m_prefabFocusPublicInterface->SetPrefabEditScope(s_editorEntityContextId, Prefab::PrefabEditScope::NESTED_TEMPLATES);
-                }
-
-                // Don't propagate event.
-                return true;
-            }
-        }
-        */
         return false;
     }
 

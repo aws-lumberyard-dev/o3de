@@ -9,18 +9,12 @@
 #include <AzToolsFramework/UI/Prefab/PrefabUiHandler.h>
 
 #include <AzFramework/API/ApplicationAPI.h>
-
 #include <AzToolsFramework/ContainerEntity/ContainerEntityInterface.h>
-#include <AzToolsFramework/Prefab/Overrides/PrefabOverrideInterface.h>
-#include <AzToolsFramework/Prefab/Instance/InstanceToTemplateInterface.h>
 #include <AzToolsFramework/Prefab/PrefabFocusPublicInterface.h>
 #include <AzToolsFramework/Prefab/PrefabPublicInterface.h>
 #include <AzToolsFramework/UI/Outliner/EntityOutlinerListModel.hxx>
-
 #include <AzQtComponents/Utilities/ScreenUtilities.h>
 #include <AzQtComponents/Utilities/TextUtilities.h>
-#include <QtGui/private/qhighdpiscaling_p.h>
-
 #include <QAbstractItemModel>
 #include <QApplication>
 #include <QFont>
@@ -28,6 +22,7 @@
 #include <QPainter>
 #include <QPainterPath>
 #include <QTreeView>
+#include <QtGui/private/qhighdpiscaling_p.h>
 
 namespace AzToolsFramework
 {
@@ -123,8 +118,7 @@ namespace AzToolsFramework
             return QIcon(m_prefabEditIconPath);
         }
 
-        if (m_prefabFocusPublicInterface->IsOwningPrefabInFocusHierarchy(entityId) &&
-            m_prefabFocusPublicInterface->GetPrefabEditScope(s_editorEntityContextId) == Prefab::PrefabEditScope::NESTED_INSTANCES)
+        if (m_prefabFocusPublicInterface->IsOwningPrefabInFocusHierarchy(entityId))
         {
             return QIcon(m_prefabEditIconPath);
         }
@@ -383,6 +377,7 @@ namespace AzToolsFramework
         const bool isExpanded =
             firstColumnIndex.data(EntityOutlinerListModel::ExpandedRole).value<bool>() &&
             firstColumnIndex.model()->hasChildren(firstColumnIndex);
+
         bool isContainerOpen = m_containerEntityInterface->IsContainerOpen(entityId);
 
         painter->save();

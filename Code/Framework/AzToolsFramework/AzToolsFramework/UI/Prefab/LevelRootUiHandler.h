@@ -34,7 +34,8 @@ namespace AzToolsFramework
         QString GenerateItemInfoString(AZ::EntityId entityId) const override;
         bool CanToggleLockVisibility(AZ::EntityId entityId) const override;
         bool CanRename(AZ::EntityId entityId) const override;
-        void PaintItemBackground(QPainter* painter, const QStyleOptionViewItem& option, const QModelIndex& index) const override;
+
+        void PaintItemBackground(QPainter* painter, const QStyleOptionViewItem& option, [[maybe_unused]] const QModelIndex& index) const override;
         bool OnOutlinerItemClick(const QPoint& position, const QStyleOptionViewItem& option, const QModelIndex& index) const override;
         bool OnOutlinerItemDoubleClick(const QModelIndex& index) const override;
 
@@ -42,13 +43,8 @@ namespace AzToolsFramework
         Prefab::PrefabFocusPublicInterface* m_prefabFocusPublicInterface = nullptr;
         Prefab::PrefabPublicInterface* m_prefabPublicInterface = nullptr;
 
-        static AzFramework::EntityContextId s_editorEntityContextId;
-
         static constexpr int s_levelRootBorderThickness = 1;
         static const QColor s_levelRootBorderColor;
-        static const QColor s_levelRootEditColor;
-        static const QColor s_levelRootOverrideColor;
         static const QString s_levelRootIconPath;
-
     };
 } // namespace AzToolsFramework

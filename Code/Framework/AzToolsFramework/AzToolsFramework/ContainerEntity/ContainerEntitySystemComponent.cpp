@@ -9,8 +9,10 @@
 #include <AzToolsFramework/ContainerEntity/ContainerEntitySystemComponent.h>
 
 #include <AzCore/Component/TransformBus.h>
-#include <AzToolsFramework/ContainerEntity/ContainerEntityNotificationBus.h>
 #include <AzToolsFramework/API/ToolsApplicationAPI.h>
+#include <AzToolsFramework/ContainerEntity/ContainerEntityNotificationBus.h>
+#include <AzToolsFramework/Prefab/PrefabEditorPreferences.h>
+#include <AzToolsFramework/Prefab/PrefabFocusPublicInterface.h>
 
 // TEMP - this doesn't make sense here, refactoring needed
 #include <AzToolsFramework/Prefab/PrefabFocusPublicInterface.h>
@@ -117,9 +119,7 @@ namespace AzToolsFramework
         auto editorEntityContextId = AzFramework::EntityContextId::CreateNull();
         EditorEntityContextRequestBus::BroadcastResult(editorEntityContextId, &EditorEntityContextRequests::GetEditorEntityContextId);
 
-        auto prefabFocusPublicInterface = AZ::Interface<Prefab::PrefabFocusPublicInterface>::Get();
-        if (prefabFocusPublicInterface && prefabFocusPublicInterface->GetContainerStepByStepSelection() &&
-            prefabFocusPublicInterface->GetPrefabEditScope(editorEntityContextId) == Prefab::PrefabEditScope::NESTED_INSTANCES)
+        if (Prefab::IsPrefabOverridesUxEnabled())
         {
             // Get currently selected entities
             EntityIdList selectedEntities;
@@ -132,7 +132,6 @@ namespace AzToolsFramework
             }
 
             // Return the highest closed container, or the entity if none is found.
-            AZ::EntityId highestSelectableEntityId = entityId;
             AZ::EntityId secondLastOpenContainerBeforeSelection = entityId;
             AZ::EntityId lastOpenContainerBeforeSelection = entityId;
 
