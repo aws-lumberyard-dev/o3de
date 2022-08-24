@@ -197,53 +197,6 @@ namespace AzToolsFramework
         // reloaded.
         AzQtComponents::StyleManager::addSearchPaths("outliner", pathOnDisk, qrcPath.toString(), engineRootPath);
         AzQtComponents::StyleManager::setStyleSheet(this, QStringLiteral("outliner:EntityOutliner.qss"));
-        
-        auto prefabFocusPublicInterface = AZ::Interface<Prefab::PrefabFocusPublicInterface>::Get();
-
-        if (prefabFocusPublicInterface && prefabFocusPublicInterface->GetOpenInstanceMode() == 1)
-        {
-            auto modeSwitchContainer = new QWidget(this);
-            modeSwitchContainer->setObjectName("OutlinerModeSwitcherContainer");
-            m_gui->verticalLayout_2->insertWidget(1, modeSwitchContainer);
-
-            auto modeSwitchLayout = new QHBoxLayout(modeSwitchContainer);
-
-            // Introduce SegmentBar to switch between view modes
-            auto segmentBar = new AzQtComponents::SegmentBar(this);
-            segmentBar->setObjectName("OutlinerModeSwitcher");
-            segmentBar->addTab("Prefab View");
-            segmentBar->addTab("Nested Instance Override View");
-            modeSwitchLayout->addWidget(segmentBar);
-
-            auto modeHelpLabel = new QLabel(this);
-            modeHelpLabel->setObjectName("OutlinerModeSwitcherHelp");
-            modeHelpLabel->setText("?");
-            modeHelpLabel->setToolTip("Toggle between Prefab views:\n"
-                                      "Prefab View: Show nested prefab instances as a single object.\n"
-                                      "Nested Instance Override View: Allow selection of entities belonging to nested prefab instances.");
-            modeHelpLabel->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
-            modeSwitchLayout->addWidget(modeHelpLabel);
-
-            connect(
-                segmentBar, &AzQtComponents::SegmentBar::currentChanged, this,
-                [&](int index)
-                {
-                    auto prefabFocusPublicInterface = AZ::Interface<Prefab::PrefabFocusPublicInterface>::Get();
-                    if (prefabFocusPublicInterface)
-                    {
-                        if (index == 0)
-                        {
-                            prefabFocusPublicInterface->SetPrefabEditScope(
-                                m_editorEntityContextId, Prefab::PrefabEditScope::NESTED_TEMPLATES);
-                        }
-                        else
-                        {
-                            prefabFocusPublicInterface->SetPrefabEditScope(
-                                m_editorEntityContextId, Prefab::PrefabEditScope::NESTED_INSTANCES);
-                        }
-                    }
-                });
-        }
 
         m_listModel = aznew EntityOutlinerListModel(this);
         m_listModel->SetSortMode(m_sortMode);

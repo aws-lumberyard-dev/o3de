@@ -217,13 +217,6 @@ namespace AzToolsFramework
                 virtual ~LinkIdMetadata() {}
             };
 
-            /**
-             * Climbs up the instance hierarchy tree from startInstance.
-             * Stops when it hits either the targetInstance or the root.
-             */
-            const Instance* ClimbUpToTargetInstance(
-                const Instance* startInstance, const Instance* targetInstance, AZStd::string& aliasPath);
-
             //! An empty struct to pass to the JsonDeserializerSettings, which will be used to identify whether we should selectively
             //! deserialize only modified entities.
             struct InstanceDomMetadata

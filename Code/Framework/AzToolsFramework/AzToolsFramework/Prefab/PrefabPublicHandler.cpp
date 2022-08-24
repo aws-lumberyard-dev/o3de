@@ -793,7 +793,7 @@ namespace AzToolsFramework
                     }
                 }
 
-                if (isInFocusTree && !isOwnedByFocusedPrefabInstance)
+                if (isInstanceContainerEntity)
                 {
                     if (isNewParentOwnedByDifferentInstance)
                     {

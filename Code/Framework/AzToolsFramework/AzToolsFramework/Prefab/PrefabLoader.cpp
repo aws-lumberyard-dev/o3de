@@ -352,7 +352,8 @@ namespace AzToolsFramework
             return false;
         }
 
-        TemplateId PrefabLoader::LoadTemplateFromFile(AZ::IO::PathView filePath, AZStd::unordered_set<AZ::IO::Path>& progressedFilePathsSet)
+        TemplateId PrefabLoader::LoadTemplateFromFile(
+            AZ::IO::PathView filePath, AZStd::unordered_set<AZ::IO::Path>& progressedFilePathsSet, AZ::Dom::Path instanceAlias)
         {
             if (!IsValidPrefabPath(filePath))
             {

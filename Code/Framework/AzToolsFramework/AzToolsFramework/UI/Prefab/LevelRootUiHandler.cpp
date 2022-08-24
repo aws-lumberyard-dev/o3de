@@ -39,8 +39,6 @@ namespace AzToolsFramework
             return;
         }
 
-        // Get EditorEntityContextId
-        EditorEntityContextRequestBus::BroadcastResult(s_editorEntityContextId, &EditorEntityContextRequests::GetEditorEntityContextId);
     }
 
     QIcon LevelRootUiHandler::GenerateItemIcon([[maybe_unused]] AZ::EntityId entityId) const

@@ -11,6 +11,7 @@
 #include <AzFramework/API/ApplicationAPI.h>
 #include <AzToolsFramework/ContainerEntity/ContainerEntityInterface.h>
 #include <AzToolsFramework/Prefab/PrefabFocusPublicInterface.h>
+#include <AzToolsFramework/Prefab/Overrides/PrefabOverrideInterface.h>
 #include <AzToolsFramework/Prefab/PrefabPublicInterface.h>
 #include <AzToolsFramework/UI/Outliner/EntityOutlinerListModel.hxx>
 #include <AzQtComponents/Utilities/ScreenUtilities.h>
@@ -67,9 +68,6 @@ namespace AzToolsFramework
 
         // Get EditorEntityContextId
         EditorEntityContextRequestBus::BroadcastResult(s_editorEntityContextId, &EditorEntityContextRequests::GetEditorEntityContextId);
-
-        // Initialize Font Metrics
-        m_fontMetrics = new QFontMetrics(QFont("Open Sans", m_prefabFileNameFontSize));
     }
 
     QString PrefabUiHandler::GenerateItemInfoString(AZ::EntityId entityId) const

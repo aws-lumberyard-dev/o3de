@@ -310,9 +310,10 @@ namespace AzToolsFramework
             auto visitorFn = [&patchesSet](const AZ::Dom::Path&, const PrefabOverrideMetadata& overrideMetadata)
             {
                 patchesSet.emplace(overrideMetadata);
+                return true;
             };
 
-            m_linkPatchesTree.VisitPath(AZ::Dom::Path(), AZ::Dom::PrefixTreeMatch::PathAndSubpaths, visitorFn);
+            m_linkPatchesTree.VisitPath(AZ::Dom::Path(), visitorFn);
             for (auto patchesSetIterator = patchesSet.begin(); patchesSetIterator != patchesSet.end(); ++patchesSetIterator)
             {
                 PrefabDomValue patchCopy;
@@ -339,9 +340,10 @@ namespace AzToolsFramework
             auto visitorFn = [&results](const AZ::Dom::Path& path, const PrefabOverrideMetadata& patch)
             {
                 results.emplace_back(path, patch);
+                return true;
             };
 
-            m_linkPatchesTree.VisitPath(path, AZ::Dom::PrefixTreeMatch::PathAndSubpaths, visitorFn);
+            m_linkPatchesTree.VisitPath(path, visitorFn);
             return (results.size() > 0);
         }
 

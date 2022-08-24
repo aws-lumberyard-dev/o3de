@@ -757,16 +757,6 @@ namespace AzToolsFramework
             s_prefabFocusPublicInterface->SetOwningPrefabInstanceOpenState(containerEntity, true);
         }
 
-        void PrefabIntegrationManager::ContextMenu_ClosePrefabInstance(AZ::EntityId containerEntity)
-        {
-            s_prefabFocusPublicInterface->SetOwningPrefabInstanceOpenState(containerEntity, false);
-        }
-
-        void PrefabIntegrationManager::ContextMenu_OpenPrefabInstance(AZ::EntityId containerEntity)
-        {
-            s_prefabFocusPublicInterface->SetOwningPrefabInstanceOpenState(containerEntity, true);
-        }
-
         void PrefabIntegrationManager::ContextMenu_Duplicate()
         {
             bool handled = true;
