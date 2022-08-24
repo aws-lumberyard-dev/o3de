@@ -58,13 +58,12 @@ namespace TestImpact
         bool useNullTestRunner)
         : m_testRunJobInfoGenerator(AZStd::make_unique<PythonTestRunJobInfoGenerator>(
               repoDir, buildDir, artifactDir))
-        , m_testEnumerationJobInfoGenerator(AZStd::make_unique<PythonTestEnumerationJobInfoGenerator>(
-            buildDir, cacheDir, artifactDir, pythonCommand))
+        , m_testEnumerationJobInfoGenerator(AZStd::make_unique<PythonTestEnumerationJobInfoGenerator>(repoDir, buildDir, cacheDir, artifactDir, pythonCommand))
         , m_testRunner(AZStd::make_unique<PythonTestRunner>(artifactDir))
         , m_nullTestRunner(AZStd::make_unique<PythonNullTestRunner>(artifactDir))
         , m_artifactDir(artifactDir)
         , m_useNullTestRunner(useNullTestRunner)
-        , m_testEnumerator(AZStd::make_unique<PythonTestEnumerator>(1))
+        , m_testEnumerator(AZStd::make_unique<PythonTestEnumerator>(32))
     {
     }
 
@@ -88,7 +87,41 @@ namespace TestImpact
         [[maybe_unused]] AZStd::optional<AZStd::chrono::milliseconds> globalTimeout,
         [[maybe_unused]] AZStd::optional<TestEngineJobCompleteCallback<PythonTestTarget>> callback) const
     {
-        const auto stdPrint = []([[maybe_unused]] const typename PythonNullTestRunner::JobInfo& jobInfo,
+        {
+            const auto stdPrint = []([[maybe_unused]] const typename PythonTestEnumerator::JobInfo& jobInfo,
+                                     [[maybe_unused]] const AZStd::string& stdOutput,
+                                     [[maybe_unused]] const AZStd::string& stdError,
+                                     AZStd::string&& stdOutDelta,
+                                     [[maybe_unused]] AZStd::string&& stdErrDelta)
+            {
+                if (!stdOutDelta.empty())
+                {
+                    AZ_Printf("StdOut", stdOutDelta.c_str());
+                }
+
+                if (!stdErrDelta.empty())
+                {
+                    AZ_Printf("StdError", stdErrDelta.c_str());
+                }
+
+                return TestImpact::ProcessCallbackResult::Continue;
+            };
+
+            const auto enumerationJobInfos = m_testEnumerationJobInfoGenerator->GenerateJobInfos(testTargets);
+            m_testEnumerator->Enumerate(
+                enumerationJobInfos,
+                StdOutputRouting::ToParent,
+                StdErrorRouting::ToParent,
+                AZStd::nullopt,
+                AZStd::nullopt,
+                AZStd::nullopt,
+                stdPrint);
+        }
+        // We currently don't have a std out/error callback for the test engine users so output the Python
+        // error and output here for the time being
+
+        const auto stdPrint = [](
+            [[maybe_unused]] const typename PythonNullTestRunner::JobInfo& jobInfo,
             [[maybe_unused]] const AZStd::string& stdOutput,
             [[maybe_unused]] const AZStd::string& stdError,
             AZStd::string&& stdOutDelta,
@@ -105,13 +138,7 @@ namespace TestImpact
             }
 
             return TestImpact::ProcessCallbackResult::Continue;
-        };
-
-        const auto enumerationJobInfos = m_testEnumerationJobInfoGenerator->GenerateJobInfos(testTargets);
-        m_testEnumerator->Enumerate(enumerationJobInfos, StdOutputRouting::None, StdErrorRouting::None, AZStd::nullopt, AZStd::nullopt, AZStd::nullopt, AZStd::nullopt);
-        // We currently don't have a std out/error callback for the test engine users so output the Python
-        // error and output here for the time being
-        
+        };        
 
         if (m_useNullTestRunner)
         {

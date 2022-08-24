@@ -49,7 +49,11 @@ namespace TestImpact
         //! @param buildDir Path to where the target binaries are found.
         //! @param artifactDir Path to the transient directory where test artifacts are produced.
         PythonTestEnumerationJobInfoGenerator(
-            const RepoPath& buildDir, const RepoPath& cacheDir, const ArtifactDir& artifactDir, const RepoPath& pythonDir);
+            const RepoPath& repoDir,
+            const RepoPath& buildDir,
+            const RepoPath& cacheDir,
+            const ArtifactDir& artifactDir,
+            const RepoPath& pythonDir);
 
         //! Generates the information for a test run job.
         //! @param testTarget The test target to generate the job information for.
@@ -63,6 +67,7 @@ namespace TestImpact
         //!
         PythonTestEnumerator::JobInfo::CachePolicy GetCachePolicy() const;
     private:
+        RepoPath m_repoDir;
         RepoPath m_buildDir;
         RepoPath m_cacheDir;
         ArtifactDir m_artifactDir;

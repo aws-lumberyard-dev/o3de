@@ -43,8 +43,13 @@ namespace TestImpact
     }
 
     PythonTestEnumerationJobInfoGenerator::PythonTestEnumerationJobInfoGenerator(
-        const RepoPath& buildDir, const RepoPath& cacheDir, const ArtifactDir& artifactDir, const RepoPath& pythonDir)
-        : m_buildDir(buildDir)
+        const RepoPath& repoDir,
+        const RepoPath& buildDir,
+        const RepoPath& cacheDir,
+        const ArtifactDir& artifactDir,
+        const RepoPath& pythonDir)
+        : m_repoDir(repoDir)
+        , m_buildDir(buildDir)
         , m_cacheDir(cacheDir)
         , m_artifactDir(artifactDir)
         , m_pythonCommand(pythonDir)  
@@ -74,8 +79,8 @@ namespace TestImpact
         const auto enumerationArtifact = GenerateTargetEnumerationArtifactFilePath(testTarget, m_artifactDir.m_enumerationArtifactDirectory);
         const AZStd::string pytestAndFixedArgs = " -m pytest --collect-only --continue-on-collection-errors -q ";
         const AZStd::string buildDirectory = CompileBuildDirectoryArgument();
-        const AZStd::string scriptPath = testTarget->GetScriptPath().String();
-        const Command args = { m_pythonCommand.String() + pytestAndFixedArgs + buildDirectory + scriptPath + " >" + enumerationArtifact.String()};
+        const AZStd::string scriptPath = (m_repoDir / testTarget->GetScriptPath()).String();
+        const Command args = { m_pythonCommand.String() + pytestAndFixedArgs + buildDirectory + scriptPath};// + " >" + enumerationArtifact.String()};
 
         return JobInfo(jobId, args, JobData(enumerationArtifact, Cache{ m_cachePolicy, GenerateTargetEnumerationCacheFilePath(testTarget, m_cacheDir)}));
     }
