@@ -1,0 +1,19 @@
+
+set(FILES
+    Source/CloudsModuleInterface.h
+    Source/Components/CloudsComponent.cpp
+    Source/Components/CloudsComponent.h
+    Source/Components/CloudsComponentConfig.cpp
+    Source/Components/CloudsComponentConfig.h
+    Source/Components/CloudsComponentController.cpp
+    Source/Components/CloudsComponentController.h
+    Source/Components/CloudsSystemComponent.cpp
+    Source/Components/CloudsSystemComponent.h
+    Source/Passes/CloudsFullscreenPass.cpp
+    Source/Passes/CloudsFullscreenPass.h
+    Source/Rendering/CloudsFeatureProcessor.cpp
+    Source/Rendering/CloudsFeatureProcessor.h
+    ../Assets/Passes/CloudsFullScreenPass.pass
+    ../Assets/Shaders/CloudsFullScreen.azsl
+    ../Assets/Shaders/CloudsFullScreen.shader
+)

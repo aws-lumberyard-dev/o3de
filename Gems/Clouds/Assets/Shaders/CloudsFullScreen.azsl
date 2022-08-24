@@ -1,0 +1,169 @@
+/*
+* Modifications Copyright (c) Contributors to the Open 3D Engine Project.
+* For complete copyright and license terms please see the LICENSE at the root of this distribution.
+*
+* SPDX-License-Identifier: (Apache-2.0 OR MIT) AND MIT
+*
+*/
+
+#include <viewsrg.srgi>
+#include <Atom/Features/SrgSemantics.azsli>
+#include <Atom/Features/ColorManagement/TransformColor.azsli>
+#include <Atom/RPI/Math.azsli>
+
+ShaderResourceGroup PassSrg : SRG_PerPass
+{
+    Sampler LinearSampler
+    {
+        MinFilter = Linear;
+        MagFilter = Linear;
+        MipFilter = Linear;
+        AddressU = Clamp;
+        AddressV = Clamp;
+        AddressW = Clamp;
+    };
+
+    // TODO add texture inputs
+}
+
+#include <Atom/Features/PostProcessing/FullscreenVertex.azsli> // provides MainVS vertex shader
+
+struct PSOutput
+{
+    float4 m_specular : SV_Target0;
+    float4 m_reflection : SV_Target1;
+};
+
+float3 WorldSpacePosition(float2 uv, float depth)
+{
+    float2 clipPos = float2(mad(uv.x, 2.0, -1.0), mad(uv.y, -2.0, 1.0));
+    float4 worldPos = mul(ViewSrg::m_viewProjectionInverseMatrix, float4(clipPos, depth, 1.0));
+    //worldPos = worldPos / worldPos.w;
+    return worldPos.xyz / worldPos.w;
+}
+
+float Random(float2 uv)
+{
+    float dotProduct = dot(uv, float2(12.9898, 78.233));
+    return frac(sin(dotProduct) * 43758.5453);
+}
+
+#define M_RCP_PI 0.31830988618f
+#define M_RCP_2PI 0.15915494309f
+
+float2 offsetCloudUvByWorldDistance(float2 startUv, float2 worldDistance)
+{
+    return startUv + float2(worldDistance.y / 40070000.0, 0.5 * worldDistance.x / 40070000.0);
+}
+
+float2 CloudUvFromPosRelPlanet(float3 positionRelPlanetPlanetAxes)
+{
+    float2 pos2d = normalize(positionRelPlanetPlanetAxes.yx);
+    float psi = atan2(pos2d.x, pos2d.y);
+    float theta = asin(normalize(positionRelPlanetPlanetAxes).z);
+    //float2 uv = float2(psi * M_RCP_2PI + 0.5, theta * M_RCP_PI + 0.5);
+    float2 uv = float2(psi * M_RCP_2PI + 0.5, theta * M_RCP_PI + 0.5);
+    return uv;
+    //const float cloudDisplacementMeters = 0.0;
+    //return offsetCloudUvByWorldDistance(uv, cloudDisplacementMeters);
+}
+
+float checker(float2 uv, float repeats)
+{
+    float cx = floor(repeats * uv.x);
+    float cy = floor(repeats * uv.y);
+    float result = frac((cx + cy) * 0.5);
+    return result * 2.0;
+    //float result = (cx + cy) % 2.0;
+    //return sign(result);
+}
+
+PSOutput MainPS(VSOutput IN)
+{
+    PSOutput OUT = (PSOutput)0;
+
+    const float depth = 1.f; // PassSrg::m_depth.Load(Input.m_position.xy, sampleIndex).r;
+    const float3 cameraPosKm = ViewSrg::m_worldPosition * 0.001;
+    const float3 worldPosKm = WorldSpacePosition(IN.m_texCoord, depth) * 0.001;
+    const float3 worldDir =  normalize(worldPosKm - cameraPosKm);
+    const float3 planetCenterKm = float3(0.0, 0.0, -6000.0);
+    const float planetRadiusKm = 6000.0;
+
+    // check if we hit the planet
+    const bool hitPlanet = (RaySphereClosestHitWS(planetCenterKm, planetRadiusKm, worldPosKm, worldDir) >= 0.0);
+
+
+    const float cameraAltitudeKm = length(cameraPosKm - planetCenterKm) - planetRadiusKm;
+    const float cloudLayerMinHeightKm = 2.0;
+    const float cloudLayerMaxHeightKm = 7.0;
+
+    float rayNear;
+    float rayFar;
+    const float maxRenderDistanceKm = 300.0;
+
+#define DEBUG_CLOUDS
+    if (cameraAltitudeKm < cloudLayerMinHeightKm)
+    {
+        if (hitPlanet)
+        {
+            #ifdef DEBUG_CLOUDS
+            OUT.m_specular = float4(1.0,0.0,0.0,1.0);
+            #endif
+            return OUT;
+        }
+
+        rayNear = RaySphereClosestHitWS(planetCenterKm, planetRadiusKm + cloudLayerMinHeightKm, worldPosKm, worldDir);
+        rayFar = RaySphereClosestHitWS(planetCenterKm, planetRadiusKm + cloudLayerMaxHeightKm, worldPosKm, worldDir);
+        rayFar = min(rayFar, maxRenderDistanceKm);
+    }
+    else if (cameraAltitudeKm < cloudLayerMaxHeightKm)
+    {
+    
+    }
+    else
+    {
+    }
+
+    if (rayNear < 0.0)
+    {
+        #ifdef DEBUG_CLOUDS
+        OUT.m_specular = float4(0.0,1.0,0.0,1.0);
+        #endif
+        return OUT;
+    }
+
+    const int iterations = 1000;
+    const float initialStepSizeKm = 0.1;
+    const float maximumStepSizeKm = 0.5;
+
+    float stepSizeKm = initialStepSizeKm;
+    stepSizeKm = min(stepSizeKm + rayNear / 4.0, maximumStepSizeKm);
+    rayNear += stepSizeKm * Random(IN.m_texCoord);
+
+    // TODO figure out why the UVs seam wrong when we subtract planet center position
+    float3 cameraPositionRelPlanetKm = cameraPosKm; // - planetCenterKm;
+    float3 positionRelCameraWSKm = rayNear * worldDir;
+    float3 positionRelPlanetKm = positionRelCameraWSKm + cameraPositionRelPlanetKm;
+
+    float2 cloudsUv = CloudUvFromPosRelPlanet(positionRelPlanetKm);
+
+#ifdef DEBUG_CLOUDS
+    OUT.m_specular.rgb = checker(cloudsUv * float2(2,1), 50);
+    //OUT.m_specular.rgb = cloudsUv.y;
+    OUT.m_specular.a = 1.0;
+    return OUT;
+#endif
+
+    if (hitPlanet)
+    {
+        OUT.m_specular = float4(1.0,0.0,0.0,1.0);
+        OUT.m_reflection = float4(1.0,0.0,0.0,1.0);
+    }
+    else
+    {
+        OUT.m_specular = float4(0.0,0.0,0.0,0.0);
+        OUT.m_reflection = float4(0.0,0.0,0.0,0.0);
+    }
+
+    return OUT;
+}
