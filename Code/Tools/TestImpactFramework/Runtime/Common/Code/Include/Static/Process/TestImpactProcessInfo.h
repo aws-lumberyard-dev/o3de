@@ -12,6 +12,7 @@
 
 #include <AzCore/std/optional.h>
 #include <AzCore/std/string/string.h>
+#include <AzCore/std/containers/variant.h>
 
 namespace TestImpact
 {
@@ -27,7 +28,7 @@ namespace TestImpact
     //! Error code for processes that are forcefully terminated whilst in-flight by the scheduler due to timing out.
     inline constexpr const ReturnCode ProcessTimeoutErrorCode = 0xBADF10;
 
-    //! Specifier for how the process's standard out willt be routed
+    //! Specifier for how the process's standard out will be routed
     enum class StdOutputRouting
     {
         ToParent,
@@ -59,8 +60,8 @@ namespace TestImpact
         //! @param startupArgs Arguments to launch the process with.
         ProcessInfo(
             ProcessId processId,
-            StdOutputRouting stdOut,
-            StdErrorRouting stdErr,
+            AZStd::variant<StdOutputRouting, AZ::IO::Path>&& stdOut,
+            AZStd::variant<StdErrorRouting, AZ::IO::Path>&& stdErr,
             const RepoPath& processPath,
             const AZStd::string& startupArgs = "");
         ProcessInfo(ProcessId processId, const RepoPath& processPath, const AZStd::string& startupArgs = "");
@@ -74,6 +75,18 @@ namespace TestImpact
         //! Returns whether or not stderror is routed to the parent process.
         bool ParentHasStdError() const;
 
+        //! Returns whether or not stdoutput is routed to a file.
+        bool FileHasStdOutput() const;
+
+        //! Returns whether or not stderror is routed to a file.
+        bool FileHasStdError() const;
+
+        //! Returns the path to the file that the stdoutput is routed to.
+        const AZ::IO::Path& GetStdOutputFile() const;
+
+        //! Returns the path to the file that the stderror is routed to.
+        const AZ::IO::Path& GetStdErrorFile() const;
+
         // Returns the path to the process binary.
         const RepoPath& GetProcessPath() const;
 
@@ -81,10 +94,12 @@ namespace TestImpact
         const AZStd::string& GetStartupArgs() const;
 
     private:
-        const ProcessId m_id;
-        const bool m_parentHasStdOutput;
-        const bool m_parentHasStdErr;
-        const RepoPath m_processPath;
-        const AZStd::string m_startupArgs;
+        ProcessId m_id;
+        StdOutputRouting m_stdOutputRouting = StdOutputRouting::None;
+        StdErrorRouting m_stdErrorRouting = StdErrorRouting::None;
+        AZ::IO::Path m_stdOutputFilePath;
+        AZ::IO::Path m_stdErrorFilePath;
+        RepoPath m_processPath;
+        AZStd::string m_startupArgs;
     };
 } // namespace TestImpact

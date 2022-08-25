@@ -54,7 +54,22 @@ namespace TestImpact
         PROCESS_INFORMATION pi;
         ZeroMemory(&pi, sizeof(PROCESS_INFORMATION));
 
-        CreatePipes(sa, si);
+        HANDLE h = CreateFileA(
+            AZStd::string::format("e:/process_%zu.txt", processInfo.GetId()).c_str(),
+            GENERIC_WRITE,
+            FILE_SHARE_WRITE | FILE_SHARE_READ,
+            &sa,
+            CREATE_NEW,
+            FILE_ATTRIBUTE_NORMAL,
+            NULL);
+
+         si.cb = sizeof(STARTUPINFO);
+         si.dwFlags |= STARTF_USESTDHANDLES;
+         si.hStdInput = NULL;
+         si.hStdError = h;
+         si.hStdOutput = h;
+
+        //CreatePipes(sa, si);
 
         AZStd::wstring argsW;
         AZStd::to_wstring(argsW, args.c_str());
@@ -71,7 +86,7 @@ namespace TestImpact
             throw ProcessException(AZStd::string::format("Couldn't create process with args: %s", args.c_str()));
         }
 
-        ReleaseChildPipes();
+        //ReleaseChildPipes();
 
         m_process = pi.hProcess;
         m_thread = pi.hThread;
