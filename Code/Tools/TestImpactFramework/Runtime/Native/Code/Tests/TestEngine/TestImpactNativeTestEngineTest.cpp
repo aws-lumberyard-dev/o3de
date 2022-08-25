@@ -6,10 +6,24 @@
  *
  */
 
+<<<<<<<< HEAD:Code/Tools/TestImpactFramework/Runtime/Native/Code/Tests/TestEngine/TestImpactNativeTestEngineTest.cpp
 #include <AzTest/AzTest.h>
 #include <AzCore/UnitTest/TestTypes.h>
+========
+#pragma once
+>>>>>>>> MergeHelper:Gems/ScriptCanvas/Code/Include/ScriptCanvas/Grammar/ASTModifications.h
 
-namespace UnitTest
+#include "Primitives.h"
+#include "PrimitivesExecution.h"
+
+namespace ScriptCanvas
 {
+<<<<<<<< HEAD:Code/Tools/TestImpactFramework/Runtime/Native/Code/Tests/TestEngine/TestImpactNativeTestEngineTest.cpp
 
+========
+    namespace Grammar
+    {
+        void MarkUserFunctionCallLocallyDefined(ExecutionTreePtr execution);
+    }
+>>>>>>>> MergeHelper:Gems/ScriptCanvas/Code/Include/ScriptCanvas/Grammar/ASTModifications.h
 }
