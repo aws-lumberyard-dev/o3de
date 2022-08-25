@@ -12,6 +12,7 @@
 #include <TestImpactRuntime.h>
 #include <Artifact/Static/TestImpactPythonTestTargetMeta.h>
 #include <Artifact/Factory/TestImpactPythonTestTargetMetaMapFactory.h>
+#include <Dependency/TestImpactPythonTestSelectorAndPrioritizer.h>
 #include <Dependency/TestImpactSourceCoveringTestsSerializer.h>
 #include <Dependency/TestImpactTestSelectorAndPrioritizer.h>
 #include <Target/Python/TestImpactPythonProductionTarget.h>
@@ -68,7 +69,7 @@ namespace TestImpact
         m_dynamicDependencyMap = AZStd::make_unique<DynamicDependencyMap<ProductionTarget, TestTarget>>(m_buildTargets.get());
 
         // Construct the test selector and prioritizer from the dependency graph data (NOTE: currently not implemented)
-        m_testSelectorAndPrioritizer = AZStd::make_unique<TestSelectorAndPrioritizer<ProductionTarget, TestTarget>>(*m_dynamicDependencyMap.get());
+        m_testSelectorAndPrioritizer = AZStd::make_unique<PythonTestSelectorAndPrioritizer>(*m_dynamicDependencyMap.get());
 
         // Construct the target exclude list from the exclude file if provided, otherwise use target configuration data
         if (!testsToExclude.empty())
@@ -520,18 +521,6 @@ namespace TestImpact
         // The subset of selected test targets that are not on the configuration's exclude list and those that are
         const auto [includedSelectedTestTargets, excludedSelectedTestTargets] =
             SelectTestTargetsByExcludeList(*m_testTargetExcludeList, selectedTestTargets);
-
-        for (const auto& file : changeList.m_createdFiles)
-        {
-            const auto sourceDependency = m_dynamicDependencyMap->GetSourceDependency(file);
-            if (sourceDependency.has_value())
-            {
-                if (sourceDependency->GetCoveringTestTargets().empty())
-                {
-                    AZ_Error("SELECTION", false, "Source has no coverage: '%s'", file.c_str());
-                }
-            }
-        }
         
         // Functor for running instrumented test targets
         const auto instrumentedTestRun = [this, &testTargetTimeout](
