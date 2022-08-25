@@ -7,25 +7,9 @@
  */
 
 #pragma once
-<<<<<<<< HEAD:Code/Tools/TestImpactFramework/Runtime/Common/Code/Tests/TestProcess/Code/Source/TestImpactTestProcessLargeText.h
 
 namespace TestImpact
 {
     // Large text blob in the form of a string literal so the app does not require the Az FileIO and Application environment
     extern const char* const LongText;
-========
-
-#include <TestImpactFramework/TestImpactUtils.h>
-
-#include <TestRunner/Python/TestImpactPythonTestRunnerBase.h>
-
-namespace TestImpact
-{
-    class PythonTestRunner
-        : public PythonTestRunnerBase
-    {
-    public:
-        using PythonTestRunnerBase::PythonTestRunnerBase;
-    };
->>>>>>>> MergeHelper:Code/Tools/TestImpactFramework/Runtime/Python/Code/Source/TestRunner/Python/TestImpactPythonTestRunner.h
 } // namespace TestImpact

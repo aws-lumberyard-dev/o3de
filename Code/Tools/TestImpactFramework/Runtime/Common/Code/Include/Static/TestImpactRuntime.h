@@ -7,18 +7,10 @@
  */
 
 #pragma once
-<<<<<<<< HEAD:Code/Tools/TestImpactFramework/Runtime/Common/Code/Include/Static/TestImpactRuntime.h
 
 #include <TestImpactRuntimeUtils.h>
 
 namespace TestImpact
 {
-========
->>>>>>>> MergeHelper:Code/Framework/AzToolsFramework/AzToolsFramework/Prefab/PrefabEditorPreferences.h
 
-namespace AzToolsFramework::Prefab
-{
-    bool IsHotReloadingEnabled();
-    bool IsPrefabOverridesUxEnabled();
-
-} // namespace AzToolsFramework::Prefab
+} // namespace TestImpact
