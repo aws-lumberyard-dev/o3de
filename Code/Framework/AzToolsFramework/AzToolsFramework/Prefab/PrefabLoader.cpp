@@ -576,7 +576,7 @@ namespace AzToolsFramework
 
             // After source template has been loaded, create Link between source/target Template.
             LinkId newLinkId = m_prefabSystemComponentInterface->AddLink(
-                nestedTemplateId, targetTemplateId, instanceIterator, AZStd::nullopt, pathFromRoot);
+                nestedTemplateId, targetTemplateId, instanceIterator, AZStd::nullopt);
             if (newLinkId == InvalidLinkId)
             {
                 AZ_Error(

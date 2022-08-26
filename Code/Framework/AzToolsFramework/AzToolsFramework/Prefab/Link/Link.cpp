@@ -195,7 +195,7 @@ namespace AzToolsFramework
             return m_instanceName;
         }
 
-        bool Link::UpdateTarget(AZ::Dom::Path instanceAlias)
+        bool Link::UpdateTarget()
         {
             PrefabDomValue& linkedInstanceDom = GetLinkedInstanceDom();
             PrefabDom& targetTemplatePrefabDom = m_prefabSystemComponentInterface->FindTemplateDom(m_targetTemplateId);

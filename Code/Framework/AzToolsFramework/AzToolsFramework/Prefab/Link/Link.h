@@ -105,7 +105,7 @@ namespace AzToolsFramework
             PrefabDomPath GetInstancePath() const;
             const AZStd::string& GetInstanceName() const;
 
-            bool UpdateTarget(AZ::Dom::Path instanceAlias = AZ::Dom::Path());
+            bool UpdateTarget();
 
             /**
              * Get the DOM of the instance that the link points to.

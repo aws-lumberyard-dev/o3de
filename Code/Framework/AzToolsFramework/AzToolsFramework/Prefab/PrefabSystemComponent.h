@@ -157,8 +157,7 @@ namespace AzToolsFramework
                 TemplateId sourceTemplateId,
                 TemplateId targetTemplateId,
                 PrefabDomValue::MemberIterator& instanceIterator,
-                InstanceOptionalReference instance,
-                AZ::Dom::Path instanceAlias = AZ::Dom::Path()) override;
+                InstanceOptionalReference instance) override;
 
             /**
             * Create a new Link with Prefab System Component and create a unique id for it.
@@ -333,8 +332,7 @@ namespace AzToolsFramework
                 Link& link,
                 TemplateId sourceTemplateId,
                 TemplateId targetTemplateId,
-                PrefabDomValue::MemberIterator& instanceIterator,
-                AZ::Dom::Path instanceAlias = AZ::Dom::Path());
+                PrefabDomValue::MemberIterator& instanceIterator);
 
             /**
             * Given a template this will traverse any nested instances found in its Prefab Dom

@@ -43,8 +43,7 @@ namespace AzToolsFramework
 
             virtual LinkId AddLink(TemplateId sourceTemplateId, TemplateId targetTemplateId,
                 PrefabDomValue::MemberIterator& instanceIterator,
-                InstanceOptionalReference instance,
-                AZ::Dom::Path instanceAlias = AZ::Dom::Path()) = 0;
+                InstanceOptionalReference instance) = 0;
 
             //creates a new Link
             virtual LinkId CreateLink(

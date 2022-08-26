@@ -639,8 +639,7 @@ namespace AzToolsFramework
             TemplateId sourceTemplateId,
             TemplateId targetTemplateId,
             PrefabDomValue::MemberIterator& instanceIterator,
-            InstanceOptionalReference instance,
-            AZ::Dom::Path instanceAlias)
+            InstanceOptionalReference instance)
         {
             TemplateReference sourceTemplateReference = FindTemplate(sourceTemplateId);
             TemplateReference targetTemplateReference = FindTemplate(targetTemplateId);
@@ -665,7 +664,7 @@ namespace AzToolsFramework
 
             LinkId newLinkId = CreateUniqueLinkId();
             Link newLink(newLinkId);
-            if (!ConnectTemplates(newLink, sourceTemplateId, targetTemplateId, instanceIterator, instanceAlias))
+            if (!ConnectTemplates(newLink, sourceTemplateId, targetTemplateId, instanceIterator))
             {
                 AZ_Error("Prefab", false,
                     "PrefabSystemComponent::AddLink - "
@@ -981,8 +980,7 @@ namespace AzToolsFramework
             Link& link,
             TemplateId sourceTemplateId,
             TemplateId targetTemplateId,
-            PrefabDomValue::MemberIterator& instanceIterator,
-            AZ::Dom::Path instanceAlias)
+            PrefabDomValue::MemberIterator& instanceIterator)
         {
             TemplateReference sourceTemplateReference = FindTemplate(sourceTemplateId);
             TemplateReference targetTemplateReference = FindTemplate(targetTemplateId);
