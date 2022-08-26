@@ -5,7 +5,7 @@
  * SPDX-License-Identifier: Apache-2.0 OR MIT
  *
  */
-
+#pragma optimize("", off)
 #include <AzToolsFramework/UI/Prefab/PrefabUiHandler.h>
 
 #include <AzFramework/API/ApplicationAPI.h>
@@ -518,4 +518,5 @@ namespace AzToolsFramework
         // Don't propagate event.
         return true;
     }
-}
+} // namespace AzToolsFramework
+#pragma optimize("", on)

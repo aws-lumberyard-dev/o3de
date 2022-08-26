@@ -41,7 +41,6 @@ namespace AzToolsFramework
 
         private:
             AzFramework::EntityContextId m_editorEntityContextId = AzFramework::EntityContextId::CreateNull();
-
             PrefabPublicInterface* m_prefabPublicInterface = nullptr;
             PrefabFocusPublicInterface* m_prefabFocusPublicInterface = nullptr;
         };

@@ -301,24 +301,21 @@ namespace AzToolsFramework
                 PrefabDomValue(sourceTemplate->get().GetFilePath().c_str(), linkDom.GetAllocator()),
                 linkDom.GetAllocator());
 
-            AZStd::set<PrefabOverrideMetadata> patchesSet;
+            AZStd::set<const PrefabOverrideMetadata*> patchesSet;
             PrefabDomValue patchesArrray;
             patchesArrray.SetArray();
             
-            
-            AZStd::vector<AZStd::pair<const AZ::Dom::Path&, const PrefabDomValue&>> results;
             auto visitorFn = [&patchesSet](const AZ::Dom::Path&, const PrefabOverrideMetadata& overrideMetadata)
             {
-                patchesSet.emplace(overrideMetadata);
+                patchesSet.emplace(&overrideMetadata);
                 return true;
             };
 
-            m_linkPatchesTree.VisitPath(AZ::Dom::Path(), visitorFn);
+            m_linkPatchesTree.VisitPath(AZ::Dom::Path(), visitorFn, AZ::Dom::PrefixTreeTraversalFlags::ExcludeExactPath);
             for (auto patchesSetIterator = patchesSet.begin(); patchesSetIterator != patchesSet.end(); ++patchesSetIterator)
             {
-                PrefabDomValue patchCopy;
-                patchCopy.CopyFrom(patchesSetIterator->m_patch, linkDom.GetAllocator());
-                patchesArrray.PushBack(patchCopy.Move(), linkDom.GetAllocator());
+                PrefabDomValue patch((*patchesSetIterator)->m_patch, linkDom.GetAllocator());
+                patchesArrray.PushBack(patch.Move(), linkDom.GetAllocator());
             }
 
             linkDom.AddMember(rapidjson::StringRef(PrefabDomUtils::PatchesName), patchesArrray.Move(), linkDom.GetAllocator());
@@ -343,7 +340,7 @@ namespace AzToolsFramework
                 return true;
             };
 
-            m_linkPatchesTree.VisitPath(path, visitorFn);
+            m_linkPatchesTree.VisitPath(path, visitorFn, AZ::Dom::PrefixTreeTraversalFlags::ExcludeParentPaths);
             return (results.size() > 0);
         }
 

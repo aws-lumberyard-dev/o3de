@@ -153,7 +153,7 @@ namespace AzToolsFramework
             auto focusedInstance = prefabFocusInterface->GetFocusedPrefabInstance(AZ::Uuid::CreateNull());
             
             auto relativePathBetweenInstances =
-                PrefabInstanceUtils::GetRelativePathBetweenInstances(owningInstance->get(), focusedInstance->get());
+                PrefabInstanceUtils::GetRelativePathBetweenInstances(focusedInstance->get(), owningInstance->get());
             AZ::Dom::Path domPathFormat1(relativePathBetweenInstances);
             AZStd::string entityPath = GenerateEntityAliasPath(entityId);
             domPathFormat1 = domPathFormat1 / AZ::Dom::Path(entityPath);

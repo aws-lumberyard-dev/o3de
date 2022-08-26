@@ -32,7 +32,6 @@ namespace AzToolsFramework::Prefab
         void Initialize(AzQtComponents::BreadCrumbs* breadcrumbsWidget, QToolButton* backButton);
 
         // PrefabFocusNotificationBus overrides ...
-
         void OnPrefabFocusChanged(
             [[maybe_unused]] AZ::EntityId previousContainerEntityId, [[maybe_unused]] AZ::EntityId newContainerEntityId) override;
         void OnPrefabFocusRefreshed() override;
