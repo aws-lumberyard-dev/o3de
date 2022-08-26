@@ -170,6 +170,9 @@ namespace AZ
         class MaterialComponentNotifications : public ComponentBus
         {
         public:
+            
+            using MutexType = AZStd::mutex;
+
             //! This event is sent every time a material or property update affects UI.
             virtual void OnMaterialsEdited(){};
 

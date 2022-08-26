@@ -92,6 +92,8 @@ namespace AZ
             AZ::Job* parentJob = packet.m_parentJob;
             AZStd::concurrency_check_scope scopeCheck(m_meshDataChecker);
 
+            InitializeNewInstances();
+
             const auto iteratorRanges = m_modelData.GetParallelRanges();
             AZ::JobCompletion jobCompletion;
             for (const auto& iteratorRange : iteratorRanges)
@@ -185,7 +187,7 @@ namespace AZ
             meshDataHandle->m_objectId = m_transformService->ReserveObjectId();
             meshDataHandle->m_rayTracingUuid = AZ::Uuid::CreateRandom();
             meshDataHandle->m_originalModelAsset = descriptor.m_modelAsset;
-            meshDataHandle->m_meshLoader = AZStd::make_unique<ModelDataInstance::MeshLoader>(descriptor.m_modelAsset, &*meshDataHandle);
+            meshDataHandle->m_meshLoader = AZStd::make_unique<ModelDataInstance::MeshLoader>(descriptor.m_modelAsset, &*meshDataHandle, this);
 
             return meshDataHandle;
         }
@@ -206,7 +208,11 @@ namespace AZ
             if (meshHandle.IsValid())
             {
                 meshHandle->m_meshLoader.reset();
-                meshHandle->DeInit();
+                if (meshHandle->m_model)
+                {
+                    m_queuedForInit.erase(&*meshHandle);
+                    meshHandle->DeInit();
+                }
                 m_transformService->ReleaseObjectId(meshHandle->m_objectId);
 
                 AZStd::concurrency_check_scope scopeCheck(m_meshDataChecker);
@@ -277,12 +283,18 @@ namespace AZ
                 if (meshHandle->m_model)
                 {
                     Data::Instance<RPI::Model> model = meshHandle->m_model;
-                    meshHandle->DeInit();
+                    auto iter = m_queuedForInit.find(&*meshHandle); 
+                    if (iter == m_queuedForInit.end())
+                    {
+                        // If it's not queued for init, then it's already been initialized
+                        meshHandle->DeInit();
+                    }
                     meshHandle->m_materialAssignments = materials;
-                    meshHandle->Init(model);
+                    QueueForInit(&*meshHandle);
                 }
                 else
                 {
+                    // It will be queued for init when the model is ready
                     meshHandle->m_materialAssignments = materials;
                 }
 
@@ -531,10 +543,69 @@ namespace AZ
             }
         }
 
+        void MeshFeatureProcessor::QueueForInit(ModelDataInstance* dataInstance)
+        {
+            m_queuedForInit.insert(dataInstance);
+        }
+
+        void MeshFeatureProcessor::InitializeNewInstances()
+        {
+            for (ModelDataInstance* dataInstance : m_queuedForInit)
+            {
+                Data::Asset<RPI::ModelAsset> modelAsset = dataInstance->m_originalModelAsset;
+                Data::Instance<RPI::Model> model;
+                // Check if a requires cloning callback got set and if so check if cloning the model asset is requested.
+                if (dataInstance->m_descriptor.m_requiresCloneCallback && dataInstance->m_descriptor.m_requiresCloneCallback(modelAsset))
+                {
+                    // Clone the model asset to force create another model instance.
+                    AZ::Data::AssetId newId(AZ::Uuid::CreateRandom(), /*subId=*/0);
+                    Data::Asset<RPI::ModelAsset> clonedAsset;
+                    if (AZ::RPI::ModelAssetCreator::Clone(modelAsset, clonedAsset, newId))
+                    {
+                        model = RPI::Model::FindOrCreate(clonedAsset);
+                    }
+                    else
+                    {
+                        AZ_Error(
+                            "ModelDataInstance",
+                            false,
+                            "Cannot clone model for '%s'. Cloth simulation results won't be individual per entity.",
+                            modelAsset->GetName().GetCStr());
+                        model = RPI::Model::FindOrCreate(modelAsset);
+                    }
+                }
+                else
+                {
+                    // Static mesh, no cloth buffer present.
+                    model = RPI::Model::FindOrCreate(modelAsset);
+                }
+
+                if (model)
+                {
+                    dataInstance->RemoveRayTracingData();
+                    dataInstance->Init(model);
+                    dataInstance->m_meshLoader->GetModelChangedEvent().Signal(AZStd::move(model));
+                }
+                else
+                {
+                    // when running with null renderer, the RPI::Model::FindOrCreate(...) is expected to return nullptr, so suppress this
+                    // error.
+                    AZ_Error(
+                        "ModelDataInstance::OnAssetReady",
+                        RHI::IsNullRHI(),
+                        "Failed to create model instance for '%s'",
+                        modelAsset.GetHint().c_str());
+                }
+            }
+
+            m_queuedForInit.clear();
+        }
+
         // ModelDataInstance::MeshLoader...
-        ModelDataInstance::MeshLoader::MeshLoader(const Data::Asset<RPI::ModelAsset>& modelAsset, ModelDataInstance* parent)
+        ModelDataInstance::MeshLoader::MeshLoader(const Data::Asset<RPI::ModelAsset>& modelAsset, ModelDataInstance* parent, MeshFeatureProcessor* meshFeatureProcessor)
             : m_modelAsset(modelAsset)
             , m_parent(parent)
+            , m_meshFeatureProcessor(meshFeatureProcessor)
         {
             if (!m_modelAsset.GetId().IsValid())
             {
@@ -570,13 +641,14 @@ namespace AZ
             // Assign the fully loaded asset back to the mesh handle to not only hold asset id, but the actual data as well.
             m_parent->m_originalModelAsset = asset;
 
-            Data::Instance<RPI::Model> model;
+            m_meshFeatureProcessor->QueueForInit(m_parent);
+
+            /* Data::Instance<RPI::Model> model;
             // Check if a requires cloning callback got set and if so check if cloning the model asset is requested.
-            if (m_parent->m_descriptor.m_requiresCloneCallback &&
-                m_parent->m_descriptor.m_requiresCloneCallback(modelAsset))
+            if (m_parent->m_descriptor.m_requiresCloneCallback && m_parent->m_descriptor.m_requiresCloneCallback(modelAsset))
             {
                 // Clone the model asset to force create another model instance.
-                AZ::Data::AssetId newId(AZ::Uuid::CreateRandom(), /*subId=*/0);
+                AZ::Data::AssetId newId(AZ::Uuid::CreateRandom(), /*subId=);
                 Data::Asset<RPI::ModelAsset> clonedAsset;
                 if (AZ::RPI::ModelAssetCreator::Clone(modelAsset, clonedAsset, newId))
                 {
@@ -584,7 +656,11 @@ namespace AZ
                 }
                 else
                 {
-                    AZ_Error("ModelDataInstance", false, "Cannot clone model for '%s'. Cloth simulation results won't be individual per entity.", modelAsset->GetName().GetCStr());
+                    AZ_Error(
+                        "ModelDataInstance",
+                        false,
+                        "Cannot clone model for '%s'. Cloth simulation results won't be individual per entity.",
+                        modelAsset->GetName().GetCStr());
                     model = RPI::Model::FindOrCreate(modelAsset);
                 }
             }
@@ -593,7 +669,7 @@ namespace AZ
                 // Static mesh, no cloth buffer present.
                 model = RPI::Model::FindOrCreate(modelAsset);
             }
-            
+
             if (model)
             {
                 m_parent->RemoveRayTracingData();
@@ -602,11 +678,13 @@ namespace AZ
             }
             else
             {
-                //when running with null renderer, the RPI::Model::FindOrCreate(...) is expected to return nullptr, so suppress this error.
+                // when running with null renderer, the RPI::Model::FindOrCreate(...) is expected to return nullptr, so suppress this error.
                 AZ_Error(
-                    "ModelDataInstance::OnAssetReady", RHI::IsNullRHI(), "Failed to create model instance for '%s'",
+                    "ModelDataInstance::OnAssetReady",
+                    RHI::IsNullRHI(),
+                    "Failed to create model instance for '%s'",
                     asset.GetHint().c_str());
-            }
+            }*/
         }
 
         

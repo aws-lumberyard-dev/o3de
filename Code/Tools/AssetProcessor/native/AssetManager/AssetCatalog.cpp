@@ -317,7 +317,7 @@ namespace AssetProcessor
                 AZ::IO::ByteContainerStream<AZStd::vector<char>> catalogFileStream(&m_saveBuffer, 1024 * 1024 * 20);
 
                 // these 3 lines are what writes the entire registry to the memory stream
-                AZ::ObjectStream* objStream = AZ::ObjectStream::Create(&catalogFileStream, *serializeContext, AZ::ObjectStream::ST_BINARY);
+                AZ::ObjectStream* objStream = AZ::ObjectStream::Create(&catalogFileStream, *serializeContext, AZ::ObjectStream::ST_XML);
                 {
                     QMutexLocker locker(&m_registriesMutex);
                     objStream->WriteClass(&m_registries[platform]);

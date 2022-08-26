@@ -265,7 +265,16 @@ namespace AZ
             AzFramework::RenderGeometry::IntersectionNotificationBus::Bind(m_intersectionNotificationBus, entityContextId);
 
             // Buses must be connected before RegisterModel in case requests are made as a result of HandleModelChange
-            RegisterModel();
+            m_configuration.m_modelAsset.QueueLoad();
+            Data::AssetBus::Handler::BusConnect(m_configuration.m_modelAsset.GetId());
+            //RegisterModel();
+        }
+
+        void MeshComponentController::OnAssetReady(Data::Asset<Data::AssetData> asset)
+        {
+            m_configuration.m_modelAsset = asset;
+            MaterialReceiverNotificationBus::Event(
+                m_entityComponentIdPair.GetEntityId(), &MaterialReceiverNotificationBus::Events::OnMaterialAssignmentSlotsChanged);
         }
 
         void MeshComponentController::Deactivate()
@@ -345,7 +354,11 @@ namespace AZ
 
         void MeshComponentController::OnMaterialsUpdated(const MaterialAssignmentMap& materials)
         {
-            if (m_meshFeatureProcessor)
+            if (!m_meshHandle.IsValid())
+            {
+                RegisterModel();
+            }
+            else
             {
                 m_meshFeatureProcessor->SetMaterialAssignmentMap(m_meshHandle, materials);
             }
@@ -378,7 +391,7 @@ namespace AZ
                 const AZ::EntityId entityId = m_entityComponentIdPair.GetEntityId();
                 m_configuration.m_modelAsset = modelAsset;
                 MeshComponentNotificationBus::Event(entityId, &MeshComponentNotificationBus::Events::OnModelReady, m_configuration.m_modelAsset, model);
-                MaterialReceiverNotificationBus::Event(entityId, &MaterialReceiverNotificationBus::Events::OnMaterialAssignmentSlotsChanged);
+                //MaterialReceiverNotificationBus::Event(entityId, &MaterialReceiverNotificationBus::Events::OnMaterialAssignmentSlotsChanged);
                 AZ::Interface<AzFramework::IEntityBoundsUnion>::Get()->RefreshEntityLocalBoundsUnion(entityId);
                 AzFramework::RenderGeometry::IntersectionNotificationBus::Event(
                     m_intersectionNotificationBus, &AzFramework::RenderGeometry::IntersectionNotificationBus::Events::OnGeometryChanged,

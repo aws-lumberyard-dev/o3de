@@ -47,7 +47,7 @@ namespace AZ
             public:
                 using ModelChangedEvent = MeshFeatureProcessorInterface::ModelChangedEvent;
 
-                MeshLoader(const Data::Asset<RPI::ModelAsset>& modelAsset, ModelDataInstance* parent);
+                MeshLoader(const Data::Asset<RPI::ModelAsset>& modelAsset, ModelDataInstance* parent, MeshFeatureProcessor* meshFeatureProcessor);
                 ~MeshLoader();
 
                 ModelChangedEvent& GetModelChangedEvent();
@@ -69,6 +69,7 @@ namespace AZ
                 MeshFeatureProcessorInterface::ModelChangedEvent m_modelChangedEvent;
                 Data::Asset<RPI::ModelAsset> m_modelAsset;
                 ModelDataInstance* m_parent = nullptr;
+                MeshFeatureProcessor* m_meshFeatureProcessor = nullptr;
             };
 
             void DeInit();
@@ -111,6 +112,7 @@ namespace AZ
 
             Aabb m_aabb = Aabb::CreateNull();
 
+            bool m_instanceNeedsInit = false;
             bool m_cullBoundsNeedsUpdate = false;
             bool m_cullableNeedsRebuild = false;
             bool m_objectSrgNeedsUpdate = true;
@@ -186,6 +188,9 @@ namespace AZ
 
             // called when reflection probes are modified in the editor so that meshes can re-evaluate their probes
             void UpdateMeshReflectionProbes();
+
+            void QueueForInit(ModelDataInstance* modelDataInstance);
+            void InitializeNewInstances();
         private:
             void ForceRebuildDrawPackets(const AZ::ConsoleCommandContainer& arguments);
             AZ_CONSOLEFUNC(MeshFeatureProcessor,
@@ -202,6 +207,7 @@ namespace AZ
                         
             AZStd::concurrency_checker m_meshDataChecker;
             StableDynamicArray<ModelDataInstance> m_modelData;
+            AZStd::unordered_set<ModelDataInstance*> m_queuedForInit;
             TransformServiceFeatureProcessor* m_transformService;
             RayTracingFeatureProcessor* m_rayTracingFeatureProcessor = nullptr;
             AZ::RPI::ShaderSystemInterface::GlobalShaderOptionUpdatedEvent::Handler m_handleGlobalShaderOptionUpdate;

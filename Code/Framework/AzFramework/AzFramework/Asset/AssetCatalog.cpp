@@ -1187,7 +1187,7 @@ namespace AzFramework
         AZ::ComponentApplicationBus::BroadcastResult(serializeContext, &AZ::ComponentApplicationRequests::GetSerializeContext);
         AZ_Assert(serializeContext, "Unable to retrieve serialize context.");
 
-        if(!AZ::Utils::SaveObjectToFile(catalogRegistryFile, AZ::DataStream::ST_BINARY, catalogRegistry, serializeContext))
+        if(!AZ::Utils::SaveObjectToFile(catalogRegistryFile, AZ::DataStream::ST_XML, catalogRegistry, serializeContext))
         {
             AZ_Warning("AssetCatalog", false, "Failed to save catalog file %s", catalogRegistryFile);
             return false;

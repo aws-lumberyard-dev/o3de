@@ -66,6 +66,7 @@ namespace AZ
             , private TransformNotificationBus::Handler
             , private MaterialReceiverRequestBus::Handler
             , private MaterialComponentNotificationBus::Handler
+            , private Data::AssetBus::Handler
         {
         public:
             friend class EditorMeshComponent;
@@ -155,6 +156,9 @@ namespace AZ
             void RegisterModel();
             void UnregisterModel();
             void RefreshModelRegistration();
+
+            // AssetBus overrides ...
+            void OnAssetReady(Data::Asset<Data::AssetData> asset) override;
 
             RPI::Cullable::LodConfiguration GetMeshLodConfiguration() const;
 

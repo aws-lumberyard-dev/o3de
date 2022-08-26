@@ -118,6 +118,7 @@ namespace AZ
 
             MaterialComponentRequestBus::Handler::BusConnect(m_entityId);
             MaterialReceiverNotificationBus::Handler::BusConnect(m_entityId);
+            SystemTickBus::Handler::BusConnect();
             LoadMaterials();
         }
 
@@ -125,7 +126,7 @@ namespace AZ
         {
             MaterialComponentRequestBus::Handler::BusDisconnect();
             MaterialReceiverNotificationBus::Handler::BusDisconnect();
-
+            SystemTickBus::Handler::BusDisconnect();
             ReleaseMaterials();
 
             // Sending notification to wipe any previously assigned material overrides
@@ -190,8 +191,6 @@ namespace AZ
                     m_queuedMaterialUpdateNotification = false;
                     MaterialComponentNotificationBus::Event(m_entityId, &MaterialComponentNotifications::OnMaterialsUpdated, m_configuration.m_materials);
                 }
-
-                SystemTickBus::Handler::BusDisconnect();
             }
         }
 
@@ -290,7 +289,6 @@ namespace AZ
 
         void MaterialComponentController::ReleaseMaterials()
         {
-            SystemTickBus::Handler::BusDisconnect();
             Data::AssetBus::MultiHandler::BusDisconnect();
 
             m_defaultMaterialMap.clear();
@@ -762,28 +760,16 @@ namespace AZ
         void MaterialComponentController::QueuePropertyChanges(const MaterialAssignmentId& materialAssignmentId)
         {
             m_materialsWithDirtyProperties.emplace(materialAssignmentId);
-            if (!SystemTickBus::Handler::BusIsConnected())
-            {
-                SystemTickBus::Handler::BusConnect();
-            }
         }
 
         void MaterialComponentController::QueueMaterialUpdateNotification()
         {
             m_queuedMaterialUpdateNotification = true;
-            if (!SystemTickBus::Handler::BusIsConnected())
-            {
-                SystemTickBus::Handler::BusConnect();
-            }
         }
 
         void MaterialComponentController::QueueLoadMaterials()
         {
-            m_queuedLoadMaterials = true;
-            if (!SystemTickBus::Handler::BusIsConnected())
-            {
-                SystemTickBus::Handler::BusConnect();
-            }
+            LoadMaterials();
         }
 
         void MaterialComponentController::ConvertAssetsForSerialization()
