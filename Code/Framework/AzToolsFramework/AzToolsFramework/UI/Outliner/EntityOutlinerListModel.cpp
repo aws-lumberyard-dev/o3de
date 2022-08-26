@@ -50,6 +50,7 @@
 #include <AzToolsFramework/FocusMode/FocusModeInterface.h>
 #include <AzToolsFramework/Prefab/Instance/InstanceToTemplateInterface.h>
 #include <AzToolsFramework/Prefab/Overrides/PrefabOverridePublicInterface.h>
+#include <AzToolsFramework/Prefab/PrefabEditorPreferences.h>
 #include <AzToolsFramework/ToolsComponents/ComponentAssetMimeDataContainer.h>
 #include <AzToolsFramework/ToolsComponents/ComponentMimeData.h>
 #include <AzToolsFramework/ToolsComponents/EditorEntityIdContainer.h>
@@ -94,7 +95,6 @@ namespace AzToolsFramework
     EntityOutlinerListModel::~EntityOutlinerListModel()
     {
         FocusModeNotificationBus::Handler::BusDisconnect();
-        Prefab::PrefabFocusNotificationBus::Handler::BusDisconnect();
         ContainerEntityNotificationBus::Handler::BusDisconnect();
         EditorEntityInfoNotificationBus::Handler::BusDisconnect();
         EditorEntityContextNotificationBus::Handler::BusDisconnect();
@@ -118,7 +118,6 @@ namespace AzToolsFramework
             editorEntityContextId, &AzToolsFramework::EditorEntityContextRequestBus::Events::GetEditorEntityContextId);
 
         ContainerEntityNotificationBus::Handler::BusConnect(editorEntityContextId);
-        Prefab::PrefabFocusNotificationBus::Handler::BusConnect(editorEntityContextId);
         FocusModeNotificationBus::Handler::BusConnect(editorEntityContextId);
 
         m_editorEntityUiInterface = AZ::Interface<AzToolsFramework::EditorEntityUiInterface>::Get();
@@ -1236,27 +1235,32 @@ namespace AzToolsFramework
 
     void EntityOutlinerListModel::OnContainerEntityStatusChanged(AZ::EntityId entityId, [[maybe_unused]] bool open)
     {
-        // Trigger a refresh of all direct children so that they can be shown or hidden appropriately.
-        QueueEntityUpdate(entityId);
-
-        EntityIdList children;
-        EditorEntityInfoRequestBus::EventResult(children, entityId, &EditorEntityInfoRequestBus::Events::GetChildren);
-        for (auto childId : children)
+        if (!Prefab::IsPrefabOverridesUxEnabled())
         {
-            QueueEntityUpdate(childId);
+            // Trigger a refresh of all direct children so that they can be shown or hidden appropriately.
+            QueueEntityUpdate(entityId);
+
+            EntityIdList children;
+            EditorEntityInfoRequestBus::EventResult(children, entityId, &EditorEntityInfoRequestBus::Events::GetChildren);
+            for (auto childId : children)
+            {
+                QueueEntityUpdate(childId);
+            }
+
+            // Always expand containers
+            QueueEntityToExpand(entityId, true);
         }
-    }
+        else
+        {
+            QModelIndex changedIndex = GetIndexFromEntity(entityId);
 
-    void EntityOutlinerListModel::OnInstanceOpened(AZ::EntityId containerEntityId)
-    {
-        QueueEntityToExpand(containerEntityId, true);
-    }
-
-    void EntityOutlinerListModel::OnPrefabFocusChanged(
-        [[maybe_unused]] AZ::EntityId previousContainerEntityId, [[maybe_unused]] AZ::EntityId newContainerEntityId)
-    {
-        QueueEntityToExpand(previousContainerEntityId, false);
-        QueueEntityToExpand(newContainerEntityId, true);
+            // Trigger a refresh of all direct children so that they can be shown or hidden appropriately.
+            int numChildren = rowCount(changedIndex);
+            if (numChildren > 0)
+            {
+                emit dataChanged(index(0, 0, changedIndex), index(numChildren - 1, ColumnCount - 1, changedIndex));
+            }
+        }
     }
 
     void EntityOutlinerListModel::OnEntityInfoUpdatedRemoveChildBegin([[maybe_unused]] AZ::EntityId parentId, [[maybe_unused]] AZ::EntityId childId)
