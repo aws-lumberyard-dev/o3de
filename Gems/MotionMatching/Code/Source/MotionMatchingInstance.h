@@ -89,6 +89,7 @@ namespace EMotionFX::MotionMatching
         const Transform& GetMotionExtractionDelta() const { return m_motionExtractionDelta; }
 
         PoseWriterCsv m_poseWriter;
+        PoseWriterCsv m_rotWriter;
         QueryVectorWriterCsv m_queryVectorWriter;
         BestMatchingFrameWriterCsv m_bestMatchingFrameWriter;
         bool m_queryVectorWritten = false;

@@ -8,6 +8,7 @@
 
 #include <AzCore/Serialization/SerializeContext.h>
 #include <AzCore/Serialization/EditContext.h>
+#include "CsvSerializers.h"
 #include "AnimGraphOnnxNode.h"
 #include <EMotionFX/Source/AnimGraphInstance.h>
 #include <EMotionFX/Source/Actor.h>
@@ -41,7 +42,15 @@ namespace EMotionFX::MotionMatching
 
         InitInternalAttributesForAllInstances();
 
-        poseReaderCsv.Begin("D:/InferencedPoses_PosRotFeatureLocal_To_RotLocal.csv", {false, true});
+        ONNX::Model::InitSettings onnxModelInitSettings;
+        onnxModelInitSettings.m_modelFile = "D:/OnnxModel_PosRotFeaturesWithHandAndHeadLocal_To_RotLocal_Unnormalized_NoBadFrames_Shuffled_LR1e-3_Batch32_Hidden512_WeightDecay1e-5_Epochs3_NormalizeDataOff_170kRecordedONLY_Threshold1-5.onnx";
+        m_onnxModel.Load(onnxModelInitSettings);
+
+        PoseReaderCsv::ReadSettings readSettings;
+        readSettings.m_readPositions = false;
+        readSettings.m_readRotations = true;
+
+        poseReaderCsv.Begin("D:/InferencedPoses_PosRotFeaturesWithHandAndHeadLocal_To_RotLocal_Unnormalized_NoBadFrames_Shuffled_LR1e-3_Batch32_Hidden512_WeightDecay1e-5_Epochs3_NormalizeDataOff_170kRecordedONLY_Threshold1-5.csv", readSettings);
 
         Reinit();
         return true;

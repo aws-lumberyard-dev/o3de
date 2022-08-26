@@ -15,9 +15,11 @@ namespace EMotionFX::MotionMatching
     AZ::Vector3 SampleFunction(float offset, float radius, float phase)
     {
         phase += 10.7;
+        float phase2 = phase + 1.0f;
+        float phase3 = phase + 0.5f;
         AZ::Vector3 displacement = AZ::Vector3::CreateZero();
-        displacement.SetX(radius * sinf(phase * 0.7f + offset) + radius * 0.75f * cosf(phase * 2.0f + offset * 2.0f));
-        displacement.SetY(radius * cosf(phase * 0.4f + offset));
+        displacement.SetX(radius * sinf(phase * 0.7f + offset) + radius * 0.75f * cosf(phase * 2.0f + offset * 2.0f) + radius * sinf(phase3 * 0.7f + offset));
+        displacement.SetY(radius * cosf(phase * 0.4f + offset) + radius * cosf(phase2 * 0.4f + offset));
         return displacement;
     }
 

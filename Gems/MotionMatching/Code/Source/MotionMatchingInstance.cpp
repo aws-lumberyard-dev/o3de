@@ -126,16 +126,25 @@ namespace EMotionFX::MotionMatching
                 m_trajectorySecsToTrack);
         }
 
-        // m_poseWriter.Begin("D:\\RuntimeRecording_Poses.csv", m_actorInstance, true, true);
-        // m_queryVectorWriter.Begin("D:\\RuntimeRecording_Features.csv", &featureSchema);
-        // m_bestMatchingFrameWriter.Begin("D:\\RuntimeRecording_BestMatchingFrames.csv");
+        PoseWriterCsv::WriteSettings writeSettingsPosRot;
+        writeSettingsPosRot.m_writePositions = true;
+        writeSettingsPosRot.m_writeRotations = true;
+
+        PoseWriterCsv::WriteSettings writeSettingsRot;
+        writeSettingsRot.m_writePositions = false;
+        writeSettingsRot.m_writeRotations = true;
+
+        m_poseWriter.Begin("D:\\RuntimeRecording_Poses.csv", m_actorInstance, writeSettingsPosRot);
+        m_rotWriter.Begin("D:\\RuntimeRecording_Rotations.csv", m_actorInstance, writeSettingsRot);
+        m_queryVectorWriter.Begin("D:\\RuntimeRecording_Features.csv", &featureSchema);
+        m_bestMatchingFrameWriter.Begin("D:\\RuntimeRecording_BestMatchingFrames.csv");
 
 #ifdef ONNX_ENABLED
         ONNX::Model::InitSettings onnxInitSettings;
-        onnxInitSettings.m_modelFile = "D:/OnnxModel_PosRotFeatureLocal_To_RotLocal_Unnormalized.onnx";
+        onnxInitSettings.m_modelFile = "D:/OnnxModel_PosRotFeaturesWithHandAndHeadLocal_To_RotLocal_Unnormalized_NoBadFrames_Shuffled_LR1e-3_Batch32_Hidden512_WeightDecay1e-5_Epochs3_NormalizeDataOff_170kRecordedONLY_Threshold1-5.onnx";
         m_onnxModel.Load(onnxInitSettings);
 
-        AZStd::vector<float> motionMatchingOnnxInput(1706);
+        AZStd::vector<float> motionMatchingOnnxInput(1724);
         m_onnxInput.push_back(motionMatchingOnnxInput);
 #endif
     }
