@@ -19,14 +19,31 @@ namespace TestImpact
             const AZStd::string& commandString,
             AZStd::chrono::high_resolution_clock::time_point startTime,
             AZStd::chrono::milliseconds duration,
+            TestRunResult result,
+            const AZStd::string& stdOut,
+            const AZStd::string& stdErr)
+            : TestRunBase(name, commandString, startTime, duration, result)
+
+        {
+            m_stdOut = stdOut;
+            m_stdErr = stdErr;
+        }
+
+        TestRunBase::TestRunBase(
+            const AZStd::string& name,
+            const AZStd::string& commandString,
+            AZStd::chrono::high_resolution_clock::time_point startTime,
+            AZStd::chrono::milliseconds duration,
             TestRunResult result)
             : m_targetName(name)
             , m_commandString(commandString)
             , m_startTime(startTime)
             , m_duration(duration)
             , m_result(result)
+
         {
         }
+
 
         const AZStd::string& TestRunBase::GetTargetName() const
         {

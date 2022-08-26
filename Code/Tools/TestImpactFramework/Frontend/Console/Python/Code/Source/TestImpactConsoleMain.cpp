@@ -83,7 +83,8 @@ namespace TestImpact::Console
                         options.GetGlobalTimeout(),
                         TestSequenceStartCallback,
                         SeedTestSequenceCompleteCallback,
-                        TestRunCompleteCallback),
+                        TestRunCompleteCallback,
+                        AZStd::nullopt),
                     options);
             }
             case TestSequenceType::ImpactAnalysisNoWrite:
@@ -105,7 +106,22 @@ namespace TestImpact::Console
                             options.GetGlobalTimeout(),
                             TestSequenceStartCallback,
                             SeedTestSequenceCompleteCallback,
-                            TestRunCompleteCallback),
+                            TestRunCompleteCallback,
+                            []( [[maybe_unused]] const AZStd::string& stdOutput,
+                                [[maybe_unused]] const AZStd::string& stdError,
+                                AZStd::string&& stdOutDelta,
+                                [[maybe_unused]] AZStd::string&& stdErrDelta)
+                            {
+                                if (!stdOutDelta.empty())
+                                {
+                                    AZ_Printf("StdOut", stdOutDelta.c_str());
+                                }
+
+                                if (!stdErrDelta.empty())
+                                {
+                                    AZ_Printf("StdError", stdErrDelta.c_str());
+                                }
+                            }),
                         options);
                 }
             }

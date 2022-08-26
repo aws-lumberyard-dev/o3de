@@ -19,6 +19,7 @@
 
 #include <AzCore/std/containers/vector.h>
 #include <AzCore/std/smart_ptr/unique_ptr.h>
+#include <TestImpactRuntimeUtils.h>
 
 namespace TestImpact
 {
@@ -35,6 +36,7 @@ namespace TestImpact
     public:
         using TestTargetType = PythonTestTarget;
         using TestCaseCoverageType = TestCoverage;
+        
 
         //! Configures the test engine with the necessary path information for launching test targets and managing the artifacts they
         //! produce.
@@ -67,14 +69,15 @@ namespace TestImpact
         //! @ returns The sequence result and the test run results and test coverages for the test targets that were run.
         [[nodiscard]] TestEngineInstrumentedRunResult<TestTargetType, TestCaseCoverageType>
         InstrumentedRun(
-            const AZStd::vector<const PythonTestTarget*>& testTargets,
+            const AZStd::vector<const TestTargetType*>& testTargets,
             Policy::ExecutionFailure executionFailurePolicy,
             Policy::IntegrityFailure integrityFailurePolicy,
             Policy::TestFailure testFailurePolicy,
             Policy::TargetOutputCapture targetOutputCapture,
             AZStd::optional<AZStd::chrono::milliseconds> testTargetTimeout,
             AZStd::optional<AZStd::chrono::milliseconds> globalTimeout,
-            AZStd::optional<TestEngineJobCompleteCallback<PythonTestTarget>> callback) const;
+            AZStd::optional<TestEngineJobCompleteCallback<TestTargetType>> callback,
+            AZStd::optional<TestEngineStdRoutingCallback<TestTargetType>> stdRoutingCallback) const;
     private:
         //! Cleans up the artifacts directory of any artifacts from previous runs.
         void DeleteArtifactXmls() const;

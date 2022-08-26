@@ -113,13 +113,15 @@ namespace TestImpact
             AZStd::optional<AZStd::chrono::milliseconds> globalTimeout,
             AZStd::optional<TestSequenceStartCallback> testSequenceStartCallback,
             AZStd::optional<TestSequenceCompleteCallback<Client::SeedSequenceReport>> testSequenceCompleteCallback,
-            AZStd::optional<TestRunCompleteCallback> testRunCompleteCallback);
+            AZStd::optional<TestRunCompleteCallback> testRunCompleteCallback,
+            AZStd::optional<StdRoutingCallback> stdOutputCallback);
 
     private:
         using RuntimeConfig = PythonRuntimeConfig;
         using TestEngine = PythonTestEngine;
         using ProductionTarget = PythonProductionTarget;
         using TestTarget = PythonTestTarget;
+        using StdOutputCallback = StdRoutingCallback;
 
         //! Prepares the dynamic dependency map for a seed update by clearing all existing data and deleting the file that will be
         //! serialized.

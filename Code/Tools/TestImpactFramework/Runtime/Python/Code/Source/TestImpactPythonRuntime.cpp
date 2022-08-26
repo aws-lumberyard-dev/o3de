@@ -288,7 +288,8 @@ namespace TestImpact
         [[maybe_unused]] AZStd::optional<AZStd::chrono::milliseconds> globalTimeout,
         [[maybe_unused]] AZStd::optional<TestSequenceStartCallback> testSequenceStartCallback,
         [[maybe_unused]] AZStd::optional<TestSequenceCompleteCallback<Client::SeedSequenceReport>> testSequenceEndCallback,
-        [[maybe_unused]] AZStd::optional<TestRunCompleteCallback> testCompleteCallback)
+        [[maybe_unused]] AZStd::optional<TestRunCompleteCallback> testCompleteCallback,
+        [[maybe_unused]] AZStd::optional<StdOutputCallback> stdOutputCallback)
     {
         const Timer sequenceTimer;
         AZStd::vector<const TestTarget*> includedTestTargets;
@@ -326,7 +327,8 @@ namespace TestImpact
             m_targetOutputCapture,
             testTargetTimeout,
             globalTimeout,
-            TestRunCompleteCallbackHandler<TestTarget>(includedTestTargets.size(), testCompleteCallback));
+            TestRunCompleteCallbackHandler<TestTarget>(includedTestTargets.size(), testCompleteCallback),
+            StdRoutingCallbackHandler<TestTarget>(stdOutputCallback));
         const auto testRunDuration = testRunTimer.GetElapsedMs();
         
         // Generate the sequence report for the client

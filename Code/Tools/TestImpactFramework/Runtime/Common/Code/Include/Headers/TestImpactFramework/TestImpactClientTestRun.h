@@ -41,6 +41,15 @@ namespace TestImpact
                 const AZStd::string& commandString,
                 AZStd::chrono::high_resolution_clock::time_point startTime,
                 AZStd::chrono::milliseconds duration,
+                TestRunResult result,
+                const AZStd::string& stdOut,
+                const AZStd::string& stdErr);
+
+            TestRunBase(
+                const AZStd::string& name,
+                const AZStd::string& commandString,
+                AZStd::chrono::high_resolution_clock::time_point startTime,
+                AZStd::chrono::milliseconds duration,
                 TestRunResult result);
 
             virtual ~TestRunBase() = default;
@@ -63,12 +72,18 @@ namespace TestImpact
             //! Returns the command string used to execute this test target.
             const AZStd::string& GetCommandString() const;
 
+            const AZStd::string& GetStdOutput() const;
+
+            const AZStd::string& getStdError() const;
+
         private:
             AZStd::string m_targetName;
             AZStd::string m_commandString;
             TestRunResult m_result;
             AZStd::chrono::high_resolution_clock::time_point m_startTime;
             AZStd::chrono::milliseconds m_duration;
+            AZStd::string m_stdOut;
+            AZStd::string m_stdErr;
         };
 
         //! Representation of a test run that failed to execute.

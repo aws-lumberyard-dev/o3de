@@ -73,7 +73,9 @@ namespace TestImpact
                     testJob.GetCommandString(),
                     testJob.GetStartTime(),
                     testJob.GetDuration(),
-                    testJob.GetTestResult());
+                    testJob.GetTestResult(),
+                    testJob.GetStdOutput(),
+                    testJob.GetStdError());
 
                 (*m_testCompleteCallback)(testRun, ++m_numTestsCompleted, m_totalTests);
             }
@@ -83,6 +85,27 @@ namespace TestImpact
         const size_t m_totalTests; //!< The total number of tests to run for the entire sequence.
         size_t m_numTestsCompleted = 0; //!< The running total of tests that have completed.
         AZStd::optional<TestRunCompleteCallback> m_testCompleteCallback;
+    };
+
+    template<typename TestTarget>
+    class StdRoutingCallbackHandler
+    {
+    public:
+        StdRoutingCallbackHandler(AZStd::optional<StdRoutingCallback> stdRoutingCallback)
+            : m_stdRoutingCallback(stdRoutingCallback)
+        {
+        }
+
+        void operator()([[maybe_unused]] const TestTarget* target, const AZStd::string& stdOutput, const AZStd::string& stdError, AZStd::string&& stdOutDelta, AZStd::string&& stdErrDelta)
+        {
+            if (m_stdRoutingCallback.has_value())
+            {
+               (*m_stdRoutingCallback)(stdOutput, stdError, AZStd::move(stdOutDelta), AZStd::move(stdErrDelta));
+            }
+        }
+
+    private:
+        AZStd::optional<StdRoutingCallback> m_stdRoutingCallback;
     };
 
     //! Updates the dynamic dependency map and serializes the entire map to disk.

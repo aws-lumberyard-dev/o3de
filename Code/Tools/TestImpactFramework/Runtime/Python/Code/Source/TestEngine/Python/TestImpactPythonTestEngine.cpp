@@ -85,7 +85,8 @@ namespace TestImpact
         [[maybe_unused]] Policy::TargetOutputCapture targetOutputCapture,
         [[maybe_unused]] AZStd::optional<AZStd::chrono::milliseconds> testTargetTimeout,
         [[maybe_unused]] AZStd::optional<AZStd::chrono::milliseconds> globalTimeout,
-        [[maybe_unused]] AZStd::optional<TestEngineJobCompleteCallback<PythonTestTarget>> callback) const
+        [[maybe_unused]] AZStd::optional<TestEngineJobCompleteCallback<TestTargetType>> callback,
+        [[maybe_unused]] AZStd::optional<TestEngineStdRoutingCallback<TestTargetType>> stdRoutingCallback) const
     {
         {
             const auto stdPrint = []([[maybe_unused]] const typename PythonTestEnumerator::JobInfo& jobInfo,
@@ -117,29 +118,7 @@ namespace TestImpact
                 AZStd::nullopt,
                 stdPrint);
         }
-        // We currently don't have a std out/error callback for the test engine users so output the Python
-        // error and output here for the time being
-
-        const auto stdPrint = [](
-            [[maybe_unused]] const typename PythonNullTestRunner::JobInfo& jobInfo,
-            [[maybe_unused]] const AZStd::string& stdOutput,
-            [[maybe_unused]] const AZStd::string& stdError,
-            AZStd::string&& stdOutDelta,
-            [[maybe_unused]] AZStd::string&& stdErrDelta)
-        {
-            if (!stdOutDelta.empty())
-            {
-                AZ_Printf("StdOut", stdOutDelta.c_str());
-            }
-
-            if (!stdErrDelta.empty())
-            {
-                AZ_Printf("StdError", stdErrDelta.c_str());
-            }
-
-            return TestImpact::ProcessCallbackResult::Continue;
-        };        
-
+        
         if (m_useNullTestRunner)
         {
             // We don't delete the artifacts as they have been left by another test runner (e.g. ctest)
@@ -155,7 +134,7 @@ namespace TestImpact
                 testTargetTimeout,
                 globalTimeout,
                 callback,
-                stdPrint),
+                stdRoutingCallback),
             integrityFailurePolicy);
         }
         else
@@ -173,7 +152,7 @@ namespace TestImpact
                     testTargetTimeout,
                     globalTimeout,
                     callback,
-                    stdPrint),
+                    stdRoutingCallback),
                 integrityFailurePolicy);
         }
     }

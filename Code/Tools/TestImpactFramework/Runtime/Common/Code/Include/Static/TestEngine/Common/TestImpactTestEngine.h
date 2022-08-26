@@ -26,10 +26,13 @@ namespace TestImpact
     //! Callback for when a given test engine job has failed and requires determination of the error code it returned.
     template<typename TestJobRunner> 
     using ErrorCodeCheckerCallback = AZStd::function<AZStd::optional<Client::TestRunResult>(const typename TestJobRunner::JobInfo& jobInfo, const JobMeta& meta)>;
-
+    
     //! Callback for when a given test engine job completes.
     template<typename TestTarget>
     using TestEngineJobCompleteCallback = AZStd::function<void(const TestEngineJob<TestTarget>& testJob)>;
+
+    template<typename TestTarget>
+    using TestEngineStdRoutingCallback = AZStd::function<void(const TestTarget* testTarget, const AZStd::string& stdOutput, const AZStd::string& stdError, AZStd::string&& stdOutDelta, AZStd::string&& stdErrDelta)>;
 
     template<typename TestTarget>
     using TestEngineRegularRunResult = AZStd::pair<TestSequenceResult, AZStd::vector<TestEngineRegularRun<TestTarget>>>;
@@ -87,6 +90,36 @@ namespace TestImpact
     template<typename IdType, typename TestTarget>
     using TestEngineJobMap = AZStd::unordered_map<IdType, TestEngineJob<TestTarget>>;
 
+    template<typename TestJobRunner, typename TestTarget>
+    class TestJobStdRoutingCallbackHandler
+    {
+        using JobInfo = typename TestJobRunner::JobInfo;
+
+    public:
+        TestJobStdRoutingCallbackHandler(
+            const AZStd::vector<const TestTarget*>& testTargets, AZStd::optional<TestEngineStdRoutingCallback<TestTarget>>* callback
+        ) :
+            m_testTargets(testTargets)
+            , m_callback(callback)
+        {
+
+        }
+
+        ProcessCallbackResult operator()([[maybe_unused]] const typename JobInfo& jobInfo, const AZStd::string& stdOutput, const AZStd::string& stdError, AZStd::string&& stdOutDelta, AZStd::string&& stdErrDelta)
+        {
+            if (m_callback->has_value())
+            {
+                const auto id = jobInfo.GetId().m_value;
+                const auto* target = m_testTargets[id];
+                (*m_callback).value()(target, stdOutput, stdError, AZStd::move(stdOutDelta), AZStd::move(stdErrDelta));
+            }
+            return ProcessCallbackResult::Continue;
+        }
+
+    private:
+        const AZStd::vector<const TestTarget*>& m_testTargets;
+        AZStd::optional<TestEngineStdRoutingCallback<TestTarget>>* m_callback;
+    };
     // Functor for handling test job runner callbacks
     template<typename TestJobRunner, typename TestTarget>
     class TestJobRunnerCallbackHandler
@@ -244,7 +277,7 @@ namespace TestImpact
         AZStd::optional<AZStd::chrono::milliseconds> testTargetTimeout,
         AZStd::optional<AZStd::chrono::milliseconds> globalTimeout,
         AZStd::optional<TestEngineJobCompleteCallback<TestTarget>> jobCallback,
-        AZStd::optional<typename TestJobRunner::StdContentCallback> stdContentCallback)
+        AZStd::optional<TestEngineStdRoutingCallback<TestTarget>> stdContentCallback)
     {
         TestEngineJobMap<typename TestJobRunner::JobInfo::IdType, TestTarget> engineJobs;
         auto [result, runnerJobs] = testRunner->RunTests(
@@ -260,7 +293,7 @@ namespace TestImpact
                 testFailurePolicy,
                 errorCheckerCallback,
                 &jobCallback),
-            stdContentCallback);
+            TestJobStdRoutingCallbackHandler<TestJobRunner, TestTarget>(testTargets, &stdContentCallback));
 
         auto engineRuns = CompileTestEngineRuns<TestJobRunner, TestTarget>(testTargets, runnerJobs, AZStd::move(engineJobs));
         return AZStd::pair{ CalculateSequenceResult(result, engineRuns, executionFailurePolicy), AZStd::move(engineRuns) };
@@ -279,7 +312,7 @@ namespace TestImpact
         AZStd::optional<AZStd::chrono::milliseconds> testTargetTimeout,
         AZStd::optional<AZStd::chrono::milliseconds> globalTimeout,
         AZStd::optional<TestEngineJobCompleteCallback<TestTarget>> jobCallback,
-        AZStd::optional<typename TestJobRunner::StdContentCallback> stdContentCallback)
+        AZStd::optional<TestEngineStdRoutingCallback<TestTarget>> stdContentCallback)
     {
         return RunTests(
             testRunner,

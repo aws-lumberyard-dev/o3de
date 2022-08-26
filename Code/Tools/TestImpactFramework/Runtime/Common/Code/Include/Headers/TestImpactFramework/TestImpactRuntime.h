@@ -83,4 +83,6 @@ namespace TestImpact
     //! @param numTestRunsCompleted The number of test runs that have completed.
     //! @param totalNumTestRuns The total number of test runs in the sequence.
     using TestRunCompleteCallback = AZStd::function<void(Client::TestRunBase& testRun, size_t numTestRunsCompleted, size_t totalNumTestRuns)>;
+
+    using StdRoutingCallback = AZStd::function<void(const AZStd::string& stdOutput, const AZStd::string& stdError, AZStd::string&& stdOutDelta, AZStd::string&& stdErrDelta)>;
 } // namespace TestImpact
