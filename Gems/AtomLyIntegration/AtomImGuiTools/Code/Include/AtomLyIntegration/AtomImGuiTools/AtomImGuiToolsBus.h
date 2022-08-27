@@ -11,6 +11,7 @@
 #include <AzCore/Component/ComponentBus.h>
 #include <AzCore/Component/EntityId.h>
 #include <Atom/RPI.Public/MeshDrawPacket.h>
+#include <Atom/Feature/Material/MaterialAssignmentId.h>
 
 namespace AZ
 {

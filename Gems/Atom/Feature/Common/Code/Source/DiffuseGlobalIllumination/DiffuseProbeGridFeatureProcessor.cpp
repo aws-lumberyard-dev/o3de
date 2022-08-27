@@ -704,12 +704,57 @@ namespace AZ
 
         void DiffuseProbeGridFeatureProcessor::OnRenderPipelinePassesChanged([[maybe_unused]] RPI::RenderPipeline* renderPipeline)
         {
+            // change the attachment on the AuxGeom pass to use the output of the visualization pass
+            RPI::PassFilter auxGeomPassFilter = RPI::PassFilter::CreateWithPassName(AZ::Name("AuxGeomPass"), renderPipeline);
+            RPI::Pass* auxGeomPass = RPI::PassSystemInterface::Get()->FindFirstPass(auxGeomPassFilter);
+            RPI::PassFilter visualizationPassFilter = RPI::PassFilter::CreateWithPassName(AZ::Name("DiffuseProbeGridVisualizationPass"), renderPipeline);
+            RPI::Pass* visualizationPass = RPI::PassSystemInterface::Get()->FindFirstPass(visualizationPassFilter);
+
+            if (auxGeomPass && visualizationPass && visualizationPass->GetInputOutputCount())
+            {
+                RPI::PassAttachmentBinding& visualizationBinding = visualizationPass->GetInputOutputBinding(0);
+                RPI::PassAttachmentBinding* auxGeomBinding = auxGeomPass->FindAttachmentBinding(AZ::Name("ColorInputOutput"));
+                if (auxGeomBinding)
+                {
+                    auxGeomBinding->SetAttachment(visualizationBinding.GetAttachment());
+                }
+            }
+
             UpdatePasses();
             m_needUpdatePipelineStates = true;
         }
 
-        void DiffuseProbeGridFeatureProcessor::OnRenderPipelineAdded([[maybe_unused]] RPI::RenderPipelinePtr pipeline)
+        void DiffuseProbeGridFeatureProcessor::OnRenderPipelineAdded([[maybe_unused]] RPI::RenderPipelinePtr renderPipeline)
         {
+            // only add to this pipeline if it contains the DiffuseGlobalFullscreen pass
+            RPI::PassFilter diffuseGlobalFullscreenPassFilter = RPI::PassFilter::CreateWithPassName(AZ::Name("DiffuseGlobalFullscreenPass"), renderPipeline.get());
+            RPI::Pass* diffuseGlobalFullscreenPass = RPI::PassSystemInterface::Get()->FindFirstPass(diffuseGlobalFullscreenPassFilter);
+            if (!diffuseGlobalFullscreenPass)
+            {
+                return;
+            }
+
+            // check to see if the DiffuseProbeGrid passes were already added
+            RPI::PassFilter diffuseProbeGridUpdatePassFilter = RPI::PassFilter::CreateWithPassName(AZ::Name("DiffuseProbeGridUpdatePass"), renderPipeline.get());
+            RPI::Pass* diffuseProbeGridUpdatePass = RPI::PassSystemInterface::Get()->FindFirstPass(diffuseProbeGridUpdatePassFilter);
+
+            if (!diffuseProbeGridUpdatePass)
+            {
+                AddPassRequest(renderPipeline.get(), "Passes/DiffuseProbeGridUpdatePassRequest.azasset", "DepthPrePass");
+                AddPassRequest(renderPipeline.get(), "Passes/DiffuseProbeGridRenderPassRequest.azasset", "ForwardSubsurface");
+
+                // only add the visualization pass if there's an AuxGeom pass in the pipeline
+                RPI::PassFilter auxGeomPassFilter = RPI::PassFilter::CreateWithPassName(AZ::Name("AuxGeomPass"), renderPipeline.get());
+                RPI::Pass* auxGeomPass = RPI::PassSystemInterface::Get()->FindFirstPass(auxGeomPassFilter);
+                if (auxGeomPass)
+                {
+                    AddPassRequest(renderPipeline.get(), "Passes/DiffuseProbeGridVisualizationPassRequest.azasset", "PostProcessPass");
+                }
+
+                // disable the DiffuseGlobalFullscreenPass if it exists, since it is replaced with a DiffuseProbeGrid composite pass
+                diffuseGlobalFullscreenPass->SetEnabled(false);
+            }
+
             UpdatePasses();
             m_needUpdatePipelineStates = true;
         }
@@ -717,6 +762,47 @@ namespace AZ
         void DiffuseProbeGridFeatureProcessor::OnRenderPipelineRemoved([[maybe_unused]] RPI::RenderPipeline* pipeline)
         {
             m_needUpdatePipelineStates = true;
+        }
+
+        void DiffuseProbeGridFeatureProcessor::AddPassRequest(RPI::RenderPipeline* renderPipeline, const char* passRequestAssetFilePath, const char* insertionPointPassName)
+        {
+            auto passRequestAsset = RPI::AssetUtils::LoadAssetByProductPath<RPI::AnyAsset>(passRequestAssetFilePath, RPI::AssetUtils::TraceLevel::Warning);
+
+            // load pass request from the asset
+            const RPI::PassRequest* passRequest = nullptr;
+            if (passRequestAsset->IsReady())
+            {
+                passRequest = passRequestAsset->GetDataAs<RPI::PassRequest>();
+            }
+
+            if (!passRequest)
+            {
+                AZ_Error("DiffuseProbeGridFeatureProcessor", false, "Failed to load PassRequest asset [%s]", passRequestAssetFilePath);
+                return;
+            }
+
+            // check to see if the pass already exists
+            RPI::PassFilter passFilter = RPI::PassFilter::CreateWithPassName(passRequest->m_passName, renderPipeline);
+            RPI::Pass* existingPass = RPI::PassSystemInterface::Get()->FindFirstPass(passFilter);
+            if (existingPass)
+            {
+                return;
+            }
+
+            // create tha pass from the request
+            RPI::Ptr<RPI::Pass> newPass = RPI::PassSystemInterface::Get()->CreatePassFromRequest(passRequest);
+            if (!newPass)
+            {
+                AZ_Error("DiffuseProbeGridFeatureProcessor", false, "Failed to create pass from pass request [%s]", passRequest->m_passName.GetCStr());
+                return;
+            }
+
+            // Add the pass to render pipeline
+            bool success = renderPipeline->AddPassAfter(newPass, AZ::Name(insertionPointPassName));
+            if (!success)
+            {
+                AZ_Warning("DiffuseProbeGridFeatureProcessor", false, "Failed to add pass [%s] to render pipeline [%s]", newPass->GetName().GetCStr(), renderPipeline->GetId().GetCStr());
+            }
         }
 
         void DiffuseProbeGridFeatureProcessor::UpdatePipelineStates()

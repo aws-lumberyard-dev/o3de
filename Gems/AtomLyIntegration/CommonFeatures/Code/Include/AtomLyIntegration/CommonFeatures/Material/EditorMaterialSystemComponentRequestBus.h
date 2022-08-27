@@ -28,8 +28,11 @@ namespace AZ
             static const AZ::EBusAddressPolicy AddressPolicy = AZ::EBusAddressPolicy::Single;
             static const AZ::EBusHandlerPolicy HandlerPolicy = AZ::EBusHandlerPolicy::Single;
 
-            //! Open source material in material editor
+            //! Open document in material editor
             virtual void OpenMaterialEditor(const AZStd::string& sourcePath) = 0;
+
+            //! Open document in material canvas
+            virtual void OpenMaterialCanvas(const AZStd::string& sourcePath) = 0;
 
             //! Open the material instance editor to preview and edit material property overrides for the primary entity while applying
             //! changes to all entities in the editable set
@@ -38,10 +41,6 @@ namespace AZ
                 const AzToolsFramework::EntityIdSet& entityIdsToEdit,
                 const AZ::Render::MaterialAssignmentId& materialAssignmentId) = 0;
             
-            virtual void OpenMaterialShaderDetails(
-                const AZ::EntityId& entityId,
-                const AZ::Render::MaterialAssignmentId& materialAssignmentId) = 0;
-
             //! Generate a material preview image for a specific entity and material slot with material and property overrides applied 
             virtual void RenderMaterialPreview(
                 const AZ::EntityId& entityId, const AZ::Render::MaterialAssignmentId& materialAssignmentId) = 0;

@@ -17,9 +17,17 @@
 
 namespace AZ::Render
 {
-    inline void ImGuiMaterialDetails::SetMaterial(AZ::Data::Instance<AZ::RPI::Material> material)
+    inline void ImGuiMaterialDetails::SetSelectedDrawPacket(const RPI::MeshDrawPacket* drawPacket)
     {
-        m_material = material;
+        m_selectedDrawPacket = drawPacket;
+
+        if (!m_selectedDrawPacket)
+        {
+            // If the draw packet selection was explicitly set to null, we don't want to continue showing
+            // some other draw packet because that could confuse the user.
+            m_selectedLod = AZStd::numeric_limits<decltype(m_selectedLod)>::max();
+            m_selectedDrawPacketIndex = AZStd::numeric_limits<decltype(m_selectedDrawPacketIndex)>::max();
+        }
     }
 
     inline void ImGuiMaterialDetails::OpenDialog()
@@ -32,68 +40,13 @@ namespace AZ::Render
         m_dialogIsOpen = false;
     }
 
-    inline void ImGuiMaterialDetails::Tick()
+    inline bool ImGuiMaterialDetails::Tick(const AZ::RPI::MeshDrawPacketLods* drawPackets, const char* selectionName)
     {
         if (m_dialogIsOpen)
         {
-            if (ImGui::Begin("Material Details", &m_dialogIsOpen, ImGuiWindowFlags_AlwaysAutoResize | ImGuiWindowFlags_NoSavedSettings))
-            {
-                if (m_material)
-                {
-                    const ImGuiTreeNodeFlags flagDefaultOpen = ImGuiTreeNodeFlags_OpenOnArrow | ImGuiTreeNodeFlags_OpenOnDoubleClick | ImGuiTreeNodeFlags_DefaultOpen;
-                    if (ImGui::TreeNodeEx("Shaders", flagDefaultOpen))
-                    {
-                        for (size_t i = 0; i < m_material->GetShaderCollection().size(); i++)
-                        {
-                            const AZ::RPI::ShaderCollection::Item& shaderItem = m_material->GetShaderCollection()[i];
+            // Make sure the window doesn't have a 0 size the first time it's opened.
+            ImGui::SetNextWindowSizeConstraints(ImVec2(200, 100), ImVec2(10'000, 10'000));
 
-                            if (ImGui::TreeNodeEx(AZStd::string::format("Shader[%d] - Enabled=%d - %s", aznumeric_cast<int>(i), shaderItem.IsEnabled(), shaderItem.GetShaderAsset()->GetName().GetCStr()).c_str(), flagDefaultOpen))
-                            {
-                                if (shaderItem.IsEnabled())
-                                {
-                                    AZ::RPI::ShaderVariantId requestedVariantId = shaderItem.GetShaderVariantId();
-                                    AZ::Data::Asset<AZ::RPI::ShaderVariantAsset> selectedVariantAsset =
-                                        shaderItem.GetShaderAsset()->GetVariantAsset(requestedVariantId);
-
-                                    if (!selectedVariantAsset)
-                                    {
-                                        selectedVariantAsset = shaderItem.GetShaderAsset()->GetRootVariantAsset();
-                                    }
-
-                                    if (selectedVariantAsset)
-                                    {
-                                        AZ::RPI::ShaderVariantId selectedVariantId = selectedVariantAsset->GetShaderVariantId();
-
-                                        ImGui::Indent();
-
-                                        ImGuiShaderUtils::DrawShaderVariantTable(
-                                            shaderItem.GetShaderAsset()->GetShaderOptionGroupLayout(), requestedVariantId,
-                                            selectedVariantId);
-
-                                        ImGui::Unindent();
-                                    }
-                                }
-
-                                ImGui::TreePop();
-                            }
-                        }
-
-                        ImGui::TreePop();
-                    }
-                }
-                else
-                {
-                    ImGui::Text("No material selected");
-                }
-            }
-            ImGui::End();
-        }
-    }
-    
-    inline void ImGuiMaterialDetails::Tick(const char* selectionName, const AZ::RPI::MeshDrawPacketLods* drawPackets)
-    {
-        if (m_dialogIsOpen)
-        {
             if (ImGui::Begin("Material Shader Details", &m_dialogIsOpen, ImGuiWindowFlags_None))
             {
                 if (selectionName && selectionName[0])
@@ -103,6 +56,34 @@ namespace AZ::Render
                 
                 if (drawPackets)
                 {
+                    // First determine which draw packet is currently selected, if any
+                    const RPI::MeshDrawPacket* currentSelectedDrawPacket = nullptr;
+                    {
+                        const RPI::MeshDrawPacket* explicitSelectedDrawPacket = nullptr;
+                        const RPI::MeshDrawPacket* indexSelectedDrawPacket = nullptr;
+
+                        // The first priority for draw packet selection is to use the explicitly set m_selectedDrawPacket
+                        for (size_t lod = 0; lod < drawPackets->size(); ++lod)
+                        {
+                            const AZ::RPI::MeshDrawPacketList& drawPacketsOneLod = (*drawPackets)[lod];
+                            for (size_t drawPacketIndex = 0; drawPacketIndex < drawPacketsOneLod.size(); ++drawPacketIndex)
+                            {
+                                const AZ::RPI::MeshDrawPacket& drawPacket = drawPacketsOneLod[drawPacketIndex];
+                                if (m_selectedDrawPacket == &drawPacket)
+                                {
+                                    explicitSelectedDrawPacket = &drawPacket;
+                                }
+
+                                if (m_selectedLod == lod && m_selectedDrawPacketIndex == drawPacketIndex)
+                                {
+                                    indexSelectedDrawPacket = &drawPacket;
+                                }
+                            }
+                        }
+
+                        currentSelectedDrawPacket = explicitSelectedDrawPacket ? explicitSelectedDrawPacket : indexSelectedDrawPacket;
+                    }
+
                     ImGui::BeginChild("DrawPackets", ImVec2(ImGui::GetWindowContentRegionWidth() * 0.25f, 0.0f), true);
                     {
                         for (size_t lod = 0; lod < drawPackets->size(); ++lod)
@@ -119,7 +100,7 @@ namespace AZ::Render
                                     AZStd::string drawPacketNodeId = AZStd::string::format("DrawPacket[%zu][%zu]", lod, drawPacketIndex);
 
                                     ImGuiTreeNodeFlags drawPacketNodeFlags = ImGuiTreeNodeFlags_Leaf;
-                                    if (m_selectedLod == lod && m_selectedDrawPacket == drawPacketIndex)
+                                    if (currentSelectedDrawPacket == &drawPacket)
                                     {
                                         drawPacketNodeFlags |= ImGuiTreeNodeFlags_Selected;
                                     }
@@ -130,7 +111,9 @@ namespace AZ::Render
                                     if (ImGui::IsItemClicked())
                                     {
                                         m_selectedLod = lod;
-                                        m_selectedDrawPacket = drawPacketIndex;
+                                        m_selectedDrawPacketIndex = drawPacketIndex;
+                                        m_selectedDrawPacket = &drawPacket;
+                                        currentSelectedDrawPacket = &drawPacket;
                                     }
 
                                     ImGui::TreePop();
@@ -152,13 +135,13 @@ namespace AZ::Render
 
                     ImGui::BeginChild("Shaders", ImVec2(0.0f, 0.0f), true);
                     {
-                        if (selectedDrawPacket)
+                        if (currentSelectedDrawPacket)
                         {
-                            ImGui::Text("Material: %s", selectedDrawPacket->GetMaterial()->GetAsset().GetHint().c_str());
+                            ImGui::Text("Material: %s", currentSelectedDrawPacket->GetMaterial()->GetAsset().GetHint().c_str());
 
-                            for (size_t shaderIndex = 0; shaderIndex < selectedDrawPacket->GetActiveShaderList().size(); ++shaderIndex)
+                            for (size_t shaderIndex = 0; shaderIndex < currentSelectedDrawPacket->GetActiveShaderList().size(); ++shaderIndex)
                             {
-                                const AZ::RPI::MeshDrawPacket::ShaderData& shaderData = selectedDrawPacket->GetActiveShaderList()[shaderIndex];
+                                const AZ::RPI::MeshDrawPacket::ShaderData& shaderData = currentSelectedDrawPacket->GetActiveShaderList()[shaderIndex];
 
                                 const ImGuiTreeNodeFlags shaderNodeFlags = ImGuiTreeNodeFlags_DefaultOpen;
 
@@ -184,5 +167,7 @@ namespace AZ::Render
             }
             ImGui::End();
         }
+
+        return m_dialogIsOpen;
     }
 } // namespace AtomSampleViewer
