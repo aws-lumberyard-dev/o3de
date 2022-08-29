@@ -1,9 +1,7 @@
 # Welcome to the AWS Core CDK Python project!
 
-```
-This is the long term supported CDK v2 version of this template. If you have preexisting versions of this template
+> This is the long term supported CDK v2 version of this template. If you have preexisting versions of this template
 see the CDK guidance about upgrading to CDK v2.
-```
 
 This is an optional CDKv2 application that provides two stacks:
 
@@ -22,10 +20,10 @@ you can create the virtualenv manually.
 See https://docs.aws.amazon.com/cdk/v2/guide/getting_started.html about for information about how to set up
 the prerequisites for CDK development.
 
-See for more information about working with the CDK and O3DE, see the [Deploying the CDK Application](https://www.o3de.org/docs/user-guide/gems/reference/aws/aws-core/cdk-application/)
+For more information about working with the CDK and O3DE, see the [Deploying the CDK Application](https://www.o3de.org/docs/user-guide/gems/reference/aws/aws-core/cdk-application/)
 section on o3de.org. 
 
-> Note: This stack is for CDK v2 (the latest CDK version, if you are working with CDKv1 stacks please use the CDKv1 version of this application).
+> Note: This stack is for CDK v2 (the latest CDK version), if you are working with CDKv1 stacks please use the CDKv1 version of this application.
 
 ## Make a virtual environment
 
@@ -69,9 +67,9 @@ At this point you can now synthesize the CloudFormation template for this code.
 $ cdk synth
 ```
 
-You may need todo a one time [bootstrap](https://docs.aws.amazon.com/cdk/v2/guide/bootstrapping.html), once per account, per region. The CDK application will prompt you on this.
+You may need to perform a one time [CDK bootstrap](https://docs.aws.amazon.com/cdk/v2/guide/bootstrapping.html), once per account, per region. The CDK application will prompt you on this.
 
-To add additional dependencies, for example other CDK libraries, just add them to your `setup.py` file and rerun the `pip install -r requirements.txt` command.
+To add additional dependencies, for example other CDK libraries, just add them to your `requirements.txt` or `setup.py` file and rerun the `pip install -r requirements.txt` command.
 
 ## Optional Features
 
