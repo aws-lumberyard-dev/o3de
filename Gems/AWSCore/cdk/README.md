@@ -1,27 +1,21 @@
 # Welcome to the AWS Core CDK Python project!
 
-> This is the long term supported CDK v2 version of this template. If you have preexisting versions of this template
-see the CDK guidance about upgrading to CDK v2.
+> This is the long term supported CDK v2 version of this template. If you have preexisting versions of this template see the [CDK migration guidance](https://docs.aws.amazon.com/cdk/v2/guide/migrating-v2.html) about upgrading to CDK v2.
 
 This is an optional CDKv2 application that provides two stacks:
 
-  * A core stack to use as the basis for a project's CDK application
-  * An example stack with example resources that can be connected to ScriptBehavior samples in Core
+* A core stack to use as the basis for a project's CDK application
+* An example stack with example resources that can be connected to ScriptBehavior samples in Core
 
 The `cdk.json` file tells the CDK Toolkit how to execute your app.
 
-This project is set up like a standard Python project.  The initialization
-process also creates a virtualenv within this project, stored under the `.env`
-directory.  To create the virtualenv it assumes that there is a `python3`
-(or `python` for Windows) (Python 3.7+) executable in your path with access to the `venv`
-package. If for any reason the automatic creation of the virtualenv fails,
-you can create the virtualenv manually.
+This project is set up like a standard Python project.  The initialization process also creates a virtualenv within this project, stored under the `.env` directory.  
+To create the virtualenv it assumes that there is a `python3` (or `python` for Windows) (Python 3.7+) executable in your path with access to the `venv` package. 
+If for any reason the automatic creation of the virtualenv fails, you can create the virtualenv manually.
 
-See https://docs.aws.amazon.com/cdk/v2/guide/getting_started.html about for information about how to set up
-the prerequisites for CDK development.
+The [CDK Getting Started Guide](https://docs.aws.amazon.com/cdk/v2/guide/getting_started.html) covers information about how to set up the prerequisites for CDK development. 
 
-For more information about working with the CDK and O3DE, see the [Deploying the CDK Application](https://www.o3de.org/docs/user-guide/gems/reference/aws/aws-core/cdk-application/)
-section on o3de.org. 
+For information about working with the CDK and O3DE, see the [Deploying the CDK Application](https://www.o3de.org/docs/user-guide/gems/reference/aws/aws-core/cdk-application/) section on o3de.org. 
 
 > Note: This stack is for CDK v2 (the latest CDK version), if you are working with CDKv1 stacks please use the CDKv1 version of this application.
 
@@ -61,6 +55,7 @@ See [CDK Environments](https://docs.aws.amazon.com/cdk/v2/guide/environments.htm
 to use for environment variables.
 
 ## Synthesize the project
+
 At this point you can now synthesize the CloudFormation template for this code.
 
 ```
@@ -79,6 +74,7 @@ cdk synth --context key1=value1 --context key2=value2 MyStack
 ```
 
 ### Automatic S3 and DynamoDB Cleanup
+
 The S3 bucket and Dynamodb created by the sample will be left behind as the CDK defaults to retaining such storage (both have default policies to retain resources on destroy). To delete
 the storage resources created when using CDK destroy, use the following commands to synthesize and destroy the CDK application.
 ```
@@ -88,6 +84,7 @@ cdk destroy --all
 ```
 
 ### Server Access Logging
+
 Server access logging is enabled by default. To disable the feature, use the following commands to synthesize and deploy this CDK application.
 
 ```
