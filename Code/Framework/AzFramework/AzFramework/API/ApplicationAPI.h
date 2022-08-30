@@ -21,7 +21,7 @@
 #include <AzCore/PlatformIncl.h>
 
 #include <AzFramework/CommandLine/CommandLine.h>
-
+// Force a change to run reports
 namespace AZ
 {
     class Entity;
