@@ -28,6 +28,8 @@ set(FILES
     Source/FeatureMatrix.h
     Source/FeatureMatrixMinMaxScaler.cpp
     Source/FeatureMatrixMinMaxScaler.h
+    Source/FeatureMatrixStandardScaler.cpp
+    Source/FeatureMatrixStandardScaler.h
     Source/FeatureMatrixTransformer.h
     Source/FeatureAngularVelocity.cpp
     Source/FeatureAngularVelocity.h
