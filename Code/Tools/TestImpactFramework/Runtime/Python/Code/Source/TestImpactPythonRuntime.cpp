@@ -500,7 +500,7 @@ TestEngineInstrumentedRunResult<PythonTestTarget, TestCoverage> DiscoverDependen
 
             AZ_Printf("", "Known covered targets:");
             for (const auto& [target, tests] : coveredTargets)
-            {
+                {
                 AZ_Printf("---->", "%s", target.GetTarget()->GetName().c_str());
                 for (const auto& test : tests)
                 {
@@ -734,34 +734,6 @@ TestEngineInstrumentedRunResult<PythonTestTarget, TestCoverage> DiscoverDependen
                 AZStd::optional<AZStd::function<void(const AZStd::vector<TestEngineInstrumentedRun<TestTarget, TestCoverage>>& jobs)>>{
                     AZStd::nullopt });
         }
-
-        //return Client::ImpactAnalysisSequenceReport(
-        //    1,
-        //    AZStd::nullopt,
-        //    AZStd::nullopt,
-        //    ImpactAnalysisSequencePolicyState{},
-        //    m_suiteFilter,
-        //    Client::TestRunSelection(),
-        //    {},
-        //    {},
-        //    Client::TestRunReport(
-        //        TestSequenceResult::Success,
-        //        AZStd::chrono::high_resolution_clock::time_point(),
-        //        AZStd::chrono::milliseconds{ 0 },
-        //        {},
-        //        {},
-        //        {},
-        //        {},
-        //        {}),
-        //    Client::TestRunReport(
-        //        TestSequenceResult::Success,
-        //        AZStd::chrono::high_resolution_clock::time_point(),
-        //        AZStd::chrono::milliseconds{ 0 },
-        //        {},
-        //        {},
-        //        {},
-        //        {},
-        //        {}));
     }
 
     Client::SafeImpactAnalysisSequenceReport PythonRuntime::SafeImpactAnalysisTestSequence(
