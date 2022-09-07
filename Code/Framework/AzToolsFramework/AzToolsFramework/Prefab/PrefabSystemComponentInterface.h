@@ -8,7 +8,6 @@
 
 #pragma once
 
-#include <AzCore/DOM/DomPath.h>
 #include <AzCore/Interface/Interface.h>
 #include <AzCore/std/containers/set.h>
 #include <AzCore/std/smart_ptr/unique_ptr.h>
@@ -42,8 +41,7 @@ namespace AzToolsFramework
             virtual void RemoveAllTemplates() = 0;
 
             virtual LinkId AddLink(TemplateId sourceTemplateId, TemplateId targetTemplateId,
-                PrefabDomValue::MemberIterator& instanceIterator,
-                InstanceOptionalReference instance) = 0;
+                PrefabDomValue::MemberIterator& instanceIterator, InstanceOptionalReference instance) = 0;
 
             //creates a new Link
             virtual LinkId CreateLink(

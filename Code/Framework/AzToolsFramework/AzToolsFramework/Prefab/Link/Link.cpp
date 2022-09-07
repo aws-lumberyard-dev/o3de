@@ -5,9 +5,8 @@
  * SPDX-License-Identifier: Apache-2.0 OR MIT
  *
  */
-#pragma optimize("", off)
+
 #include <AzCore/DOM/Backends/JSON/JsonSerializationUtils.h>
-#include <AzCore/std/smart_ptr/make_shared.h>
 #include <AzToolsFramework/Prefab/Link/Link.h>
 
 #include <AzToolsFramework/Prefab/PrefabDomUtils.h>
@@ -17,19 +16,7 @@
 namespace AzToolsFramework
 {
     namespace Prefab
-    {
-        Link::Link(const Link& other)
-            : m_sourceTemplateId(other.m_sourceTemplateId)
-            , m_targetTemplateId(other.m_targetTemplateId)
-            , m_instanceName(other.m_instanceName)
-            , m_id(other.m_id)
-            , m_prefabSystemComponentInterface(other.m_prefabSystemComponentInterface)
-        {
-            AZ_Assert(m_prefabSystemComponentInterface != nullptr,
-                "Prefab System Component Interface could not be found. "
-                "It is a requirement for the Link class. Check that it is being correctly initialized.");
-        }
-        
+    { 
         Link::Link()
             : Link(InvalidLinkId)
         {
@@ -42,27 +29,6 @@ namespace AzToolsFramework
             AZ_Assert(m_prefabSystemComponentInterface != nullptr,
                 "Prefab System Component Interface could not be found. "
                 "It is a requirement for the Link class. Check that it is being correctly initialized.");
-            m_prefabEditorEntityOwnershipInterface = AZ::Interface<AzToolsFramework::PrefabEditorEntityOwnershipInterface>::Get();
-            AZ_Assert(m_prefabEditorEntityOwnershipInterface, "PrefabEditorEntityOwnershipInterface is not found.");
-        }
-
-        Link& Link::operator=(const Link& other)
-        {
-            if (this != &other)
-            {
-                m_sourceTemplateId = other.m_targetTemplateId;
-                m_targetTemplateId = other.m_sourceTemplateId;
-                m_instanceName = other.m_instanceName;
-                m_id = other.m_id;
-                m_prefabSystemComponentInterface = other.m_prefabSystemComponentInterface;
-                AZ_Assert(m_prefabSystemComponentInterface != nullptr,
-                    "Prefab System Component Interface could not be found. "
-                    "It is a requirement for the Link class. Check that it is being correctly initialized.");
-                m_prefabEditorEntityOwnershipInterface = AZStd::move(other.m_prefabEditorEntityOwnershipInterface);
-                AZ_Assert(m_prefabSystemComponentInterface != nullptr, "PrefabEditorEntityOwnershipInterface could not be found.");
-            }
-
-            return *this;
         }
 
         Link::Link(Link&& other) noexcept
@@ -71,12 +37,9 @@ namespace AzToolsFramework
             , m_targetTemplateId(AZStd::move(other.m_targetTemplateId))
             , m_instanceName(AZStd::move(other.m_instanceName))
             , m_prefabSystemComponentInterface(AZStd::move(other.m_prefabSystemComponentInterface))
-            , m_prefabEditorEntityOwnershipInterface(AZStd::move(other.m_prefabEditorEntityOwnershipInterface))
             , m_linkPatchesTree(AZStd::move(other.m_linkPatchesTree))
         {
             other.m_prefabSystemComponentInterface = nullptr;
-            other.m_prefabEditorEntityOwnershipInterface = nullptr;
-            m_cachedLinkDom = AZStd::move(other.m_cachedLinkDom);
         }
 
 
@@ -93,10 +56,6 @@ namespace AzToolsFramework
                     "Prefab System Component Interface could not be found. "
                     "It is a requirement for the Link class. Check that it is being correctly initialized.");
                 other.m_prefabSystemComponentInterface = nullptr;
-                m_prefabEditorEntityOwnershipInterface = AZStd::move(other.m_prefabEditorEntityOwnershipInterface);
-                AZ_Assert(m_prefabSystemComponentInterface != nullptr, "PrefabEditorEntityOwnershipInterface could not be found.");
-                other.m_prefabEditorEntityOwnershipInterface = nullptr;
-                m_cachedLinkDom = AZStd::move(other.m_cachedLinkDom);
                 m_linkPatchesTree = AZStd::move(other.m_linkPatchesTree);
             }
 
@@ -346,4 +305,3 @@ namespace AzToolsFramework
 
     } // namespace Prefab
 } // namespace AzToolsFramework
-#pragma optimize("", on)

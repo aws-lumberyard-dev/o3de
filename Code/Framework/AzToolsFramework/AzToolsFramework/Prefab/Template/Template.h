@@ -8,16 +8,12 @@
 
 #pragma once
 
-#include <AzCore/DOM/DomPath.h>
-#include <AzCore/DOM/DomPrefixTree.h>
-#include <AzCore/DOM/DomValue.h>
 #include <AzCore/IO/Path/Path.h>
 #include <AzCore/Memory/SystemAllocator.h>
 #include <AzCore/Serialization/Json/JsonSerialization.h>
 #include <AzCore/std/containers/unordered_set.h>
 #include <AzCore/std/containers/vector.h>
 #include <AzCore/std/optional.h>
-#include <AzCore/std/smart_ptr/weak_ptr.h>
 #include <AzToolsFramework/Prefab/PrefabDomTypes.h>
 #include <AzToolsFramework/Prefab/PrefabIdTypes.h>
 
@@ -27,7 +23,6 @@ namespace AzToolsFramework
     {
         class Template;
         using TemplateReference = AZStd::optional<AZStd::reference_wrapper<Template>>;
-        using PrefabOverrides = AZStd::vector<AZStd::pair<AZ::Dom::Path, AZStd::weak_ptr<AZ::Dom::Value>>>;
 
         // A prefab template is the primary product of loading a prefab file from disk. 
         class Template

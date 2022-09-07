@@ -22,7 +22,6 @@
 #include <AzToolsFramework/Entity/EditorEntityInfoBus.h>
 #include <AzToolsFramework/Entity/EditorEntityRuntimeActivationBus.h>
 #include <AzToolsFramework/FocusMode/FocusModeNotificationBus.h>
-#include <AzToolsFramework/Prefab/PrefabFocusNotificationBus.h>
 #include <AzToolsFramework/ToolsComponents/EditorLockComponentBus.h>
 #include <AzToolsFramework/ToolsComponents/EditorVisibilityBus.h>
 #include <AzToolsFramework/UI/Outliner/EntityOutlinerSearchWidget.h>

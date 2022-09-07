@@ -19,7 +19,6 @@
 
 namespace AzToolsFramework
 {
-
     const QColor LevelRootUiHandler::s_levelRootBorderColor = QColor("#656565");
     const QString LevelRootUiHandler::s_levelRootIconPath = QString(":/Level/level.svg");
 
@@ -31,14 +30,6 @@ namespace AzToolsFramework
             AZ_Assert(false, "LevelRootUiHandler - could not get PrefabPublicInterface on LevelRootUiHandler construction.");
             return;
         }
-
-        m_prefabFocusPublicInterface = AZ::Interface<Prefab::PrefabFocusPublicInterface>::Get();
-        if (m_prefabFocusPublicInterface == nullptr)
-        {
-            AZ_Assert(false, "LevelRootUiHandler - could not get PrefabFocusPublicInterface on LevelRootUiHandler construction.");
-            return;
-        }
-
     }
 
     QIcon LevelRootUiHandler::GenerateItemIcon([[maybe_unused]] AZ::EntityId entityId) const
@@ -79,7 +70,6 @@ namespace AzToolsFramework
     {
         return false;
     }
-
 
     void LevelRootUiHandler::PaintItemBackground(QPainter* painter, const QStyleOptionViewItem& option, [[maybe_unused]] const QModelIndex& index) const
     {

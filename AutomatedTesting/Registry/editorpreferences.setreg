@@ -1,24 +1,7 @@
 {
     "Amazon": {
         "Preferences": {
-            "EnablePrefabSystem": true,
-            "EnableEditorModeFeedback": true
-        }
-    },
-    "O3DE": {
-        "Preferences": {
-            "Prefabs": {
-                "OpenInstanceMode": 1,
-                "AllowContextMenuInstanceExpanding": false,
-                "ContainerStepByStepSelection": true
-            }
-        }
-    },
-    "O3DE": {
-        "Preferences": {
-            "Prefabs": {
-                "EnableOverridesUx": false
-            }
+            "EnablePrefabSystem": true
         }
     }
 }

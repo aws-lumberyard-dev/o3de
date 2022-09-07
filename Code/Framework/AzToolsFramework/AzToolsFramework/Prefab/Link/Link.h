@@ -12,7 +12,6 @@
 #include <AzCore/DOM/DomPrefixTree.h>
 #include <AzCore/Memory/SystemAllocator.h>
 #include <AzCore/Serialization/Json/JsonSerialization.h>
-#include <AzToolsFramework/Entity/PrefabEditorEntityOwnershipInterface.h>
 #include <AzToolsFramework/Prefab/PrefabDomTypes.h>
 #include <AzToolsFramework/Prefab/PrefabIdTypes.h>
 
@@ -79,8 +78,8 @@ namespace AzToolsFramework
 
             Link();
             Link(LinkId linkId);
-            Link(const Link& other);
-            Link& operator=(const Link& other);
+            Link(const Link& other) = delete;
+            Link& operator=(const Link& other) = delete;
 
             Link(Link&& other) noexcept;
             Link& operator=(Link&& other) noexcept;
@@ -138,7 +137,6 @@ namespace AzToolsFramework
             PrefabDom ConstructLinkDomFromPatches() const;
 
             AZ::Dom::DomPrefixTree<PrefabOverrideMetadata> m_linkPatchesTree;
-            PrefabDom m_cachedLinkDom;
 
             // Target template id for propagation during updating templates.
             TemplateId m_targetTemplateId = InvalidTemplateId;
@@ -152,8 +150,6 @@ namespace AzToolsFramework
             LinkId m_id = InvalidLinkId;
 
             PrefabSystemComponentInterface* m_prefabSystemComponentInterface = nullptr;
-
-            PrefabEditorEntityOwnershipInterface* m_prefabEditorEntityOwnershipInterface = nullptr;
         };
     } // namespace Prefab
 } // namespace AzToolsFramework

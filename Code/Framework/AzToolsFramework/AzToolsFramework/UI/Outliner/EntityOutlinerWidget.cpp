@@ -35,20 +35,13 @@
 #include <AzToolsFramework/UI/Outliner/EntityOutlinerListModel.hxx>
 #include <AzToolsFramework/UI/Outliner/EntityOutlinerSortFilterProxyModel.hxx>
 
-// TEMP
-#include <AzToolsFramework/Prefab/PrefabFocusPublicInterface.h>
-
 #include <AzQtComponents/Components/StyleManager.h>
-#include <AzQtComponents/Components/Widgets/CheckBox.h>
-#include <AzQtComponents/Components/Widgets/SegmentBar.h>
 #include <AzQtComponents/Utilities/QtPluginPaths.h>
 #include <AzQtComponents/Utilities/QtViewPaneEffects.h>
 
 #include <QApplication>
-#include <QCheckBox>
 #include <QDir>
 #include <QGraphicsOpacityEffect>
-#include <QHBoxLayout>
 #include <QHeaderView>
 #include <QLabel>
 #include <QMenu>
@@ -58,8 +51,6 @@
 #include <QToolButton>
 
 #include <AzToolsFramework/UI/Outliner/ui_EntityOutlinerWidget.h>
-
-// TEMP - This should not live here!
 
 // This has to live outside of any namespaces due to issues on Linux with calls to Q_INIT_RESOURCE if they are inside a namespace
 void initEntityOutlinerWidgetResources()
@@ -914,7 +905,7 @@ namespace AzToolsFramework
 
     void EntityOutlinerWidget::SetDefaultTreeViewEditTriggers()
     {
-        m_gui->m_objectTree->setEditTriggers(QAbstractItemView::EditKeyPressed);
+        m_gui->m_objectTree->setEditTriggers(QAbstractItemView::SelectedClicked | QAbstractItemView::EditKeyPressed);
     }
 
     void EntityOutlinerWidget::OnEntityPickModeStarted()

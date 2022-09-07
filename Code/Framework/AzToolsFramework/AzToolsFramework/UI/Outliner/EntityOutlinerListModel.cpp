@@ -48,7 +48,6 @@
 #include <AzToolsFramework/Entity/EditorEntityInfoBus.h>
 #include <AzToolsFramework/Entity/ReadOnly/ReadOnlyEntityInterface.h>
 #include <AzToolsFramework/FocusMode/FocusModeInterface.h>
-#include <AzToolsFramework/Prefab/Instance/InstanceToTemplateInterface.h>
 #include <AzToolsFramework/Prefab/Overrides/PrefabOverridePublicInterface.h>
 #include <AzToolsFramework/Prefab/PrefabEditorPreferences.h>
 #include <AzToolsFramework/ToolsComponents/ComponentAssetMimeDataContainer.h>
@@ -2280,13 +2279,6 @@ namespace AzToolsFramework
                         return true;
                     }
                 }
-            }
-
-            if (index.column() == EntityOutlinerListModel::Column::ColumnVisibilityToggle || index.column() == EntityOutlinerListModel::Column::ColumnLockToggle)
-            {
-                // Do not propagate click to TreeView if the user clicks the visibility or lock toggles
-                // This prevents selection from changing if a toggle is clicked
-                return true;
             }
         }
 

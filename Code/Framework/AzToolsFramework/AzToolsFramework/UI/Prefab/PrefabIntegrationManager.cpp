@@ -10,7 +10,6 @@
 
 #include <AzCore/Asset/AssetManager.h>
 #include <AzCore/Component/TransformBus.h>
-#include <AzCore/Console/IConsole.h>
 #include <AzCore/IO/FileIO.h>
 #include <AzCore/IO/SystemFile.h>
 
