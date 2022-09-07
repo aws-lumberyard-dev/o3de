@@ -9,6 +9,7 @@
 #include <Atom/RPI.Reflect/Shader/ShaderCommonTypes.h>
 
 #include <AzCore/Asset/AssetSerializer.h>
+#include <AzCore/Debug/Profiler.h>
 #include <AzCore/Casting/numeric_cast.h>
 #include <AzCore/Serialization/SerializeContext.h>
 #include <AzCore/std/algorithm.h>
@@ -146,6 +147,7 @@ namespace AZ
 
         SupervariantIndex ShaderAsset::GetSupervariantIndex(const AZ::Name& supervariantName) const
         {
+            AZ_PROFILE_SCOPE(RPI, "ShaderAsset: GetSupervariantIndex");
             SupervariantIndex supervariantIndex = InvalidSupervariantIndex;
 
             // check for an RPI ShaderSystem supervariant
@@ -172,6 +174,7 @@ namespace AZ
         Data::Asset<ShaderVariantAsset> ShaderAsset::GetVariantAsset(
             const ShaderVariantId& shaderVariantId, SupervariantIndex supervariantIndex)
         {
+            AZ_PROFILE_SCOPE(RPI, "ShaderAsset: GetVariantAsset");
             auto variantFinder = AZ::Interface<IShaderVariantFinder>::Get();
             AZ_Assert(variantFinder, "The IShaderVariantFinder doesn't exist");
 

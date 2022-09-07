@@ -368,7 +368,58 @@ namespace AZ
         template<typename Type>
         Data::Instance<Type> InstanceDatabase<Type>::Create(const Asset<AssetData>& asset, const AZStd::any* param)
         {
-            return FindOrCreate(Data::InstanceId::CreateRandom(), asset, param);
+            InstanceId id = InstanceId::CreateRandom();
+
+            // Take a reference so we can mutate it.
+            Data::Asset<Data::AssetData> assetLocal = asset;
+
+            if (!assetLocal.IsReady())
+            {
+                assetLocal.QueueLoad();
+
+                if (assetLocal.IsLoading())
+                {
+                    assetLocal.BlockUntilLoadComplete();
+                }
+
+                // Failed to load the asset
+                if (!assetLocal.IsReady())
+                {
+                    return nullptr;
+                }
+            }
+
+            // Take a lock to guard the insertion.  Note that this will not guard against recursive insertions on the same thread.
+            AZStd::scoped_lock<AZStd::recursive_mutex> lock(m_databaseMutex);
+
+            // Emplace a new instance and return it.
+            // It's possible for the m_createFunction call to recursively trigger another FindOrCreate call, so be aware that
+            // the contents of m_database may change within this call.
+            Data::Instance<Type> instance = nullptr;
+            if (!param)
+            {
+                instance = m_instanceHandler.m_createFunction(assetLocal.Get());
+            }
+            else
+            {
+                instance = m_instanceHandler.m_createFunctionWithParam(assetLocal.Get(), param);
+            }
+
+            if (instance)
+            {
+                AZ_Assert(
+                    m_database.find(id) == m_database.end(),
+                    "Instance creation for asset id %s resulted in a recursive creation of that asset, which was unexpected. "
+                    "This asset might be erroneously referencing itself as a dependent asset.",
+                    id.ToString<AZStd::string>().c_str());
+
+                instance->m_id = id;
+                instance->m_parentDatabase = this;
+                instance->m_assetId = assetLocal.GetId();
+                instance->m_assetType = assetLocal.GetType();
+                m_database.emplace(id, instance.get());
+            }
+            return AZStd::move(instance);
         }
 
         template<typename Type>

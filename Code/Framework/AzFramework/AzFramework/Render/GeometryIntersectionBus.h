@@ -84,6 +84,7 @@ namespace AzFramework
             //! Listen by EntityContext id
             static const AZ::EBusAddressPolicy AddressPolicy = AZ::EBusAddressPolicy::ById;
             using BusIdType = EntityContextId;
+            using MutexType = AZStd::mutex;
 
             virtual void OnEntityConnected(AZ::EntityId entityId) = 0;
             virtual void OnEntityDisconnected(AZ::EntityId entityId) = 0;

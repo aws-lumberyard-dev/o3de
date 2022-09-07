@@ -265,7 +265,7 @@ namespace AZ
     }
 
     //=========================================================================
-    // CreateName
+    // CreateData
     //=========================================================================
     Uuid Uuid::CreateData(const void* data, size_t dataSize)
     {
@@ -297,6 +297,35 @@ namespace AZ
             return id;
         }
         return Uuid::CreateNull();
+    }
+
+    //=========================================================================
+    // CreateSHA
+    // [9/2/2022
+    //=========================================================================
+    Uuid Uuid::CreateSHA(Sha1& sha)
+    {
+        AZ::u32 digest[5];
+        sha.GetDigest(digest);
+
+        Uuid id;
+        for (int i = 0; i < 4; ++i)
+        {
+            id.data[i * 4 + 0] = ((digest[i] >> 24) & 0xff);
+            id.data[i * 4 + 1] = ((digest[i] >> 16) & 0xff);
+            id.data[i * 4 + 2] = ((digest[i] >> 8) & 0xff);
+            id.data[i * 4 + 3] = ((digest[i] >> 0) & 0xff);
+        }
+
+        // variant VAR_RFC_4122
+        id.data[8] &= 0xBF;
+        id.data[8] |= 0x80;
+
+        // version VER_NAME_SHA1
+        id.data[6] &= 0x5F;
+        id.data[6] |= 0x50;
+
+        return id;
     }
 
     //=========================================================================

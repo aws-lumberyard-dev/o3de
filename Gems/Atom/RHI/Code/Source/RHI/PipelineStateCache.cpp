@@ -283,6 +283,7 @@ namespace AZ
 
         const PipelineState* PipelineStateCache::AcquirePipelineState(PipelineLibraryHandle handle, const PipelineStateDescriptor& descriptor)
         {
+            AZ_PROFILE_SCOPE(RHI, "PipelineStateCache: AcquirePipelineState");
             if (handle.IsNull())
             {
                 return nullptr;
@@ -344,6 +345,7 @@ namespace AZ
             const PipelineStateDescriptor& descriptor,
             PipelineStateHash pipelineStateHash)
         {
+            AZ_PROFILE_SCOPE(RHI, "PipelineStateCache: CompilePipelineState");
             Ptr<PipelineState> pipelineState;
 
             PipelineStateSet& pendingCache = globalLibraryEntry.m_pendingCache;

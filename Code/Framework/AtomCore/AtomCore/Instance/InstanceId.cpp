@@ -7,6 +7,7 @@
  */
 
 #include <AtomCore/Instance/InstanceId.h>
+#include <AzCore/Math/Sha1.h>
 
 namespace AZ
 {
@@ -33,6 +34,11 @@ namespace AZ
         InstanceId InstanceId::CreateData(const void* data, size_t dataSize)
         {
             return InstanceId(Uuid::CreateData(data, dataSize));
+        }
+
+        InstanceId InstanceId::CreateSHA(Sha1& sha)
+        {
+            return InstanceId(Uuid::CreateSHA(sha));
         }
 
         InstanceId InstanceId::CreateRandom()

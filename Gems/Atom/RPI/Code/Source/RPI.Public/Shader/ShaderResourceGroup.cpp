@@ -11,6 +11,7 @@
 #include <Atom/RPI.Public/Shader/ShaderResourceGroup.h>
 
 #include <AtomCore/Instance/InstanceDatabase.h>
+#include <AzCore/Math/Sha1.h>
 
 namespace AZ
 {
@@ -31,8 +32,13 @@ namespace AZ
             AZ_Assert(srgLayout != nullptr, "Failed to find SRG with name %s, using supervariantIndex %u from shaderAsset %s", srgName.GetCStr(),
                 supervariantIndex.GetIndex(), shaderAsset.GetHint().c_str());
 
-            AZStd::string idString = AZStd::string::format("%s_%u_%s", srgLayout->GetUniqueId().c_str(), supervariantIndex.GetIndex(), srgName.GetCStr());
-            return Data::InstanceId::CreateData(idString.data(), idString.size());
+            Sha1 sha;
+            sha.ProcessBytes(srgLayout->GetUniqueId().c_str(), srgLayout->GetUniqueId().size());
+            uint32_t index = supervariantIndex.GetIndex();
+            sha.ProcessBytes(&index, sizeof(uint32_t));
+            sha.ProcessBytes(srgName.GetCStr(), srgName.GetStringView().size());
+
+            return Data::InstanceId::CreateSHA(sha);
         }
 
         Data::Instance<ShaderResourceGroup> ShaderResourceGroup::Create(
@@ -44,8 +50,8 @@ namespace AZ
 
             SrgInitParams initParams{ supervariantIndex, srgName };
             auto anyInitParams = AZStd::any(initParams);
-            return Data::InstanceDatabase<ShaderResourceGroup>::Instance().FindOrCreate(
-                Data::InstanceId::CreateRandom(), shaderAsset, &anyInitParams);
+            return Data::InstanceDatabase<ShaderResourceGroup>::Instance().Create(
+                shaderAsset, &anyInitParams);
         }
 
         Data::Instance<ShaderResourceGroup> ShaderResourceGroup::Create(
@@ -53,8 +59,8 @@ namespace AZ
         {
             SrgInitParams initParams{ supervariantIndex, srgName };
             auto anyInitParams = AZStd::any(initParams);
-            return Data::InstanceDatabase<ShaderResourceGroup>::Instance().FindOrCreate(
-                Data::InstanceId::CreateRandom(), shaderAsset, &anyInitParams);
+            return Data::InstanceDatabase<ShaderResourceGroup>::Instance().Create(
+                shaderAsset, &anyInitParams);
         }
 
         Data::Instance<ShaderResourceGroup> ShaderResourceGroup::CreateInternal(ShaderAsset& shaderAsset, const AZStd::any* anySrgInitParams)

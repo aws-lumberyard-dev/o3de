@@ -445,7 +445,7 @@ namespace AZ
             //! to set it to false.
             bool m_enableParallelDependentLoading = true;
 
-            bool m_assetInfoUpgradingEnabled = true;
+            bool m_assetInfoUpgradingEnabled = false;
 
             static EnvironmentVariable<AssetManager*>  s_assetDB;
 

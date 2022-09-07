@@ -22,11 +22,13 @@
 #include <AzCore/base.h>
 #include <AzCore/Memory/SystemAllocator.h>
 #include <AzCore/Component/EntityId.h>
+#include <AzCore/Task/TaskGraph.h>
 
 namespace AZ
 {
     // forward declares
     class Job;
+    class TaskGraph;
 
     namespace RPI
     {
@@ -107,6 +109,10 @@ namespace AZ
             //!  - This may not be called every frame.
             //!  - This may be called in parallel with other feature processors.
             virtual void Simulate(const SimulatePacket&) {}
+
+            //! This is the preferred way to do simulation work. Add one or more tasks to the parent task graph
+            //!
+            virtual void AddSimulateTask([[maybe_unused]] TaskGraph& parentTaskGraph);
 
             //! The feature processor should enqueue draw packets to relevant draw lists.
             //! 

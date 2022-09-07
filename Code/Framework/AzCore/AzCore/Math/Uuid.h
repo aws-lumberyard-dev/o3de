@@ -20,6 +20,7 @@ typedef _GUID GUID;
 
 namespace AZ
 {
+    class Sha1;
     struct Uuid
     {
         enum Variant
@@ -72,6 +73,10 @@ namespace AZ
         static Uuid CreateName(const char* name);
         /// Create a UUID based on a byte stream (sha1)
         static Uuid CreateData(const void* data, size_t dataSize);
+        /// Create a UUID based on an sha1 that has already processed the appropriate byte stream(s)
+        /// Useful for situations where multiple strings need to be combined to create the byte stream, but you don't want to pay the cost of concatenating strings
+        /// Instead you can use one sha, process the bytes of each string, then create a UUID from the sha
+        static Uuid CreateSHA(Sha1& sha);
 
         bool    IsNull() const;
         Variant GetVariant() const;

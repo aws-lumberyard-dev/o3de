@@ -85,58 +85,89 @@ namespace AZ
             return TransformServiceFeatureProcessorInterface::ObjectId::Null;
         }
 
-        void MeshFeatureProcessor::Simulate(const FeatureProcessor::SimulatePacket& packet)
+        void MeshFeatureProcessor::AddSimulateTask([[maybe_unused]] TaskGraph& parentTaskGraph)
         {
             AZ_PROFILE_SCOPE(RPI, "MeshFeatureProcessor: Simulate");
 
-            AZ::Job* parentJob = packet.m_parentJob;
+            //AZ::Job* parentJob = packet.m_parentJob;
             AZStd::concurrency_check_scope scopeCheck(m_meshDataChecker);
 
-            InitializeNewInstances();
+            //AZ::TaskGraphEvent simulateTGEvent{ "MeshFeatureProcessor Wait" };
+            static const AZ::TaskDescriptor simulateTGDesc{ "MeshFeatureProcessor_Simulate", "Graphics" };
+            //AZ::TaskGraph simulateTG{ "MeshFeatureProcessor Simulate" };
 
-            const auto iteratorRanges = m_modelData.GetParallelRanges();
-            AZ::JobCompletion jobCompletion;
-            for (const auto& iteratorRange : iteratorRanges)
+            // Launch FeatureProcessor::Render() taskgraphs
+            /* for (auto& fp : m_featureProcessors)
             {
-                const auto jobLambda = [&]() -> void
-                {
-                    AZ_PROFILE_SCOPE(AzRender, "MeshFeatureProcessor: Simulate: Job");
-
-                    for (auto meshDataIter = iteratorRange.first; meshDataIter != iteratorRange.second; ++meshDataIter)
+                collectDrawPacketsTG.AddTask(
+                    collectDrawPacketsTGDesc,
+                    [this, &fp]()
                     {
-                        if (!meshDataIter->m_model)
-                        {
-                            continue;   // model not loaded yet
-                        }
+                        fp->Render(m_renderPacket);
+                    });
+            }*/
+            /*for (ModelDataInstance& meshDataIter : m_modelData)
+            {
+                if (meshDataIter.m_instanceNeedsInit)
+                {
+                    InitializeNewInstance(&meshDataIter);
+                    meshDataIter.m_instanceNeedsInit = false;
+                }
+            }*/
 
-                        if (!meshDataIter->m_visible)
-                        {
-                            continue;
-                        }
+            m_iteratorRanges = m_modelData.GetParallelRanges();
+            //AZ::JobCompletion jobCompletion;
+            for (const auto& iteratorRange : m_iteratorRanges)
+            {
+                const auto jobLambda = 
+                parentTaskGraph.AddTask(
+                    simulateTGDesc,
+                    [this, &iteratorRange]() -> void
+                    {
+                        AZ_PROFILE_SCOPE(AzRender, "MeshFeatureProcessor: Simulate: Job");
 
-                        if (meshDataIter->m_objectSrgNeedsUpdate)
+                        for (auto meshDataIter = iteratorRange.first; meshDataIter != iteratorRange.second; ++meshDataIter)
                         {
-                            meshDataIter->UpdateObjectSrg();
-                        }
+                            if (meshDataIter->m_instanceNeedsInit)
+                            {
+                                this->InitializeNewInstance(&*meshDataIter);
+                                meshDataIter->m_instanceNeedsInit = false;
+                            }
 
-                        // [GFX TODO] [ATOM-1357] Currently all of the draw packets have to be checked for material ID changes because
-                        // material properties can impact which actual shader is used, which impacts the SRG in the draw packet.
-                        // This is scheduled to be optimized so the work is only done on draw packets that need it instead of having
-                        // to check every one.
-                        meshDataIter->UpdateDrawPackets(m_forceRebuildDrawPackets);
+                            if (!meshDataIter->m_model)
+                            {
+                                continue; // model not loaded yet
+                            }
 
-                        if (meshDataIter->m_cullableNeedsRebuild)
-                        {
-                            meshDataIter->BuildCullable();
-                        }
+                            if (!meshDataIter->m_visible)
+                            {
+                                continue;
+                            }
 
-                        if (meshDataIter->m_cullBoundsNeedsUpdate)
-                        {
-                            meshDataIter->UpdateCullBounds(m_transformService);
+                            if (meshDataIter->m_objectSrgNeedsUpdate)
+                            {
+                                meshDataIter->UpdateObjectSrg();
+                            }
+
+                            // [GFX TODO] [ATOM-1357] Currently all of the draw packets have to be checked for material ID changes because
+                            // material properties can impact which actual shader is used, which impacts the SRG in the draw packet.
+                            // This is scheduled to be optimized so the work is only done on draw packets that need it instead of having
+                            // to check every one.
+                            meshDataIter->UpdateDrawPackets(m_forceRebuildDrawPackets);
+
+                            if (meshDataIter->m_cullableNeedsRebuild)
+                            {
+                                meshDataIter->BuildCullable();
+                            }
+
+                            if (meshDataIter->m_cullBoundsNeedsUpdate)
+                            {
+                                meshDataIter->UpdateCullBounds(m_transformService);
+                            }
                         }
                     }
-                };
-                Job* executeGroupJob = aznew JobFunction<decltype(jobLambda)>(jobLambda, true, nullptr); // Auto-deletes
+                );
+                /* Job* executeGroupJob = aznew JobFunction<decltype(jobLambda)>(jobLambda, true, nullptr); // Auto-deletes
                 if (parentJob)
                 {
                     parentJob->StartAsChild(executeGroupJob);
@@ -145,18 +176,21 @@ namespace AZ
                 {
                     executeGroupJob->SetDependent(&jobCompletion);
                     executeGroupJob->Start();
-                }
+                }*/
             }
             {
                 AZ_PROFILE_SCOPE(AzRender, "MeshFeatureProcessor: Simulate: WaitForChildren");
-                if (parentJob)
+                /* if (parentJob)
                 {
                     parentJob->WaitForChildren();
                 }
                 else
                 {
                     jobCompletion.StartAndWaitForCompletion();
-                }
+                }*/
+                //simulateTG.Detach();
+                //simulateTG.Submit(&simulateTGEvent);
+                //simulateTGEvent.Wait();
             }
 
             m_forceRebuildDrawPackets = false;
@@ -545,60 +579,56 @@ namespace AZ
 
         void MeshFeatureProcessor::QueueForInit(ModelDataInstance* dataInstance)
         {
-            m_queuedForInit.insert(dataInstance);
+            dataInstance->m_instanceNeedsInit = true;
+            //m_queuedForInit.insert(dataInstance);
         }
 
-        void MeshFeatureProcessor::InitializeNewInstances()
+        void MeshFeatureProcessor::InitializeNewInstance(ModelDataInstance* dataInstance)
         {
-            for (ModelDataInstance* dataInstance : m_queuedForInit)
+            Data::Asset<RPI::ModelAsset> modelAsset = dataInstance->m_originalModelAsset;
+            Data::Instance<RPI::Model> model;
+            // Check if a requires cloning callback got set and if so check if cloning the model asset is requested.
+            if (dataInstance->m_descriptor.m_requiresCloneCallback && dataInstance->m_descriptor.m_requiresCloneCallback(modelAsset))
             {
-                Data::Asset<RPI::ModelAsset> modelAsset = dataInstance->m_originalModelAsset;
-                Data::Instance<RPI::Model> model;
-                // Check if a requires cloning callback got set and if so check if cloning the model asset is requested.
-                if (dataInstance->m_descriptor.m_requiresCloneCallback && dataInstance->m_descriptor.m_requiresCloneCallback(modelAsset))
+                // Clone the model asset to force create another model instance.
+                AZ::Data::AssetId newId(AZ::Uuid::CreateRandom(), /*subId=*/0);
+                Data::Asset<RPI::ModelAsset> clonedAsset;
+                if (AZ::RPI::ModelAssetCreator::Clone(modelAsset, clonedAsset, newId))
                 {
-                    // Clone the model asset to force create another model instance.
-                    AZ::Data::AssetId newId(AZ::Uuid::CreateRandom(), /*subId=*/0);
-                    Data::Asset<RPI::ModelAsset> clonedAsset;
-                    if (AZ::RPI::ModelAssetCreator::Clone(modelAsset, clonedAsset, newId))
-                    {
-                        model = RPI::Model::FindOrCreate(clonedAsset);
-                    }
-                    else
-                    {
-                        AZ_Error(
-                            "ModelDataInstance",
-                            false,
-                            "Cannot clone model for '%s'. Cloth simulation results won't be individual per entity.",
-                            modelAsset->GetName().GetCStr());
-                        model = RPI::Model::FindOrCreate(modelAsset);
-                    }
+                    model = RPI::Model::FindOrCreate(clonedAsset);
                 }
                 else
                 {
-                    // Static mesh, no cloth buffer present.
+                    AZ_Error(
+                        "ModelDataInstance",
+                        false,
+                        "Cannot clone model for '%s'. Cloth simulation results won't be individual per entity.",
+                        modelAsset->GetName().GetCStr());
                     model = RPI::Model::FindOrCreate(modelAsset);
                 }
-
-                if (model)
-                {
-                    dataInstance->RemoveRayTracingData();
-                    dataInstance->Init(model);
-                    dataInstance->m_meshLoader->GetModelChangedEvent().Signal(AZStd::move(model));
-                }
-                else
-                {
-                    // when running with null renderer, the RPI::Model::FindOrCreate(...) is expected to return nullptr, so suppress this
-                    // error.
-                    AZ_Error(
-                        "ModelDataInstance::OnAssetReady",
-                        RHI::IsNullRHI(),
-                        "Failed to create model instance for '%s'",
-                        modelAsset.GetHint().c_str());
-                }
+            }
+            else
+            {
+                // Static mesh, no cloth buffer present.
+                model = RPI::Model::FindOrCreate(modelAsset);
             }
 
-            m_queuedForInit.clear();
+            if (model)
+            {
+                dataInstance->RemoveRayTracingData();
+                dataInstance->Init(model);
+                dataInstance->m_meshLoader->GetModelChangedEvent().Signal(AZStd::move(model));
+            }
+            else
+            {
+                // when running with null renderer, the RPI::Model::FindOrCreate(...) is expected to return nullptr, so
+                // suppress this error.
+                AZ_Error(
+                    "ModelDataInstance::OnAssetReady",
+                    RHI::IsNullRHI(),
+                    "Failed to create model instance for '%s'",
+                    modelAsset.GetHint().c_str());
+            }
         }
 
         // ModelDataInstance::MeshLoader...
@@ -780,6 +810,7 @@ namespace AZ
 
         void ModelDataInstance::BuildDrawPacketList(size_t modelLodIndex)
         {
+            AZ_PROFILE_SCOPE(RPI, "ModelDataInstance: BuildDrawPacketList");
             RPI::ModelLod& modelLod = *m_model->GetLods()[modelLodIndex];
             const size_t meshCount = modelLod.GetMeshes().size();
             
@@ -868,6 +899,7 @@ namespace AZ
 
         void ModelDataInstance::SetRayTracingData()
         {
+            AZ_PROFILE_SCOPE(RPI, "ModelDataInstance: SetRayTracingData");
             if (!m_model)
             {
                 return;

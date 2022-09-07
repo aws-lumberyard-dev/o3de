@@ -13,6 +13,10 @@ namespace AZ
 {
     namespace RPI
     {
+        void FeatureProcessor::AddSimulateTask([[maybe_unused]] AZ::TaskGraph& parentTask)
+        {
+        }
+
         void FeatureProcessor::EnableSceneNotification()
         {
             if (m_parentScene && !m_parentScene->GetId().IsNull())

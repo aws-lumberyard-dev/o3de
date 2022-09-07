@@ -140,7 +140,7 @@ namespace AZ
             //! Releases GPU resources.
             void Deactivate() override;
             //! Updates GPU buffers with latest data from render proxies
-            void Simulate(const FeatureProcessor::SimulatePacket& packet) override;
+            void AddSimulateTask(TaskGraph& parentTaskGraph) override;
 
             // RPI::SceneNotificationBus overrides ...
             void OnBeginPrepareRender() override;
@@ -190,7 +190,7 @@ namespace AZ
             void UpdateMeshReflectionProbes();
 
             void QueueForInit(ModelDataInstance* modelDataInstance);
-            void InitializeNewInstances();
+            void InitializeNewInstance(ModelDataInstance* dataInstance);
         private:
             void ForceRebuildDrawPackets(const AZ::ConsoleCommandContainer& arguments);
             AZ_CONSOLEFUNC(MeshFeatureProcessor,
@@ -206,7 +206,11 @@ namespace AZ
             void OnRenderPipelineRemoved(RPI::RenderPipeline* pipeline) override;
                         
             AZStd::concurrency_checker m_meshDataChecker;
-            StableDynamicArray<ModelDataInstance> m_modelData;
+            StableDynamicArray<ModelDataInstance, 64> m_modelData;
+            AZStd::vector<AZStd::pair<
+                StableDynamicArray<ModelDataInstance, 64>::pageIterator,
+                StableDynamicArray<ModelDataInstance, 64>::pageIterator>>
+                m_iteratorRanges;
             AZStd::unordered_set<ModelDataInstance*> m_queuedForInit;
             TransformServiceFeatureProcessor* m_transformService;
             RayTracingFeatureProcessor* m_rayTracingFeatureProcessor = nullptr;

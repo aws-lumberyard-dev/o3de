@@ -96,6 +96,8 @@ namespace AZ
             : public ComponentBus
         {
         public:
+            using MutexType = AZStd::mutex;
+
             //! Notifies listeners when a model has been loaded.
             //! If the model is already loaded when first connecting to the MeshComponentNotificationBus,
             //! the OnModelReady event will occur when connecting.

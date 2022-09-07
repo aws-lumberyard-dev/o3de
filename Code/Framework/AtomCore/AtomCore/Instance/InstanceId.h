@@ -12,6 +12,8 @@
 
 namespace AZ
 {
+    class Sha1;
+
     namespace Data
     {
         /**
@@ -48,6 +50,11 @@ namespace AZ
              * Creates an InstanceId by hashing the provided data.
              */
             static InstanceId CreateData(const void* data, size_t dataSize);
+
+            /**
+             * Creates an InstanceId using the provided Sha1
+             */
+            static InstanceId CreateSHA(Sha1& sha);
 
             /**
              * Creates a random InstanceId.

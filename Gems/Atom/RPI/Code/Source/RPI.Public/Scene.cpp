@@ -432,6 +432,12 @@ namespace AZ
             for (FeatureProcessorPtr& fp : m_featureProcessors)
             {
                 FeatureProcessor* featureProcessor = fp.get();
+                featureProcessor->AddSimulateTask(simulationTG);
+            }
+
+            for (FeatureProcessorPtr& fp : m_featureProcessors)
+            {
+                FeatureProcessor* featureProcessor = fp.get();
                 simulationTG.AddTask(
                     simulationTGDesc,
                     [this, featureProcessor]()
