@@ -25,7 +25,7 @@ class BuildFailureRCAValidator(CommitValidator):
                     if VERBOSE: print(f'{file_name}::{self.__class__.__name__} SKIPPED - Validation pattern excluded on path.')
                     break
             else:
-                if fnmatch.fnmatch(file_name, RCA_PATTERN_PATH):
+                if not fnmatch.fnmatch(file_name, RCA_PATTERN_PATH):
                     if VERBOSE: print(f'{file_name}::{self.__class__.__name__} SKIPPED - Validation pattern excluded on path.')
                     break
                 
