@@ -14,12 +14,13 @@ from typing import Type, List
 from commit_validation.commit_validation import Commit, CommitValidator, EXCLUDED_VALIDATION_PATTERNS, VERBOSE
 
 RCA_PATTERN_PATH = '*/scripts/build/build_failure_rca/rca_patterns/*'
-
+VERBOSE = True
 class BuildFailureRCAValidator(CommitValidator):
     """A file-level validator that makes sure build failure RCA patterns can catch all the test cases"""
 
     def run(self, commit: Commit, errors: List[str]) -> bool:
         for file_name in commit.get_files():
+            print(file_name)
             for pattern in EXCLUDED_VALIDATION_PATTERNS:
                 if fnmatch.fnmatch(file_name, pattern):
                     if VERBOSE: print(f'{file_name}::{self.__class__.__name__} SKIPPED - Validation pattern excluded on path.')
