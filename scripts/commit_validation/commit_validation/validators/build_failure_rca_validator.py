@@ -19,18 +19,19 @@ class BuildFailureRCAValidator(CommitValidator):
     """A file-level validator that makes sure build failure RCA patterns can catch all the test cases"""
 
     def run(self, commit: Commit, errors: List[str]) -> bool:
-        print(commit.get_files())
         for file_name in commit.get_files():
-            print(file_name)
+            
             for pattern in EXCLUDED_VALIDATION_PATTERNS:
+                print(f'---{file_name}')
                 if fnmatch.fnmatch(file_name, pattern):
                     if VERBOSE: print(f'{file_name}::{self.__class__.__name__} SKIPPED - Validation pattern excluded on path.')
                     break
             else:
+                print(f'!!!{file_name}')
                 if not fnmatch.fnmatch(file_name, RCA_PATTERN_PATH):
                     if VERBOSE: print(f'{file_name}::{self.__class__.__name__} SKIPPED - Validation pattern excluded on path.')
                     break
-                
+                print(f'???{file_name}')
                 with open(file_name, 'r', encoding='utf8') as fh:
                     try:
                         data = json.load(fh)
