@@ -74,7 +74,11 @@ namespace AZ
 
             void DeInit();
             void Init(Data::Instance<RPI::Model> model);
-            void BuildDrawPacketList(size_t modelLodIndex);
+            void Init2_BuildDrawPacketListBatch(
+                size_t& batchUpdateIndex, AZStd::span<RPI::PrepareMeshDrawPacketUpdateBatchInput> batchInput);
+            void Init3();
+            void BuildDrawPacketList(
+                size_t modelLodIndex, size_t& batchUpdateIndex, AZStd::span<RPI::PrepareMeshDrawPacketUpdateBatchInput> batchInput);
             void SetRayTracingData();
             void RemoveRayTracingData();
             void SetIrradianceData(RayTracingFeatureProcessor::SubMesh& subMesh,
@@ -84,6 +88,9 @@ namespace AZ
             void SetMeshLodConfiguration(RPI::Cullable::LodConfiguration meshLodConfig);
             RPI::Cullable::LodConfiguration GetMeshLodConfiguration() const;
             void UpdateDrawPackets(bool forceUpdate = false);
+            void NeedsDrawPacketUpdateBatch(size_t& batchUpdateCount, bool forceUpdate = false);
+            void UpdateDrawPacketsBatch(
+                size_t& batchUpdateIndex, AZStd::span<RPI::PrepareMeshDrawPacketUpdateBatchInput> batchInput, bool forceUpdate = false);
             void BuildCullable();
             void UpdateCullBounds(const TransformServiceFeatureProcessor* transformService);
             void UpdateObjectSrg();
@@ -119,6 +126,7 @@ namespace AZ
             bool m_excludeFromReflectionCubeMaps = false;
             bool m_visible = true;
             bool m_hasForwardPassIblSpecularMaterial = false;
+            bool m_drawPacketNeedsUpdate = false;
         };
 
         //! This feature processor handles static and dynamic non-skinned meshes.
@@ -190,7 +198,10 @@ namespace AZ
             void UpdateMeshReflectionProbes();
 
             void QueueForInit(ModelDataInstance* modelDataInstance);
-            void InitializeNewInstance(ModelDataInstance* dataInstance);
+            void InitializeNewInstance(ModelDataInstance* dataInstance, size_t& drawPacketCount);
+            void InitializeNewInstance2(ModelDataInstance* dataInstance, size_t& batchUpdateIndex, AZStd::span<RPI::PrepareMeshDrawPacketUpdateBatchInput> batchInput);
+            void InitializeNewInstance3(ModelDataInstance* dataInstance);
+            void InitializeNewInstance4(ModelDataInstance* dataInstance);
         private:
             void ForceRebuildDrawPackets(const AZ::ConsoleCommandContainer& arguments);
             AZ_CONSOLEFUNC(MeshFeatureProcessor,

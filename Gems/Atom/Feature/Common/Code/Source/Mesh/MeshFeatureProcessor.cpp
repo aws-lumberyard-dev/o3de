@@ -33,7 +33,7 @@
 #include <AzCore/RTTI/TypeInfo.h>
 #include <AzCore/Serialization/SerializeContext.h>
 #include <AzCore/Asset/AssetCommon.h>
-
+#pragma optimize("", off)
 namespace AZ
 {
     namespace Render
@@ -106,14 +106,62 @@ namespace AZ
                         fp->Render(m_renderPacket);
                     });
             }*/
-            /*for (ModelDataInstance& meshDataIter : m_modelData)
+            size_t drawPacketCount = 0;
+            for (ModelDataInstance& meshDataIter : m_modelData)
             {
                 if (meshDataIter.m_instanceNeedsInit)
                 {
-                    InitializeNewInstance(&meshDataIter);
+                    InitializeNewInstance(&meshDataIter, drawPacketCount);
+                }
+            }
+
+            AZStd::vector<RPI::PrepareMeshDrawPacketUpdateBatchInput> batchUpdateInput(drawPacketCount);
+            size_t batchUpdateIndex = 0;
+            for (ModelDataInstance& meshDataIter : m_modelData)
+            {
+                if (meshDataIter.m_instanceNeedsInit)
+                {
+                    InitializeNewInstance2(&meshDataIter, batchUpdateIndex, batchUpdateInput);
+                }
+            }
+
+            PrepareMeshDrawPacketUpdateBatch(*GetParentScene(), batchUpdateInput);
+
+            for (ModelDataInstance& meshDataIter : m_modelData)
+            {
+                if (meshDataIter.m_instanceNeedsInit)
+                {
+                    InitializeNewInstance3(&meshDataIter);
                     meshDataIter.m_instanceNeedsInit = false;
                 }
-            }*/
+            }
+
+            for (ModelDataInstance& meshDataIter : m_modelData)
+            {
+                if (meshDataIter.m_instanceNeedsInit)
+                {
+                    InitializeNewInstance4(&meshDataIter);
+                }
+            }
+
+            // Count draw packets needing updates
+            size_t needsUpdateCount = 0;
+            for (ModelDataInstance& meshDataIter : m_modelData)
+            {
+                meshDataIter.NeedsDrawPacketUpdateBatch(needsUpdateCount, m_forceRebuildDrawPackets);
+            }
+            batchUpdateInput.clear();
+            batchUpdateInput.resize(needsUpdateCount);
+            size_t updateIndex = 0;
+            // Batch the input
+            for (ModelDataInstance& meshDataIter : m_modelData)
+            {
+                meshDataIter.UpdateDrawPacketsBatch(updateIndex, batchUpdateInput, m_forceRebuildDrawPackets);
+            }
+
+            // Do the update
+            PrepareMeshDrawPacketUpdateBatch(*GetParentScene(), batchUpdateInput);
+
 
             m_iteratorRanges = m_modelData.GetParallelRanges();
             //AZ::JobCompletion jobCompletion;
@@ -130,8 +178,9 @@ namespace AZ
                         {
                             if (meshDataIter->m_instanceNeedsInit)
                             {
-                                this->InitializeNewInstance(&*meshDataIter);
-                                meshDataIter->m_instanceNeedsInit = false;
+                                AZ_Assert(false, "All the meshes should be initialized by now");
+                                //this->InitializeNewInstance(&*meshDataIter);
+                                //meshDataIter->m_instanceNeedsInit = false;
                             }
 
                             if (!meshDataIter->m_model)
@@ -153,7 +202,7 @@ namespace AZ
                             // material properties can impact which actual shader is used, which impacts the SRG in the draw packet.
                             // This is scheduled to be optimized so the work is only done on draw packets that need it instead of having
                             // to check every one.
-                            meshDataIter->UpdateDrawPackets(m_forceRebuildDrawPackets);
+                            //meshDataIter->UpdateDrawPackets(m_forceRebuildDrawPackets);
 
                             if (meshDataIter->m_cullableNeedsRebuild)
                             {
@@ -544,7 +593,7 @@ namespace AZ
                     const size_t modelLodCount = meshHandle->m_model->GetLodCount();
                     for (size_t modelLodIndex = 0; modelLodIndex < modelLodCount; ++modelLodIndex)
                     {
-                        meshHandle->BuildDrawPacketList(modelLodIndex);
+                        //meshHandle->BuildDrawPacketList(modelLodIndex);
                     }
                 }
             }
@@ -583,7 +632,7 @@ namespace AZ
             //m_queuedForInit.insert(dataInstance);
         }
 
-        void MeshFeatureProcessor::InitializeNewInstance(ModelDataInstance* dataInstance)
+        void MeshFeatureProcessor::InitializeNewInstance(ModelDataInstance* dataInstance, size_t& drawPacketCount)
         {
             Data::Asset<RPI::ModelAsset> modelAsset = dataInstance->m_originalModelAsset;
             Data::Instance<RPI::Model> model;
@@ -617,7 +666,6 @@ namespace AZ
             {
                 dataInstance->RemoveRayTracingData();
                 dataInstance->Init(model);
-                dataInstance->m_meshLoader->GetModelChangedEvent().Signal(AZStd::move(model));
             }
             else
             {
@@ -629,8 +677,28 @@ namespace AZ
                     "Failed to create model instance for '%s'",
                     modelAsset.GetHint().c_str());
             }
+
+            for (auto& lod : modelAsset->GetLodAssets())
+            {
+                drawPacketCount += lod->GetMeshes().size();
+            }
         }
 
+        void MeshFeatureProcessor::InitializeNewInstance2(
+            ModelDataInstance* dataInstance, size_t& batchUpdateIndex, AZStd::span<RPI::PrepareMeshDrawPacketUpdateBatchInput> batchInput)
+        {
+            dataInstance->Init2_BuildDrawPacketListBatch(batchUpdateIndex, batchInput);
+        }
+
+        void MeshFeatureProcessor::InitializeNewInstance3(ModelDataInstance* dataInstance)
+        {
+            dataInstance->Init3();
+        }
+
+        void MeshFeatureProcessor::InitializeNewInstance4(ModelDataInstance* dataInstance)
+        {
+            dataInstance->m_meshLoader->GetModelChangedEvent().Signal(dataInstance->m_model);
+        }
         // ModelDataInstance::MeshLoader...
         ModelDataInstance::MeshLoader::MeshLoader(const Data::Asset<RPI::ModelAsset>& modelAsset, ModelDataInstance* parent, MeshFeatureProcessor* meshFeatureProcessor)
             : m_modelAsset(modelAsset)
@@ -781,13 +849,20 @@ namespace AZ
         void ModelDataInstance::Init(Data::Instance<RPI::Model> model)
         {
             m_model = model;
+        }
+
+        void ModelDataInstance::Init2_BuildDrawPacketListBatch(size_t& batchUpdateIndex, AZStd::span<RPI::PrepareMeshDrawPacketUpdateBatchInput> batchInput)
+        {
             const size_t modelLodCount = m_model->GetLodCount();
             m_drawPacketListsByLod.resize(modelLodCount);
             for (size_t modelLodIndex = 0; modelLodIndex < modelLodCount; ++modelLodIndex)
             {
-                BuildDrawPacketList(modelLodIndex);
+                BuildDrawPacketList(modelLodIndex, batchUpdateIndex, batchInput);
             }
+        }
 
+        void ModelDataInstance::Init3()
+        {
             for(auto& objectSrg : m_objectSrgList)
             {
                 // Set object Id once since it never changes
@@ -801,14 +876,15 @@ namespace AZ
                 SetRayTracingData();
             }
 
-            m_aabb = model->GetModelAsset()->GetAabb();
+            m_aabb = m_model->GetModelAsset()->GetAabb();
 
             m_cullableNeedsRebuild = true;
             m_cullBoundsNeedsUpdate = true;
             m_objectSrgNeedsUpdate = true;
         }
 
-        void ModelDataInstance::BuildDrawPacketList(size_t modelLodIndex)
+        void ModelDataInstance::BuildDrawPacketList(
+            size_t modelLodIndex, size_t& batchUpdateIndex, AZStd::span<RPI::PrepareMeshDrawPacketUpdateBatchInput> batchInput)
         {
             AZ_PROFILE_SCOPE(RPI, "ModelDataInstance: BuildDrawPacketList");
             RPI::ModelLod& modelLod = *m_model->GetLods()[modelLodIndex];
@@ -892,8 +968,14 @@ namespace AZ
 
                 drawPacket.SetStencilRef(stencilRef);
                 drawPacket.SetSortKey(m_sortKey);
-                drawPacket.Update(*m_scene, false);
+
+                // Stop short of updating the draw packet. We want to do that in bulk
+                // Instead, fill in the batch data for the batch update
+                //drawPacket.Update(*m_scene, false);
                 drawPacketListOut.emplace_back(AZStd::move(drawPacket));
+
+                drawPacketListOut.back().SetBatchUpdateInput(batchInput[batchUpdateIndex]);
+                batchUpdateIndex++;
             }
         }
 
@@ -1343,6 +1425,40 @@ namespace AZ
             }
         }
 
+        void ModelDataInstance::NeedsDrawPacketUpdateBatch(size_t& batchUpdateCount, bool forceUpdate /*= false*/)
+        {
+            for (auto& drawPacketList : m_drawPacketListsByLod)
+            {
+                for (auto& drawPacket : drawPacketList)
+                {
+                    if (drawPacket.NeedsUpdate(forceUpdate))
+                    {
+                        m_drawPacketNeedsUpdate = true;
+                        m_cullableNeedsRebuild = true;
+                        batchUpdateCount++;
+                    }
+                }
+            }
+        }
+
+        void ModelDataInstance::UpdateDrawPacketsBatch(
+            size_t& batchUpdateIndex, AZStd::span<RPI::PrepareMeshDrawPacketUpdateBatchInput> batchInput, bool forceUpdate /*= false*/)
+        {
+            for (auto& drawPacketList : m_drawPacketListsByLod)
+            {
+                for (auto& drawPacket : drawPacketList)
+                {
+                    if (drawPacket.NeedsUpdate(forceUpdate))
+                    {
+                        drawPacket.SetBatchUpdateInput(batchInput[batchUpdateIndex]);
+                        batchUpdateIndex++;
+                        m_drawPacketNeedsUpdate = false;
+                    }
+                }
+            }
+        }
+
+
         void ModelDataInstance::BuildCullable()
         {
             AZ_Assert(m_cullableNeedsRebuild, "This function only needs to be called if the cullable to be rebuilt");
@@ -1552,3 +1668,4 @@ namespace AZ
         }
     } // namespace Render
 } // namespace AZ
+#pragma optimize("", on)

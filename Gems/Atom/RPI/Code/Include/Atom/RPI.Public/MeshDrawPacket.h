@@ -15,6 +15,7 @@
 #include <Atom/RHI/DrawPacketBuilder.h>
 
 #include <AzCore/Math/Obb.h>
+#include <AzCore/std/containers/span.h>
 
 
 namespace AZ
@@ -22,7 +23,11 @@ namespace AZ
     namespace RPI
     {
         class Scene;
-
+        class ModelLod;
+        class Material;
+        class ShaderResourceGroup;
+        class ShaderItem;
+        struct PrepareMeshDrawPacketUpdateBatchInput;
         //! Holds and manages an RHI DrawPacket for a specific mesh, and the resources that are needed to build and maintain it.
         class MeshDrawPacket
         {
@@ -48,6 +53,7 @@ namespace AZ
             AZ_DEFAULT_MOVE(MeshDrawPacket);
 
             bool Update(const Scene& parentScene, bool forceUpdate = false);
+            bool NeedsUpdate(bool forceUpdate = false);
 
             const RHI::DrawPacket* GetRHIDrawPacket() const;
 
@@ -58,6 +64,10 @@ namespace AZ
             Data::Instance<Material> GetMaterial() const;
             const ShaderList& GetActiveShaderList() const { return m_activeShaders; }
 
+            typedef AZStd::pair<Name, RPI::ShaderOptionValue> ShaderOptionPair;
+            typedef AZStd::vector<ShaderOptionPair> ShaderOptionVector;
+
+            void SetBatchUpdateInput(PrepareMeshDrawPacketUpdateBatchInput& input);
         private:
             bool DoUpdate(const Scene& parentScene);
 
@@ -100,9 +110,82 @@ namespace AZ
             MaterialModelUvOverrideMap m_materialModelUvMap;
 
             //! List of shader options set for this specific draw packet
-            typedef AZStd::pair<Name, RPI::ShaderOptionValue> ShaderOptionPair;
-            typedef AZStd::vector<ShaderOptionPair> ShaderOptionVector;
             ShaderOptionVector m_shaderOptions;
         };
+
+        // One input per mesh + material combination
+        struct PrepareMeshDrawPacketUpdateBatchInput
+        {
+            Data::Instance<ModelLod> m_modelLod;
+
+            // The index of the mesh within m_modelLod that is represented by the DrawPacket
+            size_t m_modelLodMeshIndex;
+
+            // The per-object shader resource group
+            Data::Instance<ShaderResourceGroup> m_objectSrg;
+
+            // We hold ConstPtr<RHI::ShaderResourceGroup> instead of Instance<RPI::ShaderResourceGroup> because the Material class
+            // does not allow public access to its Instance<RPI::ShaderResourceGroup>.
+            // ConstPtr<RHI::ShaderResourceGroup> m_materialSrg;
+
+            AZStd::fixed_vector<Data::Instance<ShaderResourceGroup>, RHI::DrawPacketBuilder::DrawItemCountMax>* m_perDrawSrgs;
+
+            // A reference to the material, used to rebuild the DrawPacket if needed
+            Data::Instance<Material> m_material;
+
+            MaterialModelUvOverrideMap* m_materialModelUvMap;
+            
+            MeshDrawPacket::ShaderOptionVector* m_shaderOptions;
+
+            // Set the sort key for the draw packet
+            RHI::DrawItemSortKey m_sortKey = 0;
+
+            // Set the stencil value for this draw packet
+            uint8_t m_stencilRef = 0;
+
+            //
+            // This is the output
+            //
+            ConstPtr<RHI::DrawPacket>* m_drawPacket;
+            MeshDrawPacket::ShaderList* m_activeShaders;
+            ConstPtr<RHI::ShaderResourceGroup>* m_materialSrg;
+            Material::ChangeId* m_materialChangeId;
+
+            //
+            // These are the only things not in the drawpacket itself
+            //
+            RHI::DrawPacketBuilder m_drawPacketBuilder;
+
+            MeshDrawPacket::ShaderList shaderList;
+        };
+
+        // One input per active shader item
+        struct AppendMeshDrawPacketShaderBatchInput
+        {
+            size_t m_prepareUpdateBatchIndex;
+            const ShaderCollection::Item* shaderItem;
+            Data::Instance<ModelLod> m_modelLod;
+            RHI::DrawListTag m_drawListTag;
+        };
+
+        // One output per active shader item
+        struct AppendMeshDrawPacketShaderBatchOutput
+        {
+            size_t m_batchInputIndex;
+            // TODO do we still need this with the batch output?
+            AZStd::fixed_vector<ModelLod::StreamBufferViewList, RHI::DrawPacketBuilder::DrawItemCountMax> streamBufferViewsPerShader;
+
+            Data::Instance<Shader> shader;
+        };
+
+        void PrepareMeshDrawPacketUpdateBatch(
+            const Scene& parentScene,
+            AZStd::span<PrepareMeshDrawPacketUpdateBatchInput> batchInput);
+
+        void AppendMeshDrawPacketShaderItemBatch(
+            const Scene& parentScene,
+            AZStd::span<PrepareMeshDrawPacketUpdateBatchInput> prepareUpdateBatchInput,
+            AZStd::span<AppendMeshDrawPacketShaderBatchInput> batchInput,
+            AZStd::span<AppendMeshDrawPacketShaderBatchOutput> batchOutput);
     } // namespace RPI
 } // namespace AZ
