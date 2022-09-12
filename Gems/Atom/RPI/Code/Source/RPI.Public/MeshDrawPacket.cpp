@@ -16,7 +16,7 @@
 #include <Atom/RPI.Public/Shader/ShaderSystemInterface.h>
 #include <Atom/RPI.Reflect/Material/MaterialFunctor.h>
 #include <AzCore/Console/Console.h>
-#pragma optimize("", off)
+
 namespace AZ
 {
     namespace RPI
@@ -745,4 +745,4 @@ namespace AZ
         }
     } // namespace RPI
 } // namespace AZ
-#pragma optimize("", on)
+

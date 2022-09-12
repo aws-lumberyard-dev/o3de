@@ -33,7 +33,7 @@
 #include <AzCore/RTTI/TypeInfo.h>
 #include <AzCore/Serialization/SerializeContext.h>
 #include <AzCore/Asset/AssetCommon.h>
-#pragma optimize("", off)
+
 namespace AZ
 {
     namespace Render
@@ -106,7 +106,7 @@ namespace AZ
                         fp->Render(m_renderPacket);
                     });
             }*/
-            size_t drawPacketCount = 0;
+            /*size_t drawPacketCount = 0;
             for (ModelDataInstance& meshDataIter : m_modelData)
             {
                 if (meshDataIter.m_instanceNeedsInit)
@@ -142,10 +142,10 @@ namespace AZ
                 {
                     InitializeNewInstance4(&meshDataIter);
                 }
-            }
+            }*/
 
             // Count draw packets needing updates
-            size_t needsUpdateCount = 0;
+            /* size_t needsUpdateCount = 0;
             for (ModelDataInstance& meshDataIter : m_modelData)
             {
                 meshDataIter.NeedsDrawPacketUpdateBatch(needsUpdateCount, m_forceRebuildDrawPackets);
@@ -161,7 +161,7 @@ namespace AZ
 
             // Do the update
             PrepareMeshDrawPacketUpdateBatch(*GetParentScene(), batchUpdateInput);
-
+            */
 
             m_iteratorRanges = m_modelData.GetParallelRanges();
             //AZ::JobCompletion jobCompletion;
@@ -172,46 +172,123 @@ namespace AZ
                     simulateTGDesc,
                     [this, &iteratorRange]() -> void
                     {
-                        AZ_PROFILE_SCOPE(AzRender, "MeshFeatureProcessor: Simulate: Job");
+                        AZ_PROFILE_SCOPE(AzRender, "MeshFeatureProcessor: Simulate: Task");
 
-                        for (auto meshDataIter = iteratorRange.first; meshDataIter != iteratorRange.second; ++meshDataIter)
+                        size_t drawPacketCount = 0;
                         {
-                            if (meshDataIter->m_instanceNeedsInit)
+                            AZ_PROFILE_SCOPE(AzRender, "MeshFeatureProcessor: Simulate: Task: InitializeNewInstance");
+                            for (auto meshDataIter = iteratorRange.first; meshDataIter != iteratorRange.second; ++meshDataIter)
                             {
-                                AZ_Assert(false, "All the meshes should be initialized by now");
-                                //this->InitializeNewInstance(&*meshDataIter);
-                                //meshDataIter->m_instanceNeedsInit = false;
+                                /* if (meshDataIter->m_instanceNeedsInit)
+                                {
+                                    AZ_Assert(false, "All the meshes should be initialized by now");
+                                    //this->InitializeNewInstance(&*meshDataIter);
+                                    //meshDataIter->m_instanceNeedsInit = false;
+                                }*/
+
+                                if (meshDataIter->m_instanceNeedsInit)
+                                {
+                                    this->InitializeNewInstance(&*meshDataIter, drawPacketCount);
+                                }
+                            }
+                        }
+                        AZStd::vector<RPI::PrepareMeshDrawPacketUpdateBatchInput> batchUpdateInput(drawPacketCount);
+                        size_t batchUpdateIndex = 0;
+                        {
+                            AZ_PROFILE_SCOPE(AzRender, "MeshFeatureProcessor: Simulate: Task: Batch");
+                            for (auto meshDataIter = iteratorRange.first; meshDataIter != iteratorRange.second; ++meshDataIter)
+                            {
+                                if (meshDataIter->m_instanceNeedsInit)
+                                {
+                                    this->InitializeNewInstance2(&*meshDataIter, batchUpdateIndex, batchUpdateInput);
+                                }
+                            }
+                            PrepareMeshDrawPacketUpdateBatch(*GetParentScene(), batchUpdateInput);
+                        }
+
+                        {
+                            AZ_PROFILE_SCOPE(AzRender, "MeshFeatureProcessor: Simulate: Task: SetRayTracingData");
+                            for (auto meshDataIter = iteratorRange.first; meshDataIter != iteratorRange.second; ++meshDataIter)
+                            {
+                                if (meshDataIter->m_instanceNeedsInit)
+                                {
+                                    this->InitializeNewInstance3(&*meshDataIter);
+                                    meshDataIter->m_instanceNeedsInit = false;
+                                }
+                            }
+                        }
+                        {
+                            AZ_PROFILE_SCOPE(AzRender, "MeshFeatureProcessor: Simulate: Task: SendMeshReadyEvents");
+                            for (auto meshDataIter = iteratorRange.first; meshDataIter != iteratorRange.second; ++meshDataIter)
+                            {
+                                if (meshDataIter->m_instanceNeedsInit)
+                                {
+                                    this->InitializeNewInstance4(&*meshDataIter);
+                                }
+                            }
+                        }
+                        {
+                            AZ_PROFILE_SCOPE(AzRender, "MeshFeatureProcessor: Simulate: Task: UpdateObjectSrgs");
+                            for (auto meshDataIter = iteratorRange.first; meshDataIter != iteratorRange.second; ++meshDataIter)
+                            {
+                                if (!meshDataIter->m_model)
+                                {
+                                    //TODO - this is not actually skipping the work in the next loop like it should
+                                    continue; // model not loaded yet
+                                }
+
+                                if (!meshDataIter->m_visible)
+                                {
+                                    continue;
+                                }
+
+                                if (meshDataIter->m_objectSrgNeedsUpdate)
+                                {
+                                    meshDataIter->UpdateObjectSrg();
+                                }
+                            }
+                        }                        
+                        size_t needsUpdateCount = 0;
+                        {
+                            AZ_PROFILE_SCOPE(AzRender, "MeshFeatureProcessor: Simulate: Task: CheckIfDrawPacketsNeedUpdate");
+                            for (auto meshDataIter = iteratorRange.first; meshDataIter != iteratorRange.second; ++meshDataIter)
+                            {
+                                meshDataIter->NeedsDrawPacketUpdateBatch(needsUpdateCount, m_forceRebuildDrawPackets);
+                            }
+                        }
+                        {
+                            AZ_PROFILE_SCOPE(AzRender, "MeshFeatureProcessor: Simulate: Task: UpdateDrawPackets");
+                            batchUpdateInput.clear();
+                            batchUpdateInput.resize(needsUpdateCount);
+                            size_t updateIndex = 0;
+                            // Batch the input
+                            for (auto meshDataIter = iteratorRange.first; meshDataIter != iteratorRange.second; ++meshDataIter)
+                            {
+                                meshDataIter->UpdateDrawPacketsBatch(updateIndex, batchUpdateInput, m_forceRebuildDrawPackets);
                             }
 
-                            if (!meshDataIter->m_model)
+                            // Do the update
+                            PrepareMeshDrawPacketUpdateBatch(*GetParentScene(), batchUpdateInput);
+                        }
+                        {
+                            AZ_PROFILE_SCOPE(AzRender, "MeshFeatureProcessor: Simulate: Task: BuildCullables");
+                            for (auto meshDataIter = iteratorRange.first; meshDataIter != iteratorRange.second; ++meshDataIter)
                             {
-                                continue; // model not loaded yet
-                            }
+                                // [GFX TODO] [ATOM-1357] Currently all of the draw packets have to be checked for material ID changes
+                                // because material properties can impact which actual shader is used, which impacts the SRG in the draw
+                                // packet. This is scheduled to be optimized so the work is only done on draw packets that need it instead
+                                // of having to check every one.
+                                // meshDataIter->UpdateDrawPackets(m_forceRebuildDrawPackets);
 
-                            if (!meshDataIter->m_visible)
-                            {
-                                continue;
-                            }
+                                if (meshDataIter->m_cullableNeedsRebuild)
+                                {
+                                    meshDataIter->BuildCullable();
+                                }
 
-                            if (meshDataIter->m_objectSrgNeedsUpdate)
-                            {
-                                meshDataIter->UpdateObjectSrg();
-                            }
-
-                            // [GFX TODO] [ATOM-1357] Currently all of the draw packets have to be checked for material ID changes because
-                            // material properties can impact which actual shader is used, which impacts the SRG in the draw packet.
-                            // This is scheduled to be optimized so the work is only done on draw packets that need it instead of having
-                            // to check every one.
-                            //meshDataIter->UpdateDrawPackets(m_forceRebuildDrawPackets);
-
-                            if (meshDataIter->m_cullableNeedsRebuild)
-                            {
-                                meshDataIter->BuildCullable();
-                            }
-
-                            if (meshDataIter->m_cullBoundsNeedsUpdate)
-                            {
-                                meshDataIter->UpdateCullBounds(m_transformService);
+                                if (meshDataIter->m_cullBoundsNeedsUpdate)
+                                {
+                                    meshDataIter->UpdateCullBounds(m_transformService);
+                                }
                             }
                         }
                     }
@@ -1668,4 +1745,4 @@ namespace AZ
         }
     } // namespace Render
 } // namespace AZ
-#pragma optimize("", on)
+
