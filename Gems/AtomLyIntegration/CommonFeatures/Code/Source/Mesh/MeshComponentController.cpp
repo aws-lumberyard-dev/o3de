@@ -281,7 +281,7 @@ namespace AZ
         {
             // Buses must be disconnected after unregistering the model, otherwise they can't deliver the events during the process.
             UnregisterModel();
-
+            Data::AssetBus::Handler::BusDisconnect();
             AzFramework::RenderGeometry::IntersectionRequestBus::Handler::BusDisconnect();
             AzFramework::BoundsRequestBus::Handler::BusDisconnect();
             MaterialComponentNotificationBus::Handler::BusDisconnect();

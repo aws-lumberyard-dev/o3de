@@ -108,6 +108,7 @@ namespace AZ
 
             //! Return the set of shaders to be run by this material.
             const ShaderCollection& GetShaderCollection() const;
+            ShaderCollection& GetShaderCollection();
 
             //! Attempts to set the value of a system-level shader option that is controlled by this material.
             //! This applies to all shaders in the material's ShaderCollection.
