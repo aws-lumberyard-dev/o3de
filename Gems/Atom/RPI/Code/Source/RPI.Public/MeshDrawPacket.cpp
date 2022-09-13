@@ -377,197 +377,10 @@ namespace AZ
         
         void MeshDrawPacket::SetBatchUpdateInput(PrepareMeshDrawPacketUpdateBatchInput& input)
         {
-            input.m_modelLod = m_modelLod;
-
-            // The index of the mesh within m_modelLod that is represented by the DrawPacket
-            input.m_modelLodMeshIndex = m_modelLodMeshIndex;
-
-            // The per-object shader resource group
-            input.m_objectSrg = m_objectSrg;
-
-            // We hold ConstPtr<RHI::ShaderResourceGroup> instead of Instance<RPI::ShaderResourceGroup> because the Material class
-            // does not allow public access to its Instance<RPI::ShaderResourceGroup>.
-            // ConstPtr<RHI::ShaderResourceGroup> m_materialSrg;
-
-            input.m_perDrawSrgs = &m_perDrawSrgs;
-
-            // A reference to the material, used to rebuild the DrawPacket if needed
-            input.m_material = m_material;
-
-            input.m_materialModelUvMap = &m_materialModelUvMap;
-
-            input.m_shaderOptions = &m_shaderOptions;
-
-            // Set the sort key for the draw packet
-            input.m_sortKey = m_sortKey;
-
-            // Set the stencil value for this draw packet
-            input.m_stencilRef = m_stencilRef;
-
-            // Take references to the things that are going to be the batched output of the batch update work
-            // TODO: really, we should just take a reference to the entire MeshDrawPacket
-            input.m_drawPacket = &m_drawPacket;
-            input.m_activeShaders = &m_activeShaders;
-            input.m_materialSrg = &m_materialSrg;
-            input.m_materialChangeId = &m_materialChangeId;
+            input.m_drawPacket = this;
         }
 
-        void PrepareMeshDrawPacketUpdateBatch(
-            const Scene& parentScene,
-            AZStd::span<PrepareMeshDrawPacketUpdateBatchInput> batchInput)
-        {
-            AZ_PROFILE_SCOPE(RPI, "PrepareMeshDrawPacketUpdateBatch");
-            size_t activeShaderItemCount = 0;
-            AZStd::vector<AZStd::bitset<RHI::DrawPacketBuilder::DrawItemCountMax>> activeShaderItems(batchInput.size());
-            ShaderReloadDebugTracker::ScopedSection reloadSection("PrepareMeshDrawPacketUpdateBatch");
-
-            for (size_t inputIndex = 0; inputIndex < batchInput.size(); ++inputIndex)
-            {
-                PrepareMeshDrawPacketUpdateBatchInput& input = batchInput[inputIndex];
-                const ModelLod::Mesh& mesh = input.m_modelLod->GetMeshes()[input.m_modelLodMeshIndex];
-
-                if (!input.m_material)
-                {
-                    AZ_Warning("MeshDrawPacket", false, "No material provided for mesh. Skipping.");
-                    // TODO: handle failure of an individual without failing the whole batch
-                    return;
-                }
-
-
-                RHI::DrawPacketBuilder& drawPacketBuilder = input.m_drawPacketBuilder;
-                drawPacketBuilder.Begin(nullptr);
-
-                drawPacketBuilder.SetDrawArguments(mesh.m_drawArguments);
-                drawPacketBuilder.SetIndexBufferView(mesh.m_indexBufferView);
-                drawPacketBuilder.AddShaderResourceGroup(input.m_objectSrg->GetRHIShaderResourceGroup());
-                drawPacketBuilder.AddShaderResourceGroup(input.m_material->GetRHIShaderResourceGroup());
-
-                // Count the drawItems we need
-                input.m_material->ApplyGlobalShaderOptions();
-
-                auto& shaderItemCollection = input.m_material->GetShaderCollection();
-
-                if (shaderItemCollection.size() > RHI::DrawPacketBuilder::DrawItemCountMax)
-                {
-                    AZ_Error(
-                        "MeshDrawPacket",
-                        false,
-                        "Material has more than the limit of %d active shader items.",
-                        RHI::DrawPacketBuilder::DrawItemCountMax);
-
-                    // TODO: handle failure of an individual without failing the whole batch
-                    return;
-                }
-
-                for (size_t shaderItemIndex = 0; shaderItemIndex < shaderItemCollection.size(); ++shaderItemIndex)
-                {
-                    auto& shaderItem = shaderItemCollection[shaderItemIndex];
-                    if (shaderItem.IsEnabled())
-                    {
-                        // Skip the shader item without creating the shader instance
-                        // if the mesh is not going to be rendered based on the draw tag
-                        RHI::RHISystemInterface* rhiSystem = RHI::RHISystemInterface::Get();
-                        RHI::DrawListTagRegistry* drawListTagRegistry = rhiSystem->GetDrawListTagRegistry();
-
-                        // Use the explicit draw list override if exists.
-                        RHI::DrawListTag drawListTag = shaderItem.GetDrawListTagOverride();
-
-                        if (drawListTag.IsNull())
-                        {
-                            Data::Asset<RPI::ShaderAsset> shaderAsset = shaderItem.GetShaderAsset();
-                            if (!shaderAsset.IsReady())
-                            {
-                                // The shader asset needs to be loaded before we can check the draw tag.
-                                // If it's not loaded yet, the instance database will do a blocking load
-                                // when we create the instance below, so might as well load it now.
-                                shaderAsset.QueueLoad();
-
-                                if (shaderAsset.IsLoading())
-                                {
-                                    shaderAsset.BlockUntilLoadComplete();
-                                }
-                            }
-
-                            drawListTag = drawListTagRegistry->FindTag(shaderAsset->GetDrawListName());
-                        }
-
-                        if (parentScene.HasOutputForPipelineState(drawListTag))
-                        {
-                            // drawListTag found in this scene, so render this item
-                            activeShaderItems[inputIndex].set(shaderItemIndex);
-                            activeShaderItemCount++;
-                        }
-                    }
-                }
-            }
-
-            // Now we know the total number of drawItems we'll be creating across our entire batch of meshes
-            // Capture the input and output for each one in a vector, so that we can process them as a batch.
-            AZStd::vector<AppendMeshDrawPacketShaderBatchInput> appendShaderInput(activeShaderItemCount);
-            AZStd::vector<AppendMeshDrawPacketShaderBatchOutput> appendShaderOutput(activeShaderItemCount);
-            size_t currentAppendShaderInputIndex = 0;
-            for (size_t batchInputIndex = 0; batchInputIndex < batchInput.size(); ++batchInputIndex)
-            {
-                auto& activeShaderItemIndices = activeShaderItems[batchInputIndex];
-                const ShaderCollection& shaderCollection = batchInput[batchInputIndex].m_material->GetShaderCollection();
-                for (size_t bit = 0; bit < RHI::DrawPacketBuilder::DrawItemCountMax; ++bit)
-                {
-                    if (activeShaderItemIndices.test(bit))
-                    {
-                        // If the shader is active, add it to the input
-                        appendShaderInput[currentAppendShaderInputIndex].shaderItem = &shaderCollection[bit];
-                        appendShaderInput[currentAppendShaderInputIndex].m_modelLod = batchInput[batchInputIndex].m_modelLod;
-                        appendShaderInput[currentAppendShaderInputIndex].m_prepareUpdateBatchIndex = batchInputIndex;
-
-
-                        // Use the explicit draw list override if exists.
-                        RHI::DrawListTag drawListTag = appendShaderInput[currentAppendShaderInputIndex].shaderItem->GetDrawListTagOverride();
-
-                        if (drawListTag.IsNull())
-                        {
-                            // It's pretty annoying that we're doing this twice...but it's a way to avoid extra memory allocations
-                            // The first time we did it was to count up the total number of shader items that are actually used.
-                            // Now we need to track it as part of our input to the batch append shader function
-                            // If this extra lookup into the drawListTagRegistry becomes a performance issue, we could alternatively
-                            // explore if it's feasible to cache to drawListTag in teh shader asset itself
-                           
-                            Data::Asset<RPI::ShaderAsset> shaderAsset =
-                                appendShaderInput[currentAppendShaderInputIndex].shaderItem->GetShaderAsset();
-                            AZ_Assert(shaderAsset.IsReady(), "The shader asset should have been loaded already");
-
-                            RHI::RHISystemInterface* rhiSystem = RHI::RHISystemInterface::Get();
-                            RHI::DrawListTagRegistry* drawListTagRegistry = rhiSystem->GetDrawListTagRegistry();
-
-                            // If there is no explicit override, use the default from the shader asset
-                            drawListTag = drawListTagRegistry->FindTag(shaderAsset->GetDrawListName());
-                        }
-                        appendShaderInput[currentAppendShaderInputIndex].m_drawListTag = drawListTag;
-                        appendShaderOutput[currentAppendShaderInputIndex].m_batchInputIndex = batchInputIndex;
-                        currentAppendShaderInputIndex++;
-                    }
-                }
-                batchInput[batchInputIndex].shaderList.reserve(activeShaderItemIndices.count());
-                batchInput[batchInputIndex].m_perDrawSrgs->clear();
-            }
-
-
-            AppendMeshDrawPacketShaderItemBatch(parentScene, batchInput, appendShaderInput, appendShaderOutput);
-
-            for (size_t inputIndex = 0; inputIndex < batchInput.size(); ++inputIndex)
-            {
-                *batchInput[inputIndex].m_drawPacket = batchInput[inputIndex].m_drawPacketBuilder.End();
-                *batchInput[inputIndex].m_materialChangeId = batchInput[inputIndex].m_material->GetCurrentChangeId();
-                if (batchInput[inputIndex].m_drawPacket)
-                {
-                    *batchInput[inputIndex].m_activeShaders = batchInput[inputIndex].shaderList;
-                    *batchInput[inputIndex].m_materialSrg = batchInput[inputIndex].m_material->GetRHIShaderResourceGroup();
-                }
-            }
-
-            // TODO: handle failure of an individual without failing the whole batch
-            return;
-        }
-
+        
         void AppendMeshDrawPacketShaderItemBatch(
             const Scene& parentScene,
             AZStd::span<PrepareMeshDrawPacketUpdateBatchInput> prepareUpdateBatchInput,
@@ -586,20 +399,22 @@ namespace AZ
                 Data::Instance<Shader> shader = output.shader;
                 AZStd::fixed_vector<ModelLod::StreamBufferViewList, RHI::DrawPacketBuilder::DrawItemCountMax>& streamBufferViewsPerShader =
                     batchOutput[batchInputIndex].streamBufferViewsPerShader;
-                size_t m_modelLodMeshIndex = prepareUpdateBatchInput[prepareUpdateInputIndex].m_modelLodMeshIndex;
-                Data::Instance<Material> m_material = prepareUpdateBatchInput[prepareUpdateInputIndex].m_material;
-                MaterialModelUvOverrideMap& m_materialModelUvMap = *prepareUpdateBatchInput[prepareUpdateInputIndex].m_materialModelUvMap;
-                MeshDrawPacket::ShaderOptionVector& m_shaderOptions = *prepareUpdateBatchInput[prepareUpdateInputIndex].m_shaderOptions;
+                size_t& m_modelLodMeshIndex = prepareUpdateBatchInput[prepareUpdateInputIndex].m_drawPacket->m_modelLodMeshIndex;
+                Data::Instance<Material> m_material = prepareUpdateBatchInput[prepareUpdateInputIndex].m_drawPacket->m_material;
+                MaterialModelUvOverrideMap& m_materialModelUvMap =
+                    prepareUpdateBatchInput[prepareUpdateInputIndex].m_drawPacket->m_materialModelUvMap;
+                MeshDrawPacket::ShaderOptionVector& m_shaderOptions =
+                    prepareUpdateBatchInput[prepareUpdateInputIndex].m_drawPacket->m_shaderOptions;
                 AZStd::fixed_vector<Data::Instance<ShaderResourceGroup>, RHI::DrawPacketBuilder::DrawItemCountMax>& m_perDrawSrgs =
-                    *prepareUpdateBatchInput[prepareUpdateInputIndex].m_perDrawSrgs;
+                    prepareUpdateBatchInput[prepareUpdateInputIndex].m_drawPacket->m_perDrawSrgs;
 
                 RHI::DrawListTag drawListTag = batchInput[batchInputIndex].m_drawListTag;
 
                 // Set the sort key for the draw packet
-                RHI::DrawItemSortKey m_sortKey = prepareUpdateBatchInput[prepareUpdateInputIndex].m_sortKey;
+                RHI::DrawItemSortKey m_sortKey = prepareUpdateBatchInput[prepareUpdateInputIndex].m_drawPacket->m_sortKey;
 
                 // Set the stencil value for this draw packet
-                uint8_t m_stencilRef = prepareUpdateBatchInput[prepareUpdateInputIndex].m_stencilRef;
+                uint8_t m_stencilRef = prepareUpdateBatchInput[prepareUpdateInputIndex].m_drawPacket->m_stencilRef;
                 RHI::DrawPacketBuilder& drawPacketBuilder = prepareUpdateBatchInput[prepareUpdateInputIndex].m_drawPacketBuilder;
                 MeshDrawPacket::ShaderList& shaderList = prepareUpdateBatchInput[prepareUpdateInputIndex].shaderList;
 
@@ -738,6 +553,165 @@ namespace AZ
                 return;
             }
         }
+
+        void PrepareMeshDrawPacketUpdateBatch(
+            const Scene& parentScene,
+            AZStd::span<PrepareMeshDrawPacketUpdateBatchInput> batchInput)
+        {
+            AZ_PROFILE_SCOPE(RPI, "PrepareMeshDrawPacketUpdateBatch");
+            size_t activeShaderItemCount = 0;
+            AZStd::vector<AZStd::bitset<RHI::DrawPacketBuilder::DrawItemCountMax>> activeShaderItems(batchInput.size());
+            ShaderReloadDebugTracker::ScopedSection reloadSection("PrepareMeshDrawPacketUpdateBatch");
+
+            for (size_t inputIndex = 0; inputIndex < batchInput.size(); ++inputIndex)
+            {
+                PrepareMeshDrawPacketUpdateBatchInput& input = batchInput[inputIndex];
+                const ModelLod::Mesh& mesh = input.m_drawPacket->m_modelLod->GetMeshes()[input.m_drawPacket->m_modelLodMeshIndex];
+
+                if (!input.m_drawPacket->m_material)
+                {
+                    AZ_Warning("MeshDrawPacket", false, "No material provided for mesh. Skipping.");
+                    // TODO: handle failure of an individual without failing the whole batch
+                    return;
+                }
+
+
+                RHI::DrawPacketBuilder& drawPacketBuilder = input.m_drawPacketBuilder;
+                drawPacketBuilder.Begin(nullptr);
+
+                drawPacketBuilder.SetDrawArguments(mesh.m_drawArguments);
+                drawPacketBuilder.SetIndexBufferView(mesh.m_indexBufferView);
+                drawPacketBuilder.AddShaderResourceGroup(input.m_drawPacket->m_objectSrg->GetRHIShaderResourceGroup());
+                drawPacketBuilder.AddShaderResourceGroup(input.m_drawPacket->m_material->GetRHIShaderResourceGroup());
+
+                // Count the drawItems we need
+                input.m_drawPacket->m_material->ApplyGlobalShaderOptions();
+
+                ShaderCollection& shaderItemCollection = input.m_drawPacket->m_material->GetShaderCollection();
+
+                if (shaderItemCollection.size() > RHI::DrawPacketBuilder::DrawItemCountMax)
+                {
+                    AZ_Error(
+                        "MeshDrawPacket",
+                        false,
+                        "Material has more than the limit of %d active shader items.",
+                        RHI::DrawPacketBuilder::DrawItemCountMax);
+
+                    // TODO: handle failure of an individual without failing the whole batch
+                    return;
+                }
+
+                for (size_t shaderItemIndex = 0; shaderItemIndex < shaderItemCollection.size(); ++shaderItemIndex)
+                {
+                    auto& shaderItem = shaderItemCollection[shaderItemIndex];
+                    if (shaderItem.IsEnabled())
+                    {
+                        // Skip the shader item without creating the shader instance
+                        // if the mesh is not going to be rendered based on the draw tag
+                        RHI::RHISystemInterface* rhiSystem = RHI::RHISystemInterface::Get();
+                        RHI::DrawListTagRegistry* drawListTagRegistry = rhiSystem->GetDrawListTagRegistry();
+
+                        // Use the explicit draw list override if exists.
+                        RHI::DrawListTag drawListTag = shaderItem.GetDrawListTagOverride();
+
+                        if (drawListTag.IsNull())
+                        {
+                            Data::Asset<RPI::ShaderAsset>& shaderAsset = shaderItem.GetShaderAssetNonConst();
+                            if (!shaderAsset.IsReady())
+                            {
+                                // The shader asset needs to be loaded before we can check the draw tag.
+                                // If it's not loaded yet, the instance database will do a blocking load
+                                // when we create the instance below, so might as well load it now.
+                                shaderAsset.QueueLoad();
+
+                                if (shaderAsset.IsLoading())
+                                {
+                                    shaderAsset.BlockUntilLoadComplete();
+                                }
+                            }
+
+                            drawListTag = drawListTagRegistry->FindTag(shaderAsset->GetDrawListName());
+                        }
+
+                        if (parentScene.HasOutputForPipelineState(drawListTag))
+                        {
+                            // drawListTag found in this scene, so render this item
+                            activeShaderItems[inputIndex].set(shaderItemIndex);
+                            activeShaderItemCount++;
+                        }
+                    }
+                }
+            }
+
+            // Now we know the total number of drawItems we'll be creating across our entire batch of meshes
+            // Capture the input and output for each one in a vector, so that we can process them as a batch.
+            AZStd::vector<AppendMeshDrawPacketShaderBatchInput> appendShaderInput(activeShaderItemCount);
+            AZStd::vector<AppendMeshDrawPacketShaderBatchOutput> appendShaderOutput(activeShaderItemCount);
+            size_t currentAppendShaderInputIndex = 0;
+            for (size_t batchInputIndex = 0; batchInputIndex < batchInput.size(); ++batchInputIndex)
+            {
+                auto& activeShaderItemIndices = activeShaderItems[batchInputIndex];
+                ShaderCollection& shaderCollection = batchInput[batchInputIndex].m_drawPacket->m_material->GetShaderCollection();
+                for (size_t bit = 0; bit < RHI::DrawPacketBuilder::DrawItemCountMax; ++bit)
+                {
+                    if (activeShaderItemIndices.test(bit))
+                    {
+                        // If the shader is active, add it to the input
+                        appendShaderInput[currentAppendShaderInputIndex].shaderItem = &shaderCollection[bit];
+                        appendShaderInput[currentAppendShaderInputIndex].m_modelLod = batchInput[batchInputIndex].m_drawPacket->m_modelLod;
+                        appendShaderInput[currentAppendShaderInputIndex].m_prepareUpdateBatchIndex = batchInputIndex;
+
+
+                        // Use the explicit draw list override if exists.
+                        RHI::DrawListTag drawListTag = appendShaderInput[currentAppendShaderInputIndex].shaderItem->GetDrawListTagOverride();
+
+                        if (drawListTag.IsNull())
+                        {
+                            // It's pretty annoying that we're doing this twice...but it's a way to avoid extra memory allocations
+                            // The first time we did it was to count up the total number of shader items that are actually used.
+                            // Now we need to track it as part of our input to the batch append shader function
+                            // If this extra lookup into the drawListTagRegistry becomes a performance issue, we could alternatively
+                            // explore if it's feasible to cache to drawListTag in teh shader asset itself
+                           
+                            Data::Asset<RPI::ShaderAsset>& shaderAsset =
+                                appendShaderInput[currentAppendShaderInputIndex].shaderItem->GetShaderAssetNonConst();
+                            AZ_Assert(shaderAsset.IsReady(), "The shader asset should have been loaded already");
+
+                            RHI::RHISystemInterface* rhiSystem = RHI::RHISystemInterface::Get();
+                            RHI::DrawListTagRegistry* drawListTagRegistry = rhiSystem->GetDrawListTagRegistry();
+
+                            // If there is no explicit override, use the default from the shader asset
+                            drawListTag = drawListTagRegistry->FindTag(shaderAsset->GetDrawListName());
+                        }
+                        appendShaderInput[currentAppendShaderInputIndex].m_drawListTag = drawListTag;
+                        appendShaderOutput[currentAppendShaderInputIndex].m_batchInputIndex = batchInputIndex;
+                        currentAppendShaderInputIndex++;
+                    }
+                }
+                batchInput[batchInputIndex].shaderList.reserve(activeShaderItemIndices.count());
+                batchInput[batchInputIndex].m_drawPacket->m_perDrawSrgs.clear();
+            }
+
+
+            AppendMeshDrawPacketShaderItemBatch(parentScene, batchInput, appendShaderInput, appendShaderOutput);
+
+            for (size_t inputIndex = 0; inputIndex < batchInput.size(); ++inputIndex)
+            {
+                batchInput[inputIndex].m_drawPacket->m_drawPacket = batchInput[inputIndex].m_drawPacketBuilder.End();
+                batchInput[inputIndex].m_drawPacket->m_materialChangeId =
+                    batchInput[inputIndex].m_drawPacket->m_material->GetCurrentChangeId();
+                if (batchInput[inputIndex].m_drawPacket)
+                {
+                    batchInput[inputIndex].m_drawPacket->m_activeShaders = batchInput[inputIndex].shaderList;
+                    batchInput[inputIndex].m_drawPacket->m_materialSrg =
+                        batchInput[inputIndex].m_drawPacket->m_material->GetRHIShaderResourceGroup();
+                }
+            }
+
+            // TODO: handle failure of an individual without failing the whole batch
+            return;
+        }
+
 
         const RHI::DrawPacket* MeshDrawPacket::GetRHIDrawPacket() const
         {

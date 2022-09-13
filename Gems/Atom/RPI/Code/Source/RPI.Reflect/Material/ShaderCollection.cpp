@@ -178,6 +178,11 @@ namespace AZ
             return m_shaderAsset;
         }
 
+        Data::Asset<ShaderAsset>& ShaderCollection::Item::GetShaderAssetNonConst()
+        {
+            return m_shaderAsset;
+        }
+
         const ShaderVariantId& ShaderCollection::Item::GetShaderVariantId() const
         {
             return m_shaderOptionGroup.GetShaderVariantId();

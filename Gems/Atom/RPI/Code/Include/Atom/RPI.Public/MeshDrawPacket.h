@@ -28,10 +28,20 @@ namespace AZ
         class ShaderResourceGroup;
         class ShaderItem;
         struct PrepareMeshDrawPacketUpdateBatchInput;
+        struct AppendMeshDrawPacketShaderBatchInput;
+        struct AppendMeshDrawPacketShaderBatchOutput;
         //! Holds and manages an RHI DrawPacket for a specific mesh, and the resources that are needed to build and maintain it.
         class MeshDrawPacket
         {
         public:
+            friend void PrepareMeshDrawPacketUpdateBatch(const Scene& parentScene, AZStd::span<PrepareMeshDrawPacketUpdateBatchInput> batchInput);
+
+            friend void AppendMeshDrawPacketShaderItemBatch(
+                const Scene& parentScene,
+                AZStd::span<PrepareMeshDrawPacketUpdateBatchInput> prepareUpdateBatchInput,
+                AZStd::span<AppendMeshDrawPacketShaderBatchInput> batchInput,
+                AZStd::span<AppendMeshDrawPacketShaderBatchOutput> batchOutput);
+
             struct ShaderData
             {
                 Data::Instance<Shader> m_shader;
@@ -116,40 +126,7 @@ namespace AZ
         // One input per mesh + material combination
         struct PrepareMeshDrawPacketUpdateBatchInput
         {
-            Data::Instance<ModelLod> m_modelLod;
-
-            // The index of the mesh within m_modelLod that is represented by the DrawPacket
-            size_t m_modelLodMeshIndex;
-
-            // The per-object shader resource group
-            Data::Instance<ShaderResourceGroup> m_objectSrg;
-
-            // We hold ConstPtr<RHI::ShaderResourceGroup> instead of Instance<RPI::ShaderResourceGroup> because the Material class
-            // does not allow public access to its Instance<RPI::ShaderResourceGroup>.
-            // ConstPtr<RHI::ShaderResourceGroup> m_materialSrg;
-
-            AZStd::fixed_vector<Data::Instance<ShaderResourceGroup>, RHI::DrawPacketBuilder::DrawItemCountMax>* m_perDrawSrgs;
-
-            // A reference to the material, used to rebuild the DrawPacket if needed
-            Data::Instance<Material> m_material;
-
-            MaterialModelUvOverrideMap* m_materialModelUvMap;
-            
-            MeshDrawPacket::ShaderOptionVector* m_shaderOptions;
-
-            // Set the sort key for the draw packet
-            RHI::DrawItemSortKey m_sortKey = 0;
-
-            // Set the stencil value for this draw packet
-            uint8_t m_stencilRef = 0;
-
-            //
-            // This is the output
-            //
-            ConstPtr<RHI::DrawPacket>* m_drawPacket;
-            MeshDrawPacket::ShaderList* m_activeShaders;
-            ConstPtr<RHI::ShaderResourceGroup>* m_materialSrg;
-            Material::ChangeId* m_materialChangeId;
+            MeshDrawPacket* m_drawPacket;
 
             //
             // These are the only things not in the drawpacket itself
@@ -163,7 +140,7 @@ namespace AZ
         struct AppendMeshDrawPacketShaderBatchInput
         {
             size_t m_prepareUpdateBatchIndex;
-            const ShaderCollection::Item* shaderItem;
+            ShaderCollection::Item* shaderItem;
             Data::Instance<ModelLod> m_modelLod;
             RHI::DrawListTag m_drawListTag;
         };

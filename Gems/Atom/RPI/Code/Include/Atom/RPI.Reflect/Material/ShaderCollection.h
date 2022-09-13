@@ -55,6 +55,7 @@ namespace AZ
                 Item(Data::Asset<ShaderAsset>&& shaderAsset, const AZ::Name& shaderTag, ShaderVariantId variantId = ShaderVariantId{});
 
                 const Data::Asset<ShaderAsset>& GetShaderAsset() const;
+                Data::Asset<ShaderAsset>& GetShaderAssetNonConst();
 
                 //! Return the ID of the shader variant to be used, based on the configured shader options.
                 const ShaderVariantId& GetShaderVariantId() const;

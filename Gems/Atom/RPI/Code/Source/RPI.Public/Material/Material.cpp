@@ -173,6 +173,11 @@ namespace AZ
             return m_shaderCollection;
         }
 
+        ShaderCollection& Material::GetShaderCollection()
+        {
+            return m_shaderCollection;
+        }
+
         AZ::Outcome<uint32_t> Material::SetSystemShaderOption(const Name& shaderOptionName, RPI::ShaderOptionValue value)
         {
             uint32_t appliedCount = 0;
