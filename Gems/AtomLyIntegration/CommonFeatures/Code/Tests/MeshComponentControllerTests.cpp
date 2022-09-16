@@ -59,7 +59,7 @@ namespace UnitTest
         m_lastEntityIdChanged = entityId;
     }
 
-    class MeshComponentControllerFixture : public ToolsApplicationFixture
+    class MeshComponentControllerFixture : public ToolsApplicationFixture<>
     {
     public:
         void SetUpEditorFixtureImpl() override

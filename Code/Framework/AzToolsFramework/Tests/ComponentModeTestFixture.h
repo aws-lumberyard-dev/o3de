@@ -15,7 +15,7 @@
 namespace UnitTest
 {
     class ComponentModeTestFixture
-        : public ToolsApplicationFixture
+        : public ToolsApplicationFixture<>
     {
     protected:
         void SetUpEditorFixtureImpl() override;
