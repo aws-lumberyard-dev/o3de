@@ -40,7 +40,7 @@ namespace UnitTest
     };
 
     class PrefabTestFixture
-        : public ToolsApplicationFixture
+        : public ToolsApplicationFixture<>
     {
     protected:
 
