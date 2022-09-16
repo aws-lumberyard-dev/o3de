@@ -307,7 +307,7 @@ namespace UnitTest
 
         // This is enough iterations to generate a failing result on both the Arenberg and the Moller Trumbore algorithms.
         // (Specific triangles causing their failures have been captured and tested in a separate regression unit test)
-        constexpr int NumTests = 2500;
+        constexpr int NumTests = 250;
 
         // We'll keep track of the specific segment/triangle information for any hit so that it's easier to add false negatives
         // and false positives to the regression unit test.

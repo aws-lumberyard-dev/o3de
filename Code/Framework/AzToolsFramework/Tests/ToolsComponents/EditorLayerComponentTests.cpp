@@ -6,6 +6,7 @@
  *
  */
 
+#include "AzCore/UnitTest/TestTypes.h"
 #include <AzTest/AzTest.h>
 #include <AzCore/Asset/AssetManagerBus.h>
 #include <AzCore/Serialization/Utils.h>
@@ -217,7 +218,7 @@ namespace AzToolsFramework
 
 
     class EditorLayerComponentTest
-        : public ::testing::Test
+        : public UnitTest::AllocatorsTestFixture
         , public UnitTest::TraceBusRedirector
     {
     protected:

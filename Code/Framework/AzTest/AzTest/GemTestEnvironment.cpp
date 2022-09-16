@@ -6,6 +6,7 @@
  *
  */
 
+#include "AzCore/Memory/AllocatorManager.h"
 #include <AzTest/GemTestEnvironment.h>
 #include <AzCore/UnitTest/UnitTest.h>
 #include <AzCore/Asset/AssetManagerComponent.h>
@@ -79,6 +80,8 @@ namespace AZ
 
         void GemTestEnvironment::SetupEnvironment()
         {
+            AZ::AllocatorManager::Instance().SetDefaultTrackingMode(AZ::Debug::AllocationRecords::RECORD_FULL);
+
             UnitTest::TraceBusHook::SetupEnvironment();
 
             AZ::AllocatorInstance<AZ::SystemAllocator>::Create();
@@ -136,6 +139,9 @@ namespace AZ
             {
                 m_gemEntity->ActivateComponent(*component);
             }
+
+            // TODO is this needed?
+            AZ::AllocatorManager::Instance().GarbageCollect();
         }
 
         void GemTestEnvironment::TeardownEnvironment()
@@ -161,6 +167,8 @@ namespace AZ
 
             delete m_parameters;
             m_parameters = nullptr;
+
+            AZ::GetCurrentSerializeContextModule().Cleanup();
 
             AZ::AllocatorInstance<AZ::SystemAllocator>::Destroy();
 

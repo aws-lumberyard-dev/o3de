@@ -476,7 +476,7 @@ namespace AZ
     SerializeContext::~SerializeContext()
     {
         DestroyEditContext();
-        decltype(m_perModuleSet) moduleSet = AZStd::move(m_perModuleSet);
+        auto moduleSet = AZStd::move(m_perModuleSet);
         for(PerModuleGenericClassInfo* module : moduleSet)
         {
             module->UnregisterSerializeContext(this);
@@ -3178,17 +3178,17 @@ namespace AZ
 
     void SerializeContext::PerModuleGenericClassInfo::Cleanup()
     {
-        decltype(m_moduleLocalGenericClassInfos) genericClassInfoContainer = AZStd::move(m_moduleLocalGenericClassInfos);
-        decltype(m_serializeContextSet) serializeContextSet = AZStd::move(m_serializeContextSet);
+        auto genericClassInfoContainer = AZStd::move(m_moduleLocalGenericClassInfos);
+        auto serializeContextSet = AZStd::move(m_serializeContextSet);
         // Un-reflect GenericClassInfo from each serialize context registered with the module
         // The SerailizeContext uses the SystemAllocator so it is required to be ready in order to remove the data
         if (AZ::AllocatorInstance<AZ::SystemAllocator>::IsReady())
         {
             for (AZ::SerializeContext* serializeContext : serializeContextSet)
             {
-                for (const AZStd::pair<AZ::Uuid, AZ::GenericClassInfo*>& moduleGenericClassInfoPair : genericClassInfoContainer)
+                for (const auto& [specializedTypeId, genericClassInfo] : genericClassInfoContainer)
                 {
-                    serializeContext->RemoveGenericClassInfo(moduleGenericClassInfoPair.second);
+                    serializeContext->RemoveGenericClassInfo(genericClassInfo);
                 }
 
                 serializeContext->m_perModuleSet.erase(this);
@@ -3216,9 +3216,9 @@ namespace AZ
     {
         m_serializeContextSet.erase(serializeContext);
         serializeContext->m_perModuleSet.erase(this);
-        for (const AZStd::pair<AZ::Uuid, AZ::GenericClassInfo*>& moduleGenericClassInfoPair : m_moduleLocalGenericClassInfos)
+        for (const auto& [specializedTypeId, genericClassInfo] : m_moduleLocalGenericClassInfos)
         {
-            serializeContext->RemoveGenericClassInfo(moduleGenericClassInfoPair.second);
+            serializeContext->RemoveGenericClassInfo(genericClassInfo);
         }
     }
 

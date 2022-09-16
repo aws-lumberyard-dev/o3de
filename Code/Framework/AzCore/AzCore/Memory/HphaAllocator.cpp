@@ -1230,6 +1230,7 @@ namespace AZ
         }
         HPPA_ASSERT(p->elem_size() >= size);
         mTotalAllocatedSizeBuckets += p->elem_size();
+        //std::cout << "1 Allocating " << p->elem_size() << " " << mTotalAllocatedSizeBuckets << "\n";
         return mBuckets[bi].alloc(p);
     }
 
@@ -1256,6 +1257,7 @@ namespace AZ
             mBuckets[bi].add_free_page(p);
         }
         mTotalAllocatedSizeBuckets += p->elem_size();
+        //std::cout << "2 Allocating " << p->elem_size() << " " << mTotalAllocatedSizeBuckets << "\n";
         return mBuckets[bi].alloc(p);
     }
 
@@ -1315,6 +1317,7 @@ namespace AZ
 #endif
 #endif
         mTotalAllocatedSizeBuckets -= p->elem_size();
+        //std::cout << "Deallocating " << p->elem_size() << " " << mTotalAllocatedSizeBuckets << "\n";
         mBuckets[bi].free(p, ptr);
     }
 
@@ -1334,6 +1337,7 @@ namespace AZ
 #endif
 #endif
         mTotalAllocatedSizeBuckets -= p->elem_size();
+        //std::cout << "Deallocating " << p->elem_size() << " " << mTotalAllocatedSizeBuckets << "\n";
         mBuckets[bi].free(p, ptr);
     }
 
@@ -1680,6 +1684,7 @@ namespace AZ
         }
         newBl->set_used();
         mTotalAllocatedSizeTree += newBl->size();
+        //std::cout << "3 Allocating " << newBl->size() << " " << mTotalAllocatedSizeTree << "\n";
         return newBl->mem();
     }
 
@@ -1724,6 +1729,7 @@ namespace AZ
         newBl->set_used();
         HPPA_ASSERT(((size_t)newBl->mem() & (alignment - 1)) == 0);
         mTotalAllocatedSizeTree += newBl->size();
+        //std::cout << "4 Allocating " << newBl->size() << " " << mTotalAllocatedSizeTree << "\n";
         return newBl->mem();
     }
 
@@ -1793,6 +1799,7 @@ namespace AZ
                 next = coalesce_block(next);
                 tree_attach(next);
                 mTotalAllocatedSizeTree += bl->size() - blSize;
+                //std::cout << "5 Allocating " << (bl->size() - blSize) << " " << mTotalAllocatedSizeTree << "\n";
             }
             HPPA_ASSERT(bl->size() >= size);
             return ptr;
@@ -1812,6 +1819,7 @@ namespace AZ
                 tree_attach(bl->next());
             }
             mTotalAllocatedSizeTree += bl->size() - blSize;
+            //std::cout << "6 Allocating " << (bl->size() - blSize) << " " << mTotalAllocatedSizeTree << "\n";
             return ptr;
         }
         // check if the previous block can be used to avoid searching
@@ -1839,6 +1847,7 @@ namespace AZ
                 tree_attach(bl->next());
             }
             mTotalAllocatedSizeTree += bl->size() - blSize;
+            //std::cout << "7 Allocating " << (bl->size() - blSize) << " " << mTotalAllocatedSizeTree << "\n";
             return newPtr;
         }
         // fall back to alloc/copy/free
@@ -1876,6 +1885,7 @@ namespace AZ
                 tree_attach(next);
             }
             mTotalAllocatedSizeTree += bl->size() - blSize;
+            //std::cout << "8 Allocating " << (bl->size() - blSize) << " " << mTotalAllocatedSizeTree << "\n";
             HPPA_ASSERT(bl->size() >= size);
             return ptr;
         }
@@ -1893,6 +1903,7 @@ namespace AZ
                 tree_attach(bl->next());
             }
             mTotalAllocatedSizeTree += bl->size() - blSize;
+            //std::cout << "9 Allocating " << (bl->size() - blSize) << " " << mTotalAllocatedSizeTree << "\n";
             return ptr;
         }
         block_header* prev = bl->prev();
@@ -1929,6 +1940,7 @@ namespace AZ
                 tree_attach(bl->next());
             }
             mTotalAllocatedSizeTree += bl->size() - blSize;
+            //std::cout << "10 Allocating " << (bl->size() - blSize) << " " << mTotalAllocatedSizeTree << "\n";
             return newPtr;
         }
         void* newPtr = tree_alloc_aligned(size, alignment);
@@ -1981,6 +1993,7 @@ namespace AZ
             }
         }
         mTotalAllocatedSizeTree += bl->size() - blSize;
+        //std::cout << "11 Allocating " << (bl->size() - blSize) << " " << mTotalAllocatedSizeTree << "\n";
         return bl->size();
     }
 
@@ -1994,6 +2007,7 @@ namespace AZ
         // This assert detects a double-free of ptr
         HPPA_ASSERT(bl->used());
         mTotalAllocatedSizeTree -= bl->size();
+        //std::cout << "Deallocating " << bl->size() << " " << mTotalAllocatedSizeTree << "\n";
         bl->set_unused();
         bl = coalesce_block(bl);
         tree_attach(bl);

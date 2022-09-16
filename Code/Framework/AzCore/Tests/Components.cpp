@@ -6,6 +6,7 @@
  *
  */
 
+#include "AzCore/Memory/IAllocator.h"
 #include "FileIOBaseTestTypes.h"
 
 #include <AzCore/Math/Crc.h>
@@ -65,6 +66,8 @@ TEST(ComponentApplication, Test)
     systemEntity->Init();
     systemEntity->Activate();
     app.Destroy();
+
+    AZ::AllocatorManager::Instance().GarbageCollect();
     //////////////////////////////////////////////////////////////////////////
 }
 

@@ -78,6 +78,9 @@ else()
     add_subdirectory_on_external_subdirs()
 endif()
 
+add_executable(foo foo.cpp)
+target_link_libraries(foo PRIVATE AZ::AzCore)
+
 ################################################################################
 # Post-processing
 ################################################################################

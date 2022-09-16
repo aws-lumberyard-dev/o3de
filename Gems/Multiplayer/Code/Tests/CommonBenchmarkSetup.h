@@ -435,7 +435,6 @@ namespace Multiplayer
             m_ComponentApplicationRequests.reset();
 
             AZ::NameDictionary::Destroy();
-            TeardownAllocator();
         }
 
         AZStd::unique_ptr<AZ::IConsole> m_console;

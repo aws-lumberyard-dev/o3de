@@ -54,7 +54,6 @@
 static_assert(AZ_VA_NUM_ARGS() == 0);
 static_assert(AZ_VA_NUM_ARGS((1, 2)) == 1);
 static_assert(AZ_VA_NUM_ARGS(5A) == 1);
-static_assert(AZ_VA_NUM_ARGS(,) == 2);
 static_assert(AZ_VA_NUM_ARGS(6B,) == 2);
 static_assert(AZ_VA_NUM_ARGS(7C,8D) == 2);
 static_assert(AZ_VA_NUM_ARGS(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
