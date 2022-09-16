@@ -8,7 +8,9 @@
 
 #include "native/utilities/BuilderConfigurationManager.h"
 #include <native/unittests/UnitTestRunner.h>
+#if !defined(Q_MOC_RUN)
 #include <AzCore/UnitTest/TestTypes.h>
+#endif
 
 
 class BuilderConfigurationTests
