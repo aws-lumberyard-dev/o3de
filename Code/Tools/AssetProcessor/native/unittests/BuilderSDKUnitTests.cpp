@@ -7,7 +7,9 @@
  */
 
 #include <AssetBuilderSDK/AssetBuilderSDK.h>
+#if !defined(Q_MOC_RUN)
 #include <AzCore/UnitTest/TestTypes.h>
+#endif
 #include <native/unittests/UnitTestRunner.h>
 #include <QDir>
 #include <QTemporaryDir>

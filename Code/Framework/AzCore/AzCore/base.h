@@ -10,6 +10,7 @@
 #include <AzCore/variadic.h>
 #include <AzCore/PlatformDef.h> ///< Platform/compiler specific defines
 #include <AzCore/base_Platform.h>
+#include <tuple>
 
 #include <AzCore/AzCore_Traits_Platform.h>
 
