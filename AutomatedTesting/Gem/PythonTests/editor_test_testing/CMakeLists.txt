@@ -6,9 +6,8 @@
 #
 #
 
-# This timeouts on jenkins, investigation is needed. Commment for now
-# 
-#if(PAL_TRAIT_BUILD_TESTS_SUPPORTED AND PAL_TRAIT_BUILD_HOST_TOOLS)
+# disabled to investigate https://github.com/o3de/o3de/issues/11528
+# if(PAL_TRAIT_BUILD_TESTS_SUPPORTED AND PAL_TRAIT_BUILD_HOST_TOOLS)
 #    ly_add_pytest(
 #        NAME AutomatedTesting::EditorTestTesting
 #        TEST_SUITE main
@@ -21,4 +20,4 @@
 #        COMPONENT
 #            TestTools
 #    )
-#endif()
+# endif()

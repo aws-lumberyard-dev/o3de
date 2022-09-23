@@ -34,7 +34,6 @@
 
 #include <AzFramework/Asset/AssetCatalogComponent.h>
 #include <AzFramework/StringFunc/StringFunc.h>
-#include <AzFramework/TargetManagement/TargetManagementComponent.h>
 
 #ifdef AZ_PLATFORM_WINDOWS
 #include "shlobj.h"
@@ -55,7 +54,6 @@ namespace LegacyFramework
 {
     ApplicationDesc::ApplicationDesc(const char* name, int argc, char** argv)
         : m_applicationModule(nullptr)
-        , m_enableGridmate(true)
         , m_enablePerforce(true)
         , m_enableGUI(true)
         , m_enableProjectManager(true)
@@ -85,7 +83,6 @@ namespace LegacyFramework
 
         m_applicationModule = other.m_applicationModule;
         m_enableGUI = other.m_enableGUI;
-        m_enableGridmate = other.m_enableGridmate;
         m_enablePerforce = other.m_enablePerforce;
         azstrcpy(m_applicationName, AZ_MAX_PATH_LEN, other.m_applicationName);
         m_enableProjectManager = other.m_enableProjectManager;
@@ -365,11 +362,10 @@ namespace LegacyFramework
         qstrcpy(m_applicationFilePath, applicationFilePath.c_str());
 
         // load all application entities, if present:
-        AZ::IO::SystemFile cfg;
 
-        if (cfg.Open(m_applicationFilePath, AZ::IO::SystemFile::SF_OPEN_READ_ONLY))
+        if (AZ::IO::SystemFileStream stream(m_applicationFilePath, AZ::IO::OpenMode::ModeRead);
+            stream.IsOpen())
         {
-            AZ::IO::SystemFileStream stream(&cfg, false);
             stream.Seek(0, AZ::IO::GenericStream::ST_SEEK_BEGIN);
             AZ::ObjectStream::LoadBlocking(&stream, *GetSerializeContext(),
                 [this](void* classPtr, const AZ::Uuid& classId, const AZ::SerializeContext* sc)
@@ -380,7 +376,6 @@ namespace LegacyFramework
                         m_applicationEntity = entity;
                     }
                 });
-            cfg.Close();
         }
 
         if (!m_applicationEntity)
@@ -459,7 +454,7 @@ namespace LegacyFramework
             AZ_Warning("ComponentApplication", entityWriteOk, "Failed to write application entity to application file %s!", applicationFilePath.c_str());
             bool flushOk = objStream->Finalize();
             AZ_Warning("ComponentApplication", flushOk, "Failed finalizing application file %s!", applicationFilePath.c_str());
-            
+
             if (entityWriteOk && flushOk)
             {
                 if (IO::SystemFile::Rename(tmpFileName.c_str(), applicationFilePath.c_str(), true))
@@ -473,7 +468,7 @@ namespace LegacyFramework
 
     void Application::CreateApplicationComponents()
     {
-        EnsureComponentCreated(AzFramework::TargetManagementComponent::RTTI_Type());
+        ;
     }
 
     void Application::CreateSystemComponents()
@@ -493,7 +488,6 @@ namespace LegacyFramework
     {
         ComponentApplication::RegisterCoreComponents();
 
-        RegisterComponentDescriptor(AzFramework::TargetManagementComponent::CreateDescriptor());
         RegisterComponentDescriptor(AzToolsFramework::Framework::CreateDescriptor());
     }
 }

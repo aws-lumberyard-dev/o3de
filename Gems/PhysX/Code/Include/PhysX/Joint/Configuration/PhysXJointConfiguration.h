@@ -20,6 +20,17 @@ namespace PhysX
         AZ_RTTI(D6JointLimitConfiguration, "{88E067B4-21E8-4FFA-9142-6C52605B704C}", AzPhysics::JointConfiguration);
         static void Reflect(AZ::ReflectContext* context);
 
+        // AzPhysics::JointConfiguration overrides ...
+        AZStd::optional<float> GetPropertyValue([[maybe_unused]] const AZ::Name& propertyName) override;
+        void SetPropertyValue([[maybe_unused]] const AZ::Name& propertyName, [[maybe_unused]] float value) override;
+
+        //! Ensure limit settings are valid.
+        //! @{
+        void ValidateSwingLimitY();
+        void ValidateSwingLimitZ();
+        void ValidateTwistLimits();
+        //! @}
+
         float m_swingLimitY = 45.0f; ///< Maximum angle in degrees from the Y axis of the joint frame.
         float m_swingLimitZ = 45.0f; ///< Maximum angle in degrees from the Z axis of the joint frame.
         float m_twistLimitLower = -45.0f; ///< Lower limit in degrees for rotation about the X axis of the joint frame.
@@ -96,6 +107,19 @@ namespace PhysX
     {
         AZ_CLASS_ALLOCATOR(HingeJointConfiguration, AZ::SystemAllocator, 0);
         AZ_RTTI(HingeJointConfiguration, "{FB04198E-0BA5-45C2-8343-66DA28ED45EA}", AzPhysics::JointConfiguration);
+        static void Reflect(AZ::ReflectContext* context);
+
+        JointGenericProperties m_genericProperties;
+        JointLimitProperties m_limitProperties;
+    };
+
+    //! Configuration for a prismatic joint.
+    //! Prismatic joints allow no rotation, but allow sliding along a direction aligned with the x-axis of both bodies'
+    //! joint frames.
+    struct PrismaticJointConfiguration : public AzPhysics::JointConfiguration
+    {
+        AZ_CLASS_ALLOCATOR(PrismaticJointConfiguration, AZ::SystemAllocator, 0);
+        AZ_RTTI(PrismaticJointConfiguration, "{66CA235F-FBDF-4E91-B7A0-39132BD4399D}", AzPhysics::JointConfiguration);
         static void Reflect(AZ::ReflectContext* context);
 
         JointGenericProperties m_genericProperties;

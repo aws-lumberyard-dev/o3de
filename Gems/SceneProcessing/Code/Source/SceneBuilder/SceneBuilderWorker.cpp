@@ -43,6 +43,29 @@
 
 namespace SceneBuilder
 {
+    struct DebugOutputScope final
+    {
+        DebugOutputScope() = delete;
+        DebugOutputScope(bool isDebug)
+            : m_inDebug(isDebug)
+        {
+            if (AZ::SettingsRegistry::Get())
+            {
+                AZ::SettingsRegistry::Get()->Set(AZ::SceneAPI::Utilities::Key_AssetProcessorInDebugOutput, m_inDebug);
+            }
+        }
+
+        ~DebugOutputScope()
+        {
+            if (AZ::SettingsRegistry::Get())
+            {
+                AZ::SettingsRegistry::Get()->Set(AZ::SceneAPI::Utilities::Key_AssetProcessorInDebugOutput, false);
+            }
+        }
+
+        bool m_inDebug;
+    };
+
     void SceneBuilderWorker::ShutDown()
     {
         m_isShuttingDown = true;
@@ -79,7 +102,7 @@ namespace SceneBuilder
                 m_cachedFingerprint.append(element);
             }
             // A general catch all version fingerprint. Update this to force all FBX files to recompile.
-            m_cachedFingerprint.append("Version 3");
+            m_cachedFingerprint.append("Version 4");
         }
 
         return m_cachedFingerprint.c_str();
@@ -99,6 +122,11 @@ namespace SceneBuilder
 
         auto manifestObject = document.GetObject();
         auto valuesIterator = manifestObject.FindMember("values");
+        if (valuesIterator == manifestObject.MemberEnd())
+        {
+            // a blank or unexpected JSON formated .assetinfo file
+            return;
+        }
         auto valuesArray = valuesIterator->value.GetArray();
 
         AZStd::vector<AZStd::string> paths;
@@ -227,10 +255,13 @@ namespace SceneBuilder
         // Load Scene graph and manifest from the provided path and then initialize them.
         if (m_isShuttingDown)
         {
-            AZ_TracePrintf(AZ::SceneAPI::Utilities::LogWindow, "Loading scene was cancelled.\n");
+            AZ_TracePrintf(AZ::SceneAPI::Utilities::LogWindow, "Loading scene was canceled.\n");
             response.m_resultCode = AssetBuilderSDK::ProcessJobResult_Cancelled;
             return;
         }
+
+        auto debugFlagItr = request.m_jobDescription.m_jobParameters.find(AZ_CRC_CE("DebugFlag"));
+        DebugOutputScope theDebugOutputScope(debugFlagItr != request.m_jobDescription.m_jobParameters.end() && debugFlagItr->second == "true");
 
         AZStd::shared_ptr<Scene> scene;
         if (!LoadScene(scene, request, response))
@@ -241,7 +272,7 @@ namespace SceneBuilder
         // Run scene generation step to allow for runtime generation of SceneGraph objects
         if (m_isShuttingDown)
         {
-            AZ_TracePrintf(AZ::SceneAPI::Utilities::LogWindow, "Generation of dynamic scene objects was cancelled.\n");
+            AZ_TracePrintf(AZ::SceneAPI::Utilities::LogWindow, "Generation of dynamic scene objects was canceled.\n");
             response.m_resultCode = AssetBuilderSDK::ProcessJobResult_Cancelled;
             return;
         }
@@ -253,7 +284,7 @@ namespace SceneBuilder
         // Process the scene.
         if (m_isShuttingDown)
         {
-            AZ_TracePrintf(AZ::SceneAPI::Utilities::LogWindow, "Processing scene was cancelled.\n");
+            AZ_TracePrintf(AZ::SceneAPI::Utilities::LogWindow, "Processing scene was canceled.\n");
             response.m_resultCode = AssetBuilderSDK::ProcessJobResult_Cancelled;
             return;
         }

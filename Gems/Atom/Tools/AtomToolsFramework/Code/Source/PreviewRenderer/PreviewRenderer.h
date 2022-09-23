@@ -8,6 +8,7 @@
 
 #pragma once
 
+#include <Atom/Feature/Utils/FrameCaptureBus.h>
 #include <Atom/RPI.Public/Base.h>
 #include <Atom/RPI.Public/Pass/AttachmentReadback.h>
 #include <AtomToolsFramework/PreviewRenderer/PreviewContent.h>
@@ -47,7 +48,7 @@ namespace AtomToolsFramework
 
         void PoseContent();
 
-        bool StartCapture();
+        AZ::Render::FrameCaptureId StartCapture();
         void EndCapture();
 
     private:
@@ -66,7 +67,7 @@ namespace AtomToolsFramework
         AZStd::vector<AZStd::string> m_passHierarchy;
         AZStd::unique_ptr<AzFramework::EntityContext> m_entityContext;
 
-        //! Incoming requests are appended to this queue and processed one at a time in OnTick function.
+        //! Incoming requests are appended to this queue and processed one at a time in OnSystemTick function.
         AZStd::queue<PreviewRendererCaptureRequest> m_captureRequestQueue;
         PreviewRendererCaptureRequest m_currentCaptureRequest;
 

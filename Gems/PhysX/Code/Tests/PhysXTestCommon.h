@@ -13,7 +13,6 @@
 #include <AzCore/std/smart_ptr/shared_ptr.h>
 #include <AzCore/std/smart_ptr/make_shared.h>
 
-#include <AzFramework/Physics/Material.h>
 #include <AzFramework/Physics/Common/PhysicsTypes.h>
 
 #include <PhysX/HeightFieldAsset.h>
@@ -31,6 +30,7 @@ namespace AzPhysics
 namespace PhysX
 {
     using EntityPtr = AZStd::shared_ptr<AZ::Entity>;
+    using EntityList = AZStd::vector<EntityPtr>;
     using PointList = AZStd::vector<AZ::Vector3>;
     using VertexIndexData = AZStd::pair<PointList, AZStd::vector<AZ::u32>>;
 
@@ -114,6 +114,8 @@ namespace PhysX
 
         // Mesh data generation
         PointList GeneratePyramidPoints(float length);
+        AZStd::shared_ptr<Physics::Shape> CreatePyramidShape(
+            float length, const Physics::ColliderConfiguration& colliderConfiguration = Physics::ColliderConfiguration());
         VertexIndexData GenerateCubeMeshData(float halfExtent);
 
         AzPhysics::StaticRigidBody* AddStaticFloorToScene(AzPhysics::SceneHandle sceneHandle,

@@ -8,11 +8,12 @@
 
 #pragma once
 
-#include <LmbrCentral/Dependency/DependencyMonitor.h>
-#include <GradientSignal/GradientSampler.h>
 #include <AzCore/Component/Component.h>
+#include <AzCore/std/parallel/shared_mutex.h>
 #include <GradientSignal/Ebuses/GradientRequestBus.h>
 #include <GradientSignal/Ebuses/PosterizeGradientRequestBus.h>
+#include <GradientSignal/GradientSampler.h>
+#include <LmbrCentral/Dependency/DependencyMonitor.h>
 
 namespace LmbrCentral
 {
@@ -41,7 +42,7 @@ namespace GradientSignal
         GradientSampler m_gradientSampler;
     };
 
-    static const AZ::Uuid PosterizeGradientComponentTypeId = "{BDA78E8D-DEEE-477B-B1FD-11F9930322AA}";
+    inline constexpr AZ::TypeId PosterizeGradientComponentTypeId{ "{BDA78E8D-DEEE-477B-B1FD-11F9930322AA}" };
 
     /**
     * calculates a gradient value by converting values from another gradient to another's range
@@ -122,5 +123,6 @@ namespace GradientSignal
 
         PosterizeGradientConfig m_configuration;
         LmbrCentral::DependencyMonitor m_dependencyMonitor;
+        mutable AZStd::shared_mutex m_queryMutex;
     };
 }

@@ -70,135 +70,6 @@ namespace AZ
             lineArgs.m_depthTest = AuxGeomDraw::DepthTest::Off;
             auxGeom->DrawLines(lineArgs);
         }
-
-        void DebugDrawFrustum(const AZ::Frustum& f, AuxGeomDraw* auxGeom, const AZ::Color color, [[maybe_unused]] AZ::u8 lineWidth = 1)
-        {
-            using namespace ShapeIntersection;
-
-            enum CornerIndices {
-                NearTopLeft, NearTopRight, NearBottomLeft, NearBottomRight,
-                FarTopLeft, FarTopRight, FarBottomLeft, FarBottomRight
-            };
-            Vector3 corners[8];
-
-            if (IntersectThreePlanes(f.GetPlane(Frustum::PlaneId::Near), f.GetPlane(Frustum::PlaneId::Top), f.GetPlane(Frustum::PlaneId::Left), corners[NearTopLeft]) &&
-                IntersectThreePlanes(f.GetPlane(Frustum::PlaneId::Near), f.GetPlane(Frustum::PlaneId::Top), f.GetPlane(Frustum::PlaneId::Right), corners[NearTopRight]) &&
-                IntersectThreePlanes(f.GetPlane(Frustum::PlaneId::Near), f.GetPlane(Frustum::PlaneId::Bottom), f.GetPlane(Frustum::PlaneId::Left), corners[NearBottomLeft]) &&
-                IntersectThreePlanes(f.GetPlane(Frustum::PlaneId::Near), f.GetPlane(Frustum::PlaneId::Bottom), f.GetPlane(Frustum::PlaneId::Right), corners[NearBottomRight]) &&
-                IntersectThreePlanes(f.GetPlane(Frustum::PlaneId::Far), f.GetPlane(Frustum::PlaneId::Top), f.GetPlane(Frustum::PlaneId::Left), corners[FarTopLeft]) &&
-                IntersectThreePlanes(f.GetPlane(Frustum::PlaneId::Far), f.GetPlane(Frustum::PlaneId::Top), f.GetPlane(Frustum::PlaneId::Right), corners[FarTopRight]) &&
-                IntersectThreePlanes(f.GetPlane(Frustum::PlaneId::Far), f.GetPlane(Frustum::PlaneId::Bottom), f.GetPlane(Frustum::PlaneId::Left), corners[FarBottomLeft]) &&
-                IntersectThreePlanes(f.GetPlane(Frustum::PlaneId::Far), f.GetPlane(Frustum::PlaneId::Bottom), f.GetPlane(Frustum::PlaneId::Right), corners[FarBottomRight]))
-            {
-
-                uint32_t lineIndices[24]{
-                    //near plane
-                    NearTopLeft, NearTopRight,
-                    NearTopRight, NearBottomRight,
-                    NearBottomRight, NearBottomLeft,
-                    NearBottomLeft, NearTopLeft,
-
-                    //Far plane
-                    FarTopLeft, FarTopRight,
-                    FarTopRight, FarBottomRight,
-                    FarBottomRight, FarBottomLeft,
-                    FarBottomLeft, FarTopLeft,
-
-                    //Near-to-Far connecting lines
-                    NearTopLeft, FarTopLeft,
-                    NearTopRight, FarTopRight,
-                    NearBottomLeft, FarBottomLeft,
-                    NearBottomRight, FarBottomRight
-                };
-                AuxGeomDraw::AuxGeomDynamicIndexedDrawArguments drawArgs;
-                drawArgs.m_verts = corners;
-                drawArgs.m_vertCount = 8;
-                drawArgs.m_indices = lineIndices;
-                drawArgs.m_indexCount = 24;
-                drawArgs.m_colors = &color;
-                drawArgs.m_colorCount = 1;
-                auxGeom->DrawLines(drawArgs);
-
-                uint32_t triangleIndices[36]{
-                    //near
-                    NearBottomLeft, NearTopLeft, NearTopRight,
-                    NearBottomLeft, NearTopRight, NearBottomRight,
-
-                    //far
-                    FarBottomRight, FarTopRight, FarTopLeft,
-                    FarBottomRight, FarTopLeft, FarBottomLeft,
-
-                    //left
-                    FarBottomLeft, NearBottomLeft, NearTopLeft,
-                    FarBottomLeft, NearTopLeft, FarTopLeft,
-
-                    //right
-                    NearBottomRight, NearTopRight, FarTopRight,
-                    NearBottomRight, FarTopRight, FarBottomRight,
-
-                    //bottom
-                    FarBottomLeft, NearBottomLeft, NearBottomRight,
-                    FarBottomLeft, NearBottomRight, FarBottomRight,
-
-                    //top
-                    NearTopLeft, FarTopLeft, FarTopRight,
-                    NearTopLeft, FarTopRight, NearTopRight
-                };
-                Color transparentColor(color.GetR(), color.GetG(), color.GetB(), color.GetA() * 0.3f);
-                drawArgs.m_indices = triangleIndices;
-                drawArgs.m_indexCount = 36;
-                drawArgs.m_colors = &transparentColor;
-                auxGeom->DrawTriangles(drawArgs);
-
-                // plane normals
-                Vector3 planeNormals[] =
-                {
-                    //near
-                    0.25f * (corners[NearBottomLeft] + corners[NearBottomRight] + corners[NearTopLeft] + corners[NearTopRight]),
-                    0.25f * (corners[NearBottomLeft] + corners[NearBottomRight] + corners[NearTopLeft] + corners[NearTopRight]) + f.GetPlane(Frustum::PlaneId::Near).GetNormal(),
-
-                    //far
-                    0.25f * (corners[FarBottomLeft] + corners[FarBottomRight] + corners[FarTopLeft] + corners[FarTopRight]),
-                    0.25f * (corners[FarBottomLeft] + corners[FarBottomRight] + corners[FarTopLeft] + corners[FarTopRight]) + f.GetPlane(Frustum::PlaneId::Far).GetNormal(),
-
-                    //left
-                    0.5f * (corners[NearBottomLeft] + corners[NearTopLeft]),
-                    0.5f * (corners[NearBottomLeft] + corners[NearTopLeft]) + f.GetPlane(Frustum::PlaneId::Left).GetNormal(),
-
-                    //right
-                    0.5f * (corners[NearBottomRight] + corners[NearTopRight]),
-                    0.5f * (corners[NearBottomRight] + corners[NearTopRight]) + f.GetPlane(Frustum::PlaneId::Right).GetNormal(),
-
-                    //bottom
-                    0.5f * (corners[NearBottomLeft] + corners[NearBottomRight]),
-                    0.5f * (corners[NearBottomLeft] + corners[NearBottomRight]) + f.GetPlane(Frustum::PlaneId::Bottom).GetNormal(),
-
-                    //top
-                    0.5f * (corners[NearTopLeft] + corners[NearTopRight]),
-                    0.5f * (corners[NearTopLeft] + corners[NearTopRight]) + f.GetPlane(Frustum::PlaneId::Top).GetNormal(),
-                };
-                Color planeNormalColors[] =
-                {
-                    Colors::Red, Colors::Red,       //near
-                    Colors::Green, Colors::Green,   //far
-                    Colors::Blue, Colors::Blue,     //left
-                    Colors::Orange, Colors::Orange, //right
-                    Colors::Pink, Colors::Pink,     //bottom
-                    Colors::MediumPurple, Colors::MediumPurple, //top
-                };
-                AuxGeomDraw::AuxGeomDynamicDrawArguments planeNormalLineArgs;
-                planeNormalLineArgs.m_verts = planeNormals;
-                planeNormalLineArgs.m_vertCount = 12;
-                planeNormalLineArgs.m_colors = planeNormalColors;
-                planeNormalLineArgs.m_colorCount = planeNormalLineArgs.m_vertCount;
-                planeNormalLineArgs.m_depthTest = AuxGeomDraw::DepthTest::Off;
-                auxGeom->DrawLines(planeNormalLineArgs);
-            }
-            else
-            {
-                AZ_Assert(false, "invalid frustum, cannot draw");
-            }
-        }
 #endif //AZ_CULL_DEBUG_ENABLED
 
         CullingDebugContext::~CullingDebugContext()
@@ -567,7 +438,7 @@ namespace AZ
                 AuxGeomDrawPtr auxGeomPtr = AuxGeomFeatureProcessorInterface::GetDrawQueueForScene(&scene);
                 if (auxGeomPtr)
                 {
-                    DebugDrawFrustum(frustum, auxGeomPtr.get(), AZ::Colors::White);
+                    auxGeomPtr->DrawFrustum(frustum, AZ::Colors::White);
                 }
             }
 
@@ -706,7 +577,6 @@ namespace AZ
 
             auto nodeVisitorLambda = [worklistData, &taskGraph, &worklist](const AzFramework::IVisibilityScene::NodeData& nodeData) -> void
             {
-                AZ_PROFILE_SCOPE(RPI, "nodeVisitorLambda()");
                 AZ_Assert(nodeData.m_entries.size() > 0, "should not get called with 0 entries");
                 AZ_Assert(worklist->size() < worklist->capacity(), "we should always have room to push a node on the queue");
 
@@ -728,10 +598,12 @@ namespace AZ
 
             if (m_debugCtx.m_enableFrustumCulling)
             {
+                AZ_PROFILE_SCOPE(RPI, "Enumerate");
                 m_visScene->Enumerate(frustum, nodeVisitorLambda);
             }
             else
             {
+                AZ_PROFILE_SCOPE(RPI, "EnumerateNoCull");
                 m_visScene->EnumerateNoCull(nodeVisitorLambda);
             }
 
@@ -830,7 +702,7 @@ namespace AZ
 
         void CullingScene::BeginCullingTaskGraph(const AZStd::vector<ViewPtr>& views)
         {
-            AZ::TaskGraph taskGraph;
+            AZ::TaskGraph taskGraph{ "RPI::Culling" };
             AZ::TaskDescriptor beginCullingDescriptor{"RPI_CullingScene_BeginCullingView", "Graphics"};
             for (auto& view : views)
             {
@@ -843,9 +715,12 @@ namespace AZ
                     });
             }
 
-            AZ::TaskGraphEvent waitForCompletion;
-            taskGraph.Submit(&waitForCompletion);
-            waitForCompletion.Wait();
+            if (!taskGraph.IsEmpty())
+            {
+                AZ::TaskGraphEvent waitForCompletion{ "RPI::Culling Wait" };
+                taskGraph.Submit(&waitForCompletion);
+                waitForCompletion.Wait();
+            }
         }
 
         void CullingScene::BeginCullingJobs(const AZStd::vector<ViewPtr>& views)

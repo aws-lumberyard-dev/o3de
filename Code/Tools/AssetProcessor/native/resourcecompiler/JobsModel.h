@@ -44,6 +44,7 @@ namespace AssetProcessor
         AZ::u32 m_errorCount;
         unsigned int m_jobRunKey;
         AZ::Uuid m_builderGuid;
+        QTime m_processDuration;
     };
     /**
     * The JobsModel class contains list of jobs from both the Database and the RCController
@@ -69,6 +70,7 @@ namespace AssetProcessor
             ColumnCompleted,
             ColumnPlatform,
             ColumnJobKey,
+            ColumnProcessDuration,
             Max
         };
 
@@ -90,13 +92,14 @@ namespace AssetProcessor
 
 public Q_SLOTS:
         void OnJobStatusChanged(JobEntry entry, AzToolsFramework::AssetSystem::JobStatus status);
+        void OnJobProcessDurationChanged(JobEntry jobEntry, int durationMs);
         void OnJobRemoved(AzToolsFramework::AssetSystem::JobInfo jobInfo);
         void OnSourceRemoved(QString sourceDatabasePath);
-        void OnFolderRemoved(QString folderPath);
 
     protected:
         QIcon m_pendingIcon;
         QIcon m_errorIcon;
+        QIcon m_failureIcon;
         QIcon m_warningIcon;
         QIcon m_okIcon;
         QIcon m_processingIcon;

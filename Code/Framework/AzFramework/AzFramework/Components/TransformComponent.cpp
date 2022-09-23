@@ -685,7 +685,7 @@ namespace AzFramework
         AZ::SerializeContext* serializeContext = azrtti_cast<AZ::SerializeContext*>(reflection);
         if (serializeContext)
         {
-            serializeContext->ClassDeprecate("NetBindable", "{80206665-D429-4703-B42E-94434F82F381}");
+            serializeContext->ClassDeprecate("NetBindable", AZ::Uuid("{80206665-D429-4703-B42E-94434F82F381}"));
 
             serializeContext->Class<TransformComponent, AZ::Component>()
                 ->Version(5, &TransformComponentVersionConverter)
@@ -736,6 +736,7 @@ namespace AzFramework
                 ->Event("GetLocalX", &AZ::TransformBus::Events::GetLocalX)
                 ->Event("GetLocalY", &AZ::TransformBus::Events::GetLocalY)
                 ->Event("GetLocalZ", &AZ::TransformBus::Events::GetLocalZ)
+                ->Event("SetWorldRotation", &AZ::TransformBus::Events::SetWorldRotation)
                 ->Event("SetWorldRotationQuaternion", &AZ::TransformBus::Events::SetWorldRotationQuaternion)
                 ->Event("GetWorldRotation", &AZ::TransformBus::Events::GetWorldRotation)
                 ->Event("GetWorldRotationQuaternion", &AZ::TransformBus::Events::GetWorldRotationQuaternion)
@@ -757,10 +758,13 @@ namespace AzFramework
                 ->Event("GetAllDescendants", &AZ::TransformBus::Events::GetAllDescendants)
                 ->Event("GetEntityAndAllDescendants", &AZ::TransformBus::Events::GetEntityAndAllDescendants)
                 ->Event("IsStaticTransform", &AZ::TransformBus::Events::IsStaticTransform)
+                ->Event("GetWorldUniformScale", &AZ::TransformBus::Events::GetWorldUniformScale)
                 ;
 
             behaviorContext->Constant("TransformComponentTypeId", BehaviorConstant(AZ::TransformComponentTypeId));
-            behaviorContext->Constant("EditorTransformComponentTypeId", BehaviorConstant(AZ::EditorTransformComponentTypeId));
+            behaviorContext->ConstantProperty("EditorTransformComponentTypeId", BehaviorConstant(AZ::EditorTransformComponentTypeId))
+                ->Attribute(AZ::Script::Attributes::Scope, AZ::Script::Attributes::ScopeFlags::Automation)
+                ;
 
             behaviorContext->Class<AZ::TransformConfig>()
                 ->Attribute(AZ::Script::Attributes::ConstructorOverride, &AZ::TransformConfigConstructor)

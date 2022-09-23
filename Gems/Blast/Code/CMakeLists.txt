@@ -6,7 +6,7 @@
 #
 #
 
-o3de_pal_dir(pal_dir ${CMAKE_CURRENT_LIST_DIR}/Platform/${PAL_PLATFORM_NAME} ${gem_restricted_path} ${gem_path} ${gem_parent_relative_path})
+o3de_pal_dir(pal_dir ${CMAKE_CURRENT_LIST_DIR}/Platform/${PAL_PLATFORM_NAME} "${gem_restricted_path}" "${gem_path}" "${gem_parent_relative_path}")
 
 include(${pal_dir}/PAL_${PAL_PLATFORM_NAME_LOWERCASE}.cmake) # for PAL_TRAIT_BLAST Traits
 
@@ -82,7 +82,6 @@ if(PAL_TRAIT_BUILD_HOST_TOOLS)
         BUILD_DEPENDENCIES
             PUBLIC
                 AZ::AzToolsFramework
-                AZ::GFxFramework
                 AZ::SceneCore
                 AZ::SceneData
                 Legacy::Editor.Headers
@@ -166,8 +165,9 @@ if(PAL_TRAIT_BUILD_TESTS_SUPPORTED)
                     AZ::AzToolsFrameworkTestCommon
                     Gem::Blast.Editor.Static
         )
-        ly_add_googletest(
-            NAME Gem::Blast.Editor.Tests
-        )
+        # Commented out as currently there are no Blast Editor tests
+        # ly_add_googletest(
+            # NAME Gem::Blast.Editor.Tests
+        # )
     endif()
 endif()

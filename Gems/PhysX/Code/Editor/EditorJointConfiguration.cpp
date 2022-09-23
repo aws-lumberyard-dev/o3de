@@ -8,10 +8,11 @@
 
 #include <AzCore/Serialization/EditContext.h>
 #include <AzToolsFramework/API/ToolsApplicationAPI.h>
+#include <AzToolsFramework/Entity/EditorEntityInfoBus.h>
 #include <Editor/EditorJointConfiguration.h>
 #include <Source/EditorColliderComponent.h>
 #include <Source/EditorRigidBodyComponent.h>
-#include <AzToolsFramework/Entity/EditorEntityInfoBus.h>
+#include <Source/EditorShapeColliderComponent.h>
 
 namespace
 {
@@ -31,6 +32,9 @@ namespace PhysX
 
     const float EditorJointLimitConeConfig::s_angleMax = 180.0f;
     const float EditorJointLimitConeConfig::s_angleMin = 0.1f;
+
+    const float EditorJointLimitLinearPairConfig::LinearLimitMax = 1000.0f;
+    const float EditorJointLimitLinearPairConfig::LinearLimitMin = -1000.0f;
 
     const float EditorJointConfig::s_breakageMax = 10000000.0f;
     const float EditorJointConfig::s_breakageMin = 0.01f;
@@ -100,7 +104,7 @@ namespace PhysX
         // - Remove "Read Only" m_readOnly
         if (classElement.GetVersion() == 1)
         {
-            result = classElement.RemoveElementByName(AZ_CRC("Read Only", 0x1eaf9877)) && result;
+            result = classElement.RemoveElementByName(AZ_CRC_CE("Read Only")) && result;
         }
 
         return result;
@@ -155,6 +159,75 @@ namespace PhysX
             , m_limitPositive, m_limitNegative
             , m_standardLimitConfig.m_stiffness
             , m_standardLimitConfig.m_tolerance);
+    }
+
+    void EditorJointLimitLinearPairConfig::Reflect(AZ::ReflectContext* context)
+    {
+        if (auto* serializeContext = azrtti_cast<AZ::SerializeContext*>(context))
+        {
+            serializeContext->Class<EditorJointLimitLinearPairConfig>()
+                ->Version(1)
+                ->Field("Standard Limit Configuration", &EditorJointLimitLinearPairConfig::m_standardLimitConfig)
+                ->Field("Lower Limit", &EditorJointLimitLinearPairConfig::m_limitLower)
+                ->Field("Upper Limit", &EditorJointLimitLinearPairConfig::m_limitUpper)
+                ;
+
+            if (auto* editContext = serializeContext->GetEditContext())
+            {
+                editContext->Class<PhysX::EditorJointLimitLinearPairConfig>("Linear Limit", "Limitation on linear motion.")
+                    ->ClassElement(AZ::Edit::ClassElements::EditorData, "")
+                    ->Attribute(AZ::Edit::Attributes::Category, "PhysX")
+                    ->Attribute(AZ::Edit::Attributes::AutoExpand, true)
+                    ->DataElement(
+                        0,
+                        &PhysX::EditorJointLimitLinearPairConfig::m_standardLimitConfig,
+                        "Standard limit configuration",
+                        "Common limit parameters to all joint types.")
+                    ->DataElement(
+                        0, &PhysX::EditorJointLimitLinearPairConfig::m_limitLower, "Lower linear limit", "Lower limit of linear motion.")
+                    ->Attribute(AZ::Edit::Attributes::Visibility, &EditorJointLimitLinearPairConfig::IsLimited)
+                    ->Attribute(AZ::Edit::Attributes::Max, LinearLimitMax)
+                    ->Attribute(AZ::Edit::Attributes::Min, LinearLimitMin)
+                    ->Attribute(AZ::Edit::Attributes::ChangeNotify, &EditorJointLimitLinearPairConfig::OnLimitLowerChanged)
+                    ->DataElement(
+                        0, &PhysX::EditorJointLimitLinearPairConfig::m_limitUpper, "Upper linear limit", "Upper limit of linear motion.")
+                    ->Attribute(AZ::Edit::Attributes::Visibility, &EditorJointLimitLinearPairConfig::IsLimited)
+                    ->Attribute(AZ::Edit::Attributes::Max, LinearLimitMax)
+                    ->Attribute(AZ::Edit::Attributes::Min, LinearLimitMin)
+                    ->Attribute(AZ::Edit::Attributes::ChangeNotify, &EditorJointLimitLinearPairConfig::OnLimitUpperChanged);
+            }
+        }
+    }
+
+    AZ::Crc32 EditorJointLimitLinearPairConfig::OnLimitLowerChanged()
+    {
+        // force lower limit to be <= upper limit
+        m_limitLower = AZ::GetMin(m_limitLower, m_limitUpper);
+        return AZ::Edit::PropertyRefreshLevels::ValuesOnly;
+    }
+
+    AZ::Crc32 EditorJointLimitLinearPairConfig::OnLimitUpperChanged()
+    {
+        // force upper limit to be >= lower limit
+        m_limitUpper = AZ::GetMax(m_limitLower, m_limitUpper);
+        return AZ::Edit::PropertyRefreshLevels::ValuesOnly;
+    }
+
+    bool EditorJointLimitLinearPairConfig::IsLimited() const
+    {
+        return m_standardLimitConfig.m_isLimited;
+    }
+
+    JointLimitProperties EditorJointLimitLinearPairConfig::ToGameTimeConfig() const
+    {
+        return JointLimitProperties(
+            m_standardLimitConfig.m_isLimited,
+            m_standardLimitConfig.m_isSoftLimit,
+            m_standardLimitConfig.m_damping,
+            m_limitUpper,
+            m_limitLower,
+            m_standardLimitConfig.m_stiffness,
+            m_standardLimitConfig.m_tolerance);
     }
 
     void EditorJointLimitConeConfig::Reflect(AZ::ReflectContext* context)
@@ -347,7 +420,7 @@ namespace PhysX
         // - Remove "Read Only" m_readOnly
         if (classElement.GetVersion() == 1)
         {
-            result = classElement.RemoveElementByName(AZ_CRC("Read Only", 0x1eaf9877)) && result;
+            result = classElement.RemoveElementByName(AZ_CRC_CE("Read Only")) && result;
         }
 
         // conversion from version 1 & 2:
@@ -359,7 +432,7 @@ namespace PhysX
         // conversion from version 1, 2 and 3: Replace quaternion representation of local rotation with rotation angles about axes in degrees.
         if (classElement.GetVersion() <= 3)
         {
-            const int localRotationIndex = classElement.FindElement(AZ_CRC("Local Rotation", 0x95f2be6d));
+            const int localRotationIndex = classElement.FindElement(AZ_CRC_CE("Local Rotation"));
             if (localRotationIndex >= 0)
             {
                 AZ::SerializeContext::DataElementNode& localRotationElement = classElement.GetSubElement(localRotationIndex);
@@ -411,13 +484,16 @@ namespace PhysX
             m_leadEntity);
         if (entity)
         {
+            [[maybe_unused]] const bool leadEntityHasRigidActor =
+                (entity->FindComponent<PhysX::EditorRigidBodyComponent>() ||
+                 entity->FindComponent<PhysX::EditorColliderComponent>() ||
+                 entity->FindComponent<PhysX::EditorShapeColliderComponent>());
+
             AZ_Warning("EditorJointComponent",
-                entity->FindComponent<PhysX::EditorRigidBodyComponent>() != nullptr,
-                "Please add a rigid body component to Entity %s. Joints do not work with a lead entity without a rigid body component.",
-                entity->GetName().c_str());
-            AZ_Warning("EditorJointComponent",
-                entity->FindComponent<PhysX::EditorColliderComponent>() != nullptr,
-                "Please add a collider component to Entity %s. Joints do not work with a lead entity without a collider component.",
+                leadEntityHasRigidActor,
+                "Joints require either a dynamic or static rigid body on the lead entity. "
+                "Please add either a rigid body component (to create a dynamic rigid body) "
+                "or a collider component (to create a static rigid body) to entity %s",
                 entity->GetName().c_str());
         }
         else

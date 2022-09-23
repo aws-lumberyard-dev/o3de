@@ -10,6 +10,7 @@
 
 #include <AzCore/Component/Component.h>
 #include <AzCore/Component/ComponentBus.h>
+#include <AzCore/std/parallel/shared_mutex.h>
 #include <GradientSignal/GradientSampler.h>
 #include <GradientSignal/Ebuses/DitherGradientRequestBus.h>
 #include <GradientSignal/Ebuses/GradientRequestBus.h>
@@ -44,7 +45,7 @@ namespace GradientSignal
         bool IsPointsPerUnitResdOnly() const;
     };
 
-    static const AZ::Uuid DitherGradientComponentTypeId = "{F69E885E-9D43-480D-A549-E5EE503A8F29}";
+    inline constexpr AZ::TypeId DitherGradientComponentTypeId{ "{F69E885E-9D43-480D-A549-E5EE503A8F29}" };
 
     /**
     * calculates a gradient output value by applying ordered dithering to the input gradient value
@@ -112,5 +113,6 @@ namespace GradientSignal
 
         DitherGradientConfig m_configuration;
         LmbrCentral::DependencyMonitor m_dependencyMonitor;
+        mutable AZStd::shared_mutex m_queryMutex;
     };
 }

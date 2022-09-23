@@ -72,10 +72,10 @@ namespace AZ::Debug
 
         // AZ::BehaviorEBusHandler overrides...
         int GetFunctionIndex(const char* functionName) const override;
-        void Disconnect() override;
-        bool Connect(AZ::BehaviorValueParameter* id = nullptr) override;
+        void Disconnect(AZ::BehaviorArgument* id = nullptr) override;
+        bool Connect(AZ::BehaviorArgument* id = nullptr) override;
         bool IsConnected() override;
-        bool IsConnectedId(AZ::BehaviorValueParameter* id) override;
+        bool IsConnectedId(AZ::BehaviorArgument* id) override;
 
         // TraceMessageBus
         /*
@@ -131,13 +131,13 @@ namespace AZ::Debug
         return -1;
     }
 
-    void TraceMessageBusHandler::Disconnect()
+    void TraceMessageBusHandler::Disconnect(AZ::BehaviorArgument* id)
     {
-        AZ::Debug::TraceMessageBus::Handler::BusDisconnect();
+        AZ::Internal::EBusConnector<AZ::Debug::TraceMessageBus::Handler>::Disconnect(this, id);
         AZ::TickBus::Handler::BusDisconnect();
     }
 
-    bool TraceMessageBusHandler::Connect(AZ::BehaviorValueParameter* id)
+    bool TraceMessageBusHandler::Connect(AZ::BehaviorArgument* id)
     {
         AZ::TickBus::Handler::BusConnect();
         return AZ::Internal::EBusConnector<AZ::Debug::TraceMessageBus::Handler>::Connect(this, id);
@@ -148,7 +148,7 @@ namespace AZ::Debug
         return AZ::Internal::EBusConnector<AZ::Debug::TraceMessageBus::Handler>::IsConnected(this);
     }
 
-    bool TraceMessageBusHandler::IsConnectedId(AZ::BehaviorValueParameter* id)
+    bool TraceMessageBusHandler::IsConnectedId(AZ::BehaviorArgument* id)
     {
         return AZ::Internal::EBusConnector<AZ::Debug::TraceMessageBus::Handler>::IsConnectedId(this, id);
     }

@@ -33,9 +33,9 @@ namespace AzFramework
     };
 
     // maps a discrete motion input to a click detector click event (e.g. button down or up event)
-    static ClickDetector::ClickEvent ClickFromInput(const InputEvent& event, const AzFramework::InputChannelId& inputChannelId)
+    static ClickDetector::ClickEvent ClickFromInput(const InputState& state, const AzFramework::InputChannelId& inputChannelId)
     {
-        if (const auto& input = AZStd::get_if<DiscreteInputEvent>(&event))
+        if (const auto& input = AZStd::get_if<DiscreteInputEvent>(&state.m_inputEvent))
         {
             if (input->m_channelId == inputChannelId)
             {
@@ -56,13 +56,13 @@ namespace AzFramework
     // begins a camera input after a sufficient movement has occurred and ends a
     // camera input once the initiating button is released
     static void HandleActivationEvents(
-        const InputEvent& event,
+        const InputState& state,
         const AzFramework::InputChannelId& inputChannelId,
         const ScreenVector& cursorDelta,
         ClickDetector& clickDetector,
         CameraInput& cameraInput)
     {
-        const auto clickEvent = ClickFromInput(event, inputChannelId);
+        const auto clickEvent = ClickFromInput(state, inputChannelId);
         switch (const auto outcome = clickDetector.DetectClick(clickEvent, cursorDelta); outcome)
         {
         case ClickDetector::ClickOutcome::Move:
@@ -152,28 +152,28 @@ namespace AzFramework
         return SmoothValue(target, current, SmoothValueTime(smoothness, deltaTime));
     }
 
-    bool CameraSystem::HandleEvents(const InputEvent& event)
+    bool CameraSystem::HandleEvents(const InputState& state)
     {
-        if (const auto& cursor = AZStd::get_if<CursorEvent>(&event))
+        if (const auto& cursor = AZStd::get_if<CursorEvent>(&state.m_inputEvent))
         {
             m_cursorState.SetCurrentPosition(cursor->m_position);
             m_cursorState.SetCaptured(cursor->m_captured);
         }
-        else if (const auto& horizontalMotion = AZStd::get_if<HorizontalMotionEvent>(&event))
+        else if (const auto& horizontalMotion = AZStd::get_if<HorizontalMotionEvent>(&state.m_inputEvent))
         {
             m_motionDelta.m_x = horizontalMotion->m_delta;
         }
-        else if (const auto& verticalMotion = AZStd::get_if<VerticalMotionEvent>(&event))
+        else if (const auto& verticalMotion = AZStd::get_if<VerticalMotionEvent>(&state.m_inputEvent))
         {
             m_motionDelta.m_y = verticalMotion->m_delta;
         }
-        else if (const auto& scroll = AZStd::get_if<ScrollEvent>(&event))
+        else if (const auto& scroll = AZStd::get_if<ScrollEvent>(&state.m_inputEvent))
         {
             m_scrollDelta = scroll->m_delta;
         }
 
         m_handlingEvents =
-            m_cameras.HandleEvents(event, ed_cameraSystemUseCursor ? m_cursorState.CursorDelta() : m_motionDelta, m_scrollDelta);
+            m_cameras.HandleEvents(state, ed_cameraSystemUseCursor ? m_cursorState.CursorDelta() : m_motionDelta, m_scrollDelta);
 
         return m_handlingEvents;
     }
@@ -253,17 +253,17 @@ namespace AzFramework
         return allRemoved;
     }
 
-    bool Cameras::HandleEvents(const InputEvent& event, const ScreenVector& cursorDelta, const float scrollDelta)
+    bool Cameras::HandleEvents(const InputState& state, const ScreenVector& cursorDelta, const float scrollDelta)
     {
         bool handling = false;
         for (auto& cameraInput : m_activeCameraInputs)
         {
-            handling = cameraInput->HandleEvents(event, cursorDelta, scrollDelta) || handling;
+            handling = cameraInput->HandleEvents(state, cursorDelta, scrollDelta) || handling;
         }
 
         for (auto& cameraInput : m_idleCameraInputs)
         {
-            handling = cameraInput->HandleEvents(event, cursorDelta, scrollDelta) || handling;
+            handling = cameraInput->HandleEvents(state, cursorDelta, scrollDelta) || handling;
         }
 
         return handling;
@@ -275,7 +275,8 @@ namespace AzFramework
         {
             auto& cameraInput = m_idleCameraInputs[idleIndex];
             const bool canBegin = cameraInput->Beginning() &&
-                AZStd::all_of(m_activeCameraInputs.cbegin(), m_activeCameraInputs.cend(),
+                AZStd::all_of(m_activeCameraInputs.cbegin(),
+                              m_activeCameraInputs.cend(),
                               [](const auto& input)
                               {
                                   return !input->Exclusive();
@@ -302,7 +303,9 @@ namespace AzFramework
         }
 
         const Camera nextCamera = AZStd::accumulate(
-            AZStd::begin(m_activeCameraInputs), AZStd::end(m_activeCameraInputs), targetCamera,
+            AZStd::begin(m_activeCameraInputs),
+            AZStd::end(m_activeCameraInputs),
+            targetCamera,
             [cursorDelta, scrollDelta, deltaTime](Camera acc, auto& camera)
             {
                 acc = camera->StepCamera(acc, cursorDelta, scrollDelta, deltaTime);
@@ -353,7 +356,8 @@ namespace AzFramework
     bool Cameras::Exclusive() const
     {
         return AZStd::any_of(
-            m_activeCameraInputs.begin(), m_activeCameraInputs.end(),
+            m_activeCameraInputs.begin(),
+            m_activeCameraInputs.end(),
             [](const auto& cameraInput)
             {
                 return cameraInput->Exclusive();
@@ -384,9 +388,9 @@ namespace AzFramework
         };
     }
 
-    bool RotateCameraInput::HandleEvents(const InputEvent& event, const ScreenVector& cursorDelta, [[maybe_unused]] const float scrollDelta)
+    bool RotateCameraInput::HandleEvents(const InputState& state, const ScreenVector& cursorDelta, [[maybe_unused]] const float scrollDelta)
     {
-        HandleActivationEvents(event, m_rotateChannelId, cursorDelta, m_clickDetector, *this);
+        HandleActivationEvents(state, m_rotateChannelId, cursorDelta, m_clickDetector, *this);
         return CameraInputUpdatingAfterMotion(*this);
     }
 
@@ -441,9 +445,9 @@ namespace AzFramework
     }
 
     bool PanCameraInput::HandleEvents(
-        const InputEvent& event, [[maybe_unused]] const ScreenVector& cursorDelta, [[maybe_unused]] const float scrollDelta)
+        const InputState& state, [[maybe_unused]] const ScreenVector& cursorDelta, [[maybe_unused]] const float scrollDelta)
     {
-        HandleActivationEvents(event, m_panChannelId, cursorDelta, m_clickDetector, *this);
+        HandleActivationEvents(state, m_panChannelId, cursorDelta, m_clickDetector, *this);
         return CameraInputUpdatingAfterMotion(*this);
     }
 
@@ -528,9 +532,9 @@ namespace AzFramework
     }
 
     bool TranslateCameraInput::HandleEvents(
-        const InputEvent& event, [[maybe_unused]] const ScreenVector& cursorDelta, [[maybe_unused]] float scrollDelta)
+        const InputState& state, [[maybe_unused]] const ScreenVector& cursorDelta, [[maybe_unused]] float scrollDelta)
     {
-        if (const auto& input = AZStd::get_if<DiscreteInputEvent>(&event))
+        if (const auto& input = AZStd::get_if<DiscreteInputEvent>(&state.m_inputEvent))
         {
             if (input->m_state == InputChannel::State::Began)
             {
@@ -645,26 +649,45 @@ namespace AzFramework
         };
     }
 
-    bool OrbitCameraInput::HandleEvents(const InputEvent& event, const ScreenVector& cursorDelta, const float scrollDelta)
+    bool OrbitCameraInput::HandleEvents(const InputState& state, const ScreenVector& cursorDelta, const float scrollDelta)
     {
-        if (const auto* input = AZStd::get_if<DiscreteInputEvent>(&event))
+        // event action outcome
+        enum class Action
         {
-            if (input->m_channelId == m_orbitChannelId)
+            Nothing,
+            Begin,
+            End
+        };
+
+        const Action action = [&state, orbitChannelId = m_orbitChannelId]
+        {
+            // check for valid event
+            if (!AZStd::get_if<CursorEvent>(&state.m_inputEvent) && !AZStd::get_if<DiscreteInputEvent>(&state.m_inputEvent))
             {
-                if (input->m_state == InputChannel::State::Began)
-                {
-                    BeginActivation();
-                }
-                else if (input->m_state == InputChannel::State::Ended)
-                {
-                    EndActivation();
-                }
+                return Action::Nothing;
             }
+
+            // poll modifiers
+            if (state.m_modifiers.IsActive(GetCorrespondingModifierKeyMask(orbitChannelId)))
+            {
+                return Action::Begin;
+            }
+
+            return Action::End;
+        }();
+
+        if (action == Action::Begin && Idle())
+        {
+            BeginActivation();
+        }
+        else if (action == Action::End && Active())
+        {
+            EndActivation();
         }
 
         if (Active())
         {
-            return m_orbitCameras.HandleEvents(event, cursorDelta, scrollDelta);
+            return m_orbitCameras.HandleEvents(state, cursorDelta, scrollDelta);
         }
 
         return !Idle();
@@ -714,9 +737,9 @@ namespace AzFramework
     }
 
     bool OrbitScrollDollyCameraInput::HandleEvents(
-        const InputEvent& event, [[maybe_unused]] const ScreenVector& cursorDelta, [[maybe_unused]] const float scrollDelta)
+        const InputState& state, [[maybe_unused]] const ScreenVector& cursorDelta, [[maybe_unused]] const float scrollDelta)
     {
-        if (const auto* scroll = AZStd::get_if<ScrollEvent>(&event))
+        if (AZStd::get_if<ScrollEvent>(&state.m_inputEvent))
         {
             BeginActivation();
         }
@@ -772,9 +795,9 @@ namespace AzFramework
     }
 
     bool OrbitMotionDollyCameraInput::HandleEvents(
-        const InputEvent& event, [[maybe_unused]] const ScreenVector& cursorDelta, [[maybe_unused]] const float scrollDelta)
+        const InputState& state, [[maybe_unused]] const ScreenVector& cursorDelta, [[maybe_unused]] const float scrollDelta)
     {
-        HandleActivationEvents(event, m_dollyChannelId, cursorDelta, m_clickDetector, *this);
+        HandleActivationEvents(state, m_dollyChannelId, cursorDelta, m_clickDetector, *this);
         return CameraInputUpdatingAfterMotion(*this);
     }
 
@@ -801,9 +824,9 @@ namespace AzFramework
     }
 
     bool LookScrollTranslationCameraInput::HandleEvents(
-        const InputEvent& event, [[maybe_unused]] const ScreenVector& cursorDelta, [[maybe_unused]] const float scrollDelta)
+        const InputState& state, [[maybe_unused]] const ScreenVector& cursorDelta, [[maybe_unused]] const float scrollDelta)
     {
-        if (const auto* scroll = AZStd::get_if<ScrollEvent>(&event))
+        if (AZStd::get_if<ScrollEvent>(&state.m_inputEvent))
         {
             BeginActivation();
         }
@@ -887,9 +910,9 @@ namespace AzFramework
     }
 
     bool FocusCameraInput::HandleEvents(
-        const InputEvent& event, [[maybe_unused]] const ScreenVector& cursorDelta, [[maybe_unused]] float scrollDelta)
+        const InputState& state, [[maybe_unused]] const ScreenVector& cursorDelta, [[maybe_unused]] float scrollDelta)
     {
-        if (const auto* input = AZStd::get_if<DiscreteInputEvent>(&event))
+        if (const auto* input = AZStd::get_if<DiscreteInputEvent>(&state.m_inputEvent))
         {
             if (input->m_channelId == m_focusChannelId && input->m_state == InputChannel::State::Began)
             {
@@ -944,9 +967,9 @@ namespace AzFramework
         m_focusChannelId = focusChannelId;
     }
 
-    bool CustomCameraInput::HandleEvents(const InputEvent& event, const ScreenVector& cursorDelta, const float scrollDelta)
+    bool CustomCameraInput::HandleEvents(const InputState& state, const ScreenVector& cursorDelta, const float scrollDelta)
     {
-        return m_handleEventsFn(*this, event, cursorDelta, scrollDelta);
+        return m_handleEventsFn(*this, state, cursorDelta, scrollDelta);
     }
 
     Camera CustomCameraInput::StepCamera(
@@ -955,13 +978,15 @@ namespace AzFramework
         return m_stepCameraFn(*this, targetCamera, cursorDelta, scrollDelta, deltaTime);
     }
 
-    InputEvent BuildInputEvent(const InputChannel& inputChannel, const WindowSize& windowSize)
+    InputState BuildInputEvent(
+        const InputChannel& inputChannel, const AzFramework::ModifierKeyStates& modifiers, const WindowSize& windowSize)
     {
         const auto& inputChannelId = inputChannel.GetInputChannelId();
         const auto& inputDeviceId = inputChannel.GetInputDevice().GetInputDeviceId();
 
         const bool wasMouseButton = AZStd::any_of(
-            InputDeviceMouse::Button::All.begin(), InputDeviceMouse::Button::All.end(),
+            InputDeviceMouse::Button::All.begin(),
+            InputDeviceMouse::Button::All.end(),
             [inputChannelId](const auto& button)
             {
                 return button == inputChannelId;
@@ -981,30 +1006,31 @@ namespace AzFramework
 
                 const auto x = position->m_normalizedPosition.GetX() * aznumeric_cast<float>(windowSize.m_width);
                 const auto y = position->m_normalizedPosition.GetY() * aznumeric_cast<float>(windowSize.m_height);
-                return CursorEvent{ ScreenPoint(aznumeric_cast<int>(AZStd::lround(x)), aznumeric_cast<int>(AZStd::lround(y))),
-                                    currentCursorState == AzFramework::SystemCursorState::ConstrainedAndHidden };
+                return InputState{ CursorEvent{ ScreenPoint(aznumeric_cast<int>(AZStd::lround(x)), aznumeric_cast<int>(AZStd::lround(y))),
+                                                currentCursorState == AzFramework::SystemCursorState::ConstrainedAndHidden },
+                                   modifiers };
             }
             else if (inputChannelId == InputDeviceMouse::Movement::X)
             {
                 const auto x = inputChannel.GetValue();
-                return HorizontalMotionEvent{ aznumeric_cast<int>(AZStd::lround(x)) };
+                return InputState{ HorizontalMotionEvent{ aznumeric_cast<int>(AZStd::lround(x)) }, modifiers };
             }
             else if (inputChannelId == InputDeviceMouse::Movement::Y)
             {
                 const auto y = inputChannel.GetValue();
-                return VerticalMotionEvent{ aznumeric_cast<int>(AZStd::lround(y)) };
+                return InputState{ VerticalMotionEvent{ aznumeric_cast<int>(AZStd::lround(y)) }, modifiers };
             }
             else if (inputChannelId == InputDeviceMouse::Movement::Z)
             {
-                return ScrollEvent{ inputChannel.GetValue() };
+                return InputState{ ScrollEvent{ inputChannel.GetValue() }, modifiers };
             }
         }
 
         if (wasMouseButton || InputDeviceKeyboard::IsKeyboardDevice(inputDeviceId))
         {
-            return DiscreteInputEvent{ inputChannelId, inputChannel.GetState() };
+            return InputState{ DiscreteInputEvent{ inputChannelId, inputChannel.GetState() }, modifiers };
         }
 
-        return AZStd::monostate{};
+        return { AZStd::monostate{}, ModifierKeyStates{} };
     }
 } // namespace AzFramework

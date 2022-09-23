@@ -9,13 +9,13 @@
 #include "CameraComponentController.h"
 #include "CameraViewRegistrationBus.h"
 
-#include <AzCore/Math/MatrixUtils.h>
-#include <AzCore/Math/VectorConversions.h>
 #include <Atom/RPI.Public/View.h>
 #include <Atom/RPI.Public/ViewportContextManager.h>
 #include <Atom/RPI.Public/ViewportContext.h>
 
 #include <AzCore/Component/EntityBus.h>
+#include <AzCore/Math/MatrixUtils.h>
+#include <AzCore/Math/Vector2.h>
 
 #include <AzFramework/Viewport/ViewportScreen.h>
 
@@ -54,11 +54,11 @@ namespace Camera
                         ->Attribute(AZ::Edit::Attributes::Min, 0.001f)
                         ->Attribute(AZ::Edit::Attributes::ChangeNotify, AZ::Edit::PropertyRefreshLevels::ValuesOnly)
 
-                    ->DataElement(AZ::Edit::UIHandlers::Default, &CameraComponentConfig::m_fov, "Field of view", "Vertical field of view in degrees")
+                    ->DataElement(AZ::Edit::UIHandlers::Default, &CameraComponentConfig::m_fov, "Field of view", "Vertical field of view in degrees. Note: Max FoV is less than 180.")
                         ->Attribute(AZ::Edit::Attributes::Min, MinFoV)
                         ->Attribute(AZ::Edit::Attributes::Suffix, " degrees")
                         ->Attribute(AZ::Edit::Attributes::Step, 1.f)
-                        ->Attribute(AZ::Edit::Attributes::Max, AZ::RadToDeg(AZ::Constants::Pi) - 0.0001f)       //We assert at fovs >= Pi so set the max for this field to be just under that
+                        ->Attribute(AZ::Edit::Attributes::Max, AZ::RadToDeg(AZ::Constants::Pi) - 0.001f)       //We assert at fovs >= Pi so set the max for this field to be just under that
                         ->Attribute(AZ::Edit::Attributes::ChangeNotify, AZ::Edit::PropertyRefreshLevels::ValuesOnly)
                         ->Attribute(AZ::Edit::Attributes::Visibility, &CameraComponentConfig::GetPerspectiveParameterVisibility)
                     ->DataElement(AZ::Edit::UIHandlers::Default, &CameraComponentConfig::m_nearClipDistance, "Near clip distance",
@@ -390,6 +390,12 @@ namespace Camera
         UpdateCamera();
     }
 
+    void CameraComponentController::SetXRViewQuaternion([[maybe_unused]] const AZ::Quaternion& viewQuat, [[maybe_unused]] uint32_t xrViewIndex)
+    {
+        AZ_Assert(false, "Not implemented");
+        // todo:: Needs implementation
+    }
+
     void CameraComponentController::MakeActiveView()
     {
         if (IsActiveView())
@@ -450,7 +456,7 @@ namespace Camera
     {
         const AzFramework::CameraState& cameraState = GetCameraState();
         const AZ::Vector3 screenPosition = AzFramework::WorldToScreenNdc(worldPosition, AzFramework::CameraView(cameraState), AzFramework::CameraProjection(cameraState));
-        return AZ::Vector3ToVector2(screenPosition); 
+        return AZ::Vector2(screenPosition); 
     }
 
     AZ::Vector2 CameraComponentController::WorldToScreen(const AZ::Vector3& worldPosition)
@@ -506,6 +512,13 @@ namespace Camera
     AZ::RPI::ViewPtr CameraComponentController::GetView() const
     {
         return m_atomCamera;
+    }
+
+    AZ::RPI::ViewPtr CameraComponentController::GetStereoscopicView([[maybe_unused]] AZ::RPI::ViewType viewType) const
+    {
+        //todo:: Needs implementation
+        AZ_Assert(false, "Not implemented");
+        return nullptr;
     }
 
     void CameraComponentController::UpdateCamera()

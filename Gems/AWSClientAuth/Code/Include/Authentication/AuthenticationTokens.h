@@ -9,7 +9,7 @@
 
 #include <AzCore/Preprocessor/Enum.h>
 #include <AzCore/std/string/string.h>
-#include <AzCore/std/chrono/clocks.h>
+#include <AzCore/std/chrono/chrono.h>
 #include <AzCore/RTTI/BehaviorContext.h>
 #include <AzCore/Serialization/EditContext.h>
 
@@ -24,7 +24,7 @@ namespace AWSClientAuth
         AZ_TYPE_INFO(AuthenticationTokens, "{F965D1B2-9DE3-4900-B44B-E58D9F083ACB}");
         AuthenticationTokens();
         AuthenticationTokens(const AuthenticationTokens& other);
-        AuthenticationTokens(const AZStd::string& accessToken, const AZStd::string& refreshToken, const AZStd::string& openidToken
+        AuthenticationTokens(const AZStd::string& accessToken, const AZStd::string& refreshToken, const AZStd::string& openIdToken
             , const ProviderNameEnum& providerName, int tokensExpireTimeSeconds);
 
         //! Compares current time stamp to expired time stamp.
@@ -54,6 +54,6 @@ namespace AWSClientAuth
         AZStd::string m_refreshToken;
         AZStd::string m_openIdToken;
         ProviderNameEnum m_providerName;
-        AZStd::chrono::system_clock::time_point m_tokensExpireTimeStamp;
+        AZStd::chrono::steady_clock::time_point m_tokensExpireTimeStamp;
     };
 } // namespace AWSClientAuth

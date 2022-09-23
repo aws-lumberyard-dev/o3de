@@ -8,16 +8,17 @@
 
 #pragma once
 
-#include <LmbrCentral/Dependency/DependencyMonitor.h>
 #include <AzCore/Component/Component.h>
+#include <AzCore/Component/TickBus.h>
+#include <AzCore/std/parallel/shared_mutex.h>
 #include <GradientSignal/Ebuses/GradientRequestBus.h>
 #include <GradientSignal/Ebuses/SurfaceAltitudeGradientRequestBus.h>
+#include <GradientSignal/Util.h>
+#include <LmbrCentral/Dependency/DependencyMonitor.h>
+#include <LmbrCentral/Dependency/DependencyNotificationBus.h>
 #include <SurfaceData/SurfaceDataSystemNotificationBus.h>
 #include <SurfaceData/SurfaceDataTypes.h>
 #include <SurfaceData/SurfacePointList.h>
-#include <LmbrCentral/Dependency/DependencyNotificationBus.h>
-#include <AzCore/Component/TickBus.h>
-#include <GradientSignal/Util.h>
 
 namespace LmbrCentral
 {
@@ -48,7 +49,7 @@ namespace GradientSignal
         bool IsShapeValid() const;
     };
 
-    static const AZ::Uuid SurfaceAltitudeGradientComponentTypeId = "{76359FA6-AD40-4DF9-81C6-F63F2632B665}";
+    inline constexpr AZ::TypeId SurfaceAltitudeGradientComponentTypeId{ "{76359FA6-AD40-4DF9-81C6-F63F2632B665}" };
 
     /**
     * Component implementing GradientRequestBus based on altitude
@@ -86,7 +87,11 @@ namespace GradientSignal
 
         //////////////////////////////////////////////////////////////////////////
         // SurfaceDataSystemNotificationBus
-        void OnSurfaceChanged(const AZ::EntityId& entityId, const AZ::Aabb& oldBounds, const AZ::Aabb& newBounds) override;
+        void OnSurfaceChanged(
+            const AZ::EntityId& entityId,
+            const AZ::Aabb& oldBounds,
+            const AZ::Aabb& newBounds,
+            const SurfaceData::SurfaceTagSet& changedSurfaceTags) override;
 
         //////////////////////////////////////////////////////////////////////////
         // AZ::TickBus::Handler
@@ -114,7 +119,7 @@ namespace GradientSignal
         void AddTag(AZStd::string tag) override;
 
     private:
-        mutable AZStd::shared_mutex m_cacheMutex;
+        mutable AZStd::shared_mutex m_queryMutex;
         SurfaceAltitudeGradientConfig m_configuration;
         LmbrCentral::DependencyMonitor m_dependencyMonitor;
         AZStd::atomic_bool m_dirty{ false };

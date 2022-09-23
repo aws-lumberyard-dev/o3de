@@ -602,6 +602,13 @@ namespace AZ
         {
             retVal.push_back(currentIter->second);
         }
+
+        findResult = m_deprecatedNameToTypeIdMap.equal_range(classNameCrc);
+        for (auto&& currentIter = findResult.first; currentIter != findResult.second; ++currentIter)
+        {
+            AZ_TracePrintf("Serialize", "Found TypeId using deprecated class name CRC value of %u", static_cast<AZ::u32>(classNameCrc));
+            retVal.push_back(currentIter->second);
+        }
         return retVal;
     }
 
@@ -703,7 +710,7 @@ namespace AZ
         return nullptr;
     }
 
-    const TypeId& SerializeContext::GetUnderlyingTypeId(const TypeId& enumTypeId) const
+    AZ::TypeId SerializeContext::GetUnderlyingTypeId(const TypeId& enumTypeId) const
     {
         auto enumToUnderlyingTypeIdIter = m_enumTypeIdToUnderlyingTypeIdMap.find(enumTypeId);
         return enumToUnderlyingTypeIdIter != m_enumTypeIdToUnderlyingTypeIdMap.end() ? enumToUnderlyingTypeIdIter->second : enumTypeId;
@@ -2307,8 +2314,7 @@ namespace AZ
                 AZ_Assert(false, "A deprecated element with a data converter was passed to CloneObject, this is not supported.");
             }
             // push a dummy node in the stack
-            cloneData->m_parentStack.push_back();
-            ObjectCloneData::ParentInfo& parentInfo = cloneData->m_parentStack.back();
+            ObjectCloneData::ParentInfo& parentInfo = cloneData->m_parentStack.emplace_back();
             parentInfo.m_ptr = destPtr;
             parentInfo.m_reservePtr = reservePtr;
             parentInfo.m_classData = classData;
@@ -2369,8 +2375,7 @@ namespace AZ
             // There is no valid destination pointer so a dummy node is added to the clone data parent stack
             // and further descendent type iteration is halted
             // An error has been reported to the supplied errorHandler in the code above
-            cloneData->m_parentStack.push_back();
-            ObjectCloneData::ParentInfo& parentInfo = cloneData->m_parentStack.back();
+            ObjectCloneData::ParentInfo& parentInfo = cloneData->m_parentStack.emplace_back();
             parentInfo.m_ptr = destPtr;
             parentInfo.m_reservePtr = reservePtr;
             parentInfo.m_classData = classData;
@@ -2395,7 +2400,8 @@ namespace AZ
 
         if (classData->m_serializer)
         {
-            if (classData->m_typeId == GetAssetClassId())
+            if (const auto* genericInfo = elementData ? elementData->m_genericClassInfo : FindGenericClassInfo(classData->m_typeId);
+                    genericInfo && genericInfo->GetGenericTypeId() == GetAssetClassId())
             {
                 // Optimized clone path for asset references.
                 static_cast<AssetSerializer*>(classData->m_serializer.get())->Clone(srcPtr, destPtr);
@@ -2421,8 +2427,7 @@ namespace AZ
         }
 
         // push this node in the stack
-        cloneData->m_parentStack.push_back();
-        ObjectCloneData::ParentInfo& parentInfo = cloneData->m_parentStack.back();
+        ObjectCloneData::ParentInfo& parentInfo = cloneData->m_parentStack.emplace_back();
         parentInfo.m_ptr = destPtr;
         parentInfo.m_reservePtr = reservePtr;
         parentInfo.m_classData = classData;
@@ -2493,7 +2498,7 @@ namespace AZ
             {
                 if (cd.m_azRtti->IsTypeOf(typeId))
                 {
-                    if (!callback(&cd, nullptr))
+                    if (!callback(&cd, {}))
                     {
                         return;
                     }
@@ -2511,7 +2516,7 @@ namespace AZ
                             // if both classes have azRtti they will be enumerated already by the code above (azrtti)
                             if (cd.m_azRtti == nullptr || cd.m_elements[i].m_azRtti == nullptr)
                             {
-                                if (!callback(&cd, nullptr))
+                                if (!callback(&cd, {}))
                                 {
                                     return;
                                 }
@@ -2543,7 +2548,7 @@ namespace AZ
                     if (baseClassData)
                     {
                         callbackData.m_reportedTypes.push_back(baseClassData->m_typeId);
-                        if (!callback(baseClassData, nullptr))
+                        if (!callback(baseClassData, {}))
                         {
                             return;
                         }
@@ -2736,20 +2741,20 @@ namespace AZ
     void SerializeContext::IDataContainer::DeletePointerData(SerializeContext* context, const ClassElement* classElement, const void* element)
     {
         AZ_Assert(context != nullptr && classElement != nullptr && element != nullptr, "Invalid input");
-        const AZ::Uuid* elemUuid = &classElement->m_typeId;
+        AZ::Uuid elemUuid = classElement->m_typeId;
         // find the class data for the specific element
-        const SerializeContext::ClassData* classData = classElement->m_genericClassInfo ? classElement->m_genericClassInfo->GetClassData() : context->FindClassData(*elemUuid, nullptr, 0);
+        const SerializeContext::ClassData* classData = classElement->m_genericClassInfo ? classElement->m_genericClassInfo->GetClassData() : context->FindClassData(elemUuid, nullptr, 0);
         if (classElement->m_flags & SerializeContext::ClassElement::FLG_POINTER)
         {
             const void* dataPtr = *reinterpret_cast<void* const*>(element);
             // if dataAddress is a pointer in this case, cast it's value to a void* (or const void*) and dereference to get to the actual class.
             if (dataPtr && classElement->m_azRtti)
             {
-                const AZ::Uuid* actualClassId = &classElement->m_azRtti->GetActualUuid(dataPtr);
-                if (*actualClassId != *elemUuid)
+                const AZ::Uuid actualClassId = classElement->m_azRtti->GetActualUuid(dataPtr);
+                if (actualClassId != elemUuid)
                 {
                     // we are pointing to derived type, adjust class data, uuid and pointer.
-                    classData = context->FindClassData(*actualClassId, nullptr, 0);
+                    classData = context->FindClassData(actualClassId, nullptr, 0);
                     elemUuid = actualClassId;
                     if (classData)
                     {
@@ -2764,7 +2769,7 @@ namespace AZ
             {
                 const void* dataPtr = *reinterpret_cast<void* const*>(element);
                 AZ_UNUSED(dataPtr); // this prevents a L4 warning if the below line is stripped out in release.
-                AZ_Warning("Serialization", false, "Failed to find class id%s for %p! Memory could leak.", elemUuid->ToString<AZStd::string>().c_str(), dataPtr);
+                AZ_Warning("Serialization", false, "Failed to find class id%s for %p! Memory could leak.", elemUuid.ToFixedString().c_str(), dataPtr);
             }
             return;
         }
@@ -2783,6 +2788,10 @@ namespace AZ
 
             // if we get here, its a FLG_POINTER
             const void* dataPtr = *reinterpret_cast<void* const*>(element);
+            if (dataPtr == nullptr)
+            {
+                return; // Pointer element is nullptr, nothing to delete
+            }
             if (classData->m_factory)
             {
                 classData->m_factory->Destroy(dataPtr);

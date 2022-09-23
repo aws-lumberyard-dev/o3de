@@ -13,7 +13,7 @@
 
 namespace GradientSignal
 {
-    static const AZ::TypeId EditorMacroColorFalloffGradientComponentTypeId = "{61DB81E0-B898-4995-8ABA-2E2C9F70E618}";
+    inline constexpr AZ::TypeId EditorMacroColorFalloffGradientComponentTypeId{ "{61DB81E0-B898-4995-8ABA-2E2C9F70E618}" };
 
     class EditorMacroColorFalloffGradientComponent
         : public EditorGradientComponentBase<MacroColorFalloffGradientComponent, MacroColorFalloffGradientConfig>

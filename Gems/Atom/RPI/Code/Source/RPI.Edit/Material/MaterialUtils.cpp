@@ -8,6 +8,7 @@
 
 #include <Atom/RPI.Edit/Material/MaterialUtils.h>
 #include <Atom/RPI.Edit/Common/AssetUtils.h>
+#include <Atom/RPI.Reflect/Image/AttachmentImageAsset.h>
 #include <Atom/RPI.Reflect/Image/ImageAsset.h>
 #include <Atom/RPI.Reflect/Image/StreamingImageAsset.h>
 #include <Atom/RPI.Reflect/Material/MaterialAsset.h>
@@ -44,8 +45,18 @@ namespace AZ
                     // We use TraceLevel::None because fallback textures are available and we'll return GetImageAssetResult::Missing below in that case.
                     // Callers of GetImageAssetReference will be responsible for logging warnings or errors as needed.
 
-                    Outcome<Data::AssetId> imageAssetId = AssetUtils::MakeAssetId(materialSourceFilePath, imageFilePath, StreamingImageAsset::GetImageAssetSubId(), AssetUtils::TraceLevel::None);
-                    
+                    uint32_t subId = 0;
+                    auto typeId = azrtti_typeid<AttachmentImageAsset>();
+
+                    bool isAttachmentImageAsset = imageFilePath.ends_with(AttachmentImageAsset::Extension);
+                    if (!isAttachmentImageAsset)
+                    {
+                        subId = StreamingImageAsset::GetImageAssetSubId();
+                        typeId = azrtti_typeid<StreamingImageAsset>();
+                    }
+
+                    Outcome<Data::AssetId> imageAssetId = AssetUtils::MakeAssetId(materialSourceFilePath, imageFilePath, subId, AssetUtils::TraceLevel::None);
+
                     if (!imageAssetId.IsSuccess())
                     {
                         // When the AssetId cannot be found, we don't want to outright fail, because the runtime has mechanisms for displaying fallback textures which gives the
@@ -53,12 +64,13 @@ namespace AZ
                         // no value was present and result in using no texture, and this would amount to a silent failure.
                         // So we use a randomly generated (well except for the "BADA55E7" bit ;) UUID which the runtime and tools will interpret as a missing asset and represent
                         // it as such.
-                        static const Uuid InvalidAssetPlaceholderId = "{BADA55E7-1A1D-4940-B655-9D08679BD62F}";
+                        static constexpr Uuid InvalidAssetPlaceholderId{ "{BADA55E7-1A1D-4940-B655-9D08679BD62F}" };
                         imageAsset = Data::Asset<ImageAsset>{InvalidAssetPlaceholderId, azrtti_typeid<StreamingImageAsset>(), imageFilePath};
                         return GetImageAssetResult::Missing;
                     }
-                    
-                    imageAsset = Data::Asset<ImageAsset>{imageAssetId.GetValue(), azrtti_typeid<StreamingImageAsset>(), imageFilePath};
+
+                    imageAsset = Data::Asset<ImageAsset>{imageAssetId.GetValue(), typeId, imageFilePath};
+                    imageAsset.SetAutoLoadBehavior(Data::AssetLoadBehavior::PreLoad);
                     return GetImageAssetResult::Found;
                 }
             }
@@ -74,7 +86,7 @@ namespace AZ
                 outResolvedValue = enumValue;
                 return true;
             }
-            
+
             AZ::Outcome<MaterialTypeSourceData> LoadMaterialTypeSourceData(const AZStd::string& filePath, rapidjson::Document* document, ImportedJsonFiles* importedFiles)
             {
                 rapidjson::Document localDocument;
@@ -91,7 +103,7 @@ namespace AZ
                     localDocument = loadOutcome.TakeValue();
                     document = &localDocument;
                 }
-                
+
                 AZ::BaseJsonImporter jsonImporter;
                 AZ::JsonImportSettings importSettings;
                 importSettings.m_importer = &jsonImporter;
@@ -128,7 +140,7 @@ namespace AZ
                     return AZ::Success(AZStd::move(materialType));
                 }
             }
-            
+
             AZ::Outcome<MaterialSourceData> LoadMaterialSourceData(const AZStd::string& filePath, const rapidjson::Value* document, bool warningsAsErrors)
             {
                 AZ::Outcome<rapidjson::Document, AZStd::string> loadOutcome;
@@ -191,12 +203,18 @@ namespace AZ
                     }
                 }
             }
-            
+
             bool BuildersShouldFinalizeMaterialAssets()
             {
-                // We default to the faster workflow for developers. Enable this registry setting when releasing the
-                // game for faster load times and obfuscation of material assets.
-                bool shouldFinalize = false;
+                // Disable this registry setting to improve iteration times when making changes to widely used shaders and material types,
+                // like standard PBR, that require a large number of model assets to be reprocessed by the AP. Disabling finalization will
+                // also disable build dependencies between materials and material types. Without those dependencies in place, loading and
+                // reloading material assets will require special handling because typical asset notifications will not be sent when
+                // dependencies are changed. Before, this option was disabled by default because of the long iteration times, but caused hot
+                // reload problems so we enabled it again. We should explore options for handling dependencies on standard PBR differently
+                // at the model builder level, and hopefully improve the iteration times that way. In that case, we should come back and
+                // remove the deferred-finalize option entirely.
+                bool shouldFinalize = true;
 
                 if (auto settingsRegistry = AZ::SettingsRegistry::Get(); settingsRegistry != nullptr)
                 {

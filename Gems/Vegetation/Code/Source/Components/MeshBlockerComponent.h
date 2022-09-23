@@ -45,7 +45,7 @@ namespace Vegetation
         bool m_blockWhenInvisible = true;
     };
 
-    static const AZ::Uuid MeshBlockerComponentTypeId = "{06A1ABB3-F2CD-47FC-BDE3-A13E37F3D760}";
+    inline constexpr AZ::TypeId MeshBlockerComponentTypeId{ "{06A1ABB3-F2CD-47FC-BDE3-A13E37F3D760}" };
 
     class MeshBlockerComponent
         : public AreaComponentBase
@@ -95,7 +95,11 @@ namespace Vegetation
 
         //////////////////////////////////////////////////////////////////////////
         // SurfaceData::SurfaceDataSystemNotificationBus
-        void OnSurfaceChanged(const AZ::EntityId& entityId, const AZ::Aabb& oldBounds, const AZ::Aabb& newBounds) override;
+        void OnSurfaceChanged(
+            const AZ::EntityId& entityId,
+            const AZ::Aabb& oldBounds,
+            const AZ::Aabb& newBounds,
+            const SurfaceData::SurfaceTagSet& changedSurfaceTags) override;
 
         ////////////////////////////////////////////////////////////////////////
         // AZ::TickBus

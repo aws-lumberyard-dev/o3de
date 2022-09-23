@@ -44,10 +44,10 @@ namespace Blast
         };
 
         // AZ::BehaviorEBusHandler
-        void Disconnect() override;
-        bool Connect(AZ::BehaviorValueParameter* id = nullptr) override;
+        void Disconnect(AZ::BehaviorArgument* id = nullptr) override;
+        bool Connect(AZ::BehaviorArgument* id = nullptr) override;
         bool IsConnected() override;
-        bool IsConnectedId(AZ::BehaviorValueParameter* id) override;
+        bool IsConnectedId(AZ::BehaviorArgument* id) override;
         int GetFunctionIndex(const char* functionName) const override;
 
         // CollisionNotificationBus

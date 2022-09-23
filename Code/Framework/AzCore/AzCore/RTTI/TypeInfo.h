@@ -7,7 +7,10 @@
  */
 #pragma once
 
-#include <AzCore/std/typetraits/static_storage.h>
+#include <AzCore/std/containers/array.h>
+#include <AzCore/Preprocessor/Enum.h>
+#include <AzCore/std/ranges/join_with_view.h>
+#include <AzCore/std/ranges/reverse_view.h>
 #include <AzCore/std/typetraits/is_pointer.h>
 #include <AzCore/std/typetraits/is_const.h>
 #include <AzCore/std/typetraits/is_enum.h>
@@ -15,7 +18,6 @@
 #include <AzCore/std/typetraits/remove_pointer.h>
 #include <AzCore/std/typetraits/remove_const.h>
 #include <AzCore/std/typetraits/remove_reference.h>
-#include <AzCore/std/typetraits/has_member_function.h>
 #include <AzCore/std/typetraits/void_t.h>
 #include <AzCore/std/function/invoke.h>
 #include <AzCore/std/optional.h>
@@ -104,8 +106,63 @@ namespace AZ
      */
     using TypeId = AZ::Uuid;
 
-    template <class T, bool IsEnum = AZStd::is_enum<T>::value>
+    template <class T, bool IsEnum = AZStd::is_enum_v<T>>
     struct AzTypeInfo;
+
+    //! Allows a C++ Type to expose deprecated type names through a visitor pattern
+    //! provide a static member function which accepts a user provided callback
+    //! and invokes for each deprecated type name
+    inline namespace DeprecatedTypeNames
+    {
+        using DeprecatedTypeNameCallback = AZStd::function<void(AZStd::string_view)>;
+
+        template <class T, class = void>
+        inline constexpr bool HasDeprecatedTypeNameVisitor_v = false;
+        template <class T>
+        inline constexpr bool HasDeprecatedTypeNameVisitor_v<T, AZStd::enable_if_t<AZStd::is_invocable_v<
+            decltype(&AZStd::remove_cvref_t<T>::DeprecatedTypeNameVisitor), DeprecatedTypeNameCallback>>> = true;
+
+        template <class T>
+        struct AzDeprecatedTypeNameVisitor
+        {
+            constexpr void operator()(
+                [[maybe_unused]] const DeprecatedTypeNameCallback& visitCallback) const
+            {
+                // Base Template delegates to static member function
+                if constexpr (HasDeprecatedTypeNameVisitor_v<T>)
+                {
+                    AZStd::remove_cvref_t<T>::DeprecatedTypeNameVisitor(visitCallback);
+                }
+            }
+        };
+        // Specializations to remove reference qualifiers types
+        template <class T>
+        struct AzDeprecatedTypeNameVisitor<T*>
+            : AzDeprecatedTypeNameVisitor<T>
+        {};
+        template <class T>
+        struct AzDeprecatedTypeNameVisitor<T const>
+            : AzDeprecatedTypeNameVisitor<T>
+        {};
+        template <class T>
+        struct AzDeprecatedTypeNameVisitor<T&>
+            : AzDeprecatedTypeNameVisitor<T>
+        {};
+        template <class T>
+        struct AzDeprecatedTypeNameVisitor<T const&>
+            : AzDeprecatedTypeNameVisitor<T>
+        {};
+        template <class T>
+        struct AzDeprecatedTypeNameVisitor<T&&>
+            : AzDeprecatedTypeNameVisitor<T>
+        {};
+        template <class T>
+        struct AzDeprecatedTypeNameVisitor<T const&&>
+            : AzDeprecatedTypeNameVisitor<T>
+        {};
+        template <class T>
+        inline constexpr AzDeprecatedTypeNameVisitor<T> DeprecatedTypeNameVisitor{};
+    }
 
     inline namespace TypeIdResolverTags
     {
@@ -160,17 +217,16 @@ namespace AZ
         template <template <typename, auto, typename> class> constexpr bool false_v6 = false;
 
         template<typename T>
-        inline const AZ::TypeId& Uuid()
+        inline constexpr AZ::TypeId Uuid()
         {
             return AzTypeInfo<T>::template Uuid<AZ::GenericTypeIdTag>();
         }
 
         template<template<typename...> class T>
-        inline const AZ::TypeId& Uuid()
+        inline constexpr AZ::TypeId Uuid()
         {
             static_assert(false_v1<T>, "Missing specialization for this template. Make sure it's registered for type info support.");
-            static const AZ::TypeId s_uuid = AZ::TypeId::CreateNull();
-            return s_uuid;
+            return {};
         }
 #if defined(AZ_COMPILER_MSVC)
         // There is a bug with the MSVC compiler when using the 'auto' keyword here. It appears that MSVC is unable to distinguish between a template
@@ -179,80 +235,72 @@ namespace AZ
 #else
         template<template<auto...> class T>
 #endif // defined(AZ_COMPILER_MSVC)
-        inline const AZ::TypeId& Uuid()
+        inline constexpr AZ::TypeId Uuid()
         {
             static_assert(false_v2<T>, "Missing specialization for this template. Make sure it's registered for type info support.");
-            static const AZ::TypeId s_uuid = AZ::TypeId::CreateNull();
-            return s_uuid;
+            return {};
         }
 
-
         template<template<typename, auto> class T>
-        inline const AZ::TypeId& Uuid()
+        inline constexpr AZ::TypeId Uuid()
         {
             static_assert(false_v3<T>, "Missing specialization for this template. Make sure it's registered for type info support.");
-            static const AZ::TypeId s_uuid = AZ::TypeId::CreateNull();
-            return s_uuid;
+            return {};
         }
 
         template<template<typename, typename, auto> class T>
-        inline const AZ::TypeId& Uuid()
+        inline constexpr AZ::TypeId Uuid()
         {
             static_assert(false_v4<T>, "Missing specialization for this template. Make sure it's registered for type info support.");
-            static const AZ::TypeId s_uuid = AZ::TypeId::CreateNull();
-            return s_uuid;
+            return {};
         }
 
         template<template<typename, typename, typename, auto> class T>
-        inline const AZ::TypeId& Uuid()
+        inline constexpr AZ::TypeId Uuid()
         {
             static_assert(false_v5<T>, "Missing specialization for this template. Make sure it's registered for type info support.");
-            static const AZ::TypeId s_uuid = AZ::TypeId::CreateNull();
-            return s_uuid;
+            return {};
         }
 
         template<template<typename, auto, typename> class T>
-        inline const AZ::TypeId& Uuid()
+        inline constexpr AZ::TypeId Uuid()
         {
             static_assert(false_v6<T>, "Missing specialization for this template. Make sure it's registered for type info support.");
-            static const AZ::TypeId s_uuid = AZ::TypeId::CreateNull();
-            return s_uuid;
+            return {};
         }
     }
 
     namespace Internal
     {
         /// Check if a class has TypeInfo declared via AZ_TYPE_INFO in its declaration
-        AZ_HAS_MEMBER(AZTypeInfoIntrusive, TYPEINFO_Enable, void, ());
+        template <typename T, class = void>
+        inline constexpr bool HasAZTypeInfoIntrusive = false;
+        template <typename T>
+        inline constexpr bool HasAZTypeInfoIntrusive<T, AZStd::void_t<typename T::TYPEINFO_Enable>> = true;
 
         /// Check if a class has an AzTypeInfo specialization
-        template<typename T, typename = void>
-        struct HasAZTypeInfoSpecialized
-            : AZStd::false_type
-        {
-        };
+        template<typename T, class = void>
+        inline constexpr bool HasAZTypeInfoSpecialized = false;
 
         template<typename T>
-        struct HasAZTypeInfoSpecialized<T, AZStd::enable_if_t<AZStd::is_invocable_r<bool, decltype(&AzTypeInfo<T>::Specialized)>::value>>
-            : AZStd::true_type
-        {
-        };
+        inline constexpr bool HasAZTypeInfoSpecialized<T, AZStd::enable_if_t<AZStd::is_invocable_r_v<bool, decltype(&AzTypeInfo<T>::Specialized)>>>
+            = true;
 
         template <class T>
         struct HasAZTypeInfo
         {
-            static constexpr bool value = HasAZTypeInfoSpecialized<T>::value || HasAZTypeInfoIntrusive<T>::value;
-            using type = typename AZStd::Utils::if_c<value, AZStd::true_type, AZStd::false_type>::type;
+            static constexpr bool value = HasAZTypeInfoSpecialized<T> || HasAZTypeInfoIntrusive<T>;
+            using type = typename AZStd::conditional_t<value, AZStd::true_type, AZStd::false_type>;
         };
 
-        inline void AzTypeInfoSafeCat(char* destination, size_t maxDestination, const char* source)
+        inline constexpr void AzTypeInfoSafeCat(char* destination, size_t maxDestination, const char* source)
         {
             if (!source || !destination || maxDestination == 0)
             {
                 return;
             }
-            size_t destinationLen = strlen(destination);
-            size_t sourceLen = strlen(source);
+            size_t destinationLen = AZStd::char_traits<char>::length(destination);
+            size_t sourceLen = AZStd::char_traits<char>::length(source);
             if (sourceLen == 0)
             {
                 return;
@@ -268,105 +316,133 @@ namespace AZ
                 sourceLen = maxToCopy;
             }
             destination += destinationLen;
-            memcpy(destination, source, sourceLen);
+            AZStd::char_traits<char>::copy(destination, source, sourceLen);
             destination += sourceLen;
             *destination = 0;
         }
 
+        constexpr AZStd::string_view TypeNameSeparator = ", ";
+
         template<class... Tn>
-        struct AggregateTypes;
-
-        template<class T1, class... Tn>
-        struct AggregateTypes<T1, Tn...>
+        struct AggregateTypes
         {
-            static void TypeName(char* buffer, size_t bufferSize)
+            static constexpr auto TypeName()
             {
-                AzTypeInfoSafeCat(buffer, bufferSize, AzTypeInfo<T1>::Name());
-                AzTypeInfoSafeCat(buffer, bufferSize, " ");
-                AggregateTypes<Tn...>::TypeName(buffer, bufferSize);
-            }
-
-            template<typename TypeIdResolverTag = CanonicalTypeIdTag>
-            static AZ::TypeId Uuid()
-            {
-                const AZ::TypeId tail = AggregateTypes<Tn...>::template Uuid<TypeIdResolverTag>();
-                if (!tail.IsNull())
+                if constexpr (sizeof...(Tn) == 0)
                 {
-                    // Avoid accumulating a null uuid, since it affects the result.
-                    return AzTypeInfo<T1>::template Uuid<TypeIdResolverTag>() + tail;
+                    return AZStd::string_view{};
                 }
                 else
                 {
-                    return AzTypeInfo<T1>::template Uuid<TypeIdResolverTag>();
+                    constexpr AZStd::fixed_string<1024> typeNameAggregate = []()
+                    {
+                        constexpr auto typeNames = AZStd::to_array({ AZStd::string_view(AzTypeInfo<Tn>::Name())... });
+                        return AZStd::fixed_string<1024>(AZStd::from_range, typeNames | AZStd::views::join_with(TypeNameSeparator));
+                    }();
+
+                    // resize down the aggregate type name to the exact size
+                    return AZStd::fixed_string<typeNameAggregate.size()>(typeNameAggregate);
+                }
+            }
+
+            template<typename TypeIdResolverTag = CanonicalTypeIdTag>
+            static constexpr AZ::TypeId Uuid()
+            {
+                if constexpr (sizeof...(Tn) == 0)
+                {
+                    return {};
+                }
+                else
+                {
+                    constexpr auto typeIds = AZStd::to_array<AZ::TypeId>({ AzTypeInfo<Tn>::template Uuid<TypeIdResolverTag>()... });
+                    if (typeIds.empty())
+                    {
+                        return {};
+                    }
+
+                    AZ::TypeId aggregateTypeId = typeIds.back();
+
+                    // perform binary right fold over all the type ids, by combining them
+                    // two elements at a time from the end of the array to the beginning
+                    // Skip over the last element and reverse the span
+                    for (const AZ::TypeId& prevTypeId : AZStd::span(typeIds.data(), typeIds.size() - 1) | AZStd::views::reverse)
+                    {
+                        if (!aggregateTypeId.IsNull())
+                        {
+                            // Avoid accumulating a null uuid, since it affects the result.
+                            aggregateTypeId = prevTypeId + aggregateTypeId;
+                        }
+                        else
+                        {
+                            // Otherwise replace the aggregate type id with the previous typeid
+                            aggregateTypeId = prevTypeId;
+                        }
+                    }
+
+                    return aggregateTypeId;
                 }
             }
         };
 
-        template<>
-        struct AggregateTypes<>
-        {
-            static void TypeName(char* buffer, size_t bufferSize)
-            {
-                (void)buffer; (void)bufferSize;
-            }
-
-            template<typename TypeIdResolverTag = CanonicalTypeIdTag>
-            static AZ::TypeId Uuid()
-            {
-                return AZ::TypeId::CreateNull();
-            }
-        };
-
-        // VS2015+/clang init them as part of static init, or interlocked (as per standard)
-#if AZ_TRAIT_COMPILER_USE_STATIC_STORAGE_FOR_NON_POD_STATICS
-        using TypeIdHolder = AZStd::static_storage<AZ::TypeId>;
-#else
-        using TypeIdHolder = AZ::TypeId;
-#endif
 
         // Represents the "*" typeid that can be combined with non-pointer types T to form a unique T* typeid
-        inline static const AZ::TypeId& PointerTypeId()
-        {
-            static TypeIdHolder s_uuid("{35C8A027-FE00-4769-AE36-6997CFFAF8AE}");
-            return s_uuid;
-        }
+        inline constexpr AZ::TypeId PointerTypeId_v{ "{35C8A027-FE00-4769-AE36-6997CFFAF8AE}" };
 
         template<typename T>
-        const char* GetTypeName()
+        constexpr const char* GetTypeName()
         {
             return AZ::AzTypeInfo<T>::Name();
         }
 
-        template<int N, bool Recursion = false>
+        template<int N, bool MoreDigits = (N >= 10)>
         struct NameBufferSize
         {
-            static constexpr int Size = 1 + NameBufferSize<N / 10, true>::Size;
+            static constexpr int Size = 1 + NameBufferSize<N / 10>::Size;
         };
-        template<> struct NameBufferSize<0, false> { static constexpr const int Size = 2; };
-        template<> struct NameBufferSize<0, true> { static constexpr const int Size = 1; };
+        template<int N> struct NameBufferSize<N, false> { static constexpr int Size = 1; };
+
+        // IntTypeName provides Compile time Variable template for c-string
+        // of a converted unsigned integer value
+        template<AZStd::size_t N>
+        inline constexpr AZStd::fixed_string<NameBufferSize<N>::Size> IntTypeName = []() constexpr
+            {
+                using BufferType = AZStd::fixed_string<NameBufferSize<N>::Size>;
+                BufferType numberString;
+                auto FillDigitsFromEnd = [](char* buffer, size_t bufferSize)
+                {
+                    // Fill the buffer from the end with stringified
+                    // conversions of each digit
+                    // The buffer is exactly the size to store the integer converted to a string
+                    size_t index = bufferSize;
+                    for (size_t value = N; index > 0; value /= 10)
+                    {
+                        buffer[--index] = '0' + (value % 10);
+                    }
+                    return bufferSize;
+                };
+                numberString.resize_and_overwrite(numberString.max_size(), FillDigitsFromEnd);
+                return numberString;
+            }();
 
         template<AZStd::size_t N>
-        const char* GetTypeName()
+        constexpr const char* GetTypeName()
         {
-            static char buffer[NameBufferSize<N>::Size] = { 0 };
-            if (buffer[0] == 0)
-            {
-                azsnprintf(buffer, AZ_ARRAY_SIZE(buffer), "%zu", N);
-            }
-            return buffer;
+            return IntTypeName<N>.c_str();
         }
 
         template<typename T, typename TypeIdResolverTag>
-        const AZ::TypeId& GetTypeId()
+        constexpr AZ::TypeId GetTypeId()
         {
             return AZ::AzTypeInfo<T>::template Uuid<TypeIdResolverTag>();
         }
 
+        template<AZStd::size_t N>
+        inline constexpr AZ::TypeId NumericTypeId_v = AZ::TypeId::CreateName(GetTypeName<N>());
+
         template<AZStd::size_t N, typename>
-        const AZ::TypeId& GetTypeId()
+        constexpr AZ::TypeId GetTypeId()
         {
-            static AZ::TypeId uuid = AZ::TypeId::CreateName(GetTypeName<N>());
-            return uuid;
+            return NumericTypeId_v<N>;
         }
 
     } // namespace Internal
@@ -404,17 +480,17 @@ namespace AZ
     template<class T>
     struct AzTypeInfo<T, false /* is_enum */>
     {
-        static const char* Name()
+        static constexpr const char* Name()
         {
-            static_assert(AZ::Internal::HasAZTypeInfoIntrusive<T>::value,
+            static_assert(AZ::Internal::HasAZTypeInfoIntrusive<T>,
                 "You should use AZ_TYPE_INFO or AZ_RTTI in your class/struct, or use AZ_TYPE_INFO_SPECIALIZE() externally. "
                 "Make sure to include the header containing this information (usually your class header).");
             return T::TYPEINFO_Name();
         }
         template<typename TypeIdResolverTag = CanonicalTypeIdTag>
-        static const AZ::TypeId& Uuid()
+        static constexpr AZ::TypeId Uuid()
         {
-            static_assert(AZ::Internal::HasAZTypeInfoIntrusive<T>::value,
+            static_assert(AZ::Internal::HasAZTypeInfoIntrusive<T>,
                 "You should use AZ_TYPE_INFO or AZ_RTTI in your class/struct, or use AZ_TYPE_INFO_SPECIALIZE() externally. "
                 "Make sure to include the header containing this information (usually your class header).");
             return T::TYPEINFO_Uuid();
@@ -438,10 +514,25 @@ namespace AZ
     template <class T>
     struct AzTypeInfo<T, true /* is_enum */>
     {
+    private:
         typedef typename AZStd::RemoveEnum<T>::type UnderlyingType;
-        static const char* Name() { return nullptr; }
+        // Used to provide a reference to a Uuid with a null value = {00000000-0000-0000-0000-000000000000}
+        inline static constexpr AZ::TypeId s_nullTypeId_v;
+    public:
+        static constexpr const char* Name()
+        {
+            if constexpr (AZ::HasAzEnumTraits_v<T>)
+            {
+                return AzEnumTraits<T>::EnumName.data();
+            }
+            else
+            {
+                return "[enum]";
+            }
+        }
+
         template<typename TypeIdResolverTag = CanonicalTypeIdTag>
-        static const AZ::TypeId& Uuid() { static AZ::TypeId nullUuid = AZ::TypeId::CreateNull(); return nullUuid; }
+        static constexpr AZ::TypeId Uuid() { return s_nullTypeId_v; }
         static constexpr TypeTraits GetTypeTraits()
         {
             TypeTraits typeTraits{};
@@ -459,13 +550,13 @@ namespace AZ
     };
 
     template<class T, class U>
-    inline bool operator==(AzTypeInfo<T> const& lhs, AzTypeInfo<U> const& rhs)
+    constexpr inline bool operator==(AzTypeInfo<T> const& lhs, AzTypeInfo<U> const& rhs)
     {
         return lhs.Uuid() == rhs.Uuid();
     }
 
     template<class T, class U>
-    inline bool operator!=(AzTypeInfo<T> const& lhs, AzTypeInfo<U> const& rhs)
+    constexpr inline bool operator!=(AzTypeInfo<T> const& lhs, AzTypeInfo<U> const& rhs)
     {
         return lhs.Uuid() != rhs.Uuid();
     }
@@ -497,11 +588,14 @@ namespace AZ
     template<>                                                        \
     struct AzTypeInfo<_ClassName, AZStd::is_enum<_ClassName>::value>  \
     {                                                                 \
-        static const char* Name() { return #_ClassName; }             \
+    private:                                                          \
+        static inline constexpr AZ::TypeId s_classUuid{_ClassUuid};   \
+    public:                                                           \
+        static constexpr const char* Name() { return #_ClassName; }   \
         template<typename TypeIdResolverTag = CanonicalTypeIdTag>     \
-        static const AZ::TypeId& Uuid() {                             \
-            static AZ::Internal::TypeIdHolder s_uuid(_ClassUuid);     \
-            return s_uuid;                                            \
+        static constexpr AZ::TypeId Uuid()                            \
+        {                                                             \
+            return s_classUuid;                                       \
         }                                                             \
         static constexpr TypeTraits GetTypeTraits()                   \
         {                                                             \
@@ -513,33 +607,55 @@ namespace AZ
         }                                                             \
         static constexpr size_t Size()                                \
         {                                                             \
-            return AZ::Internal::TypeInfoSizeof<_ClassName>::Size();      \
+            return AZ::Internal::TypeInfoSizeof<_ClassName>::Size();  \
         }                                                             \
-        static bool Specialized() { return true; }                    \
+        static constexpr bool Specialized() { return true; }          \
     };
 
     // specialize for function pointers
     template<class R, class... Args>
     struct AzTypeInfo<R(Args...), false>
     {
-        static const char* Name()
+    private:
+        struct TypeNameInternal
         {
-            static char typeName[64] = { 0 };
-            if (typeName[0] == 0)
+            static constexpr auto TypeName = []() constexpr
             {
-                AZ::Internal::AzTypeInfoSafeCat(typeName, AZ_ARRAY_SIZE(typeName), "{");
-                AZ::Internal::AzTypeInfoSafeCat(typeName, AZ_ARRAY_SIZE(typeName), AZ::AzTypeInfo<R>::Name());
-                AZ::Internal::AzTypeInfoSafeCat(typeName, AZ_ARRAY_SIZE(typeName), "(");
-                AZ::Internal::AggregateTypes<Args...>::TypeName(typeName, AZ_ARRAY_SIZE(typeName));
-                AZ::Internal::AzTypeInfoSafeCat(typeName, AZ_ARRAY_SIZE(typeName), ")}");
+                // Temporary buffer to combine typename within
+                // This buffer is not returned and will not count against the data segment
+                // size of the library the code is compiled into
+                // instead a buffer that is the exact size needed to store the TypeName
+                // is returned from the compile time calculations
+                constexpr auto combineTypeNameBuffer = []() constexpr
+                {
+                    using CombineBufferType = AZStd::fixed_string<1024>;
+                    CombineBufferType typeName{ '{' };
+                    typeName += AZ::AzTypeInfo<R>::Name();
+                    typeName += '(';
+                    typeName += AZ::Internal::AggregateTypes<Args...>::TypeName();
+                    typeName += ")}";
+                    return typeName;
+                }();
+
+                // Round up to the Next Power of 2 to reduce the number of fixed_string template instantiations
+                return AZStd::fixed_string<AZ::AlignUpToPowerOfTwo(combineTypeNameBuffer.size())>(combineTypeNameBuffer);
+            }();
+            constexpr const char* operator()() const
+            {
+                return TypeName.c_str();
             }
-            return typeName;
+        };
+        template<class TypeIdResolverTag>
+        static inline constexpr TypeId s_uuid_v = AZ::Internal::AggregateTypes<R, Args...>::template Uuid<TypeIdResolverTag>();
+    public:
+        static constexpr const char* Name()
+        {
+            return TypeNameInternal{}();
         }
         template<typename TypeIdResolverTag = CanonicalTypeIdTag>
-        static const AZ::TypeId& Uuid()
+        static constexpr AZ::TypeId Uuid()
         {
-            static AZ::Internal::TypeIdHolder s_uuid(AZ::Internal::AggregateTypes<R, Args...>::template Uuid<TypeIdResolverTag>());
-            return s_uuid;
+            return s_uuid_v<TypeIdResolverTag>;
         }
         static constexpr TypeTraits GetTypeTraits()
         {
@@ -554,31 +670,109 @@ namespace AZ
         }
     };
 
+    inline namespace DeprecatedTypeNames
+    {
+        // Visits the types deprecated name if it exist, otherwise visit the current type name
+        template<class T, class Functor>
+        static constexpr void VisitDeprecatedNameOrCurrentName(Functor&& visitCallback)
+        {
+            // Attempt to visit the deprecated name if a DeprecatedTypeNameVisitor exists
+            bool deprecatedNameVisited{};
+            auto VisitDeprecatedName = [&visitCallback, &deprecatedNameVisited](AZStd::string_view oldName)
+            {
+                AZStd::invoke(AZStd::forward<Functor>(visitCallback), oldName);
+                deprecatedNameVisited = true;
+            };
+            DeprecatedTypeNameVisitor<T>(VisitDeprecatedName);
+
+            // The type doesn't have a deprecated name so visit the current name
+            if (!deprecatedNameVisited)
+            {
+                AZStd::invoke(AZStd::forward<Functor>(visitCallback), AZ::AzTypeInfo<T>::Name());
+            }
+        }
+        template<class T>
+        static constexpr void AggregateTypeNameOld(char* buffer, size_t bufferSize)
+        {
+            auto AppendDeprecatedName = [buffer, bufferSize](AZStd::string_view typeName)
+            {
+                AZ::Internal::AzTypeInfoSafeCat(buffer, bufferSize, typeName.data());
+                // Old Aggregate TypeName logic always placed a space after each argument
+                AZ::Internal::AzTypeInfoSafeCat(buffer, bufferSize, " ");
+            };
+            VisitDeprecatedNameOrCurrentName<T>(AppendDeprecatedName);
+        }
+
+        template<class R, class... Args>
+        struct AzDeprecatedTypeNameVisitor<R(Args...)>
+        {
+            template<class Functor>
+            constexpr void operator()(Functor&& visitCallback) const
+            {
+                // Raw functions pointer used to be stored in a 64 byte buffer
+                AZStd::array<char, 64> deprecatedName{};
+
+                AZ::Internal::AzTypeInfoSafeCat(deprecatedName.data(), deprecatedName.size(), "{");
+
+                // Tracks if the return type deprecated name was found. If so the current type name isn't used
+                auto AppendDeprecatedName = [&deprecatedName](AZStd::string_view retTypeDeprecatedName)
+                {
+                    AZ::Internal::AzTypeInfoSafeCat(deprecatedName.data(), deprecatedName.size(),
+                        retTypeDeprecatedName.data());
+                };
+                VisitDeprecatedNameOrCurrentName<R>(AZStd::move(AppendDeprecatedName));
+
+                // Use the old aggregate logic to append the function parameters
+                AZ::Internal::AzTypeInfoSafeCat(deprecatedName.data(), deprecatedName.size(), "(");
+                (AggregateTypeNameOld<Args>(deprecatedName.data(), deprecatedName.size()), ...);
+                AZ::Internal::AzTypeInfoSafeCat(deprecatedName.data(), deprecatedName.size(), ")}");
+
+                AZStd::invoke(AZStd::forward<Functor>(visitCallback), deprecatedName.data());
+            }
+        };
+    }
+
     // specialize for member function pointers
     template<class R, class C, class... Args>
     struct AzTypeInfo<R(C::*)(Args...), false>
     {
-        static const char* Name()
+    private:
+        struct TypeNameInternal
         {
-            static char typeName[128] = { 0 };
-            if (typeName[0] == 0)
+            static constexpr auto TypeName = []() constexpr
             {
-                AZ::Internal::AzTypeInfoSafeCat(typeName, AZ_ARRAY_SIZE(typeName), "{");
-                AZ::Internal::AzTypeInfoSafeCat(typeName, AZ_ARRAY_SIZE(typeName), AZ::AzTypeInfo<R>::Name());
-                AZ::Internal::AzTypeInfoSafeCat(typeName, AZ_ARRAY_SIZE(typeName), "(");
-                AZ::Internal::AzTypeInfoSafeCat(typeName, AZ_ARRAY_SIZE(typeName), AZ::AzTypeInfo<C>::Name());
-                AZ::Internal::AzTypeInfoSafeCat(typeName, AZ_ARRAY_SIZE(typeName), "::*)");
-                AZ::Internal::AzTypeInfoSafeCat(typeName, AZ_ARRAY_SIZE(typeName), "(");
-                AZ::Internal::AggregateTypes<Args...>::TypeName(typeName, AZ_ARRAY_SIZE(typeName));
-                AZ::Internal::AzTypeInfoSafeCat(typeName, AZ_ARRAY_SIZE(typeName), ")}");
+                constexpr auto combineTypeNameBuffer = []() constexpr
+                {
+                    using CombineBufferType = AZStd::fixed_string<1024>;
+                    CombineBufferType typeName{ '{' };
+                    typeName += AZ::AzTypeInfo<R>::Name();
+                    typeName += '(';
+                    typeName += AZ::AzTypeInfo<C>::Name();
+                    typeName += "::*)(";
+                    typeName += AZ::Internal::AggregateTypes<Args...>::TypeName();
+                    typeName += ")}";
+                    return typeName;
+                }();
+
+                // Round up to the Next Power of 2 to reduce the number of fixed_string template instantiations
+                return AZStd::fixed_string<AZ::AlignUpToPowerOfTwo(combineTypeNameBuffer.size())>(combineTypeNameBuffer);
+            }();
+            constexpr const char* operator()() const
+            {
+                return TypeName.c_str();
             }
-            return typeName;
+        };
+        template<class TypeIdResolverTag>
+        inline static constexpr AZ::TypeId s_uuid_v{ AZ::Internal::AggregateTypes<R, C, Args...>::template Uuid<TypeIdResolverTag>() };
+    public:
+        static constexpr const char* Name()
+        {
+            return TypeNameInternal{}();
         }
         template<typename TypeIdResolverTag = CanonicalTypeIdTag>
-        static const AZ::TypeId& Uuid()
+        static constexpr AZ::TypeId Uuid()
         {
-            static AZ::Internal::TypeIdHolder s_uuid(AZ::Internal::AggregateTypes<R, C, Args...>::template Uuid<TypeIdResolverTag>());
-            return s_uuid;
+            return s_uuid_v<TypeIdResolverTag>;
         }
         static constexpr TypeTraits GetTypeTraits()
         {
@@ -602,24 +796,41 @@ namespace AZ
     template<class R, class C>
     struct AzTypeInfo<R C::*, false>
     {
-        static const char* Name()
+    private:
+        struct TypeNameInternal
         {
-            static char typeName[64] = { 0 };
-            if (typeName[0] == 0)
+            static constexpr auto TypeName = []() constexpr
             {
-                AZ::Internal::AzTypeInfoSafeCat(typeName, AZ_ARRAY_SIZE(typeName), "{");
-                AZ::Internal::AzTypeInfoSafeCat(typeName, AZ_ARRAY_SIZE(typeName), AZ::AzTypeInfo<R>::Name());
-                AZ::Internal::AzTypeInfoSafeCat(typeName, AZ_ARRAY_SIZE(typeName), " ");
-                AZ::Internal::AzTypeInfoSafeCat(typeName, AZ_ARRAY_SIZE(typeName), AZ::AzTypeInfo<C>::Name());
-                AZ::Internal::AzTypeInfoSafeCat(typeName, AZ_ARRAY_SIZE(typeName), "::*}");
+                constexpr auto combineTypeNameBuffer = []() constexpr
+                {
+                    using CombineBufferType = AZStd::fixed_string<1024>;
+                    CombineBufferType typeName{ '{' };
+                    typeName += AZ::AzTypeInfo<R>::Name();
+                    typeName += ' ';
+                    typeName + AZ::AzTypeInfo<C>::Name();
+                    typeName += "::*}";
+                    return typeName;
+                }();
+
+                // Round up to the Next Power of 2 to reduce the number of fixed_string template instantiations
+                return AZStd::fixed_string<AZ::AlignUpToPowerOfTwo(combineTypeNameBuffer.size())>(combineTypeNameBuffer);
+            }();
+            constexpr const char* operator()() const
+            {
+                return TypeName.c_str();
             }
-            return typeName;
+        };
+        template<class TypeIdResolverTag>
+        inline static constexpr TypeId s_uuid_v{ AZ::Internal::AggregateTypes<R, C>::template Uuid<TypeIdResolverTag>() };
+    public:
+        static constexpr const char* Name()
+        {
+            return TypeNameInternal{}();
         }
         template<typename TypeIdResolverTag = CanonicalTypeIdTag>
-        static const AZ::TypeId& Uuid()
+        static constexpr AZ::TypeId Uuid()
         {
-            static AZ::Internal::TypeIdHolder s_uuid(AZ::Internal::AggregateTypes<R, C>::template Uuid<TypeIdResolverTag>());
-            return s_uuid;
+            return s_uuid_v<TypeIdResolverTag>;
         }
         static constexpr TypeTraits GetTypeTraits()
         {
@@ -638,26 +849,46 @@ namespace AZ
 #define AZ_TYPE_INFO_INTERNAL_SPECIALIZE_CV(_T1, _Specialization, _NamePrefix, _NameSuffix)                      \
     template<class _T1>                                                                                          \
     struct AzTypeInfo<_Specialization, false> {                                                                  \
-        static const char* Name() {                                                                              \
-            static char typeName[64] = { 0 };                                                                    \
-            if (typeName[0] == 0) {                                                                              \
-                AZ::Internal::AzTypeInfoSafeCat(typeName, AZ_ARRAY_SIZE(typeName), _NamePrefix);                 \
-                AZ::Internal::AzTypeInfoSafeCat(typeName, AZ_ARRAY_SIZE(typeName), AZ::AzTypeInfo<_T1>::Name()); \
-                AZ::Internal::AzTypeInfoSafeCat(typeName, AZ_ARRAY_SIZE(typeName), _NameSuffix);                 \
+    private:                                                                                                     \
+        struct TypeNameInternal                                                                                  \
+        {                                                                                                        \
+            static constexpr auto TypeName = []() constexpr                                                      \
+            {                                                                                                    \
+                constexpr auto combineTypeNameBuffer = []() constexpr                                            \
+                {                                                                                                \
+                    using CombineBufferType = AZStd::fixed_string<1024>;                                         \
+                    CombineBufferType typeName{ _NamePrefix };                                                   \
+                    typeName += AzTypeInfo<_T1>::Name();                                                         \
+                    typeName += _NameSuffix;                                                                     \
+                    return typeName;                                                                             \
+                }();                                                                                             \
+                /* Round up to power of 2 to reduce the number of fixed_string template instantiations */        \
+                return AZStd::fixed_string<AZ::AlignUpToPowerOfTwo(combineTypeNameBuffer.size())>(combineTypeNameBuffer); \
+            }();                                                                                                 \
+            constexpr const char* operator()() const                                                             \
+            {                                                                                                    \
+                return TypeName.c_str();                                                                         \
             }                                                                                                    \
-            return typeName;                                                                                     \
+        };                                                                                                       \
+        template<class TypeIdResolverTag>                                                                        \
+        inline static constexpr AZ::TypeId s_uuid_v{                                                             \
+                !AZStd::is_same_v<TypeIdResolverTag, PointerRemovedTypeIdTag>                                    \
+                && AZStd::is_pointer_v<_Specialization> ?                                                        \
+                AZ::AzTypeInfo<_T1>::template Uuid<TypeIdResolverTag>() + AZ::Internal::PointerTypeId_v :        \
+                AZ::AzTypeInfo<_T1>::template Uuid<TypeIdResolverTag>()};                                        \
+    public:                                                                                                      \
+        static constexpr const char* Name()                                                                      \
+        {                                                                                                        \
+            return TypeNameInternal{}();                                                                         \
         }                                                                                                        \
         /*                                                                                                       \
         * By default the specialization for pointer types defaults to PointerRemovedTypeIdTag                    \
         * This allows the current use of AzTypeInfo<T*>::Uuid to still return the typeid of type                 \
         */                                                                                                       \
-        template<typename TypeIdResolverTag = PointerRemovedTypeIdTag>                                           \
-        static const AZ::TypeId& Uuid() {                                                                        \
-            static AZ::Internal::TypeIdHolder s_uuid(                                                            \
-                !AZStd::is_same<TypeIdResolverTag, PointerRemovedTypeIdTag>::value                               \
-                && AZStd::is_pointer<_Specialization>::value ?                                                   \
-                AZ::AzTypeInfo<_T1>::template Uuid<TypeIdResolverTag>() + AZ::Internal::PointerTypeId() : AZ::AzTypeInfo<_T1>::template Uuid<TypeIdResolverTag>()); \
-            return s_uuid;                                                                                       \
+        template<typename Tag = PointerRemovedTypeIdTag>                                                         \
+        static constexpr AZ::TypeId Uuid()                                                                       \
+        {                                                                                                        \
+            return s_uuid_v<Tag>;                                                                                \
         }                                                                                                        \
         static constexpr TypeTraits GetTypeTraits()                                                              \
         {                                                                                                        \
@@ -674,36 +905,36 @@ namespace AZ
     }
 
     // Helper macros to generically specialize template types
-#define  AZ_TYPE_INFO_INTERNAL_VARIATION_GENERIC(_Generic, _Uuid)                                                       \
-    namespace AzGenericTypeInfo {                                                                                       \
-        template<>                                                                                                      \
-        inline const AZ::TypeId& Uuid<_Generic>(){ static AZ::Internal::TypeIdHolder s_uuid(_Uuid); return s_uuid; }    \
+#define  AZ_TYPE_INFO_INTERNAL_VARIATION_GENERIC(_Generic, _Uuid)                 \
+    namespace AzGenericTypeInfo {                                                 \
+        template<>                                                                \
+        inline constexpr AZ::TypeId Uuid<_Generic>(){ return AZ::TypeId(_Uuid); } \
     }
 
 #define AZ_TYPE_INFO_INTERNAL_TYPENAME__TYPE typename
 #define AZ_TYPE_INFO_INTERNAL_TYPENAME__ARG(A) A
 #define AZ_TYPE_INFO_INTERNAL_TYPENAME__UUID(Tag, A) AZ::Internal::GetTypeId< A , Tag >()
-#define AZ_TYPE_INFO_INTERNAL_TYPENAME__NAME(A) AZ::Internal::AzTypeInfoSafeCat(typeName, AZ_ARRAY_SIZE(typeName), AZ::Internal::GetTypeName< A >())
+#define AZ_TYPE_INFO_INTERNAL_TYPENAME__NAME(A) AZ::Internal::GetTypeName< A >()
 
 #define AZ_TYPE_INFO_INTERNAL_CLASS__TYPE class
 #define AZ_TYPE_INFO_INTERNAL_CLASS__ARG(A) A
 #define AZ_TYPE_INFO_INTERNAL_CLASS__UUID(Tag, A) AZ::Internal::GetTypeId< A , Tag >()
-#define AZ_TYPE_INFO_INTERNAL_CLASS__NAME(A) AZ::Internal::AzTypeInfoSafeCat(typeName, AZ_ARRAY_SIZE(typeName), AZ::Internal::GetTypeName< A >())
+#define AZ_TYPE_INFO_INTERNAL_CLASS__NAME(A) AZ::Internal::GetTypeName< A >()
 
 #define AZ_TYPE_INFO_INTERNAL_TYPENAME_VARARGS__TYPE typename...
 #define AZ_TYPE_INFO_INTERNAL_TYPENAME_VARARGS__ARG(A) A...
 #define AZ_TYPE_INFO_INTERNAL_TYPENAME_VARARGS__UUID(Tag, A) AZ::Internal::AggregateTypes< A... >::template Uuid< Tag >()
-#define AZ_TYPE_INFO_INTERNAL_TYPENAME_VARARGS__NAME(A) AZ::Internal::AggregateTypes< A... >::TypeName(typeName, AZ_ARRAY_SIZE(typeName))
+#define AZ_TYPE_INFO_INTERNAL_TYPENAME_VARARGS__NAME(A) AZ::Internal::AggregateTypes< A... >::TypeName()
 
 #define AZ_TYPE_INFO_INTERNAL_CLASS_VARARGS__TYPE class...
 #define AZ_TYPE_INFO_INTERNAL_CLASS_VARARGS__ARG(A) A...
 #define AZ_TYPE_INFO_INTERNAL_CLASS_VARARGS__UUID(Tag, A) AZ::Internal::AggregateTypes< A... >::template Uuid< Tag >()
-#define AZ_TYPE_INFO_INTERNAL_CLASS_VARARGS__NAME(A) AZ::Internal::AggregateTypes< A... >::TypeName(typeName, AZ_ARRAY_SIZE(typeName));
+#define AZ_TYPE_INFO_INTERNAL_CLASS_VARARGS__NAME(A) AZ::Internal::AggregateTypes< A... >::TypeName()
 
 #define AZ_TYPE_INFO_INTERNAL_AUTO__TYPE auto
 #define AZ_TYPE_INFO_INTERNAL_AUTO__ARG(A) A
 #define AZ_TYPE_INFO_INTERNAL_AUTO__UUID(Tag, A) AZ::Internal::GetTypeId< A , Tag >()
-#define AZ_TYPE_INFO_INTERNAL_AUTO__NAME(A) AZ::Internal::AzTypeInfoSafeCat(typeName, AZ_ARRAY_SIZE(typeName), AZ::Internal::GetTypeName< A >())
+#define AZ_TYPE_INFO_INTERNAL_AUTO__NAME(A) AZ::Internal::GetTypeName< A >()
 
 #define AZ_TYPE_INFO_INTERNAL_EXPAND_I(NAME, TARGET)     NAME##__##TARGET
 #define AZ_TYPE_INFO_INTERNAL_EXPAND(NAME, TARGET)       AZ_TYPE_INFO_INTERNAL_EXPAND_I(NAME, TARGET)
@@ -723,11 +954,11 @@ namespace AZ
 #define AZ_TYPE_INFO_INTERNAL_TEMPLATE_ARGUMENT_EXPANSION_5(_1, _2, _3, _4, _5) AZ_TYPE_INFO_INTERNAL_TEMPLATE_ARGUMENT_EXPANSION_4(_1, _2, _3, _4), AZ_TYPE_INFO_INTERNAL_EXPAND(_5, ARG)(T5)
 #define AZ_TYPE_INFO_INTERNAL_TEMPLATE_ARGUMENT_EXPANSION(...) AZ_MACRO_SPECIALIZE(AZ_TYPE_INFO_INTERNAL_TEMPLATE_ARGUMENT_EXPANSION_, AZ_VA_NUM_ARGS(__VA_ARGS__), (__VA_ARGS__))
 
-#define AZ_TYPE_INFO_INTERNAL_TEMPLATE_NAME_EXPANSION_1(_1)                                                                                                                                                          AZ_TYPE_INFO_INTERNAL_EXPAND(_1, NAME)(T1);
-#define AZ_TYPE_INFO_INTERNAL_TEMPLATE_NAME_EXPANSION_2(_1, _2)             AZ_TYPE_INFO_INTERNAL_TEMPLATE_NAME_EXPANSION_1(_1)             AZ::Internal::AzTypeInfoSafeCat(typeName, AZ_ARRAY_SIZE(typeName), ", "); AZ_TYPE_INFO_INTERNAL_EXPAND(_2, NAME)(T2);
-#define AZ_TYPE_INFO_INTERNAL_TEMPLATE_NAME_EXPANSION_3(_1, _2, _3)         AZ_TYPE_INFO_INTERNAL_TEMPLATE_NAME_EXPANSION_2(_1, _2)         AZ::Internal::AzTypeInfoSafeCat(typeName, AZ_ARRAY_SIZE(typeName), ", "); AZ_TYPE_INFO_INTERNAL_EXPAND(_3, NAME)(T3);
-#define AZ_TYPE_INFO_INTERNAL_TEMPLATE_NAME_EXPANSION_4(_1, _2, _3, _4)     AZ_TYPE_INFO_INTERNAL_TEMPLATE_NAME_EXPANSION_3(_1, _2, _3)     AZ::Internal::AzTypeInfoSafeCat(typeName, AZ_ARRAY_SIZE(typeName), ", "); AZ_TYPE_INFO_INTERNAL_EXPAND(_4, NAME)(T4);
-#define AZ_TYPE_INFO_INTERNAL_TEMPLATE_NAME_EXPANSION_5(_1, _2, _3, _4, _5) AZ_TYPE_INFO_INTERNAL_TEMPLATE_NAME_EXPANSION_4(_1, _2, _3, _4) AZ::Internal::AzTypeInfoSafeCat(typeName, AZ_ARRAY_SIZE(typeName), ", "); AZ_TYPE_INFO_INTERNAL_EXPAND(_5, NAME)(T5);
+#define AZ_TYPE_INFO_INTERNAL_TEMPLATE_NAME_EXPANSION_1(_1)                                                                                  AZ_TYPE_INFO_INTERNAL_EXPAND(_1, NAME)(T1)
+#define AZ_TYPE_INFO_INTERNAL_TEMPLATE_NAME_EXPANSION_2(_1, _2)             AZ_TYPE_INFO_INTERNAL_TEMPLATE_NAME_EXPANSION_1(_1),             AZ_TYPE_INFO_INTERNAL_EXPAND(_2, NAME)(T2)
+#define AZ_TYPE_INFO_INTERNAL_TEMPLATE_NAME_EXPANSION_3(_1, _2, _3)         AZ_TYPE_INFO_INTERNAL_TEMPLATE_NAME_EXPANSION_2(_1, _2),         AZ_TYPE_INFO_INTERNAL_EXPAND(_3, NAME)(T3)
+#define AZ_TYPE_INFO_INTERNAL_TEMPLATE_NAME_EXPANSION_4(_1, _2, _3, _4)     AZ_TYPE_INFO_INTERNAL_TEMPLATE_NAME_EXPANSION_3(_1, _2, _3),     AZ_TYPE_INFO_INTERNAL_EXPAND(_4, NAME)(T4)
+#define AZ_TYPE_INFO_INTERNAL_TEMPLATE_NAME_EXPANSION_5(_1, _2, _3, _4, _5) AZ_TYPE_INFO_INTERNAL_TEMPLATE_NAME_EXPANSION_4(_1, _2, _3, _4), AZ_TYPE_INFO_INTERNAL_EXPAND(_5, NAME)(T5)
 #define AZ_TYPE_INFO_INTERNAL_TEMPLATE_NAME_EXPANSION(...) AZ_MACRO_SPECIALIZE(AZ_TYPE_INFO_INTERNAL_TEMPLATE_NAME_EXPANSION_, AZ_VA_NUM_ARGS(__VA_ARGS__), (__VA_ARGS__))
 
 #define AZ_TYPE_INFO_INTERNAL_TEMPLATE_UUID_EXPANSION_1(Tag, _1)                                                                                         AZ_TYPE_INFO_INTERNAL_EXPAND(_1, UUID)(Tag, T1)
@@ -741,39 +972,58 @@ namespace AZ
     AZ_TYPE_INFO_INTERNAL_VARIATION_GENERIC(_Specialization, _ClassUuid)                                            \
     template<AZ_TYPE_INFO_INTERNAL_TEMPLATE_TYPE_EXPANSION(__VA_ARGS__)>                                            \
     struct AzTypeInfo<_Specialization<AZ_TYPE_INFO_INTERNAL_TEMPLATE_ARGUMENT_EXPANSION(__VA_ARGS__)>, false> {     \
-        static const char* Name() {                                                                                 \
-            static char typeName[128] = { 0 };                                                                      \
-            if (typeName[0] == 0) {                                                                                 \
-                AZ::Internal::AzTypeInfoSafeCat(typeName, AZ_ARRAY_SIZE(typeName), _Name "<");                      \
-                AZ_TYPE_INFO_INTERNAL_TEMPLATE_NAME_EXPANSION(__VA_ARGS__)                                          \
-                AZ::Internal::AzTypeInfoSafeCat(typeName, AZ_ARRAY_SIZE(typeName), ">");                            \
+    private:                                                                                                        \
+        struct TypeNameInternal                                                                                     \
+        {                                                                                                           \
+            static constexpr auto TypeName = []() constexpr                                                         \
+            {                                                                                                       \
+                constexpr auto combineTypeNameBuffer = []() constexpr                                               \
+                {                                                                                                   \
+                    using CombineBufferType = AZStd::fixed_string<1024>;                                            \
+                    CombineBufferType typeName{ _Name "<" };                                                        \
+                    typeName.append_range(AZStd::to_array<AZStd::string_view>(                                      \
+                        { AZ_TYPE_INFO_INTERNAL_TEMPLATE_NAME_EXPANSION(__VA_ARGS__) })                             \
+                        | AZStd::views::join_with(AZ::Internal::TypeNameSeparator));                                \
+                    typeName += '>';                                                                                \
+                    return typeName;                                                                                \
+                }();                                                                                                \
+                /* Round up to power of 2 to reduce the number of fixed_string template instantiations */           \
+                return AZStd::fixed_string<AZ::AlignUpToPowerOfTwo(combineTypeNameBuffer.size())>(combineTypeNameBuffer); \
+            }();                                                                                                    \
+            constexpr const char* operator()() const                                                                \
+            {                                                                                                       \
+                return TypeName.c_str();                                                                            \
             }                                                                                                       \
-            return typeName;                                                                                        \
+        };                                                                                                          \
+    public:                                                                                                         \
+        static constexpr const char* Name()                                                                         \
+        {                                                                                                           \
+            return TypeNameInternal{}();                                                                            \
         }                                                                                                           \
     private:                                                                                                        \
-        static const AZ::TypeId& UuidTag(AZ::TypeIdResolverTags::CanonicalTypeIdTag)                                \
+        static constexpr AZ::TypeId UuidTag(AZ::TypeIdResolverTags::CanonicalTypeIdTag)                             \
         {                                                                                                           \
-            static AZ::Internal::TypeIdHolder s_uuid(                                                               \
+            return AZ::TypeId(                                                                                      \
                 AZ::TypeId(_ClassUuid) +                                                                            \
                 AZ_TYPE_INFO_INTERNAL_TEMPLATE_UUID_EXPANSION(AZ::TypeIdResolverTags::CanonicalTypeIdTag, __VA_ARGS__)); \
-            return s_uuid;                                                                                          \
         }                                                                                                           \
-        static const AZ::TypeId& UuidTag(AZ::TypeIdResolverTags::PointerRemovedTypeIdTag)                           \
+        static constexpr AZ::TypeId UuidTag(AZ::TypeIdResolverTags::PointerRemovedTypeIdTag)                        \
         {                                                                                                           \
-            static AZ::Internal::TypeIdHolder s_uuid(                                                               \
+            return AZ::TypeId(                                                                                      \
                 AZ::TypeId(_ClassUuid) +                                                                            \
                 AZ_TYPE_INFO_INTERNAL_TEMPLATE_UUID_EXPANSION(AZ::TypeIdResolverTags::PointerRemovedTypeIdTag, __VA_ARGS__)); \
-            return s_uuid;                                                                                          \
         }                                                                                                           \
-        static const AZ::TypeId& UuidTag(AZ::TypeIdResolverTags::GenericTypeIdTag)                                  \
+        static constexpr AZ::TypeId UuidTag(AZ::TypeIdResolverTags::GenericTypeIdTag)                               \
         {                                                                                                           \
             return AzGenericTypeInfo::Uuid<_Specialization>();                                                      \
         }                                                                                                           \
+        template<class TypeIdResolverTag>                                                                           \
+        inline static constexpr AZ::TypeId s_uuid_v = UuidTag(TypeIdResolverTag{});                                 \
     public:                                                                                                         \
         template<typename Tag = AZ::TypeIdResolverTags::CanonicalTypeIdTag>                                         \
-        static const AZ::TypeId& Uuid()                                                                             \
+        static constexpr AZ::TypeId Uuid()                                                                          \
         {                                                                                                           \
-            return UuidTag(Tag{});                                                                                  \
+            return s_uuid_v<Tag>;                                                                                   \
         }                                                                                                           \
         static constexpr TypeTraits GetTypeTraits()                                                                 \
         {                                                                                                           \
@@ -793,39 +1043,58 @@ namespace AZ
     AZ_TYPE_INFO_INTERNAL_VARIATION_GENERIC(_Specialization, _ClassUuid)                                            \
     template<AZ_TYPE_INFO_INTERNAL_TEMPLATE_TYPE_EXPANSION(__VA_ARGS__)>                                            \
     struct AzTypeInfo<_Specialization<AZ_TYPE_INFO_INTERNAL_TEMPLATE_ARGUMENT_EXPANSION(__VA_ARGS__)>, false> {     \
-        static const char* Name() {                                                                                 \
-            static char typeName[128] = { 0 };                                                                      \
-            if (typeName[0] == 0) {                                                                                 \
-                AZ::Internal::AzTypeInfoSafeCat(typeName, AZ_ARRAY_SIZE(typeName), #_Specialization "<");           \
-                AZ_TYPE_INFO_INTERNAL_TEMPLATE_NAME_EXPANSION(__VA_ARGS__)                                          \
-                AZ::Internal::AzTypeInfoSafeCat(typeName, AZ_ARRAY_SIZE(typeName), ">");                            \
+    private:                                                                                                        \
+        struct TypeNameInternal                                                                                     \
+        {                                                                                                           \
+            static constexpr auto TypeName = []() constexpr                                                         \
+            {                                                                                                       \
+                constexpr auto combineTypeNameBuffer = []() constexpr                                               \
+                {                                                                                                   \
+                    using CombineBufferType = AZStd::fixed_string<1024>;                                            \
+                    CombineBufferType typeName{ #_Specialization "<" };                                             \
+                    typeName.append_range(AZStd::to_array<AZStd::string_view>(                                      \
+                        { AZ_TYPE_INFO_INTERNAL_TEMPLATE_NAME_EXPANSION(__VA_ARGS__) })                             \
+                        | AZStd::views::join_with(AZ::Internal::TypeNameSeparator));                                \
+                    typeName += '>';                                                                                \
+                    return typeName;                                                                                \
+                }();                                                                                                \
+                /* Round up to power of 2 to reduce the number of fixed_string template instantiations */           \
+                return AZStd::fixed_string<AZ::AlignUpToPowerOfTwo(combineTypeNameBuffer.size())>(combineTypeNameBuffer); \
+            }();                                                                                                    \
+            constexpr const char* operator()() const                                                                \
+            {                                                                                                       \
+                return TypeName.c_str();                                                                            \
             }                                                                                                       \
-            return typeName;                                                                                        \
+        };                                                                                                          \
+    public:                                                                                                         \
+        static constexpr const char* Name()                                                                         \
+        {                                                                                                           \
+            return TypeNameInternal{}();                                                                            \
         }                                                                                                           \
     private:                                                                                                        \
-        static const AZ::TypeId& UuidTag(AZ::TypeIdResolverTags::CanonicalTypeIdTag)                                \
+        static constexpr AZ::TypeId UuidTag(AZ::TypeIdResolverTags::CanonicalTypeIdTag)                             \
         {                                                                                                           \
-            static AZ::Internal::TypeIdHolder s_uuid(                                                               \
+            return AZ::TypeId(                                                                                      \
                 AZ_TYPE_INFO_INTERNAL_TEMPLATE_UUID_EXPANSION(AZ::TypeIdResolverTags::CanonicalTypeIdTag, __VA_ARGS__) \
                 + AZ::TypeId(_ClassUuid));                                                                          \
-            return s_uuid;                                                                                          \
         }                                                                                                           \
-        static const AZ::TypeId& UuidTag(AZ::TypeIdResolverTags::PointerRemovedTypeIdTag)                           \
+        static constexpr AZ::TypeId UuidTag(AZ::TypeIdResolverTags::PointerRemovedTypeIdTag)                        \
         {                                                                                                           \
-            static AZ::Internal::TypeIdHolder s_uuid(                                                               \
+            return AZ::TypeId(                                                                                      \
                 AZ_TYPE_INFO_INTERNAL_TEMPLATE_UUID_EXPANSION(AZ::TypeIdResolverTags::PointerRemovedTypeIdTag, __VA_ARGS__) \
                 + AZ::TypeId(_ClassUuid));                                                                          \
-            return s_uuid;                                                                                          \
         }                                                                                                           \
-        static const AZ::TypeId& UuidTag(AZ::TypeIdResolverTags::GenericTypeIdTag)                                  \
+        static constexpr AZ::TypeId UuidTag(AZ::TypeIdResolverTags::GenericTypeIdTag)                               \
         {                                                                                                           \
             return AzGenericTypeInfo::Uuid<_Specialization>();                                                      \
         }                                                                                                           \
+        template<class TypeIdResolverTag>                                                                           \
+        inline static constexpr AZ::TypeId s_uuid_v = UuidTag(TypeIdResolverTag{});                                 \
     public:                                                                                                         \
         template<typename Tag = AZ::TypeIdResolverTags::CanonicalTypeIdTag>                                         \
-        static const AZ::TypeId& Uuid()                                                                             \
+        static constexpr AZ::TypeId Uuid()                                                                          \
         {                                                                                                           \
-            return UuidTag(Tag{});                                                                                  \
+            return s_uuid_v<Tag>;                                                                                   \
         }                                                                                                           \
         static constexpr TypeTraits GetTypeTraits()                                                                 \
         {                                                                                                           \
@@ -838,47 +1107,64 @@ namespace AZ
         {                                                                                                           \
             return sizeof(_Specialization<AZ_TYPE_INFO_INTERNAL_TEMPLATE_ARGUMENT_EXPANSION(__VA_ARGS__)>);         \
         }                                                                                                           \
-        static bool Specialized() { return true; }                                                                  \
+        static constexpr bool Specialized() { return true; }                                                        \
     }
 
 #define AZ_TYPE_INFO_INTERNAL_FUNCTION_VARIATION_SPECIALIZATION(_Specialization, _ClassUuid)\
     AZ_TYPE_INFO_INTERNAL_VARIATION_GENERIC(_Specialization, _ClassUuid) \
     template<typename R, typename... Args> \
     struct AzTypeInfo<_Specialization<R(Args...)>, false> {\
-        static const char* Name() { \
-            static char typeName[128] = { 0 }; \
-            if (typeName[0] == 0) { \
-                AZ::Internal::AzTypeInfoSafeCat(typeName, AZ_ARRAY_SIZE(typeName), #_Specialization "<"); \
-                AZ::Internal::AzTypeInfoSafeCat(typeName, AZ_ARRAY_SIZE(typeName), AZ::AzTypeInfo<R>::Name()); \
-                AZ::Internal::AggregateTypes<Args...>::TypeName(typeName, AZ_ARRAY_SIZE(typeName)); \
-                AZ::Internal::AzTypeInfoSafeCat(typeName, AZ_ARRAY_SIZE(typeName), ">"); \
-            }\
-            return typeName; \
-        } \
     private: \
-        static const AZ::TypeId& UuidTag(AZ::TypeIdResolverTags::CanonicalTypeIdTag) \
+        struct TypeNameInternal                                                                                     \
+        {                                                                                                           \
+            static constexpr auto TypeName = []() constexpr                                                         \
+            {                                                                                                       \
+                constexpr auto combineTypeNameBuffer = []() constexpr                                               \
+                {                                                                                                   \
+                    using CombineBufferType = AZStd::fixed_string<1024>;                                            \
+                    CombineBufferType typeName{ #_Specialization "<" };                                             \
+                    typeName += AZ::AzTypeInfo<R>::Name();                                                          \
+                    typeName += AZ::Internal::AggregateTypes<Args...>::TypeName();                                  \
+                    typeName += '>';                                                                                \
+                    return typeName;                                                                                \
+                }();                                                                                                \
+                /* Round up to power of 2 to reduce the number of fixed_string template instantiations */           \
+                return AZStd::fixed_string<AZ::AlignUpToPowerOfTwo(combineTypeNameBuffer.size())>(combineTypeNameBuffer); \
+            }();                                                                                                    \
+            constexpr const char* operator()() const                                                                \
+            {                                                                                                       \
+                return TypeName.c_str();                                                                            \
+            }                                                                                                       \
+        };                                                                                                          \
+    public:                                                                                                         \
+        static constexpr const char* Name()                                                                         \
+        {                                                                                                           \
+            return TypeNameInternal{}();                                                                            \
+        }                                                                                                           \
+    private: \
+        static constexpr AZ::TypeId UuidTag(AZ::TypeIdResolverTags::CanonicalTypeIdTag) \
         { \
-            static AZ::Internal::TypeIdHolder s_uuid( \
+            return AZ::TypeId( \
                 AZ::Uuid(_ClassUuid) + AZ::AzTypeInfo<R>::template Uuid<AZ::TypeIdResolverTags::CanonicalTypeIdTag>() + \
                 AZ::Internal::AggregateTypes<Args...>::template Uuid<AZ::TypeIdResolverTags::CanonicalTypeIdTag>()); \
-            return s_uuid; \
         } \
-        static const AZ::TypeId& UuidTag(AZ::TypeIdResolverTags::PointerRemovedTypeIdTag) \
+        static constexpr AZ::TypeId UuidTag(AZ::TypeIdResolverTags::PointerRemovedTypeIdTag) \
         { \
-            static AZ::Internal::TypeIdHolder s_uuid( \
+            return AZ::TypeId( \
                 AZ::Uuid(_ClassUuid) + AZ::AzTypeInfo<R>::template Uuid<AZ::TypeIdResolverTags::PointerRemovedTypeIdTag>() + \
                 AZ::Internal::AggregateTypes<Args...>::template Uuid<AZ::TypeIdResolverTags::PointerRemovedTypeIdTag>()); \
-            return s_uuid; \
         } \
-        static const AZ::TypeId& UuidTag(AZ::TypeIdResolverTags::GenericTypeIdTag) \
+        static constexpr AZ::TypeId UuidTag(AZ::TypeIdResolverTags::GenericTypeIdTag) \
         { \
             return AzGenericTypeInfo::Uuid<_Specialization>(); \
         } \
+        template<class TypeIdResolverTag> \
+        inline static constexpr AZ::TypeId s_uuid_v = UuidTag(TypeIdResolverTag{}); \
     public: \
         template<typename Tag = AZ::TypeIdResolverTags::CanonicalTypeIdTag> \
-        static const AZ::TypeId& Uuid() \
+        static constexpr AZ::TypeId Uuid() \
         { \
-            return UuidTag(Tag{}); \
+            return s_uuid_v<Tag>; \
         } \
         static constexpr TypeTraits GetTypeTraits() \
         { \
@@ -891,7 +1177,7 @@ namespace AZ
         { \
             return sizeof(_Specialization<R(Args...)>); \
         } \
-        static bool Specialized() { return true; } \
+        static constexpr bool Specialized() { return true; } \
     }
 
     /* This version of AZ_TYPE_INFO_INTERNAL_VARIATION_SPECIALIZATION_2 only uses the first argument for UUID generation purposes */
@@ -899,39 +1185,56 @@ namespace AZ
     AZ_TYPE_INFO_INTERNAL_VARIATION_GENERIC(_Specialization, _AddUuid)                                               \
     template<class _T1, class _T2>                                                                                   \
     struct AzTypeInfo<_Specialization<_T1, _T2>, false> {                                                            \
-        static const char* Name() {                                                                                  \
-            static char typeName[128] = { 0 };                                                                       \
-            if (typeName[0] == 0) {                                                                                  \
-                AZ::Internal::AzTypeInfoSafeCat(typeName, AZ_ARRAY_SIZE(typeName), #_Specialization "<");            \
-                AZ::Internal::AzTypeInfoSafeCat(typeName, AZ_ARRAY_SIZE(typeName), AZ::AzTypeInfo<_T1>::Name());     \
-                AZ::Internal::AzTypeInfoSafeCat(typeName, AZ_ARRAY_SIZE(typeName), ">");                             \
+    private:                                                                                                         \
+        struct TypeNameInternal                                                                                      \
+        {                                                                                                            \
+            static constexpr auto TypeName = []() constexpr                                                          \
+            {                                                                                                        \
+                constexpr auto combineTypeNameBuffer = []() constexpr                                                \
+                {                                                                                                    \
+                    using CombineBufferType = AZStd::fixed_string<1024>;                                             \
+                    CombineBufferType typeName{ #_Specialization "<" };                                              \
+                    typeName += AZ::AzTypeInfo<_T1>::Name();                                                         \
+                    typeName += '>';                                                                                 \
+                    return typeName;                                                                                 \
+                }();                                                                                                 \
+                /* Round up to power of 2 to reduce the number of fixed_string template instantiations */            \
+                return AZStd::fixed_string<AZ::AlignUpToPowerOfTwo(combineTypeNameBuffer.size())>(combineTypeNameBuffer);\
+            }();                                                                                                     \
+            constexpr const char* operator()() const                                                                 \
+            {                                                                                                        \
+                return TypeName.c_str();                                                                             \
             }                                                                                                        \
-            return typeName;                                                                                         \
+        };                                                                                                           \
+    public:                                                                                                          \
+        static constexpr const char* Name()                                                                          \
+        {                                                                                                            \
+            return TypeNameInternal{}();                                                                             \
         }                                                                                                            \
     private:                                                                                                         \
-        static const AZ::TypeId& UuidTag(AZ::TypeIdResolverTags::CanonicalTypeIdTag)                                 \
+        static constexpr AZ::TypeId UuidTag(AZ::TypeIdResolverTags::CanonicalTypeIdTag)                              \
         {                                                                                                            \
-            static AZ::Internal::TypeIdHolder s_uuid(                                                                \
-                AZ::AzTypeInfo<_T1>::template Uuid<AZ::TypeIdResolverTags::CanonicalTypeIdTag>() +                   \
-                AZ::TypeId(_AddUuid));                                                                               \
-            return s_uuid;                                                                                           \
-        }                                                                                                            \
-        static const AZ::TypeId& UuidTag(AZ::TypeIdResolverTags::PointerRemovedTypeIdTag)                            \
-        {                                                                                                            \
-            static AZ::Internal::TypeIdHolder s_uuid(                                                                \
+            return AZ::TypeId(                                                                                       \
                 AZ::AzTypeInfo<_T1>::template Uuid<AZ::TypeIdResolverTags::PointerRemovedTypeIdTag>() +              \
                 AZ::TypeId(_AddUuid));                                                                               \
-            return s_uuid;                                                                                           \
         }                                                                                                            \
-        static const AZ::TypeId& UuidTag(AZ::TypeIdResolverTags::GenericTypeIdTag)                                   \
+        static constexpr AZ::TypeId UuidTag(AZ::TypeIdResolverTags::PointerRemovedTypeIdTag)                         \
+        {                                                                                                            \
+            return AZ::TypeId(                                                                                       \
+                AZ::AzTypeInfo<_T1>::template Uuid<AZ::TypeIdResolverTags::PointerRemovedTypeIdTag>() +              \
+                AZ::TypeId(_AddUuid));                                                                               \
+        }                                                                                                            \
+        static constexpr AZ::TypeId UuidTag(AZ::TypeIdResolverTags::GenericTypeIdTag)                                \
         {                                                                                                            \
             return AzGenericTypeInfo::Uuid<_Specialization>();                                                       \
         }                                                                                                            \
+        template<class TypeIdResolverTag>                                                                            \
+        inline static constexpr AZ::TypeId s_uuid_v = UuidTag(TypeIdResolverTag{});                                  \
     public:                                                                                                          \
         template<typename Tag = AZ::TypeIdResolverTags::CanonicalTypeIdTag>                                          \
-        static const AZ::TypeId& Uuid()                                                                              \
+        static constexpr AZ::TypeId Uuid()                                                                           \
         {                                                                                                            \
-            return UuidTag(Tag{});                                                                                   \
+            return s_uuid_v<Tag>;                                                                                    \
         }                                                                                                            \
         static constexpr TypeTraits GetTypeTraits()                                                                  \
         {                                                                                                            \
@@ -944,7 +1247,7 @@ namespace AZ
         {                                                                                                            \
             return sizeof(_Specialization<_T1, _T2>);                                                                \
         }                                                                                                            \
-        static bool Specialized() { return true; }                                                                   \
+        static constexpr bool Specialized() { return true; }                                                         \
     }
 
     AZ_TYPE_INFO_INTERNAL_SPECIALIZE(char, "{3AB0037F-AF8D-48ce-BCA0-A170D18B2C03}");
@@ -1011,25 +1314,40 @@ namespace AZ
     AZ_TYPE_INFO_INTERNAL_SPECIALIZED_TEMPLATE_POSTFIX_UUID(FixedStringTypeInfo, "{FA339E31-C383-49C7-80AC-5E1A3D8FA296}", AZ_TYPE_INFO_INTERNAL_TYPENAME, AZ_TYPE_INFO_INTERNAL_AUTO, AZ_TYPE_INFO_INTERNAL_TYPENAME);
 
     static constexpr const char* s_variantTypeId{ "{1E8BB1E5-410A-4367-8FAA-D43A4DE14D4B}" };
-    AZ_TYPE_INFO_INTERNAL_SPECIALIZED_TEMPLATE_PREFIX_UUID(AZStd::variant, "variant", s_variantTypeId, AZ_TYPE_INFO_INTERNAL_TYPENAME_VARARGS);
+    AZ_TYPE_INFO_INTERNAL_SPECIALIZED_TEMPLATE_PREFIX_UUID(AZStd::variant, "AZStd::variant", s_variantTypeId, AZ_TYPE_INFO_INTERNAL_TYPENAME_VARARGS);
 
     AZ_TYPE_INFO_INTERNAL_FUNCTION_VARIATION_SPECIALIZATION(AZStd::function, "{C9F9C644-CCC3-4F77-A792-F5B5DBCA746E}");
 } // namespace AZ
 
 // Template class type info
-#define AZ_TYPE_INFO_INTERNAL_TEMPLATE(_ClassName, _ClassUuid, ...)\
-    void TYPEINFO_Enable() {}\
-    static const char* TYPEINFO_Name() {\
-         static char typeName[128] = { 0 };\
-         if (typeName[0]==0) {\
-            AZ::Internal::AzTypeInfoSafeCat(typeName, AZ_ARRAY_SIZE(typeName), #_ClassName "<");\
-            AZ::Internal::AggregateTypes<__VA_ARGS__>::TypeName(typeName, AZ_ARRAY_SIZE(typeName));\
-            AZ::Internal::AzTypeInfoSafeCat(typeName, AZ_ARRAY_SIZE(typeName), ">");\
-                           }\
-         return typeName; } \
-    static const AZ::TypeId& TYPEINFO_Uuid() {\
-        static AZ::Internal::TypeIdHolder s_uuid(AZ::TypeId(_ClassUuid) + AZ::Internal::AggregateTypes<__VA_ARGS__>::Uuid());\
-        return s_uuid;\
+#define AZ_TYPE_INFO_INTERNAL_TEMPLATE(_ClassName, _ClassUuid, ...) \
+    struct TYPEINFO_Enable{}; \
+    struct TypeNameInternal \
+    { \
+        static constexpr auto TypeName = []() constexpr \
+        { \
+            constexpr auto combineTypeNameBuffer = []() constexpr \
+            { \
+                using CombineBufferType = AZStd::fixed_string<1024>; \
+                CombineBufferType typeName{ #_ClassName "<" }; \
+                typeName += AZ::Internal::AggregateTypes<__VA_ARGS__>::TypeName(); \
+                typeName += '>'; \
+                return typeName; \
+            }(); \
+            return AZStd::fixed_string<AZ::AlignUpToPowerOfTwo(combineTypeNameBuffer.size())>(combineTypeNameBuffer); \
+        }(); \
+        constexpr const char* operator()() const \
+        { \
+            return TypeName.c_str(); \
+        } \
+    }; \
+    static constexpr const char* TYPEINFO_Name() \
+    { \
+        return TypeNameInternal{}(); \
+    } \
+    static constexpr AZ::TypeId TYPEINFO_Uuid() \
+    { \
+        return AZ::TypeId(_ClassUuid) + AZ::Internal::AggregateTypes<__VA_ARGS__>::Uuid(); \
     }
 
 // Template class type info
@@ -1116,3 +1434,33 @@ namespace AZ
 */
 #define AZ_TYPE_INFO_TEMPLATE(_Template, _Uuid, ...) AZ_TYPE_INFO_INTERNAL_SPECIALIZED_TEMPLATE_PREFIX_UUID(_Template, #_Template, _Uuid, __VA_ARGS__)
 
+
+// Adds typeinfo specialization for tuple type
+// Done outside of tuple.h to avoid it including TypeInfo.h which cause a circular include in fixed_string.inl
+// since it indirectly includes tuple.h via common_view.h -> all_view.h -> owning_view.h -> ranges_adaptor.h -> tuple.h
+namespace AZ
+{
+    // Specialize the AzDeprcatedTypeNameVisitor for tuple to make sure their
+    // is a mapping of the old type name to current type id
+    inline namespace DeprecatedTypeNames
+    {
+        template<typename... Types>
+        struct AzDeprecatedTypeNameVisitor<AZStd::tuple<Types...>>
+        {
+            template<class Functor>
+            constexpr void operator()(Functor&& visitCallback) const
+            {
+                // AZStd::tuple previous name was place into a buffer of size 128
+                AZStd::array<char, 128> deprecatedName{};
+
+                AZ::Internal::AzTypeInfoSafeCat(deprecatedName.data(), deprecatedName.size(), "tuple<");
+                (AggregateTypeNameOld<Types>(deprecatedName.data(), deprecatedName.size()), ...);
+                AZ::Internal::AzTypeInfoSafeCat(deprecatedName.data(), deprecatedName.size(), ">");
+
+                AZStd::invoke(AZStd::forward<Functor>(visitCallback), deprecatedName.data());
+            }
+        };
+    }
+
+    AZ_TYPE_INFO_INTERNAL_SPECIALIZED_TEMPLATE_PREFIX_UUID(AZStd::tuple, "AZStd::tuple", "{F99F9308-DC3E-4384-9341-89CBF1ABD51E}", AZ_TYPE_INFO_INTERNAL_TYPENAME_VARARGS);
+}

@@ -19,11 +19,20 @@
 #include <ScriptCanvas/Variable/VariableData.h>
 #include <ScriptCanvas/Execution/ExecutionContext.h>
 #include <ScriptCanvas/Execution/ExecutionObjectCloning.h>
+#include <ScriptCanvas/Execution/ExecutionStateDeclarations.h>
 
 namespace ScriptCanvas
 {
+    namespace Execution
+    {
+        struct StateStorage;
+    }
+
     class RuntimeAsset;
     struct RuntimeVariable;
+
+    constexpr const AZ::u32 RuntimeDataSubId = AZ_CRC_CE("RuntimeData"); // 0x163310ae
+    constexpr const AZ::u32 SubgraphInterfaceSubId = AZ_CRC_CE("SubgraphInterface"); // 0xdfe6dc72
 
     class RuntimeAssetDescription : public AssetDescription
     {
@@ -31,23 +40,7 @@ namespace ScriptCanvas
 
         AZ_TYPE_INFO(RuntimeAssetDescription, "{7F49CB81-0655-4AF6-A1B5-95417A6FD568}");
 
-        RuntimeAssetDescription()
-            : AssetDescription(
-                azrtti_typeid<RuntimeAsset>(),
-                "Script Canvas Runtime",
-                "Script Canvas Runtime Graph",
-                "@projectroot@/scriptcanvas",
-                ".scriptcanvas_compiled",
-                "Script Canvas Runtime",
-                "Untitled-%i",
-                "Script Canvas Files (*.scriptcanvas_compiled)",
-                "Script Canvas Runtime",
-                "Script Canvas Runtime",
-                "Icons/ScriptCanvas/Viewport/ScriptCanvas.png",
-                AZ::Color(1.0f, 0.0f, 0.0f, 1.0f),
-                false
-            )
-        {}
+        RuntimeAssetDescription();
     };
 
     struct RuntimeData
@@ -72,12 +65,15 @@ namespace ScriptCanvas
         AZStd::vector<AZ::Data::Asset<ScriptEvents::ScriptEventsAsset>> m_requiredScriptEvents;
 
         // populate all on initial load at run time
+        AZStd::function<ExecutionState*(Execution::StateStorage&, ExecutionStateConfig&)> m_createExecution;
         AZStd::vector<Execution::CloneSource> m_cloneSources;
-        AZStd::vector<AZ::BehaviorValueParameter> m_activationInputStorage;
+        AZStd::vector<AZ::BehaviorArgument> m_activationInputStorage;
         Execution::ActivationInputRange m_activationInputRange;
 
         // used to initialize statics only once, and not necessarily on the loading thread
-        bool m_areStaticsInitialized = false;
+        // the interpreted statics require the Lua context, and so they must be initialized on the main thread
+        // this may have a work around with lua_newthread, which could be done on any loading thread
+        bool m_areScriptLocalStaticsInitialized = false;
 
         bool RequiresStaticInitialization() const;
 
@@ -93,8 +89,6 @@ namespace ScriptCanvas
         AZ_TYPE_INFO(RuntimeDataOverrides, "{CE3C0AE6-4EBA-43B2-B2D5-7AC24A194E63}");
         AZ_CLASS_ALLOCATOR(RuntimeDataOverrides, AZ::SystemAllocator, 0);
 
-        static bool IsPreloadBehaviorEnforced(const RuntimeDataOverrides& overrides);
-
         static void Reflect(AZ::ReflectContext* reflectContext);
 
         AZ::Data::Asset<RuntimeAsset> m_runtimeAsset;
@@ -106,6 +100,33 @@ namespace ScriptCanvas
         void EnforcePreloadBehavior();
     };
 
+    enum class IsPreloadedResult
+    {
+        Yes,
+        PreloadBehaviorNotEnforced,
+        DataNotLoaded,
+    };
+
+    IsPreloadedResult IsPreloaded(const RuntimeDataOverrides& overrides);
+    
+    constexpr const char* ToString(IsPreloadedResult result)
+    {
+        switch (result)
+        {
+        case ScriptCanvas::IsPreloadedResult::Yes:
+            return "Data are preloaded and preload behavior enforced";
+
+        case ScriptCanvas::IsPreloadedResult::PreloadBehaviorNotEnforced:
+            return "Preload behavior is NOT enforced";
+
+        case ScriptCanvas::IsPreloadedResult::DataNotLoaded:
+            return "Data are NOT loaded and ready";
+
+        default:
+            return "";
+        }
+    }
+    
     class RuntimeAsset
         : public AZ::Data::AssetData
     {
@@ -122,6 +143,10 @@ namespace ScriptCanvas
         {}
     };
 
+    using RuntimeAssetPtr = AZ::Data::Asset<RuntimeAsset>;
+
+    IsPreloadedResult IsPreloaded(RuntimeAssetPtr asset);
+
     class SubgraphInterfaceAsset;
 
     class SubgraphInterfaceAssetDescription : public AssetDescription
@@ -130,23 +155,7 @@ namespace ScriptCanvas
 
         AZ_TYPE_INFO(SubgraphInterfaceAssetDescription, "{7F7BE1A5-9447-41C2-9190-18580075094C}");
 
-        SubgraphInterfaceAssetDescription()
-            : AssetDescription(
-                azrtti_typeid<SubgraphInterfaceAsset>(),
-                "Script Canvas Function Interface",
-                "Script Canvas Function Interface",
-                "@projectroot@/scriptcanvas",
-                ".scriptcanvas_fn_compiled",
-                "Script Canvas Function Interface",
-                "Untitled-Function-%i",
-                "Script Canvas Compiled Function Interfaces (*.scriptcanvas_fn_compiled)",
-                "Script Canvas Function Interface",
-                "Script Canvas Function Interface",
-                "Icons/ScriptCanvas/Viewport/ScriptCanvas_Function.png",
-                AZ::Color(1.0f, 0.0f, 0.0f, 1.0f),
-                false
-            )
-        {}
+        SubgraphInterfaceAssetDescription();
     };
 
     struct SubgraphInterfaceData

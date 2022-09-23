@@ -49,7 +49,7 @@ namespace TrackView
         CaptureFinishedCallback m_captureFinishedCallback; //!< Stored callback called from OnCaptureFinished.
 
         // FrameCaptureNotificationBus overrides ...
-        void OnCaptureFinished(AZ::Render::FrameCaptureResult result, const AZStd::string& info) override;
+        void OnFrameCaptureFinished(AZ::Render::FrameCaptureResult result, const AZStd::string& info) override;
     };
 
     inline AZ::EntityId ActiveCameraEntityId()

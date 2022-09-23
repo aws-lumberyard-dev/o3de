@@ -8,9 +8,9 @@
 
 #pragma once
 
-#include <AzCore/RTTI/TypeInfo.h>
 #include <AzCore/std/containers/array.h>
 #include <AzCore/std/function/invoke.h>
+#include <AzCore/std/hash.h>
 #include <AzCore/std/utils.h>
 #include <AzCore/std/typetraits/is_same.h>
 #include <AzCore/std/typetraits/void_t.h>
@@ -33,7 +33,6 @@ namespace AZStd
     using std::forward_as_tuple;
     using std::tuple_cat;
     using std::get;
-
     //! Creates an hash specialization for tuple types using the hash_combine function
     //! The std::tuple implementation does not have this support. This is an extension
     template <typename... Types>
@@ -270,7 +269,7 @@ namespace AZStd
     };
 }
 
-// AZStd::apply implemenation helper block 
+// AZStd::apply implemenation helper block
 namespace AZStd
 {
     namespace Internal
@@ -339,11 +338,4 @@ namespace std
         using type = T;
     };
     AZ_POP_DISABLE_WARNING
-}
-
-
-// Adds typeinfo specialization for tuple type
-namespace AZ
-{
-    AZ_TYPE_INFO_INTERNAL_SPECIALIZED_TEMPLATE_PREFIX_UUID(AZStd::tuple, "tuple", "{F99F9308-DC3E-4384-9341-89CBF1ABD51E}", AZ_TYPE_INFO_INTERNAL_TYPENAME_VARARGS);
 }

@@ -48,7 +48,6 @@ struct ErrorCollector
 
 class GUIApplicationManager
     : public ApplicationManagerBase
-    , public AssetProcessor::MessageInfoBus::Handler
 {
     Q_OBJECT
 public:
@@ -92,6 +91,7 @@ protected Q_SLOTS:
     void ShowMessageBox(QString title, QString msg, bool isCritical);
     void ShowTrayIconMessage(QString msg);
     void ShowTrayIconErrorMessage(QString msg);
+    void QuitRequested() override;
 
 private:
     bool Restart();
@@ -114,5 +114,5 @@ private:
     QPointer<MainWindow> m_mainWindow;
     AZStd::unique_ptr<ErrorCollector> m_startupErrorCollector; // Collects errors during start up to display when startup has finished
 
-    AZStd::chrono::system_clock::time_point m_timeWhenLastWarningWasShown;
+    AZStd::chrono::steady_clock::time_point m_timeWhenLastWarningWasShown;
 };

@@ -24,7 +24,7 @@
 
 class QWindow;
 
-namespace ScriptCanvasDeveloper
+namespace ScriptCanvas::Developer
 {
     class EditorAutomationTestDialogRequests
         : public AZ::EBusTraits
@@ -121,7 +121,7 @@ namespace ScriptCanvasDeveloper
         int m_runCount = 0;
         int m_successCount = 0;
 
-        AZStd::chrono::time_point<AZStd::chrono::system_clock> m_startTime;
+        AZStd::chrono::steady_clock::time_point m_startTime;
 
         EditorAutomationTest* m_activeTest = nullptr;
         AZStd::unordered_set< EditorAutomationTest* > m_testQueue;

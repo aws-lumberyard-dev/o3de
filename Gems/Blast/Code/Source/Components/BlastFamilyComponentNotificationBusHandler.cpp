@@ -29,12 +29,12 @@ namespace Blast
         }
     }
 
-    void BlastFamilyComponentNotificationBusHandler::Disconnect()
+    void BlastFamilyComponentNotificationBusHandler::Disconnect(AZ::BehaviorArgument* id)
     {
-        BusDisconnect();
+        AZ::Internal::EBusConnector<BlastFamilyComponentNotificationBusHandler>::Disconnect(this, id);
     }
 
-    bool BlastFamilyComponentNotificationBusHandler::Connect(AZ::BehaviorValueParameter* id)
+    bool BlastFamilyComponentNotificationBusHandler::Connect(AZ::BehaviorArgument* id)
     {
         return AZ::Internal::EBusConnector<BlastFamilyComponentNotificationBusHandler>::Connect(this, id);
     }
@@ -44,7 +44,7 @@ namespace Blast
         return AZ::Internal::EBusConnector<BlastFamilyComponentNotificationBusHandler>::IsConnected(this);
     }
 
-    bool BlastFamilyComponentNotificationBusHandler::IsConnectedId(AZ::BehaviorValueParameter* id)
+    bool BlastFamilyComponentNotificationBusHandler::IsConnectedId(AZ::BehaviorArgument* id)
     {
         return AZ::Internal::EBusConnector<BlastFamilyComponentNotificationBusHandler>::IsConnectedId(this, id);
     }

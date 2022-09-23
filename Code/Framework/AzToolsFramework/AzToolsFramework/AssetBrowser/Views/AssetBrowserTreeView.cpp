@@ -13,28 +13,38 @@
 #include <AzCore/StringFunc/StringFunc.h>
 
 #include <AzFramework/StringFunc/StringFunc.h>
+#include <AzFramework/Asset/AssetSystemBus.h>
+#include <AzFramework/Network/AssetProcessorConnection.h>
 
 #include <AzToolsFramework/UI/UICore/QTreeViewStateSaver.hxx>
 #include <AzToolsFramework/AssetBrowser/Views/AssetBrowserTreeView.h>
+#include <AzToolsFramework/AssetBrowser/Views/AssetBrowserTreeViewDialog.h>
 #include <AzToolsFramework/AssetBrowser/Views/EntryDelegate.h>
 #include <AzToolsFramework/AssetBrowser/Entries/AssetBrowserEntryCache.h>
 #include <AzToolsFramework/AssetBrowser/AssetBrowserBus.h>
 #include <AzToolsFramework/AssetBrowser/AssetBrowserFilterModel.h>
 #include <AzToolsFramework/AssetBrowser/AssetBrowserModel.h>
+#include <AzToolsFramework/AssetBrowser/AssetSelectionModel.h>
 #include <AzToolsFramework/AssetBrowser/Entries/SourceAssetBrowserEntry.h>
 #include <AzToolsFramework/AssetBrowser/Entries/ProductAssetBrowserEntry.h>
+#include <AzToolsFramework/SourceControl/SourceControlAPI.h>
 #include <AzToolsFramework/Thumbnails/SourceControlThumbnail.h>
 #include <AzToolsFramework/Thumbnails/ThumbnailerBus.h>
 
 AZ_PUSH_DISABLE_WARNING(4244 4251 4800, "-Wunknown-warning-option") // conversion from 'int' to 'float', possible loss of data, needs to have dll-interface to be used by clients of class
                                                                     // 'QFlags<QPainter::RenderHint>::Int': forcing value to bool 'true' or 'false' (performance warning)
 #include <QMenu>
+#include <QFile>
 #include <QHeaderView>
 #include <QMouseEvent>
 #include <QCoreApplication>
 #include <QPen>
 #include <QPainter>
 #include <QTimer>
+#include <QtWidgets/QMessageBox>
+#include <QAbstractButton>
+#include <QHBoxLayout>
+
 AZ_POP_DISABLE_WARNING
 
 namespace AzToolsFramework
@@ -59,6 +69,36 @@ namespace AzToolsFramework
 
             AssetBrowserViewRequestBus::Handler::BusConnect();
             AssetBrowserComponentNotificationBus::Handler::BusConnect();
+
+            QAction* deleteAction = new QAction("Delete Action", this);
+            deleteAction->setShortcut(QKeySequence::Delete);
+            deleteAction->setShortcutContext(Qt::WidgetWithChildrenShortcut);
+            connect(
+                deleteAction, &QAction::triggered, this, [this]()
+                {
+                    DeleteEntries();
+                });
+            addAction(deleteAction);
+
+            QAction* renameAction = new QAction("Rename Action", this);
+            renameAction->setShortcut(Qt::Key_F2);
+            renameAction->setShortcutContext(Qt::WidgetWithChildrenShortcut);
+            connect(
+                renameAction, &QAction::triggered, this, [this]()
+                {
+                    RenameEntry();
+                });
+            addAction(renameAction);
+
+            QAction* duplicateAction = new QAction("Duplicate Action", this);
+            duplicateAction->setShortcut(QKeySequence("Ctrl+D"));
+            duplicateAction->setShortcutContext(Qt::WidgetWithChildrenShortcut);
+            connect(
+                duplicateAction, &QAction::triggered, this, [this]()
+                {
+                    DuplicateEntries();
+                });
+            addAction(duplicateAction);
         }
 
         AssetBrowserTreeView::~AssetBrowserTreeView()
@@ -94,7 +134,7 @@ namespace AzToolsFramework
             CaptureTreeViewSnapshot();
         }
 
-        AZStd::vector<AssetBrowserEntry*> AssetBrowserTreeView::GetSelectedAssets() const
+        AZStd::vector<AssetBrowserEntry*> AssetBrowserTreeView::GetSelectedAssets(bool includeProducts) const
         {
             const QModelIndexList& selectedIndexes = selectionModel()->selectedRows();
             QModelIndexList sourceIndexes;
@@ -105,6 +145,20 @@ namespace AzToolsFramework
 
             AZStd::vector<AssetBrowserEntry*> entries;
             m_assetBrowserModel->SourceIndexesToAssetDatabaseEntries(sourceIndexes, entries);
+
+            if (!includeProducts)
+            {
+                entries.erase(
+                    AZStd::remove_if(
+                        entries.begin(),
+                        entries.end(),
+                        [&](AssetBrowserEntry* entry) -> bool
+                        {
+                            return entry->GetEntryType() == AzToolsFramework::AssetBrowser::AssetBrowserEntry::AssetEntryType::Product;
+                        }),
+                    entries.end());
+            }
+
             return entries;
         }
 
@@ -273,6 +327,21 @@ namespace AzToolsFramework
             return GetEntryFromIndex<SourceAssetBrowserEntry>(index) == nullptr;
         }
 
+        void AssetBrowserTreeView::OpenItemForEditing(const QModelIndex& index)
+        {
+            QModelIndex proxyIndex = m_assetBrowserSortFilterProxyModel->mapFromSource(index);
+
+            if (proxyIndex.isValid())
+            {
+                selectionModel()->select(proxyIndex, QItemSelectionModel::ClearAndSelect);
+                setCurrentIndex(proxyIndex);
+
+                scrollTo(proxyIndex, QAbstractItemView::ScrollHint::PositionAtCenter);
+
+                RenameEntry();
+            }
+        }
+
         bool AssetBrowserTreeView::SelectProduct(const QModelIndex& idxParent, AZ::Data::AssetId assetID)
         {
             int elements = model()->rowCount(idxParent);
@@ -287,6 +356,7 @@ namespace AzToolsFramework
                     setCurrentIndex(rowIdx);
                     return true;
                 }
+
                 if (SelectProduct(rowIdx, assetID))
                 {
                     expand(rowIdx);
@@ -386,10 +456,6 @@ namespace AzToolsFramework
             AZ_UNUSED(point);
 
             auto selectedAssets = GetSelectedAssets();
-            if (selectedAssets.size() != 1)
-            {
-                return;
-            }
 
             QMenu menu(this);
             AssetBrowserInteractionNotificationBus::Broadcast(
@@ -433,6 +499,185 @@ namespace AzToolsFramework
         void AssetBrowserTreeView::Update()
         {
             update();
+        }
+
+        void AssetBrowserTreeView::DeleteEntries()
+        {
+            auto entries = GetSelectedAssets(false); // do not include products, you cannot delete those!
+
+            if (entries.empty())
+            {
+                return;
+            }
+
+            // Create the callback to pass to the SourceControlAPI
+            AzToolsFramework::SourceControlResponseCallback callback =
+                []([[maybe_unused]] bool success, [[maybe_unused]] const AzToolsFramework::SourceControlFileInfo& info)
+            {
+            };
+
+            size_t numOfEntries = entries.size();
+            QMessageBox box;
+            box.setIcon(QMessageBox::Warning);
+            box.setWindowTitle(numOfEntries > 1 ? QObject::tr("Delete selected assets?") : QObject::tr("Delete selected asset?"));
+            box.setStandardButtons(QMessageBox::Ok | QMessageBox::Cancel);
+            QAbstractButton* okButton = box.button(QMessageBox::Ok);
+            okButton->setText("Delete");
+            box.setText(
+                numOfEntries > 1 ? QObject::tr("Are you sure you want to delete these assets?\nYou cannot undo this action.")
+                                 : QObject::tr("Are you sure you want to delete\n%1?\nYou cannot undo this action.")
+                                       .arg(entries.front()->GetFullPath().c_str()));
+            int ret = box.exec();
+            if (ret == QMessageBox::Ok)
+            {
+                using SCCommandBus = AzToolsFramework::SourceControlCommandBus;
+                for (auto entry : entries)
+                {
+                    SCCommandBus::Broadcast(&SCCommandBus::Events::RequestDelete, entry->GetFullPath().c_str(), callback);
+                }
+            }
+        }
+
+        void AssetBrowserTreeView::RenameEntry()
+        {
+            auto entries = GetSelectedAssets(false); // you cannot rename product files.
+            // you may not rename products.
+            if (entries.size() == 1)
+            {
+                edit(currentIndex());
+            }
+        }
+        void AssetBrowserTreeView::DuplicateEntries()
+        {
+            auto entries = GetSelectedAssets(false); // you may not duplicate product files.
+            for (auto entry : entries)
+            {
+                using namespace AZ::IO;
+                AZStd::string originalFname;
+                AssetBrowserEntry* item = entry;
+                Path oldPath = item->GetFullPath();
+                Path newPath = oldPath;
+                PathView extension = oldPath.Extension();
+                PathView filename = oldPath.Stem();
+                AZStd::string_view fname = filename.Native();
+                size_t position = fname.rfind("-copy");
+                if (position != AZStd::string_view::npos)
+                {
+                    AZStd::string value = fname.substr(position + 5);
+                    originalFname = fname.substr(0, position + 5);
+                    int oldvalue = std::stoi(std::string(value.data()));
+                    originalFname += AZStd::to_string(oldvalue + 1);
+                }
+                else
+                {
+                    originalFname = AZStd::string(fname) + "-copy1";
+                }
+                PathView temp = originalFname.data();
+                newPath.ReplaceFilename(temp);
+                newPath.ReplaceExtension(extension);
+                QFile::copy(oldPath.c_str(), newPath.c_str());
+            }
+        }
+
+        void AssetBrowserTreeView::MoveEntries()
+        {
+            using namespace AzFramework::AssetSystem;
+            EntryTypeFilter* foldersFilter = new EntryTypeFilter();
+            foldersFilter->SetEntryType(AssetBrowserEntry::AssetEntryType::Folder);
+
+            auto selection = AzToolsFramework::AssetBrowser::AssetSelectionModel::EverythingSelection();
+            selection.SetTitle(tr("folder to move to"));
+            selection.SetMultiselect(false);
+            selection.SetDisplayFilter(FilterConstType(foldersFilter));
+            AssetBrowserTreeViewDialog dialog(selection, this);
+            dialog.exec();
+
+            const AZStd::vector<AZStd::string> folderPaths = selection.GetSelectedFilePaths();
+
+            if (!folderPaths.empty())
+            {
+                AZStd::string folderPath = folderPaths[0];
+                bool connectedToAssetProcessor = false;
+                AzFramework::AssetSystemRequestBus::BroadcastResult(
+                    connectedToAssetProcessor, &AzFramework::AssetSystemRequestBus::Events::AssetProcessorIsReady);
+
+                if (connectedToAssetProcessor)
+                {
+                    auto entries = GetSelectedAssets();
+
+                    for (auto entry : entries)
+                    {
+                        using namespace AZ::IO;
+                        Path fromPath = entry->GetFullPath();
+                        PathView filename = fromPath.Filename();
+                        Path toPath(folderPath);
+                        toPath /= filename;
+                        AssetChangeReportRequest request(
+                            AZ::OSString(fromPath.c_str()), AZ::OSString(toPath.c_str()), AssetChangeReportRequest::ChangeType::CheckMove);
+                        AssetChangeReportResponse response;
+
+                        if (SendRequest(request, response))
+                        {
+                            AZStd::string message;
+                            for (int i = 0; i < response.m_lines.size(); ++i)
+                            {
+                                message += response.m_lines[i] + "\n";
+                            }
+
+                            if (message.size())
+                            {
+                                QMessageBox msgBox(this);
+                                msgBox.setWindowTitle("Before Move Asset Information");
+                                msgBox.setIcon(QMessageBox::Warning);
+                                msgBox.setText("The asset you are moving may be referenced in other assets.");
+                                msgBox.setInformativeText("More information can be found by pressing \"Show Details...\".");
+                                auto* moveButton = msgBox.addButton("Move", QMessageBox::YesRole);
+                                msgBox.setStandardButtons(QMessageBox::Cancel);
+                                msgBox.setDefaultButton(QMessageBox::Yes);
+                                msgBox.setDetailedText(message.c_str());
+                                QSpacerItem* horizontalSpacer = new QSpacerItem(600, 0, QSizePolicy::Minimum, QSizePolicy::Expanding);
+                                auto* layout = qobject_cast<QGridLayout*>(msgBox.layout());
+                                layout->addItem(horizontalSpacer, layout->rowCount(), 0, 1, layout->columnCount());
+                                msgBox.exec();
+
+                                if (msgBox.clickedButton() == reinterpret_cast<QAbstractButton *>(moveButton))
+                                {
+                                    AssetChangeReportRequest moveRequest(
+                                        AZ::OSString(fromPath.c_str()),
+                                        AZ::OSString(toPath.c_str()),
+                                        AssetChangeReportRequest::ChangeType::Move);
+                                    AssetChangeReportResponse moveResponse;
+                                    if (SendRequest(moveRequest, moveResponse))
+                                    {
+                                        AZStd::string message2;
+                                        for (int i = 0; i < moveResponse.m_lines.size(); ++i)
+                                        {
+                                            message2 += moveResponse.m_lines[i] + "\n";
+                                        }
+
+                                        if (message2.size())
+                                        {
+                                            QMessageBox moveMsgBox(this);
+                                            moveMsgBox.setWindowTitle("After Move Asset Information");
+                                            moveMsgBox.setIcon(QMessageBox::Warning);
+                                            moveMsgBox.setText("The asset has been moved.");
+                                            moveMsgBox.setInformativeText("More information can be found by pressing \"Show Details...\".");
+                                            moveMsgBox.setStandardButtons(QMessageBox::Ok);
+                                            moveMsgBox.setDefaultButton(QMessageBox::Ok);
+                                            moveMsgBox.setDetailedText(message2.c_str());
+                                            QSpacerItem* horizontalSpacer2 =
+                                                new QSpacerItem(600, 0, QSizePolicy::Minimum, QSizePolicy::Expanding);
+                                            QGridLayout* moveLayout = (QGridLayout*)moveMsgBox.layout();
+                                            moveLayout->addItem(horizontalSpacer2, moveLayout->rowCount(), 0, 1, moveLayout->columnCount());
+                                            moveMsgBox.exec();
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
         }
     } // namespace AssetBrowser
 } // namespace AzToolsFramework

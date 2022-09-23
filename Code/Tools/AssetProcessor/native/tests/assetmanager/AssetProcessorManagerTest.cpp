@@ -54,7 +54,7 @@ bool AssetProcessorManagerTest::BlockUntilIdle(int millisecondsMax)
     QElapsedTimer limit;
     limit.start();
 
-    if(AZ::Debug::Trace::IsDebuggerPresent())
+    if(AZ::Debug::Trace::Instance().IsDebuggerPresent())
     {
         millisecondsMax = std::numeric_limits<int>::max();
     }
@@ -76,6 +76,7 @@ void AssetProcessorManagerTest::SetUp()
     using namespace testing;
     using ::testing::NiceMock;
     using namespace AssetProcessor;
+    using namespace AzToolsFramework::AssetDatabase;
 
     AssetProcessorTest::SetUp();
 
@@ -145,16 +146,17 @@ void AssetProcessorManagerTest::SetUp()
     m_config->EnablePlatform({ "pc", { "host", "renderer", "desktop" } }, true);
 
     m_config->AddScanFolder(ScanFolderInfo(tempPath.filePath("subfolder1"), "subfolder1", "subfolder1", false, true, m_config->GetEnabledPlatforms(), 1));
-    m_config->AddScanFolder(ScanFolderInfo(tempPath.filePath("subfolder2/redirected"), "subfolder2", "subfolder2", false, true, m_config->GetEnabledPlatforms()));
+    m_config->AddScanFolder(ScanFolderInfo(tempPath.filePath("subfolder2"), "subfolder2", "subfolder2", false, true, m_config->GetEnabledPlatforms()));
     m_config->AddScanFolder(ScanFolderInfo(tempPath.filePath("subfolder3"), "subfolder3", "subfolder3", false, true, m_config->GetEnabledPlatforms(), 1));
     m_config->AddScanFolder(ScanFolderInfo(tempPath.filePath("subfolder4"), "subfolder4", "subfolder4", false, true, m_config->GetEnabledPlatforms(), 1));
     m_config->AddMetaDataType("assetinfo", "");
-    AssetRecognizer rec;
-    AssetPlatformSpec specpc;
+    m_config->AddIntermediateScanFolder();
 
+    AssetRecognizer rec;
     rec.m_name = "txt files";
     rec.m_patternMatcher = AssetBuilderSDK::FilePatternMatcher("*.txt", AssetBuilderSDK::AssetBuilderPattern::Wildcard);
-    rec.m_platformSpecs.insert("pc", specpc);
+    rec.m_platformSpecs.insert({"pc", AssetInternalSpec::Copy});
+    rec.m_supportsCreateJobs = false;
     rec.m_supportsCreateJobs = false;
     ASSERT_TRUE(m_mockApplicationManager->RegisterAssetRecognizerAsBuilder(rec));
     m_mockApplicationManager->BusConnect();
@@ -168,6 +170,8 @@ void AssetProcessorManagerTest::SetUp()
     {
         m_isIdling = newState;
     });
+
+    PopulateDatabase();
 }
 
 void AssetProcessorManagerTest::TearDown()
@@ -197,6 +201,41 @@ void AssetProcessorManagerTest::TearDown()
     AssetProcessor::AssetProcessorTest::TearDown();
 }
 
+void AssetProcessorManagerTest::CreateSourceAndFile(const char* tempFolderRelativePath)
+{
+    QDir tempPath(m_tempDir.path());
+
+    auto absolutePath = tempPath.absoluteFilePath(tempFolderRelativePath);
+
+    auto scanFolder = m_config->GetScanFolderForFile(absolutePath);
+
+    QString relPath;
+    m_config->ConvertToRelativePath(absolutePath, scanFolder, relPath);
+
+    auto uuid = AssetUtilities::CreateSafeSourceUUIDFromName(relPath.toUtf8().constData());
+
+    AzToolsFramework::AssetDatabase::SourceDatabaseEntry source(scanFolder->ScanFolderID(), relPath.toUtf8().constData(), uuid, "fingerprint");
+    ASSERT_TRUE(m_assetProcessorManager->m_stateData->SetSource(source));
+
+    ASSERT_TRUE(UnitTestUtils::CreateDummyFile(absolutePath));
+}
+
+void AssetProcessorManagerTest::PopulateDatabase()
+{
+    using namespace AzToolsFramework::AssetDatabase;
+
+    QDir tempPath(m_tempDir.path());
+
+    AzToolsFramework::AssetDatabase::ScanFolderDatabaseEntry scanFolder(
+        tempPath.absoluteFilePath("subfolder1").toUtf8().constData(), "temp path", "temp path");
+    ASSERT_TRUE(m_assetProcessorManager->m_stateData->SetScanFolder(scanFolder));
+
+    CreateSourceAndFile("subfolder1/a.txt");
+    CreateSourceAndFile("subfolder1/b.txt");
+    CreateSourceAndFile("subfolder1/c.txt");
+    CreateSourceAndFile("subfolder1/d.txt");
+}
+
 TEST_F(AssetProcessorManagerTest, UnitTestForGettingJobInfoBySourceUUIDSuccess)
 {
     // Here we first mark a job for an asset complete and than fetch jobs info using the job log api to verify
@@ -217,12 +256,11 @@ TEST_F(AssetProcessorManagerTest, UnitTestForGettingJobInfoBySourceUUIDSuccess)
     entry.m_jobKey = "txt";
     entry.m_platformInfo = { "pc", {"host", "renderer", "desktop"} };
     entry.m_jobRunKey = 1;
-
-    UnitTestUtils::CreateDummyFile(m_normalizedCacheRootDir.absoluteFilePath("outputfile.txt"));
+    UnitTestUtils::CreateDummyFile(m_normalizedCacheRootDir.absoluteFilePath("pc/outputfile.txt"));
 
     AssetBuilderSDK::ProcessJobResponse jobResponse;
     jobResponse.m_resultCode = AssetBuilderSDK::ProcessJobResult_Success;
-    jobResponse.m_outputProducts.push_back(AssetBuilderSDK::JobProduct(m_normalizedCacheRootDir.absoluteFilePath("outputfile.txt").toUtf8().data()));
+    jobResponse.m_outputProducts.push_back(AssetBuilderSDK::JobProduct("outputfile.txt"));
 
     QMetaObject::invokeMethod(m_assetProcessorManager.get(), "AssetProcessed", Qt::QueuedConnection, Q_ARG(JobEntry, entry), Q_ARG(AssetBuilderSDK::ProcessJobResponse, jobResponse));
 
@@ -283,11 +321,11 @@ TEST_F(AssetProcessorManagerTest, WarningsAndErrorsReported_SuccessfullySavedToD
     entry.m_platformInfo = { "pc", {"host", "renderer", "desktop"} };
     entry.m_jobRunKey = 1;
 
-    UnitTestUtils::CreateDummyFile(m_normalizedCacheRootDir.absoluteFilePath("outputfile.txt"));
+    UnitTestUtils::CreateDummyFile(m_normalizedCacheRootDir.absoluteFilePath("pc/outputfile.txt"));
 
     AssetBuilderSDK::ProcessJobResponse jobResponse;
     jobResponse.m_resultCode = AssetBuilderSDK::ProcessJobResult_Success;
-    jobResponse.m_outputProducts.push_back(AssetBuilderSDK::JobProduct(m_normalizedCacheRootDir.absoluteFilePath("outputfile.txt").toUtf8().data()));
+    jobResponse.m_outputProducts.push_back(AssetBuilderSDK::JobProduct("outputfile.txt"));
 
     JobDiagnosticRequestBus::Broadcast(&JobDiagnosticRequestBus::Events::RecordDiagnosticInfo, entry.m_jobRunKey, JobDiagnosticInfo(11, 22));
 
@@ -459,43 +497,67 @@ public:
     }
 };
 
+struct BuilderDirtiness : public AssetProcessorManagerTest
+{
+    void SetUp() override
+    {
+        AssetProcessorManagerTest::SetUp();
+
+        // Disconnect the mock application manager, our MockBuilderResponder will handle builder registration instead
+        m_mockApplicationManager->BusDisconnect();
+
+        m_mockBuilderResponder.BusConnect();
+    }
+
+    void TearDown() override
+    {
+        m_mockBuilderResponder.BusDisconnect();
+
+        AssetProcessorManagerTest::TearDown();
+    }
+
+    MockBuilderResponder m_mockBuilderResponder;
+};
+
 // if our database was empty before, all builders should be dirty
 // note that this requires us to actually register a builder using the mock.
-TEST_F(AssetProcessorManagerTest, BuilderDirtiness_EmptyDatabase_AllDirty)
+TEST_F(BuilderDirtiness, BuilderDirtiness_EmptyDatabase_AllDirty)
 {
     using namespace AzToolsFramework::AssetSystem;
     using namespace AssetProcessor;
     using namespace AssetBuilderSDK;
 
-    MockBuilderResponder mockBuilderResponder;
-    mockBuilderResponder.BusConnect();
-
-    mockBuilderResponder.AddBuilder("builder1", { AssetBuilderSDK::AssetBuilderPattern("*.egg", AssetBuilderPattern::Wildcard) }, AZ::Uuid::CreateRandom(), 1, "fingerprint1");
-    mockBuilderResponder.AddBuilder("builder2", { AssetBuilderSDK::AssetBuilderPattern("*.foo", AssetBuilderPattern::Wildcard) }, AZ::Uuid::CreateRandom(), 1, "fingerprint2");
+    m_mockBuilderResponder.AddBuilder(
+        "builder1", { AssetBuilderSDK::AssetBuilderPattern("*.egg", AssetBuilderPattern::Wildcard) }, AZ::Uuid::CreateRandom(), 1,
+        "fingerprint1");
+    m_mockBuilderResponder.AddBuilder(
+        "builder2", { AssetBuilderSDK::AssetBuilderPattern("*.foo", AssetBuilderPattern::Wildcard) }, AZ::Uuid::CreateRandom(), 1,
+        "fingerprint2");
 
     m_assetProcessorManager->ComputeBuilderDirty();
 
     EXPECT_TRUE(m_assetProcessorManager->m_anyBuilderChange);
     EXPECT_TRUE(m_assetProcessorManager->m_buildersAddedOrRemoved);
     EXPECT_EQ(m_assetProcessorManager->CountDirtyBuilders(), 2);
-    EXPECT_TRUE(m_assetProcessorManager->IsBuilderDirty(mockBuilderResponder.m_assetBuilderDescs[0].m_busId));
-    EXPECT_TRUE(m_assetProcessorManager->IsBuilderDirty(mockBuilderResponder.m_assetBuilderDescs[1].m_busId));
+    EXPECT_TRUE(m_assetProcessorManager->IsBuilderDirty(m_mockBuilderResponder.m_assetBuilderDescs[0].m_busId));
+    EXPECT_TRUE(m_assetProcessorManager->IsBuilderDirty(m_mockBuilderResponder.m_assetBuilderDescs[1].m_busId));
 
-    mockBuilderResponder.BusDisconnect();
+    m_mockBuilderResponder.BusDisconnect();
 }
 
 // if we have the same set of builders the next time, nothing should register as changed.
-TEST_F(AssetProcessorManagerTest, BuilderDirtiness_SameAsLastTime_NoneDirty)
+TEST_F(BuilderDirtiness, BuilderDirtiness_SameAsLastTime_NoneDirty)
 {
     using namespace AzToolsFramework::AssetSystem;
     using namespace AssetProcessor;
     using namespace AssetBuilderSDK;
 
-    MockBuilderResponder mockBuilderResponder;
-    mockBuilderResponder.BusConnect();
-
-    mockBuilderResponder.AddBuilder("builder1", { AssetBuilderSDK::AssetBuilderPattern("*.egg", AssetBuilderPattern::Wildcard) }, AZ::Uuid::CreateRandom(), 1, "fingerprint1");
-    mockBuilderResponder.AddBuilder("builder2", { AssetBuilderSDK::AssetBuilderPattern("*.foo", AssetBuilderPattern::Wildcard) }, AZ::Uuid::CreateRandom(), 1, "fingerprint2");
+    m_mockBuilderResponder.AddBuilder(
+        "builder1", { AssetBuilderSDK::AssetBuilderPattern("*.egg", AssetBuilderPattern::Wildcard) }, AZ::Uuid::CreateRandom(), 1,
+        "fingerprint1");
+    m_mockBuilderResponder.AddBuilder(
+        "builder2", { AssetBuilderSDK::AssetBuilderPattern("*.foo", AssetBuilderPattern::Wildcard) }, AZ::Uuid::CreateRandom(), 1,
+        "fingerprint2");
 
     m_assetProcessorManager->ComputeBuilderDirty();
 
@@ -506,24 +568,25 @@ TEST_F(AssetProcessorManagerTest, BuilderDirtiness_SameAsLastTime_NoneDirty)
     EXPECT_FALSE(m_assetProcessorManager->m_buildersAddedOrRemoved);
     EXPECT_EQ(m_assetProcessorManager->CountDirtyBuilders(), 0);
 
-    mockBuilderResponder.BusDisconnect();
+    m_mockBuilderResponder.BusDisconnect();
 }
 
 // when a new builder appears, the new builder should be dirty,
-TEST_F(AssetProcessorManagerTest, BuilderDirtiness_MoreThanLastTime_NewOneIsDirty)
+TEST_F(BuilderDirtiness, BuilderDirtiness_MoreThanLastTime_NewOneIsDirty)
 {
     using namespace AzToolsFramework::AssetSystem;
     using namespace AssetProcessor;
     using namespace AssetBuilderSDK;
 
-    MockBuilderResponder mockBuilderResponder;
-    mockBuilderResponder.BusConnect();
-
-    mockBuilderResponder.AddBuilder("builder1", { AssetBuilderSDK::AssetBuilderPattern("*.egg", AssetBuilderPattern::Wildcard) }, AZ::Uuid::CreateRandom(), 1, "fingerprint1");
+    m_mockBuilderResponder.AddBuilder(
+        "builder1", { AssetBuilderSDK::AssetBuilderPattern("*.egg", AssetBuilderPattern::Wildcard) }, AZ::Uuid::CreateRandom(), 1,
+        "fingerprint1");
 
     m_assetProcessorManager->ComputeBuilderDirty();
 
-    mockBuilderResponder.AddBuilder("builder2", { AssetBuilderSDK::AssetBuilderPattern("*.foo", AssetBuilderPattern::Wildcard) }, AZ::Uuid::CreateRandom(), 1, "fingerprint2");
+    m_mockBuilderResponder.AddBuilder(
+        "builder2", { AssetBuilderSDK::AssetBuilderPattern("*.foo", AssetBuilderPattern::Wildcard) }, AZ::Uuid::CreateRandom(), 1,
+        "fingerprint2");
 
     m_assetProcessorManager->ComputeBuilderDirty();
 
@@ -531,30 +594,30 @@ TEST_F(AssetProcessorManagerTest, BuilderDirtiness_MoreThanLastTime_NewOneIsDirt
     EXPECT_TRUE(m_assetProcessorManager->m_anyBuilderChange);
     EXPECT_TRUE(m_assetProcessorManager->m_buildersAddedOrRemoved);
     EXPECT_EQ(m_assetProcessorManager->CountDirtyBuilders(), 1);
-    EXPECT_TRUE(m_assetProcessorManager->IsBuilderDirty(mockBuilderResponder.m_assetBuilderDescs[1].m_busId));
+    EXPECT_TRUE(m_assetProcessorManager->IsBuilderDirty(m_mockBuilderResponder.m_assetBuilderDescs[1].m_busId));
 
-    mockBuilderResponder.BusDisconnect();
+    m_mockBuilderResponder.BusDisconnect();
 }
-
 
 // when an existing builder disappears there are no dirty builders, but the booleans
 // that track dirtiness should be correct:
-TEST_F(AssetProcessorManagerTest, BuilderDirtiness_FewerThanLastTime_Dirty)
+TEST_F(BuilderDirtiness, BuilderDirtiness_FewerThanLastTime_Dirty)
 {
     using namespace AzToolsFramework::AssetSystem;
     using namespace AssetProcessor;
     using namespace AssetBuilderSDK;
 
-    MockBuilderResponder mockBuilderResponder;
-    mockBuilderResponder.BusConnect();
-
-    mockBuilderResponder.AddBuilder("builder1", { AssetBuilderSDK::AssetBuilderPattern("*.egg", AssetBuilderPattern::Wildcard) }, AZ::Uuid::CreateRandom(), 1, "fingerprint1");
-    mockBuilderResponder.AddBuilder("builder2", { AssetBuilderSDK::AssetBuilderPattern("*.foo", AssetBuilderPattern::Wildcard) }, AZ::Uuid::CreateRandom(), 1, "fingerprint2");
+    m_mockBuilderResponder.AddBuilder(
+        "builder1", { AssetBuilderSDK::AssetBuilderPattern("*.egg", AssetBuilderPattern::Wildcard) }, AZ::Uuid::CreateRandom(), 1,
+        "fingerprint1");
+    m_mockBuilderResponder.AddBuilder(
+        "builder2", { AssetBuilderSDK::AssetBuilderPattern("*.foo", AssetBuilderPattern::Wildcard) }, AZ::Uuid::CreateRandom(), 1,
+        "fingerprint2");
 
     m_assetProcessorManager->ComputeBuilderDirty();
 
     // remove one:
-    mockBuilderResponder.m_assetBuilderDescs.pop_back();
+    m_mockBuilderResponder.m_assetBuilderDescs.pop_back();
 
     m_assetProcessorManager->ComputeBuilderDirty();
 
@@ -564,166 +627,165 @@ TEST_F(AssetProcessorManagerTest, BuilderDirtiness_FewerThanLastTime_Dirty)
 }
 
 // if a builder changes its pattern matching, it should be dirty, and also, it should count as add or remove.
-TEST_F(AssetProcessorManagerTest, BuilderDirtiness_ChangedPattern_CountsAsNew)
+TEST_F(BuilderDirtiness, BuilderDirtiness_ChangedPattern_CountsAsNew)
 {
     using namespace AzToolsFramework::AssetSystem;
     using namespace AssetProcessor;
     using namespace AssetBuilderSDK;
 
-    MockBuilderResponder mockBuilderResponder;
-    mockBuilderResponder.BusConnect();
-
-    mockBuilderResponder.AddBuilder("builder1", { AssetBuilderSDK::AssetBuilderPattern("*.egg", AssetBuilderPattern::Wildcard) }, AZ::Uuid::CreateRandom(), 1, "fingerprint1");
-    mockBuilderResponder.AddBuilder("builder2", { AssetBuilderSDK::AssetBuilderPattern("*.foo", AssetBuilderPattern::Wildcard) }, AZ::Uuid::CreateRandom(), 1, "fingerprint2");
-    mockBuilderResponder.AddBuilder("builder3", { AssetBuilderSDK::AssetBuilderPattern("*.bar", AssetBuilderPattern::Wildcard) }, AZ::Uuid::CreateRandom(), 1, "fingerprint3");
-    mockBuilderResponder.AddBuilder("builder4", { AssetBuilderSDK::AssetBuilderPattern("*.baz", AssetBuilderPattern::Wildcard) }, AZ::Uuid::CreateRandom(), 1, "fingerprint4");
+    m_mockBuilderResponder.AddBuilder(
+        "builder1", { AssetBuilderSDK::AssetBuilderPattern("*.egg", AssetBuilderPattern::Wildcard) }, AZ::Uuid::CreateRandom(), 1,
+        "fingerprint1");
+    m_mockBuilderResponder.AddBuilder(
+        "builder2", { AssetBuilderSDK::AssetBuilderPattern("*.foo", AssetBuilderPattern::Wildcard) }, AZ::Uuid::CreateRandom(), 1,
+        "fingerprint2");
+    m_mockBuilderResponder.AddBuilder(
+        "builder3", { AssetBuilderSDK::AssetBuilderPattern("*.bar", AssetBuilderPattern::Wildcard) }, AZ::Uuid::CreateRandom(), 1,
+        "fingerprint3");
+    m_mockBuilderResponder.AddBuilder(
+        "builder4", { AssetBuilderSDK::AssetBuilderPattern("*.baz", AssetBuilderPattern::Wildcard) }, AZ::Uuid::CreateRandom(), 1,
+        "fingerprint4");
 
     m_assetProcessorManager->ComputeBuilderDirty();
 
     // here, we change the actual text of the pattern to match
     size_t whichToChange = 1;
     // here, we change the pattern type but not the pattern to match
-    AssetBuilderPattern oldPattern = mockBuilderResponder.m_assetBuilderDescs[whichToChange].m_patterns[0];
+    AssetBuilderPattern oldPattern = m_mockBuilderResponder.m_assetBuilderDescs[whichToChange].m_patterns[0];
     oldPattern.m_pattern = "*.somethingElse";
-    mockBuilderResponder.m_assetBuilderDescs[whichToChange].m_patterns.clear();
-    mockBuilderResponder.m_assetBuilderDescs[whichToChange].m_patterns.emplace_back(oldPattern);
+    m_mockBuilderResponder.m_assetBuilderDescs[whichToChange].m_patterns.clear();
+    m_mockBuilderResponder.m_assetBuilderDescs[whichToChange].m_patterns.emplace_back(oldPattern);
 
     m_assetProcessorManager->ComputeBuilderDirty();
 
     EXPECT_TRUE(m_assetProcessorManager->m_anyBuilderChange);
     EXPECT_TRUE(m_assetProcessorManager->m_buildersAddedOrRemoved);
     EXPECT_EQ(m_assetProcessorManager->CountDirtyBuilders(), 1);
-    EXPECT_TRUE(m_assetProcessorManager->IsBuilderDirty(mockBuilderResponder.m_assetBuilderDescs[whichToChange].m_busId));
+    EXPECT_TRUE(m_assetProcessorManager->IsBuilderDirty(m_mockBuilderResponder.m_assetBuilderDescs[whichToChange].m_busId));
 
-    mockBuilderResponder.BusDisconnect();
+    m_mockBuilderResponder.BusDisconnect();
 }
 
-TEST_F(AssetProcessorManagerTest, BuilderDirtiness_ChangedPatternType_CountsAsNew)
+TEST_F(BuilderDirtiness, BuilderDirtiness_ChangedPatternType_CountsAsNew)
 {
     using namespace AzToolsFramework::AssetSystem;
     using namespace AssetProcessor;
     using namespace AssetBuilderSDK;
 
-    MockBuilderResponder mockBuilderResponder;
-    mockBuilderResponder.BusConnect();
-
-    mockBuilderResponder.AddBuilder("builder1", { AssetBuilderSDK::AssetBuilderPattern("*.egg", AssetBuilderPattern::Wildcard) }, AZ::Uuid::CreateRandom(), 1, "fingerprint1");
-    mockBuilderResponder.AddBuilder("builder2", { AssetBuilderSDK::AssetBuilderPattern("*.foo", AssetBuilderPattern::Wildcard) }, AZ::Uuid::CreateRandom(), 1, "fingerprint2");
-    mockBuilderResponder.AddBuilder("builder3", { AssetBuilderSDK::AssetBuilderPattern("*.bar", AssetBuilderPattern::Wildcard) }, AZ::Uuid::CreateRandom(), 1, "fingerprint3");
-    mockBuilderResponder.AddBuilder("builder4", { AssetBuilderSDK::AssetBuilderPattern("*.baz", AssetBuilderPattern::Wildcard) }, AZ::Uuid::CreateRandom(), 1, "fingerprint4");
+    m_mockBuilderResponder.AddBuilder(
+        "builder1", { AssetBuilderSDK::AssetBuilderPattern("*.egg", AssetBuilderPattern::Wildcard) }, AZ::Uuid::CreateRandom(), 1,
+        "fingerprint1");
+    m_mockBuilderResponder.AddBuilder(
+        "builder2", { AssetBuilderSDK::AssetBuilderPattern("*.foo", AssetBuilderPattern::Wildcard) }, AZ::Uuid::CreateRandom(), 1,
+        "fingerprint2");
+    m_mockBuilderResponder.AddBuilder(
+        "builder3", { AssetBuilderSDK::AssetBuilderPattern("*.bar", AssetBuilderPattern::Wildcard) }, AZ::Uuid::CreateRandom(), 1,
+        "fingerprint3");
+    m_mockBuilderResponder.AddBuilder(
+        "builder4", { AssetBuilderSDK::AssetBuilderPattern("*.baz", AssetBuilderPattern::Wildcard) }, AZ::Uuid::CreateRandom(), 1,
+        "fingerprint4");
 
     m_assetProcessorManager->ComputeBuilderDirty();
 
     size_t whichToChange = 2;
     // here, we change the pattern type but not the pattern to match
-    AssetBuilderPattern oldPattern = mockBuilderResponder.m_assetBuilderDescs[whichToChange].m_patterns[0];
+    AssetBuilderPattern oldPattern = m_mockBuilderResponder.m_assetBuilderDescs[whichToChange].m_patterns[0];
     oldPattern.m_type = AssetBuilderPattern::Regex;
-    mockBuilderResponder.m_assetBuilderDescs[whichToChange].m_patterns.clear();
-    mockBuilderResponder.m_assetBuilderDescs[whichToChange].m_patterns.emplace_back(oldPattern);
+    m_mockBuilderResponder.m_assetBuilderDescs[whichToChange].m_patterns.clear();
+    m_mockBuilderResponder.m_assetBuilderDescs[whichToChange].m_patterns.emplace_back(oldPattern);
 
     m_assetProcessorManager->ComputeBuilderDirty();
 
     EXPECT_TRUE(m_assetProcessorManager->m_anyBuilderChange);
     EXPECT_TRUE(m_assetProcessorManager->m_buildersAddedOrRemoved);
     EXPECT_EQ(m_assetProcessorManager->CountDirtyBuilders(), 1);
-    EXPECT_TRUE(m_assetProcessorManager->IsBuilderDirty(mockBuilderResponder.m_assetBuilderDescs[whichToChange].m_busId));
+    EXPECT_TRUE(m_assetProcessorManager->IsBuilderDirty(m_mockBuilderResponder.m_assetBuilderDescs[whichToChange].m_busId));
 
-    mockBuilderResponder.BusDisconnect();
+    m_mockBuilderResponder.BusDisconnect();
 }
 
-TEST_F(AssetProcessorManagerTest, BuilderDirtiness_NewPattern_CountsAsNewBuilder)
+TEST_F(BuilderDirtiness, BuilderDirtiness_NewPattern_CountsAsNewBuilder)
 {
     using namespace AzToolsFramework::AssetSystem;
     using namespace AssetProcessor;
     using namespace AssetBuilderSDK;
 
-    MockBuilderResponder mockBuilderResponder;
-    mockBuilderResponder.BusConnect();
-
-    mockBuilderResponder.AddBuilder("builder1", { AssetBuilderSDK::AssetBuilderPattern("*.egg", AssetBuilderPattern::Wildcard) }, AZ::Uuid::CreateRandom(), 1, "fingerprint1");
-    mockBuilderResponder.AddBuilder("builder2", { AssetBuilderSDK::AssetBuilderPattern("*.foo", AssetBuilderPattern::Wildcard) }, AZ::Uuid::CreateRandom(), 1, "fingerprint2");
-    mockBuilderResponder.AddBuilder("builder3", { AssetBuilderSDK::AssetBuilderPattern("*.bar", AssetBuilderPattern::Wildcard) }, AZ::Uuid::CreateRandom(), 1, "fingerprint3");
-    mockBuilderResponder.AddBuilder("builder4", { AssetBuilderSDK::AssetBuilderPattern("*.baz", AssetBuilderPattern::Wildcard) }, AZ::Uuid::CreateRandom(), 1, "fingerprint4");
+    m_mockBuilderResponder.AddBuilder("builder1", { AssetBuilderSDK::AssetBuilderPattern("*.egg", AssetBuilderPattern::Wildcard) }, AZ::Uuid::CreateRandom(), 1, "fingerprint1");
+    m_mockBuilderResponder.AddBuilder("builder2", { AssetBuilderSDK::AssetBuilderPattern("*.foo", AssetBuilderPattern::Wildcard) }, AZ::Uuid::CreateRandom(), 1, "fingerprint2");
+    m_mockBuilderResponder.AddBuilder("builder3", { AssetBuilderSDK::AssetBuilderPattern("*.bar", AssetBuilderPattern::Wildcard) }, AZ::Uuid::CreateRandom(), 1, "fingerprint3");
+    m_mockBuilderResponder.AddBuilder("builder4", { AssetBuilderSDK::AssetBuilderPattern("*.baz", AssetBuilderPattern::Wildcard) }, AZ::Uuid::CreateRandom(), 1, "fingerprint4");
 
     m_assetProcessorManager->ComputeBuilderDirty();
 
     size_t whichToChange = 3;
     // here, we add an additional pattern that wasn't there before:
-    mockBuilderResponder.m_assetBuilderDescs[whichToChange].m_patterns.clear();
-    mockBuilderResponder.m_assetBuilderDescs[whichToChange].m_patterns.emplace_back(AssetBuilderSDK::AssetBuilderPattern("*.buzz", AssetBuilderPattern::Wildcard));
+    m_mockBuilderResponder.m_assetBuilderDescs[whichToChange].m_patterns.clear();
+    m_mockBuilderResponder.m_assetBuilderDescs[whichToChange].m_patterns.emplace_back(AssetBuilderSDK::AssetBuilderPattern("*.buzz", AssetBuilderPattern::Wildcard));
 
     m_assetProcessorManager->ComputeBuilderDirty();
 
     EXPECT_TRUE(m_assetProcessorManager->m_anyBuilderChange);
     EXPECT_TRUE(m_assetProcessorManager->m_buildersAddedOrRemoved);
     EXPECT_EQ(m_assetProcessorManager->CountDirtyBuilders(), 1);
-    EXPECT_TRUE(m_assetProcessorManager->IsBuilderDirty(mockBuilderResponder.m_assetBuilderDescs[whichToChange].m_busId));
+    EXPECT_TRUE(m_assetProcessorManager->IsBuilderDirty(m_mockBuilderResponder.m_assetBuilderDescs[whichToChange].m_busId));
 
-    mockBuilderResponder.BusDisconnect();
+    m_mockBuilderResponder.BusDisconnect();
 }
 
 // changing the "version" of a builder should be equivalent to changing its analysis fingerprint - ie
 // it should not count as adding a new builder.
-TEST_F(AssetProcessorManagerTest, BuilderDirtiness_NewVersionNumber_IsNotANewBuilder)
+TEST_F(BuilderDirtiness, BuilderDirtiness_NewVersionNumber_IsNotANewBuilder)
 {
     using namespace AzToolsFramework::AssetSystem;
     using namespace AssetProcessor;
     using namespace AssetBuilderSDK;
 
-    MockBuilderResponder mockBuilderResponder;
-    mockBuilderResponder.BusConnect();
-
-    mockBuilderResponder.AddBuilder("builder1", { AssetBuilderSDK::AssetBuilderPattern("*.egg", AssetBuilderPattern::Wildcard) }, AZ::Uuid::CreateRandom(), 1, "fingerprint1");
-    mockBuilderResponder.AddBuilder("builder2", { AssetBuilderSDK::AssetBuilderPattern("*.foo", AssetBuilderPattern::Wildcard) }, AZ::Uuid::CreateRandom(), 1, "fingerprint2");
-    mockBuilderResponder.AddBuilder("builder3", { AssetBuilderSDK::AssetBuilderPattern("*.bar", AssetBuilderPattern::Wildcard) }, AZ::Uuid::CreateRandom(), 1, "fingerprint3");
-    mockBuilderResponder.AddBuilder("builder4", { AssetBuilderSDK::AssetBuilderPattern("*.baz", AssetBuilderPattern::Wildcard) }, AZ::Uuid::CreateRandom(), 1, "fingerprint4");
+    m_mockBuilderResponder.AddBuilder("builder1", { AssetBuilderSDK::AssetBuilderPattern("*.egg", AssetBuilderPattern::Wildcard) }, AZ::Uuid::CreateRandom(), 1, "fingerprint1");
+    m_mockBuilderResponder.AddBuilder("builder2", { AssetBuilderSDK::AssetBuilderPattern("*.foo", AssetBuilderPattern::Wildcard) }, AZ::Uuid::CreateRandom(), 1, "fingerprint2");
+    m_mockBuilderResponder.AddBuilder("builder3", { AssetBuilderSDK::AssetBuilderPattern("*.bar", AssetBuilderPattern::Wildcard) }, AZ::Uuid::CreateRandom(), 1, "fingerprint3");
+    m_mockBuilderResponder.AddBuilder("builder4", { AssetBuilderSDK::AssetBuilderPattern("*.baz", AssetBuilderPattern::Wildcard) }, AZ::Uuid::CreateRandom(), 1, "fingerprint4");
 
     m_assetProcessorManager->ComputeBuilderDirty();
 
     size_t whichToChange = 3;
-    mockBuilderResponder.m_assetBuilderDescs[whichToChange].m_version++;
+    m_mockBuilderResponder.m_assetBuilderDescs[whichToChange].m_version++;
 
     m_assetProcessorManager->ComputeBuilderDirty();
 
     EXPECT_TRUE(m_assetProcessorManager->m_anyBuilderChange);
     EXPECT_FALSE(m_assetProcessorManager->m_buildersAddedOrRemoved); // <-- note, we don't expect this to be considered a 'new builder'
     EXPECT_EQ(m_assetProcessorManager->CountDirtyBuilders(), 1);
-    EXPECT_TRUE(m_assetProcessorManager->IsBuilderDirty(mockBuilderResponder.m_assetBuilderDescs[whichToChange].m_busId));
+    EXPECT_TRUE(m_assetProcessorManager->IsBuilderDirty(m_mockBuilderResponder.m_assetBuilderDescs[whichToChange].m_busId));
 
-    mockBuilderResponder.BusDisconnect();
+    m_mockBuilderResponder.BusDisconnect();
 }
 
 // changing the "analysis fingerprint" of a builder should not count as an addition or removal
 // but should still result in that specific builder being considered as a dirty builder.
-TEST_F(AssetProcessorManagerTest, BuilderDirtiness_NewAnalysisFingerprint_IsNotANewBuilder)
+TEST_F(BuilderDirtiness, BuilderDirtiness_NewAnalysisFingerprint_IsNotANewBuilder)
 {
     using namespace AzToolsFramework::AssetSystem;
     using namespace AssetProcessor;
     using namespace AssetBuilderSDK;
 
-    m_mockApplicationManager->BusDisconnect();
-
-    MockBuilderResponder mockBuilderResponder;
-    mockBuilderResponder.BusConnect();
-
-    mockBuilderResponder.AddBuilder("builder1", { AssetBuilderSDK::AssetBuilderPattern("*.egg", AssetBuilderPattern::Wildcard) }, AZ::Uuid::CreateRandom(), 1, "fingerprint1");
-    mockBuilderResponder.AddBuilder("builder2", { AssetBuilderSDK::AssetBuilderPattern("*.foo", AssetBuilderPattern::Wildcard) }, AZ::Uuid::CreateRandom(), 1, "fingerprint2");
-    mockBuilderResponder.AddBuilder("builder3", { AssetBuilderSDK::AssetBuilderPattern("*.bar", AssetBuilderPattern::Wildcard) }, AZ::Uuid::CreateRandom(), 1, "fingerprint3");
-    mockBuilderResponder.AddBuilder("builder4", { AssetBuilderSDK::AssetBuilderPattern("*.baz", AssetBuilderPattern::Wildcard) }, AZ::Uuid::CreateRandom(), 1, "fingerprint4");
+    m_mockBuilderResponder.AddBuilder("builder1", { AssetBuilderSDK::AssetBuilderPattern("*.egg", AssetBuilderPattern::Wildcard) }, AZ::Uuid::CreateRandom(), 1, "fingerprint1");
+    m_mockBuilderResponder.AddBuilder("builder2", { AssetBuilderSDK::AssetBuilderPattern("*.foo", AssetBuilderPattern::Wildcard) }, AZ::Uuid::CreateRandom(), 1, "fingerprint2");
+    m_mockBuilderResponder.AddBuilder("builder3", { AssetBuilderSDK::AssetBuilderPattern("*.bar", AssetBuilderPattern::Wildcard) }, AZ::Uuid::CreateRandom(), 1, "fingerprint3");
+    m_mockBuilderResponder.AddBuilder("builder4", { AssetBuilderSDK::AssetBuilderPattern("*.baz", AssetBuilderPattern::Wildcard) }, AZ::Uuid::CreateRandom(), 1, "fingerprint4");
 
     m_assetProcessorManager->ComputeBuilderDirty();
 
     size_t whichToChange = 3;
-    mockBuilderResponder.m_assetBuilderDescs[whichToChange].m_analysisFingerprint = "changed!!";
+    m_mockBuilderResponder.m_assetBuilderDescs[whichToChange].m_analysisFingerprint = "changed!!";
 
     m_assetProcessorManager->ComputeBuilderDirty();
 
     EXPECT_TRUE(m_assetProcessorManager->m_anyBuilderChange);
     EXPECT_FALSE(m_assetProcessorManager->m_buildersAddedOrRemoved); // <-- note, we don't expect this to be considered a 'new builder'
     EXPECT_EQ(m_assetProcessorManager->CountDirtyBuilders(), 1);
-    EXPECT_TRUE(m_assetProcessorManager->IsBuilderDirty(mockBuilderResponder.m_assetBuilderDescs[whichToChange].m_busId));
+    EXPECT_TRUE(m_assetProcessorManager->IsBuilderDirty(m_mockBuilderResponder.m_assetBuilderDescs[whichToChange].m_busId));
 
-    mockBuilderResponder.BusDisconnect();
+    m_mockBuilderResponder.BusDisconnect();
 
     m_mockApplicationManager->BusConnect();
 }
@@ -734,7 +796,7 @@ TEST_F(AssetProcessorManagerTest, BuilderDirtiness_NewAnalysisFingerprint_IsNotA
 
 TEST_F(AssetProcessorManagerTest, QueryAbsolutePathDependenciesRecursive_BasicTest)
 {
-    using SourceFileDependencyEntry = AzToolsFramework::AssetDatabase::SourceFileDependencyEntry;
+    using namespace AzToolsFramework::AssetDatabase;
 
     //  A depends on B, which depends on both C and D
 
@@ -748,19 +810,19 @@ TEST_F(AssetProcessorManagerTest, QueryAbsolutePathDependenciesRecursive_BasicTe
     SourceFileDependencyEntry newEntry1;  // a depends on B
     newEntry1.m_sourceDependencyID = AzToolsFramework::AssetDatabase::InvalidEntryId;
     newEntry1.m_builderGuid = AZ::Uuid::CreateRandom();
-    newEntry1.m_source = "a.txt";
+    newEntry1.m_sourceGuid = m_aUuid;
     newEntry1.m_dependsOnSource = "b.txt";
 
     SourceFileDependencyEntry newEntry2; // b depends on C
     newEntry2.m_sourceDependencyID = AzToolsFramework::AssetDatabase::InvalidEntryId;
     newEntry2.m_builderGuid = AZ::Uuid::CreateRandom();
-    newEntry2.m_source = "b.txt";
+    newEntry2.m_sourceGuid = m_bUuid;
     newEntry2.m_dependsOnSource = "c.txt";
 
     SourceFileDependencyEntry newEntry3;  // b also depends on D
     newEntry3.m_sourceDependencyID = AzToolsFramework::AssetDatabase::InvalidEntryId;
     newEntry3.m_builderGuid = AZ::Uuid::CreateRandom();
-    newEntry3.m_source = "b.txt";
+    newEntry3.m_sourceGuid = m_bUuid;
     newEntry3.m_dependsOnSource = "d.txt";
 
     ASSERT_TRUE(m_assetProcessorManager->m_stateData->SetSourceFileDependency(newEntry1));
@@ -768,7 +830,7 @@ TEST_F(AssetProcessorManagerTest, QueryAbsolutePathDependenciesRecursive_BasicTe
     ASSERT_TRUE(m_assetProcessorManager->m_stateData->SetSourceFileDependency(newEntry3));
 
     AssetProcessor::SourceFilesForFingerprintingContainer dependencies;
-    m_assetProcessorManager->QueryAbsolutePathDependenciesRecursive("a.txt", dependencies, SourceFileDependencyEntry::DEP_SourceToSource, false );
+    m_assetProcessorManager->QueryAbsolutePathDependenciesRecursive(m_aUuid, dependencies, SourceFileDependencyEntry::DEP_SourceToSource );
     EXPECT_EQ(dependencies.size(), 4); // a depends on b, c, and d - with the latter two being indirect.
 
     EXPECT_NE(dependencies.find(tempPath.absoluteFilePath("subfolder1/a.txt").toUtf8().constData()), dependencies.end());
@@ -776,14 +838,14 @@ TEST_F(AssetProcessorManagerTest, QueryAbsolutePathDependenciesRecursive_BasicTe
     EXPECT_NE(dependencies.find(tempPath.absoluteFilePath("subfolder1/c.txt").toUtf8().constData()), dependencies.end());
     EXPECT_NE(dependencies.find(tempPath.absoluteFilePath("subfolder1/d.txt").toUtf8().constData()), dependencies.end());
 
-    // make sure the corresponding values in the map are also correct (ie, database path only)
-    EXPECT_STREQ(dependencies[tempPath.absoluteFilePath("subfolder1/a.txt").toUtf8().constData()].c_str(), "a.txt");
-    EXPECT_STREQ(dependencies[tempPath.absoluteFilePath("subfolder1/b.txt").toUtf8().constData()].c_str(), "b.txt");
-    EXPECT_STREQ(dependencies[tempPath.absoluteFilePath("subfolder1/c.txt").toUtf8().constData()].c_str(), "c.txt");
-    EXPECT_STREQ(dependencies[tempPath.absoluteFilePath("subfolder1/d.txt").toUtf8().constData()].c_str(), "d.txt");
+    // make sure the corresponding values in the map are also correct
+    EXPECT_STREQ(dependencies[tempPath.absoluteFilePath("subfolder1/a.txt").toUtf8().constData()].c_str(), m_aUuid.ToFixedString().c_str());
+    EXPECT_STREQ(dependencies[tempPath.absoluteFilePath("subfolder1/b.txt").toUtf8().constData()].c_str(), m_bUuid.ToFixedString().c_str());
+    EXPECT_STREQ(dependencies[tempPath.absoluteFilePath("subfolder1/c.txt").toUtf8().constData()].c_str(), m_cUuid.ToFixedString().c_str());
+    EXPECT_STREQ(dependencies[tempPath.absoluteFilePath("subfolder1/d.txt").toUtf8().constData()].c_str(), m_dUuid.ToFixedString().c_str());
 
     dependencies.clear();
-    m_assetProcessorManager->QueryAbsolutePathDependenciesRecursive("b.txt", dependencies, SourceFileDependencyEntry::DEP_SourceToSource, false);
+    m_assetProcessorManager->QueryAbsolutePathDependenciesRecursive(m_bUuid, dependencies, SourceFileDependencyEntry::DEP_SourceToSource);
     EXPECT_EQ(dependencies.size(), 3); // b  depends on c, and d
     EXPECT_NE(dependencies.find(tempPath.absoluteFilePath("subfolder1/b.txt").toUtf8().constData()), dependencies.end());
     EXPECT_NE(dependencies.find(tempPath.absoluteFilePath("subfolder1/c.txt").toUtf8().constData()), dependencies.end());
@@ -793,7 +855,7 @@ TEST_F(AssetProcessorManagerTest, QueryAbsolutePathDependenciesRecursive_BasicTe
     ASSERT_TRUE(m_assetProcessorManager->m_stateData->RemoveSourceFileDependency(newEntry2.m_sourceDependencyID));
 
     dependencies.clear();
-    m_assetProcessorManager->QueryAbsolutePathDependenciesRecursive("a.txt", dependencies, SourceFileDependencyEntry::DEP_SourceToSource, false);
+    m_assetProcessorManager->QueryAbsolutePathDependenciesRecursive(m_aUuid, dependencies, SourceFileDependencyEntry::DEP_SourceToSource);
     EXPECT_EQ(dependencies.size(), 3); // a depends on b and d, but no longer c
     EXPECT_NE(dependencies.find(tempPath.absoluteFilePath("subfolder1/a.txt").toUtf8().constData()), dependencies.end());
     EXPECT_NE(dependencies.find(tempPath.absoluteFilePath("subfolder1/b.txt").toUtf8().constData()), dependencies.end());
@@ -815,21 +877,21 @@ TEST_F(AssetProcessorManagerTest, QueryAbsolutePathDependenciesRecursive_WithDif
     SourceFileDependencyEntry newEntry1;  // a depends on B as a SOURCE dependency.
     newEntry1.m_sourceDependencyID = AzToolsFramework::AssetDatabase::InvalidEntryId;
     newEntry1.m_builderGuid = AZ::Uuid::CreateRandom();
-    newEntry1.m_source = "a.txt";
+    newEntry1.m_sourceGuid = m_aUuid;
     newEntry1.m_dependsOnSource = "b.txt";
     newEntry1.m_typeOfDependency = SourceFileDependencyEntry::DEP_SourceToSource;
 
     SourceFileDependencyEntry newEntry2; // b depends on C as a JOB dependency
     newEntry2.m_sourceDependencyID = AzToolsFramework::AssetDatabase::InvalidEntryId;
     newEntry2.m_builderGuid = AZ::Uuid::CreateRandom();
-    newEntry2.m_source = "b.txt";
+    newEntry2.m_sourceGuid = m_bUuid;
     newEntry2.m_dependsOnSource = "c.txt";
     newEntry2.m_typeOfDependency = SourceFileDependencyEntry::DEP_JobToJob;
 
     SourceFileDependencyEntry newEntry3;  // b also depends on D as a SOURCE dependency
     newEntry3.m_sourceDependencyID = AzToolsFramework::AssetDatabase::InvalidEntryId;
     newEntry3.m_builderGuid = AZ::Uuid::CreateRandom();
-    newEntry3.m_source = "b.txt";
+    newEntry3.m_sourceGuid = m_bUuid;
     newEntry3.m_dependsOnSource = "d.txt";
     newEntry3.m_typeOfDependency = SourceFileDependencyEntry::DEP_SourceToSource;
 
@@ -838,7 +900,7 @@ TEST_F(AssetProcessorManagerTest, QueryAbsolutePathDependenciesRecursive_WithDif
     ASSERT_TRUE(m_assetProcessorManager->m_stateData->SetSourceFileDependency(newEntry3));
 
     AssetProcessor::SourceFilesForFingerprintingContainer dependencies;
-    m_assetProcessorManager->QueryAbsolutePathDependenciesRecursive("a.txt", dependencies, SourceFileDependencyEntry::DEP_SourceToSource, false);
+    m_assetProcessorManager->QueryAbsolutePathDependenciesRecursive(m_aUuid, dependencies, SourceFileDependencyEntry::DEP_SourceToSource);
     // note that a depends on b, c, and d - with the latter two being indirect.
     // however, since b's dependency on C is via JOB, and we're asking for SOURCE only, we should not see C.
     EXPECT_EQ(dependencies.size(), 3);
@@ -848,7 +910,7 @@ TEST_F(AssetProcessorManagerTest, QueryAbsolutePathDependenciesRecursive_WithDif
     EXPECT_NE(dependencies.find(tempPath.absoluteFilePath("subfolder1/d.txt").toUtf8().constData()), dependencies.end());
 
     dependencies.clear();
-    m_assetProcessorManager->QueryAbsolutePathDependenciesRecursive("b.txt", dependencies, SourceFileDependencyEntry::DEP_JobToJob, false);
+    m_assetProcessorManager->QueryAbsolutePathDependenciesRecursive(m_bUuid, dependencies, SourceFileDependencyEntry::DEP_JobToJob);
     // b  depends on c, and d  - but we're asking for job dependencies only, so we should not get anything except C and B
     EXPECT_EQ(dependencies.size(), 2);
     EXPECT_NE(dependencies.find(tempPath.absoluteFilePath("subfolder1/b.txt").toUtf8().constData()), dependencies.end());
@@ -856,83 +918,12 @@ TEST_F(AssetProcessorManagerTest, QueryAbsolutePathDependenciesRecursive_WithDif
 
     // now ask for ALL kinds and you should get the full tree.
     dependencies.clear();
-    m_assetProcessorManager->QueryAbsolutePathDependenciesRecursive("a.txt", dependencies, SourceFileDependencyEntry::DEP_Any, false);
+    m_assetProcessorManager->QueryAbsolutePathDependenciesRecursive(m_aUuid, dependencies, SourceFileDependencyEntry::DEP_Any);
     EXPECT_EQ(dependencies.size(), 4);
     EXPECT_NE(dependencies.find(tempPath.absoluteFilePath("subfolder1/a.txt").toUtf8().constData()), dependencies.end());
     EXPECT_NE(dependencies.find(tempPath.absoluteFilePath("subfolder1/b.txt").toUtf8().constData()), dependencies.end());
     EXPECT_NE(dependencies.find(tempPath.absoluteFilePath("subfolder1/c.txt").toUtf8().constData()), dependencies.end());
     EXPECT_NE(dependencies.find(tempPath.absoluteFilePath("subfolder1/d.txt").toUtf8().constData()), dependencies.end());
-}
-
-// ------------------------------------------------------------------------------------------------
-//                         QueryAbsolutePathDependenciesRecursive REVERSE section
-// ------------------------------------------------------------------------------------------------
-
-TEST_F(AssetProcessorManagerTest, QueryAbsolutePathDependenciesRecursive_Reverse_BasicTest)
-{
-    using SourceFileDependencyEntry = AzToolsFramework::AssetDatabase::SourceFileDependencyEntry;
-
-    //  A depends on B, which depends on both C and D
-
-    QDir tempPath(m_tempDir.path());
-
-    UnitTestUtils::CreateDummyFile(tempPath.absoluteFilePath("subfolder1/a.txt"), QString("tempdata\n"));
-    UnitTestUtils::CreateDummyFile(tempPath.absoluteFilePath("subfolder1/b.txt"), QString("tempdata\n"));
-    UnitTestUtils::CreateDummyFile(tempPath.absoluteFilePath("subfolder1/c.txt"), QString("tempdata\n"));
-    UnitTestUtils::CreateDummyFile(tempPath.absoluteFilePath("subfolder1/d.txt"), QString("tempdata\n"));
-
-    SourceFileDependencyEntry newEntry1;  // a depends on B
-    newEntry1.m_sourceDependencyID = AzToolsFramework::AssetDatabase::InvalidEntryId;
-    newEntry1.m_builderGuid = AZ::Uuid::CreateRandom();
-    newEntry1.m_source = "a.txt";
-    newEntry1.m_dependsOnSource = "b.txt";
-
-    SourceFileDependencyEntry newEntry2; // b depends on C
-    newEntry2.m_sourceDependencyID = AzToolsFramework::AssetDatabase::InvalidEntryId;
-    newEntry2.m_builderGuid = AZ::Uuid::CreateRandom();
-    newEntry2.m_source = "b.txt";
-    newEntry2.m_dependsOnSource = "c.txt";
-
-    SourceFileDependencyEntry newEntry3;  // b also depends on D
-    newEntry3.m_sourceDependencyID = AzToolsFramework::AssetDatabase::InvalidEntryId;
-    newEntry3.m_builderGuid = AZ::Uuid::CreateRandom();
-    newEntry3.m_source = "b.txt";
-    newEntry3.m_dependsOnSource = "d.txt";
-
-    ASSERT_TRUE(m_assetProcessorManager->m_stateData->SetSourceFileDependency(newEntry1));
-    ASSERT_TRUE(m_assetProcessorManager->m_stateData->SetSourceFileDependency(newEntry2));
-    ASSERT_TRUE(m_assetProcessorManager->m_stateData->SetSourceFileDependency(newEntry3));
-
-    AssetProcessor::SourceFilesForFingerprintingContainer dependencies;
-    // sanity: what Depends on a?  the only result should be a itself.
-    m_assetProcessorManager->QueryAbsolutePathDependenciesRecursive("a.txt", dependencies, SourceFileDependencyEntry::DEP_SourceToSource, true /*reverse*/);
-    EXPECT_EQ(dependencies.size(), 1);
-    EXPECT_NE(dependencies.find(tempPath.absoluteFilePath("subfolder1/a.txt").toUtf8().constData()), dependencies.end());
-
-    dependencies.clear();
-    // what depends on d?  b and a should (indirectly)
-    m_assetProcessorManager->QueryAbsolutePathDependenciesRecursive("d.txt", dependencies, SourceFileDependencyEntry::DEP_SourceToSource, true);
-    EXPECT_EQ(dependencies.size(), 3);
-    EXPECT_NE(dependencies.find(tempPath.absoluteFilePath("subfolder1/a.txt").toUtf8().constData()), dependencies.end());
-    EXPECT_NE(dependencies.find(tempPath.absoluteFilePath("subfolder1/b.txt").toUtf8().constData()), dependencies.end());
-    EXPECT_NE(dependencies.find(tempPath.absoluteFilePath("subfolder1/d.txt").toUtf8().constData()), dependencies.end());
-
-    // what depends on c?  b and a should.
-    dependencies.clear();
-    m_assetProcessorManager->QueryAbsolutePathDependenciesRecursive("c.txt", dependencies, SourceFileDependencyEntry::DEP_SourceToSource, true);
-    EXPECT_EQ(dependencies.size(), 3); // b  depends on c, and d
-    EXPECT_NE(dependencies.find(tempPath.absoluteFilePath("subfolder1/c.txt").toUtf8().constData()), dependencies.end());
-    EXPECT_NE(dependencies.find(tempPath.absoluteFilePath("subfolder1/b.txt").toUtf8().constData()), dependencies.end());
-    EXPECT_NE(dependencies.find(tempPath.absoluteFilePath("subfolder1/a.txt").toUtf8().constData()), dependencies.end());
-
-    // eliminate b --> c
-    ASSERT_TRUE(m_assetProcessorManager->m_stateData->RemoveSourceFileDependency(newEntry2.m_sourceDependencyID));
-
-    // what depends on c?  nothing.
-    dependencies.clear();
-    m_assetProcessorManager->QueryAbsolutePathDependenciesRecursive("c.txt", dependencies, SourceFileDependencyEntry::DEP_SourceToSource, true);
-    EXPECT_EQ(dependencies.size(), 1); // a depends on b and d, but no longer c
-    EXPECT_NE(dependencies.find(tempPath.absoluteFilePath("subfolder1/c.txt").toUtf8().constData()), dependencies.end());
 }
 
 // since we need these files to still produce a 0-based fingerprint, we need them to
@@ -949,22 +940,29 @@ TEST_F(AssetProcessorManagerTest, QueryAbsolutePathDependenciesRecursive_Missing
     UnitTestUtils::CreateDummyFile(tempPath.absoluteFilePath("subfolder1/d.txt"), QString("tempdata\n"));
     // note that we don't actually create b and c here, they are missing.
 
+    AzToolsFramework::AssetDatabase::SourceDatabaseEntry entry;
+    m_assetProcessorManager->m_stateData->GetSourceBySourceGuid(m_bUuid, entry);
+    m_assetProcessorManager->m_stateData->RemoveSource(entry.m_sourceID);
+
+    m_assetProcessorManager->m_stateData->GetSourceBySourceGuid(m_cUuid, entry);
+    m_assetProcessorManager->m_stateData->RemoveSource(entry.m_sourceID);
+
     SourceFileDependencyEntry newEntry1;  // a depends on B
     newEntry1.m_sourceDependencyID = AzToolsFramework::AssetDatabase::InvalidEntryId;
     newEntry1.m_builderGuid = AZ::Uuid::CreateRandom();
-    newEntry1.m_source = "a.txt";
+    newEntry1.m_sourceGuid = m_aUuid;
     newEntry1.m_dependsOnSource = "b.txt";
 
     SourceFileDependencyEntry newEntry2; // b depends on C
     newEntry2.m_sourceDependencyID = AzToolsFramework::AssetDatabase::InvalidEntryId;
     newEntry2.m_builderGuid = AZ::Uuid::CreateRandom();
-    newEntry2.m_source = "b.txt";
+    newEntry2.m_sourceGuid = m_bUuid;
     newEntry2.m_dependsOnSource = "c.txt";
 
     SourceFileDependencyEntry newEntry3;  // b also depends on D
     newEntry3.m_sourceDependencyID = AzToolsFramework::AssetDatabase::InvalidEntryId;
     newEntry3.m_builderGuid = AZ::Uuid::CreateRandom();
-    newEntry3.m_source = "b.txt";
+    newEntry3.m_sourceGuid = m_bUuid;
     newEntry3.m_dependsOnSource = "d.txt";
 
     ASSERT_TRUE(m_assetProcessorManager->m_stateData->SetSourceFileDependency(newEntry1));
@@ -972,22 +970,22 @@ TEST_F(AssetProcessorManagerTest, QueryAbsolutePathDependenciesRecursive_Missing
     ASSERT_TRUE(m_assetProcessorManager->m_stateData->SetSourceFileDependency(newEntry3));
 
     AssetProcessor::SourceFilesForFingerprintingContainer dependencies;
-    m_assetProcessorManager->QueryAbsolutePathDependenciesRecursive("a.txt", dependencies, SourceFileDependencyEntry::DEP_SourceToSource, false);
-    EXPECT_EQ(dependencies.size(), 2); // a depends on b, c, and d - with the latter two being indirect.
+    m_assetProcessorManager->QueryAbsolutePathDependenciesRecursive(m_aUuid, dependencies, SourceFileDependencyEntry::DEP_SourceToSource);
+    EXPECT_EQ(dependencies.size(), 2); // b and c don't exist, so only expect a and d
 
     EXPECT_NE(dependencies.find(tempPath.absoluteFilePath("subfolder1/a.txt").toUtf8().constData()), dependencies.end());
     EXPECT_NE(dependencies.find(tempPath.absoluteFilePath("subfolder1/d.txt").toUtf8().constData()), dependencies.end());
 
     dependencies.clear();
-    m_assetProcessorManager->QueryAbsolutePathDependenciesRecursive("b.txt", dependencies, SourceFileDependencyEntry::DEP_SourceToSource, false);
-    EXPECT_EQ(dependencies.size(), 1); // b  depends on c, and d
+    m_assetProcessorManager->QueryAbsolutePathDependenciesRecursive(m_bUuid, dependencies, SourceFileDependencyEntry::DEP_SourceToSource);
+    EXPECT_EQ(dependencies.size(), 1); // c doesn't exist, so only expect d
     EXPECT_NE(dependencies.find(tempPath.absoluteFilePath("subfolder1/d.txt").toUtf8().constData()), dependencies.end());
 
     // eliminate b --> c
     ASSERT_TRUE(m_assetProcessorManager->m_stateData->RemoveSourceFileDependency(newEntry2.m_sourceDependencyID));
 
     dependencies.clear();
-    m_assetProcessorManager->QueryAbsolutePathDependenciesRecursive("a.txt", dependencies, SourceFileDependencyEntry::DEP_SourceToSource, false);
+    m_assetProcessorManager->QueryAbsolutePathDependenciesRecursive(m_aUuid, dependencies, SourceFileDependencyEntry::DEP_SourceToSource);
     EXPECT_EQ(dependencies.size(), 2); // a depends on b and d, but no longer c
     EXPECT_NE(dependencies.find(tempPath.absoluteFilePath("subfolder1/a.txt").toUtf8().constData()), dependencies.end());
     EXPECT_NE(dependencies.find(tempPath.absoluteFilePath("subfolder1/d.txt").toUtf8().constData()), dependencies.end());
@@ -1028,7 +1026,7 @@ TEST_F(AssetProcessorManagerTest, BuilderSDK_API_CreateJobs_HasValidParameters_W
 {
     QDir tempPath(m_tempDir.path());
     // here we push a file change through APM and make sure that "CreateJobs" has correct parameters, with no output redirection
-    QString absPath(tempPath.absoluteFilePath("subfolder2/redirected/test_text.txt"));
+    QString absPath(tempPath.absoluteFilePath("subfolder2/test_text.txt"));
     UnitTestUtils::CreateDummyFile(absPath);
 
     m_mockApplicationManager->ResetMockBuilderCreateJobCalls();
@@ -1049,7 +1047,7 @@ TEST_F(AssetProcessorManagerTest, BuilderSDK_API_CreateJobs_HasValidParameters_W
     // subfolder2 has its output redirected in the cache
     // this test makes sure that the CreateJobs API is completely unaffected by that and none of the internal database stuff
     // is reflected by the API.
-    EXPECT_STREQ(req.m_watchFolder.c_str(), tempPath.absoluteFilePath("subfolder2/redirected").toUtf8().constData());
+    EXPECT_STREQ(req.m_watchFolder.c_str(), tempPath.absoluteFilePath("subfolder2").toUtf8().constData());
     EXPECT_STREQ(req.m_sourceFile.c_str(), "test_text.txt"); // only the name should be there, no output prefix.
 
     EXPECT_NE(req.m_sourceFileUUID, AZ::Uuid::CreateNull());
@@ -1223,11 +1221,9 @@ void PathDependencyTest::SetUp()
     AssetProcessorManagerTest::SetUp();
 
     AssetRecognizer rec;
-    AssetPlatformSpec specpc;
-
     rec.m_name = "txt files2";
     rec.m_patternMatcher = AssetBuilderSDK::FilePatternMatcher("*.txt", AssetBuilderSDK::AssetBuilderPattern::Wildcard);
-    rec.m_platformSpecs.insert("pc", specpc);
+    rec.m_platformSpecs.insert({"pc", AssetInternalSpec::Copy});
     rec.m_supportsCreateJobs = false;
     m_mockApplicationManager->RegisterAssetRecognizerAsBuilder(rec);
 
@@ -1308,16 +1304,18 @@ bool PathDependencyTest::ProcessAsset(TestAsset& asset, const OutputAssetSet& ou
 
         for (const char* outputExtension : outputSet)
         {
-            if(jobSet >= capturedDetails.size() || capturedDetails[jobSet].m_destinationPath.isEmpty())
+            if(jobSet >= capturedDetails.size() || capturedDetails[jobSet].m_cachePath.empty())
             {
                 return false;
             }
 
-            QString outputAssetPath = QDir(capturedDetails[jobSet].m_destinationPath).absoluteFilePath(QString(asset.m_name.c_str()) + outputExtension);
+            auto filename = capturedDetails[jobSet].m_relativePath / (asset.m_name + outputExtension);
 
-            UnitTestUtils::CreateDummyFile(outputAssetPath, "this is a test output asset");
+            AssetUtilities::ProductPath productPath{ filename.Native(), capturedDetails[jobSet].m_jobEntry.m_platformInfo.m_identifier };
 
-            JobProduct jobProduct(outputAssetPath.toUtf8().constData(), AZ::Uuid::CreateRandom(), subIdCounter);
+            UnitTestUtils::CreateDummyFile(productPath.GetCachePath().c_str(), "this is a test output asset");
+
+            JobProduct jobProduct(productPath.GetRelativePath(), AZ::Uuid::CreateRandom(), subIdCounter);
             jobProduct.m_pathDependencies.insert(dependencies.begin(), dependencies.end());
 
             processJobResponse.m_outputProducts.push_back(jobProduct);
@@ -1421,11 +1419,12 @@ TEST_F(DuplicateProcessTest, SameAssetProcessedTwice_DependenciesResolveWithoutE
         processJobResponse.m_resultCode = ProcessJobResult_Success;
 
         {
-            QString outputAssetPath = QDir(job.m_destinationPath).absoluteFilePath("test.asset");
+            auto filename = "test.asset";
+            QString outputAssetPath = (job.m_cachePath / filename).AsPosix().c_str();
 
             UnitTestUtils::CreateDummyFile(outputAssetPath, "this is a test output asset");
 
-            JobProduct jobProduct(outputAssetPath.toUtf8().constData());
+            JobProduct jobProduct(filename);
             jobProduct.m_pathDependencies.insert(dependencies.begin(), dependencies.end());
 
             processJobResponse.m_outputProducts.push_back(jobProduct);
@@ -1466,11 +1465,9 @@ TEST_F(PathDependencyTest, NoLongerProcessedFile_IsRemoved)
     m_mockApplicationManager->UnRegisterAllBuilders();
 
     AssetRecognizer rec;
-    AssetPlatformSpec specpc;
-
     rec.m_name = "txt files2";
     rec.m_patternMatcher = AssetBuilderSDK::FilePatternMatcher("*.txt", AssetBuilderSDK::AssetBuilderPattern::Wildcard);
-    rec.m_platformSpecs.insert("pc", specpc);
+    rec.m_platformSpecs.insert({"pc", AssetInternalSpec::Copy});
     rec.m_supportsCreateJobs = false;
     m_mockApplicationManager->RegisterAssetRecognizerAsBuilder(rec);
 
@@ -1525,14 +1522,15 @@ TEST_F(PathDependencyTest, AssetProcessed_Impl_SelfReferrentialProductDependency
     ProcessJobResponse processJobResponse;
     processJobResponse.m_resultCode = ProcessJobResult_Success;
 
-    ASSERT_FALSE(jobDetails.m_destinationPath.isEmpty());
+    ASSERT_FALSE(jobDetails.m_cachePath.empty());
 
     // create a product asset
-    QString outputAssetPath = QDir(jobDetails.m_destinationPath).absoluteFilePath(QString(mainFile.m_name.c_str()) + ".asset");
+    auto filename = mainFile.m_name + ".asset";
+    QString outputAssetPath = (jobDetails.m_cachePath / filename).AsPosix().c_str();
     UnitTestUtils::CreateDummyFile(outputAssetPath, "this is a test output asset");
 
     // add the new product asset to its own product dependencies list by assetId
-    JobProduct jobProduct(outputAssetPath.toUtf8().constData(), outputAssetTypeId, subId);
+    JobProduct jobProduct(filename, outputAssetTypeId, subId);
     AZ::Data::AssetId productAssetId(jobDetails.m_jobEntry.m_sourceFileUUID, subId);
     jobProduct.m_dependencies.push_back(ProductDependency(productAssetId, 5));
 
@@ -1819,7 +1817,7 @@ TEST_F(PathDependencyTest, WildcardDependencies_ExcludePathsExisting_ResolveCorr
     result = ProcessAsset(primaryFile2, { { ".asset" }, {} }, {
         {"*p1.txt", ProductPathDependencyType::SourceFile},
         {"*.asset3", ProductPathDependencyType::ProductFile} });
-    ASSERT_TRUE(result) << "Failed to Process main test asset" << primaryFile2.m_name.c_str();;
+    ASSERT_TRUE(result) << "Failed to Process main test asset" << primaryFile2.m_name.c_str();
 
     AzToolsFramework::AssetDatabase::ProductDatabaseEntryContainer productContainer;
     result = m_sharedConnection->GetProducts(productContainer);
@@ -2206,9 +2204,11 @@ TEST_F(PathDependencyTest, AbsoluteDependencies_Deferred_ResolveCorrectly)
     QDir tempPath(m_tempDir.path());
     AZStd::string relativePathDep1("dep1.txt");
     QString absPathDep1(tempPath.absoluteFilePath(QString("subfolder4%1%2").arg(QDir::separator()).arg(relativePathDep1.c_str())));
+
+    auto scanfolder4 = m_config->GetScanFolderForFile(absPathDep1);
     // When an absolute path matches a scan folder, the portion of the path matching that scan folder
     // is replaced with the scan folder's ID.
-    AZStd::string absPathDep1WithScanfolder(AZStd::string::format("$4$%s", relativePathDep1.c_str()));
+    AZStd::string absPathDep1WithScanfolder(AZStd::string::format("$%" PRId64 "$%s", aznumeric_cast<int64_t>(scanfolder4->ScanFolderID()), relativePathDep1.c_str()));
     QString absPathDep2(tempPath.absoluteFilePath("subfolder2/redirected/dep2.txt"));
     QString absPathDep3(tempPath.absoluteFilePath("subfolder1/dep3.txt"));
 
@@ -2391,91 +2391,6 @@ TEST_F(PathDependencyTest, MixedPathDependencies_Deferred_ResolveCorrectly)
     );
 }
 
-// This test ensures product path *product* file dependencies are matched by exact path
-// Dep1 is output as test.asset#, Dep2 is output as redirected/test.asset#
-// Dependencies on test.asset# should point to dep1 and never dep2
-TEST_F(PathDependencyTest, AssetProcessed_Impl_DeferredPathResolution_CorrectlyMatchesWithScanFolderPrefix)
-{
-    using namespace AssetProcessor;
-    using namespace AssetBuilderSDK;
-
-    // -------- Make main test asset, with dependencies on products that don't exist yet -----
-    TestAsset primaryFile("test_text");
-    ASSERT_TRUE(ProcessAsset(primaryFile, { { ".asset" }, {} }, { {"test.asset1", ProductPathDependencyType::ProductFile}, {"test.asset2", ProductPathDependencyType::ProductFile} }));
-
-    // create dependees
-    TestAsset dep1("test");
-    TestAsset dep2("test");
-
-    ASSERT_TRUE(ProcessAsset(dep1, { {".asset1"}, {".asset2"} }, {}, "subfolder1/"));
-    ASSERT_TRUE(ProcessAsset(dep2, { {".asset1"}, {".asset2"} }, {}, "subfolder2/redirected/"));
-
-    // ---------- Verify that the dependency was recorded, and did not keep the path after resolution ----------
-    AzToolsFramework::AssetDatabase::ProductDependencyDatabaseEntryContainer dependencyContainer;
-    ASSERT_TRUE(m_sharedConnection->GetProductDependencies(dependencyContainer));
-
-    VerifyDependencies(dependencyContainer, { dep1.m_products[0], dep2.m_products[1] });
-}
-
-// This test ensures product path *source* file dependencies are matched by exact path
-TEST_F(PathDependencyTest, SourceFileDependencyWithPrefix_Deferred_ResolvesCorrectly)
-{
-    using namespace AssetProcessor;
-    using namespace AssetBuilderSDK;
-
-    // -------- Make main test asset, with dependencies on products that don't exist yet -----
-    TestAsset primaryFile("test_text");
-
-    ASSERT_TRUE(ProcessAsset(primaryFile, { { ".asset" }, {} }, { {"test.txt", ProductPathDependencyType::SourceFile} }));
-
-    // create dependees
-    TestAsset dep1("test");
-    TestAsset dep2("test");
-
-    ASSERT_TRUE(ProcessAsset(dep1, { {".asset1"}, {".asset2"} }, {}, "subfolder1/"));
-    ASSERT_TRUE(ProcessAsset(dep2, { {".asset1"}, {".asset2"} }, {}, "subfolder2/redirected/"));
-
-    // ---------- Verify that the dependency was recorded, and did not keep the path after resolution ----------
-    AzToolsFramework::AssetDatabase::ProductDependencyDatabaseEntryContainer dependencyContainer;
-    ASSERT_TRUE(m_sharedConnection->GetProductDependencies(dependencyContainer));
-
-    VerifyDependencies(dependencyContainer,
-        {
-            dep2.m_products[0],
-            dep2.m_products[1],
-        }
-    );
-}
-
-TEST_F(PathDependencyTest, SourceFileDependencyWithPrefix_Existing_ResolvesCorrectly)
-{
-    using namespace AssetProcessor;
-    using namespace AssetBuilderSDK;
-
-    // create dependees
-    TestAsset dep1("test");
-    TestAsset dep2("test");
-
-    ASSERT_TRUE(ProcessAsset(dep1, { {".asset1"}, {".asset2"} }, {}, "subfolder1/"));
-    ASSERT_TRUE(ProcessAsset(dep2, { {".asset1"}, {".asset2"} }, {}, "subfolder2/redirected/"));
-
-    // -------- Make main test asset, with dependencies on products we just created -----
-    TestAsset primaryFile("test_text");
-
-    ASSERT_TRUE(ProcessAsset(primaryFile, { { ".asset" }, {} }, { {"test.txt", ProductPathDependencyType::SourceFile} }));
-
-    // ---------- Verify that the dependency was recorded, and did not keep the path after resolution ----------
-    AzToolsFramework::AssetDatabase::ProductDependencyDatabaseEntryContainer dependencyContainer;
-    ASSERT_TRUE(m_sharedConnection->GetProductDependencies(dependencyContainer));
-
-    VerifyDependencies(dependencyContainer,
-        {
-            dep2.m_products[0],
-            dep2.m_products[1],
-        }
-    );
-}
-
 void MultiplatformPathDependencyTest::SetUp()
 {
     AssetProcessorManagerTest::SetUp();
@@ -2484,9 +2399,10 @@ void MultiplatformPathDependencyTest::SetUp()
     m_config->EnablePlatform({ "provo",{ "console" } }, true);
     QDir tempPath(m_tempDir.path());
 
-    m_config->AddScanFolder(ScanFolderInfo(tempPath.filePath("subfolder1"), "subfolder1", "subfolder1", false, true, m_config->GetEnabledPlatforms() ));
+    m_config->AddScanFolder(ScanFolderInfo(tempPath.filePath("subfolder1"), "subfolder1", "subfolder1", false, true, m_config->GetEnabledPlatforms()));
     m_config->AddScanFolder(ScanFolderInfo(tempPath.filePath("subfolder2"), "subfolder2", "subfolder2", false, true, m_config->GetEnabledPlatforms()));
     m_config->AddScanFolder(ScanFolderInfo(tempPath.filePath("subfolder3"), "subfolder3", "subfolder3", false, true, m_config->GetEnabledPlatforms()));
+    m_config->AddIntermediateScanFolder();
 
     m_assetProcessorManager = nullptr; // we need to destroy the previous instance before creating a new one
     m_assetProcessorManager = AZStd::make_unique<AssetProcessorManager_Test>(m_config.get());
@@ -2505,8 +2421,8 @@ void MultiplatformPathDependencyTest::SetUp()
 
     rec.m_name = "multiplatform txt files";
     rec.m_patternMatcher = AssetBuilderSDK::FilePatternMatcher("*.txt", AssetBuilderSDK::AssetBuilderPattern::Wildcard);
-    rec.m_platformSpecs.insert("pc", AssetPlatformSpec());
-    rec.m_platformSpecs.insert("provo", AssetPlatformSpec());
+    rec.m_platformSpecs.insert({"pc", AssetInternalSpec::Copy});
+    rec.m_platformSpecs.insert({"provo", AssetInternalSpec::Copy});
     rec.m_supportsCreateJobs = false;
     m_mockApplicationManager->RegisterAssetRecognizerAsBuilder(rec);
 
@@ -2514,7 +2430,7 @@ void MultiplatformPathDependencyTest::SetUp()
 
     rec2.m_name = "single platform ini files";
     rec2.m_patternMatcher = AssetBuilderSDK::FilePatternMatcher("*.ini", AssetBuilderSDK::AssetBuilderPattern::Wildcard);
-    rec2.m_platformSpecs.insert("pc", AssetPlatformSpec());
+    rec2.m_platformSpecs.insert({"pc", AssetInternalSpec::Copy});
     rec2.m_supportsCreateJobs = false;
     m_mockApplicationManager->RegisterAssetRecognizerAsBuilder(rec2);
 }
@@ -2696,14 +2612,14 @@ TEST_F(AssetProcessorManagerTest, AssetProcessedImpl_DifferentProductDependencie
     ProcessJobResponse response;
     response.m_resultCode = ProcessJobResult_Success;
 
-    QString destTestPath1 = QDir(capturedDetails.m_destinationPath).absoluteFilePath("test1.txt");
-    QString destTestPath2 = QDir(capturedDetails.m_destinationPath).absoluteFilePath("test2.txt");
+    QString destTestPath1 = (capturedDetails.m_cachePath / "test1.txt").AsPosix().c_str();
+    QString destTestPath2 = (capturedDetails.m_cachePath / "test2.txt").AsPosix().c_str();
 
     UnitTestUtils::CreateDummyFile(destTestPath1, "this is the first output");
     UnitTestUtils::CreateDummyFile(destTestPath2, "this is the second output");
 
-    JobProduct productA(destTestPath1.toUtf8().constData(), AZ::Uuid::CreateRandom(), 1);
-    JobProduct productB(destTestPath2.toUtf8().constData(), AZ::Uuid::CreateRandom(), 2);
+    JobProduct productA("test1.txt", AZ::Uuid::CreateRandom(), 1);
+    JobProduct productB("test2.txt", AZ::Uuid::CreateRandom(), 2);
     AZ::Data::AssetId expectedIdOfProductA(capturedDetails.m_jobEntry.m_sourceFileUUID, productA.m_productSubID);
     AZ::Data::AssetId expectedIdOfProductB(capturedDetails.m_jobEntry.m_sourceFileUUID, productB.m_productSubID);
 
@@ -2802,11 +2718,11 @@ TEST_F(AssetProcessorManagerTest, AssessDeletedFile_OnJobInFlight_IsIgnored)
     response.m_resultCode = ProcessJobResult_Success;
     for (int outputIdx = 0; outputIdx < numOutputsToSimulate; ++outputIdx)
     {
-        QString fileNameToGenerate = QString("test%1.txt").arg(outputIdx);
-        QString filePathToGenerate = QDir(capturedDetails.m_destinationPath).absoluteFilePath(fileNameToGenerate);
+        auto fileNameToGenerate = AZStd::string::format("test%d.txt", outputIdx);
+        QString filePathToGenerate = (capturedDetails.m_cachePath / fileNameToGenerate).AsPosix().c_str();
 
         UnitTestUtils::CreateDummyFile(filePathToGenerate, "an output");
-        JobProduct product(filePathToGenerate.toUtf8().constData(), AZ::Uuid::CreateRandom(), static_cast<AZ::u32>(outputIdx));
+        JobProduct product(fileNameToGenerate, AZ::Uuid::CreateRandom(), static_cast<AZ::u32>(outputIdx));
         response.m_outputProducts.push_back(product);
     }
 
@@ -2843,7 +2759,7 @@ TEST_F(AssetProcessorManagerTest, AssessDeletedFile_OnJobInFlight_IsIgnored)
     // we should have gotten at least one request to actually process that job:
     ASSERT_STREQ(capturedDetails.m_jobEntry.GetAbsoluteSourcePath().toUtf8().constData(), absPath.toUtf8().constData());
     ASSERT_FALSE(capturedDetails.m_autoFail);
-    ASSERT_FALSE(capturedDetails.m_destinationPath.isEmpty());
+    ASSERT_FALSE(capturedDetails.m_cachePath.empty());
     // ----------------------------- TEST BEGINS HERE -----------------------------
     // simulte a very slow computer processing the file one output at a time and feeding file change notifies:
 
@@ -2879,10 +2795,10 @@ TEST_F(AssetProcessorManagerTest, AssessDeletedFile_OnJobInFlight_IsIgnored)
         // every second one, we dont wait at all and let it rapidly process, to preturb the timing.
         bool shouldBlockAndWaitThisTime = outputIdx % 2 == 0;
 
-        QString fileNameToGenerate = QString("test%1.txt").arg(outputIdx);
-        QString filePathToGenerate = QDir(capturedDetails.m_destinationPath).absoluteFilePath(fileNameToGenerate);
+        auto fileNameToGenerate = AZStd::string::format("test%d.txt", outputIdx);
+        QString filePathToGenerate = (capturedDetails.m_cachePath / fileNameToGenerate).AsPosix().c_str();
 
-        JobProduct product(filePathToGenerate.toUtf8().constData(), AZ::Uuid::CreateRandom(), static_cast<AZ::u32>(outputIdx));
+        JobProduct product(fileNameToGenerate, AZ::Uuid::CreateRandom(), static_cast<AZ::u32>(outputIdx));
         response.m_outputProducts.push_back(product);
 
         AssetProcessor::ProcessingJobInfoBus::Broadcast(&AssetProcessor::ProcessingJobInfoBus::Events::BeginCacheFileUpdate, filePathToGenerate.toUtf8().data());
@@ -2950,14 +2866,14 @@ void SourceFileDependenciesTest::SetupData(
 
     if (createFile1Dummies)
     {
-        ASSERT_TRUE(UnitTestUtils::CreateDummyFile(m_dependsOnFile1_Source, QString("tempdata\n")));
-        ASSERT_TRUE(UnitTestUtils::CreateDummyFile(m_dependsOnFile1_Job, QString("tempdata\n")));
+        CreateSourceAndFile("subfolder1/a.txt");
+        CreateSourceAndFile("subfolder1/c.txt");
     }
 
     if (createFile2Dummies)
     {
-        ASSERT_TRUE(UnitTestUtils::CreateDummyFile(m_dependsOnFile2_Source, QString("tempdata\n")));
-        ASSERT_TRUE(UnitTestUtils::CreateDummyFile(m_dependsOnFile2_Job, QString("tempdata\n")));
+        CreateSourceAndFile("subfolder1/b.txt");
+        CreateSourceAndFile("subfolder1/d.txt");
     }
 
     // construct the dummy job to feed to the database updater function:
@@ -2969,6 +2885,7 @@ void SourceFileDependenciesTest::SetupData(
     if (primeMap)
     {
         // note that we have to "prime" the map with the UUIDs to the source info for this to work:
+        m_assetProcessorManager->m_sourceUUIDToSourceInfoMap[job.m_sourceFileInfo.m_uuid] = { m_watchFolderPath, job.m_sourceFileInfo.m_databasePath, job.m_sourceFileInfo.m_databasePath };
         m_assetProcessorManager->m_sourceUUIDToSourceInfoMap[m_uuidOfA] = { m_watchFolderPath, "a.txt", "a.txt" };
         m_assetProcessorManager->m_sourceUUIDToSourceInfoMap[m_uuidOfB] = { m_watchFolderPath, "b.txt", "b.txt" };
         m_assetProcessorManager->m_sourceUUIDToSourceInfoMap[m_uuidOfC] = { m_watchFolderPath, "c.txt", "c.txt" };
@@ -2994,6 +2911,19 @@ void SourceFileDependenciesTest::SetupData(
 
     // this is the one line that this unit test is really testing:
     m_assetProcessorManager->UpdateSourceFileDependenciesDatabase(job);
+}
+
+void SourceFileDependenciesTest::PopulateDatabase()
+{
+    using namespace AzToolsFramework::AssetDatabase;
+
+    QDir tempPath(m_tempDir.path());
+
+    AzToolsFramework::AssetDatabase::ScanFolderDatabaseEntry scanFolder(
+        tempPath.absoluteFilePath("subfolder1").toUtf8().constData(), "temp path", "temp path");
+    ASSERT_TRUE(m_assetProcessorManager->m_stateData->SetScanFolder(scanFolder));
+
+    CreateSourceAndFile("subFolder1/assetProcessorManagerTest.txt");
 }
 
 AssetBuilderSDK::SourceFileDependency SourceFileDependenciesTest::MakeSourceDependency(const char* file, bool wildcard)
@@ -3022,7 +2952,7 @@ auto SourceFileDependenciesTest::GetDependencyList()
 {
     AzToolsFramework::AssetDatabase::SourceFileDependencyEntryContainer deps;
     this->m_assetProcessorManager->m_stateData->GetSourceFileDependenciesByBuilderGUIDAndSource(
-        m_dummyBuilderUuid, "assetProcessorManagerTest.txt",
+        m_dummyBuilderUuid, m_sourceFileUuid,
         AzToolsFramework::AssetDatabase::SourceFileDependencyEntry::TypeOfDependency::DEP_Any, deps);
 
     AZStd::vector<AZStd::string> list;
@@ -3039,11 +2969,11 @@ TEST_F(SourceFileDependenciesTest, UpdateSourceFileDependenciesDatabase_BasicTes
 {
     AssetProcessor::AssetProcessorManager::JobToProcessEntry job;
     SetupData({ MakeSourceDependency("a.txt"), MakeSourceDependency(m_uuidOfB) }, { MakeJobDependency("c.txt"), MakeJobDependency(m_uuidOfD) }, true, true, true, job);
-    
+
     // the rest of this test now performs a series of queries to verify the database was correctly set.
     // this indirectly verifies the QueryAbsolutePathDependenciesRecursive function also but it has its own dedicated tests, above.
     AssetProcessor::SourceFilesForFingerprintingContainer deps;
-    m_assetProcessorManager.get()->QueryAbsolutePathDependenciesRecursive(QString::fromUtf8("assetProcessorManagerTest.txt"), deps, AzToolsFramework::AssetDatabase::SourceFileDependencyEntry::DEP_SourceToSource, false);
+    m_assetProcessorManager.get()->QueryAbsolutePathDependenciesRecursive(m_sourceFileUuid, deps, AzToolsFramework::AssetDatabase::SourceFileDependencyEntry::DEP_SourceToSource);
     // the above function includes the actual source, as an absolute path.
     EXPECT_EQ(deps.size(), 3);
     EXPECT_NE(deps.find(m_absPath.toUtf8().constData()), deps.end());
@@ -3051,7 +2981,7 @@ TEST_F(SourceFileDependenciesTest, UpdateSourceFileDependenciesDatabase_BasicTes
     EXPECT_NE(deps.find(m_dependsOnFile2_Source.toUtf8().constData()), deps.end());
 
     deps.clear();
-    m_assetProcessorManager.get()->QueryAbsolutePathDependenciesRecursive(QString::fromUtf8("assetProcessorManagerTest.txt"), deps, AzToolsFramework::AssetDatabase::SourceFileDependencyEntry::DEP_JobToJob, false);
+    m_assetProcessorManager.get()->QueryAbsolutePathDependenciesRecursive(m_sourceFileUuid, deps, AzToolsFramework::AssetDatabase::SourceFileDependencyEntry::DEP_JobToJob);
     // the above function includes the actual source, as an absolute path.
     EXPECT_EQ(deps.size(), 3);
     EXPECT_NE(deps.find(m_absPath.toUtf8().constData()), deps.end());
@@ -3059,7 +2989,7 @@ TEST_F(SourceFileDependenciesTest, UpdateSourceFileDependenciesDatabase_BasicTes
     EXPECT_NE(deps.find(m_dependsOnFile2_Job.toUtf8().constData()), deps.end());
 
     deps.clear();
-    m_assetProcessorManager.get()->QueryAbsolutePathDependenciesRecursive(QString::fromUtf8("assetProcessorManagerTest.txt"), deps, AzToolsFramework::AssetDatabase::SourceFileDependencyEntry::DEP_Any, false);
+    m_assetProcessorManager.get()->QueryAbsolutePathDependenciesRecursive(m_sourceFileUuid, deps, AzToolsFramework::AssetDatabase::SourceFileDependencyEntry::DEP_Any);
     // the above function includes the actual source, as an absolute path.
     EXPECT_EQ(deps.size(), 5);
     EXPECT_NE(deps.find(m_absPath.toUtf8().constData()), deps.end());
@@ -3073,10 +3003,10 @@ TEST_F(SourceFileDependenciesTest, UpdateSourceFileDependenciesDatabase_UpdateTe
 {
     // make sure that if we remove dependencies that are published, they disappear.
     // so the first part of this test is to put some data in there, the same as before:
-    
+
     AssetProcessor::AssetProcessorManager::JobToProcessEntry job;
     SetupData({ MakeSourceDependency("a.txt"), MakeSourceDependency(m_uuidOfB) }, { MakeJobDependency("c.txt"), MakeJobDependency(m_uuidOfD) }, true, true, true, job);
-    
+
     // in this test, though, we delete some after pushing them in there, and update it again:
     job.m_sourceFileDependencies.pop_back(); // erase the 'b' dependency.
     job.m_jobsToAnalyze[0].m_jobDependencyList.pop_back(); // erase the 'd' dependency, which is by guid.
@@ -3084,21 +3014,21 @@ TEST_F(SourceFileDependenciesTest, UpdateSourceFileDependenciesDatabase_UpdateTe
 
     // now make sure that the same queries omit b and d:
     AssetProcessor::SourceFilesForFingerprintingContainer deps;
-    m_assetProcessorManager.get()->QueryAbsolutePathDependenciesRecursive(QString::fromUtf8("assetProcessorManagerTest.txt"), deps, AzToolsFramework::AssetDatabase::SourceFileDependencyEntry::DEP_SourceToSource, false);
+    m_assetProcessorManager.get()->QueryAbsolutePathDependenciesRecursive(m_sourceFileUuid, deps, AzToolsFramework::AssetDatabase::SourceFileDependencyEntry::DEP_SourceToSource);
     // the above function includes the actual source, as an absolute path.
     EXPECT_EQ(deps.size(), 2);
     EXPECT_NE(deps.find(m_absPath.toUtf8().constData()), deps.end());
     EXPECT_NE(deps.find(m_dependsOnFile1_Source.toUtf8().constData()), deps.end());
 
     deps.clear();
-    m_assetProcessorManager.get()->QueryAbsolutePathDependenciesRecursive(QString::fromUtf8("assetProcessorManagerTest.txt"), deps, AzToolsFramework::AssetDatabase::SourceFileDependencyEntry::DEP_JobToJob, false);
+    m_assetProcessorManager.get()->QueryAbsolutePathDependenciesRecursive(m_sourceFileUuid, deps, AzToolsFramework::AssetDatabase::SourceFileDependencyEntry::DEP_JobToJob);
     // the above function includes the actual source, as an absolute path.
     EXPECT_EQ(deps.size(), 2);
     EXPECT_NE(deps.find(m_absPath.toUtf8().constData()), deps.end());
     EXPECT_NE(deps.find(m_dependsOnFile1_Job.toUtf8().constData()), deps.end());
 
     deps.clear();
-    m_assetProcessorManager.get()->QueryAbsolutePathDependenciesRecursive(QString::fromUtf8("assetProcessorManagerTest.txt"), deps, AzToolsFramework::AssetDatabase::SourceFileDependencyEntry::DEP_Any, false);
+    m_assetProcessorManager.get()->QueryAbsolutePathDependenciesRecursive(m_sourceFileUuid, deps, AzToolsFramework::AssetDatabase::SourceFileDependencyEntry::DEP_Any);
     // the above function includes the actual source, as an absolute path.
     EXPECT_EQ(deps.size(), 3);
     EXPECT_NE(deps.find(m_absPath.toUtf8().constData()), deps.end());
@@ -3109,14 +3039,14 @@ TEST_F(SourceFileDependenciesTest, UpdateSourceFileDependenciesDatabase_UpdateTe
 TEST_F(SourceFileDependenciesTest, UpdateSourceFileDependenciesDatabase_MissingFiles_ByUuid)
 {
     // make sure that if we publish some dependencies, they do not appear if they are missing
-    
+
     AssetProcessor::AssetProcessorManager::JobToProcessEntry job;
     SetupData({ MakeSourceDependency("a.txt"), MakeSourceDependency(m_uuidOfB) }, { MakeJobDependency("c.txt"), MakeJobDependency(m_uuidOfD) }, false, true, true, job);
-    
+
     // the rest of this test now performs a series of queries to verify the database was correctly set.
     // this indirectly verifies the QueryAbsolutePathDependenciesRecursive function also but it has its own dedicated tests, above.
     AssetProcessor::SourceFilesForFingerprintingContainer deps;
-    m_assetProcessorManager.get()->QueryAbsolutePathDependenciesRecursive(QString::fromUtf8("assetProcessorManagerTest.txt"), deps, AzToolsFramework::AssetDatabase::SourceFileDependencyEntry::DEP_SourceToSource, false);
+    m_assetProcessorManager.get()->QueryAbsolutePathDependenciesRecursive(m_sourceFileUuid, deps, AzToolsFramework::AssetDatabase::SourceFileDependencyEntry::DEP_SourceToSource);
 
     // we should find all of the deps, but not the placeholders.
 
@@ -3125,14 +3055,14 @@ TEST_F(SourceFileDependenciesTest, UpdateSourceFileDependenciesDatabase_MissingF
     EXPECT_NE(deps.find(m_dependsOnFile2_Source.toUtf8().constData()), deps.end()); // b
 
     deps.clear();
-    m_assetProcessorManager.get()->QueryAbsolutePathDependenciesRecursive(QString::fromUtf8("assetProcessorManagerTest.txt"), deps, AzToolsFramework::AssetDatabase::SourceFileDependencyEntry::DEP_JobToJob, false);
+    m_assetProcessorManager.get()->QueryAbsolutePathDependenciesRecursive(m_sourceFileUuid, deps, AzToolsFramework::AssetDatabase::SourceFileDependencyEntry::DEP_JobToJob);
     // the above function includes the actual source, as an absolute path.
     EXPECT_EQ(deps.size(), 2);
     EXPECT_NE(deps.find(m_absPath.toUtf8().constData()), deps.end());
     EXPECT_NE(deps.find(m_dependsOnFile2_Job.toUtf8().constData()), deps.end()); // d
 
     deps.clear();
-    m_assetProcessorManager.get()->QueryAbsolutePathDependenciesRecursive(QString::fromUtf8("assetProcessorManagerTest.txt"), deps, AzToolsFramework::AssetDatabase::SourceFileDependencyEntry::DEP_Any, false);
+    m_assetProcessorManager.get()->QueryAbsolutePathDependenciesRecursive(m_sourceFileUuid, deps, AzToolsFramework::AssetDatabase::SourceFileDependencyEntry::DEP_Any);
     // the above function includes the actual source, as an absolute path.
     EXPECT_EQ(deps.size(), 3);
     EXPECT_NE(deps.find(m_absPath.toUtf8().constData()), deps.end());
@@ -3150,7 +3080,7 @@ TEST_F(SourceFileDependenciesTest, UpdateSourceFileDependenciesDatabase_MissingF
     // the rest of this test now performs a series of queries to verify the database was correctly set.
     // this indirectly verifies the QueryAbsolutePathDependenciesRecursive function also but it has its own dedicated tests, above.
     AssetProcessor::SourceFilesForFingerprintingContainer deps;
-    m_assetProcessorManager.get()->QueryAbsolutePathDependenciesRecursive(QString::fromUtf8("assetProcessorManagerTest.txt"), deps, AzToolsFramework::AssetDatabase::SourceFileDependencyEntry::DEP_SourceToSource, false);
+    m_assetProcessorManager.get()->QueryAbsolutePathDependenciesRecursive(m_sourceFileUuid, deps, AzToolsFramework::AssetDatabase::SourceFileDependencyEntry::DEP_SourceToSource);
 
     // we should find all of the deps, but a and c are missing and thus should not appear.
     EXPECT_EQ(deps.size(), 2);
@@ -3158,13 +3088,13 @@ TEST_F(SourceFileDependenciesTest, UpdateSourceFileDependenciesDatabase_MissingF
     EXPECT_NE(deps.find(m_dependsOnFile1_Source.toUtf8().constData()), deps.end());   // a
 
     deps.clear();
-    m_assetProcessorManager.get()->QueryAbsolutePathDependenciesRecursive(QString::fromUtf8("assetProcessorManagerTest.txt"), deps, AzToolsFramework::AssetDatabase::SourceFileDependencyEntry::DEP_JobToJob, false);
+    m_assetProcessorManager.get()->QueryAbsolutePathDependenciesRecursive(m_sourceFileUuid, deps, AzToolsFramework::AssetDatabase::SourceFileDependencyEntry::DEP_JobToJob);
     EXPECT_EQ(deps.size(), 2);
     EXPECT_NE(deps.find(m_absPath.toUtf8().constData()), deps.end());
     EXPECT_NE(deps.find(m_dependsOnFile1_Job.toUtf8().constData()), deps.end());  // c
 
     deps.clear();
-    m_assetProcessorManager.get()->QueryAbsolutePathDependenciesRecursive(QString::fromUtf8("assetProcessorManagerTest.txt"), deps, AzToolsFramework::AssetDatabase::SourceFileDependencyEntry::DEP_Any, false);
+    m_assetProcessorManager.get()->QueryAbsolutePathDependenciesRecursive(m_sourceFileUuid, deps, AzToolsFramework::AssetDatabase::SourceFileDependencyEntry::DEP_Any);
     EXPECT_EQ(deps.size(), 3);
     EXPECT_NE(deps.find(m_absPath.toUtf8().constData()), deps.end());
     EXPECT_NE(deps.find(m_dependsOnFile1_Source.toUtf8().constData()), deps.end());  // a
@@ -3179,7 +3109,7 @@ TEST_F(SourceFileDependenciesTest, UpdateSourceFileDependenciesDatabase_MissingF
 
     AssetProcessor::AssetProcessorManager::JobToProcessEntry job;
     SetupData({ MakeSourceDependency("a.txt"), MakeSourceDependency(m_uuidOfB) }, { MakeJobDependency("c.txt"), MakeJobDependency(m_uuidOfD) }, true, false, false, job);
-    
+
     // so at this point, the database should be in the same state as after the UpdateSourceFileDependenciesDatabase_MissingFiles_ByUuid test
     // which was already verified, by that test.
 
@@ -3199,7 +3129,7 @@ TEST_F(SourceFileDependenciesTest, UpdateSourceFileDependenciesDatabase_MissingF
 
     // b should no longer be a placeholder, so both A and B should be present as their actual path.
     AssetProcessor::SourceFilesForFingerprintingContainer deps;
-    m_assetProcessorManager.get()->QueryAbsolutePathDependenciesRecursive(QString::fromUtf8("assetProcessorManagerTest.txt"), deps, AzToolsFramework::AssetDatabase::SourceFileDependencyEntry::DEP_SourceToSource, false);
+    m_assetProcessorManager.get()->QueryAbsolutePathDependenciesRecursive(m_sourceFileUuid, deps, AzToolsFramework::AssetDatabase::SourceFileDependencyEntry::DEP_SourceToSource);
     EXPECT_EQ(deps.size(), 3);
     EXPECT_NE(deps.find(m_absPath.toUtf8().constData()), deps.end());
     EXPECT_NE(deps.find(m_dependsOnFile1_Source.toUtf8().constData()), deps.end());   // a
@@ -3207,7 +3137,7 @@ TEST_F(SourceFileDependenciesTest, UpdateSourceFileDependenciesDatabase_MissingF
 
     // but d should still be a placeholder, since we have not declared it yet.
     deps.clear();
-    m_assetProcessorManager.get()->QueryAbsolutePathDependenciesRecursive(QString::fromUtf8("assetProcessorManagerTest.txt"), deps, AzToolsFramework::AssetDatabase::SourceFileDependencyEntry::DEP_JobToJob, false);
+    m_assetProcessorManager.get()->QueryAbsolutePathDependenciesRecursive(m_sourceFileUuid, deps, AzToolsFramework::AssetDatabase::SourceFileDependencyEntry::DEP_JobToJob);
     EXPECT_EQ(deps.size(), 2);
     EXPECT_NE(deps.find(m_absPath.toUtf8().constData()), deps.end());
     EXPECT_NE(deps.find(m_dependsOnFile1_Job.toUtf8().constData()), deps.end());  // c
@@ -3229,7 +3159,7 @@ TEST_F(SourceFileDependenciesTest, UpdateSourceFileDependenciesDatabase_MissingF
 
     // all files should now be present:
     deps.clear();
-    m_assetProcessorManager.get()->QueryAbsolutePathDependenciesRecursive(QString::fromUtf8("assetProcessorManagerTest.txt"), deps, AzToolsFramework::AssetDatabase::SourceFileDependencyEntry::DEP_Any, false);
+    m_assetProcessorManager.get()->QueryAbsolutePathDependenciesRecursive(m_sourceFileUuid, deps, AzToolsFramework::AssetDatabase::SourceFileDependencyEntry::DEP_Any);
     EXPECT_EQ(deps.size(), 5);
     EXPECT_NE(deps.find(m_absPath.toUtf8().constData()), deps.end());
     EXPECT_NE(deps.find(m_dependsOnFile1_Source.toUtf8().constData()), deps.end());
@@ -3246,7 +3176,7 @@ TEST_F(SourceFileDependenciesTest, UpdateSourceFileDependenciesDatabase_MissingF
 
     AssetProcessor::AssetProcessorManager::JobToProcessEntry job;
     SetupData({ MakeSourceDependency("a.txt"), MakeSourceDependency(m_uuidOfB) }, { MakeJobDependency("c.txt"), MakeJobDependency(m_uuidOfD) }, false, true, true, job);
-    
+
     // so at this point, the database should be in the same state as after the UpdateSourceFileDependenciesDatabase_MissingFiles_ByUuid test
     // which was already verified, by that test.
 
@@ -3263,14 +3193,14 @@ TEST_F(SourceFileDependenciesTest, UpdateSourceFileDependenciesDatabase_MissingF
 
     // a should no longer be a placeholder
     AssetProcessor::SourceFilesForFingerprintingContainer deps;
-    m_assetProcessorManager.get()->QueryAbsolutePathDependenciesRecursive(QString::fromUtf8("assetProcessorManagerTest.txt"), deps, AzToolsFramework::AssetDatabase::SourceFileDependencyEntry::DEP_SourceToSource, false);
+    m_assetProcessorManager.get()->QueryAbsolutePathDependenciesRecursive(m_sourceFileUuid, deps, AzToolsFramework::AssetDatabase::SourceFileDependencyEntry::DEP_SourceToSource);
     EXPECT_EQ(deps.size(), 3);
     EXPECT_NE(deps.find(m_absPath.toUtf8().constData()), deps.end());
     EXPECT_NE(deps.find(m_dependsOnFile1_Source.toUtf8().constData()), deps.end());   // a
     EXPECT_NE(deps.find(m_dependsOnFile2_Source.toUtf8().constData()), deps.end());   // b
     deps.clear();
 
-    m_assetProcessorManager.get()->QueryAbsolutePathDependenciesRecursive(QString::fromUtf8("assetProcessorManagerTest.txt"), deps, AzToolsFramework::AssetDatabase::SourceFileDependencyEntry::DEP_JobToJob, false);
+    m_assetProcessorManager.get()->QueryAbsolutePathDependenciesRecursive(m_sourceFileUuid, deps, AzToolsFramework::AssetDatabase::SourceFileDependencyEntry::DEP_JobToJob);
     EXPECT_EQ(deps.size(), 2);
     EXPECT_NE(deps.find(m_absPath.toUtf8().constData()), deps.end());
     EXPECT_NE(deps.find(m_dependsOnFile2_Job.toUtf8().constData()), deps.end());  // d
@@ -3292,7 +3222,7 @@ TEST_F(SourceFileDependenciesTest, UpdateSourceFileDependenciesDatabase_MissingF
 
     // all files should now be present:
     deps.clear();
-    m_assetProcessorManager.get()->QueryAbsolutePathDependenciesRecursive(QString::fromUtf8("assetProcessorManagerTest.txt"), deps, AzToolsFramework::AssetDatabase::SourceFileDependencyEntry::DEP_Any, false);
+    m_assetProcessorManager.get()->QueryAbsolutePathDependenciesRecursive(m_sourceFileUuid, deps, AzToolsFramework::AssetDatabase::SourceFileDependencyEntry::DEP_Any);
     EXPECT_EQ(deps.size(), 5);
     EXPECT_NE(deps.find(m_absPath.toUtf8().constData()), deps.end());
     EXPECT_NE(deps.find(m_dependsOnFile1_Source.toUtf8().constData()), deps.end());
@@ -3437,19 +3367,19 @@ TEST_F(AssetProcessorManagerTest, JobDependencyOrderOnce_MultipleJobs_EmitOK)
     EXPECT_EQ(jobDetails[1].m_jobDependencyList[0].m_jobDependency.m_sourceFile.m_sourceFileDependencyPath, secondRelSourceFile); // there should only be one job dependency
 
     // Process jobs in APM
-    QDir destination(jobDetails[0].m_destinationPath);
-    QString productAFileName = destination.absoluteFilePath("aoutput.txt");
-    QString productBFileName = destination.absoluteFilePath("boutput.txt");
+    auto destination = jobDetails[0].m_cachePath;
+    QString productAFileName = (destination / "aoutput.txt").AsPosix().c_str();
+    QString productBFileName = (destination / "boutput.txt").AsPosix().c_str();
     ASSERT_TRUE(UnitTestUtils::CreateDummyFile(productBFileName, QString("tempdata\n")));
     ASSERT_TRUE(UnitTestUtils::CreateDummyFile(productAFileName, QString("tempdata\n")));
 
     AssetBuilderSDK::ProcessJobResponse responseB;
     responseB.m_resultCode = AssetBuilderSDK::ProcessJobResult_Success;
-    responseB.m_outputProducts.push_back(AssetBuilderSDK::JobProduct(productBFileName.toUtf8().constData(), AZ::Uuid::CreateNull(), 1));
+    responseB.m_outputProducts.push_back(AssetBuilderSDK::JobProduct("boutput.txt", AZ::Uuid::CreateNull(), 1));
 
     AssetBuilderSDK::ProcessJobResponse responseA;
     responseA.m_resultCode = AssetBuilderSDK::ProcessJobResult_Success;
-    responseA.m_outputProducts.push_back(AssetBuilderSDK::JobProduct(productAFileName.toUtf8().constData(), AZ::Uuid::CreateNull(), 1));
+    responseA.m_outputProducts.push_back(AssetBuilderSDK::JobProduct("aoutput.txt", AZ::Uuid::CreateNull(), 1));
 
     m_isIdling = false;
     QMetaObject::invokeMethod(m_assetProcessorManager.get(), "AssetProcessed", Qt::QueuedConnection, Q_ARG(JobEntry, jobDetails[0].m_jobEntry), Q_ARG(AssetBuilderSDK::ProcessJobResponse, responseB));
@@ -3554,7 +3484,7 @@ TEST_F(AssetProcessorManagerTest, SourceFile_With_NonASCII_Characters_Fail_Job_O
     folderPathDir.removeRecursively();
     m_assetProcessorManager.get()->AssessDeletedFile(folderPath);
     ASSERT_TRUE(BlockUntilIdle(5000));
-    EXPECT_EQ(deletedFolderPath, "Test\xD0");
+    EXPECT_EQ(deletedFolderPath, folderPath);
 }
 
 TEST_F(AssetProcessorManagerTest, SourceFileProcessFailure_ClearsFingerprint)
@@ -3586,14 +3516,14 @@ TEST_F(AssetProcessorManagerTest, SourceFileProcessFailure_ClearsFingerprint)
 
     for(const auto& processResult : processResults)
     {
-        auto file = QDir(processResult.m_destinationPath).absoluteFilePath(processResult.m_jobEntry.m_databaseSourceName + ".arc1");
+        AZStd::string file = (processResult.m_jobEntry.m_databaseSourceName + ".arc1").toUtf8().constData();
 
         // Create the file on disk
-        ASSERT_TRUE(UnitTestUtils::CreateDummyFile(file, "products."));
+        ASSERT_TRUE(UnitTestUtils::CreateDummyFile((processResult.m_cachePath / file).AsPosix().c_str(), "products."));
 
         AssetBuilderSDK::ProcessJobResponse response;
         response.m_resultCode = AssetBuilderSDK::ProcessJobResult_Success;
-        response.m_outputProducts.push_back(AssetBuilderSDK::JobProduct(file.toUtf8().constData(), AZ::Uuid::CreateNull(), 1));
+        response.m_outputProducts.push_back(AssetBuilderSDK::JobProduct(file, AZ::Uuid::CreateNull(), 1));
 
         m_assetProcessorManager->AssetProcessed(processResult.m_jobEntry, response);
     }
@@ -3645,6 +3575,62 @@ TEST_F(AssetProcessorManagerTest, SourceFileProcessFailure_ClearsFingerprint)
     ASSERT_EQ(source.m_analysisFingerprint, "");
 }
 
+TEST_F(AssetProcessorManagerTest, SourceFileProcessFailure_ValidLfsPointerFile_ReceiveLFSPointerFileError)
+{
+    // Override the project and engine root directories in the setting registry to create a custom .gitattributes file for testing.
+    auto settingsRegistry = AZ::SettingsRegistry::Get();
+    ASSERT_TRUE(settingsRegistry);
+    AZ::IO::FixedMaxPathString engineRoot, projectRoot;
+    settingsRegistry->Get(engineRoot, AZ::SettingsRegistryMergeUtils::FilePathKey_EngineRootFolder);
+    settingsRegistry->Get(projectRoot, AZ::SettingsRegistryMergeUtils::FilePathKey_ProjectPath);
+    settingsRegistry->Set(AZ::SettingsRegistryMergeUtils::FilePathKey_EngineRootFolder, m_tempDir.path().toUtf8().data());
+    settingsRegistry->Set(AZ::SettingsRegistryMergeUtils::FilePathKey_ProjectPath, m_tempDir.path().toUtf8().data());
+
+    QDir tempPath(m_tempDir.path());
+    QString gitAttributesPath = tempPath.absoluteFilePath(".gitattributes");
+    ASSERT_TRUE(UnitTestUtils::CreateDummyFile(gitAttributesPath, QString(
+        "#\n"
+        "# Git LFS(see https ://git-lfs.github.com/)\n"
+        "#\n"
+        "*.txt filter=lfs diff=lfs merge=lfs -text\n")));
+
+    QString sourcePath = tempPath.absoluteFilePath("subfolder1/test.txt");
+    ASSERT_TRUE(UnitTestUtils::CreateDummyFile(sourcePath, QString(
+        "version https://git-lfs.github.com/spec/v1\n"
+        "oid sha256:ee4799379bfcfa99e95afd6494da51fbeda95f21ea71d267ae7102f048edec85\n"
+        "size 63872\n")));
+
+    constexpr int idleWaitTime = 5000;
+    using namespace AzToolsFramework::AssetDatabase;
+
+    QList<AssetProcessor::JobDetails> processResults;
+    auto assetConnection = QObject::connect(m_assetProcessorManager.get(), &AssetProcessorManager::AssetToProcess, [&processResults](JobDetails details)
+        {
+            processResults.push_back(AZStd::move(details));
+        });
+
+    // Add the test file and signal a failed event
+    m_assetProcessorManager.get()->AssessAddedFile(sourcePath);
+    ASSERT_TRUE(BlockUntilIdle(idleWaitTime));
+
+    for(const auto& processResult : processResults)
+    {
+        AssetBuilderSDK::ProcessJobResponse response;
+        response.m_resultCode = AssetBuilderSDK::ProcessJobResult_Failed;
+
+        m_assetProcessorManager->AssetFailed(processResult.m_jobEntry);
+    }
+
+    ASSERT_TRUE(BlockUntilIdle(idleWaitTime));
+
+    // An error message should be thrown for the valid LFS pointer file.
+    ASSERT_EQ(m_errorAbsorber->m_numErrorsAbsorbed, 1);
+
+    // Revert the project and engine root directories in the setting registry.
+    settingsRegistry->Set(AZ::SettingsRegistryMergeUtils::FilePathKey_EngineRootFolder, engineRoot);
+    settingsRegistry->Set(AZ::SettingsRegistryMergeUtils::FilePathKey_ProjectPath, projectRoot);
+}
+
 //////////////////////////////////////////////////////////////////////////
 
 void FingerprintTest::SetUp()
@@ -3654,11 +3640,8 @@ void FingerprintTest::SetUp()
     // We don't want the mock application manager to provide builder descriptors, mockBuilderInfoHandler will provide our own
     m_mockApplicationManager->BusDisconnect();
 
-    m_mockBuilderInfoHandler.m_builderDesc = m_mockBuilderInfoHandler.CreateBuilderDesc("test builder", "{DF09DDC0-FD22-43B6-9E22-22C8574A6E1E}", { AssetBuilderSDK::AssetBuilderPattern("*.txt", AssetBuilderSDK::AssetBuilderPattern::Wildcard) });
-    m_mockBuilderInfoHandler.BusConnect();
-
     // Create the test file
-    const auto& scanFolder = m_config->GetScanFolderAt(0);
+    const auto& scanFolder = m_config->GetScanFolderAt(1);
     QString relativePathFromWatchFolder("fingerprintTest.txt");
     m_absolutePath = QDir(scanFolder.ScanPath()).absoluteFilePath(relativePathFromWatchFolder);
 
@@ -3680,8 +3663,12 @@ void FingerprintTest::TearDown()
 
 void FingerprintTest::RunFingerprintTest(QString builderFingerprint, QString jobFingerprint, bool expectedResult)
 {
-    m_mockBuilderInfoHandler.m_builderDesc.m_analysisFingerprint = builderFingerprint.toUtf8().data();
-    m_mockBuilderInfoHandler.m_jobFingerprint = jobFingerprint;
+    m_mockBuilderInfoHandler.CreateBuilderDesc(
+        "test builder", "{DF09DDC0-FD22-43B6-9E22-22C8574A6E1E}",
+        { AssetBuilderSDK::AssetBuilderPattern("*.txt", AssetBuilderSDK::AssetBuilderPattern::Wildcard) },
+        UnitTests::MockMultiBuilderInfoHandler::AssetBuilderExtraInfo{ jobFingerprint, "", "", builderFingerprint, {} });
+    m_mockBuilderInfoHandler.BusConnect();
+
     QMetaObject::invokeMethod(m_assetProcessorManager.get(), "AssessModifiedFile", Qt::QueuedConnection, Q_ARG(QString, m_absolutePath));
 
     ASSERT_TRUE(BlockUntilIdle(5000));
@@ -3738,11 +3725,12 @@ TEST_F(AssetProcessorManagerTest, UpdateSourceFileDependenciesDatabase_WildcardM
     ASSERT_TRUE(UnitTestUtils::CreateDummyFile(dependsOnFilec_Job, QString("tempdata\n")));
 
     // construct the dummy job to feed to the database updater function:
+    AZ::Uuid wildcardTestUuid = AssetUtilities::CreateSafeSourceUUIDFromName("wildcardTest.txt");
     AssetProcessorManager::JobToProcessEntry job;
     job.m_sourceFileInfo.m_databasePath = "wildcardTest.txt";
     job.m_sourceFileInfo.m_pathRelativeToScanFolder = "wildcardTest.txt";
     job.m_sourceFileInfo.m_scanFolder = scanFolder;
-    job.m_sourceFileInfo.m_uuid = AssetUtilities::CreateSafeSourceUUIDFromName(job.m_sourceFileInfo.m_databasePath.toUtf8().data());
+    job.m_sourceFileInfo.m_uuid = wildcardTestUuid;
 
     // each file we will take a different approach to publishing:  rel path, and UUID:
     job.m_sourceFileDependencies.push_back(AZStd::make_pair<AZ::Uuid, AssetBuilderSDK::SourceFileDependency>(dummyBuilderUUID, { "b*.txt", AZ::Uuid::CreateNull(), AssetBuilderSDK::SourceFileDependency::SourceFileDependencyType::Wildcards }));
@@ -3759,24 +3747,27 @@ TEST_F(AssetProcessorManagerTest, UpdateSourceFileDependenciesDatabase_WildcardM
 
     m_assetProcessorManager.get()->UpdateSourceFileDependenciesDatabase(job);
 
+    AzToolsFramework::AssetDatabase::SourceDatabaseEntry wildcard(scanFolder->ScanFolderID(), "wildcardTest.txt", wildcardTestUuid, "fingerprint");
+    m_assetProcessorManager->m_stateData->SetSource(wildcard);
+
     AssetProcessor::SourceFilesForFingerprintingContainer deps;
-    m_assetProcessorManager.get()->QueryAbsolutePathDependenciesRecursive(QString::fromUtf8("wildcardTest.txt"), deps, AzToolsFramework::AssetDatabase::SourceFileDependencyEntry::DEP_SourceToSource, false);
+    m_assetProcessorManager.get()->QueryAbsolutePathDependenciesRecursive(wildcardTestUuid, deps, AzToolsFramework::AssetDatabase::SourceFileDependencyEntry::DEP_SourceToSource);
     EXPECT_EQ(deps.size(), 2);
     EXPECT_NE(deps.find(dependsOnFileb_Source.toUtf8().constData()), deps.end());
     deps.clear();
 
-    m_assetProcessorManager.get()->QueryAbsolutePathDependenciesRecursive(QString::fromUtf8("wildcardTest.txt"), deps, AzToolsFramework::AssetDatabase::SourceFileDependencyEntry::DEP_JobToJob, false);
+    m_assetProcessorManager.get()->QueryAbsolutePathDependenciesRecursive(wildcardTestUuid, deps, AzToolsFramework::AssetDatabase::SourceFileDependencyEntry::DEP_JobToJob);
     EXPECT_EQ(deps.size(), 2);
     EXPECT_NE(deps.find(dependsOnFilec_Job.toUtf8().constData()), deps.end());
     deps.clear();
 
-    m_assetProcessorManager.get()->QueryAbsolutePathDependenciesRecursive(QString::fromUtf8("wildcardTest.txt"), deps, AzToolsFramework::AssetDatabase::SourceFileDependencyEntry::DEP_SourceOrJob, false);
+    m_assetProcessorManager.get()->QueryAbsolutePathDependenciesRecursive(wildcardTestUuid, deps, AzToolsFramework::AssetDatabase::SourceFileDependencyEntry::DEP_SourceOrJob);
     EXPECT_EQ(deps.size(), 3);
     EXPECT_NE(deps.find(dependsOnFilec_Job.toUtf8().constData()), deps.end());
     EXPECT_NE(deps.find(dependsOnFileb_Source.toUtf8().constData()), deps.end());
     deps.clear();
 
-    m_assetProcessorManager.get()->QueryAbsolutePathDependenciesRecursive(QString::fromUtf8("wildcardTest.txt"), deps, AzToolsFramework::AssetDatabase::SourceFileDependencyEntry::DEP_SourceLikeMatch, false);
+    m_assetProcessorManager.get()->QueryAbsolutePathDependenciesRecursive(wildcardTestUuid, deps, AzToolsFramework::AssetDatabase::SourceFileDependencyEntry::DEP_SourceLikeMatch);
     EXPECT_EQ(deps.size(), 1);
     deps.clear();
 
@@ -3787,7 +3778,7 @@ TEST_F(AssetProcessorManagerTest, UpdateSourceFileDependenciesDatabase_WildcardM
         return true;
     };
 
-    m_assetProcessorManager.get()->m_stateData->QueryDependsOnSourceBySourceDependency("wildcardTest.txt", nullptr, AzToolsFramework::AssetDatabase::SourceFileDependencyEntry::DEP_SourceLikeMatch, callbackFunction);
+    m_assetProcessorManager.get()->m_stateData->QueryDependsOnSourceBySourceDependency(wildcardTestUuid, nullptr, AzToolsFramework::AssetDatabase::SourceFileDependencyEntry::DEP_SourceLikeMatch, callbackFunction);
     EXPECT_EQ(wildcardDeps.size(), 2);
 
     // The database should have the wildcard record and the individual dependency on b and c at this point, now we add new files
@@ -3842,13 +3833,14 @@ TEST_F(AssetProcessorManagerTest, RemoveSource_RemoveCacheFolderIfEmpty_Ok)
         QMetaObject::invokeMethod(m_assetProcessorManager.get(), "AssessModifiedFile", Qt::QueuedConnection, Q_ARG(QString, sourceFiles[idx]));
         ASSERT_TRUE(BlockUntilIdle(5000));
 
-        productFiles.append(QDir(jobDetails.m_destinationPath).absoluteFilePath("product_test%1.txt").arg(idx));
+        auto filename = AZStd::string::format("product_test%d.txt", idx);
+        productFiles.append((jobDetails.m_cachePath / filename).AsPosix().c_str());
         UnitTestUtils::CreateDummyFile(productFiles.back(), "product");
 
         // Populate ProcessJobResponse
         ProcessJobResponse response;
         response.m_resultCode = ProcessJobResult_Success;
-        JobProduct product(productFiles.back().toUtf8().constData(), AZ::Uuid::CreateRandom(), static_cast<AZ::u32>(idx));
+        JobProduct product((jobDetails.m_relativePath / filename).StringAsPosix(), AZ::Uuid::CreateRandom(), static_cast<AZ::u32>(idx));
         response.m_outputProducts.push_back(product);
 
         // Process the job
@@ -3875,7 +3867,7 @@ TEST_F(AssetProcessorManagerTest, RemoveSource_RemoveCacheFolderIfEmpty_Ok)
     ASSERT_FALSE(QFile::exists(productFiles[firstSourceIdx]));
 
     // Ensure that cache directory exists
-    QDir cacheDirectory(jobDetails.m_destinationPath);
+    QDir cacheDirectory(jobDetails.m_cachePath.AsPosix().c_str());
 
     ASSERT_TRUE(cacheDirectory.exists());
 
@@ -3943,12 +3935,13 @@ void DuplicateProductsTest::SetupDuplicateProductsTest(QString& sourceFile, QDir
     QMetaObject::invokeMethod(m_assetProcessorManager.get(), "AssessModifiedFile", Qt::QueuedConnection, Q_ARG(QString, sourceFile));
     ASSERT_TRUE(BlockUntilIdle(5000));
 
-    productFile.append(QDir(jobDetails[0].m_destinationPath).absoluteFilePath("product_test." + extension));
+    auto filename = "product_test." + extension;
+    productFile.append((jobDetails[0].m_cachePath / filename.toUtf8().constData()).AsPosix().c_str());
     UnitTestUtils::CreateDummyFile(productFile, "product");
 
     // Populate ProcessJobResponse
     response.m_resultCode = ProcessJobResult_Success;
-    JobProduct jobProduct(productFile.toUtf8().constData(), AZ::Uuid::CreateRandom(), static_cast<AZ::u32>(0));
+    JobProduct jobProduct(filename.toUtf8().constData(), AZ::Uuid::CreateRandom(), static_cast<AZ::u32>(0));
     response.m_outputProducts.push_back(jobProduct);
 
     // Process the first job
@@ -4024,10 +4017,11 @@ TEST_F(DuplicateProductsTest, SameSource_MultipleBuilder_NoDuplicateProductJob_N
     // ----------------------------- TEST BEGINS HERE -----------------------------
     // We will process another job with the same source file outputting a different product file
 
-    productFile = QDir(jobDetails[0].m_destinationPath).absoluteFilePath("product_test1.txt");
+    auto filename = "product_test1.txt";
+    productFile = (jobDetails[0].m_cachePath / filename).AsPosix().c_str();
     UnitTestUtils::CreateDummyFile(productFile, "product");
 
-    JobProduct newJobProduct(productFile.toUtf8().constData(), AZ::Uuid::CreateRandom(), static_cast<AZ::u32>(0));
+    JobProduct newJobProduct((jobDetails[0].m_relativePath / filename).c_str(), AZ::Uuid::CreateRandom(), static_cast<AZ::u32>(0));
     response.m_outputProducts.clear();
     response.m_outputProducts.push_back(newJobProduct);
 
@@ -4052,7 +4046,7 @@ void JobDependencyTest::SetUp()
     // We don't want the mock application manager to provide builder descriptors, mockBuilderInfoHandler will provide our own
     m_mockApplicationManager->BusDisconnect();
 
-    m_data->m_mockBuilderInfoHandler.m_builderDesc = m_data->m_mockBuilderInfoHandler.CreateBuilderDesc("test builder", m_data->m_builderUuid.ToString<QString>(), { AssetBuilderSDK::AssetBuilderPattern("*.txt", AssetBuilderSDK::AssetBuilderPattern::Wildcard) });
+    m_data->m_mockBuilderInfoHandler.CreateBuilderDescInfoRef("test builder", m_data->m_builderUuid.ToString<QString>(), { AssetBuilderSDK::AssetBuilderPattern("*.txt", AssetBuilderSDK::AssetBuilderPattern::Wildcard) }, m_data->m_assetBuilderConfig);
     m_data->m_mockBuilderInfoHandler.BusConnect();
 
     QDir tempPath(m_tempDir.path());
@@ -4074,6 +4068,7 @@ void JobDependencyTest::SetUp()
     m_assetProcessorManager->m_stateData->SetProduct(productEntry);
 
     // Reboot the APM since we added stuff to the database that needs to be loaded on-startup of the APM
+    m_assetProcessorManager = nullptr; // Destroy the existing instance first so we can finish cleanup before creating a new instance
     m_assetProcessorManager.reset(new AssetProcessorManager_Test(m_config.get()));
 
     m_idleConnection = QObject::connect(m_assetProcessorManager.get(), &AssetProcessor::AssetProcessorManager::AssetProcessorManagerIdleState, [this](bool newState)
@@ -4094,7 +4089,7 @@ TEST_F(JobDependencyTest, JobDependency_ThatWasPreviouslyRun_IsFound)
     AZStd::vector<JobDetails> capturedDetails;
 
     capturedDetails.clear();
-    m_data->m_mockBuilderInfoHandler.m_jobDependencyFilePath = "a.txt";
+    m_data->m_assetBuilderConfig.m_jobDependencyFilePath = "a.txt";
     CaptureJobs(capturedDetails, "subfolder1/b.txt");
 
     ASSERT_EQ(capturedDetails.size(), 1);
@@ -4108,7 +4103,7 @@ TEST_F(JobDependencyTest, JobDependency_ThatWasJustRun_IsFound)
     CaptureJobs(capturedDetails, "subfolder1/c.txt");
 
     capturedDetails.clear();
-    m_data->m_mockBuilderInfoHandler.m_jobDependencyFilePath = "c.txt";
+    m_data->m_assetBuilderConfig.m_jobDependencyFilePath = "c.txt";
     CaptureJobs(capturedDetails, "subfolder1/b.txt");
 
     ASSERT_EQ(capturedDetails.size(), 1);
@@ -4121,7 +4116,7 @@ TEST_F(JobDependencyTest, JobDependency_ThatHasNotRun_IsNotFound)
     AZStd::vector<JobDetails> capturedDetails;
 
     capturedDetails.clear();
-    m_data->m_mockBuilderInfoHandler.m_jobDependencyFilePath = "c.txt";
+    m_data->m_assetBuilderConfig.m_jobDependencyFilePath = "c.txt";
     CaptureJobs(capturedDetails, "subfolder1/b.txt");
 
     ASSERT_EQ(capturedDetails.size(), 1);
@@ -4153,7 +4148,7 @@ void ChainJobDependencyTest::SetUp()
         }
 
         m_data->m_mockBuilderInfoHandler.CreateBuilderDesc(QString("test builder %1").arg(i), AZ::Uuid::CreateRandom().ToString<QString>(), { AssetBuilderSDK::AssetBuilderPattern(AZStd::string::format("*%d.txt", i), AssetBuilderSDK::AssetBuilderPattern::Wildcard) },
-            MockMultiBuilderInfoHandler::AssetBuilderExtraInfo{ jobDependencyPath });
+            UnitTests::MockMultiBuilderInfoHandler::AssetBuilderExtraInfo{ "", "", jobDependencyPath, "", {} });
     }
 
     m_data->m_mockBuilderInfoHandler.BusConnect();
@@ -4164,84 +4159,6 @@ void ChainJobDependencyTest::TearDown()
     m_data = nullptr;
 
     AssetProcessorManagerTest::TearDown();
-}
-
-MockMultiBuilderInfoHandler::~MockMultiBuilderInfoHandler()
-{
-    BusDisconnect();
-}
-
-void MockMultiBuilderInfoHandler::GetMatchingBuildersInfo(const AZStd::string& assetPath, AssetProcessor::BuilderInfoList& builderInfoList)
-{
-    AZStd::set<AZ::Uuid>  uniqueBuilderDescIDs;
-
-    for (AssetUtilities::BuilderFilePatternMatcher& matcherPair : m_matcherBuilderPatterns)
-    {
-        if (uniqueBuilderDescIDs.find(matcherPair.GetBuilderDescID()) != uniqueBuilderDescIDs.end())
-        {
-            continue;
-        }
-        if (matcherPair.MatchesPath(assetPath))
-        {
-            const AssetBuilderSDK::AssetBuilderDesc& builderDesc = m_builderDescMap[matcherPair.GetBuilderDescID()];
-            uniqueBuilderDescIDs.insert(matcherPair.GetBuilderDescID());
-            builderInfoList.push_back(builderDesc);
-        }
-    }
-}
-
-void MockMultiBuilderInfoHandler::GetAllBuildersInfo([[maybe_unused]] AssetProcessor::BuilderInfoList& builderInfoList)
-{
-    // Only here to fulfill the interface requirement, this won't be called as part of the test
-    ASSERT_TRUE(false) << "Not implemented";
-}
-
-void MockMultiBuilderInfoHandler::CreateJobs(AssetBuilderExtraInfo extraInfo, const AssetBuilderSDK::CreateJobsRequest& request, AssetBuilderSDK::CreateJobsResponse& response)
-{
-    response.m_result = AssetBuilderSDK::CreateJobsResultCode::Success;
-
-    for (const auto& platform : request.m_enabledPlatforms)
-    {
-        AssetBuilderSDK::JobDescriptor jobDescriptor;
-        jobDescriptor.m_priority = 0;
-        jobDescriptor.m_critical = true;
-        jobDescriptor.m_jobKey = "Mock Job";
-        jobDescriptor.SetPlatformIdentifier(platform.m_identifier.c_str());
-
-        if (!extraInfo.m_jobDependencyFilePath.isEmpty())
-        {
-            jobDescriptor.m_jobDependencyList.push_back(AssetBuilderSDK::JobDependency("Mock Job", "pc", AssetBuilderSDK::JobDependencyType::Order,
-                AssetBuilderSDK::SourceFileDependency(extraInfo.m_jobDependencyFilePath.toUtf8().constData(), AZ::Uuid::CreateNull())));
-        }
-
-        response.m_createJobOutputs.push_back(jobDescriptor);
-        m_createJobsCount++;
-    }
-}
-
-void MockMultiBuilderInfoHandler::ProcessJob(AssetBuilderExtraInfo extraInfo, [[maybe_unused]] const AssetBuilderSDK::ProcessJobRequest& request, AssetBuilderSDK::ProcessJobResponse& response)
-{
-    response.m_resultCode = AssetBuilderSDK::ProcessJobResultCode::ProcessJobResult_Success;
-}
-
-void MockMultiBuilderInfoHandler::CreateBuilderDesc(const QString& builderName, const QString& builderId, const AZStd::vector<AssetBuilderSDK::AssetBuilderPattern>& builderPatterns, AssetBuilderExtraInfo extraInfo)
-{
-    AssetBuilderSDK::AssetBuilderDesc builderDesc;
-
-    builderDesc.m_name = builderName.toUtf8().data();
-    builderDesc.m_patterns = builderPatterns;
-    builderDesc.m_busId = AZ::Uuid::CreateString(builderId.toUtf8().data());
-    builderDesc.m_builderType = AssetBuilderSDK::AssetBuilderDesc::AssetBuilderType::Internal;
-    builderDesc.m_createJobFunction = AZStd::bind(&MockMultiBuilderInfoHandler::CreateJobs, this, extraInfo, AZStd::placeholders::_1, AZStd::placeholders::_2);
-    builderDesc.m_processJobFunction = AZStd::bind(&MockMultiBuilderInfoHandler::ProcessJob, this, extraInfo, AZStd::placeholders::_1, AZStd::placeholders::_2);
-
-    m_builderDescMap[builderDesc.m_busId] = builderDesc;
-
-    for (const AssetBuilderSDK::AssetBuilderPattern& pattern : builderDesc.m_patterns)
-    {
-        AssetUtilities::BuilderFilePatternMatcher patternMatcher(pattern, builderDesc.m_busId);
-        m_matcherBuilderPatterns.push_back(patternMatcher);
-    }
 }
 
 TEST_F(ChainJobDependencyTest, ChainDependency_EndCaseHasNoDependency)
@@ -4359,12 +4276,13 @@ TEST_F(MetadataFileTest, MetadataFile_SourceFileExtensionDifferentCase)
     entry.m_platformInfo = { "pc", {"host", "renderer", "desktop"} };
     entry.m_jobRunKey = 1;
 
-    QString productPath(m_normalizedCacheRootDir.absoluteFilePath("outputfile.TXT"));
+    const char* filename = "outputfile.TXT";
+    QString productPath(m_normalizedCacheRootDir.absoluteFilePath(filename));
     UnitTestUtils::CreateDummyFile(productPath);
 
     AssetBuilderSDK::ProcessJobResponse jobResponse;
     jobResponse.m_resultCode = AssetBuilderSDK::ProcessJobResult_Success;
-    jobResponse.m_outputProducts.push_back(AssetBuilderSDK::JobProduct(productPath.toUtf8().data()));
+    jobResponse.m_outputProducts.push_back(AssetBuilderSDK::JobProduct("outputfile.TXT"));
 
     QMetaObject::invokeMethod(m_assetProcessorManager.get(), "AssetProcessed", Qt::QueuedConnection, Q_ARG(JobEntry, entry), Q_ARG(AssetBuilderSDK::ProcessJobResponse, jobResponse));
 
@@ -4447,12 +4365,12 @@ void WildcardSourceDependencyTest::SetUp()
         m_config->AddExcludeRecognizer(excludeFile);
     }
 
-    UnitTestUtils::CreateDummyFile(tempPath.absoluteFilePath("subfolder1/1a.foo"));
-    UnitTestUtils::CreateDummyFile(tempPath.absoluteFilePath("subfolder1/1b.foo"));
-    UnitTestUtils::CreateDummyFile(tempPath.absoluteFilePath("subfolder2/redirected/a.foo"));
-    UnitTestUtils::CreateDummyFile(tempPath.absoluteFilePath("subfolder2/redirected/b.foo"));
-    UnitTestUtils::CreateDummyFile(tempPath.absoluteFilePath("subfolder2/redirected/folder/one/c.foo"));
-    UnitTestUtils::CreateDummyFile(tempPath.absoluteFilePath("subfolder2/redirected/folder/one/d.foo"));
+    CreateSourceAndFile("subfolder1/1a.foo");
+    CreateSourceAndFile("subfolder1/1b.foo");
+    CreateSourceAndFile("subfolder2/a.foo");
+    CreateSourceAndFile("subfolder2/b.foo");
+    CreateSourceAndFile("subfolder2/folder/one/c.foo");
+    CreateSourceAndFile("subfolder2/folder/one/d.foo");
 
     // Add a file that is not in a scanfolder.  Should always be ignored
     UnitTestUtils::CreateDummyFile(tempPath.absoluteFilePath("not/a/scanfolder/e.foo"));
@@ -4461,10 +4379,10 @@ void WildcardSourceDependencyTest::SetUp()
     UnitTestUtils::CreateDummyFile(tempPath.absoluteFilePath("no_recurse/one/two/three/f.foo"));
 
     // Add a file to an ignored folder
-    UnitTestUtils::CreateDummyFile(tempPath.absoluteFilePath("subfolder2/redirected/folder/ignored/g.foo"));
+    UnitTestUtils::CreateDummyFile(tempPath.absoluteFilePath("subfolder2/folder/ignored/g.foo"));
 
     // Add an ignored file
-    UnitTestUtils::CreateDummyFile(tempPath.absoluteFilePath("subfolder2/redirected/folder/one/z.foo"));
+    UnitTestUtils::CreateDummyFile(tempPath.absoluteFilePath("subfolder2/folder/one/z.foo"));
 
     // Add a file in the cache
     AZStd::string projectCacheRootValue;
@@ -4475,23 +4393,27 @@ void WildcardSourceDependencyTest::SetUp()
 
     AzToolsFramework::AssetDatabase::SourceFileDependencyEntryContainer dependencies;
 
+    auto aUuid = AssetUtilities::CreateSafeSourceUUIDFromName("a.foo");
+    auto bUuid = AssetUtilities::CreateSafeSourceUUIDFromName("b.foo");
+    auto dUuid = AssetUtilities::CreateSafeSourceUUIDFromName("folder/one/d.foo");
+
     // Relative path wildcard dependency
     dependencies.push_back(AzToolsFramework::AssetDatabase::SourceFileDependencyEntry(
-        AZ::Uuid::CreateRandom(), "a.foo", "%a.foo",
+        AZ::Uuid::CreateRandom(), aUuid, "%a.foo",
         AzToolsFramework::AssetDatabase::SourceFileDependencyEntry::DEP_SourceLikeMatch, 0, ""));
 
     // Absolute path wildcard dependency
     dependencies.push_back(AzToolsFramework::AssetDatabase::SourceFileDependencyEntry(
-        AZ::Uuid::CreateRandom(), "b.foo", tempPath.absoluteFilePath("%b.foo").toUtf8().constData(),
+        AZ::Uuid::CreateRandom(), bUuid, tempPath.absoluteFilePath("%b.foo").toUtf8().constData(),
         AzToolsFramework::AssetDatabase::SourceFileDependencyEntry::DEP_SourceLikeMatch, 0, ""));
 
     // Test what happens when we have 2 dependencies on the same file
     dependencies.push_back(AzToolsFramework::AssetDatabase::SourceFileDependencyEntry(
-        AZ::Uuid::CreateRandom(), "folder/one/d.foo", "%c.foo",
+        AZ::Uuid::CreateRandom(), dUuid, "%c.foo",
         AzToolsFramework::AssetDatabase::SourceFileDependencyEntry::DEP_SourceLikeMatch, 0, ""));
 
     dependencies.push_back(AzToolsFramework::AssetDatabase::SourceFileDependencyEntry(
-        AZ::Uuid::CreateRandom(), "folder/one/d.foo", tempPath.absoluteFilePath("%c.foo").toUtf8().constData(),
+        AZ::Uuid::CreateRandom(), dUuid, tempPath.absoluteFilePath("%c.foo").toUtf8().constData(),
         AzToolsFramework::AssetDatabase::SourceFileDependencyEntry::DEP_SourceLikeMatch, 0, ""));
 
 #ifdef AZ_PLATFORM_WINDOWS
@@ -4502,7 +4424,7 @@ void WildcardSourceDependencyTest::SetUp()
     // This only applies to windows because on other OSes if the dependency starts with /, then its an abs path dependency
     auto test = (tempPath.absolutePath().left(1) + "%.foo");
     dependencies.push_back(AzToolsFramework::AssetDatabase::SourceFileDependencyEntry(
-        AZ::Uuid::CreateRandom(), "folder/one/d.foo",
+        AZ::Uuid::CreateRandom(), dUuid,
         (test).toUtf8().constData(),
         AzToolsFramework::AssetDatabase::SourceFileDependencyEntry::DEP_SourceLikeMatch, 0, ""));
 #endif
@@ -4543,7 +4465,7 @@ TEST_F(WildcardSourceDependencyTest, Absolute_WithFolder)
     AZStd::vector<AZStd::string> resolvedPaths;
     QDir tempPath(m_tempDir.path());
 
-    ASSERT_TRUE(Test(tempPath.absoluteFilePath("subfolder2/redirected/*.foo").toUtf8().constData(), resolvedPaths));
+    ASSERT_TRUE(Test(tempPath.absoluteFilePath("subfolder2/*.foo").toUtf8().constData(), resolvedPaths));
     ASSERT_THAT(resolvedPaths, ::testing::UnorderedElementsAre("a.foo", "b.foo", "folder/one/c.foo", "folder/one/d.foo"));
 }
 
@@ -4666,7 +4588,7 @@ TEST_F(WildcardSourceDependencyTest, FilesAddedAfterInitialCache)
     }
 
     // Add a file to a new ignored folder
-    QString newFilePath = tempPath.absoluteFilePath("subfolder2/redirected/folder/two/ignored/three/new.foo");
+    QString newFilePath = tempPath.absoluteFilePath("subfolder2/folder/two/ignored/three/new.foo");
     UnitTestUtils::CreateDummyFile(newFilePath);
 
     excludedFolderCacheInterface->FileAdded(newFilePath);
@@ -4674,7 +4596,7 @@ TEST_F(WildcardSourceDependencyTest, FilesAddedAfterInitialCache)
     const auto& excludedFolders = excludedFolderCacheInterface->GetExcludedFolders();
 
     ASSERT_EQ(excludedFolders.size(), 3);
-    ASSERT_THAT(excludedFolders, ::testing::Contains(AZStd::string(tempPath.absoluteFilePath("subfolder2/redirected/folder/two/ignored").toUtf8().constData())));
+    ASSERT_THAT(excludedFolders, ::testing::Contains(AZStd::string(tempPath.absoluteFilePath("subfolder2/folder/two/ignored").toUtf8().constData())));
 }
 
 TEST_F(WildcardSourceDependencyTest, FilesRemovedAfterInitialCache)
@@ -4683,7 +4605,7 @@ TEST_F(WildcardSourceDependencyTest, FilesRemovedAfterInitialCache)
     QDir tempPath(m_tempDir.path());
 
     // Add a file to a new ignored folder
-    QString newFilePath = tempPath.absoluteFilePath("subfolder2/redirected/folder/two/ignored/three/new.foo");
+    QString newFilePath = tempPath.absoluteFilePath("subfolder2/folder/two/ignored/three/new.foo");
     UnitTestUtils::CreateDummyFile(newFilePath);
 
     auto excludedFolderCacheInterface = AZ::Interface<ExcludedFolderCacheInterface>::Get();
@@ -4696,7 +4618,7 @@ TEST_F(WildcardSourceDependencyTest, FilesRemovedAfterInitialCache)
         ASSERT_EQ(excludedFolders.size(), 3);
     }
 
-    m_fileStateCache->SignalDeleteEvent(tempPath.absoluteFilePath("subfolder2/redirected/folder/two/ignored"));
+    m_fileStateCache->SignalDeleteEvent(tempPath.absoluteFilePath("subfolder2/folder/two/ignored"));
 
     const auto& excludedFolders = excludedFolderCacheInterface->GetExcludedFolders();
 
@@ -4709,7 +4631,7 @@ TEST_F(WildcardSourceDependencyTest, NewFile_MatchesSavedRelativeDependency)
 
     auto matches = FileAddedTest(tempPath.absoluteFilePath("subfolder1/1a.foo"));
 
-    ASSERT_THAT(matches, ::testing::UnorderedElementsAre(tempPath.absoluteFilePath("subfolder2/redirected/a.foo").toUtf8().constData()));
+    ASSERT_THAT(matches, ::testing::UnorderedElementsAre(tempPath.absoluteFilePath("subfolder2/a.foo").toUtf8().constData()));
 }
 
 TEST_F(WildcardSourceDependencyTest, NewFile_MatchesSavedAbsoluteDependency)
@@ -4718,14 +4640,14 @@ TEST_F(WildcardSourceDependencyTest, NewFile_MatchesSavedAbsoluteDependency)
 
     auto matches = FileAddedTest(tempPath.absoluteFilePath("subfolder1/1b.foo"));
 
-    ASSERT_THAT(matches, ::testing::UnorderedElementsAre(tempPath.absoluteFilePath("subfolder2/redirected/b.foo").toUtf8().constData()));
+    ASSERT_THAT(matches, ::testing::UnorderedElementsAre(tempPath.absoluteFilePath("subfolder2/b.foo").toUtf8().constData()));
 }
 
 TEST_F(WildcardSourceDependencyTest, NewFile_MatchesDuplicatedDependenciesOnce)
 {
     QDir tempPath(m_tempDir.path());
 
-    auto matches = FileAddedTest(tempPath.absoluteFilePath("subfolder2/redirected/folder/one/c.foo"));
+    auto matches = FileAddedTest(tempPath.absoluteFilePath("subfolder2/folder/one/c.foo"));
 
-    ASSERT_THAT(matches, ::testing::UnorderedElementsAre(tempPath.absoluteFilePath("subfolder2/redirected/folder/one/d.foo").toUtf8().constData()));
+    ASSERT_THAT(matches, ::testing::UnorderedElementsAre(tempPath.absoluteFilePath("subfolder2/folder/one/d.foo").toUtf8().constData()));
 }

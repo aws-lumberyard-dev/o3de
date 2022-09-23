@@ -51,11 +51,11 @@ def open_material(file_path):
     return azlmbr.atomtools.AtomToolsDocumentSystemRequestBus(bus.Broadcast, "OpenDocument", file_path)
 
 
-def is_open(document_id):
+def is_document_open(document_id):
     """
     :return: bool
     """
-    return azlmbr.atomtools.AtomToolsDocumentRequestBus(bus.Event, "IsOpen", document_id)
+    return azlmbr.atomtools.AtomToolsDocumentSystemRequestBus(bus.Broadcast, "IsDocumentOpen", document_id)
 
 
 def save_document(document_id):
@@ -241,14 +241,13 @@ class ScreenshotHelper:
         """
         Capture a screenshot and block the execution until the screenshot has been written to the disk.
         """
-        self.handler = azlmbr.atom.FrameCaptureNotificationBusHandler()
-        self.handler.connect()
-        self.handler.add_callback("OnCaptureFinished", self.on_screenshot_captured)
-
         self.done = False
         self.capturedScreenshot = False
-        success = azlmbr.atom.FrameCaptureRequestBus(azlmbr.bus.Broadcast, "CaptureScreenshot", filename)
-        if success:
+        frameCaptureId = azlmbr.atom.FrameCaptureRequestBus(azlmbr.bus.Broadcast, "CaptureScreenshot", filename)
+        if frameCaptureId != -1:
+            self.handler = azlmbr.atom.FrameCaptureNotificationBusHandler()
+            self.handler.connect(frameCaptureId)
+            self.handler.add_callback("OnCaptureFinished", self.on_screenshot_captured)
             self.wait_until_screenshot()
             print("Screenshot taken.")
         else:

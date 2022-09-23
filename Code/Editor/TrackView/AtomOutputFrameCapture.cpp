@@ -91,24 +91,27 @@ namespace TrackView
     bool AtomOutputFrameCapture::BeginCapture(
         const AZ::RPI::AttachmentReadback::CallbackFunction& attachmentReadbackCallback, CaptureFinishedCallback captureFinishedCallback)
     {
-        AZ::Render::FrameCaptureNotificationBus::Handler::BusConnect();
-
         m_captureFinishedCallback = AZStd::move(captureFinishedCallback);
 
         // note: "Output" (slot name) maps to MainPipeline.pass CopyToSwapChain
-        bool startedCapture = false;
+        AZ::Render::FrameCaptureId frameCaptureId = AZ::Render::InvalidFrameCaptureId;
         AZ::Render::FrameCaptureRequestBus::BroadcastResult(
-            startedCapture, &AZ::Render::FrameCaptureRequestBus::Events::CapturePassAttachmentWithCallback, m_passHierarchy,
+            frameCaptureId, &AZ::Render::FrameCaptureRequestBus::Events::CapturePassAttachmentWithCallback, m_passHierarchy,
             AZStd::string("Output"), attachmentReadbackCallback, AZ::RPI::PassAttachmentReadbackOption::Output);
+        if (frameCaptureId != AZ::Render::InvalidFrameCaptureId)
+        {
+            AZ::Render::FrameCaptureNotificationBus::Handler::BusConnect(frameCaptureId);
+            return true;
+        }
 
-        return startedCapture;
+        return false;
     }
 
-    void AtomOutputFrameCapture::OnCaptureFinished(
+    void AtomOutputFrameCapture::OnFrameCaptureFinished(
         [[maybe_unused]] AZ::Render::FrameCaptureResult result, [[maybe_unused]] const AZStd::string& info)
     {
-        m_captureFinishedCallback();
         AZ::Render::FrameCaptureNotificationBus::Handler::BusDisconnect();
+        m_captureFinishedCallback();
     }
 
     AZ::Matrix3x4 TransformFromEntityId(const AZ::EntityId entityId)

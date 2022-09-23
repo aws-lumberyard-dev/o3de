@@ -21,6 +21,7 @@
 #include <AzCore/IO/SystemFile.h>
 #include <AzCore/Utils/Utils.h>
 #include <AzCore/std/sort.h>
+#include <AzCore/std/time.h>
 
 #include <inttypes.h>
 
@@ -645,8 +646,7 @@ namespace AZ
                 }
                 if (row == sortedPassGrid.end())
                 {
-                    sortedPassGrid.push_back();
-                    sortedPassGrid.back().push_back(passEntry);
+                    sortedPassGrid.emplace_back().push_back(passEntry);
                 }
             }
 
@@ -1617,14 +1617,12 @@ namespace AZ
                     // add constiuent buffers and textures as sub-nodes in the corresponding treemap.
                     if (hostBytes > 0)
                     {
-                        hostNodes.push_back();
-                        poolNode = &hostNodes.back();
+                        poolNode = &hostNodes.emplace_back();
                         poolNode->m_name = pool.m_name;
                     }
                     else if (deviceBytes > 0)
                     {
-                        deviceNodes.push_back();
-                        poolNode = &deviceNodes.back();
+                        poolNode = &deviceNodes.emplace_back();
                         poolNode->m_name = pool.m_name;
                     }
                     else
@@ -1633,8 +1631,7 @@ namespace AZ
                     }
 
                     const AZ::Name unusedGroup{ "Unused" };
-                    poolNode->m_children.push_back();
-                    TreemapNode& unusedNode = poolNode->m_children.back();
+                    TreemapNode& unusedNode = poolNode->m_children.emplace_back();
                     unusedNode.m_name = "Unused";
                     unusedNode.m_group = unusedGroup;
                     if (hostBytes > 0)
@@ -1657,8 +1654,7 @@ namespace AZ
 
                     for (auto& buffer : pool.m_buffers)
                     {
-                        poolNode->m_children.push_back();
-                        TreemapNode& child = poolNode->m_children.back();
+                        TreemapNode& child = poolNode->m_children.emplace_back();
                         child.m_name = buffer.m_name;
                         child.m_weight = static_cast<float>(buffer.m_sizeInBytes) / GpuProfilerImGuiHelper::MB;
                         child.m_group = bufferGroup;
@@ -1666,8 +1662,7 @@ namespace AZ
 
                     for (auto& image : pool.m_images)
                     {
-                        poolNode->m_children.push_back();
-                        TreemapNode& child = poolNode->m_children.back();
+                        TreemapNode& child = poolNode->m_children.emplace_back();
                         child.m_name = image.m_name;
                         child.m_weight = static_cast<float>(image.m_sizeInBytes) / GpuProfilerImGuiHelper::MB;
                         child.m_group = textureGroup;

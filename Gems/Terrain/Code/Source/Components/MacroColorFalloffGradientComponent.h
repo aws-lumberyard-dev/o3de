@@ -38,7 +38,7 @@ namespace GradientSignal
         float m_falloffEndDistance = 0.10f;
     };
 
-    static const AZ::Uuid MacroColorFalloffGradientComponentTypeId = "{7557062C-09A8-497C-94FA-FD00406619B1}";
+    inline constexpr AZ::TypeId MacroColorFalloffGradientComponentTypeId{ "{7557062C-09A8-497C-94FA-FD00406619B1}" };
 
     /**
     * calculates a gradient value based on distance from a shapes surface

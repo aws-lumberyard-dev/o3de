@@ -593,7 +593,11 @@ namespace Vegetation
             });
     }
 
-    void AreaSystemComponent::OnSurfaceChanged(const AZ::EntityId& /*entityId*/, const AZ::Aabb& oldBounds, const AZ::Aabb& newBounds)
+    void AreaSystemComponent::OnSurfaceChanged(
+        [[maybe_unused]] const AZ::EntityId& entityId,
+        const AZ::Aabb& oldBounds,
+        const AZ::Aabb& newBounds,
+        [[maybe_unused]] const SurfaceData::SurfaceTagSet& changedSurfaceTags)
     {
         m_vegTasks.QueueVegetationTask([oldBounds, newBounds](UpdateContext* context, PersistentThreadData* threadData, VegetationThreadTasks* vegTasks)
         {
@@ -1113,8 +1117,7 @@ namespace Vegetation
         regionBounds.SetMax(regionBounds.GetMin() + AZ::Vector3(vegStep * (sectorDensity - 0.5f),
             vegStep * (sectorDensity - 0.5f), 0.0f));
 
-        SurfaceData::SurfaceDataSystemRequestBus::Broadcast(
-            &SurfaceData::SurfaceDataSystemRequestBus::Events::GetSurfacePointsFromRegion,
+        AZ::Interface<SurfaceData::SurfaceDataSystem>::Get()->GetSurfacePointsFromRegion(
             regionBounds,
             stepSize,
             SurfaceData::SurfaceTagVector(),
@@ -1125,8 +1128,7 @@ namespace Vegetation
         ([[maybe_unused]] size_t inPositionIndex, const AZ::Vector3& position,
             const AZ::Vector3& normal, const SurfaceData::SurfaceTagWeights& masks) -> bool
             {
-                sectorInfo.m_baseContext.m_availablePoints.push_back();
-                ClaimPoint& claimPoint = sectorInfo.m_baseContext.m_availablePoints.back();
+                ClaimPoint& claimPoint = sectorInfo.m_baseContext.m_availablePoints.emplace_back();
                 claimPoint.m_handle = CreateClaimHandle(sectorInfo, ++claimIndex);
                 claimPoint.m_position = position;
                 claimPoint.m_normal = normal;
@@ -1305,7 +1307,7 @@ namespace Vegetation
     void AreaSystemComponent::VegetationThreadTasks::FillSector(SectorInfo& sectorInfo, const VegetationAreaVector& activeAreas)
     {
         AZ_PROFILE_FUNCTION(Entity);
-        VEG_PROFILE_METHOD(DebugNotificationBus::TryQueueBroadcast(&DebugNotificationBus::Events::FillSectorStart, sectorInfo.GetSectorX(), sectorInfo.GetSectorY(), AZStd::chrono::system_clock::now()));
+        VEG_PROFILE_METHOD(DebugNotificationBus::TryQueueBroadcast(&DebugNotificationBus::Events::FillSectorStart, sectorInfo.GetSectorX(), sectorInfo.GetSectorY(), AZStd::chrono::steady_clock::now()));
 
         ReleaseUnregisteredClaims(sectorInfo);
 
@@ -1328,20 +1330,20 @@ namespace Vegetation
             //only consider areas that intersect this sector
             if (!area.m_bounds.IsValid() || area.m_bounds.Overlaps(sectorInfo.m_bounds))
             {
-                VEG_PROFILE_METHOD(DebugNotificationBus::TryQueueBroadcast(&DebugNotificationBus::Events::FillAreaStart, area.m_id, AZStd::chrono::system_clock::now()));
+                VEG_PROFILE_METHOD(DebugNotificationBus::TryQueueBroadcast(&DebugNotificationBus::Events::FillAreaStart, area.m_id, AZStd::chrono::steady_clock::now()));
 
                 //each area is responsible for removing whatever points it claims from m_availablePoints, so subsequent areas will have fewer points to try to claim.
                 AreaNotificationBus::Event(area.m_id, &AreaNotificationBus::Events::OnAreaConnect);
                 AreaRequestBus::Event(area.m_id, &AreaRequestBus::Events::ClaimPositions, EntityIdStack{}, activeContext);
                 AreaNotificationBus::Event(area.m_id, &AreaNotificationBus::Events::OnAreaDisconnect);
 
-                VEG_PROFILE_METHOD(DebugNotificationBus::TryQueueBroadcast(&DebugNotificationBus::Events::FillAreaEnd, area.m_id, AZStd::chrono::system_clock::now(), aznumeric_cast<AZ::u32>(activeContext.m_availablePoints.size())));
+                VEG_PROFILE_METHOD(DebugNotificationBus::TryQueueBroadcast(&DebugNotificationBus::Events::FillAreaEnd, area.m_id, AZStd::chrono::steady_clock::now(), aznumeric_cast<AZ::u32>(activeContext.m_availablePoints.size())));
             }
         }
 
         ReleaseUnusedClaims(sectorInfo);
 
-        VEG_PROFILE_METHOD(DebugNotificationBus::TryQueueBroadcast(&DebugNotificationBus::Events::FillSectorEnd, sectorInfo.GetSectorX(), sectorInfo.GetSectorY(), AZStd::chrono::system_clock::now(), aznumeric_cast<AZ::u32>(activeContext.m_availablePoints.size())));
+        VEG_PROFILE_METHOD(DebugNotificationBus::TryQueueBroadcast(&DebugNotificationBus::Events::FillSectorEnd, sectorInfo.GetSectorX(), sectorInfo.GetSectorY(), AZStd::chrono::steady_clock::now(), aznumeric_cast<AZ::u32>(activeContext.m_availablePoints.size())));
     }
 
     void AreaSystemComponent::VegetationThreadTasks::EmptySector(SectorInfo& sectorInfo)

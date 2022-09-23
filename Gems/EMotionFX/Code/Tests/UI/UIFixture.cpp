@@ -31,6 +31,8 @@
 #include <AzQtComponents/Components/WindowDecorationWrapper.h>
 #include <AzQtComponents/Components/StyleManager.h>
 
+#include <GraphCanvas/Widgets/NodePalette/NodePaletteTreeView.h>
+
 #include <Editor/Plugins/SimulatedObject/SimulatedObjectColliderWidget.h>
 #include <Editor/Plugins/SimulatedObject/SimulatedObjectWidget.h>
 #include <Editor/Plugins/SimulatedObject/SimulatedJointWidget.h>
@@ -38,6 +40,7 @@
 #include <Editor/ReselectingTreeView.h>
 
 #include <QtTest>
+#include <QAbstractItemModel>
 #include <QApplication>
 #include <QWidget>
 #include <QToolBar>
@@ -47,8 +50,7 @@ namespace EMotionFX
 {
     void MakeQtApplicationBase::SetUp()
     {
-        int argc = 0;
-        m_uiApp = new QApplication(argc, nullptr);
+        m_uiApp = new QApplication(s_argc, nullptr);
 
         AzToolsFramework::EditorEvents::Bus::Broadcast(&AzToolsFramework::EditorEvents::NotifyRegisterViews);
 
@@ -75,12 +77,10 @@ namespace EMotionFX
 
     void UIFixture::SetupPluginWindows()
     {
-        // Plugins have to be created after both the QApplication object and
-        // after the SystemComponent
-        const size_t numPlugins = EMStudio::GetPluginManager()->GetNumPlugins();
-        for (size_t i = 0; i < numPlugins; ++i)
+        // Plugins have to be created after both the QApplication object and after the SystemComponent
+        const EMStudio::PluginManager::PluginVector& registeredPlugins = EMStudio::GetPluginManager()->GetRegisteredPlugins();
+        for (EMStudio::EMStudioPlugin* plugin : registeredPlugins)
         {
-            EMStudio::EMStudioPlugin* plugin = EMStudio::GetPluginManager()->GetPlugin(i);
             EMStudio::GetPluginManager()->CreateWindowOfType(plugin->GetName());
         }
     }
@@ -201,6 +201,18 @@ namespace EMotionFX
         }
 
         return nullptr;
+    }
+
+    QModelIndex UIFixture::GetIndexFromName(const GraphCanvas::NodePaletteTreeView* tree, const QString& name)
+    {
+        const QAbstractItemModel* model = tree->model();
+        const QModelIndexList matches = model->match(model->index(0,0), Qt::DisplayRole, name, 1, Qt::MatchRecursive);
+
+        if (!matches.empty())
+        {
+            return matches[0];
+        }
+        return {};
     }
 
     void UIFixture::ExecuteCommands(std::vector<std::string> commands)
