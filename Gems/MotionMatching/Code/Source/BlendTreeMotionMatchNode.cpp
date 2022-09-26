@@ -346,8 +346,10 @@ namespace EMotionFX::MotionMatching
 
         if (instance && instance->m_queryVectorWritten)
         {
-            instance->m_poseWriter.WritePose(outTransformPose, ETransformSpace::TRANSFORM_SPACE_LOCAL);
-            instance->m_rotWriter.WritePose(outTransformPose, ETransformSpace::TRANSFORM_SPACE_LOCAL);
+            instance->m_poseWriterLocal.WritePose(outTransformPose, ETransformSpace::TRANSFORM_SPACE_LOCAL);
+            instance->m_rotWriterLocal.WritePose(outTransformPose, ETransformSpace::TRANSFORM_SPACE_LOCAL);
+            instance->m_poseWriterModel.WritePose(outTransformPose, ETransformSpace::TRANSFORM_SPACE_MODEL);
+            instance->m_rotWriterModel.WritePose(outTransformPose, ETransformSpace::TRANSFORM_SPACE_MODEL);
             instance->m_queryVectorWritten = false;
         }
 

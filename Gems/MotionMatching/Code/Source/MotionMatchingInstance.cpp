@@ -134,18 +134,120 @@ namespace EMotionFX::MotionMatching
         writeSettingsRot.m_writePositions = false;
         writeSettingsRot.m_writeRotations = true;
 
-        m_poseWriter.Begin("D:\\RuntimeRecording_Poses.csv", m_actorInstance, writeSettingsPosRot);
-        m_rotWriter.Begin("D:\\RuntimeRecording_Rotations.csv", m_actorInstance, writeSettingsRot);
-        m_queryVectorWriter.Begin("D:\\RuntimeRecording_Features.csv", &featureSchema);
-        m_bestMatchingFrameWriter.Begin("D:\\RuntimeRecording_BestMatchingFrames.csv");
+        m_poseWriterLocal.Begin("D:\\RuntimeRecording_Poses_LocalSpace_60hzSample_5hzMotionMatch_MidDual.csv", m_actorInstance, writeSettingsPosRot);
+        m_rotWriterLocal.Begin("D:\\RuntimeRecording_Rotations_LocalSpace_60hzSample_5hzMotionMatch_MidDual.csv", m_actorInstance, writeSettingsRot);
+        m_poseWriterModel.Begin("D:\\RuntimeRecording_Poses_ModelSpace_60hzSample_5hzMotionMatch_MidDual.csv", m_actorInstance, writeSettingsPosRot);
+        m_rotWriterModel.Begin("D:\\RuntimeRecording_Rotations_ModelSpace_60hzSample_5hzMotionMatch_MidDual.csv", m_actorInstance, writeSettingsRot);
+        m_queryVectorWriter.Begin("D:\\RuntimeRecording_Features_60hzSample_5hzMotionMatch_MidDual.csv", &featureSchema);
+        m_bestMatchingFrameWriter.Begin("D:\\RuntimeRecording_BestMatchingFrames_60hzSample_5hzMotionMatch_MidDual.csv");
 
 #ifdef ONNX_ENABLED
-        ONNX::Model::InitSettings onnxInitSettings;
-        onnxInitSettings.m_modelFile = "D:/OnnxModel_PosRotFeaturesWithHandAndHeadLocal_To_RotLocal_Unnormalized_NoBadFrames_Shuffled_LR1e-3_Batch32_Hidden512_WeightDecay1e-5_Epochs3_NormalizeDataOff_170kRecordedONLY_Threshold1-5.onnx";
-        m_onnxModel.Load(onnxInitSettings);
+        ONNX::Model::InitSettings onnxProjectorInitSettings;
+        onnxProjectorInitSettings.m_modelFile = "D:/AutoEncoderModelSpace1layer1872to117SplitModelEncoder.onnx";
+        onnxProjectorInitSettings.m_modelName = "Projector";
+        m_onnxModel.Load(onnxProjectorInitSettings);
 
-        AZStd::vector<float> motionMatchingOnnxInput(1724);
-        m_onnxInput.push_back(motionMatchingOnnxInput);
+        AZStd::vector<float> projectorOnnxInput(1872);
+        m_onnxInput.push_back(projectorOnnxInput);
+
+        ONNX::Model::InitSettings onnxStepperInitSettings;
+        onnxStepperInitSettings.m_modelFile = "D:/Stepper2layer194to194RELUto194Epoch20LR1e-3Batch64NoBadFramesThreshold4.onnx";
+        onnxStepperInitSettings.m_modelName = "Stepper";
+        onnxStepperInitSettings.m_modelColor = AZ::Color::CreateFromRgba(3, 138, 255, 255);
+        m_onnxStepperModel.Load(onnxStepperInitSettings);
+
+        AZStd::vector<float> stepperOnnxInput(194);
+        m_onnxStepperInput.push_back(stepperOnnxInput);
+
+        ONNX::Model::InitSettings onnxDecompressorInitSettings;
+        onnxDecompressorInitSettings.m_modelFile = "D:/DecompressorLocalSpace2layer194to1248RELUto1248Epoch100LR1e-4Batch64.onnx";
+        onnxDecompressorInitSettings.m_modelName = "Decompressor";
+        onnxDecompressorInitSettings.m_modelColor = AZ::Color::CreateFromRgba(46, 204, 113, 255);
+        m_onnxDecompressorModel.Load(onnxDecompressorInitSettings);
+
+        PoseReaderCsv trainingModelPosRotReader;
+        PoseReaderCsv trainingLocalRotReader;
+
+        PoseReaderCsv::ReadSettings readSettingsTrainingPosRot;
+        readSettingsTrainingPosRot.m_readPositions = true;
+        readSettingsTrainingPosRot.m_readRotations = true;
+
+        PoseReaderCsv::ReadSettings readSettingsTrainingRot;
+        readSettingsTrainingRot.m_readPositions = false;
+        readSettingsTrainingRot.m_readRotations = true;
+
+        PoseReaderCsv::ReadSettings readSettingsPlaybackAnimationPoseReader;
+        readSettingsPlaybackAnimationPoseReader.m_readPositions = true;
+        readSettingsPlaybackAnimationPoseReader.m_readRotations = true;
+
+        trainingModelPosRotReader.Begin("D:/MotionMatchingDatabase_Poses_PosRot_ModelSpace_60Hz.csv", readSettingsTrainingPosRot);
+        trainingLocalRotReader.Begin("D:/MotionMatchingDatabase_Poses_Rot_LocalSpace_60Hz.csv", readSettingsTrainingRot);
+
+        Pose trainingModelPosRotPose;
+        trainingModelPosRotPose.LinkToActorInstance(m_actorInstance);
+        trainingModelPosRotPose.InitFromBindPose(m_actorInstance);
+
+        Pose trainingLocalRotPose;
+        trainingLocalRotPose.LinkToActorInstance(m_actorInstance);
+        trainingLocalRotPose.InitFromBindPose(m_actorInstance);
+
+        const size_t numEnabledJoints = m_actorInstance->GetNumEnabledNodes();
+
+        m_trainingFeaturePosRotMatrix.resize(trainingModelPosRotReader.GetNumPoses(), numEnabledJoints * 9);
+
+        for (int frame = 0; frame < trainingModelPosRotReader.GetNumPoses(); frame++)
+        {
+            trainingModelPosRotReader.ApplyPose(m_actorInstance, trainingLocalRotPose, TRANSFORM_SPACE_MODEL, frame);
+
+            for (size_t i = 0; i < numEnabledJoints; ++i)
+            {
+                const size_t jointIndex = m_actorInstance->GetEnabledNode(i);
+
+                Transform modelPosRotTransform = Transform::CreateIdentity();
+                modelPosRotTransform = trainingModelPosRotPose.GetModelSpaceTransform(jointIndex);
+
+                const AZ::Vector3 modelPosition = modelPosRotTransform.m_position;
+                const AZ::Quaternion modelRotation = modelPosRotTransform.m_rotation;
+                AZ::Matrix3x3 modelRotationMatrix = AZ::Matrix3x3::CreateFromQuaternion(modelRotation);
+                AZ::Vector3 modelRotationMatrixBasisX = modelRotationMatrix.GetBasisX().GetNormalizedSafe();
+                AZ::Vector3 modelRotationMatrixBasisY = modelRotationMatrix.GetBasisY().GetNormalizedSafe();
+
+                m_trainingFeaturePosRotMatrix.SetVector3(frame, (i * 9), modelPosition);
+                m_trainingFeaturePosRotMatrix.SetVector3(frame, (i * 9) + 3, modelRotationMatrixBasisX);
+                m_trainingFeaturePosRotMatrix.SetVector3(frame, (i * 9) + 6, modelRotationMatrixBasisY);
+            }
+        }
+        
+        m_trainingModelPosRotScaler.Fit(m_trainingFeaturePosRotMatrix);
+
+        m_trainingFeaturePosRotMatrix.Clear();
+
+        m_trainingFeatureRotMatrix.resize(trainingLocalRotReader.GetNumPoses(), numEnabledJoints * 6);
+
+        for (int frame = 0; frame < trainingModelPosRotReader.GetNumPoses(); frame++)
+        {
+            trainingLocalRotReader.ApplyPose(m_actorInstance, trainingLocalRotPose, TRANSFORM_SPACE_LOCAL, frame);
+
+            for (size_t i = 0; i < numEnabledJoints; ++i)
+            {
+                const size_t jointIndex = m_actorInstance->GetEnabledNode(i);
+
+                Transform localRotTransform = Transform::CreateIdentity();
+                localRotTransform = trainingLocalRotPose.GetLocalSpaceTransform(jointIndex);
+
+                const AZ::Quaternion localRotation = localRotTransform.m_rotation;
+                AZ::Matrix3x3 localRotationMatrix = AZ::Matrix3x3::CreateFromQuaternion(localRotation);
+                AZ::Vector3 localRotationMatrixBasisX = localRotationMatrix.GetBasisX().GetNormalizedSafe();
+                AZ::Vector3 localRotationMatrixBasisY = localRotationMatrix.GetBasisY().GetNormalizedSafe();
+
+                m_trainingFeatureRotMatrix.SetVector3(frame, (i * 6), localRotationMatrixBasisX);
+                m_trainingFeatureRotMatrix.SetVector3(frame, (i * 6) + 3, localRotationMatrixBasisY);
+            }
+        }
+
+        m_trainingLocalRotScaler.Fit(m_trainingFeatureRotMatrix);
+
+        m_trainingFeatureRotMatrix.Clear();
 #endif
     }
 
@@ -323,21 +425,24 @@ namespace EMotionFX::MotionMatching
         {
             const size_t jointIndex = m_actorInstance->GetEnabledNode(i);
 
-            Transform transform = Transform::CreateIdentity();
-            transform = outputPose.GetLocalSpaceTransform(jointIndex);
+            Transform modelTransform = Transform::CreateIdentity();
+            modelTransform = outputPose.GetModelSpaceTransform(jointIndex);
 
             // Position
-            const AZ::Vector3 position = transform.m_position;
+            AZ::Vector3 position = modelTransform.m_position;
+            position = m_trainingModelPosRotScaler.Transform(position, onnxInputVectorIndex);
             m_onnxInput[0][onnxInputVectorIndex] = position.GetX();
             m_onnxInput[0][onnxInputVectorIndex+1] = position.GetY();
             m_onnxInput[0][onnxInputVectorIndex+2] = position.GetZ();
 
             // Rotation
             // Store rotation as the X and Y axes The Z axis can be reconstructed by the cross product of the X and Y axes.
-            const AZ::Quaternion rotation = transform.m_rotation;
+            const AZ::Quaternion rotation = modelTransform.m_rotation;
             AZ::Matrix3x3 rotationMatrix = AZ::Matrix3x3::CreateFromQuaternion(rotation);
             AZ::Vector3 rotationMatrixBasisX = rotationMatrix.GetBasisX().GetNormalizedSafe();
             AZ::Vector3 rotationMatrixBasisY = rotationMatrix.GetBasisY().GetNormalizedSafe();
+            rotationMatrixBasisX = m_trainingModelPosRotScaler.Transform(rotationMatrixBasisX, onnxInputVectorIndex + 3);
+            rotationMatrixBasisY = m_trainingModelPosRotScaler.Transform(rotationMatrixBasisY, onnxInputVectorIndex + 6);
             m_onnxInput[0][onnxInputVectorIndex+3] = rotationMatrixBasisX.GetX();
             m_onnxInput[0][onnxInputVectorIndex+4] = rotationMatrixBasisX.GetY();
             m_onnxInput[0][onnxInputVectorIndex+5] = rotationMatrixBasisX.GetZ();
@@ -348,14 +453,31 @@ namespace EMotionFX::MotionMatching
             onnxInputVectorIndex += 9;
         }
 
-        for (size_t i = 0; i < featureCount; i++)
-        {
-            m_onnxInput[0][onnxInputVectorIndex + i] = featureMatrix(m_currentFrame, i);
-        }
-
         ONNX::Model* onnxModel = &m_onnxModel;
 
         onnxModel->Run(m_onnxInput);
+
+        size_t onnxStepperInputVectorIndex = 0;
+
+        for (size_t i = 0; i < featureCount; i++)
+        {
+            m_onnxStepperInput[0][onnxStepperInputVectorIndex + i] = featureMatrix(m_currentFrame, i);
+        }
+
+        onnxStepperInputVectorIndex += featureCount;
+
+        for (int i = 0; i < onnxModel->m_outputs[0].size(); i++)
+        {
+            m_onnxStepperInput[0][onnxStepperInputVectorIndex + i] = onnxModel->m_outputs[0][i];
+        }
+
+        ONNX::Model* onnxStepperModel = &m_onnxStepperModel;
+
+        onnxStepperModel->Run(m_onnxStepperInput);
+
+        ONNX::Model* onnxDecompressorModel = &m_onnxDecompressorModel;
+
+        onnxDecompressorModel->Run(onnxStepperModel->m_outputs);
 
         Pose* bindPose = m_actorInstance->GetTransformData()->GetBindPose();
 
@@ -366,11 +488,11 @@ namespace EMotionFX::MotionMatching
 
             Transform transform = bindPose->GetLocalSpaceTransform(jointIndex);
 
-            auto LoadVector3 = [onnxModel](size_t& valueIndex, AZ::Vector3& outVec)
+            auto LoadVector3 = [onnxDecompressorModel](size_t& valueIndex, AZ::Vector3& outVec)
             {
-                outVec.SetX(onnxModel->m_outputs[0][valueIndex + 0]);
-                outVec.SetY(onnxModel->m_outputs[0][valueIndex + 1]);
-                outVec.SetZ(onnxModel->m_outputs[0][valueIndex + 2]);
+                outVec.SetX(onnxDecompressorModel->m_outputs[0][valueIndex + 0]);
+                outVec.SetY(onnxDecompressorModel->m_outputs[0][valueIndex + 1]);
+                outVec.SetZ(onnxDecompressorModel->m_outputs[0][valueIndex + 2]);
                 valueIndex += 3;
             };
 
@@ -380,6 +502,8 @@ namespace EMotionFX::MotionMatching
             AZ::Vector3 basisY = AZ::Vector3::CreateZero();
             LoadVector3(valueIndex, basisX);
             LoadVector3(valueIndex, basisY);
+            basisX = m_trainingLocalRotScaler.InverseTransform(basisX, (i * 6));
+            basisY = m_trainingLocalRotScaler.InverseTransform(basisY, (i * 6) + 3);
             basisX.NormalizeSafe();
             basisY.NormalizeSafe();
 

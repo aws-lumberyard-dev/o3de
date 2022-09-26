@@ -20,6 +20,8 @@ namespace EMotionFX::MotionMatching
         AZ::Vector3 displacement = AZ::Vector3::CreateZero();
         displacement.SetX(radius * sinf(phase * 0.7f + offset) + radius * 0.75f * cosf(phase * 2.0f + offset * 2.0f) + radius * sinf(phase3 * 0.7f + offset));
         displacement.SetY(radius * cosf(phase * 0.4f + offset) + radius * cosf(phase2 * 0.4f + offset));
+        // displacement.SetX(radius * sinf(phase * 0.7f + offset) + radius * 0.75f * cosf(phase * 2.0f + offset * 2.0f));
+        // displacement.SetY(radius * cosf(phase * 0.4f + offset));
         return displacement;
     }
 

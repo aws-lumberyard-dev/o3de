@@ -19,6 +19,7 @@
 
 #include <MotionMatching/MotionMatchingBus.h>
 #include <CsvSerializers.h>
+#include <FeatureMatrixStandardScaler.h>
 
 #include <ONNX/Model.h>
 
@@ -35,7 +36,7 @@ namespace EMotionFX
 
 namespace EMotionFX::MotionMatching
 {
-    #define ONNX_ENABLED true
+    //#define ONNX_ENABLED true
 
     class MotionMatchingData;
 
@@ -88,8 +89,10 @@ namespace EMotionFX::MotionMatching
         const TrajectoryHistory& GetTrajectoryHistory() const { return m_trajectoryHistory; }
         const Transform& GetMotionExtractionDelta() const { return m_motionExtractionDelta; }
 
-        PoseWriterCsv m_poseWriter;
-        PoseWriterCsv m_rotWriter;
+        PoseWriterCsv m_poseWriterLocal;
+        PoseWriterCsv m_rotWriterLocal;
+        PoseWriterCsv m_poseWriterModel;
+        PoseWriterCsv m_rotWriterModel;
         QueryVectorWriterCsv m_queryVectorWriter;
         BestMatchingFrameWriterCsv m_bestMatchingFrameWriter;
         bool m_queryVectorWritten = false;
@@ -136,9 +139,27 @@ namespace EMotionFX::MotionMatching
         AZStd::vector<float> m_minCosts;
 
 #ifdef ONNX_ENABLED
+        //ONNX::Model m_onnxModel;
+        //AZStd::vector<AZStd::vector<float>> m_onnxInput;
+
+        //ONNX::Model m_onnxAutoEncoderModel;
+        //AZStd::vector<AZStd::vector<float>> m_onnxAutoEncoderInput;
+
         ONNX::Model m_onnxModel;
+        ONNX::Model m_onnxStepperModel;
+        ONNX::Model m_onnxDecompressorModel;
+
         AZStd::vector<AZStd::vector<float>> m_onnxInput;
+        AZStd::vector<AZStd::vector<float>> m_onnxStepperInput;
+
         size_t m_currentFrame = 0;
+        FeatureMatrix m_trainingFeaturePosRotMatrix;
+        FeatureMatrix m_trainingFeatureRotMatrix;
+        StandardScaler m_trainingModelPosRotScaler;
+        StandardScaler m_trainingLocalRotScaler;
+
+        PoseReaderCsv m_playbackAnimationPoseReader;
+        FeatureMatrix m_playbackAnimationFeatureMatrix;
 #endif
     };
 } // namespace EMotionFX::MotionMatching

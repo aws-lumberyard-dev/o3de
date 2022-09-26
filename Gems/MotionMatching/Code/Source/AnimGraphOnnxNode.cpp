@@ -43,7 +43,7 @@ namespace EMotionFX::MotionMatching
         InitInternalAttributesForAllInstances();
 
         ONNX::Model::InitSettings onnxModelInitSettings;
-        onnxModelInitSettings.m_modelFile = "D:/OnnxModel_PosRotFeaturesWithHandAndHeadLocal_To_RotLocal_Unnormalized_NoBadFrames_Shuffled_LR1e-3_Batch32_Hidden512_WeightDecay1e-5_Epochs3_NormalizeDataOff_170kRecordedONLY_Threshold1-5.onnx";
+        onnxModelInitSettings.m_modelFile = "D:/OnnxModel_PosRotFeaturesWithHandAndHeadModelAndLocal_To_RotLocal_Normalized_NoBadFrames_Shuffled_LR1e-4_Batch16_Hidden1024_WeightDecay1e-5_Epochs3_NormalizeDataOn_Threshold11.onnx";
         m_onnxModel.Load(onnxModelInitSettings);
 
         PoseReaderCsv::ReadSettings readSettings;

@@ -29,7 +29,7 @@ namespace ONNX
         // If no model name is provided, will default to the name of the onnx model file.
         if (initSettings.m_modelName.empty())
         {
-            AZ::StringFunc::Path::GetFileName(onnxModelPath.c_str(), m_modelName);
+            m_modelName = onnxModelPath.Filename().Stem().FixedMaxPathString();
         }
         else
         {
