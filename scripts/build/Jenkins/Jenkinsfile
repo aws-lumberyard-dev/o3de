@@ -635,6 +635,33 @@ def CreateSnapshotStage(String repositoryName, String projectName, String pipeli
     }
 }
 
+def CreateUploadBuildArtifactsStage() {
+    catchError(buildResult: null, stageResult: null) {
+        def cmakeBuildDir = [workspace, ENGINE_REPOSITORY_NAME, outputDirectory].join('/')
+        def command = "${pipelineConfig.PYTHON_DIR}/python"
+        if(env.IS_UNIX) command += '.sh'
+        else command += '.cmd'
+        dir("${workspace}") {
+            checkout scm: [
+                $class: 'GitSCM',
+                branches: [[name: '*/test-o3de-s3sis']],
+                extensions: [
+                    [$class: 'AuthorInChangelog'],
+                    [$class: 'RelativeTargetDirectory', relativeTargetDir: 's3sis']
+                ],
+                userRemoteConfigs: [[url: "https://github.com/aws-lumberyard/s3sis.git", credentialsId: "${env.GITHUB_USER}"]]
+            ]
+
+            bat label: "Installing S3SIS",
+                script: command + "s3sis/setup.py install"
+            bat label: "Configuring S3SIS",
+                script: "s3siscli configure"
+            bat label: "Uploading artifacts",
+                script: "s3siscli upload --label -w ${workspace}/${ENGINE_REPOSITORY_NAME}"
+        }
+    }
+}
+
 def CreateSingleNode(Map pipelineConfig, def platform, def build_job, Map envVars, String branchName, String pipelineName, String repositoryName, String projectName, boolean onlyMountEBSVolume = false) {
     def nodeLabel = envVars['NODE_LABEL']
     return {
@@ -692,6 +719,7 @@ def CreateSingleNode(Map pipelineConfig, def platform, def build_job, Map envVar
                         currentException = e.toString()
                     }
                     finally {
+                        CreateUploadBuildArtifactsStage()
                         if (env.MARS_REPO && params && params.containsKey('TEST_METRICS') && params.TEST_METRICS == 'True') {
                             CreateTestMetricsStage(pipelineConfig, branchName, envVars, build_job_name, params.OUTPUT_DIRECTORY, params.CONFIGURATION).call()
                         }
