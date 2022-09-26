@@ -26,6 +26,7 @@ ly_add_target(
             Gem::GradientSignal
             Gem::SurfaceData
             Gem::LmbrCentral
+            3rdParty::OpenImageIO
         PRIVATE
             Gem::AWSCore
             Gem::HttpRequestor

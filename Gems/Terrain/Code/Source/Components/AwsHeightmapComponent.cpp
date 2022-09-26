@@ -30,6 +30,10 @@
 #include <AzFramework/Terrain/TerrainDataRequestBus.h>
 #include <LmbrCentral/Dependency/DependencyNotificationBus.h>
 
+AZ_PUSH_DISABLE_WARNING(4777, "-Wunknown-warning-option")
+#include <OpenImageIO/imageio.h>
+AZ_POP_DISABLE_WARNING
+
 namespace Terrain
 {
     void AwsHeightmapConfig::Reflect(AZ::ReflectContext* context)
@@ -245,6 +249,52 @@ namespace Terrain
                     minMaxHeights.GetX(), minMaxHeights.GetY(), m_heightmapMinHeight, m_heightmapMaxHeight);
                 m_heightmapMinHeight = minMaxHeights.GetX();
                 m_heightmapMaxHeight = minMaxHeights.GetY();
+
+
+                static bool saveHeightmap = false;
+                static int saveCount = 0;
+                if (saveHeightmap)
+                {
+                    AZStd::vector<float> heightmapSubRegion;
+                    heightmapSubRegion.resize(m_heightmapWidth * m_heightmapHeight);
+                    for (int y = 0; y < m_heightmapHeight; y++)
+                    {
+                        for (int x = 0; x < m_heightmapWidth; x++)
+                        {
+                            float height = m_heightmapData[((y + m_heightmapTop) * m_rawHeightmapWidth) + (x + m_heightmapLeft)];
+                            heightmapSubRegion[((m_heightmapHeight - y - 1) * m_heightmapWidth) + x] =
+                                AZ::GetClamp(AZ::LerpInverse(m_heightmapMinHeight, m_heightmapMaxHeight, height), 0.0f, 1.0f);
+                        }
+                    }
+
+                    const int channels = 1;
+
+                    OIIO::TypeDesc pixelFormat = OIIO::TypeDesc::FLOAT;
+
+                    AZStd::string absoluteFileName = AZStd::string::format("E:\\MauiHeightmaps\\Heightmap_%d_%d_gsi.tif", saveCount / 8, saveCount % 8);
+
+                    AZ::IO::Path fullPathIO(absoluteFileName);
+                    AZ::IO::Path absolutePath = fullPathIO.LexicallyNormal();
+
+                    // Create and save the image on disk
+
+                    std::unique_ptr<OIIO::ImageOutput> outputImage = OIIO::ImageOutput::create(absolutePath.c_str());
+                    if (outputImage)
+                    {
+                        OIIO::ImageSpec spec(m_heightmapWidth, m_heightmapHeight, channels, pixelFormat);
+                        outputImage->open(absolutePath.c_str(), spec);
+
+                        outputImage->write_image(
+                            pixelFormat, heightmapSubRegion.data(), OIIO::AutoStride, OIIO::AutoStride, OIIO::AutoStride);
+
+                        outputImage->close();
+                    }
+
+                    saveCount++;
+                }
+
+
+
 
                 // Make sure we don't try to deactivate the component until the job is done. Save off the ID first though so that the
                 // OnCompositionChanged() event can cause a deactivate/activate successfully.

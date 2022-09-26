@@ -28,6 +28,9 @@
 
 #include <AzCore/IO/SystemFile.h>
 
+AZ_PUSH_DISABLE_WARNING(4777, "-Wunknown-warning-option")
+#include <OpenImageIO/imageio.h>
+AZ_POP_DISABLE_WARNING
 
 namespace Terrain
 {
@@ -348,6 +351,36 @@ namespace Terrain
                     uint32_t* srcLineStart = &(m_cachedPixels[(line + yPixelTop) * m_cachedPixelsWidth]);
                     uint32_t* subregionLineStart = &(cachedPixelSubRegion[line * pixelWidth]);
                     memcpy(subregionLineStart, &(srcLineStart[xPixelLeft]), pixelWidth * BytesPerPixel);
+                }
+
+                static bool saveMacroColor = false;
+                static int saveCount = 0;
+                if (saveMacroColor)
+                {
+                    const int channels = 4;
+
+                    OIIO::TypeDesc pixelFormat = OIIO::TypeDesc::UINT8;
+
+                    AZStd::string absoluteFileName = AZStd::string::format("E:\\MauiMacroColor\\Macro_%d_%d.tif", saveCount / 8, saveCount % 8);
+
+                    AZ::IO::Path fullPathIO(absoluteFileName);
+                    AZ::IO::Path absolutePath = fullPathIO.LexicallyNormal();
+
+                    // Create and save the image on disk
+
+                    std::unique_ptr<OIIO::ImageOutput> outputImage = OIIO::ImageOutput::create(absolutePath.c_str());
+                    if (outputImage)
+                    {
+                        OIIO::ImageSpec spec(pixelWidth, pixelHeight, channels, pixelFormat);
+                        outputImage->open(absolutePath.c_str(), spec);
+
+                        outputImage->write_image(
+                            pixelFormat, cachedPixelSubRegion.data(), OIIO::AutoStride, OIIO::AutoStride, OIIO::AutoStride);
+
+                        outputImage->close();
+                    }
+
+                    saveCount++;
                 }
 
                 AZ::RHI::ImageUpdateRequest imageUpdateRequest;
