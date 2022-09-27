@@ -1423,15 +1423,18 @@ namespace AZ::Data
 
         AZStd::shared_ptr<AssetContainer> container;
         Asset<AssetData> newAsset;
+        bool sendPreReloadNotification = false;
+        Asset<AssetData> currentAsset;
 
         {
             AZStd::scoped_lock<AZStd::recursive_mutex> assetLock(m_assetMutex);
             auto assetIter = m_assets.find(assetId);
 
-            if (assetIter == m_assets.end() || assetIter->second->IsLoading())
+            if (assetIter == m_assets.end() || assetIter->second->GetStatus() == AssetData::AssetStatus::NotLoaded || assetIter->second->GetStatus() == AssetData::AssetStatus::Queued)
             {
-                // Only existing assets can be reloaded.
-                ASSET_DEBUG_OUTPUT(AZStd::string::format("Asset does not exist or is already loading - reload abort - " AZ_STRING_FORMAT,
+                // Can only reload if the asset exists already
+                // Also no point reloading if the current load hasn't started yet
+                ASSET_DEBUG_OUTPUT(AZStd::string::format("Asset does not exist or has not started loading yet - reload abort - " AZ_STRING_FORMAT,
                     AZ_STRING_ARG(assetId.ToFixedString())));
                 return;
             }
@@ -1477,7 +1480,7 @@ namespace AZ::Data
             // when Asset<T>'s constructor is called (the one that takes an AssetData), it updates the AssetID
             // of the Asset<T> to be the real latest canonical assetId of the asset, so we cache that here instead of have it happen
             // implicitly and repeatedly for anything we call.
-            Asset<AssetData> currentAsset(assetIter->second, AZ::Data::AssetLoadBehavior::Default);
+            currentAsset = Asset<AssetData>(assetIter->second, AZ::Data::AssetLoadBehavior::Default);
 
             if (!assetIter->second->IsRegisterReadonlyAndShareable() && !preventAutoReload)
             {
@@ -1488,20 +1491,21 @@ namespace AZ::Data
             }
             else
             {
-                AssetBus::QueueFunction(&AssetManager::NotifyAssetPreReload, this, currentAsset);
+                sendPreReloadNotification = true;
             }
 
             // Current AssetData has requested not to be auto reloaded
             if (preventAutoReload)
             {
+                ASSET_DEBUG_OUTPUT(AZStd::string::format(
+                    "Asset type is set to prevent auto-reload, stopping - " AZ_STRING_FORMAT, AZ_STRING_ARG(assetId.ToFixedString())));
                 return;
             }
 
             // Resolve the asset handler and allocate new data for the reload.
             {
                 AssetHandlerMap::iterator handlerIt = m_handlers.find(currentAsset.GetType());
-                AZ_Assert(handlerIt != m_handlers.end(), "No handler was registered for this asset [type:%s id:%s]!",
-                    currentAsset.GetType().ToString<AZ::OSString>().c_str(), currentAsset.GetId().ToString<AZ::OSString>().c_str());
+                AZ_Assert(handlerIt != m_handlers.end(), "No handler was registered for this asset %s", currentAsset.ToString<AZStd::string>().c_str());
                 handler = handlerIt->second;
 
                 newAssetData = handler->CreateAsset(currentAsset.GetId(), currentAsset.GetType());
@@ -1528,9 +1532,19 @@ namespace AZ::Data
             }
         }
 
+        if (sendPreReloadNotification)
+        {
+            // Send the Pre-Reload notification outside of any locks to avoid deadlocking
+            // Do not queue this as it would be too late to be of any use if we did so
+            // Instead send it right away so systems can actually react before we start the reload process
+            NotifyAssetPreReload(currentAsset);
+        }
+
+        // Release this, we don't need it anymore
+        currentAsset = {};
         AZStd::scoped_lock lock(m_assetContainerMutex);
 
-#if ENABLE_DEBUG_OUTPUT == 1
+#if ENABLE_ASSET_DEBUGGING == 1
         {
             AssetContainerKey key{ newAsset.GetId(), {} };
             auto containerItr = m_assetContainers.find(key);
@@ -1675,6 +1689,8 @@ namespace AZ::Data
                 // Held references to old data are retained, but replace the entry in the DB for future requests.
                 // Fire an OnAssetReloaded message so listeners can react to the new data.
                 m_assets[assetId] = asset.Get();
+
+                ASSET_DEBUG_OUTPUT(AZStd::string::format("Assigned reloaded asset to m_assets: %s", asset.ToString<AZStd::string>().c_str()));
 
                 // Release the reload reference.
                 auto reloadInfo = m_reloads.find(assetId);
@@ -1840,6 +1856,7 @@ namespace AZ::Data
     //=========================================================================
     void AssetManager::NotifyAssetPreReload(Asset<AssetData> asset)
     {
+        AssetLoadBus::Event(asset.GetId(), &AssetLoadBus::Events::OnAssetPreReload, asset); // Broadcast to any containers first
         AssetBus::Event(asset.GetId(), &AssetBus::Events::OnAssetPreReload, asset);
     }
 

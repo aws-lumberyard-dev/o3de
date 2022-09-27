@@ -38,6 +38,7 @@ namespace AZ
             virtual void OnAssetDataLoaded([[maybe_unused]] Asset<AssetData> rootAsset) {}
 
             virtual void OnAssetReady([[maybe_unused]] Asset<AssetData> asset){}
+            virtual void OnAssetPreReload([[maybe_unused]] Asset<AssetData> asset){}
             virtual void OnAssetReloaded([[maybe_unused]] Asset<AssetData> asset){}
             virtual void OnAssetError([[maybe_unused]] Asset<AssetData> asset){}
             virtual void OnAssetReloadError([[maybe_unused]] Asset<AssetData> asset){}
