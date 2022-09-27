@@ -112,6 +112,7 @@ protected:
     };
 
     AZStd::unique_ptr<AZ::Entity> m_entity;
+    AZ::ComponentDescriptor* m_transformComponentDescriptor{};
 };
 #endif
 
@@ -183,7 +184,8 @@ void LoadReflectedObjectTest<ApplicationT, ModuleT, ObjectT>::TearDown()
 template<class ComponentT>
 void LoadEditorComponentTest<ComponentT>::SetUp()
 {
-    AZ::ComponentApplicationBus::Broadcast(&AZ::ComponentApplicationRequests::RegisterComponentDescriptor, DummyTransformComponent::CreateDescriptor());
+    this->m_transformComponentDescriptor = DummyTransformComponent::CreateDescriptor();
+    AZ::ComponentApplicationBus::Broadcast(&AZ::ComponentApplicationRequests::RegisterComponentDescriptor, this->m_transformComponentDescriptor);
 
     m_entity = AZStd::make_unique<AZ::Entity>("LoadEditorComponentTestEntity");
     m_entity->Init();
@@ -208,6 +210,7 @@ void LoadEditorComponentTest<ComponentT>::TearDown()
     LoadReflectedObjectTestBase::TearDown();
     m_entity.reset();
 
-    AZ::ComponentApplicationBus::Broadcast(&AZ::ComponentApplicationRequests::UnregisterComponentDescriptor, DummyTransformComponent::CreateDescriptor());
+    AZ::ComponentApplicationBus::Broadcast(&AZ::ComponentApplicationRequests::UnregisterComponentDescriptor, this->m_transformComponentDescriptor);
+    this->m_transformComponentDescriptor = nullptr;
 }
 #endif
