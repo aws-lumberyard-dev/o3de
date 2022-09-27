@@ -27,7 +27,6 @@ ly_add_target(
             Gem::SurfaceData
             Gem::LmbrCentral
             3rdParty::OpenImageIO
-        PRIVATE
             Gem::AWSCore
             Gem::HttpRequestor
             3rdParty::AWSNativeSDK::Core
