@@ -19,7 +19,7 @@
 
 namespace UnitTest
 {
-    class EditorCameraFixture : public ::testing::Test
+    class EditorCameraFixture : public UnitTest::AllocatorsTestFixture
     {
     public:
         AZ::ComponentApplication* m_application = nullptr;
@@ -260,7 +260,8 @@ namespace UnitTest
         EXPECT_THAT(nextInterpolationBegan, ::testing::IsTrue());
     }
 
-    TEST(GotoPositionPitchConstraints, GoToPositionPitchIsSetToPlusOrMinusNinetyDegrees)
+    using GotoPositionPitchConstraintsTest = UnitTest::AllocatorsTestFixture;
+    TEST_F(GotoPositionPitchConstraintsTest, GoToPositionPitchIsSetToPlusOrMinusNinetyDegrees)
     {
         float minPitch = 0.0f;
         float maxPitch = 0.0f;
@@ -278,7 +279,7 @@ namespace UnitTest
         EXPECT_THAT(maxPitch, FloatNear(90.0f, AZ::Constants::FloatEpsilon));
     }
 
-    TEST(GotoPositionPitchConstraints, GoToPositionPitchClampsFinalPitchValueWithTolerance)
+    TEST_F(GotoPositionPitchConstraintsTest, GoToPositionPitchClampsFinalPitchValueWithTolerance)
     {
         const auto [expectedMinPitchRadians, expectedMaxPitchRadians] = AzFramework::CameraPitchMinMaxRadiansWithTolerance();
 
