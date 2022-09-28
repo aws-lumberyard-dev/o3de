@@ -163,6 +163,12 @@ I did not get to the point of actually generating any data using this notebook, 
 
 In order to get the models generated above working in real time in the editor, using the Motion Matching database, a few modifications had to be made to the MotionMatching gem.
 
+Below is the ONNX Gem dashboard running in the Editor with the final version of my Learned Motion Matching implementation:
+
+![LearnedMotionMatchingDashboard (1)](https://user-images.githubusercontent.com/108667365/192837331-35ab25e5-faff-4e0f-945f-5561324e90e6.png)
+
+For videos of this running as well as videos of the models, take a look at my [presentation](https://broadcast.amazon.com/videos/609702?seek=00h28m23s).
+
 #### [**Code/CMakeLists.txt**](https://github.com/aws-lumberyard-dev/o3de/blob/animation/LMM/Gems/MotionMatching/Code/CMakeLists.txt)
 
 - The ONNX gem was imported as a build dependency (9-27):
