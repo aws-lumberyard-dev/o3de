@@ -4,20 +4,15 @@
 
 Once the ONNX Gem was made, the goal was to use it to recreate an animation technique called Learned Motion Matching inside the MotionMatching gem within the engine. This is a novel technique concieved by [Daniel Holden](https://theorangeduck.com/page/about) and aims to bring machine learning into the more common data-driven animation technique Motion Matching. Since this part of the project requires quite a bit of pre-requisite knowledge, I recommend you look through the following before continuing:
 
-- My presentation, [ONNX Gem & Machine Learning Based Animation](https://broadcast.amazon.com/videos/609702) by Kuba Ciukiewicz, on Broadcast.
-- [Motion Matching in O3DE, a Data-Driven Animation Technique](https://www.o3de.org/blog/posts/blog-motionmatching/) by Ben Jillich.
-- [Introducing Learned Motion Matching](https://montreal.ubisoft.com/en/introducing-learned-motion-matching/) by Daniel Holden & Ubisoft Montreal.
+- My presentation, [ONNX Gem & Machine Learning Based Animation](https://broadcast.amazon.com/videos/609702) by Kuba Ciukiewicz, on Broadcast
+- [Motion Matching in O3DE, a Data-Driven Animation Technique](https://www.o3de.org/blog/posts/blog-motionmatching/) by Ben Jillich
+- [Introducing Learned Motion Matching](https://montreal.ubisoft.com/en/introducing-learned-motion-matching/) by Daniel Holden & Ubisoft Montreal
 
-## Where are all the files for this?
+### **Where are all the files for this?**
 
-Unlike the ONNX Gem itself, this work is entirely experimental and as such has not been merged with any of the repos. You can find all the code in an as-is state in the [MotionMatching gem](https://github.com/aws-lumberyard-dev/o3de/tree/animation/LMM/Gems/MotionMatching) in a branch called [**Animation/LMM**](https://github.com/aws-lumberyard-dev/o3de/tree/animation/LMM) in the [**aws-lumberyard-dev/o3de**](https://github.com/aws-lumberyard-dev/o3de) repo.
-
-Most of the files generated as part of this experimentation (<100 MB), including a multitude of .csv and .onnx files, are located [at the bottom of this confluence page](https://wiki.agscollab.com/display/lmbr/Machine+Learning+Based+Animation+Overview).
-
-## What data did you work with?
-
+Unlike the ONNX Gem itself, this work is entirely experimental and as such has not been merged with any of the repos. You can find all the code in an as-is state in the [MotionMatching gem](https://github.com/aws-lumberyard-dev/o3de/tree/animation/LMM/Gems/MotionMatching) in a branch called [**Animation/LMM**](https://github.com/aws-lumberyard-dev/o3de/tree/animation/LMM) in the [**aws-lumberyard-dev/o3de**](https://github.com/aws-lumberyard-dev/o3de) repo. The model files which are hyperlinked in this README are available on GitHub. All of the other files, as well as every single file generated and data used during my experimentation can be found at the bottom of the Confluence page [here](https://wiki.agscollab.com/display/lmbr/Machine+Learning+Based+Animation+Overview). Unfortunately there is no way of transferring the files larger than 100 MB, so you will have to generate the Motion Matching Database data using the MotionMatching gem onto your own machine.
+### **What data did you work with?**
 The data used to train the models consists the Motion Matching Database data, in .csv form, output by the MotionMatching gem. The data consists of 5 key files in the location above:
-
 - Position + Rotation data (Model Space): `MotionMatchingDatabase_Poses_PosRot_ModelSpace_60Hz.csv`
 - Rotation data (Model Space): `MotionMatchingDatabase_Poses_Rot_ModelSpace_60Hz.csv`
 - Position + Rotation data (Local Space): `MotionMatchingDatabase_Poses_PosRot_LocalSpace_60Hz.csv`
@@ -77,7 +72,7 @@ Once the above models reached a good stage, I decided to try to recreate as much
 
 Here's a general diagram of the pipeline I ended up with:
 
-////////// INSERT DIAGRAM HERE ////////////////
+![LearnedMotionMatchingDiagram (1)](https://user-images.githubusercontent.com/108667365/192831694-59db6d35-d34e-46d2-94f1-c840274b8dca.png)
 
 I recommend you review the last part of my presentation, [from 48:00 onwards](https://broadcast.amazon.com/videos/609702?seek=00h48m00s), for more context.
 
@@ -92,6 +87,10 @@ The process is generally similar to [LearnedMotionMatching.ipynb](#learnedmotion
 - We're actually creating 2 models, an Encoder and a Decoder. This is so that the Encoder can then be exported on its own after training. When using a 2-part model in PyTorch, it is important to pass parameters for both models into the optimizer, take a look at the `optimizer = torch.optim.Adam(list(modelEncoder.parameters()) + list(modelDecoder.parameters()), lr=lr)` line in the definitions. Also, in the training code, we are now passing the input through the Encoder, and then its output through the Decoder, as seen in the line `pred_y = modelDecoder(modelEncoder(X))`
 - The L1 and L2 norms are no longer calculated after training the model, as this was found of limited use.
 - Note: in this notebook, there are actually 2 different sets of inputs that are defined, a training input and a testing input. This was something which I wasn't fully able to get to due to time restrictions, but basically these consist of the original Motion Matching database, but with the first 20k frames split off for testing, and the remaining frames used for training. Then, in the training code, the entire testing dataset is inferenced every epoch and the loss measured. This 2nd loss curve is then plotted below the original one, which is useful to see if the model is being overtrained, as the loss for the testing dataset should only decrease.
+
+The loss curve for this model is below:
+
+![Projector (1)](https://user-images.githubusercontent.com/108667365/192832077-2ac1d591-bdbc-4693-b34b-b156b8407f36.png)
 
 The files generated from this are typically something as follows:
 
@@ -109,6 +108,10 @@ This is the notebook that trains the stepper for the more advanced models. In es
 
 This notebook is largely similar to [LearnedMotionMatching.ipynb](#learnedmotionmatchingipynb), but uses combined feature data made using the actual feature data for each frame and the output from inferencing the projector model above. It also does not include the section on L1 and L2 normalization. Also, as in the projector above, the latest version includes use of a training dataset and a testing dataset.
 
+The loss curve for this model is below:
+
+![Stepper (1)](https://user-images.githubusercontent.com/108667365/192832206-9781666d-0df4-4d97-8662-5d7c6c8fe8a4.png)
+
 The files generated from this are typically something as follows:
 
 - ONNX Model File: [`Stepper2layer194to194RELUto194Epoch20LR1e-3Batch64NoBadFramesThreshold4.onnx`](https://github.com/aws-lumberyard-dev/o3de/blob/animation/LMM/Gems/MotionMatching/JupyterNotebooks/GeneratedModels/Stepper2layer194to194RELUto194Epoch20LR1e-3Batch64NoBadFramesThreshold4.onnx)
@@ -124,6 +127,10 @@ The files above constitute what I feel is the best looking model out of all my e
 This is the notebook that trains the decompressor, the final step in the chain of the Learned Motion Matching models. This model takes the combined features output from the Stepper and uses them to reconstruct the full local space rotation data for the pose.
 
 The notebook follows a similar structure to the [Autoencoder.ipynb](#autoencoderipynb), but uses different input and output data and the model is a single model, not 2 separate models combined.
+
+The loss curve for this model is below:
+
+![Decompressor (1)](https://user-images.githubusercontent.com/108667365/192832297-a6024000-85a1-4e7f-9edb-e71315bbaa28.png)
 
 The files generated from this are typically something as follows:
 
@@ -157,6 +164,12 @@ I did not get to the point of actually generating any data using this notebook, 
 ## Changes to the MotionMatching gem
 
 In order to get the models generated above working in real time in the editor, using the Motion Matching database, a few modifications had to be made to the MotionMatching gem.
+
+Below is the ONNX Gem dashboard running in the Editor with the final version of my Learned Motion Matching implementation:
+
+![LearnedMotionMatchingDashboard (1)](https://user-images.githubusercontent.com/108667365/192837331-35ab25e5-faff-4e0f-945f-5561324e90e6.png)
+
+For videos of this running as well as videos of the models, take a look at my [presentation](https://broadcast.amazon.com/videos/609702?seek=00h28m23s).
 
 ### [Code/CMakeLists.txt](https://github.com/aws-lumberyard-dev/o3de/blob/animation/LMM/Gems/MotionMatching/Code/CMakeLists.txt)
 
