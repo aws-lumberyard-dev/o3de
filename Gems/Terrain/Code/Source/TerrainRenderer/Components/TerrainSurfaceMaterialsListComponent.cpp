@@ -115,6 +115,11 @@ namespace Terrain
        m_hideSurfaceTagData.m_name = "hideSurfaceTagData";
     }
 
+    TerrainSurfaceMaterialsListConfig::~TerrainSurfaceMaterialsListConfig()
+    {
+        delete m_hideSurfaceTagData.m_attributes[0].second;
+    }
+
     const AZ::Edit::ElementData* TerrainSurfaceMaterialsListConfig::GetDynamicData(const void* handlerPtr, const void* elementPtr, const AZ::Uuid& )
     {
         const TerrainSurfaceMaterialsListConfig* owner = reinterpret_cast<const TerrainSurfaceMaterialsListConfig*>(handlerPtr);

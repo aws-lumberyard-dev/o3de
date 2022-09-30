@@ -55,6 +55,7 @@ namespace Terrain
         static void Reflect(AZ::ReflectContext* context);
 
         TerrainSurfaceMaterialsListConfig();
+        ~TerrainSurfaceMaterialsListConfig();
 
         TerrainSurfaceMaterialMapping m_defaultSurfaceMaterial;
         AZStd::vector<TerrainSurfaceMaterialMapping> m_surfaceMaterials;
