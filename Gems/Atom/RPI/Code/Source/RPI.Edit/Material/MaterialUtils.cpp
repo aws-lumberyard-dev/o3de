@@ -87,6 +87,37 @@ namespace AZ
                 return true;
             }
 
+            namespace Internal
+            {
+                class PathResolvingJsonImporter : public AZ::BaseJsonImporter
+                {
+                public:
+                    JsonSerializationResult::ResultCode ResolveImport(
+                        rapidjson::Value* importPtr,
+                        rapidjson::Value& patch,
+                        const rapidjson::Value& importDirective,
+                        const AZ::IO::FixedMaxPath& importedFilePath,
+                        rapidjson::Document::AllocatorType& allocator,
+                        JsonImportSettings& settings) override
+                    {
+                        if (importDirective.IsString() && importDirective.GetStringLength() != 0)
+                        {
+                            const char* importDirectiveString = importDirective.GetString();
+                            if (importDirectiveString[0] == '@')
+                            {
+                                AZ::IO::FixedMaxPath resolvedPath;
+                                AZ::IO::FileIOBase::GetInstance()->ResolvePath(resolvedPath, importDirectiveString);
+                                return AZ::BaseJsonImporter::ResolveImport(
+                                    importPtr, patch, importDirective, resolvedPath, allocator, settings);
+                            }
+                        }
+
+                        return AZ::BaseJsonImporter::ResolveImport(
+                            importPtr, patch, importDirective, importedFilePath, allocator, settings);
+                    }
+                };
+            }
+
             AZ::Outcome<MaterialTypeSourceData> LoadMaterialTypeSourceData(const AZStd::string& filePath, rapidjson::Document* document, ImportedJsonFiles* importedFiles)
             {
                 rapidjson::Document localDocument;
@@ -104,7 +135,7 @@ namespace AZ
                     document = &localDocument;
                 }
 
-                AZ::BaseJsonImporter jsonImporter;
+                Internal::PathResolvingJsonImporter jsonImporter;
                 AZ::JsonImportSettings importSettings;
                 importSettings.m_importer = &jsonImporter;
                 importSettings.m_loadedJsonPath = filePath;
