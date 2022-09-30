@@ -242,7 +242,7 @@ namespace AZ
             return {};
         }
         
-        const MeshDrawPacketLods& MeshFeatureProcessor::GetDrawPackets(const MeshHandle& meshHandle) const
+        const RPI::MeshDrawPacketLods& MeshFeatureProcessor::GetDrawPackets(const MeshHandle& meshHandle) const
         {
             return meshHandle.IsValid() ? meshHandle->m_drawPacketListsByLod : m_emptyDrawPacketLods;
         }
@@ -518,12 +518,8 @@ namespace AZ
             m_forceRebuildDrawPackets = true;
         }
 
-        void MeshFeatureProcessor::OnRenderPipelineAdded(RPI::RenderPipelinePtr pipeline)
-        {
-            m_forceRebuildDrawPackets = true;;
-        }
-
-        void MeshFeatureProcessor::OnRenderPipelineRemoved([[maybe_unused]] RPI::RenderPipeline* pipeline)
+        void MeshFeatureProcessor::OnRenderPipelineChanged([[maybe_unused]] RPI::RenderPipeline* pipeline,
+            [[maybe_unused]] RPI::SceneNotification::RenderPipelineChangeType changeType)
         {
             m_forceRebuildDrawPackets = true;
         }
@@ -697,7 +693,7 @@ namespace AZ
                 objectIdIndex.AssertValid();
             }
 
-            if (m_descriptor.m_isRayTracingEnabled)
+            if (m_visible && m_descriptor.m_isRayTracingEnabled)
             {
                 SetRayTracingData();
             }
@@ -714,7 +710,7 @@ namespace AZ
             RPI::ModelLod& modelLod = *m_model->GetLods()[modelLodIndex];
             const size_t meshCount = modelLod.GetMeshes().size();
             
-            MeshDrawPacketList& drawPacketListOut = m_drawPacketListsByLod[modelLodIndex];
+            RPI::MeshDrawPacketList& drawPacketListOut = m_drawPacketListsByLod[modelLodIndex];
             drawPacketListOut.clear();
             drawPacketListOut.reserve(meshCount);
 
@@ -1001,6 +997,26 @@ namespace AZ
                         subMesh.m_roughnessFactor = material->GetPropertyValue<float>(propertyIndex);
                     }
 
+                    // emissive color
+                    propertyIndex = material->FindPropertyIndex(AZ::Name("emissive.enable"));
+                    if (propertyIndex.IsValid())
+                    {
+                        if (material->GetPropertyValue<bool>(propertyIndex))
+                        {
+                            propertyIndex = material->FindPropertyIndex(AZ::Name("emissive.color"));
+                            if (propertyIndex.IsValid())
+                            {
+                                subMesh.m_emissiveColor = material->GetPropertyValue<AZ::Color>(propertyIndex);
+                            }
+
+                            propertyIndex = material->FindPropertyIndex(AZ::Name("emissive.intensity"));
+                            if (propertyIndex.IsValid())
+                            {
+                                subMesh.m_emissiveColor *= material->GetPropertyValue<float>(propertyIndex);
+                            }
+                        }
+                    }
+
                     // textures
                     Data::Instance<RPI::Image> baseColorImage; // can be used for irradiance color below
                     propertyIndex = material->FindPropertyIndex(AZ::Name("baseColor.textureMap"));
@@ -1048,6 +1064,17 @@ namespace AZ
                         }
                     }
 
+                    propertyIndex = material->FindPropertyIndex(AZ::Name("emissive.textureMap"));
+                    if (propertyIndex.IsValid())
+                    {
+                        Data::Instance<RPI::Image> image = material->GetPropertyValue<Data::Instance<RPI::Image>>(propertyIndex);
+                        if (image.get())
+                        {
+                            subMesh.m_textureFlags |= RayTracingSubMeshTextureFlags::Emissive;
+                            subMesh.m_emissiveImageView = image->GetImageView();
+                        }
+                    }
+
                     // irradiance color
                     SetIrradianceData(subMesh, material, baseColorImage);
                 }
@@ -1067,17 +1094,14 @@ namespace AZ
             const Data::Instance<RPI::Material> material,
             const Data::Instance<RPI::Image> baseColorImage)
         {
-            RPI::MaterialPropertyIndex propertyIndex;
-
-            AZ::Name irradianceColorSource;
-            propertyIndex = material->FindPropertyIndex(AZ::Name("irradiance.irradianceColorSource"));
-            if (propertyIndex.IsValid())
+            RPI::MaterialPropertyIndex propertyIndex = material->FindPropertyIndex(AZ::Name("irradiance.irradianceColorSource"));
+            if (!propertyIndex.IsValid())
             {
-                uint32_t enumVal = material->GetPropertyValue<uint32_t>(propertyIndex);
-                irradianceColorSource = material->GetMaterialPropertiesLayout()
-                                                ->GetPropertyDescriptor(propertyIndex)
-                                                ->GetEnumName(enumVal);
+                return;
             }
+
+            uint32_t enumVal = material->GetPropertyValue<uint32_t>(propertyIndex);
+            AZ::Name irradianceColorSource = material->GetMaterialPropertiesLayout()->GetPropertyDescriptor(propertyIndex)->GetEnumName(enumVal);
 
             if (irradianceColorSource.IsEmpty() || irradianceColorSource == AZ::Name("Manual"))
             {
@@ -1189,6 +1213,25 @@ namespace AZ
             {
                 subMesh.m_irradianceColor *= material->GetPropertyValue<float>(propertyIndex);
             }
+
+            // set the raytracing transparency from the material opacity factor
+            float opacity = 1.0f;
+            propertyIndex = material->FindPropertyIndex(AZ::Name("opacity.mode"));
+            if (propertyIndex.IsValid())
+            {
+                // only query the opacity factor if it's a non-Opaque mode
+                uint32_t mode = material->GetPropertyValue<uint32_t>(propertyIndex);
+                if (mode > 0)
+                {
+                    propertyIndex = material->FindPropertyIndex(AZ::Name("opacity.factor"));
+                    if (propertyIndex.IsValid())
+                    {
+                        opacity = material->GetPropertyValue<float>(propertyIndex);
+                    }
+                }
+            }
+
+            subMesh.m_irradianceColor.SetA(opacity);
         }
 
         void ModelDataInstance::RemoveRayTracingData()
