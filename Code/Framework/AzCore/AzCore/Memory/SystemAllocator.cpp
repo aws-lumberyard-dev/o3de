@@ -77,7 +77,7 @@ namespace AZ
     AllocatorDebugConfig SystemAllocator::GetDebugConfig()
     {
         return AllocatorDebugConfig()
-            .StackRecordLevels(50)
+            .StackRecordLevels(20)
             .UsesMemoryGuards()
             .MarksUnallocatedMemory()
             .ExcludeFromDebugging(false);

@@ -69,7 +69,7 @@ namespace AZ
     namespace Internal
     {
         // HphaSchema class defaults to disabling the allocator debug functionality
-        constexpr bool HphaDebugAllocator = true;
+        constexpr bool HphaDebugAllocator = false;
     }
 
     class HphaSchema
