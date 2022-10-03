@@ -431,8 +431,8 @@ namespace AZ
         }
         AZ_FORCE_INLINE const char* get_name() const            { return m_name; }
         AZ_FORCE_INLINE void        set_name(const char* name)  { m_name = name; }
-        size_type                   max_size() const            { return AllocatorInstance<Allocator>::Get().GetMaxContiguousAllocationSize(); }
-        size_type                   get_allocated_size() const  { return AllocatorInstance<Allocator>::Get().NumAllocatedBytes(); }
+        size_type                   max_size() const            { return AllocatorInstance<Allocator>::Get().max_size(); }
+        size_type                   get_allocated_size() const  { return AllocatorInstance<Allocator>::Get().get_allocated_size(); }
 
         AZ_FORCE_INLINE bool is_lock_free()                     { return AllocatorInstance<Allocator>::Get().is_lock_free(); }
         AZ_FORCE_INLINE bool is_stale_read_allowed()            { return AllocatorInstance<Allocator>::Get().is_stale_read_allowed(); }
