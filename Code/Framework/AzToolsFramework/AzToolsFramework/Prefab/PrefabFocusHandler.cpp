@@ -103,11 +103,11 @@ namespace AzToolsFramework::Prefab
             "Focus Mode Interface could not be found. "
             "Check that it is being correctly initialized.");
 
-        m_instanceUpdateExecutorInterface = AZ::Interface<InstanceUpdateExecutorInterface>::Get();
+        m_readOnlyEntityPublicInterface = AZ::Interface<ReadOnlyEntityPublicInterface>::Get();
         AZ_Assert(
-            m_instanceUpdateExecutorInterface,
+            m_readOnlyEntityPublicInterface,
             "Prefab - PrefabFocusHandler - "
-            "Instance Update Executor Interface could not be found. "
+            "ReadOnly Entity Public Interface could not be found. "
             "Check that it is being correctly initialized.");
 
         m_readOnlyEntityQueryInterface = AZ::Interface<ReadOnlyEntityQueryInterface>::Get();
@@ -375,6 +375,18 @@ namespace AzToolsFramework::Prefab
         return GetInstanceReference(m_rootAliasFocusPath);
     }
 
+    bool PrefabFocusHandler::IsFocusedPrefabInstanceReadOnly([[maybe_unused]] AzFramework::EntityContextId entityContextId) const
+    {
+        InstanceOptionalReference instance = GetInstanceReference(m_rootAliasFocusPath);
+
+        if (instance.has_value())
+        {
+            return m_readOnlyEntityPublicInterface->IsReadOnly(instance->get().GetContainerEntityId());
+        }
+
+        return false;
+    }
+
     LinkId PrefabFocusHandler::AppendPathFromFocusedInstanceToPatchPaths(PrefabDom& providedPatch, AZ::EntityId entityId) const
     {
         if (!providedPatch.IsArray())
@@ -385,12 +397,12 @@ namespace AzToolsFramework::Prefab
         }
 
         // Grab the owning instance.
-        InstanceOptionalConstReference owningInstance = m_instanceEntityMapperInterface->FindOwningInstance(entityId);
+        InstanceOptionalReference owningInstance = m_instanceEntityMapperInterface->FindOwningInstance(entityId);
         AZ_Assert(owningInstance.has_value(), "PrefabFocusHandler::AppendPathFromFocusedInstanceToPatchPaths - "
             "The owning instance of the given entity id is null.");
 
         // Retrieve the path from the focused prefab instance to the owningInstance of the given entity id.
-        InstanceOptionalConstReference focusedInstance = GetInstanceReference(m_rootAliasFocusPath);
+        InstanceOptionalReference focusedInstance = GetInstanceReference(m_rootAliasFocusPath);
         AZ_Assert(focusedInstance.has_value(), "PrefabFocusHandler::AppendPathFromFocusedInstanceToPatchPaths - "
             "The focused instance is null.");
         const Instance* focusedInstancePtr = &(focusedInstance->get());
@@ -415,12 +427,11 @@ namespace AzToolsFramework::Prefab
             for (auto instanceIter = startInstanceIter; instanceIter != climbUpResult.m_climbedInstances.rend(); ++instanceIter)
             {
                 prefix.append(PrefabDomUtils::PathStartingWithInstances);
-                const Instance& instance = (*instanceIter)->get();
-                prefix.append(instance.GetInstanceAlias());
+                prefix.append((*instanceIter)->GetInstanceAlias());
             }
 
             m_instanceToTemplateInterface->AppendEntityAliasToPatchPaths(providedPatch, entityId, AZStd::move(prefix));
-            return climbUpResult.m_climbedInstances.back()->get().GetLinkId();
+            return climbUpResult.m_climbedInstances.back()->GetLinkId();
         }
         else
         {
