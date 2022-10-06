@@ -42,6 +42,15 @@ namespace rapidjson_ly_internal
 #define RAPIDJSON_FREE(_ptr) if (_ptr) { AZ::AllocatorInstance<AZ::SystemAllocator>::Get().DeAllocate(_ptr, 0, 0); }
 #define RAPIDJSON_CLASS_ALLOCATOR(_class) AZ_CLASS_ALLOCATOR(_class, AZ::SystemAllocator, 0)
 
+// By default, RapidJSON uses its own pooling allocator that allocates in 64k chunks and then uses the
+// contents of those chunks internally.
+// However, O3DE defines the above macros, which redirect the RapidJSON allocations into the O3DE system
+// allocator, which itself is a also a chunk-based pooling allocator (HPHA).
+// This double-chunking would be wasteful, so tell RapidJSON to directly ask for allocations instead
+// of attempting to pool them.  The rapidjson::CrtAllocator just passes allocation and deallocation to the above
+// macros.
+#define RAPIDJSON_DEFAULT_ALLOCATOR CrtAllocator
+
 // Set custom namespace for AzCore's rapidjson to avoid various collisions.
 #define RAPIDJSON_NAMESPACE rapidjson_ly
 
