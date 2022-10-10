@@ -637,7 +637,7 @@ def CreateSnapshotStage(String repositoryName, String projectName, String pipeli
 
 def CreateDownloadArtifactsStage(Map pipelineConfig, String workspace, String jobName) {
     return{
-        stage("${jobName}_upload_artifacts") {
+        stage("${jobName}_download_artifacts") {
             dir("${workspace}") {
                 checkout scm: [
                     $class: 'GitSCM',
@@ -650,12 +650,9 @@ def CreateDownloadArtifactsStage(Map pipelineConfig, String workspace, String jo
                 ]
             }
             dir("${workspace}/s3sis") {
-                bat label: "Installing S3SIS",
-                    script: "python3 setup.py install"
-                bat label: "Configuring S3SIS",
-                    script: "s3siscli configure"
-                bat label: "Downloading artifacts",
-                    script: "s3siscli download --label test_o3de_s3sis -w ${workspace}/${ENGINE_REPOSITORY_NAME}"
+                palSh("python3 setup.py install", "Installing S3SIS")
+                palSh("s3siscli configure", "Configuring S3SIS")
+                palSh("s3siscli download --label test_o3de_s3sis -w ${workspace}/${ENGINE_REPOSITORY_NAME} --preserve-timestamp --preserve-attributes", "Downloading artifacts")
             }
         }
     }
@@ -676,12 +673,9 @@ def CreateUploadBuildArtifactsStage(Map pipelineConfig, String workspace, String
                 ]
             }
             dir("${workspace}/s3sis") {
-                bat label: "Installing S3SIS",
-                    script: "python3 setup.py install"
-                bat label: "Configuring S3SIS",
-                    script: "s3siscli configure"
-                bat label: "Uploading artifacts",
-                    script: "s3siscli upload --label test_o3de_s3sis -w ${workspace}/${ENGINE_REPOSITORY_NAME}"
+                palSh("python3 setup.py install", "Installing S3SIS")
+                palSh("s3siscli configure", "Configuring S3SIS")
+                palSh("s3siscli upload --label test_o3de_s3sis -w ${workspace}/${ENGINE_REPOSITORY_NAME}", "Uploading artifacts")
             }
         }
     }
