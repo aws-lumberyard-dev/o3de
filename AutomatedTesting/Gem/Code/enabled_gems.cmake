@@ -66,4 +66,6 @@ set(ENABLED_GEMS
     RecastNavigation
     ScriptAutomation
     DiffuseProbeGrid
+    PythonCoverage
+    RemoteTools
 )
