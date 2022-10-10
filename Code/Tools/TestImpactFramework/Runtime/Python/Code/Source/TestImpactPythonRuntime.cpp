@@ -31,7 +31,7 @@ namespace TestImpact
         auto testTargetMetaMap = PythonTestTargetMetaMapFactory(masterTestListData, suiteFilter);
         for (auto& [name, meta] : testTargetMetaMap)
         {
-            meta.m_scriptMeta.m_testCommand = AZStd::regex_replace(meta.m_scriptMeta.m_testCommand, AZStd::regex("\\$\\<CONFIG\\>"), buildType); 
+            meta.m_scriptMeta.m_testCommand = AZStd::regex_replace(meta.m_scriptMeta.m_testCommand, AZStd::regex("\\$\\<CONFIG\\>"), buildType);
         }
 
         return testTargetMetaMap;
@@ -39,15 +39,16 @@ namespace TestImpact
 
     PythonRuntime::PythonRuntime(
         PythonRuntimeConfig&& config,
-        [[maybe_unused]] const AZStd::optional<RepoPath>& dataFile,
+        const AZStd::optional<RepoPath>& dataFile,
         [[maybe_unused]] const AZStd::optional<RepoPath>& previousRunDataFile,
-        [[maybe_unused]] const AZStd::vector<ExcludedTarget>& testsToExclude,
-        [[maybe_unused]] SuiteType suiteFilter,
-        [[maybe_unused]] Policy::ExecutionFailure executionFailurePolicy,
-        [[maybe_unused]] Policy::FailedTestCoverage failedTestCoveragePolicy,
-        [[maybe_unused]] Policy::TestFailure testFailurePolicy,
-        [[maybe_unused]] Policy::IntegrityFailure integrationFailurePolicy,
-        [[maybe_unused]] Policy::TargetOutputCapture targetOutputCapture)
+        const AZStd::vector<ExcludedTarget>& testsToExclude,
+        SuiteType suiteFilter,
+        Policy::ExecutionFailure executionFailurePolicy,
+        Policy::FailedTestCoverage failedTestCoveragePolicy,
+        Policy::TestFailure testFailurePolicy,
+        Policy::IntegrityFailure integrationFailurePolicy,
+        Policy::TargetOutputCapture targetOutputCapture,
+        Policy::TestRunner testRunnerPolicy)
         : m_config(AZStd::move(config))
         , m_suiteFilter(suiteFilter)
         , m_executionFailurePolicy(executionFailurePolicy)
@@ -55,6 +56,7 @@ namespace TestImpact
         , m_testFailurePolicy(testFailurePolicy)
         , m_integrationFailurePolicy(integrationFailurePolicy)
         , m_targetOutputCapture(targetOutputCapture)
+        , m_testRunnerPolicy(testRunnerPolicy)
     {
         // Construct the build targets from the build target descriptors
         auto targetDescriptors = ReadTargetDescriptorFiles(m_config.m_commonConfig.m_buildTargetDescriptor);
@@ -90,7 +92,7 @@ namespace TestImpact
             m_config.m_commonConfig.m_repo.m_root,
             m_config.m_commonConfig.m_repo.m_build,
             m_config.m_workspace.m_temp,
-            true);
+            m_testRunnerPolicy);
 
         try
         {
@@ -622,7 +624,7 @@ TestEngineInstrumentedRunResult<PythonTestTarget, TestCoverage> DiscoverDependen
             Client::TestRunSelection(),
             Client::TestRunReport(
                 TestSequenceResult::Success,
-                AZStd::chrono::high_resolution_clock::time_point(),
+                AZStd::chrono::steady_clock::time_point(),
                 AZStd::chrono::milliseconds{ 0 },
                 {},
                 {},
@@ -910,7 +912,7 @@ TestEngineInstrumentedRunResult<PythonTestTarget, TestCoverage> DiscoverDependen
             {},
             Client::TestRunReport(
                 TestSequenceResult::Success,
-                AZStd::chrono::high_resolution_clock::time_point(),
+                AZStd::chrono::steady_clock::time_point(),
                 AZStd::chrono::milliseconds{ 0 },
                 {},
                 {},
@@ -919,7 +921,7 @@ TestEngineInstrumentedRunResult<PythonTestTarget, TestCoverage> DiscoverDependen
                 {}),
             Client::TestRunReport(
                 TestSequenceResult::Success,
-                AZStd::chrono::high_resolution_clock::time_point(),
+                AZStd::chrono::steady_clock::time_point(),
                 AZStd::chrono::milliseconds{ 0 },
                 {},
                 {},
@@ -928,7 +930,7 @@ TestEngineInstrumentedRunResult<PythonTestTarget, TestCoverage> DiscoverDependen
                 {}),
             Client::TestRunReport(
                 TestSequenceResult::Success,
-                AZStd::chrono::high_resolution_clock::time_point(),
+                AZStd::chrono::steady_clock::time_point(),
                 AZStd::chrono::milliseconds{ 0 },
                 {},
                 {},
@@ -947,7 +949,7 @@ TestEngineInstrumentedRunResult<PythonTestTarget, TestCoverage> DiscoverDependen
         const Timer sequenceTimer;
         AZStd::vector<const TestTarget*> includedTestTargets;
         AZStd::vector<const TestTarget*> excludedTestTargets;
-        
+
         // Separate the test targets into those that are excluded by either the test filter or exclusion list and those that are not
         for (const auto& testTarget : m_dynamicDependencyMap->GetBuildTargetList()->GetTestTargetList().GetTargets())
         {
@@ -960,16 +962,16 @@ TestEngineInstrumentedRunResult<PythonTestTarget, TestCoverage> DiscoverDependen
                 includedTestTargets.push_back(&testTarget);
             }
         }
-        
+
         // Extract the client facing representation of selected test targets
         Client::TestRunSelection selectedTests(ExtractTestTargetNames(includedTestTargets), ExtractTestTargetNames(excludedTestTargets));
-        
+
         // Inform the client that the sequence is about to start
         if (testSequenceStartCallback.has_value())
         {
             (*testSequenceStartCallback)(m_suiteFilter, selectedTests);
         }
-        
+
         // Run the test targets and collect the test run results
         const Timer testRunTimer;
         const auto [result, testJobs] = DiscoverDependencyCoverage(
@@ -985,7 +987,7 @@ TestEngineInstrumentedRunResult<PythonTestTarget, TestCoverage> DiscoverDependen
             TestRunCompleteCallbackHandler<TestTarget>(includedTestTargets.size(), testCompleteCallback)));
 
         const auto testRunDuration = testRunTimer.GetElapsedMs();
-        
+
         // Generate the sequence report for the client
         const auto sequenceReport = Client::SeedSequenceReport(
             1,
@@ -995,13 +997,13 @@ TestEngineInstrumentedRunResult<PythonTestTarget, TestCoverage> DiscoverDependen
             m_suiteFilter,
             selectedTests,
             GenerateTestRunReport(result, testRunTimer.GetStartTimePointRelative(sequenceTimer), testRunDuration, testJobs));
-        
+
         // Inform the client that the sequence has ended
         if (testSequenceEndCallback.has_value())
         {
             (*testSequenceEndCallback)(sequenceReport);
         }
-                
+
         ClearDynamicDependencyMapAndRemoveExistingFile();
 
         m_hasImpactAnalysisData = UpdateAndSerializeDynamicDependencyMap(
@@ -1013,7 +1015,7 @@ TestEngineInstrumentedRunResult<PythonTestTarget, TestCoverage> DiscoverDependen
                                       m_config.m_commonConfig.m_repo.m_root,
                                       m_sparTiaFile)
                                       .value_or(m_hasImpactAnalysisData);
-        
+
         return sequenceReport;
     }
 
