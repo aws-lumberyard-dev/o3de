@@ -264,7 +264,7 @@ namespace Vegetation
 
     void InstanceSystemComponent::CreateInstance(InstanceData& instanceData)
     {
-        AZ_PROFILE_FUNCTION(Entity);
+        VEGETATION_PROFILE_FUNCTION_VERBOSE
 
         if (!IsDescriptorValid(instanceData.m_descriptorPtr))
         {
@@ -436,7 +436,7 @@ namespace Vegetation
 
     bool InstanceSystemComponent::IsInstanceSkippable(const InstanceData& instanceData) const
     {
-        AZ_PROFILE_FUNCTION(Entity);
+        VEGETATION_PROFILE_FUNCTION_VERBOSE
 
         //if the instance was queued for deletion before its creation task executed then skip it
         AZStd::lock_guard<decltype(m_instanceDeletionSetMutex)> instanceDeletionSet(m_instanceDeletionSetMutex);
@@ -445,7 +445,7 @@ namespace Vegetation
 
     void InstanceSystemComponent::CreateInstanceNode(const InstanceData& instanceData)
     {
-        AZ_PROFILE_FUNCTION(Entity);
+        VEGETATION_PROFILE_FUNCTION_VERBOSE
 
         if (IsInstanceSkippable(instanceData))
         {
@@ -518,7 +518,7 @@ namespace Vegetation
 
     void InstanceSystemComponent::AddTask(const Task& task)
     {
-        AZ_PROFILE_FUNCTION(Entity);
+        VEGETATION_PROFILE_FUNCTION_VERBOSE
 
         AZStd::lock_guard<decltype(m_mainThreadTaskMutex)> mainThreadTaskLock(m_mainThreadTaskMutex);
         if (m_mainThreadTaskQueue.empty() || m_mainThreadTaskQueue.back().size() >= m_configuration.m_maxInstanceTaskBatchSize)

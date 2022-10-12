@@ -7,6 +7,8 @@
  */
 #pragma once
 
+#include <AzCore/Debug/Profiler.h>
+
 // VEG_PROFILE_ENABLED is defined in the wscript
 // VEG_PROFILE_ENABLED is only defined in the Vegetation gem by default
 #if defined(VEG_PROFILE_ENABLED)
@@ -15,3 +17,13 @@
 #define VEG_PROFILE_METHOD(...) // no-op
 #endif
 
+//#define ENABLE_VEGETATION_PROFILE_VERBOSE
+#ifdef ENABLE_VEGETATION_PROFILE_VERBOSE
+// Add verbose profile markers
+#define VEGETATION_PROFILE_SCOPE_VERBOSE(...) AZ_PROFILE_SCOPE(Entity, __VA_ARGS__)
+#define VEGETATION_PROFILE_FUNCTION_VERBOSE() AZ_PROFILE_FUNCTION(Entity)
+#else
+// Define ENABLE_VEGETATION_PROFILE_VERBOSE to get verbose profile markers
+#define VEGETATION_PROFILE_SCOPE_VERBOSE
+#define VEGETATION_PROFILE_FUNCTION_VERBOSE
+#endif
