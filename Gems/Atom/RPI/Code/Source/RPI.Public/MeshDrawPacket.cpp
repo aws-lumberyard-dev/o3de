@@ -563,6 +563,7 @@ namespace AZ
             AZStd::vector<AZStd::bitset<RHI::DrawPacketBuilder::DrawItemCountMax>> activeShaderItems(batchInput.size());
             ShaderReloadDebugTracker::ScopedSection reloadSection("PrepareMeshDrawPacketUpdateBatch");
 
+            RHI::RHISystemInterface* rhiSystem = RHI::RHISystemInterface::Get();
             for (size_t inputIndex = 0; inputIndex < batchInput.size(); ++inputIndex)
             {
                 PrepareMeshDrawPacketUpdateBatchInput& input = batchInput[inputIndex];
@@ -608,7 +609,6 @@ namespace AZ
                     {
                         // Skip the shader item without creating the shader instance
                         // if the mesh is not going to be rendered based on the draw tag
-                        RHI::RHISystemInterface* rhiSystem = RHI::RHISystemInterface::Get();
                         RHI::DrawListTagRegistry* drawListTagRegistry = rhiSystem->GetDrawListTagRegistry();
 
                         // Use the explicit draw list override if exists.
@@ -677,7 +677,6 @@ namespace AZ
                                 appendShaderInput[currentAppendShaderInputIndex].shaderItem->GetShaderAssetNonConst();
                             AZ_Assert(shaderAsset.IsReady(), "The shader asset should have been loaded already");
 
-                            RHI::RHISystemInterface* rhiSystem = RHI::RHISystemInterface::Get();
                             RHI::DrawListTagRegistry* drawListTagRegistry = rhiSystem->GetDrawListTagRegistry();
 
                             // If there is no explicit override, use the default from the shader asset
