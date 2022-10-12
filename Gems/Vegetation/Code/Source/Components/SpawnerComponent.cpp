@@ -206,7 +206,7 @@ namespace Vegetation
 
     bool SpawnerComponent::PrepareToClaim(EntityIdStack& stackIds)
     {
-        AZ_PROFILE_FUNCTION(Entity);
+        AZ_PROFILE_FUNCTION(Vegetation);
 
         //adding entity id to the stack of entity ids affecting vegetation
         EntityIdStack emptyIds;
@@ -413,7 +413,7 @@ namespace Vegetation
 
     void SpawnerComponent::ClaimPositions(EntityIdStack& stackIds, ClaimContext& context)
     {
-        AZ_PROFILE_FUNCTION(Entity);
+        AZ_PROFILE_FUNCTION(Vegetation);
 
         //reject entire spawner if there are inclusion tags to consider that don't exist in the context
         if (context.m_masks.HasValidTags() &&
@@ -546,7 +546,7 @@ namespace Vegetation
 
     void SpawnerComponent::DestroyAllInstances()
     {
-        AZ_PROFILE_FUNCTION(Entity);
+        AZ_PROFILE_FUNCTION(Vegetation);
 
         ClaimInstanceMapping claimInstanceMapping;
         {

@@ -257,7 +257,7 @@ namespace SurfaceData
 
     void SurfaceDataShapeComponent::UpdateShapeData()
     {
-        AZ_PROFILE_FUNCTION(Entity);
+        AZ_PROFILE_FUNCTION(SurfaceData);
 
         bool shapeValidBeforeUpdate = false;
         bool shapeValidAfterUpdate = false;

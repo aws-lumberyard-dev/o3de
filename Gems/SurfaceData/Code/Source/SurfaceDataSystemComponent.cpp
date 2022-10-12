@@ -20,6 +20,8 @@
 #include <SurfaceData/Utility/SurfaceDataUtility.h>
 #include <SurfaceDataProfiler.h>
 
+AZ_DEFINE_BUDGET(SurfaceData);
+
 namespace SurfaceData
 {
     void SurfaceDataSystemComponent::Reflect(AZ::ReflectContext* context)
