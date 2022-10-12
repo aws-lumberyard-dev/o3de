@@ -220,7 +220,7 @@ namespace Vegetation
 
     bool AreaBlenderComponent::PrepareToClaim(EntityIdStack& stackIds)
     {
-        AZ_PROFILE_FUNCTION(Entity);
+        AZ_PROFILE_FUNCTION(Vegetation);
 
         bool result = true;
 
@@ -257,7 +257,7 @@ namespace Vegetation
 
     void AreaBlenderComponent::ClaimPositions(EntityIdStack& stackIds, ClaimContext& context)
     {
-        AZ_PROFILE_FUNCTION(Entity);
+        AZ_PROFILE_FUNCTION(Vegetation);
 
         if (context.m_availablePoints.empty())
         {
@@ -294,7 +294,7 @@ namespace Vegetation
 
     void AreaBlenderComponent::UnclaimPosition(const ClaimHandle handle)
     {
-        AZ_PROFILE_FUNCTION(Entity);
+        AZ_PROFILE_FUNCTION(Vegetation);
 
         AZ_ErrorOnce(
             "Vegetation", !AreaRequestBus::HasReentrantEBusUseThisThread(),
@@ -314,7 +314,7 @@ namespace Vegetation
 
     AZ::Aabb AreaBlenderComponent::GetEncompassingAabb() const
     {
-        AZ_PROFILE_FUNCTION(Entity);
+        AZ_PROFILE_FUNCTION(Vegetation);
 
         AZ::Aabb bounds = AZ::Aabb::CreateNull();
 
@@ -345,7 +345,7 @@ namespace Vegetation
 
     AZ::u32 AreaBlenderComponent::GetProductCount() const
     {
-        AZ_PROFILE_FUNCTION(Entity);
+        AZ_PROFILE_FUNCTION(Vegetation);
 
         AZ::u32 count = 0;
 
