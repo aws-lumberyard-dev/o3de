@@ -15,7 +15,6 @@
 #include <Atom/RHI/DrawPacketBuilder.h>
 
 #include <AzCore/Math/Obb.h>
-#include <AzCore/std/containers/span.h>
 
 
 namespace AZ
@@ -45,8 +44,10 @@ namespace AZ
             struct ShaderData
             {
                 Data::Instance<Shader> m_shader;
+                Name m_shaderTag;
                 ShaderVariantId m_requestedShaderVariantId;
                 ShaderVariantId m_activeShaderVariantId;
+                ShaderVariantStableId m_activeShaderVariantStableId;
             };
 
             using ShaderList = AZStd::vector<ShaderData>;
@@ -72,6 +73,7 @@ namespace AZ
             bool SetShaderOption(const Name& shaderOptionName, RPI::ShaderOptionValue value);
 
             Data::Instance<Material> GetMaterial() const;
+            const ModelLod::Mesh& GetMesh() const;
             const ShaderList& GetActiveShaderList() const { return m_activeShaders; }
 
             typedef AZStd::pair<Name, RPI::ShaderOptionValue> ShaderOptionPair;
@@ -122,6 +124,9 @@ namespace AZ
             //! List of shader options set for this specific draw packet
             ShaderOptionVector m_shaderOptions;
         };
+        
+        using MeshDrawPacketList = AZStd::vector<RPI::MeshDrawPacket>;
+        using MeshDrawPacketLods = AZStd::fixed_vector<MeshDrawPacketList, RPI::ModelLodAsset::LodCountMax>;
 
         // One input per mesh + material combination
         struct PrepareMeshDrawPacketUpdateBatchInput

@@ -33,7 +33,7 @@ namespace AZ
 
         InstanceId InstanceId::CreateData(const void* data, size_t dataSize)
         {
-            return InstanceId(Uuid::CreateData(data, dataSize));
+            return InstanceId(Uuid::CreateData(reinterpret_cast<const AZStd::byte*>(data), dataSize));
         }
 
         InstanceId InstanceId::CreateSHA(Sha1& sha)

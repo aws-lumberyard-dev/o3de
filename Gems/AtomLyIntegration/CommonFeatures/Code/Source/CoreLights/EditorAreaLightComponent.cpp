@@ -44,7 +44,7 @@ namespace AZ
                     editContext->Class<EditorAreaLightComponent>(
                         "Light", "A light which emits from a point or goemetric shape.")
                         ->ClassElement(Edit::ClassElements::EditorData, "")
-                            ->Attribute(Edit::Attributes::Category, "Atom")
+                            ->Attribute(Edit::Attributes::Category, "Graphics/Lighting")
                             ->Attribute(Edit::Attributes::Icon, "Icons/Components/AreaLight.svg")
                             ->Attribute(Edit::Attributes::ViewportIcon, "Icons/Components/Viewport/AreaLight.svg")
                             ->Attribute(Edit::Attributes::AppearsInAddComponentMenu, AZ_CRC("Game", 0x232b318c))
@@ -75,7 +75,7 @@ namespace AZ
                         ->DataElement(Edit::UIHandlers::Color, &AreaLightComponentConfig::m_color, "Color", "Color of the light")
                             ->Attribute(Edit::Attributes::ChangeNotify, Edit::PropertyRefreshLevels::ValuesOnly)
                             ->Attribute(Edit::Attributes::Visibility, &AreaLightComponentConfig::LightTypeIsSelected)
-                            ->Attribute("ColorEditorConfiguration", RPI::ColorUtils::GetRgbEditorConfig())
+                            ->Attribute("ColorEditorConfiguration", RPI::ColorUtils::GetLinearRgbEditorConfig())
                         ->DataElement(Edit::UIHandlers::ComboBox, &AreaLightComponentConfig::m_intensityMode, "Intensity mode", "Allows specifying which photometric unit to work in.")
                             ->Attribute(AZ::Edit::Attributes::EnumValues, &AreaLightComponentConfig::GetValidPhotometricUnits)
                             ->Attribute(Edit::Attributes::Visibility, &AreaLightComponentConfig::LightTypeIsSelected)
