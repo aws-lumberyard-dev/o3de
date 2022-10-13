@@ -24,6 +24,8 @@
 #include <SurfaceData/Utility/SurfaceDataUtility.h>
 #include <Vegetation/Ebuses/DebugNotificationBus.h>
 
+#include "../VegetationProfiler.h"
+
 namespace Vegetation
 {
     namespace SpawnerUtil

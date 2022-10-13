@@ -17,6 +17,8 @@
 #include <Vegetation/InstanceData.h>
 #include <AzCore/Debug/Profiler.h>
 
+#include "../VegetationProfiler.h"
+
 namespace Vegetation
 {
     void SlopeAlignmentModifierConfig::Reflect(AZ::ReflectContext* context)

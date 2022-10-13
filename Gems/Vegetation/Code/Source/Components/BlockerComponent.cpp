@@ -19,6 +19,8 @@
 #include <Vegetation/Ebuses/FilterRequestBus.h>
 #include <Vegetation/InstanceData.h>
 
+#include "../VegetationProfiler.h"
+
 namespace Vegetation
 {
     namespace BlockerUtil

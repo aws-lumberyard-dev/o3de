@@ -20,6 +20,8 @@
 #include <Vegetation/Ebuses/DebugNotificationBus.h>
 #include <Vegetation/Ebuses/DebugSystemDataBus.h>
 
+#include "VegetationProfiler.h"
+
 namespace Vegetation
 {
     namespace InstanceSystemUtil

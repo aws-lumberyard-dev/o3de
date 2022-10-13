@@ -16,6 +16,8 @@
 #include <Vegetation/Ebuses/AreaSystemRequestBus.h>
 #include <Vegetation/Ebuses/DebugNotificationBus.h>
 
+#include "../VegetationProfiler.h"
+
 namespace Vegetation
 {
     void AreaBlenderConfig::Reflect(AZ::ReflectContext* context)
