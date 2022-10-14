@@ -66,7 +66,8 @@ namespace AZ
             // as most of the time this all they customize in terms of shader compilation arguments.
             AZStd::vector<AZStd::string> m_definitions;
 
-            AZStd::string m_drawListName;
+            Name m_drawListName;
+            AZStd::vector<Name> m_pipelineFilterTags;
 
             ProgramSettings m_programSettings;
 

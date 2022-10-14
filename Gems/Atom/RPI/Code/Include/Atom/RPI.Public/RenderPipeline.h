@@ -9,6 +9,7 @@
 #pragma once
 
 #include <Atom/RHI/DrawList.h>
+#include <Atom/RHI/DrawFilterTagRegistry.h>
 
 #include <Atom/RPI.Public/Base.h>
 #include <Atom/RPI.Public/PipelinePassChanges.h>
@@ -203,9 +204,6 @@ namespace AZ
             //! Get current render mode
             RenderMode GetRenderMode() const;
 
-            //! Get draw filter tag
-            RHI::DrawFilterTag GetDrawFilterTag() const;
-
             //! Get draw filter mask
             RHI::DrawFilterMask GetDrawFilterMask() const;
 
@@ -279,7 +277,8 @@ namespace AZ
             // if the view already exists in map, its DrawListMask will be combined to the existing one's
             void CollectPersistentViews(AZStd::map<ViewPtr, RHI::DrawListMask>& outViewMasks) const;
 
-            void SetDrawFilterTag(RHI::DrawFilterTag);
+            void SetDrawFilterTags(RHI::DrawFilterTagRegistry* tagRegistry);
+            void ReleaseDrawFilterTags(RHI::DrawFilterTagRegistry* tagRegistry);
 
             // End of functions accessed by Scene class
             //////////////////////////////////////////////////
@@ -319,11 +318,14 @@ namespace AZ
             // Render settings that can be queried by passes to setup things like render target resolution
             PipelineRenderSettings m_activeRenderSettings;
 
-            // A tag to filter draw items submitted by passes of this render pipeline.
-            // This tag is allocated when it's added to a scene. It's set to invalid when it's removed to the scene.
+            // This tag is used to filter draw items submitted by passes of this render pipeline.
+            // It is allocated when the pipeline is added to a scene, and set to invalid when removed from the scene.
+            Name m_drawFilterTagName;
             RHI::DrawFilterTag m_drawFilterTag;
+
             // A mask to filter draw items submitted by passes of this render pipeline.
-            // This mask is created from the value of m_drawFilterTag.
+            // This mask is created from the above DrawFilterTag.
+            // (we might want to add more tags in the future that all contribute to the mask, but for now we only need one)
             RHI::DrawFilterMask m_drawFilterMask = 0;
 
             // The descriptor used to created this render pipeline

@@ -107,6 +107,7 @@ namespace AZ
             pipeline->m_descriptor = desc;
             pipeline->m_mainViewTag = Name(desc.m_mainViewTagName);
             pipeline->m_nameId = desc.m_name.data();
+            pipeline->m_drawFilterTagName = desc.m_drawFilterTag.empty() ? pipeline->m_nameId : Name{desc.m_drawFilterTag};
             pipeline->m_activeRenderSettings = desc.m_renderSettings;
             pipeline->m_passTree.m_rootPass->SetRenderPipeline(pipeline);
             pipeline->m_passTree.m_rootPass->m_flags.m_isPipelineRoot = true;
@@ -628,27 +629,21 @@ namespace AZ
             return m_renderMode != RenderMode::NoRender;
         }
 
-        RHI::DrawFilterTag RenderPipeline::GetDrawFilterTag() const
-        {
-            return m_drawFilterTag;
-        }
-
         RHI::DrawFilterMask RenderPipeline::GetDrawFilterMask() const
         {
             return m_drawFilterMask;
         }
 
-        void RenderPipeline::SetDrawFilterTag(RHI::DrawFilterTag tag)
+        void RenderPipeline::SetDrawFilterTags(RHI::DrawFilterTagRegistry* tagRegistry)
         {
-            m_drawFilterTag = tag;
-            if (m_drawFilterTag.IsValid())
-            {
-                m_drawFilterMask = 1 << tag.GetIndex();
-            }
-            else
-            {
-                m_drawFilterMask = 0;
-            }
+            m_drawFilterTag = tagRegistry->AcquireTag(m_drawFilterTagName);
+            m_drawFilterMask = 1 << m_drawFilterTag.GetIndex();
+        }
+
+        void RenderPipeline::ReleaseDrawFilterTags(RHI::DrawFilterTagRegistry* tagRegistry)
+        {
+            tagRegistry->ReleaseTag(m_drawFilterTag);
+            m_drawFilterTag.Reset();
         }
 
         const RenderPipelineDescriptor& RenderPipeline::GetDescriptor() const

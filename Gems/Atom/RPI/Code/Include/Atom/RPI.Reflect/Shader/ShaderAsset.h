@@ -94,6 +94,11 @@ namespace AZ
             //! ShaderAsset.
             const Name& GetDrawListName() const;
 
+            //! Returns a list of tags for filtering the shader into specific render pipelines.
+            //! Use Scene::GetDrawFilterTagRegistry() to get the actual DrawFilterTag for each name.
+            using PipelineFilterTagNames = AZStd::unordered_set<Name>;
+            const PipelineFilterTagNames& GetPipelineFilterTagNames() const;
+
             //! Return the timestamp when the shader asset was built.
             //! This is used to synchronize versions of the ShaderAsset and ShaderVariantTreeAsset, especially during hot-reload.
             AZStd::sys_time_t GetBuildTimestamp() const;
@@ -292,6 +297,7 @@ namespace AZ
             AZStd::vector<ShaderApiDataContainer> m_perAPIShaderData;
 
             Name m_drawListName;
+            PipelineFilterTagNames m_pipelineFilterTagNames;
 
             //! Use to synchronize versions of the ShaderAsset and ShaderVariantTreeAsset, especially during hot-reload.
             AZ::u64 m_buildTimestamp = 0; 

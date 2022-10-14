@@ -23,7 +23,8 @@ namespace AZ
                 serializeContext->Class<ShaderSourceData>()
                     ->Version(7) // Rework of the blend state options
                     ->Field("Source", &ShaderSourceData::m_source)
-                    ->Field("DrawList", &ShaderSourceData::m_drawListName)
+                    ->Field("DrawList", &ShaderSourceData::m_drawListName) // It would be nice to rename this to DrawListTag to match the .pass file format
+                    ->Field("PipelineFilterTags", &ShaderSourceData::m_pipelineFilterTags)
                     ->Field("DepthStencilState", &ShaderSourceData::m_depthStencilState)
                     ->Field("RasterState", &ShaderSourceData::m_rasterState)
                     ->Field("BlendState", &ShaderSourceData::m_blendState)
@@ -63,6 +64,7 @@ namespace AZ
                         ->Attribute(AZ::Edit::Attributes::AutoExpand, true)
                         ->DataElement(AZ::Edit::UIHandlers::Default, &ShaderSourceData::m_source, "Source", "")
                         ->DataElement(AZ::Edit::UIHandlers::Default, &ShaderSourceData::m_drawListName, "Draw List", "")
+                        ->DataElement(AZ::Edit::UIHandlers::Default, &ShaderSourceData::m_pipelineFilterTags, "Pipeline Filter Tags", "")
                         ->DataElement(AZ::Edit::UIHandlers::Default, &ShaderSourceData::m_depthStencilState, "Depth Stencil State", "")
                         ->DataElement(AZ::Edit::UIHandlers::Default, &ShaderSourceData::m_rasterState, "Raster State", "")
                         ->DataElement(AZ::Edit::UIHandlers::Default, &ShaderSourceData::m_blendState, "Blend State", "")
@@ -142,6 +144,7 @@ namespace AZ
                     ->Constructor<const ShaderSourceData&>()
                     ->Property("source", BehaviorValueProperty(&ShaderSourceData::m_source))
                     ->Property("drawListName", BehaviorValueProperty(&ShaderSourceData::m_drawListName))
+                    ->Property("pipelineFilterTags", BehaviorValueProperty(&ShaderSourceData::m_pipelineFilterTags))
                     ->Property("depthStencilState", BehaviorValueProperty(&ShaderSourceData::m_depthStencilState))
                     ->Property("rasterState", BehaviorValueProperty(&ShaderSourceData::m_rasterState))
                     ->Property("blendState", BehaviorValueProperty(&ShaderSourceData::m_blendState))

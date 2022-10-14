@@ -302,6 +302,18 @@ namespace AZ
                     drawRequest.m_uniqueShaderResourceGroup = drawSrg->GetRHIShaderResourceGroup();
                     m_perDrawSrgs.push_back(drawSrg);
                 }
+
+                if (!shaderItem.GetShaderAsset()->GetPipelineFilterTagNames().empty())
+                {
+                    drawRequest.m_drawFilterMask = 0;
+                }
+                for (const Name& pipelineFilterTagName : shaderItem.GetShaderAsset()->GetPipelineFilterTagNames())
+                {
+                    RHI::DrawFilterTag pipelineTag = parentScene.GetDrawFilterTagRegistry()->AcquireTag(pipelineFilterTagName);
+                    AZ_Assert(pipelineTag.IsValid(), "Could not acquire pipeline filter tag '%s'.", pipelineFilterTagName.GetCStr());
+                    drawRequest.m_drawFilterMask |= 1 << pipelineTag.GetIndex();
+                }
+
                 drawPacketBuilder.AddDrawItem(drawRequest);
                 
                 ShaderData shaderData;

@@ -45,5 +45,6 @@
         ]
     },
 
-    "DrawList" : "forward"
+    "DrawList" : "forward",
+    "PipelineFilterTags" : ["MainPipeline"]
 }

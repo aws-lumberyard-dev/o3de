@@ -389,9 +389,14 @@ namespace AZ
             RPI::ShaderAssetCreator shaderAssetCreator;
             shaderAssetCreator.Begin(Uuid::CreateRandom());
 
-            shaderAssetCreator.SetName(AZ::Name{shaderFileName.c_str()});
-            shaderAssetCreator.SetDrawListName(Name(shaderSourceData.m_drawListName));
+            shaderAssetCreator.SetName(AZ::Name{shaderFileName});
+            shaderAssetCreator.SetDrawListName(shaderSourceData.m_drawListName);
             shaderAssetCreator.SetShaderAssetBuildTimestamp(shaderAssetBuildTimestamp);
+
+            for (const Name& pipelineFilterTag : shaderSourceData.m_pipelineFilterTags)
+            {
+                shaderAssetCreator.AddPipelineFilterTag(pipelineFilterTag);
+            }
 
             // The ShaderOptionGroupLayout must be the same across all supervariants because
             // there can be only a single ShaderVariantTreeAsset per ShaderAsset.

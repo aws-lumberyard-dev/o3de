@@ -41,6 +41,14 @@ namespace AZ
             }
         }
 
+        void ShaderAssetCreator::AddPipelineFilterTag(const Name& pipelineFilterTagName)
+        {
+            if (ValidateIsReady())
+            {
+                m_asset->m_pipelineFilterTagNames.insert(pipelineFilterTagName);
+            }
+        }
+
         void ShaderAssetCreator::SetShaderOptionGroupLayout(const Ptr<ShaderOptionGroupLayout>& shaderOptionGroupLayout)
         {
             if (ValidateIsReady())

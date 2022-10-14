@@ -133,6 +133,11 @@ namespace AZ
             return m_drawListName;
         }
 
+        const ShaderAsset::PipelineFilterTagNames& ShaderAsset::GetPipelineFilterTagNames() const
+        {
+            return m_pipelineFilterTagNames;
+        }
+
         AZStd::sys_time_t ShaderAsset::GetBuildTimestamp() const
         {
             return m_buildTimestamp;

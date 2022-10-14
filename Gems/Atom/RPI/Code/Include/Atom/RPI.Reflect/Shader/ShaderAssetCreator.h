@@ -33,6 +33,9 @@ namespace AZ
             //! [Optional] Sets the DrawListTag name associated with this shader.
             void SetDrawListName(const Name& name);
 
+            //! [Optional] Adds a filter tag for a render pipeline that can process this shader. If no filter tags are added, the shader will run in any pipeline.
+            void AddPipelineFilterTag(const Name& pipelineFilterTagName);
+
             //! [Required] Assigns the layout used to construct and parse shader options packed into shader variant keys.
             //! Requires that the keys assigned to shader variants were constructed using the same layout.
             void SetShaderOptionGroupLayout(const Ptr<ShaderOptionGroupLayout>& shaderOptionGroupLayout);
