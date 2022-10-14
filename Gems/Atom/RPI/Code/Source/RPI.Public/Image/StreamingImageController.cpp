@@ -23,7 +23,7 @@ namespace AZ
         Data::Instance<StreamingImageController> StreamingImageController::Create(const Data::Asset<StreamingImageControllerAsset>& asset, RHI::StreamingImagePool& pool)
         {
             Data::Instance<StreamingImageController> controller = 
-                Data::InstanceDatabase<StreamingImageController>::Instance().FindOrCreate(Data::InstanceId::CreateRandom(), asset);
+                Data::InstanceDatabase<StreamingImageController>::Instance().Create(asset);
 
             if (controller)
             {
