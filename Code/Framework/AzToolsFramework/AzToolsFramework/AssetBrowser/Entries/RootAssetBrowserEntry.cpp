@@ -5,6 +5,7 @@
  * SPDX-License-Identifier: Apache-2.0 OR MIT
  *
  */
+#include "AzCore/IO/Path/Path_fwd.h"
 #include <AzCore/std/containers/vector.h>
 #include <AzCore/Asset/AssetTypeInfoBus.h>
 
@@ -254,10 +255,12 @@ namespace AzToolsFramework
             // the absolute path is just the relative path with cache root prepended.
             AZ::IO::Path pathFromDatabase(productWithUuidDatabaseEntry.second.m_productName.c_str());
             AZ::IO::PathView cleanedRelative = pathFromDatabase.RelativePath();
+            AZ::IO::FixedMaxPath storageForLexicallyRelative{};
             // remove the first element from the path if you can:
             if (!cleanedRelative.empty())
             {
-                cleanedRelative = cleanedRelative.LexicallyRelative(*cleanedRelative.begin());
+                storageForLexicallyRelative = cleanedRelative.LexicallyRelative(*cleanedRelative.begin());
+                cleanedRelative = storageForLexicallyRelative;
             }
             product->m_relativePath = cleanedRelative;
             product->m_fullPath = (AZ::IO::Path("@products@") / cleanedRelative).LexicallyNormal();
