@@ -59,6 +59,8 @@ namespace AzToolsFramework
             ComponentModeSwitcher();
             ~ComponentModeSwitcher();
 
+            AZStd::vector<ViewportUi::ButtonId> GetButtonIds() const;
+
             size_t GetComponentCount() const
             {
                 return m_addedComponents.size();

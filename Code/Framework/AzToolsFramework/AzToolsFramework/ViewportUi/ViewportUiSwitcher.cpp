@@ -51,10 +51,13 @@ namespace AzToolsFramework::ViewportUi::Internal
         QPainter painter;
         QPixmap buttonPixmap = QPixmap(QString(buttonIconPath));
 
-        painter.begin(&buttonPixmap);
-        painter.setCompositionMode(QPainter::CompositionMode_SourceIn);
-        painter.fillRect(buttonPixmap.rect(), Qt::white);
-        painter.end();
+        if (!buttonPixmap.isNull())
+        {
+            painter.begin(&buttonPixmap);
+            painter.setCompositionMode(QPainter::CompositionMode_SourceIn);
+            painter.fillRect(buttonPixmap.rect(), Qt::white);
+            painter.end();
+        }
 
         return buttonPixmap;
     }

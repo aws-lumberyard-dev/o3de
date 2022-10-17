@@ -215,6 +215,7 @@ namespace UnitTest
     };
 
     /// Base fixture for ToolsApplication editor tests.
+
     class ToolsApplicationFixture
         : public AllocatorsTestFixture
     {

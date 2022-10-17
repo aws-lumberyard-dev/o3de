@@ -67,6 +67,15 @@ namespace AzToolsFramework::ComponentModeFramework
             transformIconPath.c_str(),
             "Transform");
 
+        AZStd::string buttonTooltip = AZStd::string::format("Enter Transform Edit mode");
+
+        ViewportUi::ViewportUiRequestBus::Event(
+            ViewportUi::DefaultViewportId,
+            &ViewportUi::ViewportUiRequestBus::Events::SetSwitcherButtonTooltip,
+            m_switcherId,
+            m_transformButtonId,
+            buttonTooltip);
+
         ViewportUi::ViewportUiRequestBus::Event(
             ViewportUi::DefaultViewportId,
             &ViewportUi::ViewportUiRequestBus::Events::SetSwitcherActiveButton,
@@ -481,5 +490,16 @@ namespace AzToolsFramework::ComponentModeFramework
             ViewportUi::ViewportUiRequestBus::Event(
                 ViewportUi::DefaultViewportId, &ViewportUi::ViewportUiRequestBus::Events::SetSwitcherVisible, m_switcherId, false);
         }
+    }
+
+    AZStd::vector<ViewportUi::ButtonId> ComponentModeSwitcher::GetButtonIds() const
+    {
+        AZStd::vector<ViewportUi::ButtonId> buttonIds;
+        for (auto component : m_addedComponents)
+        {
+            buttonIds.push_back(component.m_buttonId);
+        }
+
+        return buttonIds;
     }
 } // namespace AzToolsFramework::ComponentModeFramework

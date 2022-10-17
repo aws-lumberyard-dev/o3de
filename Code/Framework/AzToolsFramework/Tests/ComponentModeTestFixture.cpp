@@ -25,5 +25,12 @@ namespace UnitTest
         app->RegisterComponentDescriptor(
             AztfCmf::TestComponentModeComponent<AztfCmf::OverrideMouseInteractionComponentMode>::CreateDescriptor());
         app->RegisterComponentDescriptor(AztfCmf::IncompatiblePlaceholderEditorComponent::CreateDescriptor());
+
+        m_viewportManagerWrapper.Create();
+    }
+
+    void ComponentModeTestFixture::TearDownEditorFixtureImpl()
+    {
+        m_viewportManagerWrapper.Destroy();
     }
 } // namespace UnitTest

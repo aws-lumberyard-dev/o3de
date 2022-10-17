@@ -11,6 +11,8 @@
 #include <AzToolsFramework/Application/ToolsApplication.h>
 #include <AzToolsFramework/UnitTest/AzToolsFrameworkTestHelpers.h>
 #include <AzCore/UnitTest/TestTypes.h>
+#include <AzToolsFramework/ViewportUi/ViewportUiManager.h>
+#include <Tests/Viewport/ViewportUiManagerTests.h>
 
 namespace UnitTest
 {
@@ -19,5 +21,8 @@ namespace UnitTest
     {
     protected:
         void SetUpEditorFixtureImpl() override;
+        void TearDownEditorFixtureImpl() override;
+
+        ViewportManagerWrapper m_viewportManagerWrapper;
     };
 } // namespace UnitTest
