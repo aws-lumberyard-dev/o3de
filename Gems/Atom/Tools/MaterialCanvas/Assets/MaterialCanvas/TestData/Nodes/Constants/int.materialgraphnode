@@ -6,24 +6,17 @@
         "id": "{77F59CFF-3EFC-492D-BDF2-FD587FC56704}",
         "category": "Constants",
         "title": "Int Constant",
-        "titlePaletteName": "ConstantNodeTitlePalette",
-        "slotDataTypeGroups": [
-            "inValue|outValue"
-        ],
         "inputSlots": [
             {
                 "name": "inValue",
                 "displayName": "Value",
                 "description": "Value",
-                "supportedDataTypeRegex": "color|(bool|int|uint|float)[1-4]?",
-                "defaultDataType": "int",
-                "defaultValue": {
-                    "$type": "int",
-                    "Value": 0
-                },
+                "supportedDataTypes": [
+                    "int"
+                ],
                 "settings": {
                     "instructions": [
-                        "SLOTTYPE SLOTNAME = SLOTVALUE;"
+                        "SLOTTYPE NODEID_SLOTNAME = SLOTVALUE;"
                     ]
                 }
             }
@@ -33,11 +26,12 @@
                 "name": "outValue",
                 "displayName": "Value",
                 "description": "Value",
-                "supportedDataTypeRegex": "int",
-                "defaultDataType": "int",
+                "supportedDataTypes": [
+                    "int"
+                ],
                 "settings": {
                     "instructions": [
-                        "SLOTTYPE SLOTNAME = inValue;"
+                        "SLOTTYPE NODEID_SLOTNAME = NODEID_inValue;"
                     ]
                 }
             }

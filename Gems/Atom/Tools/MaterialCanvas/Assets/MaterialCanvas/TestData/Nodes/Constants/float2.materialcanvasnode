@@ -3,16 +3,16 @@
     "Version": 1,
     "ClassName": "DynamicNodeConfig",
     "ClassData": {
-        "id": "{5E2A378E-D27D-43C0-B708-3586FA2293F3}",
+        "id": "{C451808F-3604-46A8-9014-2D51293EAD55}",
         "category": "Constants",
-        "title": "Float Constant",
+        "title": "Float2 Constant",
         "inputSlots": [
             {
                 "name": "inValue",
                 "displayName": "Value",
                 "description": "Value",
                 "supportedDataTypes": [
-                    "float"
+                    "float2"
                 ],
                 "settings": {
                     "instructions": [
@@ -27,11 +27,37 @@
                 "displayName": "Value",
                 "description": "Value",
                 "supportedDataTypes": [
-                    "float"
+                    "float2"
                 ],
                 "settings": {
                     "instructions": [
                         "SLOTTYPE NODEID_SLOTNAME = NODEID_inValue;"
+                    ]
+                }
+            },
+            {
+                "name": "outX",
+                "displayName": "X",
+                "description": "X",
+                "supportedDataTypes": [
+                    "float"
+                ],
+                "settings": {
+                    "instructions": [
+                        "SLOTTYPE NODEID_SLOTNAME = NODEID_inValue.x;"
+                    ]
+                }
+            },
+            {
+                "name": "outY",
+                "displayName": "Y",
+                "description": "Y",
+                "supportedDataTypes": [
+                    "float"
+                ],
+                "settings": {
+                    "instructions": [
+                        "SLOTTYPE NODEID_SLOTNAME = NODEID_inValue.y;"
                     ]
                 }
             }

@@ -3,26 +3,17 @@
     "Version": 1,
     "ClassName": "DynamicNodeConfig",
     "ClassData": {
-        "id": "{6B6603B9-A89E-403B-9AE9-C7E424093EC5}",
+        "id": "{643F25FA-FB10-4AF6-9657-2E1BDC2AC219}",
         "category": "Constants",
-        "title": "Color Constant",
+        "title": "Float4 Constant",
         "inputSlots": [
             {
                 "name": "inValue",
                 "displayName": "Value",
                 "description": "Value",
                 "supportedDataTypes": [
-                    "color"
+                    "float4"
                 ],
-                "defaultValue": {
-                    "$type": "Color",
-                    "Value": [
-                        0.0,
-                        0.0,
-                        0.0,
-                        1.0
-                    ]
-                },
                 "settings": {
                     "instructions": [
                         "SLOTTYPE NODEID_SLOTNAME = SLOTVALUE;"
@@ -36,7 +27,7 @@
                 "displayName": "Value",
                 "description": "Value",
                 "supportedDataTypes": [
-                    "color"
+                    "float4"
                 ],
                 "settings": {
                     "instructions": [
@@ -45,54 +36,54 @@
                 }
             },
             {
-                "name": "outR",
-                "displayName": "R",
-                "description": "R",
+                "name": "outX",
+                "displayName": "X",
+                "description": "X",
                 "supportedDataTypes": [
                     "float"
                 ],
                 "settings": {
                     "instructions": [
-                        "SLOTTYPE NODEID_SLOTNAME = NODEID_inValue.r;"
+                        "SLOTTYPE NODEID_SLOTNAME = NODEID_inValue.x;"
                     ]
                 }
             },
             {
-                "name": "outG",
-                "displayName": "G",
-                "description": "G",
+                "name": "outY",
+                "displayName": "Y",
+                "description": "Y",
                 "supportedDataTypes": [
                     "float"
                 ],
                 "settings": {
                     "instructions": [
-                        "SLOTTYPE NODEID_SLOTNAME = NODEID_inValue.g;"
+                        "SLOTTYPE NODEID_SLOTNAME = NODEID_inValue.y;"
                     ]
                 }
             },
             {
-                "name": "outB",
-                "displayName": "B",
-                "description": "B",
+                "name": "outZ",
+                "displayName": "Z",
+                "description": "Z",
                 "supportedDataTypes": [
                     "float"
                 ],
                 "settings": {
                     "instructions": [
-                        "SLOTTYPE NODEID_SLOTNAME = NODEID_inValue.b;"
+                        "SLOTTYPE NODEID_SLOTNAME = NODEID_inValue.z;"
                     ]
                 }
             },
             {
-                "name": "outA",
-                "displayName": "A",
-                "description": "A",
+                "name": "outW",
+                "displayName": "W",
+                "description": "W",
                 "supportedDataTypes": [
                     "float"
                 ],
                 "settings": {
                     "instructions": [
-                        "SLOTTYPE NODEID_SLOTNAME = NODEID_inValue.a;"
+                        "SLOTTYPE NODEID_SLOTNAME = NODEID_inValue.w;"
                     ]
                 }
             }

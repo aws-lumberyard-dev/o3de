@@ -3,14 +3,9 @@
     "Version": 1,
     "ClassName": "DynamicNodeConfig",
     "ClassData": {
-        "id": "{C0ADB0F0-39DD-48D9-A4D2-58B40C76C285}",
-        "category": "Texturing",
-        "title": "Sample Texture 2d",
-        "settings": {
-            "instructions": [
-                "float4 NODEID_outColor = MaterialSrg::NODEID_inValue.Sample(MaterialSrg::NODEID_inSampler, NODEID_inUV);"
-            ]
-        },
+        "id": "{2A23578C-FB72-4A9F-AC95-06B278CEA913}",
+        "category": "Material Inputs",
+        "title": "Color Input",
         "propertySlots": [
             {
                 "name": "inGroup",
@@ -40,62 +35,30 @@
             },
             {
                 "name": "inValue",
-                "displayName": "Image",
-                "description": "Image",
+                "displayName": "Value",
+                "description": "Value",
                 "supportedDataTypes": [
-                    "image"
-                ],
-                "supportsEditingOnNode": false,
-                "settings": {
-                    "materialInputs": [
-                        "SLOTSTANDARDSRGMEMBER"
-                    ]
-                }
-            },
-            {
-                "name": "inSampler",
-                "displayName": "Sampler",
-                "description": "Sampler",
-                "supportedDataTypes": [
-                    "sampler"
-                ],
-                "supportsEditingOnNode": false,
-                "settings": {
-                    "materialInputs": [
-                        "SLOTSTANDARDSRGMEMBER"
-                    ]
-                }
-            }
-        ],
-        "inputSlots": [
-            {
-                "name": "inUV",
-                "displayName": "UV",
-                "description": "UV",
-                "supportedDataTypes": [
-                    "float",
-                    "float2",
-                    "float3",
-                    "float4",
                     "color"
                 ],
                 "settings": {
-                    "instructions": [
-                        "SLOTTYPE NODEID_SLOTNAME = SLOTVALUE;"
+                    "materialInputs": [
+                        "SLOTSTANDARDSRGMEMBER"
                     ]
                 }
             }
         ],
         "outputSlots": [
             {
-                "name": "outColor",
-                "displayName": "Color",
-                "description": "Color",
+                "name": "outValue",
+                "displayName": "Value",
+                "description": "Value",
                 "supportedDataTypes": [
                     "color"
                 ],
                 "settings": {
-                    "instructions": {}
+                    "instructions": [
+                        "SLOTTYPE NODEID_SLOTNAME = MaterialSrg::NODEID_inValue;"
+                    ]
                 }
             },
             {
@@ -107,7 +70,7 @@
                 ],
                 "settings": {
                     "instructions": [
-                        "SLOTTYPE NODEID_SLOTNAME = NODEID_outColor.r;"
+                        "SLOTTYPE NODEID_SLOTNAME = MaterialSrg::NODEID_inValue.r;"
                     ]
                 }
             },
@@ -120,7 +83,7 @@
                 ],
                 "settings": {
                     "instructions": [
-                        "SLOTTYPE NODEID_SLOTNAME = NODEID_outColor.g;"
+                        "SLOTTYPE NODEID_SLOTNAME = MaterialSrg::NODEID_inValue.g;"
                     ]
                 }
             },
@@ -133,7 +96,7 @@
                 ],
                 "settings": {
                     "instructions": [
-                        "SLOTTYPE NODEID_SLOTNAME = NODEID_outColor.b;"
+                        "SLOTTYPE NODEID_SLOTNAME = MaterialSrg::NODEID_inValue.b;"
                     ]
                 }
             },
@@ -146,7 +109,7 @@
                 ],
                 "settings": {
                     "instructions": [
-                        "SLOTTYPE NODEID_SLOTNAME = NODEID_outColor.a;"
+                        "SLOTTYPE NODEID_SLOTNAME = MaterialSrg::NODEID_inValue.a;"
                     ]
                 }
             }
