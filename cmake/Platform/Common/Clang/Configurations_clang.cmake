@@ -59,9 +59,15 @@ ly_append_configurations_options(
 
 if(LY_BUILD_WITH_ADDRESS_SANITIZER)
     ly_append_configurations_options(
+        COMPILATION_PROFILE
+            -fsanitize=address
+            -fno-omit-frame-pointer
         COMPILATION_DEBUG
             -fsanitize=address
             -fno-omit-frame-pointer
+        LINK_NON_STATIC_PROFILE
+            -shared-libsan
+            -fsanitize=address
         LINK_NON_STATIC_DEBUG
             -shared-libsan
             -fsanitize=address

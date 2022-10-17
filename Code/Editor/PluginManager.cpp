@@ -167,7 +167,6 @@ bool CPluginManager::LoadPlugins(const char* pPathWithMask)
     {
         // Load the plugin's DLL
         QLibrary *hPlugin = new QLibrary(iter->m_path);
-        hPlugin->setLoadHints(QLibrary::DeepBindHint);
 
         AZStd::string pathUtf8(iter->m_path.toUtf8().constData());
 

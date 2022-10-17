@@ -63,17 +63,17 @@ namespace rapidjson_ly_internal
 // Detect what is available in the compiler and enable those features in RapidJSON.
 // Note that RapidJSON will use the combination of any of these to determine its final
 // set of instructions to use, so its best to set all that are applicable:
-#if defined(__SSE4_2__)
-#define RAPIDJSON_SSE42
-#endif
-
-#if defined(__SSE2__)
-#define RAPIDJSON_SSE2
-#endif
-
-#if defined(__ARM_NEON__) || defined(__ARM_NEON) // older compilers define __ARM_NEON
-#define RAPIDJSON_NEON
-#endif
+//#if defined(__SSE4_2__)
+//#define RAPIDJSON_SSE42
+//#endif
+//
+//#if defined(__SSE2__)
+//#define RAPIDJSON_SSE2
+//#endif
+//
+//#if defined(__ARM_NEON__) || defined(__ARM_NEON) // older compilers define __ARM_NEON
+//#define RAPIDJSON_NEON
+//#endif
 
 #if defined(AZ_COMPILER_MSVC)
     // windows defines may or may not be present for unity builds, so ensure StrCmp resolves to StrCmpW to avoid conflicts
