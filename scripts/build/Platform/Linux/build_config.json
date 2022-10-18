@@ -93,6 +93,9 @@
     "TAGS": [
       "weekly-build-metrics"
     ],
+    "PIPELINE_ENV":{
+      "NODE_LABEL":"linux-3234e23c-test"
+    },
     "COMMAND": "build_linux.sh",
     "PARAMETERS": {
       "CONFIGURATION": "profile",
