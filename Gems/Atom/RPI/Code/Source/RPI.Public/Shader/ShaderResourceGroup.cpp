@@ -38,7 +38,7 @@ namespace AZ
             sha.ProcessBytes(&index, sizeof(uint32_t));
             sha.ProcessBytes(srgName.GetCStr(), srgName.GetStringView().size());
 
-            return Data::InstanceId::CreateSHA(sha);
+            return Data::InstanceId::CreateData(&sha, sizeof(sha));
         }
 
         Data::Instance<ShaderResourceGroup> ShaderResourceGroup::Create(

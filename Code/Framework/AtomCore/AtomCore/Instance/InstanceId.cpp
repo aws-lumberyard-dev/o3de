@@ -36,11 +36,6 @@ namespace AZ
             return InstanceId(Uuid::CreateData(reinterpret_cast<const AZStd::byte*>(data), dataSize));
         }
 
-        InstanceId InstanceId::CreateSHA(Sha1& sha)
-        {
-            return InstanceId(Uuid::CreateSHA(sha));
-        }
-
         InstanceId InstanceId::CreateRandom()
         {
             return InstanceId(Uuid::CreateRandom());

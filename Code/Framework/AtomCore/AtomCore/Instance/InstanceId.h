@@ -51,10 +51,6 @@ namespace AZ
              */
             static InstanceId CreateData(const void* data, size_t dataSize);
 
-            /**
-             * Creates an InstanceId using the provided Sha1
-             */
-            static InstanceId CreateSHA(Sha1& sha);
 
             /**
              * Creates a random InstanceId.
