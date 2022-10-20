@@ -9,6 +9,9 @@
 #include "SelectionCommand.h"
 #include <AzToolsFramework/API/ToolsApplicationAPI.h>
 
+#pragma optimize("", off)
+#pragma inline_depth(0)
+
 namespace AzToolsFramework
 {
     SelectionCommand::SelectionCommand(const AZStd::vector<AZ::EntityId>& proposedSelection, const AZStd::string& friendlyName)
@@ -53,3 +56,6 @@ namespace AzToolsFramework
         EBUS_EVENT(AzToolsFramework::ToolsApplicationRequests::Bus, SetSelectedEntities, m_proposedSelectionList);
     }
 }
+
+#pragma optimize("", on)
+#pragma inline_depth()

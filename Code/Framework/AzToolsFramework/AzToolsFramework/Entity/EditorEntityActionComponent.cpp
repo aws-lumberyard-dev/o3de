@@ -25,6 +25,9 @@
 #include <QMimeData>
 #include <QMessageBox>
 
+#pragma optimize("", off)
+#pragma inline_depth(0)
+
 namespace AzToolsFramework
 {
     namespace Components
@@ -1077,3 +1080,6 @@ namespace AzToolsFramework
 
     } // namespace Components
 } // namespace AzToolsFramework
+
+#pragma optimize("", on)
+#pragma inline_depth()

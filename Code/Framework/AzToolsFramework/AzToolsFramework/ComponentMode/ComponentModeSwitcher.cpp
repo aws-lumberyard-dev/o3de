@@ -18,6 +18,11 @@
 
 #include <QTimer>
 
+
+#pragma optimize("", off)
+#pragma inline_depth(0)
+
+
 namespace AzToolsFramework::ComponentModeFramework
 {
     // ComponentData constructor to fill in component info
@@ -131,7 +136,7 @@ namespace AzToolsFramework::ComponentModeFramework
 
         if (!newlySelectedEntityIds.empty())
         {
-            for (auto entityId : newlySelectedEntityIds)
+             for (auto entityId : newlySelectedEntityIds)
             {
                 AZ::Entity* entity = nullptr;
                 AZ::ComponentApplicationBus::BroadcastResult(
@@ -431,18 +436,18 @@ namespace AzToolsFramework::ComponentModeFramework
             {
                 if (auto* toolsApplicationRequests = AzToolsFramework::ToolsApplicationRequestBus::FindFirstHandler())
                 {
-                    const auto& selectedEntityIds = toolsApplicationRequests->GetSelectedEntities();
-                    if (selectedEntityIds.size() == 1)
-                    {
-                        bool inComponentMode = false;
-                        AzToolsFramework::ComponentModeFramework::ComponentModeSystemRequestBus::BroadcastResult(
-                            inComponentMode, &ComponentModeSystemRequests::InComponentMode);
+                    
 
-                        if (!inComponentMode)
-                        {
-                            ClearSwitcher();
-                            UpdateSwitcherOnEntitySelectionChange(selectedEntityIds, {});
-                        }
+                    bool inComponentMode = false;
+                    AzToolsFramework::ComponentModeFramework::ComponentModeSystemRequestBus::BroadcastResult(
+                        inComponentMode, &ComponentModeSystemRequests::InComponentMode);
+
+                    const auto& selectedEntityIds = toolsApplicationRequests->GetSelectedEntities();
+
+                    if (!inComponentMode)
+                    {
+                        ClearSwitcher();
+                        UpdateSwitcherOnEntitySelectionChange(selectedEntityIds, {});
                     }
                 }
             });
@@ -498,3 +503,5 @@ namespace AzToolsFramework::ComponentModeFramework
         return buttonIds;
     }
 } // namespace AzToolsFramework::ComponentModeFramework
+#pragma optimize("", on)
+#pragma inline_depth()

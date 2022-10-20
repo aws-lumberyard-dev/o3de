@@ -28,6 +28,9 @@
 // until we have some growing memory array:
 #define STATIC_BUFFERSIZE (1024 * 64)
 
+#pragma optimize("", off)
+#pragma inline_depth(0)
+
 namespace AzToolsFramework
 {
     namespace
@@ -287,3 +290,6 @@ namespace AzToolsFramework
         RestoreEntity(m_redoState.data(), m_redoState.size(), m_redoSliceRestoreInfo);
     }
 } // namespace AzToolsFramework
+
+#pragma optimize("", on)
+#pragma inline_depth()

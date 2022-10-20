@@ -214,18 +214,21 @@ namespace UnitTest
     void PrefabTestFixture::ProcessDeferredUpdates()
     {
         // Force a prefab propagation for updates that are deferred to the next tick.
-        m_prefabSystemComponent->OnSystemTick();
+        // m_prefabSystemComponent->OnSystemTick();
+        AZ::SystemTickBus::Broadcast(&AZ::SystemTickBus::Events::OnSystemTick);
     }
 
     void PrefabTestFixture::Undo()
     {
-        m_undoStack->Undo();
+        //m_undoStack->Undo();
+        AzToolsFramework::ToolsApplicationRequestBus::Broadcast(&AzToolsFramework::ToolsApplicationRequestBus::Events::UndoPressed);
         ProcessDeferredUpdates();
     }
 
     void PrefabTestFixture::Redo()
     {
-        m_undoStack->Redo();
+        //m_undoStack->Redo();
+        AzToolsFramework::ToolsApplicationRequestBus::Broadcast(&AzToolsFramework::ToolsApplicationRequestBus::Events::RedoPressed);
         ProcessDeferredUpdates();
     }
 

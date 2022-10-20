@@ -8,6 +8,7 @@
 
 #include <Tests/ComponentModeTestDoubles.h>
 #include <Tests/ComponentModeTestFixture.h>
+#include <Tests/Prefab/PrefabTestFixture.h>
 
 #include <AzCore/std/smart_ptr/make_shared.h>
 #include <AzCore/std/smart_ptr/shared_ptr.h>
@@ -16,12 +17,12 @@
 #include <AzToolsFramework/API/EntityCompositionRequestBus.h>
 #include <AzToolsFramework/Application/ToolsApplication.h>
 #include <AzToolsFramework/ComponentMode/ComponentModeSwitcher.h>
+#include <AzToolsFramework/Entity/EditorEntityHelpers.h>
 #include <AzToolsFramework/UnitTest/AzToolsFrameworkTestHelpers.h>
 #include <AzToolsFramework/ViewportUi/ButtonGroup.h>
 #include <AzToolsFramework/ViewportUi/ViewportUiManager.h>
 #include <AzToolsFramework/ViewportUi/ViewportUiSwitcher.h>
-#include <AzToolsFramework/API/EntityCompositionRequestBus.h>
-#include <AzToolsFramework/Entity/EditorEntityHelpers.h>
+#include <AzToolsFramework/Commands/SelectionCommand.h>
 //#include <AzToolsFramework/ComponentMode/EditorComponentModeBus.h>
 
 namespace UnitTest
@@ -29,12 +30,12 @@ namespace UnitTest
     using AzToolsFramework::ComponentModeFramework::AnotherPlaceholderEditorComponent;
     using AzToolsFramework::ComponentModeFramework::PlaceholderEditorComponent;
     using ComponentModeSwitcher = AzToolsFramework::ComponentModeFramework::ComponentModeSwitcher;
-    using ComponentModeSwitcherTestFixture = ComponentModeTestFixture;
+    using ComponentModeSwitcherTestFixture = ComponentModeSwitcherTestFixture;
 
-    //TEST_F(ComponentModeSwitcherTestFixture, AddingComponentsToEntityAddsComponentsToSwitcher)
+    // TEST_F(ComponentModeSwitcherTestFixture, AddingComponentsToEntityAddsComponentsToSwitcher)
     //{
-    //    // Given the setup of one entity with one component
-    //    AZStd::shared_ptr<ComponentModeSwitcher> componentModeSwitcher = AZStd::make_shared<ComponentModeSwitcher>();
+    //     // Given the setup of one entity with one component
+    //     AZStd::shared_ptr<ComponentModeSwitcher> componentModeSwitcher = AZStd::make_shared<ComponentModeSwitcher>();
 
     //    AzToolsFramework::EditorTransformComponentSelectionRequestBus::Event(
     //        AzToolsFramework::GetEntityContextId(),
@@ -64,10 +65,10 @@ namespace UnitTest
     //    EXPECT_EQ(2, componentModeSwitcher->GetComponentCount());
     //}
 
-    //TEST_F(ComponentModeSwitcherTestFixture, RemovingComponentsFromEntityRemovesComponentsFromSwitcher)
+    // TEST_F(ComponentModeSwitcherTestFixture, RemovingComponentsFromEntityRemovesComponentsFromSwitcher)
     //{
-    //    // Given the set up of one entity selected with two components
-    //    AZStd::shared_ptr<ComponentModeSwitcher> componentModeSwitcher = AZStd::make_shared<ComponentModeSwitcher>();
+    //     // Given the set up of one entity selected with two components
+    //     AZStd::shared_ptr<ComponentModeSwitcher> componentModeSwitcher = AZStd::make_shared<ComponentModeSwitcher>();
 
     //    AzToolsFramework::EditorTransformComponentSelectionRequestBus::Event(
     //        AzToolsFramework::GetEntityContextId(),
@@ -97,10 +98,10 @@ namespace UnitTest
     //    EXPECT_EQ(1, componentModeSwitcher->GetComponentCount());
     //}
 
-    //TEST_F(ComponentModeSwitcherTestFixture, InstantaneousChangeOfEntitySelectionUpdatesSwitcherCorrectly)
+    // TEST_F(ComponentModeSwitcherTestFixture, InstantaneousChangeOfEntitySelectionUpdatesSwitcherCorrectly)
     //{
-    //    // Given an entity with two components
-    //    AZStd::shared_ptr<ComponentModeSwitcher> componentModeSwitcher = AZStd::make_shared<ComponentModeSwitcher>();
+    //     // Given an entity with two components
+    //     AZStd::shared_ptr<ComponentModeSwitcher> componentModeSwitcher = AZStd::make_shared<ComponentModeSwitcher>();
 
     //    AzToolsFramework::EditorTransformComponentSelectionRequestBus::Event(
     //        AzToolsFramework::GetEntityContextId(),
@@ -133,10 +134,10 @@ namespace UnitTest
     //    EXPECT_EQ(1, componentModeSwitcher->GetComponentCount());
     //}
 
-    //TEST_F(ComponentModeSwitcherTestFixture, AddingDuplicateComponentsDoesNotAddComponentsToSwitcher)
+    // TEST_F(ComponentModeSwitcherTestFixture, AddingDuplicateComponentsDoesNotAddComponentsToSwitcher)
     //{
-    //    // Given an entity with one component
-    //    AZStd::shared_ptr<ComponentModeSwitcher> componentModeSwitcher = AZStd::make_shared<ComponentModeSwitcher>();
+    //     // Given an entity with one component
+    //     AZStd::shared_ptr<ComponentModeSwitcher> componentModeSwitcher = AZStd::make_shared<ComponentModeSwitcher>();
 
     //    AzToolsFramework::EditorTransformComponentSelectionRequestBus::Event(
     //        AzToolsFramework::GetEntityContextId(),
@@ -166,10 +167,10 @@ namespace UnitTest
     //    EXPECT_EQ(1, componentModeSwitcher->GetComponentCount());
     //}
 
-    //TEST_F(ComponentModeSwitcherTestFixture, SelectingAndDeselectingEntitiesAddsAndRemovesComponentsFromSwitcher)
+    // TEST_F(ComponentModeSwitcherTestFixture, SelectingAndDeselectingEntitiesAddsAndRemovesComponentsFromSwitcher)
     //{
-    //    // Given an entity with multiple components
-    //    AZStd::shared_ptr<ComponentModeSwitcher> componentModeSwitcher = AZStd::make_shared<ComponentModeSwitcher>();
+    //     // Given an entity with multiple components
+    //     AZStd::shared_ptr<ComponentModeSwitcher> componentModeSwitcher = AZStd::make_shared<ComponentModeSwitcher>();
 
     //    AzToolsFramework::EditorTransformComponentSelectionRequestBus::Event(
     //        AzToolsFramework::GetEntityContextId(),
@@ -191,8 +192,8 @@ namespace UnitTest
 
     //    // Then when the entity is deselected
     //    const AzToolsFramework::EntityIdList emptyIds = {};
-    //    AzToolsFramework::ToolsApplicationRequestBus::Broadcast(&AzToolsFramework::ToolsApplicationRequests::SetSelectedEntities, emptyIds);
-    //    EXPECT_EQ(0, componentModeSwitcher->GetComponentCount());
+    //    AzToolsFramework::ToolsApplicationRequestBus::Broadcast(&AzToolsFramework::ToolsApplicationRequests::SetSelectedEntities,
+    //    emptyIds); EXPECT_EQ(0, componentModeSwitcher->GetComponentCount());
 
     //    AzToolsFramework::ToolsApplicationRequestBus::Broadcast(
     //        &AzToolsFramework::ToolsApplicationRequests::SetSelectedEntities, entityIds);
@@ -200,10 +201,10 @@ namespace UnitTest
     //    EXPECT_EQ(2, componentModeSwitcher->GetComponentCount());
     //}
 
-    //TEST_F(ComponentModeSwitcherTestFixture, AddIngMultipleEntitiesToSelectionWithSameComponentsKeepComponentsInSwitcher)
+    // TEST_F(ComponentModeSwitcherTestFixture, AddIngMultipleEntitiesToSelectionWithSameComponentsKeepComponentsInSwitcher)
     //{
-    //    // Given two entities with different components
-    //    AZStd::shared_ptr<ComponentModeSwitcher> componentModeSwitcher = AZStd::make_shared<ComponentModeSwitcher>();
+    //     // Given two entities with different components
+    //     AZStd::shared_ptr<ComponentModeSwitcher> componentModeSwitcher = AZStd::make_shared<ComponentModeSwitcher>();
 
     //    AzToolsFramework::EditorTransformComponentSelectionRequestBus::Event(
     //        AzToolsFramework::GetEntityContextId(),
@@ -239,10 +240,10 @@ namespace UnitTest
     //    EXPECT_EQ(1, componentModeSwitcher->GetComponentCount());
     //}
 
-    //TEST_F(ComponentModeSwitcherTestFixture, AddingMultipleEntityToSelectionWithUniqueComponentsRemovesUniqueFromSwitcher)
+    // TEST_F(ComponentModeSwitcherTestFixture, AddingMultipleEntityToSelectionWithUniqueComponentsRemovesUniqueFromSwitcher)
     //{
-    //    // Given two entities with multiple components
-    //    AZStd::shared_ptr<ComponentModeSwitcher> componentModeSwitcher = AZStd::make_shared<ComponentModeSwitcher>();
+    //     // Given two entities with multiple components
+    //     AZStd::shared_ptr<ComponentModeSwitcher> componentModeSwitcher = AZStd::make_shared<ComponentModeSwitcher>();
 
     //    AzToolsFramework::EditorTransformComponentSelectionRequestBus::Event(
     //        AzToolsFramework::GetEntityContextId(),
@@ -277,10 +278,10 @@ namespace UnitTest
     //    EXPECT_EQ(0, componentModeSwitcher->GetComponentCount());
     //}
 
-    //TEST_F(ComponentModeSwitcherTestFixture, DeselectingOneEntityWithMultipleEntitiesSelectedAddsRemovedComponents)
+    // TEST_F(ComponentModeSwitcherTestFixture, DeselectingOneEntityWithMultipleEntitiesSelectedAddsRemovedComponents)
     //{
-    //    // Given two entities with different components
-    //    AZStd::shared_ptr<ComponentModeSwitcher> componentModeSwitcher = AZStd::make_shared<ComponentModeSwitcher>();
+    //     // Given two entities with different components
+    //     AZStd::shared_ptr<ComponentModeSwitcher> componentModeSwitcher = AZStd::make_shared<ComponentModeSwitcher>();
 
     //    AzToolsFramework::EditorTransformComponentSelectionRequestBus::Event(
     //        AzToolsFramework::GetEntityContextId(),
@@ -318,10 +319,10 @@ namespace UnitTest
     //    EXPECT_EQ(1, componentModeSwitcher->GetComponentCount());
     //}
 
-    //TEST_F(ComponentModeSwitcherTestFixture, EnteringComponentModeChangesActiveComponent)
+    // TEST_F(ComponentModeSwitcherTestFixture, EnteringComponentModeChangesActiveComponent)
     //{
-    //    // Given an entity with two components
-    //    AZStd::shared_ptr<ComponentModeSwitcher> componentModeSwitcher = AZStd::make_shared<ComponentModeSwitcher>();
+    //     // Given an entity with two components
+    //     AZStd::shared_ptr<ComponentModeSwitcher> componentModeSwitcher = AZStd::make_shared<ComponentModeSwitcher>();
 
     //    AzToolsFramework::EditorTransformComponentSelectionRequestBus::Event(
     //        AzToolsFramework::GetEntityContextId(),
@@ -351,10 +352,10 @@ namespace UnitTest
     //    EXPECT_EQ(activeComponent, placeholder1->GetId());
     //}
 
-    //TEST_F(ComponentModeSwitcherTestFixture, LeavingComponentModeChangesActiveComponentToTransformMode)
+    // TEST_F(ComponentModeSwitcherTestFixture, LeavingComponentModeChangesActiveComponentToTransformMode)
     //{
-    //    // Given an entity with two components
-    //    AZStd::shared_ptr<ComponentModeSwitcher> componentModeSwitcher = AZStd::make_shared<ComponentModeSwitcher>();
+    //     // Given an entity with two components
+    //     AZStd::shared_ptr<ComponentModeSwitcher> componentModeSwitcher = AZStd::make_shared<ComponentModeSwitcher>();
 
     //    AzToolsFramework::EditorTransformComponentSelectionRequestBus::Event(
     //        AzToolsFramework::GetEntityContextId(),
@@ -390,10 +391,10 @@ namespace UnitTest
     //    EXPECT_EQ(nullComponent, nullptr);
     //}
 
-    //TEST_F(ComponentModeSwitcherTestFixture, DisablingComponentRemovesComponentFromSwitcher)
+    // TEST_F(ComponentModeSwitcherTestFixture, DisablingComponentRemovesComponentFromSwitcher)
     //{
-    //    // Given an entity with two components
-    //    AZStd::shared_ptr<ComponentModeSwitcher> componentModeSwitcher = AZStd::make_shared<ComponentModeSwitcher>();
+    //     // Given an entity with two components
+    //     AZStd::shared_ptr<ComponentModeSwitcher> componentModeSwitcher = AZStd::make_shared<ComponentModeSwitcher>();
 
     //    AzToolsFramework::EditorTransformComponentSelectionRequestBus::Event(
     //        AzToolsFramework::GetEntityContextId(),
@@ -420,10 +421,10 @@ namespace UnitTest
     //    EXPECT_EQ(1, componentModeSwitcher->GetComponentCount());
     //}
 
-    //TEST_F(ComponentModeSwitcherTestFixture, EnablingComponentAddsComponentToSwitcher)
+    // TEST_F(ComponentModeSwitcherTestFixture, EnablingComponentAddsComponentToSwitcher)
     //{
-    //    // Given an entity with two components
-    //    AZStd::shared_ptr<ComponentModeSwitcher> componentModeSwitcher = AZStd::make_shared<ComponentModeSwitcher>();
+    //     // Given an entity with two components
+    //     AZStd::shared_ptr<ComponentModeSwitcher> componentModeSwitcher = AZStd::make_shared<ComponentModeSwitcher>();
 
     //    AzToolsFramework::EditorTransformComponentSelectionRequestBus::Event(
     //        AzToolsFramework::GetEntityContextId(),
@@ -444,11 +445,13 @@ namespace UnitTest
     //    EXPECT_EQ(2, componentModeSwitcher->GetComponentCount());
 
     //    AzToolsFramework::EntityCompositionNotificationBus::Broadcast(
-    //        &AzToolsFramework::EntityCompositionNotificationBus::Events::OnEntityComponentDisabled, entity->GetId(), placeholder1->GetId());
+    //        &AzToolsFramework::EntityCompositionNotificationBus::Events::OnEntityComponentDisabled, entity->GetId(),
+    //        placeholder1->GetId());
     //    EXPECT_EQ(1, componentModeSwitcher->GetComponentCount());
 
     //    AzToolsFramework::EntityCompositionNotificationBus::Broadcast(
-    //        &AzToolsFramework::EntityCompositionNotificationBus::Events::OnEntityComponentEnabled, entity->GetId(), placeholder1->GetId());
+    //        &AzToolsFramework::EntityCompositionNotificationBus::Events::OnEntityComponentEnabled, entity->GetId(),
+    //        placeholder1->GetId());
 
     //    AzToolsFramework::ToolsApplicationRequestBus::Broadcast(
     //        &AzToolsFramework::ToolsApplicationRequests::SetSelectedEntities, entityIds);
@@ -469,65 +472,65 @@ namespace UnitTest
         AZ::Entity* entity = nullptr;
         AZ::EntityId entityId = CreateDefaultEditorEntity("ComponentModeEntity", &entity);
 
-        
-
-        /*const AzToolsFramework::EntityIdList entityIds = { entityId };*/
-        /* AzToolsFramework::ToolsApplicationRequestBus::Broadcast(
-            &AzToolsFramework::ToolsApplicationRequests::SetSelectedEntities, entityIds);*/
-        const AzToolsFramework::EntityIdList entityIds = { entityId };
-
-        //entity->Deactivate();
-        //// const AZ::Component* placeholder1 = entity->CreateComponent<PlaceholderEditorComponent>();
-        //entity->CreateComponent<AnotherPlaceholderEditorComponent>();
-        auto component = PlaceholderEditorComponent();
         AzToolsFramework::SelectEntity(entityId);
 
-        AzToolsFramework::EntityCompositionRequestBus::Broadcast(
-            &AzToolsFramework::EntityCompositionRequests::AddComponentsToEntities,
-            entityIds,
-            AZ::ComponentTypeList{ component.GetUnderlyingComponentType() });
+        {
+            AzToolsFramework::ScopedUndoBatch test("addComponent");
+            AzToolsFramework::EntityCompositionRequestBus::Broadcast(
+                &AzToolsFramework::EntityCompositionRequests::AddComponentsToEntities,
+                AzToolsFramework::EntityIdList{ entityId },
+                AZ::ComponentTypeList{ azrtti_typeid<PlaceholderEditorComponent>() });
+        }
 
+        {
+            AzToolsFramework::ScopedUndoBatch test("addComponent");
+            AzToolsFramework::EntityCompositionRequestBus::Broadcast(
+                &AzToolsFramework::EntityCompositionRequests::AddComponentsToEntities,
+                AzToolsFramework::EntityIdList{ entityId },
+                AZ::ComponentTypeList{ azrtti_typeid<AnotherPlaceholderEditorComponent>() });
+
+        }
+
+
+        EXPECT_EQ(2, componentModeSwitcher->GetComponentCount());
+
+        Undo();
+        AZ::TickBus::ExecuteQueuedEvents();
 
         EXPECT_EQ(1, componentModeSwitcher->GetComponentCount());
-        AzToolsFramework::ToolsApplicationRequestBus::Broadcast(&AzToolsFramework::ToolsApplicationRequestBus::Events::UndoPressed);
-        // When the component is disabled it doesn't show up in the switcher
-        //const AzToolsFramework::EntityIdList entityIds = { entityId };
-
-        //AzToolsFramework::SelectEntity(entityId);
-        EXPECT_EQ(0, componentModeSwitcher->GetComponentCount());
     }
 
-    TEST_F(ComponentModeSwitcherTestFixture, SwitcherButtonPressEntersComponentMode)
-    {
-        // Given an entity with a component
-        AZStd::shared_ptr<ComponentModeSwitcher> componentModeSwitcher = AZStd::make_shared<ComponentModeSwitcher>();
+    // TEST_F(ComponentModeSwitcherTestFixture, SwitcherButtonPressEntersComponentMode)
+    //{
+    //     // Given an entity with a component
+    //     AZStd::shared_ptr<ComponentModeSwitcher> componentModeSwitcher = AZStd::make_shared<ComponentModeSwitcher>();
 
-        AzToolsFramework::EditorTransformComponentSelectionRequestBus::Event(
-            AzToolsFramework::GetEntityContextId(),
-            &AzToolsFramework::EditorTransformComponentSelectionRequestBus::Events::OverrideComponentModeSwitcher,
-            componentModeSwitcher);
+    //    AzToolsFramework::EditorTransformComponentSelectionRequestBus::Event(
+    //        AzToolsFramework::GetEntityContextId(),
+    //        &AzToolsFramework::EditorTransformComponentSelectionRequestBus::Events::OverrideComponentModeSwitcher,
+    //        componentModeSwitcher);
 
-        AZ::Entity* entity = nullptr;
-        AZ::EntityId entityId = CreateDefaultEditorEntity("ComponentModeEntity", &entity);
+    //    AZ::Entity* entity = nullptr;
+    //    AZ::EntityId entityId = CreateDefaultEditorEntity("ComponentModeEntity", &entity);
 
-        const AzToolsFramework::EntityIdList entityIds = { entityId };
+    //    const AzToolsFramework::EntityIdList entityIds = { entityId };
 
-        auto component = PlaceholderEditorComponent();
-        AzToolsFramework::SelectEntity(entityId);
+    //    auto component = PlaceholderEditorComponent();
+    //    AzToolsFramework::SelectEntity(entityId);
 
-        AzToolsFramework::EntityCompositionRequestBus::Broadcast(
-            &AzToolsFramework::EntityCompositionRequests::AddComponentsToEntities,
-            entityIds,
-            AZ::ComponentTypeList{ component.GetUnderlyingComponentType() });
+    //    AzToolsFramework::EntityCompositionRequestBus::Broadcast(
+    //        &AzToolsFramework::EntityCompositionRequests::AddComponentsToEntities,
+    //        entityIds,
+    //        AZ::ComponentTypeList{ component.GetUnderlyingComponentType() });
 
-        // When the switcher button is pressed component, mode begins
-        auto buttons = componentModeSwitcher->GetButtonIds();
-        m_viewportManagerWrapper.GetViewportManager()->PressButton(componentModeSwitcher->GetSwitcherId(), buttons.front());
+    //    // When the switcher button is pressed component, mode begins
+    //    auto buttons = componentModeSwitcher->GetButtonIds();
+    //    m_viewportManagerWrapper.GetViewportManager()->PressButton(componentModeSwitcher->GetSwitcherId(), buttons.front());
 
-        bool inComponentMode = false;
-        AzToolsFramework::ComponentModeFramework::ComponentModeSystemRequestBus::BroadcastResult(
-            inComponentMode, &AzToolsFramework::ComponentModeFramework::ComponentModeSystemRequests::InComponentMode);
+    //    bool inComponentMode = false;
+    //    AzToolsFramework::ComponentModeFramework::ComponentModeSystemRequestBus::BroadcastResult(
+    //        inComponentMode, &AzToolsFramework::ComponentModeFramework::ComponentModeSystemRequests::InComponentMode);
 
-        EXPECT_TRUE(inComponentMode);
-    }
+    //    EXPECT_TRUE(inComponentMode);
+    //}
 } // namespace UnitTest

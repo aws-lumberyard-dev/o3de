@@ -13,24 +13,35 @@
 
 namespace UnitTest
 {
-    void ComponentModeTestFixture::SetUpEditorFixtureImpl()
+    static void RegisterComponentModeTestComponents(AzToolsFramework::ToolsApplication* toolsApplication)
     {
         namespace AztfCmf = AzToolsFramework::ComponentModeFramework;
 
-        auto* app = GetApplication();
-
-        app->RegisterComponentDescriptor(AztfCmf::PlaceholderEditorComponent::CreateDescriptor());
-        app->RegisterComponentDescriptor(AztfCmf::AnotherPlaceholderEditorComponent::CreateDescriptor());
-        app->RegisterComponentDescriptor(AztfCmf::DependentPlaceholderEditorComponent::CreateDescriptor());
-        app->RegisterComponentDescriptor(
+        toolsApplication->RegisterComponentDescriptor(AztfCmf::PlaceholderEditorComponent::CreateDescriptor());
+        toolsApplication->RegisterComponentDescriptor(AztfCmf::AnotherPlaceholderEditorComponent::CreateDescriptor());
+        toolsApplication->RegisterComponentDescriptor(AztfCmf::DependentPlaceholderEditorComponent::CreateDescriptor());
+        toolsApplication->RegisterComponentDescriptor(
             AztfCmf::TestComponentModeComponent<AztfCmf::OverrideMouseInteractionComponentMode>::CreateDescriptor());
-        app->RegisterComponentDescriptor(AztfCmf::IncompatiblePlaceholderEditorComponent::CreateDescriptor());
+        toolsApplication->RegisterComponentDescriptor(AztfCmf::IncompatiblePlaceholderEditorComponent::CreateDescriptor());
+    }
 
+    void ComponentModeTestFixture::SetUpEditorFixtureImpl()
+    {
+        RegisterComponentModeTestComponents(GetApplication());
+    }
+
+    void ComponentModeSwitcherTestFixture::SetUpEditorFixtureImpl()
+    {
+        PrefabTestFixture::SetUpEditorFixtureImpl();
+
+        RegisterComponentModeTestComponents(GetApplication());
         m_viewportManagerWrapper.Create();
     }
 
-    void ComponentModeTestFixture::TearDownEditorFixtureImpl()
+    void ComponentModeSwitcherTestFixture::TearDownEditorFixtureImpl()
     {
         m_viewportManagerWrapper.Destroy();
+
+        PrefabTestFixture::TearDownEditorFixtureImpl();
     }
 } // namespace UnitTest

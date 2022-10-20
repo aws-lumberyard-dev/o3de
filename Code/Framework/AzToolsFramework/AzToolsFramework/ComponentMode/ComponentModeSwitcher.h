@@ -16,6 +16,9 @@
 #include <AzToolsFramework/ViewportUi/Button.h>
 #include <AzToolsFramework/ViewportUi/ViewportUiRequestBus.h>
 
+
+#pragma optimize("", off)
+#pragma inline_depth(0)
 namespace AZ
 {
     class Component;
@@ -136,3 +139,5 @@ namespace AzToolsFramework
 
     } // namespace ComponentModeFramework
 } // namespace AzToolsFramework
+#pragma optimize("", on)
+#pragma inline_depth()

@@ -25,6 +25,9 @@
 #include <AzToolsFramework/Prefab/Template/Template.h>
 #include <AzToolsFramework/Prefab/PrefabPublicRequestBus.h>
 
+#pragma optimize("", off)
+#pragma inline_depth(0)
+
 namespace AzToolsFramework
 {
     namespace Prefab
@@ -315,3 +318,6 @@ namespace AzToolsFramework
         }
     }
 }
+
+#pragma optimize("", on)
+#pragma inline_depth()

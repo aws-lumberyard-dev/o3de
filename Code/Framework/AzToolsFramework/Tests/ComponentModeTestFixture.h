@@ -12,12 +12,22 @@
 #include <AzToolsFramework/UnitTest/AzToolsFrameworkTestHelpers.h>
 #include <AzCore/UnitTest/TestTypes.h>
 #include <AzToolsFramework/ViewportUi/ViewportUiManager.h>
+
+#include <Tests/Prefab/PrefabTestFixture.h>
 #include <Tests/Viewport/ViewportUiManagerTests.h>
 
 namespace UnitTest
 {
     class ComponentModeTestFixture
         : public ToolsApplicationFixture
+    {
+    protected:
+        void SetUpEditorFixtureImpl() override;
+
+        ViewportManagerWrapper m_viewportManagerWrapper;
+    };
+
+    class ComponentModeSwitcherTestFixture : public PrefabTestFixture
     {
     protected:
         void SetUpEditorFixtureImpl() override;

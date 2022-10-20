@@ -94,6 +94,9 @@ AZ_POP_DISABLE_WARNING
 // For now we'll stick with the CRT new/delete in tools.
 //#include <AzCore/Memory/NewAndDelete.inl>
 
+#pragma optimize("", off)
+#pragma inline_depth(0)
+
 namespace AzToolsFramework
 {
     namespace Internal
@@ -1865,3 +1868,6 @@ namespace AzToolsFramework
         appType.m_maskValue = AZ::ApplicationTypeQuery::Masks::Tool;
     };
 } // namespace AzToolsFramework
+
+#pragma optimize("", on)
+#pragma inline_depth()
