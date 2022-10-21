@@ -15,7 +15,6 @@
 
 #include <AzCore/Component/Component.h>
 #include <AzCore/Component/TickBus.h>
-#include <AzCore/Console/IConsole.h>
 #include <AzFramework/Entity/GameEntityContextBus.h>
 #include <AzFramework/Process/ProcessWatcher.h>
 #include <AzFramework/Process/ProcessCommunicatorTracePrinter.h>
@@ -94,7 +93,14 @@ namespace Multiplayer
         //! @{
         void OnStartPlayInEditorBegin() override;
         void OnStartPlayInEditor() override;
-        //! @
+        //! @}
+
+        //! AzToolsFramework::EditorContextMenu::Bus::Handler overrides
+        //! @{
+        void PopulateEditorGlobalContextMenu(QMenu* menu, const AZStd::optional<AzFramework::ScreenPoint>& point, int flags) override;
+        int GetMenuPosition() const override;
+        void OnStopPlayInEditorBegin() override;
+        //! @}
 
         //! AzToolsFramework::Prefab::PrefabToInMemorySpawnableNotificationBus::Handler overrides
         //! @{

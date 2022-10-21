@@ -32,6 +32,8 @@ namespace Multiplayer
 
     AZ_CVAR(bool, editorsv_enabled, false, nullptr, AZ::ConsoleFunctorFlags::DontReplicate,
         "Whether Editor launching a local server to connect to is supported");
+    AZ_CVAR(bool, editorsv_clientserver, false, nullptr, AZ::ConsoleFunctorFlags::DontReplicate,
+        "If true, the editor will act as both the server and a client. No dedicated server will be launched.");
     AZ_CVAR(bool, editorsv_launch, true, nullptr, AZ::ConsoleFunctorFlags::DontReplicate,
         "Whether Editor should launch a server when the server address is localhost");
     AZ_CVAR(AZ::CVarFixedString, editorsv_process, "", nullptr, AZ::ConsoleFunctorFlags::DontReplicate,
@@ -193,7 +195,7 @@ namespace Multiplayer
             {
                 editorNetworkInterface->Disconnect(m_editorConnId, AzNetworking::DisconnectReason::TerminatedByClient);
             }
-            if (auto console = AZ::Interface<AZ::IConsole>::Get(); console)
+            if (const auto console = AZ::Interface<AZ::IConsole>::Get())
             {
                 console->PerformCommand("disconnect");
             }
@@ -269,7 +271,7 @@ namespace Multiplayer
         if (!FindServerLauncher(serverPath))
         {
             return false;
-        }        
+        }
 
         // Start the configured server if it's available
         AzFramework::ProcessLauncher::ProcessLaunchInfo processLaunchInfo;
@@ -482,6 +484,14 @@ namespace Multiplayer
             return;
         }
 
+        if (editorsv_clientserver)
+        {
+            // Start hosting as a client-server
+            const bool isDedicated = false;
+            AZ::Interface<IMultiplayer>::Get()->StartHosting(editorsv_port, isDedicated);
+            return;
+        }
+
         AZ_Assert(m_preAliasedSpawnablesForServer.empty(), "MultiplayerEditorSystemComponent already has pre-aliased spawnables! Please update code to clean-up the table between entering and existing play mode.")
         AzToolsFramework::Prefab::PrefabToInMemorySpawnableNotificationBus::Handler::BusConnect();
     }
@@ -492,6 +502,11 @@ namespace Multiplayer
         if (!editorsv_enabled || !mpTools)
         {
             // Early out if Editor server is not enabled.
+            return;
+        }
+
+        if (editorsv_clientserver)
+        {
             return;
         }
 
@@ -524,4 +539,84 @@ namespace Multiplayer
         constexpr bool autoRequeue = true;
         m_connectionEvent.Enqueue(AZ::SecondsToTimeMs(retrySeconds), autoRequeue);
     }
+
+    void MultiplayerEditorSystemComponent::PopulateEditorGlobalContextMenu(QMenu* menu, const AZStd::optional<AzFramework::ScreenPoint>& point, [[ maybe_unused ]] int flags)
+    {
+        AzToolsFramework::EntityIdList selected;
+        AzToolsFramework::ToolsApplicationRequests::Bus::BroadcastResult(selected, &AzToolsFramework::ToolsApplicationRequests::GetSelectedEntities);
+
+        // Merge in highlighted entities..
+        // This stuff should probably be exposed from the SandboxIntegration class
+        {
+            AzToolsFramework::EntityIdList highlightedEntities;
+            AzToolsFramework::ToolsApplicationRequests::Bus::BroadcastResult(highlightedEntities, &AzToolsFramework::ToolsApplicationRequests::GetHighlightedEntities);
+            for (AZ::EntityId highlightedId : highlightedEntities)
+            {
+                if (selected.end() == AZStd::find(selected.begin(), selected.end(), highlightedId))
+                {
+                    selected.push_back(highlightedId);
+                }
+            }
+        }
+
+        AZ::EntityId parentEntityId = AZ::EntityId();
+        AZ::Vector3 worldPosition = AZ::Vector3::CreateZero();
+        if (selected.size() == 1)
+        {
+            parentEntityId = selected.front();
+        }
+
+        auto readOnlyEntityPublicInterface = AZ::Interface<AzToolsFramework::ReadOnlyEntityPublicInterface>::Get();
+        if (readOnlyEntityPublicInterface && !readOnlyEntityPublicInterface->IsReadOnly(parentEntityId))
+        {
+            menu->setToolTipsVisible(true);
+
+            if (CViewport* view = GetIEditor()->GetViewManager()->GetGameViewport();
+                view && point.has_value())
+            {
+                worldPosition = AzToolsFramework::FindClosestPickIntersection(
+                    view->GetViewportId(), point.value(), AzToolsFramework::EditorPickRayLength,
+                    AzToolsFramework::GetDefaultEntityPlacementDistance());
+            }
+
+            QAction* action = nullptr;
+
+            action = menu->addAction(QObject::tr("Create multiplayer entity"));
+            action->setShortcut(QKeySequence(Qt::CTRL + Qt::ALT + Qt::Key_M));
+            QObject::connect(action, &QAction::triggered, action, [this, parentEntityId, worldPosition]
+            {
+                ContextMenu_NewMultiplayerEntity(parentEntityId, worldPosition);
+            });
+        }
+    }
+
+    int MultiplayerEditorSystemComponent::GetMenuPosition() const
+    {
+        return aznumeric_cast<int>(AzToolsFramework::EditorContextMenuOrdering::TOP);
+    }
+
+    void MultiplayerEditorSystemComponent::ContextMenu_NewMultiplayerEntity(AZ::EntityId parentEntityId, const AZ::Vector3& worldPosition)
+    {
+        auto prefabIntegrationInterface = AZ::Interface<AzToolsFramework::Prefab::PrefabIntegrationInterface>::Get();
+        AZ::EntityId newEntityId = prefabIntegrationInterface->CreateNewEntityAtPosition(worldPosition, parentEntityId);
+
+        AzToolsFramework::EntityCompositionRequestBus::Broadcast
+        (
+            &AzToolsFramework::EntityCompositionRequests::AddComponentsToEntities,
+            AzToolsFramework::EntityIdList{ newEntityId },
+            AZ::ComponentTypeList{ azrtti_typeid<NetBindComponent>(), azrtti_typeid<NetworkTransformComponent>() }
+        );
+    }
+    void MultiplayerEditorSystemComponent::OnStopPlayInEditorBegin()
+    {
+        if (GetMultiplayer()->GetAgentType() != MultiplayerAgentType::ClientServer || !editorsv_clientserver)
+        {
+            return;
+        }
+
+        // Make sure the client-server stops before the editor leaves play mode.
+        // Otherwise network entities will be left hanging around.
+        AZ::Interface<IMultiplayer>::Get()->Terminate(DisconnectReason::TerminatedByUser);
+    }
+
 } // namespace Multiplayer
