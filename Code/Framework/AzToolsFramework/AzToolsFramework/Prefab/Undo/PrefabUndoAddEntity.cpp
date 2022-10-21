@@ -11,6 +11,7 @@
 #include <AzToolsFramework/Prefab/PrefabInstanceUtils.h>
 #include <AzToolsFramework/Prefab/PrefabSystemComponentInterface.h>
 #include <Prefab/Undo/PrefabUndoAddEntity.h>
+#include <Prefab/Undo/PrefabUndo.h>
 
 namespace AzToolsFramework
 {

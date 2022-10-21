@@ -37,7 +37,7 @@
 #include <AzToolsFramework/Entity/EditorEntitySortComponent.h>
 
 #include <QString>
-
+#pragma optimize("", off)
 namespace AzToolsFramework
 {
     namespace Prefab
@@ -682,6 +682,10 @@ namespace AzToolsFramework
                 parentId = owningInstanceContainerEntity->get().GetId();
             }
 
+            // REMOVED: Just capture it.
+            PrefabDom parentBeforeState;
+            m_instanceToTemplateInterface->GenerateDomForEntity(parentBeforeState, *GetEntityById(parentId));
+
             if (parentId.IsValid())
             {
                 AZ::TransformBus::Event(entityId, &AZ::TransformInterface::SetParent, parentId);
@@ -709,7 +713,40 @@ namespace AzToolsFramework
                 return AZ::Failure<AZStd::string>("Can't find current focused prefab instance.");
             }
 
-            PrefabUndoHelpers::AddEntity(*parentEntity, *entity, focusedInstance->get(), undoBatch.GetUndoBatch());
+            // PrefabUndoHelpers::AddEntity(*parentEntity, *entity, focusedInstance->get(), undoBatch.GetUndoBatch());
+
+            // Update Link
+            PrefabDom newEntityDom;
+            m_instanceToTemplateInterface->GenerateDomForEntity(newEntityDom, *entity);
+
+            PrefabDom parentAfterState;
+            m_instanceToTemplateInterface->GenerateDomForEntity(parentAfterState, *parentEntity);
+
+            PrefabDom newEntityPatch;
+            m_instanceToTemplateInterface->GeneratePatch(newEntityPatch, PrefabDom(), newEntityDom);
+            LinkId linkId = m_prefabFocusInterface->AppendPathFromFocusedInstanceToPatchPaths(newEntityPatch, entityId);
+
+            newEntityPatch[0]["op"] = "add";  // replace won't work
+
+            PrefabDom parentUpdatePatch;
+            m_instanceToTemplateInterface->GeneratePatch(parentUpdatePatch, parentBeforeState, parentAfterState);
+            m_prefabFocusInterface->AppendPathFromFocusedInstanceToPatchPaths(parentUpdatePatch, parentId);
+
+            // testing code - can be better: Add this patch to the newEntityPatch 
+            for (auto& v : parentUpdatePatch.GetArray())
+            {
+                PrefabDomValue vcopy(v, newEntityPatch.GetAllocator());
+                newEntityPatch.PushBack(vcopy, newEntityPatch.GetAllocator());
+            }
+
+            PrefabUndoLinkUpdate* linkUpdate = aznew PrefabUndoLinkUpdate(AZStd::to_string(static_cast<AZ::u64>(entityId)));
+            linkUpdate->SetParent(undoBatch.GetUndoBatch());
+            linkUpdate->Capture(newEntityPatch, linkId);
+            linkUpdate->Redo();
+
+            //////////////////////////////////////////
+
+            [[maybe_unused]] PrefabDom& levelDom = m_prefabSystemComponentInterface->FindTemplateDom(focusedInstance->get().GetTemplateId());
 
             // Select the new entity (and deselect others).
             AzToolsFramework::EntityIdList selection = { entityId };
@@ -2216,3 +2253,4 @@ namespace AzToolsFramework
 
     } // namespace Prefab
 } // namespace AzToolsFramework
+#pragma optimize("", on)
