@@ -23,9 +23,6 @@ namespace MaterialCanvas
         , m_graphViewConfig(graphViewConfig)
         , m_styleManager(toolId, graphViewConfig.m_styleManagerPath)
     {
-        m_assetBrowser->SetFilterState("", AZ::RPI::StreamingImageAsset::Group, true);
-        m_assetBrowser->SetFilterState("", AZ::RPI::MaterialAsset::Group, true);
-
         m_documentInspector = new AtomToolsFramework::AtomToolsDocumentInspector(m_toolId, this);
         m_documentInspector->SetDocumentSettingsPrefix("/O3DE/Atom/MaterialCanvas/DocumentInspector");
         AddDockWidget("Inspector", m_documentInspector, Qt::RightDockWidgetArea);
