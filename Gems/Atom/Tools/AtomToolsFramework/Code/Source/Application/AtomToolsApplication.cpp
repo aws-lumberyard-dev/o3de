@@ -229,7 +229,10 @@ namespace AtomToolsFramework
         }
 
         // Per Qt documentation, forcing Stop to be called when the application is about to quit in case exit bypasses Stop or destructor
-        connect(this, &QApplication::aboutToQuit, this, [this] { Stop(); });
+        connect(this, &QApplication::aboutToQuit, this, [this] {
+            AzFramework::ApplicationRequests::Bus::Broadcast(&AzFramework::ApplicationRequests::ExitMainLoop);
+            Stop();
+        });
     }
 
     void AtomToolsApplication::Destroy()
