@@ -195,7 +195,7 @@ namespace AtomToolsFramework
         if (!m_updateMenus)
         {
             m_updateMenus = true;
-            QTimer::singleShot(0, this, [this]() {
+            AZ::SystemTickBus::QueueFunction([this]() {
                 if (m_rebuildMenus)
                 {
                     // Clearing all actions that were added directly to the menu bar
