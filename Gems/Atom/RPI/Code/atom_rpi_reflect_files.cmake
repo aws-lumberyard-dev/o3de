@@ -28,6 +28,7 @@ set(FILES
     Include/Atom/RPI.Reflect/Model/MorphTargetDelta.h
     Include/Atom/RPI.Reflect/Model/MorphTargetMetaAsset.h
     Include/Atom/RPI.Reflect/Model/MorphTargetMetaAssetCreator.h
+    Include/Atom/RPI.Reflect/Model/SkinJointIdPadding.h
     Include/Atom/RPI.Reflect/Model/SkinMetaAsset.h
     Include/Atom/RPI.Reflect/Model/SkinMetaAssetCreator.h
     Include/Atom/RPI.Reflect/Asset/AssetHandler.h
@@ -37,7 +38,6 @@ set(FILES
     Include/Atom/RPI.Reflect/Asset/BuiltInAssetHandler.h
     Include/Atom/RPI.Reflect/Image/AttachmentImageAsset.h
     Include/Atom/RPI.Reflect/Image/AttachmentImageAssetCreator.h
-    Include/Atom/RPI.Reflect/Image/DefaultStreamingImageControllerAsset.h
     Include/Atom/RPI.Reflect/Image/Image.h
     Include/Atom/RPI.Reflect/Image/ImageAsset.h
     Include/Atom/RPI.Reflect/Image/ImageMipChainAsset.h
@@ -113,13 +113,13 @@ set(FILES
     Source/RPI.Reflect/Model/MorphTargetDelta.cpp
     Source/RPI.Reflect/Model/MorphTargetMetaAsset.cpp
     Source/RPI.Reflect/Model/MorphTargetMetaAssetCreator.cpp
+    Source/RPI.Reflect/Model/SkinJointIdPadding.cpp
     Source/RPI.Reflect/Model/SkinMetaAsset.cpp
     Source/RPI.Reflect/Model/SkinMetaAssetCreator.cpp
     Source/RPI.Reflect/ResourcePoolAsset.cpp
     Source/RPI.Reflect/ResourcePoolAssetCreator.cpp
     Source/RPI.Reflect/Image/AttachmentImageAsset.cpp
     Source/RPI.Reflect/Image/AttachmentImageAssetCreator.cpp
-    Source/RPI.Reflect/Image/DefaultStreamingImageControllerAsset.cpp
     Source/RPI.Reflect/Image/Image.cpp
     Source/RPI.Reflect/Image/ImageAsset.cpp
     Source/RPI.Reflect/Image/ImageMipChainAsset.cpp

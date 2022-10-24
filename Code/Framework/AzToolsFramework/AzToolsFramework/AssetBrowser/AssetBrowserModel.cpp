@@ -7,15 +7,26 @@
  */
 
 #include <AzCore/Script/ScriptTimePoint.h>
+#include <AzFramework/Asset/AssetSystemBus.h>
+#include <AzFramework/Network/AssetProcessorConnection.h>
+#include <AzFramework/StringFunc/StringFunc.h>
 #include <AzToolsFramework/AssetBrowser/AssetBrowserModel.h>
+#include <AzToolsFramework/AssetBrowser/Views/AssetBrowserTreeView.h>
 #include <AzToolsFramework/AssetBrowser/Entries/AssetBrowserEntry.h>
 #include <AzToolsFramework/AssetBrowser/Entries/RootAssetBrowserEntry.h>
 #include <AzToolsFramework/AssetBrowser/Entries/SourceAssetBrowserEntry.h>
 #include <AzToolsFramework/AssetBrowser/Entries/ProductAssetBrowserEntry.h>
 #include <AzToolsFramework/AssetBrowser/Entries/AssetBrowserEntryCache.h>
+#include <AzToolsFramework/AssetBrowser/Entries/AssetBrowserEntryUtils.h>
 #include <AzToolsFramework/AssetBrowser/AssetBrowserFilterModel.h>
+#include <AzToolsFramework/SourceControl/SourceControlAPI.h>
+#include <AzQtComponents/Components/Widgets/FileDialog.h>
 
+#include <QFileInfo>
+#include <QtWidgets/QMessageBox>
+#include <QHBoxLayout>
 #include <QMimeData>
+#include <QTimer>
 AZ_PUSH_DISABLE_WARNING(4251, "-Wunknown-warning-option") // 'QRegularExpression::d': class 'QExplicitlySharedDataPointer<QRegularExpressionPrivate>' needs to have dll-interface to be used by clients of class 'QRegularExpression'
 #include <QRegularExpression>
 AZ_POP_DISABLE_WARNING
@@ -39,6 +50,16 @@ namespace AzToolsFramework
         {
             AssetBrowserModelRequestBus::Handler::BusDisconnect();
             AZ::TickBus::Handler::BusDisconnect();
+        }
+
+        void AssetBrowserModel::EnableTickBus()
+        {
+            m_isTickBusEnabled = true;
+        }
+
+        void AssetBrowserModel::DisableTickBus()
+        {
+            m_isTickBusEnabled = false;
         }
 
         QModelIndex AssetBrowserModel::findIndex(const QString& absoluteAssetPath) const
@@ -183,12 +204,20 @@ namespace AzToolsFramework
                 return QVariant::fromValue(item);
             }
 
+            if (role == Qt::EditRole)
+            {
+                const AssetBrowserEntry* item = static_cast<AssetBrowserEntry*>(index.internalPointer());
+                QString displayFileName = item->GetDisplayName();
+                QString baseFileName = QFileInfo(displayFileName).baseName();
+                return baseFileName;
+            }
+
             return QVariant();
         }
 
         Qt::ItemFlags AssetBrowserModel::flags(const QModelIndex& index) const
         {
-            Qt::ItemFlags defaultFlags = QAbstractItemModel::flags(index);
+            Qt::ItemFlags defaultFlags = QAbstractItemModel::flags(index) | Qt::ItemIsEditable;
 
             if (index.isValid())
             {
@@ -200,24 +229,29 @@ namespace AzToolsFramework
                 }
             }
             return defaultFlags;
-            //return Qt::ItemFlags(~Qt::ItemIsDragEnabled & defaultFlags);
         }
 
         QMimeData* AssetBrowserModel::mimeData(const QModelIndexList& indexes) const
         {
             QMimeData* mimeData = new QMimeData;
 
+            AZStd::vector<const AssetBrowserEntry*> collected;
+            collected.reserve(indexes.size());
+
             for (const auto& index : indexes)
             {
                 if (index.isValid())
                 {
-                    AssetBrowserEntry* item = static_cast<AssetBrowserEntry*>(index.internalPointer());
+                    const AssetBrowserEntry* item = static_cast<const AssetBrowserEntry*>(index.internalPointer());
                     if (item)
                     {
-                        item->AddToMimeData(mimeData);
+                        collected.push_back(item);
                     }
                 }
             }
+
+            Utils::ToMimeData(mimeData, collected);
+
             return mimeData;
         }
 
@@ -328,18 +362,26 @@ namespace AzToolsFramework
                 // we have to also invalidate our parent all the way up the chain.
                 // since in this model, the children's data is actually relevant to the filtering of a parent
                 // since a parent "matches" the filter if its children do.
-                if ((m_rootEntry) && (!m_rootEntry->IsInitialUpdate()))
+                if (m_rootEntry && !m_rootEntry->IsInitialUpdate())
                 {
                     // this is only necessary if its not the initial refresh.
-                    while (parent)
+                    AssetBrowserEntry* cursor = parent;
+                    while (cursor)
                     {
                         QModelIndex parentIndex;
-                        if (GetEntryIndex(parent, parentIndex))
+                        if (GetEntryIndex(cursor, parentIndex))
                         {
                             Q_EMIT dataChanged(parentIndex, parentIndex);
                         }
-                        parent = parent->GetParent();
+                        cursor = cursor->GetParent();
                     }
+                }
+
+                if (!m_newlyCreatedAssetPathsToCreatorBusIds.empty())
+                {
+                    // Gets the newest child with the assumption that BeginAddEntry still adds entries at GetChildCount
+                    AssetBrowserEntry* newestChildEntry = parent->GetChild(parent->GetChildCount() - 1);
+                    WatchForExpectedAssets(newestChildEntry);
                 }
             }
         }
@@ -364,10 +406,24 @@ namespace AzToolsFramework
             }
         }
 
+        void AssetBrowserModel::HandleAssetCreatedInEditor(const AZStd::string& assetPath, const AZ::Crc32& creatorBusId)
+        {
+            QModelIndex index = findIndex(assetPath.c_str());
+            if (index.isValid())
+            {
+                emit RequestOpenItemForEditing(index);
+            }
+            else
+            {
+                m_newlyCreatedAssetPathsToCreatorBusIds[AZ::IO::Path(assetPath).AsPosix()] = creatorBusId;
+            }
+        }
+
         void AssetBrowserModel::OnTick(float /*deltaTime*/, AZ::ScriptTimePoint /*time*/) 
         {
             // if any entries changed since last tick, notify the views
-            if (EntryCache* cache = EntryCache::GetInstance())
+            EntryCache* cache = EntryCache::GetInstance();
+            if (m_isTickBusEnabled && cache)
             {
                 if (!cache->m_dirtyThumbnailsSet.empty())
                 {
@@ -405,8 +461,33 @@ namespace AzToolsFramework
             }
 
             int row = entry->row();
-            index = createIndex(row, aznumeric_cast<int>(AssetBrowserEntry::Column::DisplayName), entry);
+            int column = 1;
+            index = createIndex(row, column, entry);
             return true;
+        }
+
+        void AssetBrowserModel::WatchForExpectedAssets(AssetBrowserEntry* entry)
+        {
+            const AZStd::string& fullpath = AZ::IO::Path(entry->GetFullPath()).AsPosix();
+            if (m_newlyCreatedAssetPathsToCreatorBusIds.contains(fullpath))
+            {
+                if (m_newlyCreatedAssetPathsToCreatorBusIds[fullpath] != AZ::Crc32())
+                {
+                    m_assetEntriesToCreatorBusIds[entry] = m_newlyCreatedAssetPathsToCreatorBusIds[fullpath];
+                }
+
+                m_newlyCreatedAssetPathsToCreatorBusIds.erase(fullpath);
+
+                QTimer::singleShot(0, this,
+                    [this, entry]()
+                    {
+                        QModelIndex index;
+                        if (GetEntryIndex(entry, index))
+                        {
+                            emit RequestOpenItemForEditing(index);
+                        }
+                    });
+            }
         }
 
     } // namespace AssetBrowser

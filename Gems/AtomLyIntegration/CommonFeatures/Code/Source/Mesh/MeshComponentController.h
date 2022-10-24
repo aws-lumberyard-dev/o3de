@@ -25,6 +25,8 @@
 
 #include <AtomLyIntegration/CommonFeatures/Material/MaterialComponentBus.h>
 #include <AtomLyIntegration/CommonFeatures/Mesh/MeshComponentBus.h>
+#include <AtomLyIntegration/CommonFeatures/Mesh/MeshHandleStateBus.h>
+#include <AtomLyIntegration/AtomImGuiTools/AtomImGuiToolsBus.h>
 
 namespace AZ
 {
@@ -59,10 +61,12 @@ namespace AZ
 
         class MeshComponentController final
             : private MeshComponentRequestBus::Handler
+            , private MeshHandleStateRequestBus::Handler
+            , private AtomImGuiTools::AtomImGuiMeshCallbackBus::Handler
             , public AzFramework::BoundsRequestBus::Handler
             , public AzFramework::RenderGeometry::IntersectionRequestBus::Handler
             , private TransformNotificationBus::Handler
-            , private MaterialReceiverRequestBus::Handler
+            , private MaterialConsumerRequestBus::Handler
             , private MaterialComponentNotificationBus::Handler
         {
         public:
@@ -89,7 +93,7 @@ namespace AZ
         private:
             AZ_DISABLE_COPY(MeshComponentController);
 
-            // MeshComponentRequestBus::Handler overrides ...
+            // MeshComponentRequestBus overrides ...
             void SetModelAsset(Data::Asset<RPI::ModelAsset> modelAsset) override;
             Data::Asset<const RPI::ModelAsset> GetModelAsset() const override;
             void SetModelAssetId(Data::AssetId modelAssetId) override;
@@ -97,6 +101,12 @@ namespace AZ
             void SetModelAssetPath(const AZStd::string& modelAssetPath) override;
             AZStd::string GetModelAssetPath() const override;
             AZ::Data::Instance<RPI::Model> GetModel() const override;
+
+            // AtomImGuiTools::AtomImGuiMeshCallbackBus::Handler overrides ...
+            const RPI::MeshDrawPacketLods* GetDrawPackets() const override;
+
+            // AtomMeshRequestBus overrides ...
+            const MeshFeatureProcessorInterface::MeshHandle* GetMeshHandle() const override;
 
             void SetSortKey(RHI::DrawItemSortKey sortKey) override;
             RHI::DrawItemSortKey GetSortKey() const override;
@@ -129,11 +139,11 @@ namespace AZ
             // TransformNotificationBus::Handler overrides ...
             void OnTransformChanged(const AZ::Transform& local, const AZ::Transform& world) override;
 
-            // MaterialReceiverRequestBus::Handler overrides ...
+            // MaterialConsumerRequestBus::Handler overrides ...
             MaterialAssignmentId FindMaterialAssignmentId(
                 const MaterialAssignmentLodIndex lod, const AZStd::string& label) const override;
-            RPI::ModelMaterialSlotMap GetModelMaterialSlots() const override;
-            MaterialAssignmentMap GetMaterialAssignments() const override;
+            MaterialAssignmentLabelMap GetMaterialLabels() const override;
+            MaterialAssignmentMap GetDefautMaterialMap() const override;
             AZStd::unordered_set<AZ::Name> GetModelUvNames() const override;
 
             // MaterialComponentNotificationBus::Handler overrides ...

@@ -3995,6 +3995,9 @@ namespace GraphCanvas
         {
             GraphicsEffectRequestBus::Event(effectId, &GraphicsEffectRequests::OnGraphicsEffectCancelled);
             RemoveItemFromScene(graphicsItem);
+            // https://stackoverflow.com/questions/38458830/crash-after-qgraphicssceneremoveitem-with-custom-item-class
+            // Scene Index does not correctly update causing a crash when the index tree is queried. 
+            GraphicsEffectRequestBus::Event(effectId, &GraphicsEffectRequests::PrepareGeometryChange);
             delete graphicsItem;
         }
 
@@ -4698,9 +4701,6 @@ namespace GraphCanvas
         : m_scene(scene)
         , m_suppressContextMenu(false)
     {
-        // Workaround for QTBUG-18021
-        setItemIndexMethod(QGraphicsScene::NoIndex);
-
         setMinimumRenderSize(2.0f);
         connect(this, &QGraphicsScene::selectionChanged, this, [this]() { m_scene.OnSelectionChanged(); });
         setSceneRect(-20000, -20000, 40000, 40000);

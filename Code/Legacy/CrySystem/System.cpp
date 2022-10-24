@@ -26,7 +26,6 @@
 #include <AzFramework/Input/Devices/Keyboard/InputDeviceKeyboard.h>
 #include <AzCore/Debug/Profiler.h>
 #include <AzCore/Debug/Trace.h>
-#include <AzCore/Debug/IEventLogger.h>
 #include <AzCore/Interface/Interface.h>
 #include <AzCore/std/algorithm.h>
 #include <AzCore/Time/ITime.h>
@@ -168,16 +167,9 @@ namespace
 /////////////////////////////////////////////////////////////////////////////////
 // System Implementation.
 //////////////////////////////////////////////////////////////////////////
-CSystem::CSystem(SharedEnvironmentInstance* pSharedEnvironment)
+CSystem::CSystem()
 {
     CrySystemRequestBus::Handler::BusConnect();
-
-    if (!pSharedEnvironment)
-    {
-        CryFatalError("No shared environment instance provided. "
-            "Cross-module sharing of EBuses and allocators "
-            "is not possible.");
-    }
 
     m_systemGlobalState = ESYSTEM_GLOBAL_STATE_UNKNOWN;
     m_iHeight = 0;
@@ -204,7 +196,6 @@ CSystem::CSystem(SharedEnvironmentInstance* pSharedEnvironment)
     m_env.bIgnoreAllAsserts = false;
     m_env.bNoAssertDialog = false;
 
-    m_env.pSharedEnvironment = pSharedEnvironment;
     //////////////////////////////////////////////////////////////////////////
 
     m_sysNoUpdate = NULL;
@@ -290,8 +281,6 @@ CSystem::~CSystem()
     {
         AZ::AllocatorInstance<AZ::OSAllocator>::Destroy();
     }
-
-    AZ::Environment::Detach();
 
     m_env.pSystem = 0;
     gEnv = 0;
@@ -402,7 +391,7 @@ void CSystem::ShutDown()
 
     // Audio System Shutdown!
     // Shut down audio as late as possible but before the streaming system and console get released!
-    Audio::Gem::AudioSystemGemRequestBus::Broadcast(&Audio::Gem::AudioSystemGemRequestBus::Events::Release);
+    Audio::Gem::SystemRequestBus::Broadcast(&Audio::Gem::SystemRequestBus::Events::Release);
 
     // Shut down console as late as possible and after audio!
     SAFE_RELEASE(m_env.pConsole);
@@ -410,7 +399,7 @@ void CSystem::ShutDown()
     // Log must be last thing released.
     if (m_env.pLog)
     {
-        m_env.pLog->FlushAndClose();
+        m_env.pLog->Flush();
     }
     SAFE_RELEASE(m_env.pLog);   // creates log backup
 
@@ -438,13 +427,7 @@ void CSystem::Quit()
         m_pUserCallback->OnQuit();
     }
 
-    gEnv->pLog->FlushAndClose();
-
-    // Latest possible place to flush any pending messages to disk before the forceful termination.
-    if (auto logger = AZ::Interface<AZ::Debug::IEventLogger>::Get(); logger)
-    {
-        logger->Flush();
-    }
+    gEnv->pLog->Flush();
 
 #ifdef WIN32
     //Post a WM_QUIT message to the Win32 api which causes the message loop to END
@@ -751,7 +734,10 @@ bool CSystem::UpdateLoadtime()
 
 void CSystem::UpdateAudioSystems()
 {
-    Audio::AudioSystemRequestBus::Broadcast(&Audio::AudioSystemRequestBus::Events::ExternalUpdate);
+    if (auto audioSystem = AZ::Interface<Audio::IAudioSystem>::Get(); audioSystem != nullptr)
+    {
+        audioSystem->ExternalUpdate();
+    }
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -950,7 +936,7 @@ void CSystem::WarningV(EValidatorModule module, EValidatorSeverity severity, int
 
     if (bDbgBreak && g_cvars.sys_error_debugbreak)
     {
-        AZ::Debug::Trace::Break();
+        AZ::Debug::Trace::Instance().Break();
     }
 }
 
@@ -1041,7 +1027,7 @@ void CSystem::ExecuteCommandLine(bool deferred)
 
     m_executedCommandLine = true;
 
-    // execute command line arguments e.g. +g_gametype ASSAULT +map "testy"
+    // execute command line arguments e.g. +g_gametype ASSAULT +LoadLevel "testy"
 
     ICmdLine* pCmdLine = GetICmdLine();
     assert(pCmdLine);

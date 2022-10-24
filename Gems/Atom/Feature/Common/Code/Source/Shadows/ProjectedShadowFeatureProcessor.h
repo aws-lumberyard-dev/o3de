@@ -67,8 +67,8 @@ namespace AZ::Render
             float m_boundaryScale = 0.f; // the half of boundary of lit/shadowed areas. (in degrees)
             uint32_t m_filteringSampleCount = 0;
             AZStd::array<float, 2> m_unprojectConstants = { {0, 0} };
-            float m_bias;
-            float m_normalShadowBias = 0;
+            float m_bias = 0.0f;
+            float m_normalShadowBias = 0.0f;
             float m_esmExponent = 87.0f;
             float m_padding[3];
         };
@@ -86,9 +86,7 @@ namespace AZ::Render
         static constexpr float MinimumFieldOfView = 0.001f;
 
         // RPI::SceneNotificationBus::Handler overrides...
-        void OnRenderPipelinePassesChanged(RPI::RenderPipeline* renderPipeline) override;
-        void OnRenderPipelineAdded(RPI::RenderPipelinePtr pipeline) override;
-        void OnRenderPipelineRemoved(RPI::RenderPipeline* pipeline) override;
+        void OnRenderPipelineChanged(AZ::RPI::RenderPipeline* pipeline, RPI::SceneNotification::RenderPipelineChangeType changeType) override;
         
         // Shadow specific functions
         void UpdateShadowView(ShadowProperty& shadowProperty);

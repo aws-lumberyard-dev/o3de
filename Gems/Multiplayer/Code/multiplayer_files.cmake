@@ -109,6 +109,8 @@ set(FILES
     Source/MultiplayerStats.cpp
     Source/MultiplayerSystemComponent.cpp
     Source/MultiplayerSystemComponent.h
+    Source/MultiplayerStatSystemComponent.cpp
+    Source/MultiplayerStatSystemComponent.h
     Source/NetworkEntity/EntityReplication/EntityReplicationManager.cpp
     Source/NetworkEntity/EntityReplication/EntityReplicator.cpp
     Source/NetworkEntity/EntityReplication/PropertyPublisher.cpp
@@ -135,8 +137,6 @@ set(FILES
     Source/NetworkInput/NetworkInputMigrationVector.cpp
     Source/NetworkTime/NetworkTime.cpp
     Source/NetworkTime/NetworkTime.h
-    Source/Pipeline/NetworkSpawnableHolderComponent.cpp
-    Source/Pipeline/NetworkSpawnableHolderComponent.h
     Source/ReplicationWindows/NullReplicationWindow.cpp
     Source/ReplicationWindows/NullReplicationWindow.h
     Source/ReplicationWindows/ServerToClientReplicationWindow.cpp

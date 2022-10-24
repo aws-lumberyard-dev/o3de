@@ -30,6 +30,7 @@ ${NATIVE_CMAKE_SECTION_DEBUG_CONFIG}
             ${SIGNING_DEBUG_CONFIG}
         }
         profile {
+            getIsDefault().set(true)
             debuggable true
 ${NATIVE_CMAKE_SECTION_PROFILE_CONFIG}
             ${SIGNING_PROFILE_CONFIG}
@@ -64,6 +65,14 @@ ${OVERRIDE_JAVA_SOURCESET}
     }
 
 }
+
+// Inject the zip64 option into package task to allow 4GiB apks
+tasks.withType(Zip) {
+    if (name == "packageDebug" || name == "packageProfile" || name == "packageRelease") {
+        zip64 = true
+    }
+}
+
 
 ${PROJECT_DEPENDENCIES}
 

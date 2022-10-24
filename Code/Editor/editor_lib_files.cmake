@@ -257,6 +257,8 @@ set(FILES
     MainWindow.cpp
     MainWindow.h
     MainWindow.qrc
+    Core/EditorActionsHandler.cpp
+    Core/EditorActionsHandler.h
     Core/QtEditorApplication.cpp
     Core/QtEditorApplication.h
     Core/LevelEditorMenuHandler.cpp
@@ -317,6 +319,8 @@ set(FILES
     Controls/ConsoleSCB.h
     Controls/ConsoleSCB.ui
     Controls/ConsoleSCB.qrc
+    Controls/CvarDPE.cpp
+    Controls/CvarDPE.h
     Controls/FolderTreeCtrl.cpp
     Controls/FolderTreeCtrl.h
     Controls/ImageHistogramCtrl.cpp
@@ -426,8 +430,6 @@ set(FILES
     GameResourcesExporter.cpp
     GameExporter.h
     GameResourcesExporter.h
-    AboutDialog.h
-    AboutDialog.ui
     DocMultiArchive.h
     FBXExporterDialog.h
     FileTypeUtils.h
@@ -512,7 +514,6 @@ set(FILES
     SettingsManager.h
     SettingsManagerDialog.h
     SettingsManagerDialog.ui
-    AboutDialog.cpp
     ErrorReportTableModel.h
     ErrorReportTableModel.cpp
     FBXExporterDialog.cpp
@@ -580,6 +581,7 @@ set(FILES
     TrackView/TVCustomizeTrackColorsDlg.cpp
     TrackView/TVCustomizeTrackColorsDlg.h
     TrackViewFBXImportPreviewDialog.h
+    TrackView/KeyUIControls.h
     TrackView/2DBezierKeyUIControls.cpp
     TrackView/AssetBlendKeyUIControls.cpp
     TrackView/CaptureKeyUIControls.cpp
@@ -626,6 +628,8 @@ set(FILES
     Util/FileEnum.h
     Util/FileUtil.cpp
     Util/FileUtil.h
+    Util/FileUtil_Common.h
+    Util/FileUtil_Common.cpp
     Util/GeometryUtil.cpp
     Util/GuidUtil.cpp
     Util/GuidUtil.h

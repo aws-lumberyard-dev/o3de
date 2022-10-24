@@ -11,6 +11,7 @@
 #include <AzToolsFramework/AssetBrowser/AssetBrowserModel.h>
 #include <AzToolsFramework/AssetBrowser/AssetBrowserFilterModel.h>
 #include <AzToolsFramework/Thumbnails/ThumbnailerBus.h>
+#include <AzToolsFramework/AssetBrowser/Views/AssetBrowserTreeView.h>
 #include <AzToolsFramework/AssetBrowser/Views/EntryDelegate.h>
 #include <AzCore/Utils/Utils.h>
 #include <AzQtComponents/Components/StyledBusyLabel.h>
@@ -18,6 +19,7 @@
 
 #include <QApplication>
 #include <QTextDocument>
+#include <QLineEdit>
 
 AZ_PUSH_DISABLE_WARNING(4251 4800, "-Wunknown-warning-option") // 4251: class 'QScopedPointer<QBrushData,QBrushDataPointerDeleter>' needs to have dll-interface to be used by clients of class 'QBrush'
                                                                // 4800: 'uint': forcing value to bool 'true' or 'false' (performance warning)
@@ -40,6 +42,7 @@ namespace AzToolsFramework
         EntryDelegate::EntryDelegate(QWidget* parent)
             : QStyledItemDelegate(parent)
             , m_iconSize(qApp->style()->pixelMetric(QStyle::PM_SmallIconSize))
+            , m_treeView(static_cast<AssetBrowserTreeView*>(parent))
         {
         }
 
@@ -53,6 +56,15 @@ namespace AzToolsFramework
                 baseHint.setHeight(m_iconSize);
             }
             return baseHint;
+        }
+
+        QWidget* EntryDelegate::createEditor(QWidget* parent, [[ maybe_unused]] const QStyleOptionViewItem& option, [[maybe_unused]] const QModelIndex& index) const
+        {
+            QLineEdit* widget = static_cast<QLineEdit*>(QStyledItemDelegate::createEditor(parent, option, index));
+            connect(widget, &QLineEdit::editingFinished, this, [this, widget](){
+                m_treeView->AfterRename(widget->text());
+                });
+            return widget;
         }
 
         void EntryDelegate::paint(QPainter* painter, const QStyleOptionViewItem& option, const QModelIndex& index) const
@@ -101,8 +113,9 @@ namespace AzToolsFramework
                     remainingRect.adjust(thumbX, 0, 0, 0); // bump it to the right by the size of the thumbnail
                     remainingRect.adjust(EntrySpacingLeftPixels, 0, 0, 0); // bump it to the right by the spacing.
                 }
+                // for display use the display name when the name column is aksed for, otherwise use the path.
                 QString displayString = index.column() == aznumeric_cast<int>(AssetBrowserEntry::Column::Name)
-                    ? qvariant_cast<QString>(entry->data(aznumeric_cast<int>(AssetBrowserEntry::Column::Name)))
+                    ? qvariant_cast<QString>(entry->data(aznumeric_cast<int>(AssetBrowserEntry::Column::DisplayName)))
                     : qvariant_cast<QString>(entry->data(aznumeric_cast<int>(AssetBrowserEntry::Column::Path)));
 
                 style->drawItemText(
@@ -269,9 +282,9 @@ namespace AzToolsFramework
                     remainingRect.adjust(thumbX, 0, 0, 0); // bump it to the right by the size of the thumbnail
                     remainingRect.adjust(EntrySpacingLeftPixels, 0, 0, 0); // bump it to the right by the spacing.
                 }
-
+                // if we are asking for the name, use the display name.  Else we must be asking for the path, so use that.
                 QString displayString = index.column() == aznumeric_cast<int>(AssetBrowserEntry::Column::Name)
-                    ? qvariant_cast<QString>(entry->data(aznumeric_cast<int>(AssetBrowserEntry::Column::Name)))
+                    ? qvariant_cast<QString>(entry->data(aznumeric_cast<int>(AssetBrowserEntry::Column::DisplayName)))
                     : qvariant_cast<QString>(entry->data(aznumeric_cast<int>(AssetBrowserEntry::Column::Path)));
 
                 QStyleOptionViewItem optionV4{ option };

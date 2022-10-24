@@ -41,6 +41,7 @@
 #include "MainWindow.h"
 #include "QtViewPaneManager.h"
 #include "EditorViewportWidget.h"
+#include <Editor/EditorViewportSettings.h>
 
 //////////////////////////////////////////////////////////////////////////
 // ViewportTitleExpanderWatcher
@@ -318,7 +319,7 @@ void CLayoutViewPane::AttachViewport(QWidget* pViewport)
         }
         else
         {
-            OnFOVChanged(gSettings.viewports.fDefaultFov);
+            OnFOVChanged(SandboxEditor::CameraDefaultFovRadians());
         }
 
         m_viewportTitleDlg.OnViewportSizeChanged(pViewport->width(), pViewport->height());
@@ -329,7 +330,7 @@ void CLayoutViewPane::AttachViewport(QWidget* pViewport)
 void CLayoutViewPane::DetachViewport()
 {
     DisconnectRenderViewportInteractionRequestBus();
-    OnFOVChanged(gSettings.viewports.fDefaultFov);
+    OnFOVChanged(SandboxEditor::CameraDefaultFovRadians());
     m_viewport = nullptr;
 }
 
@@ -455,17 +456,20 @@ void CLayoutViewPane::SetAspectRatio(unsigned int x, unsigned int y)
 }
 
 //////////////////////////////////////////////////////////////////////////
-void CLayoutViewPane::SetViewportFOV(float fov)
+void CLayoutViewPane::SetViewportFOV(const float fovDegrees)
 {
     if (EditorViewportWidget* pRenderViewport = qobject_cast<EditorViewportWidget*>(m_viewport))
     {
-        pRenderViewport->SetFOV(DEG2RAD(fov));
+        const auto fovRadians = AZ::DegToRad(fovDegrees);
+        pRenderViewport->SetFOV(fovRadians);
 
         // if viewport camera is active, make selected fov new default
         if (pRenderViewport->GetViewManager()->GetCameraObjectId() == GUID_NULL)
         {
-            gSettings.viewports.fDefaultFov = DEG2RAD(fov);
+            SandboxEditor::SetCameraDefaultFovRadians(fovRadians);
         }
+
+        OnFOVChanged(fovRadians);
     }
 }
 
@@ -628,9 +632,9 @@ void CLayoutViewPane::SetFocusToViewport()
 }
 
 //////////////////////////////////////////////////////////////////////////
-void CLayoutViewPane::OnFOVChanged(float fov)
+void CLayoutViewPane::OnFOVChanged(const float fovRadians)
 {
-    m_viewportTitleDlg.OnViewportFOVChanged(fov);
+    m_viewportTitleDlg.OnViewportFOVChanged(fovRadians);
 }
 
 //////////////////////////////////////////////////////////////////////////

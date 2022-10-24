@@ -45,7 +45,7 @@ namespace LandscapeCanvas
     void BaseNode::CreateEntityNameSlot()
     {
         // Property field to show the name of the corresponding Vegetation Entity
-        GraphModel::DataTypePtr stringDataType = GraphContext::GetInstance()->GetDataType(LandscapeCanvasDataTypeEnum::String);
+        GraphModel::DataTypePtr stringDataType = GetGraphContext()->GetDataType(LandscapeCanvasDataTypeEnum::String);
         RegisterSlot(GraphModel::SlotDefinition::CreateProperty(
             ENTITY_NAME_SLOT_ID,
             ENTITY_NAME_SLOT_LABEL.toUtf8().constData(),
@@ -73,6 +73,11 @@ namespace LandscapeCanvas
         m_componentId = componentId;
     }
 
+    AZ::ComponentDescriptor::DependencyArrayType BaseNode::GetOptionalRequiredServices() const
+    {
+        return {};
+    }
+
     AZ::Component* BaseNode::GetComponent() const
     {
         AZ::Entity* gradientEntity = nullptr;
@@ -97,6 +102,8 @@ namespace LandscapeCanvas
         return baseNodeType == LandscapeCanvas::BaseNode::VegetationAreaModifier
             || baseNodeType == LandscapeCanvas::BaseNode::VegetationAreaFilter
             || baseNodeType == LandscapeCanvas::BaseNode::VegetationAreaSelector
+            || baseNodeType == LandscapeCanvas::BaseNode::TerrainExtender
+            || baseNodeType == LandscapeCanvas::BaseNode::TerrainSurfaceExtender
             ;
     }
 } // namespace LandscapeCanvas

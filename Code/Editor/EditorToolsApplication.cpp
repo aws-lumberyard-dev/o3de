@@ -199,10 +199,10 @@ namespace EditorInternal
         
         auto previousDocument = GetIEditor()->GetDocument();
         QString previousPathName = (previousDocument != nullptr) ? previousDocument->GetLevelPathName() : "";
-        auto newDocument = CCryEditApp::instance()->OpenDocumentFile(levelPath.c_str());
+        auto newDocument = CCryEditApp::instance()->OpenDocumentFile(levelPath.c_str(), true, COpenSameLevelOptions::ReopenLevelIfSame);
 
         // the underlying document pointer doesn't change, so we can't check that; use the path name's instead
-        return newDocument && !newDocument->IsLevelLoadFailed() && (newDocument->GetLevelPathName() != previousPathName);
+        return newDocument && !newDocument->IsLevelLoadFailed();
     }
 
     bool EditorToolsApplication::OpenLevelNoPrompt(AZStd::string_view levelName)
@@ -284,7 +284,7 @@ namespace EditorInternal
 
     AZStd::chrono::milliseconds EditorToolsApplication::EditorViewportInputTimeNow()
     {
-        const auto now = AZStd::chrono::high_resolution_clock::now();
+        const auto now = AZStd::chrono::steady_clock::now();
         return AZStd::chrono::time_point_cast<AZStd::chrono::milliseconds>(now).time_since_epoch();
     }
 } // namespace EditorInternal

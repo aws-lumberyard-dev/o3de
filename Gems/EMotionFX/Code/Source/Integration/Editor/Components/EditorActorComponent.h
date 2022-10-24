@@ -10,9 +10,10 @@
 
 #include <AzCore/Asset/AssetCommon.h>
 #include <AzCore/Component/Component.h>
-#include <AzCore/Component/TransformBus.h>
 #include <AzCore/Component/TickBus.h>
+#include <AzCore/Component/TransformBus.h>
 #include <AzCore/std/smart_ptr/unique_ptr.h>
+#include <AzFramework/Entity/EntityDebugDisplayBus.h>
 #include <AzFramework/Visibility/BoundsBus.h>
 
 #include <AzToolsFramework/API/ComponentEntitySelectionBus.h>
@@ -25,6 +26,7 @@
 #include <LmbrCentral/Rendering/MaterialAsset.h>
 
 #include <EMotionFX/Source/ActorBus.h>
+#include <Atom/Feature/Mesh/MeshFeatureProcessor.h>
 
 namespace EMotionFX
 {
@@ -36,10 +38,12 @@ namespace EMotionFX
             , private AZ::TransformNotificationBus::Handler
             , private AZ::TickBus::Handler
             , private ActorComponentRequestBus::Handler
+            , private ActorComponentNotificationBus::Handler
             , private EditorActorComponentRequestBus::Handler
             , private LmbrCentral::AttachmentComponentNotificationBus::Handler
             , private AzToolsFramework::EditorComponentSelectionRequestsBus::Handler
             , private AzToolsFramework::EditorVisibilityNotificationBus::Handler
+            , private AzFramework::EntityDebugDisplayEventBus::Handler
             , public AzFramework::BoundsRequestBus::Handler
         {
         public:
@@ -76,13 +80,19 @@ namespace EMotionFX
                 const AZ::Vector3& src, const AZ::Vector3& dir, float& distance) override;
             bool SupportsEditorRayIntersect() override { return true; }
 
-            // AZ::Data::AssetBus::Handler overrides ...
+            // AZ::Data::AssetBus overrides ...
             void OnAssetReady(AZ::Data::Asset<AZ::Data::AssetData> asset) override;
             void OnAssetReloaded(AZ::Data::Asset<AZ::Data::AssetData> asset) override;
+            void OnAssetUnloaded(AZ::Data::AssetId assetId, AZ::Data::AssetType assetType) override;
 
             // BoundsRequestBus overrides ...
             AZ::Aabb GetWorldBounds() override;
             AZ::Aabb GetLocalBounds() override;
+
+            // AzFramework::EntityDebugDisplayEventBus overrides ...
+            void DisplayEntityViewport(
+                const AzFramework::ViewportInfo& viewportInfo,
+                AzFramework::DebugDisplayRequests& debugDisplay) override;
 
             static void GetProvidedServices(AZ::ComponentDescriptor::DependencyArrayType& provided)
             {
@@ -92,11 +102,6 @@ namespace EMotionFX
             static void GetIncompatibleServices(AZ::ComponentDescriptor::DependencyArrayType& incompatible)
             {
                 ActorComponent::GetIncompatibleServices(incompatible);
-            }
-
-            static void GetDependentServices(AZ::ComponentDescriptor::DependencyArrayType& dependent)
-            {
-                ActorComponent::GetDependentServices(dependent);
             }
 
             static void GetRequiredServices(AZ::ComponentDescriptor::DependencyArrayType& required)
@@ -134,14 +139,21 @@ namespace EMotionFX
             // Called at edit-time when creating the component directly from an asset.
             void SetPrimaryAsset(const AZ::Data::AssetId& assetId) override;
 
-            // AZ::TickBus::Handler
+            // AZ::TickBus overrides ...
             void OnTick(float deltaTime, AZ::ScriptTimePoint time) override;
 
-            // LmbrCentral::AttachmentComponentNotificationBus::Handler
+            // LmbrCentral::AttachmentComponentNotificationBus overrides ...
             void OnAttached(AZ::EntityId targetId) override;
             void OnDetached(AZ::EntityId targetId) override;
 
+            // ActorComponentNotificationBus overrides ...
+            void OnActorInstanceCreated(ActorInstance* actorInstance) override;
+            void OnActorInstanceDestroyed(ActorInstance* actorInstance) override;
+
             void CheckActorCreation();
+            void CheckAttachToEntity();
+            void DetachFromEntity() override;
+            void AttachToInstance(ActorInstance* targetActorInstance);
             void BuildGameEntity(AZ::Entity* gameEntity) override;
 
             void LoadActorAsset();
@@ -162,15 +174,16 @@ namespace EMotionFX
             bool                                m_renderBounds;             ///< Toggles rendering of the world bounding box.
             bool                                m_entityVisible;            ///< Entity visible from the EditorVisibilityNotificationBus
             SkinningMethod                      m_skinningMethod;           ///< The skinning method for this actor
+
             AttachmentType                      m_attachmentType;           ///< Attachment type.
             AZ::EntityId                        m_attachmentTarget;         ///< Target entity to attach to, if any.
+            AZ::EntityId                        m_attachmentPreviousParent; ///< The parent entity id before attaching to the attachment target.
             AZStd::string                       m_attachmentJointName;      ///< Joint name on target to which to attach (if ActorAttachment).
             size_t                              m_attachmentJointIndex;
             size_t                              m_lodLevel;
             ActorComponent::BoundingBoxConfiguration m_bboxConfig;
             bool                                m_forceUpdateJointsOOV = false;
-            ActorRenderFlags                    m_renderFlags;              ///< Actor render flag               
-            bool m_addMaterialComponentFlag = false;                        ///< Flag used for button placement
+            ActorRenderFlags                    m_renderFlags;              ///< Actor render flag
             // \todo attachmentTarget node nr
 
             // Note: LOD work in progress. For now we use one material instead of a list of material, because we don't have the support for LOD with multiple scene files.
@@ -181,6 +194,10 @@ namespace EMotionFX
 
             ActorAsset::ActorInstancePtr        m_actorInstance;            ///< Live actor instance.
             AZStd::unique_ptr<RenderActorInstance> m_renderActorInstance;
+
+            AZ::Render::ModelReloadedEvent::Handler m_modelReloadedEventHandler;
+
+            bool m_reloading = false;
         };
     } // namespace Integration
 } // namespace EMotionFX

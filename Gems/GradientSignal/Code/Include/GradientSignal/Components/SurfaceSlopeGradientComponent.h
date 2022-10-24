@@ -9,6 +9,7 @@
 #pragma once
 
 #include <AzCore/Component/Component.h>
+#include <AzCore/std/parallel/shared_mutex.h>
 #include <GradientSignal/Ebuses/GradientRequestBus.h>
 #include <GradientSignal/Ebuses/SmoothStepRequestBus.h>
 #include <GradientSignal/Ebuses/SurfaceSlopeGradientRequestBus.h>
@@ -60,7 +61,7 @@ namespace GradientSignal
         }
     };
 
-    static const AZ::Uuid SurfaceSlopeGradientComponentTypeId = "{F480A866-6296-4F2D-B97C-E80C7409EF61}";
+    inline constexpr AZ::TypeId SurfaceSlopeGradientComponentTypeId{ "{F480A866-6296-4F2D-B97C-E80C7409EF61}" };
 
     /**
     * Component implementing GradientRequestBus based on slope
@@ -125,5 +126,6 @@ namespace GradientSignal
 
     private:
         SurfaceSlopeGradientConfig m_configuration;
+        mutable AZStd::shared_mutex m_queryMutex;
     };
 }

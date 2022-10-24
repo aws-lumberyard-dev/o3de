@@ -18,9 +18,6 @@
 #include <AzFramework/StringFunc/StringFunc.h>
 #include <AzToolsFramework/API/EditorPythonConsoleBus.h>
 #include <AzToolsFramework/API/EditorPythonRunnerRequestsBus.h>
-#include <Entity/EntityUtilityComponent.h>
-#include <Prefab/PrefabSystemComponentInterface.h>
-#include <Prefab/PrefabSystemScriptingBus.h>
 #include <SceneAPI/SceneCore/Containers/Scene.h>
 #include <SceneAPI/SceneCore/Containers/SceneGraph.h>
 #include <SceneAPI/SceneCore/Containers/SceneManifest.h>
@@ -30,6 +27,8 @@
 #include <SceneAPI/SceneData/Rules/ScriptProcessorRule.h>
 #include <SceneAPI/SceneCore/Utilities/Reporting.h>
 #include <SceneAPI/SceneCore/Events/ExportProductList.h>
+#include <SceneAPI/SceneCore/Events/AssetImportRequest.h>
+#include <SceneAPI/SceneCore/Events/ImportEventContext.h>
 
 namespace AZ::SceneAPI::Behaviors
 {
@@ -99,6 +98,7 @@ namespace AZ::SceneAPI::Behaviors
 
         AZStd::string OnUpdateManifest(Containers::Scene& scene) override
         {
+            ScriptScope onUpdateManifestScope(this);
             AZStd::string result;
             CallResult(result, FN_OnUpdateManifest, scene);
             ScriptBuildingNotificationBusHandler::BusDisconnect();
@@ -111,10 +111,30 @@ namespace AZ::SceneAPI::Behaviors
             AZStd::string_view platformIdentifier,
             const ExportProductList& productList) override
         {
+            ScriptScope onPrepareForExportScope(this);
             ExportProductList result;
             CallResult(result, FN_OnPrepareForExport, scene, outputDirectory, platformIdentifier, productList);
             ScriptBuildingNotificationBusHandler::BusDisconnect();
             return result;
+        }
+
+        AZStd::atomic_int m_count = 1;
+
+        static BehaviorEBusHandler* Create()
+        {
+            return aznew ScriptBuildingNotificationBusHandler();
+        }
+
+        static void Destroy(BehaviorEBusHandler* behaviorEBusHandler)
+        {
+            auto* handler =
+                static_cast<ScriptBuildingNotificationBusHandler*>(behaviorEBusHandler);
+
+            --handler->m_count;
+            if (handler->m_count == 0)
+            {
+                delete handler;
+            }
         }
 
         static void Reflect(AZ::ReflectContext* context)
@@ -123,28 +143,59 @@ namespace AZ::SceneAPI::Behaviors
             {
                 behaviorContext->EBus<ScriptBuildingNotificationBus>("ScriptBuildingNotificationBus")
                     ->Attribute(AZ::Script::Attributes::Scope, AZ::Script::Attributes::ScopeFlags::Automation)
+                    ->Attribute(AZ::Script::Attributes::ExcludeFrom, AZ::Script::Attributes::ExcludeFlags::All)
                     ->Attribute(AZ::Script::Attributes::Module, "scene")
-                    ->Handler<ScriptBuildingNotificationBusHandler>()
+                    ->Handler<ScriptBuildingNotificationBusHandler>(&ScriptBuildingNotificationBusHandler::Create, &ScriptBuildingNotificationBusHandler::Destroy)
                     ->Event("OnUpdateManifest", &ScriptBuildingNotificationBus::Events::OnUpdateManifest)
                     ->Event("OnPrepareForExport", &ScriptBuildingNotificationBus::Events::OnPrepareForExport);
             }
         }
+
+        struct ScriptScope final
+        {
+            ScriptScope(ScriptBuildingNotificationBusHandler* self)
+                : m_self(self)
+            {
+                m_self->m_count++;
+            }
+
+            ~ScriptScope()
+            {
+                m_self->m_count--;
+                if (m_self->m_count == 0)
+                {
+                    // the script released the handler (i.e. set to None)
+                    BehaviorEBusHandler* self = m_self;
+                    AZStd::function<void()> destroySelf = [self]()
+                    {
+                        ScriptBuildingNotificationBusHandler::Destroy(self);
+                    };
+                    // Delay to delete self until the end of the scene pipeline
+                    m_self->m_count = 1;
+                    AZ::SceneAPI::Events::AssetPostImportRequestBus::QueueBroadcast(
+                        &AZ::SceneAPI::Events::AssetPostImportRequestBus::Events::CallAfterSceneExport, destroySelf);
+                }
+            }
+
+            ScriptBuildingNotificationBusHandler* m_self = {};
+        };
     };
 
-    struct ScriptProcessorRuleBehavior::ExportEventHandler final
+    struct ScriptProcessorRuleBehavior::EventHandler final
         : public AZ::SceneAPI::SceneCore::ExportingComponent
     {
         using PreExportEventContextFunction = AZStd::function<bool(Events::PreExportEventContext&)>;
         PreExportEventContextFunction m_preExportEventContextFunction;
 
-        ExportEventHandler(PreExportEventContextFunction preExportEventContextFunction)
+        EventHandler(PreExportEventContextFunction preExportEventContextFunction)
             : m_preExportEventContextFunction(preExportEventContextFunction)
         {
-            BindToCall(&ExportEventHandler::PrepareForExport);
+            BindToCall(&EventHandler::PrepareForExport);
+            BindToCall(&EventHandler::PreImportEventContext);
             AZ::SceneAPI::SceneCore::ExportingComponent::Activate();
         }
 
-        ~ExportEventHandler()
+        ~EventHandler()
         {
             AZ::SceneAPI::SceneCore::ExportingComponent::Deactivate();
         }
@@ -154,12 +205,21 @@ namespace AZ::SceneAPI::Behaviors
         {
             return m_preExportEventContextFunction(context) ? Events::ProcessingResult::Success : Events::ProcessingResult::Failure;
         }
+
+        // used to detect that the "next" source scene is starting to be processed
+        Events::ProcessingResult PreImportEventContext([[maybe_unused]] Events::PreImportEventContext& context)
+        {
+            m_pythonScriptStack.clear();
+            return Events::ProcessingResult::Success;
+        }
+
+        AZStd::vector<AZStd::string> m_pythonScriptStack;
     };
 
     void ScriptProcessorRuleBehavior::Activate()
     {
         Events::AssetImportRequestBus::Handler::BusConnect();
-        m_exportEventHandler = AZStd::make_shared<ExportEventHandler>([this](Events::PreExportEventContext& context)
+        m_eventHandler = AZStd::make_shared<EventHandler>([this](Events::PreExportEventContext& context)
         {
             return this->DoPrepareForExport(context);
         });
@@ -167,7 +227,7 @@ namespace AZ::SceneAPI::Behaviors
 
     void ScriptProcessorRuleBehavior::Deactivate()
     {
-        m_exportEventHandler.reset();
+        m_eventHandler.reset();
         Events::AssetImportRequestBus::Handler::BusDisconnect();
         UnloadPython();
     }
@@ -222,12 +282,24 @@ namespace AZ::SceneAPI::Behaviors
             break;
         }
 
+        if (scriptDiscoveryAttempts == 0)
+        {
+            if (!m_eventHandler->m_pythonScriptStack.empty())
+            {
+                scriptPath = m_eventHandler->m_pythonScriptStack.back();
+            }
+        }
+
         if (scriptPath.empty())
         {
             AZ_Warning("scene", scriptDiscoveryAttempts == 0,
                 "The scene manifest (%s) attempted to use script rule, but no script file path could be found.",
                 scene.GetManifestFilename().c_str());
             return false;
+        }
+        else
+        {
+            m_eventHandler->m_pythonScriptStack.push_back(scriptPath);
         }
 
         // already prepared the Python VM?
@@ -360,9 +432,6 @@ namespace AZ::SceneAPI::Behaviors
             {
                 return Events::ProcessingResult::Ignored;
             }
-
-            EntityUtilityBus::Broadcast(&EntityUtilityBus::Events::ResetEntityContext);
-            AZ::Interface<Prefab::PrefabSystemComponentInterface>::Get()->RemoveAllTemplates();
 
             // attempt to load the manifest string back to a JSON-scene-manifest
             auto sceneManifestLoader = AZStd::make_unique<AZ::SceneAPI::Containers::SceneManifest>();

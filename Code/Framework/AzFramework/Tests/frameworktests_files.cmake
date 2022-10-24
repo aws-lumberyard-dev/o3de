@@ -10,6 +10,7 @@ set(FILES
     Main.cpp
     Spawnable/SpawnableEntitiesInterfaceTests.cpp
     Spawnable/SpawnableEntitiesManagerTests.cpp
+    Spawnable/SpawnableScriptMediatorTests.cpp
     Spawnable/SpawnableTests.cpp
     ArchiveCompressionTests.cpp
     ArchiveTests.cpp
@@ -25,6 +26,7 @@ set(FILES
     OctreePerformanceTests.cpp
     OctreeTests.cpp
     AssetCatalog.cpp
+    AssetRegistry.cpp
     AssetProcessorConnection.cpp
     NativeWindow.cpp
     ProcessLaunchParseTests.cpp
@@ -36,4 +38,5 @@ set(FILES
     DocumentPropertyEditor/AdapterBuilderTests.cpp
     DocumentPropertyEditor/SchemaTests.cpp
     DocumentPropertyEditor/CvarAdapterTests.cpp
+    DocumentPropertyEditor/SettingsRegistryAdapterTests.cpp
 )

@@ -9,6 +9,7 @@
 #pragma once
 
 #include <AzCore/Component/Component.h>
+#include <AzCore/std/parallel/shared_mutex.h>
 #include <GradientSignal/Ebuses/GradientRequestBus.h>
 #include <GradientSignal/Ebuses/ConstantGradientRequestBus.h>
 
@@ -30,7 +31,7 @@ namespace GradientSignal
         float m_value = 1.0f;
     };
 
-    static const AZ::Uuid ConstantGradientComponentTypeId = "{08785CA9-FD25-4036-B8A0-E0ED65C6E54B}";
+    inline constexpr AZ::TypeId ConstantGradientComponentTypeId{ "{08785CA9-FD25-4036-B8A0-E0ED65C6E54B}" };
 
     /**
     * always returns a constant value as a gradient
@@ -72,5 +73,6 @@ namespace GradientSignal
 
     private:
         ConstantGradientConfig m_configuration;
+        mutable AZStd::shared_mutex m_queryMutex;
     };
 }

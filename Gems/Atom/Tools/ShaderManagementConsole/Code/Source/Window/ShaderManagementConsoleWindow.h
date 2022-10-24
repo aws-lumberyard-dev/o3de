@@ -8,6 +8,7 @@
 
 #pragma once
 
+#include <AtomToolsFramework/Document/AtomToolsDocumentInspector.h>
 #include <AtomToolsFramework/Document/AtomToolsDocumentMainWindow.h>
 
 namespace ShaderManagementConsole
@@ -24,5 +25,17 @@ namespace ShaderManagementConsole
 
         ShaderManagementConsoleWindow(const AZ::Crc32& toolId, QWidget* parent = 0);
         ~ShaderManagementConsoleWindow() = default;
+
+        // AtomToolsFramework::AtomToolsDocumentNotificationBus::Handler overrides...
+        void OnDocumentOpened(const AZ::Uuid& documentId) override;
+
+        // AtomToolsMainWindowRequestBus::Handler overrides...
+        void UpdateMenus(QMenuBar* menuBar) override;
+
+        // AtomToolsFramework::AtomToolsDocumentMainWindow overrides...
+        AZStd::string GetSaveDocumentParams(const AZStd::string& initialPath) const override;
+
+    private:
+        AtomToolsFramework::AtomToolsDocumentInspector* m_documentInspector = {};
     };
 } // namespace ShaderManagementConsole

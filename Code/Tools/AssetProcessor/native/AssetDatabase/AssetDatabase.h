@@ -18,6 +18,7 @@
 #include <QtCore/QString>
 
 #include "AzToolsFramework/API/EditorAssetSystemAPI.h"
+#include <native/AssetManager/SourceAssetReference.h>
 
 class QStringList;
 
@@ -39,14 +40,14 @@ namespace AssetProcessor
         // AzToolsFramework::AssetDatabase::Connection
     public:
         bool IsReadOnly() const override
-        { 
+        {
             return false;// return false, we actually curate/write to this database.
-        } 
+        }
         void VacuumAndAnalyze();
 
     protected:
         void CreateStatements() override;
-        bool PostOpenDatabase() override;
+        bool PostOpenDatabase(bool ignoreFutureAssetDBVersionError) override;
         //////////////////////////////////////////////////////////////////////////
 
     public:
@@ -87,6 +88,7 @@ namespace AssetProcessor
         bool GetSourcesBySourceName(QString exactSourceName, AzToolsFramework::AssetDatabase::SourceDatabaseEntryContainer& source);
         bool GetSourcesBySourceNameScanFolderId(QString exactSourceName, AZ::s64 scanFolderID, AzToolsFramework::AssetDatabase::SourceDatabaseEntryContainer& source);
         bool GetSourcesLikeSourceName(QString likeSourceName, LikeType likeType, AzToolsFramework::AssetDatabase::SourceDatabaseEntryContainer& container);
+        bool GetSourcesLikeSourceNameScanFolderId(QString likeSourceName, AZ::s64 scanFolderID, LikeType likeType, AzToolsFramework::AssetDatabase::SourceDatabaseEntryContainer& container);
 
         bool GetSourceByJobID(AZ::s64 jobID, AzToolsFramework::AssetDatabase::SourceDatabaseEntry& entry);
 
@@ -102,20 +104,20 @@ namespace AssetProcessor
         bool InvalidateSourceAnalysisFingerprints();
 
         //jobs
-        
+
         // used to initialize the predictor for job Run Keys
-        AZ::s64 GetHighestJobRunKey(); 
+        AZ::s64 GetHighestJobRunKey();
         bool GetJobs(AzToolsFramework::AssetDatabase::JobDatabaseEntryContainer& container, AZ::Uuid builderGuid = AZ::Uuid::CreateNull(), QString jobKey = QString(), QString platform = QString(), AzToolsFramework::AssetSystem::JobStatus status = AzToolsFramework::AssetSystem::JobStatus::Any);
         bool GetJobByJobID(AZ::s64 jobID, AzToolsFramework::AssetDatabase::JobDatabaseEntry& entry);
         bool GetJobByProductID(AZ::s64 productID, AzToolsFramework::AssetDatabase::JobDatabaseEntry& entry);
 
         bool GetJobsBySourceID(AZ::s64 sourceID, AzToolsFramework::AssetDatabase::JobDatabaseEntryContainer& container, AZ::Uuid builderGuid = AZ::Uuid::CreateNull(), QString jobKey = QString(), QString platform = QString(), AzToolsFramework::AssetSystem::JobStatus status = AzToolsFramework::AssetSystem::JobStatus::Any);
-        bool GetJobsBySourceName(QString exactSourceName, AzToolsFramework::AssetDatabase::JobDatabaseEntryContainer& container, AZ::Uuid builderGuid = AZ::Uuid::CreateNull(), QString jobKey = QString(), QString platform = QString(), AzToolsFramework::AssetSystem::JobStatus status = AzToolsFramework::AssetSystem::JobStatus::Any);
+        bool GetJobsBySourceName(const AssetProcessor::SourceAssetReference& sourceAsset, AzToolsFramework::AssetDatabase::JobDatabaseEntryContainer& container, AZ::Uuid builderGuid = AZ::Uuid::CreateNull(), QString jobKey = QString(), QString platform = QString(), AzToolsFramework::AssetSystem::JobStatus status = AzToolsFramework::AssetSystem::JobStatus::Any);
         bool GetJobsLikeSourceName(QString likeSourceName, LikeType likeType, AzToolsFramework::AssetDatabase::JobDatabaseEntryContainer& container, AZ::Uuid builderGuid = AZ::Uuid::CreateNull(), QString jobKey = QString(), QString platform = QString(), AzToolsFramework::AssetSystem::JobStatus status = AzToolsFramework::AssetSystem::JobStatus::Any);
 
         bool GetJobsByProductName(QString exactProductName, AzToolsFramework::AssetDatabase::JobDatabaseEntryContainer& container, AZ::Uuid builderGuid = AZ::Uuid::CreateNull(), QString jobKey = QString(), QString platform = QString(), AzToolsFramework::AssetSystem::JobStatus status = AzToolsFramework::AssetSystem::JobStatus::Any);
         bool GetJobsLikeProductName(QString likeProductName, LikeType likeType, AzToolsFramework::AssetDatabase::JobDatabaseEntryContainer& container, AZ::Uuid builderGuid = AZ::Uuid::CreateNull(), QString jobKey = QString(), QString platform = QString(), AzToolsFramework::AssetSystem::JobStatus status = AzToolsFramework::AssetSystem::JobStatus::Any);
-        
+
         bool SetJob(AzToolsFramework::AssetDatabase::JobDatabaseEntry& entry); //on success sets jobID, if it already exists updates it
         bool RemoveJob(AZ::s64 jobID);
         bool RemoveJobs(AzToolsFramework::AssetDatabase::JobDatabaseEntryContainer& container);
@@ -127,15 +129,15 @@ namespace AssetProcessor
         // note that the pair of (JobID, SubID) uniquely identifies a single job, and thus the result is always only one entry:
         bool GetProductByJobIDSubId(AZ::s64 jobID, AZ::u32 subID, AzToolsFramework::AssetDatabase::ProductDatabaseEntry& result);
         bool GetProductBySourceGuidSubId(AZ::Uuid sourceGuid, AZ::u32 subId, AzToolsFramework::AssetDatabase::ProductDatabaseEntry& result);
-        
+
         bool GetProductByProductID(AZ::s64 productID, AzToolsFramework::AssetDatabase::ProductDatabaseEntry& entry);
         bool GetProductsByProductName(QString exactProductName, AzToolsFramework::AssetDatabase::ProductDatabaseEntryContainer& container, AZ::Uuid builderGuid = AZ::Uuid::CreateNull(), QString jobKey = QString(), QString platform = QString(), AzToolsFramework::AssetSystem::JobStatus status = AzToolsFramework::AssetSystem::JobStatus::Any);
         bool GetProductsLikeProductName(QString likeProductName, LikeType likeType, AzToolsFramework::AssetDatabase::ProductDatabaseEntryContainer& container, AZ::Uuid builderGuid = AZ::Uuid::CreateNull(), QString jobKey = QString(), QString platform = QString(), AzToolsFramework::AssetSystem::JobStatus status = AzToolsFramework::AssetSystem::JobStatus::Any);
-        
+
         bool GetProductsBySourceID(AZ::s64 sourceID, AzToolsFramework::AssetDatabase::ProductDatabaseEntryContainer& container, AZ::Uuid builderGuid = AZ::Uuid::CreateNull(), QString jobKey = QString(), QString platform = QString(), AzToolsFramework::AssetSystem::JobStatus status = AzToolsFramework::AssetSystem::JobStatus::Any);
         bool GetProductsBySourceName(QString exactSourceName, AzToolsFramework::AssetDatabase::ProductDatabaseEntryContainer& container, AZ::Uuid builderGuid = AZ::Uuid::CreateNull(), QString jobKey = QString(), QString platform = QString(), AzToolsFramework::AssetSystem::JobStatus status = AzToolsFramework::AssetSystem::JobStatus::Any);
         bool GetProductsLikeSourceName(QString likeSourceName, LikeType likeType, AzToolsFramework::AssetDatabase::ProductDatabaseEntryContainer& container, AZ::Uuid builderGuid = AZ::Uuid::CreateNull(), QString jobKey = QString(), QString platform = QString(), AzToolsFramework::AssetSystem::JobStatus status = AzToolsFramework::AssetSystem::JobStatus::Any);
-        
+
         bool SetProduct(AzToolsFramework::AssetDatabase::ProductDatabaseEntry& entry); //on success sets productID, if it already exists updates it
         bool SetProducts(AzToolsFramework::AssetDatabase::ProductDatabaseEntryContainer& container); //on success sets productID, if it already exists updates it
         bool RemoveProducts(AzToolsFramework::AssetDatabase::ProductDatabaseEntryContainer& container);
@@ -147,7 +149,7 @@ namespace AssetProcessor
         bool GetJobInfoByJobID(AZ::s64 jobID, AzToolsFramework::AssetSystem::JobInfo& jobInfo);
         bool GetJobInfoByJobKey(AZStd::string jobKey, AzToolsFramework::AssetSystem::JobInfoContainer& container);
         bool GetJobInfoByJobRunKey(AZ::u64 jobRunKey, AzToolsFramework::AssetSystem::JobInfoContainer& container);
-        bool GetJobInfoBySourceName(QString exactSourceName, AzToolsFramework::AssetSystem::JobInfoContainer& container, AZ::Uuid builderGuid = AZ::Uuid::CreateNull(), QString jobKey = QString(), QString platform = QString(), AzToolsFramework::AssetSystem::JobStatus status = AzToolsFramework::AssetSystem::JobStatus::Any);
+        bool GetJobInfoBySourceNameScanFolderId(QString exactSourceName, AZ::s64 scanfolderId, AzToolsFramework::AssetSystem::JobInfoContainer& container, AZ::Uuid builderGuid = AZ::Uuid::CreateNull(), QString jobKey = QString(), QString platform = QString(), AzToolsFramework::AssetSystem::JobStatus status = AzToolsFramework::AssetSystem::JobStatus::Any);
 
         /* --------------------- Source Dependency Table -------------------
         *    For example, this table records when a source file depends on another source file either directly (DEP_SourceToSource)
@@ -170,12 +172,17 @@ namespace AssetProcessor
         // The following functions are all search functions (as opposed to the above functions which fetch or operate on specific rows)
         // They tend to take a "Type of Dependency" filter - you can use DEP_Any to query all kinds of dependencies.
         /// Given a source file, what does it DEPEND ON?
-        bool GetDependsOnSourceBySource(const char* source, AzToolsFramework::AssetDatabase::SourceFileDependencyEntry::TypeOfDependency typeOfDependency, AzToolsFramework::AssetDatabase::SourceFileDependencyEntryContainer& container);
+        bool GetDependsOnSourceBySource(AZ::Uuid sourceUuid, AzToolsFramework::AssetDatabase::SourceFileDependencyEntry::TypeOfDependency typeOfDependency, AzToolsFramework::AssetDatabase::SourceFileDependencyEntryContainer& container);
         /// Given a source file and a builder UUID, does it DEPEND ON?
-        bool GetSourceFileDependenciesByBuilderGUIDAndSource(const AZ::Uuid& builderGuid, const char* source, AzToolsFramework::AssetDatabase::SourceFileDependencyEntry::TypeOfDependency typeOfDependency, AzToolsFramework::AssetDatabase::SourceFileDependencyEntryContainer& container);
+        bool GetSourceFileDependenciesByBuilderGUIDAndSource(const AZ::Uuid& builderGuid, AZ::Uuid sourceGuid, AzToolsFramework::AssetDatabase::SourceFileDependencyEntry::TypeOfDependency typeOfDependency, AzToolsFramework::AssetDatabase::SourceFileDependencyEntryContainer& container);
         /// Given a source file, what depends ON IT? ('reverse dependency')
-        bool GetSourceFileDependenciesByDependsOnSource(const QString& dependsOnSource, AzToolsFramework::AssetDatabase::SourceFileDependencyEntry::TypeOfDependency typeOfDependency, AzToolsFramework::AssetDatabase::SourceFileDependencyEntryContainer& container);
-        
+        bool GetSourceFileDependenciesByDependsOnSource(
+            AZ::Uuid sourceGuid,
+            const char* sourceName,
+            const char* absolutePath,
+            AzToolsFramework::AssetDatabase::SourceFileDependencyEntry::TypeOfDependency typeOfDependency,
+            AzToolsFramework::AssetDatabase::SourceFileDependencyEntryContainer& container);
+
         // --------------------- Legacy SUBID table -------------------
         bool CreateOrUpdateLegacySubID(AzToolsFramework::AssetDatabase::LegacySubIDsEntry& entry);  // create or overwrite operation.
         bool RemoveLegacySubID(AZ::s64 legacySubIDsEntryID);
@@ -210,19 +217,24 @@ namespace AssetProcessor
         // bulk replace builder info table with new builder info table.  Replaces the existing table of data.
         // Note:  newEntries will have their m_builderInfoID member set to their inserted rowId if this call succeeds.
         bool SetBuilderInfoTable(AzToolsFramework::AssetDatabase::BuilderInfoEntryContainer& newEntries);
- 
+
         //Files
         bool GetFileByFileID(AZ::s64 fileID, AzToolsFramework::AssetDatabase::FileDatabaseEntry& entry);
         bool GetFileByFileNameAndScanFolderId(QString fileName, AZ::s64 scanFolderId, AzToolsFramework::AssetDatabase::FileDatabaseEntry& entry);
-        bool GetFilesLikeFileName(QString likeFileName, LikeType likeType, AzToolsFramework::AssetDatabase::FileDatabaseEntryContainer& container);
+        bool GetFilesLikeFileNameScanFolderId(QString likeFileName, LikeType likeType, AZ::s64 scanFolderId, AzToolsFramework::AssetDatabase::FileDatabaseEntryContainer& container);
 
         bool InsertFiles(AzToolsFramework::AssetDatabase::FileDatabaseEntryContainer& entry);
         bool InsertFile(AzToolsFramework::AssetDatabase::FileDatabaseEntry& entry, bool& entryAlreadyExists);
         bool UpdateFile(AzToolsFramework::AssetDatabase::FileDatabaseEntry& entry, bool& entryAlreadyExists);
-        
+
         // updates the modtime and hash for a file if it exists.  Only returns true if the row existed and was successfully updated
         bool UpdateFileModTimeAndHashByFileNameAndScanFolderId(QString fileName, AZ::s64 scanFolderId, AZ::u64 modTime, AZ::u64 hash);
         bool RemoveFile(AZ::s64 sourceID);
+
+        //Stats
+        bool GetStatByStatName(QString statName, AzToolsFramework::AssetDatabase::StatDatabaseEntryContainer& container);
+        bool GetStatLikeStatName(QString statName, AzToolsFramework::AssetDatabase::StatDatabaseEntryContainer& container);
+        bool ReplaceStat(AzToolsFramework::AssetDatabase::StatDatabaseEntry& stat);
     protected:
         void SetDatabaseVersion(AzToolsFramework::AssetDatabase::DatabaseVersion ver);
         void ExecuteCreateStatements();

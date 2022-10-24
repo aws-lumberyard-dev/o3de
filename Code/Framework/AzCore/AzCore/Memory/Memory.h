@@ -252,7 +252,7 @@ namespace AZ {
     /* ========== standard operator new/delete ========== */                                                                                                                        \
     AZ_FORCE_INLINE void* operator new(std::size_t size) {                      /* default operator new (called with "new _Class()") */                                             \
         AZ_Assert(size >= sizeof(_Class), "Size mismatch! Did you forget to declare the macro in derived class? Size: %d sizeof(%s): %d", size, #_Class, sizeof(_Class));           \
-        AZ_Warning(0, true/*false*/, "Make sure you use aznew, offers better tracking!" /*Warning temporarily disabled until engine is using AZ allocators.*/);                     \
+        AZ_Warning(0, true/*false*/, "Make sure you use aznew, offers better tracking! (%s)", #_Class /*Warning temporarily disabled until engine is using AZ allocators.*/);       \
         return AZ::AllocatorInstance< _Allocator >::Get().Allocate(size, AZStd::alignment_of< _Class >::value, _Flags,#_Class);                                                     \
     }                                                                                                                                                                               \
     AZ_FORCE_INLINE void  operator delete(void* p, std::size_t size) {    /* default operator delete */                                                                             \
@@ -436,7 +436,7 @@ namespace AZ {
     [[nodiscard]] void* _Class::operator new(std::size_t size)                                                                                                                                                                                      \
     {                                                                                                                                                                                                                                               \
         AZ_Assert(size >= sizeof(_Class), "Size mismatch! Did you forget to declare the macro in derived class? Size: %d sizeof(_Class): %d", size, sizeof(_Class));                                                                                \
-        AZ_Warning(0, false, "Make sure you use aznew, offers better tracking!");                                                                                                                                                                   \
+        AZ_Warning(0, false, "Make sure you use aznew, offers better tracking! (%s)", #_Class);                                                                                                                                                     \
         return AZ::AllocatorInstance< _Allocator >::Get().Allocate(size, AZStd::alignment_of< _Class >::value, _Flags,#_Class);                                                                                                                     \
     }                                                                                                                                                                                                                                               \
     _Template                                                                                                                                                                                                                                       \
@@ -562,12 +562,8 @@ namespace AZ
                     // Assert here before attempting to resolve. Otherwise a module-local
                     // environment will be created which will result in a much more difficult to
                     // locate problem
-                    AZ_Assert(AZ::Environment::IsReady(), "Environment has not been attached yet, allocator cannot be created/resolved");
-                    if (AZ::Environment::IsReady())
-                    {
-                        s_allocator = Environment::FindVariable<Allocator>(AzTypeInfo<Allocator>::Name());
-                        AZ_Assert(s_allocator, "Allocator '%s' NOT ready for use! Call Create first!", AzTypeInfo<Allocator>::Name());
-                    }
+                    s_allocator = Environment::FindVariable<Allocator>(AzTypeInfo<Allocator>::Name());
+                    AZ_Assert(s_allocator, "Allocator '%s' NOT ready for use! Call Create first!", AzTypeInfo<Allocator>::Name());
                 }
                 return *s_allocator;
             }
@@ -608,18 +604,11 @@ namespace AZ
 
             AZ_FORCE_INLINE static bool IsReady()
             {
-                if (Environment::IsReady())
+                if (!s_allocator)
                 {
-                    if (!s_allocator) // if not there check the environment (if available)
-                    {
-                        s_allocator = Environment::FindVariable<Allocator>(AzTypeInfo<Allocator>::Name());
-                    }
-                    return s_allocator && s_allocator->IsReady();
+                    s_allocator = Environment::FindVariable<Allocator>(AzTypeInfo<Allocator>::Name());
                 }
-                else
-                {
-                    return false;
-                }
+                return s_allocator && s_allocator->IsReady();
             }
 
             static EnvironmentVariable<Allocator> s_allocator;

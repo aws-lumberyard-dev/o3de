@@ -68,6 +68,10 @@ namespace AZ
                 //! Set to all 0's if you don't want to hide the object from any Views.
                 RPI::View::UsageFlags m_hideFlags = RPI::View::UsageNone;
 
+                //! UUID and type of the component that owns this cullable (optional)
+                AZ::Uuid m_componentUuid = AZ::Uuid::CreateNull();
+                uint32_t m_componentType = 0;
+
                 class RPI::Scene* m_scene = nullptr;  //[GFX_TODO][ATOM-13796] once the IVisibilitySystem supports multiple octree scenes, remove this
             };
             CullData m_cullData;
@@ -256,15 +260,18 @@ namespace AZ
 
             //! Performs render culling and lod selection for a View, then adds the visible renderpackets to that View.
             //! Must be called between BeginCulling() and EndCulling(), once for each active scene/view pair.
-            //! Will create child jobs under the parentJob to do the processing in parallel.
             //! Can be called in parallel (i.e. to perform culling on multiple views at the same time).
+            void ProcessCullables(const Scene& scene, View& view, AZ::Job* parentJob, AZ::TaskGraph* taskGraph = nullptr, AZ::TaskGraphEvent* processCullablesTGEvent = nullptr);
+            //! Variation that accumulates entries into lists to hand off to jobs. This yieldeds more
+            //! balanced jobs and thus better performance than the above Nodes variation.
+            //! Use the r_useEntryWorkListsForCulling CVAR to toggle between the two.
+            void ProcessCullablesJobsEntries(const Scene& scene, View& view, AZ::Job* parentJob);
+
+            //! Will create child jobs under the parentJob to do the processing in parallel.
             void ProcessCullablesJobs(const Scene& scene, View& view, AZ::Job& parentJob);
 
-            //! Performs render culling and lod selection for a View, then adds the visible renderpackets to that View.
-            //! Must be called between BeginCulling() and EndCulling(), once for each active scene/view pair.
             //! Will create child task graphs that signal the TaskGraphEvent to do the processing in parallel.
-            //! Can be called in parallel (i.e. to perform culling on multiple views at the same time).
-            void ProcessCullablesTG(const Scene& scene, View& view, AZ::TaskGraph& taskGraph);
+            void ProcessCullablesTG(const Scene& scene, View& view, AZ::TaskGraph& taskGraph, AZ::TaskGraphEvent& processCullablesTGEvent);
 
             //! Adds a Cullable to the underlying visibility system(s).
             //! Must be called at least once on initialization and whenever a Cullable's position or bounds is changed.
@@ -283,6 +290,9 @@ namespace AZ
             {
                 return m_debugCtx;
             }
+
+            //! Returns the visibility scene
+            const AzFramework::IVisibilityScene* GetVisibilityScene() const { return m_visScene; }
 
         protected:
             size_t CountObjectsInScene();

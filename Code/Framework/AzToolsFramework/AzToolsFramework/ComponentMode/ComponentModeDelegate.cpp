@@ -135,13 +135,13 @@ namespace AzToolsFramework
                             ->Attribute(AZ::Edit::Attributes::ChangeNotify, &ComponentModeDelegate::OnComponentModeEnterButtonPressed)
                             ->Attribute(AZ::Edit::Attributes::ButtonText, "Edit")
                             ->Attribute(AZ::Edit::Attributes::Visibility, &EnterComponentModeButtonVisible)
-                            //->Attribute(AZ::Edit::Attributes::AcceptsMultiEdit, true) // disable temporarily until editor updates are integrated
+                            ->Attribute(AZ::Edit::Attributes::AcceptsMultiEdit, true)
                             ->Attribute(AZ::Edit::Attributes::ReadOnly, &ComponentModeDelegate::ComponentModeButtonInactive)
                         ->UIElement(AZ::Edit::UIHandlers::Button, "", s_componentModeLeaveDescription)
                             ->Attribute(AZ::Edit::Attributes::ChangeNotify, &ComponentModeDelegate::OnComponentModeLeaveButtonPressed)
                             ->Attribute(AZ::Edit::Attributes::ButtonText, "Done")
                             ->Attribute(AZ::Edit::Attributes::Visibility, &LeaveComponentModeButtonVisible)
-                            //->Attribute(AZ::Edit::Attributes::AcceptsMultiEdit, true) // disable temporarily until editor fixes are integrated
+                            ->Attribute(AZ::Edit::Attributes::AcceptsMultiEdit, true)
                             ;
                 }
             }
@@ -166,7 +166,7 @@ namespace AzToolsFramework
             }
         }
 
-        bool ComponentModeDelegate::AddedToComponentMode()
+        bool ComponentModeDelegate::AddedToComponentMode() const
         {
             bool addedToComponentMode = false;
             ComponentModeSystemRequestBus::BroadcastResult(
@@ -184,6 +184,12 @@ namespace AzToolsFramework
 
         void ComponentModeDelegate::OnComponentModeEnterButtonPressed()
         {
+            // Check the entity hasn't been deselected but we haven't been told yet.
+            if (!IsSelected(m_entityComponentIdPair.GetEntityId()))
+            {
+                return;
+            }
+
             // ensure we aren't already in ComponentMode and are not also attempting to enter game mode
             if (!InComponentMode() && !EditorRequestingGame())
             {
@@ -301,19 +307,9 @@ namespace AzToolsFramework
         }
 
         bool ComponentModeDelegate::DetectLeaveComponentModeInteraction(
-            const ViewportInteraction::MouseInteractionEvent& mouseInteraction)
+            [[maybe_unused]] const ViewportInteraction::MouseInteractionEvent& mouseInteraction)
         {
-            if (ShouldDetectEnterLeaveComponentMode(mouseInteraction))
-            {
-                if (DoubleClickedComponent(mouseInteraction, m_handler) == DoubleClickOutcome::OffComponent)
-                {
-                    ComponentModeSystemRequestBus::Broadcast(
-                        &ComponentModeSystemRequests::EndComponentMode);
-
-                    return true;
-                }
-            }
-
+            // by default, we won't use mouse interactions to leave component mode, so we'll always return false.
             return false;
         }
 

@@ -60,6 +60,21 @@ namespace AZ
         class ObjectStreamImpl;
     }
 
+    namespace SerializeContextAttributes
+    {
+        // Attribute used to set an override function on a SerializeContext::ClassData attribute array
+        // which can be used to override the ObjectStream WriteElement call to write out reflected data differently
+        static const AZ::Crc32 ObjectStreamWriteElementOverride = AZ_CRC("ObjectStreamWriteElementOverride", 0x35eb659f);
+    }
+
+    enum class ObjectStreamWriteOverrideResponse
+    {
+        CompletedWrite,
+        FallbackToDefaultWrite,
+        AbortWrite
+    };
+    AZ_TYPE_INFO_SPECIALIZE(ObjectStreamWriteOverrideResponse, "{BDF960A8-0F18-4E9D-96DA-F800A122C42D}");
+
     namespace Edit
     {
         struct ElementData;
@@ -726,6 +741,8 @@ namespace AZ
         class IDataContainer
         {
         public:
+            AZ_TYPE_INFO(IDataContainer, "{8565CBEA-C077-4A49-927B-314533A6EDB1}");
+
             typedef AZStd::function< bool (void* /* instance pointer */, const Uuid& /*elementClassId*/, const ClassData* /* elementGenericClassData */, const ClassElement* /* genericClassElement */) > ElementCB;
             typedef AZStd::function< bool(const Uuid& /*elementClassId*/, const ClassElement* /* genericClassElement */) > ElementTypeCB;
             virtual ~IDataContainer() {}
@@ -740,6 +757,7 @@ namespace AZ
                 virtual void    FreeKey(void* key) = 0;
 
             public:
+                AZ_TYPE_INFO(IAssociativeDataContainer, "{58CF6250-6B0F-4A25-9864-25A64EB55DB1}");
                 virtual ~IAssociativeDataContainer() {}
 
                 struct KeyPtrDeleter
@@ -765,6 +783,8 @@ namespace AZ
                 virtual void*   GetElementByKey(void* instance, const ClassElement* classElement, const void* key) = 0;
                 /// Populates element with key (for associative containers). Not used for serialization.
                 virtual void    SetElementKey(void* element, void* key) = 0;
+                /// Get the mapped value's address by its key. If there is no mapped value (like in a set<>) the value returned is the key itself
+                virtual void* GetValueByKey(void* instance, const void* key) = 0;
             };
 
             /// Return default element generic name (used by most containers).
@@ -1052,8 +1072,8 @@ namespace AZ
             ErrorHandler*                   m_errorHandler;         ///< Optional user error handler.
             const SerializeContext*         m_context;              ///< Serialize context containing class reflection required for data traversal.
 
-            IDataContainer::ElementCB       m_elementCallback;      // Pre-bound functor computed internally to avoid allocating closures during traversal.
-            ErrorHandler                    m_defaultErrorHandler;  // If no custom error handler is provided, the context provides one.
+            IDataContainer::ElementCB       m_elementCallback;      ///< Pre-bound functor computed internally to avoid allocating closures during traversal.
+            ErrorHandler                    m_defaultErrorHandler;  ///< If no custom error handler is provided, the context provides one.
         };
 
         /// Find a class data (stored information) based on a class ID and possible parent class data.
@@ -1101,7 +1121,7 @@ namespace AZ
          * and the enum type is registered with the SerializeContext
          * otherwise the supplied typeId is returned
         */
-        const TypeId& GetUnderlyingTypeId(const TypeId& enumTypeId) const;
+        AZ::TypeId GetUnderlyingTypeId(const TypeId& enumTypeId) const;
 
     private:
 
@@ -1339,7 +1359,8 @@ namespace AZ
     private:
         EditContext* m_editContext;  ///< Pointer to optional edit context.
         UuidToClassMap  m_uuidMap;      ///< Map for all class in this serialize context
-        AZStd::unordered_multimap<AZ::Crc32, AZ::Uuid> m_classNameToUuid;  /// Map all class names to their uuid
+        AZStd::unordered_multimap<AZ::Crc32, AZ::Uuid> m_classNameToUuid;  ///< Map all class names to their uuid
+        AZStd::unordered_multimap<AZ::Crc32, AZ::Uuid> m_deprecatedNameToTypeIdMap;  ///< Stores a mapping of deprecated type names that a type exposes through the AzDeprecatedTypeNameVisitor
         AZStd::unordered_multimap<Uuid, GenericClassInfo*>  m_uuidGenericMap;      ///< Uuid to ClassData map of reflected classes with GenericTypeInfo
         AZStd::unordered_multimap<Uuid, Uuid> m_legacySpecializeTypeIdToTypeIdMap; ///< Keep a map of old legacy specialized typeids of template classes to new specialized typeids
         AZStd::unordered_map<Uuid, CreateAnyFunc>  m_uuidAnyCreationMap;      ///< Uuid to Any creation function map
@@ -1377,13 +1398,13 @@ namespace AZ
 
         virtual size_t GetNumTemplatedArguments() = 0;
 
-        virtual const Uuid& GetTemplatedTypeId(size_t element) = 0;
+        virtual AZ::TypeId GetTemplatedTypeId(size_t element) = 0;
 
         /// By default returns AzTypeInfo<ValueType>::Uuid
-        virtual const Uuid& GetSpecializedTypeId() const = 0;
+        virtual AZ::TypeId GetSpecializedTypeId() const = 0;
 
         /// Return the generic Type Id associated with the GenericClassInfo
-        virtual const Uuid& GetGenericTypeId() const { return GetSpecializedTypeId(); }
+        virtual AZ::TypeId GetGenericTypeId() const { return GetSpecializedTypeId(); }
 
         /// Register the generic class info using the SerializeContext
         virtual void Reflect(SerializeContext*) = 0;
@@ -1393,7 +1414,7 @@ namespace AZ
 
         /// Returns the legacy specialized type id which removed the pointer types from templates when calculating type ids.
         /// i.e Typeids for AZStd::vector<AZ::Entity> and AZStd::vector<AZ::Entity*> are the same for legacy ids
-        virtual const Uuid& GetLegacySpecializedTypeId() const { return GetSpecializedTypeId(); }
+        virtual AZ::TypeId GetLegacySpecializedTypeId() const { return GetSpecializedTypeId(); }
     };
 
     /**
@@ -1419,7 +1440,7 @@ namespace AZ
         /// By default we don't have generic class info
         static GenericClassInfo* GetGenericInfo() { return nullptr; }
         /// By default just return the ValueTypeInfo
-        static const Uuid& GetClassTypeId();
+        static constexpr Uuid GetClassTypeId();
     };
 
     /**
@@ -1576,15 +1597,15 @@ namespace AZ
     struct SerializeTypeInfo
     {
         typedef typename AZStd::remove_pointer<T>::type ValueType;
-        static const Uuid& GetUuid(const T* instance = nullptr)
+        static Uuid GetUuid(const T* instance = nullptr)
         {
             return GetUuid(instance, typename AZStd::is_pointer<T>::type());
         }
-        static const Uuid& GetUuid(const T* instance, const AZStd::true_type& /*is_pointer<T>*/)
+        static Uuid GetUuid(const T* instance, const AZStd::true_type& /*is_pointer<T>*/)
         {
             return GetUuidHelper(instance ? *instance : nullptr, typename HasAZRtti<ValueType>::type());
         }
-        static const Uuid& GetUuid(const T* instance, const AZStd::false_type& /*is_pointer<T>*/)
+        static Uuid GetUuid(const T* instance, const AZStd::false_type& /*is_pointer<T>*/)
         {
             return GetUuidHelper(instance, typename HasAZRtti<ValueType>::type());
         }
@@ -1605,16 +1626,16 @@ namespace AZ
             return "NotAZRttiType";
         }
 
-        static const Uuid& GetRttiTypeId(ValueType* const* instance)
+        static AZ::TypeId GetRttiTypeId(ValueType* const* instance)
         {
             return GetRttiTypeId(instance ? *instance : nullptr, typename HasAZRtti<ValueType>::type());
         }
-        static const Uuid& GetRttiTypeId(const ValueType* instance) { return GetRttiTypeId(instance, typename HasAZRtti<ValueType>::type()); }
-        static const Uuid& GetRttiTypeId(const ValueType* instance, const AZStd::true_type& /*HasAZRtti<ValueType>*/)
+        static AZ::TypeId GetRttiTypeId(const ValueType* instance) { return GetRttiTypeId(instance, typename HasAZRtti<ValueType>::type()); }
+        static AZ::TypeId GetRttiTypeId(const ValueType* instance, const AZStd::true_type& /*HasAZRtti<ValueType>*/)
         {
             return instance ? AZ::RttiTypeId(instance) : AzTypeInfo<ValueType>::Uuid();
         }
-        static const Uuid& GetRttiTypeId(const ValueType* /*instance*/, const AZStd::false_type& /*!HasAZRtti<ValueType>*/)
+        static AZ::TypeId GetRttiTypeId(const ValueType* /*instance*/, const AZStd::false_type& /*!HasAZRtti<ValueType>*/)
         {
             static Uuid s_nullUuid = Uuid::CreateNull();
             return s_nullUuid;
@@ -1673,11 +1694,11 @@ namespace AZ
         }
 
     private:
-        static const AZ::Uuid& GetUuidHelper(const ValueType* /* ptr */, const AZStd::false_type& /* !HasAZRtti<U>::type() */)
+        static AZ::Uuid GetUuidHelper(const ValueType* /* ptr */, const AZStd::false_type& /* !HasAZRtti<U>::type() */)
         {
             return SerializeGenericTypeInfo<ValueType>::GetClassTypeId();
         }
-        static const AZ::Uuid& GetUuidHelper(const ValueType* ptr, const AZStd::true_type& /* HasAZRtti<U>::type() */)
+        static AZ::Uuid GetUuidHelper(const ValueType* ptr, const AZStd::true_type& /* HasAZRtti<U>::type() */)
         {
             return ptr ? AZ::RttiTypeId(ptr) : SerializeGenericTypeInfo<ValueType>::GetClassTypeId();
         }
@@ -1904,6 +1925,26 @@ namespace AZ
             {
                 RemoveClassData(&mapIt->second);
 
+
+                // Remove the deprecated type name -> typeid mapping
+                auto RemoveDeprecatedNames = [this, &typeUuid = typeUuid](AZStd::string_view deprecatedName)
+                {
+                    auto deprecatedNameRange = m_deprecatedNameToTypeIdMap.equal_range(Crc32(deprecatedName));
+                    for (auto classNameRangeIter = deprecatedNameRange.first; classNameRangeIter != deprecatedNameRange.second;)
+                    {
+                        if (classNameRangeIter->second == typeUuid)
+                        {
+                            classNameRangeIter = m_deprecatedNameToTypeIdMap.erase(classNameRangeIter);
+                        }
+                        else
+                        {
+                            ++classNameRangeIter;
+                        }
+                    }
+                };
+                DeprecatedTypeNameVisitor<T>(RemoveDeprecatedNames);
+
+                // Remove the current class name -> typeid mapping
                 auto classNameRange = m_classNameToUuid.equal_range(Crc32(name));
                 for (auto classNameRangeIter = classNameRange.first; classNameRangeIter != classNameRange.second;)
                 {
@@ -1923,6 +1964,13 @@ namespace AZ
         }
         else
         {
+            // Add any the deprecated type names to the deprecated type name to type id map
+            auto AddDeprecatedNames = [this, &typeUuid = typeUuid](AZStd::string_view deprecatedName)
+            {
+                m_deprecatedNameToTypeIdMap.emplace(deprecatedName, typeUuid);
+            };
+            DeprecatedTypeNameVisitor<T>(AddDeprecatedNames);
+
             m_classNameToUuid.emplace(AZ::Crc32(name), typeUuid);
             UuidToClassMap::pair_iter_bool result = m_uuidMap.insert(AZStd::make_pair(typeUuid, ClassData::Create<T>(name, typeUuid, factory)));
             AZ_Assert(result.second, "This class type %s could not be registered with duplicated Uuid: %s.", name, typeUuid.ToString<AZStd::string>().c_str());
@@ -2464,7 +2512,7 @@ namespace AZ
     // SerializeGenericTypeInfo<ValueType>::GetClassTypeId
     //=========================================================================
     template<class ValueType>
-    const Uuid& SerializeGenericTypeInfo<ValueType>::GetClassTypeId()
+    constexpr Uuid SerializeGenericTypeInfo<ValueType>::GetClassTypeId()
     {
         // Detect the scenario when an enum type doesn't specialize AzTypeInfo
         // The underlying type Uuid is returned instead
@@ -2516,7 +2564,7 @@ namespace AZ
         using GenericClassInfoType = typename SerializeGenericTypeInfo<T>::ClassInfoType;
         static_assert(AZStd::is_base_of<AZ::GenericClassInfo, GenericClassInfoType>::value, "GenericClassInfoType must be be derived from AZ::GenericClassInfo");
 
-        const AZ::TypeId& canonicalTypeId = AzTypeInfo<T>::Uuid();
+        const AZ::TypeId& canonicalTypeId = azrtti_typeid<T>();
         auto findIt = m_moduleLocalGenericClassInfos.find(canonicalTypeId);
         if (findIt != m_moduleLocalGenericClassInfos.end())
         {

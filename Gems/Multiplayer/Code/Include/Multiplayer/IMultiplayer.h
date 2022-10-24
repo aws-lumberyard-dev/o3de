@@ -11,6 +11,10 @@
 #include <AzCore/RTTI/RTTI.h>
 #include <AzNetworking/ConnectionLayer/IConnection.h>
 #include <AzNetworking/DataStructures/ByteBuffer.h>
+#include <AzNetworking/Serialization/NetworkInputSerializer.h>
+#include <AzNetworking/Serialization/NetworkOutputSerializer.h>
+#include <AzNetworking/Serialization/TrackChangedSerializer.h>
+#include <AzNetworking/Serialization/TypeValidatingSerializer.h>
 #include <Multiplayer/NetworkEntity/IFilterEntityManager.h>
 #include <Multiplayer/Components/MultiplayerComponentRegistry.h>
 #include <Multiplayer/NetworkEntity/INetworkEntityManager.h>
@@ -24,6 +28,19 @@ namespace AzNetworking
 
 namespace Multiplayer
 {
+#ifdef AZ_RELEASE_BUILD
+    // Disable serializer type validation in release
+    using InputSerializer = AzNetworking::NetworkInputSerializer;
+    using OutputSerializer = AzNetworking::TrackChangedSerializer<AzNetworking::NetworkOutputSerializer>;
+    using RpcInputSerializer = AzNetworking::NetworkInputSerializer;
+    using RpcOutputSerializer = AzNetworking::NetworkOutputSerializer;
+#else
+    using InputSerializer = AzNetworking::TypeValidatingSerializer<AzNetworking::NetworkInputSerializer>;
+    using OutputSerializer = AzNetworking::TypeValidatingSerializer<AzNetworking::TrackChangedSerializer<AzNetworking::NetworkOutputSerializer>>;
+    using RpcInputSerializer = AzNetworking::TypeValidatingSerializer<AzNetworking::NetworkInputSerializer>;
+    using RpcOutputSerializer = AzNetworking::TypeValidatingSerializer<AzNetworking::NetworkOutputSerializer>;
+#endif
+
     //! Collection of types of Multiplayer Connections
     enum class MultiplayerAgentType
     {
@@ -44,13 +61,15 @@ namespace Multiplayer
 
     using ClientMigrationStartEvent = AZ::Event<ClientInputId>;
     using ClientMigrationEndEvent = AZ::Event<>;
-    using ClientDisconnectedEvent = AZ::Event<>;
+    using EndpointDisconnectedEvent = AZ::Event<MultiplayerAgentType>;
     using NotifyClientMigrationEvent = AZ::Event<AzNetworking::ConnectionId, const HostId&, uint64_t, ClientInputId, NetEntityId>;
     using NotifyEntityMigrationEvent = AZ::Event<const ConstNetworkEntityHandle&, const HostId&>;
     using ConnectionAcquiredEvent = AZ::Event<MultiplayerAgentDatum>;
     using ServerAcceptanceReceivedEvent = AZ::Event<>;
     using SessionInitEvent = AZ::Event<AzNetworking::INetworkInterface*>;
     using SessionShutdownEvent = AZ::Event<AzNetworking::INetworkInterface*>;
+    using LevelLoadBlockedEvent = AZ::Event<>;
+    using NoServerLevelLoadedEvent = AZ::Event<>;
 
     //! @class IMultiplayer
     //! @brief IMultiplayer provides insight into the Multiplayer session and its Agents
@@ -84,10 +103,11 @@ namespace Multiplayer
         virtual void InitializeMultiplayer(MultiplayerAgentType state) = 0;
 
         //! Starts hosting a server.
-        //! @param port The port to listen for connection on
+        //! @param port The port to listen for connection on, 0 means use the currently configured port value of sv_port
         //! @param isDedicated Whether the server is dedicated or client hosted
         //! @return if the application successfully started hosting
-        virtual bool StartHosting(uint16_t port, bool isDedicated = true) = 0;
+        static const uint16_t UseDefaultHostPort = 0;
+        virtual bool StartHosting(uint16_t port = UseDefaultHostPort, bool isDedicated = true) = 0;
 
         //! Connects to the specified IP as a Client.
         //! @param remoteAddress The domain or IP to connect to
@@ -107,9 +127,9 @@ namespace Multiplayer
         //! @param handler The ClientMigrationEndEvent Handler to add
         virtual void AddClientMigrationEndEventHandler(ClientMigrationEndEvent::Handler& handler) = 0;
 
-        //! Adds a ClientDisconnectedEvent Handler which is invoked on the client when a disconnection occurs.
-        //! @param handler The ClientDisconnectedEvent Handler to add
-        virtual void AddClientDisconnectedHandler(ClientDisconnectedEvent::Handler& handler) = 0;
+        //! Adds a EndpointDisconnectedEvent Handler which is invoked on the client when a disconnection occurs.
+        //! @param handler The EndpointDisconnectedEvent Handler to add
+        virtual void AddEndpointDisconnectedHandler(EndpointDisconnectedEvent::Handler& handler) = 0;
 
         //! Adds a NotifyClientMigrationEvent Handler which is invoked when a client migrates from one host to another.
         //! @param handler The NotifyClientMigrationEvent Handler to add
@@ -134,6 +154,14 @@ namespace Multiplayer
         //! Adds a SessionShutdownEvent Handler which is invoked when the current network session ends.
         //! @param handler The SessionShutdownEvent handler to add
         virtual void AddSessionShutdownHandler(SessionShutdownEvent::Handler& handler) = 0;
+
+        //! Adds a LevelLoadBlockedEvent Handler which is invoked whenever the multiplayer system blocks a level load.
+        //! @param handler The LevelLoadBlockedEvent handler to add
+        virtual void AddLevelLoadBlockedHandler(LevelLoadBlockedEvent::Handler& handler) = 0;
+
+        //! Adds a NoServerLevelLoadedEvent Handler which is invoked whenever a client connects to a server that doesn't have any level loaded.
+        //! @param handler The NoServerLevelLoadedEvent handler to add
+        virtual void AddNoServerLevelLoadedHandler(NoServerLevelLoadedEvent::Handler& handler) = 0;
 
         //! Signals a NotifyClientMigrationEvent with the provided parameters.
         //! @param connectionId       the connection id of the client that is migrating

@@ -96,7 +96,8 @@ namespace EMotionFX
 
         if (GetActor())
         {
-            if (!selectedModelIndices.isEmpty())
+            bool onlyRootSelected = selectedModelIndices.size() == 1 && SkeletonModel::IndicesContainRootNode(selectedModelIndices);
+            if (!selectedModelIndices.isEmpty() && !onlyRootSelected)
             {
                 if (selectedModelIndices.size() == 1)
                 {
@@ -163,6 +164,19 @@ namespace EMotionFX
             actor = skeletonModel->GetActor();
         }
         return actor;
+    }
+
+    ActorInstance* SkeletonModelJointWidget::GetActorInstance()
+    {
+        ActorInstance* selectedActorInstance = nullptr;
+        SkeletonModel* skeletonModel = nullptr;
+        SkeletonOutlinerRequestBus::BroadcastResult(skeletonModel, &SkeletonOutlinerRequests::GetModel);
+        if (skeletonModel)
+        {
+            selectedActorInstance = skeletonModel->GetActorInstance();
+        }
+
+        return selectedActorInstance;
     }
 
     Node* SkeletonModelJointWidget::GetNode() const

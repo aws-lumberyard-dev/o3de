@@ -41,29 +41,24 @@ include(cmake/UnitTest.cmake)
 include(cmake/LYTestWrappers.cmake)
 include(cmake/Monolithic.cmake)
 include(cmake/SettingsRegistry.cmake)
-include(cmake/TestImpactFramework/LYTestImpactFramework.cmake)
 include(cmake/CMakeFiles.cmake)
 include(cmake/O3DEJson.cmake)
 include(cmake/Subdirectories.cmake)
+include(cmake/TestImpactFramework/LYTestImpactFramework.cmake) # Put at end as nothing else depends on it
 
 # Gather the list of o3de_manifest external Subdirectories
-# into the LY_EXTERNAL_SUBDIRS_O3DE_MANIFEST_PROPERTY
+# into the O3DE_EXTERNAL_SUBDIRS_O3DE_MANIFEST_PROPERTY
 add_o3de_manifest_json_external_subdirectories()
 
 # Add the projects first so the Launcher can find them
 include(cmake/Projects.cmake)
 
-if(LY_EXTERNAL_SUBDIRS)
-    set_property(GLOBAL APPEND PROPERTY LY_EXTERNAL_SUBDIRS ${LY_EXTERNAL_SUBDIRS})
-endif()
+# Add external subdirectories listed in the engine.json.
+# O3DE_EXTERNAL_SUBDIRS is a cache variable so the user can add extra
+# external subdirectories.
+add_engine_json_external_subdirectories()
 
 if(NOT INSTALLED_ENGINE)
-    # Add external subdirectories listed in the engine.json. LY_EXTERNAL_SUBDIRS is a cache variable so the user can add extra
-    # external subdirectories. This should go before adding the rest of the targets so the targets are available to the launcher.
-    add_engine_json_external_subdirectories()
-
-    # Invoke add_subdirectory on external subdirectories that should be used a this point
-    add_subdirectory_on_external_subdirs()
 
     # Add the rest of the targets
     add_subdirectory(Assets)
@@ -73,6 +68,10 @@ if(NOT INSTALLED_ENGINE)
     add_subdirectory(scripts)
     add_subdirectory(Templates)
     add_subdirectory(Tools)
+
+    # Invoke add_subdirectory on all external subdirectories
+    # that is in use by the union of projects specified by path in LY_PROJECTS
+    add_subdirectory_on_external_subdirs()
 
 else()
     ly_find_o3de_packages()

@@ -12,8 +12,10 @@
 #include <AzCore/std/containers/map.h>
 #include <Atom/RPI.Reflect/Base.h>
 #include <Atom/RPI.Reflect/Material/MaterialPropertyDescriptor.h>
+#include <Atom/RPI.Reflect/Material/MaterialVersionUpdate.h>
 #include <Atom/RPI.Edit/Material/MaterialFunctorSourceData.h>
 #include <Atom/RPI.Edit/Material/MaterialPropertyId.h>
+#include <Atom/RPI.Edit/Shader/ShaderOptionValuesSourceData.h>
 
 namespace AZ
 {
@@ -183,22 +185,10 @@ namespace AZ
                 //! This list provides a way for users to set shader option values in a 'hard-coded' way rather than connecting them to material properties.
                 //! These are optional and the list will usually be empty; most options will either get set from a material property connection,
                 //! or will use the default value from the shader. 
-                AZStd::unordered_map<Name/*shaderOption*/, Name/*value*/> m_shaderOptionValues;
+                ShaderOptionValuesSourceData m_shaderOptionValues;
             };
 
-            struct VersionUpdatesRenameOperationDefinition
-            {
-                AZ_TYPE_INFO(AZ::RPI::MaterialTypeSourceData::VersionUpdatesRenameOperationDefinition, "{F2295489-E15A-46CC-929F-8D42DEDBCF14}");
-
-                AZStd::string m_operation;
-                
-                AZStd::string m_renameFrom;
-                AZStd::string m_renameTo;
-            };
-
-            // TODO: Support script operations--At that point, we'll likely need to replace VersionUpdatesRenameOperationDefinition with a more generic
-            // data structure that has a custom JSON serialize. We will only be supporting rename for now.
-            using VersionUpdateActions = AZStd::vector<VersionUpdatesRenameOperationDefinition>;
+            using VersionUpdateActions = AZStd::vector<MaterialVersionUpdate::Action::ActionDefinition>;
 
             struct VersionUpdateDefinition
             {
@@ -328,6 +318,15 @@ namespace AZ
             bool EnumerateProperties(const EnumeratePropertiesCallback& callback, MaterialNameContext nameContext, const AZStd::vector<AZStd::unique_ptr<PropertyGroup>>& inPropertyGroupList) const;
             
             static void ExtendNameContext(MaterialNameContext& nameContext, const MaterialTypeSourceData::PropertyGroup& propertyGroup);
+
+            //! Resolve source values (e.g. image filename, Enum string) to their asset version
+            //! (ImageAsset, uint32_t).
+            static MaterialPropertyValue ResolveSourceValue(
+                const Name& propertyId,
+                const MaterialPropertyValue& sourceValue,
+                const AZStd::string& materialTypeSourceFilePath,
+                const MaterialPropertiesLayout* materialPropertiesLayout,
+                AZStd::function<void(const char*)> onError);
 
             //! Recursively populates a material type asset with properties from the tree of material property groups.
             //! @param materialTypeSourceFilePath path to the material type file that is being processed, used to look up relative paths

@@ -843,6 +843,20 @@ namespace ScriptCanvas
                 return false;
             }
 
+            bool Method::IsDeprecated() const
+            {
+                bool isDeprecated = false;
+                if (m_method)
+                {
+                    if (auto isDeprecatedAttributePtr = AZ::FindAttribute(AZ::Script::Attributes::Deprecated, m_method->m_attributes))
+                    {
+                        AZ::AttributeReader(nullptr, isDeprecatedAttributePtr).Read<bool>(isDeprecated);
+                    }
+                }
+
+                return isDeprecated;
+            }
+
             bool Method::IsIfBranch() const
             {
                 return IsCheckedOperation() || BranchesOnResult();

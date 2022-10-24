@@ -116,4 +116,24 @@ namespace AZ::Render
         }
     }
 
+    void SphereLightDelegate::SetAffectsGI(bool affectsGI)
+    {
+        if (GetLightHandle().IsValid())
+        {
+            GetFeatureProcessor()->SetAffectsGI(GetLightHandle(), affectsGI);
+        }
+    }
+
+    void SphereLightDelegate::SetAffectsGIFactor(float affectsGIFactor)
+    {
+        if (GetLightHandle().IsValid())
+        {
+            GetFeatureProcessor()->SetAffectsGIFactor(GetLightHandle(), affectsGIFactor);
+        }
+    }
+
+    Aabb SphereLightDelegate::GetLocalVisualizationBounds() const
+    {
+        return Aabb::CreateCenterRadius(Vector3::CreateZero(), GetConfig()->m_attenuationRadius);
+    }
 } // namespace AZ::Render

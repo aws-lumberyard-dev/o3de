@@ -13,7 +13,9 @@
 #include <AtomCore/Instance/InstanceDatabase.h>
 #include <Atom/RPI.Public/Shader/ShaderReloadDebugTracker.h>
 #include <Atom/RPI.Public/Shader/ShaderSystemInterface.h>
+#include <Atom/RPI.Public/Shader/ShaderResourceGroup.h>
 #include <AzCore/Interface/Interface.h>
+#include <AzCore/std/time.h>
 
 #include <AzCore/Component/TickBus.h>
 
@@ -148,7 +150,7 @@ namespace AZ
                 AZStd::unique_lock<decltype(m_variantCacheMutex)> lock(m_variantCacheMutex);
                 m_shaderVariants.clear();
             }
-            auto rootShaderVariantAsset = shaderAsset.GetRootVariant(m_supervariantIndex);
+            auto rootShaderVariantAsset = shaderAsset.GetRootVariantAsset(m_supervariantIndex);
             m_rootVariant.Init(m_asset, rootShaderVariantAsset, m_supervariantIndex);
 
             if (m_pipelineLibraryHandle.IsNull())
@@ -210,6 +212,14 @@ namespace AZ
                 m_drawListTag.Reset();
             }
         }
+        
+        AZStd::string MakeTimeString(AZ::u64 timestampMilliseconds, AZ::u64 nowMilliseconds)
+        {
+            AZ::u64 elapsedMilliseconds = nowMilliseconds - timestampMilliseconds;
+            double elapsedSeconds = aznumeric_cast<double>(elapsedMilliseconds) / 1'000;
+            AZStd::string timeString = AZStd::string::format("%lld (%f seconds ago)", timestampMilliseconds, elapsedSeconds);
+            return timeString;
+        };
 
         ///////////////////////////////////////////////////////////////////////
         // AssetBus overrides
@@ -244,20 +254,12 @@ namespace AZ
 
                 if (ShaderReloadDebugTracker::IsEnabled())
                 {
-                    auto makeTimeString = [](AZ::u64 timestamp, AZ::u64 now)
-                    {
-                        AZ::u64 elapsedMillis = now - timestamp;
-                        double elapsedSeconds = aznumeric_cast<double>(elapsedMillis / 1'000);
-                        AZStd::string timeString = AZStd::string::format("%lld (%f seconds ago)", timestamp, elapsedSeconds);
-                        return timeString;
-                    };
+                    AZStd::sys_time_t now = AZStd::GetTimeUTCMilliSecond();
 
-                    AZStd::sys_time_t now = AZStd::GetTimeNowMicroSecond();
-
-                    const auto shaderVariantAsset = m_asset->GetRootVariant();
+                    const auto shaderVariantAsset = m_asset->GetRootVariantAsset();
                     ShaderReloadDebugTracker::Printf("{%p}->Shader::OnAssetReloaded for shader '%s' [build time %s] found variant '%s' [build time %s]", this,
-                        m_asset.GetHint().c_str(), makeTimeString(m_asset->m_buildTimestamp, now).c_str(),
-                        shaderVariantAsset.GetHint().c_str(), makeTimeString(shaderVariantAsset->GetBuildTimestamp(), now).c_str());
+                        m_asset.GetHint().c_str(), MakeTimeString(m_asset->m_buildTimestamp, now).c_str(),
+                        shaderVariantAsset.GetHint().c_str(), MakeTimeString(shaderVariantAsset->GetBuildTimestamp(), now).c_str());
                 }
                 Init(*m_asset.Get());
                 ShaderReloadNotificationBus::Event(asset.GetId(), &ShaderReloadNotificationBus::Events::OnShaderReinitialized, *this);
@@ -380,7 +382,7 @@ namespace AZ
 
         const ShaderVariant& Shader::GetVariant(const ShaderVariantId& shaderVariantId)
         {
-            Data::Asset<ShaderVariantAsset> shaderVariantAsset = m_asset->GetVariant(shaderVariantId, m_supervariantIndex);
+            Data::Asset<ShaderVariantAsset> shaderVariantAsset = m_asset->GetVariantAsset(shaderVariantId, m_supervariantIndex);
             if (!shaderVariantAsset || shaderVariantAsset->IsRootVariant())
             {
                 return m_rootVariant;
@@ -392,6 +394,17 @@ namespace AZ
         const ShaderVariant& Shader::GetRootVariant()
         {
             return m_rootVariant;
+        }
+
+        const ShaderVariant& Shader::GetDefaultVariant()
+        {
+            ShaderOptionGroup defaultOptions = GetDefaultShaderOptions();
+            return GetVariant(defaultOptions.GetShaderVariantId());
+        }
+
+        ShaderOptionGroup Shader::GetDefaultShaderOptions() const
+        {
+            return m_asset->GetDefaultShaderOptions();
         }
 
         ShaderVariantSearchResult Shader::FindVariantStableId(const ShaderVariantId& shaderVariantId) const
@@ -406,19 +419,11 @@ namespace AZ
             
             if (ShaderReloadDebugTracker::IsEnabled())
             {
-                auto makeTimeString = [](AZStd::sys_time_t timestamp, AZStd::sys_time_t now)
-                {
-                    AZStd::sys_time_t elapsedMicroseconds = now - timestamp;
-                    double elapsedSeconds = aznumeric_cast<double>(elapsedMicroseconds / 1'000'000);
-                    AZStd::string timeString = AZStd::string::format("%lld (%f seconds ago)", timestamp, elapsedSeconds);
-                    return timeString;
-                };
-
-                AZStd::sys_time_t now = AZStd::GetTimeNowMicroSecond();
+                AZStd::sys_time_t now = AZStd::GetTimeUTCMilliSecond();
 
                 ShaderReloadDebugTracker::Printf("{%p}->Shader::GetVariant for shader '%s' [build time %s] found variant '%s' [build time %s]", this,
-                    m_asset.GetHint().c_str(), makeTimeString(m_asset->GetBuildTimestamp(), now).c_str(),
-                    variant.GetShaderVariantAsset().GetHint().c_str(), makeTimeString(variant.GetShaderVariantAsset()->GetBuildTimestamp(), now).c_str());
+                    m_asset.GetHint().c_str(), MakeTimeString(m_asset->GetBuildTimestamp(), now).c_str(),
+                    variant.GetShaderVariantAsset().GetHint().c_str(), MakeTimeString(variant.GetShaderVariantAsset()->GetBuildTimestamp(), now).c_str());
             }
 
             return variant;
@@ -450,8 +455,8 @@ namespace AZ
 
             // By calling GetVariant, an asynchronous asset load request is enqueued if the variant
             // is not fully ready.
-            Data::Asset<ShaderVariantAsset> shaderVariantAsset = m_asset->GetVariant(shaderVariantStableId, m_supervariantIndex);
-            if (!shaderVariantAsset || shaderVariantAsset == m_asset->GetRootVariant())
+            Data::Asset<ShaderVariantAsset> shaderVariantAsset = m_asset->GetVariantAsset(shaderVariantStableId, m_supervariantIndex);
+            if (!shaderVariantAsset || shaderVariantAsset == m_asset->GetRootVariantAsset())
             {
                 // Return the root variant when the requested variant is not ready.
                 return m_rootVariant;
@@ -525,6 +530,33 @@ namespace AZ
         AZStd::span<const RHI::Ptr<RHI::ShaderResourceGroupLayout>> Shader::GetShaderResourceGroupLayouts() const
         {
             return m_asset->GetShaderResourceGroupLayouts(m_supervariantIndex);
+        }
+
+        Data::Instance<ShaderResourceGroup> Shader::CreateDrawSrgForShaderVariant(const ShaderOptionGroup& shaderOptions, bool compileTheSrg)
+        {
+            RHI::Ptr<RHI::ShaderResourceGroupLayout> drawSrgLayout = m_asset->GetDrawSrgLayout(GetSupervariantIndex());
+            Data::Instance<ShaderResourceGroup> drawSrg;
+            if (drawSrgLayout)
+            {
+                drawSrg = RPI::ShaderResourceGroup::Create(m_asset, GetSupervariantIndex(), drawSrgLayout->GetName());
+
+                if (drawSrgLayout->HasShaderVariantKeyFallbackEntry())
+                {
+                    drawSrg->SetShaderVariantKeyFallbackValue(shaderOptions.GetShaderVariantKeyFallbackValue());
+                }
+
+                if (compileTheSrg)
+                {
+                    drawSrg->Compile();
+                }
+            }
+
+            return drawSrg;
+        }
+
+        Data::Instance<ShaderResourceGroup> Shader::CreateDefaultDrawSrg(bool compileTheSrg)
+        {
+            return CreateDrawSrgForShaderVariant(m_asset->GetDefaultShaderOptions(), compileTheSrg);
         }
 
         const Data::Asset<ShaderAsset>& Shader::GetAsset() const

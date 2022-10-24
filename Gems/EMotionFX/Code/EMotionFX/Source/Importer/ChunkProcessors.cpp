@@ -44,7 +44,6 @@
 #include "../MotionEventTable.h"
 #include "../Skeleton.h"
 #include "../AnimGraph.h"
-#include "../AnimGraphGameControllerSettings.h"
 #include "../AnimGraphManager.h"
 #include "../AnimGraphObjectFactory.h"
 #include "../AnimGraphNode.h"
@@ -2041,6 +2040,41 @@ namespace EMotionFX
         }
 
         importParams.m_motion->SetMotionData(motionData);
+        return true;
+    }
+
+    //----------------------------------------------------------------------------------------------------------
+    // RootMotionExtraction
+    //----------------------------------------------------------------------------------------------------------
+    bool ChunkProcessorRootMotionExtraction::Process(MCore::File* file, Importer::ImportParameters& importParams)
+    {
+        AZ::SerializeContext* serializeContext = nullptr;
+        AZ::ComponentApplicationBus::BroadcastResult(serializeContext, &AZ::ComponentApplicationBus::Events::GetSerializeContext);
+        if (!serializeContext)
+        {
+            AZ_Error("EMotionFX", false, "Can't get serialize context from component application.");
+            return false;
+        }
+
+        AZ::u32 bufferSize;
+        file->Read(&bufferSize, sizeof(bufferSize));
+        MCore::Endian::ConvertUnsignedInt32(&bufferSize, importParams.m_endianType);
+
+        AZStd::vector<AZ::u8> buffer;
+        buffer.resize(bufferSize);
+        file->Read(&buffer[0], bufferSize);
+
+        // Read root motion extraction
+        AZ::ObjectStream::FilterDescriptor loadFilter(nullptr, AZ::ObjectStream::FILTERFLAG_IGNORE_UNKNOWN_CLASSES);
+        EMotionFX::RootMotionExtractionData* resultRootMotionExtractionData =
+            AZ::Utils::LoadObjectFromBuffer<EMotionFX::RootMotionExtractionData>(
+                buffer.data(), buffer.size(), serializeContext, loadFilter);
+        if (resultRootMotionExtractionData)
+        {
+            importParams.m_motion->SetRootMotionExtractionData(
+                AZStd::shared_ptr<EMotionFX::RootMotionExtractionData>(resultRootMotionExtractionData));
+        }
+
         return true;
     }
 

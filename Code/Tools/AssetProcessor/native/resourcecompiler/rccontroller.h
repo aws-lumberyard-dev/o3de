@@ -57,8 +57,6 @@ namespace AssetProcessor
         int NumberOfPendingJobsPerPlatform(QString platform);
         bool IsIdle();
 
-        void SetQueueSortOnDBSourceName();
-
     Q_SIGNALS:
         void FileCompiled(JobEntry entry, AssetBuilderSDK::ProcessJobResponse response);
         void FileFailed(JobEntry entry);
@@ -71,7 +69,7 @@ namespace AssetProcessor
         void JobStarted(QString inputFile, QString platform);
         void JobStatusChanged(JobEntry entry, AzToolsFramework::AssetSystem::JobStatus status);
         void JobsInQueuePerPlatform(QString platform, int jobs);
-        void ActiveJobsCountChanged(unsigned int jobs); // This is the count of jobs which are either queued or inflight 
+        void ActiveJobsCountChanged(unsigned int jobs); // This is the count of jobs which are either queued or inflight
 
         void BecameIdle();
 
@@ -99,7 +97,7 @@ namespace AssetProcessor
         void SetDispatchPaused(bool pause);
 
         //! All jobs which match this source will be cancelled or removed.  Note that relSourceFile should have any applicable output prefixes!
-        void RemoveJobsBySource(QString relSourceFileDatabaseName);
+        void RemoveJobsBySource(const AssetProcessor::SourceAssetReference& sourceAsset);
 
         // when the AP is truly done with a particular job and its going to be deleted and nothing more cares about it,
         // this function is called. this allows us to synchronize the various threads (catalog, queue, etc) to know that
@@ -133,7 +131,7 @@ namespace AssetProcessor
         };
 
         QList<AssetCompileGroup> m_activeCompileGroups;
-        
+
     };
 } // namespace AssetProcessor
 

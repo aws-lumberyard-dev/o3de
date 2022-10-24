@@ -1,11 +1,18 @@
 {
     "description": "Material Type with properties used to define Standard PBR, a metallic-roughness Physically-Based Rendering (PBR) material shading model.",
-    "version": 4,
+    "version": 5,
     "versionUpdates": [
         {
             "toVersion": 4,
             "actions": [
                 {"op": "rename", "from": "opacity.doubleSided", "to": "general.doubleSided"}
+            ]
+        },
+        {
+            "toVersion": 5,
+            "actions": [
+                {"op": "rename", "from": "irradiance.color", "to": "irradiance.manualColor"},
+                {"op": "setValue", "name": "irradiance.irradianceColorSource", "value": "Manual"}
             ]
         }
     ],
@@ -54,19 +61,19 @@
     },
     "shaders": [
         {
-            "file": "./StandardPBR_ForwardPass.shader",
+            "file": "Shaders/Materials/StandardPBR/StandardPBR_ForwardPass.shader",
             "tag": "ForwardPass"
         },
         {
-            "file": "./StandardPBR_ForwardPass_EDS.shader",
+            "file": "Shaders/Materials/StandardPBR/StandardPBR_ForwardPass_EDS.shader",
             "tag": "ForwardPass_EDS"
         },
         {
-            "file": "./StandardPBR_LowEndForward.shader",
+            "file": "Shaders/Materials/StandardPBR/StandardPBR_LowEndForward.shader",
             "tag": "LowEndForward"
         },
         {
-            "file": "./StandardPBR_LowEndForward_EDS.shader",
+            "file": "Shaders/Materials/StandardPBR/StandardPBR_LowEndForward_EDS.shader",
             "tag": "LowEndForward_EDS"
         },
         {
@@ -74,7 +81,7 @@
             "tag": "Shadowmap"
         },
         {
-            "file": "./StandardPBR_Shadowmap_WithPS.shader",
+            "file": "Shaders/Materials/StandardPBR/StandardPBR_Shadowmap_WithPS.shader",
             "tag": "Shadowmap_WithPS"
         },
         {
@@ -82,7 +89,7 @@
             "tag": "DepthPass"
         },
         {
-            "file": "./StandardPBR_DepthPass_WithPS.shader",
+            "file": "Shaders/Materials/StandardPBR/StandardPBR_DepthPass_WithPS.shader",
             "tag": "DepthPass_WithPS"
         },
         {
@@ -103,7 +110,7 @@
         {
             "type": "Lua",
             "args": {
-                "file": "StandardPBR_ShaderEnable.lua"
+                "file": "Materials/Types/StandardPBR_ShaderEnable.lua"
             }
         }
     ],

@@ -32,6 +32,7 @@
 #include <AzFramework/Physics/Collision/CollisionEvents.h>
 #include <AzFramework/Physics/Configuration/RigidBodyConfiguration.h>
 #include <AzFramework/Physics/Configuration/StaticRigidBodyConfiguration.h>
+#include <AzFramework/Physics/Material/PhysicsMaterialManager.h>
 
 namespace PhysX
 {
@@ -124,7 +125,7 @@ namespace PhysX
 
         bool AddShape(AZStd::variant<AzPhysics::RigidBody*, AzPhysics::StaticRigidBody*> simulatedBody, const AzPhysics::ShapeVariantData& shapeData)
         {
-            if (auto* shapeColliderPair = AZStd::get_if<AzPhysics::ShapeColliderPair>(&shapeData))
+            if (const auto* shapeColliderPair = AZStd::get_if<AzPhysics::ShapeColliderPair>(&shapeData))
             {
                 bool shapeAdded = false;
                 auto shapePtr = AZStd::make_shared<Shape>(*(shapeColliderPair->first), *(shapeColliderPair->second));
@@ -138,7 +139,7 @@ namespace PhysX
                     }, simulatedBody);
                 return shapeAdded;
             }
-            else if (auto* shapeColliderPairList = AZStd::get_if<AZStd::vector<AzPhysics::ShapeColliderPair>>(&shapeData))
+            else if (const auto* shapeColliderPairList = AZStd::get_if<AZStd::vector<AzPhysics::ShapeColliderPair>>(&shapeData))
             {
                 bool shapeAdded = false;
                 for (const auto& shapeColliderConfigs : *shapeColliderPairList)
@@ -155,15 +156,16 @@ namespace PhysX
                 }
                 return shapeAdded;
             }
-            else if (auto* shape = AZStd::get_if<AZStd::shared_ptr<Physics::Shape>>(&shapeData))
+            else if (const auto* shape = AZStd::get_if<AZStd::shared_ptr<Physics::Shape>>(&shapeData))
             {
-                AZStd::visit([shape](auto&& body)
+                auto shapePtr = *shape;
+                AZStd::visit([shapePtr](auto&& body)
                     {
-                        body->AddShape(*shape);
+                        body->AddShape(shapePtr);
                     }, simulatedBody);
                 return true;
             }
-            else if (auto* shapeList = AZStd::get_if<AZStd::vector<AZStd::shared_ptr<Physics::Shape>>>(&shapeData))
+            else if (const auto* shapeList = AZStd::get_if<AZStd::vector<AZStd::shared_ptr<Physics::Shape>>>(&shapeData))
             {
                 for (auto shapePtr : *shapeList)
                 {
@@ -229,7 +231,7 @@ namespace PhysX
         AzPhysics::SimulatedBody* CreateRagdollBody(PhysXScene* scene,
             const Physics::RagdollConfiguration* ragdollConfig)
         {
-            return Utils::Characters::CreateRagdoll(const_cast<Physics::RagdollConfiguration&>(*ragdollConfig),
+            return Utils::Characters::CreateRagdoll(*ragdollConfig,
                 scene->GetSceneHandle());
         }
 
@@ -495,9 +497,9 @@ namespace PhysX
     {
         m_physicsSystemConfigChanged.Disconnect();
 
-        s_overlapBuffer.swap({});
-        s_rayCastBuffer.swap({});
-        s_sweepBuffer.swap({});
+        s_overlapBuffer = {};
+        s_rayCastBuffer = {};
+        s_sweepBuffer = {};
 
         for (auto& simulatedBody : m_simulatedBodies)
         {
@@ -540,7 +542,7 @@ namespace PhysX
 
         {
             AZ_PROFILE_SCOPE(Physics, "OnSceneSimulationStartEvent::Signaled");
-            m_sceneSimuationStartEvent.Signal(m_sceneHandle, deltatime);
+            m_sceneSimulationStartEvent.Signal(m_sceneHandle, deltatime);
         }
 
         m_currentDeltaTime = deltatime;
@@ -584,20 +586,26 @@ namespace PhysX
         {
             AZ_PROFILE_SCOPE(Physics, "PhysXScene::ActiveActors");
 
-            PHYSX_SCENE_READ_LOCK(m_pxScene);
-
-            physx::PxU32 numActiveActors = 0;
-            physx::PxActor** activeActors = m_pxScene->getActiveActors(numActiveActors);
             AzPhysics::SimulatedBodyHandleList activeBodyHandles;
-            activeBodyHandles.reserve(numActiveActors);
-            for (physx::PxU32 i = 0; i < numActiveActors; ++i)
+
             {
-                if (ActorData* actorData = Utils::GetUserData(activeActors[i]))
+                PHYSX_SCENE_READ_LOCK(m_pxScene);
+                physx::PxU32 numActiveActors = 0;
+                physx::PxActor** activeActors = m_pxScene->getActiveActors(numActiveActors);
+                activeBodyHandles.reserve(numActiveActors);
+                for (physx::PxU32 i = 0; i < numActiveActors; ++i)
                 {
-                    activeBodyHandles.emplace_back(actorData->GetBodyHandle());
+                    if (ActorData* actorData = Utils::GetUserData(activeActors[i]))
+                    {
+                        activeBodyHandles.emplace_back(actorData->GetBodyHandle());
+                    }
                 }
             }
-            m_sceneActiveSimulatedBodies.Signal(m_sceneHandle, activeBodyHandles);
+
+            // Keep the event signal outside of the scene lock since there may be handlers that want to lock the scene for write
+            m_sceneActiveSimulatedBodies.Signal(m_sceneHandle, activeBodyHandles, m_currentDeltaTime);
+
+            SyncActiveBodyTransform(activeBodyHandles);
         }
 
         FlushQueuedEvents();
@@ -605,7 +613,7 @@ namespace PhysX
 
         {
             AZ_PROFILE_SCOPE(Physics, "OnSceneSimulationFinishedEvent::Signaled");
-            m_sceneSimuationFinishEvent.Signal(m_sceneHandle, m_currentDeltaTime);
+            m_sceneSimulationFinishEvent.Signal(m_sceneHandle, m_currentDeltaTime);
         }
 
         UpdateAzProfilerDataPoints();
@@ -859,6 +867,12 @@ namespace PhysX
         {
             newJoint = Internal::CreateJoint<PhysXHingeJoint, HingeJointConfiguration>(
                 azdynamic_cast<const HingeJointConfiguration*>(jointConfig),
+                m_sceneHandle, parentBody, childBody, newJointCrc);
+        }
+        else if (azrtti_istypeof<PhysX::PrismaticJointConfiguration*>(jointConfig))
+        {
+            newJoint = Internal::CreateJoint<PhysXPrismaticJoint, PrismaticJointConfiguration>(
+                azdynamic_cast<const PrismaticJointConfiguration*>(jointConfig),
                 m_sceneHandle, parentBody, childBody, newJointCrc);
         }
         else
@@ -1258,4 +1272,19 @@ namespace PhysX
         AZ_PROFILE_DATAPOINT(Physics, stats.nbLostTouches, RootCategory, CollisionsSubCategory, "LostTouches");
         AZ_PROFILE_DATAPOINT(Physics, stats.nbPartitions, RootCategory, CollisionsSubCategory, "Partitions");
     }
+
+    void PhysXScene::SyncActiveBodyTransform(const AzPhysics::SimulatedBodyHandleList& activeBodyHandles)
+    {
+        if (auto* sceneInterface = AZ::Interface<AzPhysics::SceneInterface>::Get())
+        {
+            for (const AzPhysics::SimulatedBodyHandle& bodyHandle : activeBodyHandles)
+            {
+                if (AzPhysics::SimulatedBody* simBody = sceneInterface->GetSimulatedBodyFromHandle(m_sceneHandle, bodyHandle))
+                {
+                    simBody->SyncTransform(m_currentDeltaTime);
+                }
+            }
+        }
+    }
+
 }

@@ -51,6 +51,8 @@ namespace AZ
                 geometryDesc.Triangles.IndexFormat = (geometry.m_indexBuffer.GetIndexFormat() == RHI::IndexFormat::Uint16) ? DXGI_FORMAT_R16_UINT : DXGI_FORMAT_R32_UINT;
                 geometryDesc.Triangles.IndexCount = aznumeric_cast<UINT>(geometry.m_indexBuffer.GetByteCount()) / ((geometry.m_indexBuffer.GetIndexFormat() == RHI::IndexFormat::Uint16) ? 2 : 4);
                 geometryDesc.Triangles.Transform3x4 = 0; // [GFX-TODO][ATOM-4989] Add DXR BLAS Transform Buffer
+
+                // all BLAS geometry is set to opaque, but can be set to transparent at the TLAS Instance level
                 geometryDesc.Flags = D3D12_RAYTRACING_GEOMETRY_FLAG_OPAQUE;
                 m_geometryDescs.push_back(geometryDesc);
             }
@@ -78,7 +80,7 @@ namespace AZ
             AZ::RHI::BufferInitRequest scratchBufferRequest;
             scratchBufferRequest.m_buffer = buffers.m_scratchBuffer.get();
             scratchBufferRequest.m_descriptor = scratchBufferDescriptor;
-            RHI::ResultCode resultCode = bufferPools.GetScratchBufferPool()->InitBuffer(scratchBufferRequest);
+            [[maybe_unused]] RHI::ResultCode resultCode = bufferPools.GetScratchBufferPool()->InitBuffer(scratchBufferRequest);
             AZ_Assert(resultCode == RHI::ResultCode::Success, "failed to create BLAS scratch buffer");
 
             MemoryView& scratchMemoryView = static_cast<Buffer*>(buffers.m_scratchBuffer.get())->GetMemoryView();

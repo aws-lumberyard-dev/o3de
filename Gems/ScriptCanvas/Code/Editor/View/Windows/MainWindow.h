@@ -89,7 +89,7 @@ class QProgressDialog;
 namespace ScriptCanvasEditor
 {
     class MainWindow;
-
+    class InterpreterWidget;
 
     class ScriptCanvasAssetBrowserModel
         : public AzToolsFramework::AssetBrowser::AssetBrowserFilterModel
@@ -117,24 +117,28 @@ namespace ScriptCanvasEditor
     class OnSaveToast
     {
     public:
-        OnSaveToast(AZStd::string_view tabName, AZ::EntityId graphCanvasGraphId, bool saveSuccessful)
+        OnSaveToast(AZStd::string_view tabName, AZ::EntityId graphCanvasGraphId, bool saveSuccessful, AZStd::optional<AZStd::string> descriptionOverride = AZStd::nullopt)
         {
-            AzQtComponents::ToastType toastType = AzQtComponents::ToastType::Information;
-            AZStd::string titleLabel = "Notification";
-
-            AZStd::string description;
-
-            if (saveSuccessful)
+            auto initDescription = [&]()->AZStd::string
             {
-                description = AZStd::string::format("%s Saved", tabName.data());
-            }
-            else
-            {
-                description = AZStd::string::format("Failed to save %s", tabName.data());
-                toastType = AzQtComponents::ToastType::Error;
-            }
+                if (descriptionOverride)
+                {
+                    return *descriptionOverride;
+                }
+                else if (saveSuccessful)
+                {
+                    return AZStd::string::format("%s Saved", tabName.data());
+                }
+                else
+                {
+                    return AZStd::string::format("Failed to save %s", tabName.data());
+                }
+            };
 
-            AzQtComponents::ToastConfiguration toastConfiguration(toastType, titleLabel.c_str(), description.c_str());
+            const AZStd::string titleLabel = "Notification";
+            const AZStd::string description = initDescription();;
+            const AzQtComponents::ToastType toastType = saveSuccessful ? AzQtComponents::ToastType::Information : AzQtComponents::ToastType::Error;
+            const AzQtComponents::ToastConfiguration toastConfiguration(toastType, titleLabel.c_str(), description.c_str());
 
             AzToolsFramework::ToastId validationToastId;
 
@@ -167,9 +171,9 @@ namespace ScriptCanvasEditor
 
     private:
 
-        void SignalAssetComplete(const ScriptCanvasEditor::SourceHandle& fileAssetId);
+        void SignalAssetComplete(const SourceHandle& fileAssetId);
 
-        ScriptCanvasEditor::SourceHandle GetSourceAssetId(const ScriptCanvasEditor::SourceHandle& memoryAssetId) const;
+        SourceHandle GetSourceAssetId(const SourceHandle& memoryAssetId) const;
 
         bool m_rememberOpenCanvases;
         MainWindow* m_mainWindow;
@@ -177,10 +181,10 @@ namespace ScriptCanvasEditor
         //! Setting focus is problematic unless it is done until after all currently loading graphs have finished loading
         //! This vector is used to track the list of graphs being opened to restore the workspace and as assets are fully
         //! ready and activated they are removed from this list.
-        AZStd::vector<ScriptCanvasEditor::SourceHandle> m_loadingAssets;
+        AZStd::vector<SourceHandle> m_loadingAssets;
 
         //! During restore we queue the asset Id to focus in order to do it last
-        ScriptCanvasEditor::SourceHandle m_queuedAssetFocus;
+        SourceHandle m_queuedAssetFocus;
     };
 
     enum class UnsavedChangesOptions;
@@ -199,12 +203,12 @@ namespace ScriptCanvasEditor
     class VariableDockWidget;
     class UnitTestDockWidget;
     class BatchOperatorTool;
-    class ScriptCanvasBatchConverter;    
+    class ScriptCanvasBatchConverter;
     class LoggingWindow;
     class GraphValidationDockWidget;
     class MainWindowStatusWidget;
     class StatisticsDialog;
-    class SlotTypeSelectorWidget;
+    class VariableConfigurationWidget;
 
     // Custom Context Menus
     class SceneContextMenu;
@@ -257,11 +261,12 @@ namespace ScriptCanvasEditor
         // UIRequestBus
         QMainWindow* GetMainWindow() override { return qobject_cast<QMainWindow*>(this); }
         void OpenValidationPanel() override;
+        void RefreshSelection() override;
         //
 
         // Undo Handlers
         void PostUndoPoint(ScriptCanvas::ScriptCanvasId scriptCanvasId) override;
-        void SignalSceneDirty(ScriptCanvasEditor::SourceHandle assetId) override;
+        void SignalSceneDirty(SourceHandle assetId) override;
 
         void PushPreventUndoStateUpdate() override;
         void PopPreventUndoStateUpdate() override;
@@ -272,7 +277,8 @@ namespace ScriptCanvasEditor
         // VariablePaletteRequestBus
         void RegisterVariableType(const ScriptCanvas::Data::Type& variableType) override;
         bool IsValidVariableType(const ScriptCanvas::Data::Type& dataType) const override;
-        bool ShowSlotTypeSelector(ScriptCanvas::Slot* slot, const QPoint& scenePosition, VariablePaletteRequests::SlotSetup&) override;
+        VariablePaletteRequests::VariableConfigurationOutput ShowVariableConfigurationWidget(
+            const VariablePaletteRequests::VariableConfigurationInput& input, const QPoint& scenePosition) override;
         ////
 
         // GraphCanvas::AssetEditorRequestBus
@@ -320,14 +326,14 @@ namespace ScriptCanvasEditor
         bool OnFileSave();
         bool OnFileSaveAs();
         bool OnFileSaveCaller(){return OnFileSave();};
-        bool OnFileSaveAsCaller(){return OnFileSaveAs();};        
+        bool OnFileSaveAsCaller(){return OnFileSaveAs();};
         enum class Save
         {
             InPlace,
             As
         };
-        bool SaveAssetImpl(const ScriptCanvasEditor::SourceHandle& assetId, Save save);
-        void OnFileOpen();        
+        bool SaveAssetImpl(const SourceHandle& assetId, Save save);
+        void OnFileOpen();
 
         // Edit menu
         void SetupEditMenu();
@@ -373,7 +379,7 @@ namespace ScriptCanvasEditor
         void OnViewCommandLine();
         void OnViewLog();
         void OnBookmarks();
-        void OnVariableManager();        
+        void OnVariableManager();
         void OnViewMiniMap();
         void OnViewLogWindow();
         void OnViewGraphValidation();
@@ -383,6 +389,14 @@ namespace ScriptCanvasEditor
         void OnViewPresetsEditor();
         void OnRestoreDefaultLayout();
 
+        // ScriptEvent Extension Actions
+        void OnScriptEventAddHelpers();
+        void OnScriptEventClearStatus();
+        void OnScriptEventMenuPreShow();
+        void OnScriptEventOpen();
+        void OnScriptEventParseAs();
+        void OnScriptEventSaveAs();
+
         void UpdateViewMenu();
         /////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -390,14 +404,13 @@ namespace ScriptCanvasEditor
         void OnNodeAdded(const AZ::EntityId& nodeId, bool isPaste) override;
         void OnSelectionChanged() override;
         /////////////////////////////////////////////////////////////////////////////////////////////
-        
+
         void OnVariableSelectionChanged(const AZStd::vector<AZ::EntityId>& variablePropertyIds);
         void QueuePropertyGridUpdate();
         void DequeuePropertyGridUpdate();
 
         void SetDefaultLayout();
 
-        void RefreshSelection();
         void Clear();
 
         void OnTabCloseRequest(int index);
@@ -428,9 +441,9 @@ namespace ScriptCanvasEditor
         ////
 
         AZ::Outcome<int, AZStd::string> CreateScriptCanvasAsset(AZStd::string_view assetPath, int tabIndex = -1);
-        
-        void RemoveScriptCanvasAsset(const ScriptCanvasEditor::SourceHandle& assetId);
-        void OnChangeActiveGraphTab(ScriptCanvasEditor::SourceHandle) override;
+
+        void RemoveScriptCanvasAsset(const SourceHandle& assetId);
+        void OnChangeActiveGraphTab(SourceHandle) override;
 
         void CreateNewRuntimeAsset() override { OnFileNew(); }
 
@@ -440,8 +453,8 @@ namespace ScriptCanvasEditor
 
         GraphCanvas::GraphId GetGraphCanvasGraphId(const ScriptCanvas::ScriptCanvasId& scriptCanvasId) const override;
 
-        GraphCanvas::GraphId FindGraphCanvasGraphIdByAssetId(const ScriptCanvasEditor::SourceHandle& assetId) const override;
-        ScriptCanvas::ScriptCanvasId FindScriptCanvasIdByAssetId(const ScriptCanvasEditor::SourceHandle& assetId) const override;
+        GraphCanvas::GraphId FindGraphCanvasGraphIdByAssetId(const SourceHandle& assetId) const override;
+        ScriptCanvas::ScriptCanvasId FindScriptCanvasIdByAssetId(const SourceHandle& assetId) const override;
 
         bool IsInUndoRedo(const AZ::EntityId& graphCanvasGraphId) const override;
         bool IsScriptCanvasInUndoRedo(const ScriptCanvas::ScriptCanvasId& scriptCanvasId) const override;
@@ -478,7 +491,7 @@ namespace ScriptCanvasEditor
         float GetMaxZoom() const override;
 
         float GetEdgePanningPercentage() const override;
-        float GetEdgePanningScrollSpeed() const override;        
+        float GetEdgePanningScrollSpeed() const override;
 
         GraphCanvas::EditorConstructPresets* GetConstructPresets() const override;
         const GraphCanvas::ConstructTypePresetBucket* GetConstructTypePresetBucket(GraphCanvas::ConstructType constructType) const override;
@@ -497,7 +510,7 @@ namespace ScriptCanvasEditor
         void SignalAutomationBegin() override;
         void SignalAutomationEnd() override;
 
-        void ForceCloseActiveAsset() override;        
+        void ForceCloseActiveAsset() override;
         ////
 
         // AssetEditorAutomationRequestBus
@@ -509,17 +522,17 @@ namespace ScriptCanvasEditor
         QObject* FindElementByName(QString elementName) override;
         ////
 
-        AZ::EntityId FindEditorNodeIdByAssetNodeId(const ScriptCanvasEditor::SourceHandle& assetId, AZ::EntityId assetNodeId) const override;
-        AZ::EntityId FindAssetNodeIdByEditorNodeId(const ScriptCanvasEditor::SourceHandle& assetId, AZ::EntityId editorNodeId) const override;
-        
+        AZ::EntityId FindEditorNodeIdByAssetNodeId(const SourceHandle& assetId, AZ::EntityId assetNodeId) const override;
+        AZ::EntityId FindAssetNodeIdByEditorNodeId(const SourceHandle& assetId, AZ::EntityId editorNodeId) const override;
+
     private:
         void SourceFileChanged(AZStd::string relativePath, AZStd::string scanFolder, AZ::Uuid fileAssetId) override;
         void SourceFileRemoved(AZStd::string relativePath, AZStd::string scanFolder, AZ::Uuid fileAssetId) override;
-        
+
         void DeleteNodes(const AZ::EntityId& sceneId, const AZStd::vector<AZ::EntityId>& nodes) override;
         void DeleteConnections(const AZ::EntityId& sceneId, const AZStd::vector<AZ::EntityId>& connections) override;
         void DisconnectEndpoints(const AZ::EntityId& sceneId, const AZStd::vector<GraphCanvas::Endpoint>& endpoints) override;
-        /////////////////////////////////////////////////////////////////////////////////////////////        
+        /////////////////////////////////////////////////////////////////////////////////////////////
 
         GraphCanvas::Endpoint HandleProposedConnection(const GraphCanvas::GraphId& graphId, const GraphCanvas::ConnectionId& connectionId, const GraphCanvas::Endpoint& endpoint, const GraphCanvas::NodeId& proposedNode, const QPoint& screenPoint);
 
@@ -536,22 +549,23 @@ namespace ScriptCanvasEditor
 
         void OnAutoSave();
 
-        void UpdateFileState(const ScriptCanvasEditor::SourceHandle& assetId, Tracker::ScriptCanvasFileState fileState);
+        void UpdateFileState(const SourceHandle& assetId, Tracker::ScriptCanvasFileState fileState);
 
         // QMainWindow
         void closeEvent(QCloseEvent *event) override;
         UnsavedChangesOptions ShowSaveDialog(const QString& filename);
-        
-        bool ActivateAndSaveAsset(const ScriptCanvasEditor::SourceHandle& unsavedAssetId);
 
-        void SaveAs(AZStd::string_view path, ScriptCanvasEditor::SourceHandle assetId);
+        bool ActivateAndSaveAsset(const SourceHandle& unsavedAssetId);
+
+        void SaveAs(AZStd::string_view path, SourceHandle assetId);
 
         void OpenFile(const char* fullPath);
         void CreateMenus();
 
-        void SignalActiveSceneChanged(const ScriptCanvasEditor::SourceHandle assetId);
+        void SignalActiveSceneChanged(const SourceHandle assetId);
 
         void RunUpgradeTool();
+        void ShowInterpreter();
 
         void OnShowValidationErrors();
         void OnShowValidationWarnings();
@@ -577,7 +591,7 @@ namespace ScriptCanvasEditor
         void UpdateMenuState(bool enabledState);
 
         void OnWorkspaceRestoreStart();
-        void OnWorkspaceRestoreEnd(ScriptCanvasEditor::SourceHandle lastFocusAsset);
+        void OnWorkspaceRestoreEnd(SourceHandle lastFocusAsset);
 
         void UpdateAssignToSelectionState();
         void UpdateUndoRedoState();
@@ -588,16 +602,16 @@ namespace ScriptCanvasEditor
 
         void CreateFunctionDefinitionNode(int positionOffset);
 
-        int CreateAssetTab(const ScriptCanvasEditor::SourceHandle& assetId, Tracker::ScriptCanvasFileState fileState, int tabIndex = -1);
+        int CreateAssetTab(const SourceHandle& assetId, Tracker::ScriptCanvasFileState fileState, int tabIndex = -1);
 
         //! \param asset The AssetId of the ScriptCanvas Asset.
-        void SetActiveAsset(const ScriptCanvasEditor::SourceHandle& assetId);
+        void SetActiveAsset(const SourceHandle& assetId);
         void RefreshActiveAsset();
 
-        void ReconnectSceneBuses(ScriptCanvasEditor::SourceHandle previousAssetId, ScriptCanvasEditor::SourceHandle nextAssetId);
+        void ReconnectSceneBuses(SourceHandle previousAssetId, SourceHandle nextAssetId);
 
         void PrepareActiveAssetForSave();
-        void PrepareAssetForSave(const ScriptCanvasEditor::SourceHandle& asssetId);
+        void PrepareAssetForSave(const SourceHandle& asssetId);
 
         void RestartAutoTimerSave(bool forceTimer = false);
 
@@ -608,16 +622,16 @@ namespace ScriptCanvasEditor
         void AssignGraphToEntityImpl(const AZ::EntityId& entityId);
         ////
 
-        Tracker::ScriptCanvasFileState GetAssetFileState(ScriptCanvasEditor::SourceHandle assetId) const;
+        Tracker::ScriptCanvasFileState GetAssetFileState(SourceHandle assetId) const;
 
-        ScriptCanvasEditor::SourceHandle GetSourceAssetId(const ScriptCanvasEditor::SourceHandle& memoryAssetId) const
+        SourceHandle GetSourceAssetId(const SourceHandle& memoryAssetId) const
         {
             return memoryAssetId;
         }
 
-        int InsertTabForAsset(AZStd::string_view assetPath, ScriptCanvasEditor::SourceHandle assetId, int tabIndex = -1);
+        int InsertTabForAsset(AZStd::string_view assetPath, SourceHandle assetId, int tabIndex = -1);
 
-        void UpdateUndoCache(ScriptCanvasEditor::SourceHandle assetId);
+        void UpdateUndoCache(SourceHandle assetId);
 
 
         bool HasSystemTickAction(SystemTickActionFlag action);
@@ -630,8 +644,8 @@ namespace ScriptCanvasEditor
         void OpenNextFile();
 
 
-        void DisableAssetView(const ScriptCanvasEditor::SourceHandle& memoryAssetId);
-        void EnableAssetView(const ScriptCanvasEditor::SourceHandle& memoryAssetId);
+        void DisableAssetView(const SourceHandle& memoryAssetId);
+        void EnableAssetView(const SourceHandle& memoryAssetId);
 
 
         QWidget* m_host = nullptr;
@@ -665,8 +679,9 @@ namespace ScriptCanvasEditor
         GraphCanvas::BookmarkDockWidget*    m_bookmarkDockWidget = nullptr;
         GraphCanvas::MiniMapDockWidget*     m_minimap = nullptr;
         LoggingWindow*                      m_loggingWindow = nullptr;
-        SlotTypeSelectorWidget*             m_slotTypeSelector = nullptr;
+        VariableConfigurationWidget*             m_slotTypeSelector = nullptr;
 
+        AZStd::unique_ptr<InterpreterWidget> m_interpreterWidget;
 
         AzQtComponents::WindowDecorationWrapper*    m_presetWrapper = nullptr;
         GraphCanvas::ConstructPresetDialog*         m_presetEditor = nullptr;
@@ -691,22 +706,22 @@ namespace ScriptCanvasEditor
         GraphCanvas::GraphCanvasEditorEmptyDockWidget* m_emptyCanvas; // Displayed when there is no open graph
         QVBoxLayout* m_layout;
 
-        ScriptCanvasEditor::SourceHandle m_activeGraph;
-        
+        SourceHandle m_activeGraph;
+
         bool                  m_loadingNewlySavedFile;
         AZStd::string         m_newlySavedFile;
 
         AZStd::string         m_errorFilePath;
 
         bool m_isClosingTabs;
-        ScriptCanvasEditor::SourceHandle m_skipTabOnClose;
+        SourceHandle m_skipTabOnClose;
 
         bool m_enterState;
         bool m_ignoreSelection;
         AZ::s32 m_preventUndoStateUpdateCount;
 
         bool m_isRestoringWorkspace;
-        ScriptCanvasEditor::SourceHandle m_queuedFocusOverride;
+        SourceHandle m_queuedFocusOverride;
 
         Ui::MainWindow* ui;
         AZStd::array<AZStd::pair<QAction*, QMetaObject::Connection>, c_scriptCanvasEditorSettingsRecentFilesCountMax> m_recentActions;
@@ -724,21 +739,21 @@ namespace ScriptCanvasEditor
 
         QByteArray m_defaultLayout;
         QTranslator m_translator;
-        
+
         AZStd::vector<AZ::EntityId> m_selectedVariableIds;
 
         AZ::u32                                   m_systemTickActions;
-        AZStd::unordered_set< ScriptCanvasEditor::SourceHandle > m_processedClosedAssetIds;
+        AZStd::unordered_set< SourceHandle > m_processedClosedAssetIds;
 
-        AZStd::unordered_set< ScriptCanvasEditor::SourceHandle > m_loadingWorkspaceAssets;
-        AZStd::unordered_set< ScriptCanvasEditor::SourceHandle > m_loadingAssets;
+        AZStd::unordered_set< SourceHandle > m_loadingWorkspaceAssets;
+        AZStd::unordered_set< SourceHandle > m_loadingAssets;
         AZStd::unordered_set< AZ::Uuid > m_variablePaletteTypes;
 
         AZStd::unordered_map< AZ::Crc32, QObject* > m_automationLookUpMap;
 
         bool m_closeCurrentGraphAfterSave;
 
-        AZStd::unordered_map< ScriptCanvasEditor::SourceHandle, TypeDefs::EntityComponentId > m_assetCreationRequests;
+        AZStd::unordered_map< SourceHandle, TypeDefs::EntityComponentId > m_assetCreationRequests;
 
         ScriptCanvas::Debugger::ClientTransceiver m_clientTRX;
         GraphCanvas::StyleManager m_styleManager;
@@ -754,7 +769,7 @@ namespace ScriptCanvasEditor
         void ClearStaleSaves();
         bool IsRecentSave(const SourceHandle& handle) const;
         void MarkRecentSave(const SourceHandle& handle);
-        AZStd::recursive_mutex m_mutex; 
-        AZStd::unordered_map <AZStd::string, AZStd::chrono::system_clock::time_point> m_saves;
+        AZStd::recursive_mutex m_mutex;
+        AZStd::unordered_map <AZStd::string, AZStd::chrono::steady_clock::time_point> m_saves;
     };
 }

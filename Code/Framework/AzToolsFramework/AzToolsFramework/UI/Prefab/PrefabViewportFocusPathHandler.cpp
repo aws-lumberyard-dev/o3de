@@ -54,7 +54,7 @@ namespace AzToolsFramework::Prefab
                 m_prefabFocusPublicInterface->FocusOnPathIndex(m_editorEntityContextId, linkIndex);
 
                 // Manually refresh path
-                QTimer::singleShot(0, [&]() { OnPrefabFocusChanged(); });
+                QTimer::singleShot(0, [&]() { Refresh(); });
             }
         );
 
@@ -70,18 +70,35 @@ namespace AzToolsFramework::Prefab
 
         // Currently hide this button until we can correctly disable/enable it based on context.
         m_backButton->hide();
+
+        Refresh();
     }
 
-    void PrefabViewportFocusPathHandler::OnPrefabFocusChanged()
+    void PrefabViewportFocusPathHandler::OnPrefabFocusChanged(
+        [[maybe_unused]] AZ::EntityId previousContainerEntityId, [[maybe_unused]] AZ::EntityId newContainerEntityId)
     {
-        // Push new Path
-        m_breadcrumbsWidget->pushPath(m_prefabFocusPublicInterface->GetPrefabFocusPath(m_editorEntityContextId).c_str());
+        Refresh();
+    }
 
-        // Set root icon
-        m_breadcrumbsWidget->setIconAt(0, QString(":/Level/level.svg"));
+    void PrefabViewportFocusPathHandler::OnPrefabFocusRefreshed()
+    {
+        Refresh();
+    }
 
-        // If root instance is focused, disable the back button; else enable it.
-        m_backButton->setEnabled(m_prefabFocusPublicInterface->GetPrefabFocusPathLength(m_editorEntityContextId) > 1);
+    void PrefabViewportFocusPathHandler::Refresh()
+    {
+        if (int prefabFocusPathLength = m_prefabFocusPublicInterface->GetPrefabFocusPathLength(m_editorEntityContextId);
+            prefabFocusPathLength > 0)
+        {
+            // Push new Path
+            m_breadcrumbsWidget->pushPath(m_prefabFocusPublicInterface->GetPrefabFocusPath(m_editorEntityContextId).c_str());
+
+            // Set root icon
+            m_breadcrumbsWidget->setIconAt(0, QString(":/Level/level.svg"));
+
+            // If root instance is focused, disable the back button; else enable it.
+            m_backButton->setEnabled(prefabFocusPathLength > 1);
+        }
     }
 
 } // namespace AzToolsFramework::Prefab

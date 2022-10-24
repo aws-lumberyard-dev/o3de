@@ -9,18 +9,17 @@
 #include <AzCore/Component/Entity.h>
 #include <AzCore/Component/TransformBus.h>
 #include <AzCore/Script/ScriptSystemBus.h>
-#include <AzCore/Serialization/Utils.h>
 #include <AzCore/StringFunc/StringFunc.h>
 #include <AzFramework/API/ApplicationAPI.h>
 #include <AzFramework/Entity/GameEntityContextBus.h>
 #include <AzFramework/Spawnable/RootSpawnableInterface.h>
+#include <AzFramework/Spawnable/SpawnableEntitiesInterface.h>
 #include <AzToolsFramework/API/EditorAssetSystemAPI.h>
 #include <AzToolsFramework/API/ToolsApplicationAPI.h>
 #include <AzToolsFramework/Entity/PrefabEditorEntityOwnershipService.h>
 #include <AzToolsFramework/Prefab/EditorPrefabComponent.h>
 #include <AzToolsFramework/Prefab/Instance/Instance.h>
-#include <AzToolsFramework/Prefab/Instance/InstanceEntityIdMapper.h>
-#include <AzToolsFramework/Prefab/Instance/InstanceEntityMapperInterface.h>
+#include <AzToolsFramework/Prefab/Instance/InstanceUpdateExecutorInterface.h>
 #include <AzToolsFramework/Prefab/PrefabDomUtils.h>
 #include <AzToolsFramework/Prefab/PrefabLoader.h>
 #include <AzToolsFramework/Prefab/PrefabFocusInterface.h>
@@ -233,6 +232,16 @@ namespace AzToolsFramework
         m_rootInstance->SetTemplateId(templateId);
         m_rootInstance->SetTemplateSourcePath(m_loaderInterface->GenerateRelativePath(filename));
         m_rootInstance->SetContainerEntityName("Level");
+
+        auto instanceUpdateExecutorInterface = AZ::Interface<Prefab::InstanceUpdateExecutorInterface>::Get();
+        if (!instanceUpdateExecutorInterface)
+        {
+            AZ_Assert(false,
+                "InstanceUpdateExecutorInterface is unavailable for PrefabEditorEntityOwnershipService::LoadFromStream.");
+            return false;
+        }
+        instanceUpdateExecutorInterface->QueueRootPrefabLoadedNotificationForNextPropagation();
+
         m_prefabSystemComponent->PropagateTemplateChanges(templateId);
         m_isRootPrefabAssigned = true;
 
@@ -301,6 +310,13 @@ namespace AzToolsFramework
             sourcePath.Set(levelDefaultDom, relativePath.c_str());
 
             templateId = m_prefabSystemComponent->AddTemplate(relativePath, AZStd::move(levelDefaultDom));
+
+            // Initialize the container entity if it is in constructed state. This will make the entity queryable before the first
+            // time it gets deserialized.
+            if (m_rootInstance->m_containerEntity && m_rootInstance->m_containerEntity->GetState() == AZ::Entity::State::Constructed)
+            {
+                m_rootInstance->m_containerEntity->Init();
+            }
         }
         else
         {
@@ -332,6 +348,15 @@ namespace AzToolsFramework
             // Make sure we only have one level template loaded at a time
             m_prefabSystemComponent->RemoveTemplate(prevTemplateId);
         }
+
+        auto instanceUpdateExecutorInterface = AZ::Interface<Prefab::InstanceUpdateExecutorInterface>::Get();
+        if (!instanceUpdateExecutorInterface)
+        {
+            AZ_Assert(false,
+                "InstanceUpdateExecutorInterface is unavailable for PrefabEditorEntityOwnershipService::CreateNewLevelPrefab.");
+            return;
+        }
+        instanceUpdateExecutorInterface->QueueRootPrefabLoadedNotificationForNextPropagation();
 
         m_prefabSystemComponent->PropagateTemplateChanges(templateId);
         m_isRootPrefabAssigned = true;
@@ -411,9 +436,9 @@ namespace AzToolsFramework
         return m_rootInstance ? m_rootInstance->GetTemplateId() : Prefab::InvalidTemplateId;
     }
 
-    const Prefab::PrefabConversionUtils::InMemorySpawnableAssetContainer::SpawnableAssets& PrefabEditorEntityOwnershipService::GetPlayInEditorAssetData() const
+    const AzFramework::InMemorySpawnableAssetContainer::SpawnableAssets& PrefabEditorEntityOwnershipService::GetPlayInEditorAssetData() const
     {
-        return m_playInEditorData.m_assetsCache.GetAllInMemorySpawnableAssets();
+        return m_playInEditorData.m_assetsCache.GetAssetContainerConst().GetAllInMemorySpawnableAssets();
     }
 
     void PrefabEditorEntityOwnershipService::OnEntityRemoved(AZ::EntityId entityId)
@@ -441,6 +466,7 @@ namespace AzToolsFramework
     {
         // This is a workaround until the replacement for GameEntityContext is done
         AzFramework::GameEntityContextEventBus::Broadcast(&AzFramework::GameEntityContextEventBus::Events::OnPreGameEntitiesStarted);
+        m_gameModeEvent.Signal(GameModeState::Started);
 
         if (m_rootInstance && !m_playInEditorData.m_isEnabled)
         {
@@ -453,15 +479,27 @@ namespace AzToolsFramework
                 return;
             }
 
-            auto createRootSpawnableResult = m_playInEditorData.m_assetsCache.CreateInMemorySpawnableAsset(m_rootInstance->GetTemplateId(), DefaultMainSpawnableName, true);
+            auto createRootSpawnableResult = m_playInEditorData.m_assetsCache.CreateInMemorySpawnableAsset(m_rootInstance->GetTemplateId(), AzFramework::Spawnable::DefaultMainSpawnableName, true);
             if (createRootSpawnableResult.IsSuccess())
             {
                 // make sure that PRE_NOTIFY assets get their notify before we activate, so that we can preserve the order of 
                 // (load asset) -> (notify) -> (init) -> (activate)
                 AZ::Data::AssetManager::Instance().DispatchEvents();
 
-                m_playInEditorData.m_entities.Reset(createRootSpawnableResult.GetValue());
-                m_playInEditorData.m_entities.SpawnAllEntities();
+                AZ::Data::Asset<AzFramework::Spawnable> rootSpawnable = createRootSpawnableResult.GetValue();
+                m_playInEditorData.m_entities.Reset(rootSpawnable);
+
+                AzFramework::SpawnAllEntitiesOptionalArgs optionalArgs;
+                auto spawnCompleteCB = [rootSpawnable](
+                                           [[maybe_unused]] AzFramework::EntitySpawnTicket::Id ticketId,
+                                           [[maybe_unused]] AzFramework::SpawnableConstEntityContainerView view)
+                {
+                    AzFramework::RootSpawnableNotificationBus::Broadcast(
+                        &AzFramework::RootSpawnableNotificationBus::Events::OnRootSpawnableReady, rootSpawnable, 0);
+                };
+
+                optionalArgs.m_completionCallback = AZStd::move(spawnCompleteCB);
+                m_playInEditorData.m_entities.SpawnAllEntities(AZStd::move(optionalArgs));
 
                 // This is a workaround until the replacement for GameEntityContext is done
                 AzFramework::GameEntityContextEventBus::Broadcast(
@@ -499,8 +537,9 @@ namespace AzToolsFramework
 
             m_playInEditorData.m_entities.DespawnAllEntities();
             m_playInEditorData.m_entities.Alert(
-                [allSpawnableAssetData = m_playInEditorData.m_assetsCache.MoveAllInMemorySpawnableAssets(),
-                 deactivatedEntities = AZStd::move(m_playInEditorData.m_deactivatedEntities)]([[maybe_unused]] uint32_t generation) mutable
+                [allSpawnableAssetData = m_playInEditorData.m_assetsCache.GetAssetContainer().MoveAllInMemorySpawnableAssets(),
+                 deactivatedEntities = AZStd::move(m_playInEditorData.m_deactivatedEntities),
+                 this]([[maybe_unused]] uint32_t generation) mutable
                 {
                     auto end = deactivatedEntities.rend();
                     for (auto it = deactivatedEntities.rbegin(); it != end; ++it)
@@ -522,6 +561,7 @@ namespace AzToolsFramework
 
                     // This is a workaround until the replacement for GameEntityContext is done
                     AzFramework::GameEntityContextEventBus::Broadcast(&AzFramework::GameEntityContextEventBus::Events::OnGameEntitiesReset);
+                    m_gameModeEvent.Signal(GameModeState::Stopped);
                 });
             m_playInEditorData.m_entities.Clear();
 

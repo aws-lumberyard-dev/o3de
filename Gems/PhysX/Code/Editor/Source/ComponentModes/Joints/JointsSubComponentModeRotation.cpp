@@ -21,7 +21,6 @@
 #include <AzToolsFramework/ViewportSelection/EditorSelectionUtil.h>
 
 #include <Editor/Source/ComponentModes/Joints/JointsComponentModeCommon.h>
-#include <PhysX/EditorColliderComponentRequestBus.h>
 #include <PhysX/EditorJointBus.h>
 #include <Source/Utils.h>
 
@@ -32,8 +31,6 @@ namespace PhysX
     void JointsSubComponentModeRotation::Setup(const AZ::EntityComponentIdPair& idPair)
     {
         AZ::Transform worldTransform = PhysX::Utils::GetEntityWorldTransformWithoutScale(idPair.GetEntityId());
-
-        const AZ::Quaternion worldRotation = worldTransform.GetRotation();
 
         AZ::Transform localTransform = AZ::Transform::CreateIdentity();
         EditorJointRequestBus::EventResult(

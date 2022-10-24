@@ -99,6 +99,7 @@ namespace AZ
                     ->Field("name", &ShaderAsset::m_name)
                     ->Field("pipelineStateType", &ShaderAsset::m_pipelineStateType)
                     ->Field("shaderOptionGroupLayout", &ShaderAsset::m_shaderOptionGroupLayout)
+                    ->Field("defaultShaderOptionValueOverrides", &ShaderAsset::m_defaultShaderOptionValueOverrides)
                     ->Field("drawListName", &ShaderAsset::m_drawListName)
                     ->Field("shaderAssetBuildTimestamp", &ShaderAsset::m_buildTimestamp)
                     ->Field("perAPIShaderData", &ShaderAsset::m_perAPIShaderData)
@@ -128,6 +129,15 @@ namespace AZ
             return m_shaderOptionGroupLayout.get();
         }
 
+        ShaderOptionGroup ShaderAsset::GetDefaultShaderOptions() const
+        {
+            // The m_shaderOptionGroupLayout has default values for each shader option, these come from shader source code.
+            // The ShaderAsset can override these with its own default values, these come from the .shader file.
+            ShaderOptionGroup shaderOptionGroup{m_shaderOptionGroupLayout, m_defaultShaderOptionValueOverrides};
+            shaderOptionGroup.SetUnspecifiedToDefaultValues();
+            return shaderOptionGroup;
+        }
+
         const Name& ShaderAsset::GetDrawListName() const
         {
             return m_drawListName;
@@ -142,7 +152,6 @@ namespace AZ
         {
             m_status = AssetStatus::Ready;
         }
-
 
         SupervariantIndex ShaderAsset::GetSupervariantIndex(const AZ::Name& supervariantName) const
         {
@@ -169,7 +178,7 @@ namespace AZ
             return supervariantIndex;
         }
 
-        Data::Asset<ShaderVariantAsset> ShaderAsset::GetVariant(
+        Data::Asset<ShaderVariantAsset> ShaderAsset::GetVariantAsset(
             const ShaderVariantId& shaderVariantId, SupervariantIndex supervariantIndex)
         {
             auto variantFinder = AZ::Interface<IShaderVariantFinder>::Get();
@@ -226,12 +235,12 @@ namespace AZ
             return m_shaderVariantTree->FindVariantStableId(GetShaderOptionGroupLayout(), shaderVariantId);
         }
 
-        Data::Asset<ShaderVariantAsset> ShaderAsset::GetVariant(
+        Data::Asset<ShaderVariantAsset> ShaderAsset::GetVariantAsset(
             ShaderVariantStableId shaderVariantStableId, SupervariantIndex supervariantIndex) const
         {
             if (!shaderVariantStableId.IsValid() || shaderVariantStableId == RootShaderVariantStableId)
             {
-                return GetRootVariant(supervariantIndex);
+                return GetRootVariantAsset(supervariantIndex);
             }
 
             auto variantFinder = AZ::Interface<IShaderVariantFinder>::Get();
@@ -253,7 +262,7 @@ namespace AZ
                 {
                     variantFinder->QueueLoadShaderVariantAsset(variantTreeAssetId, shaderVariantStableId, supervariantIndex);
                 }
-                return GetRootVariant(supervariantIndex);
+                return GetRootVariantAsset(supervariantIndex);
             }
             else if (variant->GetBuildTimestamp() >= m_buildTimestamp)
             {
@@ -263,11 +272,11 @@ namespace AZ
             {
                 // When rebuilding shaders we may be in a state where the ShaderAsset and root ShaderVariantAsset have been rebuilt and reloaded, but some (or all)
                 // shader variants haven't been built yet. Since we want to use the latest version of the shader code, ignore the old variants and fall back to the newer root variant instead.
-                return GetRootVariant(supervariantIndex);
+                return GetRootVariantAsset(supervariantIndex);
             }
         }
 
-        Data::Asset<ShaderVariantAsset> ShaderAsset::GetRootVariant(SupervariantIndex supervariantIndex) const
+        Data::Asset<ShaderVariantAsset> ShaderAsset::GetRootVariantAsset(SupervariantIndex supervariantIndex) const
         {
             auto supervariant = GetSupervariant(supervariantIndex);
             if (!supervariant)

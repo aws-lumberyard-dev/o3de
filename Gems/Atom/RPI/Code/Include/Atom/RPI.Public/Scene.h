@@ -21,6 +21,7 @@
 #include <Atom/RPI.Public/Pass/PassSystemInterface.h>
 #include <Atom/RPI.Public/RPISystemInterface.h>
 #include <Atom/RPI.Public/SceneBus.h>
+#include <Atom/RPI.Public/ViewProviderBus.h>
 
 #include <AtomCore/Instance/Instance.h>
 
@@ -102,6 +103,11 @@ namespace AZ
 
             void DisableAllFeatureProcessors();
 
+            //! Callback function that will be invoked with each non-pointer FeatureProcessor
+            //! return true to continue visiting or false to halt
+            using FeatureProcessorVisitCallback = AZStd::function<bool(FeatureProcessor&)>;
+            void VisitFeatureProcessor(FeatureProcessorVisitCallback callback) const;
+
             //! Linear search to retrieve specific class of a feature processor.
             //! Returns nullptr if a feature processor with the specified id is
             //! not found.
@@ -158,7 +164,7 @@ namespace AZ
                 return m_cullingScene;
             }
 
-            RenderPipelinePtr FindRenderPipelineForWindow(AzFramework::NativeWindowHandle windowHandle);
+            RenderPipelinePtr FindRenderPipelineForWindow(AzFramework::NativeWindowHandle windowHandle, ViewType viewType = ViewType::Default);
 
             using PrepareSceneSrgEvent = AZ::Event<RPI::ShaderResourceGroup*>;
             //! Connect a handler to listen to the event that the Scene is ready to update and compile its scene srg
@@ -176,7 +182,8 @@ namespace AZ
         protected:
             // SceneFinder overrides...
             void OnSceneNotifictaionHandlerConnected(SceneNotification* handler);
-                        
+            void PipelineStateLookupNeedsRebuild() override;
+
             // Cpu simulation which runs all active FeatureProcessor Simulate() functions.
             // @param jobPolicy if it's JobPolicy::Parallel, the function will spawn a job thread for each FeatureProcessor's simulation.
             // @param simulationTime the number of seconds since the application started
@@ -201,7 +208,7 @@ namespace AZ
 
 
             // Helper function to wait for end of TaskGraph and then delete the TaskGraphEvent
-            void WaitAndCleanTGEvent(AZStd::unique_ptr<AZ::TaskGraphEvent>&& completionTGEvent);
+            void WaitAndCleanTGEvent();
 
             // Helper function for wait and clean up a completion job
             void WaitAndCleanCompletionJob(AZ::JobCompletion*& completionJob);
@@ -261,6 +268,9 @@ namespace AZ
 
             RenderPipelinePtr m_defaultPipeline;
 
+            // Rebuild the m_pipelineStatesLookup after queued Pipeline changes have been applied.
+            bool m_pipelineStatesLookupNeedsRebuild = false;
+
             // Mapping of draw list tag and a group of pipeline states info built from scene's render pipeline passes
             AZStd::map<RHI::DrawListTag, PipelineStateList> m_pipelineStatesLookup;
 
@@ -270,11 +280,14 @@ namespace AZ
             // Registry which allocates draw filter tag for RenderPipeline
             RHI::Ptr<RHI::DrawFilterTagRegistry> m_drawFilterTagRegistry;
 
-            RHI::ShaderInputConstantIndex m_timeInputIndex;
-            float m_simulationTime;
+            RHI::ShaderInputNameIndex m_timeInputIndex = "m_time";
+            float m_simulationTime = 0.0;
+            RHI::ShaderInputNameIndex m_prevTimeInputIndex = "m_prevTime";
+            float m_prevSimulationTime = 0.0;
         };
 
         // --- Template functions ---
+
         template<typename FeatureProcessorType>
         FeatureProcessorType* Scene::EnableFeatureProcessor()
         {

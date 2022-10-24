@@ -61,7 +61,7 @@ namespace AZ
                 AZ::RHI::BufferInitRequest tlasInstancesBufferRequest;
                 tlasInstancesBufferRequest.m_buffer = buffers.m_tlasInstancesBuffer.get();
                 tlasInstancesBufferRequest.m_descriptor = tlasInstancesBufferDescriptor;
-                RHI::ResultCode resultCode = bufferPools.GetTlasInstancesBufferPool()->InitBuffer(tlasInstancesBufferRequest);
+                [[maybe_unused]] RHI::ResultCode resultCode = bufferPools.GetTlasInstancesBufferPool()->InitBuffer(tlasInstancesBufferRequest);
                 AZ_Assert(resultCode == RHI::ResultCode::Success, "failed to create TLAS instances buffer");
             
                 MemoryView& tlasInstancesMemoryView = static_cast<Buffer*>(buffers.m_tlasInstancesBuffer.get())->GetMemoryView();
@@ -89,6 +89,7 @@ namespace AZ
                     mappedData[i].AccelerationStructure = static_cast<DX12::Buffer*>(blas->GetBuffers().m_blasBuffer.get())->GetMemoryView().GetGpuAddress();
                     // [GFX TODO][ATOM-5270] Add ray tracing TLAS instance mask support
                     mappedData[i].InstanceMask = 0x1;
+                    mappedData[i].Flags = instance.m_transparent ? D3D12_RAYTRACING_INSTANCE_FLAG_FORCE_NON_OPAQUE : D3D12_RAYTRACING_INSTANCE_FLAG_NONE;
                 }
             
                 bufferPools.GetTlasInstancesBufferPool()->UnmapBuffer(*buffers.m_tlasInstancesBuffer);
@@ -125,7 +126,7 @@ namespace AZ
             AZ::RHI::BufferInitRequest scratchBufferRequest;
             scratchBufferRequest.m_buffer = buffers.m_scratchBuffer.get();
             scratchBufferRequest.m_descriptor = scratchBufferDescriptor;
-            RHI::ResultCode resultCode = bufferPools.GetScratchBufferPool()->InitBuffer(scratchBufferRequest);
+            [[maybe_unused]] RHI::ResultCode resultCode = bufferPools.GetScratchBufferPool()->InitBuffer(scratchBufferRequest);
             AZ_Assert(resultCode == RHI::ResultCode::Success, "failed to create TLAS scratch buffer");
             
             MemoryView& scratchMemoryView = static_cast<Buffer*>(buffers.m_scratchBuffer.get())->GetMemoryView();

@@ -10,6 +10,7 @@
 
 #if !defined(Q_MOC_RUN)
 #include <AzCore/RTTI/TypeInfo.h>
+#include <EMotionFX/Source/ActorInstance.h>
 #include <QWidget>
 #include <QItemSelection>
 #endif
@@ -39,6 +40,7 @@ namespace EMotionFX
 
     protected:
         Actor* GetActor() const;
+        ActorInstance* GetActorInstance();
         Node* GetNode() const;
         QModelIndexList GetSelectedModelIndices() const;
         virtual QWidget* CreateContentWidget(QWidget* parent) = 0;

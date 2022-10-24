@@ -85,6 +85,7 @@ namespace AZ
 
         Pass::~Pass()
         {
+            AZ_RPI_BREAK_ON_TARGET_PASS;
             PassSystemInterface::Get()->UnregisterPass(this);
         }
 
@@ -98,17 +99,10 @@ namespace AZ
             return desc;
         }
 
-        // --- Enable/Disable ---
-
         void Pass::SetEnabled(bool enabled)
         {
             m_flags.m_enabled = enabled;
             OnHierarchyChange();
-        }
-
-        bool Pass::IsEnabled() const
-        {
-            return m_flags.m_enabled;
         }
 
         // --- Error Logging ---
@@ -116,7 +110,7 @@ namespace AZ
         void Pass::LogError(AZStd::string&& message)
         {
 #if AZ_RPI_ENABLE_PASS_DEBUGGING
-            AZ::Debug::Trace::Break();
+            AZ::Debug::Trace::Instance().Break();
 #endif
 
             if (PassValidation::IsEnabled())
@@ -145,25 +139,25 @@ namespace AZ
 
         void Pass::OnHierarchyChange()
         {
-            if (m_parent == nullptr)
+            if (m_parent != nullptr)
             {
-                return;
-            }
+                // Set new tree depth and path
+                m_flags.m_parentEnabled = m_parent->m_flags.m_enabled && (m_parent->m_flags.m_parentEnabled || m_parent->m_parent == nullptr);
+                m_treeDepth = m_parent->m_treeDepth + 1;
+                m_path = ConcatPassName(m_parent->m_path, m_name);
+                m_flags.m_partOfHierarchy = m_parent->m_flags.m_partOfHierarchy;
 
-            // Set new tree depth and path
-            m_flags.m_parentEnabled = m_parent->m_flags.m_enabled && (m_parent->m_flags.m_parentEnabled || m_parent->m_parent == nullptr);
-            m_treeDepth = m_parent->m_treeDepth + 1;
-            m_path = ConcatPassName(m_parent->m_path, m_name);
-            m_flags.m_partOfHierarchy = m_parent->m_flags.m_partOfHierarchy;
-
-            if (m_state == PassState::Orphaned)
-            {
-                QueueForBuildAndInitialization();
+                if (m_state == PassState::Orphaned)
+                {
+                    QueueForBuildAndInitialization();
+                }
             }
+            AZ_RPI_BREAK_ON_TARGET_PASS;
         }
 
         void Pass::RemoveFromParent()
         {
+            AZ_RPI_BREAK_ON_TARGET_PASS;
             AZ_RPI_PASS_ASSERT(m_parent != nullptr, "Trying to remove pass from parent but pointer to the parent pass is null.");
             m_parent->RemoveChild(Ptr<Pass>(this));
             m_queueState = PassQueueState::NoQueue;
@@ -172,6 +166,7 @@ namespace AZ
 
         void Pass::OnOrphan()
         {
+            AZ_RPI_BREAK_ON_TARGET_PASS;
             if (m_flags.m_containsGlobalReference && m_pipeline != nullptr)
             {
                 m_pipeline->RemovePipelineGlobalConnectionsFromPass(this);
@@ -180,20 +175,9 @@ namespace AZ
             m_parent = nullptr;
             m_flags.m_partOfHierarchy = false;
             m_treeDepth = 0;
+            m_parentChildIndex = 0;
             m_queueState = PassQueueState::NoQueue;
             m_state = PassState::Orphaned;
-        }
-
-        // --- Getters & Setters ---
-
-        PassState Pass::GetPassState() const
-        {
-            return m_state;
-        }
-
-        ParentPass* Pass::GetParent() const
-        {
-            return m_parent;
         }
 
         ParentPass* Pass::AsParent()
@@ -206,40 +190,7 @@ namespace AZ
             return azrtti_cast<const ParentPass*>(this);
         }
 
-        const Name& Pass::GetName() const
-        {
-            return m_name;
-        }
-
-        const Name& Pass::GetPathName() const
-        {
-            return m_path;
-        }
-
-        uint32_t Pass::GetTreeDepth() const
-        {
-            return m_treeDepth;
-        }
-
-        PassAttachmentBindingListView Pass::GetAttachmentBindings() const
-        {
-            return m_attachmentBindings;
-        }
-
-        uint32_t Pass::GetInputCount() const
-        {
-            return uint32_t(m_inputBindingIndices.size());
-        }
-
-        uint32_t Pass::GetInputOutputCount() const
-        {
-            return uint32_t(m_inputOutputBindingIndices.size());
-        }
-
-        uint32_t Pass::GetOutputCount() const
-        {
-            return uint32_t(m_outputBindingIndices.size());
-        }
+        // --- Bindings ---
 
         PassAttachmentBinding& Pass::GetInputBinding(uint32_t index)
         {
@@ -257,11 +208,6 @@ namespace AZ
         {
             uint32_t bindingIndex = m_outputBindingIndices[index];
             return m_attachmentBindings[bindingIndex];
-        }
-
-        const PassTemplate* Pass::GetPassTemplate() const
-        {
-            return m_template.get();
         }
 
         void Pass::AddAttachmentBinding(PassAttachmentBinding attachmentBinding)
@@ -366,20 +312,36 @@ namespace AZ
             return FindOwnedAttachment(slotName);
         }
 
-        const PassAttachmentBinding* Pass::FindAdjacentBinding(const PassAttachmentRef& attachmentRef)
+        const PassAttachmentBinding* Pass::FindAdjacentBinding(const PassAttachmentRef& attachmentRef, [[maybe_unused]] const char* attachmentSourceTypeDebugName)
         {
-            // Validate attachmentRef
-            if (attachmentRef.m_pass.IsEmpty() || attachmentRef.m_attachment.IsEmpty())
+            const PassAttachmentBinding* result = nullptr;
+
+            if (attachmentRef.m_pass.IsEmpty() && attachmentRef.m_attachment.IsEmpty())
             {
-                return nullptr;
+                // The data isn't actually referencing anything, so this is not an error, just return null.
+                return result;
             }
+
+            if (attachmentRef.m_pass.IsEmpty() != attachmentRef.m_attachment.IsEmpty())
+            {
+                AZ_Error("Pass", false,
+                    "Invalid attachment reference (Pass [%s], Attachment [%s]). Both Pass and Attachment must be set.",
+                    attachmentRef.m_pass.GetCStr(), attachmentRef.m_attachment.GetCStr());
+
+                return result;
+            }
+
             // Find pass
             if (Ptr<Pass> pass = FindAdjacentPass(attachmentRef.m_pass))
             {
                 // Find attachment within pass
-                return pass->FindAttachmentBinding(attachmentRef.m_attachment);
+                result = pass->FindAttachmentBinding(attachmentRef.m_attachment);
             }
-            return nullptr;
+
+            AZ_Error("Pass", result, "Pass [%s] could not find %s (Pass [%s], Attachment [%s])",
+                m_path.GetCStr(), attachmentSourceTypeDebugName, attachmentRef.m_pass.GetCStr(), attachmentRef.m_attachment.GetCStr());
+
+            return result;
         }
 
         // --- PassTemplate related functions ---
@@ -730,7 +692,7 @@ namespace AZ
                 attachment->m_getSizeFromPipeline = true;
                 attachment->m_sizeMultipliers = desc.m_sizeSource.m_multipliers;
             }
-            else if (const PassAttachmentBinding* source = FindAdjacentBinding(desc.m_sizeSource.m_source))
+            else if (const PassAttachmentBinding* source = FindAdjacentBinding(desc.m_sizeSource.m_source, "SizeSource"))
             {
                 attachment->m_sizeSource = source;
                 attachment->m_sizeMultipliers = desc.m_sizeSource.m_multipliers;
@@ -741,7 +703,7 @@ namespace AZ
                 attachment->m_renderPipelineSource = m_pipeline;
                 attachment->m_getFormatFromPipeline = true;
             }
-            else if (const PassAttachmentBinding* source = FindAdjacentBinding(desc.m_formatSource))
+            else if (const PassAttachmentBinding* source = FindAdjacentBinding(desc.m_formatSource, "FormatSource"))
             {
                 attachment->m_formatSource = source;
             }
@@ -751,12 +713,12 @@ namespace AZ
                 attachment->m_renderPipelineSource = m_pipeline;
                 attachment->m_getMultisampleStateFromPipeline = true;
             }
-            else if (const PassAttachmentBinding* source = FindAdjacentBinding(desc.m_multisampleSource))
+            else if (const PassAttachmentBinding* source = FindAdjacentBinding(desc.m_multisampleSource, "MultisampleSource"))
             {
                 attachment->m_multisampleSource = source;
             }
 
-            if (const PassAttachmentBinding* source = FindAdjacentBinding(desc.m_arraySizeSource))
+            if (const PassAttachmentBinding* source = FindAdjacentBinding(desc.m_arraySizeSource, "ArraySizeSource"))
             {
                 attachment->m_arraySizeSource = source;
             }
@@ -1125,7 +1087,8 @@ namespace AZ
 
                 // Transition state
                 // If we are Rendering, the state will transition [Rendering -> Queued] in Pass::FrameEnd
-                if (m_state != PassState::Rendering)
+                // TODO: the PassState::Reset check is a quick fix until the pass concurrency with multiple scenes issue is fixed
+                if (m_state != PassState::Rendering && m_state != PassState::Reset)
                 {
                     m_state = PassState::Queued;
                 }
@@ -1173,6 +1136,8 @@ namespace AZ
 
         void Pass::Reset()
         {
+            AZ_RPI_BREAK_ON_TARGET_PASS;
+
             // Ensure we're in a valid state to reset. This ensures the pass won't be reset multiple times in the same frame.
             bool execute = (m_state == PassState::Idle);
             execute = execute || (m_state == PassState::Queued && m_queueState == PassQueueState::QueuedForBuildAndInitialization);
@@ -1337,7 +1302,6 @@ namespace AZ
 
         void Pass::FrameBegin(FramePrepareParams params)
         {
-            AZ_PROFILE_SCOPE(RPI, "Pass::FrameBegin() - %s", m_path.GetCStr());
             AZ_RPI_BREAK_ON_TARGET_PASS;
 
             bool earlyOut = !IsEnabled();
@@ -1355,7 +1319,8 @@ namespace AZ
                 return;
             }
 
-            AZ_Assert(m_state == PassState::Idle, "Pass::FrameBegin - Pass [%s] is attempting to render, but is not in the Idle state.", m_path.GetCStr());
+            AZ_Error("PassSystem", m_state == PassState::Idle, "Pass::FrameBegin - Pass [%s] is attempting to render, but is not in the Idle state.", m_path.GetCStr());
+
             m_state = PassState::Rendering;
 
             UpdateConnectedInputBindings();
@@ -1369,10 +1334,7 @@ namespace AZ
 
             // FrameBeginInternal needs to be the last function be called in FrameBegin because its implementation expects 
             // all the attachments are imported to database (for example, ImageAttachmentPreview)
-            {
-                AZ_PROFILE_SCOPE(RPI, "Pass::FrameBeginInternal()");
-                FrameBeginInternal(params);
-            }
+            FrameBeginInternal(params);
             
             // readback attachment with output state
             UpdateReadbackAttachment(params, false);
@@ -1393,21 +1355,11 @@ namespace AZ
         }
 
         // --- RenderPipeline, PipelineViewTag and DrawListTag ---
-        
-        bool Pass::HasDrawListTag() const
-        {
-            return m_flags.m_hasDrawListTag;
-        }
-        
+                
         RHI::DrawListTag Pass::GetDrawListTag() const
         {
             static RHI::DrawListTag invalidTag;
             return invalidTag;
-        }
-
-        bool Pass::HasPipelineViewTag() const
-        {
-            return m_flags.m_hasPipelineViewTag;
         }
 
         const PipelineViewTag& Pass::GetPipelineViewTag() const
@@ -1418,14 +1370,27 @@ namespace AZ
 
         void Pass::SetRenderPipeline(RenderPipeline* pipeline)
         {
-            m_pipeline = pipeline;
+            AZ_Assert(!m_pipeline || !pipeline || m_pipeline == pipeline,
+                "Switching passes between pipelines is not supported and may result in undefined behavior");
+
+            if (m_pipeline != pipeline)
+            {
+                m_pipeline = pipeline;
+
+                // Re-queue for new pipeline. 
+                if (m_pipeline != nullptr)
+                {
+                    PassState currentState = m_state;
+                    m_queueState = PassQueueState::NoQueue;
+                    QueueForBuildAndInitialization();
+                    if (currentState == PassState::Reset)
+                    {
+                        m_state = PassState::Reset;
+                    }
+                }
+            }
         }
         
-        RenderPipeline* Pass::GetRenderPipeline() const
-        {
-            return m_pipeline;
-        }
-
         void Pass::ManualPipelineBuildAndInitialize()
         {
             Build();
@@ -1440,6 +1405,11 @@ namespace AZ
                 return m_pipeline->GetScene();
             }
             return nullptr;
+        }
+
+        PassTree* Pass::GetPassTree() const
+        {
+            return m_pipeline ? &(m_pipeline->m_passTree) : nullptr;
         }
 
         void Pass::GetViewDrawListInfo(RHI::DrawListMask& outDrawListMask, PassesByDrawList& outPassesByDrawList, const PipelineViewTag& viewTag) const
@@ -1497,32 +1467,12 @@ namespace AZ
             return GetPipelineStatisticsResultInternal();
         }
 
-        TimestampResult Pass::GetTimestampResultInternal() const
-        {
-            return TimestampResult();
-        }
-
-        PipelineStatisticsResult Pass::GetPipelineStatisticsResultInternal() const
-        {
-            return PipelineStatisticsResult();
-        }
-
-        void Pass::SetTimestampQueryEnabled(bool enable)
-        {
-            m_flags.m_timestampQueryEnabled = enable;
-        }
-
-        void Pass::SetPipelineStatisticsQueryEnabled(bool enable)
-        {
-            m_flags.m_pipelineStatisticsQueryEnabled = enable;
-        }
-
-        bool Pass::ReadbackAttachment(AZStd::shared_ptr<AttachmentReadback> readback, const Name& slotName, PassAttachmentReadbackOption option)
+        bool Pass::ReadbackAttachment(AZStd::shared_ptr<AttachmentReadback> readback, uint32_t readbackIndex, const Name& slotName, PassAttachmentReadbackOption option)
         {
             // Return false if it's already readback
             if (m_attachmentReadback)
             {
-                AZ_Warning("Pass", false, "ReadbackAttachment: skip readback pass [%s] slot [%s]because there is an another active readback", m_name.GetCStr(), slotName.GetCStr());
+                AZ_Warning("Pass", false, "ReadbackAttachment: skip readback pass [%s] slot [%s] because there is an another active readback", m_path.GetCStr(), slotName.GetCStr());
                 return false;
             }
             uint32_t bindingIndex = 0;
@@ -1536,8 +1486,8 @@ namespace AZ
                         RHI::AttachmentId attachmentId = binding.GetAttachment()->GetAttachmentId();
 
                         // Append slot index and pass name so the read back's name won't be same as the attachment used in other passes.
-                        AZStd::string readbackName = AZStd::string::format("%s_%d_%s", attachmentId.GetCStr(),
-                            bindingIndex, GetName().GetCStr());
+                        AZStd::string readbackName = AZStd::string::format("%s_%d_%d_%s", attachmentId.GetCStr(),
+                            readbackIndex, bindingIndex, GetName().GetCStr());
                         if (readback->ReadPassAttachment(binding.GetAttachment().get(), AZ::Name(readbackName)))
                         {
                             m_readbackOption = PassAttachmentReadbackOption::Output;
@@ -1554,7 +1504,7 @@ namespace AZ
                 }
                 bindingIndex++;
             }
-            AZ_Warning("Pass", false, "ReadbackAttachment: failed to find slot [%s] from pass [%s]", slotName.GetCStr(), m_name.GetCStr());
+            AZ_Warning("Pass", false, "ReadbackAttachment: failed to find slot [%s] from pass [%s]", slotName.GetCStr(), m_path.GetCStr());
             return false;
         }
 
@@ -1574,16 +1524,6 @@ namespace AZ
             {
                 m_attachmentCopy.lock()->FrameBegin(params);
             }
-        }
-
-        bool Pass::IsTimestampQueryEnabled() const
-        {
-            return m_flags.m_timestampQueryEnabled;
-        }
-
-        bool Pass::IsPipelineStatisticsQueryEnabled() const
-        {
-            return m_flags.m_pipelineStatisticsQueryEnabled;
         }
 
         void Pass::PrintIndent(AZStd::string& stringOutput, uint32_t indent) const
@@ -1823,4 +1763,3 @@ namespace AZ
 
     }   // namespace RPI
 }   // namespace AZ
-

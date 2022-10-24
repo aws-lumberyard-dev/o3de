@@ -33,12 +33,12 @@ namespace AZ
             void ShutdownInternal() override {}
             void CompileMemoryStatisticsInternal([[maybe_unused]] RHI::MemoryStatisticsBuilder& builder) override {}
             void UpdateCpuTimingStatisticsInternal() const override {}
-            void BeginFrameInternal() override {}
+            RHI::ResultCode BeginFrameInternal() override { return RHI::ResultCode::Success; }
             void EndFrameInternal() override {}
             void WaitForIdleInternal() override {}
             AZStd::chrono::microseconds GpuTimestampToMicroseconds([[maybe_unused]] uint64_t gpuTimestamp, [[maybe_unused]] RHI::HardwareQueueClass queueClass) const override { return AZStd::chrono::microseconds();}
             void FillFormatsCapabilitiesInternal([[maybe_unused]] FormatCapabilitiesList& formatsCapabilities) override;
-            RHI::ResultCode InitializeLimits() override { return RHI::ResultCode::Success; }
+            RHI::ResultCode InitializeLimits() override;
             void PreShutdown() override {}
             RHI::ResourceMemoryRequirements GetResourceMemoryRequirements([[maybe_unused]] const RHI::ImageDescriptor& descriptor) override { return RHI::ResourceMemoryRequirements();}
             RHI::ResourceMemoryRequirements GetResourceMemoryRequirements([[maybe_unused]] const RHI::BufferDescriptor& descriptor) override { return RHI::ResourceMemoryRequirements();}

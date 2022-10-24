@@ -15,7 +15,7 @@
 #include <Atom/RHI/SwapChainFrameAttachment.h>
 #include <RHI/Buffer.h>
 #include <RHI/BufferView.h>
-#include <RHI/Conversion.h>
+#include <Atom/RHI.Reflect/Vulkan/Conversion.h>
 #include <RHI/Device.h>
 #include <RHI/FrameGraphCompiler.h>
 #include <RHI/Image.h>
@@ -208,12 +208,17 @@ namespace AZ
                 scopeAttachment = scopeAttachment->GetNext();
             }
 
-            /**
-             * If this is the last usage of a swap chain, we require that it be in the common state for presentation.
-             */
+            // If this is the last usage of a swap chain, we require that it be in the common state for presentation.
             if (auto swapchainAttachment = azrtti_cast<RHI::SwapChainFrameAttachment*>(&imageFrameAttachment))
             {
                 SwapChain* swapChain = static_cast<SwapChain*>(swapchainAttachment->GetSwapChain());
+
+                // Skip adding synchronization constructs for XR swapchain as that is managed by OpenXr api
+                if (swapChain->GetDescriptor().m_isXrSwapChain)
+                {
+                    return;
+                }
+
                 const SwapChain::FrameContext& frameContext = swapChain->GetCurrentFrameContext();
 
                 // We need to wait until the presentation engine finish presenting the swapchain image
@@ -235,7 +240,12 @@ namespace AZ
                 imageBarrier.newLayout = VK_IMAGE_LAYOUT_PRESENT_SRC_KHR;
                 imageBarrier.subresourceRange = VkImageSubresourceRange{ image.GetImageAspectFlags(), 0, 1, 0, 1 };
                 
-                lastScope.QueueBarrier(Scope::BarrierSlot::Epilogue, VK_PIPELINE_STAGE_COLOR_ATTACHMENT_OUTPUT_BIT, VK_PIPELINE_STAGE_BOTTOM_OF_PIPE_BIT, imageBarrier);
+                lastScope.QueueAttachmentBarrier(
+                    *lastScopeAttachment,
+                    Scope::BarrierSlot::Epilogue,
+                    VK_PIPELINE_STAGE_COLOR_ATTACHMENT_OUTPUT_BIT,
+                    VK_PIPELINE_STAGE_BOTTOM_OF_PIPE_BIT,
+                    imageBarrier);
                 image.SetLayout(VK_IMAGE_LAYOUT_PRESENT_SRC_KHR);
 
                 // If the presentation and graphic queue are in different families, then we need to transfer the
@@ -254,7 +264,7 @@ namespace AZ
 
         void FrameGraphCompiler::QueueResourceBarrier(
             Scope& scope,
-            RHI::ScopeAttachment& scopeAttachment,
+            const RHI::ScopeAttachment& scopeAttachment,
             Buffer& buffer,
             const RHI::BufferSubresourceRange& range,
             const Scope::BarrierSlot slot, 
@@ -289,7 +299,7 @@ namespace AZ
                 bufferBarrier.dstAccessMask = dstAccessFlags;
                 bufferBarrier.srcQueueFamilyIndex = sameFamily ? VK_QUEUE_FAMILY_IGNORED : srcQueueId.m_familyIndex;
                 bufferBarrier.dstQueueFamilyIndex = sameFamily ? VK_QUEUE_FAMILY_IGNORED : dstQueueId.m_familyIndex;
-                scope.QueueBarrier(slot, srcPipelineStageFlags, dstPipelineStageFlags, bufferBarrier);
+                scope.QueueAttachmentBarrier(scopeAttachment, slot, srcPipelineStageFlags, dstPipelineStageFlags, bufferBarrier);
             }
 
             // Set the ownership only when queuing the acquire barrier
@@ -301,7 +311,7 @@ namespace AZ
 
         void FrameGraphCompiler::QueueResourceBarrier(
             Scope& scope, 
-            RHI::ScopeAttachment& scopeAttachment, 
+            const RHI::ScopeAttachment& scopeAttachment, 
             Image& image,
             const RHI::ImageSubresourceRange& range,
             const Scope::BarrierSlot slot,
@@ -320,7 +330,7 @@ namespace AZ
             VkAccessFlags srcAccessFlags = srcQueueId == scopeQueueId ? srcAccess : 0;
             VkAccessFlags dstAccessFlags = dstQueueId == scopeQueueId ? GetResourceAccessFlags(scopeAttachment) : 0;
             bool sameFamily = srcQueueId.m_familyIndex == dstQueueId.m_familyIndex;
-            VkImageLayout newLayout = GetImageAttachmentLayout(static_cast<RHI::ImageScopeAttachment&>(scopeAttachment));
+            VkImageLayout newLayout = GetImageAttachmentLayout(static_cast<const RHI::ImageScopeAttachment&>(scopeAttachment));
 
             VkImageMemoryBarrier imageBarrier = {};
             imageBarrier.sType = VK_STRUCTURE_TYPE_IMAGE_MEMORY_BARRIER;
@@ -349,7 +359,7 @@ namespace AZ
                     imageBarrier.srcQueueFamilyIndex != imageBarrier.dstQueueFamilyIndex ||
                     srcQueueId == dstQueueId)
                 {
-                    scope.QueueBarrier(slot, srcPipelineStageFlags, dstPipelineStageFlags, imageBarrier);
+                    scope.QueueAttachmentBarrier(scopeAttachment, slot, srcPipelineStageFlags, dstPipelineStageFlags, imageBarrier);
                 }
             }
 

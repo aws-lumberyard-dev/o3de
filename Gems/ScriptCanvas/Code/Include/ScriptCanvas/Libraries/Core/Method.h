@@ -170,6 +170,8 @@ namespace ScriptCanvas
 
                 bool GetBehaviorContextClassMethod(const AZ::BehaviorClass*& outClass, const AZ::BehaviorMethod*& outMethod, EventType& outType) const;
 
+                bool IsDeprecated() const override;
+
             private:
                 friend struct ScriptCanvas::BehaviorContextMethodHelper;
 

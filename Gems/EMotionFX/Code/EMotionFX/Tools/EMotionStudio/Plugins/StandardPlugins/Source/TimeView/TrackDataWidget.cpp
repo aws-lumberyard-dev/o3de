@@ -44,8 +44,6 @@
 #include <EMotionFX/Source/MotionManager.h>
 #include <EMotionFX/Source/AnimGraphManager.h>
 #include <EMotionFX/CommandSystem/Source/MotionEventCommands.h>
-#include "../MotionWindow/MotionWindowPlugin.h"
-#include "../MotionEvents/MotionEventsPlugin.h"
 #include "../../../../EMStudioSDK/Source/EMStudioManager.h"
 #include "../../../../EMStudioSDK/Source/MainWindow.h"
 
@@ -92,6 +90,9 @@ namespace EMStudio
         setAutoFillBackground(false);
 
         setFocusPolicy(Qt::StrongFocus);
+
+        connect(this, &TrackDataWidget::MotionEventPresetsDropped,
+                m_plugin, &TimeViewPlugin::OnEventPresetDroppedOnTrackData);
     }
 
 
@@ -540,7 +541,7 @@ namespace EMStudio
             const AZ::Color& colorCode = curItem->m_color;
             QColor color;
             color.setRgbF(colorCode.GetR(), colorCode.GetG(), colorCode.GetB(), colorCode.GetA());
-            
+
             if (m_isScrolling == false && m_plugin->m_isAnimating == false)
             {
                 if (m_plugin->m_nodeHistoryItem && m_plugin->m_nodeHistoryItem->m_nodeId == curItem->m_emitterNodeId)
@@ -1005,10 +1006,10 @@ namespace EMStudio
     void TrackDataWidget::SetPausedTime(float timeValue, bool emitTimeChangeStart)
     {
         m_plugin->m_curTime = timeValue;
-        const AZStd::vector<EMotionFX::MotionInstance*>& motionInstances = MotionWindowPlugin::GetSelectedMotionInstances();
-        if (motionInstances.size() == 1)
+        const AZStd::vector<EMotionFX::MotionInstance*>& selectedMotionInstances = CommandSystem::GetCommandManager()->GetCurrentSelection().GetSelectedMotionInstances();
+        if (selectedMotionInstances.size() == 1)
         {
-            EMotionFX::MotionInstance* motionInstance = motionInstances[0];
+            EMotionFX::MotionInstance* motionInstance = selectedMotionInstances[0];
             motionInstance->SetCurrentTime(timeValue);
             motionInstance->SetPause(true);
         }
@@ -1756,15 +1757,10 @@ namespace EMStudio
                 connect(action, &QAction::triggered, this, &TrackDataWidget::OnAddElement);
 
                 // add action to add a motion event which gets its param and type from the selected preset
-                EMStudioPlugin* plugin = EMStudio::GetPluginManager()->FindActivePlugin(MotionEventsPlugin::CLASS_ID);
-                if (plugin)
+                if (m_plugin->CheckIfMotionEventPresetReadyToDrop())
                 {
-                    MotionEventsPlugin* eventsPlugin = static_cast<MotionEventsPlugin*>(plugin);
-                    if (eventsPlugin->CheckIfIsPresetReadyToDrop())
-                    {
-                        QAction* presetAction = menu.addAction("Add preset event");
-                        connect(presetAction, &QAction::triggered, this, &TrackDataWidget::OnCreatePresetEvent);
-                    }
+                    QAction* presetAction = menu.addAction("Add preset event");
+                    connect(presetAction, &QAction::triggered, this, &TrackDataWidget::OnCreatePresetEvent);
                 }
 
                 if (timeTrack->GetNumElements() > 0)
@@ -2172,16 +2168,8 @@ namespace EMStudio
     void TrackDataWidget::OnCreatePresetEvent()
     {
         m_plugin->SetRedrawFlag();
-        EMStudioPlugin* plugin = EMStudio::GetPluginManager()->FindActivePlugin(MotionEventsPlugin::CLASS_ID);
-        if (plugin == nullptr)
-        {
-            return;
-        }
-
-        MotionEventsPlugin* eventsPlugin = static_cast<MotionEventsPlugin*>(plugin);
-
         QPoint mousePos(m_contextMenuX, m_contextMenuY);
-        eventsPlugin->OnEventPresetDropped(mousePos);
+        m_plugin->OnEventPresetDroppedOnTrackData(mousePos);
     }
 
     void TrackDataWidget::OnAddTrack()

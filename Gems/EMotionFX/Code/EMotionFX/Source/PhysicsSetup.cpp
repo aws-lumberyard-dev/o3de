@@ -233,10 +233,8 @@ namespace EMotionFX
         }
         
         AzPhysics::ShapeColliderPair pair(AZStd::make_shared<Physics::ColliderConfiguration>(), shapeConfig);
-        if (pair.first->m_materialSelection.GetMaterialIdsAssignedToSlots().empty())
-        {
-            pair.first->m_materialSelection.SetMaterialSlots(Physics::MaterialSelection::SlotsArray());
-        }
+        AZ_Assert(pair.first->m_materialSlots.GetSlotsCount() > 0, "Material slots is empty.");
+
         return AZ::Success(pair);
     }
 
@@ -427,9 +425,9 @@ namespace EMotionFX
                     colliderConfig->m_position = position;
                     colliderConfig->m_rotation = rotation;
 
-                    static const AZ::TypeId colliderBoxTypeId = "{2325A19D-E286-4A6D-BE94-1F721BFA8C65}";
-                    static const AZ::TypeId colliderCapsuleTypeId = "{A52D164D-4834-49DF-AE53-430E0FC55127}";
-                    static const AZ::TypeId colliderSphereTypeId = "{5A6CEB6A-0B04-4AE8-BB35-AB0262908A4D}";
+                    static constexpr AZ::TypeId colliderBoxTypeId{ "{2325A19D-E286-4A6D-BE94-1F721BFA8C65}" };
+                    static constexpr AZ::TypeId colliderCapsuleTypeId{ "{A52D164D-4834-49DF-AE53-430E0FC55127}" };
+                    static constexpr AZ::TypeId colliderSphereTypeId{ "{5A6CEB6A-0B04-4AE8-BB35-AB0262908A4D}" };
 
                     if (colliderElement.GetId() == colliderBoxTypeId)
                     {

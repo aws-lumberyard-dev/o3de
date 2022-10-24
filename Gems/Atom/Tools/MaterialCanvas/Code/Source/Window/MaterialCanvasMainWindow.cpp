@@ -6,72 +6,102 @@
  *
  */
 
+#include <AtomToolsFramework/SettingsDialog/SettingsDialog.h>
 #include <AzCore/IO/FileIO.h>
-#include <GraphCanvas/Widgets/NodePalette/TreeItems/IconDecoratedNodePaletteTreeItem.h>
+#include <AzQtComponents/Components/StyleManager.h>
 #include <GraphCanvas/Widgets/NodePalette/TreeItems/NodePaletteTreeItem.h>
-
-#include <Document/MaterialCanvasDocumentRequestBus.h>
-#include <Viewport/MaterialCanvasViewportWidget.h>
 #include <Window/MaterialCanvasMainWindow.h>
-#include <Window/ViewportSettingsInspector/ViewportSettingsInspector.h>
+#include <Window/MaterialCanvasViewportContent.h>
 
 #include <QMessageBox>
 
 namespace MaterialCanvas
 {
-    MaterialCanvasMainWindow::MaterialCanvasMainWindow(const AZ::Crc32& toolId, QWidget* parent)
-        : Base(toolId, "MaterialCanvasMainWindow",  parent)
-        , m_styleManager(toolId, "MaterialCanvas/StyleSheet/graphcanvas_style.json")
+    MaterialCanvasMainWindow::MaterialCanvasMainWindow(
+        const AZ::Crc32& toolId, const AtomToolsFramework::GraphViewConfig& graphViewConfig, QWidget* parent)
+        : Base(toolId, "MaterialCanvasMainWindow", parent)
+        , m_graphViewConfig(graphViewConfig)
+        , m_styleManager(toolId, graphViewConfig.m_styleManagerPath)
     {
-        m_toolBar = new MaterialCanvasToolBar(m_toolId, this);
-        m_toolBar->setObjectName("ToolBar");
-        addToolBar(m_toolBar);
-
         m_assetBrowser->SetFilterState("", AZ::RPI::StreamingImageAsset::Group, true);
         m_assetBrowser->SetFilterState("", AZ::RPI::MaterialAsset::Group, true);
 
-        m_materialInspector = new AtomToolsFramework::AtomToolsDocumentInspector(m_toolId, this);
-        m_materialInspector->SetDocumentSettingsPrefix("/O3DE/Atom/MaterialCanvas/MaterialInspector");
-        AddDockWidget("Inspector", m_materialInspector, Qt::RightDockWidgetArea);
+        m_documentInspector = new AtomToolsFramework::AtomToolsDocumentInspector(m_toolId, this);
+        m_documentInspector->SetDocumentSettingsPrefix("/O3DE/Atom/MaterialCanvas/DocumentInspector");
+        AddDockWidget("Inspector", m_documentInspector, Qt::RightDockWidgetArea);
 
-        m_materialViewport = new MaterialCanvasViewportWidget(m_toolId, this);
-        m_materialViewport->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Preferred);
-        AddDockWidget("Viewport", m_materialViewport, Qt::RightDockWidgetArea);
+        // Set up the toolbar that controls the viewport settings
+        m_toolBar = new AtomToolsFramework::EntityPreviewViewportToolBar(m_toolId, this);
 
-        AddDockWidget("Viewport Settings", new ViewportSettingsInspector(m_toolId, this), Qt::LeftDockWidgetArea);
+        // Create the dockable viewport widget that will be shared between all material canvas documents
+        m_materialViewport = new AtomToolsFramework::EntityPreviewViewportWidget(m_toolId, this);
+
+        // Initialize the entity context that will be used to create all of the entities displayed in the viewport
+        auto entityContext = AZStd::make_shared<AzFramework::EntityContext>();
+        entityContext->InitContext();
+
+        // Initialize the atom scene and pipeline that will bind to the viewport window to render entities and presets
+        auto viewportScene = AZStd::make_shared<AtomToolsFramework::EntityPreviewViewportScene>(
+            m_toolId, m_materialViewport, entityContext, "MaterialCanvasViewportWidget", "passes/MainRenderPipeline.azasset");
+
+        // Viewport content will instantiate all of the entities that will be displayed and controlled by the viewport
+        auto viewportContent = AZStd::make_shared<MaterialCanvasViewportContent>(m_toolId, m_materialViewport, entityContext);
+
+        // The input controller creates and binds input behaviors to control viewport objects
+        auto viewportController = AZStd::make_shared<AtomToolsFramework::EntityPreviewViewportInputController>(m_toolId, m_materialViewport, viewportContent);
+
+        // Inject the entity context, scene, content, and controller into the viewport widget
+        m_materialViewport->Init(entityContext, viewportScene, viewportContent, viewportController);
+
+        // Combine the shared toolbar in viewport into stacked widget that will be docked as a single view
+        auto viewPortAndToolbar = new QWidget(this);
+        viewPortAndToolbar->setLayout(new QVBoxLayout(viewPortAndToolbar));
+        viewPortAndToolbar->layout()->setContentsMargins(0, 0, 0, 0);
+        viewPortAndToolbar->layout()->setMargin(0);
+        viewPortAndToolbar->layout()->setSpacing(0);
+        viewPortAndToolbar->layout()->addWidget(m_toolBar);
+        viewPortAndToolbar->layout()->addWidget(m_materialViewport);
+
+        AddDockWidget("Viewport", viewPortAndToolbar, Qt::BottomDockWidgetArea);
+
+        m_viewportSettingsInspector = new AtomToolsFramework::EntityPreviewViewportSettingsInspector(m_toolId, this);
+        AddDockWidget("Viewport Settings", m_viewportSettingsInspector, Qt::LeftDockWidgetArea);
         SetDockWidgetVisible("Viewport Settings", false);
-
-        AddDockWidget("MiniMap", aznew GraphCanvas::MiniMapDockWidget(m_toolId, this), Qt::RightDockWidgetArea);
 
         m_bookmarkDockWidget = aznew GraphCanvas::BookmarkDockWidget(m_toolId, this);
         AddDockWidget("Bookmarks", m_bookmarkDockWidget, Qt::BottomDockWidgetArea);
+        SetDockWidgetVisible("Bookmarks", false);
+
+        AddDockWidget("MiniMap", aznew GraphCanvas::MiniMapDockWidget(m_toolId, this), Qt::BottomDockWidgetArea);
+        SetDockWidgetVisible("MiniMap", false);
 
         GraphCanvas::NodePaletteConfig nodePaletteConfig;
-        nodePaletteConfig.m_rootTreeItem = GetNodePaletteRootTreeItem();
+        nodePaletteConfig.m_rootTreeItem = m_graphViewConfig.m_createNodeTreeItemsFn(m_toolId);
         nodePaletteConfig.m_editorId = m_toolId;
-        nodePaletteConfig.m_mimeType = "materialcanvas/node-palette-mime-event";
+        nodePaletteConfig.m_mimeType = m_graphViewConfig.m_nodeMimeType.c_str();
         nodePaletteConfig.m_isInContextMenu = false;
-        nodePaletteConfig.m_saveIdentifier = "MaterialCanvas_ContextMenu";
+        nodePaletteConfig.m_saveIdentifier = m_graphViewConfig.m_nodeSaveIdentifier;
 
         m_nodePalette = aznew GraphCanvas::NodePaletteDockWidget(this, "Node Palette", nodePaletteConfig);
         AddDockWidget("Node Palette", m_nodePalette, Qt::LeftDockWidgetArea);
 
-        AZStd::array<char, AZ::IO::MaxPathLength> unresolvedPath;
-        AZ::IO::FileIOBase::GetInstance()->ResolvePath(
-            "@products@/translation/materialcanvas_en_us.qm", unresolvedPath.data(), unresolvedPath.size());
-
-        QString translationFilePath(unresolvedPath.data());
-        if (m_translator.load(QLocale::Language::English, translationFilePath))
+        AZ::IO::FixedMaxPath resolvedPath;
+        AZ::IO::FileIOBase::GetInstance()->ReplaceAlias(resolvedPath, m_graphViewConfig.m_translationPath.c_str());
+        const AZ::IO::FixedMaxPathString translationFilePath = resolvedPath.LexicallyNormal().FixedMaxPathString();
+        if (m_translator.load(QLocale::Language::English, translationFilePath.c_str()))
         {
             if (!qApp->installTranslator(&m_translator))
             {
-                AZ_Warning("MaterialCanvas", false, "Error installing translation %s!", unresolvedPath.data());
+                AZ_Warning("MaterialCanvas", false, "Error installing translation %s!", translationFilePath.c_str());
             }
         }
         else
         {
-            AZ_Warning("MaterialCanvas", false, "Error loading translation file %s", unresolvedPath.data());
+            AZ_Warning("MaterialCanvas", false, "Error loading translation file %s", translationFilePath.c_str());
         }
+
+        // Set up style sheet to fix highlighting in the node palette
+        AzQtComponents::StyleManager::setStyleSheet(this, QStringLiteral(":/GraphView/GraphView.qss"));
 
         OnDocumentOpened(AZ::Uuid::CreateNull());
     }
@@ -83,7 +113,7 @@ namespace MaterialCanvas
     void MaterialCanvasMainWindow::OnDocumentOpened(const AZ::Uuid& documentId)
     {
         Base::OnDocumentOpened(documentId);
-        m_materialInspector->SetDocumentId(documentId);
+        m_documentInspector->SetDocumentId(documentId);
     }
 
     void MaterialCanvasMainWindow::ResizeViewportRenderTarget(uint32_t width, uint32_t height)
@@ -118,39 +148,44 @@ namespace MaterialCanvas
         m_materialViewport->UnlockRenderTargetSize();
     }
 
-    void MaterialCanvasMainWindow::OpenSettings()
+    AZStd::vector<AZStd::shared_ptr<AtomToolsFramework::DynamicPropertyGroup>> MaterialCanvasMainWindow::GetSettingsDialogGroups() const
     {
+        AZStd::vector<AZStd::shared_ptr<AtomToolsFramework::DynamicPropertyGroup>> groups;
+        groups.push_back(AtomToolsFramework::CreateSettingsGroup(
+            "Material Canvas Settings",
+            "Material Canvas Settings",
+           {
+                AtomToolsFramework::CreatePropertyFromSetting(
+                    "/O3DE/Atom/MaterialCanvas/EnableMinimalShaderBuilds",
+                    "Enable Minimal Shader Builds",
+                    "Improve shader and material iteration and preview times by limiting the asset processor and shader compiler to the "
+                    "current platform and RHI. Changing this setting requires restarting Material Canvas and the asset processor.",
+                    false),
+            }));
+
+        // Add base class settings after app specific settings
+        AZStd::vector<AZStd::shared_ptr<AtomToolsFramework::DynamicPropertyGroup>> groupsFromBase = Base::GetSettingsDialogGroups();
+        groups.insert(groups.end(), groupsFromBase.begin(), groupsFromBase.end());
+        return groups;
     }
 
-    void MaterialCanvasMainWindow::OpenHelp()
+    AZStd::string MaterialCanvasMainWindow::GetHelpDialogText() const
     {
-        QMessageBox::information(
-            this, windowTitle(),
-            R"(<html><head/><body>
-            <p><h3><u>Material Canvas Controls</u></h3></p>
-            <p><b>LMB</b> - pan camera</p>
+        return R"(<html><head/><body>
+            <p><h3><u>Shader Build Settings</u></h3></p>
+            <p>Shaders, materials, and other assets will be generated as changes are applied to the graph.
+            The viewport will update and display the generated materials and shaders once they have been
+            compiled by the Asset Processor. This can take a few seconds. Compilation times and preview
+            responsiveness can be improved by enabling the Minimal Shader Build settings in the Tools->Settings
+            menu. Changing the settings will require restarting Material Canvas and the Asset Processor.</p>
+            <p><h3><u>Camera Controls</u></h3></p>
+            <p><b>LMB</b> - rotate camera</p>
             <p><b>RMB</b> or <b>Alt+LMB</b> - orbit camera around target</p>
-            <p><b>MMB</b> or <b>Alt+MMB</b> - move camera on its xy plane</p>
+            <p><b>MMB</b> - pan camera on its xy plane</p>
             <p><b>Alt+RMB</b> or <b>LMB+RMB</b> - dolly camera on its z axis</p>
             <p><b>Ctrl+LMB</b> - rotate model</p>
             <p><b>Shift+LMB</b> - rotate environment</p>
-            </body></html>)");
-    }
-
-    GraphCanvas::GraphCanvasTreeItem* MaterialCanvasMainWindow::GetNodePaletteRootTreeItem() const
-    {
-        GraphCanvas::NodePaletteTreeItem* rootItem = aznew GraphCanvas::NodePaletteTreeItem("Root", m_toolId);
-        auto nodeCategory1 = rootItem->CreateChildNode<GraphCanvas::IconDecoratedNodePaletteTreeItem>("Node Category 1", m_toolId);
-        nodeCategory1->SetTitlePalette("NodeCategory1");
-        auto nodeCategory2 = rootItem->CreateChildNode<GraphCanvas::IconDecoratedNodePaletteTreeItem>("Node Category 2", m_toolId);
-        nodeCategory2->SetTitlePalette("NodeCategory2");
-        auto nodeCategory3 = rootItem->CreateChildNode<GraphCanvas::IconDecoratedNodePaletteTreeItem>("Node Category 3", m_toolId);
-        nodeCategory3->SetTitlePalette("NodeCategory3");
-        auto nodeCategory4 = rootItem->CreateChildNode<GraphCanvas::IconDecoratedNodePaletteTreeItem>("Node Category 4", m_toolId);
-        nodeCategory4->SetTitlePalette("NodeCategory4");
-        auto nodeCategory5 = rootItem->CreateChildNode<GraphCanvas::IconDecoratedNodePaletteTreeItem>("Node Category 5", m_toolId);
-        nodeCategory5->SetTitlePalette("NodeCategory5");
-        return rootItem;
+            </body></html>)";
     }
 } // namespace MaterialCanvas
 

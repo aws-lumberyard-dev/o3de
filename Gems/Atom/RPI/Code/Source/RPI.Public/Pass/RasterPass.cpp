@@ -146,7 +146,6 @@ namespace AZ
 
         void RasterPass::UpdateDrawList()
         {
-            AZ_PROFILE_SCOPE(RPI, "RasterPass::UpdateDrawList");
              // DrawLists from dynamic draw
             AZStd::vector<RHI::DrawListView> drawLists = DynamicDrawInterface::Get()->GetDrawListsForPass(this);
 
@@ -231,20 +230,19 @@ namespace AZ
         {
             RHI::CommandList* commandList = context.GetCommandList();
 
-            const RHI::DrawListView drawListViewPartition = RHI::GetDrawListPartition(m_drawListView, context.GetCommandListIndex(), context.GetCommandListCount());
-
-            if (!drawListViewPartition.empty())
+            if (!m_drawListView.empty())
             {
                 commandList->SetViewport(m_viewportState);
                 commandList->SetScissor(m_scissorState);
                 SetSrgsForDraw(commandList);
-            }
 
-            for (const RHI::DrawItemProperties& drawItemProperties : drawListViewPartition)
-            {
-                if (drawItemProperties.m_drawFilterMask & m_pipeline->GetDrawFilterMask())
+                for (uint32_t index = context.GetSubmitRange().m_startIndex; index < context.GetSubmitRange().m_endIndex; ++index)
                 {
-                    commandList->Submit(*drawItemProperties.m_item);
+                    const RHI::DrawItemProperties& drawItemProperties = m_drawListView[index];
+                    if (drawItemProperties.m_drawFilterMask & m_pipeline->GetDrawFilterMask())
+                    {
+                        commandList->Submit(*drawItemProperties.m_item, index);
+                    }
                 }
             }
         }

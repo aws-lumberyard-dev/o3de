@@ -85,7 +85,7 @@ namespace AzFramework
                 AZStd::char_traits<char>,
                 AZStd::static_buffer_allocator<128, AZStd::alignment_of<char>::value> >;
 
-    inline const AZ::Uuid SimpleAssetReferenceTypeId = { "{D03D0CF6-9A61-4DBA-AC53-E62453CE940D}" };
+    inline constexpr AZ::Uuid SimpleAssetReferenceTypeId{ "{D03D0CF6-9A61-4DBA-AC53-E62453CE940D}" };
 
     /*!
      * Templated asset reference type.
@@ -99,7 +99,7 @@ namespace AzFramework
     {
     public:
         AZ_CLASS_ALLOCATOR(SimpleAssetReference<AssetType>, AZ::SystemAllocator, 0);
-        AZ_RTTI((SimpleAssetReference<AssetType>, SimpleAssetReferenceTypeId, AssetType), SimpleAssetReferenceBase);
+        AZ_RTTI((SimpleAssetReference, SimpleAssetReferenceTypeId, AssetType), SimpleAssetReferenceBase);
 
         static void Register(AZ::SerializeContext& context)
         {
