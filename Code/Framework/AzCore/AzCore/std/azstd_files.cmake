@@ -169,6 +169,7 @@ set(FILES
     string/alphanum.cpp
     string/alphanum.h
     string/conversions.h
+    string/fixed_string.cpp
     string/fixed_string.h
     string/fixed_string.inl
     string/memorytoascii.h
@@ -261,6 +262,7 @@ set(FILES
     typetraits/internal/type_sequence_traits.h
     typetraits/internal/is_template_copy_constructible.h
     utility/as_const.h
+    utility/charconv.h
     utility/declval.h
     utility/move.h
     utility/to_underlying.h
