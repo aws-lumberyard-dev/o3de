@@ -9,6 +9,7 @@
 #include <AzCore/Interface/Interface.h>
 #include <AzToolsFramework/UI/DocumentPropertyEditor/PropertyEditorToolsSystem.h>
 #include <AzToolsFramework/UI/DocumentPropertyEditor/ContainerActionButtonHandler.h>
+#include <AzToolsFramework/UI/DocumentPropertyEditor/OutlinerRowHandler.h>
 
 namespace AzToolsFramework
 {
@@ -27,6 +28,7 @@ namespace AzToolsFramework
     void PropertyEditorToolsSystem::RegisterDefaultHandlers()
     {
         PropertyEditorToolsSystemInterface::RegisterHandler<ContainerActionButtonHandler>();
+        PropertyEditorToolsSystemInterface::RegisterHandler<OutlinerRowHandler>();
     }
 
     PropertyEditorToolsSystem::PropertyHandlerId PropertyEditorToolsSystem::GetPropertyHandlerForNode(const AZ::Dom::Value node)

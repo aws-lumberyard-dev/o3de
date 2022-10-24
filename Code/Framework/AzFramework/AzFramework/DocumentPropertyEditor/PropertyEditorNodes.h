@@ -232,6 +232,11 @@ namespace AZ::DocumentPropertyEditor::Nodes
         static constexpr AZStd::string_view Name = "MultiLineEdit";
     };
 
+    struct OutlinerRow : PropertyEditorDefinition
+    {
+        static constexpr AZStd::string_view Name = "OutlinerRow";
+    };
+
     struct Quaternion : PropertyEditorDefinition
     {
         static constexpr AZStd::string_view Name = "Quaternion";

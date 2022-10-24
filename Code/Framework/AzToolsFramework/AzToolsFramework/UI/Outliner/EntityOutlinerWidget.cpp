@@ -39,6 +39,8 @@
 #include <AzQtComponents/Utilities/QtPluginPaths.h>
 #include <AzQtComponents/Utilities/QtViewPaneEffects.h>
 
+#include <AzToolsFramework/UI/DocumentPropertyEditor/OutlinerDPE.h>
+
 #include <QApplication>
 #include <QDir>
 #include <QGraphicsOpacityEffect>
@@ -153,6 +155,9 @@ namespace AzToolsFramework
         , m_sortContentQueued(false)
         , m_dropOperationInProgress(false)
     {
+        OutlinerDPE* theDPE = new OutlinerDPE();
+        theDPE->show();
+
         initEntityOutlinerWidgetResources();
 
         AzToolsFramework::EditorEntityContextRequestBus::BroadcastResult(

@@ -1,0 +1,74 @@
+/*
+ * Copyright (c) Contributors to the Open 3D Engine Project.
+ * For complete copyright and license terms please see the LICENSE at the root of this distribution.
+ *
+ * SPDX-License-Identifier: Apache-2.0 OR MIT
+ *
+ */
+
+#include "OutlinerAdapter.h"
+#include <AzFramework/DocumentPropertyEditor/AdapterBuilder.h>
+
+namespace AZ::DocumentPropertyEditor
+{
+    OutlinerAdapter::OutlinerAdapter()
+    {
+        AzToolsFramework::EditorEntityContextNotificationBus::Handler::BusConnect();
+        AzToolsFramework::EditorEntityInfoNotificationBus::Handler::BusConnect();
+
+        AzFramework::EntityContextId editorEntityContextId = AzFramework::EntityContextId::CreateNull();
+        AzToolsFramework::EditorEntityContextRequestBus::BroadcastResult(
+            editorEntityContextId, &AzToolsFramework::EditorEntityContextRequestBus::Events::GetEditorEntityContextId);
+
+        AzToolsFramework::ContainerEntityNotificationBus::Handler::BusConnect(editorEntityContextId);
+    }
+
+    OutlinerAdapter::~OutlinerAdapter()
+    {
+        AzToolsFramework::ContainerEntityNotificationBus::Handler::BusDisconnect();
+        AzToolsFramework::EditorEntityInfoNotificationBus::Handler::BusDisconnect();
+        AzToolsFramework::EditorEntityContextNotificationBus::Handler::BusDisconnect();
+    }
+
+    void OutlinerAdapter::OnContentsChanged(const Dom::Path& path, const Dom::Value& value)
+    {
+        (void)value;
+        (void)path;
+    }
+
+    Dom::Value OutlinerAdapter::GenerateContents()
+    {
+        AdapterBuilder builder;
+        builder.BeginAdapter();
+
+
+
+        builder.EndAdapter();
+        return builder.FinishAndTakeResult();
+    }
+
+    void OnEditorEntityDuplicated(const AZ::EntityId& oldEntity, const AZ::EntityId& newEntity) override;
+    void OnContextReset() override;
+    void OnStartPlayInEditorBegin() override;
+    void OnStartPlayInEditor() override;
+
+    //! EditorEntityInfoNotificationBus::Handler
+    //! Get notifications when the EditorEntityInfo changes so we can update our model
+    void OnEntityInfoResetBegin() override;
+    void OnEntityInfoResetEnd() override;
+    void OnEntityInfoUpdatedAddChildBegin(AZ::EntityId parentId, AZ::EntityId childId) override;
+    void OnEntityInfoUpdatedAddChildEnd(AZ::EntityId parentId, AZ::EntityId childId) override;
+    void OnEntityInfoUpdatedRemoveChildBegin(AZ::EntityId parentId, AZ::EntityId childId) override;
+    void OnEntityInfoUpdatedRemoveChildEnd(AZ::EntityId parentId, AZ::EntityId childId) override;
+    void OnEntityInfoUpdatedOrderBegin(AZ::EntityId parentId, AZ::EntityId childId, AZ::u64 index) override;
+    void OnEntityInfoUpdatedOrderEnd(AZ::EntityId parentId, AZ::EntityId childId, AZ::u64 index) override;
+    void OnEntityInfoUpdatedSelection(AZ::EntityId entityId, bool selected) override;
+    void OnEntityInfoUpdatedLocked(AZ::EntityId entityId, bool locked) override;
+    void OnEntityInfoUpdatedVisibility(AZ::EntityId entityId, bool visible) override;
+    void OnEntityInfoUpdatedName(AZ::EntityId entityId, const AZStd::string& name) override;
+    void OnEntityInfoUpdatedUnsavedChanges(AZ::EntityId entityId) override;
+
+    // ContainerEntityNotificationBus overrides ...
+    void OnContainerEntityStatusChanged(AZ::EntityId entityId, bool open) override;
+
+} // namespace AZ::DocumentPropertyEditor

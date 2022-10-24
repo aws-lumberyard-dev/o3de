@@ -78,6 +78,8 @@ namespace AZ::DocumentPropertyEditor::Nodes
         system->RegisterNodeAttribute<NumericEditor<>>(NumericEditor<>::Decimals);
         system->RegisterNodeAttribute<NumericEditor<>>(NumericEditor<>::DisplayDecimals);
 
+        system->RegisterPropertyEditor<OutlinerRow>();
+
         system->RegisterPropertyEditor<Slider<>, NumericEditor<>>();
         system->RegisterPropertyEditor<SpinBox<>, NumericEditor<>>();
 

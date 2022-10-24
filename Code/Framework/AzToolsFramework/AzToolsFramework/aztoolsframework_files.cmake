@@ -398,6 +398,15 @@ set(FILES
     UI/DocumentPropertyEditor/KeyQueryDPE.cpp
     UI/DocumentPropertyEditor/KeyQueryDPE.h
     UI/DocumentPropertyEditor/KeyQueryDPE.ui
+    UI/DocumentPropertyEditor/OutlinerAdapter.cpp
+    UI/DocumentPropertyEditor/OutlinerAdapter.h
+    UI/DocumentPropertyEditor/OutlinerDPE.cpp
+    UI/DocumentPropertyEditor/OutlinerDPE.h
+    UI/DocumentPropertyEditor/OutlinerRowHandler.cpp
+    UI/DocumentPropertyEditor/OutlinerRowHandler.h
+    UI/DocumentPropertyEditor/OutlinerRow.cpp
+    UI/DocumentPropertyEditor/OutlinerRow.h
+    UI/DocumentPropertyEditor/OutlinerRow.ui
     UI/DocumentPropertyEditor/SettingsRegistrar.cpp
     UI/DocumentPropertyEditor/SettingsRegistrar.h
     UI/DPEDebugViewer/DPEDebugModel.cpp
