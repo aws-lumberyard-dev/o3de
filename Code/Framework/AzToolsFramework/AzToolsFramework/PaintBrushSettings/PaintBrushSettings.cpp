@@ -22,9 +22,9 @@ namespace AzToolsFramework
         };
 
         AzToolsFramework::ColorEditorConfiguration configuration;
-        configuration.m_colorPickerDialogConfiguration = AzQtComponents::ColorPicker::Configuration::RGB;
+        configuration.m_colorPickerDialogConfiguration = AzQtComponents::ColorPicker::Configuration::RGBA;
 
-        configuration.m_propertyColorSpaceId = ColorSpace::LinearSRGB;
+        configuration.m_propertyColorSpaceId = (m_colorMode == PaintBrushColorMode::SRGB) ? ColorSpace::SRGB : ColorSpace::LinearSRGB;
         configuration.m_colorPickerDialogColorSpaceId = ColorSpace::SRGB;
         configuration.m_colorSwatchColorSpaceId = ColorSpace::SRGB;
 
@@ -33,7 +33,6 @@ namespace AzToolsFramework
 
         configuration.m_transformColorCallback = [](const AZ::Color& color, uint32_t fromColorSpaceId, uint32_t toColorSpaceId)
         {
-            //[GFX TODO][ATOM-4436] Change this to use the central TransformColor utility function after it's added
             if (fromColorSpaceId == toColorSpaceId)
             {
                 return color;
@@ -91,8 +90,9 @@ namespace AzToolsFramework
                     ->Attribute(AZ::Edit::Attributes::Suffix, " m")
                     ->Attribute(AZ::Edit::Attributes::ChangeNotify, &PaintBrushSettings::OnSettingsChanged)
                     ->DataElement(AZ::Edit::UIHandlers::Default, &PaintBrushSettings::m_brushColor, "Color", "Color of the paint brush.")
-                    ->Attribute("ColorEditorConfiguration", PaintBrushSettings::GetColorEditorConfig())
-                    ->Attribute(AZ::Edit::Attributes::ChangeNotify, &PaintBrushSettings::OnSettingsChanged)
+                    ->Attribute("ColorEditorConfiguration", &PaintBrushSettings::GetColorEditorConfig)
+                    ->Attribute(AZ::Edit::Attributes::Visibility, &PaintBrushSettings::GetColorVisibility)
+                    ->Attribute(AZ::Edit::Attributes::ChangeNotify, &PaintBrushSettings::OnColorChanged)
                     ->DataElement(
                         AZ::Edit::UIHandlers::Slider, &PaintBrushSettings::m_intensityPercent, "Intensity",
                         "Intensity/color percent of the paint brush. 0% = black, 100% = white.")
@@ -101,7 +101,8 @@ namespace AzToolsFramework
                     ->Attribute(AZ::Edit::Attributes::Step, 0.5f)
                     ->Attribute(AZ::Edit::Attributes::DisplayDecimals, 1)
                     ->Attribute(AZ::Edit::Attributes::Suffix, " %")
-                    ->Attribute(AZ::Edit::Attributes::ChangeNotify, &PaintBrushSettings::OnSettingsChanged)
+                    ->Attribute(AZ::Edit::Attributes::Visibility, &PaintBrushSettings::GetIntensityVisibility)
+                    ->Attribute(AZ::Edit::Attributes::ChangeNotify, &PaintBrushSettings::OnIntensityChanged)
                     ->DataElement(AZ::Edit::UIHandlers::Slider, &PaintBrushSettings::m_opacityPercent, "Opacity",
                         "Opacity percent of each paint brush stroke. 0% = transparent, 100% = opaque.")
                     ->Attribute(AZ::Edit::Attributes::Min, 0.0f)
@@ -109,7 +110,7 @@ namespace AzToolsFramework
                     ->Attribute(AZ::Edit::Attributes::Step, 0.5f)
                     ->Attribute(AZ::Edit::Attributes::DisplayDecimals, 1)
                     ->Attribute(AZ::Edit::Attributes::Suffix, " %")
-                    ->Attribute(AZ::Edit::Attributes::ChangeNotify, &PaintBrushSettings::OnSettingsChanged)
+                    ->Attribute(AZ::Edit::Attributes::ChangeNotify, &PaintBrushSettings::OnOpacityChanged)
                     ->DataElement(AZ::Edit::UIHandlers::Slider, &PaintBrushSettings::m_hardnessPercent, "Hardness",
                         "Falloff percent around the edges of each paint brush stamp. 0% = soft falloff, 100% = hard edges.")
                     ->Attribute(AZ::Edit::Attributes::Min, 0.0f)
@@ -153,16 +154,20 @@ namespace AzToolsFramework
         }
     }
 
-    void PaintBrushSettings::SetIntensityPercent(float intensityPercent)
+    bool PaintBrushSettings::GetColorVisibility() const
     {
-        m_intensityPercent = AZStd::clamp(intensityPercent, 0.0f, 100.0f);
-        OnSettingsChanged();
+        return (m_colorMode != PaintBrushColorMode::Greyscale);
     }
 
-    void PaintBrushSettings::SetOpacityPercent(float opacityPercent)
+    bool PaintBrushSettings::GetIntensityVisibility() const
     {
-        m_opacityPercent = AZStd::clamp(opacityPercent, 0.0f, 100.0f);
-        OnSettingsChanged();
+        return (m_colorMode == PaintBrushColorMode::Greyscale);
+    }
+
+    void PaintBrushSettings::SetColorMode(PaintBrushColorMode colorMode)
+    {
+        m_colorMode = colorMode;
+        PaintBrushSettingsNotificationBus::Broadcast(&PaintBrushSettingsNotificationBus::Events::OnColorModeChanged, *this);
     }
 
     void PaintBrushSettings::SetBlendMode(PaintBrushBlendMode blendMode)
@@ -174,6 +179,11 @@ namespace AzToolsFramework
     void PaintBrushSettings::SetColor(const AZ::Color& color)
     {
         m_brushColor = color;
+
+        // Keep our editable intensity / opacity values in sync with the brush color.
+        m_intensityPercent = m_brushColor.GetR() * 100.0f;
+        m_opacityPercent = m_brushColor.GetA() * 100.0f;
+
         OnSettingsChanged();
     }
 
@@ -200,6 +210,27 @@ namespace AzToolsFramework
         // Distance percent is *normally* 0-100%, but values above 100% are reasonable as well, so we don't clamp the upper limit.
         m_distancePercent = AZStd::max(distancePercent, 0.0f);
         OnSettingsChanged();
+    }
+
+    AZ::u32 PaintBrushSettings::OnColorChanged()
+    {
+        // Keep our editable intensity in sync with the brush color.
+        m_intensityPercent = m_brushColor.GetR() * 100.0f;
+
+        return OnSettingsChanged();
+    }
+
+    AZ::u32 PaintBrushSettings::OnIntensityChanged()
+    {
+        const float intensity = m_intensityPercent / 100.0f;
+        m_brushColor = AZ::Color(intensity, intensity, intensity, m_brushColor.GetA());
+        return OnSettingsChanged();
+    }
+
+    AZ::u32 PaintBrushSettings::OnOpacityChanged()
+    {
+        m_brushColor.SetA(m_opacityPercent / 100.0f);
+        return OnSettingsChanged();
     }
 
     AZ::u32 PaintBrushSettings::OnSettingsChanged()

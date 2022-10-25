@@ -300,7 +300,8 @@ namespace Terrain
         AZ::Transform worldFromLocal = AZ::Transform::CreateIdentity();
         AZ::TransformBus::EventResult(worldFromLocal, GetEntityId(), &AZ::TransformInterface::GetWorldTM);
 
-        m_brushManipulator = AzToolsFramework::PaintBrushManipulator::MakeShared(worldFromLocal, entityComponentIdPair);
+        m_brushManipulator = AzToolsFramework::PaintBrushManipulator::MakeShared(
+            worldFromLocal, entityComponentIdPair, AzToolsFramework::PaintBrushColorMode::LinearColor);
         Refresh();
 
         m_brushManipulator->Register(AzToolsFramework::g_mainManipulatorManagerId);
@@ -370,7 +371,7 @@ namespace Terrain
         }
     }
 
-    void EditorTerrainMacroMaterialComponentMode::OnPaintStrokeBegin(const AZ::Color& color, float intensity, float opacity)
+    void EditorTerrainMacroMaterialComponentMode::OnPaintStrokeBegin(const AZ::Color& color)
     {
         BeginUndoBatch();
 
@@ -384,8 +385,6 @@ namespace Terrain
         }
 
         m_paintStrokeData.m_color = color;
-        m_paintStrokeData.m_intensity = intensity;
-        m_paintStrokeData.m_opacity = opacity;
 
         m_paintStrokeData.m_metersPerPixelX = 1.0f / imagePixelsPerMeter.GetX();
         m_paintStrokeData.m_metersPerPixelY = 1.0f / imagePixelsPerMeter.GetY();
@@ -487,9 +486,9 @@ namespace Terrain
             opacityValue = AZStd::clamp(opacityValue + (1.0f - opacityValue) * perPixelOpacities[index], 0.0f, 1.0f);
 
             // Blend the pixel and store the blended pixel and new opacity back into our paint stroke buffer.
-            float red = blendFn(originalColor.GetR(), m_paintStrokeData.m_color.GetR(), opacityValue * m_paintStrokeData.m_opacity);
-            float green = blendFn(originalColor.GetG(), m_paintStrokeData.m_color.GetG(), opacityValue * m_paintStrokeData.m_opacity);
-            float blue = blendFn(originalColor.GetB(), m_paintStrokeData.m_color.GetB(), opacityValue * m_paintStrokeData.m_opacity);
+            float red = blendFn(originalColor.GetR(), m_paintStrokeData.m_color.GetR(), opacityValue * m_paintStrokeData.m_color.GetA());
+            float green = blendFn(originalColor.GetG(), m_paintStrokeData.m_color.GetG(), opacityValue * m_paintStrokeData.m_color.GetA());
+            float blue = blendFn(originalColor.GetB(), m_paintStrokeData.m_color.GetB(), opacityValue * m_paintStrokeData.m_color.GetA());
             AZ::Color blendedColor(red, green, blue, originalColor.GetA());
             m_paintStrokeData.m_strokeBuffer->SetModifiedPixelValue(pixelIndices[index], blendedColor, opacityValue);
 
