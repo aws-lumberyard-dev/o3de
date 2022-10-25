@@ -18,10 +18,9 @@
 #include <QTemporaryDir>
 #include <AzCore/IO/FileIO.h>
 #include <AzFramework/IO/LocalFileIO.h>
-#endif
-
 #include <gtest/gtest.h>
 #include <AzCore/UnitTest/UnitTest.h>
+#endif
 
 //! These macros can be used for checking your unit tests,
 //! you can check AssetScannerUnitTest.cpp for usage
