@@ -16,6 +16,12 @@ namespace AzToolsFramework
 
     void OutlinerRowHandler::SetValueFromDom(const AZ::Dom::Value& node)
     {
-        (void)node;
+        auto entityName = AZ::Dpe::Nodes::OutlinerRow::EntityName.ExtractFromDomNode(node).value_or("");
+        auto visibleState = AZ::Dpe::Nodes::OutlinerRow::Visible.ExtractFromDomNode(node).value_or(true);
+        auto lockedState = AZ::Dpe::Nodes::OutlinerRow::Locked.ExtractFromDomNode(node).value_or(false);
+
+        m_name->setText(QString::fromUtf8(entityName.data(), aznumeric_cast<int>(entityName.size())));
+        m_showHideButton->setChecked(!visibleState);
+        m_lockButton->setChecked(lockedState);
     }
 } // namespace AzToolsFramework

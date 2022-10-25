@@ -13,7 +13,7 @@ namespace AzQtComponents
 {
     class OutlinerRow
         : public QWidget
-        , Ui::OutlinerRow
+        , public Ui::OutlinerRow
     {
         Q_OBJECT
     public:

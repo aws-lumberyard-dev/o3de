@@ -22,6 +22,8 @@ namespace AZ::DocumentPropertyEditor
             editorEntityContextId, &AzToolsFramework::EditorEntityContextRequestBus::Events::GetEditorEntityContextId);
 
         AzToolsFramework::ContainerEntityNotificationBus::Handler::BusConnect(editorEntityContextId);
+
+        HandleReset();
     }
 
     OutlinerAdapter::~OutlinerAdapter()
@@ -35,21 +37,27 @@ namespace AZ::DocumentPropertyEditor
     {
         m_rootNode = AZStd::make_unique<OutlinerNode>();
 
-        auto populateChildren = [](const OutlinerNode& outlinerNode, const AZ::EntityId& entityId)
+        AZStd::function<void(OutlinerNode& outlinerNode, const AZ::EntityId& entityId)> populateChildren = 
+            [&](OutlinerNode& outlinerNode, const AZ::EntityId& entityId)
         {
-            AzFramework::EntityIdList children;
+            AZStd::size_t childCount = 0;
             AzToolsFramework::EditorEntityInfoRequestBus::EventResult(
-                children, entityId, &AzToolsFramework::EditorEntityInfoRequestBus::Events::GetChildren);
-
-            for (auto childId : children)
+                childCount, entityId, &AzToolsFramework::EditorEntityInfoRequestBus::Events::GetChildCount);
+            for (size_t childIndex = 0; childIndex < childCount; ++childIndex)
             {
-                AZStd::unique_ptr<OutlinerNode> newChild;
+                AZ::EntityId childId;
+                AzToolsFramework::EditorEntityInfoRequestBus::EventResult(
+                    childId, entityId, &AzToolsFramework::EditorEntityInfoRequestBus::Events::GetChild, childIndex);
+
+                outlinerNode.m_children.emplace_back(AZStd::make_unique<OutlinerNode>());
+                auto* newChild = outlinerNode.m_children.back().get();
                 newChild->m_visible = AzToolsFramework::IsEntitySetToBeVisible(childId);
                 newChild->m_locked = AzToolsFramework::IsEntityLocked(childId);
                 newChild->m_name = AzToolsFramework::GetEntityName(childId);
+                populateChildren(*newChild, childId);
             }
-            // <apm> here!
         };
+        populateChildren(*m_rootNode, AZ::EntityId());
     }
 
     void OutlinerAdapter::OnContentsChanged(const Dom::Path& path, const Dom::Value& value)
@@ -63,10 +71,25 @@ namespace AZ::DocumentPropertyEditor
         AdapterBuilder builder;
         builder.BeginAdapter();
 
-        builder.BeginRow();
-        builder.BeginPropertyEditor<Nodes::OutlinerRow>(Dom::Value());
-        builder.EndPropertyEditor();
-        builder.EndRow();
+        AZStd::function<void(OutlinerNode*)> generateChildren = [&](OutlinerNode* currNode)
+        {
+            for (const auto& currChild : currNode->m_children)
+            {
+                builder.BeginRow();
+                builder.BeginPropertyEditor<Nodes::OutlinerRow>(Dom::Value());
+                builder.Attribute(Nodes::OutlinerRow::EntityName, currChild->m_name);
+                builder.Attribute(Nodes::OutlinerRow::Visible, currChild->m_visible);
+                builder.Attribute(Nodes::OutlinerRow::Locked, currChild->m_locked);
+                builder.EndPropertyEditor();
+                generateChildren(currChild.get());
+                builder.EndRow();
+            }
+        };
+
+        for (const auto& currChild : m_rootNode->m_children)
+        {
+            generateChildren(currChild.get());
+        }
 
         builder.EndAdapter();
         return builder.FinishAndTakeResult();

@@ -235,6 +235,9 @@ namespace AZ::DocumentPropertyEditor::Nodes
     struct OutlinerRow : PropertyEditorDefinition
     {
         static constexpr AZStd::string_view Name = "OutlinerRow";
+        static constexpr auto EntityName = AttributeDefinition<AZStd::string_view>("EntityName");
+        static constexpr auto Visible = AttributeDefinition<bool>("Visible");
+        static constexpr auto Locked = AttributeDefinition<bool>("Locked");
     };
 
     struct Quaternion : PropertyEditorDefinition

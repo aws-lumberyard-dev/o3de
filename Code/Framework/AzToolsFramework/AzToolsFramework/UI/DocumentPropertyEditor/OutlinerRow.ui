@@ -35,21 +35,21 @@
      </property>
      <property name="sizeHint" stdset="0">
       <size>
-       <width>703</width>
+       <width>697</width>
        <height>20</height>
       </size>
      </property>
     </spacer>
    </item>
    <item>
-    <widget class="QPushButton" name="m_showHideButton">
+    <widget class="QCheckBox" name="m_showHideButton">
      <property name="text">
       <string>PushButton</string>
      </property>
     </widget>
    </item>
    <item>
-    <widget class="QPushButton" name="m_lockButton">
+    <widget class="QCheckBox" name="m_lockButton">
      <property name="text">
       <string>PushButton</string>
      </property>
