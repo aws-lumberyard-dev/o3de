@@ -39,17 +39,22 @@ namespace Terrain
         bool m_normalFlipY = false;
         float m_normalFactor = 1.0f;
         int32_t m_priority = 0;
+
+        // Non-serialized properties
+
+        //! True if we're currently modifying the image, false if not.
+        bool m_imageModificationActive = false;
     };
 
     class TerrainMacroMaterialComponent
         : public AZ::Component
         , public TerrainMacroMaterialRequestBus::Handler
+        , public TerrainMacroMaterialModificationBus::Handler
         , private LmbrCentral::ShapeComponentNotificationsBus::Handler
         , private AZ::Data::AssetBus::MultiHandler
     {
     public:
-        template<typename, typename>
-        friend class LmbrCentral::EditorWrappedComponentBase;
+        friend class EditorTerrainMacroMaterialComponent;
         AZ_COMPONENT(TerrainMacroMaterialComponent, "{F82379FB-E2AE-4F75-A6F4-1AE5F5DA42E8}");
         static void GetProvidedServices(AZ::ComponentDescriptor::DependencyArrayType& services);
         static void GetIncompatibleServices(AZ::ComponentDescriptor::DependencyArrayType& services);
@@ -69,6 +74,27 @@ namespace Terrain
 
         MacroMaterialData GetTerrainMacroMaterialData() override;
         void GetTerrainMacroMaterialColorData(uint32_t& width, uint32_t& height, AZStd::vector<AZ::Color>& pixels) override;
+        uint32_t GetMacroColorImageHeight() const override;
+        uint32_t GetMacroColorImageWidth() const override;
+        AZ::Vector2 GetMacroColorImagePixelsPerMeter() const override;
+
+        // TerrainMacroMaterialModificationBus overrides...
+        void StartImageModification() override;
+        void EndImageModification() override;
+        void SetPixelValueByPosition(const AZ::Vector3& position, AZ::Color value) override;
+        void SetPixelValuesByPosition(AZStd::span<const AZ::Vector3> positions, AZStd::span<const AZ::Color> values) override;
+
+        void GetPixelIndicesForPositions(AZStd::span<const AZ::Vector3> positions, AZStd::span<PixelIndex> outIndices) const override;
+        void GetPixelValuesByPixelIndex(AZStd::span<const PixelIndex> positions, AZStd::span<AZ::Color> outValues) const override;
+        void SetPixelValueByPixelIndex(const PixelIndex& position, AZ::Color value) override;
+        void SetPixelValuesByPixelIndex(AZStd::span<const PixelIndex> positions, AZStd::span<const AZ::Color> values) override;
+
+        AZStd::vector<uint32_t>* GetImageModificationBuffer();
+
+    protected:
+        void CreateImageModificationBuffer();
+        void ClearImageModificationBuffer();
+        bool ModificationBufferIsActive() const;
 
     private:
         ////////////////////////////////////////////////////////////////////////
@@ -87,5 +113,8 @@ namespace Terrain
         bool m_macroMaterialActive{ false };
         AZ::Data::Instance<AZ::RPI::Image> m_colorImage;
         AZ::Data::Instance<AZ::RPI::Image> m_normalImage;
+
+        //! Temporary buffer for runtime modifications of the image data.
+        AZStd::vector<uint32_t> m_modifiedImageData;
     };
 }

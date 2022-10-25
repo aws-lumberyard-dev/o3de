@@ -33,6 +33,8 @@ set(FILES
     Source/TerrainRenderer/EditorComponents/EditorTerrainSurfaceMaterialsListComponent.h
     Source/TerrainRenderer/EditorComponents/EditorTerrainMacroMaterialComponent.cpp
     Source/TerrainRenderer/EditorComponents/EditorTerrainMacroMaterialComponent.h
+    Source/TerrainRenderer/EditorComponents/EditorTerrainMacroMaterialComponentMode.cpp
+    Source/TerrainRenderer/EditorComponents/EditorTerrainMacroMaterialComponentMode.h
 
     Source/EditorComponents/EditorAwsHeightmapComponent.cpp
     Source/EditorComponents/EditorAwsHeightmapComponent.h

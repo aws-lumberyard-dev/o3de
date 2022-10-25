@@ -16,6 +16,8 @@
 #include <AzCore/Serialization/EditContext.h>
 #include <AzCore/Serialization/SerializeContext.h>
 
+#include <Atom/RPI.Public/Image/AttachmentImage.h>
+#include <Atom/RPI.Public/Image/ImageSystemInterface.h>
 #include <Atom/RPI.Public/Image/StreamingImage.h>
 #include <Atom/RPI.Public/RPIUtils.h>
 
@@ -147,6 +149,8 @@ namespace Terrain
         m_colorImage.reset();
         m_normalImage.reset();
 
+        ClearImageModificationBuffer();
+
         // Send out any notifications as appropriate based on the macro material destruction.
         HandleMaterialStateChange();
     }
@@ -226,6 +230,9 @@ namespace Terrain
             // Start listening for shape changes.
             LmbrCentral::ShapeComponentNotificationsBus::Handler::BusConnect(GetEntityId());
 
+            // Start listening for macro material modifications
+            TerrainMacroMaterialModificationBus::Handler::BusConnect(GetEntityId());
+
             MacroMaterialData material = GetTerrainMacroMaterialData();
 
             TerrainMacroMaterialNotificationBus::Broadcast(
@@ -236,6 +243,9 @@ namespace Terrain
             // Stop listening to macro material requests or shape changes, and send out a notification that we no longer have a valid
             // macro material.
 
+            ClearImageModificationBuffer();
+
+            TerrainMacroMaterialModificationBus::Handler::BusDisconnect();
             TerrainMacroMaterialRequestBus::Handler::BusDisconnect();
             LmbrCentral::ShapeComponentNotificationsBus::Handler::BusDisconnect();
 
@@ -263,7 +273,7 @@ namespace Terrain
             m_colorImage->GetRHIImage()->SetName(AZ::Name(m_configuration.m_macroColorAsset.GetHint()));
 
             // Clear the texture asset reference to make sure we don't prevent hot-reloading.
-            m_configuration.m_macroColorAsset.Release();
+            //m_configuration.m_macroColorAsset.Release();
         }
         else if (asset.GetId() == m_configuration.m_macroNormalAsset.GetId())
         {
@@ -272,7 +282,7 @@ namespace Terrain
             m_normalImage->GetRHIImage()->SetName(AZ::Name(m_configuration.m_macroNormalAsset.GetHint()));
 
             // Clear the texture asset reference to make sure we don't prevent hot-reloading.
-            m_configuration.m_macroColorAsset.Release();
+            //m_configuration.m_macroColorAsset.Release();
         }
         else
         {
@@ -354,5 +364,307 @@ namespace Terrain
             }
         }
     }
+
+    uint32_t TerrainMacroMaterialComponent::GetMacroColorImageHeight() const
+    {
+        const AZ::RHI::ImageDescriptor& imageDescriptor = m_colorImage->GetDescriptor();
+        return imageDescriptor.m_size.m_height;
+    }
+
+    uint32_t TerrainMacroMaterialComponent::GetMacroColorImageWidth() const
+    {
+        const AZ::RHI::ImageDescriptor& imageDescriptor = m_colorImage->GetDescriptor();
+        return imageDescriptor.m_size.m_width;
+    }
+
+    AZ::Vector2 TerrainMacroMaterialComponent::GetMacroColorImagePixelsPerMeter() const
+    {
+        const AZ::RHI::ImageDescriptor& imageDescriptor = m_colorImage->GetDescriptor();
+        return AZ::Vector2(
+            aznumeric_cast<float>(imageDescriptor.m_size.m_width) / m_cachedShapeBounds.GetXExtent(),
+            aznumeric_cast<float>(imageDescriptor.m_size.m_height) / m_cachedShapeBounds.GetYExtent());
+    }
+
+    void TerrainMacroMaterialComponent::StartImageModification()
+    {
+        m_configuration.m_imageModificationActive = true;
+
+        if (m_modifiedImageData.empty())
+        {
+            CreateImageModificationBuffer();
+        }
+    }
+
+    void TerrainMacroMaterialComponent::EndImageModification()
+    {
+        m_configuration.m_imageModificationActive = false;
+    }
+
+    AZStd::vector<uint32_t>* TerrainMacroMaterialComponent::GetImageModificationBuffer()
+    {
+        // This will get replaced with safe/robust methods of modifying the image as paintbrush functionality
+        // continues to get added to the Terrain Macro Material component.
+        return &m_modifiedImageData;
+    }
+
+    void TerrainMacroMaterialComponent::CreateImageModificationBuffer()
+    {
+        if (!m_configuration.m_macroColorAsset->IsReady())
+        {
+            AZ_Error(
+                "TerrainMacroMaterialComponent",
+                false,
+                "Color data is empty. Make sure the image asset is fully loaded before attempting to modify it.");
+            return;
+        }
+
+        const AZ::RHI::ImageDescriptor& imageDescriptor = m_configuration.m_macroColorAsset->GetImageDescriptor();
+        auto imageData = m_configuration.m_macroColorAsset->GetSubImageData(0, 0);
+
+        const auto& width = imageDescriptor.m_size.m_width;
+        const auto& height = imageDescriptor.m_size.m_height;
+
+        if (m_modifiedImageData.empty())
+        {
+            // Create a memory buffer for holding all of our modified image information.
+            // We'll always use a buffer of floats to ensure that we're modifying at the highest precision possible.
+            m_modifiedImageData.reserve(width * height);
+
+            // Fill the buffer with all of our existing pixel values.
+            for (uint32_t y = 0; y < height; y++)
+            {
+                for (uint32_t x = 0; x < width; x++)
+                {
+                    float r = AZ::RPI::GetImageDataPixelValue<float>(
+                        imageData, imageDescriptor, x, y, aznumeric_cast<AZ::u8>(0));
+                    float g = AZ::RPI::GetImageDataPixelValue<float>(
+                        imageData, imageDescriptor, x, y, aznumeric_cast<AZ::u8>(1));
+                    float b = AZ::RPI::GetImageDataPixelValue<float>(
+                        imageData, imageDescriptor, x, y, aznumeric_cast<AZ::u8>(2));
+                    AZ::Color pixel(r, g, b, 1.0f);
+
+                    m_modifiedImageData.emplace_back(pixel.ToU32());
+                }
+            }
+
+            // Create an image descriptor describing our new buffer (correct width, height, and 8-bit RGB channels)
+            auto modifiedImageDescriptor = AZ::RHI::ImageDescriptor::Create2D(
+                AZ::RHI::ImageBindFlags::ShaderRead, width, height, AZ::RHI::Format::R8G8B8A8_UNORM);
+
+            // Set our imageData pointer to point to our modified data buffer.
+            auto modifiedImageData = AZStd::span<const uint8_t>(
+                reinterpret_cast<uint8_t*>(m_modifiedImageData.data()), m_modifiedImageData.size() * sizeof(uint32_t));
+
+            // Create the initial buffer for the downloaded color data
+            const AZ::Data::Instance<AZ::RPI::AttachmentImagePool> imagePool =
+                AZ::RPI::ImageSystemInterface::Get()->GetSystemAttachmentPool();
+
+            const AZ::Name ModificationImageName = AZ::Name("ModifiedImage");
+            m_colorImage =
+                AZ::RPI::AttachmentImage::Create(*imagePool.get(), modifiedImageDescriptor, ModificationImageName, nullptr, nullptr);
+            AZ_Error("Terrain", m_colorImage, "Failed to initialize the modification image buffer.");
+
+            const uint32_t BytesPerPixel = 4;
+            AZ::RHI::ImageUpdateRequest imageUpdateRequest;
+            imageUpdateRequest.m_imageSubresourcePixelOffset.m_left = 0;
+            imageUpdateRequest.m_imageSubresourcePixelOffset.m_top = 0;
+            imageUpdateRequest.m_sourceSubresourceLayout.m_bytesPerRow = width * BytesPerPixel;
+            imageUpdateRequest.m_sourceSubresourceLayout.m_bytesPerImage = width * height * BytesPerPixel;
+            imageUpdateRequest.m_sourceSubresourceLayout.m_rowCount = height;
+            imageUpdateRequest.m_sourceSubresourceLayout.m_size.m_width = width;
+            imageUpdateRequest.m_sourceSubresourceLayout.m_size.m_height = height;
+            imageUpdateRequest.m_sourceSubresourceLayout.m_size.m_depth = 1;
+            imageUpdateRequest.m_sourceData = m_modifiedImageData.data();
+            imageUpdateRequest.m_image = m_colorImage->GetRHIImage();
+            m_colorImage->UpdateImageContents(imageUpdateRequest);
+
+        // Notify that the material has changed.
+            MacroMaterialData material = GetTerrainMacroMaterialData();
+            TerrainMacroMaterialNotificationBus::Broadcast(
+                &TerrainMacroMaterialNotificationBus::Events::OnTerrainMacroMaterialChanged, GetEntityId(), material);
+        }
+        else
+        {
+            // If this triggers, we've somehow gotten our image modification buffer out of sync with the image descriptor information.
+            AZ_Assert(m_modifiedImageData.size() == (width * height), "Image modification buffer exists but is the wrong size.");
+        }
+    }
+
+    void TerrainMacroMaterialComponent::ClearImageModificationBuffer()
+    {
+        m_modifiedImageData.resize(0);
+    }
+
+    bool TerrainMacroMaterialComponent::ModificationBufferIsActive() const
+    {
+        return (!m_modifiedImageData.empty());
+    }
+
+    void TerrainMacroMaterialComponent::SetPixelValueByPosition(const AZ::Vector3& position, AZ::Color value)
+    {
+        SetPixelValuesByPosition(AZStd::span<const AZ::Vector3>(&position, 1), AZStd::span<AZ::Color>(&value, 1));
+    }
+
+    void TerrainMacroMaterialComponent::SetPixelValuesByPosition(AZStd::span<const AZ::Vector3> positions, AZStd::span<const AZ::Color> values)
+    {
+        if (m_modifiedImageData.empty())
+        {
+            AZ_Error("ImageGradientComponent", false, "Image modification mode needs to be started before the image values can be set.");
+            return;
+        }
+
+        const AZ::RHI::ImageDescriptor& imageDescriptor = m_colorImage->GetDescriptor();
+
+        const auto& width = imageDescriptor.m_size.m_width;
+        const auto& height = imageDescriptor.m_size.m_height;
+
+        // No pixels, so nothing to modify.
+        if ((width == 0) || (height == 0))
+        {
+            return;
+        }
+
+        for (size_t index = 0; index < positions.size(); index++)
+        {
+            auto pixelX = AZ::Lerp(
+                0.0f,
+                aznumeric_cast<float>(width - 1),
+                (positions[index].GetX() - m_cachedShapeBounds.GetMin().GetX()) / m_cachedShapeBounds.GetXExtent());
+
+            auto pixelY = AZ::Lerp(
+                0.0f,
+                aznumeric_cast<float>(height - 1),
+                (positions[index].GetY() - m_cachedShapeBounds.GetMin().GetY()) / m_cachedShapeBounds.GetYExtent());
+
+            auto x = aznumeric_cast<AZ::u32>(pixelX) % width;
+            auto y = aznumeric_cast<AZ::u32>(pixelY) % height;
+
+            // Flip the y because images are stored in reverse of our world axes
+            y = (height - 1) - y;
+
+            // Modify the correct pixel in our modification buffer.
+            m_modifiedImageData[(y * width) + x] = values[index].ToU32();
+        }
+
+        const uint32_t BytesPerPixel = 4;
+        AZ::RHI::ImageUpdateRequest imageUpdateRequest;
+        imageUpdateRequest.m_imageSubresourcePixelOffset.m_left = 0;
+        imageUpdateRequest.m_imageSubresourcePixelOffset.m_top = 0;
+        imageUpdateRequest.m_sourceSubresourceLayout.m_bytesPerRow = width * BytesPerPixel;
+        imageUpdateRequest.m_sourceSubresourceLayout.m_bytesPerImage = width * height * BytesPerPixel;
+        imageUpdateRequest.m_sourceSubresourceLayout.m_rowCount = height;
+        imageUpdateRequest.m_sourceSubresourceLayout.m_size.m_width = width;
+        imageUpdateRequest.m_sourceSubresourceLayout.m_size.m_height = height;
+        imageUpdateRequest.m_sourceSubresourceLayout.m_size.m_depth = 1;
+        imageUpdateRequest.m_sourceData = m_modifiedImageData.data();
+        imageUpdateRequest.m_image = m_colorImage->GetRHIImage();
+        m_colorImage->UpdateImageContents(imageUpdateRequest);
+    }
+
+    void TerrainMacroMaterialComponent::GetPixelIndicesForPositions(
+        AZStd::span<const AZ::Vector3> positions, AZStd::span<PixelIndex> outIndices) const
+    {
+        const AZ::RHI::ImageDescriptor& imageDescriptor = m_colorImage->GetDescriptor();
+
+        const auto& width = imageDescriptor.m_size.m_width;
+        const auto& height = imageDescriptor.m_size.m_height;
+
+        for (size_t index = 0; index < positions.size(); index++)
+        {
+            auto pixelX = AZ::Lerp(
+                0.0f,
+                aznumeric_cast<float>(width - 1),
+                (positions[index].GetX() - m_cachedShapeBounds.GetMin().GetX()) / m_cachedShapeBounds.GetXExtent());
+
+            auto pixelY = AZ::Lerp(
+                0.0f,
+                aznumeric_cast<float>(height - 1),
+                (positions[index].GetY() - m_cachedShapeBounds.GetMin().GetY()) / m_cachedShapeBounds.GetYExtent());
+
+            auto x = aznumeric_cast<AZ::u32>(pixelX) % width;
+            auto y = aznumeric_cast<AZ::u32>(pixelY) % height;
+
+            // Flip the y because images are stored in reverse of our world axes
+            y = (height - 1) - y;
+
+            outIndices[index] = PixelIndex(aznumeric_cast<int16_t>(x), aznumeric_cast<int16_t>(y));
+        }
+    }
+
+    void TerrainMacroMaterialComponent::GetPixelValuesByPixelIndex(
+        AZStd::span<const PixelIndex> positions, AZStd::span<AZ::Color> outValues) const
+    {
+        AZ_Assert(!m_modifiedImageData.empty(), "Pixel values are only available during modifications.");
+
+        const AZ::RHI::ImageDescriptor& imageDescriptor = m_colorImage->GetDescriptor();
+
+        const auto& width = imageDescriptor.m_size.m_width;
+        const auto& height = imageDescriptor.m_size.m_height;
+
+        for (size_t index = 0; index < positions.size(); index++)
+        {
+            const auto& [x, y] = positions[index];
+
+            if ((x >= 0) && (x < aznumeric_cast<int16_t>(width)) && (y >= 0) && (y < aznumeric_cast<int16_t>(height)))
+            {
+                uint8_t r = (m_modifiedImageData[(y * width) + x] >> 0) & 0xFF;
+                uint8_t g = (m_modifiedImageData[(y * width) + x] >> 8) & 0xFF;
+                uint8_t b = (m_modifiedImageData[(y * width) + x] >> 16) & 0xFF;
+                uint8_t a = (m_modifiedImageData[(y * width) + x] >> 24) & 0xFF;
+                outValues[index] = AZ::Color(r, g, b, a);
+            }
+        }
+    }
+
+    void TerrainMacroMaterialComponent::SetPixelValueByPixelIndex(const PixelIndex& position, AZ::Color value)
+    {
+        SetPixelValuesByPixelIndex(AZStd::span<const PixelIndex>(&position, 1), AZStd::span<AZ::Color>(&value, 1));
+    }
+
+    void TerrainMacroMaterialComponent::SetPixelValuesByPixelIndex(AZStd::span<const PixelIndex> positions, AZStd::span<const AZ::Color> values)
+    {
+        if (m_modifiedImageData.empty())
+        {
+            AZ_Error("ImageGradientComponent", false, "Image modification mode needs to be started before the image values can be set.");
+            return;
+        }
+
+        const AZ::RHI::ImageDescriptor& imageDescriptor = m_colorImage->GetDescriptor();
+
+        const auto& width = imageDescriptor.m_size.m_width;
+        const auto& height = imageDescriptor.m_size.m_height;
+
+        // No pixels, so nothing to modify.
+        if ((width == 0) || (height == 0))
+        {
+            return;
+        }
+
+        for (size_t index = 0; index < positions.size(); index++)
+        {
+            const auto& [x, y] = positions[index];
+
+            if ((x >= 0) && (x < aznumeric_cast<int16_t>(width)) && (y >= 0) && (y < aznumeric_cast<int16_t>(height)))
+            {
+                // Modify the correct pixel in our modification buffer.
+                m_modifiedImageData[(y * width) + x] = values[index].ToU32();
+            }
+        }
+
+        const uint32_t BytesPerPixel = 4;
+        AZ::RHI::ImageUpdateRequest imageUpdateRequest;
+        imageUpdateRequest.m_imageSubresourcePixelOffset.m_left = 0;
+        imageUpdateRequest.m_imageSubresourcePixelOffset.m_top = 0;
+        imageUpdateRequest.m_sourceSubresourceLayout.m_bytesPerRow = width * BytesPerPixel;
+        imageUpdateRequest.m_sourceSubresourceLayout.m_bytesPerImage = width * height * BytesPerPixel;
+        imageUpdateRequest.m_sourceSubresourceLayout.m_rowCount = height;
+        imageUpdateRequest.m_sourceSubresourceLayout.m_size.m_width = width;
+        imageUpdateRequest.m_sourceSubresourceLayout.m_size.m_height = height;
+        imageUpdateRequest.m_sourceSubresourceLayout.m_size.m_depth = 1;
+        imageUpdateRequest.m_sourceData = m_modifiedImageData.data();
+        imageUpdateRequest.m_image = m_colorImage->GetRHIImage();
+        m_colorImage->UpdateImageContents(imageUpdateRequest);
+    }
+
 
 }
