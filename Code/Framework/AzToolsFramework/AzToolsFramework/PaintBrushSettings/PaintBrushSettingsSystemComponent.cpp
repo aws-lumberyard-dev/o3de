@@ -81,6 +81,11 @@ namespace AzToolsFramework
         return m_settings.GetBlendMode();
     }
 
+    AZ::Color PaintBrushSettingsSystemComponent::GetColor() const
+    {
+        return m_settings.GetColor();
+    }
+
     void PaintBrushSettingsSystemComponent::SetSize(float size)
     {
         m_settings.SetSize(size);
@@ -114,5 +119,10 @@ namespace AzToolsFramework
     void PaintBrushSettingsSystemComponent::SetBlendMode(PaintBrushBlendMode blendMode)
     {
         m_settings.SetBlendMode(blendMode);
+    }
+
+    void PaintBrushSettingsSystemComponent::SetColor(const AZ::Color& color)
+    {
+        m_settings.SetColor(color);
     }
 } // namespace AzToolsFramework

@@ -124,10 +124,12 @@ namespace AzToolsFramework
         {
             if (mouseInteraction.m_mouseInteraction.m_mouseButtons.Left())
             {
-                // Get the intensity and opacity to use for this brush stroke.
+                // Get the color, intensity and opacity to use for this brush stroke.
+                AZ::Color color = AZ::Color::CreateZero();
                 float intensityPercent = 0.0f;
                 float opacityPercent = 0.0f;
 
+                PaintBrushSettingsRequestBus::BroadcastResult(color, &PaintBrushSettingsRequestBus::Events::GetColor);
                 PaintBrushSettingsRequestBus::BroadcastResult(intensityPercent, &PaintBrushSettingsRequestBus::Events::GetIntensityPercent);
                 PaintBrushSettingsRequestBus::BroadcastResult(opacityPercent, &PaintBrushSettingsRequestBus::Events::GetOpacityPercent);
 
@@ -135,10 +137,10 @@ namespace AzToolsFramework
                 const float intensity = AZStd::clamp(intensityPercent / 100.0f, 0.0f, 1.0f);
                 const float opacity = AZStd::clamp(opacityPercent / 100.0f, 0.0f, 1.0f);
 
-                // Notify that a paint stroke has begun, and provide the stroke intensity and opacity in the 0-1 range.
+                // Notify that a paint stroke has begun, and provide the color, stroke intensity and opacity in the 0-1 range.
                 m_isPainting = true;
                 PaintBrushNotificationBus::Event(
-                    m_ownerEntityComponentId, &PaintBrushNotificationBus::Events::OnPaintStrokeBegin, intensity, opacity);
+                    m_ownerEntityComponentId, &PaintBrushNotificationBus::Events::OnPaintStrokeBegin, color, intensity, opacity);
 
                 const bool isFirstPaintedPoint = true;
                 MovePaintBrush(

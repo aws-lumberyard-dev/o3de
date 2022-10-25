@@ -370,7 +370,7 @@ namespace Terrain
         }
     }
 
-    void EditorTerrainMacroMaterialComponentMode::OnPaintStrokeBegin(float intensity, float opacity)
+    void EditorTerrainMacroMaterialComponentMode::OnPaintStrokeBegin(const AZ::Color& color, float intensity, float opacity)
     {
         BeginUndoBatch();
 
@@ -383,6 +383,7 @@ namespace Terrain
             return;
         }
 
+        m_paintStrokeData.m_color = color;
         m_paintStrokeData.m_intensity = intensity;
         m_paintStrokeData.m_opacity = opacity;
 
@@ -486,8 +487,10 @@ namespace Terrain
             opacityValue = AZStd::clamp(opacityValue + (1.0f - opacityValue) * perPixelOpacities[index], 0.0f, 1.0f);
 
             // Blend the pixel and store the blended pixel and new opacity back into our paint stroke buffer.
-            float blendedValue = blendFn(originalColor.GetR(), m_paintStrokeData.m_intensity, opacityValue * m_paintStrokeData.m_opacity);
-            AZ::Color blendedColor(blendedValue, originalColor.GetG(), originalColor.GetB(), originalColor.GetA());
+            float red = blendFn(originalColor.GetR(), m_paintStrokeData.m_color.GetR(), opacityValue * m_paintStrokeData.m_opacity);
+            float green = blendFn(originalColor.GetG(), m_paintStrokeData.m_color.GetG(), opacityValue * m_paintStrokeData.m_opacity);
+            float blue = blendFn(originalColor.GetB(), m_paintStrokeData.m_color.GetB(), opacityValue * m_paintStrokeData.m_opacity);
+            AZ::Color blendedColor(red, green, blue, originalColor.GetA());
             m_paintStrokeData.m_strokeBuffer->SetModifiedPixelValue(pixelIndices[index], blendedColor, opacityValue);
 
             // Also store the blended value into a second buffer that we'll use to immediately modify the image gradient.

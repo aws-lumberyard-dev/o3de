@@ -43,6 +43,9 @@ namespace AzToolsFramework
         //! Returns the current brush stroke blend mode.
         virtual PaintBrushBlendMode GetBlendMode() const = 0;
 
+        //! Returns the current brush stroke color.
+        virtual AZ::Color GetColor() const = 0;
+
         //! Sets the brush stroke intensity.
         //! @param intensity The new intensity, in 0-100 range (0=black, 100=white).
         virtual void SetIntensityPercent(float intensityPercent) = 0;
@@ -54,6 +57,10 @@ namespace AzToolsFramework
         //! Sets the brush stroke blend mode.
         //! @param blendMode The new blend mode.
         virtual void SetBlendMode(PaintBrushBlendMode blendMode) = 0;
+
+        //! Set the brush stroke color.
+        //! @param color The new brush color.
+        virtual void SetColor(const AZ::Color& color) = 0;
 
         // Paint Brush Stamp settings
 

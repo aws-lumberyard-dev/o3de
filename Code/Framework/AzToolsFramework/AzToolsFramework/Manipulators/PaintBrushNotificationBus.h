@@ -64,9 +64,11 @@ namespace AzToolsFramework
         }
 
         //! Notifies listeners that a paint stroke has begun.
+        //! @param color The color of the paint stroke 
         //! @param intensity The intensity of the paint stroke (0-1)
         //! @param opacity The opacity of the paint stroke (0-1)
-        virtual void OnPaintStrokeBegin([[maybe_unused]] float intensity, [[maybe_unused]] float opacity)
+        virtual void OnPaintStrokeBegin(
+            [[maybe_unused]] const AZ::Color& color, [[maybe_unused]] float intensity, [[maybe_unused]] float opacity)
         {
         }
 

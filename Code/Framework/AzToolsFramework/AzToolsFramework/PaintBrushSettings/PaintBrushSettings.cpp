@@ -13,13 +13,58 @@
 
 namespace AzToolsFramework
 {
+    AzToolsFramework::ColorEditorConfiguration PaintBrushSettings::GetColorEditorConfig()
+    {
+        enum ColorSpace : uint32_t
+        {
+            LinearSRGB,
+            SRGB
+        };
+
+        AzToolsFramework::ColorEditorConfiguration configuration;
+        configuration.m_colorPickerDialogConfiguration = AzQtComponents::ColorPicker::Configuration::RGB;
+
+        configuration.m_propertyColorSpaceId = ColorSpace::LinearSRGB;
+        configuration.m_colorPickerDialogColorSpaceId = ColorSpace::SRGB;
+        configuration.m_colorSwatchColorSpaceId = ColorSpace::SRGB;
+
+        configuration.m_colorSpaceNames[ColorSpace::LinearSRGB] = "Linear sRGB";
+        configuration.m_colorSpaceNames[ColorSpace::SRGB] = "sRGB";
+
+        configuration.m_transformColorCallback = [](const AZ::Color& color, uint32_t fromColorSpaceId, uint32_t toColorSpaceId)
+        {
+            //[GFX TODO][ATOM-4436] Change this to use the central TransformColor utility function after it's added
+            if (fromColorSpaceId == toColorSpaceId)
+            {
+                return color;
+            }
+            else if (fromColorSpaceId == ColorSpace::LinearSRGB && toColorSpaceId == ColorSpace::SRGB)
+            {
+                return color.LinearToGamma();
+            }
+            else if (fromColorSpaceId == ColorSpace::SRGB && toColorSpaceId == ColorSpace::LinearSRGB)
+            {
+                return color.GammaToLinear();
+            }
+            else
+            {
+                AZ_Error("ColorEditorConfiguration", false, "Invalid color space combination");
+                return color;
+            }
+        };
+
+        return configuration;
+    }
+
+
     void PaintBrushSettings::Reflect(AZ::ReflectContext* context)
     {
         if (auto serializeContext = azrtti_cast<AZ::SerializeContext*>(context))
         {
             serializeContext->Class<PaintBrushSettings>()
-                ->Version(3)
+                ->Version(4)
                 ->Field("Size", &PaintBrushSettings::m_size)
+                ->Field("Color", &PaintBrushSettings::m_brushColor)
                 ->Field("Intensity", &PaintBrushSettings::m_intensityPercent)
                 ->Field("Opacity", &PaintBrushSettings::m_opacityPercent)
                 ->Field("Hardness", &PaintBrushSettings::m_hardnessPercent)
@@ -44,6 +89,9 @@ namespace AzToolsFramework
                     ->Attribute(AZ::Edit::Attributes::Step, 0.25f)
                     ->Attribute(AZ::Edit::Attributes::DisplayDecimals, 2)
                     ->Attribute(AZ::Edit::Attributes::Suffix, " m")
+                    ->Attribute(AZ::Edit::Attributes::ChangeNotify, &PaintBrushSettings::OnSettingsChanged)
+                    ->DataElement(AZ::Edit::UIHandlers::Default, &PaintBrushSettings::m_brushColor, "Color", "Color of the paint brush.")
+                    ->Attribute("ColorEditorConfiguration", PaintBrushSettings::GetColorEditorConfig())
                     ->Attribute(AZ::Edit::Attributes::ChangeNotify, &PaintBrushSettings::OnSettingsChanged)
                     ->DataElement(
                         AZ::Edit::UIHandlers::Slider, &PaintBrushSettings::m_intensityPercent, "Intensity",
@@ -120,6 +168,12 @@ namespace AzToolsFramework
     void PaintBrushSettings::SetBlendMode(PaintBrushBlendMode blendMode)
     {
         m_blendMode = blendMode;
+        OnSettingsChanged();
+    }
+
+    void PaintBrushSettings::SetColor(const AZ::Color& color)
+    {
+        m_brushColor = color;
         OnSettingsChanged();
     }
 

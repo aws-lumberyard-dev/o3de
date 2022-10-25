@@ -35,7 +35,7 @@ namespace Terrain
 
     protected:
         // PaintBrushNotificationBus overrides
-        void OnPaintStrokeBegin(float intensity, float opacity) override;
+        void OnPaintStrokeBegin(const AZ::Color& color, float intensity, float opacity) override;
         void OnPaintStrokeEnd() override;
         void OnPaint(const AZ::Aabb& dirtyArea, ValueLookupFn& valueLookupFn, BlendFn& blendFn) override;
 
@@ -57,6 +57,9 @@ namespace Terrain
             //! These help us query the paintbrush for exactly one world position per image pixel.
             float m_metersPerPixelX = 0.0f;
             float m_metersPerPixelY = 0.0f;
+
+            //! The color of the paint stroke
+            AZ::Color m_color = AZ::Color::CreateZero();
 
             //! The intensity of the paint stroke (0 - 1)
             float m_intensity = 0.0f;

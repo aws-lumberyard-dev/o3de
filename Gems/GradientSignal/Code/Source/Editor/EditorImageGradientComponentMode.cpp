@@ -374,7 +374,7 @@ namespace GradientSignal
         }
     }
 
-    void EditorImageGradientComponentMode::OnPaintStrokeBegin(float intensity, float opacity)
+    void EditorImageGradientComponentMode::OnPaintStrokeBegin([[maybe_unused]] const AZ::Color& color, float intensity, float opacity)
     {
         BeginUndoBatch();
 
