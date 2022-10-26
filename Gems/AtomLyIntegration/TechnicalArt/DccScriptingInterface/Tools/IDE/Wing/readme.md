@@ -1,11 +1,4 @@
-----
-
-Copyright (c) Contributors to the Open 3D Engine Project.  For complete copyright and license terms please see the LICENSE at the root of this distribution.
-SPDX-License-Identifier: Apache-2.0 OR MIT
-
-----
-
-# O3DE DCCsi and Wing Pro IDE
+# O3DE DCCsi, Wing Pro IDE
 
 ###### Status: Prototype
 
@@ -116,7 +109,7 @@ In the root of the DCCsi, one of the files will start O3DE python, you can start
 
 The actual interpreter that runs is somewhere like
 
-    `o3de\python\runtime\python-3.7.12-rev2-windows\python\python.exe`
+    `o3de\python\runtime\python-3.10.5-rev1-windows\python\python.exe`
 
 The folder for Wing developers is here:
 
@@ -154,11 +147,30 @@ Then you will want to copy it, and rename the copy:
 
 What this file provides, is the ability and opportunity to make envar settings and overrides prior to starting WingIDE from the .bat file launcher.  If you have already found that the launcher didn't work for you, this is a section you will want to pay attention to.
 
-You may find the following ENVARs useful to set
+These  envars set/override  the default  located in the windows dev env:
 
-to do: document the envars
+`DccScriptingInterface\Tools\Dev\Windows\Env_IDE_Wing.bat`
 
-## Configure O3DE dynamic Env
+You may find the following ENVARs useful to set:
+
+The default supported version is Wing 8 Pro, if your ide  is installed in the default location  you should not have to  set anything.  But  if you need  to configure the version and location you can set/override these envars
+
+`set DCCSI_WING_VERSION_MAJOR=8`
+
+`set "WINGHOME=%PROGRAMFILES(X86)%\Wing Pro %DCCSI_WING_VERSION_MAJOR%"`
+
+and this envar will allow you to launch  with a different  wing  project file then the default
+
+`set "WING_PROJ=%PATH_DCCSIG%\Tools\IDE\Wing\.solutions\DCCsi_%DCCSI_WING_VERSION_MAJOR%x.wpr"`
+
+If you are using a version of Wing 7, these envars can be set
+
+`set DCCSI_WING_VERSION_MAJOR=7`
+`set DCCSI_WING_VERSION_MINOR=2`
+
+`set "WINGHOME=%PROGRAMFILES(X86)%\Wing Pro %DCCSI_WING_VERSION_MAJOR%.%DCCSI_WING_VERSION_MINOR%"``
+
+## Configure O3DE Dynamic Python Env
 
 There is a python driven approach to configuration, settings, bootstrapping and launching apps like Wing.  The files we will be most concerned with are:
 
@@ -231,3 +243,13 @@ Trouble attaching debugger?  Open your firewall and add an exception for wing.
 - Wing 7.x was previously supported, but it was python2.7 based and we are deprecating support for py2.7, and this includes deprecation of support for apps that are pre-py3 bound.
 
 - Previous versions of Wing may still work, however you will need to configure and/or modify the env yourself. This would also include version such as Wing Community Edition.
+
+- Updated this readme
+
+---
+
+###### LICENSE INFO
+
+Copyright (c) Contributors to the Open 3D Engine Project. For complete copyright and license terms please see the LICENSE at the root of this distribution.
+
+SPDX-License-Identifier: Apache-2.0 OR MIT

@@ -100,6 +100,13 @@ namespace AzToolsFramework::Prefab
             "Focus Mode Interface could not be found. "
             "Check that it is being correctly initialized.");
 
+        m_readOnlyEntityPublicInterface = AZ::Interface<ReadOnlyEntityPublicInterface>::Get();
+        AZ_Assert(
+            m_readOnlyEntityPublicInterface,
+            "Prefab - PrefabFocusHandler - "
+            "ReadOnly Entity Public Interface could not be found. "
+            "Check that it is being correctly initialized.");
+
         m_readOnlyEntityQueryInterface = AZ::Interface<ReadOnlyEntityQueryInterface>::Get();
         AZ_Assert(
             m_readOnlyEntityQueryInterface,
@@ -268,8 +275,12 @@ namespace AzToolsFramework::Prefab
 
         // Close all container entities in the old path.
         SetInstanceContainersOpenState(m_rootAliasFocusPath, false);
-        // Always close all nested instances in the old focus subtree.
-        SetInstanceContainersOpenStateOfAllDescendantContainers(GetInstanceReference(m_rootAliasFocusPath), false);
+
+        if (IsPrefabOverridesUxEnabled())
+        {
+            // Always close all nested instances in the old focus subtree.
+            SetInstanceContainersOpenStateOfAllDescendantContainers(GetInstanceReference(m_rootAliasFocusPath), false);
+        }
 
         const RootAliasPath previousContainerRootAliasPath = m_rootAliasFocusPath;
         const InstanceOptionalReference previousFocusedInstance = GetInstanceReference(previousContainerRootAliasPath);
@@ -319,9 +330,12 @@ namespace AzToolsFramework::Prefab
 
         // Open all container entities in the new path.
         SetInstanceContainersOpenState(m_rootAliasFocusPath, true);
-        // Set open state on all nested instances in the new focus subtree based on edit scope.
-        SetInstanceContainersOpenStateOfAllDescendantContainers(
-            GetInstanceReference(m_rootAliasFocusPath), m_prefabEditScope == PrefabEditScope::SHOW_NESTED_INSTANCES_CONTENT);
+
+        if (IsPrefabOverridesUxEnabled())
+        {
+            // Set open state on all nested instances in the new focus subtree based on edit scope.
+            SetInstanceContainersOpenStateOfAllDescendantContainers(GetInstanceReference(m_rootAliasFocusPath), true);
+        }
 
         AZ::EntityId previousFocusedInstanceContainerEntityId = previousFocusedInstance.has_value() ?
             previousFocusedInstance->get().GetContainerEntityId() : AZ::EntityId();
@@ -363,6 +377,18 @@ namespace AzToolsFramework::Prefab
         [[maybe_unused]] AzFramework::EntityContextId entityContextId) const
     {
         return GetInstanceReference(m_rootAliasFocusPath);
+    }
+
+    bool PrefabFocusHandler::IsFocusedPrefabInstanceReadOnly([[maybe_unused]] AzFramework::EntityContextId entityContextId) const
+    {
+        InstanceOptionalReference instance = GetInstanceReference(m_rootAliasFocusPath);
+
+        if (instance.has_value())
+        {
+            return m_readOnlyEntityPublicInterface->IsReadOnly(instance->get().GetContainerEntityId());
+        }
+
+        return false;
     }
 
     LinkId PrefabFocusHandler::AppendPathFromFocusedInstanceToPatchPaths(PrefabDom& providedPatch, AZ::EntityId entityId) const
