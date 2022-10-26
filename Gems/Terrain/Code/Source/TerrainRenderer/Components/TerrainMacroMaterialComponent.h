@@ -96,6 +96,8 @@ namespace Terrain
         void ClearImageModificationBuffer();
         bool ModificationBufferIsActive() const;
 
+        void UpdateMacroMaterialTexture(uint32_t leftPixel, uint32_t topPixel, uint32_t rightPixel, uint32_t bottomPixel);
+
     private:
         ////////////////////////////////////////////////////////////////////////
         // ShapeComponentNotificationsBus

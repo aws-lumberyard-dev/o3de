@@ -110,6 +110,27 @@ namespace AZ
                 return ((value - origMin) / (origMax - origMin)) * (scaledMax - scaledMin) + scaledMin;
             }
 
+            float ScaleSNorm8Value(float value)
+            {
+                // Scale the value from AZ::s8 min/max to -1 to 1
+                // We need to treat -128 and -127 the same, so that we get a symmetric
+                // range of -127 to 127 with complementary scaled values of -1 to 1
+                constexpr float signedMax = static_cast<float>(std::numeric_limits<AZ::s8>::max());
+                constexpr float signedMin = -signedMax;
+                return ScaleValue(AZStd::max(value, signedMin), signedMin, signedMax, -1.0f, 1.0f);
+            }
+
+            float ScaleSNorm16Value(float value)
+            {
+                // Scale the value from AZ::s16 min/max to -1 to 1
+                // We need to treat -32768 and -32767 the same, so that we get a symmetric
+                // range of -32767 to 32767 with complementary scaled values of -1 to 1
+                constexpr float signedMax = static_cast<float>(std::numeric_limits<AZ::s16>::max());
+                constexpr float signedMin = -signedMax;
+                return ScaleValue(AZStd::max(value, signedMin), signedMin, signedMax, -1.0f, 1.0f);
+            }
+
+
             // Pre-compute a lookup table for converting SRGB gamma to linear
             // by specifying the AZ::u8 so we don't have to do the computation
             // when retrieving pixels
@@ -162,8 +183,8 @@ namespace AZ
                     return AZStd::pair<size_t, size_t>(blockIndex, pixelIndex);
                 }
 
-                // Given an index into the 4x4 block and a component index (R, G, B, or A), return the color value in the 0-1 range.
-                float GetBlockColor(size_t pixelIndex, uint32_t componentIndex) const
+                // Given an index into the 4x4 block, return the color value in the 0-1 range.
+                AZ::Color GetBlockColor(size_t pixelIndex) const
                 {
                     AZ_Assert(pixelIndex < 16, "Unsupported pixel index for BC1: %zu", pixelIndex);
                     // The pixels are in a 4x4 block, so first we get the row of 4 2-bit indices that have the pixel we want.
@@ -171,47 +192,50 @@ namespace AZ
                     // Extract the 2-bit index by shifting down in multiples of 2 bits and masking.
                     uint8_t colorIndex = (colorRowIndices >> (2 * (pixelIndex % 4))) & 0x03;
 
-                    // Extract just the R, G, B, or A component of the two colors.
-                    float color0;
-                    float color1;
-                    switch (componentIndex)
-                    {
-                    case 0:
-                        // red
-                        color0 = ((m_color0 >> 11) & 0x1F) / aznumeric_cast<float>(0x1F);
-                        color1 = ((m_color1 >> 11) & 0x1F) / aznumeric_cast<float>(0x1F);
-                        break;
-                    case 1:
-                        // green
-                        color0 = ((m_color0 >> 5) & 0x3F) / aznumeric_cast<float>(0x3F);
-                        color1 = ((m_color1 >> 5) & 0x3F) / aznumeric_cast<float>(0x3F);
-                        break;
-                    case 2:
-                        // blue
-                        color0 = ((m_color0 >> 0) & 0x1F) / aznumeric_cast<float>(0x1F);
-                        color1 = ((m_color1 >> 0) & 0x1F) / aznumeric_cast<float>(0x1F);
-                        break;
-                    case 3:
-                        // alpha
-                        return 1.0f;
-                    default:
-                        AZ_Assert(false, "Unsupported component offset for BC1: %u", componentIndex);
-                        return 0.0f;
-                    }
-                    
                     // Using the pixel's color index, return the proper color value.
                     switch (colorIndex)
                     {
                     case 0:
-                        return color0;
+                        // Index 0 uses color 0
+                        return AZ::Color(
+                            ((m_color0 >> 11) & 0x1F) / aznumeric_cast<float>(0x1F),
+                            ((m_color0 >> 5) & 0x3F) / aznumeric_cast<float>(0x3F),
+                            ((m_color0 >> 0) & 0x1F) / aznumeric_cast<float>(0x1F),
+                            1.0f);
+                        break;
                     case 1:
-                        return color1;
+                        // Index 1 uses color 1
+                        return AZ::Color(
+                            ((m_color1 >> 11) & 0x1F) / aznumeric_cast<float>(0x1F),
+                            ((m_color1 >> 5) & 0x3F) / aznumeric_cast<float>(0x3F),
+                            ((m_color1 >> 0) & 0x1F) / aznumeric_cast<float>(0x1F),
+                            1.0f);
+                        break;
                     case 2:
-                        return (color0 * (2.0f / 3.0f)) + (color1 * (1.0f / 3.0f));
+                        // Index 2 uses 2/3 of color 0 and 1/3 of color 1
+                        return AZ::Color(
+                            ((((m_color0 >> 11) & 0x1F) / aznumeric_cast<float>(0x1F)) * (2.0f / 3.0f)) +
+                                ((((m_color1 >> 11) & 0x1F) / aznumeric_cast<float>(0x1F)) * (1.0f / 3.0f)),
+                            ((((m_color0 >> 5) & 0x3F) / aznumeric_cast<float>(0x3F)) * (2.0f / 3.0f)) +
+                                ((((m_color1 >> 5) & 0x3F) / aznumeric_cast<float>(0x3F)) * (1.0f / 3.0f)),
+                            ((((m_color0 >> 0) & 0x1F) / aznumeric_cast<float>(0x1F)) * (2.0f / 3.0f)) +
+                                ((((m_color1 >> 0) & 0x1F) / aznumeric_cast<float>(0x1F)) * (1.0f / 3.0f)),
+                            1.0f);
+                        break;
                     case 3:
-                        return (color0 * (1.0f / 3.0f)) + (color1 * (2.0f / 3.0f));
+                        // Index 3 uses 1/3 of color 0 and 2/3 of color 1
+                        return AZ::Color(
+                            ((((m_color0 >> 11) & 0x1F) / aznumeric_cast<float>(0x1F)) * (1.0f / 3.0f)) +
+                                ((((m_color1 >> 11) & 0x1F) / aznumeric_cast<float>(0x1F)) * (2.0f / 3.0f)),
+                            ((((m_color0 >> 5) & 0x3F) / aznumeric_cast<float>(0x3F)) * (1.0f / 3.0f)) +
+                                ((((m_color1 >> 5) & 0x3F) / aznumeric_cast<float>(0x3F)) * (2.0f / 3.0f)),
+                            ((((m_color0 >> 0) & 0x1F) / aznumeric_cast<float>(0x1F)) * (1.0f / 3.0f)) +
+                                ((((m_color1 >> 0) & 0x1F) / aznumeric_cast<float>(0x1F)) * (2.0f / 3.0f)),
+                            1.0f);
+                            break;
                     }
-                    return 0.0f;
+
+                    return AZ::Color::CreateZero();
                 }
             };
 
@@ -242,13 +266,8 @@ namespace AZ
                 case AZ::RHI::Format::R8G8B8A8_SNORM:
                 case AZ::RHI::Format::A8B8G8R8_SNORM:
                 {
-                    // Scale the value from AZ::s8 min/max to -1 to 1
-                    // We need to treat -128 and -127 the same, so that we get a symmetric
-                    // range of -127 to 127 with complementary scaled values of -1 to 1
                     auto actualMem = reinterpret_cast<const AZ::s8*>(mem);
-                    AZ::s8 signedMax = std::numeric_limits<AZ::s8>::max();
-                    AZ::s8 signedMin = aznumeric_cast<AZ::s8>(-signedMax);
-                    return ScaleValue(AZStd::max(actualMem[indices.first + componentIndex], signedMin), signedMin, signedMax, -1.0f, 1.0f);
+                    return ScaleSNorm8Value(actualMem[indices.first + componentIndex]);
                 }
                 case AZ::RHI::Format::D16_UNORM:
                 case AZ::RHI::Format::R16_UNORM:
@@ -262,13 +281,8 @@ namespace AZ
                 case AZ::RHI::Format::R16G16_SNORM:
                 case AZ::RHI::Format::R16G16B16A16_SNORM:
                 {
-                    // Scale the value from AZ::s16 min/max to -1 to 1
-                    // We need to treat -32768 and -32767 the same, so that we get a symmetric
-                    // range of -32767 to 32767 with complementary scaled values of -1 to 1
                     auto actualMem = reinterpret_cast<const AZ::s16*>(mem);
-                    AZ::s16 signedMax = std::numeric_limits<AZ::s16>::max();
-                    AZ::s16 signedMin = aznumeric_cast<AZ::s16>(-signedMax);
-                    return ScaleValue(AZStd::max(actualMem[indices.first + componentIndex], signedMin), signedMin, signedMax, -1.0f, 1.0f);
+                    return ScaleSNorm16Value(actualMem[indices.first + componentIndex]);
                 }
                 case AZ::RHI::Format::R16_FLOAT:
                 case AZ::RHI::Format::R16G16_FLOAT:
@@ -289,17 +303,237 @@ namespace AZ
                 case AZ::RHI::Format::BC1_UNORM:
                 {
                     auto actualMem = reinterpret_cast<const BC1Block*>(mem);
-                    return actualMem[indices.first].GetBlockColor(indices.second, componentIndex);
+                    return actualMem[indices.first].GetBlockColor(indices.second).GetElement(componentIndex);
                 }
                 case AZ::RHI::Format::BC1_UNORM_SRGB:
                 {
                     auto actualMem = reinterpret_cast<const BC1Block*>(mem);
-                    float color = actualMem[indices.first].GetBlockColor(indices.second, componentIndex);
+                    float color = actualMem[indices.first].GetBlockColor(indices.second).GetElement(componentIndex);
                     return s_SrgbGammaToLinearLookupTable[aznumeric_cast<uint8_t>(color * AZStd::numeric_limits<AZ::u8>::max())];
                 }
                 default:
                     AZ_Assert(false, "Unsupported pixel format: %s", AZ::RHI::ToString(format));
                     return 0.0f;
+                }
+            }
+
+            AZ::Color RetrieveColorValue(
+                const AZ::u8* mem, AZStd::pair<size_t, size_t> indices, AZ::RHI::Format format)
+            {
+                switch (format)
+                {
+                case AZ::RHI::Format::R8_UNORM:
+                    {
+                        return AZ::Color(
+                            mem[indices.first] / static_cast<float>(std::numeric_limits<AZ::u8>::max()), 0.0f, 0.0f, 1.0f);
+                    }
+                case AZ::RHI::Format::A8_UNORM:
+                    {
+                        return AZ::Color(0.0f, 0.0f, 0.0f, mem[indices.first] / static_cast<float>(std::numeric_limits<AZ::u8>::max()));
+                    }
+                case AZ::RHI::Format::R8G8_UNORM:
+                    {
+                        return AZ::Color(
+                            mem[indices.first + 0] / static_cast<float>(std::numeric_limits<AZ::u8>::max()),
+                            mem[indices.first + 1] / static_cast<float>(std::numeric_limits<AZ::u8>::max()),
+                            0.0f, 1.0f);
+                    }
+                case AZ::RHI::Format::R8G8B8A8_UNORM:
+                    {
+                        return AZ::Color(
+                            mem[indices.first + 0] / static_cast<float>(std::numeric_limits<AZ::u8>::max()),
+                            mem[indices.first + 1] / static_cast<float>(std::numeric_limits<AZ::u8>::max()),
+                            mem[indices.first + 2] / static_cast<float>(std::numeric_limits<AZ::u8>::max()),
+                            mem[indices.first + 3] / static_cast<float>(std::numeric_limits<AZ::u8>::max()));
+                    }
+                case AZ::RHI::Format::A8B8G8R8_UNORM:
+                    {
+                        return AZ::Color(
+                            mem[indices.first + 3] / static_cast<float>(std::numeric_limits<AZ::u8>::max()),
+                            mem[indices.first + 2] / static_cast<float>(std::numeric_limits<AZ::u8>::max()),
+                            mem[indices.first + 1] / static_cast<float>(std::numeric_limits<AZ::u8>::max()),
+                            mem[indices.first + 0] / static_cast<float>(std::numeric_limits<AZ::u8>::max()));
+                    }
+                case AZ::RHI::Format::R8_UNORM_SRGB:
+                    {
+                        return AZ::Color(s_SrgbGammaToLinearLookupTable[mem[indices.first]], 0.0f, 0.0f, 1.0f);
+                    }
+                case AZ::RHI::Format::R8G8_UNORM_SRGB:
+                    {
+                        return AZ::Color(
+                            s_SrgbGammaToLinearLookupTable[mem[indices.first + 0]],
+                            s_SrgbGammaToLinearLookupTable[mem[indices.first + 1]],
+                            0.0f,
+                            1.0f);
+                    }
+                case AZ::RHI::Format::R8G8B8A8_UNORM_SRGB:
+                    {
+                        return AZ::Color(
+                            s_SrgbGammaToLinearLookupTable[mem[indices.first + 0]],
+                            s_SrgbGammaToLinearLookupTable[mem[indices.first + 1]],
+                            s_SrgbGammaToLinearLookupTable[mem[indices.first + 2]],
+                            s_SrgbGammaToLinearLookupTable[mem[indices.first + 3]]);
+                    }
+                case AZ::RHI::Format::A8B8G8R8_UNORM_SRGB:
+                    {
+                        return AZ::Color(
+                            s_SrgbGammaToLinearLookupTable[mem[indices.first + 3]],
+                            s_SrgbGammaToLinearLookupTable[mem[indices.first + 2]],
+                            s_SrgbGammaToLinearLookupTable[mem[indices.first + 1]],
+                            s_SrgbGammaToLinearLookupTable[mem[indices.first + 0]]);
+                    }
+                case AZ::RHI::Format::R8_SNORM:
+                    {
+                        auto actualMem = reinterpret_cast<const AZ::s8*>(mem);
+                        return AZ::Color(ScaleSNorm8Value(actualMem[indices.first]), 0.0f, 0.0f, 1.0f);
+                    }
+                case AZ::RHI::Format::R8G8_SNORM:
+                    {
+                        auto actualMem = reinterpret_cast<const AZ::s8*>(mem);
+                        return AZ::Color(
+                            ScaleSNorm8Value(actualMem[indices.first + 0]),
+                            ScaleSNorm8Value(actualMem[indices.first + 1]),
+                            0.0f, 1.0f);
+                    }
+                case AZ::RHI::Format::R8G8B8A8_SNORM:
+                    {
+                        auto actualMem = reinterpret_cast<const AZ::s8*>(mem);
+                        return AZ::Color(
+                            ScaleSNorm8Value(actualMem[indices.first + 0]),
+                            ScaleSNorm8Value(actualMem[indices.first + 1]),
+                            ScaleSNorm8Value(actualMem[indices.first + 2]),
+                            ScaleSNorm8Value(actualMem[indices.first + 3]));
+                    }
+                case AZ::RHI::Format::A8B8G8R8_SNORM:
+                    {
+                        auto actualMem = reinterpret_cast<const AZ::s8*>(mem);
+                        return AZ::Color(
+                            ScaleSNorm8Value(actualMem[indices.first + 3]),
+                            ScaleSNorm8Value(actualMem[indices.first + 2]),
+                            ScaleSNorm8Value(actualMem[indices.first + 1]),
+                            ScaleSNorm8Value(actualMem[indices.first + 0]));
+                    }
+                case AZ::RHI::Format::D16_UNORM:
+                case AZ::RHI::Format::R16_UNORM:
+                    {
+                        auto actualMem = reinterpret_cast<const AZ::u16*>(mem);
+                        return AZ::Color(
+                            actualMem[indices.first] / static_cast<float>(std::numeric_limits<AZ::u16>::max()),
+                            0.0f, 0.0f, 1.0f);
+                    }
+                case AZ::RHI::Format::R16G16_UNORM:
+                    {
+                        auto actualMem = reinterpret_cast<const AZ::u16*>(mem);
+                        return AZ::Color(
+                            actualMem[indices.first + 0] / static_cast<float>(std::numeric_limits<AZ::u16>::max()),
+                            actualMem[indices.first + 1] / static_cast<float>(std::numeric_limits<AZ::u16>::max()),
+                            0.0f,
+                            1.0f);
+                    }
+                case AZ::RHI::Format::R16G16B16A16_UNORM:
+                    {
+                        auto actualMem = reinterpret_cast<const AZ::u16*>(mem);
+                        return AZ::Color(
+                            actualMem[indices.first + 0] / static_cast<float>(std::numeric_limits<AZ::u16>::max()),
+                            actualMem[indices.first + 1] / static_cast<float>(std::numeric_limits<AZ::u16>::max()),
+                            actualMem[indices.first + 2] / static_cast<float>(std::numeric_limits<AZ::u16>::max()),
+                            actualMem[indices.first + 3] / static_cast<float>(std::numeric_limits<AZ::u16>::max()));
+                    }
+                case AZ::RHI::Format::R16_SNORM:
+                    {
+                        auto actualMem = reinterpret_cast<const AZ::s16*>(mem);
+                        return AZ::Color(ScaleSNorm16Value(actualMem[indices.first]), 0.0f, 0.0f, 1.0f);
+                    }
+                case AZ::RHI::Format::R16G16_SNORM:
+                    {
+                        auto actualMem = reinterpret_cast<const AZ::s16*>(mem);
+                        return AZ::Color(
+                            ScaleSNorm16Value(actualMem[indices.first + 0]),
+                            ScaleSNorm16Value(actualMem[indices.first + 1]),
+                            0.0f,
+                            1.0f);
+                    }
+                case AZ::RHI::Format::R16G16B16A16_SNORM:
+                    {
+                        auto actualMem = reinterpret_cast<const AZ::s16*>(mem);
+                        return AZ::Color(
+                            ScaleSNorm16Value(actualMem[indices.first + 0]),
+                            ScaleSNorm16Value(actualMem[indices.first + 1]),
+                            ScaleSNorm16Value(actualMem[indices.first + 2]),
+                            ScaleSNorm16Value(actualMem[indices.first + 3]));
+                    }
+                case AZ::RHI::Format::R16_FLOAT:
+                    {
+                        auto actualMem = reinterpret_cast<const float*>(mem);
+                        return AZ::Color(SHalf(actualMem[indices.first]), 0.0f, 0.0f, 1.0f);
+                    }
+                case AZ::RHI::Format::R16G16_FLOAT:
+                    {
+                        auto actualMem = reinterpret_cast<const float*>(mem);
+                        return AZ::Color(
+                            SHalf(actualMem[indices.first + 0]),
+                            SHalf(actualMem[indices.first + 1]),
+                            0.0f, 1.0f);
+                    }
+                case AZ::RHI::Format::R16G16B16A16_FLOAT:
+                    {
+                        auto actualMem = reinterpret_cast<const float*>(mem);
+                        return AZ::Color(
+                            SHalf(actualMem[indices.first + 0]),
+                            SHalf(actualMem[indices.first + 1]),
+                            SHalf(actualMem[indices.first + 2]),
+                            SHalf(actualMem[indices.first + 3]));
+                    }
+                case AZ::RHI::Format::D32_FLOAT:
+                case AZ::RHI::Format::R32_FLOAT:
+                    {
+                        auto actualMem = reinterpret_cast<const float*>(mem);
+                        return AZ::Color(actualMem[indices.first], 0.0f, 0.0f, 1.0f);
+                    }
+                case AZ::RHI::Format::R32G32_FLOAT:
+                    {
+                        auto actualMem = reinterpret_cast<const float*>(mem);
+                        return AZ::Color(
+                            actualMem[indices.first + 0],
+                            actualMem[indices.first + 1],
+                            0.0f, 1.0f);
+                    }
+                case AZ::RHI::Format::R32G32B32_FLOAT:
+                    {
+                        auto actualMem = reinterpret_cast<const float*>(mem);
+                        return AZ::Color(
+                            actualMem[indices.first + 0],
+                            actualMem[indices.first + 1],
+                            actualMem[indices.first + 2],
+                            1.0f);
+                    }
+                case AZ::RHI::Format::R32G32B32A32_FLOAT:
+                    {
+                        auto actualMem = reinterpret_cast<const float*>(mem);
+                        return AZ::Color(
+                            actualMem[indices.first + 0],
+                            actualMem[indices.first + 1],
+                            actualMem[indices.first + 2],
+                            actualMem[indices.first + 3]);
+                    }
+                case AZ::RHI::Format::BC1_UNORM:
+                    {
+                        auto actualMem = reinterpret_cast<const BC1Block*>(mem);
+                        return actualMem[indices.first].GetBlockColor(indices.second);
+                    }
+                case AZ::RHI::Format::BC1_UNORM_SRGB:
+                    {
+                        auto actualMem = reinterpret_cast<const BC1Block*>(mem);
+                        AZ::Color color = actualMem[indices.first].GetBlockColor(indices.second);
+                        return AZ::Color(
+                            s_SrgbGammaToLinearLookupTable[aznumeric_cast<uint8_t>(color.GetR() * AZStd::numeric_limits<AZ::u8>::max())],
+                            s_SrgbGammaToLinearLookupTable[aznumeric_cast<uint8_t>(color.GetG() * AZStd::numeric_limits<AZ::u8>::max())],
+                            s_SrgbGammaToLinearLookupTable[aznumeric_cast<uint8_t>(color.GetB() * AZStd::numeric_limits<AZ::u8>::max())],
+                            s_SrgbGammaToLinearLookupTable[aznumeric_cast<uint8_t>(color.GetA() * AZStd::numeric_limits<AZ::u8>::max())]);
+                    }
+                default:
+                    AZ_Assert(false, "Unsupported pixel format: %s", AZ::RHI::ToString(format));
+                    return AZ::Color::CreateZero();
                 }
             }
 
@@ -663,6 +897,18 @@ namespace AZ
             }
 
             return false;
+        }
+
+        template<>
+        AZ::Color GetImageDataPixelValue<AZ::Color>(
+            AZStd::span<const uint8_t> imageData,
+            const AZ::RHI::ImageDescriptor& imageDescriptor,
+            uint32_t x,
+            uint32_t y,
+            [[maybe_unused]] uint32_t componentIndex)
+        {
+            auto imageDataIndices = Internal::GetImageDataIndex(imageDescriptor, x, y);
+            return Internal::RetrieveColorValue(imageData.data(), imageDataIndices, imageDescriptor.m_format);
         }
 
         template<>

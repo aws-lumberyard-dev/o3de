@@ -350,13 +350,7 @@ namespace Terrain
                     {
                         for (uint32_t x = 0; x < width; x++)
                         {
-                            AZ::Color pixel;
-
-                            for (uint8_t channel = 0; channel < numComponents; channel++)
-                            {
-                                float pixelValue = AZ::RPI::GetImageDataPixelValue<float>(imageData, imageDescriptor, x, y, channel);
-                                pixel.SetElement(channel, pixelValue);
-                            }
+                            AZ::Color pixel = AZ::RPI::GetImageDataPixelValue<AZ::Color>(imageData, imageDescriptor, x, y);
                             pixels.push_back(pixel);
                         }
                     }
@@ -435,14 +429,7 @@ namespace Terrain
             {
                 for (uint32_t x = 0; x < width; x++)
                 {
-                    float r = AZ::RPI::GetImageDataPixelValue<float>(
-                        imageData, imageDescriptor, x, y, aznumeric_cast<AZ::u8>(0));
-                    float g = AZ::RPI::GetImageDataPixelValue<float>(
-                        imageData, imageDescriptor, x, y, aznumeric_cast<AZ::u8>(1));
-                    float b = AZ::RPI::GetImageDataPixelValue<float>(
-                        imageData, imageDescriptor, x, y, aznumeric_cast<AZ::u8>(2));
-                    AZ::Color pixel(r, g, b, 1.0f);
-
+                    AZ::Color pixel = AZ::RPI::GetImageDataPixelValue<AZ::Color>(imageData, imageDescriptor, x, y);
                     m_modifiedImageData.emplace_back(pixel.ToU32());
                 }
             }
@@ -464,21 +451,9 @@ namespace Terrain
                 AZ::RPI::AttachmentImage::Create(*imagePool.get(), modifiedImageDescriptor, ModificationImageName, nullptr, nullptr);
             AZ_Error("Terrain", m_colorImage, "Failed to initialize the modification image buffer.");
 
-            const uint32_t BytesPerPixel = 4;
-            AZ::RHI::ImageUpdateRequest imageUpdateRequest;
-            imageUpdateRequest.m_imageSubresourcePixelOffset.m_left = 0;
-            imageUpdateRequest.m_imageSubresourcePixelOffset.m_top = 0;
-            imageUpdateRequest.m_sourceSubresourceLayout.m_bytesPerRow = width * BytesPerPixel;
-            imageUpdateRequest.m_sourceSubresourceLayout.m_bytesPerImage = width * height * BytesPerPixel;
-            imageUpdateRequest.m_sourceSubresourceLayout.m_rowCount = height;
-            imageUpdateRequest.m_sourceSubresourceLayout.m_size.m_width = width;
-            imageUpdateRequest.m_sourceSubresourceLayout.m_size.m_height = height;
-            imageUpdateRequest.m_sourceSubresourceLayout.m_size.m_depth = 1;
-            imageUpdateRequest.m_sourceData = m_modifiedImageData.data();
-            imageUpdateRequest.m_image = m_colorImage->GetRHIImage();
-            m_colorImage->UpdateImageContents(imageUpdateRequest);
+            UpdateMacroMaterialTexture(0, 0, width - 1, height - 1);
 
-        // Notify that the material has changed.
+            // Notify that the material has changed.
             MacroMaterialData material = GetTerrainMacroMaterialData();
             TerrainMacroMaterialNotificationBus::Broadcast(
                 &TerrainMacroMaterialNotificationBus::Events::OnTerrainMacroMaterialChanged, GetEntityId(), material);
@@ -505,6 +480,71 @@ namespace Terrain
         SetPixelValuesByPosition(AZStd::span<const AZ::Vector3>(&position, 1), AZStd::span<AZ::Color>(&value, 1));
     }
 
+    void TerrainMacroMaterialComponent::UpdateMacroMaterialTexture(
+        uint32_t leftPixel, uint32_t topPixel, uint32_t rightPixel, uint32_t bottomPixel)
+    {
+        // 0-pixel row or 0-pixel column means nothing to update.
+        if ((bottomPixel <= topPixel) || (rightPixel <= leftPixel))
+        {
+            return;
+        }
+
+
+        const AZ::RHI::ImageDescriptor& imageDescriptor = m_colorImage->GetDescriptor();
+
+        const auto& imageWidth = imageDescriptor.m_size.m_width;
+        const auto& imageHeight = imageDescriptor.m_size.m_height;
+
+        // By default, we'll update the entire image from our modification buffer.
+        uint32_t updateLeftPixel = 0;
+        uint32_t updateTopPixel = 0;
+        uint32_t updateWidth = imageWidth;
+        uint32_t updateHeight = imageHeight;
+        void* sourceData = m_modifiedImageData.data();
+
+        uint32_t modifiedWidth = rightPixel - leftPixel + 1;
+        uint32_t modifiedHeight = bottomPixel - topPixel + 1;
+
+        AZStd::vector<uint32_t> tempBuffer;
+
+        // If less than 50% of the total pixels have changed, we'll create a temporary buffer and only upload the portion
+        // of the image that changed. At some point the overhead of creating the temporary buffer outweighs the cost of just
+        // reuploading the entire image.
+        constexpr float TotalPixelsChangedPercent = 0.50f;
+        if (((modifiedWidth * modifiedHeight) / (imageWidth * imageHeight)) <= TotalPixelsChangedPercent)
+        {
+            updateLeftPixel = leftPixel;
+            updateTopPixel = topPixel;
+            updateWidth = modifiedWidth;
+            updateHeight = modifiedHeight;
+
+            tempBuffer.resize_no_construct(updateWidth * updateHeight);
+            for (uint32_t y = 0; y < updateHeight; y++)
+            {
+                memcpy(
+                    &tempBuffer[(y * updateWidth)],
+                    &m_modifiedImageData[((y + topPixel) * imageWidth) + leftPixel],
+                    updateWidth * sizeof(uint32_t));
+            }
+
+            sourceData = tempBuffer.data();
+        }
+
+        const uint32_t BytesPerPixel = 4;
+        AZ::RHI::ImageUpdateRequest imageUpdateRequest;
+        imageUpdateRequest.m_imageSubresourcePixelOffset.m_left = updateLeftPixel;
+        imageUpdateRequest.m_imageSubresourcePixelOffset.m_top = updateTopPixel;
+        imageUpdateRequest.m_sourceSubresourceLayout.m_bytesPerRow = updateWidth * BytesPerPixel;
+        imageUpdateRequest.m_sourceSubresourceLayout.m_bytesPerImage = updateWidth * updateHeight * BytesPerPixel;
+        imageUpdateRequest.m_sourceSubresourceLayout.m_rowCount = updateHeight;
+        imageUpdateRequest.m_sourceSubresourceLayout.m_size.m_width = updateWidth;
+        imageUpdateRequest.m_sourceSubresourceLayout.m_size.m_height = updateHeight;
+        imageUpdateRequest.m_sourceSubresourceLayout.m_size.m_depth = 1;
+        imageUpdateRequest.m_sourceData = sourceData;
+        imageUpdateRequest.m_image = m_colorImage->GetRHIImage();
+        m_colorImage->UpdateImageContents(imageUpdateRequest);
+    }
+
     void TerrainMacroMaterialComponent::SetPixelValuesByPosition(AZStd::span<const AZ::Vector3> positions, AZStd::span<const AZ::Color> values)
     {
         if (m_modifiedImageData.empty())
@@ -524,6 +564,11 @@ namespace Terrain
             return;
         }
 
+        uint32_t topPixel = height;
+        uint32_t bottomPixel = 0;
+        uint32_t leftPixel = width;
+        uint32_t rightPixel = 0;
+
         for (size_t index = 0; index < positions.size(); index++)
         {
             auto pixelX = AZ::Lerp(
@@ -542,23 +587,16 @@ namespace Terrain
             // Flip the y because images are stored in reverse of our world axes
             y = (height - 1) - y;
 
+            topPixel = AZStd::min(topPixel, y);
+            bottomPixel = AZStd::max(bottomPixel, y);
+            leftPixel = AZStd::min(leftPixel, x);
+            rightPixel = AZStd::max(rightPixel, x);
+
             // Modify the correct pixel in our modification buffer.
             m_modifiedImageData[(y * width) + x] = values[index].ToU32();
         }
 
-        const uint32_t BytesPerPixel = 4;
-        AZ::RHI::ImageUpdateRequest imageUpdateRequest;
-        imageUpdateRequest.m_imageSubresourcePixelOffset.m_left = 0;
-        imageUpdateRequest.m_imageSubresourcePixelOffset.m_top = 0;
-        imageUpdateRequest.m_sourceSubresourceLayout.m_bytesPerRow = width * BytesPerPixel;
-        imageUpdateRequest.m_sourceSubresourceLayout.m_bytesPerImage = width * height * BytesPerPixel;
-        imageUpdateRequest.m_sourceSubresourceLayout.m_rowCount = height;
-        imageUpdateRequest.m_sourceSubresourceLayout.m_size.m_width = width;
-        imageUpdateRequest.m_sourceSubresourceLayout.m_size.m_height = height;
-        imageUpdateRequest.m_sourceSubresourceLayout.m_size.m_depth = 1;
-        imageUpdateRequest.m_sourceData = m_modifiedImageData.data();
-        imageUpdateRequest.m_image = m_colorImage->GetRHIImage();
-        m_colorImage->UpdateImageContents(imageUpdateRequest);
+        UpdateMacroMaterialTexture(leftPixel, topPixel, rightPixel, bottomPixel);
     }
 
     void TerrainMacroMaterialComponent::GetPixelIndicesForPositions(
@@ -640,6 +678,11 @@ namespace Terrain
             return;
         }
 
+        uint32_t topPixel = height;
+        uint32_t bottomPixel = 0;
+        uint32_t leftPixel = width;
+        uint32_t rightPixel = 0;
+
         for (size_t index = 0; index < positions.size(); index++)
         {
             const auto& [x, y] = positions[index];
@@ -648,22 +691,15 @@ namespace Terrain
             {
                 // Modify the correct pixel in our modification buffer.
                 m_modifiedImageData[(y * width) + x] = values[index].ToU32();
+
+                topPixel = AZStd::min(topPixel, aznumeric_cast<uint32_t>(y));
+                bottomPixel = AZStd::max(bottomPixel, aznumeric_cast<uint32_t>(y));
+                leftPixel = AZStd::min(leftPixel, aznumeric_cast<uint32_t>(x));
+                rightPixel = AZStd::max(rightPixel, aznumeric_cast<uint32_t>(x));
             }
         }
 
-        const uint32_t BytesPerPixel = 4;
-        AZ::RHI::ImageUpdateRequest imageUpdateRequest;
-        imageUpdateRequest.m_imageSubresourcePixelOffset.m_left = 0;
-        imageUpdateRequest.m_imageSubresourcePixelOffset.m_top = 0;
-        imageUpdateRequest.m_sourceSubresourceLayout.m_bytesPerRow = width * BytesPerPixel;
-        imageUpdateRequest.m_sourceSubresourceLayout.m_bytesPerImage = width * height * BytesPerPixel;
-        imageUpdateRequest.m_sourceSubresourceLayout.m_rowCount = height;
-        imageUpdateRequest.m_sourceSubresourceLayout.m_size.m_width = width;
-        imageUpdateRequest.m_sourceSubresourceLayout.m_size.m_height = height;
-        imageUpdateRequest.m_sourceSubresourceLayout.m_size.m_depth = 1;
-        imageUpdateRequest.m_sourceData = m_modifiedImageData.data();
-        imageUpdateRequest.m_image = m_colorImage->GetRHIImage();
-        m_colorImage->UpdateImageContents(imageUpdateRequest);
+        UpdateMacroMaterialTexture(leftPixel, topPixel, rightPixel, bottomPixel);
     }
 
 
