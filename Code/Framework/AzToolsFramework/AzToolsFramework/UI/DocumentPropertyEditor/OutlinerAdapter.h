@@ -70,5 +70,6 @@ namespace AZ::DocumentPropertyEditor
         };
 
         AZStd::unique_ptr<OutlinerNode> m_rootNode;
+        AZStd::unordered_map<EntityId, OutlinerNode*> m_entityNodeCache;
     };
 }
