@@ -82,6 +82,8 @@ namespace Terrain
                 ->Version(1)
                 ->Field("Color Variation Gradient", &TerrainGradientMacroMaterialConfig::m_variationEntityId)
                 ->Field("Image Resolution", &TerrainGradientMacroMaterialConfig::m_imageResolution)
+                ->Field("Base Color 1", &TerrainGradientMacroMaterialConfig::m_baseColor1)
+                ->Field("Base Color 2", &TerrainGradientMacroMaterialConfig::m_baseColor2)
                 ->Field("Gradient Color Mappings", &TerrainGradientMacroMaterialConfig::m_gradientColorMappings)
                 ;
 
@@ -104,6 +106,18 @@ namespace Terrain
                     ->DataElement(
                         AZ::Edit::UIHandlers::Default, &TerrainGradientMacroMaterialConfig::m_imageResolution,
                         "Image Resolution", "Number of pixels in the generated image.")
+                    ->DataElement(
+                        AZ::Edit::UIHandlers::Default,
+                        &TerrainGradientMacroMaterialConfig::m_baseColor1,
+                        "Default Color 1",
+                        "First color to use in the blend.")
+                    ->Attribute(AZ::Edit::Attributes::ChangeNotify, AZ::Edit::PropertyRefreshLevels::AttributesAndValues)
+                    ->DataElement(
+                        AZ::Edit::UIHandlers::Default,
+                        &TerrainGradientMacroMaterialConfig::m_baseColor2,
+                        "Default Color 2",
+                        "Second color to use in the blend.")
+                    ->Attribute(AZ::Edit::Attributes::ChangeNotify, AZ::Edit::PropertyRefreshLevels::AttributesAndValues)
                     ->DataElement(
                         AZ::Edit::UIHandlers::Default, &TerrainGradientMacroMaterialConfig::m_gradientColorMappings,
                         "Gradient Color Mappings", "Mappings of colors, strengths, and blends.")
@@ -392,6 +406,17 @@ namespace Terrain
                     m_configuration.m_variationEntityId, &GradientSignal::GradientRequestBus::Events::GetValues, gradientQueryPositions,
                     variationValues);
 
+                for (uint32_t index = 0; index < m_cachedPixels.size(); index++)
+                {
+                    uint32_t& srcPixel = m_cachedPixels[index];
+                    AZ::Color pixel;
+                    pixel.FromU32(srcPixel);
+
+                    // Create our default color variation and store it in our cached pixel buffer.
+                    AZ::Color destPixel = m_configuration.m_baseColor1;
+                    srcPixel = destPixel.Lerp(m_configuration.m_baseColor2, variationValues[index]).ToU32();
+                }
+
                 AZStd::vector<float> maskValues(gradientQueryPositions.size());
 
                 for (auto& mapping : m_configuration.m_gradientColorMappings)
@@ -404,9 +429,8 @@ namespace Terrain
                         if (maskValues[index] > 0.0f)
                         {
                             uint32_t& srcPixel = m_cachedPixels[index];
-                            AZ::Color pixel(
-                                static_cast<AZ::u8>(srcPixel & 0xFF), static_cast<AZ::u8>((srcPixel >> 8) & 0xFF),
-                                static_cast<AZ::u8>((srcPixel >> 16) & 0xFF), static_cast<AZ::u8>((srcPixel >> 24) & 0xFF));
+                            AZ::Color pixel;
+                            pixel.FromU32(srcPixel);
 
                             // Create our color variation.
                             AZ::Color destPixel = mapping.m_color1;
@@ -416,7 +440,7 @@ namespace Terrain
                             pixel = pixel.Lerp(destPixel, maskValues[index]);
 
                             // Write it back into our cached buffer as a uint32
-                            srcPixel = pixel.GetR8() | (pixel.GetG8() << 8) | (pixel.GetB8() << 16) | (0xFF << 24);
+                            srcPixel = pixel.ToU32();
                         }
                     }
                 }

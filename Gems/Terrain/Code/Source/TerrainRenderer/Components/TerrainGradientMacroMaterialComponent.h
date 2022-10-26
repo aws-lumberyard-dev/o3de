@@ -59,6 +59,8 @@ namespace Terrain
 
         AZ::Vector2 m_imageResolution;
         AZ::EntityId m_variationEntityId;
+        AZ::Color m_baseColor1;
+        AZ::Color m_baseColor2;
         AZStd::vector<TerrainGradientColorMapping> m_gradientColorMappings;
     };
 
