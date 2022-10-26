@@ -89,6 +89,9 @@ namespace Terrain
         void SetPixelValueByPixelIndex(const PixelIndex& position, AZ::Color value) override;
         void SetPixelValuesByPixelIndex(AZStd::span<const PixelIndex> positions, AZStd::span<const AZ::Color> values) override;
 
+        void StartPixelModifications() override;
+        void EndPixelModifications() override;
+
         AZStd::vector<uint32_t>* GetImageModificationBuffer();
 
     protected:
@@ -118,5 +121,12 @@ namespace Terrain
 
         //! Temporary buffer for runtime modifications of the image data.
         AZStd::vector<uint32_t> m_modifiedImageData;
+
+        //! Temporary values for tracking the range of pixels changed during pixel modifications.
+        uint32_t m_topPixel;
+        uint32_t m_bottomPixel;
+        uint32_t m_leftPixel;
+        uint32_t m_rightPixel;
+        bool m_modifyingPixels = false;
     };
 }

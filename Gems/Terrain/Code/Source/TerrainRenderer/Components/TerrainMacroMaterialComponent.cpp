@@ -394,6 +394,28 @@ namespace Terrain
         m_configuration.m_imageModificationActive = false;
     }
 
+    void TerrainMacroMaterialComponent::StartPixelModifications()
+    {
+        AZ_Assert(!m_modifyingPixels, "Called StartPixelModifications twice without calling EndPixelModifications");
+        m_modifyingPixels = true;
+
+        // We'll use these to track the subregion of pixels that have been modified.
+        m_leftPixel = AZStd::numeric_limits<uint32_t>::max();
+        m_topPixel = AZStd::numeric_limits<uint32_t>::max();
+        m_rightPixel = 0;
+        m_bottomPixel = 0;
+    }
+
+    void TerrainMacroMaterialComponent::EndPixelModifications()
+    {
+        if (m_modifyingPixels)
+        {
+            UpdateMacroMaterialTexture(m_leftPixel, m_topPixel, m_rightPixel, m_bottomPixel);
+        }
+
+        m_modifyingPixels = false;
+    }
+
     AZStd::vector<uint32_t>* TerrainMacroMaterialComponent::GetImageModificationBuffer()
     {
         // This will get replaced with safe/robust methods of modifying the image as paintbrush functionality
@@ -564,11 +586,6 @@ namespace Terrain
             return;
         }
 
-        uint32_t topPixel = height;
-        uint32_t bottomPixel = 0;
-        uint32_t leftPixel = width;
-        uint32_t rightPixel = 0;
-
         for (size_t index = 0; index < positions.size(); index++)
         {
             auto pixelX = AZ::Lerp(
@@ -587,16 +604,14 @@ namespace Terrain
             // Flip the y because images are stored in reverse of our world axes
             y = (height - 1) - y;
 
-            topPixel = AZStd::min(topPixel, y);
-            bottomPixel = AZStd::max(bottomPixel, y);
-            leftPixel = AZStd::min(leftPixel, x);
-            rightPixel = AZStd::max(rightPixel, x);
+            m_topPixel = AZStd::min(m_topPixel, y);
+            m_bottomPixel = AZStd::max(m_bottomPixel, y);
+            m_leftPixel = AZStd::min(m_leftPixel, x);
+            m_rightPixel = AZStd::max(m_rightPixel, x);
 
             // Modify the correct pixel in our modification buffer.
             m_modifiedImageData[(y * width) + x] = values[index].ToU32();
         }
-
-        UpdateMacroMaterialTexture(leftPixel, topPixel, rightPixel, bottomPixel);
     }
 
     void TerrainMacroMaterialComponent::GetPixelIndicesForPositions(
@@ -678,11 +693,6 @@ namespace Terrain
             return;
         }
 
-        uint32_t topPixel = height;
-        uint32_t bottomPixel = 0;
-        uint32_t leftPixel = width;
-        uint32_t rightPixel = 0;
-
         for (size_t index = 0; index < positions.size(); index++)
         {
             const auto& [x, y] = positions[index];
@@ -692,14 +702,12 @@ namespace Terrain
                 // Modify the correct pixel in our modification buffer.
                 m_modifiedImageData[(y * width) + x] = values[index].ToU32();
 
-                topPixel = AZStd::min(topPixel, aznumeric_cast<uint32_t>(y));
-                bottomPixel = AZStd::max(bottomPixel, aznumeric_cast<uint32_t>(y));
-                leftPixel = AZStd::min(leftPixel, aznumeric_cast<uint32_t>(x));
-                rightPixel = AZStd::max(rightPixel, aznumeric_cast<uint32_t>(x));
+                m_topPixel = AZStd::min(m_topPixel, aznumeric_cast<uint32_t>(y));
+                m_bottomPixel = AZStd::max(m_bottomPixel, aznumeric_cast<uint32_t>(y));
+                m_leftPixel = AZStd::min(m_leftPixel, aznumeric_cast<uint32_t>(x));
+                m_rightPixel = AZStd::max(m_rightPixel, aznumeric_cast<uint32_t>(x));
             }
         }
-
-        UpdateMacroMaterialTexture(leftPixel, topPixel, rightPixel, bottomPixel);
     }
 
 

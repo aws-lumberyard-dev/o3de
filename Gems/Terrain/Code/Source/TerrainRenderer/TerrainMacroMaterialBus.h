@@ -138,6 +138,14 @@ namespace Terrain
         //! @param outValues [out] The list of output values. This list is expected to be the same size as the positions list.
         virtual void GetPixelValuesByPixelIndex(AZStd::span<const PixelIndex> indices, AZStd::span<AZ::Color> outValues) const = 0;
 
+        //! Start a series of pixel modifications.
+        //! This will track all of the pixels modified so that they can be updated once at the end.
+        virtual void StartPixelModifications() = 0;
+
+        //! End a series of pixel modifications.
+        //! This will notify that the series of pixel modifications have neded, so buffer refreshes can now happen.
+        virtual void EndPixelModifications() = 0;
+
         //! Set the value at the given world position.
         //! @param position The world position to set the value at.
         //! @param value The value to set it to.

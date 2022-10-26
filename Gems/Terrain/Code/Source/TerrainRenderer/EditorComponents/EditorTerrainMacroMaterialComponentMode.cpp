@@ -88,6 +88,9 @@ namespace Terrain
         {
             AZStd::array<PixelIndex, ImageTileSize * ImageTileSize> pixelIndices;
 
+            TerrainMacroMaterialModificationBus::Event(
+                m_imageGradientEntityId, &TerrainMacroMaterialModificationBus::Events::StartPixelModifications);
+
             for (int32_t tileIndex = 0; tileIndex < m_paintedImageTiles.size(); tileIndex++)
             {
                 // If we never created this tile, skip it and move on.
@@ -117,6 +120,9 @@ namespace Terrain
                     pixelIndices,
                     undo ? m_paintedImageTiles[tileIndex]->m_unmodifiedData : m_paintedImageTiles[tileIndex]->m_modifiedData);
             }
+
+            TerrainMacroMaterialModificationBus::Event(
+                m_imageGradientEntityId, &TerrainMacroMaterialModificationBus::Events::EndPixelModifications);
         }
 
     private:
@@ -500,10 +506,12 @@ namespace Terrain
         }
 
         // Modify the image gradient with all of the changed values
+        TerrainMacroMaterialModificationBus::Event(GetEntityId(), &TerrainMacroMaterialModificationBus::Events::StartPixelModifications);
         TerrainMacroMaterialModificationBus::Event(
             GetEntityId(), &TerrainMacroMaterialModificationBus::Events::SetPixelValuesByPixelIndex,
             pixelIndices,
             paintedValues);
+        TerrainMacroMaterialModificationBus::Event(GetEntityId(), &TerrainMacroMaterialModificationBus::Events::EndPixelModifications);
 
         // Because Image Gradients support bilinear filtering, we need to expand our dirty area by an extra pixel in each direction
         // so that the effects of the painted values on adjacent pixels are taken into account when refreshing.
