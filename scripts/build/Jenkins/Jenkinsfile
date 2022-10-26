@@ -677,7 +677,11 @@ def CreateUploadBuildArtifactsStage(Map pipelineConfig, String workspace, String
                 ]
             }
             dir("${workspace}/s3sis") {
-                palSh("sudo python3 setup.py install", "Installing S3SIS")
+                if (env.IS_UNIX) {
+                    palSh("sudo python3 setup.py install", "Installing S3SIS")
+                } else {
+                    palSh("python3 setup.py install", "Installing S3SIS")
+                }
                 palSh("s3siscli configure", "Configuring S3SIS")
                 palSh("s3siscli upload --label test_o3de_s3sis_${job_name} -w ${workspace}/${ENGINE_REPOSITORY_NAME}/build", "Uploading artifacts")
             }
