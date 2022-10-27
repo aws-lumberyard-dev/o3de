@@ -148,23 +148,52 @@ namespace GradientSignal
         }
 
         m_configuration.m_gradientSampler.GetValues(positions, outValues);
+
+        // The following constants reduce the number of calculations per-value, but also make the math a bit harder to read.
+        // This is a generalization of the formula "1 - abs(2 * value - 1)", which scales our input gradient from [0, 1] 
+        // to [-1, 1], mirrors the bottom half of the range via the abs value, and then inverts the results. This formula creates
+        // sharp "ridges" by forcing peaks at 1.
+        // The generalized version gives us:
+        // - customized mirror cutoff point so that we can have asymmetric scaling and peaking
+        // - customized min/max range values so that the scaling on each side of the mirror point can be controlled even further
+        // - optional inversion so that it can produce valleys at 0 instead of peaks at 1
+
+        // The constants combine the initial scaling equations and the optional inversion together.
+        // The basic formulas are:
+        //      (mirror - value) / (mirror - min)           value < mirror, no inversion
+        //      (value - mirror) / (max - mirror)           value >= mirror, no inversion
+        //      1 - (mirror - value) / (mirror - min)       value < mirror, inversion
+        //      1 - (value - mirror) / (max - mirror)       value >= mirror, inversion
+        // To minimize the per-value computation, we rearrange the formulas into this:
+        //      0 + (1 / (mirror - min)) * (mirror - value)     value < mirror, no inversion
+        //      0 + (1 / (max - mirror)) * (value - mirror)     value >= mirror, no inversion
+        //      1 + (-1 / (mirror - min)) * (mirror - value)    value < mirror, inversion
+        //      1 + (-1 / (max - mirror)) * (value - mirror)    value >= mirror, inversion
+
+        const float invertAdder = (m_configuration.m_invertResults) ? 1.0f : 0.0f;
+        const float invertMultiplier = (m_configuration.m_invertResults) ? -1.0f : 1.0f;
+
+        const float belowMirrorPointReciprocal = (m_configuration.m_mirrorPoint == m_configuration.m_minValue)
+            ? 0.0f
+            : invertMultiplier / (m_configuration.m_mirrorPoint - m_configuration.m_minValue);
+
+        const float aboveMirrorPointReciprocal = (m_configuration.m_mirrorPoint == m_configuration.m_maxValue)
+            ? 0.0f
+            : invertMultiplier / (m_configuration.m_maxValue - m_configuration.m_mirrorPoint);
+
+
         for (auto& outValue : outValues)
         {
             if (outValue < m_configuration.m_mirrorPoint)
             {
-                outValue = (m_configuration.m_mirrorPoint - outValue) / (m_configuration.m_mirrorPoint - m_configuration.m_minValue);
+                outValue = invertAdder + ((m_configuration.m_mirrorPoint - outValue) * belowMirrorPointReciprocal);
             }
             else
             {
-                outValue = (outValue - m_configuration.m_mirrorPoint) / (m_configuration.m_maxValue - m_configuration.m_mirrorPoint);
+                outValue = invertAdder + ((outValue - m_configuration.m_mirrorPoint) * aboveMirrorPointReciprocal);
             }
 
             outValue = AZStd::clamp(outValue, 0.0f, 1.0f);
-
-            if (m_configuration.m_invertResults)
-            {
-                outValue = 1.0f - outValue;
-            }
         }
     }
 
