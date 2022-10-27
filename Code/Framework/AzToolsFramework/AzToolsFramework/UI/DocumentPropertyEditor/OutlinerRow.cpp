@@ -7,7 +7,7 @@
  */
 
 #include "OutlinerRow.h"
-
+#include <Entity/EditorEntityHelpers.h>
 
 namespace AzQtComponents
 {
@@ -15,5 +15,17 @@ namespace AzQtComponents
         : QWidget(parent)
     {
         setupUi(this);
+        QObject::connect(m_visibilityButton, &QCheckBox::toggled, this, &OutlinerRow::onVisibilityToggled);
+        QObject::connect(m_lockButton, &QCheckBox::toggled, this, &OutlinerRow::onLockedToggled);
+    }
+
+    void OutlinerRow::onVisibilityToggled(bool checked)
+    {
+        AzToolsFramework::SetEntityVisibility(m_entityId, !checked);
+    }
+
+    void OutlinerRow::onLockedToggled(bool checked)
+    {
+        AzToolsFramework::SetEntityLockState(m_entityId, checked);
     }
 } // namespace AzQtComponents

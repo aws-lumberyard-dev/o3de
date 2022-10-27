@@ -7,6 +7,8 @@
  */
 #pragma once
 
+#include <AzCore/Component/EntityId.h>
+
 #include "AzToolsFramework/UI/DocumentPropertyEditor/ui_OutlinerRow.h"
 
 namespace AzQtComponents
@@ -18,5 +20,12 @@ namespace AzQtComponents
         Q_OBJECT
     public:
         OutlinerRow(QWidget* parent);
+
+    protected slots:
+        void onVisibilityToggled(bool checked);
+        void onLockedToggled(bool checked);
+
+    protected:
+        AZ::EntityId m_entityId;
     };
 } // namespace AzQtComponents

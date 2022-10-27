@@ -13,6 +13,9 @@
   <property name="windowTitle">
    <string>Form</string>
   </property>
+  <property name="styleSheet">
+   <string notr="true"/>
+  </property>
   <layout class="QHBoxLayout" name="horizontalLayout">
    <item>
     <widget class="QLabel" name="m_icon">
@@ -23,6 +26,12 @@
    </item>
    <item>
     <widget class="AzQtComponents::ElidingLabel" name="m_name">
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
      <property name="text">
       <string>TextLabel</string>
      </property>
@@ -42,7 +51,7 @@
     </spacer>
    </item>
    <item>
-    <widget class="QCheckBox" name="m_showHideButton">
+    <widget class="QCheckBox" name="m_visibilityButton">
      <property name="text">
       <string>PushButton</string>
      </property>

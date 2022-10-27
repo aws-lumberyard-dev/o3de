@@ -21,6 +21,7 @@ namespace AzToolsFramework
     {
     public:
         OutlinerDPE(QWidget* parentWidget = nullptr);
+        static void RegisterViewClass();
 
     protected:
         AZStd::shared_ptr<AZ::DocumentPropertyEditor::OutlinerAdapter> m_outlinerAdapter;

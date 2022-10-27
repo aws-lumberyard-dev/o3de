@@ -58,6 +58,7 @@ namespace AZ::DocumentPropertyEditor
                 newChild->m_visible = AzToolsFramework::IsEntitySetToBeVisible(childId);
                 newChild->m_locked = AzToolsFramework::IsEntityLocked(childId);
                 newChild->m_name = AzToolsFramework::GetEntityName(childId);
+                newChild->m_entityId = childId;
                 newChild->m_parent = &parentNode;
                 populateChildren(*newChild, childId);
                 m_entityNodeCache[childId] = newChild;
@@ -85,9 +86,10 @@ namespace AZ::DocumentPropertyEditor
             {
                 builder.BeginRow();
                 builder.BeginPropertyEditor<Nodes::OutlinerRow>(Dom::Value());
-                builder.Attribute(Nodes::OutlinerRow::EntityName, currChild->m_name);
+                builder.Attribute(Nodes::OutlinerRow::Value, currChild->m_name);
                 builder.Attribute(Nodes::OutlinerRow::Visible, currChild->m_visible);
                 builder.Attribute(Nodes::OutlinerRow::Locked, currChild->m_locked);
+                builder.Attribute(Nodes::OutlinerRow::EntityId, AZ::u64(currChild->m_entityId));
                 builder.EndPropertyEditor();
                 generateChildren(currChild.get());
                 builder.EndRow();
@@ -153,9 +155,9 @@ namespace AZ::DocumentPropertyEditor
             return;
         }
 
-        OutlinerNode* parentNode = m_entityNodeCache[parentId];
-        parentNode->m_children.emplace_back(AZStd::make_unique<OutlinerNode>());
-        OutlinerNode* newChild = parentNode->m_children.back().get();
+        OutlinerNode* newParentNode = m_entityNodeCache[parentId];
+        newParentNode->m_children.emplace_back(AZStd::make_unique<OutlinerNode>());
+        OutlinerNode* newChild = newParentNode->m_children.back().get();
 
         // If this is the first time we're hearing of this entity then cache it
         if (!m_entityNodeCache.contains(childId))
@@ -163,16 +165,20 @@ namespace AZ::DocumentPropertyEditor
             newChild->m_visible = AzToolsFramework::IsEntitySetToBeVisible(childId);
             newChild->m_locked = AzToolsFramework::IsEntityLocked(childId);
             newChild->m_name = AzToolsFramework::GetEntityName(childId);
+            newChild->m_entityId = childId;
+            newChild->m_parent = newParentNode;
             m_entityNodeCache[childId] = newChild;
         }
         else // This must be a node the Outliner already knew about so we need to move it
         {
             OutlinerNode* childNode = m_entityNodeCache[childId];
+            OutlinerNode* oldParentNode = childNode->m_parent;
+
             newChild->m_visible = childNode->m_visible;
             newChild->m_locked = childNode->m_locked;
             newChild->m_name = childNode->m_name;
+            //newChild->m_parent = newParentNode;
 
-            OutlinerNode* oldParentNode = childNode->m_parent;
             if (oldParentNode)
             {
                 for (auto iter = oldParentNode->m_children.begin(); iter != oldParentNode->m_children.end(); ++iter)
@@ -251,7 +257,7 @@ namespace AZ::DocumentPropertyEditor
     
     void OutlinerAdapter::OnEntityInfoUpdatedLocked(AZ::EntityId entityId, bool locked)
     {
-        if (m_entityNodeCache[entityId])
+        if (m_entityNodeCache[entityId] && m_entityNodeCache[entityId]->m_locked != locked)
         {
             m_entityNodeCache[entityId]->m_locked = locked;
             NotifyResetDocument();
@@ -264,7 +270,7 @@ namespace AZ::DocumentPropertyEditor
     
     void OutlinerAdapter::OnEntityInfoUpdatedVisibility(AZ::EntityId entityId, bool visible)
     {
-        if (m_entityNodeCache[entityId])
+        if (m_entityNodeCache[entityId] && m_entityNodeCache[entityId]->m_visible != visible)
         {
             m_entityNodeCache[entityId]->m_visible = visible;
             NotifyResetDocument();

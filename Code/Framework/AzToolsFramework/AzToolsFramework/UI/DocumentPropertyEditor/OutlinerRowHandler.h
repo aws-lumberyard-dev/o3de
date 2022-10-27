@@ -19,7 +19,7 @@ namespace AzToolsFramework
     public:
         OutlinerRowHandler();
 
-        void SetValueFromDom(const AZ::Dom::Value& node);
+        void SetValueFromDom(const AZ::Dom::Value& node) override;
 
         static constexpr const AZStd::string_view GetHandlerName()
         {
