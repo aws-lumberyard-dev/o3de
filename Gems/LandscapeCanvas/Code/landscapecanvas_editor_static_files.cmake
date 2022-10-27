@@ -88,6 +88,8 @@ set(FILES
     Source/Editor/Nodes/GradientModifiers/BaseGradientModifierNode.h
     Source/Editor/Nodes/GradientModifiers/DitherGradientModifierNode.cpp
     Source/Editor/Nodes/GradientModifiers/DitherGradientModifierNode.h
+    Source/Editor/Nodes/GradientModifiers/GradientDerivativeModifierNode.cpp
+    Source/Editor/Nodes/GradientModifiers/GradientDerivativeModifierNode.h
     Source/Editor/Nodes/GradientModifiers/GradientMixerNode.cpp
     Source/Editor/Nodes/GradientModifiers/GradientMixerNode.h
     Source/Editor/Nodes/GradientModifiers/InvertGradientModifierNode.cpp

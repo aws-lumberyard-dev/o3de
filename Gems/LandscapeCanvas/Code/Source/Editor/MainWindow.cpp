@@ -93,6 +93,7 @@
 #include <Editor/Nodes/Gradients/SlopeGradientNode.h>
 #include <Editor/Nodes/Gradients/SurfaceMaskGradientNode.h>
 #include <Editor/Nodes/GradientModifiers/DitherGradientModifierNode.h>
+#include <Editor/Nodes/GradientModifiers/GradientDerivativeModifierNode.h>
 #include <Editor/Nodes/GradientModifiers/GradientMixerNode.h>
 #include <Editor/Nodes/GradientModifiers/InvertGradientModifierNode.h>
 #include <Editor/Nodes/GradientModifiers/LevelsGradientModifierNode.h>
@@ -354,6 +355,7 @@ namespace LandscapeCanvasEditor
         GraphCanvas::IconDecoratedNodePaletteTreeItem* gradientModifierCategory = rootItem->CreateChildNode<GraphCanvas::IconDecoratedNodePaletteTreeItem>("Gradient Modifiers", editorId);
         gradientModifierCategory->SetTitlePalette("GradientModifierNodeTitlePalette");
         REGISTER_NODE_PALETTE_ITEM(gradientModifierCategory, DitherGradientModifierNode, editorId);
+        REGISTER_NODE_PALETTE_ITEM(gradientModifierCategory, GradientDerivativeModifierNode, editorId);
         REGISTER_NODE_PALETTE_ITEM(gradientModifierCategory, GradientMixerNode, editorId);
         REGISTER_NODE_PALETTE_ITEM(gradientModifierCategory, InvertGradientModifierNode, editorId);
         REGISTER_NODE_PALETTE_ITEM(gradientModifierCategory, LevelsGradientModifierNode, editorId);

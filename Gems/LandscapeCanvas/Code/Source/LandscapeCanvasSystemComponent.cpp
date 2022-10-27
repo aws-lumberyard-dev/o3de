@@ -63,6 +63,7 @@
 #include <Editor/Nodes/Gradients/SurfaceMaskGradientNode.h>
 #include <Editor/Nodes/GradientModifiers/DitherGradientModifierNode.h>
 #include <Editor/Nodes/GradientModifiers/GradientMixerNode.h>
+#include <Editor/Nodes/GradientModifiers/GradientDerivativeModifierNode.h>
 #include <Editor/Nodes/GradientModifiers/InvertGradientModifierNode.h>
 #include <Editor/Nodes/GradientModifiers/LevelsGradientModifierNode.h>
 #include <Editor/Nodes/GradientModifiers/PosterizeGradientModifierNode.h>
@@ -187,6 +188,7 @@ namespace LandscapeCanvas
     /* Gradient modifier nodes */    \
     VISITOR_FUNCTION<DitherGradientModifierNode>(GradientSignal::EditorDitherGradientComponentTypeId, ##__VA_ARGS__);     \
     VISITOR_FUNCTION<GradientMixerNode>(GradientSignal::EditorMixedGradientComponentTypeId, ##__VA_ARGS__);     \
+    VISITOR_FUNCTION<GradientDerivativeModifierNode>(GradientSignal::EditorGradientDerivativeComponentTypeId, ##__VA_ARGS__);     \
     VISITOR_FUNCTION<InvertGradientModifierNode>(GradientSignal::EditorInvertGradientComponentTypeId, ##__VA_ARGS__);     \
     VISITOR_FUNCTION<LevelsGradientModifierNode>(GradientSignal::EditorLevelsGradientComponentTypeId, ##__VA_ARGS__);     \
     VISITOR_FUNCTION<PosterizeGradientModifierNode>(GradientSignal::EditorPosterizeGradientComponentTypeId, ##__VA_ARGS__);     \

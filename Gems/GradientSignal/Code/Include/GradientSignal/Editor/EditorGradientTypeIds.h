@@ -31,4 +31,5 @@ namespace GradientSignal
     inline constexpr AZ::TypeId EditorPosterizeGradientComponentTypeId { "{CC21E213-19B6-46D6-B774-40F20B0950D7}" };
     inline constexpr AZ::TypeId EditorSmoothStepGradientComponentTypeId { "{3CDEA65E-519A-468E-884E-3F047FD7791F}" };
     inline constexpr AZ::TypeId EditorThresholdGradientComponentTypeId { "{1AB9BC5A-8EE3-4527-87AD-7E34AC438879}" };
-}
+    inline constexpr AZ::TypeId EditorGradientDerivativeComponentTypeId{ "{6488E7FD-921F-451B-9B23-B8F94FA130B6}" };
+} // namespace GradientSignal

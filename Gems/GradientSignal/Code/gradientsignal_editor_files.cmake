@@ -24,6 +24,8 @@ set(FILES
     Source/Editor/EditorDitherGradientComponent.cpp
     Source/Editor/EditorDitherGradientComponent.h
     Source/Editor/EditorGradientBakerComponent.cpp
+    Source/Editor/EditorGradientDerivativeComponent.cpp
+    Source/Editor/EditorGradientDerivativeComponent.h
     Source/Editor/EditorGradientImageCreatorUtils.cpp
     Source/Editor/EditorGradientImageCreatorUtils.h
     Source/Editor/EditorGradientSurfaceDataComponent.cpp

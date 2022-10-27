@@ -27,6 +27,7 @@
 #include <GradientSignal/Components/GradientTransformComponent.h>
 #include <GradientSignal/Components/SurfaceMaskGradientComponent.h>
 #include <GradientSignal/Components/GradientSurfaceDataComponent.h>
+#include <GradientSignal/Components/GradientDerivativeComponent.h>
 
 namespace GradientSignal
 {
@@ -53,6 +54,7 @@ namespace GradientSignal
             GradientTransformComponent::CreateDescriptor(),
             SurfaceMaskGradientComponent::CreateDescriptor(),
             GradientSurfaceDataComponent::CreateDescriptor(),
+            GradientDerivativeComponent::CreateDescriptor(),
         });
     }
 

@@ -14,6 +14,7 @@ set(FILES
     Include/GradientSignal/Util.h
     Include/GradientSignal/Components/ConstantGradientComponent.h
     Include/GradientSignal/Components/DitherGradientComponent.h
+    Include/GradientSignal/Components/GradientDerivativeComponent.h
     Include/GradientSignal/Components/GradientSurfaceDataComponent.h
     Include/GradientSignal/Components/GradientTransformComponent.h
     Include/GradientSignal/Components/ImageGradientComponent.h
@@ -57,6 +58,7 @@ set(FILES
     Include/GradientSignal/Ebuses/SmoothStepRequestBus.h
     Source/Components/ConstantGradientComponent.cpp
     Source/Components/DitherGradientComponent.cpp
+    Source/Components/GradientDerivativeComponent.cpp
     Source/Components/GradientSurfaceDataComponent.cpp
     Source/Components/GradientTransformComponent.cpp
     Source/Components/ImageGradientComponent.cpp
