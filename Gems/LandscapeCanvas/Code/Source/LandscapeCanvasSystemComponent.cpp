@@ -67,6 +67,7 @@
 #include <Editor/Nodes/GradientModifiers/InvertGradientModifierNode.h>
 #include <Editor/Nodes/GradientModifiers/LevelsGradientModifierNode.h>
 #include <Editor/Nodes/GradientModifiers/PosterizeGradientModifierNode.h>
+#include <Editor/Nodes/GradientModifiers/RidgedGradientModifierNode.h>
 #include <Editor/Nodes/GradientModifiers/SmoothStepGradientModifierNode.h>
 #include <Editor/Nodes/GradientModifiers/ThresholdGradientModifierNode.h>
 #include <Editor/Nodes/Shapes/AxisAlignedBoxShapeNode.h>
@@ -192,6 +193,7 @@ namespace LandscapeCanvas
     VISITOR_FUNCTION<InvertGradientModifierNode>(GradientSignal::EditorInvertGradientComponentTypeId, ##__VA_ARGS__);     \
     VISITOR_FUNCTION<LevelsGradientModifierNode>(GradientSignal::EditorLevelsGradientComponentTypeId, ##__VA_ARGS__);     \
     VISITOR_FUNCTION<PosterizeGradientModifierNode>(GradientSignal::EditorPosterizeGradientComponentTypeId, ##__VA_ARGS__);     \
+    VISITOR_FUNCTION<RidgedGradientModifierNode>(GradientSignal::EditorRidgedGradientComponentTypeId, ##__VA_ARGS__);                \
     VISITOR_FUNCTION<SmoothStepGradientModifierNode>(GradientSignal::EditorSmoothStepGradientComponentTypeId, ##__VA_ARGS__);     \
     VISITOR_FUNCTION<ThresholdGradientModifierNode>(GradientSignal::EditorThresholdGradientComponentTypeId, ##__VA_ARGS__);     \
 

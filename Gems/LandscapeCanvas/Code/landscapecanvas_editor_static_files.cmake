@@ -98,6 +98,8 @@ set(FILES
     Source/Editor/Nodes/GradientModifiers/LevelsGradientModifierNode.h
     Source/Editor/Nodes/GradientModifiers/PosterizeGradientModifierNode.cpp
     Source/Editor/Nodes/GradientModifiers/PosterizeGradientModifierNode.h
+    Source/Editor/Nodes/GradientModifiers/RidgedGradientModifierNode.cpp
+    Source/Editor/Nodes/GradientModifiers/RidgedGradientModifierNode.h
     Source/Editor/Nodes/GradientModifiers/SmoothStepGradientModifierNode.cpp
     Source/Editor/Nodes/GradientModifiers/SmoothStepGradientModifierNode.h
     Source/Editor/Nodes/GradientModifiers/ThresholdGradientModifierNode.cpp

@@ -25,6 +25,7 @@ set(FILES
     Include/GradientSignal/Components/PosterizeGradientComponent.h
     Include/GradientSignal/Components/RandomGradientComponent.h
     Include/GradientSignal/Components/ReferenceGradientComponent.h
+    Include/GradientSignal/Components/RidgedGradientComponent.h
     Include/GradientSignal/Components/ShapeAreaFalloffGradientComponent.h
     Include/GradientSignal/Components/SmoothStepGradientComponent.h
     Include/GradientSignal/Components/SurfaceAltitudeGradientComponent.h
@@ -69,6 +70,7 @@ set(FILES
     Source/Components/PosterizeGradientComponent.cpp
     Source/Components/RandomGradientComponent.cpp
     Source/Components/ReferenceGradientComponent.cpp
+    Source/Components/RidgedGradientComponent.cpp
     Source/Components/ShapeAreaFalloffGradientComponent.cpp
     Source/Components/SmoothStepGradientComponent.cpp
     Source/Components/SurfaceAltitudeGradientComponent.cpp

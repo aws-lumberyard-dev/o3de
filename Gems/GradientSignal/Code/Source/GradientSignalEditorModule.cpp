@@ -22,6 +22,7 @@
 #include <Editor/EditorShapeAreaFalloffGradientComponent.h>
 #include <Editor/EditorPerlinGradientComponent.h>
 #include <Editor/EditorRandomGradientComponent.h>
+#include <Editor/EditorRidgedGradientComponent.h>
 #include <Editor/EditorGradientTransformComponent.h>
 #include <Editor/EditorStreamingImageAssetCtrl.h>
 #include <Editor/EditorSurfaceMaskGradientComponent.h>
@@ -59,6 +60,7 @@ namespace GradientSignal
             EditorSurfaceMaskGradientComponent::CreateDescriptor(),
             EditorGradientSurfaceDataComponent::CreateDescriptor(),
             EditorGradientDerivativeComponent::CreateDescriptor(),
+            EditorRidgedGradientComponent::CreateDescriptor(),
         });
     }
 

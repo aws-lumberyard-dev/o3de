@@ -98,6 +98,7 @@
 #include <Editor/Nodes/GradientModifiers/InvertGradientModifierNode.h>
 #include <Editor/Nodes/GradientModifiers/LevelsGradientModifierNode.h>
 #include <Editor/Nodes/GradientModifiers/PosterizeGradientModifierNode.h>
+#include <Editor/Nodes/GradientModifiers/RidgedGradientModifierNode.h>
 #include <Editor/Nodes/GradientModifiers/SmoothStepGradientModifierNode.h>
 #include <Editor/Nodes/GradientModifiers/ThresholdGradientModifierNode.h>
 #include <Editor/Nodes/Shapes/AxisAlignedBoxShapeNode.h>
@@ -360,6 +361,7 @@ namespace LandscapeCanvasEditor
         REGISTER_NODE_PALETTE_ITEM(gradientModifierCategory, InvertGradientModifierNode, editorId);
         REGISTER_NODE_PALETTE_ITEM(gradientModifierCategory, LevelsGradientModifierNode, editorId);
         REGISTER_NODE_PALETTE_ITEM(gradientModifierCategory, PosterizeGradientModifierNode, editorId);
+        REGISTER_NODE_PALETTE_ITEM(gradientModifierCategory, RidgedGradientModifierNode, editorId);
         REGISTER_NODE_PALETTE_ITEM(gradientModifierCategory, SmoothStepGradientModifierNode, editorId);
         REGISTER_NODE_PALETTE_ITEM(gradientModifierCategory, ThresholdGradientModifierNode, editorId);
 

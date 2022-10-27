@@ -21,6 +21,7 @@
 #include <GradientSignal/Components/InvertGradientComponent.h>
 #include <GradientSignal/Components/DitherGradientComponent.h>
 #include <GradientSignal/Components/PosterizeGradientComponent.h>
+#include <GradientSignal/Components/RidgedGradientComponent.h>
 #include <GradientSignal/Components/ShapeAreaFalloffGradientComponent.h>
 #include <GradientSignal/Components/PerlinGradientComponent.h>
 #include <GradientSignal/Components/RandomGradientComponent.h>
@@ -51,6 +52,7 @@ namespace GradientSignal
             ShapeAreaFalloffGradientComponent::CreateDescriptor(),
             PerlinGradientComponent::CreateDescriptor(),
             RandomGradientComponent::CreateDescriptor(),
+            RidgedGradientComponent::CreateDescriptor(),
             GradientTransformComponent::CreateDescriptor(),
             SurfaceMaskGradientComponent::CreateDescriptor(),
             GradientSurfaceDataComponent::CreateDescriptor(),

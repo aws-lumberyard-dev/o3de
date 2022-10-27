@@ -50,6 +50,8 @@ set(FILES
     Source/Editor/EditorRandomGradientComponent.h
     Source/Editor/EditorReferenceGradientComponent.cpp
     Source/Editor/EditorReferenceGradientComponent.h
+    Source/Editor/EditorRidgedGradientComponent.cpp
+    Source/Editor/EditorRidgedGradientComponent.h
     Source/Editor/EditorShapeAreaFalloffGradientComponent.cpp
     Source/Editor/EditorShapeAreaFalloffGradientComponent.h
     Source/Editor/EditorSmoothStepGradientComponent.cpp
