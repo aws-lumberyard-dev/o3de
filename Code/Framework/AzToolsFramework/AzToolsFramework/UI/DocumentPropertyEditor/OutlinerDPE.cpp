@@ -23,17 +23,39 @@ namespace AzToolsFramework
     OutlinerDPE::OutlinerDPE(QWidget* parentWidget)
         : QWidget(parentWidget)
         , m_outlinerAdapter(AZStd::make_shared<AZ::DocumentPropertyEditor::OutlinerAdapter>())
+        , m_filterAdapter(AZStd::make_shared<AZ::DocumentPropertyEditor::OutlinerFilterAdapter>())
+        , m_ui(new Ui::OutlinerDPE())
+        //, m_displayOptionsMenu(new EntityOutliner::DisplayOptionsMenu(this))
     {
+        m_ui->setupUi(this);
         setWindowTitle(tr("DPE-based Outliner"));
-        SetAdapter(m_outlinerAdapter);
+
+        m_filterAdapter->SetIncludeAllMatchDescendants(false);
 
         connect(m_ui->m_searchWidget, &AzQtComponents::FilteredSearchWidget::TextFilterChanged,
-            m_filterAdapter, [=](const QString& filterText)
-            {
-                m_filterAdapter->SetFilterString(filterText.toUtf8().data());
-            });
-        //connect(m_ui->m_searchWidget, &AzQtComponents::FilteredSearchWidget::TypeFilterChanged,
-        //    m_filterAdapter, &AZ::DocumentPropertyEditor::OutlinerFilterAdapter::OnFilterChanged);
+            m_filterAdapter.get(), &AZ::DocumentPropertyEditor::OutlinerFilterAdapter::OnTextFilterChanged);
+
+        connect(m_ui->m_searchWidget, &AzQtComponents::FilteredSearchWidget::TypeFilterChanged,
+            m_filterAdapter.get(), &AZ::DocumentPropertyEditor::OutlinerFilterAdapter::SetCriteriaFilter);
+
+        SetAdapter(m_outlinerAdapter);
+
+        //QToolButton* display_options = new QToolButton(this);
+        //display_options->setObjectName(QStringLiteral("m_display_options"));
+        //display_options->setPopupMode(QToolButton::InstantPopup);
+        //display_options->setAutoRaise(true);
+
+        //m_gui->m_searchWidget->AddWidgetToSearchWidget(display_options);
+
+        //// Set the display options menu
+        //display_options->setMenu(m_displayOptionsMenu);
+        //connect(
+        //    m_displayOptionsMenu, &EntityOutliner::DisplayOptionsMenu::OnSortModeChanged, this, &EntityOutlinerWidget::OnSortModeChanged);
+        //connect(
+        //    m_displayOptionsMenu,
+        //    &EntityOutliner::DisplayOptionsMenu::OnOptionToggled,
+        //    this,
+        //    &EntityOutlinerWidget::OnDisplayOptionChanged);
     }
 
     OutlinerDPE::~OutlinerDPE()
@@ -51,8 +73,9 @@ namespace AzToolsFramework
 
     void OutlinerDPE::SetAdapter(AZStd::shared_ptr<AZ::DocumentPropertyEditor::DocumentAdapter> sourceAdapter)
     {
-        m_outlinerAdapter = sourceAdapter;
+        m_outlinerAdapter = AZStd::static_pointer_cast<AZ::DocumentPropertyEditor::OutlinerAdapter>(sourceAdapter);
         m_filterAdapter->SetSourceAdapter(m_outlinerAdapter);
+        m_ui->m_dpe->SetAdapter(m_filterAdapter);
     }
 
     DocumentPropertyEditor* OutlinerDPE::GetDPE()

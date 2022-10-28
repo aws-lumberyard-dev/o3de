@@ -8,17 +8,33 @@
 
 #pragma once
 
-#include <AzToolsFramework/UI/DocumentPropertyEditor/FilterAdapter.h>
+#include <AzToolsFramework/UI/DocumentPropertyEditor/ValueStringFilter.h>
+#include <AzQtComponents/Components/FilteredSearchWidget.h>
+
+#include <QObject>
 
 namespace AZ::DocumentPropertyEditor
 {
-    class OutlinerFilterAdapter : public ValueStringFilter
+    class OutlinerFilterAdapter :
+        public QObject,
+        public ValueStringFilter
     {
+        Q_OBJECT
     public:
+        enum class GlobalSearchCriteria
+        {
+            Unlocked,
+            Locked,
+            Visible,
+            Hidden,
+            Separator,
+            FirstRealFilter
+        };
+
         OutlinerFilterAdapter();
 
         void SetFilterString(AZStd::string filterString);
-        void SetCriteriaFilter(SearchTypeFilterList filterCriteria);
+        void SetCriteriaFilter(const AzQtComponents::SearchTypeFilterList& filterCriteria);
 
         struct EntityMatchNode : public ValueStringFilter::StringMatchNode
         {
@@ -26,9 +42,14 @@ namespace AZ::DocumentPropertyEditor
             bool m_visible = false;
         };
 
+    public slots:
+        void OnTextFilterChanged(const QString& filterText);
+
     protected:
         MatchInfoNode* NewMatchInfoNode() const override;
         void CacheDomInfoForNode(const Dom::Value& domValue, MatchInfoNode* matchNode) const override;
         bool MatchesFilter(MatchInfoNode* matchNode) const override;
+
+        AzQtComponents::SearchTypeFilterList m_criteriaFilterList;
     };
 } // namespace AZ::DocumentPropertyEditor

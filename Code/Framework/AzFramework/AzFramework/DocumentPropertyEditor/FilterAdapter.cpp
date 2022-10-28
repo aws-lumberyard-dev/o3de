@@ -21,7 +21,10 @@ namespace AZ::DocumentPropertyEditor
     void RowFilterAdapter::SetIncludeAllMatchDescendants(bool includeAll)
     {
         m_includeAllMatchDescendants = includeAll;
-        UpdateMatchDescendants(m_root);
+        if (m_root)
+        {
+            UpdateMatchDescendants(m_root);
+        }
     }
 
     RowFilterAdapter::MatchInfoNode* RowFilterAdapter::MakeNewNode(RowFilterAdapter::MatchInfoNode* parentNode, unsigned int creationFrame)

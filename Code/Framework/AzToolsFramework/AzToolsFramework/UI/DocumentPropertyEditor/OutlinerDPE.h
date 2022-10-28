@@ -40,6 +40,10 @@ namespace AzToolsFramework
         AZStd::shared_ptr<AZ::DocumentPropertyEditor::OutlinerAdapter> m_outlinerAdapter;
         AZStd::shared_ptr<AZ::DocumentPropertyEditor::OutlinerFilterAdapter> m_filterAdapter;
 
+        //EntityOutliner::DisplayOptionsMenu* m_displayOptionsMenu;
+        //EntityIdSet m_entitiesToSort;
+        //EntityOutliner::DisplaySortMode m_sortMode;
+
         Ui::OutlinerDPE* m_ui;
     };
 } // namespace AzToolsFramework

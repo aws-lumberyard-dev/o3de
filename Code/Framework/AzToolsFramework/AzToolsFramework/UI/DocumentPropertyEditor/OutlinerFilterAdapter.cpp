@@ -28,7 +28,7 @@ namespace AZ::DocumentPropertyEditor
 
             if (m_filterActive)
             {
-                if (m_filterString.empty())
+                if (m_filterString.empty() && m_criteriaFilterList.empty())
                 {
                     SetFilterActive(false);
                 }
@@ -44,6 +44,26 @@ namespace AZ::DocumentPropertyEditor
         }
     }
 
+    void OutlinerFilterAdapter::SetCriteriaFilter(const AzQtComponents::SearchTypeFilterList& filterCriteria)
+    {
+        m_criteriaFilterList = filterCriteria;
+
+        if (!m_criteriaFilterList.empty())
+        {
+            SetFilterActive(true);
+            InvalidateFilter();
+        }
+        else if (m_filterString.empty())
+        {
+            SetFilterActive(false);
+        }
+    }
+
+    void OutlinerFilterAdapter::OnTextFilterChanged(const QString& filterText)
+    {
+        SetFilterString(filterText.toUtf8().data());
+    }
+
     RowFilterAdapter::MatchInfoNode* OutlinerFilterAdapter::NewMatchInfoNode() const
     {
         return new EntityMatchNode();
@@ -51,12 +71,13 @@ namespace AZ::DocumentPropertyEditor
 
     void OutlinerFilterAdapter::CacheDomInfoForNode(const Dom::Value& domValue, MatchInfoNode* matchNode) const
     {
+        ValueStringFilter::CacheDomInfoForNode(domValue, matchNode);
+
         auto entityMatchNode = static_cast<EntityMatchNode*>(matchNode);
         const bool nodeIsRow = IsRow(domValue);
         AZ_Assert(nodeIsRow, "Only row nodes should be cached by a RowFilterAdapter");
         if (nodeIsRow)
         {
-            entityMatchNode->m_matchableDomTerms.clear();
             for (auto childIter = domValue.ArrayBegin(); childIter != domValue.ArrayEnd(); ++childIter)
             {
                 if (childIter->IsNode())
@@ -64,12 +85,6 @@ namespace AZ::DocumentPropertyEditor
                     auto childName = childIter->GetNodeName();
                     if (childName != Dpe::GetNodeName<Nodes::Row>()) // don't cache child rows, they have their own entries
                     {
-                        if (auto foundValue = childIter->FindMember(Nodes::OutlinerRow::Value.GetName());
-                            foundValue != childIter->MemberEnd())
-                        {
-                            entityMatchNode->AddStringifyValue(foundValue->second);
-                        }
-
                         if (auto visibleValue = childIter->FindMember(Nodes::OutlinerRow::Visible.GetName());
                             visibleValue != childIter->MemberEnd())
                         {
@@ -81,15 +96,6 @@ namespace AZ::DocumentPropertyEditor
                         {
                             entityMatchNode->m_locked = lockedValue->second.GetBool();
                         }
-
-                        if (m_includeDescriptions)
-                        {
-                            auto foundDescription = childIter->FindMember(Nodes::PropertyEditor::Description.GetName());
-                            if (foundDescription != childIter->MemberEnd())
-                            {
-                                entityMatchNode->AddStringifyValue(foundDescription->second);
-                            }
-                        }
                     }
                 }
             }
@@ -98,7 +104,56 @@ namespace AZ::DocumentPropertyEditor
 
     bool OutlinerFilterAdapter::MatchesFilter(MatchInfoNode* matchNode) const
     {
-        auto entityMatchNode = static_cast<StringMatchNode*>(matchNode);
-        return (m_filterString.empty() || entityMatchNode->m_matchableDomTerms.contains(m_filterString));
+        auto entityMatchNode = static_cast<EntityMatchNode*>(matchNode);
+        bool matches = ValueStringFilter::MatchesFilter(matchNode);
+
+        if (matches)
+        {
+            bool matchesLocked = false;
+            bool matchesUnLocked = false;
+            bool matchesHidden = false;
+            bool matchesVisible = false;
+
+            for (auto& criterion : m_criteriaFilterList)
+            {
+                if (criterion.globalFilterValue >= 0)
+                {
+                    switch (criterion.globalFilterValue)
+                    {
+                    case 0: // GlobalSearchCriteriaFlags::Unlocked
+                        matchesUnLocked = true;
+                        break;
+                    case 1: // GlobalSearchCriteriaFlags::Locked
+                        matchesLocked = true;
+                        break;
+                    case 2: // GlobalSearchCriteriaFlags::Visible
+                        matchesVisible = true;
+                        break;
+                    case 3: // GlobalSearchCriteriaFlags::Hidden
+                        matchesHidden = true;
+                        break;
+                    }
+                }
+            }
+
+            if (matchesLocked && !entityMatchNode->m_locked)
+            {
+                matches = false;
+            }
+            if (matchesUnLocked && entityMatchNode->m_locked)
+            {
+                matches = false;
+            }
+            if (matchesHidden && entityMatchNode->m_visible)
+            {
+                matches = false;
+            }
+            if (matchesVisible && !entityMatchNode->m_visible)
+            {
+                matches = false;
+            }
+        }
+
+        return matches;
     }
 } // namespace AZ::DocumentPropertyEditor

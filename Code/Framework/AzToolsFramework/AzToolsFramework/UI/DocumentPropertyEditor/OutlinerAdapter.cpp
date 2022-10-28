@@ -177,7 +177,7 @@ namespace AZ::DocumentPropertyEditor
             newChild->m_visible = childNode->m_visible;
             newChild->m_locked = childNode->m_locked;
             newChild->m_name = childNode->m_name;
-            //newChild->m_parent = newParentNode;
+            newChild->m_parent = newParentNode;
 
             if (oldParentNode)
             {
@@ -257,7 +257,7 @@ namespace AZ::DocumentPropertyEditor
     
     void OutlinerAdapter::OnEntityInfoUpdatedLocked(AZ::EntityId entityId, bool locked)
     {
-        if (m_entityNodeCache[entityId] && m_entityNodeCache[entityId]->m_locked != locked)
+        if (m_entityNodeCache[entityId])
         {
             m_entityNodeCache[entityId]->m_locked = locked;
             NotifyResetDocument();
@@ -270,7 +270,7 @@ namespace AZ::DocumentPropertyEditor
     
     void OutlinerAdapter::OnEntityInfoUpdatedVisibility(AZ::EntityId entityId, bool visible)
     {
-        if (m_entityNodeCache[entityId] && m_entityNodeCache[entityId]->m_visible != visible)
+        if (m_entityNodeCache[entityId])
         {
             m_entityNodeCache[entityId]->m_visible = visible;
             NotifyResetDocument();

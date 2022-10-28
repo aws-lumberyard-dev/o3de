@@ -31,6 +31,7 @@ namespace AZ::DocumentPropertyEditor
                 else
                 {
                     InvalidateFilter();
+
                 }
             }
             else if (!m_filterString.empty())
