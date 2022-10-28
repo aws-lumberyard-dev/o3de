@@ -7,8 +7,11 @@
     <x>0</x>
     <y>0</y>
     <width>966</width>
-    <height>52</height>
+    <height>53</height>
    </rect>
+  </property>
+  <property name="mouseTracking">
+   <bool>true</bool>
   </property>
   <property name="windowTitle">
    <string>Form</string>
@@ -20,7 +23,10 @@
    <item>
     <widget class="QLabel" name="m_icon">
      <property name="text">
-      <string>Icon</string>
+      <string/>
+     </property>
+     <property name="pixmap">
+      <pixmap resource="../../../../AzQtComponents/AzQtComponents/Images/resources.qrc">:/Entity/entity.svg</pixmap>
      </property>
     </widget>
    </item>
@@ -33,7 +39,7 @@
       </sizepolicy>
      </property>
      <property name="text">
-      <string>TextLabel</string>
+      <string>Name</string>
      </property>
     </widget>
    </item>
@@ -52,15 +58,45 @@
    </item>
    <item>
     <widget class="QCheckBox" name="m_visibilityButton">
+     <property name="styleSheet">
+      <string notr="true">QCheckBox::indicator:unchecked {
+    image: url(:Icons/visb.svg);
+}
+QCheckBox::indicator:checked {
+    image: url(:Icons/visb_hidden.svg);
+}
+QCheckBox::indicator:unchecked:hover {
+    image: url(:/Outliner/visibility_default_hover.svg);
+}
+QCheckBox::indicator:checked:hover {
+    image: url(:/Outliner/visibility_on_hover.svg);
+}
+</string>
+     </property>
      <property name="text">
-      <string>PushButton</string>
+      <string/>
      </property>
     </widget>
    </item>
    <item>
     <widget class="QCheckBox" name="m_lockButton">
+     <property name="styleSheet">
+      <string notr="true">QCheckBox::indicator:unchecked {
+    image: url(:Icons/unlocked.svg);
+}
+QCheckBox::indicator:checked {
+    image: url(:Icons/locked.svg);
+}
+QCheckBox::indicator:unchecked:hover {
+    image: url(:/Outliner/lock_on_hover.svg);
+}
+QCheckBox::indicator:checked:hover {
+    image: url(:/Outliner/lock_default_hover.svg);
+}
+</string>
+     </property>
      <property name="text">
-      <string>PushButton</string>
+      <string/>
      </property>
     </widget>
    </item>
@@ -73,6 +109,8 @@
    <header location="global">AzQtComponents/Components/Widgets/ElidingLabel.h</header>
   </customwidget>
  </customwidgets>
- <resources/>
+ <resources>
+  <include location="../../../../AzQtComponents/AzQtComponents/Images/resources.qrc"/>
+ </resources>
  <connections/>
 </ui>
