@@ -400,8 +400,11 @@ set(FILES
     UI/DocumentPropertyEditor/KeyQueryDPE.ui
     UI/DocumentPropertyEditor/OutlinerAdapter.cpp
     UI/DocumentPropertyEditor/OutlinerAdapter.h
+    UI/DocumentPropertyEditor/OutlinerFilterAdapter.cpp
+    UI/DocumentPropertyEditor/OutlinerFilterAdapter.h
     UI/DocumentPropertyEditor/OutlinerDPE.cpp
     UI/DocumentPropertyEditor/OutlinerDPE.h
+    UI/DocumentPropertyEditor/OutlinerDPE.ui
     UI/DocumentPropertyEditor/OutlinerRowHandler.cpp
     UI/DocumentPropertyEditor/OutlinerRowHandler.h
     UI/DocumentPropertyEditor/OutlinerRow.cpp

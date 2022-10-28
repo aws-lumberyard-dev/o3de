@@ -8,22 +8,38 @@
 
 #pragma once
 
-#include <AzToolsFramework/UI/DocumentPropertyEditor/FilteredDPE.h>
+#include <AzToolsFramework/UI/DocumentPropertyEditor/OutlinerFilterAdapter.h>
 
 namespace AZ::DocumentPropertyEditor
 {
     class OutlinerAdapter;
 }
 
+namespace Ui
+{
+    class OutlinerDPE;
+}
+
 namespace AzToolsFramework
 {
-    class OutlinerDPE : public FilteredDPE
+    class DocumentPropertyEditor;
+
+    class OutlinerDPE
+        : public QWidget
     {
     public:
         OutlinerDPE(QWidget* parentWidget = nullptr);
+        virtual ~OutlinerDPE();
+
         static void RegisterViewClass();
+
+        void SetAdapter(AZStd::shared_ptr<AZ::DocumentPropertyEditor::DocumentAdapter> sourceAdapter);
+        DocumentPropertyEditor* GetDPE();
 
     protected:
         AZStd::shared_ptr<AZ::DocumentPropertyEditor::OutlinerAdapter> m_outlinerAdapter;
+        AZStd::shared_ptr<AZ::DocumentPropertyEditor::OutlinerFilterAdapter> m_filterAdapter;
+
+        Ui::OutlinerDPE* m_ui;
     };
 } // namespace AzToolsFramework

@@ -642,7 +642,7 @@ namespace AZ::DocumentPropertyEditor
                 if (currChild.IsNode())
                 {
                     auto childName = currChild.GetNodeName();
-                    if (childName != Dpe::GetNodeName<Dpe::Nodes::Row>()) // don't cache child rows, they have they're own entries
+                    if (childName != Dpe::GetNodeName<Dpe::Nodes::Row>()) // don't cache child rows, they have their own entries
                     {
                         static const Name valueName = Name::FromStringLiteral("Value", AZ::Interface<AZ::NameDictionary>::Get());
                         auto foundValue = currChild.FindMember(valueName);
