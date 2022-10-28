@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>OutlinerDPE</class>
+ <widget class="QWidget" name="OutlinerDPE">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>528</width>
+    <height>682</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Form</string>
+  </property>
+  <layout class="QVBoxLayout" name="verticalLayout">
+   <item>
+    <widget class="AzToolsFramework::EntityOutlinerSearchWidget" name="m_searchWidget">
+    </widget>
+   </item>
+   <item>
+    <widget class="AzToolsFramework::DocumentPropertyEditor" name="m_dpe">
+     <property name="widgetResizable">
+      <bool>true</bool>
+     </property>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <customwidgets>
+  <customwidget>
+   <class>AzToolsFramework::EntityOutlinerSearchWidget</class>
+   <extends>QWidget</extends>
+   <header location="global">AzToolsFramework/UI/Outliner/EntityOutlinerSearchWidget.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>AzToolsFramework::DocumentPropertyEditor</class>
+   <extends>QScrollArea</extends>
+   <header location="global">AzToolsFramework/UI/DocumentPropertyEditor/DocumentPropertyEditor.h</header>
+   <container>1</container>
+  </customwidget>
+ </customwidgets>
+ <resources/>
+ <connections/>
+</ui>

@@ -155,9 +155,6 @@ namespace AzToolsFramework
         , m_sortContentQueued(false)
         , m_dropOperationInProgress(false)
     {
-        // TRYAN - Commented out while we try the tabbed version registered below; open from Tools > Other > DPE Outliner
-        //OutlinerDPE* theDPE = new OutlinerDPE();
-        //theDPE->show();
         OutlinerDPE::RegisterViewClass();
 
         initEntityOutlinerWidgetResources();
