@@ -24,8 +24,9 @@ namespace AzToolsFramework
         : QWidget(parentWidget)
         , m_outlinerAdapter(AZStd::make_shared<AZ::DocumentPropertyEditor::OutlinerAdapter>())
         , m_filterAdapter(AZStd::make_shared<AZ::DocumentPropertyEditor::OutlinerFilterAdapter>())
+        , m_sortAdapter(AZStd::make_shared<AZ::DocumentPropertyEditor::ValueStringSort>())
         , m_ui(new Ui::OutlinerDPE())
-        //, m_displayOptionsMenu(new EntityOutliner::DisplayOptionsMenu(this))
+        , m_displayOptionsMenu(new EntityOutliner::DisplayOptionsMenu(this))
     {
         m_ui->setupUi(this);
         setWindowTitle(tr("DPE-based Outliner"));
@@ -40,22 +41,15 @@ namespace AzToolsFramework
 
         SetAdapter(m_outlinerAdapter);
 
-        //QToolButton* display_options = new QToolButton(this);
-        //display_options->setObjectName(QStringLiteral("m_display_options"));
-        //display_options->setPopupMode(QToolButton::InstantPopup);
-        //display_options->setAutoRaise(true);
+        m_ui->m_sortOptions->setPopupMode(QToolButton::InstantPopup);
+        m_ui->m_sortOptions->setAutoRaise(true);
 
         //m_gui->m_searchWidget->AddWidgetToSearchWidget(display_options);
 
-        //// Set the display options menu
-        //display_options->setMenu(m_displayOptionsMenu);
-        //connect(
-        //    m_displayOptionsMenu, &EntityOutliner::DisplayOptionsMenu::OnSortModeChanged, this, &EntityOutlinerWidget::OnSortModeChanged);
-        //connect(
-        //    m_displayOptionsMenu,
-        //    &EntityOutliner::DisplayOptionsMenu::OnOptionToggled,
-        //    this,
-        //    &EntityOutlinerWidget::OnDisplayOptionChanged);
+        m_ui->m_sortOptions->setMenu(m_displayOptionsMenu);
+
+        connect(m_displayOptionsMenu, &EntityOutliner::DisplayOptionsMenu::OnSortModeChanged,
+            this, &OutlinerDPE::OnSortModeChanged);
     }
 
     OutlinerDPE::~OutlinerDPE()
@@ -75,11 +69,37 @@ namespace AzToolsFramework
     {
         m_outlinerAdapter = AZStd::static_pointer_cast<AZ::DocumentPropertyEditor::OutlinerAdapter>(sourceAdapter);
         m_filterAdapter->SetSourceAdapter(m_outlinerAdapter);
-        m_ui->m_dpe->SetAdapter(m_filterAdapter);
+        m_sortAdapter->SetSourceAdapter(m_filterAdapter);
+        m_ui->m_dpe->SetAdapter(m_sortAdapter);
     }
 
     DocumentPropertyEditor* OutlinerDPE::GetDPE()
     {
         return m_ui->m_dpe;
+    }
+
+    void OutlinerDPE::OnSortModeChanged(EntityOutliner::DisplaySortMode sortMode)
+    {
+        switch (sortMode)
+        {
+        case EntityOutliner::DisplaySortMode::Manually:
+            m_sortAdapter->SetSortActive(false);
+            m_sortAdapter->InvalidateSort();
+            break;
+        case EntityOutliner::DisplaySortMode::AtoZ:
+            m_sortAdapter->SetSortActive(true);
+            m_sortAdapter->SetReversed(false);
+            m_sortAdapter->InvalidateSort();
+            break;
+        case EntityOutliner::DisplaySortMode::ZtoA:
+            m_sortAdapter->SetSortActive(true);
+            m_sortAdapter->SetReversed(true);
+            m_sortAdapter->InvalidateSort();
+            break;
+        default:
+            m_sortAdapter->SetSortActive(false);
+            m_sortAdapter->InvalidateSort();
+            break;
+        }
     }
 } // namespace AzToolsFramework

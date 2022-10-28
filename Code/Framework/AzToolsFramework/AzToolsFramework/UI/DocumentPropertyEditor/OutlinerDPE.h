@@ -8,7 +8,9 @@
 
 #pragma once
 
+#include <AzFramework/DocumentPropertyEditor/ValueStringSort.h>
 #include <AzToolsFramework/UI/DocumentPropertyEditor/OutlinerFilterAdapter.h>
+#include <AzToolsFramework/UI/Outliner/EntityOutlinerDisplayOptionsMenu.h>
 
 namespace AZ::DocumentPropertyEditor
 {
@@ -36,11 +38,15 @@ namespace AzToolsFramework
         void SetAdapter(AZStd::shared_ptr<AZ::DocumentPropertyEditor::DocumentAdapter> sourceAdapter);
         DocumentPropertyEditor* GetDPE();
 
+    protected slots:
+        void OnSortModeChanged(EntityOutliner::DisplaySortMode sortMode);
+
     protected:
         AZStd::shared_ptr<AZ::DocumentPropertyEditor::OutlinerAdapter> m_outlinerAdapter;
         AZStd::shared_ptr<AZ::DocumentPropertyEditor::OutlinerFilterAdapter> m_filterAdapter;
+        AZStd::shared_ptr<AZ::DocumentPropertyEditor::ValueStringSort> m_sortAdapter;
 
-        //EntityOutliner::DisplayOptionsMenu* m_displayOptionsMenu;
+        EntityOutliner::DisplayOptionsMenu* m_displayOptionsMenu = nullptr;
         //EntityIdSet m_entitiesToSort;
         //EntityOutliner::DisplaySortMode m_sortMode;
 
