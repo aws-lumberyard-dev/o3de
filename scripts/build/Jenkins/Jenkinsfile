@@ -658,7 +658,7 @@ def CreateDownloadArtifactsStage(Map pipelineConfig, String workspace, String jo
                 palSh("s3siscli configure", "Configuring S3SIS")
                 try {
                     palSh("s3siscli manifest --regenerate", "Regenerating manifest file")
-                    palSh("s3siscli download --label test_o3de_s3sis_${job_name} -w ${workspace}/${ENGINE_REPOSITORY_NAME}/build --preserve-timestamp --preserve-attributes --preserve-empty-folders", "Downloading artifacts")
+                    palSh("s3siscli download --label test_o3de_s3sis_${job_name} -w ${workspace}/${ENGINE_REPOSITORY_NAME} --preserve-timestamp --preserve-attributes --preserve-empty-folders --cleanup", "Downloading artifacts")
                 } catch(Exception e) {
                 }
             }
@@ -687,7 +687,7 @@ def CreateUploadBuildArtifactsStage(Map pipelineConfig, String workspace, String
                     palSh("python3 setup.py install", "Installing S3SIS")
                 }
                 palSh("s3siscli configure", "Configuring S3SIS")
-                palSh("s3siscli upload --label test_o3de_s3sis_${job_name} -w ${workspace}/${ENGINE_REPOSITORY_NAME}/build", "Uploading artifacts")
+                palSh("s3siscli upload --label test_o3de_s3sis_${job_name} -w ${workspace}/${ENGINE_REPOSITORY_NAME}", "Uploading artifacts")
             }
         }
     }
