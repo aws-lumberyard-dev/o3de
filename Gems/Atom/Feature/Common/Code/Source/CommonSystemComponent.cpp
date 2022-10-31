@@ -66,6 +66,7 @@
 #include <PostProcessing/SsaoPasses.h>
 #include <PostProcessing/SubsurfaceScatteringPass.h>
 #include <PostProcessing/TaaPass.h>
+#include <Atom/RPI.Public/Pass/VRSImageGenPass.h>
 #include <PostProcessing/BloomDownsamplePass.h>
 #include <PostProcessing/BloomBlurPass.h>
 #include <PostProcessing/BloomCompositePass.h>
@@ -135,6 +136,7 @@ namespace AZ
             ImGuiPassData::Reflect(context);
             RayTracingPassData::Reflect(context);
             TaaPassData::Reflect(context);
+            AZ::RPI::VRSImageGenPassData::Reflect(context);
             RenderDebugFeatureProcessor::Reflect(context);
 
             LightingPreset::Reflect(context);
@@ -235,6 +237,7 @@ namespace AZ
             
             // Add Taa Pass
             passSystem->AddPassCreator(Name("TaaPass"), &TaaPass::Create);
+            passSystem->AddPassCreator(Name("VRSImageGenPass"), &AZ::RPI::VRSImageGenPass::Create);
 
             // Add DepthOfField pass
             passSystem->AddPassCreator(Name("DepthOfFieldCompositePass"), &DepthOfFieldCompositePass::Create);

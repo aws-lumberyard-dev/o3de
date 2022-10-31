@@ -59,6 +59,36 @@
                         }
                     ]
                 },
+
+                {
+                    "Name": "MotionVectorPass",
+                    "TemplateName": "MotionVectorParentTemplate",
+                    "Connections": [
+                        {
+                            "LocalSlot": "SkinnedMeshes",
+                            "AttachmentRef": {
+                                "Pass": "SkinningPass",
+                                "Attachment": "SkinnedMeshOutputStream"
+                            }
+                        },
+                        {
+                            "LocalSlot": "Depth",
+                            "AttachmentRef": {
+                                "Pass": "DepthPrePass",
+                                "Attachment": "Depth"
+                            }
+                        },
+                        {
+                            "LocalSlot": "PipelineOutput",
+                            "AttachmentRef": {
+                                "Pass": "PipelineGlobal",
+                                "Attachment": "PipelineOutput"
+                            }
+                        }
+                    ]
+                },
+                
+
                 {
                     "Name": "LightCullingPass",
                     "TemplateName": "LightCullingParentTemplate",
@@ -282,21 +312,78 @@
                     ]
                 },
                 {
+                    "Name": "VRSImageGenPass",
+                    "TemplateName": "VRSImageGenPassTemplate",
+                    "Enabled": true,
+                    "Connections": [ 
+                        {
+                            "LocalSlot": "MotionVectors",
+                            "AttachmentRef": {
+                                "Pass": "MotionVectorPass",
+                                "Attachment": "MotionVectorOutput"
+                            }
+                        },
+                        {
+                            "LocalSlot": "TransparentPassInput",
+                            "AttachmentRef": {
+                                "Pass": "TransparentPass",
+                                "Attachment": "InputOutput"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "Name": "CopyToPrevFrame",
+                    "TemplateName": "FullscreenCopyNewTemplate",
+                    "Enabled": false,
+                    "Connections": [
+                        {
+                            "LocalSlot": "Input",
+                            "AttachmentRef": {
+                                "Pass": "TransparentPass",
+                                "Attachment": "InputOutput"
+                            }
+                        }
+                    ]
+                },
+                {
                     "Name": "LightAdaptation",
                     "TemplateName": "LightAdaptationParentTemplate",
                     "Connections": [
                         {
                             "LocalSlot": "LightingInput",
                             "AttachmentRef": {
-                                "Pass": "TransparentPass",
-                                "Attachment": "InputOutput"
+                              "Pass": "TransparentPass",
+                              "Attachment": "InputOutput"
                             }
                         },
                         {
                             "LocalSlot": "PipelineOutput",
                             "AttachmentRef": {
-                                "Pass": "Parent",
-                                "Attachment": "PipelineOutput"
+                              "Pass": "Parent",
+                              "Attachment": "PipelineOutput"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "Name": "VRSImageOverlayPass",
+                    "TemplateName": "VRSImageOverlayTemplate",
+                    "Enabled": true,
+                    "Connections": [ 
+                        
+                        {
+                            "LocalSlot": "VRSImageOverlayInput",
+                            "AttachmentRef": {
+                                "Pass": "VRSImageGenPass",
+                                "Attachment": "VRSImageGenOutput"
+                            }
+                        },
+                        {
+                            "LocalSlot": "ColorInputOutput",
+                            "AttachmentRef": {
+                                "Pass": "LightAdaptation",
+                                "Attachment": "Output"
                             }
                         }
                     ]
@@ -309,8 +396,8 @@
                         {
                             "LocalSlot": "ColorInputOutput",
                             "AttachmentRef": {
-                                "Pass": "LightAdaptation",
-                                "Attachment": "Output"
+                                "Pass": "VRSImageOverlayPass",
+                                "Attachment": "ColorInputOutput"
                             }
                         },
                         {

@@ -1,0 +1,20 @@
+{
+    "Type": "JsonSerialization",
+    "Version": 1,
+    "ClassName": "AttachmentImageAsset",
+    "ClassData": {
+        "m_imageDescriptor": {
+            "BindFlags": [
+                "ShaderRead",
+                "ShaderWrite"
+            ],
+            "Size": {
+                "Width": 1920,
+                "Height": 1080
+            },
+            "Format": 7
+        },
+        "Name": "$PreviousFrameImage",
+        "IsUniqueName": true
+    }
+}

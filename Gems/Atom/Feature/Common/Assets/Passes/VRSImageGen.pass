@@ -1,0 +1,70 @@
+{
+    "Type": "JsonSerialization",
+    "Version": 1,
+    "ClassName": "PassAsset",
+    "ClassData": {
+        "PassTemplate": {
+            "Name": "VRSImageGenPassTemplate",
+            "PassClass": "VRSImageGenPass",
+            "Slots": [
+                
+                {
+                    "Name": "MotionVectors",
+                    "SlotType": "Input",
+                    "ShaderInputName": "m_motionVectors",
+                    "ScopeAttachmentUsage": "Shader"
+                },
+                {
+                    "Name": "TransparentPassInput",
+                    "SlotType": "Input",
+                    "ShaderInputName": "m_previousFrame",
+                    "ScopeAttachmentUsage": "Shader"
+                },
+                {
+                    "Name": "VRSImageGenOutput",
+                    "SlotType": "Output",
+                    "ShaderInputName": "m_outputTexture",
+                    "ScopeAttachmentUsage": "Shader"
+                }
+            ],
+            "ImageAttachments": [  
+                
+                {
+                    "Name": "VRSImageGenImage",
+                    "SizeSource": {
+                      "Source": {
+                        "Pass": "This",
+                        "Attachment": "TransparentPassInput"
+                      },
+                        "Multipliers":{
+                            "WidthMultiplier" : "0.0625",
+                            "HeightMultiplier": "0.0625"
+                        }
+                    },
+                    "ImageDescriptor": {
+                        "Format": "R8_UINT"
+                    }
+                }
+            ],
+            "Connections": [  
+                
+                {
+                    "LocalSlot": "VRSImageGenOutput",
+                    "AttachmentRef": {
+                        "Pass": "This",
+                        "Attachment": "VRSImageGenImage"
+                    }
+                }
+            ],
+            "PassData": {
+                "$type": "ComputePassData",
+                "Target Thread Count X": "432",
+                "Target Thread Count Y": "240",
+                "Target Thread Count Z": "1",
+                "ShaderAsset": {
+                    "FilePath": "Shaders/ScreenSpace/VRSImageGen.shader"
+                }
+            }
+        }
+    }
+}

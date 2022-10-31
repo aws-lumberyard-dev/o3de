@@ -1,0 +1,62 @@
+{
+    "Type": "JsonSerialization",
+    "Version": 1,
+    "ClassName": "PassAsset",
+    "ClassData": {
+      "PassTemplate": {
+        "Name": "FullscreenCopyNewTemplate",
+        "PassClass": "ReflectionCopyFrameBufferPass",
+        "Slots": [
+          {
+            "Name": "Input",
+            "SlotType": "Input",
+            "ScopeAttachmentUsage": "Shader",
+            "ImageViewDesc": {
+              "MipSliceMin": "0",
+              "MipSliceMax": "0"
+            }
+          },
+          {
+            "Name": "Output",
+            "SlotType": "Output",
+            "ScopeAttachmentUsage": "RenderTarget",
+            "LoadStoreAction": {
+              "LoadAction": "DontCare"
+            }
+          }
+        ],
+        "ImageAttachments": [
+
+          {
+            "Name": "PreviousFrameImage",
+            "Lifetime": "Imported",
+            "AssetRef": {
+              "FilePath": "Textures/PreviousFrameImage.attimage"
+            }
+          }
+
+        ],
+        "Connections": [
+          {
+            "LocalSlot": "Output",
+            "AttachmentRef": {
+              "Pass": "This",
+              "Attachment": "PreviousFrameImage"
+            }
+          }
+        ],
+        "FallbackConnections": [
+          {
+            "Input": "Input",
+            "Output": "Output"
+          }
+        ],
+        "PassData": {
+          "$type": "FullscreenTrianglePassData",
+          "ShaderAsset": {
+            "FilePath": "Shaders/PostProcessing/FullscreenCopy.shader"
+          }
+        }
+      }
+    }
+}

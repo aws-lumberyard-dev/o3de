@@ -44,7 +44,6 @@ set(FILES
     Include/Atom/RPI.Public/DynamicDraw/DynamicDrawInterface.h
     Include/Atom/RPI.Public/Image/AttachmentImage.h
     Include/Atom/RPI.Public/Image/AttachmentImagePool.h
-    Include/Atom/RPI.Public/Image/DefaultStreamingImageController.h
     Include/Atom/RPI.Public/Image/ImageSystem.h
     Include/Atom/RPI.Public/Image/ImageSystemInterface.h
     Include/Atom/RPI.Public/Image/StreamingImage.h
@@ -126,7 +125,6 @@ set(FILES
     Source/RPI.Public/DynamicDraw/DynamicDrawSystem.cpp
     Source/RPI.Public/Image/AttachmentImage.cpp
     Source/RPI.Public/Image/AttachmentImagePool.cpp
-    Source/RPI.Public/Image/DefaultStreamingImageController.cpp
     Source/RPI.Public/Image/ImageSystem.cpp
     Source/RPI.Public/Image/StreamingImage.cpp
     Source/RPI.Public/Image/StreamingImageContext.cpp
@@ -141,6 +139,10 @@ set(FILES
     Source/RPI.Public/Model/UvStreamTangentBitmask.cpp
     Source/RPI.Public/Pass/AttachmentReadback.cpp
     Source/RPI.Public/Pass/ComputePass.cpp
+    
+    Include/Atom/RPI.Public/Pass/VRSImageGenPass.h
+    Source/RPI.Public/Pass/VRSImageGenPass.cpp
+
     Source/RPI.Public/Pass/CopyPass.cpp
     Source/RPI.Public/Pass/FullscreenTrianglePass.cpp
     Source/RPI.Public/Pass/ParentPass.cpp

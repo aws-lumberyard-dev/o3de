@@ -1,0 +1,51 @@
+{
+    "Type": "JsonSerialization",
+    "Version": 1,
+    "ClassName": "PassAsset",
+    "ClassData": {
+        "PassTemplate": {
+            "Name": "VRSImageGenPassTemplate",
+            "PassClass": "VRSImageGenPass",
+            "Slots": [ 
+                {
+                    "Name": "MotionVectors",
+                    "SlotType": "Input",
+                    "ShaderInputName": "m_motionVectors",
+                    "ScopeAttachmentUsage": "Shader"
+                },
+                {
+                    "Name": "PreviousFrameInput",
+                    "SlotType": "Input",
+                    "ScopeAttachmentUsage": "Shader"
+                }
+            ],
+            "ImageAttachments": [
+                {
+                    "Name": "PreviousFrameImage",
+                    "Lifetime": "Imported",
+                    "AssetRef": {
+                      "FilePath": "Textures/PreviousFrameImage.attimage"
+                    }
+                }
+            ],
+            "Connections": [
+                {
+                    "LocalSlot": "PreviousFrameInput",
+                    "AttachmentRef": {
+                      "Pass": "This",
+                      "Attachment": "PreviousFrameImage"
+                    }
+                }
+            ],
+            "PassData": {
+                "$type": "ComputePassData",
+                "Target Thread Count X": "8",
+                "Target Thread Count Y": "8",
+                "Target Thread Count Z": "1",
+                "ShaderAsset": {
+                    "FilePath": "Shaders/ScreenSpace/VRSImageGen.shader"
+                }
+            }
+        }
+    }
+}

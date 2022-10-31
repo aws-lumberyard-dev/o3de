@@ -57,6 +57,10 @@
                 "Path": "Passes/FullscreenCopy.pass"
             },
             {
+                "Name": "FullscreenCopyNewTemplate",
+                "Path": "Passes/FullscreenCopyNew.pass"
+            },
+            {
                 "Name": "ModulateTextureTemplate",
                 "Path": "Passes/ModulateTexture.pass"
             },
@@ -511,6 +515,14 @@
             {
                 "Name": "ChromaticAberrationTemplate",
                 "Path": "Passes/ChromaticAberration.pass"
+            },
+            {
+                "Name": "VRSImageGenPassTemplate",
+                "Path": "Passes/VRSImageGen.pass"
+            },
+            {
+                "Name": "VRSImageOverlayTemplate",
+                "Path": "Passes/VRSImageOverlay.pass"
             }
         ]
     }

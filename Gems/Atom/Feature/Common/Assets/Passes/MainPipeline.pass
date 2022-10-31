@@ -91,6 +91,20 @@
                     ]
                 },
                 {
+                    "Name": "VRSImageGenPass",
+                    "TemplateName": "VRSImageGenPassTemplate",
+                    "Enabled": false,
+                    "Connections": [ 
+                        {
+                            "LocalSlot": "MotionVectors",
+                            "AttachmentRef": {
+                                "Pass": "MotionVectorPass",
+                                "Attachment": "MotionVectorOutput"
+                            }
+                        }
+                    ]
+                },
+                {
                     "Name": "LightCullingPass",
                     "TemplateName": "LightCullingParentTemplate",
                     "Connections": [
@@ -144,6 +158,7 @@
                         }
                     ]
                 },
+                
                 {
                     "Name": "OpaquePass",
                     "TemplateName": "OpaqueParentTemplate",
@@ -282,6 +297,7 @@
                         }
                     ]
                 },
+                
                 {
                     "Name": "DeferredFogPass",
                     "TemplateName": "DeferredFogPassTemplate",
@@ -320,6 +336,20 @@
                 {
                     "Name": "ReflectionCopyFrameBufferPass",
                     "TemplateName": "ReflectionCopyFrameBufferPassTemplate",
+                    "Enabled": false,
+                    "Connections": [
+                        {
+                            "LocalSlot": "Input",
+                            "AttachmentRef": {
+                                "Pass": "DeferredFogPass",
+                                "Attachment": "RenderTargetInputOutput"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "Name": "CopyToPrevFrame",
+                    "TemplateName": "FullscreenCopyNewTemplate",
                     "Enabled": false,
                     "Connections": [
                         {

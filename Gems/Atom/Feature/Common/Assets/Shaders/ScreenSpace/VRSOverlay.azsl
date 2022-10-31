@@ -1,0 +1,93 @@
+
+/*
+ * Copyright (c) Contributors to the Open 3D Engine Project.
+ * For complete copyright and license terms please see the LICENSE at the root of this distribution.
+ *
+ * SPDX-License-Identifier: Apache-2.0 OR MIT
+ *
+ */
+
+#include <Atom/Features/SrgSemantics.azsli>
+#include <viewsrg.srgi>
+#include <Atom/Features/PostProcessing/FullscreenVertex.azsli>
+
+static const uint FFX_VARIABLESHADING_RATE1D_1X = 0x0;
+static const uint FFX_VARIABLESHADING_RATE1D_2X = 0x1;
+static const uint FFX_VARIABLESHADING_RATE1D_4X = 0x2;
+#define FFX_VARIABLESHADING_MAKE_SHADING_RATE(x,y) ((x << 2) | (y))
+
+static const uint FFX_VARIABLESHADING_RATE_1X1 = FFX_VARIABLESHADING_MAKE_SHADING_RATE(FFX_VARIABLESHADING_RATE1D_1X, FFX_VARIABLESHADING_RATE1D_1X); // 0;
+static const uint FFX_VARIABLESHADING_RATE_1X2 = FFX_VARIABLESHADING_MAKE_SHADING_RATE(FFX_VARIABLESHADING_RATE1D_1X, FFX_VARIABLESHADING_RATE1D_2X); // 0x1;
+static const uint FFX_VARIABLESHADING_RATE_2X1 = FFX_VARIABLESHADING_MAKE_SHADING_RATE(FFX_VARIABLESHADING_RATE1D_2X, FFX_VARIABLESHADING_RATE1D_1X); // 0x4;
+static const uint FFX_VARIABLESHADING_RATE_2X2 = FFX_VARIABLESHADING_MAKE_SHADING_RATE(FFX_VARIABLESHADING_RATE1D_2X, FFX_VARIABLESHADING_RATE1D_2X); // 0x5;
+static const uint FFX_VARIABLESHADING_RATE_2X4 = FFX_VARIABLESHADING_MAKE_SHADING_RATE(FFX_VARIABLESHADING_RATE1D_2X, FFX_VARIABLESHADING_RATE1D_4X); // 0x6;
+static const uint FFX_VARIABLESHADING_RATE_4X2 = FFX_VARIABLESHADING_MAKE_SHADING_RATE(FFX_VARIABLESHADING_RATE1D_4X, FFX_VARIABLESHADING_RATE1D_2X); // 0x9;
+static const uint FFX_VARIABLESHADING_RATE_4X4 = FFX_VARIABLESHADING_MAKE_SHADING_RATE(FFX_VARIABLESHADING_RATE1D_4X, FFX_VARIABLESHADING_RATE1D_4X); // 0xa;
+
+ShaderResourceGroup PassSrg : SRG_PerPass
+{
+    Texture2D<uint> m_vrsImage;
+}
+/*
+struct VertexInput
+{
+    uint m_vertexID : SV_VertexID;
+};
+
+struct VertexOutput
+{
+    float4 vPosition : SV_Position;
+};
+
+VertexOutput MainVS(in VertexInput input)
+{
+    VertexOutput output;
+    output.vPosition = float4(float2(input.m_vertexID & 1, input.m_vertexID >> 1) * float2(4, -4) + float2(-1, 1), 0, 1);
+    return output;
+}
+*/
+struct PixelOutput
+{
+     float4 m_color : SV_Target0;
+};  
+    
+PixelOutput MainPS(VSOutput input)
+{
+uint g_TileSize = 16;
+    int2 pos = input.m_position.xy / g_TileSize;
+    // encode different shading rates as colors
+    float3 color = float3(1, 1, 1);
+
+    switch (PassSrg::m_vrsImage[pos].r)
+    {
+    case FFX_VARIABLESHADING_RATE_1X1:
+        color = float3(0.5, 0.0, 0.0);
+        break;
+    case FFX_VARIABLESHADING_RATE_1X2:
+        color = float3(0.5, 0.5, 0.0);
+        break;
+    case FFX_VARIABLESHADING_RATE_2X1:
+        color = float3(0.5, 0.25, 0.0);
+        break;
+    case FFX_VARIABLESHADING_RATE_2X2:
+        color = float3(0.0, 0.5, 0.0);
+        break;
+    case FFX_VARIABLESHADING_RATE_2X4:
+        color = float3(0.25, 0.25, 0.5);
+        break;
+    case FFX_VARIABLESHADING_RATE_4X2:
+        color = float3(0.5, 0.25, 0.5);
+        break;
+    case FFX_VARIABLESHADING_RATE_4X4:
+        color = float3(0.0, 0.5, 0.5);
+        break;
+    }
+
+    // add grid
+    int2 grid = int2(input.m_position.xy) % g_TileSize;
+    bool border = (grid.x == 0) || (grid.y == 0);
+
+    PixelOutput pOut;
+    pOut.m_color = float4(color, 0.5) * (border ? 0.5f : 1.0f);
+    return pOut;
+}
