@@ -253,6 +253,8 @@ namespace Terrain
         template<typename Callback>
         void ForOverlappingSectors(const AZ::Aabb& bounds, Callback callback);
 
+        void SimplifySectorMesh(AZStd::vector<HeightNormalVertex>& meshHeightsNormals);
+
         MeshConfiguration m_config;
         AZ::RPI::Scene* m_parentScene;
 
@@ -295,6 +297,7 @@ namespace Terrain
         bool m_isInitialized{ false };
         bool m_rebuildSectors{ true };
         bool m_rebuildDrawPackets{ false };
+        bool m_simplifyMeshes = { true };
 
         AZStd::vector<uint16_t> m_vertexOrder; // Maps from regular linear order to actual vertex order positions
     };

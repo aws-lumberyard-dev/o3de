@@ -659,21 +659,21 @@ namespace Terrain
             uint8_t m_posy;
         };
 
-        AZStd::vector<VertexPosition> m_xyPositions;
-        m_xyPositions.resize_no_construct(m_gridVerts2D);
+        AZStd::vector<VertexPosition> xyPositions;
+        xyPositions.resize_no_construct(m_gridVerts2D);
         for (uint8_t y = 0; y < m_gridVerts1D; ++y)
         {
             for (uint8_t x = 0; x < m_gridVerts1D; ++x)
             {
                 uint16_t zOrderCoord = m_vertexOrder.at(y * m_gridVerts1D + x);
-                m_xyPositions.at(zOrderCoord) = { x, y };
+                xyPositions.at(zOrderCoord) = { x, y };
             }
         }
 
         m_xyPositionsBuffer = CreateMeshBufferInstance(
             AZ::RHI::GetFormatSize(XYPositionFormat),
-            aznumeric_cast<uint32_t>(m_xyPositions.size()),
-            m_xyPositions.data());
+            aznumeric_cast<uint32_t>(xyPositions.size()),
+            xyPositions.data());
 
         m_dummyLodHeightsNormalsBuffer = CreateMeshBufferInstance(sizeof(HeightNormalVertex), m_gridVerts2D, nullptr);
     }
@@ -918,6 +918,629 @@ namespace Terrain
         }
     }
 
+    void TerrainMeshManager::SimplifySectorMesh(AZStd::vector<HeightNormalVertex>& meshHeightsNormals)
+    {
+        float zExtents = (m_worldHeightBounds.m_max - m_worldHeightBounds.m_min);
+
+        AZStd::vector<AZ::Vector3> positions;
+        positions.resize_no_construct(meshHeightsNormals.size());
+
+        for (uint32_t i = 0; i < meshHeightsNormals.size(); ++i)
+        {
+            float x = (i % m_gridVerts1D) * m_sampleSpacing;
+            float y = (i / m_gridVerts1D) * m_sampleSpacing;
+            float height = -1.0f;
+            if (meshHeightsNormals.at(i).m_height != NoTerrainVertexHeight)
+            {
+                height = meshHeightsNormals.at(i).m_height / float(AZStd::numeric_limits<HeightDataType>::max());
+                height = height * zExtents;
+            }
+            positions[i] = AZ::Vector3(x, y, height);
+        }
+
+        // Generate a grid index buffer - this should be changed to just happen once and be cached (rebuild if m_gridSize changes)
+        AZStd::vector<uint16_t> indices;
+        indices.reserve(m_gridSize * m_gridSize * 6);
+
+        for (uint8_t yIndex = 0; yIndex < m_gridSize; ++yIndex)
+        {
+            for (uint8_t xIndex = 0; xIndex < m_gridSize; ++xIndex)
+            {
+                const uint16_t topLeft = yIndex * m_gridVerts1D + xIndex;
+                const uint16_t topRight = topLeft + 1;
+                const uint16_t bottomLeft = topLeft + m_gridVerts1D;
+                const uint16_t bottomRight = bottomLeft + 1;
+
+                bool diagonalValid =
+                    (positions.at(topRight).GetZ() >= 0.0f) &&
+                    (positions.at(bottomLeft).GetZ() >= 0.0f);
+
+                if (diagonalValid)
+                {
+                    if (positions.at(topLeft).GetZ() >= 0.0f)
+                    {
+                        indices.push_back(topLeft);
+                        indices.push_back(topRight);
+                        indices.push_back(bottomLeft);
+                    }
+                    if (positions.at(bottomRight).GetZ() >= 0.0f)
+                    {
+                        indices.push_back(bottomLeft);
+                        indices.push_back(topRight);
+                        indices.push_back(bottomRight);
+                    }
+                }
+            }
+        }
+
+        if (indices.size() == 0)
+        {
+            return;
+        }
+
+        constexpr uint32_t ExteriorEdge = 0xFFFF;
+        struct HalfEdge
+        {
+            uint32_t m_sourceIndex = 0;
+            uint32_t m_destIndex = 0;
+            uint32_t m_twin = 0;
+            uint32_t m_edge = 0;
+        };
+
+        AZStd::vector<HalfEdge> halfEdges;
+        halfEdges.resize(indices.size());
+
+        // There are as many half-edges as there are triangle indices. Each triangle has 3 edges and typically
+        // shares each edge with one other triangle (except for creases / borders).
+
+        struct VertexMetadata
+        {
+            uint32_t m_halfEdge = 0;
+            uint32_t m_valence = 0;
+            uint32_t m_scatterCount = 0;
+            AZStd::array<float, 10> m_quadricError; // 10 unique values of a 4x4 symmetric matrix.
+        };
+
+        AZStd::vector<VertexMetadata> vertexMetadata;
+        vertexMetadata.resize(m_gridVerts2D);
+
+        // Meta data about the vertices. Only the first half-edge is stored.
+
+        struct EdgeMetadata
+        {
+            AZ::Vector3 m_mergePosition;
+            float m_error;
+            uint32_t m_halfEdge;
+            bool m_markedForContraction;
+            AZStd::array<uint32_t, 2> m_jointNeighbors;
+        };
+
+        AZStd::vector<EdgeMetadata> edgeMetadata;
+        edgeMetadata.resize(halfEdges.size() / 2);
+
+        struct FaceMetadata
+        {
+            bool m_markedForDelete = false;
+        };
+        AZStd::vector<FaceMetadata> faceMetadata;
+        faceMetadata.resize(indices.size() / 3);
+
+        const uint32_t triangleCount = uint32_t(indices.size() / 3);
+
+        // Construct data about all half-edges, one triangle at a time
+        for (uint32_t triIndex = 0; triIndex < triangleCount; ++triIndex)
+        {
+            uint32_t indexOffset = triIndex * 3;
+
+            for (uint8_t i = 0; i < 3; ++i)
+            {
+                uint32_t offset = indexOffset + i;
+                halfEdges.at(offset).m_sourceIndex = offset;
+                halfEdges.at(offset).m_destIndex = (offset + 1) % 3;
+
+                VertexMetadata& metaData = vertexMetadata.at(offset);
+                if (metaData.m_valence == 0)
+                {
+                    metaData.m_halfEdge = offset;
+                }
+                ++metaData.m_valence;
+            }
+        }
+
+        const uint32_t maxValence = 6; // uniform grid with consistent triangulation will always be 6. Non-uniform triangulation would be 8.
+
+        struct HalfEdgeStar
+        {
+            uint32_t m_offset = 0;
+            uint32_t m_dest = 0;
+        };
+
+        AZStd::vector<HalfEdgeStar> halfEdgeStars;
+        halfEdgeStars.resize_no_construct(maxValence * m_gridVerts2D);
+
+        // Scatter half-edge data stars to make twin matching fast.
+        for (uint32_t i = 0; i < halfEdges.size(); ++i)
+        {
+            HalfEdge& halfEdge = halfEdges.at(i);
+            VertexMetadata& vertexData = vertexMetadata.at(halfEdge.m_sourceIndex);
+            uint32_t vertexOffset = vertexData.m_scatterCount;
+            ++vertexData.m_scatterCount;
+
+            uint32_t originOffset = halfEdge.m_sourceIndex * maxValence + vertexOffset;
+            halfEdgeStars.at(originOffset).m_offset = i;
+            halfEdgeStars.at(originOffset).m_dest = halfEdge.m_destIndex;
+        }
+
+        uint32_t totalEdgeCount = 0;
+
+        // Match half-edge twins
+        for (uint32_t i = 0; i < halfEdges.size(); ++i)
+        {
+            HalfEdge& halfEdge = halfEdges.at(i);
+            uint32_t destStarIndex = halfEdge.m_destIndex * maxValence;
+            uint32_t count = vertexMetadata.at(halfEdge.m_destIndex).m_valence;
+
+            HalfEdgeStar origin;
+            uint32_t edgeCount = 0;
+            bool shouldWrite = false;
+
+            for (uint32_t j = 0; j < count; ++j)
+            {
+                HalfEdgeStar star = halfEdgeStars.at(destStarIndex + j);
+                if (star.m_dest == halfEdge.m_sourceIndex)
+                {
+                    ++edgeCount;
+                    if (i < star.m_offset)
+                    {
+                        origin = star;
+                        shouldWrite = true;
+                    }
+                }
+            }
+
+            if (edgeCount > 1)
+            {
+                // Indicates a non-manifold edge. This won't happen with terrain but should be handled if
+                // this code is ported for more general use.
+            }
+
+            if (edgeCount == 0 || edgeCount > 1)
+            {
+                // No twin was found, so this edge is on a border or crease, or this edge is non-manifold.
+                // Don't allow contraction in this case.
+                halfEdge.m_twin = i;
+                halfEdge.m_edge = ExteriorEdge;
+
+                vertexMetadata.at(halfEdge.m_sourceIndex).m_scatterCount = ExteriorEdge;
+                vertexMetadata.at(halfEdge.m_destIndex).m_scatterCount = ExteriorEdge;
+            }
+
+            if (shouldWrite)
+            {
+                uint32_t edgeOffset = totalEdgeCount;
+                ++totalEdgeCount;
+
+                halfEdge.m_twin = origin.m_offset;
+                halfEdges.at(origin.m_offset).m_twin = i;
+
+                // Use this half-edge as the representative half-edge for the paired edge
+                edgeMetadata.at(edgeOffset).m_halfEdge = i;
+                halfEdge.m_edge = edgeOffset;
+                halfEdges.at(origin.m_offset).m_edge = edgeOffset;
+            }
+        }
+
+        // Useful functions
+
+        auto halfEdgeFace = [](uint32_t he) -> uint32_t
+        {
+            return he / 3;
+        };
+
+        auto triangleBase = [](uint32_t he) -> uint32_t
+        {
+            return (he / 3) * 3;
+        };
+
+        auto nextHalfEdge = [&](uint32_t he) -> uint32_t
+        {
+            return triangleBase(he) + ((he + 1) % 3);
+        };
+
+        auto nextInStarTwin = [&](uint32_t he) -> uint32_t
+        {
+            return triangleBase(he) + (he + 2) % 3;
+        };
+
+        // Initialize quadrics
+
+        for (uint32_t i = 0; i < vertexMetadata.size(); ++i)
+        {
+            VertexMetadata& vertex = vertexMetadata.at(i);
+            if (vertex.m_valence < 3 || vertex.m_scatterCount == ExteriorEdge) // corner or edge vertex
+            {
+                continue;
+            }
+
+            vertex.m_quadricError = { 0.0f };
+            uint32_t halfEdgeOffset = vertex.m_halfEdge;
+            HalfEdge halfEdge = halfEdges.at(halfEdgeOffset);
+            AZ::Vector3 p0 = positions.at(i);
+
+            for (uint16_t j = 0; j < vertex.m_valence; ++j)
+            {
+                AZ::Vector3 p1 = positions.at(halfEdge.m_destIndex);
+                halfEdgeOffset = nextHalfEdge(halfEdgeOffset);
+                AZ::Vector3 p2 = positions.at(halfEdge.m_destIndex);
+
+                AZ::Vector3 edge0 = p1 - p0;
+                AZ::Vector3 edge1 = p2 - p0;
+                AZ::Vector3 n = edge0.Cross(edge1).GetNormalized();
+                float d = -n.Dot(p0);
+
+                vertex.m_quadricError[0] += n.GetX() * n.GetX();
+                vertex.m_quadricError[1] += n.GetX() * n.GetY();
+                vertex.m_quadricError[2] += n.GetX() * n.GetZ();
+                vertex.m_quadricError[3] += n.GetX() * d;
+
+                vertex.m_quadricError[4] += n.GetY() * n.GetY();
+                vertex.m_quadricError[5] += n.GetY() * n.GetZ();
+                vertex.m_quadricError[6] += n.GetY() * d;
+
+                vertex.m_quadricError[7] += n.GetZ() * n.GetZ();
+                vertex.m_quadricError[8] += n.GetZ() * d;
+                vertex.m_quadricError[9] += d * d;
+
+                // The twin of the last half-edge on this triangle is the first half-edge of the next
+                // triangle touching this vertex.
+                halfEdgeOffset = halfEdges.at(nextHalfEdge(halfEdgeOffset)).m_twin;
+            }
+        }
+
+        // Receives as input an edge and its two terminating endpoints. Returns the number of
+        // vertices with half-edges terminating at both v0 and v1. This should be 2 for valid interior edges.
+        auto countJointNeighbors = [&](uint32_t edge, uint32_t v0, uint32_t v1) -> uint32_t
+        {
+            uint32_t valence0 = vertexMetadata[v0].m_valence;
+            uint32_t valence1 = vertexMetadata[v1].m_valence;
+            uint32_t offset0 = v0 * maxValence;
+            uint32_t offset1 = v1 * maxValence;
+
+            uint32_t count = 0;
+            for (uint32_t i = 0; i < valence0; ++i)
+            {
+                uint32_t dest0 = halfEdgeStars.at(offset0 + i).m_dest;
+                for (uint32_t j = 0; j < valence1; ++j)
+                {
+                    uint32_t dest1 = halfEdgeStars.at(offset1 + j).m_dest;
+                    if (dest0 == dest1)
+                    {
+                        ++count;
+                        if (count < 3)
+                        {
+                            edgeMetadata.at(edge).m_jointNeighbors.at(count - 1) = halfEdgeStars.at(offset0 + i).m_offset;
+                        }
+                        break;
+                    }
+                }
+            }
+            return count;
+        };
+
+        AZStd::vector<uint32_t> contractionList;
+        contractionList.reserve(edgeMetadata.size());
+
+        [[maybe_unused]] uint32_t foldoversDetected = 0;
+
+        for (uint32_t i = 0; i < edgeMetadata.size(); ++i)
+        {
+            EdgeMetadata& edge = edgeMetadata.at(i);
+            HalfEdge& halfEdge = halfEdges.at(edge.m_halfEdge);
+
+            if (countJointNeighbors(i, halfEdge.m_sourceIndex, halfEdge.m_destIndex) != 2)
+            {
+                continue;
+            }
+
+            VertexMetadata v0 = vertexMetadata.at(halfEdge.m_sourceIndex);
+            VertexMetadata v1 = vertexMetadata.at(halfEdge.m_destIndex);
+
+            if (v0.m_scatterCount == ExteriorEdge || v1.m_scatterCount == ExteriorEdge)
+            {
+                continue;
+            }
+
+            if (v0.m_valence < 3 || v1.m_valence < 3)
+            {
+                continue;
+            }
+
+            // First, compute the merged position (p') that would minimize the error
+            //         | q0 q1 q2 | | -q3 |
+            // p' = inv| q1 q4 q5 | | -q6 |
+            //         | q2 q5 q7 | | -q8 |
+            // (Derive by differentiating the quadratic form to identify the critical point)
+
+            AZStd::array<float, 10> q;
+            AZStd::transform(v0.m_quadricError.begin(), v0.m_quadricError.end(), v1.m_quadricError.begin(), q.begin(), AZStd::plus<float>());
+
+            float m0 =  q[4] * q[7] - q[5] * q[5];
+            float m1 = -q[1] * q[7] + q[2] * q[5];
+            float m2 =  q[1] * q[5] - q[2] * q[4];
+            float m3 =  q[0] * q[7] - q[2] * q[2];
+            float m4 = -q[0] * q[5] + q[1] * q[2];
+            float m5 =  q[0] * q[4] - q[1] * q[1];
+
+            float det = q[0] * m0 + q[1] * m1 + q[2] * m2;
+
+            AZ::Vector3 p0 = positions.at(halfEdge.m_sourceIndex);
+            AZ::Vector3 p1 = positions.at(halfEdge.m_destIndex);
+
+            AZ::Vector3 p; // Post-contraction position
+
+            if (det < 0.01f)
+            {
+                // If the determinant is close to zero, we simply let the merged position be the
+                // average of p0 and p1
+                p = 0.5f * (p0 + p1);
+
+                // TODO: attempt to minimize error along the segment, then amongst the
+                // endpoints and midpoint.
+            }
+            else
+            {
+                AZ::Vector3 q3 = AZ::Vector3(q[3], q[6], q[8]);
+                edge.m_mergePosition = AZ::Vector3(
+                    q3.Dot(AZ::Vector3(m0, m1, m2)),
+                    q3.Dot(AZ::Vector3(m1, m3, m4)),
+                    q3.Dot(AZ::Vector3(m2, m4, m5))
+                );
+                edge.m_mergePosition *= -1.0f / det;
+            }
+
+            // Given the merged position, we can compute the error
+            float error =
+                q[0] * p.GetX() * p.GetX() + 2.0f * q[1] * p.GetX() * p.GetY() + 2.0f * q[2] * p.GetX() * p.GetZ() + 2.0f * q[3] * p.GetX()
+                                                  + q[4] * p.GetY() * p.GetY() + 2.0f * q[5] * p.GetY() * p.GetZ() + 2.0f * q[6] * p.GetY()
+                                                                                      + q[7] * p.GetZ() * p.GetZ() + 2.0f * q[8] * p.GetZ()
+                                                                                                                                     + q[9];
+
+            // Clamp error to be positive definite
+            edge.m_error = AZStd::GetMax(error * 10000.0f, 0.0f);
+
+            auto checkFlip = [&](uint32_t he, AZ::Vector3 altP0) -> bool
+            {
+                uint32_t o0 = halfEdges.at(he).m_sourceIndex;
+                uint32_t o1 = halfEdges.at(he).m_destIndex;
+                uint32_t o2 = halfEdges.at(nextHalfEdge(he)).m_destIndex;
+
+                AZ::Vector3 p0 = positions.at(o0);
+                AZ::Vector3 p1 = positions.at(o1);
+                AZ::Vector3 p2 = positions.at(o2);
+
+                AZ::Vector3 v0 = (p0 - p1).GetNormalized();
+                AZ::Vector3 v1 = (p2 - p1).GetNormalized();
+
+                AZ::Vector3 altV0 = (altP0 - p1).GetNormalized();
+
+                return v1.Cross(v0).Dot(v1.Cross(altV0)) > 0.0f;
+            };
+
+            auto checkFoldover = [&](uint32_t vert, uint32_t he, AZ::Vector3 p) -> bool
+            {
+                uint32_t valence = vertexMetadata.at(vert).m_valence;
+
+                // Navigate to the first face not proposed for removal
+                he = nextInStarTwin(he);
+                he = halfEdges[he].m_twin;
+
+                // From the current face, we have valence - 2 faces to consider (the contraction would result
+                // in 2 removed faces)
+                for (uint32_t i = 0; i != valence - 2; ++i)
+                {
+                    if (!checkFlip(he, p))
+                    {
+                        // Shifting the source vertex to the new position would create a fold-over
+                        ++foldoversDetected;
+                        return false;
+                    }
+
+                    he = nextInStarTwin(he);
+                    he = halfEdges[he].m_twin;
+                }
+                return true;
+            };
+
+            // Disallow this contraction if it would cause fold-over
+            if (!checkFoldover(halfEdge.m_sourceIndex, edge.m_halfEdge, p))
+            {
+                continue;
+            }
+            if (!checkFoldover(halfEdge.m_destIndex, halfEdge.m_twin, p))
+            {
+                continue;
+            }
+
+            contractionList.push_back(i);
+            edge.m_markedForContraction = true;
+        }
+
+
+
+        // Now that we have edge contraction candidates, do the edge contraction.
+
+        auto minimumInOneRing = [&](uint32_t edgeIndex, uint32_t halfEdge, float error) -> bool
+        {
+            uint32_t valence = vertexMetadata[halfEdges.at(halfEdge).m_sourceIndex].m_valence;
+
+            // We have V-1 edges to check (every edge except the one possibly being contracted)
+            for (uint32_t i = 0; i != valence - 1; ++i)
+            {
+                // Skip the first half-edge face as this face will be removed
+                halfEdge = nextInStarTwin(halfEdge);
+                halfEdge = halfEdges[halfEdge].m_twin;
+
+                uint32_t nextEdgeIndex = halfEdges[halfEdge].m_edge;
+                const EdgeMetadata& nextEdge = edgeMetadata.at(nextEdgeIndex);
+
+                if (nextEdge.m_markedForContraction)
+                {
+                    if (error > nextEdge.m_error)
+                    {
+                        // An adjacent edge is cheaper to contract
+                        return false;
+                    }
+                    else if (error == nextEdge.m_error && edgeIndex > nextEdgeIndex)
+                    {
+                        // Break ties using the edge offset
+                        return false;
+                    }
+                }
+            }
+            return true;
+        };
+
+        // Similar to the MinimumInOneRing routine except we can skip half-edges terminating on
+        // either edge endpoint as those edges would have been checked already
+        auto minimumInOneRingJoint = [&](uint32_t edgeIndex, uint32_t halfEdge, float error, uint32_t v0, uint32_t v1) -> bool
+        {
+            uint32_t valence = vertexMetadata.at(halfEdges.at(halfEdge).m_sourceIndex).m_valence;
+
+            for (uint32_t i = 0; i != valence; ++i)
+            {
+                uint32_t destIndex = halfEdges[halfEdge].m_destIndex;
+                if (destIndex != v0 && destIndex != v1)
+                {
+                    uint32_t nextEdgeIndex = halfEdges[halfEdge].m_edge;
+                    const EdgeMetadata& nextEdge = edgeMetadata.at(nextEdgeIndex);
+
+                    if (edgeMetadata[nextEdgeIndex].m_markedForContraction)
+                    {
+                        if (error > nextEdge.m_error)
+                        {
+                            // An adjacent edge is cheaper to contract
+                            return false;
+                        }
+                        else if (error == nextEdge.m_error && edgeIndex > nextEdgeIndex)
+                        {
+                            // Break ties using the edge offset
+                            return false;
+                        }
+                    }
+                }
+
+                halfEdge = nextInStarTwin(halfEdge);
+                halfEdge = halfEdges[halfEdge].m_twin;
+            }
+            return true;
+        };
+
+        // Copy of buffers to modify.
+        auto newHalfEdges = halfEdges;
+        auto newPositions = positions;
+
+        uint32_t facesRemoved = 0;
+
+        for (uint32_t i = 0; i < contractionList.size(); ++i)
+        {
+            uint32_t edgeOffset = contractionList.at(i);
+            EdgeMetadata& edge = edgeMetadata.at(edgeOffset);
+
+            // This has a canonical direction indicated by its stored half edge
+            // We always pull FROM the dst vertex INTO the src vertex
+            // BUT, we may be attempting to contract an edge directly adjacent
+            // to another edge marked for contraction.
+            // For now, to prevent conflicts, walk the 1-ring and compare our
+            // error against all neighbors.  We execute the contraction only if
+            // our edge has minimal error.
+
+            if (!minimumInOneRing(edgeOffset, edge.m_halfEdge, edge.m_error))
+            {
+                continue;
+            }
+            uint32_t twin = halfEdges[edge.m_halfEdge].m_twin;
+            if (!minimumInOneRing(edgeOffset, twin, edge.m_error))
+            {
+                return;
+            }
+
+            uint32_t targetIndex = halfEdges[edge.m_halfEdge].m_sourceIndex;
+            uint32_t destIndex = halfEdges[edge.m_halfEdge].m_destIndex;
+
+            // Check minimum error condition in joint neighbors as well
+            uint32_t joint = edge.m_jointNeighbors.at(0);
+            if (joint != 0 && !minimumInOneRingJoint(edgeOffset, joint - 1, edge.m_error, targetIndex, destIndex))
+            {
+                return;
+            }
+
+            joint = edge.m_jointNeighbors.at(1);
+            if (joint != 0 && !minimumInOneRingJoint(edgeOffset, joint - 1, edge.m_error, targetIndex, destIndex))
+            {
+                return;
+            }
+
+            // At this point, we've ascertained that we should proceed with the contraction
+            // Walk the 1-ring of the destination vertex and rewrite all source/destination values
+
+            const uint32_t valence = vertexMetadata[destIndex].m_valence;
+            uint32_t remove0 = halfEdgeFace(edge.m_halfEdge);
+            uint32_t remove1 = halfEdgeFace(twin);
+            faceMetadata[remove0].m_markedForDelete = true;
+            faceMetadata[remove1].m_markedForDelete = true;
+
+            // Twin is the half-edge originating from the vertex being removed and terminating at
+            // the target vertex.
+            // Advance to the next half-edge in the link
+            uint32_t contractHE = nextInStarTwin(twin);
+            contractHE = halfEdges[contractHE].m_twin;
+
+            // The valence of a vertex corresponds to the number of faces in its star. Since two
+            // faces will be removed with the contraction, we process two fewer faces
+            for (uint32_t j = 0; j != valence - 2; ++j)
+            {
+                // The target is the new source of all outbound half-edges from the vertex being removed
+                newHalfEdges[contractHE].m_sourceIndex = targetIndex;
+                // Similarly, the target is the new destination for inbound half-edges
+                contractHE = nextInStarTwin(contractHE);
+                newHalfEdges[contractHE].m_destIndex = targetIndex;
+
+                // Advance to the next half edge in the star
+                contractHE = newHalfEdges[contractHE].m_twin;
+            }
+
+            // Alter the position
+            newPositions.at(targetIndex) = edge.m_mergePosition;
+
+            // Accumulate the quadric error
+            for (uint32_t j = 0; j != 10; ++j)
+            {
+                vertexMetadata[targetIndex].m_quadricError[j] += vertexMetadata[destIndex].m_quadricError[j];
+            }
+
+            facesRemoved += 2;
+        }
+
+        // Anneal indices
+
+        AZStd::vector<uint32_t> newIndices;
+
+        for (uint32_t i = 0; i < triangleCount; ++i)
+        {
+            if (faceMetadata.at(i).m_markedForDelete)
+            {
+                continue;
+            }
+
+            HalfEdge he0 = newHalfEdges.at(i * 3);
+            HalfEdge he1 = newHalfEdges.at(i * 3 + 1);
+
+            newIndices.insert(newIndices.end(), { he0.m_sourceIndex, he0.m_destIndex, he1.m_destIndex });
+        }
+
+        AZ_Printf("TerrainMeshManager", "Eliminated %u faces", facesRemoved);
+    }
+
     void TerrainMeshManager::ProcessSectorUpdates(AZStd::vector<AZStd::vector<Sector*>>& sectorUpdates)
     {
         AZ::JobCompletion jobCompletion;
@@ -944,12 +1567,17 @@ namespace Terrain
                         request.m_samplesY = m_gridVerts1D;
                         request.m_worldStartPosition = sector->m_worldCoord.ToVector2() * gridMeters;
                         request.m_vertexSpacing = gridMeters / m_gridSize;
-                        request.m_useVertexOrderRemap = true;
+                        request.m_useVertexOrderRemap = !m_simplifyMeshes;
 
                         GatherMeshData(request, meshHeightsNormals, sector->m_aabb, sector->m_hasData);
                         if (sector->m_hasData)
                         {
                             UpdateSectorBuffers(*sector, meshHeightsNormals);
+                        }
+
+                        if (m_simplifyMeshes)
+                        {
+                            SimplifySectorMesh(meshHeightsNormals);
                         }
 
                         // Create AABBs for each quadrant for cases where this LOD needs to fill in a gap in a lower LOD.
