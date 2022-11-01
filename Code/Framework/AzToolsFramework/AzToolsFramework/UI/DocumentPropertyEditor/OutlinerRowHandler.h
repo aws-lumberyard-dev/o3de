@@ -14,7 +14,8 @@
 
 namespace AzToolsFramework
 {
-    class OutlinerRowHandler : public PropertyHandlerWidget<AzQtComponents::OutlinerRow>
+    class OutlinerRowHandler
+        : public PropertyHandlerWidget<AzQtComponents::OutlinerRow>
     {
     public:
         OutlinerRowHandler();
@@ -25,6 +26,9 @@ namespace AzToolsFramework
         {
             return AZ::DocumentPropertyEditor::Nodes::OutlinerRow::Name;
         }
+
+    protected:
+        void mouseReleaseEvent(QMouseEvent* event);
 
     private:
         AZ::Dom::Value m_node;

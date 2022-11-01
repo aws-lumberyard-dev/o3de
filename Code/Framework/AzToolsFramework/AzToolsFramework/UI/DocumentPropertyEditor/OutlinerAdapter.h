@@ -64,6 +64,7 @@ namespace AZ::DocumentPropertyEditor
             AZStd::string m_name;
             bool m_visible;
             bool m_locked;
+            bool m_selected;
             EntityId m_entityId;
 
             OutlinerNode* m_parent = nullptr;

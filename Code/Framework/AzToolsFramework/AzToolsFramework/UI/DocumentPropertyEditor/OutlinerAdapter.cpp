@@ -89,6 +89,7 @@ namespace AZ::DocumentPropertyEditor
                 builder.Attribute(Nodes::OutlinerRow::Value, currChild->m_name);
                 builder.Attribute(Nodes::OutlinerRow::Visible, currChild->m_visible);
                 builder.Attribute(Nodes::OutlinerRow::Locked, currChild->m_locked);
+                builder.Attribute(Nodes::OutlinerRow::Selected, currChild->m_selected);
                 builder.Attribute(Nodes::OutlinerRow::EntityId, AZ::u64(currChild->m_entityId));
                 builder.EndPropertyEditor();
                 generateChildren(currChild.get());
@@ -245,13 +246,15 @@ namespace AZ::DocumentPropertyEditor
     {
         (void)entityId;
         (void)selected;
+
         if (m_entityNodeCache[entityId])
         {
-            AZ_Warning("OutlinerAdapter", false, "Selected EntityId %d is cached! Huzzah!", AZ::u64(entityId));
+            m_entityNodeCache[entityId]->m_selected = selected;
+            NotifyResetDocument();
         }
         else
         {
-            AZ_Warning("OutlinerAdapter", false, "EntityId %d was not cached when updating Selection state!", AZ::u64(entityId));
+            AZ_Warning("OutlinerAdapter", false, "EntityId %d was not cached when updating Selected state!", AZ::u64(entityId));
         }
     }
     

@@ -7,6 +7,7 @@
  */
 
 #include <AzToolsFramework/UI/DocumentPropertyEditor/OutlinerRowHandler.h>
+#include <AzToolsFramework/API/ToolsApplicationAPI.h>
 
 namespace AzToolsFramework
 {
@@ -19,11 +20,29 @@ namespace AzToolsFramework
         auto entityName = AZ::Dpe::Nodes::OutlinerRow::Value.ExtractFromDomNode(node).value_or("");
         auto visibleState = AZ::Dpe::Nodes::OutlinerRow::Visible.ExtractFromDomNode(node).value_or(true);
         auto lockedState = AZ::Dpe::Nodes::OutlinerRow::Locked.ExtractFromDomNode(node).value_or(false);
+        auto selectedState = AZ::Dpe::Nodes::OutlinerRow::Selected.ExtractFromDomNode(node).value_or(false);
 
         m_entityId = AZ::EntityId(AZ::Dpe::Nodes::OutlinerRow::EntityId.ExtractFromDomNode(node).value_or(AZ::EntityId::InvalidEntityId));
 
         m_name->setText(QString::fromUtf8(entityName.data(), aznumeric_cast<int>(entityName.size())));
         m_visibilityButton->setChecked(!visibleState);
         m_lockButton->setChecked(lockedState);
+
+        if (selectedState)
+        {
+            setStyleSheet("border: 2px solid #0000ff;");
+        }
+        else
+        {
+            setStyleSheet("");
+        }
     }
+
+    void OutlinerRowHandler::mouseReleaseEvent(QMouseEvent* event)
+    {
+        (void)event;
+        const AzToolsFramework::EntityIdList selection = { m_entityId };
+        ToolsApplicationRequests::Bus::Broadcast(&ToolsApplicationRequests::SetSelectedEntities, selection);
+    }
+
 } // namespace AzToolsFramework

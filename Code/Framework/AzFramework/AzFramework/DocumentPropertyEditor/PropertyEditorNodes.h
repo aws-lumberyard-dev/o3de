@@ -238,6 +238,7 @@ namespace AZ::DocumentPropertyEditor::Nodes
         static constexpr auto Value = AttributeDefinition<AZStd::string_view>("Value");
         static constexpr auto Visible = AttributeDefinition<bool>("Visible");
         static constexpr auto Locked = AttributeDefinition<bool>("Locked");
+        static constexpr auto Selected = AttributeDefinition<bool>("Selected");
         static constexpr auto EntityId = AttributeDefinition<AZ::u64>("EntityId");
     };
 
