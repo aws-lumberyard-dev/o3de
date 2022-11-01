@@ -16,6 +16,10 @@
 #include <TestRunner/Python/TestImpactPythonTestRunner.h>
 #include <TestRunner/Python/TestImpactPythonNullTestRunner.h>
 
+#pragma optimize("", off)
+
+#include <iostream>
+
 namespace TestImpact
 {
     AZStd::optional<Client::TestRunResult> PythonInstrumentedTestRunnerErrorCodeChecker(
@@ -92,12 +96,14 @@ namespace TestImpact
         {
             if (!stdOutDelta.empty())
             {
-                AZ_Printf("StdOut", stdOutDelta.c_str());
+                std::cout << stdOutDelta.c_str() << "\n";
+                //AZ_Printf("StdOut", stdOutDelta.c_str());
             }
 
             if (!stdErrDelta.empty())
             {
-                AZ_Printf("StdError", stdErrDelta.c_str());
+                std::cout << stdErrDelta.c_str() << "\n";
+                //AZ_Printf("StdError", stdErrDelta.c_str());
             }
 
             return TestImpact::ProcessCallbackResult::Continue;
@@ -141,3 +147,5 @@ namespace TestImpact
         }
     }
 } // namespace TestImpact
+
+#pragma optimize("", on)

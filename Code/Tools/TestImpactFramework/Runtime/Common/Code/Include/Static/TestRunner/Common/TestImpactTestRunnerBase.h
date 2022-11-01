@@ -67,6 +67,11 @@ namespace TestImpact
             return PayloadMapProducer(jobDataMap);
         };
 
+        //for (const auto& jobInfo : jobInfos)
+        //{
+        //    AZ_Printf("Job", jobInfo.GetCommand().m_args.c_str());
+        //}
+
         return this->m_jobRunner.Execute(
             jobInfos, payloadGenerator, stdOutRouting, stdErrRouting, runTimeout, runnerTimeout, clientCallback, stdContentCallback);
     }
