@@ -826,16 +826,19 @@ namespace AzToolsFramework
 
             // store, then reference the unique_ptr that will manage the handler's lifetime
             auto handler = AZ::Interface<PropertyEditorToolsSystemInterface>::Get()->CreateHandlerInstance(handlerId);
-            handler->SetValueFromDom(domValue);
-            createdWidget = handler->GetWidget();
-            createdWidget->setEnabled(!shouldDisable);
-
-            // only set the widget's tooltip if it doesn't already have its own
-            if (!descriptionString.empty() && createdWidget->toolTip().isEmpty())
+            if (handler)
             {
-                createdWidget->setToolTip(QString::fromUtf8(descriptionString.data(), aznumeric_cast<int>(descriptionString.size())));
+                handler->SetValueFromDom(domValue);
+                createdWidget = handler->GetWidget();
+                createdWidget->setEnabled(!shouldDisable);
+
+                // only set the widget's tooltip if it doesn't already have its own
+                if (!descriptionString.empty() && createdWidget->toolTip().isEmpty())
+                {
+                    createdWidget->setToolTip(QString::fromUtf8(descriptionString.data(), aznumeric_cast<int>(descriptionString.size())));
+                }
+                m_widgetToPropertyHandlerInfo[createdWidget] = { handlerId, AZStd::move(handler) };
             }
-            m_widgetToPropertyHandlerInfo[createdWidget] = { handlerId, AZStd::move(handler) };
         }
         return createdWidget;
     }
@@ -1057,6 +1060,7 @@ namespace AzToolsFramework
     void DocumentPropertyEditor::Clear()
     {
         delete m_rootNode;
+        m_rootNode = nullptr;
     }
 
     void DocumentPropertyEditor::AddAfterWidget(QWidget* precursor, QWidget* widgetToAdd)
