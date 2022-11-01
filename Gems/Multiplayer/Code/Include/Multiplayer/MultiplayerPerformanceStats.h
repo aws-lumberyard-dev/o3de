@@ -42,39 +42,39 @@
 #if defined(ENABLE_PERFORMANCE_STAT_GATHERING)
 #include <Multiplayer/MultiplayerStatSystemInterface.h>
 
-#define DECLARE_PERFORMANCE_STAT_GROUP(GROUPID, NAME)                                                                                                  \
+#define DECLARE_PERFORMANCE_STAT_GROUP(GROUPID, NAME)                                                                                      \
     {                                                                                                                                      \
-        if (auto* statSystem = AZ::Interface<IMultiplayerStatSystem>::Get())                                                               \
+        if (auto* statSystem = AZ::Interface<Multiplayer::IMultiplayerStatSystem>::Get())                                                  \
         {                                                                                                                                  \
             statSystem->DeclareStatGroup(GROUPID, NAME);                                                                                   \
         }                                                                                                                                  \
         else                                                                                                                               \
         {                                                                                                                                  \
-            AZLOG_WARN("DECLARE_PERFORMANCE_STAT_GROUP was called too early. IMultiplayerStatSystem isn't ready yet.");                                \
+            AZLOG_WARN("DECLARE_PERFORMANCE_STAT_GROUP was called too early. IMultiplayerStatSystem isn't ready yet.");                    \
         }                                                                                                                                  \
     }
 
-#define DECLARE_PERFORMANCE_STAT(GROUPID, STATID, NAME)                                                                                                \
+#define DECLARE_PERFORMANCE_STAT(GROUPID, STATID, NAME)                                                                                    \
     {                                                                                                                                      \
-        if (auto* statSystem = AZ::Interface<IMultiplayerStatSystem>::Get())                                                               \
+        if (auto* statSystem = AZ::Interface<Multiplayer::IMultiplayerStatSystem>::Get())                                                  \
         {                                                                                                                                  \
             statSystem->DeclareStat(GROUPID, STATID, NAME);                                                                                \
         }                                                                                                                                  \
         else                                                                                                                               \
         {                                                                                                                                  \
-            AZLOG_WARN("DECLARE_PERFORMANCE_STAT was called too early. IMultiplayerStatSystem isn't ready yet.");                               \
+            AZLOG_WARN("DECLARE_PERFORMANCE_STAT was called too early. IMultiplayerStatSystem isn't ready yet.");                          \
         }                                                                                                                                  \
     }
 
 #define SET_PERFORMANCE_STAT(STATID, VALUE)                                                                                                \
     {                                                                                                                                      \
-        if (auto* statSystem = AZ::Interface<IMultiplayerStatSystem>::Get())                                                               \
+        if (auto* statSystem = AZ::Interface<Multiplayer::IMultiplayerStatSystem>::Get())                                                  \
         {                                                                                                                                  \
             statSystem->SetStat(STATID, aznumeric_cast<double>(VALUE));                                                                    \
         }                                                                                                                                  \
         else                                                                                                                               \
         {                                                                                                                                  \
-            AZLOG_WARN("SET_PERFORMANCE_STAT was called too early. IMultiplayerStatSystem isn't ready yet.");                                   \
+            AZLOG_WARN("SET_PERFORMANCE_STAT was called too early. IMultiplayerStatSystem isn't ready yet.");                              \
         }                                                                                                                                  \
     }
 
