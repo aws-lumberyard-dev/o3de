@@ -74,10 +74,10 @@ namespace AZ
             // So for now the material pipeline system is enabled by default, but we will disable it in
             // the AumatedTesting project so it does not cause Automated Review (AR) failures on Jeknins.
             bool value = true;
-            if (auto settingsRegistry = AZ::SettingsRegistry::Get(); settingsRegistry != nullptr)
-            {
-                settingsRegistry->Get(value, "/O3DE/Atom/RPI/MaterialTypeBuilder/EnableMaterialPipelineSystem");
-            }
+            //if (auto settingsRegistry = AZ::SettingsRegistry::Get(); settingsRegistry != nullptr)
+            //{
+            //    settingsRegistry->Get(value, "/O3DE/Atom/RPI/MaterialTypeBuilder/EnableMaterialPipelineSystem");
+            //}
             return value;
         }
 
@@ -274,7 +274,7 @@ namespace AZ
 
             return materialTypeAssetOutcome.GetValue();
         }
-        
+
         void MaterialTypeBuilder::ProcessJob(const AssetBuilderSDK::ProcessJobRequest& request, AssetBuilderSDK::ProcessJobResponse& response) const
         {
             AssetBuilderSDK::JobCancelListener jobCancelListener(request.m_jobId);
