@@ -32,6 +32,9 @@ ly_add_target(
             .
             ${pal_dir}
             ${common_dir}
+    COMPILE_DEFINITIONS
+        PUBLIC
+            LY_STACK_CAPTURE_DEPTH=${LY_STACK_CAPTURE_DEPTH}
 )
 
 ly_add_target(

@@ -49,7 +49,7 @@ namespace AZ
     AllocatorDebugConfig OSAllocator::GetDebugConfig()
     {
         return AllocatorDebugConfig()
-            .StackRecordLevels(20)
+            .StackRecordLevels(LY_STACK_CAPTURE_DEPTH)
             .UsesMemoryGuards()
             .MarksUnallocatedMemory()
             .ExcludeFromDebugging(false);
