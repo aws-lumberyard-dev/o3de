@@ -176,6 +176,7 @@ namespace AzToolsFramework
 
         void OnPrefabInstancePropagationBegin() override;
         void OnPrefabInstancePropagationEnd() override;
+        void OnRootPrefabInstanceLoaded() override;
 
         //////////////////////////////////////////////////////////////////////////
 
@@ -192,6 +193,7 @@ namespace AzToolsFramework
         bool                                m_isInIsolationMode;
         EntityIdSet                         m_isolatedEntityIdSet;
         bool                                m_freezeSelectionUpdates = false;
+        bool                                m_isEditorReady = false;
 
         EditorEntityAPI* m_editorEntityAPI = nullptr;
 

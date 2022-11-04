@@ -1616,6 +1616,11 @@ namespace AzToolsFramework
         m_freezeSelectionUpdates = false;
     }
 
+    void ToolsApplication::OnRootPrefabInstanceLoaded()
+    {
+        m_isEditorReady = true;
+    }
+
     void ToolsApplication::CreateUndosForDirtyEntities()
     {
         AZ_PROFILE_FUNCTION(AzToolsFramework);
@@ -1666,19 +1671,26 @@ namespace AzToolsFramework
         }
         else
         {
-            auto prefabPublicInterface = AZ::Interface<Prefab::PrefabPublicInterface>::Get();
-            if (prefabPublicInterface)
+            if (m_isEditorReady)
             {
-                // Compared to the preemptive undo cache, we can avoid the duplicate check.
-                // Multiple changes to the same entity are just split between different undo nodes.
-                for (AZ::EntityId entityId : m_dirtyEntities)
+                auto prefabPublicInterface = AZ::Interface<Prefab::PrefabPublicInterface>::Get();
+                if (prefabPublicInterface)
                 {
-                    auto outcome = prefabPublicInterface->GenerateUndoNodesForEntityChangeAndUpdateCache(entityId, m_currentBatchUndo);
-
-                    if (!outcome.IsSuccess())
+                    // Compared to the preemptive undo cache, we can avoid the duplicate check.
+                    // Multiple changes to the same entity are just split between different undo nodes.
+                    for (AZ::EntityId entityId : m_dirtyEntities)
                     {
-                        QMessageBox::warning(
-                            AzToolsFramework::GetActiveWindow(), QString("Error"), QString(outcome.GetError().c_str()), QMessageBox::Ok, QMessageBox::Ok);
+                        auto outcome = prefabPublicInterface->GenerateUndoNodesForEntityChangeAndUpdateCache(entityId, m_currentBatchUndo);
+
+                        if (!outcome.IsSuccess())
+                        {
+                            QMessageBox::warning(
+                                AzToolsFramework::GetActiveWindow(),
+                                QString("Error"),
+                                QString(outcome.GetError().c_str()),
+                                QMessageBox::Ok,
+                                QMessageBox::Ok);
+                        }
                     }
                 }
             }
