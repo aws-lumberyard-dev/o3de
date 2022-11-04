@@ -44,7 +44,6 @@ if(NOT PAL_TRAIT_ATOM_RHI_METAL_SUPPORTED)
                     ${pal_source_dir}
             BUILD_DEPENDENCIES
                 PRIVATE
-                    AZ::AzCore
                     Gem::Atom_RHI.Reflect
                     Gem::Atom_RHI.Public
         )
@@ -107,7 +106,6 @@ ly_add_target(
             ${pal_source_dir}
     BUILD_DEPENDENCIES
         PRIVATE
-            AZ::AzCore
             Gem::Atom_RHI.Reflect
             Gem::Atom_RHI.Public
             Gem::Atom_RHI_Metal.Reflect

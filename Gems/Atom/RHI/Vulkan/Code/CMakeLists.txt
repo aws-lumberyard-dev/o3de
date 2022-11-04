@@ -197,7 +197,6 @@ if(PAL_TRAIT_BUILD_HOST_TOOLS)
                 Include
         BUILD_DEPENDENCIES
             PRIVATE
-                AZ::AzCore
                 Gem::Atom_RHI.Reflect
                 Gem::Atom_RHI.Public
                 Gem::Atom_RHI_Vulkan.Reflect

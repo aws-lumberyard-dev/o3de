@@ -7,6 +7,7 @@
  */
 
 #include <AzCore/Module/Module.h>
+#include <Atom/RHI.Reflect/DX12/ReflectSystemComponent.h>
 
 namespace AZ
 {
@@ -18,7 +19,13 @@ namespace AZ
         public:
             AZ_RTTI(PlatformModule, "{6AA25C53-C451-42DD-B2CA-08623869EBDD}", AZ::Module);
 
-            PlatformModule() = default;
+            PlatformModule()
+            {
+                m_descriptors.insert(m_descriptors.end(), {
+                    ReflectSystemComponent::CreateDescriptor()
+                });
+            }
+
             ~PlatformModule() override = default;
 
             AZ::ComponentTypeList GetRequiredSystemComponents() const override

@@ -36,9 +36,16 @@ if(NOT PAL_TRAIT_ATOM_RHI_DX12_SUPPORTED)
         NAMESPACE Gem
         FILES_CMAKE
             atom_rhi_dx12_stub_module.cmake
+            atom_rhi_dx12_reflect_common_files.cmake
+        INCLUDE_DIRECTORIES
+            PRIVATE
+                Include
+                Include/Platform/${PAL_PLATFORM_NAME}
+                Source
+                Source/Platform/${PAL_PLATFORM_NAME}
         BUILD_DEPENDENCIES
             PRIVATE
-                AZ::AzCore
+                Gem::Atom_RHI.Public
     )
 
     if(PAL_TRAIT_BUILD_HOST_TOOLS)
@@ -127,7 +134,6 @@ ly_add_target(
             Include
     BUILD_DEPENDENCIES
         PRIVATE
-            AZ::AzCore
             Gem::Atom_RHI.Reflect
             Gem::Atom_RHI.Public
             Gem::Atom_RHI_DX12.Reflect
@@ -170,7 +176,6 @@ if(PAL_TRAIT_BUILD_HOST_TOOLS)
                 Include
         BUILD_DEPENDENCIES
             PRIVATE
-                AZ::AzCore
                 Gem::Atom_RHI.Edit
                 Gem::Atom_RHI.Reflect
                 Gem::Atom_RHI.Public

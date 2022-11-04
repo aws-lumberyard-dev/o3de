@@ -33,7 +33,6 @@ if(PAL_TRAIT_BUILD_HOST_TOOLS)
                 External/Code/src
         BUILD_DEPENDENCIES
             PRIVATE
-                AZ::AzCore
                 AZ::AzToolsFramework
                 Gem::LmbrCentral
                 Gem::Atom_RHI.Public
@@ -77,7 +76,6 @@ else()
                 External/Code/src
         BUILD_DEPENDENCIES
             PRIVATE
-                AZ::AzCore
                 Gem::LmbrCentral
                 Gem::Atom_RHI.Public
                 Gem::Atom_RPI.Public

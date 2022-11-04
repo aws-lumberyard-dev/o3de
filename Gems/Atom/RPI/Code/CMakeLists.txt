@@ -60,7 +60,6 @@ ly_add_target(
     BUILD_DEPENDENCIES
         PRIVATE
             AZ::AtomCore
-            AZ::AzCore
             AZ::AzFramework
             Gem::Atom_RPI.Public
             Gem::Atom_RHI.Public
@@ -105,7 +104,6 @@ if(PAL_TRAIT_BUILD_HOST_TOOLS)
         BUILD_DEPENDENCIES
             PRIVATE
                 AZ::AtomCore
-                AZ::AzCore
                 AZ::AzFramework
                 Gem::Atom_RPI.Public
                 Gem::Atom_RHI.Public
@@ -237,7 +235,6 @@ if(PAL_TRAIT_BUILD_HOST_TOOLS)
         BUILD_DEPENDENCIES
             PRIVATE
                 AZ::AtomCore
-                AZ::AzCore
                 AZ::AzFramework
                 AZ::SceneCore
                 AZ::SceneData
@@ -262,7 +259,6 @@ if(PAL_TRAIT_BUILD_HOST_TOOLS)
         BUILD_DEPENDENCIES
             PRIVATE
                 AZ::AtomCore
-                AZ::AzCore
                 AZ::AzFramework
                 AZ::SceneCore
                 AZ::AssetBuilderSDK

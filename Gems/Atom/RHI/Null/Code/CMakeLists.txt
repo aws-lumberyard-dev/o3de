@@ -40,7 +40,6 @@ ly_add_target(
             ${pal_include_dir}
     BUILD_DEPENDENCIES
         PUBLIC
-            AZ::AzCore
             AZ::AzFramework
             AZ::AtomCore
             Gem::Atom_RHI.Public

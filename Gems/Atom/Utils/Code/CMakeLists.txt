@@ -18,7 +18,6 @@ ly_add_target(
             Include
     BUILD_DEPENDENCIES
         PRIVATE
-            AZ::AzCore
             Gem::Atom_RHI.Public
             AzFramework
         PUBLIC

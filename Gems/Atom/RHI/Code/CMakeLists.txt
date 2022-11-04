@@ -52,10 +52,10 @@ ly_add_target(
             Include
     BUILD_DEPENDENCIES
         PRIVATE
-            AZ::AzCore
             AZ::AzFramework
             Gem::Atom_RHI.Reflect
         PUBLIC
+            AZ::AzCore
             ${RENDERDOC_DEPENDENCY}
 )
 
@@ -71,7 +71,6 @@ ly_add_target(
             Include
     BUILD_DEPENDENCIES
         PRIVATE
-            AZ::AzCore
             AZ::AzFramework
             AZ::AtomCore
             Gem::Atom_RHI.Public
@@ -89,7 +88,6 @@ ly_add_target(
             Include
     BUILD_DEPENDENCIES
         PRIVATE
-            AZ::AzCore
             Gem::Atom_RHI.Public
             Gem::Atom_RHI.Private.Static
 )
