@@ -15,13 +15,13 @@
 #include <Atom/RPI.Reflect/Shader/ShaderCommonTypes.h>
 #include <Atom/RHI.Reflect/ShaderStageFunction.h>
 #include <Atom/RHI.Reflect/Limits.h>
+#include <Atom/RHI/Factory.h>
 
 namespace AZ
 {
     namespace RPI
     {
-        uint32_t ShaderVariantAsset::MakeAssetProductSubId(
-            uint32_t rhiApiUniqueIndex, uint32_t supervariantIndex, ShaderVariantStableId variantStableId, uint32_t subProductType)
+        namespace
         {
             static constexpr uint32_t SubProductTypeBitPosition = 17;
             static constexpr uint32_t SubProductTypeNumBits = SupervariantIndexBitPosition - SubProductTypeBitPosition;
@@ -30,7 +30,11 @@ namespace AZ
             static constexpr uint32_t StableIdBitPosition = 0;
             static constexpr uint32_t StableIdNumBits = SubProductTypeBitPosition - StableIdBitPosition;
             [[maybe_unused]] static constexpr uint32_t StableIdMaxValue = (1 << StableIdNumBits) - 1;
+        }
 
+        uint32_t ShaderVariantAsset::MakeAssetProductSubId(
+            uint32_t rhiApiUniqueIndex, uint32_t supervariantIndex, ShaderVariantStableId variantStableId, uint32_t subProductType)
+        {
             static_assert(RhiIndexMaxValue == RHI::Limits::APIType::PerPlatformApiUniqueIndexMax);
 
             // The 2 Most significant bits encode the the RHI::API unique index.
@@ -43,6 +47,31 @@ namespace AZ
                 (supervariantIndex << SupervariantIndexBitPosition) | (subProductType << SubProductTypeBitPosition) |
                 (variantStableId.GetIndex() << StableIdBitPosition);
             return assetProductSubId;
+        }
+
+        void ShaderVariantAsset::DecodeAssetProductSubId(
+            uint32_t subId,
+            uint32_t* rhiApiUniqueIndex,
+            uint32_t* supervariantIndex,
+            ShaderVariantStableId* variantStableId,
+            uint32_t* subProductType)
+        {
+            if (rhiApiUniqueIndex)
+            {
+                *rhiApiUniqueIndex = (subId >> RhiIndexBitPosition) & RhiIndexMaxValue;
+            }
+            if (supervariantIndex)
+            {
+                *supervariantIndex = (subId >> SupervariantIndexBitPosition) & SupervariantIndexMaxValue;
+            }
+            if (variantStableId)
+            {
+                *variantStableId = ShaderVariantStableId{(subId >> StableIdBitPosition) & StableIdMaxValue};
+            }
+            if (subProductType)
+            {
+                *subProductType = (subId >> SubProductTypeBitPosition) & SubProductTypeMaxValue;
+            }
         }
 
         void ShaderVariantAsset::Reflect(ReflectContext* context)
@@ -96,6 +125,7 @@ namespace AZ
             {
                 return PostLoadInit(asset) ? LoadResult::LoadComplete : LoadResult::Error;
             }
+
             return LoadResult::Error;
         }
 

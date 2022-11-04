@@ -56,6 +56,31 @@ namespace AZ
             return GetSupervariantIndexFromProductAssetSubId(assetId.m_subId);
         }
 
+        Data::AssetLoadParameters ShaderAsset::GetDefaultShaderAssetLoadParams()
+        {
+            return Data::AssetLoadParameters{GetDefaultShaderAssetFilter()};
+        }
+
+        Data::AssetFilterCB ShaderAsset::GetDefaultShaderAssetFilter()
+        {
+            Data::AssetFilterCB filterActiveApiOnly = [](const Data::AssetFilterInfo& filterInfo) -> bool
+            {
+                if (filterInfo.m_assetType == azrtti_typeid<ShaderVariantAsset>())
+                {
+                    uint32_t rhiApiUniqueIndex = 0;
+                    ShaderVariantAsset::DecodeAssetProductSubId(filterInfo.m_assetId.m_subId, &rhiApiUniqueIndex);
+                    if (RHI::Factory::IsReady() && RHI::Factory::Get().GetAPIUniqueIndex() != rhiApiUniqueIndex)
+                    {
+                        return false;
+                    }
+                }
+
+                return true;
+            };
+
+            return filterActiveApiOnly;
+        }
+
         void ShaderAsset::Supervariant::Reflect(AZ::ReflectContext* context)
         {
             if (auto* serializeContext = azrtti_cast<SerializeContext*>(context))
@@ -619,7 +644,18 @@ namespace AZ
             AZStd::shared_ptr<Data::AssetDataStream> stream,
             const Data::AssetFilterCB& assetLoadFilterCB)
         {
-            if (Base::LoadAssetData(asset, stream, assetLoadFilterCB) == Data::AssetHandler::LoadResult::LoadComplete)
+            Data::AssetFilterCB filterActiveApiOnly = [&assetLoadFilterCB](const Data::AssetFilterInfo& filterInfo) -> bool
+            {
+                Data::AssetFilterCB defaultFilter = ShaderAsset::GetDefaultShaderAssetFilter();
+                if (!defaultFilter(filterInfo))
+                {
+                    return false;
+                }
+
+                return assetLoadFilterCB(filterInfo);
+            };
+
+            if (Base::LoadAssetData(asset, stream, filterActiveApiOnly) == Data::AssetHandler::LoadResult::LoadComplete)
             {
                 ShaderAsset* shaderAsset = asset.GetAs<ShaderAsset>();
 

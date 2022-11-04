@@ -568,7 +568,8 @@ namespace AZ
                 return Data::Asset<ShaderAsset>();
             }
 
-            auto shaderAsset = Data::AssetManager::Instance().GetAsset<ShaderAsset>(shaderAssetId, AZ::Data::AssetLoadBehavior::PreLoad);
+            auto shaderAsset = Data::AssetManager::Instance().GetAsset<ShaderAsset>(
+                shaderAssetId, AZ::Data::AssetLoadBehavior::PreLoad, ShaderAsset::GetDefaultShaderAssetLoadParams());
 
             shaderAsset.BlockUntilLoadComplete();
 

@@ -40,7 +40,10 @@ namespace AZ
             //! Loads an asset using a product file path, on the current thread.
             //! @return a null asset if the asset could not be found or loaded.
             template<typename AssetDataT>
-            Data::Asset<AssetDataT> LoadAssetByProductPath(const char* productPath, TraceLevel reporting = TraceLevel::Warning);
+            Data::Asset<AssetDataT> LoadAssetByProductPath(
+                const char* productPath,
+                TraceLevel reporting = TraceLevel::Warning,
+                const Data::AssetLoadParameters& loadParams = Data::AssetLoadParameters{});
 
             //! Loads an asset using an AssetId, on the current thread.
             //! @return a null asset if the asset could not be found or loaded.
@@ -51,7 +54,10 @@ namespace AZ
             //! If the asset wasn't compiled, wait until the asset is compiled.
             //! @return a null asset if the asset could not be compiled or loaded.
             template<typename AssetDataT>
-            Data::Asset<AssetDataT> LoadCriticalAsset(const AZStd::string& assetFilePath, TraceLevel reporting = TraceLevel::Error);
+            Data::Asset<AssetDataT> LoadCriticalAsset(
+                const AZStd::string& assetFilePath,
+                TraceLevel reporting = TraceLevel::Error,
+                const Data::AssetLoadParameters& loadParams = Data::AssetLoadParameters{});
 
             template<typename AssetDataT>
             bool LoadBlocking(AZ::Data::Asset<AssetDataT>& asset, TraceLevel reporting = TraceLevel::Warning);
@@ -84,13 +90,13 @@ namespace AZ
             }
 
             template<typename AssetDataT>
-            Data::Asset<AssetDataT> LoadAssetByProductPath(const char* productPath, TraceLevel reporting)
+            Data::Asset<AssetDataT> LoadAssetByProductPath(const char* productPath, TraceLevel reporting, const Data::AssetLoadParameters& loadParams)
             {
                 Data::AssetId assetId = GetAssetIdForProductPath(productPath, reporting);
                 if (assetId.IsValid())
                 {
                     Data::Asset<AssetDataT> asset = AZ::Data::AssetManager::Instance().GetAsset<AssetDataT>(
-                        assetId, AZ::Data::AssetLoadBehavior::PreLoad);
+                        assetId, AZ::Data::AssetLoadBehavior::PreLoad, loadParams);
                     asset.BlockUntilLoadComplete();
 
                     if (!asset.IsReady())
@@ -131,7 +137,7 @@ namespace AZ
             }
 
             template<typename AssetDataT>
-            Data::Asset<AssetDataT> LoadCriticalAsset(const AZStd::string& assetFilePath, TraceLevel reporting)
+            Data::Asset<AssetDataT> LoadCriticalAsset(const AZStd::string& assetFilePath, TraceLevel reporting, const Data::AssetLoadParameters& loadParams)
             {
                 bool apConnected = false;
                 AzFramework::AssetSystemRequestBus::BroadcastResult(
@@ -148,7 +154,7 @@ namespace AZ
                     }
                 }
 
-                return LoadAssetByProductPath<AssetDataT>(assetFilePath.c_str(), reporting);
+                return LoadAssetByProductPath<AssetDataT>(assetFilePath.c_str(), reporting, loadParams);
             }
 
             template<typename AssetDataT>

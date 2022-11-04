@@ -42,6 +42,13 @@ namespace AZ
                 uint32_t rhiApiUniqueIndex, uint32_t supervariantIndex, ShaderVariantStableId variantStableId,
                 uint32_t subProductType = 0);
 
+            static void DecodeAssetProductSubId(
+                uint32_t subId,
+                uint32_t* rhiApiUniqueIndex = nullptr,
+                uint32_t* supervariantIndex = nullptr,
+                ShaderVariantStableId* variantStableId = nullptr,
+                uint32_t* subProductType = nullptr);
+
             ShaderVariantAsset() = default;
             ~ShaderVariantAsset() = default;
 

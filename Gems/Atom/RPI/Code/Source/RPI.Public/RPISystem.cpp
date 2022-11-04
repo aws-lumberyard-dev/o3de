@@ -378,7 +378,10 @@ namespace AZ
                 return;
             }
 
-            m_commonShaderAssetForSrgs = AssetUtils::LoadCriticalAsset<ShaderAsset>( m_descriptor.m_commonSrgsShaderAssetPath.c_str());
+            m_commonShaderAssetForSrgs = AssetUtils::LoadCriticalAsset<ShaderAsset>(
+                m_descriptor.m_commonSrgsShaderAssetPath.c_str(),
+                AssetUtils::TraceLevel::Error,
+                ShaderAsset::GetDefaultShaderAssetLoadParams());
             if (!m_commonShaderAssetForSrgs.IsReady())
             {
                 AZ_Error("RPI system", false, "Failed to load RPI system asset %s", m_descriptor.m_commonSrgsShaderAssetPath.c_str());

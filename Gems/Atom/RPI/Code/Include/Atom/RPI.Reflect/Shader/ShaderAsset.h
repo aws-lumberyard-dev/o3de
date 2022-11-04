@@ -76,6 +76,8 @@ namespace AZ
             static SupervariantIndex GetSupervariantIndexFromProductAssetSubId(uint32_t assetProducSubId);
             static SupervariantIndex GetSupervariantIndexFromAssetId(const Data::AssetId& assetId);
 
+            static Data::AssetLoadParameters GetDefaultShaderAssetLoadParams();
+            static Data::AssetFilterCB GetDefaultShaderAssetFilter();
 
             ShaderAsset() = default;
             ~ShaderAsset();
