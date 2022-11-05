@@ -24,7 +24,8 @@ namespace AZ
             BuilderModule()
             {
                 m_descriptors.insert(m_descriptors.end(), {
-                    ReflectSystemComponent::CreateDescriptor()
+                    // We don't set up ReflectSystemComponent here because the stub module already does that.
+                    //ReflectSystemComponent::CreateDescriptor()
                 });
             }
         };
