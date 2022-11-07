@@ -1341,6 +1341,7 @@ namespace AzToolsFramework
     void DocumentPropertyEditor::Clear()
     {
         m_rowPool->RecycleInstance(m_rootNode);
+        m_rootNode = nullptr;
     }
 
     void DocumentPropertyEditor::AddAfterWidget(QWidget* precursor, QWidget* widgetToAdd)
