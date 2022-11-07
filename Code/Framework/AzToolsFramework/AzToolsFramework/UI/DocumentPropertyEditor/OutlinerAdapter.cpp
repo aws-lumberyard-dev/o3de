@@ -116,7 +116,6 @@ namespace AZ::DocumentPropertyEditor
     void OutlinerAdapter::OnContextReset()
     {
         HandleReset();
-        NotifyResetDocument();
     }
     
     void OutlinerAdapter::OnStartPlayInEditorBegin()
@@ -137,7 +136,7 @@ namespace AZ::DocumentPropertyEditor
     void OutlinerAdapter::OnEntityInfoResetEnd()
     {
         HandleReset();
-        NotifyResetDocument();
+        TriggerReset();
     }
     
     void OutlinerAdapter::OnEntityInfoUpdatedAddChildBegin(AZ::EntityId parentId, AZ::EntityId childId)
@@ -193,7 +192,7 @@ namespace AZ::DocumentPropertyEditor
             }
         }
 
-        NotifyResetDocument();
+        TriggerReset();
     }
     
     void OutlinerAdapter::OnEntityInfoUpdatedRemoveChildBegin(AZ::EntityId parentId, AZ::EntityId childId)
@@ -225,7 +224,7 @@ namespace AZ::DocumentPropertyEditor
 
         m_entityNodeCache.erase(childId);
 
-        NotifyResetDocument();
+        TriggerReset();
     }
     
     void OutlinerAdapter::OnEntityInfoUpdatedOrderBegin(AZ::EntityId parentId, AZ::EntityId childId, AZ::u64 index)
@@ -250,7 +249,7 @@ namespace AZ::DocumentPropertyEditor
         if (m_entityNodeCache[entityId])
         {
             m_entityNodeCache[entityId]->m_selected = selected;
-            NotifyResetDocument();
+            TriggerReset();
         }
         else
         {
@@ -263,7 +262,7 @@ namespace AZ::DocumentPropertyEditor
         if (m_entityNodeCache[entityId])
         {
             m_entityNodeCache[entityId]->m_locked = locked;
-            NotifyResetDocument();
+            TriggerReset();
         }
         else
         {
@@ -276,7 +275,7 @@ namespace AZ::DocumentPropertyEditor
         if (m_entityNodeCache[entityId])
         {
             m_entityNodeCache[entityId]->m_visible = visible;
-            NotifyResetDocument();
+            TriggerReset();
         }
         else
         {
@@ -291,7 +290,7 @@ namespace AZ::DocumentPropertyEditor
             // TRYAN - Note that the current outliner has a case for scrolling the view list to the entity if its selected
 
             m_entityNodeCache[entityId]->m_name = name;
-            NotifyResetDocument();
+            TriggerReset();
         }
         else
         {
@@ -303,7 +302,7 @@ namespace AZ::DocumentPropertyEditor
     {
         (void)entityId;
         HandleReset();
-        NotifyResetDocument();
+        TriggerReset();
     }
     
     void OutlinerAdapter::OnContainerEntityStatusChanged(AZ::EntityId entityId, bool open)
@@ -311,6 +310,23 @@ namespace AZ::DocumentPropertyEditor
         (void)entityId;
         (void)open;
         HandleReset();
+        TriggerReset();
+    }
+
+    void OutlinerAdapter::TriggerReset()
+    {
+        // start a single timer so that multiple reset calls this frame only cause one actual reset
+        if (!m_resetTimerId)
+        {
+            m_resetTimerId = startTimer(0);
+        }
+    }
+
+    void OutlinerAdapter::timerEvent(QTimerEvent*)
+    {
+        killTimer(m_resetTimerId);
+        m_resetTimerId = 0;
         NotifyResetDocument();
     }
+
 } // namespace AZ::DocumentPropertyEditor

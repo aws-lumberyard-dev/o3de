@@ -12,13 +12,15 @@
 #include <AzToolsFramework/ContainerEntity/ContainerEntityNotificationBus.h>
 #include <AzToolsFramework/Entity/EditorEntityContextBus.h>
 #include <AzToolsFramework/Entity/EditorEntityInfoBus.h>
+#include <QObject>
 
 namespace AZ::DocumentPropertyEditor
 {
     //! An adapter for displaying an editable list of CVars registered to the console instance.
     //! Supports editing CVars with primitive types, string types, and numeric vector types
     //! (VectorX, Quaternion, and Color).
-    class OutlinerAdapter : public DocumentAdapter
+    class OutlinerAdapter : public QObject
+        , public DocumentAdapter
         , private AzToolsFramework::ContainerEntityNotificationBus::Handler
         , private AzToolsFramework::EditorEntityContextNotificationBus::Handler
         , private AzToolsFramework::EditorEntityInfoNotificationBus::Handler
@@ -73,5 +75,9 @@ namespace AZ::DocumentPropertyEditor
 
         AZStd::unique_ptr<OutlinerNode> m_rootNode;
         AZStd::unordered_map<EntityId, OutlinerNode*> m_entityNodeCache;
+
+        void TriggerReset();
+        int m_resetTimerId = 0;
+        void timerEvent(QTimerEvent* event) override;
     };
 }

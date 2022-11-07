@@ -8,6 +8,7 @@
 
 #include <AzToolsFramework/UI/DocumentPropertyEditor/OutlinerRowHandler.h>
 #include <AzToolsFramework/API/ToolsApplicationAPI.h>
+#include <QSignalBlocker>
 
 namespace AzToolsFramework
 {
@@ -25,6 +26,10 @@ namespace AzToolsFramework
         m_entityId = AZ::EntityId(AZ::Dpe::Nodes::OutlinerRow::EntityId.ExtractFromDomNode(node).value_or(AZ::EntityId::InvalidEntityId));
 
         m_name->setText(QString::fromUtf8(entityName.data(), aznumeric_cast<int>(entityName.size())));
+
+        // set the check state on the checkboxes, but don't let them emit their toggled signals or we'll loop back on ourselves
+        QSignalBlocker blockVisibleSignals(m_visibilityButton);
+        QSignalBlocker blockLockSignals(m_lockButton);
         m_visibilityButton->setChecked(!visibleState);
         m_lockButton->setChecked(lockedState);
 
