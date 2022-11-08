@@ -525,7 +525,7 @@ TestEngineInstrumentedRunResult<PythonTestTarget, TestCoverage> DiscoverDependen
                 }
             }
 
-            AZStd::vector<TestEngineInstrumentedRun<TestTarget, typename PythonTestEngine::TestCaseCoverageType>> expandedTestJobs;
+            AZStd::vector<TestEngineInstrumentedRun<TestTarget, TestCoverage>> expandedTestJobs;
             expandedTestJobs.reserve(testJobs.size());
             for (const auto& testJob : testJobs)
             {
@@ -539,9 +539,9 @@ TestEngineInstrumentedRunResult<PythonTestTarget, TestCoverage> DiscoverDependen
                         AZStd::vector<SourceCoverage>{});
                 }
 
-                TestEngineInstrumentedRun<TestTarget, typename PythonTestEngine::TestCaseCoverageType> foo(
+                TestEngineInstrumentedRun<TestTarget, TestCoverage> foo(
                     TestEngineJob<TestTarget>(testJob),
-                    AZStd::pair<AZStd::optional<TestRun>, typename PythonTestEngine::TestCaseCoverageType>{
+                    AZStd::pair<AZStd::optional<TestRun>, TestCoverage>{
                         run, TestCoverage(AZStd::move(moduleCoverages)) });
                 expandedTestJobs.push_back(foo);
             }
@@ -558,79 +558,62 @@ TestEngineInstrumentedRunResult<PythonTestTarget, TestCoverage> DiscoverDependen
         [[maybe_unused]] AZStd::optional<TestSequenceCompleteCallback<Client::RegularSequenceReport>> testSequenceEndCallback,
         [[maybe_unused]] AZStd::optional<TestRunCompleteCallback> testCompleteCallback)
     {
-        //const Timer sequenceTimer;
-        //AZStd::vector<const NativeTestTarget*> includedTestTargets;
-        //AZStd::vector<const NativeTestTarget*> excludedTestTargets;
-        //
-        //// Separate the test targets into those that are excluded by either the test filter or exclusion list and those that are not
-        //for (const auto& testTarget : m_dynamicDependencyMap->GetBuildTargets()->GetTestTargetList().GetTargets())
-        //{
-        //    if (m_regularTestTargetExcludeList->IsTestTargetFullyExcluded(&testTarget))
-        //    {
-        //        excludedTestTargets.push_back(&testTarget);
-        //    }
-        //    else
-        //    {
-        //        includedTestTargets.push_back(&testTarget);
-        //    }
-        //}
-        //
-        //// Extract the client facing representation of selected test targets
-        //const Client::TestRunSelection selectedTests(
-        //    ExtractTestTargetNames(includedTestTargets), ExtractTestTargetNames(excludedTestTargets));
-        //
-        //// Inform the client that the sequence is about to start
-        //if (testSequenceStartCallback.has_value())
-        //{
-        //    (*testSequenceStartCallback)(m_suiteFilter, selectedTests);
-        //}
-        //
-        //// Run the test targets and collect the test run results
-        //const Timer testRunTimer;
-        //const auto [result, testJobs] = m_testEngine->RegularRun(
-        //    includedTestTargets,
-        //    m_executionFailurePolicy,
-        //    m_testFailurePolicy,
-        //    m_targetOutputCapture,
-        //    testTargetTimeout,
-        //    globalTimeout,
-        //    TestRunCompleteCallbackHandler(includedTestTargets.size(), testCompleteCallback));
-        //const auto testRunDuration = testRunTimer.GetElapsedMs();
-        //
-        //// Generate the sequence report for the client
-        //const auto sequenceReport = Client::RegularSequenceReport(
-        //    m_maxConcurrency,
-        //    testTargetTimeout,
-        //    globalTimeout,
-        //    GenerateSequencePolicyState(),
-        //    m_suiteFilter,
-        //    selectedTests,
-        //    GenerateTestRunReport(result, testRunTimer.GetStartTimePointRelative(sequenceTimer), testRunDuration, testJobs));
-        //
-        //// Inform the client that the sequence has ended
-        //if (testSequenceEndCallback.has_value())
-        //{
-        //    (*testSequenceEndCallback)(sequenceReport);
-        //}
-        //
-        //return sequenceReport;
+        const Timer sequenceTimer;
+        AZStd::vector<const TestTarget*> includedTestTargets;
+        AZStd::vector<const TestTarget*> excludedTestTargets;
 
-        return Client::RegularSequenceReport(
+        // Separate the test targets into those that are excluded by either the test filter or exclusion list and those that are not
+        for (const auto& testTarget : m_dynamicDependencyMap->GetBuildTargetList()->GetTestTargetList().GetTargets())
+        {
+            if (m_testTargetExcludeList->IsTestTargetFullyExcluded(&testTarget))
+            {
+                excludedTestTargets.push_back(&testTarget);
+            }
+            else
+            {
+                includedTestTargets.push_back(&testTarget);
+            }
+        }
+
+        // Extract the client facing representation of selected test targets
+        const Client::TestRunSelection selectedTests(
+            ExtractTestTargetNames(includedTestTargets), ExtractTestTargetNames(excludedTestTargets));
+
+        // Inform the client that the sequence is about to start
+        if (testSequenceStartCallback.has_value())
+        {
+            (*testSequenceStartCallback)(m_suiteFilter, selectedTests);
+        }
+
+        // Run the test targets and collect the test run results
+        const Timer testRunTimer;
+        const auto [result, testJobs] = m_testEngine->RegularRun(
+            includedTestTargets,
+            m_executionFailurePolicy,
+            m_testFailurePolicy,
+            m_targetOutputCapture,
+            testTargetTimeout,
+            globalTimeout,
+            TestRunCompleteCallbackHandler<TestTarget>(includedTestTargets.size(), testCompleteCallback));
+        const auto testRunDuration = testRunTimer.GetElapsedMs();
+
+        // Generate the sequence report for the client
+        const auto sequenceReport = Client::RegularSequenceReport(
             1,
-            AZStd::nullopt,
-            AZStd::nullopt,
-            SequencePolicyState{},
+            testTargetTimeout,
+            globalTimeout,
+            GenerateSequencePolicyState(),
             m_suiteFilter,
-            Client::TestRunSelection(),
-            Client::TestRunReport(
-                TestSequenceResult::Success,
-                AZStd::chrono::steady_clock::time_point(),
-                AZStd::chrono::milliseconds{ 0 },
-                {},
-                {},
-                {},
-                {},
-                {}));
+            selectedTests,
+            GenerateTestRunReport(result, testRunTimer.GetStartTimePointRelative(sequenceTimer), testRunDuration, testJobs));
+
+        // Inform the client that the sequence has ended
+        if (testSequenceEndCallback.has_value())
+        {
+            (*testSequenceEndCallback)(sequenceReport);
+        }
+
+        return sequenceReport;
     }
 
     Client::ImpactAnalysisSequenceReport PythonRuntime::ImpactAnalysisTestSequence(

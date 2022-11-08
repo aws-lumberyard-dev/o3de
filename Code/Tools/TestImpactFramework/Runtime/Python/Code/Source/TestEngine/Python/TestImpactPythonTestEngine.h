@@ -32,8 +32,7 @@ namespace TestImpact
     class PythonTestEngine
     {
     public:
-        using TestTargetType = PythonTestTarget;
-        using TestCaseCoverageType = TestCoverage;
+        using TestTarget = PythonTestTarget;
 
         //! Configures the test engine with the necessary path information for launching test targets and managing the artifacts they
         //! produce.
@@ -49,6 +48,28 @@ namespace TestImpact
 
         ~PythonTestEngine();
 
+        //! Performs a test run without any instrumentation and, for each test target, returns the test run results and metrics about the
+        //! run.
+        //! @param testTargets The test targets to run.
+        //! @param testShardingPolicy Test sharding policy to use for test targets in this run.
+        //! @param executionFailurePolicy Policy for how test execution failures should be handled.
+        //! @param testFailurePolicy Policy for how test targets with failing tests should be handled.
+        //! @param targetOutputCapture Policy for how test target standard output should be captured and handled.
+        //! @param testTargetTimeout The maximum duration a test target may be in-flight for before being forcefully terminated (infinite if
+        //! empty).
+        //! @param globalTimeout The maximum duration the enumeration sequence may run before being forcefully terminated (infinite if
+        //! empty).
+        //! @param callback The client callback function to handle completed test target runs.
+        //! @ returns The sequence result and the test run results for the test targets that were run.
+        [[nodiscard]] TestEngineRegularRunResult<TestTarget> RegularRun(
+            const AZStd::vector<const TestTarget*>& testTargets,
+            Policy::ExecutionFailure executionFailurePolicy,
+            Policy::TestFailure testFailurePolicy,
+            Policy::TargetOutputCapture targetOutputCapture,
+            AZStd::optional<AZStd::chrono::milliseconds> testTargetTimeout,
+            AZStd::optional<AZStd::chrono::milliseconds> globalTimeout,
+            AZStd::optional<TestEngineJobCompleteCallback<TestTarget>> callback) const;
+
         //! Performs a test run with instrumentation and, for each test target, returns the test run results, coverage data and metrics
         //! about the run.
         //! @param testTargets The test targets to run.
@@ -62,7 +83,7 @@ namespace TestImpact
         //! empty).
         //! @param callback The client callback function to handle completed test target runs.
         //! @ returns The sequence result and the test run results and test coverages for the test targets that were run.
-        [[nodiscard]] TestEngineInstrumentedRunResult<TestTargetType, TestCaseCoverageType>
+        [[nodiscard]] TestEngineInstrumentedRunResult<TestTarget, TestCoverage>
         InstrumentedRun(
             const AZStd::vector<const PythonTestTarget*>& testTargets,
             Policy::ExecutionFailure executionFailurePolicy,

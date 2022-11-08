@@ -43,13 +43,13 @@ namespace TestImpact
     template<>
     struct TestJobRunnerTrait<PythonTestRunner>
     {
-        using TestEngineJobType = TestEngineInstrumentedRun<typename PythonTestEngine::TestTargetType, typename PythonTestEngine::TestCaseCoverageType>;
+        using TestEngineJobType = TestEngineInstrumentedRun<PythonTestTarget, TestCoverage>;
     };
 
     template<>
     struct TestJobRunnerTrait<PythonNullTestRunner>
     {
-        using TestEngineJobType = TestEngineInstrumentedRun<typename PythonTestEngine::TestTargetType, typename PythonTestEngine::TestCaseCoverageType>;
+        using TestEngineJobType = TestEngineInstrumentedRun<PythonTestTarget, TestCoverage>;
     };
 
     PythonTestEngine::PythonTestEngine(
@@ -74,7 +74,7 @@ namespace TestImpact
         DeleteFiles(m_artifactDir.m_coverageArtifactDirectory, "*.pycoverage");
     }
 
-    TestEngineInstrumentedRunResult<typename PythonTestEngine::TestTargetType, typename PythonTestEngine::TestCaseCoverageType>
+    TestEngineInstrumentedRunResult<PythonTestTarget, TestCoverage>
         PythonTestEngine::
         InstrumentedRun(
         [[maybe_unused]] const AZStd::vector<const PythonTestTarget*>& testTargets,
