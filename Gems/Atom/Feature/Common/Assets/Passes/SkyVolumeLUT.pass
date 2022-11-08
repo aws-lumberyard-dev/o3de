@@ -5,8 +5,8 @@
     "ClassName": "PassAsset",
     "ClassData": {
         "PassTemplate": {
-            "Name": "SkyViewLUTTemplate",
-            "PassClass": "FullScreenTriangle",
+            "Name": "SkyVolumeLUTTemplate",
+            "PassClass": "ComputePass",
             "Slots": [
                 {
                     "Name": "SkyTransmittanceLUTInput",
@@ -15,17 +15,17 @@
                     "ShaderInputName": "m_transmittanceLUT"
                 },
                 {
-                    "Name": "SkyViewLUTOutput",
+                    "Name": "SkyVolumeLUTOutput",
                     "SlotType": "Output",
-                    "ScopeAttachmentUsage": "RenderTarget"
+                    "ScopeAttachmentUsage": "Shader",
+                    "ShaderInputName": "m_targetTexture"
                 }
             ],
             "PassData": {
-                "$type": "FullscreenTrianglePassData",
+                "$type": "ComputePassData",
                 "ShaderAsset": {
-                    "FilePath": "Shaders/SkyAtmosphere/SkyViewLUT.shader"
-                },
-                "PipelineViewTag": "MainCamera"
+                    "FilePath": "Shaders/SkyAtmosphere/SkyVolumeLUT.shader"
+                }
             }
         }
     }
