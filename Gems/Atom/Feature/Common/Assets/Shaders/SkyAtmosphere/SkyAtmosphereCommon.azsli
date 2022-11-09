@@ -31,6 +31,7 @@ ShaderResourceGroup PassSrg : SRG_PerPass_WithFallback
     Texture2DArray<float> m_directionalLightShadowmap;
     Texture2DArray<float> m_directionalLightExponentialShadowmap;
     Texture2D<float> m_fullscreenShadow;
+    RWTexture3D<float4> m_lutTexture;
 
     Sampler LinearSampler
     {

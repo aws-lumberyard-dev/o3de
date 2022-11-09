@@ -12,16 +12,12 @@
 
 #include <SkyAtmosphereCommon.azsli>
 
-ShaderResourceGroup PassSrg : SRG_PerPass
-{
-    RWTexture3D<float4> m_lutTexture;
-} 
 
 #define LUT_SIZE_UINT 32
 #define LUT_SIZE_FLOAT 32.0
 
 [numthreads(LUT_SIZE_UINT, LUT_SIZE_UINT, LUT_SIZE_UINT)]
-void MainCS(uint3 dispatch_id: SV_DispatchThreadID)
+void SkyVolumeLUTCS(uint3 dispatch_id: SV_DispatchThreadID)
 {
     float r = float(dispatch_id.x) / LUT_SIZE_FLOAT;
     float g = float(dispatch_id.y) / LUT_SIZE_FLOAT;
@@ -32,5 +28,5 @@ void MainCS(uint3 dispatch_id: SV_DispatchThreadID)
     //uint3 outputDimensions;
     //PassSrg::m_lutTexture.GetDimensions(outputDimensions.x, outputDimensions.y, outputDimensions.z);
 
-    PassSrg::m_lutTexture[outPixel] = float3(r,g,b, 1.0);
+    PassSrg::m_lutTexture[outPixel] = float4(r,g,b, 1.0);
 }
