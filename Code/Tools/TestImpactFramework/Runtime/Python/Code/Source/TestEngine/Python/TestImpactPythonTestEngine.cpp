@@ -16,6 +16,7 @@
 #include <TestRunner/Python/TestImpactPythonTestRunner.h>
 #include <TestRunner/Python/TestImpactPythonNullTestRunner.h>
 
+#include <iostream>
 namespace TestImpact
 {
     AZStd::optional<Client::TestRunResult> PythonInstrumentedTestRunnerErrorCodeChecker(
@@ -132,5 +133,3 @@ namespace TestImpact
         }
     }
 } // namespace TestImpact
-
-#pragma optimize("", on)
