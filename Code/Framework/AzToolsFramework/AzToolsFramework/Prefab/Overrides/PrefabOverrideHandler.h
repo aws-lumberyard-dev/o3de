@@ -23,6 +23,8 @@ namespace AzToolsFramework
             //! @param linkId The id of the link object to check for overrides
             //! @return true if overrides are present at the given path on the link object matching the link id.
             bool AreOverridesPresent(AZ::Dom::Path path, LinkId linkId);
+
+            void RevertOverrides(AZ::Dom::Path path, LinkId linkId);
         };
     } // namespace Prefab
 } // namespace AzToolsFramework
