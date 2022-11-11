@@ -13,8 +13,10 @@
 #include <AzCore/Component/EntityBus.h>
 #include <AzCore/RTTI/BehaviorContext.h>
 #include <AzCore/std/algorithm.h>
+#include <AzCore/std/functional.h>
+#include <AzCore/std/smart_ptr/unique_ptr.h>
 #include <AzCore/std/tuple.h>
-#include <ScriptCanvas/CodeGen/NodeableCodegen.h>
+
 #include <ScriptCanvas/Core/Contracts/TypeContract.h>
 #include <ScriptCanvas/Core/Core.h>
 #include <ScriptCanvas/Core/DatumBus.h>
@@ -31,8 +33,6 @@
 #include <ScriptCanvas/Execution/ExecutionBus.h>
 #include <ScriptCanvas/Grammar/Primitives.h>
 #include <ScriptCanvas/Variable/GraphVariable.h>
-#include <AzCore//std/smart_ptr/unique_ptr.h>
-#include <AzCore/std/functional.h>
 
 #define SCRIPT_CANVAS_CALL_ON_INDEX_SEQUENCE(lambdaInterior)\
     int dummy[]{ 0, ( lambdaInterior , 0)... };\
@@ -44,8 +44,6 @@ namespace ScriptCanvas
     {
         class Map;
     }
-
-    using ExecutionNameMap = AZStd::unordered_multimap<AZStd::string, AZStd::string>;
 
     namespace Internal
     {
@@ -61,314 +59,17 @@ namespace ScriptCanvas
         template<typename ResultType, typename ResultIndexSequence, typename t_Func, t_Func function, typename t_Traits>
         struct CallHelper;
     }
+
     class Graph;    
     class Node;
-
+    class NodePropertyInterface;
     struct BehaviorContextMethodHelper;
-
-#if defined(OBJECT_STREAM_EDITOR_ASSET_LOADING_SUPPORT_ENABLED)////
-    template<typename t_Class>
-    class SerializeContextReadWriteHandler : public AZ::SerializeContext::IEventHandler
-    {
-    public:
-        /// Called right before we start reading from the instance pointed by classPtr.
-        void OnReadBegin(void* objectPtr) override
-        {
-            t_Class* deserializedObject = reinterpret_cast<t_Class*>(objectPtr);
-            deserializedObject->OnReadBegin();
-        }
-
-        /// Called after we are done reading from the instance pointed by classPtr.
-        void OnReadEnd(void* objectPtr) override
-        {
-            t_Class* deserializedObject = reinterpret_cast<t_Class*>(objectPtr);
-            deserializedObject->OnReadEnd();
-        }
-
-        /// Called right before we start writing to the instance pointed by classPtr.
-        void OnWriteBegin(void* objectPtr) override
-        {
-            t_Class* deserializedObject = reinterpret_cast<t_Class*>(objectPtr);
-            deserializedObject->OnWriteBegin();
-        }
-
-        /// Called after we are done writing to the instance pointed by classPtr.
-        void OnWriteEnd(void* objectPtr) override
-        {
-            t_Class* deserializedObject = reinterpret_cast<t_Class*>(objectPtr);
-            deserializedObject->OnWriteEnd();
-        }
-    };
-
-    template<typename t_Class>
-    class SerializeContextOnWriteEndHandler : public AZ::SerializeContext::IEventHandler
-    {
-    public:
-        /// Called after we are done writing to the instance pointed by classPtr.
-        void OnWriteEnd(void* objectPtr) override
-        {
-            t_Class* deserializedObject = reinterpret_cast<t_Class*>(objectPtr);
-            deserializedObject->OnWriteEnd();
-        }
-    };
-
-    template<typename t_Class>
-    class SerializeContextOnWriteHandler : public AZ::SerializeContext::IEventHandler
-    {
-    public:
-        /// Called right before we start writing to the instance pointed by classPtr.
-        void OnWriteBegin(void* objectPtr) override
-        {
-            t_Class* deserializedObject = reinterpret_cast<t_Class*>(objectPtr);
-            deserializedObject->OnWriteBegin();
-        }
-
-        /// Called after we are done writing to the instance pointed by classPtr.
-        void OnWriteEnd(void* objectPtr) override
-        {
-            t_Class* deserializedObject = reinterpret_cast<t_Class*>(objectPtr);
-            deserializedObject->OnWriteEnd();
-        }
-    };
-#endif//defined(OBJECT_STREAM_EDITOR_ASSET_LOADING_SUPPORT_ENABLED)
-
-    // List of slots that will be create visual only slots on the nodes.
-    // Useful for special configurations or editor only concepts.
-    struct VisualExtensionSlotConfiguration
-    {
-    public:
-        AZ_TYPE_INFO(VisualExtensionSlotConfiguration, "{3EA2D6DB-1B8F-451B-A6CE-D5779E56F4A8}");
-        AZ_CLASS_ALLOCATOR(VisualExtensionSlotConfiguration, AZ::SystemAllocator, 0);
-
-        enum class VisualExtensionType
-        {
-            ExtenderSlot,
-            PropertySlot,
-
-            Unknown
-        };        
-
-        VisualExtensionSlotConfiguration() = default;
-        VisualExtensionSlotConfiguration(VisualExtensionType extensionType)
-            : m_extensionType(extensionType)
-        {
-        }
-
-        ~VisualExtensionSlotConfiguration() = default;
-
-        AZStd::string m_name;
-        AZStd::string m_tooltip;
-
-        AZStd::string m_displayGroup;
-
-        AZ::Crc32     m_identifier;
-        ConnectionType m_connectionType = ConnectionType::Unknown;
-
-        VisualExtensionType m_extensionType = VisualExtensionType::Unknown;
-    };
-
-    class NodePropertyInterfaceListener
-    {
-    public:
-        virtual void OnPropertyChanged() {};
-    };
-    
-    // Dummy Wrapper Class to streamline the interface.
-    // Should always be the TypeNodePropertyInterface
-    class NodePropertyInterface
-    {
-    protected:
-        NodePropertyInterface() = default;
-
-    public:
-        AZ_RTTI(NodePropertyInterface, "{265A2163-D3AE-4C4E-BDCC-37BA0084BF88}");
-        virtual ~NodePropertyInterface() = default;
-
-        virtual Data::Type GetDataType() = 0;
-
-        void RegisterListener(NodePropertyInterfaceListener* listener)
-        {
-            m_listeners.insert(listener);
-        }
-
-        void RemoveListener(NodePropertyInterfaceListener* listener)
-        {
-            m_listeners.erase(listener);
-        }
-
-        void SignalDataChanged()
-        {
-            for (auto listener : m_listeners)
-            {
-                listener->OnPropertyChanged();
-            }
-        }
-
-        virtual void ResetToDefault() = 0;
-
-    private:
-
-        AZStd::unordered_set< NodePropertyInterfaceListener* > m_listeners;
-    };
-
-    template<typename DataType>
-    class TypedNodePropertyInterface
-        : public NodePropertyInterface
-    {
-    public:
-
-        AZ_RTTI((TypedNodePropertyInterface<DataType>, "{24248937-86FB-406C-8DD5-023B10BD0B60}", DataType), NodePropertyInterface);
-
-        TypedNodePropertyInterface() = default;
-        virtual ~TypedNodePropertyInterface() = default;
-
-        void SetPropertyReference(DataType* dataReference)
-        {
-            m_dataType = dataReference;
-        }
-
-        Data::Type GetDataType() override
-        {
-            return Data::FromAZType(azrtti_typeid<DataType>());
-        }
-
-        const DataType* GetPropertyData() const
-        {
-            return m_dataType;
-        }
-
-        void SetPropertyData(DataType dataType)
-        {
-            if ((*m_dataType != dataType))
-            {
-                (*m_dataType) = dataType;
-
-                SignalDataChanged();
-            }
-        }
-
-        void ResetToDefault() override
-        {
-            SetPropertyData(DataType());
-        }
-
-    private:
-
-        DataType* m_dataType;
-    };
 
     using ConstSlotsOutcome = AZ::Outcome<AZStd::vector<const Slot*>, AZStd::string>;
     using SlotsOutcome = AZ::Outcome<AZStd::vector<Slot*>, AZStd::string>;
-
     using EndpointResolved = AZStd::pair<const Node*, const Slot*>;
     using EndpointsResolved = AZStd::vector<EndpointResolved>;
-
-    class ComboBoxPropertyInterface
-    {
-    public:
-
-        AZ_RTTI(ComboBoxPropertyInterface, "{6CA5B611-59EA-4EAF-8A55-E7E74D7C1E53}");
-
-        virtual int GetSelectedIndex() const = 0;
-        virtual void SetSelectedIndex(int index) = 0;
-    };
-
-    template<typename DataType>
-    class TypedComboBoxNodePropertyInterface
-        : public TypedNodePropertyInterface<DataType>
-        , public ComboBoxPropertyInterface
-        
-    {
-    public:
-
-        // The this-> method calls are here to deal with clang quirkiness with dependent template classes. Don't remove them.
-
-        AZ_RTTI((TypedComboBoxNodePropertyInterface<DataType>, "{24248937-86FB-406C-8DD5-023B10BD0B60}", DataType), TypedNodePropertyInterface<DataType>, ComboBoxPropertyInterface);
-
-        TypedComboBoxNodePropertyInterface() = default;
-        virtual ~TypedComboBoxNodePropertyInterface() = default;
-
-        // TypedNodePropertyInterface
-        void ResetToDefault() override
-        {
-            if (m_displaySet.empty())
-            {
-                this->SetPropertyData(DataType());
-            }
-            else
-            {
-                this->SetPropertyData(m_displaySet.front().second);
-            }
-        }
-        ////
-
-        void RegisterValueType(const AZStd::string& displayString, DataType value)
-        {
-            if (m_keySet.find(displayString) != m_keySet.end())
-            {
-                return;
-            }
-
-            m_displaySet.emplace_back(AZStd::make_pair(displayString, value));
-        }
-
-        // ComboBoxPropertyInterface
-        int GetSelectedIndex() const override
-        {
-            int counter = -1;
-
-            const DataType* value = this->GetPropertyData();
-
-            for (int i = 0; i < m_displaySet.size(); ++i)
-            {
-                if (m_displaySet[i].second == (*value))
-                {
-                    counter = i;
-                    break;
-                }
-            }
-
-            return counter;
-        }
-
-        void SetSelectedIndex(int index) override
-        {
-            if (index >= 0 || index < m_displaySet.size())
-            {
-                this->SetPropertyData(m_displaySet[index].second);
-            }
-        }
-        ////
-
-        const AZStd::vector<AZStd::pair<AZStd::string, DataType>>& GetValueSet() const
-        {
-            return m_displaySet;
-        }
-
-    private:
-
-        AZStd::unordered_set<AZStd::string> m_keySet;
-        AZStd::vector<AZStd::pair<AZStd::string, DataType>> m_displaySet;
-    };
-
-    
-    class EnumComboBoxNodePropertyInterface
-        : public TypedComboBoxNodePropertyInterface<int>
-    {
-    public:
-        AZ_RTTI(EnumComboBoxNodePropertyInterface, "{7D46B998-9E05-401A-AC92-37A90BAF8F60}", TypedComboBoxNodePropertyInterface<int32_t>);
-        virtual ~EnumComboBoxNodePropertyInterface() = default;
-
-        // No way of identifying Enum types properly yet. Going to fake a BCO object type for now.
-        static const AZ::Uuid k_EnumUUID;
-
-        Data::Type GetDataType() override
-        {
-            return ScriptCanvas::Data::Type::BehaviorContextObject(k_EnumUUID);
-        }
-    };
-
-
+    using ExecutionNameMap = AZStd::unordered_multimap<AZStd::string, AZStd::string>;
 
     enum class UpdateResult
     {
@@ -377,14 +78,6 @@ namespace ScriptCanvas
         DisableNode,
 
         Unknown
-    };
-
-    struct SlotVersionCache
-    {
-        ScriptCanvas::SlotId        m_slotId;
-        ScriptCanvas::Datum         m_slotDatum;
-        ScriptCanvas::VariableId    m_variableId;
-        AZStd::string               m_originalName;
     };
 
     struct NodeReplacementConfiguration

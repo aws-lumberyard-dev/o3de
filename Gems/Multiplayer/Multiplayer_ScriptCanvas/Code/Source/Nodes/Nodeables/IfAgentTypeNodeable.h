@@ -10,7 +10,6 @@
 
 #include <AzCore/Component/EntityId.h>
 
-#include <ScriptCanvas/CodeGen/NodeableCodegen.h>
 #include <ScriptCanvas/Core/Nodeable.h>
 #include <ScriptCanvas/Core/NodeableNode.h>
 #include <Source/Nodes/Nodeables/IfAgentTypeNodeable.generated.h>

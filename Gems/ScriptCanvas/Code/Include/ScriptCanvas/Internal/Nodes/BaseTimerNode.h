@@ -9,6 +9,7 @@
 #pragma once
 
 #include <ScriptCanvas/Core/Node.h>
+#include <ScriptCanvas/Core/NodePropertyInterface.h>
 #include <Include/ScriptCanvas/Internal/Nodes/BaseTimerNode.generated.h>
 
 namespace ScriptCanvas

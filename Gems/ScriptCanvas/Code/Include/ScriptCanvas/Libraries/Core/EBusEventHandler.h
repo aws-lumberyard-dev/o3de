@@ -13,6 +13,7 @@
 #include <AzCore/std/parallel/mutex.h>
 #include <ScriptCanvas/Core/Core.h>
 #include <ScriptCanvas/Core/Node.h>
+#include <ScriptCanvas/Core/NodeSerializeContextHandler.h>
 #include <ScriptCanvas/Core/Graph.h>
 #include <ScriptCanvas/Utils/BehaviorContextUtils.h>
 #include <AzCore/std/containers/map.h>

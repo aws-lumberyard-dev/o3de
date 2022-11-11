@@ -10,7 +10,6 @@
 
 #include <ScriptCanvas/Core/Nodeable.h>
 #include <ScriptCanvas/Core/NodeableNode.h>
-#include <ScriptCanvas/CodeGen/NodeableCodegen.h>
 
 #include <Source/Nodes/Nodeables/SharedDataSlotExample.generated.h>
 

@@ -23,6 +23,7 @@
 #include <ScriptCanvas/Core/Contracts/DynamicTypeContract.h>
 #include <ScriptCanvas/Core/GraphBus.h>
 #include <ScriptCanvas/Core/NodeableNode.h>
+#include <ScriptCanvas/Core/NodePropertyInterface.h>
 #include <ScriptCanvas/Data/DataRegistry.h>
 #include <ScriptCanvas/Libraries/Core/EBusEventHandler.h>
 #include <ScriptCanvas/Variable/VariableBus.h>
@@ -911,6 +912,13 @@ namespace ScriptCanvas
     UpdateResult Node::UpdateNode()
     {
         UpdateResult result = UpdateResult::DirtyGraph;
+        struct SlotVersionCache
+        {
+            ScriptCanvas::SlotId m_slotId;
+            ScriptCanvas::Datum m_slotDatum;
+            ScriptCanvas::VariableId m_variableId;
+            AZStd::string m_originalName;
+        };
 
         AZStd::unordered_map<SlotId, SlotVersionCache> versionCache;
 

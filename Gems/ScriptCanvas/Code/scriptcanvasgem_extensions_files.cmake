@@ -8,6 +8,7 @@
 
 set(FILES
     Include/ScriptCanvas/AutoGen/ScriptCanvasFunction.xsd
+    Include/ScriptCanvas/AutoGen/ScriptCanvasAutoGenMacros.h
     Include/ScriptCanvas/AutoGen/ScriptCanvasAutoGenRegistry.cpp
     Include/ScriptCanvas/AutoGen/ScriptCanvasAutoGenRegistry.h
     Include/ScriptCanvas/Data/DataMacros.h

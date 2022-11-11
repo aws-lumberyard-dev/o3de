@@ -12,6 +12,7 @@
 #include <AzCore/std/string/regex.h>
 
 #include <ScriptCanvas/Core/Node.h>
+#include <ScriptCanvas/Core/NodePropertyInterface.h>
 
 #include <Include/ScriptCanvas/Internal/Nodes/StringFormatted.generated.h>
 

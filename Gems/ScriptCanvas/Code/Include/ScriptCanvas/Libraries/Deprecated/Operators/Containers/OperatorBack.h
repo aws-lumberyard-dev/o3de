@@ -10,7 +10,6 @@
 
 #include "Operator.h"
 
-#include <ScriptCanvas/Core/Node.h>
 #include <Include/ScriptCanvas/Libraries/Deprecated/Operators/Containers/OperatorBack.generated.h>
 
 namespace ScriptCanvas

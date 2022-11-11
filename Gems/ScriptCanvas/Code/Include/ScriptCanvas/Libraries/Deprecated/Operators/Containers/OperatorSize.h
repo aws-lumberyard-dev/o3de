@@ -9,7 +9,6 @@
 #pragma once
 
 #include <ScriptCanvas/Core/Node.h>
-
 #include <Include/ScriptCanvas/Libraries/Deprecated/Operators/Containers/OperatorSize.generated.h>
 
 namespace ScriptCanvas

@@ -7,8 +7,6 @@
  */
 #pragma once
 
-#include <ScriptCanvas/Core/Node.h>
-
 #include <ScriptCanvas/Internal/Nodes/ExpressionNodeBase.h>
 
 #include <Include/ScriptCanvas/Libraries/Math/MathExpression.generated.h>

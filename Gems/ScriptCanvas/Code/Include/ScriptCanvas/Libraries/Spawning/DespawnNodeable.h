@@ -12,7 +12,6 @@
 #include <AzFramework/Spawnable/SpawnableEntitiesInterface.h>
 #include <AzFramework/Spawnable/Script/SpawnableScriptMediator.h>
 #include <Include/ScriptCanvas/Libraries/Spawning/DespawnNodeable.generated.h>
-#include <ScriptCanvas/CodeGen/NodeableCodegen.h>
 #include <ScriptCanvas/Core/Node.h>
 #include <ScriptCanvas/Core/Nodeable.h>
 

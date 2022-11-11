@@ -10,6 +10,7 @@
 
 #include <AzCore/Serialization/SerializeContext.h>
 
+#include <ScriptCanvas/Core/Node.h>
 #include <ScriptCanvas/Data/Data.h>
 #include <Include/ScriptCanvas/Libraries/Operators/Math/OperatorArithmetic.generated.h>
 

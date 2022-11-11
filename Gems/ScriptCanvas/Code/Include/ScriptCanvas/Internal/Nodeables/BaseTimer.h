@@ -11,9 +11,9 @@
 
 #include <Include/ScriptCanvas/Internal/Nodeables/BaseTimer.generated.h>
 
-#include <ScriptCanvas/CodeGen/NodeableCodegen.h>
 #include <ScriptCanvas/Core/Node.h>
 #include <ScriptCanvas/Core/Nodeable.h>
+#include <ScriptCanvas/Core/NodePropertyInterface.h>
 
 namespace ScriptCanvas
 {

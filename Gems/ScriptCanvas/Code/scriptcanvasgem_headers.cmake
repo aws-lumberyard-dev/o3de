@@ -19,28 +19,36 @@ set(FILES
     Include/ScriptCanvas/Asset/RuntimeInputs.h
     Include/ScriptCanvas/Asset/SubgraphInterfaceAsset.h
     Include/ScriptCanvas/Asset/SubgraphInterfaceAssetHandler.h
-    Include/ScriptCanvas/Core/ScriptCanvasBus.h
-    Include/ScriptCanvas/Core/ExecutionNotificationsBus.h
-    Include/ScriptCanvas/Core/GraphBus.h
-    Include/ScriptCanvas/Core/NodeBus.h
-    Include/ScriptCanvas/Core/EBusNodeBus.h
-    Include/ScriptCanvas/Core/NodelingBus.h
+    Include/ScriptCanvas/CodeGen/NodeableCodegen.h
     Include/ScriptCanvas/Core/Attributes.h
     Include/ScriptCanvas/Core/Connection.h
     Include/ScriptCanvas/Core/ConnectionBus.h
     Include/ScriptCanvas/Core/Contract.h
     Include/ScriptCanvas/Core/Contracts.h
+    Include/ScriptCanvas/Core/Contracts/ConnectionLimitContract.h
+    Include/ScriptCanvas/Core/Contracts/ContractRTTI.h
+    Include/ScriptCanvas/Core/Contracts/DisallowReentrantExecutionContract.h
+    Include/ScriptCanvas/Core/Contracts/DisplayGroupConnectedSlotLimitContract.h
+    Include/ScriptCanvas/Core/Contracts/DynamicTypeContract.h
+    Include/ScriptCanvas/Core/Contracts/IsReferenceTypeContract.h
+    Include/ScriptCanvas/Core/Contracts/MathOperatorContract.h
     Include/ScriptCanvas/Core/Contracts/MethodOverloadContract.h
     Include/ScriptCanvas/Core/Contracts/RestrictedNodeContract.h
+    Include/ScriptCanvas/Core/Contracts/SlotTypeContract.h
+    Include/ScriptCanvas/Core/Contracts/SupportsMethodContract.h
+    Include/ScriptCanvas/Core/Contracts/TypeContract.h
     Include/ScriptCanvas/Core/Core.h
     Include/ScriptCanvas/Core/Datum.h
     Include/ScriptCanvas/Core/DatumBus.h
     Include/ScriptCanvas/Core/EBusHandler.h
+    Include/ScriptCanvas/Core/EBusNodeBus.h
     Include/ScriptCanvas/Core/Endpoint.h
+    Include/ScriptCanvas/Core/ExecutionNotificationsBus.h
     Include/ScriptCanvas/Core/Graph.h
+    Include/ScriptCanvas/Core/GraphBus.h
     Include/ScriptCanvas/Core/GraphData.h
-    Include/ScriptCanvas/Core/GraphSerialization.h
     Include/ScriptCanvas/Core/GraphScopedTypes.h
+    Include/ScriptCanvas/Core/GraphSerialization.h
     Include/ScriptCanvas/Core/MethodConfiguration.h
     Include/ScriptCanvas/Core/ModifiableDatumView.h
     Include/ScriptCanvas/Core/NamedId.h
@@ -49,7 +57,12 @@ set(FILES
     Include/ScriptCanvas/Core/NodeableNode.h
     Include/ScriptCanvas/Core/NodeableNodeOverloaded.h
     Include/ScriptCanvas/Core/NodeableOut.h
+    Include/ScriptCanvas/Core/NodeBus.h
     Include/ScriptCanvas/Core/NodeFunctionGeneric.h
+    Include/ScriptCanvas/Core/NodelingBus.h
+    Include/ScriptCanvas/Core/NodePropertyInterface.h
+    Include/ScriptCanvas/Core/NodeSerializeContextHandler.h
+    Include/ScriptCanvas/Core/ScriptCanvasBus.h
     Include/ScriptCanvas/Core/SerializationListener.h
     Include/ScriptCanvas/Core/Slot.h
     Include/ScriptCanvas/Core/SlotConfigurationDefaults.h
@@ -59,17 +72,6 @@ set(FILES
     Include/ScriptCanvas/Core/SlotNames.h
     Include/ScriptCanvas/Core/SubgraphInterface.h
     Include/ScriptCanvas/Core/SubgraphInterfaceUtility.h
-    Include/ScriptCanvas/CodeGen/NodeableCodegen.h
-    Include/ScriptCanvas/Core/Contracts/ConnectionLimitContract.h
-    Include/ScriptCanvas/Core/Contracts/ContractRTTI.h
-    Include/ScriptCanvas/Core/Contracts/DisallowReentrantExecutionContract.h
-    Include/ScriptCanvas/Core/Contracts/DisplayGroupConnectedSlotLimitContract.h
-    Include/ScriptCanvas/Core/Contracts/DynamicTypeContract.h
-    Include/ScriptCanvas/Core/Contracts/IsReferenceTypeContract.h
-    Include/ScriptCanvas/Core/Contracts/MathOperatorContract.h
-    Include/ScriptCanvas/Core/Contracts/SlotTypeContract.h
-    Include/ScriptCanvas/Core/Contracts/SupportsMethodContract.h
-    Include/ScriptCanvas/Core/Contracts/TypeContract.h
     Include/ScriptCanvas/Data/BehaviorContextObject.h
     Include/ScriptCanvas/Data/BehaviorContextObjectPtr.h
     Include/ScriptCanvas/Data/Constants.h

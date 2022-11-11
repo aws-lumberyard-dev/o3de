@@ -8,9 +8,8 @@
 #pragma once
 
 // script canvas
+#include <ScriptCanvas/Core/Node.h>
 #include <ScriptCanvas/Core/Nodeable.h>
-#include <ScriptCanvas/Core/NodeableNode.h>
-#include <ScriptCanvas/CodeGen/NodeableCodegen.h>
 #include <StartingPointInput/InputEventNotificationBus.h>
 
 #include <Source/InputHandlerNodeable.generated.h>

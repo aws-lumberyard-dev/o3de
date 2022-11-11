@@ -10,10 +10,11 @@
 
 #include <AzCore/RTTI/BehaviorContext.h>
 #include <AzCore/Serialization/Utils.h>
-#include <Core/SlotConfigurationDefaults.h> 
-#include <Core/SlotExecutionMap.h>
-#include <ScriptCanvas/Utils/BehaviorContextUtils.h>
 #include <AzCore/StringFunc/StringFunc.h>
+#include <ScriptCanvas/Core/NodeSerializeContextHandler.h>
+#include <ScriptCanvas/Core/SlotConfigurationDefaults.h> 
+#include <ScriptCanvas/Core/SlotExecutionMap.h>
+#include <ScriptCanvas/Utils/BehaviorContextUtils.h>
 
 namespace MethodCPP
 {

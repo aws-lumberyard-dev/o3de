@@ -13,6 +13,7 @@
 #include <AzCore/RTTI/BehaviorContextUtilities.h>
 #include <ScriptCanvas/Core/Contracts/MethodOverloadContract.h>
 #include <ScriptCanvas/Core/GraphBus.h>
+#include <ScriptCanvas/Core/NodeSerializeContextHandler.h>
 #include <ScriptCanvas/Core/SlotMetadata.h>
 #include <ScriptCanvas/Grammar/Primitives.h>
 #include <ScriptCanvas/Variable/VariableBus.h>

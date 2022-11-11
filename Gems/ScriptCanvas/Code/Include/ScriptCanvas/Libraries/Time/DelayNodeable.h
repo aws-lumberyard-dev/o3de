@@ -10,9 +10,8 @@
 
 #include <AzCore/Component/TickBus.h>
 
+#include <ScriptCanvas/Core/Node.h>
 #include <ScriptCanvas/Core/Nodeable.h>
-#include <ScriptCanvas/Core/NodeableNode.h>
-#include <ScriptCanvas/CodeGen/NodeableCodegen.h>
 
 #include <Include/ScriptCanvas/Libraries/Time/DelayNodeable.generated.h>
 

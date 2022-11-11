@@ -11,6 +11,7 @@
 #include <ScriptCanvas/Core/Graph.h>
 #include <ScriptCanvas/Core/Node.h>
 #include <ScriptCanvas/Core/NodelingBus.h>
+#include <ScriptCanvas/Core/NodePropertyInterface.h>
 
 #include <Include/ScriptCanvas/Libraries/Core/Nodeling.generated.h>
 

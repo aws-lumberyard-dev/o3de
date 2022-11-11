@@ -11,6 +11,7 @@
 #include <AzCore/std/string/regex.h>
 
 #include <ScriptCanvas/Core/Node.h>
+#include <ScriptCanvas/Core/NodePropertyInterface.h>
 
 #include <ExpressionEvaluation/ExpressionEngine.h>
 

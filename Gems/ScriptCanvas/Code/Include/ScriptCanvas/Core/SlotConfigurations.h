@@ -328,4 +328,39 @@ namespace ScriptCanvas
         DynamicDataType m_dynamicDataType = DynamicDataType::None;
         Data::Type m_displayType = Data::Type::Invalid();
     };
+
+    // List of slots that will be create visual only slots on the nodes.
+    // Useful for special configurations or editor only concepts.
+    struct VisualExtensionSlotConfiguration
+    {
+    public:
+        AZ_TYPE_INFO(VisualExtensionSlotConfiguration, "{3EA2D6DB-1B8F-451B-A6CE-D5779E56F4A8}");
+        AZ_CLASS_ALLOCATOR(VisualExtensionSlotConfiguration, AZ::SystemAllocator, 0);
+
+        enum class VisualExtensionType
+        {
+            ExtenderSlot,
+            PropertySlot,
+
+            Unknown
+        };
+
+        VisualExtensionSlotConfiguration() = default;
+        VisualExtensionSlotConfiguration(VisualExtensionType extensionType)
+            : m_extensionType(extensionType)
+        {
+        }
+
+        ~VisualExtensionSlotConfiguration() = default;
+
+        AZStd::string m_name;
+        AZStd::string m_tooltip;
+
+        AZStd::string m_displayGroup;
+
+        AZ::Crc32 m_identifier;
+        ConnectionType m_connectionType = ConnectionType::Unknown;
+
+        VisualExtensionType m_extensionType = VisualExtensionType::Unknown;
+    };
 }
