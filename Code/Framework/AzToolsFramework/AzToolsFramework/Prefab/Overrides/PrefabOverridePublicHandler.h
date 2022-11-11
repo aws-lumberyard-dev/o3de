@@ -35,6 +35,7 @@ namespace AzToolsFramework
             void RevertOverrides(AZ::EntityId entityId) override;
 
             AZStd::pair<AZ::Dom::Path, LinkId> GetPathToEntityFromFocusedPrefab(AZ::EntityId entityid);
+
             PrefabOverrideHandler m_prefabOverrideHandler;
 
             InstanceToTemplateInterface* m_instanceToTemplateInterface = nullptr;
