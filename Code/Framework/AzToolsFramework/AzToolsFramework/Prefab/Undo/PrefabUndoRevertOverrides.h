@@ -28,7 +28,7 @@ namespace AzToolsFramework::Prefab
         void Redo() override;
 
         void Capture(
-            const AZ::Dom::Path& pathToSubTree, AZ::Dom::DomPrefixTree<Link::PrefabOverrideMetadata> m_overrideSubTree, LinkId linkId);
+            const AZ::Dom::Path& pathToSubTree, AZ::Dom::DomPrefixTree<Link::PrefabOverrideMetadata>&& m_overrideSubTree, LinkId linkId);
 
     private:
         AZ::Dom::DomPrefixTree<Link::PrefabOverrideMetadata> m_overrideSubTree;

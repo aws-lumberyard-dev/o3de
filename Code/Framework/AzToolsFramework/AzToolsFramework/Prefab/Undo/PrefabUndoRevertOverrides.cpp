@@ -28,7 +28,7 @@ namespace AzToolsFramework
         }
 
         void PrefabUndoRevertOverrides::Capture(
-            const AZ::Dom::Path& pathToSubTree, AZ::Dom::DomPrefixTree<Link::PrefabOverrideMetadata> overrideSubTree, LinkId linkId)
+            const AZ::Dom::Path& pathToSubTree, AZ::Dom::DomPrefixTree<Link::PrefabOverrideMetadata>&& overrideSubTree, LinkId linkId)
         {
             m_pathToSubTree = pathToSubTree;
             m_overrideSubTree = AZStd::move(overrideSubTree);
@@ -40,7 +40,7 @@ namespace AzToolsFramework
             LinkReference link = m_prefabSystemComponentInterface->FindLink(m_linkId);
             if (link.has_value())
             {
-                link->get().AddOverrides(m_pathToSubTree, m_overrideSubTree);
+                link->get().AddOverrides(m_pathToSubTree, AZStd::move(m_overrideSubTree));
                 link->get().UpdateTarget();
                 m_prefabSystemComponentInterface->PropagateTemplateChanges(link->get().GetTargetTemplateId());
             }

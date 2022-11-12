@@ -53,28 +53,11 @@ namespace AzToolsFramework
                 {
                 }
 
-                PrefabOverrideMetadata(const PrefabOverrideMetadata& other) noexcept
-                    : m_patchIndex(other.m_patchIndex)
-                {
-                    m_patch.CopyFrom(other.m_patch, m_patch.GetAllocator());
-                }
-
                 PrefabOverrideMetadata& operator=(PrefabOverrideMetadata&& other) noexcept
                 {
                     if (this != &other)
                     {
                         m_patch = AZStd::move(other.m_patch);
-                        m_patchIndex = other.m_patchIndex;
-                    }
-
-                    return *this;
-                }
-
-                PrefabOverrideMetadata& operator=(const PrefabOverrideMetadata& other) noexcept
-                {
-                    if (this != &other)
-                    {
-                        m_patch.CopyFrom(other.m_patch, m_patch.GetAllocator());
                         m_patchIndex = other.m_patchIndex;
                     }
 
@@ -136,7 +119,7 @@ namespace AzToolsFramework
                 AZ::Dom::PrefixTreeTraversalFlags prefixTreeTraversalFlags = AZ::Dom::PrefixTreeTraversalFlags::ExcludeParentPaths);
 
             AZ::Dom::DomPrefixTree<PrefabOverrideMetadata> RemoveOverrides(AZ::Dom::Path path);
-            void AddOverrides(const AZ::Dom::Path& path, const AZ::Dom::DomPrefixTree<PrefabOverrideMetadata>& subTree);
+            void AddOverrides(const AZ::Dom::Path& path, AZ::Dom::DomPrefixTree<PrefabOverrideMetadata>&& subTree);
 
             PrefabDomPath GetInstancePath() const;
             const AZStd::string& GetInstanceName() const;
