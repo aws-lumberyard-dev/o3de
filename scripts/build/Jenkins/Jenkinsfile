@@ -320,7 +320,7 @@ def HandleDriveMount(String snapshot, String repositoryName, String projectName,
     }
 }
 
-def PreBuildCommonSteps(Map pipelineConfig, String snapshot, String repositoryName, String projectName, String pipeline, String branchName, String platform, String buildType, String workspace, boolean mount = true, boolean disableSubmodules = false) {
+def PreBuildCommonSteps(Map pipelineConfig, String snapshot, String repositoryName, String projectName, String pipeline, String branchName, String platform, String buildType, String workspace, boolean mount = true, boolean useS3sisWorkspace = false, boolean disableSubmodules = false) {
     echo 'Starting pre-build common steps...'
 
     if (mount) {
@@ -348,7 +348,7 @@ def PreBuildCommonSteps(Map pipelineConfig, String snapshot, String repositoryNa
         }
     }
 
-    if(env.BUILD_NUMBER == '1' && IsPullRequest(branchName)) {
+    if(env.BUILD_NUMBER == '1' && IsPullRequest(branchName) && useS3sisWorkspace) {
         dir("${workspace}") {
             checkout scm: [
                 $class: 'GitSCM',
@@ -362,8 +362,10 @@ def PreBuildCommonSteps(Map pipelineConfig, String snapshot, String repositoryNa
         }
         dir("${workspace}/s3sis") {
             if (env.IS_UNIX) {
+                palSh("sudo python3 -m pip install PyGithub", "Installing PyGithub")
                 palSh("sudo python3 setup.py install", "Installing S3SIS")
             } else {
+                palSh("python3 -m pip install PyGithub", "Installing PyGithub")
                 palSh("python3 setup.py install", "Installing S3SIS")
             }
             palSh("s3siscli configure", "Configuring S3SIS")
@@ -545,7 +547,7 @@ def UploadCrashArtifacts(String platform) {
     }
 }
 
-def PostBuildCommonSteps(String workspace, Map params, String projectName, String pipelineName, String branchName, String platform, String buildType, boolean mount = true) {
+def PostBuildCommonSteps(String workspace, Map params, String projectName, String pipelineName, String branchName, String platform, String buildType, boolean mount = true, boolean useS3sisWorkspace = false) {
     echo 'Starting post-build common steps...'
     if (params && params.containsKey('OUTPUT_DIRECTORY')){
         dir([workspace, ENGINE_REPOSITORY_NAME, params.OUTPUT_DIRECTORY].join('/')){
@@ -557,7 +559,7 @@ def PostBuildCommonSteps(String workspace, Map params, String projectName, Strin
         }
     }
     
-    if (env.REPOSITORY_NAME == 'aws-lumberyard-dev/o3de' && env.JOB_NAME == 'O3DE-LY-FORK' && pipelineName == 'default' && branchName == 'commit_hash') {
+    if (useS3sisWorkspace && env.REPOSITORY_NAME == 'aws-lumberyard-dev/o3de' && pipelineName == 'default' && branchName == 'commit_hash') {
         dir("${workspace}") {
             checkout scm: [
                 $class: 'GitSCM',
@@ -571,8 +573,10 @@ def PostBuildCommonSteps(String workspace, Map params, String projectName, Strin
         }
         dir("${workspace}/s3sis") {
             if (env.IS_UNIX) {
+                palSh("sudo python3 -m pip install PyGithub", "Installing PyGithub")
                 palSh("sudo python3 setup.py install", "Installing S3SIS")
             } else {
+                palSh("python3 -m pip install PyGithub", "Installing PyGithub")
                 palSh("python3 setup.py install", "Installing S3SIS")
             }
             palSh("s3siscli configure", "Configuring S3SIS")
@@ -591,7 +595,6 @@ def PostBuildCommonSteps(String workspace, Map params, String projectName, Strin
         } catch (Exception e) {
             echo "WARN: Failed to upload workspace. \n${e}"
         }
-
     }
 
     if (mount) {
@@ -632,7 +635,7 @@ def CreateSetupStage(Map pipelineConfig, String snapshot, String repositoryName,
             if(onlyMountEBSVolume) {
                 HandleDriveMount(snapshot, repositoryName, projectName, pipelineName, branchName, platformName, jobName, environmentVars['WORKSPACE'], false)
             } else {
-                PreBuildCommonSteps(pipelineConfig, snapshot, repositoryName, projectName, pipelineName, branchName, platformName, jobName,  environmentVars['WORKSPACE'], environmentVars['MOUNT_VOLUME'])
+                PreBuildCommonSteps(pipelineConfig, snapshot, repositoryName, projectName, pipelineName, branchName, platformName, jobName,  environmentVars['WORKSPACE'], environmentVars['MOUNT_VOLUME'], envVars['USE_S3SIS_WORKSPACE']?.toBoolean())
             }
         }
     }
@@ -698,7 +701,7 @@ def CreateUploadCrashArtifactStage(String jobName, String platform) {
 def CreateTeardownStage(Map environmentVars, Map params, String projectName, String pipelineName, String branchName, String platformName, String buildType) {
     return {
         stage('Teardown') {
-            PostBuildCommonSteps(environmentVars['WORKSPACE'], params, projectName, pipelineName, branchName, platformName, buildType, environmentVars['MOUNT_VOLUME'])
+            PostBuildCommonSteps(environmentVars['WORKSPACE'], params, projectName, pipelineName, branchName, platformName, buildType, environmentVars['MOUNT_VOLUME'], environmentVars['USE_S3SIS_WORKSPACE']?.toBoolean())
         }
     }
 }
