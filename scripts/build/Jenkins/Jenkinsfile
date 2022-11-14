@@ -558,7 +558,7 @@ def PostBuildCommonSteps(String workspace, Map params, String projectName, Strin
         }
     }
     
-    if (env.REPOSITORY_NAME == 'aws-lumberyard-dev/o3de' && env.JOB_NAME == 'O3DE-LY-FORK' && pipelineName == 'default' && branchName == 'development') {
+    if (env.REPOSITORY_NAME == 'aws-lumberyard-dev/o3de' && env.JOB_NAME == 'O3DE-LY-FORK' && pipelineName == 'default' && branchName == 'commit_hash') {
         dir("${workspace}") {
             checkout scm: [
                 $class: 'GitSCM',
