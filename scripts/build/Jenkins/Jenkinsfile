@@ -559,46 +559,42 @@ def PostBuildCommonSteps(String workspace, Map params, String projectName, Strin
         }
     }
     
-    if (useS3sisWorkspace?.toBoolean() && env.REPOSITORY_NAME == 'aws-lumberyard-dev/o3de' && pipelineName == 'default' && branchName == 'commit_hash') {
-        dir("${workspace}") {
-            checkout scm: [
-                $class: 'GitSCM',
-                branches: [[name: '*/test-o3de-s3sis']],
-                extensions: [
-                    [$class: 'AuthorInChangelog'],
-                    [$class: 'RelativeTargetDirectory', relativeTargetDir: 's3sis']
-                ],
-                userRemoteConfigs: [[url: "https://github.com/aws-lumberyard/s3sis.git", credentialsId: "${env.GITHUB_USER}"]]
-            ]
+    dir("${workspace}") {
+        checkout scm: [
+            $class: 'GitSCM',
+            branches: [[name: '*/test-o3de-s3sis']],
+            extensions: [
+                [$class: 'AuthorInChangelog'],
+                [$class: 'RelativeTargetDirectory', relativeTargetDir: 's3sis']
+            ],
+            userRemoteConfigs: [[url: "https://github.com/aws-lumberyard/s3sis.git", credentialsId: "${env.GITHUB_USER}"]]
+        ]
+    }
+    dir("${workspace}/s3sis") {
+        if (env.IS_UNIX) {
+            palSh("sudo python3 -m pip install PyGithub", "Installing PyGithub")
+            palSh("sudo python3 setup.py install", "Installing S3SIS")
+        } else {
+            palSh("python3 -m pip install PyGithub", "Installing PyGithub")
+            palSh("python3 setup.py install", "Installing S3SIS")
         }
-        dir("${workspace}/s3sis") {
-            if (env.IS_UNIX) {
-                palSh("sudo python3 -m pip install PyGithub", "Installing PyGithub")
-                palSh("sudo python3 setup.py install", "Installing S3SIS")
-            } else {
-                palSh("python3 -m pip install PyGithub", "Installing PyGithub")
-                palSh("python3 setup.py install", "Installing S3SIS")
-            }
-            palSh("s3siscli configure", "Configuring S3SIS")
-        }
-        if(fileExists("${workspace}/${ENGINE_REPOSITORY_NAME}")) {
-            palRmDir("${workspace}/${ENGINE_REPOSITORY_NAME}")
-        }
-        unstash name: 's3sis_util_script'
+        palSh("s3siscli configure", "Configuring S3SIS")
+    }
+    
+    unstash name: 's3sis_util_script'
 
-        def pythonCmd = ''
-        if(env.IS_UNIX) pythonCmd = 'sudo -E python3 -u '
-        else pythonCmd = 'python3 -u '
+    def pythonCmd = ''
+    if(env.IS_UNIX) pythonCmd = 'sudo -E python3 -u '
+    else pythonCmd = 'python3 -u '
 
-        try {
-            palSh("${pythonCmd} ${S3SIS_UTIL_SCRIPT_PATH} --action upload --repository ${env.REPOSITORY_NAME} --branch ${branchName} --pipeline ${env.JOB_NAME} --platform ${platform} --build-config ${buildType} --workspace ${workspace}/${ENGINE_REPOSITORY_NAME}", 'Uploading workspace', winSlashReplacement=false)
-        } catch (Exception e) {
-            echo "WARN: Failed to upload workspace. \n${e}"
-        }
+    try {
+        palSh("${pythonCmd} ${S3SIS_UTIL_SCRIPT_PATH} --action upload --repository ${env.REPOSITORY_NAME} --branch ${branchName} --pipeline ${env.JOB_NAME} --platform ${platform} --build-config ${buildType} --workspace ${workspace}/${ENGINE_REPOSITORY_NAME}", 'Uploading workspace', winSlashReplacement=false)
+    } catch (Exception e) {
+        echo "WARN: Failed to upload workspace. \n${e}"
     }
 
     if (mount) {
-        def pythonCmd = ''
+        pythonCmd = ''
         if(env.IS_UNIX) pythonCmd = 'sudo -E python3 -u '
         else pythonCmd = 'python3 -u '
 
@@ -701,7 +697,7 @@ def CreateUploadCrashArtifactStage(String jobName, String platform) {
 def CreateTeardownStage(Map environmentVars, Map params, String projectName, String pipelineName, String branchName, String platformName, String buildType) {
     return {
         stage('Teardown') {
-            PostBuildCommonSteps(environmentVars['WORKSPACE'], params, projectName, pipelineName, branchName, platformName, buildType, environmentVars['MOUNT_VOLUME'], environmentVars['USE_S3SIS_WORKSPACE'])
+            PostBuildCommonSteps(environmentVars['WORKSPACE'], params, projectName, pipelineName, branchName, platformName, buildType, environmentVars['MOUNT_VOLUME'], environmentVars['USE_S3SIS_WORKSPACE']?.toBoolean())
         }
     }
 }
