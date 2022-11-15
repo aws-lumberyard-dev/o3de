@@ -67,7 +67,7 @@ namespace TestImpact
         const RepoPath& buildDir,
         const ArtifactDir& artifactDir,
         Policy::TestRunner testRunnerPolicy)
-        : m_testJobInfoGenerator(AZStd::make_unique<PythonTestRunJobInfoGenerator>(
+        : m_instrumentedTestJobInfoGenerator(AZStd::make_unique<PythonInstrumentedTestRunJobInfoGenerator>(
               repoDir, buildDir, artifactDir))
         , m_instrumentedTestRunner(AZStd::make_unique<PythonInstrumentedTestRunner>())
         , m_instrumentedNullTestRunner(AZStd::make_unique<PythonInstrumentedNullTestRunner>())
@@ -152,7 +152,7 @@ namespace TestImpact
             return GenerateInstrumentedRunResult(
             GenerateJobInfosAndRunTests(
                 m_instrumentedNullTestRunner.get(),
-                m_testJobInfoGenerator.get(),
+                m_instrumentedTestJobInfoGenerator.get(),
                 testTargets,
                 PythonInstrumentedTestRunnerErrorCodeChecker,
                 executionFailurePolicy,
@@ -170,7 +170,7 @@ namespace TestImpact
             return GenerateInstrumentedRunResult(
                 GenerateJobInfosAndRunTests(
                     m_instrumentedTestRunner.get(),
-                    m_testJobInfoGenerator.get(),
+                    m_instrumentedTestJobInfoGenerator.get(),
                     testTargets,
                     PythonInstrumentedTestRunnerErrorCodeChecker,
                     executionFailurePolicy,

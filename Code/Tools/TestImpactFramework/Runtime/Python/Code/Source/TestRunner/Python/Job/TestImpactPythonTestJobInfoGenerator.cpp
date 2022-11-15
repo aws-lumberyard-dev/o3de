@@ -13,7 +13,7 @@
 
 namespace TestImpact
 {
-    PythonTestRunJobInfoGenerator::PythonTestRunJobInfoGenerator(
+    PythonInstrumentedTestRunJobInfoGenerator::PythonInstrumentedTestRunJobInfoGenerator(
         const RepoPath& repoDir, const RepoPath& buildDir, const ArtifactDir& artifactDir)
         : m_repoDir(repoDir)
         , m_buildDir(buildDir)
@@ -31,7 +31,7 @@ namespace TestImpact
         return parentfolder;
     }
 
-    PythonInstrumentedTestRunnerBase::JobInfo PythonTestRunJobInfoGenerator::GenerateJobInfo(
+    PythonInstrumentedTestRunnerBase::JobInfo PythonInstrumentedTestRunJobInfoGenerator::GenerateJobInfo(
         const PythonTestTarget* testTarget, PythonInstrumentedTestRunnerBase::JobInfo::Id jobId) const
     {
         const auto parentFolderName = RepoPath(CompileParentFolderName(testTarget));

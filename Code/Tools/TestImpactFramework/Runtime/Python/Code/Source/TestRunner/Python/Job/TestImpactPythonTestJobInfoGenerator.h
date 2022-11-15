@@ -17,7 +17,7 @@
 namespace TestImpact
 {
     //! Generates job information for the test job runner.
-    class PythonTestRunJobInfoGenerator
+    class PythonInstrumentedTestRunJobInfoGenerator
         : public TestJobInfoGenerator<PythonInstrumentedTestRunnerBase, PythonTestTarget>
     {
     public:
@@ -25,7 +25,7 @@ namespace TestImpact
         //! @param repoDir Root path to where the repository is located.
         //! @param buildDir Path to where the target binaries are found.
         //! @param artifactDir Path to the transient directory where test artifacts are produced.
-        PythonTestRunJobInfoGenerator(
+        PythonInstrumentedTestRunJobInfoGenerator(
             const RepoPath& repoDir, const RepoPath& buildDir, const ArtifactDir& artifactDir);
 
         //! Generates the information for a test run job.
