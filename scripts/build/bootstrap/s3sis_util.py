@@ -6,7 +6,7 @@
 #
 #
 
-# test test
+# test test test
 
 import os
 import argparse
@@ -88,7 +88,7 @@ def create_labels(args, commits):
     
 
 def upload(args):
-    all_commits = get_commits(args.repository, args.branch, datetime.today() - timedelta(days=30))
+    all_commits = get_commits(args.repository, args.branch, datetime.today() - timedelta(days=2))
     # Exclude new commits submitted after current build start time.
     current_commit = os.environ.get('CHANGE_ID')
     commits = []
