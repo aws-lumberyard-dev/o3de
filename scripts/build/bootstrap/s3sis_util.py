@@ -96,6 +96,10 @@ def upload(args):
         else:
             break
     for idx, label_to_upload in enumerate(labels_to_upload):
+        if idx != 0:
+            cmd = ['s3siscli', 'manifest', '--label', label_to_upload, '--update']
+            print(cmd)
+            process_return = subprocess.run(cmd)
         cmd = ['s3siscli', 'upload', '--label', label_to_upload, '--workspace' ,args.workspace]
         if args.include:
             cmd += ['--include', args.include]
