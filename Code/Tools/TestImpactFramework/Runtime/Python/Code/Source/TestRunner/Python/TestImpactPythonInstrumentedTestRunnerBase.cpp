@@ -16,9 +16,8 @@
 
 namespace TestImpact
 {
-    PythonInstrumentedTestRunnerBase::PythonInstrumentedTestRunnerBase(const ArtifactDir& artifactDir)
+    PythonInstrumentedTestRunnerBase::PythonInstrumentedTestRunnerBase()
         : TestRunnerWithCoverage(1)
-        , m_artifactDir(artifactDir)
     {
     }
 

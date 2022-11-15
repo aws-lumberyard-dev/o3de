@@ -15,6 +15,8 @@
 #include <TestRunner/Python/Job/TestImpactPythonTestJobInfoGenerator.h>
 #include <TestRunner/Python/TestImpactPythonInstrumentedTestRunner.h>
 #include <TestRunner/Python/TestImpactPythonInstrumentedNullTestRunner.h>
+#include <TestRunner/Python/TestImpactPythonRegularTestRunner.h>
+#include <TestRunner/Python/TestImpactPythonRegularNullTestRunner.h>
 
 #include <iostream>
 namespace TestImpact
@@ -67,8 +69,10 @@ namespace TestImpact
         Policy::TestRunner testRunnerPolicy)
         : m_testJobInfoGenerator(AZStd::make_unique<PythonTestRunJobInfoGenerator>(
               repoDir, buildDir, artifactDir))
-        , m_testRunner(AZStd::make_unique<PythonInstrumentedTestRunner>(artifactDir))
-        , m_nullTestRunner(AZStd::make_unique<PythonInstrumentedNullTestRunner>(artifactDir))
+        , m_instrumentedTestRunner(AZStd::make_unique<PythonInstrumentedTestRunner>())
+        , m_instrumentedNullTestRunner(AZStd::make_unique<PythonInstrumentedNullTestRunner>())
+        , m_regularTestRunner(AZStd::make_unique<PythonRegularTestRunner>())
+        , m_regularNullTestRunner(AZStd::make_unique<PythonRegularNullTestRunner>())
         , m_artifactDir(artifactDir)
         , m_testRunnerPolicy(testRunnerPolicy)
     {
@@ -98,7 +102,7 @@ namespace TestImpact
         //{
         //    // We don't delete the artifacts as they have been left by another test runner (e.g. ctest)
         //    return GenerateJobInfosAndRunTests(
-        //        m_nullTestRunner.get(),
+        //        m_regularNullTestRunner.get(),
         //        m_testJobInfoGenerator.get(),
         //        testTargets,
         //        PythonRegularTestRunnerErrorCodeChecker,
@@ -114,7 +118,7 @@ namespace TestImpact
         //{
         //    DeleteArtifactXmls();
         //    return GenerateJobInfosAndRunTests(
-        //        m_testRunner.get(),
+        //        m_regularTestRunner.get(),
         //        m_testJobInfoGenerator.get(),
         //        testTargets,
         //        PythonRegularTestRunnerErrorCodeChecker,
@@ -147,7 +151,7 @@ namespace TestImpact
             // We don't delete the artifacts as they have been left by another test runner (e.g. ctest)
             return GenerateInstrumentedRunResult(
             GenerateJobInfosAndRunTests(
-                m_nullTestRunner.get(),
+                m_instrumentedNullTestRunner.get(),
                 m_testJobInfoGenerator.get(),
                 testTargets,
                 PythonInstrumentedTestRunnerErrorCodeChecker,
@@ -165,7 +169,7 @@ namespace TestImpact
             DeleteArtifactXmls();
             return GenerateInstrumentedRunResult(
                 GenerateJobInfosAndRunTests(
-                    m_testRunner.get(),
+                    m_instrumentedTestRunner.get(),
                     m_testJobInfoGenerator.get(),
                     testTargets,
                     PythonInstrumentedTestRunnerErrorCodeChecker,

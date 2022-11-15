@@ -8,32 +8,35 @@
 
 #pragma once
 
-#include <TestRunner/Python/TestImpactPythonInstrumentedNullTestRunner.h>
 #include <TestRunner/Python/TestImpactPythonErrorCodeChecker.h>
+#include <TestRunner/Python/TestImpactPythonRegularNullTestRunner.h>
 
 namespace TestImpact
 {
-    AZStd::pair<ProcessSchedulerResult, AZStd::vector<PythonInstrumentedNullTestRunner::TestJobRunner::Job>> PythonInstrumentedNullTestRunner::RunTests(
+    AZStd::pair<ProcessSchedulerResult, AZStd::vector<PythonRegularNullTestRunner::TestJobRunner::Job>>
+    PythonRegularNullTestRunner::RunTests(
         const AZStd::vector<TestJobRunner::JobInfo>& jobInfos,
         [[maybe_unused]] StdOutputRouting stdOutRouting,
         [[maybe_unused]] StdErrorRouting stdErrRouting,
         [[maybe_unused]] AZStd::optional<AZStd::chrono::milliseconds> runTimeout,
         [[maybe_unused]] AZStd::optional<AZStd::chrono::milliseconds> runnerTimeout,
         AZStd::optional<TestJobRunner::JobCallback> clientCallback,
-        AZStd::optional<TestJobRunner::StdContentCallback> stdContentCallback)
+        [[maybe_unused]] AZStd::optional<TestJobRunner::StdContentCallback> stdContentCallback)
     {
         AZStd::vector<Job> jobs;
         jobs.reserve(jobInfos.size());
 
         for (auto& jobInfo : jobInfos)
         {
+            
             if (auto outcome = PayloadExtractor(jobInfo, {}); outcome.IsSuccess())
             {
                 JobMeta meta;
                 meta.m_result = JobResult::ExecutedWithSuccess;
                 Job job(jobInfo, AZStd::move(meta), outcome.TakeValue());
-                // As these jobs weren't executed, no return code exists, so use the test pass/failure result to set the appropriate error code
-                meta.m_returnCode = outcome.GetValue().first->GetNumFailures() ? ErrorCodes::PyTest::TestFailures : 0;
+                // As these jobs weren't executed, no return code exists, so use the test pass/failure result to set the appropriate error
+                // code
+                meta.m_returnCode = outcome.GetValue().GetNumFailures() ? ErrorCodes::PyTest::TestFailures : 0;
                 jobs.push_back(job);
 
                 if (clientCallback.has_value())

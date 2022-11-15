@@ -14,6 +14,7 @@
 
 #include <TestEngine/Common/Enumeration/TestImpactTestEngineEnumeration.h>
 #include <TestEngine/Common/Run/TestImpactTestEngineInstrumentedRun.h>
+#include <TestEngine/Common/Run/TestImpactTestEngineRegularRun.h>
 #include <TestEngine/Common/TestImpactTestEngine.h>
 #include <TestRunner/Common/Run/TestImpactTestCoverage.h>
 
@@ -27,6 +28,8 @@ namespace TestImpact
     class PythonTestEnumerator;
     class PythonInstrumentedTestRunner;
     class PythonInstrumentedNullTestRunner;
+    class PythonRegularTestRunner;
+    class PythonRegularNullTestRunner;
 
     //! Provides the front end for performing test enumerations and test runs.
     class PythonTestEngine
@@ -98,8 +101,10 @@ namespace TestImpact
         void DeleteArtifactXmls() const;
 
         AZStd::unique_ptr<PythonTestRunJobInfoGenerator> m_testJobInfoGenerator;
-        AZStd::unique_ptr<PythonInstrumentedTestRunner> m_testRunner;
-        AZStd::unique_ptr<PythonInstrumentedNullTestRunner> m_nullTestRunner;
+        AZStd::unique_ptr<PythonInstrumentedTestRunner> m_instrumentedTestRunner;
+        AZStd::unique_ptr<PythonInstrumentedNullTestRunner> m_instrumentedNullTestRunner;
+        AZStd::unique_ptr<PythonRegularTestRunner> m_regularTestRunner;
+        AZStd::unique_ptr<PythonRegularNullTestRunner> m_regularNullTestRunner;
         ArtifactDir m_artifactDir;
         Policy::TestRunner m_testRunnerPolicy;
     };

@@ -25,6 +25,11 @@ set(FILES
     Source/TestRunner/Python/TestImpactPythonInstrumentedTestRunner.h
     Source/TestRunner/Python/TestImpactPythonInstrumentedNullTestRunner.cpp
     Source/TestRunner/Python/TestImpactPythonInstrumentedNullTestRunner.h
+    Source/TestRunner/Python/TestImpactPythonRegularTestRunnerBase.cpp
+    Source/TestRunner/Python/TestImpactPythonRegularTestRunnerBase.h
+    Source/TestRunner/Python/TestImpactPythonRegularTestRunner.h
+    Source/TestRunner/Python/TestImpactPythonRegularNullTestRunner.cpp
+    Source/TestRunner/Python/TestImpactPythonRegularNullTestRunner.h
     Source/TestRunner/Python/Job/TestImpactPythonTestJobInfoGenerator.cpp
     Source/TestRunner/Python/Job/TestImpactPythonTestJobInfoGenerator.h
     Source/TestEngine/Python/TestImpactPythonTestEngine.cpp
