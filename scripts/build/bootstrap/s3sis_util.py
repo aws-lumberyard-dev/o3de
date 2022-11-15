@@ -61,6 +61,12 @@ def is_exists_on_s3(label):
 def get_commits(repository, branch, since):
     secret = get_secret(SECRET_NAME)
     github_client = github.Github(secret['Github Token'])
+    if branch.startswith('PR-'):
+        repo = github_client.get_repo(repository)
+        pr_number = int(branch[3:])
+        pr = repo.get_pull(pr_number)
+        branch = pr.head.ref
+        repository = (pr.head.repo.full_name)
     repo = github_client.get_repo(repository)
     commits = repo.get_commits(sha=branch, since=since)
     commits = [commit.sha for commit in commits]
@@ -112,7 +118,7 @@ def upload(args):
     
 
 def download(args):
-    commits = get_commits(args.repository, args.branch, datetime.today() - timedelta(days=30))
+    commits = get_commits(args.repository, args.branch, datetime.today() - timedelta(days=2))
     print(commits)
     labels = create_labels(args, commits)
     label_to_download = None
