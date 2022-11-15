@@ -30,7 +30,6 @@ def parse_args():
     parser = argparse.ArgumentParser()
     parser.add_argument('--action', dest='action', required=True, help='Repository name')
     parser.add_argument('--repository', dest='repository', required=True, help='Repository name')
-    parser.add_argument('--branch', dest='branch', required=True, help='Branch name')
     parser.add_argument('--pipeline', dest='pipeline', required=True, help='Pipeline name')
     parser.add_argument('--platform', dest='platform', required=True, help='Platform')
     parser.add_argument('--build-config', dest='build_config', required=True, help='Build config')
@@ -95,12 +94,14 @@ def upload(args):
             labels_to_upload.append(label)
         else:
             break
-    for label_to_upload in labels_to_upload:
+    for idx, label_to_upload in enumerate(labels_to_upload):
         cmd = ['s3siscli', 'upload', '--label', label_to_upload, '--workspace' ,args.workspace]
         if args.include:
             cmd += ['--include', args.include]
         if args.exclude:
             cmd += ['--exclude', args.exclude]
+        if idx != 0:
+            cmd += ['--no-regenerate-manifest']
         print(cmd)
         process_return = subprocess.run(cmd)
     
