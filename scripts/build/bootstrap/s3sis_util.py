@@ -42,7 +42,7 @@ def parse_args():
 
 
 def get_secret(secret_name):
-    secrets = boto3.client(service_name='secretsmanager', region_name='us-west-2')
+    secrets = boto3.client(service_name='secretsmanager')
     try:
         response = secrets.get_secret_value(SecretId=secret_name)
         return json.loads(response['SecretString'])
@@ -71,7 +71,7 @@ def replace_slash(s):
     return s.replace('/', '-')
 
 
-def create_labels(commits):
+def create_labels(args, commits):
     labels = []
     for commit in commits:
         label = f'{replace_slash(args.pipeline)}/{replace_slash(args.branch)}/{replace_slash(args.platform)}/{replace_slash(args.build_config)}/{commit}'
@@ -88,7 +88,7 @@ def upload(args):
         if commit == current_commit:
             commits = all_commits[idx:]
             break
-    labels = create_labels(commits)
+    labels = create_labels(args, commits)
     labels_to_upload = []
     for label in labels:
         if not is_exists_on_s3(label):
@@ -108,7 +108,7 @@ def upload(args):
 def download(args):
     commits = get_commits(args.repository, args.branch, datetime.today() - timedelta(days=30))
     print(commits)
-    labels = create_labels(commits)
+    labels = create_labels(args, commits)
     label_to_download = None
     for label in labels:
         if is_exists_on_s3(label):
