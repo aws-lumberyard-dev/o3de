@@ -697,7 +697,7 @@ def CreateUploadCrashArtifactStage(String jobName, String platform) {
 def CreateTeardownStage(Map environmentVars, Map params, String projectName, String pipelineName, String branchName, String platformName, String buildType) {
     return {
         stage('Teardown') {
-            PostBuildCommonSteps(environmentVars['WORKSPACE'], params, projectName, pipelineName, branchName, platformName, buildType, environmentVars['MOUNT_VOLUME'], environmentVars['USE_S3SIS_WORKSPACE']?.toBoolean())
+            PostBuildCommonSteps(environmentVars['WORKSPACE'], params, projectName, pipelineName, branchName, platformName, buildType, environmentVars['MOUNT_VOLUME'], environmentVars['USE_S3SIS_WORKSPACE'])
         }
     }
 }
