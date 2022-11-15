@@ -10,14 +10,14 @@
 
 #include <TestImpactFramework/TestImpactUtils.h>
 
-#include <TestRunner/Python/TestImpactPythonTestRunnerBase.h>
+#include <TestRunner/Python/TestImpactPythonInstrumentedTestRunnerBase.h>
 
 namespace TestImpact
 {
-    class PythonTestRunner
-        : public PythonTestRunnerBase
+    class PythonInstrumentedTestRunner
+        : public PythonInstrumentedTestRunnerBase
     {
     public:
-        using PythonTestRunnerBase::PythonTestRunnerBase;
+        using PythonInstrumentedTestRunnerBase::PythonInstrumentedTestRunnerBase;
     };
 } // namespace TestImpact

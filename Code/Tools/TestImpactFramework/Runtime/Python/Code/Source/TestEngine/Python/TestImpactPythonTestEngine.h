@@ -25,8 +25,8 @@ namespace TestImpact
     class PythonTestTarget;
     class PythonTestRunJobInfoGenerator;
     class PythonTestEnumerator;
-    class PythonTestRunner;
-    class PythonNullTestRunner;
+    class PythonInstrumentedTestRunner;
+    class PythonInstrumentedNullTestRunner;
 
     //! Provides the front end for performing test enumerations and test runs.
     class PythonTestEngine
@@ -98,8 +98,8 @@ namespace TestImpact
         void DeleteArtifactXmls() const;
 
         AZStd::unique_ptr<PythonTestRunJobInfoGenerator> m_testJobInfoGenerator;
-        AZStd::unique_ptr<PythonTestRunner> m_testRunner;
-        AZStd::unique_ptr<PythonNullTestRunner> m_nullTestRunner;
+        AZStd::unique_ptr<PythonInstrumentedTestRunner> m_testRunner;
+        AZStd::unique_ptr<PythonInstrumentedNullTestRunner> m_nullTestRunner;
         ArtifactDir m_artifactDir;
         Policy::TestRunner m_testRunnerPolicy;
     };

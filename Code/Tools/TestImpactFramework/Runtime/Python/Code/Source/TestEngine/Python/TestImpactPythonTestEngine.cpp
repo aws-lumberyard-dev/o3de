@@ -13,14 +13,25 @@
 #include <TestRunner/Python/TestImpactPythonErrorCodeChecker.h>
 #include <TestEngine/Python/TestImpactPythonTestEngine.h>
 #include <TestRunner/Python/Job/TestImpactPythonTestJobInfoGenerator.h>
-#include <TestRunner/Python/TestImpactPythonTestRunner.h>
-#include <TestRunner/Python/TestImpactPythonNullTestRunner.h>
+#include <TestRunner/Python/TestImpactPythonInstrumentedTestRunner.h>
+#include <TestRunner/Python/TestImpactPythonInstrumentedNullTestRunner.h>
 
 #include <iostream>
 namespace TestImpact
 {
+    AZStd::optional<Client::TestRunResult> PythonRegularTestRunnerErrorCodeChecker(
+        [[maybe_unused]] const typename PythonInstrumentedTestRunner::JobInfo& jobInfo, const JobMeta& meta)
+    {
+        if (auto result = CheckPythonErrorCode(meta.m_returnCode.value()); result.has_value())
+        {
+            return result;
+        }
+
+        return AZStd::nullopt;
+    }
+
     AZStd::optional<Client::TestRunResult> PythonInstrumentedTestRunnerErrorCodeChecker(
-        [[maybe_unused]] const typename PythonTestRunner::JobInfo& jobInfo, const JobMeta& meta)
+        [[maybe_unused]] const typename PythonInstrumentedTestRunner::JobInfo& jobInfo, const JobMeta& meta)
     {
         // The PyTest error code for test failures overlaps with the Python error code for script error so we have no way of
         // discerning at the job meta level whether a test failure or script execution error we will assume the tests failed for now
@@ -38,13 +49,13 @@ namespace TestImpact
     }
 
     template<>
-    struct TestJobRunnerTrait<PythonTestRunner>
+    struct TestJobRunnerTrait<PythonInstrumentedTestRunner>
     {
         using TestEngineJobType = TestEngineInstrumentedRun<PythonTestTarget, TestCoverage>;
     };
 
     template<>
-    struct TestJobRunnerTrait<PythonNullTestRunner>
+    struct TestJobRunnerTrait<PythonInstrumentedNullTestRunner>
     {
         using TestEngineJobType = TestEngineInstrumentedRun<PythonTestTarget, TestCoverage>;
     };
@@ -56,8 +67,8 @@ namespace TestImpact
         Policy::TestRunner testRunnerPolicy)
         : m_testJobInfoGenerator(AZStd::make_unique<PythonTestRunJobInfoGenerator>(
               repoDir, buildDir, artifactDir))
-        , m_testRunner(AZStd::make_unique<PythonTestRunner>(artifactDir))
-        , m_nullTestRunner(AZStd::make_unique<PythonNullTestRunner>(artifactDir))
+        , m_testRunner(AZStd::make_unique<PythonInstrumentedTestRunner>(artifactDir))
+        , m_nullTestRunner(AZStd::make_unique<PythonInstrumentedNullTestRunner>(artifactDir))
         , m_artifactDir(artifactDir)
         , m_testRunnerPolicy(testRunnerPolicy)
     {
@@ -80,6 +91,42 @@ namespace TestImpact
         [[maybe_unused]] AZStd::optional<AZStd::chrono::milliseconds> globalTimeout,
         [[maybe_unused]] AZStd::optional<TestEngineJobCompleteCallback<PythonTestTarget>> callback) const
     {
+        DeleteArtifactXmls();
+
+        
+        //if (m_testRunnerPolicy == Policy::TestRunner::UseNullTestRunner)
+        //{
+        //    // We don't delete the artifacts as they have been left by another test runner (e.g. ctest)
+        //    return GenerateJobInfosAndRunTests(
+        //        m_nullTestRunner.get(),
+        //        m_testJobInfoGenerator.get(),
+        //        testTargets,
+        //        PythonRegularTestRunnerErrorCodeChecker,
+        //        executionFailurePolicy,
+        //        testFailurePolicy,
+        //        targetOutputCapture,
+        //        testTargetTimeout,
+        //        globalTimeout,
+        //        callback,
+        //        AZStd::nullopt);
+        //}
+        //else
+        //{
+        //    DeleteArtifactXmls();
+        //    return GenerateJobInfosAndRunTests(
+        //        m_testRunner.get(),
+        //        m_testJobInfoGenerator.get(),
+        //        testTargets,
+        //        PythonRegularTestRunnerErrorCodeChecker,
+        //        executionFailurePolicy,
+        //        testFailurePolicy,
+        //        targetOutputCapture,
+        //        testTargetTimeout,
+        //        globalTimeout,
+        //        callback,
+        //        AZStd::nullopt);
+        //}
+
         return TestEngineRegularRunResult<PythonTestTarget>{};
     }
 

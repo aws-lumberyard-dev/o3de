@@ -31,8 +31,8 @@ namespace TestImpact
         return parentfolder;
     }
 
-    PythonTestRunnerBase::JobInfo PythonTestRunJobInfoGenerator::GenerateJobInfo(
-        const PythonTestTarget* testTarget, PythonTestRunnerBase::JobInfo::Id jobId) const
+    PythonInstrumentedTestRunnerBase::JobInfo PythonTestRunJobInfoGenerator::GenerateJobInfo(
+        const PythonTestTarget* testTarget, PythonInstrumentedTestRunnerBase::JobInfo::Id jobId) const
     {
         const auto parentFolderName = RepoPath(CompileParentFolderName(testTarget));
         const auto runArtifact = GenerateTargetRunArtifactFilePath(testTarget, m_artifactDir.m_testRunArtifactDirectory);

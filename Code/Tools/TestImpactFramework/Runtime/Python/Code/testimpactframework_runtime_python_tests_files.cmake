@@ -8,6 +8,6 @@
 
 set(FILES
 Tests/TestEngine/TestImpactPythonTestEngineTest.cpp
-Tests/TestRunner/TestImpactPythonTestRunnerTest.cpp
+Tests/TestRunner/TestImpactPythonInstrumentedTestRunnerTest.cpp
 Tests/TestImpactPythonRuntimeTestMain.cpp
 )

@@ -21,11 +21,11 @@
 namespace TestImpact
 {
     //! Base class for Python test runners to derive from.
-    class PythonTestRunnerBase
+    class PythonInstrumentedTestRunnerBase
         : public TestRunnerWithCoverage<TestRunWithCoverageJobData, TestCoverage>
     {
     public:
-        PythonTestRunnerBase(const ArtifactDir& artifactDir);
+        PythonInstrumentedTestRunnerBase(const ArtifactDir& artifactDir);
 
     protected:
         // TestRunnerBase overrides ...

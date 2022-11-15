@@ -6,7 +6,7 @@
  *
  */
 
-#include <TestRunner/Python/TestImpactPythonTestRunner.h>
+#include <TestRunner/Python/TestImpactPythonInstrumentedTestRunner.h>
 
 #include <AzCore/UnitTest/TestTypes.h>
 #include <AzTest/AzTest.h>
@@ -21,16 +21,16 @@ namespace UnitTest
         {
         }
 
-        TestImpact::PythonTestRunner m_testRunner;
+        TestImpact::PythonInstrumentedTestRunner m_testRunner;
     };
 
     TEST_F(PyTestRunnerFixture, Foo)
     {
         try
         {
-            using JobInfo = TestImpact::PythonTestRunner::JobInfo;
-            using JobData = TestImpact::PythonTestRunner::JobData;
-            using Command = TestImpact::PythonTestRunner::Command;
+            using JobInfo = TestImpact::PythonInstrumentedTestRunner::JobInfo;
+            using JobData = TestImpact::PythonInstrumentedTestRunner::JobData;
+            using Command = TestImpact::PythonInstrumentedTestRunner::Command;
 //
             const AZStd::vector<AZStd::string> cmds =
             {

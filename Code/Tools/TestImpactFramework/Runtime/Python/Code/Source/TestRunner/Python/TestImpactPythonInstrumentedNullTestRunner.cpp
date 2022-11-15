@@ -8,12 +8,12 @@
 
 #pragma once
 
-#include <TestRunner/Python/TestImpactPythonNullTestRunner.h>
+#include <TestRunner/Python/TestImpactPythonInstrumentedNullTestRunner.h>
 #include <TestRunner/Python/TestImpactPythonErrorCodeChecker.h>
 
 namespace TestImpact
 {
-    AZStd::pair<ProcessSchedulerResult, AZStd::vector<PythonNullTestRunner::TestJobRunner::Job>> PythonNullTestRunner::RunTests(
+    AZStd::pair<ProcessSchedulerResult, AZStd::vector<PythonInstrumentedNullTestRunner::TestJobRunner::Job>> PythonInstrumentedNullTestRunner::RunTests(
         [[maybe_unused]] const AZStd::vector<TestJobRunner::JobInfo>& jobInfos,
         [[maybe_unused]] StdOutputRouting stdOutRouting,
         [[maybe_unused]] StdErrorRouting stdErrRouting,

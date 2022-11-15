@@ -12,13 +12,13 @@
 
 #include <Target/Python/TestImpactPythonTestTarget.h>
 #include <TestRunner/Common/Job/TestImpactTestJobInfoGenerator.h>
-#include <TestRunner/Python/TestImpactPythonTestRunner.h>
+#include <TestRunner/Python/TestImpactPythonInstrumentedTestRunner.h>
 
 namespace TestImpact
 {
     //! Generates job information for the test job runner.
     class PythonTestRunJobInfoGenerator
-        : public TestJobInfoGenerator<PythonTestRunnerBase, PythonTestTarget>
+        : public TestJobInfoGenerator<PythonInstrumentedTestRunnerBase, PythonTestTarget>
     {
     public:
         //! Configures the test job info generator with the necessary path information for launching test targets.
@@ -31,7 +31,7 @@ namespace TestImpact
         //! Generates the information for a test run job.
         //! @param testTarget The test target to generate the job information for.
         //! @param jobId The id to assign for this job.
-        PythonTestRunnerBase::JobInfo GenerateJobInfo(const PythonTestTarget* testTarget, PythonTestRunnerBase::JobInfo::Id jobId) const;
+        PythonInstrumentedTestRunnerBase::JobInfo GenerateJobInfo(const PythonTestTarget* testTarget, PythonInstrumentedTestRunnerBase::JobInfo::Id jobId) const;
 
     private:
         RepoPath m_repoDir;
