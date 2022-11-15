@@ -42,7 +42,7 @@ def parse_args():
 
 
 def get_secret(secret_name):
-    secrets = boto3.client(service_name='secretsmanager')
+    secrets = boto3.client(service_name='secretsmanager', region_name='us-west-2')
     try:
         response = secrets.get_secret_value(SecretId=secret_name)
         return json.loads(response['SecretString'])
