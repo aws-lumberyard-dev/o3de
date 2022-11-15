@@ -30,6 +30,7 @@ def parse_args():
     parser = argparse.ArgumentParser()
     parser.add_argument('--action', dest='action', required=True, help='Repository name')
     parser.add_argument('--repository', dest='repository', required=True, help='Repository name')
+    parser.add_argument('--branch', dest='branch', required=True, help='Branch name')
     parser.add_argument('--pipeline', dest='pipeline', required=True, help='Pipeline name')
     parser.add_argument('--platform', dest='platform', required=True, help='Platform')
     parser.add_argument('--build-config', dest='build_config', required=True, help='Build config')
@@ -73,7 +74,7 @@ def replace_slash(s):
 def create_labels(args, commits):
     labels = []
     for commit in commits:
-        label = f'{replace_slash(args.pipeline)}/{replace_slash(args.branch)}/{replace_slash(args.platform)}/{replace_slash(args.build_config)}/{commit}'
+        label = f'{replace_slash(args.pipeline)}/{replace_slash(args.platform)}/{replace_slash(args.build_config)}/{commit}'
         labels.append(label)
     return labels
     

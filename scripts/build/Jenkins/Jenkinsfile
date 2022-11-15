@@ -380,7 +380,7 @@ def PreBuildCommonSteps(Map pipelineConfig, String snapshot, String repositoryNa
         else pythonCmd = 'python3 -u '
 
         try {
-            palSh("${pythonCmd} ${S3SIS_UTIL_SCRIPT_PATH} --action download --repository ${repositoryName} --pipeline ${projectName} --platform ${platform} --build-config ${buildType} --workspace ${workspace}/${ENGINE_REPOSITORY_NAME}", 'Downloading workspace', winSlashReplacement=false)
+            palSh("${pythonCmd} ${S3SIS_UTIL_SCRIPT_PATH} --action download --repository ${repositoryName} --branch development --pipeline ${projectName} --platform ${platform} --build-config ${buildType} --workspace ${workspace}/${ENGINE_REPOSITORY_NAME}", 'Downloading workspace', winSlashReplacement=false)
         } catch (Exception e) {
             echo "WARN: Failed to download workspace. \n${e}"
         }
@@ -590,7 +590,7 @@ def PostBuildCommonSteps(String workspace, Map params, String projectName, Strin
         else pythonCmd = 'python3 -u '
 
         try {
-            palSh("${pythonCmd} ${S3SIS_UTIL_SCRIPT_PATH} --action upload --repository ${env.REPOSITORY_NAME} --pipeline ${projectName} --platform ${platform} --build-config ${buildType} --workspace ${workspace}/${ENGINE_REPOSITORY_NAME}", 'Uploading workspace', winSlashReplacement=false)
+            palSh("${pythonCmd} ${S3SIS_UTIL_SCRIPT_PATH} --action upload --repository ${env.REPOSITORY_NAME} --branch ${branchName} --pipeline ${projectName} --platform ${platform} --build-config ${buildType} --workspace ${workspace}/${ENGINE_REPOSITORY_NAME}", 'Uploading workspace', winSlashReplacement=false)
         } catch (Exception e) {
             echo "WARN: Failed to upload workspace. \n${e}"
         }
