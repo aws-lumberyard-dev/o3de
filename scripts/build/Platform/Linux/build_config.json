@@ -111,6 +111,9 @@
       "daily-pipeline-metrics",
       "weekly-build-metrics"
     ],
+    "PIPELINE_ENV":{
+      "USE_S3SIS_WORKSPACE": "True"
+    },
     "COMMAND": "build_linux.sh",
     "PARAMETERS": {
       "CONFIGURATION": "profile",
