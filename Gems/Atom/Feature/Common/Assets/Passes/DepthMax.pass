@@ -43,9 +43,6 @@
                     },
                     "ImageDescriptor": {
                         "Format": "D32_FLOAT_S8X24_UINT",
-                        "MultisampleState": {
-                            "samples": 1
-                        },
                         "SharedQueueMask": "Graphics"
                     }
                 }
