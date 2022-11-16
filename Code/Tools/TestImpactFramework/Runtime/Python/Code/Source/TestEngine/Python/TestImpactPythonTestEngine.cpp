@@ -22,7 +22,7 @@
 namespace TestImpact
 {
     AZStd::optional<Client::TestRunResult> PythonRegularTestRunnerErrorCodeChecker(
-        [[maybe_unused]] const typename PythonInstrumentedTestRunner::JobInfo& jobInfo, const JobMeta& meta)
+        [[maybe_unused]] const typename PythonRegularTestRunner::JobInfo& jobInfo, const JobMeta& meta)
     {
         if (auto result = CheckPythonErrorCode(meta.m_returnCode.value()); result.has_value())
         {
@@ -62,12 +62,26 @@ namespace TestImpact
         using TestEngineJobType = TestEngineInstrumentedRun<PythonTestTarget, TestCoverage>;
     };
 
+    template<>
+    struct TestJobRunnerTrait<PythonRegularTestRunner>
+    {
+        using TestEngineJobType = TestEngineRegularRun<PythonTestTarget>;
+    };
+
+    template<>
+    struct TestJobRunnerTrait<PythonRegularNullTestRunner>
+    {
+        using TestEngineJobType = TestEngineRegularRun<PythonTestTarget>;
+    };
+
     PythonTestEngine::PythonTestEngine(
         const RepoPath& repoDir,
         const RepoPath& buildDir,
         const ArtifactDir& artifactDir,
         Policy::TestRunner testRunnerPolicy)
         : m_instrumentedTestJobInfoGenerator(AZStd::make_unique<PythonInstrumentedTestRunJobInfoGenerator>(
+              repoDir, buildDir, artifactDir))
+        , m_regularTestJobInfoGenerator(AZStd::make_unique<PythonRegularTestRunJobInfoGenerator>(
               repoDir, buildDir, artifactDir))
         , m_instrumentedTestRunner(AZStd::make_unique<PythonInstrumentedTestRunner>())
         , m_instrumentedNullTestRunner(AZStd::make_unique<PythonInstrumentedNullTestRunner>())
@@ -97,41 +111,40 @@ namespace TestImpact
     {
         DeleteArtifactXmls();
 
-        
-        //if (m_testRunnerPolicy == Policy::TestRunner::UseNullTestRunner)
-        //{
-        //    // We don't delete the artifacts as they have been left by another test runner (e.g. ctest)
-        //    return GenerateJobInfosAndRunTests(
-        //        m_regularNullTestRunner.get(),
-        //        m_testJobInfoGenerator.get(),
-        //        testTargets,
-        //        PythonRegularTestRunnerErrorCodeChecker,
-        //        executionFailurePolicy,
-        //        testFailurePolicy,
-        //        targetOutputCapture,
-        //        testTargetTimeout,
-        //        globalTimeout,
-        //        callback,
-        //        AZStd::nullopt);
-        //}
-        //else
-        //{
-        //    DeleteArtifactXmls();
-        //    return GenerateJobInfosAndRunTests(
-        //        m_regularTestRunner.get(),
-        //        m_testJobInfoGenerator.get(),
-        //        testTargets,
-        //        PythonRegularTestRunnerErrorCodeChecker,
-        //        executionFailurePolicy,
-        //        testFailurePolicy,
-        //        targetOutputCapture,
-        //        testTargetTimeout,
-        //        globalTimeout,
-        //        callback,
-        //        AZStd::nullopt);
-        //}
+        const auto jobInfos = m_regularTestJobInfoGenerator->GenerateJobInfos(testTargets);
 
-        return TestEngineRegularRunResult<PythonTestTarget>{};
+        if (m_testRunnerPolicy == Policy::TestRunner::UseNullTestRunner)
+        {
+            return RunTests(
+                m_regularNullTestRunner.get(),
+                jobInfos,
+                testTargets,
+                PythonRegularTestRunnerErrorCodeChecker,
+                executionFailurePolicy,
+                testFailurePolicy,
+                targetOutputCapture,
+                testTargetTimeout,
+                globalTimeout,
+                callback,
+                AZStd::nullopt);
+        }
+        else
+        {
+            return RunTests(
+                m_regularTestRunner.get(),
+                jobInfos,
+                testTargets,
+                PythonRegularTestRunnerErrorCodeChecker,
+                executionFailurePolicy,
+                testFailurePolicy,
+                targetOutputCapture,
+                testTargetTimeout,
+                globalTimeout,
+                callback,
+                AZStd::nullopt);
+        }
+        //
+        //return TestEngineRegularRunResult<PythonTestTarget>{};
     }
 
     TestEngineInstrumentedRunResult<PythonTestTarget, TestCoverage>
@@ -146,13 +159,15 @@ namespace TestImpact
         AZStd::optional<AZStd::chrono::milliseconds> globalTimeout,
         AZStd::optional<TestEngineJobCompleteCallback<PythonTestTarget>> callback) const
     {
+        const auto jobInfos = m_instrumentedTestJobInfoGenerator->GenerateJobInfos(testTargets);
+
         if (m_testRunnerPolicy == Policy::TestRunner::UseNullTestRunner)
         {
             // We don't delete the artifacts as they have been left by another test runner (e.g. ctest)
             return GenerateInstrumentedRunResult(
-            GenerateJobInfosAndRunTests(
+            RunTests(
                 m_instrumentedNullTestRunner.get(),
-                m_instrumentedTestJobInfoGenerator.get(),
+                jobInfos,
                 testTargets,
                 PythonInstrumentedTestRunnerErrorCodeChecker,
                 executionFailurePolicy,
@@ -168,9 +183,9 @@ namespace TestImpact
         {;
             DeleteArtifactXmls();
             return GenerateInstrumentedRunResult(
-                GenerateJobInfosAndRunTests(
+                RunTests(
                     m_instrumentedTestRunner.get(),
-                    m_instrumentedTestJobInfoGenerator.get(),
+                    jobInfos,
                     testTargets,
                     PythonInstrumentedTestRunnerErrorCodeChecker,
                     executionFailurePolicy,

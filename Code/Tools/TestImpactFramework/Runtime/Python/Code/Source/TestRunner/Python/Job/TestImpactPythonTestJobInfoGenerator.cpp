@@ -40,4 +40,22 @@ namespace TestImpact
 
         return JobInfo(jobId, args, JobData(runArtifact, m_artifactDir.m_coverageArtifactDirectory / parentFolderName));
     }
+
+    PythonRegularTestRunJobInfoGenerator::PythonRegularTestRunJobInfoGenerator(
+        const RepoPath& repoDir, const RepoPath& buildDir, const ArtifactDir& artifactDir)
+        : m_repoDir(repoDir)
+        , m_buildDir(buildDir)
+        , m_artifactDir(artifactDir)
+    {
+    }
+
+    PythonRegularTestRunnerBase::JobInfo PythonRegularTestRunJobInfoGenerator::GenerateJobInfo(
+        const PythonTestTarget* testTarget, PythonRegularTestRunnerBase::JobInfo::Id jobId) const
+    {
+        const auto parentFolderName = RepoPath(CompileParentFolderName(testTarget));
+        const auto runArtifact = GenerateTargetRunArtifactFilePath(testTarget, m_artifactDir.m_testRunArtifactDirectory);
+        const Command args = { testTarget->GetCommand() };
+
+        return JobInfo(jobId, args, JobData(runArtifact));
+    }
 } // namespace TestImpact

@@ -13,10 +13,11 @@
 #include <Target/Python/TestImpactPythonTestTarget.h>
 #include <TestRunner/Common/Job/TestImpactTestJobInfoGenerator.h>
 #include <TestRunner/Python/TestImpactPythonInstrumentedTestRunner.h>
+#include <TestRunner/Python/TestImpactPythonRegularTestRunner.h>
 
 namespace TestImpact
 {
-    //! Generates job information for the test job runner.
+    //! Generates job information for the instrumented test job runner.
     class PythonInstrumentedTestRunJobInfoGenerator
         : public TestJobInfoGenerator<PythonInstrumentedTestRunnerBase, PythonTestTarget>
     {
@@ -32,6 +33,29 @@ namespace TestImpact
         //! @param testTarget The test target to generate the job information for.
         //! @param jobId The id to assign for this job.
         PythonInstrumentedTestRunnerBase::JobInfo GenerateJobInfo(const PythonTestTarget* testTarget, PythonInstrumentedTestRunnerBase::JobInfo::Id jobId) const;
+
+    private:
+        RepoPath m_repoDir;
+        RepoPath m_buildDir;
+        ArtifactDir m_artifactDir;
+    };
+
+    //! Generates job information for the regular test job runner.
+    class PythonRegularTestRunJobInfoGenerator
+        : public TestJobInfoGenerator<PythonRegularTestRunnerBase, PythonTestTarget>
+    {
+    public:
+        //! Configures the test job info generator with the necessary path information for launching test targets.
+        //! @param repoDir Root path to where the repository is located.
+        //! @param buildDir Path to where the target binaries are found.
+        //! @param artifactDir Path to the transient directory where test artifacts are produced.
+        PythonRegularTestRunJobInfoGenerator(
+            const RepoPath& repoDir, const RepoPath& buildDir, const ArtifactDir& artifactDir);
+
+        //! Generates the information for a test run job.
+        //! @param testTarget The test target to generate the job information for.
+        //! @param jobId The id to assign for this job.
+        PythonRegularTestRunnerBase::JobInfo GenerateJobInfo(const PythonTestTarget* testTarget, PythonRegularTestRunnerBase::JobInfo::Id jobId) const;
 
     private:
         RepoPath m_repoDir;
