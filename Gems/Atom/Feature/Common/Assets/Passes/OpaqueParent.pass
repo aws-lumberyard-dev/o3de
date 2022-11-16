@@ -516,26 +516,13 @@
                     }
                 },
                 {
-                    "Name": "Ssao",
-                    "TemplateName": "SsaoParentTemplate",
-                    "Connections": [
-                        {
-                            "LocalSlot": "Modulate",
-                            "AttachmentRef": {
-                                "Pass": "SubsurfaceScatteringPass",
-                                "Attachment": "Output"
-                            }
-                        }
-                    ]
-                },
-                {
                     "Name": "DiffuseSpecularMergePass",
                     "TemplateName": "DiffuseSpecularMergeTemplate",
                     "Connections": [
                         {
                             "LocalSlot": "InputDiffuse",
                             "AttachmentRef": {
-                                "Pass": "Ssao",
+                                "Pass": "SubsurfaceScatteringPass",
                                 "Attachment": "Output"
                             }
                         },

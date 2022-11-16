@@ -139,10 +139,14 @@
                             "LocalSlot": "Depth",
                             "AttachmentRef": {
                                 "Pass": "DepthPrePass",
-                                "Attachment": "DepthMSAA" 
+                                "Attachment": "DepthMSAA"
                             }
                         }
                     ]
+                },
+                {
+                    "Name": "Ssao",
+                    "TemplateName": "SsaoParentTemplate"
                 },
                 {
                     "Name": "OpaquePass",

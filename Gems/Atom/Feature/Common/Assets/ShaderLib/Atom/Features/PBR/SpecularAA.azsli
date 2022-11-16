@@ -19,7 +19,7 @@ option bool o_applySpecularAA;
 //
 // Output: the new anti-aliased value for roughnessA2
 //
-float CalculateSpecularAA(float3 normal, float roughnessA2)
+float CalculateSpecularAA(float3 normal, float roughnessA2, float2 screenPosition)
 {
     // Constants for formula below
     const float screenVariance = 0.25f;
@@ -28,7 +28,15 @@ float CalculateSpecularAA(float3 normal, float roughnessA2)
     // Specular Anti-Aliasing
     float3 dndu = ddx_fine( normal );
     float3 dndv = ddy_fine( normal );
-    float variance = screenVariance * (dot( dndu , dndu ) + dot( dndv , dndv ));
+
+    float geometricNormalVariance = 0;
+
+#ifdef USE_SSAO
+    geometricNormalVariance = PassSrg::m_geometricNormalVariance.Load(int3(screenPosition.xy, 0)).x;
+#endif
+
+    float variance = dot(dndu, dndu) + dot(dndv, dndv) + geometricNormalVariance;
+    variance *= screenVariance;
     float kernelRoughnessA2 = min(2.0 * variance , varianceThresh );
     float filteredRoughnessA2 = saturate ( roughnessA2 + kernelRoughnessA2 );
     return filteredRoughnessA2;

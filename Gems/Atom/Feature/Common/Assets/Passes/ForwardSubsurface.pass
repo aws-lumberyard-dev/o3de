@@ -19,7 +19,19 @@
                     "ShaderInputName": "m_fullscreenShadow",
                     "SlotType": "Input",
                     "ScopeAttachmentUsage": "Shader"
-                },                 
+                },
+                {
+                    "Name": "SSAO",
+                    "ShaderInputName": "m_ssao",
+                    "SlotType": "Input",
+                    "ScopeAttachmentUsage": "Shader"
+                },
+                {
+                    "Name": "SS_GeometricNormalVariance",
+                    "ShaderInputName": "m_geometricNormalVariance",
+                    "SlotType": "Input",
+                    "ScopeAttachmentUsage": "Shader"
+                },
                 {
                     "Name": "DirectionalLightShadowmap",
                     "ShaderInputName": "m_directionalLightShadowmap",
@@ -163,6 +175,20 @@
                     "AttachmentRef": {
                         "Pass": "PipelineGlobal",
                         "Attachment": "FullscreenShadowBuffer"
+                    }
+                },
+                {
+                    "LocalSlot": "SSAO",
+                    "AttachmentRef": {
+                        "Pass": "PipelineGlobal",
+                        "Attachment": "SsaoBuffer"
+                    }
+                },
+                {
+                    "LocalSlot": "SS_GeometricNormalVariance",
+                    "AttachmentRef": {
+                        "Pass": "PipelineGlobal",
+                        "Attachment": "GeometricNormalVariance"
                     }
                 }
             ]

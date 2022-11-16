@@ -42,15 +42,15 @@ class SurfaceData_Skin
     float3 scatterDistance;
 
     //! Calculates roughnessA and roughnessA2 after roughness has been set
-    void CalculateRoughnessA();
+    void CalculateRoughnessA(float2 screenPosition);
 
     //! Sets albedo and specularF0 (no metallic for skin)
     void SetAlbedoAndSpecularF0(float3 newBaseColor, float specularF0Factor);
 };
 
-void SurfaceData_Skin::CalculateRoughnessA()
+void SurfaceData_Skin::CalculateRoughnessA(float2 screenPosition)
 {
-    CalculateRoughnessValues(normal, roughnessLinear, roughnessA, roughnessA2);
+    CalculateRoughnessValues(screenPosition, normal, roughnessLinear, roughnessA, roughnessA2);
 }
 
 void SurfaceData_Skin::SetAlbedoAndSpecularF0(float3 newBaseColor, float specularF0Factor)

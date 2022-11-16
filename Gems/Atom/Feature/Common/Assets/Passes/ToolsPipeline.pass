@@ -152,6 +152,10 @@
                     ]
                 },
                 {
+                    "Name": "Ssao",
+                    "TemplateName": "SsaoParentTemplate"
+                },
+                {
                     "Name": "OpaquePass",
                     "TemplateName": "OpaqueParentTemplate",
                     "Connections": [

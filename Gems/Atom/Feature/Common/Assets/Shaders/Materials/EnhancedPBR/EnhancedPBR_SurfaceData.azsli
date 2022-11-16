@@ -71,15 +71,15 @@
         float specularOcclusion;        //!< Specular occlusion factor - [0, 1] :: [Dark, Bright]
 
         //! Calculates roughnessA and roughnessA2 after roughness has been set
-        void CalculateRoughnessA();
+        void CalculateRoughnessA(float2 screenPosition);
 
         //! Sets albedo and specularF0 using metallic workflow
         void SetAlbedoAndSpecularF0(float3 baseColor, float specularF0Factor, float metallic);
     };
 
-    void SurfaceData_EnhancedPBR::CalculateRoughnessA()
+    void SurfaceData_EnhancedPBR::CalculateRoughnessA(float2 screenPosition)
     {
-        CalculateRoughnessValues(normal, roughnessLinear, roughnessA, roughnessA2);
+        CalculateRoughnessValues(screenPosition, normal, roughnessLinear, roughnessA, roughnessA2);
     }
 
     void SurfaceData_EnhancedPBR::SetAlbedoAndSpecularF0(float3 newBaseColor, float specularF0Factor, float newMetallic)

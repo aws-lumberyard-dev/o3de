@@ -8,22 +8,42 @@
             "PassClass": "SsaoParentPass",
             "Slots": [
                 {
-                    "Name": "Modulate",
-                    "SlotType": "Input",
+                    "Name": "Output",
+                    "SlotType": "Output",
                     "ScopeAttachmentUsage": "Shader"
                 },
                 {
-                    "Name": "Output",
+                    "Name": "GeometricNormalVariance",
                     "SlotType": "Output",
                     "ScopeAttachmentUsage": "Shader"
                 }
             ],
+            "PassData": {
+                "$type": "PassData",
+                "PipelineGlobalConnections": [
+                    {
+                        "GlobalName": "SsaoBuffer",
+                        "Slot": "Output"
+                    },
+                    {
+                        "GlobalName": "GeometricNormalVariance",
+                        "Slot": "GeometricNormalVariance"
+                    }
+                ]
+            },
             "Connections": [
                 {
                     "LocalSlot": "Output",
                     "AttachmentRef": {
-                        "Pass": "ModulateWithSsao",
-                        "Attachment": "InputOutput"
+                        "Pass": "Upsample",
+                        "Attachment": "Output"
+                    }
+                },
+                {
+                    "LocalSlot": "GeometricNormalVariance",
+                    "AttachmentRef": {
+                        "Pass": "SsaoCompute",
+                        "Attachment": "GeometricNormalVariance"
                     }
                 }
             ],
@@ -103,34 +123,6 @@
                             }
                         }
                     ]
-                },
-                {
-                    "Name": "ModulateWithSsao",
-                    "TemplateName": "ModulateTextureTemplate",
-                    "Enabled": true,
-                    "Connections": [
-                        {
-                            "LocalSlot": "Input",
-                            "AttachmentRef": {
-                                "Pass": "Upsample",
-                                "Attachment": "Output"
-                            }
-                        },
-                        {
-                            "LocalSlot": "InputOutput",
-                            "AttachmentRef": {
-                                "Pass": "Parent",
-                                "Attachment": "Modulate"
-                            }
-                        }
-                    ],
-                    "PassData": {
-                        "$type": "ComputePassData",
-                        "ShaderAsset": {
-                            "FilePath": "Shaders/PostProcessing/ModulateTexture.shader"
-                        },
-                        "Make Fullscreen Pass": true
-                    }
                 }
             ]
         }

@@ -25,14 +25,14 @@ static const float MinRoughnessA = 0.0005f;
 // the user-provided roughness parameter to be more perceptually linear. We keep both values available as some
 // equations need roughnessLinear (i.e. IBL sampling) while others need roughnessA (i.e. GGX equations).
 // See Burley's Disney PBR: https://pdfs.semanticscholar.org/eeee/3b125c09044d3e2f58ed0e4b1b66a677886d.pdf
-void CalculateRoughnessValues(float3 normal, inout float roughnessLinear, out float roughnessA, out float roughnessA2)
+void CalculateRoughnessValues(float2 screenPosition, float3 normal, inout float roughnessLinear, out float roughnessA, out float roughnessA2)
 {
     roughnessA = max( Pow2(roughnessLinear), MinRoughnessA);
     roughnessA2 = Pow2(roughnessA);
 
-    if(o_applySpecularAA)
+    //if(o_applySpecularAA)
     {
-        roughnessA2 = CalculateSpecularAA(normal, roughnessA2);
+        roughnessA2 = CalculateSpecularAA(normal, roughnessA2, screenPosition);
 
         // Apply backwards so we get consistent behavior (for things like lookup tables for example)
         roughnessA = sqrt(roughnessA2);

@@ -12,7 +12,7 @@
 // used in your shader. Simply #define EvaluateSurface to your custom definition before including this file
 //
 #ifndef EvaluateSurface
-#define EvaluateSurface(geoData)        EvaluateSurface_StandardPBR(geoData)
+#define EvaluateSurface(geoData, screenPosition)        EvaluateSurface_StandardPBR(geoData, screenPosition)
 #endif
 
 #include "../BasePBR/BasePBR_SurfaceEval.azsli"
@@ -26,9 +26,10 @@ Surface EvaluateSurface_StandardPBR(
     float3 bitangents[UvSetCount],
     float2 uvs[UvSetCount],
     bool isFrontFace,
-    bool isDisplacementClipped)
+    bool isDisplacementClipped,
+    float4 screenPosition)
 {
-    Surface surface = EvaluateSurface_BasePBR(positionWS, vertexNormal, tangents, bitangents, uvs, isFrontFace);
+    Surface surface = EvaluateSurface_BasePBR(positionWS, vertexNormal, tangents, bitangents, uvs, isFrontFace, screenPosition);
 
     // ------- Parallax Clipping -------
 
@@ -77,7 +78,7 @@ Surface EvaluateSurface_StandardPBR(
     return surface;
 }
 
-Surface EvaluateSurface_StandardPBR(PixelGeometryData geoData)
+Surface EvaluateSurface_StandardPBR(PixelGeometryData geoData, float4 screenPosition)
 {
     return EvaluateSurface_StandardPBR(
         geoData.positionWS,
@@ -86,5 +87,6 @@ Surface EvaluateSurface_StandardPBR(PixelGeometryData geoData)
         geoData.bitangents,
         geoData.uvs,
         geoData.isFrontFace,
-        geoData.isDisplacementClipped);
+        geoData.isDisplacementClipped,
+        screenPosition);
 }

@@ -19,11 +19,31 @@
                     "LoadStoreAction": {
                         "LoadAction": "Clear"
                     }
+                },
+                {
+                    "Name": "GeometricNormalVariance",
+                    "SlotType": "Output",
+                    "ScopeAttachmentUsage": "Shader",
+                    "LoadStoreAction": {
+                        "LoadAction": "Clear"
+                    }
                 }
             ],
             "ImageAttachments": [
                 {
                     "Name": "Ssao",
+                    "SizeSource": {
+                        "Source": {
+                            "Pass": "This",
+                            "Attachment": "LinearDepth"
+                        }
+                    },
+                    "ImageDescriptor": {
+                        "Format": "R8_UNORM"
+                    }
+                },
+                {
+                    "Name": "GeometricNormalVarianceAttachment",
                     "SizeSource": {
                         "Source": {
                             "Pass": "This",
@@ -41,6 +61,13 @@
                     "AttachmentRef": {
                         "Pass": "This",
                         "Attachment": "Ssao"
+                    }
+                },
+                {
+                    "LocalSlot": "GeometricNormalVariance",
+                    "AttachmentRef": {
+                        "Pass": "This",
+                        "Attachment": "GeometricNormalVarianceAttachment"
                     }
                 }
             ],

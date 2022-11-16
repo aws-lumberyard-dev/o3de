@@ -39,7 +39,6 @@ void CalculateLighting_BasePBR(inout Surface surface, float4 screenPosition, ino
     ApplyDecals(lightingData.tileIterator, surface);
 
 #ifdef USE_SSAO
-    //float visibility = PassSrg::m_fullscreenShadow.Load(int3(screenPosition.xy, 0)).x;
     float ssao = PassSrg::m_ssao.Load(int3(screenPosition.xy, 0)).x;
     surface.albedo *= ssao;
 #endif

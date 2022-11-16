@@ -49,5 +49,5 @@ AZ_GFX_FLOAT_PARAM_FLOAT_OVERRIDE(float, BlurDepthFalloffStrength, m_blurDepthFa
 // --- SSAO DOWNSAMPLE ---
 
 // Whether to downsample the depth buffer before SSAO and upsample the result
-AZ_GFX_BOOL_PARAM(EnableDownsample, m_enableDownsample, true)
+AZ_GFX_BOOL_PARAM(EnableDownsample, m_enableDownsample, false)
 AZ_GFX_ANY_PARAM_BOOL_OVERRIDE(bool, EnableDownsample, m_enableDownsample)

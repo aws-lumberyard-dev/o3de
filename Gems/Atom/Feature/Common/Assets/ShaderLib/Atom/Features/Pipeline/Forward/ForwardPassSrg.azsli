@@ -20,6 +20,13 @@ ShaderResourceGroup PassSrg : SRG_PerPass
     Texture2D m_brdfMap;
     Texture2D<float> m_fullscreenShadow;
 
+//#ifdef USE_SSAO
+    Texture2D<float> m_ssao;
+    Texture2D<float> m_geometricNormalVariance;
+//#endif
+
+
+
     Sampler LinearSampler
     {
         MinFilter = Linear;
