@@ -92,6 +92,40 @@ TEST_F(TerrainHeightGradientListComponentTest, TerrainHeightGradientRefreshesTer
     Mock::VerifyAndClearExpectations(&terrainSystem);
 }
 
+TEST_F(TerrainHeightGradientListComponentTest, TerrainHeightGradientDynamicallyChangeGradientEntities)
+{
+    // Check that the HeightGradientListComponent informs the TerrainSystem when the composition changes.
+    const auto entity = CreateEntity();
+    AddHeightGradientListToEntity(entity.get());
+    AddRequiredComponentsToEntity(entity.get());
+    ActivateEntity(entity.get());
+
+    NiceMock<UnitTest::MockTerrainSystemService> terrainSystem;
+
+    EXPECT_CALL(terrainSystem, RefreshArea(_, _)).Times(2);
+
+    AZStd::vector<AZ::EntityId> currentEntities;
+    Terrain::TerrainHeightGradientListRequestBus::BroadcastResult(currentEntities,
+        &Terrain::TerrainHeightGradientListRequestBus::Events::GetGradientEntities);
+    EXPECT_EQ(currentEntities.empty(), false);
+    if (currentEntities.empty() == false)
+    {
+        EXPECT_EQ(currentEntities.front(), entity->GetId());
+    }
+
+    AZStd::vector<AZ::EntityId> empty;
+    Terrain::TerrainHeightGradientListRequestBus::Broadcast(
+        &Terrain::TerrainHeightGradientListRequestBus::Events::SetGradientEntities, empty);
+
+    AZStd::vector<AZ::EntityId> outEntities;
+    Terrain::TerrainHeightGradientListRequestBus::BroadcastResult(outEntities, 
+        &Terrain::TerrainHeightGradientListRequestBus::Events::GetGradientEntities);
+    EXPECT_EQ(outEntities.empty(), true);
+
+    // Stop the EXPECT_CALL check now, as OnCompositionChanged will get called twice again during the reset.
+    Mock::VerifyAndClearExpectations(&terrainSystem);
+}
+
 TEST_F(TerrainHeightGradientListComponentTest, TerrainHeightGradientListReturnsHeights)
 {
     // Check that the HeightGradientListComponent returns expected height values.

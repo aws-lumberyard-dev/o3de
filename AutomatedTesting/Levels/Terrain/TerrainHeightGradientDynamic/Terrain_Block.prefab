@@ -1,0 +1,154 @@
+{
+    "ContainerEntity": {
+        "Id": "ContainerEntity",
+        "Name": "Terrain_Block",
+        "Components": {
+            "Component_[11546819784683670933]": {
+                "$type": "EditorLockComponent",
+                "Id": 11546819784683670933
+            },
+            "Component_[12915552287548110566]": {
+                "$type": "EditorVisibilityComponent",
+                "Id": 12915552287548110566
+            },
+            "Component_[16046595431108781280]": {
+                "$type": "EditorEntitySortComponent",
+                "Id": 16046595431108781280,
+                "Child Entity Order": [
+                    "Entity_[1453030066120]"
+                ]
+            },
+            "Component_[2015505990907330391]": {
+                "$type": "EditorEntityIconComponent",
+                "Id": 2015505990907330391
+            },
+            "Component_[2795577978060812634]": {
+                "$type": "EditorInspectorComponent",
+                "Id": 2795577978060812634
+            },
+            "Component_[3379622136853675948]": {
+                "$type": "EditorOnlyEntityComponent",
+                "Id": 3379622136853675948
+            },
+            "Component_[4024845902627712184]": {
+                "$type": "EditorDisabledCompositionComponent",
+                "Id": 4024845902627712184
+            },
+            "Component_[4450278221500675716]": {
+                "$type": "{27F1E1A1-8D9D-4C3B-BD3A-AFB9762449C0} TransformComponent",
+                "Id": 4450278221500675716,
+                "Parent Entity": ""
+            },
+            "Component_[7652403612497140249]": {
+                "$type": "EditorPrefabComponent",
+                "Id": 7652403612497140249
+            },
+            "Component_[8295040657640524421]": {
+                "$type": "EditorPendingCompositionComponent",
+                "Id": 8295040657640524421
+            }
+        }
+    },
+    "Entities": {
+        "Entity_[1453030066120]": {
+            "Id": "Entity_[1453030066120]",
+            "Name": "Terrain",
+            "Components": {
+                "Component_[1338283608285322757]": {
+                    "$type": "EditorScriptCanvasComponent",
+                    "Id": 1338283608285322757,
+                    "configuration": {
+                        "sourceHandle": {
+                            "id": "{6FE0BBCF-E46A-54FC-ABBE-30C00D4B82EB}",
+                            "path": "Levels/Terrain/TerrainHeightGradientDynamic/set_terrain_parameters.scriptcanvas"
+                        },
+                        "sourceName": "set_terrain_parameters.scriptcanvas",
+                        "propertyOverrides": {
+                            "source": {
+                                "id": "{6FE0BBCF-E46A-54FC-ABBE-30C00D4B82EB}",
+                                "path": "Levels/Terrain/TerrainHeightGradientDynamic/set_terrain_parameters.scriptcanvas"
+                            }
+                        }
+                    }
+                },
+                "Component_[13450615466542342721]": {
+                    "$type": "{27F1E1A1-8D9D-4C3B-BD3A-AFB9762449C0} TransformComponent",
+                    "Id": 13450615466542342721,
+                    "Parent Entity": "ContainerEntity"
+                },
+                "Component_[2123810542365082787]": {
+                    "$type": "EditorEntityIconComponent",
+                    "Id": 2123810542365082787
+                },
+                "Component_[2717597142021571093]": {
+                    "$type": "EditorAxisAlignedBoxShapeComponent",
+                    "Id": 2717597142021571093,
+                    "DisplayFilled": false,
+                    "AxisAlignedBoxShape": {
+                        "Configuration": {
+                            "IsFilled": false,
+                            "Dimensions": [
+                                50.0,
+                                50.0,
+                                5.0
+                            ]
+                        }
+                    }
+                },
+                "Component_[3956505899161055185]": {
+                    "$type": "EditorPendingCompositionComponent",
+                    "Id": 3956505899161055185
+                },
+                "Component_[6134879499519053629]": {
+                    "$type": "EditorVisibilityComponent",
+                    "Id": 6134879499519053629
+                },
+                "Component_[7013675515541682865]": {
+                    "$type": "EditorOnlyEntityComponent",
+                    "Id": 7013675515541682865
+                },
+                "Component_[8001968464050666727]": {
+                    "$type": "EditorInspectorComponent",
+                    "Id": 8001968464050666727,
+                    "ComponentOrderEntryArray": [
+                        {
+                            "ComponentId": 13450615466542342721
+                        },
+                        {
+                            "ComponentId": 83394655422784296,
+                            "SortIndex": 1
+                        },
+                        {
+                            "ComponentId": 2717597142021571093,
+                            "SortIndex": 2
+                        },
+                        {
+                            "ComponentId": 9903024834116063828,
+                            "SortIndex": 3
+                        }
+                    ]
+                },
+                "Component_[83394655422784296]": {
+                    "$type": "EditorTerrainHeightGradientListComponent",
+                    "Id": 83394655422784296
+                },
+                "Component_[8388253592304801063]": {
+                    "$type": "EditorEntitySortComponent",
+                    "Id": 8388253592304801063
+                },
+                "Component_[9243037339565845764]": {
+                    "$type": "EditorLockComponent",
+                    "Id": 9243037339565845764
+                },
+                "Component_[9772918614871308964]": {
+                    "$type": "EditorDisabledCompositionComponent",
+                    "Id": 9772918614871308964
+                },
+                "Component_[9903024834116063828]": {
+                    "$type": "EditorTerrainLayerSpawnerComponent",
+                    "Id": 9903024834116063828
+                }
+            }
+        }
+    }
+}
