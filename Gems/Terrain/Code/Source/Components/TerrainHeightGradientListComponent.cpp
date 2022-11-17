@@ -90,6 +90,19 @@ namespace Terrain
                 ->Field("Configuration", &TerrainHeightGradientListComponent::m_configuration)
             ;
         }
+
+        if (auto behaviorContext = azrtti_cast<AZ::BehaviorContext*>(context))
+        {
+            behaviorContext->EBus<TerrainHeightGradientListRequestBus>("TerrainHeightGradientListRequestBus")
+                ->Attribute(AZ::Script::Attributes::Scope, AZ::Script::Attributes::ScopeFlags::Common)
+                ->Attribute(AZ::Script::Attributes::Category, "Terrain Height Gradient List Component")
+                ->Attribute(AZ::Script::Attributes::Module, "terrain")
+                ->Event("GetGradientEntities", &TerrainHeightGradientListRequestBus::Events::GetGradientEntities)
+                ->Event("SetGradientEntities", &TerrainHeightGradientListRequestBus::Events::SetGradientEntities)
+                ;
+
+            behaviorContext->Class<TerrainHeightGradientListComponent>()->RequestBus("TerrainHeightGradientListRequestBus");
+        }
     }
 
     TerrainHeightGradientListComponent::TerrainHeightGradientListComponent(const TerrainHeightGradientListConfig& configuration)
@@ -101,30 +114,15 @@ namespace Terrain
     {
         LmbrCentral::DependencyNotificationBus::Handler::BusConnect(GetEntityId());
         AzFramework::Terrain::TerrainDataNotificationBus::Handler::BusConnect();
+        TerrainHeightGradientListRequestBus::Handler::BusConnect(GetEntityId());
 
-        // Make sure we get update notifications whenever this entity or any dependent gradient entity changes in any way.
-        // We'll use that to notify the terrain system that the height information needs to be refreshed.
-        m_dependencyMonitor.Reset();
-        m_dependencyMonitor.SetRegionChangedEntityNotificationFunction();
-        m_dependencyMonitor.ConnectOwner(GetEntityId());
-        m_dependencyMonitor.ConnectDependency(GetEntityId());
-
-        for (auto& entityId : m_configuration.m_gradientEntities)
-        {
-            if (entityId != GetEntityId())
-            {
-                m_dependencyMonitor.ConnectDependency(entityId);
-            }
-        }
-
-        Terrain::TerrainAreaHeightRequestBus::Handler::BusConnect(GetEntityId());
-
-        // Cache any height data needed and notify that the area has changed.
-        OnCompositionChanged();
+        ActivateInternal();
     }
 
     void TerrainHeightGradientListComponent::Deactivate()
     {
+        TerrainHeightGradientListRequestBus::Handler::BusDisconnect();
+
         // Disconnect before doing any other teardown. This will guarantee that any active queries have finished before we proceed.
         Terrain::TerrainAreaHeightRequestBus::Handler::BusDisconnect();
 
@@ -326,4 +324,40 @@ namespace Terrain
         }
     }
 
+
+    const AZStd::vector<AZ::EntityId>& TerrainHeightGradientListComponent::GetGradientEntities() const
+    {
+        return m_configuration.m_gradientEntities;
+    }
+
+    void TerrainHeightGradientListComponent::SetGradientEntities(const AZStd::vector<AZ::EntityId>& gradientEntities)
+    {
+        m_configuration.m_gradientEntities = gradientEntities;
+        ActivateInternal();
+    }
+
+    void TerrainHeightGradientListComponent::ActivateInternal()
+    {
+        Terrain::TerrainAreaHeightRequestBus::Handler::BusDisconnect();
+
+        // Make sure we get update notifications whenever this entity or any dependent gradient entity changes in any way.
+        // We'll use that to notify the terrain system that the height information needs to be refreshed.
+        m_dependencyMonitor.Reset();
+        m_dependencyMonitor.SetRegionChangedEntityNotificationFunction();
+        m_dependencyMonitor.ConnectOwner(GetEntityId());
+        m_dependencyMonitor.ConnectDependency(GetEntityId());
+
+        for (auto& entityId : m_configuration.m_gradientEntities)
+        {
+            if (entityId != GetEntityId())
+            {
+                m_dependencyMonitor.ConnectDependency(entityId);
+            }
+        }
+
+        Terrain::TerrainAreaHeightRequestBus::Handler::BusConnect(GetEntityId());
+
+        // Cache any height data needed and notify that the area has changed.
+        OnCompositionChanged();
+    }
 }

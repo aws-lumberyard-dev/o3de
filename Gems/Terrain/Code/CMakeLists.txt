@@ -6,6 +6,16 @@
 #
 
 ly_add_target(
+    NAME Terrain.API INTERFACE
+    NAMESPACE Gem
+    FILES_CMAKE
+        terrain_api_files.cmake
+    INCLUDE_DIRECTORIES
+        INTERFACE
+            Include
+)
+
+ly_add_target(
     NAME Terrain.Static STATIC
     NAMESPACE Gem
     FILES_CMAKE

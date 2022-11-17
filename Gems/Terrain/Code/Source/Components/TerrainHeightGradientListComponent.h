@@ -24,7 +24,7 @@
 
 #include <AzFramework/Terrain/TerrainDataRequestBus.h>
 #include <TerrainSystem/TerrainSystemBus.h>
-
+#include <Terrain/Ebuses/TerrainHeightGradientListRequestBus.h>
 
 namespace LmbrCentral
 {
@@ -50,6 +50,7 @@ namespace Terrain
     class TerrainHeightGradientListComponent
         : public AZ::Component
         , private Terrain::TerrainAreaHeightRequestBus::Handler
+        , public TerrainHeightGradientListRequestBus::Handler
         , private LmbrCentral::DependencyNotificationBus::Handler
         , private AzFramework::Terrain::TerrainDataNotificationBus::Handler
     {
@@ -72,6 +73,11 @@ namespace Terrain
         void GetHeights(AZStd::span<AZ::Vector3> inOutPositionList, AZStd::span<bool> terrainExistsList) override;
 
         //////////////////////////////////////////////////////////////////////////
+        // TerrainHeightGradientListRequestBus
+        const AZStd::vector<AZ::EntityId>& GetGradientEntities() const override;
+        void SetGradientEntities(const AZStd::vector<AZ::EntityId>& gradientEntities) override;
+
+        //////////////////////////////////////////////////////////////////////////
         // AZ::Component interface implementation
         void Activate() override;
         void Deactivate() override;
@@ -88,6 +94,8 @@ namespace Terrain
         void OnTerrainDataChanged(const AZ::Aabb& dirtyRegion, TerrainDataChangedMask dataChangedMask) override;
 
     private:
+        void ActivateInternal();
+
         TerrainHeightGradientListConfig m_configuration;
 
         AzFramework::Terrain::FloatRange m_cachedHeightBounds{ 0.0f, 0.0f };
