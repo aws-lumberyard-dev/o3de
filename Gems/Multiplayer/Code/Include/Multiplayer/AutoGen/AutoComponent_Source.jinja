@@ -346,6 +346,9 @@ void {{ ClassName }}::{{ UpperFirst(Property.attrib['Name']) }}({{ PrintRpcParam
 {%     set paramTypes   = [] %}
 {%     set paramDefines = [] %}
 {{     AutoComponentMacros.ParseRpcParams(Property, paramNames, paramTypes, paramDefines) }}
+{%     if InvokeFrom == 'Server' and HandleOn == 'Authority' %}
+#if AZ_TRAIT_SERVER
+{%     endif %}
             ->Method("{{ UpperFirst(Property.attrib['Name']) }}ByEntityId", []() {
                 AZ_Warning("Network RPC", false, "{{ ClassName }} {{ UpperFirst(Property.attrib['Name']) }}ByEntityId has been deprecated. Please use {{ UpperFirst(Property.attrib['Name']) }} instead.");
             }, {}, "Deprecated. Please use {{ UpperFirst(Property.attrib['Name']) }} instead.")
@@ -376,6 +379,9 @@ void {{ ClassName }}::{{ UpperFirst(Property.attrib['Name']) }}({{ PrintRpcParam
 {%            endif %}
             }, { { { "Source", "The Source containing the {{ ClassName }}Controller" }{% for paramName in paramNames %}, {"{{ paramName }}"}{% endfor %}}})
                 ->Attribute(AZ::Script::Attributes::ToolTip, "{{Property.attrib['Description']}}")
+{%     if InvokeFrom == 'Server' and HandleOn == 'Authority' %}
+#endif
+{%     endif %}
 {%    endif %}
 {% endcall %}
 {% endmacro %}
@@ -409,6 +415,9 @@ void {{ ClassName }}::{{ UpperFirst(Property.attrib['Name']) }}({{ PrintRpcParam
 {%     set paramTypes   = [] %}
 {%     set paramDefines = [] %}
 {{     AutoComponentMacros.ParseRpcParams(Property, paramNames, paramTypes, paramDefines) }}
+{%     if InvokeFrom == 'Server' and HandleOn == 'Authority' %}
+#if AZ_TRAIT_SERVER
+{%     endif %}
         ->Method("Get{{ UpperFirst(Property.attrib['Name']) }}EventByEntityId", []()
         {
             AZ_Warning("Network RPC", false, "{{ ClassName }} Get{{ UpperFirst(Property.attrib['Name']) }}EventByEntityId has been deprecated. Please use Get{{ UpperFirst(Property.attrib['Name']) }}Event instead.");
@@ -444,6 +453,9 @@ void {{ ClassName }}::{{ UpperFirst(Property.attrib['Name']) }}({{ PrintRpcParam
 {%        endif %}
         })
             ->Attribute(AZ::Script::Attributes::AzEventDescription, AZStd::move({{ LowerFirst(Property.attrib['Name']) }}EventDesc))
+{%     if InvokeFrom == 'Server' and HandleOn == 'Authority' %}
+#endif
+{%     endif %}
 {% endif %}
 {% endcall %}
 {% endmacro %}
