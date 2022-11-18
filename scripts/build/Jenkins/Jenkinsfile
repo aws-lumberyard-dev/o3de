@@ -243,11 +243,6 @@ def CheckoutBootstrapScripts(String branchName) {
 }
 
 def CheckoutRepo(boolean disableSubmodules = false) {
-
-    if (!fileExists(ENGINE_REPOSITORY_NAME)) {
-        palMkdir(ENGINE_REPOSITORY_NAME)
-    }
-
     if(fileExists('.git')) {
         // If the repository after checkout is locked, likely we took a snapshot while git was running,
         // to leave the repo in a usable state, garbagecollect. This also helps in situations where
