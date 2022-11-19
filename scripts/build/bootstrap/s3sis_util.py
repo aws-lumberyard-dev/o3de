@@ -120,7 +120,7 @@ def upload(args):
     
 
 def download(args):
-    commits = get_commits(args.repository, args.branch, datetime.today() - timedelta(days=2))
+    commits = get_commits(args.repository, args.branch, datetime.today() - timedelta(days=5))
     print(commits)
     labels = create_labels(args, commits)
     label_to_download = None
