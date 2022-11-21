@@ -22,7 +22,7 @@
 namespace TestImpact
 {
     AZStd::optional<Client::TestRunResult> PythonRegularTestRunnerErrorCodeChecker(
-        [[maybe_unused]] const typename PythonRegularTestRunner::JobInfo& jobInfo, const JobMeta& meta)
+        const typename PythonRegularTestRunner::JobInfo& jobInfo, const JobMeta& meta)
     {
         if (auto result = CheckPythonErrorCode(meta.m_returnCode.value()); result.has_value())
         {
@@ -33,7 +33,7 @@ namespace TestImpact
     }
 
     AZStd::optional<Client::TestRunResult> PythonInstrumentedTestRunnerErrorCodeChecker(
-        [[maybe_unused]] const typename PythonInstrumentedTestRunner::JobInfo& jobInfo, const JobMeta& meta)
+        const typename PythonInstrumentedTestRunner::JobInfo& jobInfo, const JobMeta& meta)
     {
         // The PyTest error code for test failures overlaps with the Python error code for script error so we have no way of
         // discerning at the job meta level whether a test failure or script execution error we will assume the tests failed for now
@@ -50,24 +50,28 @@ namespace TestImpact
         return AZStd::nullopt;
     }
 
+    // Type trait for the test instrumented test runner
     template<>
     struct TestJobRunnerTrait<PythonInstrumentedTestRunner>
     {
         using TestEngineJobType = TestEngineInstrumentedRun<PythonTestTarget, TestCoverage>;
     };
 
+    // Type trait for the test instrumented null test runner
     template<>
     struct TestJobRunnerTrait<PythonInstrumentedNullTestRunner>
     {
         using TestEngineJobType = TestEngineInstrumentedRun<PythonTestTarget, TestCoverage>;
     };
 
+    // Type trait for the test regular test runner
     template<>
     struct TestJobRunnerTrait<PythonRegularTestRunner>
     {
         using TestEngineJobType = TestEngineRegularRun<PythonTestTarget>;
     };
 
+    // Type trait for the test regular null test runner
     template<>
     struct TestJobRunnerTrait<PythonRegularNullTestRunner>
     {
@@ -101,13 +105,13 @@ namespace TestImpact
     }
 
     TestEngineRegularRunResult<PythonTestTarget> PythonTestEngine::RegularRun(
-        [[maybe_unused]] const AZStd::vector<const PythonTestTarget*>& testTargets,
-        [[maybe_unused]] Policy::ExecutionFailure executionFailurePolicy,
-        [[maybe_unused]] Policy::TestFailure testFailurePolicy,
-        [[maybe_unused]] Policy::TargetOutputCapture targetOutputCapture,
-        [[maybe_unused]] AZStd::optional<AZStd::chrono::milliseconds> testTargetTimeout,
-        [[maybe_unused]] AZStd::optional<AZStd::chrono::milliseconds> globalTimeout,
-        [[maybe_unused]] AZStd::optional<TestEngineJobCompleteCallback<PythonTestTarget>> callback) const
+        const AZStd::vector<const PythonTestTarget*>& testTargets,
+        Policy::ExecutionFailure executionFailurePolicy,
+        Policy::TestFailure testFailurePolicy,
+        Policy::TargetOutputCapture targetOutputCapture,
+        AZStd::optional<AZStd::chrono::milliseconds> testTargetTimeout,
+        AZStd::optional<AZStd::chrono::milliseconds> globalTimeout,
+        AZStd::optional<TestEngineJobCompleteCallback<PythonTestTarget>> callback) const
     {
         DeleteArtifactXmls();
 
@@ -143,8 +147,6 @@ namespace TestImpact
                 callback,
                 AZStd::nullopt);
         }
-        //
-        //return TestEngineRegularRunResult<PythonTestTarget>{};
     }
 
     TestEngineInstrumentedRunResult<PythonTestTarget, TestCoverage>
@@ -176,11 +178,11 @@ namespace TestImpact
                 testTargetTimeout,
                 globalTimeout,
                 callback,
-                std::nullopt), // For real-time stdout/err output of test targets
+                std::nullopt),
             integrityFailurePolicy);
         }
         else
-        {;
+        {
             DeleteArtifactXmls();
             return GenerateInstrumentedRunResult(
                 RunTests(
@@ -194,7 +196,7 @@ namespace TestImpact
                     testTargetTimeout,
                     globalTimeout,
                     callback,
-                    std::nullopt), // For real-time stdout/err output of test targets
+                    std::nullopt),
                 integrityFailurePolicy);
         }
     }

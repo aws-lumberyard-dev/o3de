@@ -643,11 +643,11 @@ TestEngineInstrumentedRunResult<PythonTestTarget, TestCoverage> DiscoverDependen
 
         // The test targets that were selected for the change list by the dynamic dependency map and the test targets that were not
         const auto [selectedTestTargets, discardedTestTargets] = SelectCoveringTestTargets(changeList, testPrioritizationPolicy);
-        
+
         // The subset of selected test targets that are not on the configuration's exclude list and those that are
         const auto [includedSelectedTestTargets, excludedSelectedTestTargets] =
             SelectTestTargetsByExcludeList(*m_testTargetExcludeList, selectedTestTargets);
-        
+
         // Functor for running instrumented test targets
         const auto instrumentedTestRun = [this, &testTargetTimeout](
                                              const AZStd::vector<const TestTarget*>& testsTargets,
@@ -666,7 +666,7 @@ TestEngineInstrumentedRunResult<PythonTestTarget, TestCoverage> DiscoverDependen
                 globalTimeout,
                 AZStd::ref(testRunCompleteHandler)));
         };
-        
+
         if (dynamicDependencyMapPolicy == Policy::DynamicDependencyMap::Update)
         {
             AZStd::optional<AZStd::function<void(const AZStd::vector<TestEngineInstrumentedRun<TestTarget, TestCoverage>>& jobs)>>
