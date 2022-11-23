@@ -35,6 +35,8 @@ set(FILES
     Source/Pass/State/EditorStateBufferCopyPass.cpp
     Source/Pass/State/EditorStateBufferCopyPass.h
     Source/Pass/State/EditorStateBufferCopyPassData.h
+    Source/Pass/State/ExampleEditorState.cpp
+    Source/Pass/State/ExampleEditorState.h
     Source/Pass/State/FocusedEntityState.cpp
     Source/Pass/State/FocusedEntityState.h
     Source/Pass/State/SelectedEntityState.cpp

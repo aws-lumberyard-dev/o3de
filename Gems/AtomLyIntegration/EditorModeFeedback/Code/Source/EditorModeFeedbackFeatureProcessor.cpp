@@ -7,6 +7,7 @@
  */
 
 #include <EditorModeFeedbackFeatureProcessor.h>
+#include <Pass/State/ExampleEditorState.h>
 #include <Pass/State/FocusedEntityState.h>
 #include <Pass/State/SelectedEntityState.h>
 
@@ -48,6 +49,7 @@ namespace AZ
             EnableSceneNotification();
 
             EditorStateList editorStates;
+            editorStates.push_back(AZStd::make_unique<ExampleEditorState>()); // Our newly-added editor state
             editorStates.push_back(AZStd::make_unique<FocusedEntityState>());
             editorStates.push_back(AZStd::make_unique<SelectedEntityState>());
             m_editorStatePassSystem = AZStd::make_unique<EditorStatePassSystem>(AZStd::move(editorStates));
