@@ -1,0 +1,57 @@
+/*
+ * Copyright (c) Contributors to the Open 3D Engine Project.
+ * For complete copyright and license terms please see the LICENSE at the root of this distribution.
+ *
+ * SPDX-License-Identifier: Apache-2.0 OR MIT
+ *
+ */
+
+#include <EditorModeCommon.azsli>
+#include <EditorModeDepthTransition.azsli>
+
+#define GOLDEN_ANGLE 2.3999632
+#define ITERATIONS 150
+
+float3 Bokeh(float2 uv, float radius)
+{
+    const float2x2 rot = float2x2(cos(GOLDEN_ANGLE), sin(GOLDEN_ANGLE), -sin(GOLDEN_ANGLE), cos(GOLDEN_ANGLE));
+    float3 acc = float3(0.0, 0.0, 0.0);
+    float3 div = acc;
+    float r = 1.;
+    float2 vangle = float2(0.0,radius*.01 / sqrt(float(ITERATIONS)));
+    
+    for (int j = 0; j < ITERATIONS; j++)
+    {  
+        r += 1. / r;
+        vangle = mul(vangle, rot);
+        float3 col = PassSrg::m_framebuffer.Sample(PassSrg::LinearSampler, uv + (r-1.) * vangle).xyz;
+        col = col * col * 1.8; 
+        float3 bokeh = pow(col, float3(4.0, 4.0, 4.0));
+        acc += col * bokeh;
+        div += bokeh;
+    }
+    return acc / div;
+}
+
+PSOutput MainPS(VSOutput IN)
+{
+    PSOutput OUT;
+
+    // Sample the entity mask for the entity selection
+    const float2 mask = PassSrg::m_entityMask.Sample(PassSrg::PointSampler, IN.m_texCoord);
+
+    // Manually implement the depth-based blend transition
+    float logdepth = PassSrg::m_depth.Sample(PassSrg::PointSampler, IN.m_texCoord).r;
+    const float linearDepth = CalculateLinearDepth(logdepth);
+    const float depthTransitionStart = 0.0;
+    const float depthTransitionDuration = 20.0f;
+    const float minDepthTransitionValue = 0.2;
+    const float depthTransition = clamp((linearDepth - depthTransitionStart) / (depthTransitionDuration), minDepthTransitionValue, 1.0);
+    const float strength = clamp((1.0 - mask) * depthTransition, 0.0, 1.0);
+
+    // Sample the Bokeh filter (selected entities will be left untouched)
+    float3 outColor = Bokeh(IN.m_texCoord, strength * 0.75);
+    
+    OUT.m_color.rgb = outColor;
+    return OUT;
+}

@@ -8,31 +8,53 @@
 
 #include <Pass/State/ExampleEditorState.h>
 
+#include <AzToolsFramework/Entity/EditorEntityHelpers.h>
+#include <AzToolsFramework/Viewport/ViewportMessages.h>
+#include <AzToolsFramework/Entity/EditorEntityInfoBus.h>
+
 namespace AZ::Render
 {
-    static PassNameList CreateChildPasses()
-    {
-        // Effect chain for our example editor state.
-        return PassNameList
-        {   // Black and white effect
-            AZ::Name("EditorModeDesaturationTemplate"),
-
-            // Darkening effect
-            AZ::Name("EditorModeTintTemplate")
-        };
-    }
-
     ExampleEditorState::ExampleEditorState()
         : EditorStateBase(
             EditorState::FocusMode,
             "EditorStateTutorial",
-            CreateChildPasses())
+            PassNameList{ AZ::Name("ExampleEffectTemplate") })
     {
     }
 
     AzToolsFramework::EntityIdList ExampleEditorState::GetMaskedEntities() const
     {
-        // For now, apply this effect to everything in the scene
-        return {};
+        AzToolsFramework::EntityIdList initialSelectedEntityList, selectedEntityList;
+        AzToolsFramework::ToolsApplicationRequestBus::BroadcastResult(
+            initialSelectedEntityList, &AzToolsFramework::ToolsApplicationRequests::GetSelectedEntities);
+
+        // Drill down any entity hierarchies to select all children of the currently selected entities
+        for (const auto& selectedEntityId : initialSelectedEntityList)
+        {
+            AZStd::queue<AZ::EntityId> entityIdQueue;
+            entityIdQueue.push(selectedEntityId);
+
+            while (!entityIdQueue.empty())
+            {
+                AZ::EntityId entityId = entityIdQueue.front();
+                entityIdQueue.pop();
+
+                if (entityId.IsValid())
+                {
+                    selectedEntityList.push_back(entityId);
+                }
+
+                AzToolsFramework::EntityIdList children;
+                AzToolsFramework::EditorEntityInfoRequestBus::EventResult(
+                    children, entityId, &AzToolsFramework::EditorEntityInfoRequestBus::Events::GetChildren);
+
+                for (AZ::EntityId childEntityId : children)
+                {
+                    entityIdQueue.push(childEntityId);
+                }
+            }
+        }
+
+        return selectedEntityList;
     }
 } // namespace AZ::Render

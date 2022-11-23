@@ -23,6 +23,10 @@
             {
                 "Name": "EditorModeOutlineTemplate",
                 "Path": "Passes/Child/EditorModeOutline.pass"
+            },
+            {
+                "Name": "ExampleEffectTemplate",
+                "Path": "Passes/Child/ExampleEffect.pass"
             }
         ]
     }
