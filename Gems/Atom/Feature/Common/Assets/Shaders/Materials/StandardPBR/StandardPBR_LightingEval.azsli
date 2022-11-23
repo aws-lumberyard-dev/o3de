@@ -25,8 +25,8 @@ void InitializeLightingData_StandardPBR(inout Surface surface, float4 screenPosi
     // --- Standard PBR ---
 
     lightingData.emissiveLighting = surface.emissiveLighting;
-    lightingData.diffuseAmbientOcclusion = surface.diffuseAmbientOcclusion;
-    lightingData.specularOcclusion = surface.specularOcclusion;
+    lightingData.diffuseAmbientOcclusion *= surface.diffuseAmbientOcclusion;
+    lightingData.specularOcclusion *= surface.specularOcclusion;
 
     if(o_clearCoat_feature_enabled)
     {

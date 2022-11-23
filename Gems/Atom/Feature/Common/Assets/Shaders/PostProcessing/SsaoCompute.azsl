@@ -222,7 +222,7 @@ uint GetNextLinearIndex(uint linearIndex, uint increment)
 // --- Occlusion ---
 
 // Adds occlusion from a potential occluder to the current thread with the provided surface position and normal
-void AccumulateOcclusion(float3 position, float3 normal, float3 occluderPosition, inout float totalOcclusion, inout float totalWeight)
+void AccumulateOcclusion(float3 position, float3 normal, float3 reflectionDir, float3 occluderPosition, inout float totalOcclusion, inout float totalWeight, inout float specularOcclusion)
 {
     // Get the vector from the pixel position to the position
     float3 diff = (occluderPosition - position);
@@ -233,6 +233,9 @@ void AccumulateOcclusion(float3 position, float3 normal, float3 occluderPosition
     // Calculate the cosine falloff based on occluder direction and surface normal
     float3 direction = diff * invDistance;
     float cosineFalloff = dot(direction, normal);
+
+    float specOcclSample = dot(direction, reflectionDir);
+    specularOcclusion = max(specularOcclusion, specOcclSample);
 
     float weight;
 
@@ -329,17 +332,18 @@ void MainCS(uint3 thread_id : SV_GroupThreadID, uint3 group_id : SV_GroupID, uin
     float3 normal = CalculateNormalFromLDS(ldsPosition, ldsOffsetUV, position, geometricNormalVariance);
     
     //PassSrg::m_geometricNormalVarianceOutput[outPixel] = geometricNormalVariance;
-    PassSrg::m_geometricNormalVarianceOutput[outPixel] = geometricNormalVariance;
 
+    float specularOcclusion = 0.0f;
     float totalOcclusion = 0.0f;
     float totalWeight = 0.0f;
+    float3 reflectDir = reflect(normalize(position), normal);
 
     // PHASE I: accumulates AO from local depth samples stored in LDS
     [unroll]
     for (uint i = 0; i < LOCAL_SAMPLE_COUNT; ++i)
     {
         float3 occluderPosition = GetPositionFromDepthLDS(ldsPosition + localSamplesForLDS[i], ldsOffsetUV);
-        AccumulateOcclusion(position, normal, occluderPosition, totalOcclusion, totalWeight);
+        AccumulateOcclusion(position, normal, reflectDir, occluderPosition, totalOcclusion, totalWeight, specularOcclusion);
     }
 
     totalWeight = max(totalWeight, EPSILON);
@@ -380,7 +384,7 @@ void MainCS(uint3 thread_id : SV_GroupThreadID, uint3 group_id : SV_GroupID, uin
         // Caculate the sampled position and accumulate occluion
         float occluderDepth = PassSrg::m_linearDepth.SampleLevel(PassSrg::PointSampler, sampleUV, 0);
         float3 occluderPosition = ViewSrg::GetViewSpacePosition(sampleUV, occluderDepth);
-        AccumulateOcclusion(position, normal, occluderPosition, totalOcclusion, totalWeight);
+        AccumulateOcclusion(position, normal, reflectDir, occluderPosition, totalOcclusion, totalWeight, specularOcclusion);
 
         // Write the calculated occluder position to LDS
         uint ldsIndex = linear_id;
@@ -399,7 +403,7 @@ void MainCS(uint3 thread_id : SV_GroupThreadID, uint3 group_id : SV_GroupID, uin
 
             // Accumulate AO from the position stored in LDS
             occluderPosition = GetPositionFromLDS(ldsIndex);
-            AccumulateOcclusion(position, normal, occluderPosition, totalOcclusion, totalWeight);
+            AccumulateOcclusion(position, normal, reflectDir, occluderPosition, totalOcclusion, totalWeight, specularOcclusion);
         }
 
         // Rotate for the next samples
@@ -420,4 +424,10 @@ void MainCS(uint3 thread_id : SV_GroupThreadID, uint3 group_id : SV_GroupID, uin
 
     // Output
     PassSrg::m_ssaoOutput[outPixel] = output;
+    
+    if(GetOutputSize().x < (outPixel.x * 2))
+        specularOcclusion = 0;
+    
+    PassSrg::m_geometricNormalVarianceOutput[outPixel] = specularOcclusion;
+
 }

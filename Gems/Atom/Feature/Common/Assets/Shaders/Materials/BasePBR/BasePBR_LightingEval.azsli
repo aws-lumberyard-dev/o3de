@@ -25,6 +25,9 @@ void InitializeLightingData_BasePBR(inout Surface surface, float4 screenPosition
     lightingData.tileIterator.Init(screenPosition, PassSrg::m_lightListRemapped, PassSrg::m_tileLightData);
     lightingData.Init(surface.position, surface.normal, surface.roughnessLinear);
     
+    float screenSpaceSpecularOcclusion = PassSrg::m_geometricNormalVariance.Load(int3(screenPosition.xy, 0)).x;
+    lightingData.specularOcclusion = 1 - screenSpaceSpecularOcclusion;
+
     // Diffuse and Specular response (used in IBL calculations)
     float3 specularResponse = FresnelSchlickWithRoughness(lightingData.NdotV, surface.specularF0, surface.roughnessLinear);
     lightingData.diffuseResponse = 1.0 - specularResponse;

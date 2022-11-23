@@ -42,8 +42,8 @@
                 {
                     "LocalSlot": "GeometricNormalVariance",
                     "AttachmentRef": {
-                        "Pass": "SsaoCompute",
-                        "Attachment": "GeometricNormalVariance"
+                        "Pass": "SpecularOcclusionBlur",
+                        "Attachment": "Output"
                     }
                 }
             ],
@@ -92,6 +92,27 @@
                             "AttachmentRef": {
                                 "Pass": "SsaoCompute",
                                 "Attachment": "Output"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "Name": "SpecularOcclusionBlur",
+                    "TemplateName": "FastDepthAwareBlurTemplate",
+                    "Enabled": true,
+                    "Connections": [
+                        {
+                            "LocalSlot": "LinearDepth",
+                            "AttachmentRef": {
+                                "Pass": "DepthDownsample",
+                                "Attachment": "HalfResDepth"
+                            }
+                        },
+                        {
+                            "LocalSlot": "BlurSource",
+                            "AttachmentRef": {
+                                "Pass": "SsaoCompute",
+                                "Attachment": "GeometricNormalVariance"
                             }
                         }
                     ]

@@ -32,7 +32,7 @@ float CalculateSpecularAA(float3 normal, float roughnessA2, float2 screenPositio
     float geometricNormalVariance = 0;
 
 #ifdef USE_SSAO
-    geometricNormalVariance = PassSrg::m_geometricNormalVariance.Load(int3(screenPosition.xy, 0)).x;
+    //geometricNormalVariance = PassSrg::m_geometricNormalVariance.Load(int3(screenPosition.xy, 0)).x;
 #endif
 
     float variance = dot(dndu, dndu) + dot(dndv, dndv) + geometricNormalVariance;
