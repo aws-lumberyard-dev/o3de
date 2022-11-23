@@ -25,6 +25,7 @@ namespace AzToolsFramework
         class Template;
         class Link;
         class PrefabSystemComponentInterface;
+        class InstanceToTemplateInterface;
 
         using LinkReference = AZStd::optional<AZStd::reference_wrapper<Link>>;
 
@@ -108,6 +109,7 @@ namespace AzToolsFramework
             //! @param[out] linkDom The DOM to populate with source and patches information.
             //! @param allocator The allocator to use for memory allocations of patches.
             void GetLinkDom(PrefabDomValue& linkDom, PrefabDomAllocator& allocator) const;
+            void GetExpandedLinkDom(PrefabDomValue& linkDom, PrefabDomAllocator& allocator) const;
 
             //! Checks whether overrides are present by querying the patches tree with the provided path
             //! @param path The path to query the overrides tree with.
@@ -133,6 +135,11 @@ namespace AzToolsFramework
             const AZStd::string& GetInstanceName() const;
 
             bool UpdateTarget();
+
+            void ExpandNestedLinkDomsInPatches(PrefabDomValue& patches, PrefabDomAllocator& allocator) const;
+
+            void CollapseNestedLinkDomsInPatches(PrefabDomValue& patches, PrefabDomAllocator& allocator) const;
+
 
             /**
              * Get the DOM of the instance that the link points to.
@@ -183,6 +190,7 @@ namespace AzToolsFramework
             LinkId m_id = InvalidLinkId;
 
             PrefabSystemComponentInterface* m_prefabSystemComponentInterface = nullptr;
+            InstanceToTemplateInterface* m_instanceToTemplateInterface = nullptr;
         };
 
         using PrefabOverridePrefixTree = AZ::Dom::DomPrefixTree<Link::PrefabOverrideMetadata>;

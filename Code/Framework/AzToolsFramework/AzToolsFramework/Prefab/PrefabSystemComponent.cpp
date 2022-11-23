@@ -25,7 +25,7 @@
 #include <AzToolsFramework/Prefab/PrefabPublicNotificationHandler.h>
 
 AZ_DEFINE_BUDGET(PrefabSystem);
-
+#pragma optimize("", off)
 namespace AzToolsFramework
 {
     namespace Prefab
@@ -223,6 +223,21 @@ namespace AzToolsFramework
                         LinkIds(templateIdToLinkIdsIterator->second.begin(), templateIdToLinkIdsIterator->second.end()));
                     UpdateLinkedInstances(linkIdsToUpdateQueue);
                 }
+
+                // Propagate source template changes to other links that depend on it in nested link DOMs (override).
+                TemplateReference sourceTemplate = FindTemplate(templateId);
+                Template::Links& moreLinksThatDependOnTemplate = sourceTemplate->get().GetMoreLinksToUpdate();
+                for (auto& linkId : moreLinksThatDependOnTemplate)
+                {
+                    Link& link = m_linkIdMap[linkId];
+
+                    // Need to update the nested link DOM and rebuild the prefix tree first.
+                    // link.UpdateNestedLinkDom(templateId);
+
+                    // Then update the target with source that contains up-to-date nested link DOMs.
+                    link.UpdateTarget();
+                }
+
                 UpdatePrefabInstances(templateId, instanceToExclude);
             }
         }
@@ -1015,7 +1030,48 @@ namespace AzToolsFramework
                 AZ_Assert(patchesReference->get().IsArray(), "Patches in the nested instance DOM are not represented as an array.");
             }
 
-            link.SetLinkDom(instance);
+            // Load the nested template.
+            // TODO: HARD CODED. NEED TO UPDATE IT TO RECURSIVE LOADING...
+            for (auto& patch : patchesReference->get().GetArray())
+            {
+                PrefabDomValue& thePatchValue = patch["value"];
+                if (!thePatchValue.IsObject())
+                {
+                    continue;
+                }
+                if (!thePatchValue.HasMember("Source"))
+                {
+                    continue;
+                }
+                const PrefabDomValue& theSourceValue = thePatchValue["Source"];
+                AZStd::string_view theSourceTemplatePath(theSourceValue.GetString(), theSourceValue.GetStringLength());
+                [[maybe_unused]] TemplateId theSourceTemplateId = m_prefabLoader.LoadTemplateFromFile(theSourceTemplatePath); // TODO: progressSet?
+                TemplateReference theSourceTemplateReference = FindTemplate(theSourceTemplateId);
+                theSourceTemplateReference->get().AddLinkToUpdateDuringPropagation(link.GetId());
+
+                for (auto& subPatch : thePatchValue["Patches"].GetArray())
+                {
+                    PrefabDomValue& theSubPatchValue = subPatch["value"];
+                    if (!theSubPatchValue.IsObject())
+                    {
+                        continue;
+                    }
+                    if (!theSubPatchValue.HasMember("Source"))
+                    {
+                        continue;
+                    }
+
+                    const PrefabDomValue& theSubSourceValue = theSubPatchValue["Source"];
+                    AZStd::string_view theSubSourceTemplatePath(theSubSourceValue.GetString(), theSubSourceValue.GetStringLength());
+                    [[maybe_unused]] TemplateId theSubSourceTemplateId =
+                        m_prefabLoader.LoadTemplateFromFile(theSubSourceTemplatePath); // TODO: progressSet?
+                    TemplateReference theSubSourceTemplateReference = FindTemplate(theSubSourceTemplateId);
+                    theSubSourceTemplateReference->get().AddLinkToUpdateDuringPropagation(link.GetId());
+                }
+            }
+
+
+            link.SetLinkDom(instance);  // start building the prefix tree.
             PrefabDom& targetTemplatePrefabDom = FindTemplateDom(targetTemplateId);
             PrefabDomPath instancePath = link.GetInstancePath();
             PrefabDomValue* instanceValue = instancePath.Get(targetTemplatePrefabDom);
@@ -1031,7 +1087,7 @@ namespace AzToolsFramework
                     instanceObject.Move(), targetTemplatePrefabDom.GetAllocator());
             }
             //initialize link 
-            if (!link.UpdateTarget())
+            if (!link.UpdateTarget())  // expand the nested link DOM.
             {
                 AZ_Error("Prefab", false,
                     "PrefabSystemComponent::ConnectTemplates - "
@@ -1196,3 +1252,4 @@ namespace AzToolsFramework
 
     } // namespace Prefab
 } // namespace AzToolsFramework
+#pragma optimize("", on)

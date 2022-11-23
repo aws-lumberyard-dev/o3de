@@ -62,7 +62,7 @@ namespace AzToolsFramework
             SetLink(linkId);
 
             //Cache current link DOM for undo link update.
-            m_link->get().GetLinkDom(m_undoPatch, m_undoPatch.GetAllocator());
+            m_link->get().GetExpandedLinkDom(m_undoPatch, m_undoPatch.GetAllocator()); // this needs to be expanded
 
             //Get DOM of the link's source template.
             TemplateId sourceTemplateId = m_link->get().GetSourceTemplateId();
@@ -98,9 +98,9 @@ namespace AzToolsFramework
             }
 
             //Diff the instance against the source template.
-            PrefabDom linkPatch;
+            PrefabDom linkPatch; // sourceDom and instanceDom are already expanded
             m_instanceToTemplateInterface->GeneratePatch(linkPatch, sourceDom, instanceDom);
-
+            
             // Create a copy of linkPatch by providing the allocator of m_redoPatch so that the patch doesn't become invalid when
             // the patch goes out of scope in this function. 
             // Copy from m_undoPatch to m_redoPatch since we need 'Source' information copied.
