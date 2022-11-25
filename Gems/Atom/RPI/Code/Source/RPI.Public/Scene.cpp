@@ -715,10 +715,6 @@ namespace AZ
                 WaitAndCleanCompletionJob(m_simulationCompletion);
             }
 
-            {
-                AZ_PROFILE_SCOPE(RPI, "Scene: OnBeginPrepareRender");
-                SceneNotificationBus::Event(GetId(), &SceneNotification::OnBeginPrepareRender);
-            }
 
             // Get active pipelines which need to be rendered and notify them frame started
             AZStd::vector<RenderPipelinePtr> activePipelines;
@@ -738,6 +734,12 @@ namespace AZ
             if (m_pipelineStatesLookupNeedsRebuild)
             {
                 RebuildPipelineStatesLookup();
+            }
+
+
+            {
+                AZ_PROFILE_SCOPE(RPI, "Scene: OnBeginPrepareRender");
+                SceneNotificationBus::Event(GetId(), &SceneNotification::OnBeginPrepareRender);
             }
 
             // Return if there is no active render pipeline

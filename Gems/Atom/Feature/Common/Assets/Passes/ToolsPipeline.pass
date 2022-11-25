@@ -44,13 +44,6 @@
                     "TemplateName": "RayTracingAccelerationStructurePassTemplate"
                 },
                 {
-                    "Name": "DiffuseProbeGridUpdatePass",
-                    "TemplateName": "DiffuseProbeGridUpdatePassTemplate",
-                    "ExecuteAfter": [
-                        "RayTracingAccelerationStructurePass"
-                    ]
-                },
-                {
                     "Name": "DepthPrePass",
                     "TemplateName": "DepthParentTemplate",
                     "Connections": [
@@ -64,7 +57,7 @@
                         {
                             "LocalSlot": "PipelineOutput",
                             "AttachmentRef": {
-                                "Pass": "Parent",
+                                "Pass": "PipelineGlobal",
                                 "Attachment": "PipelineOutput"
                             }
                         }
@@ -91,7 +84,7 @@
                         {
                             "LocalSlot": "PipelineOutput",
                             "AttachmentRef": {
-                                "Pass": "Parent",
+                                "Pass": "PipelineGlobal",
                                 "Attachment": "PipelineOutput"
                             }
                         }
@@ -118,7 +111,7 @@
                         {
                             "LocalSlot": "PipelineOutput",
                             "AttachmentRef": {
-                                "Pass": "Parent",
+                                "Pass": "PipelineGlobal",
                                 "Attachment": "PipelineOutput"
                             }
                         }
@@ -138,7 +131,7 @@
                         {
                             "LocalSlot": "PipelineOutput",
                             "AttachmentRef": {
-                                "Pass": "Parent",
+                                "Pass": "PipelineGlobal",
                                 "Attachment": "PipelineOutput"
                             }
                         },
@@ -146,7 +139,7 @@
                             "LocalSlot": "Depth",
                             "AttachmentRef": {
                                 "Pass": "DepthPrePass",
-                                "Attachment": "DepthMSAA"
+                                "Attachment": "DepthMSAA" 
                             }
                         }
                     ]
@@ -214,7 +207,7 @@
                         {
                             "LocalSlot": "PipelineOutput",
                             "AttachmentRef": {
-                                "Pass": "Parent",
+                                "Pass": "PipelineGlobal",
                                 "Attachment": "PipelineOutput"
                             }
                         }
@@ -366,7 +359,7 @@
                         {
                             "LocalSlot": "PipelineOutput",
                             "AttachmentRef": {
-                                "Pass": "Parent",
+                                "Pass": "PipelineGlobal",
                                 "Attachment": "PipelineOutput"
                             }
                         }
@@ -466,7 +459,7 @@
                         {
                             "LocalSlot": "Output",
                             "AttachmentRef": {
-                                "Pass": "Parent",
+                                "Pass": "PipelineGlobal",
                                 "Attachment": "PipelineOutput"
                             }
                         }

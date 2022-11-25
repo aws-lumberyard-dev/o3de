@@ -688,7 +688,6 @@ namespace AZ
 
             if (desc.m_sizeSource.m_source.m_pass == PipelineKeyword)         // if source is pipeline
             {
-                attachment->m_renderPipelineSource = m_pipeline;
                 attachment->m_getSizeFromPipeline = true;
                 attachment->m_sizeMultipliers = desc.m_sizeSource.m_multipliers;
             }
@@ -700,7 +699,6 @@ namespace AZ
 
             if (desc.m_formatSource.m_pass == PipelineKeyword)                // if source is pipeline
             {
-                attachment->m_renderPipelineSource = m_pipeline;
                 attachment->m_getFormatFromPipeline = true;
             }
             else if (const PassAttachmentBinding* source = FindAdjacentBinding(desc.m_formatSource, "FormatSource"))
@@ -710,7 +708,6 @@ namespace AZ
 
             if (desc.m_multisampleSource.m_pass == PipelineKeyword)           // if source is pipeline
             {
-                attachment->m_renderPipelineSource = m_pipeline;
                 attachment->m_getMultisampleStateFromPipeline = true;
             }
             else if (const PassAttachmentBinding* source = FindAdjacentBinding(desc.m_multisampleSource, "MultisampleSource"))
@@ -1005,7 +1002,7 @@ namespace AZ
             // This involves getting the format and calculating the size from the source attachment
             for (Ptr<PassAttachment>& attachment: m_ownedAttachments)
             {
-                attachment->Update();
+                attachment->Update(m_pipeline);
             }
         }
 

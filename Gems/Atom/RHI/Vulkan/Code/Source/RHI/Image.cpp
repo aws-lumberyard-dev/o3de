@@ -271,6 +271,11 @@ namespace AZ
                 flags |= VK_IMAGE_CREATE_2D_ARRAY_COMPATIBLE_BIT_KHR;
             }
 
+            if (descriptor.m_multisampleState.m_customPositionsCount > 0 && bool(descriptor.m_bindFlags & AZ::RHI::ImageBindFlags::DepthStencil))
+            {
+                flags |= VK_IMAGE_CREATE_SAMPLE_LOCATIONS_COMPATIBLE_DEPTH_BIT_EXT;
+            }
+
             flags |= VK_IMAGE_CREATE_MUTABLE_FORMAT_BIT;
 
             return flags;

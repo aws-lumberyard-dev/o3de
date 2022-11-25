@@ -65,9 +65,7 @@ namespace AZ
 
             AZStd::array<float, 2> ComputeUnprojectConstants() const;
             AZ::RHI::Size GetDepthBufferDimensions();
-            void ChooseShaderVariant();
-            const AZ::RPI::ShaderVariant& CreateShaderVariant();
-            void CreatePipelineStateFromShaderVariant(const RPI::ShaderVariant& shaderVariant);
+            void CreatePipelineStateFromShaderVariant();
             void SetConstantData();
             void OnShaderReloaded();
 

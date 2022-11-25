@@ -22,7 +22,7 @@
 // before the next scope is processed on the cpu. As long as you can repro this crash
 // in this mode use it to debug GPU device removals/TDR's when
 // you need to know which scope was executing right before the crash.
-//#define AZ_FORCE_CPU_GPU_INSYNC
+#define AZ_FORCE_CPU_GPU_INSYNC
 
 AZ_DECLARE_BUDGET(RHI);
 inline static constexpr AZ::Crc32 rhiMetricsId = AZ_CRC_CE("RHI");

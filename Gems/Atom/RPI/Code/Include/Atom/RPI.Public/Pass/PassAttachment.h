@@ -51,7 +51,7 @@ namespace AZ
 
             //! Updates the size and format of this attachment using the sources below if specified
             //! @param updateImportedAttachments - Imported attchments will only update if this is true.
-            void Update(bool updateImportedAttachments = false);
+            void Update(RenderPipeline* renderPipeline, bool updateImportedAttachments = false);
 
             //! Sets all formats to nearest device supported formats and warns if changes where made
             void ValidateDeviceFormats(const AZStd::vector<RHI::Format>& formatFallbacks, RHI::FormatCapabilities capabilities = RHI::FormatCapabilities::None);
@@ -90,9 +90,6 @@ namespace AZ
             //! The source attachment from which to derive this attachment's array size
             //! If null, keep this attachment's array size as is
             const PassAttachmentBinding* m_arraySizeSource = nullptr;
-
-            //! The render pipeline to use when querying render source settings for size, format, multisample state, etc.
-            RenderPipeline* m_renderPipelineSource = nullptr;
 
             //! Whether to auto generate the number of mips based on the attachment
             //! so that we get a full mip chain with the smallest mip being 1x1 in size

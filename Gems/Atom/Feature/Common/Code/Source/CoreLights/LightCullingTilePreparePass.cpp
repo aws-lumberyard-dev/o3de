@@ -37,33 +37,29 @@ namespace AZ
         {
         }
 
-        void LightCullingTilePreparePass::CompileResources(const RHI::FrameGraphCompileContext& context)
+        void LightCullingTilePreparePass::OnShaderReloaded()
         {
-            SetConstantData();
-            ComputePass::CompileResources(context);
+            LoadShader();
+            AZ_Assert(GetPassState() != RPI::PassState::Rendering, "LightCullingTilePreparePass: Trying to reload shader during rendering");
+            if (GetPassState() == RPI::PassState::Idle)
+            {
+                CreatePipelineStateFromShaderVariant();
+            }
         }
 
-        void LightCullingTilePreparePass::BuildCommandListInternal(const RHI::FrameGraphExecuteContext& context)
+        void LightCullingTilePreparePass::OnShaderReinitialized(const AZ::RPI::Shader&)
         {
-            // Dispatch one compute shader thread per depth buffer pixel. These threads are divided into thread-groups that analyze one tile. (Typically 16x16 pixel tiles)
-            RHI::CommandList* commandList = context.GetCommandList();
-            SetSrgsForDispatch(commandList);
-
-            RHI::Size resolution = GetDepthBufferDimensions();
-
-            m_dispatchItem.m_arguments.m_direct.m_totalNumberOfThreadsX = resolution.m_width;
-            m_dispatchItem.m_arguments.m_direct.m_totalNumberOfThreadsY = resolution.m_height;
-            m_dispatchItem.m_arguments.m_direct.m_totalNumberOfThreadsZ = 1;
-            m_dispatchItem.m_pipelineState = m_msaaPipelineState.get();
-            commandList->Submit(m_dispatchItem);
+            OnShaderReloaded();
         }
 
-        AZ::RHI::Size LightCullingTilePreparePass::GetDepthBufferDimensions()
+        void LightCullingTilePreparePass::OnShaderAssetReinitialized(const Data::Asset<AZ::RPI::ShaderAsset>&)
         {
-            AZ_Assert(GetInputBinding(0).m_name == AZ::Name("Depth"), "LightCullingTilePrepare: Expecting slot 0 to be the depth buffer");
+            OnShaderReloaded();
+        }
 
-            const RPI::PassAttachment* attachment = GetInputBinding(0).GetAttachment().get();
-            return attachment->m_descriptor.m_image.m_size;
+        void LightCullingTilePreparePass::OnShaderVariantReinitialized(const AZ::RPI::ShaderVariant&)
+        {
+            OnShaderReloaded();
         }
 
         AZStd::array<float, 2> LightCullingTilePreparePass::ComputeUnprojectConstants() const
@@ -83,10 +79,12 @@ namespace AZ
             return unprojectConstants;
         }
 
-        void LightCullingTilePreparePass::ChooseShaderVariant()
+        AZ::RHI::MultisampleState LightCullingTilePreparePass::GetMultiSampleState()
         {
-            const AZ::RPI::ShaderVariant& shaderVariant = CreateShaderVariant();
-            CreatePipelineStateFromShaderVariant(shaderVariant);
+            AZ_Assert(GetInputBinding(0).m_name == AZ::Name("Depth"), "LightCullingTilePrepare: Expecting slot 0 to be the depth buffer");
+
+            const RPI::PassAttachment* attachment = GetInputBinding(0).GetAttachment().get();
+            return attachment->m_descriptor.m_image.m_multisampleState;
         }
 
         AZ::Name LightCullingTilePreparePass::GetMultiSampleName()
@@ -108,14 +106,6 @@ namespace AZ
             }
         }
 
-        AZ::RHI::MultisampleState LightCullingTilePreparePass::GetMultiSampleState()
-        {
-            AZ_Assert(GetInputBinding(0).m_name == AZ::Name("Depth"), "LightCullingTilePrepare: Expecting slot 0 to be the depth buffer");
-
-            const RPI::PassAttachment* attachment = GetInputBinding(0).GetAttachment().get();
-            return attachment->m_descriptor.m_image.m_multisampleState;
-        }
-
         AZ::RPI::ShaderOptionGroup LightCullingTilePreparePass::CreateShaderOptionGroup()
         {
             RPI::ShaderOptionGroup shaderOptionGroup = m_shader->CreateShaderOptionGroup();
@@ -124,25 +114,26 @@ namespace AZ
             return shaderOptionGroup;
         }
 
-        void LightCullingTilePreparePass::CreatePipelineStateFromShaderVariant(const RPI::ShaderVariant& shaderVariant)
+        void LightCullingTilePreparePass::CreatePipelineStateFromShaderVariant()
         {
+            RPI::ShaderOptionGroup shaderOptionGroup = CreateShaderOptionGroup();
+            const RPI::ShaderVariant& shaderVariant = m_shader->GetVariant(shaderOptionGroup.GetShaderVariantId());
+
+            // Set the fallbackkey
+            if (m_drawSrg)
+            {
+                m_drawSrg->SetShaderVariantKeyFallbackValue(shaderOptionGroup.GetShaderVariantKeyFallbackValue());
+            }
+
             AZ::RHI::PipelineStateDescriptorForDispatch pipelineStateDescriptor;
             shaderVariant.ConfigurePipelineState(pipelineStateDescriptor);
             m_msaaPipelineState = m_shader->AcquirePipelineState(pipelineStateDescriptor);
             AZ_Error("LightCulling", m_msaaPipelineState, "Failed to acquire pipeline state for shader");
         }
 
-        const AZ::RPI::ShaderVariant& LightCullingTilePreparePass::CreateShaderVariant()
+        void LightCullingTilePreparePass::BuildInternal()
         {
-            RPI::ShaderOptionGroup shaderOptionGroup = CreateShaderOptionGroup();
-            const RPI::ShaderVariant& shaderVariant = m_shader->GetVariant(shaderOptionGroup.GetShaderVariantId());
-
-            //Set the fallbackkey
-            if (m_drawSrg)
-            {
-                m_drawSrg->SetShaderVariantKeyFallbackValue(shaderOptionGroup.GetShaderVariantKeyFallbackValue());
-            }
-            return shaderVariant;
+            CreatePipelineStateFromShaderVariant();
         }
 
         void LightCullingTilePreparePass::SetConstantData()
@@ -163,35 +154,35 @@ namespace AZ
             AZ_Assert(setOk, "LightCullingTilePreparePass::SetConstantData() - could not set constant data");
         }
 
-        void LightCullingTilePreparePass::BuildInternal()
+        void LightCullingTilePreparePass::CompileResources(const RHI::FrameGraphCompileContext& context)
         {
-            ChooseShaderVariant();
+            SetConstantData();
+            ComputePass::CompileResources(context);
         }
 
-        void LightCullingTilePreparePass::OnShaderReloaded()
+        AZ::RHI::Size LightCullingTilePreparePass::GetDepthBufferDimensions()
         {
-            LoadShader();
-            AZ_Assert(GetPassState() != RPI::PassState::Rendering, "LightCullingTilePreparePass: Trying to reload shader during rendering");
-            if (GetPassState() == RPI::PassState::Idle)
-            {
-                ChooseShaderVariant();
-            }
+            AZ_Assert(GetInputBinding(0).m_name == AZ::Name("Depth"), "LightCullingTilePrepare: Expecting slot 0 to be the depth buffer");
+
+            const RPI::PassAttachment* attachment = GetInputBinding(0).GetAttachment().get();
+            return attachment->m_descriptor.m_image.m_size;
         }
 
-        void LightCullingTilePreparePass::OnShaderReinitialized(const AZ::RPI::Shader&)
+        void LightCullingTilePreparePass::BuildCommandListInternal(const RHI::FrameGraphExecuteContext& context)
         {
-            OnShaderReloaded();
+            // Dispatch one compute shader thread per depth buffer pixel. These threads are divided into thread-groups that analyze one tile. (Typically 16x16 pixel tiles)
+            RHI::CommandList* commandList = context.GetCommandList();
+            SetSrgsForDispatch(commandList);
+
+            RHI::Size resolution = GetDepthBufferDimensions();
+
+            m_dispatchItem.m_arguments.m_direct.m_totalNumberOfThreadsX = resolution.m_width;
+            m_dispatchItem.m_arguments.m_direct.m_totalNumberOfThreadsY = resolution.m_height;
+            m_dispatchItem.m_arguments.m_direct.m_totalNumberOfThreadsZ = 1;
+            m_dispatchItem.m_pipelineState = m_msaaPipelineState.get();
+            commandList->Submit(m_dispatchItem);
         }
 
-        void LightCullingTilePreparePass::OnShaderAssetReinitialized(const Data::Asset<AZ::RPI::ShaderAsset>&)
-        {
-            OnShaderReloaded();
-        }
-
-        void LightCullingTilePreparePass::OnShaderVariantReinitialized(const AZ::RPI::ShaderVariant&)
-        {
-            OnShaderReloaded();
-        }
 
     }   // namespace Render
 }   // namespace AZ

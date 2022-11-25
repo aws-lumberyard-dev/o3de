@@ -37,7 +37,7 @@ namespace AZ
             RPI::Ptr<RPI::PassAttachment> previousFrameImageAttachment = m_ownedAttachments[2];
             
             // update the image attachment descriptor to sync up size and format
-            previousFrameImageAttachment->Update();
+            previousFrameImageAttachment->Update(m_pipeline);
             
             // change the lifetime since we want it to live between frames
             previousFrameImageAttachment->m_lifetime = RHI::AttachmentLifetimeType::Imported;

@@ -10,14 +10,7 @@
                 {
                     "Name": "Output",
                     "SlotType": "Output",
-                    "ScopeAttachmentUsage": "DepthStencil",
-                    "LoadStoreAction": {
-                        "ClearValue": {
-                            "Type": "DepthStencil"
-                        },
-                        "LoadAction": "Clear",
-                        "LoadActionStencil": "Clear"
-                    }
+                    "ScopeAttachmentUsage": "DepthStencil"
                 },		
                 {
                     "Name": "SkinnedMeshes",

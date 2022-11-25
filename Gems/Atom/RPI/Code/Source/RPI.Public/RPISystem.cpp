@@ -115,9 +115,29 @@ namespace AZ
 #endif
             m_descriptor = rpiSystemDescriptor;
 
-            // set the default multisample state to MSAA 4x
-            // the default render pipeline may override this when it is loaded
-            m_multisampleState.m_samples = 4;
+            RHI::MultisampleState multisampleState;
+            multisampleState.m_samples = 2;
+            multisampleState.m_customPositionsCount = 16;
+            auto& cp = multisampleState.m_customPositions;
+
+            cp[ 0].m_x =  8; cp[ 0].m_y =  8;
+            cp[ 1].m_x =  0; cp[ 1].m_y =  0;
+            cp[ 2].m_x =  7; cp[ 2].m_y = 15;
+            cp[ 3].m_x = 15; cp[ 3].m_y =  7;                    
+            cp[ 4].m_x =  8; cp[ 4].m_y =  0;
+            cp[ 5].m_x =  0; cp[ 5].m_y =  8;
+            cp[ 6].m_x =  4; cp[ 6].m_y = 11;
+            cp[ 7].m_x = 11; cp[ 7].m_y =  4;
+            cp[ 8].m_x =  0; cp[ 8].m_y = 15;
+            cp[ 9].m_x = 15; cp[ 9].m_y =  0;
+            cp[10].m_x = 15; cp[10].m_y = 15;
+            cp[11].m_x =  3; cp[11].m_y =  3;
+            cp[12].m_x =  4; cp[12].m_y =  7;
+            cp[13].m_x =  7; cp[13].m_y =  4;
+            cp[14].m_x = 10; cp[14].m_y = 13;
+            cp[15].m_x = 13; cp[15].m_y = 10;
+
+            SetApplicationMultisampleState(multisampleState);
         }
 
         void RPISystem::Shutdown()
