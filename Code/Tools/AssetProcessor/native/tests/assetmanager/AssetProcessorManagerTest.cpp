@@ -81,9 +81,6 @@ void AssetProcessorManagerTest::SetUp()
 
     AssetProcessorTest::SetUp();
 
-    AZ::AllocatorInstance<AZ::PoolAllocator>::Create();
-    AZ::AllocatorInstance<AZ::ThreadPoolAllocator>::Create();
-
     m_data = AZStd::make_unique<StaticData>();
 
     m_data->m_serializeContext = AZStd::make_unique<AZ::SerializeContext>();
@@ -181,9 +178,6 @@ void AssetProcessorManagerTest::TearDown()
     m_config.reset();
     m_qApp.reset();
     m_scopeDir.reset();
-
-    AZ::AllocatorInstance<AZ::ThreadPoolAllocator>::Destroy();
-    AZ::AllocatorInstance<AZ::PoolAllocator>::Destroy();
 
     AssetProcessor::AssetProcessorTest::TearDown();
 }

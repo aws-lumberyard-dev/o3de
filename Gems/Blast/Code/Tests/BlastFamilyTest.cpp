@@ -28,8 +28,7 @@ using testing::StrictMock;
 namespace Blast
 {
     class BlastFamilyTest
-        : public testing::Test
-        , public FastScopedAllocatorsBase
+        : public UnitTest::LeakDetectionFixture
     {
     protected:
         void SetUp() override

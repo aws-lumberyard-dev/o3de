@@ -43,8 +43,7 @@ namespace Blast
     };
 
     class ActorRenderManagerTest
-        : public testing::Test
-        , public FastScopedAllocatorsBase
+        : public UnitTest::LeakDetectionFixture
     {
     protected:
         void SetUp() override

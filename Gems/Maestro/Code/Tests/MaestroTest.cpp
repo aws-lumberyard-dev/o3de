@@ -28,29 +28,10 @@ public:
 
 protected:
 
-    struct MockHolder
-    {
-        AZ_TEST_CLASS_ALLOCATOR(MockHolder);
-
-        NiceMock<CryPakMock> pak;
-        NiceMock<ConsoleMock> console;
-    };
-
     void SetupEnvironment() override
     {
-        AZ::AllocatorInstance<AZ::SystemAllocator>::Create();
-
-        // Mocks need to be destroyed before the allocators are destroyed, 
-        // but if they are member variables, they get destroyed *after*
-        // TeardownEnvironment when this Environment class is destroyed
-        // by the GoogleTest framework.
-        //
-        // Mocks also do not have any public destroy or release method to
-        // manage their lifetime, so this solution manages the lifetime
-        // and ordering via the heap.
-        m_mocks = new MockHolder();
-        m_stubEnv.pCryPak = &m_mocks->pak;
-        m_stubEnv.pConsole = &m_mocks->console;
+        m_stubEnv.pCryPak = &pak;
+        m_stubEnv.pConsole = &console;
         gEnv = &m_stubEnv;
 
         BusConnect();
@@ -59,15 +40,12 @@ protected:
     void TeardownEnvironment() override
     {
         BusDisconnect();
-        // Destroy mocks before AZ allocators
-        delete m_mocks;
-
-        AZ::AllocatorInstance<AZ::SystemAllocator>::Destroy();
     }
 
 private:
     SSystemGlobalEnvironment m_stubEnv;
-    MockHolder* m_mocks;
+    NiceMock<CryPakMock> pak;
+    NiceMock<ConsoleMock> console;
 };
 
 AZ_UNIT_TEST_HOOK(new MaestroTestEnvironment)

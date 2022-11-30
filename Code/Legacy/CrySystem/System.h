@@ -468,6 +468,4 @@ protected: // -------------------------------------------------------------
     bool m_bIsAsserting;
 
     std::vector<IWindowMessageHandler*> m_windowMessageHandlers;
-    bool m_initedOSAllocator = false;
-    bool m_initedSysAllocator = false;
 };

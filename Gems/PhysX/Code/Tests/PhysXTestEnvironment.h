@@ -70,8 +70,6 @@ namespace PhysX
         void TeardownEnvironment() override
         {
             TeardownInternal();
-
-            AZ::AllocatorInstance<AZ::SystemAllocator>::Destroy();
         }
     };
 }

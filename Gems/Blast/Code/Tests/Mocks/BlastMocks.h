@@ -32,20 +32,6 @@
 
 namespace Blast
 {
-    class FastScopedAllocatorsBase
-    {
-    public:
-        FastScopedAllocatorsBase()
-        {
-            AZ::AllocatorInstance<AZ::SystemAllocator>::Create();
-        }
-
-        ~FastScopedAllocatorsBase()
-        {
-            AZ::AllocatorInstance<AZ::SystemAllocator>::Destroy();
-        }
-    };
-
     class BlastFamily;
 
     class FakeExtPxAsset : public Nv::Blast::ExtPxAsset

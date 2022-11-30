@@ -33,8 +33,7 @@ namespace Blast
     }
 
     class DamageManagerTest
-        : public testing::Test
-        , public FastScopedAllocatorsBase
+        : public UnitTest::LeakDetectionFixture
     {
     public:
     protected:

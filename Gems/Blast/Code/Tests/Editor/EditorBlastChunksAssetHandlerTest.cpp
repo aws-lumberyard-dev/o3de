@@ -80,8 +80,6 @@ namespace UnitTest
         void SetUp() override final
         {
             LeakDetectionFixture::SetUp();
-            AZ::AllocatorInstance<AZ::PoolAllocator>::Create();
-            AZ::AllocatorInstance<AZ::ThreadPoolAllocator>::Create();
 
             m_mockComponentApplicationBusHandler = AZStd::make_unique<UnitTest::MockComponentApplication>();
             m_mockAssetCatalogRequestBusHandler = AZStd::make_unique<MockAssetCatalogRequestBusHandler>();
@@ -98,8 +96,6 @@ namespace UnitTest
             m_mockAssetCatalogRequestBusHandler.reset();
             m_mockComponentApplicationBusHandler.reset();
 
-            AZ::AllocatorInstance<AZ::ThreadPoolAllocator>::Destroy();
-            AZ::AllocatorInstance<AZ::PoolAllocator>::Destroy();
             LeakDetectionFixture::TearDown();
         }
     };
