@@ -220,6 +220,14 @@ namespace EMStudio
         connect(m_actions[VISUALIZATION_PLAYPOSITIONS], &QAction::triggered, this, &BlendGraphViewWidget::OnDisplayPlayPositions);
 
 #if defined(EMFX_ANIMGRAPH_PROFILER_ENABLED)
+        m_actions[VISUALIZATION_PROFILING_NONE] = new QAction(tr("None"), this);
+        m_actions[VISUALIZATION_PROFILING_NONE]->setCheckable(false);
+        connect(m_actions[VISUALIZATION_PROFILING_NONE], &QAction::triggered, this, [=](){ OnDisplayAllProfiling(false); });
+        
+        m_actions[VISUALIZATION_PROFILING_ALL] = new QAction(tr("All"), this);
+        m_actions[VISUALIZATION_PROFILING_ALL]->setCheckable(false);
+        connect(m_actions[VISUALIZATION_PROFILING_ALL], &QAction::triggered, this, [=](){ OnDisplayAllProfiling(true); });
+
         AddProfilingAction("Update", VISUALIZATION_PROFILING_UPDATE);
         AddProfilingAction("TopDownUpdate", VISUALIZATION_PROFILING_TOPDOWN);
         AddProfilingAction("PostUpdate", VISUALIZATION_PROFILING_POSTUPDATE);
@@ -374,10 +382,12 @@ namespace EMStudio
 
             QMenu* contextMenu = new QMenu(toolBar);
 
+            contextMenu->addAction(m_actions[VISUALIZATION_PROFILING_NONE]);
             contextMenu->addAction(m_actions[VISUALIZATION_PROFILING_UPDATE]);
             contextMenu->addAction(m_actions[VISUALIZATION_PROFILING_TOPDOWN]);
             contextMenu->addAction(m_actions[VISUALIZATION_PROFILING_POSTUPDATE]);
             contextMenu->addAction(m_actions[VISUALIZATION_PROFILING_OUTPUT]);
+            contextMenu->addAction(m_actions[VISUALIZATION_PROFILING_ALL]);
 
             menuAction->setMenu(contextMenu);
         }
@@ -628,6 +638,18 @@ namespace EMStudio
                      "Undefined profile option flags.");
         };
         m_parentPlugin->SetDisplayFlagEnabled(displayFlags, show);
+    }
+
+    void BlendGraphViewWidget::OnDisplayAllProfiling(bool enabledAll)
+    {
+        m_parentPlugin->SetDisplayFlagEnabled(AnimGraphPlugin::DISPLAYFLAG_PROFILING_UPDATE, enabledAll);
+        m_parentPlugin->SetDisplayFlagEnabled(AnimGraphPlugin::DISPLAYFLAG_PROFILING_TOPDOWN, enabledAll);
+        m_parentPlugin->SetDisplayFlagEnabled(AnimGraphPlugin::DISPLAYFLAG_PROFILING_POSTUPDATE, enabledAll);
+        m_parentPlugin->SetDisplayFlagEnabled(AnimGraphPlugin::DISPLAYFLAG_PROFILING_OUTPUT, enabledAll);
+        SetOptionFlag(VISUALIZATION_PROFILING_UPDATE, enabledAll);
+        SetOptionFlag(VISUALIZATION_PROFILING_TOPDOWN, enabledAll);
+        SetOptionFlag(VISUALIZATION_PROFILING_POSTUPDATE, enabledAll);
+        SetOptionFlag(VISUALIZATION_PROFILING_OUTPUT, enabledAll);
     }
 #endif
 

@@ -72,10 +72,12 @@ namespace EMStudio
             VISUALIZATION_SYNCSTATUS,
             VISUALIZATION_PLAYPOSITIONS,
 #if defined(EMFX_ANIMGRAPH_PROFILER_ENABLED)
+            VISUALIZATION_PROFILING_NONE,
             VISUALIZATION_PROFILING_UPDATE,
             VISUALIZATION_PROFILING_TOPDOWN,
             VISUALIZATION_PROFILING_POSTUPDATE,
             VISUALIZATION_PROFILING_OUTPUT,
+            VISUALIZATION_PROFILING_ALL,
 #endif
             EDIT_CUT,
             EDIT_COPY,
@@ -132,6 +134,7 @@ namespace EMStudio
 #if defined(EMFX_ANIMGRAPH_PROFILER_ENABLED)
         void AddProfilingAction(const char* actionName, EOptionFlag optionFlag);
         void OnDisplayProfiling(EOptionFlag profileOption);
+        void OnDisplayAllProfiling(bool enableAll); // enabledAll = false -> disableAllProfiling
 #endif
 
     private:
