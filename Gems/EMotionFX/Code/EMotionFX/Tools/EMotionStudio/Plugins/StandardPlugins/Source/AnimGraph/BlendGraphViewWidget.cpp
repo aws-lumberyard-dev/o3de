@@ -222,11 +222,11 @@ namespace EMStudio
 #if defined(EMFX_ANIMGRAPH_PROFILER_ENABLED)
         m_actions[VISUALIZATION_PROFILING_NONE] = new QAction(tr("None"), this);
         m_actions[VISUALIZATION_PROFILING_NONE]->setCheckable(false);
-        connect(m_actions[VISUALIZATION_PROFILING_NONE], &QAction::triggered, this, [=](){ OnDisplayAllProfiling(false); });
+        connect(m_actions[VISUALIZATION_PROFILING_NONE], &QAction::triggered, this, [this]{ OnDisplayAllProfiling(false); });
         
         m_actions[VISUALIZATION_PROFILING_ALL] = new QAction(tr("All"), this);
         m_actions[VISUALIZATION_PROFILING_ALL]->setCheckable(false);
-        connect(m_actions[VISUALIZATION_PROFILING_ALL], &QAction::triggered, this, [=](){ OnDisplayAllProfiling(true); });
+        connect(m_actions[VISUALIZATION_PROFILING_ALL], &QAction::triggered, this, [this]{ OnDisplayAllProfiling(true); });
 
         AddProfilingAction("Update", VISUALIZATION_PROFILING_UPDATE);
         AddProfilingAction("TopDownUpdate", VISUALIZATION_PROFILING_TOPDOWN);
@@ -367,31 +367,21 @@ namespace EMStudio
             contextMenu->addAction(m_actions[VISUALIZATION_PLAYPOSITIONS]);
 
             menuAction->setMenu(contextMenu);
-        }
 
 #if defined(EMFX_ANIMGRAPH_PROFILER_ENABLED)
-        // Profiler options
-        {
-            QAction* menuAction = toolBar->addAction(
-                QIcon(":/EMotionFX/Visualization.svg"),
-                tr("Profiling. If multiple options are selected, the shown number is the sum value."));
-
-            QToolButton* toolButton = qobject_cast<QToolButton*>(toolBar->widgetForAction(menuAction));
-            AZ_Assert(toolButton, "The action widget must be a tool button.");
-            toolButton->setPopupMode(QToolButton::InstantPopup);
-
-            QMenu* contextMenu = new QMenu(toolBar);
-
-            contextMenu->addAction(m_actions[VISUALIZATION_PROFILING_NONE]);
-            contextMenu->addAction(m_actions[VISUALIZATION_PROFILING_UPDATE]);
-            contextMenu->addAction(m_actions[VISUALIZATION_PROFILING_TOPDOWN]);
-            contextMenu->addAction(m_actions[VISUALIZATION_PROFILING_POSTUPDATE]);
-            contextMenu->addAction(m_actions[VISUALIZATION_PROFILING_OUTPUT]);
-            contextMenu->addAction(m_actions[VISUALIZATION_PROFILING_ALL]);
-
-            menuAction->setMenu(contextMenu);
-        }
+            // Profiler options
+            {
+                QMenu* profilerMenu = new QMenu("Profiler", toolBar);
+                profilerMenu->addAction(m_actions[VISUALIZATION_PROFILING_NONE]);
+                profilerMenu->addAction(m_actions[VISUALIZATION_PROFILING_UPDATE]);
+                profilerMenu->addAction(m_actions[VISUALIZATION_PROFILING_TOPDOWN]);
+                profilerMenu->addAction(m_actions[VISUALIZATION_PROFILING_POSTUPDATE]);
+                profilerMenu->addAction(m_actions[VISUALIZATION_PROFILING_OUTPUT]);
+                profilerMenu->addAction(m_actions[VISUALIZATION_PROFILING_ALL]);
+                contextMenu->addMenu(profilerMenu);
+            }
 #endif
+        }
 
         toolBar->addSeparator();
 
