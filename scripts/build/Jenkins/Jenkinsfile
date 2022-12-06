@@ -973,6 +973,8 @@ try {
                         // Stash the INCREMENTAL_BUILD_SCRIPT_PATH and EBS_SNAPSHOT_SCRIPT_PATH since all nodes will use it
                         stash name: 'incremental_build_script',
                             includes: INCREMENTAL_BUILD_SCRIPT_PATH
+                        stash name: 's3sis_util_script',
+                            includes: S3SIS_UTIL_SCRIPT_PATH
                         if (fileExists(EBS_SNAPSHOT_SCRIPT_PATH)) {
                             stash name: 'ebs_snapshot_script',
                             includes: EBS_SNAPSHOT_SCRIPT_PATH
