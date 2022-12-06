@@ -16,7 +16,10 @@
       "profile_nounity",
       "asset_profile_nounity",
       "test_profile_nounity"
-    ]
+    ],
+    "PIPELINE_ENV":{
+      "USE_S3SIS_WORKSPACE": "True"
+    }
   },
   "profile_ubuntu22_nounity_pipe": {
     "TAGS": [
