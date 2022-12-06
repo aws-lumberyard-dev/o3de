@@ -29,7 +29,7 @@ namespace AZ
             }
         }
 
-        void UseTextureFunctor::Process(RuntimeContext& context)
+        void UseTextureFunctor::Process(MainRuntimeContext& context)
         {
             using namespace RPI;
 

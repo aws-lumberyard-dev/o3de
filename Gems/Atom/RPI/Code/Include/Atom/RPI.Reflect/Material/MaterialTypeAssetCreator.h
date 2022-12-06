@@ -28,6 +28,12 @@ namespace AZ
             : public AssetCreator<MaterialTypeAsset>
         {
         public:
+            enum PropertyType
+            {
+                Main,    //!< These properties are exposed as inputs to the material, accessible through the Material Editor
+                Internal //!< These properties are only used for passing data from the main material properties to the material pipeline portion of the material type.
+            };
+
             //! Begin creating a MaterialTypeAsset
             void Begin(const Data::AssetId& assetId);
 
@@ -56,7 +62,7 @@ namespace AZ
             //! Starts creating a material property.
             //! Note that EndMaterialProperty() must be called before calling SetMaterialPropertyValue(). Similarly,
             //! the property will not appear in GetMaterialPropertiesLayout() until EndMaterialProperty() is called.
-            void BeginMaterialProperty(const Name& materialPropertyName, MaterialPropertyDataType dataType);
+            void BeginMaterialProperty(const Name& materialPropertyName, MaterialPropertyDataType dataType, PropertyType materialPropertyType = PropertyType::Main);
             
             //! Adds an output mapping from the current material property to a ShaderResourceGroup input.
             void ConnectMaterialPropertyToShaderInput(const Name& shaderInputName);
@@ -72,16 +78,16 @@ namespace AZ
             //! Store the enum names if a property is an enum type.
             void SetMaterialPropertyEnumNames(const AZStd::vector<AZStd::string>& enumNames);
 
+            void SetMaterialPropertyDefaultValue(const Data::Asset<ImageAsset>& imageAsset);
+            void SetMaterialPropertyDefaultValue(const Data::Asset<StreamingImageAsset>& imageAsset);
+            void SetMaterialPropertyDefaultValue(const Data::Asset<AttachmentImageAsset>& imageAsset);
+
+            //! Sets the property value using data in AZStd::variant-based MaterialPropertyValue. The contained data must match
+            //! the data type of the property. For type Image, the value must be a Data::Asset<ImageAsset>.
+            void SetMaterialPropertyDefaultValue(const MaterialPropertyValue& value);
+
             //! Finishes creating a material property.
             void EndMaterialProperty();
-            
-            void SetPropertyValue(const Name& name, const Data::Asset<ImageAsset>& imageAsset);
-            void SetPropertyValue(const Name& name, const Data::Asset<StreamingImageAsset>& imageAsset);
-            void SetPropertyValue(const Name& name, const Data::Asset<AttachmentImageAsset>& imageAsset);
-
-            //! Sets a property value using data in AZStd::variant-based MaterialPropertyValue. The contained data must match
-            //! the data type of the property. For type Image, the value must be a Data::Asset<ImageAsset>.
-            void SetPropertyValue(const Name& name, const MaterialPropertyValue& value);
 
             //! Adds a MaterialFunctor.
             //! Material functors provide custom logic and calculations to configure shaders, render states, and more.See MaterialFunctor.h for details.
@@ -97,6 +103,10 @@ namespace AZ
             //! @return A valid pointer when called between Begin() and End(). Otherwise, returns nullptr.
             const MaterialPropertiesLayout* GetMaterialPropertiesLayout() const;
 
+            //! Similar to GetMaterialPropertiesLayout(), but used to pass data from the main material properties to the
+            //! material pipeline portion of the material type.
+            const MaterialPropertiesLayout* GetInternalMaterialPropertiesLayout() const;
+
             //! This provides access to the material ShaderResourceGroupLayout being used for the MaterialTypeAsset.
             //! This is needed by MaterialTypeSourceData to initialize functor objects.
             //! The same layout object can be retrieved from the ShaderAssets passed to the creator, but this function 
@@ -108,10 +118,8 @@ namespace AZ
 
         private:
 
-            void AddMaterialProperty(MaterialPropertyDescriptor&& materialProperty);
+            void AddMaterialProperty(MaterialPropertyDescriptor&& materialProperty, MaterialPropertyValue&& defaultValue, PropertyType materialPropertyType);
             
-            bool PropertyCheck(TypeId typeId, const Name& name);
-
             //! The material type holds references to shader assets that contain SRGs that are supposed to be the same across all passes in the material.
             //! This function searches for an SRG given a @bindingSlot. If a valid one is found it makes sure it is the same across all shaders
             //! and records it in @srgShaderAssetToUpdate.
@@ -131,9 +139,17 @@ namespace AZ
             bool ValidateBeginMaterialProperty();
             bool ValidateEndMaterialProperty();
 
-            MaterialPropertiesLayout* m_materialPropertiesLayout = nullptr; //!< Cached pointer to the MaterialPropertiesLayout being created
+            //< Cached pointer to the MaterialPropertiesLayout being created
+            MaterialPropertiesLayout* m_materialPropertiesLayout = nullptr; 
+
+            //! Similar to m_materialPropertiesLayout, but used to pass data from the main material properties to the
+            //! material pipeline portion of the material type.
+            MaterialPropertiesLayout* m_internalMaterialPropertiesLayout = nullptr;
+
             const RHI::ShaderResourceGroupLayout* m_materialShaderResourceGroupLayout = nullptr; //!< The per-material ShaderResourceGroup layout
             MaterialPropertyDescriptor m_wipMaterialProperty; //!< Material property being created. Is valid between BeginMaterialProperty() and EndMaterialProperty()
+            MaterialPropertyValue m_wipMaterialPropertyValue; //!< Default value of the m_wipMaterialProperty
+            PropertyType m_wipMaterialPropertyType; //!< Tracks what kind of material property is being created, if any.
         };
 
     } // namespace RPI

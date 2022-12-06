@@ -157,6 +157,7 @@ namespace UnitTest
         void Reflect(ReflectContext* context) override
         {
             RPITestFixture::Reflect(context);
+            MaterialPropertySourceData::Reflect(context);
             MaterialTypeSourceData::Reflect(context);
         }
         

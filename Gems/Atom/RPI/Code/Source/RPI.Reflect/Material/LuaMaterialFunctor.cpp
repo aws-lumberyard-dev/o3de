@@ -63,7 +63,8 @@ namespace AZ
             LuaMaterialFunctorRenderStates::Reflect(behaviorContext);
             LuaMaterialFunctorShaderItem::Reflect(behaviorContext);
             LuaScriptUtilities::Reflect(behaviorContext);
-            LuaMaterialFunctorRuntimeContext::Reflect(behaviorContext);
+            LuaMaterialFunctorMainRuntimeContext::Reflect(behaviorContext);
+            LuaMaterialFunctorPipelineRuntimeContext::Reflect(behaviorContext);
             LuaMaterialFunctorEditorContext::Reflect(behaviorContext);
         }
 
@@ -119,7 +120,7 @@ namespace AZ
             }
         }
 
-        void LuaMaterialFunctor::Process(RuntimeContext& context)
+        void LuaMaterialFunctor::Process(MainRuntimeContext& context)
         {
             AZ_PROFILE_FUNCTION(RPI);
 
@@ -127,7 +128,25 @@ namespace AZ
 
             if (m_scriptStatus == ScriptStatus::Ready)
             {
-                LuaMaterialFunctorRuntimeContext luaContext{&context, &GetMaterialPropertyDependencies(), m_materialNameContext};
+                LuaMaterialFunctorMainRuntimeContext luaContext{&context, &GetMaterialPropertyDependencies(), m_materialNameContext};
+                AZ::ScriptDataContext call;
+                if (m_scriptContext->Call("Process", call))
+                {
+                    call.PushArg(luaContext);
+                    call.CallExecute();
+                }
+            }
+        }
+
+        void LuaMaterialFunctor::Process(PipelineRuntimeContext& context)
+        {
+            AZ_PROFILE_FUNCTION(RPI);
+
+            InitScriptContext();
+
+            if (m_scriptStatus == ScriptStatus::Ready)
+            {
+                LuaMaterialFunctorPipelineRuntimeContext luaContext{&context, &GetMaterialPropertyDependencies(), m_materialNameContext};
                 AZ::ScriptDataContext call;
                 if (m_scriptContext->Call("Process", call))
                 {
@@ -155,10 +174,19 @@ namespace AZ
             }
         }
 
-        LuaMaterialFunctorCommonContext::LuaMaterialFunctorCommonContext(MaterialFunctor::RuntimeContext* runtimeContextImpl,
+        LuaMaterialFunctorCommonContext::LuaMaterialFunctorCommonContext(MaterialFunctor::MainRuntimeContext* runtimeContextImpl,
             const MaterialPropertyFlags* materialPropertyDependencies,
             const MaterialNameContext& materialNameContext)
-            : m_runtimeContextImpl(runtimeContextImpl)
+            : m_mainRuntimeContextImpl(runtimeContextImpl)
+            , m_materialPropertyDependencies(materialPropertyDependencies)
+            , m_materialNameContext(materialNameContext)
+        {
+        }
+
+        LuaMaterialFunctorCommonContext::LuaMaterialFunctorCommonContext(MaterialFunctor::PipelineRuntimeContext* runtimeContextImpl,
+            const MaterialPropertyFlags* materialPropertyDependencies,
+            const MaterialNameContext& materialNameContext)
+            : m_pipelineRuntimeContextImpl(runtimeContextImpl)
             , m_materialPropertyDependencies(materialPropertyDependencies)
             , m_materialNameContext(materialNameContext)
         {
@@ -175,9 +203,13 @@ namespace AZ
         
         MaterialPropertyPsoHandling LuaMaterialFunctorCommonContext::GetMaterialPropertyPsoHandling() const
         {
-            if (m_runtimeContextImpl)
+            if (m_mainRuntimeContextImpl)
             {
-                return m_runtimeContextImpl->GetMaterialPropertyPsoHandling();
+                return m_mainRuntimeContextImpl->GetMaterialPropertyPsoHandling();
+            }
+            else if (m_pipelineRuntimeContextImpl)
+            {
+                return m_pipelineRuntimeContextImpl->GetMaterialPropertyPsoHandling();
             }
             else
             {
@@ -187,9 +219,13 @@ namespace AZ
 
         RHI::ConstPtr<MaterialPropertiesLayout> LuaMaterialFunctorCommonContext::GetMaterialPropertiesLayout() const
         {
-            if (m_runtimeContextImpl)
+            if (m_mainRuntimeContextImpl)
             {
-                return m_runtimeContextImpl->GetMaterialPropertiesLayout();
+                return m_mainRuntimeContextImpl->GetMaterialPropertiesLayout();
+            }
+            else if (m_pipelineRuntimeContextImpl)
+            {
+                return m_pipelineRuntimeContextImpl->GetMaterialPropertiesLayout();
             }
             else
             {
@@ -263,13 +299,13 @@ namespace AZ
 
         const MaterialPropertyValue& LuaMaterialFunctorCommonContext::GetMaterialPropertyValue(MaterialPropertyIndex propertyIndex) const
         {
-            if (m_runtimeContextImpl)
+            if (m_mainRuntimeContextImpl)
             {
-                return m_runtimeContextImpl->GetMaterialPropertyValue(propertyIndex);
+                return m_mainRuntimeContextImpl->GetMaterialPropertyValue(propertyIndex);
             }
-            else if (m_editorContextImpl)
+            else if (m_pipelineRuntimeContextImpl)
             {
-                return m_editorContextImpl->GetMaterialPropertyValue(propertyIndex);
+                return m_pipelineRuntimeContextImpl->GetMaterialPropertyValue(propertyIndex);
             }
             else
             {
@@ -317,43 +353,43 @@ namespace AZ
 
         // Explicit specialization must be declared before expanding it in LuaMaterialFunctorRuntimeContext::Reflect()
         template<>
-        bool LuaMaterialFunctorRuntimeContext::SetShaderOptionValue(const char* name, const char* value);
+        bool LuaMaterialFunctorMainRuntimeContext::SetShaderOptionValue(const char* name, const char* value);
 
-        void LuaMaterialFunctorRuntimeContext::Reflect(BehaviorContext* behaviorContext)
+        void LuaMaterialFunctorMainRuntimeContext::Reflect(BehaviorContext* behaviorContext)
         {
-            behaviorContext->Class<LuaMaterialFunctorRuntimeContext>()
-                ->Method("GetMaterialPropertyValue_bool", &LuaMaterialFunctorRuntimeContext::GetMaterialPropertyValue<bool>)
-                ->Method("GetMaterialPropertyValue_int", &LuaMaterialFunctorRuntimeContext::GetMaterialPropertyValue<int32_t>)
-                ->Method("GetMaterialPropertyValue_uint", &LuaMaterialFunctorRuntimeContext::GetMaterialPropertyValue<uint32_t>)
-                ->Method("GetMaterialPropertyValue_enum", &LuaMaterialFunctorRuntimeContext::GetMaterialPropertyValue<uint32_t>)
-                ->Method("GetMaterialPropertyValue_float", &LuaMaterialFunctorRuntimeContext::GetMaterialPropertyValue<float>)
-                ->Method("GetMaterialPropertyValue_Vector2", &LuaMaterialFunctorRuntimeContext::GetMaterialPropertyValue<Vector2>)
-                ->Method("GetMaterialPropertyValue_Vector3", &LuaMaterialFunctorRuntimeContext::GetMaterialPropertyValue<Vector3>)
-                ->Method("GetMaterialPropertyValue_Vector4", &LuaMaterialFunctorRuntimeContext::GetMaterialPropertyValue<Vector4>)
-                ->Method("GetMaterialPropertyValue_Color", &LuaMaterialFunctorRuntimeContext::GetMaterialPropertyValue<Color>)
-                ->Method("GetMaterialPropertyValue_Image", &LuaMaterialFunctorRuntimeContext::GetMaterialPropertyValue<Image*>)
-                ->Method("HasMaterialProperty", &LuaMaterialFunctorRuntimeContext::HasMaterialValue)
-                ->Method("SetShaderConstant_bool", &LuaMaterialFunctorRuntimeContext::SetShaderConstant<bool>)
-                ->Method("SetShaderConstant_int", &LuaMaterialFunctorRuntimeContext::SetShaderConstant<int32_t>)
-                ->Method("SetShaderConstant_uint", &LuaMaterialFunctorRuntimeContext::SetShaderConstant<uint32_t>)
-                ->Method("SetShaderConstant_float", &LuaMaterialFunctorRuntimeContext::SetShaderConstant<float>)
-                ->Method("SetShaderConstant_Vector2", &LuaMaterialFunctorRuntimeContext::SetShaderConstant<Vector2>)
-                ->Method("SetShaderConstant_Vector3", &LuaMaterialFunctorRuntimeContext::SetShaderConstant<Vector3>)
-                ->Method("SetShaderConstant_Vector4", &LuaMaterialFunctorRuntimeContext::SetShaderConstant<Vector4>)
-                ->Method("SetShaderConstant_Color", &LuaMaterialFunctorRuntimeContext::SetShaderConstant<Color>)
-                ->Method("SetShaderConstant_Matrix3x3", &LuaMaterialFunctorRuntimeContext::SetShaderConstant<Matrix3x3>)
-                ->Method("SetShaderConstant_Matrix4x4", &LuaMaterialFunctorRuntimeContext::SetShaderConstant<Matrix4x4>)
-                ->Method("SetShaderOptionValue_bool", &LuaMaterialFunctorRuntimeContext::SetShaderOptionValue<bool>)
-                ->Method("SetShaderOptionValue_uint", &LuaMaterialFunctorRuntimeContext::SetShaderOptionValue<uint32_t>)
-                ->Method("SetShaderOptionValue_enum", &LuaMaterialFunctorRuntimeContext::SetShaderOptionValue<const char*>)
-                ->Method("GetShaderCount", &LuaMaterialFunctorRuntimeContext::GetShaderCount)
-                ->Method("GetShader", &LuaMaterialFunctorRuntimeContext::GetShader)
-                ->Method("GetShaderByTag", &LuaMaterialFunctorRuntimeContext::GetShaderByTag)
-                ->Method("HasShaderWithTag", &LuaMaterialFunctorRuntimeContext::HasShaderWithTag)
+            behaviorContext->Class<LuaMaterialFunctorMainRuntimeContext>()
+                ->Method("GetMaterialPropertyValue_bool", &LuaMaterialFunctorMainRuntimeContext::GetMaterialPropertyValue<bool>)
+                ->Method("GetMaterialPropertyValue_int", &LuaMaterialFunctorMainRuntimeContext::GetMaterialPropertyValue<int32_t>)
+                ->Method("GetMaterialPropertyValue_uint", &LuaMaterialFunctorMainRuntimeContext::GetMaterialPropertyValue<uint32_t>)
+                ->Method("GetMaterialPropertyValue_enum", &LuaMaterialFunctorMainRuntimeContext::GetMaterialPropertyValue<uint32_t>)
+                ->Method("GetMaterialPropertyValue_float", &LuaMaterialFunctorMainRuntimeContext::GetMaterialPropertyValue<float>)
+                ->Method("GetMaterialPropertyValue_Vector2", &LuaMaterialFunctorMainRuntimeContext::GetMaterialPropertyValue<Vector2>)
+                ->Method("GetMaterialPropertyValue_Vector3", &LuaMaterialFunctorMainRuntimeContext::GetMaterialPropertyValue<Vector3>)
+                ->Method("GetMaterialPropertyValue_Vector4", &LuaMaterialFunctorMainRuntimeContext::GetMaterialPropertyValue<Vector4>)
+                ->Method("GetMaterialPropertyValue_Color", &LuaMaterialFunctorMainRuntimeContext::GetMaterialPropertyValue<Color>)
+                ->Method("GetMaterialPropertyValue_Image", &LuaMaterialFunctorMainRuntimeContext::GetMaterialPropertyValue<Image*>)
+                ->Method("HasMaterialProperty", &LuaMaterialFunctorMainRuntimeContext::HasMaterialValue)
+                ->Method("SetShaderConstant_bool", &LuaMaterialFunctorMainRuntimeContext::SetShaderConstant<bool>)
+                ->Method("SetShaderConstant_int", &LuaMaterialFunctorMainRuntimeContext::SetShaderConstant<int32_t>)
+                ->Method("SetShaderConstant_uint", &LuaMaterialFunctorMainRuntimeContext::SetShaderConstant<uint32_t>)
+                ->Method("SetShaderConstant_float", &LuaMaterialFunctorMainRuntimeContext::SetShaderConstant<float>)
+                ->Method("SetShaderConstant_Vector2", &LuaMaterialFunctorMainRuntimeContext::SetShaderConstant<Vector2>)
+                ->Method("SetShaderConstant_Vector3", &LuaMaterialFunctorMainRuntimeContext::SetShaderConstant<Vector3>)
+                ->Method("SetShaderConstant_Vector4", &LuaMaterialFunctorMainRuntimeContext::SetShaderConstant<Vector4>)
+                ->Method("SetShaderConstant_Color", &LuaMaterialFunctorMainRuntimeContext::SetShaderConstant<Color>)
+                ->Method("SetShaderConstant_Matrix3x3", &LuaMaterialFunctorMainRuntimeContext::SetShaderConstant<Matrix3x3>)
+                ->Method("SetShaderConstant_Matrix4x4", &LuaMaterialFunctorMainRuntimeContext::SetShaderConstant<Matrix4x4>)
+                ->Method("SetShaderOptionValue_bool", &LuaMaterialFunctorMainRuntimeContext::SetShaderOptionValue<bool>)
+                ->Method("SetShaderOptionValue_uint", &LuaMaterialFunctorMainRuntimeContext::SetShaderOptionValue<uint32_t>)
+                ->Method("SetShaderOptionValue_enum", &LuaMaterialFunctorMainRuntimeContext::SetShaderOptionValue<const char*>)
+                ->Method("GetShaderCount", &LuaMaterialFunctorMainRuntimeContext::GetShaderCount)
+                ->Method("GetShader", &LuaMaterialFunctorMainRuntimeContext::GetShader)
+                ->Method("GetShaderByTag", &LuaMaterialFunctorMainRuntimeContext::GetShaderByTag)
+                ->Method("HasShaderWithTag", &LuaMaterialFunctorMainRuntimeContext::HasShaderWithTag)
                 ;
         }
 
-        LuaMaterialFunctorRuntimeContext::LuaMaterialFunctorRuntimeContext(MaterialFunctor::RuntimeContext* runtimeContextImpl,
+        LuaMaterialFunctorMainRuntimeContext::LuaMaterialFunctorMainRuntimeContext(MaterialFunctor::MainRuntimeContext* runtimeContextImpl,
             const MaterialPropertyFlags* materialPropertyDependencies,
             const MaterialNameContext& materialNameContext)
             : LuaMaterialFunctorCommonContext(runtimeContextImpl, materialPropertyDependencies, materialNameContext)
@@ -362,12 +398,12 @@ namespace AZ
         }
 
         template<typename Type>
-        Type LuaMaterialFunctorRuntimeContext::GetMaterialPropertyValue(const char* name) const
+        Type LuaMaterialFunctorMainRuntimeContext::GetMaterialPropertyValue(const char* name) const
         {
             return LuaMaterialFunctorCommonContext::GetMaterialPropertyValue<Type>(name);
         }
 
-        bool LuaMaterialFunctorRuntimeContext::HasMaterialValue(const char* name) const
+        bool LuaMaterialFunctorMainRuntimeContext::HasMaterialValue(const char* name) const
         {
             Name propertyFullName{name};
             m_materialNameContext.ContextualizeProperty(propertyFullName);
@@ -377,7 +413,7 @@ namespace AZ
         }
 
         template<>
-        bool LuaMaterialFunctorRuntimeContext::SetShaderOptionValue(const char* name, const char* value)
+        bool LuaMaterialFunctorMainRuntimeContext::SetShaderOptionValue(const char* name, const char* value)
         {
             Name optionName{name};
             m_materialNameContext.ContextualizeShaderOption(optionName);
@@ -385,14 +421,14 @@ namespace AZ
         }
 
         template<typename Type>
-        bool LuaMaterialFunctorRuntimeContext::SetShaderOptionValue(const char* name, Type value)
+        bool LuaMaterialFunctorMainRuntimeContext::SetShaderOptionValue(const char* name, Type value)
         {
             Name optionName{name};
             m_materialNameContext.ContextualizeShaderOption(optionName);
             return m_runtimeContextImpl->SetShaderOptionValue(optionName, ShaderOptionValue{value});
         }
 
-        RHI::ShaderInputConstantIndex LuaMaterialFunctorRuntimeContext::GetShaderInputConstantIndex(const char* name, const char* functionName) const
+        RHI::ShaderInputConstantIndex LuaMaterialFunctorMainRuntimeContext::GetShaderInputConstantIndex(const char* name, const char* functionName) const
         {
             Name fullInputName{name};
             m_materialNameContext.ContextualizeSrgInput(fullInputName);
@@ -408,7 +444,7 @@ namespace AZ
         }
 
         template<typename Type>
-        bool LuaMaterialFunctorRuntimeContext::SetShaderConstant(const char* name, Type value)
+        bool LuaMaterialFunctorMainRuntimeContext::SetShaderConstant(const char* name, Type value)
         {
             RHI::ShaderInputConstantIndex index = GetShaderInputConstantIndex(name, "SetShaderConstant");
             if (index.IsValid())
@@ -419,16 +455,16 @@ namespace AZ
             return false;
         }
 
-        AZStd::size_t LuaMaterialFunctorRuntimeContext::GetShaderCount() const
+        AZStd::size_t LuaMaterialFunctorMainRuntimeContext::GetShaderCount() const
         {
             return m_runtimeContextImpl->GetShaderCount();
         }
 
-        LuaMaterialFunctorShaderItem LuaMaterialFunctorRuntimeContext::GetShader(AZStd::size_t index)
+        LuaMaterialFunctorShaderItem LuaMaterialFunctorMainRuntimeContext::GetShader(AZStd::size_t index)
         {
             if (index < GetShaderCount())
             {
-                return LuaMaterialFunctorShaderItem{this, &(*m_runtimeContextImpl->m_commonShaderCollection)[index]};
+                return LuaMaterialFunctorShaderItem{this, &(*m_runtimeContextImpl->m_localShaderCollection)[index]};
             }
             else
             {
@@ -437,12 +473,12 @@ namespace AZ
             }
         }
 
-        LuaMaterialFunctorShaderItem LuaMaterialFunctorRuntimeContext::GetShaderByTag(const char* shaderTag)
+        LuaMaterialFunctorShaderItem LuaMaterialFunctorMainRuntimeContext::GetShaderByTag(const char* shaderTag)
         {
             const AZ::Name tag{shaderTag};
-            if (m_runtimeContextImpl->m_commonShaderCollection->HasShaderTag(tag))
+            if (m_runtimeContextImpl->m_localShaderCollection->HasShaderTag(tag))
             {
-                return LuaMaterialFunctorShaderItem{this, &(*m_runtimeContextImpl->m_commonShaderCollection)[tag]};
+                return LuaMaterialFunctorShaderItem{this, &(*m_runtimeContextImpl->m_localShaderCollection)[tag]};
             }
             else
             {
@@ -452,10 +488,173 @@ namespace AZ
             }
         }
         
-        bool LuaMaterialFunctorRuntimeContext::HasShaderWithTag(const char* shaderTag)
+        bool LuaMaterialFunctorMainRuntimeContext::HasShaderWithTag(const char* shaderTag)
         {
-            return m_runtimeContextImpl->m_commonShaderCollection->HasShaderTag(AZ::Name{shaderTag});
+            return m_runtimeContextImpl->m_localShaderCollection->HasShaderTag(AZ::Name{shaderTag});
         }
+
+
+
+
+
+
+
+
+
+
+
+        // Explicit specialization must be declared before expanding it in LuaMaterialFunctorRuntimeContext::Reflect()
+        template<>
+        bool LuaMaterialFunctorPipelineRuntimeContext::SetShaderOptionValue(const char* name, const char* value);
+
+        void LuaMaterialFunctorPipelineRuntimeContext::Reflect(BehaviorContext* behaviorContext)
+        {
+            behaviorContext->Class<LuaMaterialFunctorPipelineRuntimeContext>()
+                ->Method("GetMaterialPropertyValue_bool", &LuaMaterialFunctorPipelineRuntimeContext::GetMaterialPropertyValue<bool>)
+                ->Method("GetMaterialPropertyValue_int", &LuaMaterialFunctorPipelineRuntimeContext::GetMaterialPropertyValue<int32_t>)
+                ->Method("GetMaterialPropertyValue_uint", &LuaMaterialFunctorPipelineRuntimeContext::GetMaterialPropertyValue<uint32_t>)
+                ->Method("GetMaterialPropertyValue_enum", &LuaMaterialFunctorPipelineRuntimeContext::GetMaterialPropertyValue<uint32_t>)
+                ->Method("GetMaterialPropertyValue_float", &LuaMaterialFunctorPipelineRuntimeContext::GetMaterialPropertyValue<float>)
+                ->Method("GetMaterialPropertyValue_Vector2", &LuaMaterialFunctorPipelineRuntimeContext::GetMaterialPropertyValue<Vector2>)
+                ->Method("GetMaterialPropertyValue_Vector3", &LuaMaterialFunctorPipelineRuntimeContext::GetMaterialPropertyValue<Vector3>)
+                ->Method("GetMaterialPropertyValue_Vector4", &LuaMaterialFunctorPipelineRuntimeContext::GetMaterialPropertyValue<Vector4>)
+                ->Method("GetMaterialPropertyValue_Color", &LuaMaterialFunctorPipelineRuntimeContext::GetMaterialPropertyValue<Color>)
+                ->Method("GetMaterialPropertyValue_Image", &LuaMaterialFunctorPipelineRuntimeContext::GetMaterialPropertyValue<Image*>)
+                ->Method("HasMaterialProperty", &LuaMaterialFunctorPipelineRuntimeContext::HasMaterialValue)
+                //->Method("SetShaderConstant_bool", &LuaMaterialFunctorPipelineRuntimeContext::SetShaderConstant<bool>)
+                //->Method("SetShaderConstant_int", &LuaMaterialFunctorPipelineRuntimeContext::SetShaderConstant<int32_t>)
+                //->Method("SetShaderConstant_uint", &LuaMaterialFunctorPipelineRuntimeContext::SetShaderConstant<uint32_t>)
+                //->Method("SetShaderConstant_float", &LuaMaterialFunctorPipelineRuntimeContext::SetShaderConstant<float>)
+                //->Method("SetShaderConstant_Vector2", &LuaMaterialFunctorPipelineRuntimeContext::SetShaderConstant<Vector2>)
+                //->Method("SetShaderConstant_Vector3", &LuaMaterialFunctorPipelineRuntimeContext::SetShaderConstant<Vector3>)
+                //->Method("SetShaderConstant_Vector4", &LuaMaterialFunctorPipelineRuntimeContext::SetShaderConstant<Vector4>)
+                //->Method("SetShaderConstant_Color", &LuaMaterialFunctorPipelineRuntimeContext::SetShaderConstant<Color>)
+                //->Method("SetShaderConstant_Matrix3x3", &LuaMaterialFunctorPipelineRuntimeContext::SetShaderConstant<Matrix3x3>)
+                //->Method("SetShaderConstant_Matrix4x4", &LuaMaterialFunctorPipelineRuntimeContext::SetShaderConstant<Matrix4x4>)
+                ->Method("SetShaderOptionValue_bool", &LuaMaterialFunctorPipelineRuntimeContext::SetShaderOptionValue<bool>)
+                ->Method("SetShaderOptionValue_uint", &LuaMaterialFunctorPipelineRuntimeContext::SetShaderOptionValue<uint32_t>)
+                ->Method("SetShaderOptionValue_enum", &LuaMaterialFunctorPipelineRuntimeContext::SetShaderOptionValue<const char*>)
+                ->Method("GetShaderCount", &LuaMaterialFunctorPipelineRuntimeContext::GetShaderCount)
+                ->Method("GetShader", &LuaMaterialFunctorPipelineRuntimeContext::GetShader)
+                ->Method("GetShaderByTag", &LuaMaterialFunctorPipelineRuntimeContext::GetShaderByTag)
+                ->Method("HasShaderWithTag", &LuaMaterialFunctorPipelineRuntimeContext::HasShaderWithTag)
+                ;
+        }
+
+        LuaMaterialFunctorPipelineRuntimeContext::LuaMaterialFunctorPipelineRuntimeContext(MaterialFunctor::PipelineRuntimeContext* runtimeContextImpl,
+            const MaterialPropertyFlags* materialPropertyDependencies,
+            const MaterialNameContext& materialNameContext)
+            : LuaMaterialFunctorCommonContext(runtimeContextImpl, materialPropertyDependencies, materialNameContext)
+            , m_runtimeContextImpl(runtimeContextImpl)
+        {
+        }
+
+        template<typename Type>
+        Type LuaMaterialFunctorPipelineRuntimeContext::GetMaterialPropertyValue(const char* name) const
+        {
+            return LuaMaterialFunctorCommonContext::GetMaterialPropertyValue<Type>(name);
+        }
+
+        bool LuaMaterialFunctorPipelineRuntimeContext::HasMaterialValue(const char* name) const
+        {
+            Name propertyFullName{name};
+            m_materialNameContext.ContextualizeProperty(propertyFullName);
+            
+            MaterialPropertyIndex propertyIndex = GetMaterialPropertiesLayout()->FindPropertyIndex(propertyFullName);
+            return propertyIndex.IsValid();
+        }
+
+        template<>
+        bool LuaMaterialFunctorPipelineRuntimeContext::SetShaderOptionValue(const char* name, const char* value)
+        {
+            Name optionName{name};
+            m_materialNameContext.ContextualizeShaderOption(optionName);
+            return m_runtimeContextImpl->SetShaderOptionValue(optionName, Name{value});
+        }
+
+        template<typename Type>
+        bool LuaMaterialFunctorPipelineRuntimeContext::SetShaderOptionValue(const char* name, Type value)
+        {
+            Name optionName{name};
+            m_materialNameContext.ContextualizeShaderOption(optionName);
+            return m_runtimeContextImpl->SetShaderOptionValue(optionName, ShaderOptionValue{value});
+        }
+
+        //RHI::ShaderInputConstantIndex LuaMaterialFunctorPipelineRuntimeContext::GetShaderInputConstantIndex(const char* name, const char* functionName) const
+        //{
+        //    Name fullInputName{name};
+        //    m_materialNameContext.ContextualizeSrgInput(fullInputName);
+        //
+        //    RHI::ShaderInputConstantIndex index = m_runtimeContextImpl->m_shaderResourceGroup->FindShaderInputConstantIndex(fullInputName);
+        //
+        //    if (!index.IsValid())
+        //    {
+        //        LuaScriptUtilities::Error(AZStd::string::format("%s() could not find shader input '%s'", functionName, fullInputName.GetCStr()));
+        //    }
+        //
+        //    return index;
+        //}
+
+        //template<typename Type>
+        //bool LuaMaterialFunctorPipelineRuntimeContext::SetShaderConstant(const char* name, Type value)
+        //{
+        //    RHI::ShaderInputConstantIndex index = GetShaderInputConstantIndex(name, "SetShaderConstant");
+        //    if (index.IsValid())
+        //    {
+        //        return m_runtimeContextImpl->m_shaderResourceGroup->SetConstant(index, value);
+        //    }
+        //
+        //    return false;
+        //}
+
+        AZStd::size_t LuaMaterialFunctorPipelineRuntimeContext::GetShaderCount() const
+        {
+            return m_runtimeContextImpl->GetShaderCount();
+        }
+
+        LuaMaterialFunctorShaderItem LuaMaterialFunctorPipelineRuntimeContext::GetShader(AZStd::size_t index)
+        {
+            if (index < GetShaderCount())
+            {
+                return LuaMaterialFunctorShaderItem{this, &(*m_runtimeContextImpl->m_localShaderCollection)[index]};
+            }
+            else
+            {
+                LuaScriptUtilities::Error(AZStd::string::format("GetShader(%zu) is invalid.", index));
+                return {};
+            }
+        }
+
+        LuaMaterialFunctorShaderItem LuaMaterialFunctorPipelineRuntimeContext::GetShaderByTag(const char* shaderTag)
+        {
+            const AZ::Name tag{shaderTag};
+            if (m_runtimeContextImpl->m_localShaderCollection->HasShaderTag(tag))
+            {
+                return LuaMaterialFunctorShaderItem{this, &(*m_runtimeContextImpl->m_localShaderCollection)[tag]};
+            }
+            else
+            {
+                LuaScriptUtilities::Error(AZStd::string::format(
+                    "GetShaderByTag('%s') is invalid: Could not find a shader with the tag '%s'.", tag.GetCStr(), tag.GetCStr()));
+                return {};
+            }
+        }
+        
+        bool LuaMaterialFunctorPipelineRuntimeContext::HasShaderWithTag(const char* shaderTag)
+        {
+            return m_runtimeContextImpl->m_localShaderCollection->HasShaderTag(AZ::Name{shaderTag});
+        }
+
+
+
+
+
+
+
+
+
+
+
 
         void LuaMaterialFunctorEditorContext::LuaMaterialFunctorEditorContext::Reflect(BehaviorContext* behaviorContext)
         {

@@ -39,7 +39,8 @@ namespace AZ
 
             LuaMaterialFunctor();
 
-            void Process(RuntimeContext& context) override;
+            void Process(MainRuntimeContext& context) override;
+            void Process(PipelineRuntimeContext& context) override;
             void Process(EditorContext& context) override;
 
         private:
@@ -73,15 +74,19 @@ namespace AZ
         };
 
 
-        //! Provides some shared code for LuaMaterialFunctorRuntimeContext and LuaMaterialFunctorEditorContext.
+        //! Provides some shared code for LuaMaterialFunctorMainRuntimeContext, LuaMaterialFunctorPipelineRuntimeContext, and LuaMaterialFunctorEditorContext.
         class LuaMaterialFunctorCommonContext
         {
         public:
             AZ_TYPE_INFO(AZ::RPI::LuaMaterialFunctorCommonContext, "{2CCCB9A9-AD4F-447C-B587-E7A91CEA8088}");
 
-            explicit LuaMaterialFunctorCommonContext(MaterialFunctor::RuntimeContext* runtimeContextImpl,
+            explicit LuaMaterialFunctorCommonContext(MaterialFunctor::MainRuntimeContext* runtimeContextImpl,
                 const MaterialPropertyFlags* materialPropertyDependencies,
                 const MaterialNameContext &materialNameContext);
+
+            explicit LuaMaterialFunctorCommonContext(MaterialFunctor::PipelineRuntimeContext* runtimeContextImpl,
+                const MaterialPropertyFlags* materialPropertyDependencies,
+                const MaterialNameContext& materialNameContext);
 
             explicit LuaMaterialFunctorCommonContext(MaterialFunctor::EditorContext* editorContextImpl,
                 const MaterialPropertyFlags* materialPropertyDependencies,
@@ -110,7 +115,8 @@ namespace AZ
         private:
 
             // Only one of these will be valid
-            MaterialFunctor::RuntimeContext* m_runtimeContextImpl = nullptr;
+            MaterialFunctor::MainRuntimeContext* m_mainRuntimeContextImpl = nullptr;
+            MaterialFunctor::PipelineRuntimeContext* m_pipelineRuntimeContextImpl = nullptr;
             MaterialFunctor::EditorContext* m_editorContextImpl = nullptr;
             const MaterialPropertyFlags* m_materialPropertyDependencies = nullptr;
             bool m_psoChangesReported = false; //!< errors/warnings about PSO changes will only be reported once per execution of the functor
@@ -263,15 +269,15 @@ namespace AZ
             ShaderCollection::Item* m_shaderItem = nullptr;
         };
 
-        //! Wraps MaterialFunctor::RuntimeContext with lua bindings
-        class LuaMaterialFunctorRuntimeContext : public LuaMaterialFunctorCommonContext
+        //! Wraps MaterialFunctor::MainRuntimeContext with lua bindings
+        class LuaMaterialFunctorMainRuntimeContext : public LuaMaterialFunctorCommonContext
         {
         public:
-            AZ_TYPE_INFO(AZ::RPI::LuaMaterialFunctorRuntimeContext, "{00FF6AE5-DE0A-41E2-B3F8-FBB9E265C399}");
+            AZ_TYPE_INFO(AZ::RPI::LuaMaterialFunctorMainRuntimeContext, "{00FF6AE5-DE0A-41E2-B3F8-FBB9E265C399}");
 
             static void Reflect(BehaviorContext* behaviorContext);
 
-            explicit LuaMaterialFunctorRuntimeContext(MaterialFunctor::RuntimeContext* runtimeContextImpl,
+            explicit LuaMaterialFunctorMainRuntimeContext(MaterialFunctor::MainRuntimeContext* runtimeContextImpl,
                 const MaterialPropertyFlags* materialPropertyDependencies,
                 const MaterialNameContext &materialNameContext);
 
@@ -298,7 +304,45 @@ namespace AZ
 
             RHI::ShaderInputConstantIndex GetShaderInputConstantIndex(const char* name, const char* functionName) const;
 
-            MaterialFunctor::RuntimeContext* m_runtimeContextImpl = nullptr;
+            MaterialFunctor::MainRuntimeContext* m_runtimeContextImpl = nullptr;
+        };
+
+        //! Wraps MaterialFunctor::PipelineRuntimeContext with lua bindings
+        class LuaMaterialFunctorPipelineRuntimeContext : public LuaMaterialFunctorCommonContext
+        {
+        public:
+            AZ_TYPE_INFO(AZ::RPI::LuaMaterialFunctorPipelineRuntimeContext, "{632F1E52-79EE-4184-A7B0-55C0EEEC5AB2}");
+
+            static void Reflect(BehaviorContext* behaviorContext);
+
+            explicit LuaMaterialFunctorPipelineRuntimeContext(MaterialFunctor::PipelineRuntimeContext* runtimeContextImpl,
+                const MaterialPropertyFlags* materialPropertyDependencies,
+                const MaterialNameContext& materialNameContext);
+
+            template<typename Type>
+            Type GetMaterialPropertyValue(const char* name) const;
+
+            bool HasMaterialValue(const char* name) const;
+
+            //! Set the value of a shader option. Applies to any shader that has an option with this name.
+            //! @param name the name of the shader option to set
+            //! @param value the new value for the shader option
+            template<typename Type>
+            bool SetShaderOptionValue(const char* name, Type value);
+
+            //template<typename T>
+            //bool SetShaderConstant(const char* name, T value);
+
+            AZStd::size_t GetShaderCount() const;
+            LuaMaterialFunctorShaderItem GetShader(AZStd::size_t index);
+            LuaMaterialFunctorShaderItem GetShaderByTag(const char* shaderTag);
+            bool HasShaderWithTag(const char* shaderTag);
+
+        private:
+
+            //RHI::ShaderInputConstantIndex GetShaderInputConstantIndex(const char* name, const char* functionName) const;
+
+            MaterialFunctor::PipelineRuntimeContext* m_runtimeContextImpl = nullptr;
         };
 
         //! Wraps MaterialFunctor::EditorContext with lua bindings
@@ -342,7 +386,8 @@ namespace AZ
         class LuaMaterialFunctorUtilities
         {
             friend LuaMaterialFunctorCommonContext;
-            friend LuaMaterialFunctorRuntimeContext;
+            friend LuaMaterialFunctorMainRuntimeContext;
+            friend LuaMaterialFunctorPipelineRuntimeContext;
             friend LuaMaterialFunctorEditorContext;
             friend LuaMaterialFunctorRenderStates;
             friend LuaMaterialFunctorShaderItem;

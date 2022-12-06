@@ -45,15 +45,17 @@ namespace AZ
                 serializeContext->RegisterGenericType<MaterialUvNameMap>();
 
                 serializeContext->Class<MaterialTypeAsset, AZ::Data::AssetData>()
-                    ->Version(7) // Material pipeline support
+                    ->Version(8) // Material pipeline functor support
                     ->Field("Version", &MaterialTypeAsset::m_version)
                     ->Field("VersionUpdates", &MaterialTypeAsset::m_materialVersionUpdates)
                     ->Field("ShaderCollections", &MaterialTypeAsset::m_shaderCollections)
-                    ->Field("MaterialFunctors", &MaterialTypeAsset::m_materialFunctors)
+                    ->Field("MaterialFunctorLists", &MaterialTypeAsset::m_materialFunctorLists)
                     ->Field("ShaderWithMaterialSrg", &MaterialTypeAsset::m_shaderWithMaterialSrg)
                     ->Field("ShaderWithObjectSrg", &MaterialTypeAsset::m_shaderWithObjectSrg)
                     ->Field("MaterialPropertiesLayout", &MaterialTypeAsset::m_materialPropertiesLayout)
                     ->Field("DefaultPropertyValues", &MaterialTypeAsset::m_propertyValues)
+                    ->Field("InternalMaterialPropertiesLayout", &MaterialTypeAsset::m_internalMaterialPropertiesLayout)
+                    ->Field("DefaultInternalPropertyValues", &MaterialTypeAsset::m_internalPropertyValues)
                     ->Field("UvNameMap", &MaterialTypeAsset::m_uvNameMap)
                     ;
             }
@@ -85,9 +87,22 @@ namespace AZ
             return pipelineDataIter->second;
         }
 
-        const MaterialFunctorList& MaterialTypeAsset::GetMaterialFunctors() const
+        const MaterialPipelineFunctorLists& MaterialTypeAsset::GetMaterialFunctorLists() const
         {
-            return m_materialFunctors;
+            return m_materialFunctorLists;
+        }
+
+        const MaterialFunctorList& MaterialTypeAsset::GetMaterialFunctorList(const Name& forPipeline) const
+        {
+            static const MaterialFunctorList EmptyList;
+
+            auto pipelineDataIter = m_materialFunctorLists.find(forPipeline);
+            if (pipelineDataIter == m_materialFunctorLists.end())
+            {
+                return EmptyList;
+            }
+
+            return pipelineDataIter->second;
         }
 
         const RHI::Ptr<RHI::ShaderResourceGroupLayout>& MaterialTypeAsset::GetMaterialSrgLayout(
@@ -159,9 +174,19 @@ namespace AZ
             return m_materialPropertiesLayout.get();
         }
 
-        AZStd::span<const MaterialPropertyValue> MaterialTypeAsset::GetDefaultPropertyValues() const
+        const MaterialPropertiesLayout* MaterialTypeAsset::GetInternalMaterialPropertiesLayout() const
+        {
+            return m_internalMaterialPropertiesLayout.get();
+        }
+
+        const AZStd::vector<MaterialPropertyValue>& MaterialTypeAsset::GetDefaultPropertyValues() const
         {
             return m_propertyValues;
+        }
+
+        const AZStd::vector<MaterialPropertyValue>& MaterialTypeAsset::GetDefaultInternalPropertyValues() const
+        {
+            return m_internalPropertyValues;
         }
 
         MaterialUvNameMap MaterialTypeAsset::GetUvNameMap() const

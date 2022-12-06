@@ -315,6 +315,8 @@ namespace UnitTest
         {
             RPITestFixture::Reflect(context);
 
+            MaterialPropertyValue::Reflect(context);
+            MaterialPropertySourceData::Reflect(context);
             MaterialTypeSourceData::Reflect(context);
 
             MaterialFunctorSourceDataHolder::Reflect(context);

@@ -33,7 +33,7 @@ namespace AZ
             }
         }
 
-        void ConvertEmissiveUnitFunctor::Process(RuntimeContext& context)
+        void ConvertEmissiveUnitFunctor::Process(MainRuntimeContext& context)
         {
             // Convert unit on runtime
             float sourceValue = context.GetMaterialPropertyValue<float>(m_intensityPropertyIndex);

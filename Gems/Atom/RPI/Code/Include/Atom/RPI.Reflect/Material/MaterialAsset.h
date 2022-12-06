@@ -62,18 +62,22 @@ namespace AZ
             //! Returns the MaterialTypeAsset.
             const Data::Asset<MaterialTypeAsset>& GetMaterialTypeAsset() const;
 
-            //! Return the set of shaders to be run by this material.
+            //! Return the set of shaders.
             const MaterialPipelineShaderCollections& GetShaderCollections() const;
 
-            //! Returns the collection of shaders that this material could run for a given pipeline.
+            //! Returns the collection of shaders for a given pipeline.
             //! @param forPipeline the name of the material pipeline to query for shaders. For MaterialPipelineNameCommon, 
             //!        this returns a list of shaders that should be sent to all pipelines.
             const ShaderCollection& GetShaderCollection(const Name& forPipeline) const;
 
-            //! The material may contain any number of MaterialFunctors.
-            //! Material functors provide custom logic and calculations to configure shaders, render states, and more.
-            //! See MaterialFunctor.h for details.
-            const MaterialFunctorList& GetMaterialFunctors() const;
+            //! Return the list of functors.
+            //! See MaterialPipelineFunctorLists for details.
+            const MaterialPipelineFunctorLists& GetMaterialFunctorLists() const;
+
+            //! Returns the list of functors for a given pipeline.
+            //! See MaterialPipelineFunctorLists for details.
+            //! @param forPipeline the name of the material pipeline to query for functors. 
+            const MaterialFunctorList& GetMaterialFunctorList(const Name& forPipeline) const;
 
             //! Returns the shader resource group layout that has per-material frequency, which indicates most of the topology
             //! for a material's shaders.
@@ -117,7 +121,15 @@ namespace AZ
             //! Calling GetPropertyValues() will automatically finalize the material asset if it isn't finalized already. The
             //! MaterialTypeAsset must be loaded and ready.
             const AZStd::vector<MaterialPropertyValue>& GetPropertyValues();
-            
+
+            //! Similar to GetMaterialPropertiesLayout(), but used to pass data from the main material properties to the material pipeline
+            //! portion of the material type.
+            const MaterialPropertiesLayout* GetInternalMaterialPropertiesLayout() const;
+
+            //! Similar to GetDefaultPropertyValues(), but used to pass data from the main material properties to the material pipeline
+            //! portion of the material type.
+            const AZStd::vector<MaterialPropertyValue>& GetDefaultInternalPropertyValues() const;
+
             //! Returns true if material was created in a finalize state, as opposed to being finalized after loading from disk.
             bool WasPreFinalized() const;
             

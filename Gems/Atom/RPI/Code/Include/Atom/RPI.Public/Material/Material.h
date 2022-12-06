@@ -9,15 +9,8 @@
 
 #include <AzCore/Asset/AssetCommon.h>
 
-// These classes are not directly referenced in this header only because the Set/GetPropertyValue()
-// functions are templatized. But the API is still specific to these data types so we include them here.
-#include <AzCore/Math/Vector2.h>
-#include <AzCore/Math/Vector3.h>
-#include <AzCore/Math/Vector4.h>
-#include <AzCore/Math/Color.h>
-
 #include <Atom/RPI.Reflect/Material/MaterialAsset.h>
-#include <Atom/RPI.Reflect/Material/MaterialPropertyDescriptor.h>
+#include <Atom/RPI.Reflect/Material/MaterialPropertyCollection.h>
 #include <Atom/RPI.Public/Shader/ShaderReloadNotificationBus.h>
 
 #include <AtomCore/Instance/InstanceData.h>
@@ -152,9 +145,6 @@ namespace AZ
             void OnShaderVariantReinitialized(const ShaderVariant& shaderVariant) override;
             ///////////////////////////////////////////////////////////////////
 
-            template<typename Type>
-            bool ValidatePropertyAccess(const MaterialPropertyDescriptor* propertyDescriptor) const;
-
             //! Helper function for setting the value of a shader constant input, allowing for specialized handling of specific types.
             //! This template is explicitly specialized in the cpp file.
             template<typename Type>
@@ -164,6 +154,20 @@ namespace AZ
             //! This template is explicitly specialized in the cpp file.
             template<typename Type>
             bool SetShaderOption(ShaderOptionGroup& options, ShaderOptionIndex shaderOptionIndex, Type value);
+
+            bool TryApplyPropertyConnectionToShaderInput(
+                const MaterialPropertyValue & value,
+                const MaterialPropertyOutputId & connection,
+                const MaterialPropertyDescriptor * propertyDescriptor);
+            bool TryApplyPropertyConnectionToShaderOption(
+                const MaterialPropertyValue & value,
+                const MaterialPropertyOutputId & connection);
+            bool TryApplyPropertyConnectionToShaderEnable(
+                const MaterialPropertyValue & value,
+                const MaterialPropertyOutputId & connection);
+
+            void ProcessDirectConnections();
+            void ProcessMaterialFunctors();
 
             static const char* s_debugTraceName;
 
@@ -176,17 +180,11 @@ namespace AZ
             //! The RHI shader resource group owned by m_shaderResourceGroup. Held locally to avoid an indirection.
             const RHI::ShaderResourceGroup* m_rhiShaderResourceGroup = nullptr;
 
-            //! Provides a description of the set of available material properties, cached locally so we don't have to keep fetching it from the MaterialTypeSourceData.
-            RHI::ConstPtr<MaterialPropertiesLayout> m_layout;
+            //! These the main material properties, exposed in the Material Editor, and configured directly by users.
+            MaterialPropertyCollection m_mainMaterialProperties;
 
-            //! Values for all properties in MaterialPropertiesLayout
-            AZStd::vector<MaterialPropertyValue> m_propertyValues;
-
-            //! Flags indicate which properties have been modified so that related functors will update.
-            MaterialPropertyFlags m_propertyDirtyFlags;
-
-            //! Used to track which properties have been modified at runtime so they can be preserved if the material has to reinitialiize.
-            MaterialPropertyFlags m_propertyOverrideFlags;
+            //! These are internal properties that are used to pass intermediate data from the main material properties to the material pipeline.
+            MaterialPropertyCollection m_internalMaterialProperties;
 
             //! A copy of the MaterialAsset's ShaderCollection is stored here to allow material-specific changes to the default collection.
             MaterialPipelineShaderCollections m_shaderCollections;

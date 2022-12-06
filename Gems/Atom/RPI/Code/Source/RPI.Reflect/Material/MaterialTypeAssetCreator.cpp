@@ -22,6 +22,9 @@ namespace AZ
             {
                 m_materialPropertiesLayout = aznew MaterialPropertiesLayout;
                 m_asset->m_materialPropertiesLayout = m_materialPropertiesLayout;
+
+                m_internalMaterialPropertiesLayout = aznew MaterialPropertiesLayout;
+                m_asset->m_internalMaterialPropertiesLayout = m_internalMaterialPropertiesLayout;
             }
         }
 
@@ -36,6 +39,7 @@ namespace AZ
 
             m_materialShaderResourceGroupLayout = nullptr;
             m_materialPropertiesLayout = nullptr;
+            m_internalMaterialPropertiesLayout = nullptr;
 
             return EndCommon(result);
         }
@@ -161,64 +165,79 @@ namespace AZ
             return m_materialPropertiesLayout;
         }
 
+        const MaterialPropertiesLayout* MaterialTypeAssetCreator::GetInternalMaterialPropertiesLayout() const
+        {
+            return m_internalMaterialPropertiesLayout;
+        }
+
         const RHI::ShaderResourceGroupLayout* MaterialTypeAssetCreator::GetMaterialShaderResourceGroupLayout() const
         {
             return m_materialShaderResourceGroupLayout;
         }
 
-        void MaterialTypeAssetCreator::AddMaterialProperty(MaterialPropertyDescriptor&& materialProperty)
+        void MaterialTypeAssetCreator::AddMaterialProperty(MaterialPropertyDescriptor&& materialProperty, MaterialPropertyValue&& defaultValue, PropertyType materialPropertyType)
         {
             if (ValidateIsReady())
             {
-                if (m_asset->m_propertyValues.size() >= Limits::Material::PropertyCountMax)
+                AZStd::vector<MaterialPropertyValue>& propertyValues = materialPropertyType == PropertyType::Main ? m_asset->m_propertyValues : m_asset->m_internalPropertyValues;
+                MaterialPropertiesLayout* layout = materialPropertyType == PropertyType::Main ? m_materialPropertiesLayout : m_internalMaterialPropertiesLayout;
+
+                if (propertyValues.size() >= Limits::Material::PropertyCountMax)
                 {
-                    ReportError("Too man material properties. Max is %d.", Limits::Material::PropertyCountMax);
+                    ReportError("Too man material propertyValues. Max is %d.", Limits::Material::PropertyCountMax);
                     return;
                 }
 
-                // Add the appropriate default property value for the property's data type.
-                // Note, we use a separate switch statement from the one above just for clarity.
-                switch (materialProperty.GetDataType())
+                if (defaultValue.IsValid())
                 {
-                case MaterialPropertyDataType::Bool:
-                    m_asset->m_propertyValues.emplace_back(false);
-                    break;
-                case MaterialPropertyDataType::Int:
-                    m_asset->m_propertyValues.emplace_back(0);
-                    break;
-                case MaterialPropertyDataType::UInt:
-                    m_asset->m_propertyValues.emplace_back(0u);
-                    break;
-                case MaterialPropertyDataType::Float:
-                    m_asset->m_propertyValues.emplace_back(0.0f);
-                    break;
-                case MaterialPropertyDataType::Vector2:
-                    m_asset->m_propertyValues.emplace_back(Vector2{ 0.0f, 0.0f });
-                    break;
-                case MaterialPropertyDataType::Vector3:
-                    m_asset->m_propertyValues.emplace_back(Vector3{ 0.0f, 0.0f, 0.0f });
-                    break;
-                case MaterialPropertyDataType::Vector4:
-                    m_asset->m_propertyValues.emplace_back(Vector4{ 0.0f, 0.0f, 0.0f, 0.0f });
-                    break;
-                case MaterialPropertyDataType::Color:
-                    m_asset->m_propertyValues.emplace_back(Color{ 1.0f, 1.0f, 1.0f, 1.0f });
-                    break;
-                case MaterialPropertyDataType::Image:
-                    m_asset->m_propertyValues.emplace_back(Data::Asset<ImageAsset>({}));
-                    break;
-                case MaterialPropertyDataType::Enum:
-                    m_asset->m_propertyValues.emplace_back(0u);
-                    break;
-                default:
-                    ReportError("Material property '%s': Data type is invalid.", materialProperty.GetName().GetCStr());
-                    return;
+                    propertyValues.emplace_back(defaultValue);
+                }
+                else
+                {
+                    // Add the appropriate default property value for the property's data type.
+                    // Note, we use a separate switch statement from the one above just for clarity.
+                    switch (materialProperty.GetDataType())
+                    {
+                    case MaterialPropertyDataType::Bool:
+                        propertyValues.emplace_back(false);
+                        break;
+                    case MaterialPropertyDataType::Int:
+                        propertyValues.emplace_back(0);
+                        break;
+                    case MaterialPropertyDataType::UInt:
+                        propertyValues.emplace_back(0u);
+                        break;
+                    case MaterialPropertyDataType::Float:
+                        propertyValues.emplace_back(0.0f);
+                        break;
+                    case MaterialPropertyDataType::Vector2:
+                        propertyValues.emplace_back(Vector2{0.0f, 0.0f});
+                        break;
+                    case MaterialPropertyDataType::Vector3:
+                        propertyValues.emplace_back(Vector3{0.0f, 0.0f, 0.0f});
+                        break;
+                    case MaterialPropertyDataType::Vector4:
+                        propertyValues.emplace_back(Vector4{0.0f, 0.0f, 0.0f, 0.0f});
+                        break;
+                    case MaterialPropertyDataType::Color:
+                        propertyValues.emplace_back(Color{1.0f, 1.0f, 1.0f, 1.0f});
+                        break;
+                    case MaterialPropertyDataType::Image:
+                        propertyValues.emplace_back(Data::Asset<ImageAsset>({}));
+                        break;
+                    case MaterialPropertyDataType::Enum:
+                        propertyValues.emplace_back(0u);
+                        break;
+                    default:
+                        ReportError("Material property '%s': Data type is invalid.", materialProperty.GetName().GetCStr());
+                        return;
+                    }
                 }
 
                 // Add the new descriptor
-                MaterialPropertyIndex newIndex(static_cast<uint32_t>(m_materialPropertiesLayout->GetPropertyCount()));
-                m_materialPropertiesLayout->m_materialPropertyIndexes.Insert(materialProperty.GetName(), newIndex);
-                m_materialPropertiesLayout->m_materialPropertyDescriptors.emplace_back(AZStd::move(materialProperty));
+                MaterialPropertyIndex newIndex(static_cast<uint32_t>(layout->GetPropertyCount()));
+                layout->m_materialPropertyIndexes.Insert(materialProperty.GetName(), newIndex);
+                layout->m_materialPropertyDescriptors.emplace_back(AZStd::move(materialProperty));
             }
         }
 
@@ -249,7 +268,7 @@ namespace AZ
             return true;
         }
 
-        void MaterialTypeAssetCreator::BeginMaterialProperty(const Name& materialPropertyName, MaterialPropertyDataType dataType)
+        void MaterialTypeAssetCreator::BeginMaterialProperty(const Name& materialPropertyName, MaterialPropertyDataType dataType, PropertyType materialPropertyType)
         {
             if (!ValidateIsReady())
             {
@@ -261,7 +280,9 @@ namespace AZ
                 return;
             }
 
-            if (m_materialPropertiesLayout->FindPropertyIndex(materialPropertyName).IsValid())
+            const MaterialPropertiesLayout* layout = materialPropertyType == PropertyType::Main ? m_materialPropertiesLayout : m_internalMaterialPropertiesLayout;
+
+            if (layout->FindPropertyIndex(materialPropertyName).IsValid())
             {
                 ReportError("Material property '%s': A property with this ID already exists.", materialPropertyName.GetCStr());
                 return;
@@ -275,6 +296,8 @@ namespace AZ
 
             m_wipMaterialProperty.m_nameId = materialPropertyName;
             m_wipMaterialProperty.m_dataType = dataType;
+            m_wipMaterialPropertyValue = {};
+            m_wipMaterialPropertyType = materialPropertyType;
         }
 
         void MaterialTypeAssetCreator::ConnectMaterialPropertyToShaderInput(const Name& shaderInputName)
@@ -457,66 +480,39 @@ namespace AZ
                 return;
             }
 
-            AddMaterialProperty(AZStd::move(m_wipMaterialProperty));
+            AddMaterialProperty(AZStd::move(m_wipMaterialProperty), AZStd::move(m_wipMaterialPropertyValue), m_wipMaterialPropertyType);
 
             m_wipMaterialProperty = MaterialPropertyDescriptor{};
         }
         
-        bool MaterialTypeAssetCreator::PropertyCheck(TypeId typeId, const Name& name)
+        void MaterialTypeAssetCreator::SetMaterialPropertyDefaultValue(const Data::Asset<ImageAsset>& imageAsset)
         {
-            MaterialPropertyIndex propertyIndex = m_materialPropertiesLayout->FindPropertyIndex(name);
-            if (!propertyIndex.IsValid())
-            {
-                ReportWarning("Material property '%s' not found", name.GetCStr());
-                return false;
-            }
-
-            const MaterialPropertyDescriptor* materialPropertyDescriptor = m_materialPropertiesLayout->GetPropertyDescriptor(propertyIndex);
-            if (!materialPropertyDescriptor)
-            {
-                ReportError("A material property index was found but the property descriptor was null");
-                return false;
-            }
-
-            if (!ValidateMaterialPropertyDataType(typeId, name, materialPropertyDescriptor, [this](const char* message){ReportError("%s", message);}))
-            {
-                return false;
-            }
-
-            return true;
+            return SetMaterialPropertyDefaultValue(MaterialPropertyValue(imageAsset));
         }
 
-        void MaterialTypeAssetCreator::SetPropertyValue(const Name& name, const Data::Asset<ImageAsset>& imageAsset)
+        void MaterialTypeAssetCreator::SetMaterialPropertyDefaultValue(const MaterialPropertyValue& value)
         {
-            return SetPropertyValue(name, MaterialPropertyValue(imageAsset));
-        }
-
-        void MaterialTypeAssetCreator::SetPropertyValue(const Name& name, const MaterialPropertyValue& value)
-        {
-            if (PropertyCheck(value.GetTypeId(), name))
+            if (ValidateMaterialPropertyDataType(value.GetTypeId(), &m_wipMaterialProperty, [this](const char* message) { ReportError("%s", message); }))
             {
-                MaterialPropertyIndex propertyIndex = m_materialPropertiesLayout->FindPropertyIndex(name);
-                m_asset->m_propertyValues[propertyIndex.GetIndex()] = value;
+                m_wipMaterialPropertyValue = value;
             }
         }
 
-        void MaterialTypeAssetCreator::SetPropertyValue(const Name& name, const Data::Asset<StreamingImageAsset>& imageAsset)
+        void MaterialTypeAssetCreator::SetMaterialPropertyDefaultValue(const Data::Asset<StreamingImageAsset>& imageAsset)
         {
-            SetPropertyValue(name, Data::Asset<ImageAsset>(imageAsset));
+            SetMaterialPropertyDefaultValue(Data::Asset<ImageAsset>(imageAsset));
         }
 
-        void MaterialTypeAssetCreator::SetPropertyValue(const Name& name, const Data::Asset<AttachmentImageAsset>& imageAsset)
+        void MaterialTypeAssetCreator::SetMaterialPropertyDefaultValue(const Data::Asset<AttachmentImageAsset>& imageAsset)
         {
-            SetPropertyValue(name, Data::Asset<ImageAsset>(imageAsset));
+            SetMaterialPropertyDefaultValue(Data::Asset<ImageAsset>(imageAsset));
         }
 
-        void MaterialTypeAssetCreator::AddMaterialFunctor(const Ptr<MaterialFunctor>& functor, const AZ::Name& /*materialPipelineName*/)
+        void MaterialTypeAssetCreator::AddMaterialFunctor(const Ptr<MaterialFunctor>& functor, const AZ::Name& materialPipelineName)
         {
             if (ValidateIsReady() && ValidateNotNull(functor, "MaterialFunctor"))
             {
-                m_asset->m_materialFunctors.emplace_back(functor);
-                //TODO(MaterialPipeline): Add support for per-pipeline material functors
-                //m_asset->m_materialFunctors[materialPipelineName].emplace_back(functor);
+                m_asset->m_materialFunctorLists[materialPipelineName].emplace_back(functor);
             }
         }
 
