@@ -120,7 +120,7 @@ def upload(args):
     
 
 def download(args):
-    commits = get_commits(args.repository, args.branch, datetime.today() - timedelta(days=2))
+    commits = get_commits(args.repository, args.branch, datetime.today() - timedelta(days=22))
     print(commits)
     labels = create_labels(args, commits)
     label_to_download = None
@@ -128,7 +128,7 @@ def download(args):
         if is_exists_on_s3(label):
             label_to_download = label
             break
-    cmd = ['s3siscli', 'download', '--label', label_to_download, '--workspace' ,args.workspace]
+    cmd = ['s3siscli', 'download', '--label', label_to_download, '--workspace' ,args.workspace, '--preserve-timestamp', '--preserve-attributes', '--preserve-empty-folders']
     if args.include:
         cmd += ['--include', args.include]
     if args.exclude:

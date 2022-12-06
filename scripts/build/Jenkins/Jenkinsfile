@@ -243,11 +243,6 @@ def CheckoutBootstrapScripts(String branchName) {
 }
 
 def CheckoutRepo(boolean disableSubmodules = false) {
-
-    if (!fileExists(ENGINE_REPOSITORY_NAME)) {
-        palMkdir(ENGINE_REPOSITORY_NAME)
-    }
-
     if(fileExists('.git')) {
         // If the repository after checkout is locked, likely we took a snapshot while git was running,
         // to leave the repo in a usable state, garbagecollect. This also helps in situations where
@@ -376,11 +371,11 @@ def PreBuildCommonSteps(Map pipelineConfig, String snapshot, String repositoryNa
         unstash name: 's3sis_util_script'
 
         def pythonCmd = ''
-        if(env.IS_UNIX) pythonCmd = 'sudo -E python3 -u '
+        if(env.IS_UNIX) pythonCmd = 'python3 -u '
         else pythonCmd = 'python3 -u '
 
         try {
-            palSh("${pythonCmd} ${S3SIS_UTIL_SCRIPT_PATH} --action download --repository ${repositoryName} --branch development --pipeline ${projectName} --platform ${platform} --build-config ${buildType} --workspace ${workspace}/${ENGINE_REPOSITORY_NAME}", 'Downloading workspace', winSlashReplacement=false)
+            palSh("${pythonCmd} ${S3SIS_UTIL_SCRIPT_PATH} --action download --repository ${repositoryName} --branch ${branchName} --pipeline ${projectName} --platform ${platform} --build-config ${buildType} --workspace ${workspace}/${ENGINE_REPOSITORY_NAME}", 'Downloading workspace', winSlashReplacement=false)
         } catch (Exception e) {
             echo "WARN: Failed to download workspace. \n${e}"
         }
