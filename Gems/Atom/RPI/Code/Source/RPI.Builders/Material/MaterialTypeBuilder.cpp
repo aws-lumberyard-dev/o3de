@@ -43,7 +43,7 @@ namespace AZ
         {
             AssetBuilderSDK::AssetBuilderDesc materialBuilderDescriptor;
             materialBuilderDescriptor.m_name = "Material Type Builder";
-            materialBuilderDescriptor.m_version = 23; // Material pipeline functors
+            materialBuilderDescriptor.m_version = 25; // Material pipeline functors
             materialBuilderDescriptor.m_patterns.push_back(AssetBuilderSDK::AssetBuilderPattern("*.materialtype", AssetBuilderSDK::AssetBuilderPattern::PatternType::Wildcard));
             materialBuilderDescriptor.m_busId = azrtti_typeid<MaterialTypeBuilder>();
             materialBuilderDescriptor.m_createJobFunction = AZStd::bind(&MaterialTypeBuilder::CreateJobs, this, AZStd::placeholders::_1, AZStd::placeholders::_2);
@@ -424,7 +424,6 @@ namespace AZ
             // These should already be clear, but just in case
             materialType.m_shaderCollection.clear(); 
             materialType.m_pipelineData.clear();
-            materialType.m_pipelinePropertyLayout.clear();
 
             // Generate the required shaders
             for (const auto& [shaderTemplate, materialPipelineList] : shaderTemplateReferences)
@@ -547,34 +546,7 @@ namespace AZ
             {
                 const Name materialPipelineName = GetMaterialPipelineName(materialPipelineFilePath);
                 materialType.m_pipelineData[materialPipelineName].m_materialFunctorSourceData = materialPipeline.m_runtimeControls.m_materialFunctorSourceData;
-            }
-
-            // Create the internal material property layout. This is union of all properties from all pipelines, because some properties will
-            // be unique to specific material pipelines, and some will be commonly used by multiple pipelines (like "castShadows" for example).
-            AZStd::vector<MaterialPropertySourceData> mergedMaterialPipelineProperties;
-            for (const auto& materialPipelinePair : materialPipelines)
-            {
-                // See if there is an entry that is identical and just ignore any duplicates.
-                // If there are any properties with the same name, but they differ in other respects, that conflict is treated as a failure.
-
-                for (const MaterialPropertySourceData& property : materialPipelinePair.second.m_runtimeControls.m_materialTypeInternalProperties)
-                {
-                    auto matchingEntryIter = AZStd::find_if(materialType.m_pipelinePropertyLayout.begin(), materialType.m_pipelinePropertyLayout.end(),
-                        [&property](const MaterialPropertySourceData& existingEntry)
-                        {
-                            return property.GetName() == existingEntry.GetName();
-                        });
-
-                    if (matchingEntryIter == materialType.m_pipelinePropertyLayout.end())
-                    {
-                        materialType.m_pipelinePropertyLayout.push_back(property);
-                    }
-                    else if(property != *matchingEntryIter)
-                    {
-                        AZ_Error(MaterialTypeBuilderName, false, "Found multiple material pipeline properties named '%s' with conflicting data.", property.GetName().c_str());
-                        return;
-                    }
-                }
+                materialType.m_pipelineData[materialPipelineName].m_pipelinePropertyLayout = materialPipeline.m_runtimeControls.m_materialTypeInternalProperties;
             }
 
             AZ::IO::Path outputMaterialTypeFilePath = request.m_tempDirPath;

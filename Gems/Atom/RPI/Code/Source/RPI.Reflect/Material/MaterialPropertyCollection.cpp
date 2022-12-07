@@ -29,7 +29,7 @@ namespace AZ
     namespace RPI
     {
         bool MaterialPropertyCollection::Init(
-            const MaterialPropertiesLayout* layout,
+            RHI::ConstPtr<MaterialPropertiesLayout> layout,
             const AZStd::vector<MaterialPropertyValue>& defaultValues)
         {
             m_layout = layout;
@@ -89,7 +89,7 @@ namespace AZ
             static const MaterialPropertyValue emptyValue;
             if (m_propertyValues.size() <= index.GetIndex())
             {
-                AZ_Error("Material", false, "Property index out of range.");
+                AZ_Error("MaterialPropertyCollection", false, "Property index out of range.");
                 return emptyValue;
             }
             return m_propertyValues[index.GetIndex()];
@@ -139,6 +139,65 @@ namespace AZ
             m_propertyOverrideFlags.set(index.GetIndex());
 
             return true;
+        }
+
+        template<>
+        bool MaterialPropertyCollection::SetPropertyValue<Data::Asset<ImageAsset>>(MaterialPropertyIndex index, const Data::Asset<ImageAsset>& value)
+        {
+            Data::Asset<ImageAsset> imageAsset = value;
+
+            if (!imageAsset.GetId().IsValid())
+            {
+                // The image asset reference is null so set the property to an empty Image instance so the AZStd::any will not be empty.
+                return SetPropertyValue(index, Data::Instance<Image>());
+            }
+            else
+            {
+                AZ::Data::AssetType assetType = imageAsset.GetType();
+                if (assetType != azrtti_typeid<StreamingImageAsset>() && assetType != azrtti_typeid<AttachmentImageAsset>())
+                {
+                    AZ::Data::AssetInfo assetInfo;
+                    AZ::Data::AssetCatalogRequestBus::BroadcastResult(
+                        assetInfo, &AZ::Data::AssetCatalogRequests::GetAssetInfoById, imageAsset.GetId());
+                    assetType = assetInfo.m_assetType;
+                }
+
+                // There is an issue in the Asset<T>(Asset<U>) copy constructor which is used with the FindOrCreate() calls below.
+                // If the AssetData is valid, then it will get the actual asset type ID from the AssetData. However, if it is null
+                // then it will continue using the original type ID. The InstanceDatabase will end up asking the AssetManager for
+                // the asset using the wrong type (ImageAsset) and will lead to various error messages and in the end the asset
+                // will never be loaded. So we work around this issue by forcing the asset type ID to the correct value first.
+                // See https://github.com/o3de/o3de/issues/12224
+                if (!imageAsset.Get())
+                {
+                    imageAsset = Data::Asset<ImageAsset>{imageAsset.GetId(), assetType, imageAsset.GetHint()};
+                }
+
+                Data::Instance<Image> image = nullptr;
+                if (assetType == azrtti_typeid<StreamingImageAsset>())
+                {
+                    Data::Asset<StreamingImageAsset> streamingImageAsset = imageAsset;
+                    image = StreamingImage::FindOrCreate(streamingImageAsset);
+                }
+                else if (assetType == azrtti_typeid<AttachmentImageAsset>())
+                {
+                    Data::Asset<AttachmentImageAsset> attachmentImageAsset = imageAsset;
+                    image = AttachmentImage::FindOrCreate(attachmentImageAsset);
+                }
+                else
+                {
+                    AZ_Error("MaterialPropertyCollection", false, "Unsupported image asset type: %s", assetType.ToString<AZStd::string>().c_str());
+                    return false;
+                }
+
+                if (!image)
+                {
+                    AZ_Error("MaterialPropertyCollection", false, "Image asset could not be loaded");
+                    return false;
+                }
+
+                return SetPropertyValue(index, image);
+            }
         }
 
         template bool MaterialPropertyCollection::SetPropertyValue<bool>(MaterialPropertyIndex index, const bool& value);

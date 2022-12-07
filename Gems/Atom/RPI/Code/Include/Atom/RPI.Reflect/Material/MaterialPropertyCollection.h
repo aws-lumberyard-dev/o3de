@@ -7,7 +7,7 @@
  */
 #pragma once
 
-#include <Atom/RPI.Reflect/Material/MaterialPropertyDescriptor.h>
+#include <Atom/RPI.Reflect/Material/MaterialPropertiesLayout.h>
 
 // These classes are not directly referenced in this header only because the Set/GetPropertyValue()
 // functions are templatized. But the API is still specific to these data types so we include them here.
@@ -24,7 +24,7 @@ namespace AZ
         {
         public:
             bool Init(
-                const MaterialPropertiesLayout* layout,
+                RHI::ConstPtr<MaterialPropertiesLayout> layout,
                 const AZStd::vector<MaterialPropertyValue>& defaultValues);
 
             //! Sets the value of a material property. The template data type must match the property's data type.

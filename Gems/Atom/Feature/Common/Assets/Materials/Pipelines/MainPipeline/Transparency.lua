@@ -15,8 +15,8 @@ end
 
 function Process(context)
     
-    isTransparent = context:GetMaterialTypePropertyValue_bool("isTransparent")
-    castShadows = context:GetMaterialTypePropertyValue_bool("castShadows")
+    isTransparent = context:GetMaterialPropertyValue_bool("isTransparent")
+    castShadows = context:GetMaterialPropertyValue_bool("castShadows")
     
     local depthPass = context:GetShaderByTag("depth")
     local shadowPass = context:GetShaderByTag("shadow")

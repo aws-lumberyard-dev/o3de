@@ -50,7 +50,7 @@ namespace UnitTest
             }
 
             using AZ::RPI::MaterialFunctor::Process;
-            void Process(AZ::RPI::MaterialFunctor::RuntimeContext& context) override
+            void Process(AZ::RPI::MaterialFunctor::MainRuntimeContext& context) override
             {
                 // This code isn't actually called in the unit test, but we include it here just to demonstrate what a real functor might look like.
                 float f = context.GetMaterialPropertyValue(m_floatIndex).GetValue<float>();
@@ -78,7 +78,7 @@ namespace UnitTest
             }
 
             using AZ::RPI::MaterialFunctor::Process;
-            void Process(AZ::RPI::MaterialFunctor::RuntimeContext& context) override
+            void Process(AZ::RPI::MaterialFunctor::MainRuntimeContext& context) override
             {
                 // This code isn't actually called in the unit test, but we include it here just to demonstrate what a real functor might look like.
 
@@ -1322,7 +1322,7 @@ namespace UnitTest
         tester.SerializeOut(materialTypeAsset.Get());
         materialTypeAsset = tester.SerializeIn(Data::AssetId(Uuid::CreateRandom()));
 
-        const ShaderCollection& shaderCollection = materialTypeAsset->GetShaderCollection(MaterialPipelineNameCommon);
+        const ShaderCollection& shaderCollection = materialTypeAsset->GetGeneralShaderCollection();
 
         EXPECT_EQ(3, shaderCollection.size());
         EXPECT_EQ(shaderA, shaderCollection[0].GetShaderAsset());
@@ -1667,7 +1667,7 @@ namespace UnitTest
 
         // Check ownership results...
 
-        const ShaderCollection& shaderCollection = materialTypeAsset->GetShaderCollection(MaterialPipelineNameCommon);
+        const ShaderCollection& shaderCollection = materialTypeAsset->GetGeneralShaderCollection();
 
         EXPECT_TRUE(shaderCollection[0].MaterialOwnsShaderOption(Name{"o_materialOption_inBothShaders"}));
         EXPECT_TRUE(shaderCollection[0].MaterialOwnsShaderOption(Name{"o_materialOption_inShaderA"}));

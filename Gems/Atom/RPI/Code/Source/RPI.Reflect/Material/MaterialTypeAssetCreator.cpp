@@ -22,9 +22,6 @@ namespace AZ
             {
                 m_materialPropertiesLayout = aznew MaterialPropertiesLayout;
                 m_asset->m_materialPropertiesLayout = m_materialPropertiesLayout;
-
-                m_internalMaterialPropertiesLayout = aznew MaterialPropertiesLayout;
-                m_asset->m_internalMaterialPropertiesLayout = m_internalMaterialPropertiesLayout;
             }
         }
 
@@ -39,7 +36,6 @@ namespace AZ
 
             m_materialShaderResourceGroupLayout = nullptr;
             m_materialPropertiesLayout = nullptr;
-            m_internalMaterialPropertiesLayout = nullptr;
 
             return EndCommon(result);
         }
@@ -102,6 +98,17 @@ namespace AZ
                 [this](const char* message){ ReportError("%s", message); });
         }
 
+        MaterialTypeAsset::MaterialPipeline& MaterialTypeAssetCreator::GetMaterialPipeline(const AZ::Name& materialPipelineName)
+        {
+            MaterialTypeAsset::MaterialPipeline& pipeline = m_asset->m_materialPipelines[materialPipelineName];
+            if (!pipeline.m_materialPropertiesLayout)
+            {
+                pipeline.m_materialPropertiesLayout = aznew MaterialPropertiesLayout;
+            }
+
+            return pipeline;
+        }
+
         void MaterialTypeAssetCreator::AddShader(
             const AZ::Data::Asset<ShaderAsset>& shaderAsset,
             const ShaderVariantId& shaderVariantId,
@@ -110,12 +117,20 @@ namespace AZ
         {
             if (ValidateIsReady() && ValidateNotNull(shaderAsset, "ShaderAsset"))
             {
-                ShaderCollection& shaderCollection = m_asset->m_shaderCollections[materialPipelineName];
+                ShaderCollection* shaderCollection = nullptr;
+                if (materialPipelineName.IsEmpty())
+                {
+                    shaderCollection = &m_asset->m_shaderCollection;
+                }
+                else
+                {
+                    shaderCollection = &GetMaterialPipeline(materialPipelineName).m_shaderCollection;
+                }
 
                 AZ::Name finalShaderTag = !shaderTag.IsEmpty() ? shaderTag : AZ::Name{AZ::Uuid::CreateRandom().ToFixedString()};
 
-                shaderCollection.m_shaderItems.push_back(ShaderCollection::Item{shaderAsset, finalShaderTag, shaderVariantId});
-                if (!shaderCollection.m_shaderTagIndexMap.Insert(finalShaderTag, RHI::Handle<uint32_t>(shaderCollection.m_shaderItems.size() - 1)))
+                shaderCollection->m_shaderItems.push_back(ShaderCollection::Item{shaderAsset, finalShaderTag, shaderVariantId});
+                if (!shaderCollection->m_shaderTagIndexMap.Insert(finalShaderTag, RHI::Handle<uint32_t>(shaderCollection->m_shaderItems.size() - 1)))
                 {
                     ReportError("Failed to insert shader tag '%s' for pipeline '%s'. Shader tag must be unique.", finalShaderTag.GetCStr(), materialPipelineName.GetCStr());
                 }
@@ -141,9 +156,8 @@ namespace AZ
         {
             bool optionFound = false;
 
-            for (auto& shaderCollectionPair : m_asset->m_shaderCollections)
-            {
-                for (ShaderCollection::Item& shaderItem : shaderCollectionPair.second)
+            m_asset->ForAllShaderItems(
+                [&](const Name&, ShaderCollection::Item& shaderItem, uint32_t)
                 {
                     ShaderOptionIndex index = shaderItem.GetShaderOptions()->FindShaderOptionIndex(shaderOptionName);
                     if (index.IsValid())
@@ -151,8 +165,8 @@ namespace AZ
                         shaderItem.m_ownedShaderOptionIndices.insert(index);
                         optionFound = true;
                     }
-                }
-            }
+                    return true;
+                });
 
             if (!optionFound)
             {
@@ -160,14 +174,22 @@ namespace AZ
             }
         }
 
-        const MaterialPropertiesLayout* MaterialTypeAssetCreator::GetMaterialPropertiesLayout() const
+        const MaterialPropertiesLayout* MaterialTypeAssetCreator::GetMaterialPropertiesLayout(const AZ::Name& materialPipelineName) const
         {
-            return m_materialPropertiesLayout;
-        }
+            if (materialPipelineName == MaterialPipelineNone)
+            {
+                return m_materialPropertiesLayout;
+            }
+            else
+            {
+                auto iter = m_asset->m_materialPipelines.find(materialPipelineName);
+                if (iter == m_asset->m_materialPipelines.end())
+                {
+                    return nullptr;
+                }
 
-        const MaterialPropertiesLayout* MaterialTypeAssetCreator::GetInternalMaterialPropertiesLayout() const
-        {
-            return m_internalMaterialPropertiesLayout;
+                return iter->second.m_materialPropertiesLayout.get();
+            }
         }
 
         const RHI::ShaderResourceGroupLayout* MaterialTypeAssetCreator::GetMaterialShaderResourceGroupLayout() const
@@ -175,63 +197,68 @@ namespace AZ
             return m_materialShaderResourceGroupLayout;
         }
 
-        void MaterialTypeAssetCreator::AddMaterialProperty(MaterialPropertyDescriptor&& materialProperty, MaterialPropertyValue&& defaultValue, PropertyType materialPropertyType)
+        void MaterialTypeAssetCreator::AddMaterialProperty(MaterialPropertyDescriptor&& materialProperty, const AZ::Name& materialPipelineName)
         {
             if (ValidateIsReady())
             {
-                AZStd::vector<MaterialPropertyValue>& propertyValues = materialPropertyType == PropertyType::Main ? m_asset->m_propertyValues : m_asset->m_internalPropertyValues;
-                MaterialPropertiesLayout* layout = materialPropertyType == PropertyType::Main ? m_materialPropertiesLayout : m_internalMaterialPropertiesLayout;
+                MaterialPropertiesLayout* layout = nullptr;
+                AZStd::vector<MaterialPropertyValue>* propertyValues = nullptr;
 
-                if (propertyValues.size() >= Limits::Material::PropertyCountMax)
+                if (materialPipelineName.IsEmpty())
                 {
-                    ReportError("Too man material propertyValues. Max is %d.", Limits::Material::PropertyCountMax);
-                    return;
-                }
-
-                if (defaultValue.IsValid())
-                {
-                    propertyValues.emplace_back(defaultValue);
+                    layout = m_materialPropertiesLayout;
+                    propertyValues = &m_asset->m_propertyValues;
                 }
                 else
                 {
-                    // Add the appropriate default property value for the property's data type.
-                    // Note, we use a separate switch statement from the one above just for clarity.
-                    switch (materialProperty.GetDataType())
-                    {
-                    case MaterialPropertyDataType::Bool:
-                        propertyValues.emplace_back(false);
-                        break;
-                    case MaterialPropertyDataType::Int:
-                        propertyValues.emplace_back(0);
-                        break;
-                    case MaterialPropertyDataType::UInt:
-                        propertyValues.emplace_back(0u);
-                        break;
-                    case MaterialPropertyDataType::Float:
-                        propertyValues.emplace_back(0.0f);
-                        break;
-                    case MaterialPropertyDataType::Vector2:
-                        propertyValues.emplace_back(Vector2{0.0f, 0.0f});
-                        break;
-                    case MaterialPropertyDataType::Vector3:
-                        propertyValues.emplace_back(Vector3{0.0f, 0.0f, 0.0f});
-                        break;
-                    case MaterialPropertyDataType::Vector4:
-                        propertyValues.emplace_back(Vector4{0.0f, 0.0f, 0.0f, 0.0f});
-                        break;
-                    case MaterialPropertyDataType::Color:
-                        propertyValues.emplace_back(Color{1.0f, 1.0f, 1.0f, 1.0f});
-                        break;
-                    case MaterialPropertyDataType::Image:
-                        propertyValues.emplace_back(Data::Asset<ImageAsset>({}));
-                        break;
-                    case MaterialPropertyDataType::Enum:
-                        propertyValues.emplace_back(0u);
-                        break;
-                    default:
-                        ReportError("Material property '%s': Data type is invalid.", materialProperty.GetName().GetCStr());
-                        return;
-                    }
+                    MaterialTypeAsset::MaterialPipeline& pipeline = GetMaterialPipeline(materialPipelineName);
+                    layout = pipeline.m_materialPropertiesLayout.get();
+                    propertyValues = &pipeline.m_defaultPropertyValues;
+                }
+
+                if (propertyValues->size() >= Limits::Material::PropertyCountMax)
+                {
+                    ReportError("Too many material propertyValues. Max is %d.", Limits::Material::PropertyCountMax);
+                    return;
+                }
+
+                // Add the appropriate default property value for the property's data type.
+                // Note, we use a separate switch statement from the one above just for clarity.
+                switch (materialProperty.GetDataType())
+                {
+                case MaterialPropertyDataType::Bool:
+                    propertyValues->emplace_back(false);
+                    break;
+                case MaterialPropertyDataType::Int:
+                    propertyValues->emplace_back(0);
+                    break;
+                case MaterialPropertyDataType::UInt:
+                    propertyValues->emplace_back(0u);
+                    break;
+                case MaterialPropertyDataType::Float:
+                    propertyValues->emplace_back(0.0f);
+                    break;
+                case MaterialPropertyDataType::Vector2:
+                    propertyValues->emplace_back(Vector2{0.0f, 0.0f});
+                    break;
+                case MaterialPropertyDataType::Vector3:
+                    propertyValues->emplace_back(Vector3{0.0f, 0.0f, 0.0f});
+                    break;
+                case MaterialPropertyDataType::Vector4:
+                    propertyValues->emplace_back(Vector4{0.0f, 0.0f, 0.0f, 0.0f});
+                    break;
+                case MaterialPropertyDataType::Color:
+                    propertyValues->emplace_back(Color{1.0f, 1.0f, 1.0f, 1.0f});
+                    break;
+                case MaterialPropertyDataType::Image:
+                    propertyValues->emplace_back(Data::Asset<ImageAsset>({}));
+                    break;
+                case MaterialPropertyDataType::Enum:
+                    propertyValues->emplace_back(0u);
+                    break;
+                default:
+                    ReportError("Material property '%s': Data type is invalid.", materialProperty.GetName().GetCStr());
+                    return;
                 }
 
                 // Add the new descriptor
@@ -268,7 +295,7 @@ namespace AZ
             return true;
         }
 
-        void MaterialTypeAssetCreator::BeginMaterialProperty(const Name& materialPropertyName, MaterialPropertyDataType dataType, PropertyType materialPropertyType)
+        void MaterialTypeAssetCreator::BeginMaterialProperty(const Name& materialPropertyName, MaterialPropertyDataType dataType, const AZ::Name& materialPipelineName)
         {
             if (!ValidateIsReady())
             {
@@ -280,7 +307,7 @@ namespace AZ
                 return;
             }
 
-            const MaterialPropertiesLayout* layout = materialPropertyType == PropertyType::Main ? m_materialPropertiesLayout : m_internalMaterialPropertiesLayout;
+            const MaterialPropertiesLayout* layout = materialPipelineName.IsEmpty() ? m_materialPropertiesLayout : GetMaterialPipeline(materialPipelineName).m_materialPropertiesLayout.get();
 
             if (layout->FindPropertyIndex(materialPropertyName).IsValid())
             {
@@ -296,8 +323,7 @@ namespace AZ
 
             m_wipMaterialProperty.m_nameId = materialPropertyName;
             m_wipMaterialProperty.m_dataType = dataType;
-            m_wipMaterialPropertyValue = {};
-            m_wipMaterialPropertyType = materialPropertyType;
+            m_wipMaterialPropertyPipeline = materialPipelineName;
         }
 
         void MaterialTypeAssetCreator::ConnectMaterialPropertyToShaderInput(const Name& shaderInputName)
@@ -378,11 +404,9 @@ namespace AZ
             }
 
             bool foundShaderOptions = false;
-            for (auto& [materialPipelineName, shaderCollection] : m_asset->m_shaderCollections)
-            {
-                for (int shaderIndex = 0; shaderIndex < shaderCollection.size(); ++shaderIndex)
+            m_asset->ForAllShaderItems(
+                [&](const Name& materialPipelineName, ShaderCollection::Item& shaderItem, uint32_t shaderItemIndex)
                 {
-                    ShaderCollection::Item& shaderItem = shaderCollection[shaderIndex];
                     auto optionsLayout = shaderItem.GetShaderAsset()->GetShaderOptionGroupLayout();
                     ShaderOptionIndex optionIndex = optionsLayout->FindShaderOptionIndex(shaderOptionName);
                     if (optionIndex.IsValid())
@@ -392,15 +416,16 @@ namespace AZ
                         MaterialPropertyOutputId outputId;
                         outputId.m_type = MaterialPropertyOutputType::ShaderOption;
                         outputId.m_materialPipelineName = materialPipelineName;
-                        outputId.m_containerIndex = RHI::Handle<uint32_t>{shaderIndex};
+                        outputId.m_containerIndex = RHI::Handle<uint32_t>{shaderItemIndex};
                         outputId.m_itemIndex = RHI::Handle<uint32_t>{optionIndex.GetIndex()};
 
                         m_wipMaterialProperty.m_outputConnections.push_back(outputId);
 
                         shaderItem.m_ownedShaderOptionIndices.insert(optionIndex);
                     }
-                }
-            }
+
+                    return true;
+                });
 
             if (!foundShaderOptions)
             {
@@ -423,12 +448,9 @@ namespace AZ
             }
 
             bool foundShader = false;
-            for (auto& [materialPipelineName, shaderCollection] : m_asset->m_shaderCollections)
-            {
-                for (int shaderIndex = 0; shaderIndex < shaderCollection.size(); ++shaderIndex)
+            m_asset->ForAllShaderItems(
+                [&](const Name& materialPipelineName, ShaderCollection::Item& shaderItem, uint32_t shaderItemIndex)
                 {
-                    ShaderCollection::Item& shaderItem = shaderCollection[shaderIndex];
-
                     if (shaderItem.GetShaderTag() == shaderTag)
                     {
                         foundShader = true;
@@ -436,14 +458,13 @@ namespace AZ
                         MaterialPropertyOutputId outputId;
                         outputId.m_materialPipelineName = materialPipelineName;
                         outputId.m_type = MaterialPropertyOutputType::ShaderEnabled;
-                        outputId.m_containerIndex = RHI::Handle<uint32_t>{shaderIndex};
+                        outputId.m_containerIndex = RHI::Handle<uint32_t>{shaderItemIndex};
 
                         m_wipMaterialProperty.m_outputConnections.push_back(outputId);
-
-                        break;
                     }
-                }
-            }
+
+                    return true;
+                });
 
             if (!foundShader)
             {
@@ -480,39 +501,83 @@ namespace AZ
                 return;
             }
 
-            AddMaterialProperty(AZStd::move(m_wipMaterialProperty), AZStd::move(m_wipMaterialPropertyValue), m_wipMaterialPropertyType);
+            AddMaterialProperty(AZStd::move(m_wipMaterialProperty), m_wipMaterialPropertyPipeline);
 
             m_wipMaterialProperty = MaterialPropertyDescriptor{};
         }
         
-        void MaterialTypeAssetCreator::SetMaterialPropertyDefaultValue(const Data::Asset<ImageAsset>& imageAsset)
+        bool MaterialTypeAssetCreator::PropertyCheck(TypeId typeId, const Name& propertyName, const AZ::Name& materialPipelineName)
         {
-            return SetMaterialPropertyDefaultValue(MaterialPropertyValue(imageAsset));
+            const MaterialPropertiesLayout* layout = GetMaterialPropertiesLayout(materialPipelineName);
+            if (!layout)
+            {
+                ReportError("There is no material pipeline named '%s'", materialPipelineName.GetCStr());
+                return false;
+            }
+
+            MaterialPropertyIndex propertyIndex = layout->FindPropertyIndex(propertyName);
+            if (!propertyIndex.IsValid())
+            {
+                ReportWarning("Material property '%s' not found", propertyName.GetCStr());
+                return false;
+            }
+
+            const MaterialPropertyDescriptor* materialPropertyDescriptor = layout->GetPropertyDescriptor(propertyIndex);
+            if (!materialPropertyDescriptor)
+            {
+                ReportError("A material property index was found but the property descriptor was null");
+                return false;
+            }
+
+            if (!ValidateMaterialPropertyDataType(typeId, materialPropertyDescriptor, [this](const char* message){ReportError("%s", message);}))
+            {
+                return false;
+            }
+
+            return true;
         }
 
-        void MaterialTypeAssetCreator::SetMaterialPropertyDefaultValue(const MaterialPropertyValue& value)
+        void MaterialTypeAssetCreator::SetPropertyValue(const Name& name, const Data::Asset<ImageAsset>& imageAsset, const AZ::Name& materialPipelineName)
         {
-            if (ValidateMaterialPropertyDataType(value.GetTypeId(), &m_wipMaterialProperty, [this](const char* message) { ReportError("%s", message); }))
+            return SetPropertyValue(name, MaterialPropertyValue(imageAsset), materialPipelineName);
+        }
+
+        void MaterialTypeAssetCreator::SetPropertyValue(const Name& name, const MaterialPropertyValue& value, const AZ::Name& materialPipelineName)
+        {
+            if (PropertyCheck(value.GetTypeId(), name, materialPipelineName))
             {
-                m_wipMaterialPropertyValue = value;
+
+                MaterialPropertiesLayout* layout = materialPipelineName.IsEmpty() ? m_materialPropertiesLayout : GetMaterialPipeline(materialPipelineName).m_materialPropertiesLayout.get();
+                MaterialPropertyIndex propertyIndex = layout->FindPropertyIndex(name);
+
+                AZStd::vector<MaterialPropertyValue>& propertyValues = materialPipelineName.IsEmpty() ? m_asset->m_propertyValues : GetMaterialPipeline(materialPipelineName).m_defaultPropertyValues;
+
+                propertyValues[propertyIndex.GetIndex()] = value;
             }
         }
 
-        void MaterialTypeAssetCreator::SetMaterialPropertyDefaultValue(const Data::Asset<StreamingImageAsset>& imageAsset)
+        void MaterialTypeAssetCreator::SetPropertyValue(const Name& name, const Data::Asset<StreamingImageAsset>& imageAsset, const AZ::Name& materialPipelineName)
         {
-            SetMaterialPropertyDefaultValue(Data::Asset<ImageAsset>(imageAsset));
+            SetPropertyValue(name, Data::Asset<ImageAsset>(imageAsset), materialPipelineName);
         }
 
-        void MaterialTypeAssetCreator::SetMaterialPropertyDefaultValue(const Data::Asset<AttachmentImageAsset>& imageAsset)
+        void MaterialTypeAssetCreator::SetPropertyValue(const Name& name, const Data::Asset<AttachmentImageAsset>& imageAsset, const AZ::Name& materialPipelineName)
         {
-            SetMaterialPropertyDefaultValue(Data::Asset<ImageAsset>(imageAsset));
+            SetPropertyValue(name, Data::Asset<ImageAsset>(imageAsset), materialPipelineName);
         }
 
         void MaterialTypeAssetCreator::AddMaterialFunctor(const Ptr<MaterialFunctor>& functor, const AZ::Name& materialPipelineName)
         {
             if (ValidateIsReady() && ValidateNotNull(functor, "MaterialFunctor"))
             {
-                m_asset->m_materialFunctorLists[materialPipelineName].emplace_back(functor);
+                if (materialPipelineName.IsEmpty())
+                {
+                    m_asset->m_materialFunctors.emplace_back(functor);
+                }
+                else
+                {
+                    GetMaterialPipeline(materialPipelineName).m_materialFunctors.emplace_back(functor);
+                }
             }
         }
 

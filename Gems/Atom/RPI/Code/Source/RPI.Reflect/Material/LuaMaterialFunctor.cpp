@@ -307,6 +307,10 @@ namespace AZ
             {
                 return m_pipelineRuntimeContextImpl->GetMaterialPropertyValue(propertyIndex);
             }
+            else if (m_editorContextImpl)
+            {
+                return m_editorContextImpl->GetMaterialPropertyValue(propertyIndex);
+            }
             else
             {
                 AZ_Assert(false, "Context not initialized properly");
@@ -386,6 +390,18 @@ namespace AZ
                 ->Method("GetShader", &LuaMaterialFunctorMainRuntimeContext::GetShader)
                 ->Method("GetShaderByTag", &LuaMaterialFunctorMainRuntimeContext::GetShaderByTag)
                 ->Method("HasShaderWithTag", &LuaMaterialFunctorMainRuntimeContext::HasShaderWithTag)
+                ->Method("SetInternalMaterialPropertyValue_bool", &LuaMaterialFunctorMainRuntimeContext::SetInternalMaterialPropertyValue<bool>)
+                ->Method("SetInternalMaterialPropertyValue_int", &LuaMaterialFunctorMainRuntimeContext::SetInternalMaterialPropertyValue<int32_t>)
+                ->Method("SetInternalMaterialPropertyValue_uint", &LuaMaterialFunctorMainRuntimeContext::SetInternalMaterialPropertyValue<uint32_t>)
+                ->Method("SetInternalMaterialPropertyValue_enum", &LuaMaterialFunctorMainRuntimeContext::SetInternalMaterialPropertyValue<uint32_t>)
+                ->Method("SetInternalMaterialPropertyValue_float", &LuaMaterialFunctorMainRuntimeContext::SetInternalMaterialPropertyValue<float>)
+                // I'm not really sure what use case there might be for passing these data types to the material pipeline, but we might as well provide
+                // them to remain consistent with the types that are supported by the GetMaterialPropertyValue function above.
+                ->Method("SetInternalMaterialPropertyValue_Vector2", &LuaMaterialFunctorMainRuntimeContext::SetInternalMaterialPropertyValue<Vector2>)
+                ->Method("SetInternalMaterialPropertyValue_Vector3", &LuaMaterialFunctorMainRuntimeContext::SetInternalMaterialPropertyValue<Vector3>)
+                ->Method("SetInternalMaterialPropertyValue_Vector4", &LuaMaterialFunctorMainRuntimeContext::SetInternalMaterialPropertyValue<Vector4>)
+                ->Method("SetInternalMaterialPropertyValue_Color", &LuaMaterialFunctorMainRuntimeContext::SetInternalMaterialPropertyValue<Color>)
+                ->Method("SetInternalMaterialPropertyValue_Image", &LuaMaterialFunctorMainRuntimeContext::SetInternalMaterialPropertyValue<Image*>)
                 ;
         }
 
@@ -493,6 +509,11 @@ namespace AZ
             return m_runtimeContextImpl->m_localShaderCollection->HasShaderTag(AZ::Name{shaderTag});
         }
 
+        template<typename T>
+        bool LuaMaterialFunctorMainRuntimeContext::SetInternalMaterialPropertyValue(const char* name, T value)
+        {
+            return m_runtimeContextImpl->SetInternalMaterialPropertyValue(AZ::Name{name}, value);
+        }
 
 
 

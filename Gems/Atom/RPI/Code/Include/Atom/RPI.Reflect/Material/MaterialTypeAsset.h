@@ -42,11 +42,7 @@ namespace AZ
         };
         using MaterialUvNameMap = AZStd::vector<UvNamePair>;
 
-        //! There can be a MaterialFunctorList for each material pipeline, and one main list for the MaterialPipelineNameCommon shader.
-        //! The MaterialPipelineNameCommon material functors will use the MaterialFunctor::MainRuntimeContext, having access to the MaterialPipelineNameCommon shaders (among other things).
-        //! The other pipeline-specific material functors will use the MaterialFunctor::PipelineRuntimeContext, and only have access to the shaders within the same material pipeline.
-        //! See MaterialFunctor.h for details.
-        using MaterialPipelineFunctorLists = AZStd::unordered_map<Name/*pipelineName*/, MaterialFunctorList>;
+        static const Name MaterialPipelineNone = Name{};
 
         //! MaterialTypeAsset defines the property layout and general behavior for 
         //! a type of material. It serves as the foundation for MaterialAssets,
@@ -71,26 +67,29 @@ namespace AZ
 
             static constexpr uint32_t InvalidShaderIndex = static_cast<uint32_t>(-1);
 
+            struct MaterialPipeline
+            {
+                AZ_TYPE_INFO(MaterialTypeAsset::MaterialPipeline, "{7179B076-70B6-4B47-9F98-BEF164396873}");
+
+                Ptr<MaterialPropertiesLayout> m_materialPropertiesLayout;
+                AZStd::vector<MaterialPropertyValue> m_defaultPropertyValues;
+                ShaderCollection m_shaderCollection;
+                MaterialFunctorList m_materialFunctors;
+            };
+            using MaterialPipelineMap = AZStd::unordered_map<Name, MaterialPipeline>;
+
             static void Reflect(ReflectContext* context);
 
             virtual ~MaterialTypeAsset();
 
-            //! Return the set of shaders.
-            const MaterialPipelineShaderCollections& GetShaderCollections() const;
+            const ShaderCollection& GetGeneralShaderCollection() const;
 
-            //! Returns the collection of shaders for a given pipeline.
-            //! @param forPipeline the name of the material pipeline to query for shaders. For MaterialPipelineNameCommon, 
-            //!        this returns a list of shaders that should be sent to all pipelines.
-            const ShaderCollection& GetShaderCollection(const Name& forPipeline) const;
-
-            //! Return the list of functors.
-            //! See MaterialPipelineFunctorLists for details.
-            const MaterialPipelineFunctorLists& GetMaterialFunctorLists() const;
-
-            //! Returns the list of functors for a given pipeline.
-            //! See MaterialPipelineFunctorLists for details.
-            //! @param forPipeline the name of the material pipeline to query for functors. 
-            const MaterialFunctorList& GetMaterialFunctorList(const Name& forPipeline) const;
+            //! The material may contain any number of MaterialFunctors.
+            //! Material functors provide custom logic and calculations to configure shaders, render states, and more.
+            //! See MaterialFunctor.h for details.
+            const MaterialFunctorList& GetMaterialFunctors() const;
+            
+            const MaterialPipelineMap& GetMaterialPipelines() const;
 
             //! Returns the shader resource group layout that has per-material frequency, which indicates most of the topology
             //! for a material's shaders.
@@ -135,14 +134,6 @@ namespace AZ
             //! For images, the value will be of type ImageBinding.
             const AZStd::vector<MaterialPropertyValue>& GetDefaultPropertyValues() const;
 
-            //! Similar to GetMaterialPropertiesLayout(), but used to pass data from the main material properties to the material pipeline
-            //! portion of the material type.
-            const MaterialPropertiesLayout* GetInternalMaterialPropertiesLayout() const;
-
-            //! Similar to GetDefaultPropertyValues(), but used to pass data from the main material properties to the material pipeline
-            //! portion of the material type.
-            const AZStd::vector<MaterialPropertyValue>& GetDefaultInternalPropertyValues() const;
-
             //! Returns a map from the UV shader inputs to a custom name.
             MaterialUvNameMap GetUvNameMap() const;
 
@@ -169,36 +160,25 @@ namespace AZ
             //! Replaces the appropriate asset members when a reload occurs
             void ReinitializeAsset(Data::Asset<Data::AssetData> asset);
 
+            void ForAllShaderItems(AZStd::function<bool(const Name& materialPipelineName, ShaderCollection::Item& shaderItem, uint32_t shaderItemIndex)> callback);
+
             //! Holds values for each material property, used to initialize Material instances.
             //! This is indexed by MaterialPropertyIndex and aligns with entries in m_materialPropertiesLayout.
             AZStd::vector<MaterialPropertyValue> m_propertyValues;
 
-            //! Defines the topology of user-facing inputs to the material
-            Ptr<MaterialPropertiesLayout> m_materialPropertiesLayout;
-
-            //! Similar to m_propertyValues and m_materialPropertiesLayout but used to pass data from the main material properties to the material pipeline
-            //! portion of the material type.
-            AZStd::vector<MaterialPropertyValue> m_internalPropertyValues;
-            Ptr<MaterialPropertiesLayout> m_internalMaterialPropertiesLayout;
-
-            MaterialPipelineShaderCollections m_shaderCollections;
-
             //! Override names of UV inputs in the shaders of this material type.
             MaterialUvNameMap m_uvNameMap;
 
-//            //! Material functors provide custom logic and calculations to configure shaders, render states, and more.
-//            //! The "main" material functors use the MaterialFunctor::MainRuntimeContext, having access to the MaterialPipelineNameCommon shaders (among other things).
-//            //! The "pipeline" material functors use the MaterialFunctor::PipelineRuntimeContext, and only have access to the shaders within the same material pipeline.
-//            //! (Note that @m_pipelineMaterialFunctors will not include MaterialPipelineNameCommon, as that is stored in @m_mainMaterialFunctors).
-//            //! See MaterialFunctor.h for details.
-//            MaterialFunctorList m_mainMaterialFunctors;
-//            AZStd::unordered_map<Name/*pipelineName*/, MaterialFunctorList> m_pipelineMaterialFunctors;
+            //! Defines the topology of user-facing inputs to the material
+            Ptr<MaterialPropertiesLayout> m_materialPropertiesLayout;
+
+            ShaderCollection m_shaderCollection;
 
             //! Material functors provide custom logic and calculations to configure shaders, render states, and more.
-            //! The MaterialPipelineNameCommon material functors will use the MaterialFunctor::MainRuntimeContext, having access to the MaterialPipelineNameCommon shaders (among other things).
-            //! The other pipeline-specific material functors will use the MaterialFunctor::PipelineRuntimeContext, and only have access to the shaders within the same material pipeline.
             //! See MaterialFunctor.h for details.
-            MaterialPipelineFunctorLists m_materialFunctorLists;
+            MaterialFunctorList m_materialFunctors;
+
+            MaterialPipelineMap m_materialPipelines;
 
             //! These are shaders that hold an example of particular ShaderResourceGroups. Every shader in a material type
             //! must use the same MaterialSrg and ObjectSrg, so we only need to store one example of each. We keep a reference

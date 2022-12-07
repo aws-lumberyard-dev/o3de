@@ -44,18 +44,25 @@ namespace AZ
             {
                 serializeContext->RegisterGenericType<MaterialUvNameMap>();
 
+                serializeContext->Class<MaterialPipeline>()
+                    ->Version(1)
+                    ->Field("MaterialPropertiesLayout", &MaterialPipeline::m_materialPropertiesLayout)
+                    ->Field("DefaultPropertyValues", &MaterialPipeline::m_defaultPropertyValues)
+                    ->Field("ShaderCollection", &MaterialPipeline::m_shaderCollection)
+                    ->Field("MaterialFunctors", &MaterialPipeline::m_materialFunctors)
+                    ;
+
                 serializeContext->Class<MaterialTypeAsset, AZ::Data::AssetData>()
-                    ->Version(8) // Material pipeline functor support
+                    ->Version(9) // Material pipeline functor support
                     ->Field("Version", &MaterialTypeAsset::m_version)
                     ->Field("VersionUpdates", &MaterialTypeAsset::m_materialVersionUpdates)
-                    ->Field("ShaderCollections", &MaterialTypeAsset::m_shaderCollections)
-                    ->Field("MaterialFunctorLists", &MaterialTypeAsset::m_materialFunctorLists)
+                    ->Field("ShaderCollection", &MaterialTypeAsset::m_shaderCollection)
+                    ->Field("MaterialFunctors", &MaterialTypeAsset::m_materialFunctors)
                     ->Field("ShaderWithMaterialSrg", &MaterialTypeAsset::m_shaderWithMaterialSrg)
                     ->Field("ShaderWithObjectSrg", &MaterialTypeAsset::m_shaderWithObjectSrg)
                     ->Field("MaterialPropertiesLayout", &MaterialTypeAsset::m_materialPropertiesLayout)
                     ->Field("DefaultPropertyValues", &MaterialTypeAsset::m_propertyValues)
-                    ->Field("InternalMaterialPropertiesLayout", &MaterialTypeAsset::m_internalMaterialPropertiesLayout)
-                    ->Field("DefaultInternalPropertyValues", &MaterialTypeAsset::m_internalPropertyValues)
+                    ->Field("MaterialPipelines", &MaterialTypeAsset::m_materialPipelines)
                     ->Field("UvNameMap", &MaterialTypeAsset::m_uvNameMap)
                     ;
             }
@@ -69,40 +76,37 @@ namespace AZ
             AssetInitBus::Handler::BusDisconnect();
         }
 
-        const MaterialPipelineShaderCollections& MaterialTypeAsset::GetShaderCollections() const
+        const ShaderCollection& MaterialTypeAsset::GetGeneralShaderCollection() const
         {
-            return m_shaderCollections;
+            return m_shaderCollection;
         }
 
-        const ShaderCollection& MaterialTypeAsset::GetShaderCollection(const Name& forPipeline) const
+        const MaterialFunctorList& MaterialTypeAsset::GetMaterialFunctors() const
         {
-            static const ShaderCollection EmptyCollection;
+            return m_materialFunctors;
+        }
 
-            auto pipelineDataIter = m_shaderCollections.find(forPipeline);
-            if (pipelineDataIter == m_shaderCollections.end())
+        const MaterialTypeAsset::MaterialPipelineMap& MaterialTypeAsset::GetMaterialPipelines() const
+        {
+            return m_materialPipelines;
+        }
+
+        void MaterialTypeAsset::ForAllShaderItems(AZStd::function<bool(const Name& materialPipelineName, ShaderCollection::Item& shaderItem, uint32_t shaderItemIndex)> callback)
+        {
+            for (int shaderIndex = 0; shaderIndex < m_shaderCollection.size(); ++shaderIndex)
             {
-                return EmptyCollection;
+                ShaderCollection::Item& shaderItem = m_shaderCollection[shaderIndex];
+                callback(MaterialPipelineNone, shaderItem, shaderIndex);
             }
 
-            return pipelineDataIter->second;
-        }
-
-        const MaterialPipelineFunctorLists& MaterialTypeAsset::GetMaterialFunctorLists() const
-        {
-            return m_materialFunctorLists;
-        }
-
-        const MaterialFunctorList& MaterialTypeAsset::GetMaterialFunctorList(const Name& forPipeline) const
-        {
-            static const MaterialFunctorList EmptyList;
-
-            auto pipelineDataIter = m_materialFunctorLists.find(forPipeline);
-            if (pipelineDataIter == m_materialFunctorLists.end())
+            for (auto& [materialPipelineName, materialPipeline] : m_materialPipelines)
             {
-                return EmptyList;
+                for (int shaderIndex = 0; shaderIndex < materialPipeline.m_shaderCollection.size(); ++shaderIndex)
+                {
+                    ShaderCollection::Item& shaderItem = materialPipeline.m_shaderCollection[shaderIndex];
+                    callback(materialPipelineName, shaderItem, shaderIndex);
+                }
             }
-
-            return pipelineDataIter->second;
         }
 
         const RHI::Ptr<RHI::ShaderResourceGroupLayout>& MaterialTypeAsset::GetMaterialSrgLayout(
@@ -174,19 +178,9 @@ namespace AZ
             return m_materialPropertiesLayout.get();
         }
 
-        const MaterialPropertiesLayout* MaterialTypeAsset::GetInternalMaterialPropertiesLayout() const
-        {
-            return m_internalMaterialPropertiesLayout.get();
-        }
-
         const AZStd::vector<MaterialPropertyValue>& MaterialTypeAsset::GetDefaultPropertyValues() const
         {
             return m_propertyValues;
-        }
-
-        const AZStd::vector<MaterialPropertyValue>& MaterialTypeAsset::GetDefaultInternalPropertyValues() const
-        {
-            return m_internalPropertyValues;
         }
 
         MaterialUvNameMap MaterialTypeAsset::GetUvNameMap() const
@@ -216,13 +210,19 @@ namespace AZ
 
         bool MaterialTypeAsset::PostLoadInit()
         {
-            for (const auto& shaderCollectionPair : m_shaderCollections)
+            for (const auto& shaderItem : m_shaderCollection)
             {
-                for (const auto& shaderItem : shaderCollectionPair.second)
+                Data::AssetBus::MultiHandler::BusConnect(shaderItem.GetShaderAsset().GetId());
+            }
+
+            for (const auto& materialPipelinePair : m_materialPipelines)
+            {
+                for (const auto& shaderItem : materialPipelinePair.second.m_shaderCollection)
                 {
                     Data::AssetBus::MultiHandler::BusConnect(shaderItem.GetShaderAsset().GetId());
                 }
             }
+
             AssetInitBus::Handler::BusDisconnect();
 
             return true;
@@ -242,9 +242,15 @@ namespace AZ
             // The order of asset reloads is non-deterministic. If the MaterialTypeAsset reloads before these
             // dependency assets, this will make sure the MaterialTypeAsset gets the latest ones when they reload.
             // Or in some cases a these assets could get updated and reloaded without reloading the MaterialTypeAsset at all.
-            for (auto& shaderCollectionPair : m_shaderCollections)
+
+            for (auto& shaderItem : m_shaderCollection)
             {
-                for (auto& shaderItem : shaderCollectionPair.second)
+                TryReplaceAsset(shaderItem.m_shaderAsset, asset);
+            }
+
+            for (auto& materialPipelinePair : m_materialPipelines)
+            {
+                for (auto& shaderItem : materialPipelinePair.second.m_shaderCollection)
                 {
                     TryReplaceAsset(shaderItem.m_shaderAsset, asset);
                 }

@@ -48,7 +48,8 @@
             {
                 "type": "Lua",
                 "args": {
-                    "file": "Transparency.lua"
+                    //TODO(MaterialPipeline): Make the builder touch up this path so it can be relative to the .materialtype file
+                    "file": "Materials/Pipelines/MainPipeline/Transparency.lua"
                 }
             }
         ]

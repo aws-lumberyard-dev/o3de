@@ -57,24 +57,19 @@ namespace AZ
             return m_materialTypeAsset;
         }
 
-        const MaterialPipelineShaderCollections& MaterialAsset::GetShaderCollections() const
+        const ShaderCollection& MaterialAsset::GetGeneralShaderCollection() const
         {
-            return m_materialTypeAsset->GetShaderCollections();
+            return m_materialTypeAsset->GetGeneralShaderCollection();
         }
 
-        const ShaderCollection& MaterialAsset::GetShaderCollection(const Name& forPipeline) const
+        const MaterialFunctorList& MaterialAsset::GetMaterialFunctors() const
         {
-            return m_materialTypeAsset->GetShaderCollection(forPipeline);
+            return m_materialTypeAsset->GetMaterialFunctors();
         }
 
-        const MaterialPipelineFunctorLists& MaterialAsset::GetMaterialFunctorLists() const
+        const MaterialTypeAsset::MaterialPipelineMap& MaterialAsset::GetMaterialPipelines() const
         {
-            return m_materialTypeAsset->GetMaterialFunctorLists();
-        }
-
-        const MaterialFunctorList& MaterialAsset::GetMaterialFunctorList(const Name& forPipeline) const
-        {
-            return m_materialTypeAsset->GetMaterialFunctorList(forPipeline);
+            return m_materialTypeAsset->GetMaterialPipelines();
         }
 
         const RHI::Ptr<RHI::ShaderResourceGroupLayout>& MaterialAsset::GetMaterialSrgLayout(const SupervariantIndex& supervariantIndex) const
@@ -221,16 +216,6 @@ namespace AZ
             AZ_Assert(GetMaterialPropertiesLayout() && m_propertyValues.size() == GetMaterialPropertiesLayout()->GetPropertyCount(), "MaterialAsset should be finalized but does not have the right number of property values.");
         
             return m_propertyValues;
-        }
-
-        const MaterialPropertiesLayout* MaterialAsset::GetInternalMaterialPropertiesLayout() const
-        {
-            return m_materialTypeAsset->GetInternalMaterialPropertiesLayout();
-        }
-
-        const AZStd::vector<MaterialPropertyValue>& MaterialAsset::GetDefaultInternalPropertyValues() const
-        {
-            return m_materialTypeAsset->GetDefaultInternalPropertyValues();
         }
 
         const AZStd::vector<AZStd::pair<Name, MaterialPropertyValue>>& MaterialAsset::GetRawPropertyValues() const

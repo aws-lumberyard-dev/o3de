@@ -44,7 +44,7 @@ namespace AZ
         {
         }
 
-        void MaterialFunctor::CommonRuntimeContext::EnumerateShaderItems(AZStd::function<bool(ShaderCollection::Item& shaderItem)> callback)
+        void MaterialFunctor::CommonRuntimeContext::ForAllShaderItems(AZStd::function<bool(ShaderCollection::Item& shaderItem)> callback)
         {
             for (ShaderCollection::Item& shaderItem : *m_localShaderCollection)
             {
@@ -59,8 +59,9 @@ namespace AZ
         bool MaterialFunctor::CommonRuntimeContext::SetShaderOptionValueHelper(const Name& name, const ValueType& value)
         {
             bool didSetOne = false;
+            bool materialOwnsOption = false;
 
-            EnumerateShaderItems([&](ShaderCollection::Item& shaderItem)
+            ForAllShaderItems([&](ShaderCollection::Item& shaderItem)
                 {
                     ShaderOptionGroup* shaderOptionGroup = shaderItem.GetShaderOptions();
                     const ShaderOptionGroupLayout* layout = shaderOptionGroup->GetShaderOptionLayout();
@@ -73,9 +74,8 @@ namespace AZ
 
                     if (!shaderItem.MaterialOwnsShaderOption(optionIndex))
                     {
-                        AZ_Error("MaterialFunctor", false, "Shader option '%s' is not owned by this material.", name.GetCStr());
-                        AZ_Assert(!didSetOne, "The material build pipeline should have ensured that MaterialOwnsShaderOption is consistent across all shaders.");
-                        return false;
+                        materialOwnsOption = true;
+                        return false; // break;
                     }
 
                     if (shaderOptionGroup->SetValue(optionIndex, value))
@@ -86,7 +86,12 @@ namespace AZ
                     return true; // continue
                 });
 
-            if (!didSetOne)
+            if (materialOwnsOption)
+            {
+                AZ_Error("MaterialFunctor", false, "Shader option '%s' is not owned by this material.", name.GetCStr());
+                AZ_Assert(!didSetOne, "The material build pipeline should have ensured that MaterialOwnsShaderOption is consistent across all shaders.");
+            }
+            else if (!didSetOne)
             {
                 AZ_Error("MaterialFunctor", false, "Shader option '%s' not found.", name.GetCStr());
             }
@@ -143,27 +148,23 @@ namespace AZ
             const MaterialPropertyCollection& materialProperties,
             const MaterialPropertyFlags* materialPropertyDependencies,
             MaterialPropertyPsoHandling psoHandling,
-            MaterialPropertyCollection& internalMaterialProperties,
             ShaderResourceGroup* shaderResourceGroup,
-            MaterialPipelineShaderCollections* shaderCollections
+            ShaderCollection* generalShaderCollection,
+            MaterialPipelineDataMap* materialPipelineData
         )
-            : CommonRuntimeContext(materialProperties, materialPropertyDependencies, psoHandling, &(*shaderCollections)[MaterialPipelineNameCommon])
-            , m_allShaderCollections(shaderCollections)
+            : CommonRuntimeContext(materialProperties, materialPropertyDependencies, psoHandling, generalShaderCollection)
             , m_shaderResourceGroup(shaderResourceGroup)
-            , m_internalProperties(internalMaterialProperties)
+            , m_materialPipelineData(materialPipelineData)
         {
         }
 
-        const MaterialPropertiesLayout* MaterialFunctor::MainRuntimeContext::GetInternalMaterialPropertiesLayout() const
+        void MaterialFunctor::MainRuntimeContext::ForAllShaderItems(AZStd::function<bool(ShaderCollection::Item& shaderItem)> callback)
         {
-            return m_internalProperties.GetMaterialPropertiesLayout().get();
-        }
+            CommonRuntimeContext::ForAllShaderItems(callback);
 
-        void MaterialFunctor::MainRuntimeContext::EnumerateShaderItems(AZStd::function<bool(ShaderCollection::Item& shaderItem)> callback)
-        {
-            for (auto& shaderCollectionPair : *m_allShaderCollections)
+            for (auto& materialPipelinePair : *m_materialPipelineData)
             {
-                for (ShaderCollection::Item& shaderItem : shaderCollectionPair.second)
+                for (ShaderCollection::Item& shaderItem : materialPipelinePair.second.m_shaderCollection)
                 {
                     if (!callback(shaderItem))
                     {
@@ -180,20 +181,25 @@ namespace AZ
 
         bool MaterialFunctor::MainRuntimeContext::SetInternalMaterialPropertyValue(const Name& propertyId, const MaterialPropertyValue& value)
         {
-            MaterialPropertyIndex index = m_internalProperties.GetMaterialPropertiesLayout()->FindPropertyIndex(propertyId);
-            if (!index.IsValid())
+            bool somethingWasSet = false;
+
+            for (auto& materialPipelinePair : *m_materialPipelineData)
             {
-                AZ_Error("MaterialFunctor", false, "Couldn't find internal material property: %s.", propertyId.GetCStr());
-                return false;
+                MaterialPropertyCollection& properties = materialPipelinePair.second.m_materialProperties;
+
+                MaterialPropertyIndex index = properties.GetMaterialPropertiesLayout()->FindPropertyIndex(propertyId);
+                if (!index.IsValid())
+                {
+                    continue;
+                }
+
+                if (properties.SetPropertyValue(index, value))
+                {
+                    somethingWasSet = true;
+                }
             }
 
-            return SetInternalMaterialPropertyValue(index, value);
-        }
-
-        bool MaterialFunctor::MainRuntimeContext::SetInternalMaterialPropertyValue(const MaterialPropertyIndex& index, const MaterialPropertyValue& value)
-        {
-            m_internalProperties.SetPropertyValue(index, value);
-            return m_internalProperties.SetPropertyValue(index, value);
+            return somethingWasSet;
         }
 
         MaterialFunctor::PipelineRuntimeContext::PipelineRuntimeContext(

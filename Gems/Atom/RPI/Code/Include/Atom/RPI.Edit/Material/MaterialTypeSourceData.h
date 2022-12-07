@@ -177,6 +177,9 @@ namespace AZ
             {
                 AZ_TYPE_INFO(AZ::RPI::MaterialTypeSourceData::MaterialPipelineData, "{AA4648A2-4E0A-4AAB-BC85-FE762D449CA7}");
 
+                //! The list of internal properties that will be used to pass data from the main material properties to the material pipeline.
+                AZStd::vector<MaterialPropertySourceData> m_pipelinePropertyLayout;
+
                 //! A list of specific shaders that will be used to render the material.
                 AZStd::vector<ShaderVariantReferenceData> m_shaderCollection;
 
@@ -208,9 +211,6 @@ namespace AZ
 
             //! Material functors provide custom logic and calculations to configure shaders, render states, and more. See MaterialFunctor.h for details.
             AZStd::vector<Ptr<MaterialFunctorSourceDataHolder>> m_materialFunctorSourceData;
-
-            //! The list of internal properties that will be used to pass data from the main material properties to the material pipeline.
-            AZStd::vector<MaterialPropertySourceData> m_pipelinePropertyLayout;
 
             //! Contains shaders and other data for use in specific render pipelines.
             //! To apply shaders to all render pipelines, use the @m_shaderCollection and @m_materialFunctorSourceData above.
@@ -330,7 +330,7 @@ namespace AZ
             bool BuildProperty(
                 const AZStd::string& materialTypeSourceFilePath,
                 MaterialTypeAssetCreator& materialTypeAssetCreator,
-                MaterialTypeAssetCreator::PropertyType propertyType,
+                const Name& materialPipelineName,
                 MaterialNameContext materialNameContext,
                 const Name& propertyId,
                 const MaterialPropertySourceData& propertySourceData) const;

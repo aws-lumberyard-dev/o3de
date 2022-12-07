@@ -15,6 +15,7 @@
 #include <Atom/RPI.Reflect/Material/MaterialPropertyDescriptor.h>
 #include <Atom/RPI.Reflect/Material/MaterialPropertyValue.h>
 #include <Atom/RPI.Reflect/Material/MaterialDynamicMetadata.h>
+#include <Atom/RPI.Reflect/Material/MaterialPipelineData.h>
 
 namespace AZ
 {
@@ -143,7 +144,7 @@ namespace AZ
                     ShaderCollection* localShaderCollection
                 );
 
-                virtual void EnumerateShaderItems(AZStd::function<bool(ShaderCollection::Item& shaderItem)> callback);
+                virtual void ForAllShaderItems(AZStd::function<bool(ShaderCollection::Item& shaderItem)> callback);
 
                 template<typename ValueType>
                 bool SetShaderOptionValueHelper(const Name& name, const ValueType& value);
@@ -159,38 +160,36 @@ namespace AZ
             //! It can set internal material property values (to pass data to pipeline-specific functors which use PipelineRuntimeContext).
             //! It can configure the Material ShaderResourceGroup because there is one for the entire material,
             //! it's not specific to a material pipeline or particular shader.
-            //! It can configure shaders that are not specific to a particular material pipeline (i.e. the MaterialPipelineNameCommon ShaderCollection).
+            //! It can configure shaders that are not specific to a particular material pipeline (i.e. the MaterialPipelineNone ShaderCollection).
             //! It can set shader option values (Note this does impact the material-pipeline-specific shaders in order to automatically
             //! propagate the values to all shaders in the material).
             class MainRuntimeContext : public CommonRuntimeContext
             {
                 friend class LuaMaterialFunctorMainRuntimeContext;
                 friend class LuaMaterialFunctorPipelineRuntimeContext;
+
             public:
-                const MaterialPropertiesLayout* GetInternalMaterialPropertiesLayout() const;
 
                 //! Get the shader resource group for editing.
                 ShaderResourceGroup* GetShaderResourceGroup();
 
                 bool SetInternalMaterialPropertyValue(const Name& propertyId, const MaterialPropertyValue& value);
-                bool SetInternalMaterialPropertyValue(const MaterialPropertyIndex& index, const MaterialPropertyValue& value);
 
                 MainRuntimeContext(
                     const MaterialPropertyCollection& materialProperties,
                     const MaterialPropertyFlags* materialPropertyDependencies,
                     MaterialPropertyPsoHandling psoHandling,
-                    MaterialPropertyCollection& internalMaterialProperties,
                     ShaderResourceGroup* shaderResourceGroup,
-                    MaterialPipelineShaderCollections* shaderCollections
+                    ShaderCollection* generalShaderCollection,
+                    MaterialPipelineDataMap* materialPipelineData
                 );
 
             private:
 
-                void EnumerateShaderItems(AZStd::function<bool(ShaderCollection::Item& shaderItem)> callback) override;
+                void ForAllShaderItems(AZStd::function<bool(ShaderCollection::Item& shaderItem)> callback) override;
 
-                MaterialPipelineShaderCollections* m_allShaderCollections;
                 ShaderResourceGroup* m_shaderResourceGroup;
-                MaterialPropertyCollection& m_internalProperties;
+                MaterialPipelineDataMap* m_materialPipelineData;
             };
 
             //! This execution context operates in a specific material pipeline and its shaders.

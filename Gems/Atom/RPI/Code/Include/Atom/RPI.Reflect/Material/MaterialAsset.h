@@ -62,22 +62,14 @@ namespace AZ
             //! Returns the MaterialTypeAsset.
             const Data::Asset<MaterialTypeAsset>& GetMaterialTypeAsset() const;
 
-            //! Return the set of shaders.
-            const MaterialPipelineShaderCollections& GetShaderCollections() const;
+            const ShaderCollection& GetGeneralShaderCollection() const;
 
-            //! Returns the collection of shaders for a given pipeline.
-            //! @param forPipeline the name of the material pipeline to query for shaders. For MaterialPipelineNameCommon, 
-            //!        this returns a list of shaders that should be sent to all pipelines.
-            const ShaderCollection& GetShaderCollection(const Name& forPipeline) const;
+            //! The material may contain any number of MaterialFunctors.
+            //! Material functors provide custom logic and calculations to configure shaders, render states, and more.
+            //! See MaterialFunctor.h for details.
+            const MaterialFunctorList& GetMaterialFunctors() const;
 
-            //! Return the list of functors.
-            //! See MaterialPipelineFunctorLists for details.
-            const MaterialPipelineFunctorLists& GetMaterialFunctorLists() const;
-
-            //! Returns the list of functors for a given pipeline.
-            //! See MaterialPipelineFunctorLists for details.
-            //! @param forPipeline the name of the material pipeline to query for functors. 
-            const MaterialFunctorList& GetMaterialFunctorList(const Name& forPipeline) const;
+            const MaterialTypeAsset::MaterialPipelineMap& GetMaterialPipelines() const;
 
             //! Returns the shader resource group layout that has per-material frequency, which indicates most of the topology
             //! for a material's shaders.

@@ -300,6 +300,9 @@ namespace AZ
             LuaMaterialFunctorShaderItem GetShaderByTag(const char* shaderTag);
             bool HasShaderWithTag(const char* shaderTag);
 
+            template<typename T>
+            bool SetInternalMaterialPropertyValue(const char* name, T value);
+
         private:
 
             RHI::ShaderInputConstantIndex GetShaderInputConstantIndex(const char* name, const char* functionName) const;
