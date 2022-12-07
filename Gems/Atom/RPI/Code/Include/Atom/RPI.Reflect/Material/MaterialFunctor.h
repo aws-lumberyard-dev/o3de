@@ -15,6 +15,7 @@
 #include <Atom/RPI.Reflect/Material/MaterialPropertyDescriptor.h>
 #include <Atom/RPI.Reflect/Material/MaterialPropertyValue.h>
 #include <Atom/RPI.Reflect/Material/MaterialDynamicMetadata.h>
+#include <Atom/RPI.Reflect/Material/MaterialPipelineData.h>
 
 namespace AZ
 {
@@ -83,17 +84,15 @@ namespace AZ
 
             static void Reflect(ReflectContext* context);
 
-            //! This execution context operates at a high level, and is not specific to a particular material pipeline.
-            //! It can read material property values.
-            //! It can configure the Material ShaderResourceGroup because there is one for the entire material,
-            //! it's not specific to a material pipeline or particular shader.
-            //! It can configure shaders that are not specific to a particular material pipeline (i.e. the MaterialPipelineNameCommon ShaderCollection).
-            //! It can set shader option values (Note this does impact the material-pipeline-specific shaders in order to automatically
-            //! propagate the values to all shaders in the material).
-            class RuntimeContext
+            //! This is a common base class for MainRuntimeContext and PipelineRuntimeContext, because there is some overlap between
+            //! the API for main material functors and material pipeline functors.
+            class CommonRuntimeContext
             {
-                friend class LuaMaterialFunctorRuntimeContext;
+                friend class LuaMaterialFunctorMainRuntimeContext;
+                friend class LuaMaterialFunctorPipelineRuntimeContext;
             public:
+                virtual ~CommonRuntimeContext() = default;
+
                 //! Get the property value. The type must be one of those in MaterialPropertyValue.
                 //! Otherwise, a compile error will be reported.
                 template<typename Type>
@@ -108,12 +107,9 @@ namespace AZ
 
                 MaterialPropertyPsoHandling GetMaterialPropertyPsoHandling() const { return m_psoHandling; }
 
-                //! Set the value of a shader option in all applicable shaders, across all material pipelines.
+                //! Set the value of a shader option in all applicable shaders.
                 bool SetShaderOptionValue(const Name& optionName, ShaderOptionValue value);
                 bool SetShaderOptionValue(const Name& optionName, const Name& value);
-
-                //! Get the shader resource group for editing.
-                ShaderResourceGroup* GetShaderResourceGroup();
 
                 //! Return how many shaders are in the local ShaderCollection.
                 AZStd::size_t GetShaderCount() const;
@@ -139,27 +135,78 @@ namespace AZ
                 //! @param renderStatesOverlay a RenderStates struct that will be merged with this shader's RenderStates (using RHI::MergeStateInto())
                 void ApplyShaderRenderStateOverlay(AZStd::size_t shaderIndex, const RHI::RenderStates& renderStatesOverlay);
                 void ApplyShaderRenderStateOverlay(const AZ::Name& shaderTag, const RHI::RenderStates& renderStatesOverlay);
-                
-                RuntimeContext(
+
+            protected:
+                CommonRuntimeContext(
                     const MaterialPropertyCollection& materialProperties,
-                    MaterialPipelineShaderCollections* shaderCollections,
-                    ShaderResourceGroup* shaderResourceGroup,
                     const MaterialPropertyFlags* materialPropertyDependencies,
-                    MaterialPropertyPsoHandling psoHandling
+                    MaterialPropertyPsoHandling psoHandling,
+                    ShaderCollection* localShaderCollection
                 );
 
-            private:
-                bool SetShaderOptionValue(ShaderCollection::Item& shaderItem, ShaderOptionIndex optionIndex, ShaderOptionValue value);
+                virtual void ForAllShaderItems(AZStd::function<bool(ShaderCollection::Item& shaderItem)> callback);
 
                 template<typename ValueType>
                 bool SetShaderOptionValueHelper(const Name& name, const ValueType& value);
 
                 const MaterialPropertyCollection& m_materialProperties;
-                ShaderCollection* m_commonShaderCollection;
-                MaterialPipelineShaderCollections* m_allShaderCollections;
-                ShaderResourceGroup* m_shaderResourceGroup;
+                ShaderCollection* m_localShaderCollection;
                 const MaterialPropertyFlags* m_materialPropertyDependencies = nullptr;
                 MaterialPropertyPsoHandling m_psoHandling = MaterialPropertyPsoHandling::Error;
+            };
+
+            //! This execution context operates at a high level, and is not specific to a particular material pipeline.
+            //! It can read material property values.
+            //! It can set internal material property values (to pass data to pipeline-specific functors which use PipelineRuntimeContext).
+            //! It can configure the Material ShaderResourceGroup because there is one for the entire material,
+            //! it's not specific to a material pipeline or particular shader.
+            //! It can configure shaders that are not specific to a particular material pipeline (i.e. the MaterialPipelineNone ShaderCollection).
+            //! It can set shader option values (Note this does impact the material-pipeline-specific shaders in order to automatically
+            //! propagate the values to all shaders in the material).
+            class MainRuntimeContext : public CommonRuntimeContext
+            {
+                friend class LuaMaterialFunctorMainRuntimeContext;
+                friend class LuaMaterialFunctorPipelineRuntimeContext;
+
+            public:
+
+                //! Get the shader resource group for editing.
+                ShaderResourceGroup* GetShaderResourceGroup();
+
+                bool SetInternalMaterialPropertyValue(const Name& propertyId, const MaterialPropertyValue& value);
+
+                MainRuntimeContext(
+                    const MaterialPropertyCollection& materialProperties,
+                    const MaterialPropertyFlags* materialPropertyDependencies,
+                    MaterialPropertyPsoHandling psoHandling,
+                    ShaderResourceGroup* shaderResourceGroup,
+                    ShaderCollection* generalShaderCollection,
+                    MaterialPipelineDataMap* materialPipelineData
+                );
+
+            private:
+
+                void ForAllShaderItems(AZStd::function<bool(ShaderCollection::Item& shaderItem)> callback) override;
+
+                ShaderResourceGroup* m_shaderResourceGroup;
+                MaterialPipelineDataMap* m_materialPipelineData;
+            };
+
+            //! This execution context operates in a specific material pipeline and its shaders.
+            //! It can read "internal" material properties used for passing data to the material pipeline.
+            class PipelineRuntimeContext : public CommonRuntimeContext
+            {
+                friend class LuaMaterialFunctorMainRuntimeContext;
+                friend class LuaMaterialFunctorPipelineRuntimeContext;
+            public:
+
+                PipelineRuntimeContext(
+                    const MaterialPropertyCollection& internalProperties,
+                    const MaterialPropertyFlags* internalMaterialPropertyDependencies,
+                    MaterialPropertyPsoHandling psoHandling,
+                    ShaderCollection* pipelineShaderCollections
+                );
+
             };
 
             class EditorContext
@@ -236,16 +283,15 @@ namespace AZ
             //! Get all dependent properties of this functor.
             const MaterialPropertyFlags& GetMaterialPropertyDependencies() const;
 
-            //! Process() is called at runtime to build a ShaderCollection object given some material property values.
-            //! Material properties will be accessed by MaterialPropertyIndex. The corresponding MaterialFunctorSourceData
-            //! should collect the necessary MaterialPropertyIndex values at build-time.
-            //! Or Process() is to process material property values and make changes to shader settings.
-            virtual void Process([[maybe_unused]] RuntimeContext& context) {}
+            //! Process(MainRuntimeContext) is called at runtime to configure the pipeline-agnostic ShaderCollection and
+            //! material ShaderResourceGroup based on material property values.
+            virtual void Process([[maybe_unused]] MainRuntimeContext& context) {}
 
-            //! Process metadata used in the editor, such as property visibility.
-            //! While original metadata is stored in MaterialDocument::m_propertyMetadata, this temporary context has a
-            //! a reference to it which can be accessed by MaterialPropertyIndex or property Name,
-            //! both can use the EditorContext API to convert to the other.
+            //! Process(PipelineRuntimeContext) is called at runtime to configure the pipeline-specific ShaderCollection
+            //! based on some internal material property values.
+            virtual void Process([[maybe_unused]] PipelineRuntimeContext& context) {}
+
+            //! Process(EditorContext) is called in tools to configure UI, such as property visibility.
             virtual void Process([[maybe_unused]] EditorContext& context) {}
         };
 

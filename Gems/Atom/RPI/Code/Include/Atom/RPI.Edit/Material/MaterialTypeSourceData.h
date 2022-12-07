@@ -17,6 +17,7 @@
 #include <Atom/RPI.Edit/Material/MaterialFunctorSourceData.h>
 #include <Atom/RPI.Edit/Material/MaterialPropertyId.h>
 #include <Atom/RPI.Edit/Material/MaterialPropertySourceData.h>
+#include <Atom/RPI.Edit/Material/MaterialFunctorSourceDataHolder.h>
 #include <Atom/RPI.Edit/Shader/ShaderOptionValuesSourceData.h>
 
 namespace AZ
@@ -26,7 +27,6 @@ namespace AZ
     namespace RPI
     {
         class MaterialTypeAsset;
-        class MaterialFunctorSourceDataHolder;
 
         //! This is a simple data structure for serializing in/out .materialtype source files.
         //! The .materialtype file has two slightly different formats: "abstract" and "direct". See enum Format below.
@@ -129,7 +129,7 @@ namespace AZ
                 //! Path to a ".shader" file, relative to the asset root
                 AZStd::string m_shaderFilePath;
 
-                //! Unique tag to identify the shader
+                //! Unique tag to identify the shader, particularly in lua functors
                 AZ::Name m_shaderTag;
 
                 //! This list provides a way for users to set shader option values in a 'hard-coded' way rather than connecting them to material properties.
@@ -176,6 +176,9 @@ namespace AZ
             struct MaterialPipelineData
             {
                 AZ_TYPE_INFO(AZ::RPI::MaterialTypeSourceData::MaterialPipelineData, "{AA4648A2-4E0A-4AAB-BC85-FE762D449CA7}");
+
+                //! The list of internal properties that will be used to pass data from the main material properties to the material pipeline.
+                AZStd::vector<MaterialPropertySourceData> m_pipelinePropertyLayout;
 
                 //! A list of specific shaders that will be used to render the material.
                 AZStd::vector<ShaderVariantReferenceData> m_shaderCollection;
@@ -327,6 +330,7 @@ namespace AZ
             bool BuildProperty(
                 const AZStd::string& materialTypeSourceFilePath,
                 MaterialTypeAssetCreator& materialTypeAssetCreator,
+                const Name& materialPipelineName,
                 MaterialNameContext materialNameContext,
                 const Name& propertyId,
                 const MaterialPropertySourceData& propertySourceData) const;
@@ -351,36 +355,6 @@ namespace AZ
             PropertyLayout m_propertyLayout;
         };
         
-        //! The wrapper class for derived material functors.
-        //! It is used in deserialization so that derived material functors can be deserialized by name.
-        class MaterialFunctorSourceDataHolder final
-            : public AZStd::intrusive_base
-        {
-            friend class JsonMaterialFunctorSourceDataSerializer;
-
-        public:
-            AZ_RTTI(MaterialFunctorSourceDataHolder, "{073C98F6-9EA4-411A-A6D2-A47428A0EFD4}");
-            AZ_CLASS_ALLOCATOR(MaterialFunctorSourceDataHolder, AZ::SystemAllocator, 0);
-
-            MaterialFunctorSourceDataHolder() = default;
-            MaterialFunctorSourceDataHolder(Ptr<MaterialFunctorSourceData> actualSourceData);
-            ~MaterialFunctorSourceDataHolder() = default;
-
-            static void Reflect(AZ::ReflectContext* context);
-
-            MaterialFunctorSourceData::FunctorResult CreateFunctor(const MaterialFunctorSourceData::RuntimeContext& runtimeContext) const
-            {
-                return m_actualSourceData ? m_actualSourceData->CreateFunctor(runtimeContext) : Failure();
-            }
-            MaterialFunctorSourceData::FunctorResult CreateFunctor(const MaterialFunctorSourceData::EditorContext& editorContext) const
-            {
-                return m_actualSourceData ? m_actualSourceData->CreateFunctor(editorContext) : Failure();
-            }
-
-            Ptr<MaterialFunctorSourceData> GetActualSourceData() const { return m_actualSourceData; }
-        private:
-            Ptr<MaterialFunctorSourceData> m_actualSourceData = nullptr; // The derived material functor instance.
-        };
     } // namespace RPI
 
 } // namespace AZ
