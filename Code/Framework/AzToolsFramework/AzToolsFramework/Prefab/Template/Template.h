@@ -52,16 +52,11 @@ namespace AzToolsFramework
             void MarkAsDirty(bool dirty);
 
             bool AddLink(LinkId newLinkId);
-            bool AddLinkToUpdateDuringPropagation(LinkId newLinkId);
-
+            
             bool RemoveLink(LinkId linkId);
             bool HasLink(LinkId linkId) const;
             const Links& GetLinks() const;
-            Links& GetMoreLinksToUpdate()
-            {
-                return m_moreLinksToUpdate;
-            }
-
+            
             PrefabDom& GetPrefabDom();
             const PrefabDom& GetPrefabDom() const;
 
@@ -77,7 +72,6 @@ namespace AzToolsFramework
         private:
             // Container for keeping links representing the Template's nested instances.
             Links m_links;
-            Links m_moreLinksToUpdate;
 
             // JSON Document contains parsed prefab file for users to access data in Prefab file easily.
             PrefabDom m_prefabDom;

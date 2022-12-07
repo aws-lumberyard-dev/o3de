@@ -17,17 +17,12 @@ namespace UnitTest
     static constexpr const AZStd::string_view patchesValue = R"(
             [
                 {
-                    "op": "add",
-                    "path": "Entities/Entity1/Components/ComponentA/IntValue",
-                    "value": 10
-                },
-                {
                     "op": "remove",
-                    "path": "Entities/Entity2/Components/ComponentB/FloatValue"
+                    "path": "/Entities/Entity2/Components/ComponentB/FloatValue"
                 },
                 {
                     "op": "replace",
-                    "path": "Entities/Entity1/Components/ComponentC/StringValue",
+                    "path": "/Entities/Entity1/Components/ComponentC/StringValue",
                     "value": "replacedString"
                 }
             ])";

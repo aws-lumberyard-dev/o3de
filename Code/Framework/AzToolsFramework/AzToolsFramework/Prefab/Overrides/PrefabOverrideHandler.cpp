@@ -8,6 +8,7 @@
 
 #include <AzToolsFramework/API/ToolsApplicationAPI.h>
 #include <AzToolsFramework/Prefab/Overrides/PrefabOverrideHandler.h>
+#include <AzToolsFramework/Prefab/PrefabDomUtils.h>
 #include <AzToolsFramework/Prefab/PrefabSystemComponentInterface.h>
 #include <AzToolsFramework/Prefab/Undo/PrefabUndoRevertOverrides.h>
 
@@ -15,6 +16,29 @@
 {
     namespace Prefab
     {
+        namespace Internal
+        {
+            // Helper to differentiate between adding/removing
+            // an entity object or adding/removing an entity property
+            bool IsDirectEntityPatch(PrefabDomConstReference patch)
+            {
+                auto pathMember = patch->get().FindMember("path");
+                if (pathMember != patch->get().MemberEnd())
+                {
+                    AZ::Dom::Path path(pathMember->value.GetString());
+                    if (path.Size() > 1)
+                    {
+                        return (path[path.Size() - 2] == PrefabDomUtils::EntitiesName);
+                    }
+                }
+
+                return false;
+            }
+        } // namespace Internal
+
+
+
+
         PrefabOverrideHandler::PrefabOverrideHandler()
         {
             m_prefabSystemComponentInterface = AZ::Interface<PrefabSystemComponentInterface>::Get();
@@ -59,6 +83,42 @@
                 return true;
             }
             return false;
+        }
+
+
+        AZStd::optional<EntityOverrideType> PrefabOverrideHandler::GetOverrideType(AZ::Dom::Path path, LinkId linkId) const
+        {
+            AZStd::optional<EntityOverrideType> overrideType = {};
+            
+            LinkReference link = m_prefabSystemComponentInterface->FindLink(linkId);
+            if (link.has_value())
+            {
+                // Look for an override in the provided path
+                if (PrefabDomConstReference overridePatch = link->get().FindOverridePatch(path); overridePatch.has_value())
+                {
+                    PrefabDomValue::ConstMemberIterator patchEntryIterator = overridePatch->get().FindMember("op");
+                    if (patchEntryIterator != overridePatch->get().MemberEnd())
+                    {
+                        AZStd::string opPath = patchEntryIterator->value.GetString();
+                        if (opPath == "remove")
+                        {
+                            overrideType = Internal::IsDirectEntityPatch(overridePatch) ? EntityOverrideType::RemoveEntity
+                                                                                        : EntityOverrideType::EditEntity;
+                        }
+                        else if (opPath == "add")
+                        {
+                            overrideType = Internal::IsDirectEntityPatch(overridePatch) ? EntityOverrideType::AddEntity
+                                                                                        : EntityOverrideType::EditEntity;
+                        }
+                        else if (opPath == "replace")
+                        {
+                            overrideType = EntityOverrideType::EditEntity;
+                        }
+                    }
+                }
+            }
+
+            return overrideType;
         }
     }
 } // namespace AzToolsFramework

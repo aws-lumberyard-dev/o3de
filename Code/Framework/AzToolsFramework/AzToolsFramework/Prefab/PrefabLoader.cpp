@@ -23,7 +23,7 @@
 #include <AzToolsFramework/Prefab/PrefabSystemComponentInterface.h>
 #include <Prefab/ProceduralPrefabSystemComponentInterface.h>
 #include <AzToolsFramework/Entity/PrefabEditorEntityOwnershipInterface.h>
-
+#pragma optimize("", off)
 namespace AzToolsFramework
 {
     namespace Prefab
@@ -828,7 +828,8 @@ namespace AzToolsFramework
 
                 PrefabDomPath instancePath = link.GetInstancePath();
                 PrefabDom linkDom;
-                link.GetLinkDom(linkDom, output.GetAllocator());
+                //link.GetLinkDom(linkDom, output.GetAllocator());
+                link.GetLinkDomWithNestedLinkDoms(linkDom, output.GetAllocator(), false); // needs collapsed state to save to file.
 
                 // Get the instance value of the Template copy
                 // This currently stores a fully realized nested Template Dom
@@ -1005,3 +1006,4 @@ namespace AzToolsFramework
 
     } // namespace Prefab
 } // namespace AzToolsFramework
+#pragma optimize("", on)

@@ -39,7 +39,7 @@
 #include <AzToolsFramework/Entity/EditorEntitySortComponent.h>
 
 #include <QString>
-
+#pragma optimize("", off)
 namespace AzToolsFramework
 {
     namespace Prefab
@@ -200,7 +200,7 @@ namespace AzToolsFramework
                     AZ_Assert(linkRef.has_value(), "Unable to find link with id '%llu' during prefab creation.", detachingInstanceLinkId);
 
                     PrefabDom linkPatches;
-                    linkRef->get().GetLinkPatches(linkPatches, linkPatches.GetAllocator());
+                    linkRef->get().GetLinkPatches(linkPatches, linkPatches.GetAllocator(), true, true);
                     nestedInstanceLinkPatchesMap.emplace(detachedInstance.get(), AZStd::move(linkPatches));
 
                     RemoveLink(detachedInstance, commonRootInstanceTemplateId, undoBatch.GetUndoBatch());
@@ -963,7 +963,7 @@ namespace AzToolsFramework
 
                     if (linkRef.has_value())
                     {
-                        linkRef->get().GetLinkPatches(oldLinkPatches, oldLinkPatches.GetAllocator());
+                        linkRef->get().GetLinkPatches(oldLinkPatches, oldLinkPatches.GetAllocator(), true, true);
                     }
 
                     auto nestedInstanceUniquePtr = beforeOwningInstance->get().DetachNestedInstance(nestedInstance->GetInstanceAlias());
@@ -1036,6 +1036,7 @@ namespace AzToolsFramework
 
         bool PrefabPublicHandler::IsInstanceContainerEntity(AZ::EntityId entityId) const
         {
+            [[maybe_unused]] AZ::Entity* entity = GetEntityById(entityId);
             InstanceOptionalReference owningInstance = m_instanceEntityMapperInterface->FindOwningInstance(entityId);
             return owningInstance && (owningInstance->get().GetContainerEntityId() == entityId);
         }
@@ -1224,7 +1225,7 @@ namespace AzToolsFramework
                         oldLinkId);
 
                     PrefabDom linkPatches;
-                    linkRef->get().GetLinkPatches(linkPatches, linkPatches.GetAllocator());
+                    linkRef->get().GetLinkPatches(linkPatches, linkPatches.GetAllocator(), true, true);
 
                     // If the instance was duplicated as part of an ancestor's nested hierarchy, the container's parent patch
                     // will need to be refreshed to point to the new duplicated parent entity
@@ -2258,3 +2259,4 @@ namespace AzToolsFramework
 
     } // namespace Prefab
 } // namespace AzToolsFramework
+#pragma optimize("", on)

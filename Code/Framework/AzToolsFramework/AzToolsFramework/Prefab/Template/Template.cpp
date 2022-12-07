@@ -123,12 +123,6 @@ namespace AzToolsFramework
             return true;
         }
 
-        bool Template::AddLinkToUpdateDuringPropagation(LinkId newLinkId)
-        {
-            m_moreLinksToUpdate.insert(newLinkId);
-            return true;
-        }
-
         bool Template::RemoveLink(LinkId linkId)
         {
             return m_links.erase(linkId) != 0;

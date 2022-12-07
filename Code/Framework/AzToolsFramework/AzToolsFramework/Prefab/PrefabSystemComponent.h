@@ -437,6 +437,9 @@ namespace AzToolsFramework
 
             // If true, individual template-remove messages will be suppressed
             bool m_removingAllTemplates = false;
+
+            // NEW STUFF
+            void ConstructNestedLinksForLink(Link& link, const PrefabDomValue& patches);
         };
     } // namespace Prefab
 } // namespace AzToolsFramework

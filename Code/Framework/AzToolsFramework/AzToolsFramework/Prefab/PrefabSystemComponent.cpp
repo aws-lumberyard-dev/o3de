@@ -224,6 +224,7 @@ namespace AzToolsFramework
                     UpdateLinkedInstances(linkIdsToUpdateQueue);
                 }
 
+                /*
                 // Propagate source template changes to other links that depend on it in nested link DOMs (override).
                 TemplateReference sourceTemplate = FindTemplate(templateId);
                 Template::Links& moreLinksThatDependOnTemplate = sourceTemplate->get().GetMoreLinksToUpdate();
@@ -237,6 +238,7 @@ namespace AzToolsFramework
                     // Then update the target with source that contains up-to-date nested link DOMs.
                     link.UpdateTarget();
                 }
+                */
 
                 UpdatePrefabInstances(templateId, instanceToExclude);
             }
@@ -305,16 +307,23 @@ namespace AzToolsFramework
         {
             Link& linkToUpdate = m_linkIdMap[linkIdToUpdate];
             TemplateId targetTemplateId = linkToUpdate.GetTargetTemplateId();
-            PrefabDomValue& linkdedInstanceDom = linkToUpdate.GetLinkedInstanceDom();
+            PrefabDomValueReference linkdedInstanceDom = linkToUpdate.GetLinkedInstanceDom();
+
+            if (!linkdedInstanceDom.has_value())
+            {
+                AZ_Error("Prefab", false, "PrefabSystemComponent::UpdateLinkedInstance could not update null linked instance DOM.");
+                return;
+            }
+
             PrefabDomValue linkDomBeforeUpdate;
-            linkDomBeforeUpdate.CopyFrom(linkdedInstanceDom, m_templateIdMap[targetTemplateId].GetPrefabDom().GetAllocator());
+            linkDomBeforeUpdate.CopyFrom(linkdedInstanceDom->get(), m_templateIdMap[targetTemplateId].GetPrefabDom().GetAllocator());
             linkToUpdate.UpdateTarget();
 
             // If any of the templates links are already updated, we don't need to check whether the linkedInstance DOM differs
             // in content because the template is already marked to be sent for change propagation.
             bool isTemplateUpdated = targetTemplateIdToLinkIdMap[targetTemplateId].second;
             if (isTemplateUpdated ||
-                AZ::JsonSerialization::Compare(linkDomBeforeUpdate, linkdedInstanceDom) != AZ::JsonSerializerCompareResult::Equal)
+                AZ::JsonSerialization::Compare(linkDomBeforeUpdate, linkdedInstanceDom->get()) != AZ::JsonSerializerCompareResult::Equal)
             {
                 targetTemplateIdToLinkIdMap[targetTemplateId].second = true;
             }
@@ -1030,46 +1039,12 @@ namespace AzToolsFramework
                 AZ_Assert(patchesReference->get().IsArray(), "Patches in the nested instance DOM are not represented as an array.");
             }
 
-            // Load the nested template.
-            // TODO: HARD CODED. NEED TO UPDATE IT TO RECURSIVE LOADING...
-            for (auto& patch : patchesReference->get().GetArray())
+            // Load the nested links if any.
+            if (patchesReference.has_value())
             {
-                PrefabDomValue& thePatchValue = patch["value"];
-                if (!thePatchValue.IsObject())
-                {
-                    continue;
-                }
-                if (!thePatchValue.HasMember("Source"))
-                {
-                    continue;
-                }
-                const PrefabDomValue& theSourceValue = thePatchValue["Source"];
-                AZStd::string_view theSourceTemplatePath(theSourceValue.GetString(), theSourceValue.GetStringLength());
-                [[maybe_unused]] TemplateId theSourceTemplateId = m_prefabLoader.LoadTemplateFromFile(theSourceTemplatePath); // TODO: progressSet?
-                TemplateReference theSourceTemplateReference = FindTemplate(theSourceTemplateId);
-                theSourceTemplateReference->get().AddLinkToUpdateDuringPropagation(link.GetId());
-
-                for (auto& subPatch : thePatchValue["Patches"].GetArray())
-                {
-                    PrefabDomValue& theSubPatchValue = subPatch["value"];
-                    if (!theSubPatchValue.IsObject())
-                    {
-                        continue;
-                    }
-                    if (!theSubPatchValue.HasMember("Source"))
-                    {
-                        continue;
-                    }
-
-                    const PrefabDomValue& theSubSourceValue = theSubPatchValue["Source"];
-                    AZStd::string_view theSubSourceTemplatePath(theSubSourceValue.GetString(), theSubSourceValue.GetStringLength());
-                    [[maybe_unused]] TemplateId theSubSourceTemplateId =
-                        m_prefabLoader.LoadTemplateFromFile(theSubSourceTemplatePath); // TODO: progressSet?
-                    TemplateReference theSubSourceTemplateReference = FindTemplate(theSubSourceTemplateId);
-                    theSubSourceTemplateReference->get().AddLinkToUpdateDuringPropagation(link.GetId());
-                }
+                ConstructNestedLinksForLink(link, patchesReference->get());
             }
-
+            // ---------------------------------------------------------------------------
 
             link.SetLinkDom(instance);  // start building the prefix tree.
             PrefabDom& targetTemplatePrefabDom = FindTemplateDom(targetTemplateId);
@@ -1086,8 +1061,8 @@ namespace AzToolsFramework
                     rapidjson::Value(instanceIterator->name.GetString(), targetTemplatePrefabDom.GetAllocator()),
                     instanceObject.Move(), targetTemplatePrefabDom.GetAllocator());
             }
-            //initialize link 
-            if (!link.UpdateTarget())  // expand the nested link DOM.
+            //initialize link            
+            if (!link.UpdateTarget())
             {
                 AZ_Error("Prefab", false,
                     "PrefabSystemComponent::ConnectTemplates - "
@@ -1099,6 +1074,69 @@ namespace AzToolsFramework
             link.AddLinkIdToInstanceDom(instance);
             return true;
         }
+
+
+        void PrefabSystemComponent::ConstructNestedLinksForLink(Link& link, const PrefabDomValue& patches)
+        {
+            if (!patches.IsArray())
+            {
+                return;
+            }
+
+            for (const auto& patch : patches.GetArray())
+            {
+                if (!patch.HasMember("value") || !patch["value"].IsObject())
+                {
+                    continue;
+                }
+
+                const PrefabDomValue& patchValue = patch["value"];
+                if (!patchValue.HasMember("Source"))
+                {
+                    continue;
+                }
+
+                // Source
+                const PrefabDomValue& theSourceValue = patchValue["Source"];
+                const AZStd::string theSourceTemplatePath(theSourceValue.GetString(), theSourceValue.GetStringLength());
+
+                // TODO: progressionSet needs to be here...
+                TemplateId nestedTemplateId = m_prefabLoader.LoadTemplateFromFile(theSourceTemplatePath.c_str());
+
+                // Nested Link
+                LinkId nestedLinkId = CreateUniqueLinkId();
+                Link nestedLink(nestedLinkId);
+                nestedLink.SetTargetTemplateId(link.GetTargetTemplateId());
+                nestedLink.SetSourceTemplateId(nestedTemplateId);
+
+                // Path
+                const PrefabDomValue& patchPathValue = patch["path"];
+                const AZStd::string patchPath(patchPathValue.GetString(), patchPathValue.GetStringLength());
+
+                AZStd::string pathToInstance = link.GetInstancePathString() + patchPath;
+                AZ::Dom::Path domPathToInstance(pathToInstance);
+
+                AZStd::string theInstanceAliasName = domPathToInstance.At(domPathToInstance.size() - 1).GetKey().GetStringView();
+                AZ::Dom::Path domPathPrefix(domPathToInstance.begin(), domPathToInstance.end() - 2);  // skip last "Instances/Instance_[123]"
+
+                nestedLink.SetInstanceName(theInstanceAliasName.c_str());
+                link.AddNestedLink(nestedLink, patchPath, domPathPrefix.ToString());
+
+                // No need to do that...
+                //FindTemplate(link.GetTargetTemplateId())->get().AddLink(nestedLinkId);
+
+                // Recursively processing "Patches" for more nested links.
+                const PrefabDomValue& patchesValue = patchValue["Patches"];
+                ConstructNestedLinksForLink(nestedLink, patchesValue);
+
+                // At last -> Put it inside the link map...
+                // Note: Have to be at the end
+                m_linkIdMap.emplace(nestedLinkId, AZStd::move(nestedLink));
+                m_templateToLinkIdsMap[nestedTemplateId].emplace(nestedLinkId); // for propagation
+            }
+        }
+
+
 
         bool PrefabSystemComponent::GenerateLinksForNewTemplate(TemplateId newTemplateId, Instance& instance)
         {

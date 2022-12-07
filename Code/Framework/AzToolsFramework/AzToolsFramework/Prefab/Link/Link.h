@@ -103,13 +103,13 @@ namespace AzToolsFramework
             //! Populates the patches DOM provided with the patches fetched from 'm_linkPatchesTree'
             //! @param[out] patchesDom The DOM to populate with patches
             //! @param allocator The allocator to use for memory allocations of patches.
-            void GetLinkPatches(PrefabDomValue& patchesDom, PrefabDomAllocator& allocator) const;
+            void GetLinkPatches(PrefabDomValue& patchesDom, PrefabDomAllocator& allocator, bool includeNestedLinkDoms, bool expanded) const;
 
             //! Populates the link DOM provided with 'Source' and 'Patches' fields. 'Patches' are fetched from 'm_linkPatchesTree'.
             //! @param[out] linkDom The DOM to populate with source and patches information.
             //! @param allocator The allocator to use for memory allocations of patches.
             void GetLinkDom(PrefabDomValue& linkDom, PrefabDomAllocator& allocator) const;
-            void GetExpandedLinkDom(PrefabDomValue& linkDom, PrefabDomAllocator& allocator) const;
+            void GetLinkDomWithNestedLinkDoms(PrefabDomValue& linkDom, PrefabDomAllocator& allocator, bool expandNestedLinkDom = false) const;
 
             //! Checks whether overrides are present by querying the patches tree with the provided path
             //! @param path The path to query the overrides tree with.
@@ -131,14 +131,20 @@ namespace AzToolsFramework
             //! @return Whether the overrides are successfully added or not.
             bool AddOverrides(const AZ::Dom::Path& path, AZ::Dom::DomPrefixTree<PrefabOverrideMetadata>&& subTree);
 
+            PrefabDomConstReference FindOverridePatch(
+                AZ::Dom::Path path,
+                AZ::Dom::PrefixTreeTraversalFlags prefixTreeTraversalFlags = AZ::Dom::PrefixTreeTraversalFlags::ExcludeParentPaths);
+
             PrefabDomPath GetInstancePath() const;
+            AZStd::string GetInstancePathString() const;
+
             const AZStd::string& GetInstanceName() const;
 
             bool UpdateTarget();
 
-            void ExpandNestedLinkDomsInPatches(PrefabDomValue& patches, PrefabDomAllocator& allocator) const;
-
-            void CollapseNestedLinkDomsInPatches(PrefabDomValue& patches, PrefabDomAllocator& allocator) const;
+            // Non-recursive
+            void ExpandLinkDom(PrefabDomValue& linkDom, PrefabDomAllocator& allocator) const;
+            void CollapseLinkDom(PrefabDomValue& linkDom, PrefabDomAllocator& allocator) const;
 
 
             /**
@@ -146,14 +152,14 @@ namespace AzToolsFramework
              * 
              * @return The DOM of the linked instance
              */
-            PrefabDomValue& GetLinkedInstanceDom();
+            PrefabDomValueReference GetLinkedInstanceDom();
 
             /**
              * Adds a linkId name,value object to the DOM of an instance.
              * 
              * @param instanceDomValue The DOM value of the instance within the target template DOM.
              */
-            void AddLinkIdToInstanceDom(PrefabDomValue& instanceDomValue);
+            void AddLinkIdToInstanceDom(PrefabDomValue& instanceDomValue) const;
 
         private:
 
@@ -163,12 +169,14 @@ namespace AzToolsFramework
              * @param instanceDomValue The DOM value of the instance within the target template DOM.
              * @param allocator The allocator used while adding the linkId object to the instance DOM.
              */
-            void AddLinkIdToInstanceDom(PrefabDomValue& instanceDomValue, PrefabDomAllocator& allocator);
+            void AddLinkIdToInstanceDom(PrefabDomValue& instanceDomValue, PrefabDomAllocator& allocator) const;
+
+            void AddLinkIdToInstanceDom(PrefabDomValue& instanceDom, LinkId linkId, PrefabDomAllocator& allocator) const;
 
             //! Populates the DOM provided with the patches fetched from 'm_linkPatchesTree'
             //! @param[out] linkDom The DOM to populate with patches
             //! @param allocator The allocator to use for memory allocations of patches.
-            void ConstructLinkDomFromPatches(PrefabDomValue& linkDom, PrefabDomAllocator& allocator) const;
+            void ConstructLinkDomFromPatches(PrefabDomValue& linkDom, PrefabDomAllocator& allocator, bool includeNestedLinkDoms, bool expanded) const;
 
             //! Clears the existing tree and rebuilds it from the provided patches.
             //! @param patches The patches to build the tree with.
@@ -191,6 +199,22 @@ namespace AzToolsFramework
 
             PrefabSystemComponentInterface* m_prefabSystemComponentInterface = nullptr;
             InstanceToTemplateInterface* m_instanceToTemplateInterface = nullptr;
+
+            // NEW STUFF
+            AZStd::string m_linkPrefix = "";
+            mutable AZStd::unordered_map<AZStd::string, LinkId> m_nestedLinks; // patch path --> nested link
+
+        public:
+            void AddNestedLink(Link& nestedLink, const AZStd::string& patchPath, const AZStd::string& prefix)
+            {
+                m_nestedLinks[patchPath] = nestedLink.GetId();
+                nestedLink.m_linkPrefix = prefix;
+            }
+
+            const AZStd::string& GetLinkPrefix() const
+            {
+                return m_linkPrefix;
+            }
         };
 
         using PrefabOverridePrefixTree = AZ::Dom::DomPrefixTree<Link::PrefabOverrideMetadata>;

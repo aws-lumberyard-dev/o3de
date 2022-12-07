@@ -11,7 +11,7 @@
 #include <AzToolsFramework/Prefab/PrefabSystemComponentInterface.h>
 #include <AzToolsFramework/Prefab/Undo/PrefabUndoUpdateLink.h>
 #include <AzToolsFramework/Prefab/Undo/PrefabUndoUtils.h>
-
+#pragma optimize("", off)
 namespace AzToolsFramework
 {
     namespace Prefab
@@ -62,19 +62,17 @@ namespace AzToolsFramework
             SetLink(linkId);
 
             //Cache current link DOM for undo link update.
-            m_link->get().GetExpandedLinkDom(m_undoPatch, m_undoPatch.GetAllocator()); // this needs to be expanded
+            m_link->get().GetLinkDomWithNestedLinkDoms(m_undoPatch, m_undoPatch.GetAllocator(), true); // this needs to be expanded
 
             //Get DOM of the link's source template.
             TemplateId sourceTemplateId = m_link->get().GetSourceTemplateId();
             TemplateReference sourceTemplate = m_prefabSystemComponentInterface->FindTemplate(sourceTemplateId);
-            AZ_Assert(sourceTemplate.has_value(),
-                "PrefabUndoUpdateLink::GenerateUndoUpdateLinkPatches - Source template not found");
+            AZ_Assert(sourceTemplate.has_value(), "PrefabUndoUpdateLink::Capture - Source template not found");
             PrefabDom& sourceDom = sourceTemplate->get().GetPrefabDom();
 
             //Get DOM of instance that the link points to.
             PrefabDomValueReference instanceDomRef = m_link->get().GetLinkedInstanceDom();
-            AZ_Assert(instanceDomRef.has_value(),
-                "PrefabUndoUpdateLink::GenerateUndoUpdateLinkPatches -Linked Instance DOM not found");
+            AZ_Assert(instanceDomRef.has_value(), "PrefabUndoUpdateLink::Capture -Linked Instance DOM not found");
             PrefabDom instanceDom;
             instanceDom.CopyFrom(instanceDomRef->get(), instanceDom.GetAllocator());
 
@@ -135,4 +133,5 @@ namespace AzToolsFramework
             m_prefabSystemComponentInterface->SetTemplateDirtyFlag(m_templateId, true);
         }
     }
-}
+} // namespace AzToolsFramework
+#pragma optimize("", on)
