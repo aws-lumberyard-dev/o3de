@@ -23,6 +23,11 @@ AZStd::fixed_vector<{{ element.attrib['Type'] }}, {{ element.attrib['Count'] }}>
         m_{{ Member.attrib['Name'] }} = value;
     }
 
+    inline void {{ name }}::Set{{ CamelCase(Member.attrib['Name']) }}({{ ElementType(Member) }}&& value)
+    {
+        m_{{ Member.attrib['Name'] }} = AZStd::move(value);
+    }
+
     inline const {{ ElementType(Member) }}& {{ name }}::Get{{ CamelCase(Member.attrib['Name']) }}() const
     {
         return m_{{ Member.attrib['Name'] }};

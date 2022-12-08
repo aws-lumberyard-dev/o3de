@@ -48,7 +48,8 @@ namespace Multiplayer
         MultiplayerPackets::EntityUpdates entityUpdatePacket;
         entityUpdatePacket.SetHostTimeMs(GetNetworkTime()->GetHostTimeMs());
         entityUpdatePacket.SetHostFrameId(GetNetworkTime()->GetHostFrameId());
-        entityUpdatePacket.SetEntityMessages(entityUpdateVector);
+        //entityUpdatePacket.SetEntityMessages(entityUpdateVector);
+        entityUpdatePacket.SetEntityMessages(AZStd::move(entityUpdateVector));
         return m_connection->SendUnreliablePacket(entityUpdatePacket);
     }
 

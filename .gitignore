@@ -3,6 +3,7 @@
 .vscode/
 __pycache__
 /[Bb]uild
+/[Bb]uild_nounity
 [Oo]ut/**
 CMakeUserPresets.json
 [Cc]ache/
@@ -20,4 +21,3 @@ server*.cfg
 _savebackup/
 *.swatches
 /imgui.ini
-

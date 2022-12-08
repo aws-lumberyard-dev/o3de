@@ -38,6 +38,11 @@ namespace Multiplayer
         MultiplayerStat_TotalReceivedBytesBeforeCompression,
         MultiplayerStat_TotalPacketsDiscardedDueToLoad,
 
+        // Perf deep-dive
+        MultiplayerStat_AverageSendUpdateTimeForAllClientsUs,
+        MultiplayerStat_AverageSendUpdateTimePerClientUs,
+        MultiplayerStat_NetworkEntityUpdateMessageDeepCopies,
+
         // Other systems
         MultiplayerStat_PhysicsFrameTimeUs,
     };

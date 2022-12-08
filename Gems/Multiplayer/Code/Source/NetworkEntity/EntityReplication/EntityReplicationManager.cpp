@@ -264,6 +264,7 @@ namespace Multiplayer
 
             pendingPacketSize += nextMessageSize;
             entityUpdates.push_back(updateMessage);
+            //entityUpdates.emplace_back(AZStd::move(updateMessage)); // does this actually do a move?
             replicatorUpdatedList.push_back(replicator);
             replicatorList.pop_front();
 

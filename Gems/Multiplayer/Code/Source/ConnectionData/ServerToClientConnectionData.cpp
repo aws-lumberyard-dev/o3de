@@ -11,6 +11,8 @@
 #include <Multiplayer/Components/LocalPredictionPlayerInputComponent.h>
 #include <Multiplayer/IMultiplayer.h>
 #include <AzNetworking/Utilities/EncryptionCommon.h>
+#include <Multiplayer/MultiplayerMetrics.h>
+#include <Multiplayer/MultiplayerPerformanceStats.h>
 
 namespace Multiplayer
 {
@@ -73,6 +75,8 @@ namespace Multiplayer
 
     void ServerToClientConnectionData::Update()
     {
+        SCOPE_PERFORMANCE_STAT(MultiplayerStat_AverageSendUpdateTimePerClientUs);
+
         m_entityReplicationManager.ActivatePendingEntities();
 
         if (CanSendUpdates())

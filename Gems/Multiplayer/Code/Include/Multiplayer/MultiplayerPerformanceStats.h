@@ -90,6 +90,31 @@
         }                                                                                                                                  \
     }
 
+namespace Multiplayer
+{
+    class StatPerfScope
+    {
+    public:
+        explicit StatPerfScope(int metricId) : m_metricId(metricId)
+        {
+            m_startMultiplayerTickTime = AZStd::chrono::steady_clock::now();
+        }
+
+        ~StatPerfScope()
+        {
+            const auto duration =
+                AZStd::chrono::duration_cast<AZStd::chrono::microseconds>(AZStd::chrono::steady_clock::now() - m_startMultiplayerTickTime);
+            SET_PERFORMANCE_STAT(m_metricId, AZ::TimeUs{ duration.count() });
+        }
+
+        AZStd::chrono::steady_clock::time_point m_startMultiplayerTickTime;
+        int m_metricId = 0;
+    };
+}
+
+#define SCOPE_PERFORMANCE_STAT(STATID)                                                  \
+    Multiplayer::StatPerfScope scope(STATID);
+
 #else
 
 #define DECLARE_PERFORMANCE_STAT_GROUP()
@@ -99,5 +124,7 @@
 #define SET_PERFORMANCE_STAT()
 
 #define INCREMENT_PERFORMANCE_STAT()
+
+#define SCOPE_PERFORMANCE_STAT()
 
 #endif

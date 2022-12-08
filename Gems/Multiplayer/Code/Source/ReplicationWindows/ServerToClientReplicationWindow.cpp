@@ -15,6 +15,8 @@
 #include <AzCore/Console/ILogger.h>
 #include <AzCore/std/sort.h>
 
+#pragma optimize("", off)
+
 namespace Multiplayer
 {
     AZ_CVAR(bool, sv_ReplicateServerProxies, true, nullptr, AZ::ConsoleFunctorFlags::Null, "Enable sending of ServerProxy entities to clients");
@@ -191,6 +193,7 @@ namespace Multiplayer
         MultiplayerPackets::EntityUpdates entityUpdatePacket;
         entityUpdatePacket.SetHostTimeMs(GetNetworkTime()->GetHostTimeMs());
         entityUpdatePacket.SetHostFrameId(GetNetworkTime()->GetHostFrameId());
+        //entityUpdatePacket.SetEntityMessages(AZStd::move(entityUpdateVector));
         entityUpdatePacket.SetEntityMessages(entityUpdateVector);
         return m_connection->SendUnreliablePacket(entityUpdatePacket);
     }
@@ -366,3 +369,5 @@ namespace Multiplayer
         }
     }
 }
+
+#pragma optimize("", on)

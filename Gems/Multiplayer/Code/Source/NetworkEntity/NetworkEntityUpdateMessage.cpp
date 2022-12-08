@@ -8,6 +8,11 @@
 
 #include <Multiplayer/NetworkEntity/NetworkEntityUpdateMessage.h>
 #include <AzCore/Console/ILogger.h>
+#include <AzCore/std/smart_ptr/make_shared.h>
+#include <Multiplayer/MultiplayerMetrics.h>
+#include <Multiplayer/MultiplayerPerformanceStats.h>
+
+#pragma optimize("", off)
 
 namespace Multiplayer
 {
@@ -18,7 +23,7 @@ namespace Multiplayer
         , m_wasMigrated(rhs.m_wasMigrated)
         , m_hasValidPrefabId(rhs.m_hasValidPrefabId)
         , m_prefabEntityId(rhs.m_prefabEntityId)
-        , m_data(AZStd::move(rhs.m_data))
+        , m_data(/*AZStd::move(*/rhs.m_data/*)*/)
     {
         ;
     }
@@ -33,8 +38,11 @@ namespace Multiplayer
     {
         if (rhs.m_data != nullptr)
         {
-            m_data = AZStd::make_unique<AzNetworking::PacketEncodingBuffer>();
-            (*m_data) = (*rhs.m_data); // Deep-copy
+            //INCREMENT_PERFORMANCE_STAT(MultiplayerStat_NetworkEntityUpdateMessageDeepCopies);
+
+            //m_data = AZStd::make_shared<AzNetworking::PacketEncodingBuffer>();
+            //(*m_data) = (*rhs.m_data); // Deep-copy
+            m_data = rhs.m_data;
         }
     }
 
@@ -70,7 +78,8 @@ namespace Multiplayer
         m_wasMigrated = rhs.m_wasMigrated;
         m_hasValidPrefabId = rhs.m_hasValidPrefabId;
         m_prefabEntityId = rhs.m_prefabEntityId;
-        m_data = AZStd::move(rhs.m_data);
+        //m_data = AZStd::move(rhs.m_data);
+        m_data = rhs.m_data;
         return *this;
     }
 
@@ -84,8 +93,10 @@ namespace Multiplayer
         m_prefabEntityId = rhs.m_prefabEntityId;
         if (rhs.m_data != nullptr)
         {
-            m_data = AZStd::make_unique<AzNetworking::PacketEncodingBuffer>();
-            *m_data = (*rhs.m_data);
+            //INCREMENT_PERFORMANCE_STAT(MultiplayerStat_NetworkEntityUpdateMessageDeepCopies);
+            /*m_data = AZStd::make_shared<AzNetworking::PacketEncodingBuffer>();
+            *m_data = (*rhs.m_data);*/
+            m_data = rhs.m_data;
         }
         return *this;
     }
@@ -172,8 +183,9 @@ namespace Multiplayer
     {
         if (m_data == nullptr)
         {
-            m_data = AZStd::make_unique<AzNetworking::PacketEncodingBuffer>();
+            m_data = AZStd::make_shared<AzNetworking::PacketEncodingBuffer>();
         }
+        INCREMENT_PERFORMANCE_STAT(MultiplayerStat_NetworkEntityUpdateMessageDeepCopies);
         (*m_data) = value;
     }
 
@@ -186,7 +198,7 @@ namespace Multiplayer
     {
         if (m_data == nullptr)
         {
-            m_data = AZStd::make_unique<AzNetworking::PacketEncodingBuffer>();
+            m_data = AZStd::make_shared<AzNetworking::PacketEncodingBuffer>();
         }
         return *m_data;
     }
@@ -223,7 +235,7 @@ namespace Multiplayer
             // m_data should never be nullptr unless this is a delete packet
             if (m_data == nullptr)
             {
-                m_data = AZStd::make_unique<AzNetworking::PacketEncodingBuffer>();
+                m_data = AZStd::make_shared<AzNetworking::PacketEncodingBuffer>();
             }
 
             serializer.Serialize(*m_data, "Data");;
@@ -232,3 +244,5 @@ namespace Multiplayer
         return serializer.IsValid();
     }
 }
+
+#pragma optimize("", on)

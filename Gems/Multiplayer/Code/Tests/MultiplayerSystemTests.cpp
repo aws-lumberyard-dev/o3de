@@ -398,7 +398,7 @@ namespace Multiplayer
         NetworkEntityUpdateVector entityUpdateVector;
         NetworkEntityUpdateMessage entityUpdateMessage;
         entityUpdateVector.push_back(entityUpdateMessage);
-        entityUpdates.SetEntityMessages(entityUpdateVector);
+        entityUpdates.SetEntityMessages(AZStd::move(entityUpdateVector));
         AZ_TEST_START_TRACE_SUPPRESSION;
         EXPECT_FALSE(m_mpComponent->HandleRequest(&connection, UdpPacketHeader(), entityUpdates));
         AZ_TEST_STOP_TRACE_SUPPRESSION(2);

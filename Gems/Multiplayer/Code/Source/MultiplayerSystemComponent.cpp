@@ -27,6 +27,7 @@
 #include <AzCore/Serialization/SerializeContext.h>
 #include <AzCore/Serialization/Utils.h>
 #include <AzCore/Interface/Interface.h>
+#include <AzCore/Jobs/Algorithms.h>
 #include <AzCore/Component/TransformBus.h>
 #include <AzCore/Console/IConsole.h>
 #include <AzCore/Console/ILogger.h>
@@ -306,7 +307,11 @@ namespace Multiplayer
         DECLARE_PERFORMANCE_STAT(MultiplayerGroup_Networking, MultiplayerStat_TotalReceivedBytesBeforeCompression, "TotalReceivedBytesBeforeCompression");
         DECLARE_PERFORMANCE_STAT(MultiplayerGroup_Networking, MultiplayerStat_TotalPacketsDiscardedDueToLoad, "TotalPacketsDiscardedDueToLoad");
 
-        DECLARE_PERFORMANCE_STAT(MultiplayerGroup_Networking, MultiplayerStat_PhysicsFrameTimeUs, "PhysicsFrameTimeUs");        
+        DECLARE_PERFORMANCE_STAT(MultiplayerGroup_Networking, MultiplayerStat_AverageSendUpdateTimeForAllClientsUs, "AverageSendUpdateTimeForAllClientsUs");
+        DECLARE_PERFORMANCE_STAT(MultiplayerGroup_Networking, MultiplayerStat_AverageSendUpdateTimePerClientUs, "AverageSendUpdateTimePerClientUs");
+        DECLARE_PERFORMANCE_STAT(MultiplayerGroup_Networking, MultiplayerStat_NetworkEntityUpdateMessageDeepCopies, "NetworkEntityUpdateMessageDeepCopies");
+
+        DECLARE_PERFORMANCE_STAT(MultiplayerGroup_Networking, MultiplayerStat_PhysicsFrameTimeUs, "PhysicsFrameTimeUs");
     }
 
     void MultiplayerSystemComponent::Deactivate()
@@ -528,8 +533,9 @@ namespace Multiplayer
         stats.m_clientConnectionCount = 0;
 
         // Send out the game state update to all connections
-        {            
+        {
             AZ_PROFILE_SCOPE(MULTIPLAYER, "MultiplayerSystemComponent: OnTick - SendOutGameStateUpdate");
+            SCOPE_PERFORMANCE_STAT(MultiplayerStat_AverageSendUpdateTimeForAllClientsUs);
 
             auto sendNetworkUpdates = [&stats](IConnection& connection)
             {
@@ -549,6 +555,19 @@ namespace Multiplayer
             };
 
             m_networkInterface->GetConnectionSet().VisitConnections(sendNetworkUpdates);
+            /*AZStd::vector<IConnection*> connections;
+            connections.reserve(m_networkInterface->GetConnectionSet().GetConnectionCount());
+            m_networkInterface->GetConnectionSet().VisitConnections([&connections](IConnection& connection)
+                {
+                    connections.push_back(&connection);
+                }
+            );
+
+            AZ::parallel_for_each(connections.begin(), connections.end(), [&sendNetworkUpdates](IConnection* connection)
+                {
+                    sendNetworkUpdates(*connection);
+                }
+            );*/
         }
 
         MultiplayerPackets::SyncConsole packet;

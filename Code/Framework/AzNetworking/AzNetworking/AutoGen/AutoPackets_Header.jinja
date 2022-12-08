@@ -46,6 +46,10 @@ AZStd::fixed_vector<{{ element.attrib['Type'] }}, {{ element.attrib['Count'] }}>
         //! @param value the value to set {{ Member.attrib['Name'] }} to
         void Set{{ CamelCase(Member.attrib['Name']) }}(const {{ ElementType(Member) }}& value);
 
+        //! Sets the value of {{ Member.attrib['Name'] }}.
+        //! @param value the value to set {{ Member.attrib['Name'] }} to
+        void Set{{ CamelCase(Member.attrib['Name']) }}({{ ElementType(Member) }}&& value);
+
         //! Gets the value of {{ Member.attrib['Name'] }}.
         //! @return the value of {{ Member.attrib['Name'] }}
         const {{ ElementType(Member) }}& Get{{ CamelCase(Member.attrib['Name']) }}() const;
