@@ -10,7 +10,7 @@
 ----------------------------------------------------------------------------------------------------
 
 function GetMaterialPropertyDependencies()
-    return {"general.castShadows"}
+    return {"opacity.mode", "general.castShadows"}
 end
 
 OpacityMode_Opaque = 0
@@ -19,7 +19,16 @@ OpacityMode_Blended = 2
 OpacityMode_TintedTransparent = 3
 
 function Process(context)
-    -- TODO(MaterialPipeline): Add support for direct connnections so scripts only have to be used for more complex cases
+
+    local opacityMode = OpacityMode_Opaque
+    if context:HasMaterialProperty("opacity.mode") then
+        opacityMode = context:GetMaterialPropertyValue_enum("opacity.mode")
+    end
+
+    -- TODO(MaterialPipeline): Add support for direct connections so scripts only have to be used for more complex cases
     local castShadows = context:GetMaterialPropertyValue_bool("general.castShadows")
     context:SetInternalMaterialPropertyValue_bool("castShadows", castShadows)
+    
+    context:SetInternalMaterialPropertyValue_bool("isTransparent", opacityMode == OpacityMode_Blended)
+    context:SetInternalMaterialPropertyValue_bool("isTintedTransparent", opacityMode == OpacityMode_TintedTransparent)
 end
