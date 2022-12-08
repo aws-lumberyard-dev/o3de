@@ -348,7 +348,7 @@ def PreBuildCommonSteps(Map pipelineConfig, String snapshot, String repositoryNa
         }
     }
 
-    if(IsPullRequest(branchName) && useS3sisWorkspace?.toBoolean()) {
+    if(!IsPullRequest(branchName) && useS3sisWorkspace?.toBoolean()) {
         dir("${workspace}") {
             checkout scm: [
                 $class: 'GitSCM',
