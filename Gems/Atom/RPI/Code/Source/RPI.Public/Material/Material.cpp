@@ -482,7 +482,7 @@ namespace AZ
             // access to pre-compile the necessary PSOs.
             MaterialPropertyPsoHandling psoHandling = m_isInitializing ? MaterialPropertyPsoHandling::Allowed : m_psoHandling;
 
-            // First run the "main" MaterialPipelineNone functors, which use the MaterialFunctor::MainRuntimeContext
+            // First run the "main" MaterialPipelineNone functors, which use the MaterialFunctorAPI::MainRuntimeContext
             for (const Ptr<MaterialFunctor>& functor : m_materialAsset->GetMaterialFunctors())
             {
                 if (functor)
@@ -492,7 +492,7 @@ namespace AZ
                     // which will later get caught in Process() when trying to access a property.
                     if (materialPropertyDependencies.none() || functor->NeedsProcess(m_materialProperties.GetPropertyDirtyFlags()))
                     {
-                        MaterialFunctor::MainRuntimeContext processContext = MaterialFunctor::MainRuntimeContext(
+                        MaterialFunctorAPI::MainRuntimeContext processContext = MaterialFunctorAPI::MainRuntimeContext(
                             m_materialProperties,
                             &materialPropertyDependencies,
                             psoHandling,
@@ -512,7 +512,7 @@ namespace AZ
                 }
             }
 
-            // Then run the "pipeline" functors, which use the MaterialFunctor::PipelineRuntimeContext
+            // Then run the "pipeline" functors, which use the MaterialFunctorAPI::PipelineRuntimeContext
             for (auto& [materialPipelineName, materialPipeline] : m_materialAsset->GetMaterialPipelines())
             {
                 MaterialPipelineData& materialPipelineData = m_materialPipelineData[materialPipelineName];
@@ -526,7 +526,7 @@ namespace AZ
                         // which will later get caught in Process() when trying to access a property.
                         if (materialPropertyDependencies.none() || functor->NeedsProcess(materialPipelineData.m_materialProperties.GetPropertyDirtyFlags()))
                         {
-                            MaterialFunctor::PipelineRuntimeContext processContext = MaterialFunctor::PipelineRuntimeContext(
+                            MaterialFunctorAPI::PipelineRuntimeContext processContext = MaterialFunctorAPI::PipelineRuntimeContext(
                                 materialPipelineData.m_materialProperties,
                                 &materialPropertyDependencies,
                                 psoHandling,

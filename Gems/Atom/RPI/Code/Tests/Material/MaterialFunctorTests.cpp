@@ -43,7 +43,7 @@ namespace UnitTest
             }
 
             using MaterialFunctor::Process;
-            void Process(MaterialFunctor::MainRuntimeContext& context) override
+            void Process(MaterialFunctorAPI::MainRuntimeContext& context) override
             {
                 m_processResult = context.SetShaderOptionValue(m_shaderOptionName, m_shaderOptionValue);
             }
@@ -67,7 +67,7 @@ namespace UnitTest
             MOCK_METHOD0(ProcessCalled, void());
 
             using MaterialFunctor::Process;
-            void Process(MainRuntimeContext& context) override
+            void Process(RPI::MaterialFunctorAPI::MainRuntimeContext& context) override
             {
                 ProcessCalled();
 
@@ -165,7 +165,7 @@ namespace UnitTest
 
         {
             // Successfully set o_optionA
-            MaterialFunctor::MainRuntimeContext runtimeContext = MaterialFunctor::MainRuntimeContext{
+            MaterialFunctorAPI::MainRuntimeContext runtimeContext = MaterialFunctorAPI::MainRuntimeContext{
                 properties,
                 &testFunctorSetOptionA.GetMaterialPropertyDependencies(),
                 AZ::RPI::MaterialPropertyPsoHandling::Allowed,
@@ -182,7 +182,7 @@ namespace UnitTest
 
         {
             // Successfully set o_optionB
-            MaterialFunctor::MainRuntimeContext runtimeContext = MaterialFunctor::MainRuntimeContext{
+            MaterialFunctorAPI::MainRuntimeContext runtimeContext = MaterialFunctorAPI::MainRuntimeContext{
                 properties,
                 &testFunctorSetOptionB.GetMaterialPropertyDependencies(),
                 AZ::RPI::MaterialPropertyPsoHandling::Allowed,
@@ -200,7 +200,7 @@ namespace UnitTest
         {
             // Fail to set o_optionC because it is not owned by the material type
             AZ_TEST_START_TRACE_SUPPRESSION;
-            MaterialFunctor::MainRuntimeContext runtimeContext = MaterialFunctor::MainRuntimeContext{
+            MaterialFunctorAPI::MainRuntimeContext runtimeContext = MaterialFunctorAPI::MainRuntimeContext{
                 properties,
                 &testFunctorSetOptionC.GetMaterialPropertyDependencies(),
                 AZ::RPI::MaterialPropertyPsoHandling::Allowed,
@@ -216,7 +216,7 @@ namespace UnitTest
         {
             // Fail to set option index that is out of range
             AZ_TEST_START_TRACE_SUPPRESSION;
-            MaterialFunctor::MainRuntimeContext runtimeContext = MaterialFunctor::MainRuntimeContext{
+            MaterialFunctorAPI::MainRuntimeContext runtimeContext = MaterialFunctorAPI::MainRuntimeContext{
                 properties,
                 &testFunctorSetOptionInvalid.GetMaterialPropertyDependencies(),
                 AZ::RPI::MaterialPropertyPsoHandling::Allowed,

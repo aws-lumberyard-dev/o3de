@@ -40,7 +40,7 @@ namespace AZ
             }
         }
         
-        void Transform2DFunctor::Process(MainRuntimeContext& context)
+        void Transform2DFunctor::Process(RPI::MaterialFunctorAPI::MainRuntimeContext& context)
         {
             using namespace RPI;
 

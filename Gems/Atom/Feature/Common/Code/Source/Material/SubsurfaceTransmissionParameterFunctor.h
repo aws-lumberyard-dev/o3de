@@ -27,7 +27,7 @@ namespace AZ
             static void Reflect(ReflectContext* context);
 
             using RPI::MaterialFunctor::Process;
-            void Process(MainRuntimeContext& context) override;
+            void Process(RPI::MaterialFunctorAPI::MainRuntimeContext& context) override;
 
         private:
 
