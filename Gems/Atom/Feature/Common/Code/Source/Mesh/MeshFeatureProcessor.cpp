@@ -891,7 +891,7 @@ namespace AZ
                 const AZ::Data::Instance<RPI::Material>& materialInstance = materialAssignment.second.m_materialInstance;
                 if (materialInstance.get())
                 {
-                    MaterialAssignmentNotificationBus::MultiHandler::BusDisconnect(materialInstance->GetAssetId());
+                    MaterialAssignmentNotificationBus::MultiHandler::BusDisconnect(materialInstance->GetId());
                 }
             }
 
@@ -933,7 +933,7 @@ namespace AZ
                 const AZ::Data::Instance<RPI::Material>& materialInstance = materialAssignment.second.m_materialInstance;
                 if (materialInstance.get())
                 {
-                    MaterialAssignmentNotificationBus::MultiHandler::BusConnect(materialInstance->GetAssetId());
+                    MaterialAssignmentNotificationBus::MultiHandler::BusConnect(materialInstance->GetId());
                 }
             }
 
@@ -1754,7 +1754,7 @@ namespace AZ
             }
         }
 
-        bool ModelDataInstance::CheckForMaterialChanges() const
+        bool ModelDataInstance::CheckForMaterialChanges(const Data::Instance<RPI::Material>& materialInstance) const
         {
             // check for the same number of materials
             if (m_materialChangeIds.size() != m_materialAssignments.size())
@@ -1762,26 +1762,20 @@ namespace AZ
                 return true;
             }
 
-            // check for material changes using the changeId
-            for (const auto& materialAssignment : m_materialAssignments)
+            MaterialChangeIdMap::const_iterator it = m_materialChangeIds.find(materialInstance);
+            if (it == m_materialChangeIds.end() || it->second != materialInstance->GetCurrentChangeId())
             {
-                const AZ::Data::Instance<RPI::Material>& materialInstance = materialAssignment.second.m_materialInstance;
-
-                MaterialChangeIdMap::const_iterator it = m_materialChangeIds.find(materialInstance);
-                if (it == m_materialChangeIds.end() || it->second != materialInstance->GetCurrentChangeId())
-                {
-                    return true;
-                }
+                return true;
             }
 
             return false;
         }
 
-        void ModelDataInstance::OnRebuildMaterialInstance()
+        void ModelDataInstance::OnRebuildMaterialInstance(Data::Instance<RPI::Material> materialInstance)
         {
             if (m_visible && m_descriptor.m_isRayTracingEnabled)
             {
-                if (CheckForMaterialChanges())
+                if (CheckForMaterialChanges(materialInstance))
                 {
                     SetRayTracingData();
 

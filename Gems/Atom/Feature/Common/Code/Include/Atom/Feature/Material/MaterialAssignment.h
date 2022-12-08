@@ -37,7 +37,7 @@ namespace AZ
             //! Recreates the material instance from the asset if it has been loaded.
             //! If amy property overrides have been specified then a unique instance will be created.
             //! Otherwise an attempt will be made to find or create a shared instance.
-            void RebuildInstance();
+            void RebuildInstance(bool signal = true);
 
             //! Release asset and instance references
             void Release();

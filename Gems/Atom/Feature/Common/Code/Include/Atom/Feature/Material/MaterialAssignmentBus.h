@@ -8,9 +8,15 @@
 #pragma once
 
 #include <AzCore/EBus/EBus.h>
+#include <AtomCore/Instance/InstanceData.h>
 
 namespace AZ
 {
+    namespace RPI
+    {
+        class Material;
+    }
+
     namespace Render
     {
         //! Components should inherit from the MaterialAssignmentNotificationBus to receive notifications
@@ -20,9 +26,9 @@ namespace AZ
         public :
             static const AZ::EBusHandlerPolicy HandlerPolicy = AZ::EBusHandlerPolicy::Multiple;
             static const AZ::EBusAddressPolicy AddressPolicy = EBusAddressPolicy::ById;
-            using BusIdType = AZ::Data::AssetId;
+            using BusIdType = AZ::Data::InstanceId;
 
-            virtual void OnRebuildMaterialInstance() = 0;
+            virtual void OnRebuildMaterialInstance(Data::Instance<RPI::Material> materialInstance) = 0;
         };
         using MaterialAssignmentNotificationBus = AZ::EBus<MaterialAssignmentNotifications>;
     } // namespace Render

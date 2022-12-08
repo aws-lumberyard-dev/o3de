@@ -98,10 +98,10 @@ namespace AZ
             bool MaterialRequiresForwardPassIblSpecular(Data::Instance<RPI::Material> material) const;
             void SetVisible(bool isVisible);
             void UpdateMaterialChangeIds();
-            bool CheckForMaterialChanges() const;
+            bool CheckForMaterialChanges(const Data::Instance<RPI::Material>& materialInstance) const;
 
             // MaterialAssignmentNotificationBus overrides
-            void OnRebuildMaterialInstance() override;
+            void OnRebuildMaterialInstance(Data::Instance<RPI::Material> materialInstance) override;
 
             RPI::MeshDrawPacketLods m_drawPacketListsByLod;
 

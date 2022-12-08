@@ -282,7 +282,10 @@ namespace AZ
                 // This ensures that property changes and notifications only occur once everything is fully loaded.
                 for (auto& materialPair : m_configuration.m_materials)
                 {
-                    materialPair.second.RebuildInstance();
+                    // We are intializing, or building the material instance for the first time here. No need to
+                    // signal that the instance was 'rebuilt', since nothing has changed.
+                    constexpr bool signal = false;
+                    materialPair.second.RebuildInstance(signal);
                     MaterialComponentNotificationBus::Event(m_entityId, &MaterialComponentNotifications::OnMaterialInstanceCreated, materialPair.second);
                     QueuePropertyChanges(materialPair.first);
                 }
