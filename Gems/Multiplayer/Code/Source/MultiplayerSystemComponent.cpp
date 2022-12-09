@@ -307,11 +307,13 @@ namespace Multiplayer
         DECLARE_PERFORMANCE_STAT(MultiplayerGroup_Networking, MultiplayerStat_TotalReceivedBytesBeforeCompression, "TotalReceivedBytesBeforeCompression");
         DECLARE_PERFORMANCE_STAT(MultiplayerGroup_Networking, MultiplayerStat_TotalPacketsDiscardedDueToLoad, "TotalPacketsDiscardedDueToLoad");
 
-        DECLARE_PERFORMANCE_STAT(MultiplayerGroup_Networking, MultiplayerStat_AverageSendUpdateTimeForAllClientsUs, "AverageSendUpdateTimeForAllClientsUs");
-        DECLARE_PERFORMANCE_STAT(MultiplayerGroup_Networking, MultiplayerStat_AverageSendUpdateTimePerClientUs, "AverageSendUpdateTimePerClientUs");
-        DECLARE_PERFORMANCE_STAT(MultiplayerGroup_Networking, MultiplayerStat_NetworkEntityUpdateMessageDeepCopies, "NetworkEntityUpdateMessageDeepCopies");
-
         DECLARE_PERFORMANCE_STAT(MultiplayerGroup_Networking, MultiplayerStat_PhysicsFrameTimeUs, "PhysicsFrameTimeUs");
+
+        DECLARE_PERFORMANCE_STAT_GROUP(MultiplayerGroup_Performance, "Performance");
+        DECLARE_PERFORMANCE_STAT(MultiplayerGroup_Performance, MultiplayerStat_AverageSendUpdateTimeForAllClientsUs, "AverageSendUpdateTimeForAllClientsUs");
+        DECLARE_PERFORMANCE_STAT(MultiplayerGroup_Performance, MultiplayerStat_AverageSendUpdateTimePerClientUs, "AverageSendUpdateTimePerClientUs");
+        DECLARE_PERFORMANCE_STAT(MultiplayerGroup_Performance, MultiplayerStat_NetworkEntityUpdateMessageDeepCopies, "NetworkEntityUpdateMessageDeepCopies");
+
     }
 
     void MultiplayerSystemComponent::Deactivate()

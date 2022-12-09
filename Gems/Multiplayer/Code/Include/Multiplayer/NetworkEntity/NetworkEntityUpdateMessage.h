@@ -107,9 +107,7 @@ namespace Multiplayer
 
         // Only allocated if we actually have data
         // This is to prevent blowing out stack memory if we declare an array of these EntityUpdateMessages
-        AZStd::shared_ptr<AzNetworking::PacketEncodingBuffer> m_data;
+        AZStd::unique_ptr<AzNetworking::PacketEncodingBuffer> m_data;
     };
-
-    //using NetworkEntityUpdateVector = AZStd::fixed_vector<NetworkEntityUpdateMessage, MaxAggregateEntityMessages>;
-    using NetworkEntityUpdateVector = AZStd::vector<NetworkEntityUpdateMessage>;
+    using NetworkEntityUpdateVector = AZStd::fixed_vector<NetworkEntityUpdateMessage, MaxAggregateEntityMessages>;
 }

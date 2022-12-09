@@ -13,7 +13,8 @@ namespace Multiplayer
     //! Declares multiplayer metric group ids.
     enum MultiplayerGroupIds
     {
-        MultiplayerGroup_Networking = 101           // A group of multiplayer metrics
+        MultiplayerGroup_Networking = 101,          // A group of multiplayer metrics
+        MultiplayerGroup_Performance                // A group of multiplayer metrics
     };
 
     //! Declares multiplayer metric stat ids.

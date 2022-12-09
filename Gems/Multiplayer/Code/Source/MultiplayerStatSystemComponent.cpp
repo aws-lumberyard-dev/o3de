@@ -13,6 +13,8 @@
 #include <Multiplayer/IMultiplayer.h>
 #include <Source/MultiplayerStatSystemComponent.h>
 
+#pragma optimize("", off)
+
 namespace Multiplayer
 {
     // Metrics cvars
@@ -264,7 +266,7 @@ namespace Multiplayer
                     }
 
                     AZ::Metrics::CounterArgs counterArgs;
-                    counterArgs.m_name = "Stats";
+                    counterArgs.m_name = group.m_name;
                     counterArgs.m_cat = group.m_name;
                     counterArgs.m_args = argsContainer;
 
@@ -274,3 +276,5 @@ namespace Multiplayer
         }
     }
 } // namespace Multiplayer
+
+#pragma optimize("", on)

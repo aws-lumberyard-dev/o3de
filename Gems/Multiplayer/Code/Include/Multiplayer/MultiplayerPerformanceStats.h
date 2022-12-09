@@ -90,6 +90,25 @@
         }                                                                                                                                  \
     }
 
+#define SCOPE_PERFORMANCE_STAT(STATID)                                                  \
+    Multiplayer::StatPerfScope scope(STATID);
+
+#else
+
+#define DECLARE_PERFORMANCE_STAT_GROUP()
+
+#define DECLARE_PERFORMANCE_STAT()
+
+#define SET_PERFORMANCE_STAT()
+
+#define INCREMENT_PERFORMANCE_STAT()
+
+#define SCOPE_PERFORMANCE_STAT()
+
+#endif
+
+#pragma optimize("", off)
+
 namespace Multiplayer
 {
     class StatPerfScope
@@ -112,19 +131,4 @@ namespace Multiplayer
     };
 }
 
-#define SCOPE_PERFORMANCE_STAT(STATID)                                                  \
-    Multiplayer::StatPerfScope scope(STATID);
-
-#else
-
-#define DECLARE_PERFORMANCE_STAT_GROUP()
-
-#define DECLARE_PERFORMANCE_STAT()
-
-#define SET_PERFORMANCE_STAT()
-
-#define INCREMENT_PERFORMANCE_STAT()
-
-#define SCOPE_PERFORMANCE_STAT()
-
-#endif
+#pragma optimize("", on)
