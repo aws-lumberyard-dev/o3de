@@ -585,7 +585,7 @@ def PostBuildCommonSteps(String workspace, Map params, String projectName, Strin
 
         unstash name: 's3sis_util_script'
 
-        if(env.IS_UNIX) pythonCmd = 'sudo -E python3 -u '
+        if(env.IS_UNIX) pythonCmd = 'python3 -u '
         else pythonCmd = 'python3 -u '
 
         try {
