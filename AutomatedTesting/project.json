@@ -8,6 +8,7 @@
     "display_name": "AutomatedTesting",
     "icon_path": "preview.png",
     "external_subdirectories": [
+        "C:/ly/git/o3de/Gems/AzQtComponentsForPython",
         "Gem"
     ]
 }
