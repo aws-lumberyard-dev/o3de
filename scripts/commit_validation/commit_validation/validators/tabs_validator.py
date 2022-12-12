@@ -35,7 +35,6 @@ class TabsValidator(CommitValidator):
                 # So we count the tabs, but we only print the first one in full.
                 first_tab_line_found = None
                 for index, line in enumerate(file_diff.splitlines()):
-                    line_number = line_number + 1
                     # we only care about added lines.
                     if line.startswith('+'):
                         if '\t' in line:
