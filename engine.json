@@ -18,6 +18,7 @@
         "Gems/AWSCore",
         "Gems/AWSGameLift",
         "Gems/AWSMetrics",
+        "Gems/AzQtComponentsForPython",
         "Gems/BarrierInput",
         "Gems/Camera",
         "Gems/CameraFramework",
