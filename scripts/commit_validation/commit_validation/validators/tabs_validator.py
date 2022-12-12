@@ -53,8 +53,8 @@ class TabsValidator(CommitValidator):
                     error_message = str(
                                 f'{file_name}::{self.__class__.__name__} FAILED TabsValidator - {tab_line_count} tabs in this file on line {line_number_found}\n'
                                 f'First instance of a tab: \n'
-                                f'{first_tab_line_found} \n')
-                                f'Note: Tabs are often converted to spaces by IDE and text editors. Verify this before overriding the error'
+                                f'{first_tab_line_found} \n'
+                                f'Note: Tabs are often converted to spaces by IDE and text editors. Verify this before overriding the error')
                          
                     errors.append(error_message)
                     if VERBOSE: print(error_message)
