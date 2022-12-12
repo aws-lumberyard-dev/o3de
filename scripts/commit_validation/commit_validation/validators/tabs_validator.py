@@ -33,8 +33,10 @@ class TabsValidator(CommitValidator):
                 # or the entire file is full of tabs.  
                 # So we count the tabs, but we only print the first one in full.
                 first_tab_line_found = None
-                  
+                line_number = 0
+                line_number_found = []
                 for line in file_diff.splitlines():
+                    line_number++
                     # we only care about added lines.
                     if line.startswith('+'):
                         if '\t' in line:
@@ -44,13 +46,16 @@ class TabsValidator(CommitValidator):
                                     f'     {previous_line_context}\n'
                                     f'---> {line}\n')
                             tab_line_count = tab_line_count + 1
+                            line_number_found.append(line_number)
                             
                     previous_line_context = line
                 if tab_line_count:
                     error_message = str(
-                                f'{file_name}::{self.__class__.__name__} FAILED TabsValidator - {tab_line_count} tabs in this file\n'
+                                f'{file_name}::{self.__class__.__name__} FAILED TabsValidator - {tab_line_count} tabs in this file on line {line_number_found}\n'
                                 f'First instance of a tab: \n'
-                                f'{first_tab_line_found}')
+                                f'{first_tab_line_found} \n')
+                                f'Note: Tabs are often converted to spaces by IDE and text editors. Verify this before overriding the error'
+                         
                     errors.append(error_message)
                     if VERBOSE: print(error_message)
 
