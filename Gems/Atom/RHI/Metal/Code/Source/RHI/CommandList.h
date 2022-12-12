@@ -37,7 +37,9 @@ namespace AZ
         {
         public:
             AZ_CLASS_ALLOCATOR(CommandList, AZ::SystemAllocator, 0);
-
+            using MetalArgumentBufferArray = AZStd::array<id<MTLBuffer>, RHI::Limits::Pipeline::ShaderResourceGroupCountMax>;
+            using MetalArgumentBufferArrayOffsets = AZStd::array<NSUInteger, RHI::Limits::Pipeline::ShaderResourceGroupCountMax>;
+            
             static RHI::Ptr<CommandList> Create();
             
             void Init(RHI::HardwareQueueClass hardwareQueueClass, Device* device);
@@ -64,6 +66,9 @@ namespace AZ
             void EndPredication() override {}
             void BuildBottomLevelAccelerationStructure(const RHI::RayTracingBlas& rayTracingBlas) override;
             void BuildTopLevelAccelerationStructure(const RHI::RayTracingTlas& rayTracingTlas) override;
+            void SetFragmentShadingRate(
+                [[maybe_unused]] RHI::ShadingRate rate,
+                [[maybe_unused]] const RHI::ShadingRateCombinators& combinators = DefaultShadingRateCombinators) override {}
 
         private:
             
@@ -97,9 +102,7 @@ namespace AZ
                 AZStd::array<const ShaderResourceGroup*, RHI::Limits::Pipeline::ShaderResourceGroupCountMax> m_srgsBySlot;
                 AZStd::array<AZ::HashValue64, RHI::Limits::Pipeline::ShaderResourceGroupCountMax> m_srgVisHashByIndex;
             };
-            
-            using MetalArgumentBufferArray = AZStd::array<id<MTLBuffer>, RHI::Limits::Pipeline::ShaderResourceGroupCountMax>;
-            using MetalArgumentBufferArrayOffsets = AZStd::array<NSUInteger, RHI::Limits::Pipeline::ShaderResourceGroupCountMax>;
+                        
             void BindArgumentBuffers(RHI::ShaderStage shaderStage,
                                      uint16_t registerIdMin,
                                      uint16_t registerIdMax,
@@ -128,7 +131,10 @@ namespace AZ
                 RHI::Viewport m_viewport;
                 // Array of shader resource bindings, indexed by command pipe.
                 AZStd::array<ShaderResourceBindings, static_cast<size_t>(RHI::PipelineStateType::Count)> m_bindingsByPipe;
-                
+
+                // Signal that the global bindless heap is bound
+                bool m_bindBindlessHeap = false;
+
             } m_state;
         };
         

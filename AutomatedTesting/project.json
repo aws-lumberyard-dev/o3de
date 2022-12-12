@@ -10,5 +10,7 @@
     "external_subdirectories": [
         "C:/ly/git/o3de/Gems/AzQtComponentsForPython",
         "Gem"
+    ],
+    "gem_names": [
     ]
 }
