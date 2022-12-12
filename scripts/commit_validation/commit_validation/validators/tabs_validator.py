@@ -36,7 +36,7 @@ class TabsValidator(CommitValidator):
                 line_number = 0
                 line_number_found = []
                 for line in file_diff.splitlines():
-                    line_number++
+                    line_number += 1
                     # we only care about added lines.
                     if line.startswith('+'):
                         if '\t' in line:
