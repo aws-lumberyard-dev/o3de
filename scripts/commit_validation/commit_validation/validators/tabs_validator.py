@@ -27,16 +27,15 @@ class TabsValidator(CommitValidator):
                     break
             else:
                 tab_line_count = 0
+                line_number_found = []
                 file_diff = commit.get_file_diff(file_name)
 
                 # Usually, code either has a very small number of tabs in the file by accident,
                 # or the entire file is full of tabs.  
                 # So we count the tabs, but we only print the first one in full.
                 first_tab_line_found = None
-                line_number = 0
-                line_number_found = []
-                for line in file_diff.splitlines():
-                    line_number += 1
+                for index, line in enumerate(file_diff.splitlines()):
+                    line_number = line_number + 1
                     # we only care about added lines.
                     if line.startswith('+'):
                         if '\t' in line:
@@ -46,7 +45,7 @@ class TabsValidator(CommitValidator):
                                     f'     {previous_line_context}\n'
                                     f'---> {line}\n')
                             tab_line_count = tab_line_count + 1
-                            line_number_found.append(line_number)
+                            line_number_found.append(index)
                             
                     previous_line_context = line
                 if tab_line_count:
