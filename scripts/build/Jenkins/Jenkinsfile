@@ -243,11 +243,6 @@ def CheckoutBootstrapScripts(String branchName) {
 }
 
 def CheckoutRepo(boolean disableSubmodules = false) {
-
-    if (!fileExists(ENGINE_REPOSITORY_NAME)) {
-        palMkdir(ENGINE_REPOSITORY_NAME)
-    }
-
     if(fileExists('.git')) {
         // If the repository after checkout is locked, likely we took a snapshot while git was running,
         // to leave the repo in a usable state, garbagecollect. This also helps in situations where
@@ -385,7 +380,6 @@ def PreBuildCommonSteps(Map pipelineConfig, String snapshot, String repositoryNa
             echo "WARN: Failed to download workspace. \n${e}"
         }
     }
-    return
 
     dir("${workspace}/${ENGINE_REPOSITORY_NAME}") {
         CheckoutRepo(disableSubmodules)
@@ -406,7 +400,7 @@ def PreBuildCommonSteps(Map pipelineConfig, String snapshot, String repositoryNa
         else command += '.cmd'
         command += " -u ${pipelineConfig.BUILD_ENTRY_POINT} --platform ${platform} --type clean"
         palSh(command, "Running ${platform} clean")
-
+        return
         if(fileExists('.lfsconfig')) {
             palSh("git lfs install", "LFS config exists. Installing LFS hooks to local repo")
             palSh("git lfs pull", "Pulling new LFS objects")
