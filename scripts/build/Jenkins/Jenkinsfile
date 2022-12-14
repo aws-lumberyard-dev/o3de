@@ -430,16 +430,16 @@ def PreBuildCommonSteps(Map pipelineConfig, String snapshot, String repositoryNa
             ]
             dir("s3sis") {
                 if (env.IS_UNIX) {
-                    palSh("sudo python3 -m pip install PyGithub", "Installing PyGithub")
-                    palSh("sudo python3 setup.py install", "Installing S3SIS")
+                    PlatformSh("sudo python3 -m pip install PyGithub", "Installing PyGithub")
+                    PlatformSh("sudo python3 setup.py install", "Installing S3SIS")
                 } else {
-                    palSh("python3 -m pip install PyGithub", "Installing PyGithub")
-                    palSh("python3 setup.py install", "Installing S3SIS")
+                    PlatformSh("python3 -m pip install PyGithub", "Installing PyGithub")
+                    PlatformSh("python3 setup.py install", "Installing S3SIS")
                 }
-                palSh("s3siscli configure", "Configuring S3SIS")
+                PlatformSh("s3siscli configure", "Configuring S3SIS")
             }
             if(fileExists("${workspace}/${ENGINE_REPOSITORY_NAME}")) {
-                palRmDir("${workspace}/${ENGINE_REPOSITORY_NAME}")
+                PlatformRmDir("${workspace}/${ENGINE_REPOSITORY_NAME}")
             }
             unstash name: 's3sis_util_script'
 
@@ -448,7 +448,7 @@ def PreBuildCommonSteps(Map pipelineConfig, String snapshot, String repositoryNa
             else pythonCmd = 'python3 -u '
 
             try {
-                palSh("${pythonCmd} ${S3SIS_UTIL_SCRIPT_PATH} --action download --repository ${repositoryName} --branch ${branchName} --pipeline ${projectName} --platform ${platform} --build-config ${buildType} --workspace ${workspace}/${ENGINE_REPOSITORY_NAME}", 'Downloading workspace', winSlashReplacement=false)
+                PlatformSh("${pythonCmd} ${S3SIS_UTIL_SCRIPT_PATH} --action download --repository ${repositoryName} --branch ${branchName} --pipeline ${projectName} --platform ${platform} --build-config ${buildType} --workspace ${workspace}/${ENGINE_REPOSITORY_NAME}", 'Downloading workspace', winSlashReplacement=false)
             } catch (Exception e) {
                 echo "WARN: Failed to download workspace. \n${e}"
             }
@@ -881,13 +881,13 @@ def PostBuildCommonSteps(String workspace, Map params, String projectName, Strin
         }
         dir("${workspace}/s3sis") {
             if (env.IS_UNIX) {
-                palSh("sudo python3 -m pip install PyGithub", "Installing PyGithub")
-                palSh("sudo python3 setup.py install", "Installing S3SIS")
+                PlatformSh("sudo python3 -m pip install PyGithub", "Installing PyGithub")
+                PlatformSh("sudo python3 setup.py install", "Installing S3SIS")
             } else {
-                palSh("python3 -m pip install PyGithub", "Installing PyGithub")
-                palSh("python3 setup.py install", "Installing S3SIS")
+                PlatformSh("python3 -m pip install PyGithub", "Installing PyGithub")
+                PlatformSh("python3 setup.py install", "Installing S3SIS")
             }
-            palSh("s3siscli configure", "Configuring S3SIS")
+            PlatformSh("s3siscli configure", "Configuring S3SIS")
         }
 
         unstash name: 's3sis_util_script'
@@ -896,7 +896,7 @@ def PostBuildCommonSteps(String workspace, Map params, String projectName, Strin
         else pythonCmd = 'python3 -u '
 
         try {
-            palSh("${pythonCmd} ${S3SIS_UTIL_SCRIPT_PATH} --action upload --repository ${env.REPOSITORY_NAME} --branch ${branchName} --pipeline ${projectName} --platform ${platform} --build-config ${buildType} --workspace ${workspace}/${ENGINE_REPOSITORY_NAME}", 'Uploading workspace', winSlashReplacement=false)
+            PlatformSh("${pythonCmd} ${S3SIS_UTIL_SCRIPT_PATH} --action upload --repository ${env.REPOSITORY_NAME} --branch ${branchName} --pipeline ${projectName} --platform ${platform} --build-config ${buildType} --workspace ${workspace}/${ENGINE_REPOSITORY_NAME}", 'Uploading workspace', winSlashReplacement=false)
         } catch (Exception e) {
             echo "WARN: Failed to upload workspace. \n${e}"
         }
