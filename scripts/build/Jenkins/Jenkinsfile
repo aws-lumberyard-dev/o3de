@@ -436,8 +436,8 @@ def PreBuildCommonSteps(Map pipelineConfig, String snapshot, String repositoryNa
                 }
                 PlatformSh("s3siscli configure", "Configuring S3SIS")
             }
-            if(fileExists("${workspace}/${ENGINE_REPOSITORY_NAME}")) {
-                PlatformRmDir("${workspace}/${ENGINE_REPOSITORY_NAME}")
+            if(fileExists("repo")) {
+                PlatformRmDir("repo")
             }
             unstash name: 's3sis_util_script'
 
@@ -446,7 +446,7 @@ def PreBuildCommonSteps(Map pipelineConfig, String snapshot, String repositoryNa
             else pythonCmd = 'python3 -u '
 
             try {
-                PlatformSh("${pythonCmd} ${S3SIS_UTIL_SCRIPT_PATH} --action download --repository ${repositoryName} --branch ${branchName} --pipeline ${projectName} --platform ${platform} --build-config ${buildType} --workspace ${workspace}/${ENGINE_REPOSITORY_NAME}", 'Downloading workspace', winSlashReplacement=false)
+                PlatformSh("${pythonCmd} ${S3SIS_UTIL_SCRIPT_PATH} --action download --repository ${repositoryName} --branch ${branchName} --pipeline ${projectName} --platform ${platform} --build-config ${buildType} --workspace ${workspace}/repo", 'Downloading workspace', winSlashReplacement=false)
             } catch (Exception e) {
                 echo "WARN: Failed to download workspace. \n${e}"
             }
@@ -536,7 +536,7 @@ def Build(Map pipelineConfig, String platform, String type, String workspace) {
         else command += '.cmd'
         command += " -u ${pipelineConfig.BUILD_ENTRY_POINT} --platform ${platform} --type ${type}"
 
-        dir(workspace) {
+        dir("${workspace}/repo") {
             def extrasAutomatedTestingControlFile = {}
             dir(EXTRAS_REPOSITORY_NAME) {
                 echo 'Loading Extras .automatedtesting.json'
@@ -722,7 +722,7 @@ def TestMetrics(Map pipelineConfig, String workspace, String branchName, String 
         def command = "${pipelineConfig.PYTHON_DIR}/python"
         if(env.IS_UNIX) command += '.sh'
         else command += '.cmd'
-        dir(workspace){
+        dir("${workspace}/repo"){
             dir(ENGINE_REPOSITORY_NAME) {
                 checkout scm: [
                     $class: 'GitSCM',
@@ -752,7 +752,7 @@ def BenchmarkMetrics(Map pipelineConfig, String workspace, String branchName, St
         def command = "${pipelineConfig.PYTHON_DIR}/python"
         if(env.IS_UNIX) command += '.sh'
         else command += '.cmd'
-        dir(workspace) {
+        dir("${workspace}/repo") {
             dir(ENGINE_REPOSITORY_NAME) {
                 checkout scm: [
                     $class: 'GitSCM',
@@ -772,7 +772,7 @@ def BenchmarkMetrics(Map pipelineConfig, String workspace, String branchName, St
 
 def ExportTestResults(Map options, String platform, String type, String workspace, Map params) {
     catchError(message: "Error exporting tests results (this won't fail the build)", buildResult: 'SUCCESS', stageResult: 'FAILURE') {
-        dir(workspace) {
+        dir("${workspace}/repo") {
             dir(ENGINE_REPOSITORY_NAME) {
                 dir(params.OUTPUT_DIRECTORY) {
                     junit testResults: "Testing/**/*.xml"
@@ -784,7 +784,7 @@ def ExportTestResults(Map options, String platform, String type, String workspac
 
 def ExportTestScreenshots(Map options, String branchName, String platformName, String jobName, String workspace, Map params) {
     catchError(message: "Error exporting test screenshots (this won't fail the build)", buildResult: 'SUCCESS', stageResult: 'FAILURE') {
-        dir(workspace){
+        dir("${workspace}/repo"){
             dir(ENGINE_REPOSITORY_NAME) {
                 def screenshotsFolder = "AutomatedTesting/user/PythonTests/Automated/Screenshots"
                 def s3Uploader = "${SCRIPTS_PATH}/tools/upload_to_s3.py"
@@ -822,7 +822,7 @@ def ArchiveArtifactsOnS3(String artifactsSource, String s3Prefix="", boolean rec
 
 def UploadAPLogs(String platformName, String jobName, String workspace, Map params) {
     catchError(message: "Error archiving AssetProcessor logs (this won't fail the build)", buildResult: 'UNSTABLE', stageResult: 'FAILURE') {
-        dir(workspace) {
+        dir("${workspace}/repo") {
             dir(ENGINE_REPOSITORY_NAME) {
                 projects = params.CMAKE_LY_PROJECTS.split(",")
                 projects.each{ project ->
@@ -851,7 +851,7 @@ def UploadCrashArtifacts(String platform) {
 def PostBuildCommonSteps(String workspace, Map params, String projectName, String pipelineName, String branchName, String platform, String buildType, boolean mount = true, String useS3sisWorkspace = "False") {
     echo 'Starting post-build common steps...'
     if (params && params.containsKey('OUTPUT_DIRECTORY')){
-        dir(workspace) {
+        dir("${workspace}/repo") {
             dir(ENGINE_REPOSITORY_NAME) {
                 dir(params.OUTPUT_DIRECTORY) {
                     // Clean up Testing directory
@@ -866,7 +866,7 @@ def PostBuildCommonSteps(String workspace, Map params, String projectName, Strin
     def pythonCmd = ''
 
     if(!IsPullRequest(branchName) && useS3sisWorkspace?.toBoolean()) {
-        dir("${workspace}") {
+        dir(workspace) {
             checkout scm: [
                 $class: 'GitSCM',
                 branches: [[name: '*/test-o3de-s3sis']],
