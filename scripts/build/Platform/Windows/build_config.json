@@ -26,7 +26,10 @@
       "profile",
       "asset_profile",
       "test_cpu_profile"
-    ]
+    ],
+    "PIPELINE_ENV":{
+      "USE_S3SIS_WORKSPACE": "True"
+    }
   },
   "profile_pipe_tiaf": {
     "TAGS": [
@@ -124,6 +127,9 @@
       "CMAKE_LY_PROJECTS": "AutomatedTesting",
       "CMAKE_TARGET": "ALL_BUILD",
       "CMAKE_NATIVE_BUILD_ARGS": "/m /nologo"
+    },
+    "PIPELINE_ENV":{
+      "USE_S3SIS_WORKSPACE": "True"
     }
   },
   "profile_vs2019": {
