@@ -13,6 +13,7 @@ import java.util.regex.Pattern
 SCRIPTS_PATH = 'scripts/build' // Root path for all CI scripts
 PIPELINE_CONFIG_FILE = "${SCRIPTS_PATH}/Jenkins/o3de.json"
 INCREMENTAL_BUILD_SCRIPT_PATH = "${SCRIPTS_PATH}/bootstrap/incremental_build_util.py"
+S3SIS_UTIL_SCRIPT_PATH = "${SCRIPTS_PATH}/bootstrap/s3sis_util.py"
 EBS_SNAPSHOT_SCRIPT_PATH = "${SCRIPTS_PATH}/tools/ebs_snapshot.py"
 PIPELINE_RETRY_ATTEMPTS = 3
 
