@@ -7,7 +7,7 @@ set -euo pipefail
 # SPDX-License-Identifier: Apache-2.0 OR MIT
 #
 
-XCODE_VER="11.4"
+XCODE_VER="14.2"
 S3_BUCKET=$1
 
 echo "Installing Xcode ${XCODE_VER}"
