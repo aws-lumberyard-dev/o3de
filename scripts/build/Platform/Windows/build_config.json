@@ -239,7 +239,8 @@
   "awsi_test_profile_pipe": {
     "TAGS": [
       "periodic-incremental-daily-internal",
-      "periodic-clean-weekly-internal"
+      "periodic-clean-weekly-internal",
+      "devops/test-periodic"
     ],
     "steps": [
       "awsi_deployment",
