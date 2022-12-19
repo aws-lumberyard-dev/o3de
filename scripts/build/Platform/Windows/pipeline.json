@@ -94,7 +94,7 @@
                 "description": "The O3DE version shown in the splash screens"
             }
         ],
-        "devops/test-periodic": [
+        "test-periodic": [
             {
                 "parameter_name": "O3DE_AWS_DEPLOY_REGION",
                 "parameter_type": "string",
