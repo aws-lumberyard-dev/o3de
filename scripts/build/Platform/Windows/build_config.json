@@ -240,7 +240,7 @@
     "TAGS": [
       "periodic-incremental-daily-internal",
       "periodic-clean-weekly-internal",
-      "devops/test-periodic"
+      "test-periodic"
     ],
     "steps": [
       "awsi_deployment",
