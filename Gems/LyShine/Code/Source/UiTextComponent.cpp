@@ -708,9 +708,9 @@ namespace
                         AZStd::string::size_type bytesProcessed = pBuf - drawBatch.text.c_str();
                         drawBatch.text.insert(bytesProcessed, "\n"); // Insert the newline, this invalidates the iterator
                         pBuf = drawBatch.text.data() + bytesProcessed; // In case reallocation occurs, we ensure we are inside the new buffer
-                        assert(*pBuf == '\n');
+                        //assert(*pBuf == '\n');
                         pChar = Utf8::Unchecked::octet_iterator(pBuf); // pChar once again points inside the target string, at the current character
-                        assert(*pChar == ch);
+                        //assert(*pChar == ch);
                         ++pChar;
                         ++curChar;
                         ++batchCurChar;

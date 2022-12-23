@@ -540,57 +540,57 @@ namespace Multiplayer
         m_connectionEvent.Enqueue(AZ::SecondsToTimeMs(retrySeconds), autoRequeue);
     }
 
-    void MultiplayerEditorSystemComponent::PopulateEditorGlobalContextMenu(QMenu* menu, const AZStd::optional<AzFramework::ScreenPoint>& point, [[ maybe_unused ]] int flags)
-    {
-        AzToolsFramework::EntityIdList selected;
-        AzToolsFramework::ToolsApplicationRequests::Bus::BroadcastResult(selected, &AzToolsFramework::ToolsApplicationRequests::GetSelectedEntities);
+    //void MultiplayerEditorSystemComponent::PopulateEditorGlobalContextMenu(QMenu* menu, const AZStd::optional<AzFramework::ScreenPoint>& point, [[ maybe_unused ]] int flags)
+    //{
+    //    AzToolsFramework::EntityIdList selected;
+    //    AzToolsFramework::ToolsApplicationRequests::Bus::BroadcastResult(selected, &AzToolsFramework::ToolsApplicationRequests::GetSelectedEntities);
 
-        // Merge in highlighted entities..
-        // This stuff should probably be exposed from the SandboxIntegration class
-        {
-            AzToolsFramework::EntityIdList highlightedEntities;
-            AzToolsFramework::ToolsApplicationRequests::Bus::BroadcastResult(highlightedEntities, &AzToolsFramework::ToolsApplicationRequests::GetHighlightedEntities);
-            for (AZ::EntityId highlightedId : highlightedEntities)
-            {
-                if (selected.end() == AZStd::find(selected.begin(), selected.end(), highlightedId))
-                {
-                    selected.push_back(highlightedId);
-                }
-            }
-        }
+    //    // Merge in highlighted entities..
+    //    // This stuff should probably be exposed from the SandboxIntegration class
+    //    {
+    //        AzToolsFramework::EntityIdList highlightedEntities;
+    //        AzToolsFramework::ToolsApplicationRequests::Bus::BroadcastResult(highlightedEntities, &AzToolsFramework::ToolsApplicationRequests::GetHighlightedEntities);
+    //        for (AZ::EntityId highlightedId : highlightedEntities)
+    //        {
+    //            if (selected.end() == AZStd::find(selected.begin(), selected.end(), highlightedId))
+    //            {
+    //                selected.push_back(highlightedId);
+    //            }
+    //        }
+    //    }
 
-        AZ::EntityId parentEntityId = AZ::EntityId();
-        AZ::Vector3 worldPosition = AZ::Vector3::CreateZero();
-        if (selected.size() == 1)
-        {
-            parentEntityId = selected.front();
-        }
+    //    AZ::EntityId parentEntityId = AZ::EntityId();
+    //    AZ::Vector3 worldPosition = AZ::Vector3::CreateZero();
+    //    if (selected.size() == 1)
+    //    {
+    //        parentEntityId = selected.front();
+    //    }
 
-        auto readOnlyEntityPublicInterface = AZ::Interface<AzToolsFramework::ReadOnlyEntityPublicInterface>::Get();
-        if (readOnlyEntityPublicInterface && !readOnlyEntityPublicInterface->IsReadOnly(parentEntityId))
-        {
-            menu->setToolTipsVisible(true);
+    //    auto readOnlyEntityPublicInterface = AZ::Interface<AzToolsFramework::ReadOnlyEntityPublicInterface>::Get();
+    //    if (readOnlyEntityPublicInterface && !readOnlyEntityPublicInterface->IsReadOnly(parentEntityId))
+    //    {
+    //        menu->setToolTipsVisible(true);
 
-            if (CViewport* view = GetIEditor()->GetViewManager()->GetGameViewport();
-                view && point.has_value())
-            {
-                worldPosition = AzToolsFramework::FindClosestPickIntersection(
-                    view->GetViewportId(), point.value(), AzToolsFramework::EditorPickRayLength,
-                    AzToolsFramework::GetDefaultEntityPlacementDistance());
-            }
+    //        if (CViewport* view = GetIEditor()->GetViewManager()->GetGameViewport();
+    //            view && point.has_value())
+    //        {
+    //            worldPosition = AzToolsFramework::FindClosestPickIntersection(
+    //                view->GetViewportId(), point.value(), AzToolsFramework::EditorPickRayLength,
+    //                AzToolsFramework::GetDefaultEntityPlacementDistance());
+    //        }
 
-            QAction* action = nullptr;
+    //        QAction* action = nullptr;
 
-            action = menu->addAction(QObject::tr("Create multiplayer entity"));
-            action->setShortcut(QKeySequence(Qt::CTRL + Qt::ALT + Qt::Key_M));
-            QObject::connect(action, &QAction::triggered, action, [this, parentEntityId, worldPosition]
-            {
-                ContextMenu_NewMultiplayerEntity(parentEntityId, worldPosition);
-            });
-        }
-    }
+    //        action = menu->addAction(QObject::tr("Create multiplayer entity"));
+    //        action->setShortcut(QKeySequence(Qt::CTRL + Qt::ALT + Qt::Key_M));
+    //        QObject::connect(action, &QAction::triggered, action, [this, parentEntityId, worldPosition]
+    //        {
+    //            ContextMenu_NewMultiplayerEntity(parentEntityId, worldPosition);
+    //        });
+    //    }
+    //}
 
-    int MultiplayerEditorSystemComponent::GetMenuPosition() const
+    /*int MultiplayerEditorSystemComponent::GetMenuPosition() const
     {
         return aznumeric_cast<int>(AzToolsFramework::EditorContextMenuOrdering::TOP);
     }
@@ -606,7 +606,8 @@ namespace Multiplayer
             AzToolsFramework::EntityIdList{ newEntityId },
             AZ::ComponentTypeList{ azrtti_typeid<NetBindComponent>(), azrtti_typeid<NetworkTransformComponent>() }
         );
-    }
+    }*/
+
     void MultiplayerEditorSystemComponent::OnStopPlayInEditorBegin()
     {
         if (GetMultiplayer()->GetAgentType() != MultiplayerAgentType::ClientServer || !editorsv_clientserver)
