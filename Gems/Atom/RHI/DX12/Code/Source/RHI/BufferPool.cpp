@@ -250,7 +250,7 @@ namespace AZ
 
             // We need respect the buffer's alignment if the buffer is used for SRV or UAV
             bool useBufferAlignment = RHI::CheckBitsAny(bufferDescriptor.m_bindFlags,
-                RHI::BufferBindFlags::ShaderRead | RHI::BufferBindFlags::ShaderWrite);
+                RHI::BufferBindFlags::ShaderRead | RHI::BufferBindFlags::ShaderWrite | RHI::BufferBindFlags::InputAssembly);
 
             size_t overrideAlignment = useBufferAlignment? bufferDescriptor.m_alignment : 0;
 

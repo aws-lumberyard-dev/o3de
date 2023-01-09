@@ -17,6 +17,7 @@
 #include <Atom/RPI.Public/Buffer/BufferSystemInterface.h>
 #include <AtomCore/Instance/InstanceDatabase.h>
 #include <AzCore/Component/TickBus.h>
+#include <numeric>
 
 AZ_DECLARE_BUDGET(RPI);
 
@@ -131,6 +132,18 @@ namespace AZ
             RHI::BufferInitRequest request;
             request.m_buffer = m_rhiBuffer.get();
             request.m_descriptor = bufferAsset.GetBufferDescriptor();
+
+// @CYA FIX: Alignment
+            if (m_bufferViewDescriptor.m_elementCount > 1)
+            {
+                if (request.m_descriptor.m_alignment > 0)
+                    request.m_descriptor.m_alignment = std::lcm(request.m_descriptor.m_alignment, m_bufferViewDescriptor.m_elementSize);
+                else
+                    request.m_descriptor.m_alignment = m_bufferViewDescriptor.m_elementSize;
+            }
+
+            request.m_descriptor.m_alignment = std::lcm(request.m_descriptor.m_alignment, 16);
+// @CYA END
             request.m_initialData = initWithData ? bufferAsset.GetBuffer().data() : nullptr;
             resultCode = m_rhiBufferPool->InitBuffer(request);
 

@@ -101,7 +101,7 @@ namespace AZ
             // This is necessary since the alignment on a paged memory allocation is not compatible with the required raytracing alignment.
             bool forceUnique = RHI::CheckBitsAny(
                 bufferDescriptor.m_bindFlags,
-                RHI::BufferBindFlags::InputAssembly |
+                //RHI::BufferBindFlags::InputAssembly |
                 RHI::BufferBindFlags::DynamicInputAssembly |
                 RHI::BufferBindFlags::RayTracingAccelerationStructure |
                 RHI::BufferBindFlags::RayTracingShaderTable);
