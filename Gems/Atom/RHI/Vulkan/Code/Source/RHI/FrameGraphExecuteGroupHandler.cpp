@@ -18,14 +18,18 @@ namespace AZ
     {
         RHI::ResultCode FrameGraphExecuteGroupHandler::InitInternal(Device& device, const AZStd::vector<RHI::FrameGraphExecuteGroup*>& executeGroups)
         {
+            size_t numExecuteGroups = executeGroups.size();
             // We first need to build the renderpass that will be used by all groups.
-            RenderPassBuilder builder(device, static_cast<uint32_t>(executeGroups.size()));
-            for (auto executeGroupBase : executeGroups)
+            RenderPassBuilder builder(device, static_cast<uint32_t>(numExecuteGroups));
+            for (size_t i = 0; i < numExecuteGroups; ++i)
             {
+                RHI::FrameGraphExecuteGroup* executeGroupBase = executeGroups[i];
                 const FrameGraphExecuteGroup* executeGroup = static_cast<const FrameGraphExecuteGroup*>(executeGroupBase);
                 AZ_Assert(executeGroup, "Invalid execute group on FrameGraphExecuteGroupHandler");
-                AZ_Assert(executeGroup->GetScopes().size() == 1, "Incorrect number of scopes (%d) in group on FrameGraphExecuteGroupHandler", executeGroup->GetScopes().size());
-                builder.AddScopeAttachments(*executeGroup->GetScopes()[0]);
+
+                AZStd::span<const Scope* const> scopes = executeGroup->GetScopes();
+                AZ_Assert(scopes.size() == 1, "Incorrect number of scopes (%d) in group on FrameGraphExecuteGroupHandler", scopes.size());
+                builder.AddScopeAttachments(*scopes[0]);
             }
 
             // This will update the m_renderPassContext with the proper renderpass and framebuffer.

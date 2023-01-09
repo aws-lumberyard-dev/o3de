@@ -26,6 +26,7 @@ namespace AZ
         {
             Base::InitBase(device, scope.GetFrameGraphGroupId(), scope.GetHardwareQueueClass());
             m_scope = &scope;
+            AZ_Assert(reinterpret_cast<uintptr_t>(m_scope) != 0x00000000ffffffffu, "Invalid scope ptr");
             m_secondaryCommands.resize(commandListCount);
 
             m_workRequest.m_swapChainsToPresent.reserve(scope.GetSwapChainsToPresent().size());
@@ -84,6 +85,7 @@ namespace AZ
 
         AZStd::span<const Scope* const> FrameGraphExecuteGroup::GetScopes() const
         {
+            AZ_Assert(reinterpret_cast<uintptr_t>(m_scope) != 0x00000000ffffffffu, "Invalid scope ptr");
             return AZStd::span<const Scope* const>(&m_scope, 1);
         }
 
