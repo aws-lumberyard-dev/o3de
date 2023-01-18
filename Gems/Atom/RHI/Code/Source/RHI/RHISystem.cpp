@@ -110,7 +110,7 @@ namespace AZ
             {
                 const RHI::PhysicalDeviceDescriptor& descriptor = physicalDevice->GetDescriptor();
 
-                AZ_Printf("RHISystem", "\tEnumerated physical device: %s\n", descriptor.m_description.c_str());
+                AZ_Printf("RHISystem", "\tEnumerated physical device: %s, device type \n", descriptor.m_description.c_str(), ToStr(descriptor.m_type));
                 if (findPreferredUserDevice)
                 {
                     AZStd::string descriptorLowerCase = descriptor.m_description;

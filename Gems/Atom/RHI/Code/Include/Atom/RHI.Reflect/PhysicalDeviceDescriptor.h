@@ -59,6 +59,20 @@ namespace AZ
 
         const uint32_t PhysicalDeviceTypeCount = static_cast<uint32_t>(PhysicalDeviceType::Count);
 
+        inline constexpr const char* ToStr(PhysicalDeviceType pdt)
+        {
+            switch (pdt)
+            {
+                case PhysicalDeviceType::Unknown: return "Unknown";
+                case PhysicalDeviceType::GpuIntegrated: return "GpuIntegrated";
+                case PhysicalDeviceType::GpuDiscrete: return "GpuDiscrete";
+                case PhysicalDeviceType::GpuVirtual: return "GpuVirtual";
+                case PhysicalDeviceType::Cpu: return "Cpu";
+                case PhysicalDeviceType::Fake: return "Fake";
+            }
+            return "Unknown";
+        }
+
         class PhysicalDeviceDescriptor
         {
         public:
