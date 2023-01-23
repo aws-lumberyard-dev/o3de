@@ -20,18 +20,10 @@
 namespace AZ
 {
 
-static EnvironmentVariable<AllocatorManager>& GetAllocatorManagerEnvVar()
-{
-    static EnvironmentVariable<AllocatorManager> s_allocManager;
-    return s_allocManager;
-}
-
-static AllocatorManager* s_allocManagerDebug;  // For easier viewing in crash dumps
-
 //////////////////////////////////////////////////////////////////////////
 bool AllocatorManager::IsReady()
 {
-    return GetAllocatorManagerEnvVar().IsConstructed();
+    return true;
 }
 //////////////////////////////////////////////////////////////////////////
 void AllocatorManager::Destroy()
@@ -42,15 +34,28 @@ void AllocatorManager::Destroy()
 // The only allocator manager instance.
 AllocatorManager& AllocatorManager::Instance()
 {
-    auto& allocatorManager = GetAllocatorManagerEnvVar();
-    if (!allocatorManager)
+    class AllocatorManagerHolder
     {
-        allocatorManager = Environment::CreateVariable<AllocatorManager>(AZ_CRC_CE("AZ::AllocatorManager::s_allocManager"));
+    public:
+        AllocatorManagerHolder()
+            : m_allocatorManager(AZ::Environment::FindVariable<AllocatorManager>(AZ_CRC_CE("AZ::AllocatorManager::s_allocManager")))
+        {
+            if (!m_allocatorManager)
+            {
+                m_allocatorManager = AZ::Environment::CreateVariable<AllocatorManager>(AZ_CRC_CE("AZ::AllocatorManager::s_allocManager"));
+            }
+        }
 
-        s_allocManagerDebug = &(*allocatorManager);
-    }
+        AllocatorManager& GetManager()
+        {
+            return m_allocatorManager.Get();
+        }
 
-    return *allocatorManager;
+    private:
+        EnvironmentVariable<AllocatorManager> m_allocatorManager;
+    };
+    static AllocatorManagerHolder allocatorManager{};
+    return allocatorManager.GetManager();
 }
 //////////////////////////////////////////////////////////////////////////
 
