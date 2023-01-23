@@ -48,6 +48,7 @@ set(FILES
     ranges/as_const_view.h
     ranges/as_rvalue_view.h
     ranges/all_view.h
+    ranges/chunk_by_view.h
     ranges/common_view.h
     ranges/counted_view.h
     ranges/elements_view.h

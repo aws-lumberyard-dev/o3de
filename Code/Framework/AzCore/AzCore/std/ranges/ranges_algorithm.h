@@ -1299,6 +1299,50 @@ namespace AZStd::ranges
         constexpr Internal::find_end_fn find_end{};
     }
 
+    namespace Internal
+    {
+        struct adjacent_find_fn
+        {
+            template <class I, class S, class Proj = AZStd::identity, class Pred = ranges::equal_to,
+                class = enable_if_t<conjunction_v<
+                    bool_constant<forward_iterator<I>>,
+                    bool_constant<sentinel_for<S, I>>,
+                    bool_constant<indirect_binary_predicate<Pred, projected<I, Proj>, projected<I, Proj>>>
+                >>>
+            constexpr I operator()( I first, S last, Pred pred = {}, Proj proj = {} ) const
+            {
+                if (first == last)
+                {
+                    return first;
+                }
+                auto next = ranges::next(first);
+                for (; next != last; ++next, ++first)
+                {
+                    if (std::invoke(pred, std::invoke(proj, *first), std::invoke(proj, *next)))
+                    {
+                        return first;
+                    }
+                }
+                return next;
+            }
+
+            template <class R, class Proj = identity, class Pred = ranges::equal_to,
+                class = enable_if_t<conjunction_v<
+                    bool_constant<forward_range<R>>,
+                    bool_constant<indirect_binary_predicate<Pred, projected<iterator_t<R>, Proj>, projected<iterator_t<R>, Proj>>>
+                >>>
+            constexpr ranges::borrowed_iterator_t<R>
+            operator()( R&& r, Pred pred = {}, Proj proj = {} ) const
+            {
+                return (*this)(ranges::begin(r), ranges::end(r), std::ref(pred), std::ref(proj));
+            }
+        };
+    }
+    inline namespace customization_point_object
+    {
+        inline constexpr Internal::adjacent_find_fn adjacent_find;
+    }
+
     // ranges::all_of
     // ranges::any_of
     // ranges::none_of
