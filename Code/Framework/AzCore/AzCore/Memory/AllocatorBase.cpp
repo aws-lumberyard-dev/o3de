@@ -139,6 +139,14 @@ namespace
 
 namespace AZ
 {
+    AllocatorBase::AllocatorBase()
+    {
+        // The destructor requires access to the AllocatorManager, so the
+        // construction of the AllocatorManager must be complete before that of
+        // any Allocator instance finishes
+        AllocatorManager::Instance();
+    }
+
     AllocatorBase::~AllocatorBase()
     {
         PreDestroy();
