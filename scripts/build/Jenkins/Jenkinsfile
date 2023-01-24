@@ -835,7 +835,11 @@ def PostBuildCommonSteps(String workspace, Map params, String projectName, Strin
         }
     }
 
-    if(!s3sisUploadParams?.trim()) {
+    if(env.S3SIS_UPLOAD_PARAMS?.trim()) {
+        s3sisUploadParams = env.S3SIS_UPLOAD_PARAMS
+    }
+
+    if(s3sisUploadParams?.trim()) {
         dir("${workspace}") {
             checkout scm: [
                 $class: 'GitSCM',
@@ -969,7 +973,6 @@ def CreateTeardownStage(Map environmentVars, Map params, String projectName, Str
     return {
         stage('Teardown') {
             PostBuildCommonSteps(environmentVars['WORKSPACE'], params, projectName, pipelineName, branchName, platformName, buildType, environmentVars['MOUNT_VOLUME'], environmentVars['UPLOAD_BUILD_ARTIFACTS'])
-            PostBuildCommonSteps(environmentVars, params, projectName, pipelineName, branchName, platformName, buildType)
         }
     }
 }
