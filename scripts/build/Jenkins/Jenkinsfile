@@ -859,7 +859,7 @@ def PostBuildCommonSteps(String workspace, Map params, String projectName, Strin
                 PlatformSh("python3 -m pip install PyGithub", "Installing PyGithub")
                 PlatformSh("python3 setup.py install", "Installing S3SIS")
             }
-            PlatformSh()
+            PlatformSh("s3siscli configure", "Configuring S3SIS")
         }
         dir("{workspace}/${ENGINE_REPOSITORY_NAME}") {
             try {
