@@ -863,7 +863,7 @@ def PostBuildCommonSteps(String workspace, Map params, String projectName, Strin
         }
         dir("{workspace}/${ENGINE_REPOSITORY_NAME}") {
             try {
-                palSh("s3siscli upload ${s3sisUploadParams}")
+                PlatformSh("s3siscli upload ${s3sisUploadParams}")
             } catch (Exception e) {
                 echo "WARN: Failed to upload build artifacts. \n${e}"
             }
