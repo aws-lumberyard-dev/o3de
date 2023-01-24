@@ -181,16 +181,18 @@ function(ly_test_impact_extract_google_test_params COMPOSITE_TEST COMPOSITE_SUIT
 
     set(test_suites "")
     foreach(composite_suite ${COMPOSITE_SUITES})
-        # Command, suite, timeout
+        # Command, suite, timeout, labels
         string(REPLACE "#" ";" suite_components ${composite_suite})
         list(LENGTH suite_components num_suite_components)
-        if(num_suite_components LESS 3)
-            message(FATAL_ERROR "The suite components ${composite_suite} are required to be in the following format: command#suite#string.")
+        if(num_suite_components LESS 4)
+            message(FATAL_ERROR "Test ${test_components} suite components ${composite_suite} are required to be in the following format: command#suite#timeout#labels.")
         endif()
         list(GET suite_components 0 test_command)
         list(GET suite_components 1 test_suite)
         list(GET suite_components 2 test_timeout)
-        set(suite_params "{ \"suite\": \"${test_suite}\",  \"command\": \"${test_command}\", \"timeout\": ${test_timeout} }")
+        list(GET suite_components 3 test_labels)
+        string(REPLACE "," "\",\"" test_labels "${test_labels}")
+        set(suite_params "{ \"suite\": \"${test_suite}\",  \"command\": \"${test_command}\", \"timeout\": ${test_timeout}, \"labels\": [\"${test_labels}\"] }")
         list(APPEND test_suites "${suite_params}")
     endforeach()
     string(REPLACE ";" ", " test_suites "${test_suites}")
@@ -227,22 +229,24 @@ function(ly_test_impact_extract_python_test_params COMPOSITE_TEST COMPOSITE_SUIT
     
     set(test_suites "")
     foreach(composite_suite ${COMPOSITE_SUITES})
-        # Script path, suite, timeout
+        # Script path, suite, timeout, labels
         string(REPLACE "#" ";" suite_components ${composite_suite})
         list(LENGTH suite_components num_suite_components)
-        if(num_suite_components LESS 3)
-            message(FATAL_ERROR "The suite components ${composite_suite} are required to be in the following format: script_path#suite#string.")
+        if(num_suite_components LESS 4)
+            message(FATAL_ERROR "Test ${test_components} suite components ${composite_suite} are required to be in the following format: script_path#suite#timeout#labels.")
         endif()
         list(GET suite_components 0 script_path)
         list(GET suite_components 1 test_suite)
         list(GET suite_components 2 test_timeout)
+        list(GET suite_components 3 test_labels)
         # Get python script path relative to repo root
         ly_test_impact_rebase_file_to_repo_root(
             "${script_path}"
             script_path
             "${LY_ROOT_FOLDER}"
         )
-        set(suite_params "{ \"suite\": \"${test_suite}\",  \"script\": \"${script_path}\", \"timeout\": ${test_timeout}, \"command\": \"${test_command}\" }")
+        string(REPLACE "," "\",\"" test_labels "${test_labels}")
+        set(suite_params "{ \"suite\": \"${test_suite}\",  \"script\": \"${script_path}\", \"timeout\": ${test_timeout}, \"command\": \"${test_command}\", \"labels\": [\"${test_labels}\"] }")
         list(APPEND test_suites "${suite_params}")
     endforeach()
     string(REPLACE ";" ", " test_suites "${test_suites}")
@@ -266,6 +270,7 @@ function(ly_test_impact_write_test_enumeration_file TEST_ENUMERATION_TEMPLATE_FI
         message(TRACE "Parsing ${test}")
         get_property(test_params GLOBAL PROPERTY LY_ALL_TESTS_${test}_PARAMS)
         get_property(test_type GLOBAL PROPERTY LY_ALL_TESTS_${test}_TEST_LIBRARY)
+
         if("${test_type}" STREQUAL "pytest")
             # Python tests
             ly_test_impact_extract_python_test_params(${test} "${test_params}" test_namespace test_name test_suites)
@@ -284,9 +289,8 @@ function(ly_test_impact_write_test_enumeration_file TEST_ENUMERATION_TEMPLATE_FI
             ly_test_impact_extract_google_test_params(${test} "${test_params}" test_namespace test_name test_suites)
             list(APPEND google_benchmarks "        { \"namespace\": \"${test_namespace}\", \"name\": \"${test_name}\", \"launch_method\": \"${launch_method}\", \"suites\": [${test_suites}] }")
         else()
-            ly_test_impact_extract_python_test_params(${test} "${test_params}" test_namespace test_name test_suites)
             message("${test_name} is of unknown type (TEST_LIBRARY property is \"${test_type}\")")
-            list(APPEND unknown_tests "        { \"namespace\": \"${test_namespace}\", \"name\": \"${test}\", \"type\": \"${test_type}\" }")
+            list(APPEND unknown_tests "        { \"name\": \"${test}\" }")
         endif()
     endforeach()
 
@@ -512,15 +516,15 @@ function(ly_test_impact_write_config_file CONFIG_TEMPLATE_FILE BIN_DIR)
     endif()
 
     if(O3DE_TEST_IMPACT_NATIVE_TEST_TARGETS_ENABLED)
-        set(native_jenkins_enabled true)
+        set(native_test_targets_enabled true)
     else()
-        set(native_jenkins_enabled false)
+        set(native_test_targets_enabled false)
     endif()
 
     if(O3DE_TEST_IMPACT_PYTHON_TEST_TARGETS_ENABLED)
-        set(python_jenkins_enabled true)
+        set(python_test_targets_enabled true)
     else()
-        set(python_jenkins_enabled false)
+        set(python_test_targets_enabled false)
     endif()
 
     # Testrunner binary
@@ -598,7 +602,7 @@ function(ly_test_impact_write_pytest_file CONFIGURATION_FILE)
 
     # Configure our list of entries
     string(REPLACE ";" ",\n" build_configs "${build_configs}")
-    
+
     # Configure and write out our test data file
     ly_file_read("${CONFIGURATION_FILE}" test_file)
     string(CONFIGURE ${test_file} test_file)
@@ -632,8 +636,7 @@ endfunction()
 #! ly_test_impact_post_step: runs the post steps to be executed after all other cmake scripts have been executed.
 function(ly_test_impact_post_step)
     if(NOT O3DE_TEST_IMPACT_ACTIVE)
-        message("TIAF is disabled, no post step will be performed.")
-        return()
+        message("TIAF is deactivated but configs and meta-data will still be generated.")
     endif()
 
     # Clean temporary and persistent directories
