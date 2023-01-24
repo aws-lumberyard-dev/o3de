@@ -843,7 +843,7 @@ def PostBuildCommonSteps(String workspace, Map params, String projectName, Strin
         dir(workspace) {
             checkout scm: [
                 $class: 'GitSCM',
-                branches: [[name: '*/test-o3de-s3sis']],
+                branches: [[name: '*/configure']],
                 extensions: [
                     [$class: 'AuthorInChangelog'],
                     [$class: 'RelativeTargetDirectory', relativeTargetDir: 's3sis']
@@ -853,13 +853,13 @@ def PostBuildCommonSteps(String workspace, Map params, String projectName, Strin
         }
         dir("${workspace}/s3sis") {
             if (env.IS_UNIX) {
-                palSh("sudo python3 -m pip install PyGithub", "Installing PyGithub")
-                palSh("sudo python3 setup.py install", "Installing S3SIS")
+                PlatformSh("sudo python3 -m pip install PyGithub", "Installing PyGithub")
+                PlatformSh("sudo python3 setup.py install", "Installing S3SIS")
             } else {
-                palSh("python3 -m pip install PyGithub", "Installing PyGithub")
-                palSh("python3 setup.py install", "Installing S3SIS")
+                PlatformSh("python3 -m pip install PyGithub", "Installing PyGithub")
+                PlatformSh("python3 setup.py install", "Installing S3SIS")
             }
-            palSh("s3siscli configure", "Configuring S3SIS")
+            PlatformSh()
         }
         dir("{workspace}/${ENGINE_REPOSITORY_NAME}") {
             try {
