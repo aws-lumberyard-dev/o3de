@@ -26,7 +26,10 @@
 namespace TestImpact
 {
     NativeTestTargetMetaMap ReadNativeTestTargetMetaMapFile(
-        const SuiteSet& suiteSet, const SuiteLabelExcludeSet& suiteLabelExcludeSet, const RepoPath& testTargetMetaConfigFile)
+        const SuiteSet& suiteSet,
+        const SuiteLabelExcludeSet& suiteLabelExcludeSet,
+        const RepoPath& testTargetMetaConfigFile,
+        const NativeTargetConfig& targetConfig)
     {
         const auto masterTestListData = ReadFileContents<RuntimeException>(testTargetMetaConfigFile);
         return NativeTestTargetMetaMapFactory(masterTestListData, suiteSet, suiteLabelExcludeSet);
@@ -61,7 +64,7 @@ namespace TestImpact
         auto targetDescriptors = ReadTargetDescriptorFiles(m_config.m_commonConfig.m_buildTargetDescriptor);
         auto buildTargets = CompileNativeTargetLists(
             AZStd::move(targetDescriptors),
-            ReadNativeTestTargetMetaMapFile(m_suiteSet, m_suiteLabelExcludeSet, m_config.m_commonConfig.m_testTargetMeta.m_metaFile));
+            ReadNativeTestTargetMetaMapFile(m_suiteSet, m_suiteLabelExcludeSet, m_config.m_commonConfig.m_testTargetMeta.m_metaFile, m_config.m_target));
         auto&& [productionTargets, testTargets] = buildTargets;
         m_buildTargets = AZStd::make_unique<BuildTargetList<ProductionTarget, TestTarget>>(
             AZStd::move(testTargets), AZStd::move(productionTargets));

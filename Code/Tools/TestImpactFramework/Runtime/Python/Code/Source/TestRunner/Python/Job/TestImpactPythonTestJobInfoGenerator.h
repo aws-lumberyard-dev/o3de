@@ -29,9 +29,8 @@ namespace TestImpact
         PythonInstrumentedTestRunJobInfoGenerator(
             const RepoPath& repoDir, const RepoPath& buildDir, const ArtifactDir& artifactDir);
 
-        //! Generates the information for a test run job.
-        //! @param testTarget The test target to generate the job information for.
-        //! @param jobId The id to assign for this job.
+    protected:
+        // TestJobInfoGenerator overrides...
         PythonInstrumentedTestRunnerBase::JobInfo GenerateJobInfo(const PythonTestTarget* testTarget, PythonInstrumentedTestRunnerBase::JobInfo::Id jobId) const;
 
     private:
@@ -52,9 +51,8 @@ namespace TestImpact
         PythonRegularTestRunJobInfoGenerator(
             const RepoPath& repoDir, const RepoPath& buildDir, const ArtifactDir& artifactDir);
 
-        //! Generates the information for a test run job.
-        //! @param testTarget The test target to generate the job information for.
-        //! @param jobId The id to assign for this job.
+    protected:
+        // TestJobInfoGenerator overrides...
         PythonRegularTestRunnerBase::JobInfo GenerateJobInfo(const PythonTestTarget* testTarget, PythonRegularTestRunnerBase::JobInfo::Id jobId) const;
 
     private:

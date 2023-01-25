@@ -17,7 +17,10 @@
 namespace TestImpact
 {
     NativeTestTargetMetaMap NativeTestTargetMetaMapFactory(
-        const AZStd::string& masterTestListData, const SuiteSet& suiteSet, const SuiteLabelExcludeSet& suiteLabelExcludeSet)
+        const AZStd::string& masterTestListData,
+        const SuiteSet& suiteSet,
+        const SuiteLabelExcludeSet& suiteLabelExcludeSet,
+        const NativeTargetConfig& targetConfig)
     {
         // Keys for pertinent JSON node and attribute names
         constexpr const char* Keys[] =

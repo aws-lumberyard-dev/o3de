@@ -27,6 +27,8 @@ set(FILES
     Source/TestRunner/Native/Job/TestImpactNativeTestJobInfoUtils.cpp
     Source/TestRunner/Native/Job/TestImpactNativeTestJobInfoUtils.h
     Source/TestRunner/Native/Job/TestImpactNativeTestRunJobData.h
+    Source/TestRunner/Native/Job/TestImpactNativeShardedTestJobInfoGenerator.cpp
+    Source/TestRunner/Native/Job/TestImpactNativeShardedTestJobInfoGenerator.h
     Source/TestEngine/Native/TestImpactNativeTestEngine.cpp
     Source/TestEngine/Native/TestImpactNativeTestEngine.h
     Source/TestEngine/Native/TestImpactNativeTestTargetExtension.h

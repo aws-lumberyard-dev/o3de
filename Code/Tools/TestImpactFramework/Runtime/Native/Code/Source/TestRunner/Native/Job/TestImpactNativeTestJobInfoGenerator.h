@@ -34,19 +34,17 @@ namespace TestImpact
             const ArtifactDir& artifactDir,
             const RepoPath& testRunnerBinary);
 
-        //! Generates the information for a test enumeration job.
-        //! @param testTarget The test target to generate the job information for.
-        //! @param jobId The id to assign for this job.
-        NativeTestEnumerator::JobInfo GenerateJobInfo(
-            const NativeTestTarget* testTarget,
-            NativeTestEnumerator::JobInfo::Id jobId) const override;
-
         //!
         //! @param cachePolicy The cache policy to use for job generation.
         void SetCachePolicy(NativeTestEnumerator::JobInfo::CachePolicy cachePolicy);
 
         //!
         NativeTestEnumerator::JobInfo::CachePolicy GetCachePolicy() const;
+
+    protected:
+        // TestJobInfoGenerator overrides...
+        NativeTestEnumerator::JobInfo GenerateJobInfo(
+            const NativeTestTarget* testTarget, NativeTestEnumerator::JobInfo::Id jobId) const override;
 
     private:
         RepoPath m_targetBinaryDir;
@@ -70,9 +68,8 @@ namespace TestImpact
         NativeRegularTestRunJobInfoGenerator(
             const RepoPath& sourceDir, const RepoPath& targetBinaryDir, const ArtifactDir& artifactDir, const RepoPath& testRunnerBinary);
 
-        //! Generates the information for a test run job.
-        //! @param testTarget The test target to generate the job information for.
-        //! @param jobId The id to assign for this job.
+    protected:
+        // TestJobInfoGenerator overrides...
         NativeRegularTestRunner::JobInfo GenerateJobInfo(
             const NativeTestTarget* testTarget, NativeRegularTestRunner::JobInfo::Id jobId) const;
 
@@ -102,18 +99,17 @@ namespace TestImpact
             const RepoPath& instrumentBinary,
             CoverageLevel coverageLevel = CoverageLevel::Source);
 
-        //! Generates the information for a test run job.
-        //! @param testTarget The test target to generate the job information for.
-        //! @param jobId The id to assign for this job.
-        NativeInstrumentedTestRunner::JobInfo GenerateJobInfo(
-            const NativeTestTarget* testTarget, NativeInstrumentedTestRunner::JobInfo::Id jobId) const;
-
         //!
         //! @param cachePolicy The cache policy to use for job generation.
         void SetCoverageLevel(CoverageLevel coverageLevel);
 
         //!
         CoverageLevel GetCoverageLevel() const;
+
+    protected:
+        // TestJobInfoGenerator overrides...
+        NativeInstrumentedTestRunner::JobInfo GenerateJobInfo(
+            const NativeTestTarget* testTarget, NativeInstrumentedTestRunner::JobInfo::Id jobId) const;
 
     private:
         RepoPath m_sourceDir;
