@@ -819,7 +819,38 @@ def UploadCrashArtifacts(String platform) {
     }
 }
 
-def PostBuildCommonSteps(String workspace, Map params, String projectName, String pipelineName, String branchName, String platform, String buildType, boolean mount = true, String s3sisUploadParams = "") {
+def UploadBuildArtifacts(String workspace, String s3sisUploadParams = "") {
+    dir(workspace) {
+        checkout scm: [
+            $class: 'GitSCM',
+            branches: [[name: '*/configure']],
+            extensions: [
+                [$class: 'AuthorInChangelog'],
+                [$class: 'RelativeTargetDirectory', relativeTargetDir: 's3sis']
+            ],
+            userRemoteConfigs: [[url: "https://github.com/aws-lumberyard/s3sis.git", credentialsId: "${env.GITHUB_USER}"]]
+        ]
+    }
+    dir("${workspace}/s3sis") {
+        if (env.IS_UNIX) {
+            PlatformSh("sudo python3 -m pip install PyGithub", "Installing PyGithub")
+            PlatformSh("sudo python3 setup.py install", "Installing S3SIS")
+        } else {
+            PlatformSh("python3 -m pip install PyGithub", "Installing PyGithub")
+            PlatformSh("python3 setup.py install", "Installing S3SIS")
+        }
+        PlatformSh("s3siscli configure", "Configuring S3SIS")
+    }
+    dir("${workspace}/${ENGINE_REPOSITORY_NAME}") {
+        try {
+            PlatformSh("s3siscli upload ${s3sisUploadParams}")
+        } catch (Exception e) {
+            echo "WARN: Failed to upload build artifacts. \n${e}"
+        }
+    }
+}
+
+def PostBuildCommonSteps(String workspace, Map params, String projectName, String pipelineName, String branchName, String platform, String buildType, boolean mount = true) {
     echo 'Starting post-build common steps...'
     if (params && params.containsKey('OUTPUT_DIRECTORY')){
         dir(workspace) {
@@ -835,41 +866,6 @@ def PostBuildCommonSteps(String workspace, Map params, String projectName, Strin
         }
     }
 
-    if(env.S3SIS_UPLOAD_PARAMS?.trim()) {
-        s3sisUploadParams = env.S3SIS_UPLOAD_PARAMS
-    }
-
-    if(s3sisUploadParams?.trim()) {
-        dir(workspace) {
-            checkout scm: [
-                $class: 'GitSCM',
-                branches: [[name: '*/configure']],
-                extensions: [
-                    [$class: 'AuthorInChangelog'],
-                    [$class: 'RelativeTargetDirectory', relativeTargetDir: 's3sis']
-                ],
-                userRemoteConfigs: [[url: "https://github.com/aws-lumberyard/s3sis.git", credentialsId: "${env.GITHUB_USER}"]]
-            ]
-        }
-        dir("${workspace}/s3sis") {
-            if (env.IS_UNIX) {
-                PlatformSh("sudo python3 -m pip install PyGithub", "Installing PyGithub")
-                PlatformSh("sudo python3 setup.py install", "Installing S3SIS")
-            } else {
-                PlatformSh("python3 -m pip install PyGithub", "Installing PyGithub")
-                PlatformSh("python3 setup.py install", "Installing S3SIS")
-            }
-            PlatformSh("s3siscli configure", "Configuring S3SIS")
-        }
-        dir("${workspace}/${ENGINE_REPOSITORY_NAME}") {
-            try {
-                PlatformSh("s3siscli upload ${s3sisUploadParams}")
-            } catch (Exception e) {
-                echo "WARN: Failed to upload build artifacts. \n${e}"
-            }
-        }
-    }
-    
     if (mount) {
         def pythonCmd = ''
         if(env.IS_UNIX) pythonCmd = 'sudo -E python3 -u '
@@ -971,10 +967,23 @@ def CreateUploadCrashArtifactStage(String jobName, String platform) {
     }
 }
 
+def CreateUploadBuildArtifactStage(String workspace, String jobName, String s3sisUploadParams="") {
+    if(env.S3SIS_UPLOAD_PARAMS?.trim()) {
+        s3sisUploadParams = env.S3SIS_UPLOAD_PARAMS
+    }
+    if(s3sisUploadParams?.trim()) {
+        return {
+            stage("${jobName}_upload_build_artifacts") {
+                UploadBuildArtifacts(workspace, s3sisUploadParams)
+            }
+        }
+    }
+}
+
 def CreateTeardownStage(Map environmentVars, Map params, String projectName, String pipelineName, String branchName, String platformName, String buildType) {
     return {
         stage('Teardown') {
-            PostBuildCommonSteps(environmentVars['WORKSPACE'], params, projectName, pipelineName, branchName, platformName, buildType, environmentVars['MOUNT_VOLUME'], environmentVars['UPLOAD_BUILD_ARTIFACTS'])
+            PostBuildCommonSteps(environmentVars['WORKSPACE'], params, projectName, pipelineName, branchName, platformName, buildType, environmentVars['MOUNT_VOLUME'])
         }
     }
 }
@@ -1056,6 +1065,8 @@ def CreateSingleNode(Map pipelineConfig, def platform, def build_job, Map envVar
                         if (params && params.containsKey('TEST_SCREENSHOTS') && params.TEST_SCREENSHOTS == 'True' && currentResult == 'FAILURE') {
                             CreateExportTestScreenshotsStage(pipelineConfig, branchName, platform.key, build_job_name, envVars, params).call()
                         }
+                        uploadBuildArtifactsStage = CreateUploadBuildArtifactStage(envVars['WORKSPACE'], build_job_name, envVars['S3SIS_UPLOAD_PARAMS'])
+                        if (uploadBuildArtifactsStage) uploadBuildArtifactsStage.call()
                         CreateTeardownStage(envVars, params, projectName, pipelineName, branchName, platform.key, build_job.key).call()
                         if (envVars['CREATE_SNAPSHOT']?.toBoolean()) {
                             CreateSnapshotStage(repositoryName, projectName, pipelineName, branchName, platform.key, build_job.key, build_job_name).call()
