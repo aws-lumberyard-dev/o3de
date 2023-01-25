@@ -115,10 +115,10 @@ namespace TestImpact
                 }
             };
 
-            NativeTargetConfig::ShardedTarget shard;
-            shard.m_name = testShard[Config::Keys[Config::TargetName]].GetString();
-            shard.m_configuration = getShardingConfiguration(testShard[Config::Keys[Config::TestShardingPolicy]].GetString());
-            targetConfig.m_shardedTestTargets.push_back(AZStd::move(shard));
+            const AZStd::string targetName = testShard[Config::Keys[Config::TargetName]].GetString();
+            const auto shadConfiguration = getShardingConfiguration(testShard[Config::Keys[Config::TestShardingPolicy]].GetString());
+            targetConfig.m_shardedTestTargets.emplace(
+                AZStd::piecewise_construct, AZStd::forward_as_tuple(targetName), AZStd::forward_as_tuple(shadConfiguration));
         }
 
         return targetConfig;

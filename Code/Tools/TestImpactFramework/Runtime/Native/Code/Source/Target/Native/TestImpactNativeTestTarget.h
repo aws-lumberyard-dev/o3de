@@ -28,7 +28,11 @@ namespace TestImpact
         //! Returns the test target launch method.
         LaunchMethod GetLaunchMethod() const;
 
+        //! Returns the test shard configuration to use if test sharding.
+        ShardConfiguration GetShardConfiguration() const;
+
     private:
         NativeTargetLaunchMeta m_launchMeta;
+        ShardConfiguration m_shardConfiguration;
     };
 } // namespace TestImpact

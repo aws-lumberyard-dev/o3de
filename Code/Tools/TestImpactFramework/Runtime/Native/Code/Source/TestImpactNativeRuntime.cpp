@@ -32,7 +32,7 @@ namespace TestImpact
         const NativeTargetConfig& targetConfig)
     {
         const auto masterTestListData = ReadFileContents<RuntimeException>(testTargetMetaConfigFile);
-        return NativeTestTargetMetaMapFactory(masterTestListData, suiteSet, suiteLabelExcludeSet);
+        return NativeTestTargetMetaMapFactory(masterTestListData, suiteSet, suiteLabelExcludeSet, targetConfig);
     }
 
     NativeRuntime::NativeRuntime(

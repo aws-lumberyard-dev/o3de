@@ -14,6 +14,7 @@ namespace TestImpact
         TargetDescriptor&& descriptor, NativeTestTargetMeta&& testMetaData)
         : TestTarget(AZStd::move(descriptor), AZStd::move(testMetaData.m_testTargetMeta))
         , m_launchMeta(AZStd::move(testMetaData.m_launchMeta))
+        , m_shardConfiguration(AZStd::move(testMetaData.m_shardConfiguration))
     {
     }
 
@@ -25,5 +26,10 @@ namespace TestImpact
     LaunchMethod NativeTestTarget::GetLaunchMethod() const
     {
         return m_launchMeta.m_launchMethod;
+    }
+
+    ShardConfiguration NativeTestTarget::GetShardConfiguration() const
+    {
+        return m_shardConfiguration;
     }
 } // namespace TestImpact

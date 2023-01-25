@@ -10,6 +10,8 @@
 
 #include <TestImpactFramework/TestImpactConfiguration.h>
 
+#include <AzCore/std/containers/unordered_map.h>
+
 namespace TestImpact
 {
     //! Test engine configuration.
@@ -40,16 +42,9 @@ namespace TestImpact
     //! Build target configuration.
     struct NativeTargetConfig
     {
-        //! Test target sharding configuration.
-        struct ShardedTarget
-        {
-            AZStd::string m_name; //!< Name of test target this sharding configuration applies to.
-            ShardConfiguration m_configuration; //!< The shard configuration to use.
-        };
-
         RepoPath m_outputDirectory; //!< Path to the test target binary directory.
-        NativeExcludedTargets m_excludedTargets;
-        AZStd::vector<ShardedTarget> m_shardedTestTargets; //!< Test target shard configurations (opt-in).
+        NativeExcludedTargets m_excludedTargets; //!< Test targets to exclude from regular and/or instrumented runs.
+        AZStd::unordered_map<AZStd::string, ShardConfiguration> m_shardedTestTargets; //!< Test target shard configurations (opt-in).
     };
 
     //! Native runtime configuration.

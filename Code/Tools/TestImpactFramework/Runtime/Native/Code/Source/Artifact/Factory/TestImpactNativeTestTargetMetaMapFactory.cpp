@@ -99,10 +99,16 @@ namespace TestImpact
                     if (auto labelSet = ExtractTestSuiteLabelSet(suite[Keys[SuiteLabelsKey]].GetArray(), suiteLabelExcludeSet);
                         labelSet.has_value())
                     {
+                        if (const auto it = targetConfig.m_shardedTestTargets.find(name); it != targetConfig.m_shardedTestTargets.end())
+                        {
+                            testMeta.m_shardConfiguration = it->second;
+                        }
+
                         testMeta.m_testTargetMeta.m_suiteMeta.m_labelSet = AZStd::move(labelSet.value());
                         testMeta.m_testTargetMeta.m_suiteMeta.m_name = suiteName;
                         testMeta.m_testTargetMeta.m_suiteMeta.m_timeout = AZStd::chrono::seconds{ suite[Keys[TimeoutKey]].GetUint() };
                         testMeta.m_launchMeta.m_customArgs = suite[Keys[CommandKey]].GetString();
+                        
                         testMetas.emplace(AZStd::move(name), AZStd::move(testMeta));
                     }
 
