@@ -10,6 +10,9 @@
 
 #include <TestImpactFramework/TestImpactRepoPath.h>
 
+#include <TestRunner/Native/TestImpactNativeInstrumentedTestRunner.h>
+#include <TestRunner/Native/TestImpactNativeRegularTestRunner.h>
+
 namespace TestImpact
 {
     class NativeTestTarget;
@@ -17,4 +20,15 @@ namespace TestImpact
     //! Generates the command string to launch the specified test target.
     AZStd::string GenerateLaunchArgument(
         const NativeTestTarget* testTarget, const RepoPath& targetBinaryDir, const RepoPath& testRunnerBinary);
+
+    typename NativeRegularTestRunner::Command GenerateRegularTestJobInfoCommand();
+
+    typename NativeInstrumentedTestRunner::Command GenerateInstrumentedTestJobInfoCommand(
+        const RepoPath& instrumentBindaryPath,
+        const RepoPath& coverageArtifactPath,
+        CoverageLevel coverageLevel,
+        const RepoPath& modulesPath,
+        const RepoPath& excludedModulesPath,
+        const RepoPath& sourcesPath,
+        const typename NativeRegularTestRunner::Command& testRunLaunchCommand);
 } // namespace TestImpact

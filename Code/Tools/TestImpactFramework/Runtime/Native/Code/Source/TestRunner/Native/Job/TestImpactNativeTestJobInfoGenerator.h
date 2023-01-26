@@ -41,7 +41,6 @@ namespace TestImpact
         //!
         NativeTestEnumerator::JobInfo::CachePolicy GetCachePolicy() const;
 
-    protected:
         // TestJobInfoGenerator overrides...
         NativeTestEnumerator::JobInfo GenerateJobInfo(
             const NativeTestTarget* testTarget, NativeTestEnumerator::JobInfo::Id jobId) const override;
@@ -68,7 +67,6 @@ namespace TestImpact
         NativeRegularTestRunJobInfoGenerator(
             const RepoPath& sourceDir, const RepoPath& targetBinaryDir, const ArtifactDir& artifactDir, const RepoPath& testRunnerBinary);
 
-    protected:
         // TestJobInfoGenerator overrides...
         NativeRegularTestRunner::JobInfo GenerateJobInfo(
             const NativeTestTarget* testTarget, NativeRegularTestRunner::JobInfo::Id jobId) const;
@@ -106,7 +104,6 @@ namespace TestImpact
         //!
         CoverageLevel GetCoverageLevel() const;
 
-    protected:
         // TestJobInfoGenerator overrides...
         NativeInstrumentedTestRunner::JobInfo GenerateJobInfo(
             const NativeTestTarget* testTarget, NativeInstrumentedTestRunner::JobInfo::Id jobId) const;

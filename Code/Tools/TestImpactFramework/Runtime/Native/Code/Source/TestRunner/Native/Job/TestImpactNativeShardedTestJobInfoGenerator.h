@@ -8,19 +8,27 @@
 
 #pragma once
 
-#include <TestImpactFramework/TestImpactConfiguration.h>
-#include <TestImpactFramework/TestImpactTestSequence.h>
-
+#include <Target/Native/TestImpactNativeTestTarget.h>
 #include <TestEngine/Common/Enumeration/TestImpactTestEngineEnumeration.h>
+#include <TestRunner/Native/Job/TestImpactNativeTestJobInfoGenerator.h>
 #include <TestRunner/Native/TestImpactNativeRegularTestRunner.h>
 #include <TestRunner/Native/TestImpactNativeInstrumentedTestRunner.h>
 
 namespace TestImpact
 {
+    //!
+    template<typename TestJobRunner>
+    using ShardedTestJobInfo = AZStd::pair<const NativeTestTarget*, AZStd::vector<typename TestJobRunner::JobInfo>>;
+
+    //!
+    using InstrumentedShardedTestJobInfo = ShardedTestJobInfo<NativeInstrumentedTestRunner>;
+
+    //!
     class NativeShardedInstrumentedTestRunJobInfoGenerator
     {
     public:
         NativeShardedInstrumentedTestRunJobInfoGenerator(
+            size_t maxConcurrency,
             const RepoPath& sourceDir,
             const RepoPath& targetBinaryDir,
             const ArtifactDir& artifactDir,
@@ -28,6 +36,28 @@ namespace TestImpact
             const RepoPath& instrumentBinary,
             CoverageLevel coverageLevel = CoverageLevel::Source);
 
-        typename NativeInstrumentedTestRunner::JobInfo GenerateJobInfo(const TestEngineEnumeration& enumeration)
+        //!
+        InstrumentedShardedTestJobInfo GenerateJobInfo(
+            const TestEngineEnumeration<NativeTestTarget>& enumeration);
+
+        //!
+        AZStd::vector<InstrumentedShardedTestJobInfo> GenerateJobInfos(
+            AZStd::vector<TestEngineEnumeration<NativeTestTarget>>& testTargets) const;
+
+    private:
+        InstrumentedShardedTestJobInfo ShardFixtureContiguous(const TestEngineEnumeration<NativeTestTarget>& enumeration);
+        InstrumentedShardedTestJobInfo ShardTestContiguous(const TestEngineEnumeration<NativeTestTarget>& enumeration);
+        InstrumentedShardedTestJobInfo ShardFixtureInterleaved(const TestEngineEnumeration<NativeTestTarget>& enumeration);
+        InstrumentedShardedTestJobInfo ShardTestInterleaved(const TestEngineEnumeration<NativeTestTarget>& enumeration);
+
+    private:
+        size_t m_maxConcurrency;
+        RepoPath m_sourceDir;
+        RepoPath m_targetBinaryDir;
+        RepoPath m_cacheDir;
+        ArtifactDir m_artifactDir;
+        RepoPath m_testRunnerBinary;
+        RepoPath m_instrumentBinary;
+        CoverageLevel m_coverageLevel;
     };
 } // namespace TestImpact
