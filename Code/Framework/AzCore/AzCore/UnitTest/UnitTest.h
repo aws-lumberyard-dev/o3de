@@ -134,6 +134,21 @@ namespace UnitTest
     class TraceBusRedirector
         : public AZ::Debug::TraceMessageBus::Handler
     {
+    public:
+        TraceBusRedirector()
+        {
+            AZ::Debug::TraceMessageBus::Handler::BusType::GetContext();
+        }
+
+        ~TraceBusRedirector() override
+        {
+            if (BusIsConnected())
+            {
+                BusDisconnect();
+            }
+        }
+
+    private:
         bool OnPreAssert(const char* file, int line, const char* /* func */, const char* message) override
         {
             if (UnitTest::TestRunner::Instance().m_isAssertTest)

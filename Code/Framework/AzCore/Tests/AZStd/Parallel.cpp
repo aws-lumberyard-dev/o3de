@@ -24,6 +24,7 @@
 #include <AzCore/std/chrono/chrono.h>
 
 #include <AzCore/Memory/SystemAllocator.h>
+#include <benchmark/benchmark.h>
 
 namespace UnitTest
 {
@@ -1555,6 +1556,13 @@ namespace UnitTest
         }
     };
 
+    struct CleanUpBenchmarks
+    {
+        ~CleanUpBenchmarks()
+        {
+            ::benchmark::ClearRegisteredBenchmarks();
+        }
+    };
 #if GTEST_HAS_DEATH_TEST
 #if AZ_TRAIT_DISABLE_FAILED_DEATH_TESTS
     TEST_F(ThreadEventsDeathTest, DISABLED_UsingClientBus_AvoidsDeadlock)
@@ -1562,15 +1570,61 @@ namespace UnitTest
     TEST_F(ThreadEventsDeathTest, UsingClientBus_AvoidsDeadlock)
 #endif
     {
-        EXPECT_EXIT(
+        switch (0)
+        case 0:
+        default:
+            if (::testing ::internal ::AlwaysTrue())
             {
-                DeadlockCauser cause;
-                cause.PerformTest();
-                // you MUST exit for EXPECT_EXIT to function.
-                exit(0); // this will cause spew, but it wont be considered to have failed.
+                const ::testing ::internal ::RE& gtest_regex = (".*");
+                ::testing ::internal ::DeathTest* gtest_dt;
+                if (!::testing ::internal ::DeathTest ::Create(
+                        "{ CleanUpBenchmarks benchmarkCleaner; DeadlockCauser cause; cause.PerformTest(); exit(0); }",
+                        &gtest_regex,
+                        "E:\\ws\\main\\Code\\Framework\\AzCore\\Tests\\AZStd\\Parallel.cpp",
+                        1581,
+                        &gtest_dt))
+                {
+                    goto gtest_label_1581;
+                }
+                if (gtest_dt != 0)
+                {
+                    ::testing ::internal ::scoped_ptr<::testing ::internal ::DeathTest> gtest_dt_ptr(gtest_dt);
+                    switch (gtest_dt->AssumeRole())
+                    {
+                    case ::testing ::internal ::DeathTest ::OVERSEE_TEST:
+                        if (!gtest_dt->Passed(::testing ::ExitedWithCode(0)(gtest_dt->Wait())))
+                        {
+                            goto gtest_label_1581;
+                        }
+                        break;
+                    case ::testing ::internal ::DeathTest ::EXECUTE_TEST:
+                        {
+                            ::testing ::internal ::DeathTest ::ReturnSentinel gtest_sentinel(gtest_dt);
+                            if (::testing ::internal ::AlwaysTrue())
+                            {
+                                {
+                                    static CleanUpBenchmarks benchmarkCleaner;
+                                    DeadlockCauser cause;
+                                    cause.PerformTest();
+            ::benchmark::ClearRegisteredBenchmarks();
+                                    exit(0);
+                                };
+                            };
+                            gtest_dt->Abort(::testing ::internal ::DeathTest ::TEST_DID_NOT_DIE);
+                            break;
+                        }
+                    default:
+                        break;
+                    }
+                }
             }
-        , ::testing::ExitedWithCode(0),".*");
-
+            else
+            gtest_label_1581:
+                ::testing ::internal ::AssertHelper(
+                    ::testing ::TestPartResult ::kNonFatalFailure,
+                    "E:\\ws\\main\\Code\\Framework\\AzCore\\Tests\\AZStd\\Parallel.cpp",
+                    1581,
+                    ::testing ::internal ::DeathTest ::LastMessage()) = ::testing ::Message();
     }
 #endif // GTEST_HAS_DEATH_TEST
 }

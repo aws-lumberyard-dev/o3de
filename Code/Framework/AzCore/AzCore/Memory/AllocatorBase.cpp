@@ -139,6 +139,11 @@ namespace
 
 namespace AZ
 {
+    AllocatorBase::AllocatorBase()
+    {
+        AZ::AllocatorManager::Instance();
+    }
+
     AllocatorBase::~AllocatorBase()
     {
         PreDestroy();

@@ -190,43 +190,12 @@ namespace AZ
         * Returns the EBus data if it's already created, else nullptr.
         * @return A pointer to the EBus data.
         */
-        static Context* Get();
-
-        /**
-        * Returns the EBus data. Creates it if not already created.
-        * @return A reference to the EBus data.
-        */
-        static Context& GetOrCreate();
-
-        /**
-        * Environment variable that contains a pointer to the EBus data.
-        */
-        static EnvironmentVariable<Context> s_defaultGlobalContext;
-
-        // EBus traits should provide a valid unique name, so that handlers can 
-        // connect to the EBus across modules.
-        // This can fail on some compilers. If it fails, make sure that you give 
-        // each bus a unique name.
-        static u32 GetVariableId();
-    };
-
-    template<class Context>
-    EnvironmentVariable<Context> EBusEnvironmentStoragePolicy<Context>::s_defaultGlobalContext;
-
-    //////////////////////////////////////////////////////////////////////////
-    template<class Context>
-    Context* EBusEnvironmentStoragePolicy<Context>::Get()
-    {
-        if (!s_defaultGlobalContext)
+        static Context* Get()
         {
-            s_defaultGlobalContext = Environment::FindVariable<Context>(GetVariableId());
-        }
-
-        if (s_defaultGlobalContext)
-        {
-            if (s_defaultGlobalContext.IsConstructed())
+            auto& defaultGlobalContext = GetEnvironmentVariable();
+            if (defaultGlobalContext && defaultGlobalContext.IsConstructed())
             {
-                Context* globalContext = &s_defaultGlobalContext.Get();
+                Context* globalContext = &defaultGlobalContext.Get();
 
                 if (EBusEnvironment* tlsEnvironment = globalContext->m_ebusEnvironmentGetter())
                 {
@@ -234,35 +203,56 @@ namespace AZ
                 }
                 return globalContext;
             }
+
+            return nullptr;
         }
 
-        return nullptr;
-    }
-
-    //////////////////////////////////////////////////////////////////////////
-    template<class Context>
-    Context& EBusEnvironmentStoragePolicy<Context>::GetOrCreate()
-    {
-        if (!s_defaultGlobalContext)
+        /**
+        * Returns the EBus data. Creates it if not already created.
+        * @return A reference to the EBus data.
+        */
+        static Context& GetOrCreate()
         {
-            s_defaultGlobalContext = Environment::CreateVariable<Context>(GetVariableId());
+            auto& defaultGlobalContext = GetEnvironmentVariable();
+            if (!defaultGlobalContext)
+            {
+                static_cast<EnvironmentVariable<Context>&>(defaultGlobalContext) = Environment::CreateVariable<Context>(GetVariableId());
+            }
+
+            Context& globalContext = *defaultGlobalContext;
+
+            if (EBusEnvironment* tlsEnvironment = globalContext.m_ebusEnvironmentGetter())
+            {
+                return *tlsEnvironment->GetBusContext<Context>(globalContext.m_ebusEnvironmentTLSIndex);
+            }
+
+            return globalContext;
         }
 
-        Context& globalContext = *s_defaultGlobalContext;
-
-        if (EBusEnvironment* tlsEnvironment = globalContext.m_ebusEnvironmentGetter())
+        // EBus traits should provide a valid unique name, so that handlers can 
+        // connect to the EBus across modules.
+        // This can fail on some compilers. If it fails, make sure that you give 
+        // each bus a unique name.
+        static constexpr u32 GetVariableId()
         {
-            return *tlsEnvironment->GetBusContext<Context>(globalContext.m_ebusEnvironmentTLSIndex);
+            return AZ_CRC_CE(AZ_FUNCTION_SIGNATURE);
         }
 
-        return globalContext;
-    }
+    private:
+        class EBusContextEnvironmentVariable
+            : public EnvironmentVariable<Context>
+        {
+        public:
+            EBusContextEnvironmentVariable()
+                : EnvironmentVariable<Context>(Environment::FindVariable<Context>(GetVariableId()))
+            {
+            }
+        };
 
-    //////////////////////////////////////////////////////////////////////////
-    template<class Context>
-    u32 EBusEnvironmentStoragePolicy<Context>::GetVariableId()
-    {
-        static const u32 NameCrc = Crc32(AZ_FUNCTION_SIGNATURE);
-        return NameCrc;
-    }
+        static EBusContextEnvironmentVariable& GetEnvironmentVariable()
+        {
+            static EBusContextEnvironmentVariable envVar;
+            return envVar;
+        }
+    };
 } // namespace AZ
