@@ -12,47 +12,47 @@
 
 namespace TestImpact
 {
-    NativeShardedInstrumentedTestRunJobInfoGenerator::NativeShardedInstrumentedTestRunJobInfoGenerator(
-        size_t maxConcurrency,
-        const RepoPath& sourceDir,
-        const RepoPath& targetBinaryDir,
-        const ArtifactDir& artifactDir,
-        const RepoPath& testRunnerBinary,
-        const RepoPath& instrumentBinary,
-        CoverageLevel coverageLevel = CoverageLevel::Source)
-        : m_maxConcurrency(maxConcurrency)
-        , m_sourceDir(sourceDir)
-        , m_targetBinaryDir(targetBinaryDir)
-        , m_artifactDir(artifactDir)
-        , m_testRunnerBinary(testRunnerBinary)
-        , m_instrumentBinary(instrumentBinary)
-        , m_coverageLevel(coverageLevel)
-    {
-    }
-
-    InstrumentedShardedTestJobInfo NativeShardedInstrumentedTestRunJobInfoGenerator::ShardFixtureContiguous(const TestEngineEnumeration<NativeTestTarget>& enumeration)
-    {
-
-    }
-
-    InstrumentedShardedTestJobInfo NativeShardedInstrumentedTestRunJobInfoGenerator::ShardTestContiguous(
-        const TestEngineEnumeration<NativeTestTarget>& enumeration)
-    {
-    }
-
-    InstrumentedShardedTestJobInfo NativeShardedInstrumentedTestRunJobInfoGenerator::ShardFixtureInterleaved(
-        const TestEngineEnumeration<NativeTestTarget>& enumeration)
-    {
-    }
-
-    InstrumentedShardedTestJobInfo NativeShardedInstrumentedTestRunJobInfoGenerator::ShardTestInterleaved(
-        const TestEngineEnumeration<NativeTestTarget>& enumeration)
-    {
-    }
-
-    InstrumentedShardedTestJobInfo NativeShardedInstrumentedTestRunJobInfoGenerator::GenerateJobInfo(
-        const TestEngineEnumeration<NativeTestTarget>& enumeration)
-    {
-        
-    }
+    //NativeShardedInstrumentedTestRunJobInfoGenerator::NativeShardedInstrumentedTestRunJobInfoGenerator(
+    //    size_t maxConcurrency,
+    //    const RepoPath& sourceDir,
+    //    const RepoPath& targetBinaryDir,
+    //    const ArtifactDir& artifactDir,
+    //    const RepoPath& testRunnerBinary,
+    //    const RepoPath& instrumentBinary,
+    //    CoverageLevel coverageLevel)
+    //    : m_maxConcurrency(maxConcurrency)
+    //    , m_sourceDir(sourceDir)
+    //    , m_targetBinaryDir(targetBinaryDir)
+    //    , m_artifactDir(artifactDir)
+    //    , m_testRunnerBinary(testRunnerBinary)
+    //    , m_instrumentBinary(instrumentBinary)
+    //    , m_coverageLevel(coverageLevel)
+    //{
+    //}
+    //
+    //InstrumentedShardedTestJobInfo NativeShardedInstrumentedTestRunJobInfoGenerator::ShardFixtureContiguous(const TestEngineEnumeration<NativeTestTarget>& enumeration)
+    //{
+    //
+    //}
+    //
+    //InstrumentedShardedTestJobInfo NativeShardedInstrumentedTestRunJobInfoGenerator::ShardTestContiguous(
+    //    const TestEngineEnumeration<NativeTestTarget>& enumeration)
+    //{
+    //}
+    //
+    //InstrumentedShardedTestJobInfo NativeShardedInstrumentedTestRunJobInfoGenerator::ShardFixtureInterleaved(
+    //    const TestEngineEnumeration<NativeTestTarget>& enumeration)
+    //{
+    //}
+    //
+    //InstrumentedShardedTestJobInfo NativeShardedInstrumentedTestRunJobInfoGenerator::ShardTestInterleaved(
+    //    const TestEngineEnumeration<NativeTestTarget>& enumeration)
+    //{
+    //}
+    //
+    //InstrumentedShardedTestJobInfo NativeShardedInstrumentedTestRunJobInfoGenerator::GenerateJobInfo(
+    //    const TestEngineEnumeration<NativeTestTarget>& enumeration)
+    //{
+    //    
+    //}
 } // namespace TestImpact

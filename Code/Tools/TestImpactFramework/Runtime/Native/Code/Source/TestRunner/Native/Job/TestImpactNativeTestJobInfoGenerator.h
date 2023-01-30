@@ -69,7 +69,7 @@ namespace TestImpact
 
         // TestJobInfoGenerator overrides...
         NativeRegularTestRunner::JobInfo GenerateJobInfo(
-            const NativeTestTarget* testTarget, NativeRegularTestRunner::JobInfo::Id jobId) const;
+            const NativeTestTarget* testTarget, NativeRegularTestRunner::JobInfo::Id jobId) const override;
 
     private:
         RepoPath m_sourceDir;
@@ -106,7 +106,7 @@ namespace TestImpact
 
         // TestJobInfoGenerator overrides...
         NativeInstrumentedTestRunner::JobInfo GenerateJobInfo(
-            const NativeTestTarget* testTarget, NativeInstrumentedTestRunner::JobInfo::Id jobId) const;
+            const NativeTestTarget* testTarget, NativeInstrumentedTestRunner::JobInfo::Id jobId) const override;
 
     private:
         RepoPath m_sourceDir;

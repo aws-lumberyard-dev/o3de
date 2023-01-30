@@ -9,9 +9,11 @@
 #pragma once
 
 #include <TestImpactFramework/TestImpactRepoPath.h>
+#include <TestImpactFramework/TestImpactConfiguration.h>
 
 #include <TestRunner/Native/TestImpactNativeInstrumentedTestRunner.h>
 #include <TestRunner/Native/TestImpactNativeRegularTestRunner.h>
+#include <TestRunner/Native/TestImpactNativeTestEnumerator.h>
 
 namespace TestImpact
 {
@@ -21,8 +23,17 @@ namespace TestImpact
     AZStd::string GenerateLaunchArgument(
         const NativeTestTarget* testTarget, const RepoPath& targetBinaryDir, const RepoPath& testRunnerBinary);
 
-    typename NativeRegularTestRunner::Command GenerateRegularTestJobInfoCommand();
+    //!
+    typename NativeTestEnumerator::Command GenerateTestEnumeratorJobInfoCommand(
+        const AZStd::string& launchArguement, const RepoPath& runArtifact);
 
+    //!
+    typename NativeRegularTestRunner::Command GenerateRegularTestJobInfoCommand(
+        const AZStd::string& launchArguement,
+        const RepoPath& runArtifact
+    );
+
+    //!
     typename NativeInstrumentedTestRunner::Command GenerateInstrumentedTestJobInfoCommand(
         const RepoPath& instrumentBindaryPath,
         const RepoPath& coverageArtifactPath,

@@ -12,8 +12,8 @@ namespace TestImpact
 {
     typename NativeInstrumentedTestRunner::Command GenerateInstrumentedTestJobInfoCommand(
         const RepoPath& instrumentBindaryPath,
-        CoverageLevel coverageLevel,
         const RepoPath& coverageArtifactPath,
+        CoverageLevel coverageLevel,
         const RepoPath& modulesPath,
         const RepoPath& excludedModulesPath,
         const RepoPath& sourcesPath,
