@@ -22,7 +22,7 @@ namespace PhysX
 
             if (auto* editContext = serializeContext->GetEditContext())
             {
-                constexpr const char* ToolTip = "The entity behaves as a non-movable rigid object in PhysX.";
+                constexpr const char* ToolTip = "The entity behaves as a non-movable rigid body in PhysX.";
 
                 editContext
                     ->Class<EditorStaticRigidBodyComponent>("PhysX Static Rigid Body", ToolTip)
@@ -37,7 +37,7 @@ namespace PhysX
                     ->Attribute(AZ::Edit::Attributes::ValueText,"<i>This component requires no properties</i>")
                     ->Attribute(AZ::Edit::Attributes::ReadOnly, true)
                     ->UIElement(AZ::Edit::UIHandlers::MultiLineEdit, "", ToolTip)
-                    ->Attribute(AZ::Edit::Attributes::ValueText, "Non-movable rigid object in PhysX")
+                    ->Attribute(AZ::Edit::Attributes::ValueText, "Non-movable rigid body in PhysX")
                     ->Attribute(AZ::Edit::Attributes::ReadOnly, true);
             }
         }
