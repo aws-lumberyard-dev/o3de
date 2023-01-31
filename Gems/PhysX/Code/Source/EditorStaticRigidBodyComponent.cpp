@@ -22,10 +22,10 @@ namespace PhysX
 
             if (auto* editContext = serializeContext->GetEditContext())
             {
-                constexpr const char* toolTip = "The entity behaves as a non-movable rigid object in PhysX.";
+                constexpr const char* ToolTip = "The entity behaves as a non-movable rigid object in PhysX.";
 
                 editContext
-                    ->Class<EditorStaticRigidBodyComponent>("PhysX Static Rigid Body", toolTip)
+                    ->Class<EditorStaticRigidBodyComponent>("PhysX Static Rigid Body", ToolTip)
                     ->ClassElement(AZ::Edit::ClassElements::EditorData, "")
                     ->Attribute(AZ::Edit::Attributes::Category, "PhysX")
                     ->Attribute(AZ::Edit::Attributes::Icon, "Icons/Components/PhysXStaticRigidBody.svg")
@@ -33,10 +33,10 @@ namespace PhysX
                     ->Attribute(AZ::Edit::Attributes::AppearsInAddComponentMenu, AZ_CRC_CE("Game"))
                     ->Attribute(
                         AZ::Edit::Attributes::HelpPageURL, "https://o3de.org/docs/user-guide/components/reference/physx/static-rigid-body/")
-                    ->UIElement(AZ::Edit::UIHandlers::MultiLineEdit, "", toolTip)
+                    ->UIElement(AZ::Edit::UIHandlers::MultiLineEdit, "", ToolTip)
                     ->Attribute(AZ::Edit::Attributes::ValueText,"<i>This component requires no properties</i>")
                     ->Attribute(AZ::Edit::Attributes::ReadOnly, true)
-                    ->UIElement(AZ::Edit::UIHandlers::MultiLineEdit, "", toolTip)
+                    ->UIElement(AZ::Edit::UIHandlers::MultiLineEdit, "", ToolTip)
                     ->Attribute(AZ::Edit::Attributes::ValueText, "Non-movable rigid object in PhysX")
                     ->Attribute(AZ::Edit::Attributes::ReadOnly, true);
             }
