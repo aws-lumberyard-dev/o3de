@@ -34,7 +34,7 @@ namespace PhysX
                     ->Attribute(
                         AZ::Edit::Attributes::HelpPageURL, "https://o3de.org/docs/user-guide/components/reference/physx/static-rigid-body/")
                     ->UIElement(AZ::Edit::UIHandlers::MultiLineEdit, "", ToolTip)
-                    ->Attribute(AZ::Edit::Attributes::ValueText,"<i>This component requires no properties</i>")
+                    ->Attribute(AZ::Edit::Attributes::ValueText,"<i>Component properties not required</i>")
                     ->Attribute(AZ::Edit::Attributes::ReadOnly, true)
                     ->UIElement(AZ::Edit::UIHandlers::MultiLineEdit, "", ToolTip)
                     ->Attribute(AZ::Edit::Attributes::ValueText, "Non-movable rigid body in PhysX")
