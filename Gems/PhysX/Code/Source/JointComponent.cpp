@@ -13,6 +13,7 @@
 #include <PhysX/PhysXLocks.h>
 #include <AzCore/Interface/Interface.h>
 #include <AzCore/Component/ComponentApplicationBus.h>
+#include <AzCore/Component/TickBus.h>
 #include <AzFramework/Physics/Common/PhysicsSimulatedBody.h>
 #include <AzFramework/Physics/PhysicsSystem.h>
 #include <AzFramework/Physics/Components/SimulatedBodyComponentBus.h>
@@ -120,6 +121,31 @@ namespace PhysX
         if (hasLeadEntity)
         {
             Physics::RigidBodyNotificationBus::MultiHandler::BusConnect(m_configuration.m_leadEntity);
+
+            // Check if the lead entity has a rigid body in the next tick because
+            // the lead entity might not be created yet. If the lead exists but
+            // it doesn't have a rigid body then this joint will never get created and
+            // therefore we need to warn about the invalid joint setup.
+            AZ::TickBus::QueueFunction(
+                [this]()
+                {
+                    bool leadEntityHasRigidBody = false;
+                    Physics::RigidBodyRequestBus::EnumerateHandlersId(
+                        m_configuration.m_leadEntity,
+                        [&leadEntityHasRigidBody](const Physics::RigidBodyRequests*)
+                        {
+                            leadEntityHasRigidBody = true;
+                            return true;
+                        });
+
+                    // If lead entity has no rigid body then the joint won't be created.
+                    if (!leadEntityHasRigidBody)
+                    {
+                        const AZStd::string entityWithoutBodyWarningMsg("Rigid body not found in lead entity associated with joint. "
+                                                                        "Joint will not be created.");
+                        WarnInvalidJointSetup(m_configuration.m_leadEntity, entityWithoutBodyWarningMsg);
+                    }
+                });
         }
     }
 
