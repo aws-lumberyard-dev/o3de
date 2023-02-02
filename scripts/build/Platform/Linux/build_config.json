@@ -16,7 +16,10 @@
       "profile_nounity",
       "asset_profile_nounity",
       "test_profile_nounity"
-    ]
+    ],
+    "PARAMETERS": {
+      "CMAKE_LY_PROJECTS": "AutomatedTesting"
+    }
   },
   "profile_ubuntu22_nounity_pipe": {
     "TAGS": [
@@ -30,7 +33,10 @@
       "profile_nounity",
       "asset_profile_nounity",
       "test_profile_nounity"
-    ]
+    ],
+    "PARAMETERS": {
+      "CMAKE_LY_PROJECTS": "AutomatedTesting"
+    }
   },
   "metrics": {
     "TAGS": [
@@ -210,7 +216,10 @@
       "awsi_deployment",
       "awsi_test_profile",
       "awsi_destruction"
-    ]
+    ],
+    "PARAMETERS": {
+      "CMAKE_LY_PROJECTS": "AutomatedTesting"
+    }
   },
   "awsi_test_profile": {
     "TAGS": [
@@ -224,7 +233,6 @@
       "CONFIGURATION": "profile",
       "OUTPUT_DIRECTORY": "build/linux",
       "CMAKE_OPTIONS": "-G 'Ninja Multi-Config' -DLY_PARALLEL_LINK_JOBS=4",
-      "CMAKE_LY_PROJECTS": "AutomatedTesting",
       "CMAKE_TARGET": "TEST_SUITE_awsi",
       "CTEST_OPTIONS": "-L (SUITE_awsi) --no-tests=error -T Test",
       "TEST_METRICS": "True",

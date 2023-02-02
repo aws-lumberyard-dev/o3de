@@ -14,7 +14,10 @@
     ],
     "steps": [
       "profile"
-    ]
+    ],
+    "PARAMETERS": {
+      "CMAKE_LY_PROJECTS": "AutomatedTesting"
+    }
   },
   "metrics": {
     "TAGS":[
@@ -52,7 +55,6 @@
       "CONFIGURATION":"profile",
       "OUTPUT_DIRECTORY":"build\\android",
       "CMAKE_OPTIONS":"-G \"Ninja Multi-Config\" -DCMAKE_TOOLCHAIN_FILE=cmake\\Platform\\Android\\Toolchain_android.cmake -DANDROID_NATIVE_API_LEVEL=24 -DLY_NDK_DIR=\"!LY_NDK_DIR!\"",
-      "CMAKE_LY_PROJECTS":"AutomatedTesting",
       "CMAKE_TARGET":"all",
       "CMAKE_BUILD_ARGS":"-j!NUMBER_OF_PROCESSORS!"
     }
