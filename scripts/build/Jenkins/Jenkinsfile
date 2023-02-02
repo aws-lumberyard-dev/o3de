@@ -360,7 +360,7 @@ def HandleDriveMount(String snapshot, String repositoryName, String projectName,
 
 //this should assume it will always be executed from the workspace root
 def NoControlFile(repoName, processed_repos, o3de_project, defer_enable_gems) {
-    echo "NoControlFile(reponame:${repoName}, processed_repos:${processed_repos}, o3de_project:${o3de_project}, defer_enable_gems:${defer_enable_gems})"
+    echo "NoControlFile(repoName:${repoName}, processed_repos:${processed_repos}, o3de_project:${o3de_project}, defer_enable_gems:${defer_enable_gems})"
 
     processed_repos.add(repoName)
 
@@ -430,7 +430,7 @@ def NoControlFile(repoName, processed_repos, o3de_project, defer_enable_gems) {
 
 //this should assume it will always be executed from the workspace root
 def ExecuteControlFile(controlFile, repoName, processed_repos, o3de_project, defer_enable_gems) {
-    echo "ExecuteControlFile(controlFile:${controlFile}, reponame:${repoName}, processed_repos:${processed_repos}, o3de_project:${o3de_project}, defer_enable_gems:${defer_enable_gems})"
+    echo "ExecuteControlFile(controlFile:${controlFile}, repoName:${repoName}, processed_repos:${processed_repos}, o3de_project:${o3de_project}, defer_enable_gems:${defer_enable_gems})"
 
     processed_repos.add(repoName)
 
