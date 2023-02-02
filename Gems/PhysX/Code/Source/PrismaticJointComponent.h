@@ -47,8 +47,8 @@ namespace PhysX
         void DeinitNativeJoint() override;
 
     private:
-        void ObtainPhysXD6Joint();
+        void CachePhysXD6Joint();
 
-        mutable physx::PxD6Joint* m_native{ nullptr };
+        physx::PxD6Joint* m_native{ nullptr };
     };
 } // namespace PhysX

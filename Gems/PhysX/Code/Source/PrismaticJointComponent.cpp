@@ -87,10 +87,9 @@ namespace PhysX
             m_jointSceneOwner = leadFollowerInfo.m_followerBody->m_sceneOwner;
         }
 
-        ObtainPhysXD6Joint();
+        CachePhysXD6Joint();
 
-        const AZ::EntityComponentIdPair id(GetEntityId(), GetId());
-        JointRequestBus::Handler::BusConnect(id);
+        JointRequestBus::Handler::BusConnect(AZ::EntityComponentIdPair(GetEntityId(), GetId()));
     }
 
     void PrismaticJointComponent::DeinitNativeJoint()
@@ -99,7 +98,7 @@ namespace PhysX
         m_native = nullptr;
     }
 
-    void PrismaticJointComponent::ObtainPhysXD6Joint()
+    void PrismaticJointComponent::CachePhysXD6Joint()
     {
         if (m_native)
         {
@@ -108,7 +107,7 @@ namespace PhysX
         auto* sceneInterface = AZ::Interface<AzPhysics::SceneInterface>::Get();
         AZ_Assert(sceneInterface, "No sceneInterface");
         const auto* joint = sceneInterface->GetJointFromHandle(m_jointSceneOwner, m_jointHandle);
-        AZ_Assert(joint->GetNativeType() == PhysX::NativeTypeIdentifiers::PrismaticJoint, "It is not PhysXPrismaticJoint");
+        AZ_Assert(joint->GetNativeType() == NativeTypeIdentifiers::PrismaticJoint, "It is not PhysXPrismaticJoint");
         physx::PxJoint* native = static_cast<physx::PxJoint*>(joint->GetNativePointer());
         physx::PxD6Joint* nativeD6 = native->is<physx::PxD6Joint>();
         AZ_Assert(nativeD6, "It is not PxD6Joint");

@@ -212,17 +212,7 @@ namespace PhysX
         // If the lead exists but it doesn't have a rigid body then this joint will never get
         // created and therefore we need to warn about the invalid joint setup.
 
-        bool leadEntityHasRigidBody = false;
-        Physics::RigidBodyRequestBus::EnumerateHandlersId(
-            m_configuration.m_leadEntity,
-            [&leadEntityHasRigidBody](const Physics::RigidBodyRequests*)
-            {
-                leadEntityHasRigidBody = true;
-                return true;
-            });
-
-        // If lead entity has no rigid body then the joint won't be created.
-        if (!leadEntityHasRigidBody)
+        if (!Physics::RigidBodyRequestBus::FindFirstHandler(m_configuration.m_leadEntity))
         {
             const AZStd::string entityWithoutBodyWarningMsg("Rigid body not found in lead entity associated with joint. "
                                                             "Joint will not be created.");
