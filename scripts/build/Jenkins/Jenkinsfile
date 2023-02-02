@@ -1249,7 +1249,6 @@ try {
                         // Add each platform as a parameter that the user can disable if needed
                         if (!IsPullRequest(branchName) || IsPeriodicPipeline(pipelineName)) {
                             pipelineParameters.add(stringParam(defaultValue: '', description: 'Filters and overrides the list of jobs to run for each of the below platforms (comma-separated). Can\'t be used during a pull request.', name: 'JOB_LIST_OVERRIDE'))
-                            pipelineParameters.add(stringParam(defaultValue: '', description: 'Name of the project to build. Overrides default project', name: 'PROJECT_OVERRIDE'))
                             pipelineParameters.add(booleanParam(defaultValue: false, description: 'Upload build artifacts to S3.', name: 'UPLOAD_BUILD_ARTIFACTS'),)
                             pipelineParameters.add(stringParam(defaultValue: '', description: 'Additional S3SIS upload parameters, for example, use --include or --exclude to specify the files to be uploaded.', name: 'S3SIS_UPLOAD_PARAMS'))
                             pipelineConfig.platforms.each { platform ->
