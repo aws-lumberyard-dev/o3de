@@ -15,7 +15,10 @@
     "steps": [
       "debug",
       "test_debug"
-    ]
+    ],
+    "PARAMETERS": {
+      "CMAKE_LY_PROJECTS": "AutomatedTesting"
+    }
   },
   "profile_pipe": {
     "TAGS": [
@@ -28,7 +31,10 @@
       "test_cpu_profile",
       "test_impact_analysis_profile_native",
       "test_impact_analysis_profile_python"
-    ]
+    ],
+    "PARAMETERS": {
+      "CMAKE_LY_PROJECTS": "AutomatedTesting"
+    }
   },
   "scrubbing": {
     "TAGS": [],
@@ -80,7 +86,6 @@
       "CONFIGURATION": "debug",
       "OUTPUT_DIRECTORY": "build\\windows",
       "CMAKE_OPTIONS": "-G \"Visual Studio 16 2019\" -DCMAKE_SYSTEM_VERSION=10.0",
-      "CMAKE_LY_PROJECTS": "AutomatedTesting",
       "CMAKE_TARGET": "ALL_BUILD",
       "CMAKE_NATIVE_BUILD_ARGS": "/m /nologo"
     }
@@ -94,7 +99,6 @@
       "CONFIGURATION": "debug",
       "OUTPUT_DIRECTORY": "build\\windows",
       "CMAKE_OPTIONS": "-G \"Visual Studio 16 2019\" -DCMAKE_SYSTEM_VERSION=10.0",
-      "CMAKE_LY_PROJECTS": "AutomatedTesting",
       "CMAKE_TARGET": "TEST_SUITE_smoke TEST_SUITE_main",
       "CMAKE_NATIVE_BUILD_ARGS": "/m /nologo",
       "CTEST_OPTIONS": "-L \"(SUITE_smoke|SUITE_main)\" -LE \"(REQUIRES_gpu)\" -T Test --no-tests=error",
@@ -112,7 +116,6 @@
       "CONFIGURATION": "profile",
       "OUTPUT_DIRECTORY": "build\\windows",
       "CMAKE_OPTIONS": "-DCMAKE_SYSTEM_VERSION=10.0 -DO3DE_TEST_IMPACT_INSTRUMENTATION_BIN=%TEST_IMPACT_WIN_BINARY%",
-      "CMAKE_LY_PROJECTS": "AutomatedTesting",
       "CMAKE_TARGET": "ALL_BUILD",
       "CMAKE_NATIVE_BUILD_ARGS": "/m /nologo"
     }
@@ -158,7 +161,6 @@
       "CONFIGURATION": "profile",
       "OUTPUT_DIRECTORY": "build\\windows",
       "CMAKE_OPTIONS": "-DCMAKE_SYSTEM_VERSION=10.0 -DO3DE_TEST_IMPACT_NATIVE_TEST_TARGETS_ENABLED=FALSE -DO3DE_TEST_IMPACT_PYTHON_TEST_TARGETS_ENABLED=TRUE",
-      "CMAKE_LY_PROJECTS": "AutomatedTesting",
       "CMAKE_TARGET": "TEST_SUITE_smoke TEST_SUITE_main",
       "CMAKE_NATIVE_BUILD_ARGS": "/m /nologo",
       "CTEST_OPTIONS": "-L \"(SUITE_smoke|SUITE_main)\" -LE \"(REQUIRES_gpu|REQUIRES_tiaf)\" -T Test --no-tests=error",
@@ -219,7 +221,6 @@
       "CONFIGURATION": "profile",
       "OUTPUT_DIRECTORY": "build\\windows",
       "CMAKE_OPTIONS": "-DCMAKE_SYSTEM_VERSION=10.0",
-      "CMAKE_LY_PROJECTS": "AutomatedTesting",
       "CMAKE_TARGET": "AssetProcessorBatch",
       "CMAKE_NATIVE_BUILD_ARGS": "/m /nologo",
       "ASSET_PROCESSOR_BINARY": "bin\\profile\\AssetProcessorBatch.exe",
