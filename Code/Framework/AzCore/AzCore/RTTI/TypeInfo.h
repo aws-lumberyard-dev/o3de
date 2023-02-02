@@ -1385,9 +1385,10 @@ namespace AZ
     { \
         return TypeNameInternal{}(); \
     } \
+    static constexpr auto TYPEINFO_Uuid_v = AZ::TypeId(_ClassUuid) + AZ::Internal::AggregateTypes<__VA_ARGS__>::Uuid(); \
     static constexpr AZ::TypeId TYPEINFO_Uuid() \
     { \
-        return AZ::TypeId(_ClassUuid) + AZ::Internal::AggregateTypes<__VA_ARGS__>::Uuid(); \
+        return TYPEINFO_Uuid_v; \
     }
 
 // Template class type info
