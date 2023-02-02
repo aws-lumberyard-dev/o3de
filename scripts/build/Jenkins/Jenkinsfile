@@ -425,7 +425,7 @@ def NoControlFile(repoName, processed_repos, o3de_project, defer_enable_gems) {
         }
     }
 
-    return (processed_repos, defer_enable_gems)
+    return [processed_repos, defer_enable_gems]
 }
 
 //this should assume it will always be executed from the workspace root
@@ -512,7 +512,7 @@ def ExecuteControlFile(controlFile, repoName, processed_repos, o3de_project, def
         }
     }
 
-    return (processed_repos, defer_enable_gems)
+    return [processed_repos, defer_enable_gems]
 }
 
 def PreBuildCommonSteps(Map pipelineConfig, Map params, String snapshot, String repositoryName, String projectName, String pipeline, String branchName, String platform, String buildType, String workspace, boolean mount = true, boolean disableSubmodules = false) {
