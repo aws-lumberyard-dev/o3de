@@ -7,20 +7,6 @@
 #
 
 set(FILES
-Tests/Artifact/TestImpactNativeTargetDescriptorCompilerTest.cpp
-Tests/Artifact/TestImpactNativeTargetDescriptorFactoryTest.cpp
-Tests/Artifact/TestImpactNativeTestTargetMetaMapFactoryTest.cpp
-Tests/Process/TestImpactProcessSchedulerTest.cpp
-Tests/Dependency/TestImpactNativeDynamicDependencyMapTest.cpp
-Tests/TestRunner/TestImpactTestNativeEnumeratorTest.cpp
-Tests/TestRunner/TestImpactTestNativeRunnerTest.cpp
-Tests/TestRunner/TestImpactNativeInstrumentedTestRunnerTest.cpp
-Tests/TestEngine/TestImpactNativeTestEngineTest.cpp
-Tests/TestEngine/TestImpactNativeTestJobInfoGeneratorTest.cpp
 Tests/TestImpactNativeRuntimeTestMain.cpp
-Tests/TestImpactNativeMicroRepo.cpp
-Tests/TestImpactNativeMicroRepo.h
-Tests/TestImpactNativeRuntimeTest.cpp
-Tests/TestImpactNativeTestUtils.cpp
-Tests/TestImpactNativeTestUtils.h
+Tests/TestRunner/TestImpactTestNativeShardedRunnerTest.cpp
 )

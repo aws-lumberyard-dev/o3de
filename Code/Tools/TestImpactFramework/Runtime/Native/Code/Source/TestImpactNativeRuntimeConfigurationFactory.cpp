@@ -8,9 +8,9 @@
 
 #include <TestImpactFramework/TestImpactConfigurationException.h>
 #include <TestImpactFramework/TestImpactUtils.h>
+#include <TestImpactFramework/Native/TestImpactNativeConfiguration.h>
 
 #include <TestImpactRuntimeConfigurationFactory.h>
-#include <TestImpactNativeRuntimeConfigurationFactory.h>
 
 #include <AzCore/std/functional.h>
 #include <AzCore/std/optional.h>

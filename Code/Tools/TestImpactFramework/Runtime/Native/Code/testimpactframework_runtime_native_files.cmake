@@ -9,6 +9,7 @@
 set(FILES
     Include/TestImpactFramework/Native/TestImpactNativeRuntime.h
     Include/TestImpactFramework/Native/TestImpactNativeConfiguration.h
+    Include/TestImpactFramework/Native/TestImpactNativeRuntimeConfigurationFactory.h
     Source/Artifact/Factory/TestImpactNativeTestTargetMetaMapFactory.cpp
     Source/Artifact/Factory/TestImpactNativeTestTargetMetaMapFactory.h
     Source/Artifact/Static/TestImpactNativeTestTargetMeta.h
@@ -33,4 +34,5 @@ set(FILES
     Source/TestEngine/Native/TestImpactNativeTestEngine.h
     Source/TestEngine/Native/TestImpactNativeTestTargetExtension.h
     Source/TestImpactNativeRuntime.cpp
+    Source/TestImpactNativeRuntimeConfigurationFactory.cpp
 )

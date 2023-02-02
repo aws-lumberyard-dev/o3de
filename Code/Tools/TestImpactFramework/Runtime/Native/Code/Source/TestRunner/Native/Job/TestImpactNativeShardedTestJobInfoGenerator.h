@@ -45,10 +45,17 @@ namespace TestImpact
             AZStd::vector<TestEngineEnumeration<NativeTestTarget>>& testTargets) const;
 
     private:
-        InstrumentedShardedTestJobInfo ShardFixtureContiguous(const TestEngineEnumeration<NativeTestTarget>& enumeration);
-        InstrumentedShardedTestJobInfo ShardTestContiguous(const TestEngineEnumeration<NativeTestTarget>& enumeration);
-        InstrumentedShardedTestJobInfo ShardFixtureInterleaved(const TestEngineEnumeration<NativeTestTarget>& enumeration);
-        InstrumentedShardedTestJobInfo ShardTestInterleaved(const TestEngineEnumeration<NativeTestTarget>& enumeration);
+        //!
+        using ShardedTestsList = AZStd::vector<AZStd::vector<AZStd::string>>;
+
+        //!
+        using ShardedTestsFilter = AZStd::vector<AZStd::string>;
+
+        ShardedTestsList ShardFixtureContiguous(const TestEngineEnumeration<NativeTestTarget>& enumeration);
+        ShardedTestsList ShardTestContiguous(const TestEngineEnumeration<NativeTestTarget>& enumeration);
+        ShardedTestsList ShardFixtureInterleaved(const TestEngineEnumeration<NativeTestTarget>& enumeration);
+        ShardedTestsList ShardTestInterleaved(const TestEngineEnumeration<NativeTestTarget>& enumeration);
+        ShardedTestsFilter TestListsToTestFilters(const ShardedTestsList& shardedTestList);
 
     private:
         size_t m_maxConcurrency;

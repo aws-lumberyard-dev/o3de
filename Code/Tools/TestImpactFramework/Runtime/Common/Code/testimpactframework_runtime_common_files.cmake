@@ -71,6 +71,7 @@ set(FILES
     Include/Static/TestImpactRuntimeUtils.cpp
     Include/Static/TestImpactRuntimeUtils.h
     Include/Static/TestImpactTestTargetExclusionList.h
+    Include/Static/TestImpactRuntimeConfigurationFactory.h
     Source/Artifact/Factory/TestImpactTestEnumerationSuiteFactory.cpp
     Source/Artifact/Factory/TestImpactTestRunSuiteFactory.cpp
     Source/Artifact/Factory/TestImpactModuleCoverageFactory.cpp
@@ -99,4 +100,5 @@ set(FILES
     Source/TestImpactClientSequenceReportSerializer.cpp
     Source/TestImpactRepoPath.cpp
     Source/TestImpactUtils.cpp
+    Source/TestImpactRuntimeConfigurationFactory.cpp
 )

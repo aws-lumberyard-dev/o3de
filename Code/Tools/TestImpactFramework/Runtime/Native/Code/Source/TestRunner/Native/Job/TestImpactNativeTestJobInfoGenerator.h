@@ -25,12 +25,10 @@ namespace TestImpact
     public:
         //! Configures the test job info generator with the necessary path information for launching test targets.
         //! @param targetBinaryDir Path to where the test target binaries are found.
-        //! @param cacheDir Path to the persistent folder where test target enumerations are cached.
         //! @param artifactDir Path to the transient directory where test artifacts are produced.
         //! @param testRunnerBinary Path to the binary responsible for launching test targets that have the TestRunner launch method.
         NativeTestEnumerationJobInfoGenerator(
             const RepoPath& targetBinaryDir,
-            const RepoPath& cacheDir,
             const ArtifactDir& artifactDir,
             const RepoPath& testRunnerBinary);
 
@@ -47,7 +45,6 @@ namespace TestImpact
 
     private:
         RepoPath m_targetBinaryDir;
-        RepoPath m_cacheDir;
         ArtifactDir m_artifactDir;
         RepoPath m_testRunnerBinary;
 

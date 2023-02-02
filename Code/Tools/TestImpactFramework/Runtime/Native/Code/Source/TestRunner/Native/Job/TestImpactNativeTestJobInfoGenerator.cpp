@@ -16,11 +16,9 @@ namespace TestImpact
 {
     NativeTestEnumerationJobInfoGenerator::NativeTestEnumerationJobInfoGenerator(
         const RepoPath& targetBinaryDir,
-        const RepoPath& cacheDir,
         const ArtifactDir& artifactDir,
         const RepoPath& testRunnerBinary)
         : m_targetBinaryDir(targetBinaryDir)
-        , m_cacheDir(cacheDir)
         , m_artifactDir(artifactDir)
         , m_testRunnerBinary(testRunnerBinary)
     {
@@ -42,7 +40,9 @@ namespace TestImpact
         return JobInfo(
             jobId,
             command,
-            JobData(enumerationArtifact, Cache{ m_cachePolicy, GenerateTargetEnumerationCacheFilePath(testTarget, m_cacheDir) }));
+            JobData(
+                enumerationArtifact,
+                Cache{ m_cachePolicy, GenerateTargetEnumerationCacheFilePath(testTarget, m_artifactDir.m_enumerationCacheDirectory) }));
     }
 
     void NativeTestEnumerationJobInfoGenerator::SetCachePolicy(NativeTestEnumerator::JobInfo::CachePolicy cachePolicy)

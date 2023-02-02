@@ -31,8 +31,6 @@ namespace TestImpact
         //! @param jobInfos The enumeration jobs to execute.
         //! @param stdOutRouting The standard output routing to be specified for all jobs.
         //! @param stdErrRouting The standard error routing to be specified for all jobs.
-        //! @param cacheExceptionPolicy The cache exception policy to be used for this run.
-        //! @param jobExceptionPolicy The enumeration job exception policy to be used for this run.
         //! @param enumerationTimeout The maximum duration an enumeration may be in-flight for before being forcefully terminated.
         //! @param enumeratorTimeout The maximum duration the enumerator may run before forcefully terminating all in-flight enumerations.
         //! @param clientCallback The optional client callback to be called whenever an enumeration job changes state.
@@ -53,7 +51,7 @@ namespace TestImpact
 
         //! Extracts the payload outcome for a given job payload.
         virtual typename TestJobRunner::JobPayloadOutcome
-          PayloadExtractor(const typename TestJobRunner::JobInfo& jobData, const JobMeta& jobMeta) = 0;
+        PayloadExtractor(const typename TestJobRunner::JobInfo& jobData, const JobMeta& jobMeta) = 0;
     };
 
     template<typename AdditionalInfo>
