@@ -29,10 +29,11 @@ namespace AzToolsFramework
         {
             namespace Internal
             {
+#if !defined(_RELEASE)
                 static constexpr const char* const ComponentRemovalNotice =
                     "[INFORMATION] %s data has been altered to remove component '%s'. "
                     "Please edit and save %s to persist the change.";
-
+#endif
                 static AZ::JsonSerializationResult::ResultCode JsonIssueReporter(AZStd::string& scratchBuffer,
                     AZStd::string_view message, AZ::JsonSerializationResult::ResultCode result, AZStd::string_view path)
                 {
@@ -171,7 +172,7 @@ namespace AzToolsFramework
                     {
                         // Only track the instance that was passed in
                         return (&instance == entityIdMapper.GetLoadingInstance());
-                    }; 
+                    };
 
                     if ((flags & LoadFlags::ReportDeprecatedComponents) == LoadFlags::ReportDeprecatedComponents)
                     {
@@ -444,7 +445,7 @@ namespace AzToolsFramework
                     {
                         continue;
                     }
-                
+
                     AZStd::string_view patchPath = patchEntryIterator->value.GetString();
 
                     // Entities

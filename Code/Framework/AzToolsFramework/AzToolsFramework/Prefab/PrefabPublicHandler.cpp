@@ -190,12 +190,12 @@ namespace AzToolsFramework
 
                         commonRootEntityOwningInstance->get().DetachEntity(entityId).release();
                     }
-                    
+
                     PrefabUndoHelpers::RemoveEntityDoms(detachedEntityDomAndPathList, commonRootInstanceTemplateId, undoBatch.GetUndoBatch());
                 }
 
                 // Detach the retrieved nested instances.
-                // When we create a prefab with other prefab instances, we have to remove the existing links between the source and 
+                // When we create a prefab with other prefab instances, we have to remove the existing links between the source and
                 // target templates of the other instances.
                 for (auto& instance : detachedInstances)
                 {
@@ -262,10 +262,11 @@ namespace AzToolsFramework
                 // Helper function to create a link between a nested instance and the newly created instance
                 auto createLinkForNestedInstance = [&](Instance& nestedInstance)
                 {
+#if !defined(_RELEASE)
                     EntityOptionalReference nestedInstanceContainerEntity = nestedInstance.GetContainerEntity();
                     AZ_Assert(
                         nestedInstanceContainerEntity, "Invalid container entity found for the nested instance used in prefab creation.");
-
+#endif
                     PrefabDom previousPatch;
 
                     // Retrieve the previous patch if it exists
@@ -424,7 +425,7 @@ namespace AzToolsFramework
                         AZ_STRING_ARG(filePathString)));
                 }
             }
-            
+
             return result;
         }
 
@@ -669,7 +670,7 @@ namespace AzToolsFramework
             LinkReference nestedInstanceLink = m_prefabSystemComponentInterface->FindLink(sourceInstance->GetLinkId());
             AZ_Assert(
                 nestedInstanceLink.has_value(),
-                "A valid link was not found for one of the instances provided as input for the CreatePrefab operation.");    
+                "A valid link was not found for one of the instances provided as input for the CreatePrefab operation.");
 
             PrefabDom patchesCopyForUndoSupport;
             PrefabDom nestedInstanceLinkDom;
@@ -748,7 +749,7 @@ namespace AzToolsFramework
             AZStd::string entityName = AZStd::string::format("Entity%llu", static_cast<AZ::u64>(m_newEntityCounter++));
 
             AZ::Entity* entity = aznew AZ::Entity(entityId, entityName.c_str());
-            
+
             Instance& entityOwningInstance = owningInstanceOfParentEntity->get();
 
             ScopedUndoBatch undoBatch("Add Entity");
@@ -1106,7 +1107,7 @@ namespace AzToolsFramework
                     "PrefabEditorEntityOwnershipInterface unavailable.");
             }
             InstanceOptionalReference levelInstance = prefabEditorEntityOwnershipInterface->GetRootPrefabInstance();
-            
+
             return owningInstance
                 && levelInstance
                 && (&owningInstance->get() == &levelInstance->get())
@@ -1505,7 +1506,7 @@ namespace AzToolsFramework
 
             AzToolsFramework::ToolsApplicationRequestBus::Broadcast(
                 &AzToolsFramework::ToolsApplicationRequestBus::Events::ClearDirtyEntities);
-            
+
             return AZ::Success();
         }
 
@@ -1612,14 +1613,14 @@ namespace AzToolsFramework
                             m_prefabSystemComponentInterface->FindTemplateDom(detachedNestedInstance->GetTemplateId());
 
                         Instance& nestedInstanceUnderNewParent = parentInstance.AddInstance(AZStd::move(detachedNestedInstance));
-                        
+
                         PrefabDom nestedInstanceDomUnderNewParent;
                         m_instanceToTemplateInterface->GenerateInstanceDomBySerializing(
                             nestedInstanceDomUnderNewParent, nestedInstanceUnderNewParent);
                         PrefabDom reparentPatch;
                         m_instanceToTemplateInterface->GeneratePatch(
                             reparentPatch, nestedInstanceTemplateDom, nestedInstanceDomUnderNewParent);
-                        
+
                         CreateLink(nestedInstanceUnderNewParent, parentTemplateId, undoBatch.GetUndoBatch(), AZStd::move(reparentPatch), true);
                     });
                 }
@@ -1786,7 +1787,7 @@ namespace AzToolsFramework
                 {
                     // If it's the same instance, we can add this entity to the new instance entities.
                     size_t priorEntitiesSize = entities.size();
-                    
+
                     entities.insert(entity);
 
                     // If the size of entities increased, then it wasn't added before.
@@ -1878,7 +1879,7 @@ namespace AzToolsFramework
             {
                 outEntityIds.erase(iter);
             }
-            
+
             return outEntityIds;
         }
 
