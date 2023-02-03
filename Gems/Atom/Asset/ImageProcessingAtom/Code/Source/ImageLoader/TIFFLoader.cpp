@@ -26,12 +26,14 @@ namespace ImageProcessingAtom
 
 #ifdef AZ_ENABLE_TRACING
         // Note: the fatal errors are processed in LoadImageFromTIFF function.
-        // We only report the errors as warning here. 
+        // We only report the errors as warning here.
         static void ImageProcessingTiffErrorHandler(const char* module, const char* format, va_list argList)
         {
+#if !defined(_RELEASE)
             char buffer[TiffMaxMessageSize];
             azvsnprintf(buffer, TiffMaxMessageSize, format, argList);
             AZ_Warning(module, false, buffer);
+#endif
         }
 #endif
 
