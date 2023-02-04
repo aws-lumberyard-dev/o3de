@@ -22,7 +22,9 @@ namespace ImageProcessingAtom
 {
     namespace TIFFLoader
     {
+#if !defined(_RELEASE)
         static constexpr int TiffMaxMessageSize = 1024;
+#endif
 
 #ifdef AZ_ENABLE_TRACING
         // Note: the fatal errors are processed in LoadImageFromTIFF function.
