@@ -43,7 +43,7 @@ namespace AzTestRunner
             "   --args_from_file <filename>: reads additional arguments (newline separated) from the specified file (can be used in conjunction with regular command line arguments)\n"
             "\n"
             "Example:\n"
-            "   AzTestRunner.exe AzCore.Tests.dll AzRunUnitTests --args_from_file=args.txt\n"
+            "   AzTestRunner.exe AzCore.Tests.dll AzRunUnitTests --args_from_file args.txt\n"
             "   AzTestRunner.exe AzCore.Tests.dll AzRunUnitTests --pause-on-completion\n"
             "\n"
             "Exit Codes:\n"

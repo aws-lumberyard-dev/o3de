@@ -120,7 +120,7 @@ namespace TestImpact
             const RepoPath shardAdditionalArgsFile = AZStd::string::format("%s.args.%zu", (m_artifactDir.m_testRunArtifactDirectory / RepoPath(testTarget->GetName())).c_str(), i);
 
             const auto shardLaunchCommand =
-                AZStd::string::format("%s --args_from_file=\"%s\"", launchArgument.c_str(), shardAdditionalArgsFile.c_str());
+                AZStd::string::format("%s --args_from_file \"%s\"", launchArgument.c_str(), shardAdditionalArgsFile.c_str());
 
             WriteFileContents<TestRunnerException>(testFilters[i], shardAdditionalArgsFile);
 
