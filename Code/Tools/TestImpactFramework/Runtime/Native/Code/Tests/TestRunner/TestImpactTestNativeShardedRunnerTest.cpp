@@ -131,7 +131,7 @@ namespace UnitTest
     {
         const auto testTarget = m_buildTargets->GetTestTargetList().GetTarget("AzCore.Tests");
         const auto enumJob = m_enumerationTestJobInfoGenerator->GenerateJobInfo(testTarget, { 1 });
-        const auto result = m_testEnumerator.Enumerate(
+        const auto enumResult = m_testEnumerator.Enumerate(
             { enumJob },
             TestImpact::StdOutputRouting::None,
             TestImpact::StdErrorRouting::None,
@@ -141,7 +141,7 @@ namespace UnitTest
             AZStd::nullopt);
 
         const auto shardJob =
-            m_shardedTestJobInfoGenerator->GenerateJobInfo(testTarget, result.second.front().GetPayload().value(), { 10 });
+            m_shardedTestJobInfoGenerator->GenerateJobInfo(testTarget, enumResult.second.front().GetPayload().value(), { 10 });
 
         size_t completedJobs = 0;
         const auto jobCallback = [&]([[maybe_unused]] const typename InsstrumentedTestRunner::Job::Info& jobInfo,
@@ -169,7 +169,7 @@ namespace UnitTest
             return TestImpact::ProcessCallbackResult::Continue;
         };
 
-        m_instrumentedTestRunner.RunTests(
+        const auto runResult = m_instrumentedTestRunner.RunTests(
             shardJob.second,
             TestImpact::StdOutputRouting::ToParent,
             TestImpact::StdErrorRouting::ToParent,
