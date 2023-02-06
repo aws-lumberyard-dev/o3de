@@ -48,16 +48,15 @@ namespace TestImpact
     //}
     //
     typename NativeShardedInstrumentedTestRunJobInfoGenerator::ShardedTestsList NativeShardedInstrumentedTestRunJobInfoGenerator::
-        ShardTestInterleaved(
-        const TestEngineEnumeration<NativeTestTarget>& enumeration)
+        ShardTestInterleaved(const TestEnumeration& enumeration)
     {
-        const auto numTests = enumeration.GetTestEnumeration()->GetNumEnabledTests();
+        const auto numTests = enumeration.GetNumEnabledTests();
         const auto numShards = std::min(m_maxConcurrency, numTests);
         ShardedTestsList shardTestList(numShards);
         const auto testsPerShard = numTests / numShards;
 
         size_t testIndex = 0;
-        for (const auto fixture : enumeration.GetTestEnumeration()->GetTestSuites())
+        for (const auto fixture : enumeration.GetTestSuites())
         {
             if (!fixture.m_enabled)
             {
@@ -101,13 +100,13 @@ namespace TestImpact
     }
 
     InstrumentedShardedTestJobInfo NativeShardedInstrumentedTestRunJobInfoGenerator::GenerateJobInfo(
-        const TestEngineEnumeration<NativeTestTarget>& enumeration)
+        const NativeTestTarget* testTarget,
+        const TestEnumeration& enumeration,
+        typename NativeInstrumentedTestRunner::JobInfo::Id startingId)
     {
-        const auto testTarget = enumeration.GetTestTarget();
         const auto launchArgument = GenerateLaunchArgument(testTarget, m_targetBinaryDir, m_testRunnerBinary);
         const auto testFilters = TestListsToTestFilters(ShardTestInterleaved(enumeration));
-        InstrumentedShardedTestJobInfo shards(
-            enumeration.GetTestTarget(), typename InstrumentedShardedTestJobInfo::second_type());
+        InstrumentedShardedTestJobInfo shards(testTarget, typename InstrumentedShardedTestJobInfo::second_type());
         shards.second.reserve(testFilters.size());
 
         for (size_t i = 0; i < testFilters.size(); i++)
@@ -118,10 +117,10 @@ namespace TestImpact
             const auto shardCoverageArtifact = AZStd::string::format(
                 "%s.%zu", GenerateTargetCoverageArtifactFilePath(testTarget, m_artifactDir.m_coverageArtifactDirectory).c_str(), i);
 
-            const RepoPath shardAdditionalArgsFile = AZStd::string::format("%s.args.zu", (m_artifactDir.m_testRunArtifactDirectory / RepoPath(testTarget->GetName())).c_str(), i);
+            const RepoPath shardAdditionalArgsFile = AZStd::string::format("%s.args.%zu", (m_artifactDir.m_testRunArtifactDirectory / RepoPath(testTarget->GetName())).c_str(), i);
 
             const auto shardLaunchCommand =
-                AZStd::string::format("%s --args_from_file=%s", launchArgument.c_str(), shardAdditionalArgsFile.c_str());
+                AZStd::string::format("%s --args_from_file=\"%s\"", launchArgument.c_str(), shardAdditionalArgsFile.c_str());
 
             WriteFileContents<TestRunnerException>(testFilters[i], shardAdditionalArgsFile);
 
@@ -135,7 +134,7 @@ namespace TestImpact
                 GenerateRegularTestJobInfoCommand(shardLaunchCommand, shardedRunArtifact));
 
             shards.second.emplace_back(
-                NativeInstrumentedTestRunner::JobInfo::Id{ i },
+                NativeInstrumentedTestRunner::JobInfo::Id{ startingId.m_value + i },
                 command,
                 NativeInstrumentedTestRunner::JobData(testTarget->GetLaunchMethod(), shardedRunArtifact, shardCoverageArtifact));
         }

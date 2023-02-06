@@ -38,11 +38,11 @@ namespace TestImpact
 
         //!
         InstrumentedShardedTestJobInfo GenerateJobInfo(
-            const TestEngineEnumeration<NativeTestTarget>& enumeration);
+            const NativeTestTarget* testTarget, const TestEnumeration& enumeration, typename NativeInstrumentedTestRunner::JobInfo::Id startingId);
 
         //!
-        AZStd::vector<InstrumentedShardedTestJobInfo> GenerateJobInfos(
-            AZStd::vector<TestEngineEnumeration<NativeTestTarget>>& testTargets) const;
+        //AZStd::vector<InstrumentedShardedTestJobInfo> GenerateJobInfos(
+        //    AZStd::vector<TestEngineEnumeration<NativeTestTarget>>& testTargets) const;
 
     private:
         //!
@@ -51,10 +51,10 @@ namespace TestImpact
         //!
         using ShardedTestsFilter = AZStd::vector<AZStd::string>;
 
-        ShardedTestsList ShardFixtureContiguous(const TestEngineEnumeration<NativeTestTarget>& enumeration);
-        ShardedTestsList ShardTestContiguous(const TestEngineEnumeration<NativeTestTarget>& enumeration);
-        ShardedTestsList ShardFixtureInterleaved(const TestEngineEnumeration<NativeTestTarget>& enumeration);
-        ShardedTestsList ShardTestInterleaved(const TestEngineEnumeration<NativeTestTarget>& enumeration);
+        ShardedTestsList ShardFixtureContiguous(const TestEnumeration& enumeration);
+        ShardedTestsList ShardTestContiguous(const TestEnumeration& enumeration);
+        ShardedTestsList ShardFixtureInterleaved(const TestEnumeration& enumeration);
+        ShardedTestsList ShardTestInterleaved(const TestEnumeration& enumeration);
         ShardedTestsFilter TestListsToTestFilters(const ShardedTestsList& shardedTestList);
 
     private:
