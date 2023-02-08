@@ -43,6 +43,12 @@ namespace TestImpact
         template<typename... AdditionalInfoArgs>
         JobInfo(Id jobId, const Command& command, AdditionalInfoArgs&&... additionalInfo);
 
+        //! Copy and move constructors/assignment operators.
+        JobInfo(const JobInfo& other);
+        JobInfo(JobInfo&& other);
+        JobInfo& operator=(const JobInfo& other);
+        JobInfo& operator=(JobInfo&& other);
+
         //! Returns the id of this job.
         Id GetId() const;
 
@@ -64,6 +70,38 @@ namespace TestImpact
     }
 
     template<typename AdditionalInfo>
+    JobInfo<AdditionalInfo>::JobInfo(const JobInfo& other)
+        : AdditionalInfo(other)
+        , m_id(other.m_id)
+        , m_command(other.m_command)
+    {
+    }
+
+    template<typename AdditionalInfo>
+    JobInfo<AdditionalInfo>::JobInfo(JobInfo&& other)
+        : AdditionalInfo(AZStd::move(other))
+        , m_id(AZStd::move(other.m_id))
+        , m_command(AZStd::move(other.m_command))
+    {
+    }
+
+    template<typename AdditionalInfo>
+    JobInfo<AdditionalInfo>& JobInfo<AdditionalInfo> ::operator=(const JobInfo& other)
+    {
+        m_id = other.m_id;
+        m_command = other.m_command;
+        return *this;
+    }
+
+    template<typename AdditionalInfo>
+    JobInfo<AdditionalInfo>& JobInfo<AdditionalInfo>::operator=(JobInfo&& other)
+    {
+        m_id = other.m_id;
+        m_command = AZStd::move(other.m_command);
+        return *this;
+    }
+
+    template<typename AdditionalInfo>
     typename JobInfo<AdditionalInfo>::Id JobInfo<AdditionalInfo>::GetId() const
     {
         return m_id;
@@ -74,4 +112,38 @@ namespace TestImpact
     {
         return m_command;
     }
+
+    //! Comparison between ids of the same job type.
+    template<typename AdditionalInfo>
+    bool operator==(const typename JobInfo<AdditionalInfo>::Id& lhs, const typename JobInfo<AdditionalInfo>::Id& rhs)
+    {
+        return lhs.m_value == rhs.m_value;
+    }
+
+    //! Comparison between jobs of the same job type.
+    template<typename AdditionalInfo>
+    bool operator==(const typename JobInfo<AdditionalInfo>& lhs, const typename JobInfo<AdditionalInfo>& rhs)
+    {
+        return lhs.GetId().m_value == rhs.GetId().m_value;
+    }
 } // namespace TestImpact
+
+namespace AZStd
+{
+    //! Hash function for JobInfo types for use in maps and sets.
+    template<typename AdditionalInfo>
+    struct hash<typename TestImpact::JobInfo<AdditionalInfo>>
+    {
+        //! Hash of JobInfo's Id is the hash of the unterlying value.
+        size_t operator()(const typename TestImpact::JobInfo<AdditionalInfo>::Id& id) const noexcept
+        {
+            return hash<typename TestImpact::JobInfo<AdditionalInfo>::IdType>{}(id.m_value);
+        }
+
+        //! Hash of JobInfo is the hash of the JobInfo's Id.
+        size_t operator()(const typename TestImpact::JobInfo<AdditionalInfo>& jobInfo) const noexcept
+        {
+            return hash<typename TestImpact::JobInfo<AdditionalInfo>::IdType>{}(jobInfo.GetId().m_value);
+        }
+    };
+} // namespace std

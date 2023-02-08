@@ -13,6 +13,7 @@
 #include <TestRunner/Native/Job/TestImpactNativeTestJobInfoGenerator.h>
 #include <TestRunner/Native/TestImpactNativeRegularTestRunner.h>
 #include <TestRunner/Native/TestImpactNativeInstrumentedTestRunner.h>
+#include <TestRunner/Native/TestImpactNativeRegularTestRunner.h>
 
 namespace TestImpact
 {
@@ -22,6 +23,9 @@ namespace TestImpact
 
     //!
     using InstrumentedShardedTestJobInfo = ShardedTestJobInfo<NativeInstrumentedTestRunner>;
+
+    //!
+    using RegularShardedTestJobInfo = ShardedTestJobInfo<NativeRegularTestRunner>;
 
     //!
     class NativeShardedInstrumentedTestRunJobInfoGenerator

@@ -36,7 +36,7 @@ namespace TestImpact
         //! @param clientCallback The optional client callback to be called whenever an enumeration job changes state.
         //! @param stdContentCallback 
         //! @return The result of the run sequence and the enumeration jobs with their associated test enumeration payloads.
-        AZStd::pair<ProcessSchedulerResult, AZStd::vector<typename TestJobRunner::Job>> Enumerate(
+        [[nodiscard]] AZStd::pair<ProcessSchedulerResult, AZStd::vector<typename TestJobRunner::Job>> Enumerate(
             const AZStd::vector<typename TestJobRunner::JobInfo>& jobInfos,
             StdOutputRouting stdOutRouting,
             StdErrorRouting stdErrRouting,

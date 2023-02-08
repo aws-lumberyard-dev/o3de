@@ -15,6 +15,7 @@
 
 #include <BuildTarget/Common/TestImpactBuildTarget.h>
 #include <TestRunner/Common/Enumeration/TestImpactTestEnumerationSerializer.h>
+#include <TestRunner/Native/TestImpactNativeShardedTestSystem.h>
 #include <TestRunner/Native/TestImpactNativeTestEnumerator.h>
 #include <TestRunner/Native/TestImpactNativeInstrumentedTestRunner.h>
 #include <TestRunner/Native/Job/TestImpactNativeTestJobInfoGenerator.h>
@@ -32,12 +33,15 @@
 #include <AzCore/UnitTest/TestTypes.h>
 #include <AzTest/AzTest.h>
 
+#include <iostream>
+
 namespace UnitTest
 {
     using TestEnumerator = TestImpact::NativeTestEnumerator;
-    using InsstrumentedTestRunner = TestImpact::NativeInstrumentedTestRunner;
+    using InstrumentedTestRunner = TestImpact::NativeInstrumentedTestRunner;
     using EnumerationTestJobInfoGenerator = TestImpact::NativeTestEnumerationJobInfoGenerator;
     using ShardedTestJobInfoGenerator = TestImpact::NativeShardedInstrumentedTestRunJobInfoGenerator;
+    using InstrumentedShardedTestSystem = TestImpact::NativeShardedTestSystem<InstrumentedTestRunner>;
     using RepoPath =TestImpact::RepoPath;
     using RuntimeConfig = TestImpact::NativeRuntimeConfig;
     using TestTargetMetaMap = TestImpact::NativeTestTargetMetaMap;
@@ -68,6 +72,7 @@ namespace UnitTest
         TestEnumeratorFixture()
             : m_testEnumerator(m_maxConcurrency)
             , m_instrumentedTestRunner(m_maxConcurrency)
+            , m_instrumentedShardedTestSystem(m_instrumentedTestRunner)
             , m_config(
                   TestImpact::NativeRuntimeConfigurationFactory(
                       TestImpact::ReadFileContents<TestImpact::ConfigurationException>(LY_TEST_IMPACT_DEFAULT_CONFIG_FILE)))
@@ -100,7 +105,8 @@ namespace UnitTest
 
     protected:
         TestEnumerator m_testEnumerator;
-        InsstrumentedTestRunner m_instrumentedTestRunner;
+        InstrumentedTestRunner m_instrumentedTestRunner;
+        InstrumentedShardedTestSystem m_instrumentedShardedTestSystem;
         AZStd::unique_ptr<EnumerationTestJobInfoGenerator> m_enumerationTestJobInfoGenerator;
         AZStd::unique_ptr<ShardedTestJobInfoGenerator> m_shardedTestJobInfoGenerator;
         AZStd::vector<AZStd::pair<TestImpact::RepoPath, TestImpact::RepoPath>> m_testTargetPaths;
@@ -143,24 +149,23 @@ namespace UnitTest
         const auto shardJob =
             m_shardedTestJobInfoGenerator->GenerateJobInfo(testTarget, enumResult.second.front().GetPayload().value(), { 10 });
 
-        size_t completedJobs = 0;
-        const auto jobCallback = [&]([[maybe_unused]] const typename InsstrumentedTestRunner::Job::Info& jobInfo,
+        const auto jobCallback = [&]([[maybe_unused]] const typename InstrumentedTestRunner::Job::Info& jobInfo,
                                   [[maybe_unused]] const TestImpact::JobMeta& meta,
                                   [[maybe_unused]] TestImpact::StdContent&& std)
         {
-            AZ_Printf("Shard", "Shard %zu/%zu completed\n", ++completedJobs, m_maxConcurrency);
+            AZ_Printf("Test Target", "Complete!\n");
             if (std.m_out.has_value())
             {
-                AZ_Printf("Out", "%s\n",  std.m_out->c_str());
+                std::cout << std.m_out->c_str() << "\n";
             }
             if (std.m_err.has_value())
             {
-                AZ_Printf("Out", "%s\n", std.m_err->c_str());
+                std::cout << std.m_err->c_str() << "\n";
             }
             return TestImpact::ProcessCallbackResult::Continue;
         };
 
-        const auto stdCallback = []([[maybe_unused]] const typename InsstrumentedTestRunner::Job::Info& jobInfo,
+        const auto stdCallback = []([[maybe_unused]] const typename InstrumentedTestRunner::Job::Info& jobInfo,
                                     [[maybe_unused]] const AZStd::string& stdOutput,
                                     [[maybe_unused]] const AZStd::string& stdError,
                                     [[maybe_unused]] AZStd::string&& stdOutDelta,
@@ -169,15 +174,24 @@ namespace UnitTest
             return TestImpact::ProcessCallbackResult::Continue;
         };
 
-        const auto runResult = m_instrumentedTestRunner.RunTests(
-            shardJob.second,
+        //const auto runResult = m_instrumentedTestRunner.RunTests(
+        //    shardJob.second,
+        //    TestImpact::StdOutputRouting::ToParent,
+        //    TestImpact::StdErrorRouting::ToParent,
+        //    AZStd::nullopt,
+        //    AZStd::nullopt,
+        //    jobCallback,
+        //    stdCallback);
+
+        const auto runResult = m_instrumentedShardedTestSystem.RunTests(
+            { shardJob },
             TestImpact::StdOutputRouting::ToParent,
             TestImpact::StdErrorRouting::ToParent,
             AZStd::nullopt,
             AZStd::nullopt,
             jobCallback,
             stdCallback);
-
+        
         EXPECT_TRUE(true);
     }
 } // namespace UnitTest

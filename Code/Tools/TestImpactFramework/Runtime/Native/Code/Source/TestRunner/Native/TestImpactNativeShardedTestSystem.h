@@ -1,0 +1,234 @@
+/*
+ * Copyright (c) Contributors to the Open 3D Engine Project.
+ * For complete copyright and license terms please see the LICENSE at the root of this distribution.
+ *
+ * SPDX-License-Identifier: Apache-2.0 OR MIT
+ *
+ */
+
+#pragma once
+
+#include <TestRunner/Common/TestImpactTestRunner.h>
+#include <TestRunner/Native/Job/TestImpactNativeShardedTestJobInfoGenerator.h>
+
+#include <AzCore/std/containers/unordered_set.h>
+#include <AzCore/std/numeric.h>
+#include <AzCore/std/utility/to_underlying.h>
+
+namespace TestImpact
+{
+    template<typename TestRunnerType>
+    class ShardedTestJob
+    {
+    public:
+        using ShardedTestJobInfoType = ShardedTestJobInfo<TestRunnerType>;
+        using JobInfo = typename TestRunnerType::Job::Info;
+
+        struct JobData
+        {
+            JobData(const JobInfo& jobInfo)
+                : m_jobInfo(jobInfo)
+            {
+            }
+
+            JobData(const JobInfo& jobInfo, const JobMeta& meta, StdContent&& std)
+                : m_jobInfo(jobInfo)
+                , m_meta(meta)
+                , m_std(AZStd::move(std))
+            {
+            }
+
+            JobInfo m_jobInfo;
+            JobMeta m_meta;
+            StdContent m_std;
+        };
+
+        ShardedTestJob(const ShardedTestJobInfoType& shardedTestJobInfo)
+            : m_shardedTestJobInfo(&shardedTestJobInfo)
+        {
+            m_subJobs.reserve(m_shardedTestJobInfo->second.size());
+        }
+
+        bool IsComplete() const
+        {
+            return m_subJobs.size() == m_shardedTestJobInfo->second.size();
+        }
+
+        void RegisterCompletedSubJob(const JobInfo& jobInfo, const JobMeta& meta, StdContent&& std)
+        {
+            m_subJobs.emplace_back(jobInfo, meta, AZStd::move(std));
+
+            if (IsComplete())
+            {
+                // For the job info, we'll just take the job info of the first sub-job as it doesn't make much sense to consolidate
+                // at this level
+                m_consolidatedJobData = JobData(m_shardedTestJobInfo->second.front());
+                JobMeta& consolidatedMeta = m_consolidatedJobData->m_meta;
+            
+                for (const auto& subJob : m_subJobs)
+                {
+                    // Take the earliest start time of all the sub jobs
+                    if (subJob.m_meta.m_startTime.has_value() &&
+                        (!consolidatedMeta.m_startTime.has_value() ||
+                         consolidatedMeta.m_startTime.value() > subJob.m_meta.m_startTime.value()))
+                    {
+                        consolidatedMeta.m_startTime = subJob.m_meta.m_startTime;
+                    }
+            
+                    // Accumulate the durations
+                    if (subJob.m_meta.m_duration.has_value())
+                    {
+                        consolidatedMeta.m_duration = consolidatedMeta.m_duration.has_value()
+                            ? consolidatedMeta.m_duration.value() + subJob.m_meta.m_duration.value()
+                            : subJob.m_meta.m_duration.value();
+                    }
+            
+                    // Take the job result in reverse order of precedence of the JobResult enum
+                    if (AZStd::to_underlying(subJob.m_meta.m_result) < AZStd::to_underlying(consolidatedMeta.m_result))
+                    {
+                        consolidatedMeta.m_result = subJob.m_meta.m_result;
+                    }
+            
+                    // Technically, it would be possible to consolidate return codes at the job level as we could use the
+                    // platform/framework error code checkers that the test engine uses to determine what error codes map
+                    // to what test run results but it's not worth it so just take the highest error code value
+                    if (subJob.m_meta.m_returnCode.has_value() &&
+                        (!consolidatedMeta.m_returnCode.has_value() ||
+                         consolidatedMeta.m_returnCode.value() < subJob.m_meta.m_returnCode.value()))
+                    {
+                        consolidatedMeta.m_returnCode = subJob.m_meta.m_returnCode;
+                    }
+            
+                    // Accumulate the standard out/error of each sub job
+                    const auto stdAccumulator = [](const AZStd::optional<AZStd::string>& source, AZStd::optional<AZStd::string>& dest)
+                    {
+                        if (source.has_value())
+                        {
+                            dest = dest.has_value() ? dest.value() + source.value() : source.value();
+                        }
+                    };
+
+                    stdAccumulator(subJob.m_std.m_out, m_consolidatedJobData->m_std.m_out);
+                    stdAccumulator(subJob.m_std.m_err, m_consolidatedJobData->m_std.m_err);
+                }
+            }
+        }
+
+        AZStd::optional<JobData>& GetConsolidatedJobData()
+        {
+            return m_consolidatedJobData;
+        }
+
+    private:
+        const ShardedTestJobInfoType* m_shardedTestJobInfo = nullptr;
+        AZStd::vector<JobData> m_subJobs;
+        AZStd::optional<JobData> m_consolidatedJobData;
+    };
+
+    //! 
+    template<typename TestRunnerType>
+    class NativeShardedTestSystem
+    {
+    public:
+        using ShardedTestJobInfoType = ShardedTestJobInfo<TestRunnerType>;
+
+        //! Constructs the sharded test system to wrap around the specified test runner.
+        NativeShardedTestSystem(TestRunnerType& testRunner);
+
+        //! Wrapper around the test runner's `RunTests` method to present the sharded test running interface to the user.
+        [[nodiscard]] AZStd::pair<ProcessSchedulerResult, AZStd::vector<typename TestRunnerType::Job>> RunTests(
+            const AZStd::vector<typename ShardedTestJobInfoType>& shardedJobInfos,
+            StdOutputRouting stdOutRouting,
+            StdErrorRouting stdErrRouting,
+            AZStd::optional<AZStd::chrono::milliseconds> runTimeout,
+            AZStd::optional<AZStd::chrono::milliseconds> runnerTimeout,
+            AZStd::optional<typename TestRunnerType::JobCallback> clientCallback,
+            AZStd::optional<typename TestRunnerType::StdContentCallback> stdContentCallback);
+
+    private:
+        TestRunnerType* m_testRunner = nullptr;
+    };
+
+    template<typename TestRunnerType>
+    NativeShardedTestSystem<TestRunnerType>::NativeShardedTestSystem(TestRunnerType& testRunner)
+        : m_testRunner(&testRunner)
+    {
+    }
+
+    template<typename TestRunnerType>
+    AZStd::pair<ProcessSchedulerResult, AZStd::vector<typename TestRunnerType::Job>> NativeShardedTestSystem<TestRunnerType>::RunTests(
+        const AZStd::vector<ShardedTestJobInfoType>& shardedJobInfos,
+        StdOutputRouting stdOutRouting,
+        StdErrorRouting stdErrRouting,
+        AZStd::optional<AZStd::chrono::milliseconds> runTimeout,
+        AZStd::optional<AZStd::chrono::milliseconds> runnerTimeout,
+        AZStd::optional<typename TestRunnerType::JobCallback> clientCallback,
+        AZStd::optional<typename TestRunnerType::StdContentCallback> stdContentCallback)
+    {
+        using JobInfo = typename TestRunnerType::JobInfo;
+        using JobId = typename JobInfo::Id;
+
+        // Key: sub-job shard
+        // Value: parent sharded job info
+        AZStd::unordered_map<JobInfo, const ShardedTestJobInfoType*> shardToParentShardedJobMap;
+        AZStd::unordered_map<const ShardedTestJobInfoType*, ShardedTestJob<TestRunnerType>> completedShardMap;
+
+        const auto totalJobShards = AZStd::accumulate(
+            shardedJobInfos.begin(),
+            shardedJobInfos.end(),
+            size_t{ 0 },
+            [](size_t sum, const ShardedTestJobInfoType& shardedJobInfo)
+            {
+                return sum + shardedJobInfo.second.size();
+            });
+
+        AZStd::vector<JobInfo> subJobInfos;
+        subJobInfos.reserve(totalJobShards);
+        for (const auto& shardedJobInfo : shardedJobInfos)
+        {
+            completedShardMap.emplace(
+                AZStd::piecewise_construct, AZStd::forward_as_tuple(&shardedJobInfo), std::forward_as_tuple(shardedJobInfo));
+            const auto& [testTarget, jobInfos] = shardedJobInfo;
+            subJobInfos.insert(subJobInfos.end(), jobInfos.begin(), jobInfos.end());
+            for (const auto& jobInfo : jobInfos)
+            {
+                shardToParentShardedJobMap[jobInfo] = &shardedJobInfo;
+            }
+        }
+
+        const auto testRunnerCallback =
+            [&](const typename TestRunnerType::Job::Info& jobInfo,
+                const JobMeta& meta,
+                StdContent&& std)
+        {
+            const auto shardedJobInfo = shardToParentShardedJobMap.at(jobInfo);
+            auto& ShardedTestJob = completedShardMap.at(shardedJobInfo);
+            ShardedTestJob.RegisterCompletedSubJob(jobInfo, meta, AZStd::move(std));
+
+            if (ShardedTestJob.IsComplete())
+            {
+                // condolidate job metas etc. and present to user callback...
+
+                if (clientCallback.has_value())
+                {
+                    auto& consolidatedJobData = *ShardedTestJob.GetConsolidatedJobData();
+                    return (*clientCallback)(
+                        consolidatedJobData.m_jobInfo, consolidatedJobData.m_meta, std::move(consolidatedJobData.m_std));
+                }
+            }
+
+            return ProcessCallbackResult::Continue;
+        };
+
+        const auto result = m_testRunner->RunTests(
+            subJobInfos,
+            stdOutRouting,
+            stdErrRouting,
+            runTimeout,
+            runnerTimeout,
+            testRunnerCallback,
+            stdContentCallback);
+
+        return {};
+    }
+} // namespace TestImpact
