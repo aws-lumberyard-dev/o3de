@@ -15,4 +15,5 @@ set(FILES
     Source/TestImpactConsoleUtils.cpp
     Source/TestImpactCommandLineOptionsUtils.cpp
     Source/TestImpactCommandLineOptions.cpp
+    Source/TestImpactConsoleTestSequenceEventHandler.cpp
 )
