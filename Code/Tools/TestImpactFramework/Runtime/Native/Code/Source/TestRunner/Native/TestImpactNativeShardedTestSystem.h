@@ -60,8 +60,9 @@ namespace TestImpact
 
             if (IsComplete())
             {
-                // For the job info, we'll just take the job info of the first sub-job as it doesn't make much sense to consolidate
-                // at this level
+                // Take the first job to be scheduled as for no sharding this will be the actual job and for sharding it
+                // doesn't make a great deal of sense to try and consolodate the jobs at this level anyway (the completed
+                // jobs returned by the sharded test runner will present all shards as a single completed job)
                 m_consolidatedJobData = JobData(m_shardedTestJobInfo->second.front());
                 JobMeta& consolidatedMeta = m_consolidatedJobData->m_meta;
             

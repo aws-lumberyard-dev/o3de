@@ -30,6 +30,7 @@ namespace TestImpact
         , m_instrumentBinary(instrumentBinary)
         , m_coverageLevel(coverageLevel)
     {
+        AZ_TestImpact_Eval(maxConcurrency != 0, TestRunnerException, "Max Number of concurrent processes in flight cannot be 0");
     }
     
     //InstrumentedShardedTestJobInfo NativeShardedInstrumentedTestRunJobInfoGenerator::ShardFixtureContiguous(const TestEngineEnumeration<NativeTestTarget>& enumeration)
