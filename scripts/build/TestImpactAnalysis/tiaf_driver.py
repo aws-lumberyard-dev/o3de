@@ -13,6 +13,7 @@ import pathlib
 import traceback
 from test_impact import NativeTestImpact, PythonTestImpact
 from tiaf_logger import get_logger
+import tiaf_report_constants as constants
 
 logger = get_logger(__file__)
 
@@ -41,6 +42,13 @@ def parse_args():
         else:
             raise ValueError(
                 "Test failure policy must be 'abort', 'continue' or 'ignore'")
+
+    def valid_integration_failure_policy(value):
+        if value == "continue" or value == "abort":
+            return value
+        else:
+            raise ValueError(
+                "Integration failure policy must be 'abort' or 'continue'")
 
     parser = argparse.ArgumentParser()
 
@@ -124,6 +132,14 @@ def parse_args():
         '--test-failure-policy',
         type=valid_test_failure_policy,
         help="Test failure policy for regular and test impact sequences (ignored when seeding)",
+        required=True
+    )
+
+    # Dynamic dependency map integration failure policy
+    parser.add_argument(
+        '--integration_failure_policy',
+        type=valid_integration_failure_policy,
+        help="Dynamic dependency map integration failure policy for seed and test impact sequences (ignored for regular sequences)",
         required=True
     )
 
@@ -218,9 +234,7 @@ def main(args: dict):
                 args['mars_index_prefix'], tiaf_result, sys.argv, args['build_number'])
 
         logger.info("Complete!")
-        # Non-gating will be removed from this script and handled at the job level in SPEC-7413
-        # sys.exit(result.return_code)
-        sys.exit(0)
+        sys.exit(tiaf_result[constants.RUNTIME_RETURN_CODE_KEY])
     except Exception as e:
         # Non-gating will be removed from this script and handled at the job level in SPEC-7413
         logger.error(f"Exception caught by TIAF driver: '{e}'.")

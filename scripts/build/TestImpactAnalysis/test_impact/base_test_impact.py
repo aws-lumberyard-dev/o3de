@@ -30,7 +30,7 @@ ARG_DESTINATION_BRANCH = 'dst_branch'
 ARG_COMMIT = 'commit'
 ARG_S3_TOP_LEVEL_DIR = 's3_top_level_dir'
 ARG_SEQUENCE_OVERRIDE = 'sequence_override'
-ARG_INTEGRATION_POLICY = RuntimeArgs.COMMON_IPOLICY.driver_argument
+ARG_INTEGRATION_FAILURE_POLICY = RuntimeArgs.COMMON_IPOLICY.driver_argument
 ARG_TEST_FAILURE_POLICY = RuntimeArgs.COMMON_FPOLICY.driver_argument
 ARG_CHANGE_LIST = RuntimeArgs.COMMON_CHANGELIST.driver_argument
 ARG_SEQUENCE = RuntimeArgs.COMMON_SEQUENCE.driver_argument
@@ -122,7 +122,7 @@ class BaseTestImpact(ABC):
                         # Use TIA no-write sequence (regular subset of tests) for non coverage updating branches
                         sequence_type = TIA_NOWRITE
                         # Ignore integrity failures for non coverage updating branches as our confidence in the
-                        args[ARG_INTEGRATION_POLICY] = "continue"
+                        args[ARG_INTEGRATION_FAILURE_POLICY] = "continue"
                     args[ARG_CHANGE_LIST] = self._change_list_path
                 else:
                     if self._is_source_of_truth_branch and self._can_rerun_with_instrumentation:
@@ -134,7 +134,7 @@ class BaseTestImpact(ABC):
                         # Use regular sequence (regular all tests) for non coverage updating branches as we have no coverage to use nor coverage to update
                         sequence_type = TIA_REGULAR
                         # Ignore integrity failures for non coverage updating branches as our confidence in the
-                        args[ARG_INTEGRATION_POLICY] = "continue"
+                        args[ARG_INTEGRATION_FAILURE_POLICY] = "continue"
         # Store sequence and report into args so that our argument enum can be used to apply all relevant arguments.
         args[ARG_SEQUENCE] = args.get(ARG_SEQUENCE_OVERRIDE) or sequence_type
         self._report_file = PurePath(self._report_workspace).joinpath(
@@ -169,7 +169,6 @@ class BaseTestImpact(ABC):
         self._src_commit = self._persistent_storage.last_commit_hash
 
         # Check to see if this is a re-run for this commit before any other changes have come in
-
         if self._persistent_storage.is_rerun:
 
             # If we have the last commit hash of our previous run in our json then we will just use the historic data from that run

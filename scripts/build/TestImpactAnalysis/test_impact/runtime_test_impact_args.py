@@ -31,7 +31,7 @@ class RuntimeArgs(Enum):
                     "Test target timeout in seconds is set to: ")
     COMMON_GLOBAL_TIMEOUT = ("global_timeout", "--gtimeout=",
                       "Global sequence timeout in seconds is set to: ")
-    COMMON_IPOLICY = ("integration_policy", "--ipolicy=",
+    COMMON_IPOLICY = ("integration_failure_policy", "--ipolicy=",
                "Integration failure policy is set to: ")
     COMMON_CHANGELIST = ("change_list", "--changelist=", "Change list is set to: ")
     COMMON_REPORT = ("report", "--report=", "Sequencer report file is set to: ")
