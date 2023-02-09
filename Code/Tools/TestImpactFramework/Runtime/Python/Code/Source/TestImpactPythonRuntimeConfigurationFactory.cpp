@@ -8,8 +8,8 @@
 
 #include <TestImpactFramework/TestImpactConfigurationException.h>
 #include <TestImpactFramework/TestImpactUtils.h>
+#include <TestImpactFramework/Python/TestImpactPythonRuntimeConfigurationFactory.h>
 
-#include <TestImpactPythonRuntimeConfigurationFactory.h>
 #include <TestImpactRuntimeConfigurationFactory.h>
 
 namespace TestImpact
