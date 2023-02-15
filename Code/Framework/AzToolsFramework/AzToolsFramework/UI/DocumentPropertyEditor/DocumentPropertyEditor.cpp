@@ -22,6 +22,7 @@
 #include <AzToolsFramework/UI/DPEDebugViewer/DPEDebugModel.h>
 #include <AzToolsFramework/UI/DPEDebugViewer/DPEDebugWindow.h>
 #include <AzToolsFramework/UI/DocumentPropertyEditor/KeyQueryDPE.h>
+#include <AzToolsFramework/UI/DocumentPropertyEditor/PropertyEditorToolsSystemInterface.h>
 
 AZ_CVAR(
     bool,
@@ -203,19 +204,18 @@ namespace AzToolsFramework
 
         //! Treat all widgets in a shared column as one item.
         //! Sum all the widgets, but remove all shared widgets other than the first widget of each shared column.
-        const int itemCount = count();
-        const int effectiveCount = itemCount - SharedWidgetCount() + static_cast<int>(m_sharePriorColumn.size());
+        const int itemCount = count() - SharedWidgetCount() + static_cast<int>(m_sharePriorColumn.size());
 
-        if (effectiveCount > 0)
+        if (itemCount > 0)
         {
             // divide evenly, unless there are 2 columns, in which case follow the 2/5ths rule here:
             // https://www.o3de.org/docs/tools-ui/ux-patterns/component-card/overview/
-            const int perItemWidth = (effectiveCount == 2 ? (rect.width() * 3) / 5 : rect.width() / effectiveCount);
+            int perItemWidth = (itemCount == 2 ? (rect.width() * 3) / 5 : rect.width() / itemCount);
 
             // special case the first item to handle indent and the 2/5ths rule
             constexpr int indentSize = 15; // child indent of first item, in pixels
             QRect itemGeometry(rect);
-            itemGeometry.setRight(effectiveCount == 2 ? itemGeometry.width() - perItemWidth : perItemWidth);
+            itemGeometry.setRight(itemCount == 2 ? itemGeometry.width() - perItemWidth : perItemWidth);
             itemGeometry.setLeft(itemGeometry.left() + (m_depth * indentSize));
 
             if (m_showExpander)
@@ -225,10 +225,7 @@ namespace AzToolsFramework
                     CreateExpanderWidget();
                 }
                 m_expanderWidget->move(itemGeometry.topLeft());
-                if (auto* widgetParent = parentWidget(); widgetParent && widgetParent->isVisible())
-                {
-                    m_expanderWidget->show();
-                }
+                m_expanderWidget->show();
             }
 
             // space to leave for expander, whether it's there or not
@@ -239,11 +236,11 @@ namespace AzToolsFramework
             int sharedVectorIndex = 0;
             // iterate over each item, laying them left to right
             int layoutIndex = 0;
-            while (layoutIndex < itemCount)
+            const int itemCountActual = count();
+            while (layoutIndex < itemCountActual)
             {
                 size_t currentWidget = static_cast<size_t>(layoutIndex);
-                auto* myRow = GetRow();
-                AzToolsFramework::DPERowWidget::AttributeInfo* attributes = myRow->GetAttributes(currentWidget);
+                AzToolsFramework::DPERowWidget::AttributeInfo* attributes = GetRow()->GetAttributes(currentWidget);
 
                 //! If the current widget is the first widget of a shared column, create the shared column layout and add widgets to it
                 if (sharedVectorIndex < m_sharePriorColumn.size() &&
@@ -261,7 +258,7 @@ namespace AzToolsFramework
                     while (sharedWidgetIndex < numItems)
                     {
                         currentWidget = m_sharePriorColumn[sharedVectorIndex][sharedWidgetIndex];
-                        attributes = myRow->GetAttributes(currentWidget);
+                        attributes = GetRow()->GetAttributes(currentWidget);
                         // Save the alignment of the last widget in the shared column with an alignment attribute
                         if (attributes)
                         {
@@ -298,13 +295,14 @@ namespace AzToolsFramework
                     // if all widgets in this shared column take up only their minimum width, set the appropriate alignment with spacers
                     if (minWidthCount == numItems)
                     {
-                        QSpacerItem* spacer = new QSpacerItem(perItemWidth, 1, QSizePolicy::Expanding, QSizePolicy::Fixed);
                         if (startSpacer)
                         {
+                            QSpacerItem* spacer = new QSpacerItem(perItemWidth, 1, QSizePolicy::Expanding, QSizePolicy::Fixed);
                             sharedColumnLayout->insertSpacerItem(0, spacer);
                         }
                         if (endSpacer)
                         {
+                            QSpacerItem* spacer = new QSpacerItem(perItemWidth, 1, QSizePolicy::Expanding, QSizePolicy::Fixed);
                             sharedColumnLayout->addSpacerItem(spacer);
                         }
                     }
@@ -320,9 +318,9 @@ namespace AzToolsFramework
                         itemGeometry.setRight(itemGeometry.left() + perItemWidth);
                         sharedColumnLayout->setGeometry(itemGeometry);
                     }
-                    ++sharedVectorIndex;
+                    sharedVectorIndex++;
                     // Increase the layout index by the amount of widgets in the shared column we have iterated over
-                    layoutIndex += sharedWidgetIndex;
+                    layoutIndex = layoutIndex + sharedWidgetIndex;
                 }
                 // Widget is not in a shared column, lay it individually with its appropriate alignment
                 else
@@ -333,7 +331,6 @@ namespace AzToolsFramework
                     }
                     else
                     {
-                        auto* currItem = itemAt(layoutIndex);
                         itemGeometry.setLeft(itemGeometry.right() + 1);
                         itemGeometry.setRight(itemGeometry.left() + perItemWidth);
                         if (attributes)
@@ -341,17 +338,17 @@ namespace AzToolsFramework
                             switch (attributes->m_alignment)
                             {
                             case AZ::Dpe::Nodes::PropertyEditor::Align::AlignLeft:
-                                currItem->setAlignment(Qt::AlignLeft);
+                                itemAt(layoutIndex)->setAlignment(Qt::AlignLeft);
                                 break;
                             case AZ::Dpe::Nodes::PropertyEditor::Align::AlignCenter:
-                                currItem->setAlignment(Qt::AlignCenter);
+                                itemAt(layoutIndex)->setAlignment(Qt::AlignCenter);
                                 break;
                             case AZ::Dpe::Nodes::PropertyEditor::Align::AlignRight:
-                                currItem->setAlignment(Qt::AlignRight);
+                                itemAt(layoutIndex)->setAlignment(Qt::AlignRight);
                                 break;
                             }
                         }
-                        currItem->setGeometry(itemGeometry);
+                        itemAt(layoutIndex)->setGeometry(itemGeometry);
                     }
                     layoutIndex++;
                 }
@@ -997,11 +994,7 @@ namespace AzToolsFramework
         // insert after the found index; even if nothing were found and priorIndex is -1,
         // insert one after it, at position 0
         m_columnLayout->insertWidget(priorColumnIndex + 1, columnWidget);
-
-        if (isVisible())
-        {
-            columnWidget->show();
-        }
+        columnWidget->show();
     }
 
     QWidget* DPERowWidget::CreateWidgetForHandler(
@@ -1011,63 +1004,24 @@ namespace AzToolsFramework
         // if we found a valid handler, grab its widget to add to the column layout
         if (handlerId)
         {
-            auto poolManager = static_cast<AZ::InstancePoolManager*>(AZ::Interface<AZ::InstancePoolManagerInterface>::Get());
-            auto handlerName = AZ::Name(handlerId->m_name);
-            auto handlerPool = poolManager->GetPool<PropertyHandlerWidgetInterface>(handlerName);
-            if (!handlerPool)
-            {
-                auto* theDPE = GetDPE();
-                AZ_Assert(theDPE, "DPERowWidget should always be able to retrieve its DPE during widget creation!");
-                if (!theDPE)
-                {
-                    return nullptr;
-                }
-                AZStd::function<void(PropertyHandlerWidgetInterface&)> resetHandler = [](PropertyHandlerWidgetInterface& handler)
-                {
-                    DetachAndHide(handler.GetWidget());
-                };
-
-                AZStd::function<PropertyHandlerWidgetInterface*()> createHandler = [handlerId]()
-                {
-                    auto createdHandler = AZ::Interface<PropertyEditorToolsSystemInterface>::Get()->CreateHandlerInstance(handlerId);
-                    auto bareHandler = createdHandler.get();
-                    createdHandler.release();
-                    return bareHandler;
-                };
-
-                handlerPool = poolManager->CreatePool<PropertyHandlerWidgetInterface>(handlerName, resetHandler, createHandler)
-                                 .GetValue();
-                theDPE->RegisterHandlerPool(handlerPool);
-            }
-
             // store, then reference the unique_ptr that will manage the handler's lifetime
-            auto handler = handlerPool->GetInstance();
+            auto handler = AZ::Interface<PropertyEditorToolsSystemInterface>::Get()->CreateHandlerInstance(handlerId);
             handler->SetValueFromDom(domValue);
             createdWidget = handler->GetWidget();
             createdWidget->setEnabled(true);
-            m_widgetToPropertyHandlerInfo[createdWidget] = { handlerId, AZStd::unique_ptr<PropertyHandlerWidgetInterface>(handler) };
+            m_widgetToPropertyHandlerInfo[createdWidget] = { handlerId, AZStd::move(handler) };
         }
         return createdWidget;
     }
 
     void DPERowWidget::ReleaseHandler(HandlerInfo& handler)
     {
-        auto poolManager = static_cast<AZ::InstancePoolManager*>(AZ::Interface<AZ::InstancePoolManagerInterface>::Get());
-        auto handlerName = AZ::Name(handler.handlerId->m_name);
-        auto handlerPool = poolManager->GetPool<PropertyHandlerWidgetInterface>(handlerName);
-        if (handlerPool)
-        {
-            handlerPool->RecycleInstance(handler.hanlderInterface.get());
-        }
-        else
-        {
-            QTimer::singleShot(
-                0,
-                [interfacePointer = handler.hanlderInterface.get()]()
-                {
-                    delete interfacePointer;
-                });
-        }
+        QTimer::singleShot(
+            0,
+            [interfacePointer = handler.hanlderInterface.get()]()
+            {
+                delete interfacePointer;
+            });
         handler.hanlderInterface.release();
     }
 
@@ -1325,10 +1279,7 @@ namespace AzToolsFramework
                 m_layout->insertWidget(foundIndex + 1, widgetToAdd);
             }
         }
-        if (isVisible())
-        {
-            widgetToAdd->show();
-        }
+        widgetToAdd->show();
     }
 
     void DocumentPropertyEditor::SetSavedStateKey(AZ::u32 key, AZStd::string propertyEditorName)
@@ -1546,10 +1497,5 @@ namespace AzToolsFramework
         };
 
         message.Match(AZ::DocumentPropertyEditor::Nodes::Adapter::QueryKey, showKeyQueryDialog);
-    }
-
-    void DocumentPropertyEditor::RegisterHandlerPool(AZStd::shared_ptr<AZ::InstancePoolBase> handlerPool)
-    {
-        m_handlerPools.push_back(handlerPool);
     }
 } // namespace AzToolsFramework
