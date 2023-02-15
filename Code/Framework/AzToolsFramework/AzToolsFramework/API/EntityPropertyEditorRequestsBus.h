@@ -10,9 +10,11 @@
 
 #include <AzCore/EBus/EBus.h>
 #include <AzToolsFramework/API/ToolsApplicationAPI.h>
+#include <AzToolsFramework/UI/PropertyEditor/ComponentEditor.hxx>
 
 namespace AzToolsFramework
 {
+    using GetComponentEditorsCallback = AZStd::function<bool(const ComponentEditor*)>;
     //! Requests to be made of all EntityPropertyEditorRequests
     //! Beware, there may be more than one EntityPropertyEditor that can respond
     //! Broadcast should be used for accessing these functions
@@ -31,6 +33,8 @@ namespace AzToolsFramework
         //! Explicitly sets a component as having been the most recently added.
         //! This means that the next time the UI refreshes, that component will be ensured to be visible.
         virtual void SetNewComponentId(AZ::ComponentId componentId) = 0;
+
+        virtual void GetComponentEditors(const GetComponentEditorsCallback& callback) const = 0;
     };
 
     using EntityPropertyEditorRequestBus = AZ::EBus<EntityPropertyEditorRequests>;

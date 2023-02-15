@@ -6,12 +6,18 @@
  *
  */
 
+#include <AzToolsFramework/Prefab/PrefabEditorPreferences.h>
 #include <Prefab/Overrides/PrefabOverrideTestFixture.h>
 
 namespace UnitTest
 {
     void PrefabOverrideTestFixture::SetUpEditorFixtureImpl()
-    {
+    { 
+        AZ::SettingsRegistryInterface* registry = AZ::SettingsRegistry::Get();
+        auto projectPathKey =
+            AZ::SettingsRegistryInterface::FixedValueString(AZ::SettingsRegistryMergeUtils::BootstrapSettingsRootKey) + "/project_path";
+        registry->Set(AzToolsFramework::Prefab::InspectorOverrideManagementKey, true);
+        registry->Set("O3DE/Autoexec/ConsoleCommands/ed_enableDPE", true);
         PrefabTestFixture::SetUpEditorFixtureImpl();
 
         m_prefabOverridePublicInterface = AZ::Interface<PrefabOverridePublicInterface>::Get();

@@ -6,6 +6,7 @@
  *
  */
 
+#include <AzToolsFramework/API/EntityPropertyEditorRequestsBus.h>
 #include <AzToolsFramework/ToolsComponents/TransformComponent.h>
 #include <Prefab/Overrides/PrefabOverrideTestFixture.h>
 
@@ -19,6 +20,15 @@ namespace UnitTest
         CreateEntityInNestedPrefab(newEntityId, parentContainerId, grandparentContainerId);
         
         CreateAndValidateEditEntityOverride(newEntityId, grandparentContainerId);
+        AZStd::vector<const AzToolsFramework::ComponentEditor*> componentEditors;
+        AzToolsFramework::EntityPropertyEditorRequestBus::Broadcast(
+            &AzToolsFramework::EntityPropertyEditorRequestBus::Events::GetComponentEditors,
+            [&componentEditors](const AzToolsFramework::ComponentEditor* componentEditor)
+            {
+                componentEditors.push_back(componentEditor);
+                return true;
+            });
+        EXPECT_TRUE(componentEditors.size() > 0);
     }
 
     TEST_F(PrefabOverridePublicInterfaceTest, AreOverridesPresentWorksWithOverrideFromLevel)
