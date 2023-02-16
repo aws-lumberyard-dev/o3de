@@ -31,7 +31,6 @@ namespace AzToolsFramework
             // replicate it, its owner can instead implement a keyEvent handler
             if (static_cast<QKeyEvent*>(event)->isAutoRepeat())
             {
-                event->accept();
                 return true;
             }
 
@@ -60,9 +59,6 @@ namespace AzToolsFramework
 
             if (TriggerActiveActionsWithShortcut(m_editorActionContext->GetActions(), watchedWidget->actions(), keySequence))
             {
-                // We need to accept the event in addition to return true on this event filter
-                // to ensure the event doesn't get propagated to any parent widgets.
-                event->accept();
                 return true;
             }
             

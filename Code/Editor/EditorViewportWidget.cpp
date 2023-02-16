@@ -40,12 +40,10 @@
 #include <AzQtComponents/Utilities/QtWindowUtilities.h>
 
 // AzToolsFramework
-#include <AzToolsFramework/ActionManager/HotKey/HotKeyManagerInterface.h>
 #include <AzToolsFramework/API/ComponentEntityObjectBus.h>
 #include <AzToolsFramework/API/EditorCameraBus.h>
 #include <AzToolsFramework/API/ViewportEditorModeTrackerInterface.h>
 #include <AzToolsFramework/Editor/ActionManagerUtils.h>
-#include <AzToolsFramework/Editor/ActionManagerIdentifiers/EditorContextIdentifiers.h>
 #include <AzToolsFramework/Manipulators/ManipulatorManager.h>
 #include <AzToolsFramework/Viewport/ViewBookmarkLoaderInterface.h>
 #include <AzToolsFramework/Viewport/ViewportSettings.h>
@@ -245,21 +243,11 @@ EditorViewportWidget::EditorViewportWidget(const QString& name, QWidget* parent)
     {
         SetAsActiveViewport();
     }
-
-    if (auto hotKeyManagerInterface = AZ::Interface<AzToolsFramework::HotKeyManagerInterface>::Get())
-    {
-        hotKeyManagerInterface->AssignWidgetToActionContext(EditorIdentifiers::MainWindowActionContextIdentifier, this);
-    }
 }
 
 //////////////////////////////////////////////////////////////////////////
 EditorViewportWidget::~EditorViewportWidget()
 {
-    if (auto hotKeyManagerInterface = AZ::Interface<AzToolsFramework::HotKeyManagerInterface>::Get())
-    {
-        hotKeyManagerInterface->RemoveWidgetFromActionContext(EditorIdentifiers::MainWindowActionContextIdentifier, this);
-    }
-
     if (m_pPrimaryViewport == this)
     {
         m_pPrimaryViewport = nullptr;
