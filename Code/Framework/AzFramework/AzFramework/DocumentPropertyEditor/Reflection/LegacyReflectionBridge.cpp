@@ -228,7 +228,7 @@ namespace AZ::Reflection
                     nullptr);
 
                 const StackEntry& nodeData = m_stack.back();
-                m_serializeContext->EnumerateInstance(&context, nodeData.m_instance, nodeData.m_typeId, nullptr, nullptr);
+                m_serializeContext->EnumerateInstance(&context, nodeData.m_instance, nodeData.m_typeId, nodeData.m_classData, nodeData.m_classElement);
             }
 
             bool BeginNode(
@@ -254,7 +254,7 @@ namespace AZ::Reflection
                 else if (classElement)
                 {
                     AZStd::string_view elementName = classElement->m_name;
-                    if (!elementName.empty())
+                    if (!elementName.empty() && classElement->m_editData)
                     {
                         path.append("/");
                         path.append(elementName);

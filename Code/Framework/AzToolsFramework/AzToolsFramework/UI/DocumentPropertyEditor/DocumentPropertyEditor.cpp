@@ -5,6 +5,7 @@
  * SPDX-License-Identifier: Apache-2.0 OR MIT
  *
  */
+#pragma optimize("", off)
 #include "DocumentPropertyEditor.h"
 
 #include <QCheckBox>
@@ -1558,3 +1559,4 @@ namespace AzToolsFramework
         m_handlerPools.push_back(handlerPool);
     }
 } // namespace AzToolsFramework
+#pragma optimize("", on)
