@@ -11,13 +11,6 @@
 
 namespace AzToolsFramework::Prefab
 {
-<<<<<<< HEAD
-=======
-    static constexpr AZStd::string_view EnablePrefabOverridesUxKey = "/O3DE/Preferences/Prefabs/EnableOverridesUx";
-    static constexpr AZStd::string_view InspectorOverrideManagementKey = "/O3DE/Preferences/Prefabs/EnableInspectorOverrideManagement";
-    static constexpr AZStd::string_view HotReloadToggleKey = "/O3DE/Preferences/Prefabs/EnableHotReloading";
-
->>>>>>> development
     bool IsHotReloadingEnabled()
     {
         bool isHotReloadingEnabled = false;
