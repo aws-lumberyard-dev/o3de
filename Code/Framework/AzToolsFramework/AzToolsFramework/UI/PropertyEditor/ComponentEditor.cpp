@@ -183,6 +183,10 @@ namespace AzToolsFramework
 
     ComponentEditor::~ComponentEditor()
     {
+        if (DocumentPropertyEditor::ShouldReplaceRPE())
+        {
+            m_adapter.reset();
+        }
     }
 
     void ComponentEditor::AddInstance(AZ::Component* componentInstance, AZ::Component* aggregateInstance, AZ::Component* compareInstance)

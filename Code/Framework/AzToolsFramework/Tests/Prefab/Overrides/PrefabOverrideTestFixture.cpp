@@ -7,6 +7,7 @@
  */
 
 #include <AzToolsFramework/Prefab/PrefabEditorPreferences.h>
+#include <AzToolsFramework/UI/PropertyEditor/EntityPropertyEditor.hxx>
 #include <Prefab/Overrides/PrefabOverrideTestFixture.h>
 
 namespace UnitTest
@@ -14,10 +15,8 @@ namespace UnitTest
     void PrefabOverrideTestFixture::SetUpEditorFixtureImpl()
     { 
         AZ::SettingsRegistryInterface* registry = AZ::SettingsRegistry::Get();
-        auto projectPathKey =
-            AZ::SettingsRegistryInterface::FixedValueString(AZ::SettingsRegistryMergeUtils::BootstrapSettingsRootKey) + "/project_path";
         registry->Set(AzToolsFramework::Prefab::InspectorOverrideManagementKey, true);
-        registry->Set("O3DE/Autoexec/ConsoleCommands/ed_enableDPE", true);
+        registry->Set("/O3DE/Autoexec/ConsoleCommands/ed_enableDPE", true);
         PrefabTestFixture::SetUpEditorFixtureImpl();
 
         m_prefabOverridePublicInterface = AZ::Interface<PrefabOverridePublicInterface>::Get();
@@ -25,6 +24,14 @@ namespace UnitTest
 
         m_prefabFocusPublicInterface = AZ::Interface<PrefabFocusPublicInterface>::Get();
         ASSERT_TRUE(m_prefabFocusPublicInterface);
+
+        m_testEntityPropertyEditor = AZStd::make_unique<AzToolsFramework::EntityPropertyEditor>(nullptr, Qt::WindowFlags(), false);
+    }
+
+     void PrefabOverrideTestFixture::TearDownEditorFixtureImpl()
+    {
+        m_testEntityPropertyEditor.reset();
+        PrefabTestFixture::TearDownEditorFixtureImpl();
     }
 
     void PrefabOverrideTestFixture::CreateEntityInNestedPrefab(

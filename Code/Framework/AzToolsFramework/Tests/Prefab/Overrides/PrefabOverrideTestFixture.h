@@ -8,9 +8,15 @@
 
 #pragma once
 
+#include <AzCore/std/smart_ptr/unique_ptr.h>
 #include <AzToolsFramework/Prefab/PrefabFocusPublicInterface.h>
 #include <AzToolsFramework/Prefab/Overrides/PrefabOverridePublicInterface.h>
 #include <Prefab/PrefabTestFixture.h>
+
+namespace AzToolsFramework
+{
+    class EntityPropertyEditor;
+}
 
 namespace UnitTest
 {
@@ -20,6 +26,7 @@ namespace UnitTest
     {
     protected:
         void SetUpEditorFixtureImpl() override;
+        void TearDownEditorFixtureImpl() override;
 
         //! Creates an entity within a nested prefab under level. The setup looks like:
         //! | Level
@@ -43,5 +50,7 @@ namespace UnitTest
 
         PrefabOverridePublicInterface* m_prefabOverridePublicInterface = nullptr;
         PrefabFocusPublicInterface* m_prefabFocusPublicInterface = nullptr;
+
+        AZStd::unique_ptr<AzToolsFramework::EntityPropertyEditor> m_testEntityPropertyEditor;
     };
 } // namespace UnitTest

@@ -7,6 +7,7 @@
  */
 
 #include <AzToolsFramework/API/EntityPropertyEditorRequestsBus.h>
+#include <AzToolsFramework/UI/PropertyEditor/EntityPropertyEditor.hxx>
 #include <AzToolsFramework/ToolsComponents/TransformComponent.h>
 #include <Prefab/Overrides/PrefabOverrideTestFixture.h>
 
@@ -18,8 +19,13 @@ namespace UnitTest
     {
         AZ::EntityId newEntityId, parentContainerId, grandparentContainerId;
         CreateEntityInNestedPrefab(newEntityId, parentContainerId, grandparentContainerId);
-        
+
         CreateAndValidateEditEntityOverride(newEntityId, grandparentContainerId);
+
+        AzToolsFramework::ToolsApplicationRequestBus::Broadcast(
+            &AzToolsFramework::ToolsApplicationRequests::SetSelectedEntities, AzToolsFramework::EntityIdList{ newEntityId });
+        QMetaObject::invokeMethod(m_testEntityPropertyEditor.get(), "UpdateContents", Qt::DirectConnection);
+
         AZStd::vector<const AzToolsFramework::ComponentEditor*> componentEditors;
         AzToolsFramework::EntityPropertyEditorRequestBus::Broadcast(
             &AzToolsFramework::EntityPropertyEditorRequestBus::Events::GetComponentEditors,

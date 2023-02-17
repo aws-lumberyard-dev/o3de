@@ -6,6 +6,7 @@
  *
  */
 
+#pragma optimize("", off)
 #include <AzCore/PlatformDef.h>
 AZ_PUSH_DISABLE_WARNING(4127, "-Wunknown-warning-option") // conditional expression is constant
 #include "EntityPropertyEditor.hxx"
@@ -655,6 +656,12 @@ namespace AzToolsFramework
             DisconnectFromEntityBuses(entityId);
         }
 
+        for (ComponentEditor* componentEditor : m_componentEditors)
+        {
+            delete componentEditor;
+            componentEditor = nullptr;
+        }
+        m_componentEditors.clear();
         delete m_gui;
     }
 
@@ -6107,3 +6114,4 @@ void StatusComboBox::wheelEvent(QWheelEvent* e)
 }
 
 #include "UI/PropertyEditor/moc_EntityPropertyEditor.cpp"
+#pragma optimize("", on)
