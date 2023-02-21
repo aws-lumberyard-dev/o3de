@@ -63,8 +63,6 @@ namespace AzToolsFramework
 
     EditorAction::~EditorAction()
     {
-        m_action->disconnect();
-
         m_triggerBehavior = nullptr;
         m_checkStateCallback = nullptr;
         m_enabledStateCallbacks.clear();

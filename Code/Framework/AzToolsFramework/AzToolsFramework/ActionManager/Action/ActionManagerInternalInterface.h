@@ -74,6 +74,9 @@ namespace AzToolsFramework
         //! Update all actions that are parented to a specific action context.
         //! @param actionContextIdentifier The action context identifier for the context to update all actions for.
         virtual void UpdateAllActionsInActionContext(const AZStd::string& actionContextIdentifier) = 0;
+
+        // TODO: Give this a better name
+        virtual void Clear() = 0;
     };
 
 } // namespace AzToolsFramework

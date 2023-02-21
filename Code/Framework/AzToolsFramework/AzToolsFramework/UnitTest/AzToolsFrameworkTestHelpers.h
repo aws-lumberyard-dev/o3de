@@ -314,15 +314,22 @@ namespace UnitTest
                 auto actionManagerInterface = AZ::Interface<AzToolsFramework::ActionManagerInterface>::Get();
                 auto hotKeyManagerInterface = AZ::Interface<AzToolsFramework::HotKeyManagerInterface>::Get();
 
-                AzToolsFramework::ActionContextProperties contextProperties;
-                contextProperties.m_name = "O3DE Editor";
+                bool actionContextIsRegistered = actionManagerInterface->IsActionContextRegistered(EditorIdentifiers::MainWindowActionContextIdentifier);
+                if (!actionContextIsRegistered)
+                {
+                    AzToolsFramework::ActionContextProperties contextProperties;
+                    contextProperties.m_name = "O3DE Editor";
 
-                actionManagerInterface->RegisterActionContext(
-                    EditorIdentifiers::MainWindowActionContextIdentifier, contextProperties);
+                    actionManagerInterface->RegisterActionContext(
+                        EditorIdentifiers::MainWindowActionContextIdentifier, contextProperties);
+                }
 
                 hotKeyManagerInterface->AssignWidgetToActionContext(EditorIdentifiers::MainWindowActionContextIdentifier, m_defaultMainWindow);
 
-                AzToolsFramework::EditorEventsBus::Broadcast(&AzToolsFramework::EditorEvents::NotifyMainWindowInitialized, m_defaultMainWindow);
+                if (!actionContextIsRegistered)
+                {
+                    AzToolsFramework::EditorEventsBus::Broadcast(&AzToolsFramework::EditorEvents::NotifyMainWindowInitialized, m_defaultMainWindow);
+                }
             }
 
             SetUpEditorFixtureImpl();

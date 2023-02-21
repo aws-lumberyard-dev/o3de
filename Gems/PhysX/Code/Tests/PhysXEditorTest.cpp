@@ -10,6 +10,7 @@
 #include <AzCore/Utils/Utils.h>
 #include <AzFramework/IO/LocalFileIO.h>
 #include <AzTest/GemTestEnvironment.h>
+#include <AzToolsFramework/ActionManager/Action/ActionManagerInternalInterface.h>
 #include <AzToolsFramework/Application/ToolsApplication.h>
 #include <AzToolsFramework/UnitTest/AzToolsFrameworkTestHelpers.h>
 #include <ComponentDescriptors.h>
@@ -99,6 +100,10 @@ namespace Physics
             AZ::Data::AssetManager::Instance().DispatchEvents();
             m_physXSystem->Shutdown();
             m_physXSystem.reset();
+
+            // Clear the action manager before destroying the application
+            auto actionManagerInternalInterface = AZ::Interface<AzToolsFramework::ActionManagerInternalInterface>::Get();
+            actionManagerInternalInterface->Clear();
         }
 
         /// Allows derived environments to override to perform additional steps after destroying the application.

@@ -555,16 +555,19 @@ namespace AzToolsFramework
         {
             delete elem.second;
         }
+        m_actions.clear();
 
         for (auto elem : m_actionContexts)
         {
             delete elem.second;
         }
+        m_actionContexts.clear();
 
         for (auto elem : m_actionContextWidgetWatchers)
         {
             delete elem.second;
         }
+        m_actionContextWidgetWatchers.clear();
     }
 
     ActionManagerOperationResult ActionManager::RegisterWidgetAction(
