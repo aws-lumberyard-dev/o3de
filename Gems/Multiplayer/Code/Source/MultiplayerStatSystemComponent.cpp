@@ -6,10 +6,12 @@
  *
  */
 
+
 #include <AzCore/Console/IConsole.h>
 #include <AzCore/Metrics/IEventLoggerFactory.h>
 #include <AzCore/Metrics/JsonTraceEventLogger.h>
 #include <AzCore/Utils/Utils.h>
+#include <AzNetworking/Framework/INetworking.h>
 #include <Multiplayer/IMultiplayer.h>
 #include <Source/MultiplayerStatSystemComponent.h>
 
@@ -45,6 +47,13 @@ namespace Multiplayer
         nullptr,
         AZ::ConsoleFunctorFlags::DontReplicate,
         "File of the server metrics file if enabled, placed under <ProjectFolder>/user/metrics");
+    AZ_CVAR(
+        bool,
+        bg_skipMetricsWhenNoGameConnectionsArePresent,
+        true,
+        nullptr,
+        AZ::ConsoleFunctorFlags::DontReplicate,
+        "If true, metrics wont be written when no client to server, or server to client connections are live.");
 
     void ConfigureEventLoggerHelper(const AZ::CVarFixedString& filename)
     {
@@ -228,8 +237,44 @@ namespace Multiplayer
         AZLOG_WARN("Stat with id %d has not been declared using DECLARE_PERFORMANCE_STAT", uniqueStatId);
     }
 
+    bool MultiplayerStatSystemComponent::HasActiveGameConnections() const
+    {
+        if (const AzNetworking::INetworking* azNetworkInterface = AZ::Interface<AzNetworking::INetworking>::Get())
+        {
+            const auto& networkInterfaces = azNetworkInterface->GetNetworkInterfaces();
+            for (const auto& networkPairInterface : networkInterfaces)
+            {
+                AzNetworking::INetworkInterface* pointer = networkPairInterface.second.get();
+                if (!pointer)
+                {
+                    continue;
+                }
+                if (pointer->GetType() != AzNetworking::ProtocolType::Udp)
+                {
+                    continue;
+                }
+                if (pointer->GetTrustZone() != AzNetworking::TrustZone::ExternalClientToServer)
+                {
+                    continue;
+                }
+
+                if (pointer->GetConnectionSet().GetConnectionCount() > 0)
+                {
+                    return true;
+                }
+            }
+        }
+
+        return false;
+    }
+
     void MultiplayerStatSystemComponent::RecordMetrics()
     {
+        if (bg_skipMetricsWhenNoGameConnectionsArePresent && !HasActiveGameConnections())
+        {
+            return;
+        }
+
         if (const auto* eventLoggerFactory = AZ::Interface<AZ::Metrics::IEventLoggerFactory>::Get())
         {
             if (auto* eventLogger = eventLoggerFactory->FindEventLogger(NetworkingMetricsId))

@@ -50,6 +50,8 @@ namespace Multiplayer
         //! @}
 
     private:
+        bool HasActiveGameConnections() const;
+
         void RecordMetrics();
         AZ::ScheduledEvent m_metricsEvent{ [this]()
                                            {
