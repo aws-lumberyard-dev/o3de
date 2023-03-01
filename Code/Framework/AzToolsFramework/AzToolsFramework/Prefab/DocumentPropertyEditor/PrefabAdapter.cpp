@@ -10,7 +10,9 @@
 #include <AzToolsFramework/Prefab/DocumentPropertyEditor/PrefabAdapter.h>
 #include <AzToolsFramework/Prefab/DocumentPropertyEditor/PrefabPropertyEditorNodes.h>
 #include <AzToolsFramework/Prefab/DocumentPropertyEditor/OverridePropertyHandler.h>
+#include <AzToolsFramework/Prefab/PrefabFocusPublicInterface.h>
 #include <AzToolsFramework/Prefab/Overrides/PrefabOverridePublicInterface.h>
+#include <AzToolsFramework/Prefab/PrefabDomUtils.h>
 #include <AzToolsFramework/UI/DocumentPropertyEditor/PropertyEditorToolsSystemInterface.h>
 
 namespace AzToolsFramework::Prefab
@@ -49,6 +51,22 @@ namespace AzToolsFramework::Prefab
                 AZ::DocumentPropertyEditor::Nodes::PropertyEditor::Alignment,
                 AZ::DocumentPropertyEditor::Nodes::PropertyEditor::Align::AlignLeft);
             adapterBuilder->EndPropertyEditor();
+        }
+    }
+
+    void PrefabAdapter::GeneratePropertyEditPatch(
+        const AZ::DocumentPropertyEditor::ReflectionAdapter::PropertyChangeInfo& propertyChangeInfo,
+        AZ::EntityId entityId,
+        AZ::Dom::Path pathToComponentProperty)
+    {
+        auto prefabFocusPublicInterface = AZ::Interface<PrefabFocusPublicInterface>::Get();
+        if (prefabFocusPublicInterface->IsOwningPrefabBeingFocused(entityId))
+        {
+            m_prefabComponentEditPatcher.CreateAndApplyComponentEditPatch(pathToComponentProperty.ToString(), propertyChangeInfo, entityId);
+        }
+        else if (prefabFocusPublicInterface->IsOwningPrefabInFocusHierarchy(entityId))
+        {
+            m_prefabComponentEditPatcher.CreateAndApplyComponentOverridePatch(pathToComponentProperty, propertyChangeInfo, entityId);
         }
     }
 } // namespace AzToolsFramework::Prefab

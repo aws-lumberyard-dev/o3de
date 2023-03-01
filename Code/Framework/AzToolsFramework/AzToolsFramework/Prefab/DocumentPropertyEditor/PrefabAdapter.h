@@ -9,6 +9,7 @@
 #pragma once
 
 #include <AzToolsFramework/Prefab/DocumentPropertyEditor/PrefabAdapterInterface.h>
+#include <AzToolsFramework/Prefab/DocumentPropertyEditor/PrefabComponentEditPatcher.h>
 #include <AzToolsFramework/UI/DocumentPropertyEditor/DPEComponentAdapter.h>
 
 namespace AzToolsFramework::Prefab
@@ -26,7 +27,13 @@ namespace AzToolsFramework::Prefab
         void AddPropertyHandlerIfOverridden(
             AZ::DocumentPropertyEditor::AdapterBuilder* adapterBuilder, const AZ::Dom::Path& componentPathInEntity, AZ::EntityId entityId) override;
 
+        void GeneratePropertyEditPatch(
+            const AZ::DocumentPropertyEditor::ReflectionAdapter::PropertyChangeInfo&,
+            AZ::EntityId entityId,
+            AZ::Dom::Path pathToComponentProperty) override;
+
         PrefabOverridePublicInterface* m_prefabOverridePublicInterface = nullptr;
+        PrefabComponentEditPatcher m_prefabComponentEditPatcher;
     };
 
 } // namespace AzToolsFramework::Prefab

@@ -10,6 +10,7 @@
 
 #include <AzCore/Component/EntityId.h>
 #include <AzCore/RTTI/RTTI.h>
+#include <AzFramework/DocumentPropertyEditor/ReflectionAdapter.h>
 
 namespace AZ
 {
@@ -37,5 +38,10 @@ namespace AzToolsFramework::Prefab
         //! @param entityId The entity id to use to query the prefab system about the presence of overrides.
         virtual void AddPropertyHandlerIfOverridden(
             AZ::DocumentPropertyEditor::AdapterBuilder* adapterBuilder, const AZ::Dom::Path& relativePathFromEntity, AZ::EntityId entityId) = 0;
+
+        virtual void GeneratePropertyEditPatch(
+            const AZ::DocumentPropertyEditor::ReflectionAdapter::PropertyChangeInfo&,
+            AZ::EntityId entityId,
+            AZ::Dom::Path pathToComponentProperty) = 0;
     };
 } // namespace AzToolsFramework::Prefab

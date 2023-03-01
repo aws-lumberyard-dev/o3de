@@ -47,7 +47,7 @@ namespace AZ::DocumentPropertyEditor
         //! Trigger a refresh based on messages from the listeners
         void DoRefresh();
 
-        Dom::Value HandleMessage(const AdapterMessage& message) override;
+        //Dom::Value HandleMessage(const AdapterMessage& message) override;
 
         //! Request the PrefabAdapterInterface to add a property handler if an override is present corresponding to the path provided.
         //! @param adapterBuilder The adapter builder to use for adding property handler
@@ -56,6 +56,11 @@ namespace AZ::DocumentPropertyEditor
 
     protected:
 
+        void GeneratePropertyEditPatch(const ReflectionAdapter::PropertyChangeInfo& propertyChangeInfo);
+
+        ReflectionAdapter::PropertyChangeEvent::Handler m_propertyChangeHandler;
+
+        AZStd::string m_entityAlias;
         AZStd::string m_componentAlias;
         AZ::EntityId m_entityId;
 

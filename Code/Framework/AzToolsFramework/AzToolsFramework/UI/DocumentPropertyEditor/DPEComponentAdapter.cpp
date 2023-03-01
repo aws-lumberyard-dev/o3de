@@ -6,19 +6,34 @@
  *
  */
 
-#include <AzCore/DOM/Backends/JSON/JsonSerializationUtils.h>
+#pragma optimize("", off)
 #include <AzFramework/DocumentPropertyEditor/AdapterBuilder.h>
 #include <AzToolsFramework/UI/DocumentPropertyEditor/DPEComponentAdapter.h>
 #include <AzToolsFramework/Prefab/DocumentPropertyEditor/PrefabAdapterInterface.h>
+#include <AzToolsFramework/Prefab/Instance/InstanceEntityMapperInterface.h>
 #include <AzToolsFramework/Prefab/PrefabDomUtils.h>
 #include <AzToolsFramework/Prefab/PrefabFocusPublicInterface.h>
 #include <QtCore/QTimer>
 namespace AZ::DocumentPropertyEditor
 {
-    ComponentAdapter::ComponentAdapter() = default;
+    ComponentAdapter::ComponentAdapter()
+    {
+        m_propertyChangeHandler = ReflectionAdapter::PropertyChangeEvent::Handler(
+            [this](const ReflectionAdapter::PropertyChangeInfo& changeInfo)
+            {
+                this->GeneratePropertyEditPatch(changeInfo);
+            });
+        ConnectPropertyChangeHandler(m_propertyChangeHandler);
+    }
 
     ComponentAdapter::ComponentAdapter(AZ::Component* componentInstace)
     {
+        m_propertyChangeHandler = ReflectionAdapter::PropertyChangeEvent::Handler(
+            [this](const ReflectionAdapter::PropertyChangeInfo& changeInfo)
+            {
+                this->GeneratePropertyEditPatch(changeInfo);
+            });
+        ConnectPropertyChangeHandler(m_propertyChangeHandler);
         SetComponent(componentInstace);
     }
 
@@ -81,6 +96,13 @@ namespace AZ::DocumentPropertyEditor
 
         // Set the component alias before calling SetValue(). Otherwise, an empty alias will be sent to the PrefabAdapter.
         m_componentAlias = componentInstance->GetSerializedIdentifier();
+        auto owningInstance = AZ::Interface<AzToolsFramework::Prefab::InstanceEntityMapperInterface>::Get()->FindOwningInstance(
+            componentInstance->GetEntityId());
+        AZ_Assert(owningInstance.has_value(), "Entity owning the component doesn't have an owning prefab instance.");
+        auto entityAlias = owningInstance->get().GetEntityAlias(componentInstance->GetEntityId());
+        AZ_Assert(entityAlias.has_value(), "Owning entity of component doesn't have a valid entity alias in the owning prefab.");
+        m_entityAlias = entityAlias->get();
+
         AZ::Uuid instanceTypeId = azrtti_typeid(m_componentInstance);
         SetValue(m_componentInstance, instanceTypeId);
     }
@@ -95,6 +117,7 @@ namespace AZ::DocumentPropertyEditor
         NotifyResetDocument();
     }
 
+    /*
     Dom::Value ComponentAdapter::HandleMessage(const AdapterMessage& message)
     {
         auto handlePropertyEditorChanged = [&]([[maybe_unused]] const Dom::Value& valueFromEditor, Nodes::ValueChangeType changeType)
@@ -141,7 +164,7 @@ namespace AZ::DocumentPropertyEditor
         ReflectionAdapter::HandleMessage(message);
 
         return returnValue;
-    }
+    }*/
 
     void ComponentAdapter::OnBeginRow(AdapterBuilder* adapterBuilder, AZStd::string_view serializedPath)
     {
@@ -158,4 +181,26 @@ namespace AZ::DocumentPropertyEditor
             }
         }
     }
+
+    void ComponentAdapter::GeneratePropertyEditPatch(const ReflectionAdapter::PropertyChangeInfo& propertyChangeInfo)
+    {
+        if (propertyChangeInfo.changeType == Nodes::ValueChangeType::FinishedEdit)
+        {
+            auto* prefabAdapterInterface = AZ::Interface<AzToolsFramework::Prefab::PrefabAdapterInterface>::Get();
+            if (prefabAdapterInterface != nullptr)
+            {
+                AZ::Dom::Value domValue = GetContents();
+                AZ::Dom::Path serializedPath = propertyChangeInfo.path / AZ::Reflection::DescriptorAttributes::SerializedPath;
+
+                AZ::Dom::Path relativePathFromOwningPrefab(AzToolsFramework::Prefab::PrefabDomUtils::EntitiesName);
+                relativePathFromOwningPrefab /= m_entityAlias;
+                relativePathFromOwningPrefab /= AzToolsFramework::Prefab::PrefabDomUtils::ComponentsName;
+                relativePathFromOwningPrefab /= m_componentAlias;
+                relativePathFromOwningPrefab /= AZ::Dom::Path(domValue[serializedPath].GetString());
+
+                prefabAdapterInterface->GeneratePropertyEditPatch(propertyChangeInfo, m_entityId, relativePathFromOwningPrefab);
+            }
+        }
+    } 
 } // namespace AZ::DocumentPropertyEditor
+#pragma optimize("", on)
