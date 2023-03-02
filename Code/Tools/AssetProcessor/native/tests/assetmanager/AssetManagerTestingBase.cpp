@@ -81,8 +81,7 @@ namespace UnitTests
         m_platformConfig->PopulatePlatformsForScanFolder(platforms);
         m_platformConfig->ReadMetaDataFromSettingsRegistry();
 
-        m_platformConfig->AddScanFolder(
-            AssetProcessor::ScanFolderInfo{ (assetRootDir / "folder").c_str(), "folder", "folder", false, true, platforms });
+        SetupScanfolders(assetRootDir, platforms);
 
         m_platformConfig->AddIntermediateScanFolder();
 
@@ -200,6 +199,12 @@ namespace UnitTests
         m_assetProcessorManager.reset();
 
         LeakDetectionFixture::TearDown();
+    }
+
+    void AssetManagerTestingBase::SetupScanfolders(AZ::IO::Path assetRootDir, const AZStd::vector<AssetBuilderSDK::PlatformInfo>& platforms)
+    {
+        m_platformConfig->AddScanFolder(
+            AssetProcessor::ScanFolderInfo{ (assetRootDir / "folder").c_str(), "folder", "folder", false, true, platforms });
     }
 
     void AssetManagerTestingBase::RunFile(int expectedJobCount, int expectedFileCount, int dependencyFileCount)
@@ -447,16 +452,16 @@ namespace UnitTests
     }
 
     void AssetManagerTestingBase::ProcessFileMultiStage(
-        int endStage, bool doProductOutputCheck, const char* file, int startStage, bool expectAutofail, bool hasExtraFile)
+        int endStage, bool doProductOutputCheck, AssetProcessor::SourceAssetReference sourceAsset, int startStage, bool expectAutofail, bool hasExtraFile)
     {
         auto intermediatesDir = GetIntermediateAssetsDir();
 
-        if (file == nullptr)
+        if (!sourceAsset)
         {
-            file = m_testFilePath.c_str();
+            sourceAsset = AssetProcessor::SourceAssetReference(m_testFilePath.c_str());
         }
 
-        QMetaObject::invokeMethod(m_assetProcessorManager.get(), "AssessAddedFile", Qt::QueuedConnection, Q_ARG(QString, file));
+        QMetaObject::invokeMethod(m_assetProcessorManager.get(), "AssessAddedFile", Qt::QueuedConnection, Q_ARG(QString, sourceAsset.AbsolutePath().c_str()));
         QCoreApplication::processEvents();
 
         for (int i = startStage; i <= endStage; ++i)
@@ -487,7 +492,8 @@ namespace UnitTests
 
             if (i < endStage)
             {
-                auto expectedIntermediatePath = intermediatesDir / AZStd::string::format("test.stage%d", i + 1);
+                auto expectedIntermediatePath =
+                    MakePath(sourceAsset.RelativePath().ReplaceExtension(AZStd::string::format("stage%d", i + 1).c_str()).c_str(), true);
                 EXPECT_TRUE(AZ::IO::SystemFile::Exists(expectedIntermediatePath.c_str())) << expectedIntermediatePath.c_str();
             }
 
@@ -501,7 +507,7 @@ namespace UnitTests
 
         if (doProductOutputCheck)
         {
-            CheckProduct(AZStd::string::format("test.stage%d", endStage + 1).c_str());
+            CheckProduct(sourceAsset.RelativePath().ReplaceExtension(AZStd::string::format("stage%d", endStage + 1).c_str()).c_str());
         }
     }
 } // namespace UnitTests
