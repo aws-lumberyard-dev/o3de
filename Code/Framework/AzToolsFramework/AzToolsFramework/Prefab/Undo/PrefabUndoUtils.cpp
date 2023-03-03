@@ -88,10 +88,10 @@ namespace AzToolsFramework
             {
                 if (!entityAliasPath.empty())
                 {
-                    PrefabDomValue endStateCopy(entityDom, instanceDom->get().GetAllocator());
-
+                    PrefabDomValue endStateCopy;
+                    endStateCopy.CopyFrom(entityDom, instanceDom->get().GetAllocator(), true);
                     PrefabDomPath entityPathInDom(entityAliasPath.c_str());
-                    entityPathInDom.Set(instanceDom->get(), endStateCopy.Move());
+                    entityPathInDom.Set(instanceDom->get(), AZStd::move(endStateCopy.Move()));
                 }
             }
 

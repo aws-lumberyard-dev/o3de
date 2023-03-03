@@ -6,9 +6,11 @@
  *
  */
 
+#pragma optimize("", off)
 #include <AzToolsFramework/Prefab/Instance/InstanceToTemplateInterface.h>
 #include <AzToolsFramework/Prefab/Link/Link.h>
 #include <AzToolsFramework/Prefab/Overrides/PrefabOverridePublicInterface.h>
+#include <AzToolsFramework/Prefab/PrefabDomUtils.h>
 #include <AzToolsFramework/Prefab/PrefabInstanceUtils.h>
 #include <AzToolsFramework/Prefab/PrefabFocusInterface.h>
 #include <AzToolsFramework/Prefab/PrefabSystemComponentInterface.h>
@@ -78,16 +80,20 @@ namespace AzToolsFramework
 
             m_overriddenPropertyPathFromFocusedPrefab /= AZ::Dom::Path(relativePathFromOwningPrefab);
 
-            // Get the before-state entity DOM inside the source template DOM of the top instance.
-            const TemplateId topTemplateId = link->get().GetSourceTemplateId();
+            const TemplateId topTemplateId = link->get().GetTargetTemplateId();
             const PrefabDom& topTemplateDom = m_prefabSystemComponentInterface->FindTemplateDom(topTemplateId);
 
             {
+                AZ::Dom::Path pathFromFocusedPrefab(PrefabDomUtils::InstancesName);
+                pathFromFocusedPrefab /= climbUpResult.m_climbedInstances.back()->GetInstanceAlias();
+                pathFromFocusedPrefab /= m_overriddenPropertyPathFromFocusedPrefab;
+
                 // This scope is added to limit their usage and ensure DOM is not modified when it is being used.
                 // DOM value pointers can't be relied upon if the original DOM gets modified after pointer creation.
-                PrefabDomPath overriddenPropertyDomPath(m_overriddenPropertyPathFromFocusedPrefab.ToString().c_str());
+                PrefabDomPath overriddenPropertyDomPath(pathFromFocusedPrefab.ToString().c_str());
                 const PrefabDomValue* overriddenPropertyDomInTopTemplate = overriddenPropertyDomPath.Get(topTemplateDom);
 
+                
                 PrefabDom overridePatches;
                 if (overriddenPropertyDomInTopTemplate)
                 {
@@ -104,13 +110,13 @@ namespace AzToolsFramework
                     // Redo - Add the override patches to the tree.
                     link->get().AddOverrides(overridePatches);
 
-                    PrefabDomReference cachedOwningInstanceDom = owningInstance.GetCachedInstanceDom();
+                    PrefabDomReference cachedFocusedInstanceDom = focusedInstance->get().GetCachedInstanceDom();
 
                     // Preemptively updates the cached DOM to prevent reloading instance DOM.
-                    if (cachedOwningInstanceDom.has_value())
+                    if (cachedFocusedInstanceDom.has_value())
                     {
                         PrefabUndoUtils::UpdateEntityInInstanceDom(
-                            cachedOwningInstanceDom, afterStateOfComponentProperty, m_overriddenPropertyPathFromFocusedPrefab.ToString());
+                            cachedFocusedInstanceDom, afterStateOfComponentProperty, pathFromFocusedPrefab.ToString());
                     }
 
                     // Redo - Update target template of the link.
@@ -160,3 +166,4 @@ namespace AzToolsFramework
         }
     } // namespace Prefab
 } // namespace AzToolsFramework
+#pragma optimize("", on)
