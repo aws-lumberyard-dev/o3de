@@ -15,6 +15,7 @@
 namespace AzToolsFramework::Prefab
 {
     class PrefabOverridePublicInterface;
+    class PrefabPublicInterface;
 
     class PrefabAdapter
         : public AZ::DocumentPropertyEditor::ReflectionAdapter
@@ -24,8 +25,11 @@ namespace AzToolsFramework::Prefab
         PrefabAdapter();
         ~PrefabAdapter();
     private:
-        void AddPropertyHandlerIfOverridden(
-            AZ::DocumentPropertyEditor::AdapterBuilder* adapterBuilder, const AZ::Dom::Path& componentPathInEntity, AZ::EntityId entityId) override;
+        void AddPropertyLabelNode(
+            AZ::DocumentPropertyEditor::AdapterBuilder* adapterBuilder,
+            AZStd::string_view labelText,
+            const AZ::Dom::Path& relativePathFromEntity,
+            AZ::EntityId entityId) override;
 
         void GeneratePropertyEditPatch(
             const AZ::DocumentPropertyEditor::ReflectionAdapter::PropertyChangeInfo&,
@@ -34,6 +38,7 @@ namespace AzToolsFramework::Prefab
 
         PrefabOverridePublicInterface* m_prefabOverridePublicInterface = nullptr;
         PrefabComponentEditPatcher m_prefabComponentEditPatcher;
+        PrefabPublicInterface* m_prefabPublicInterface = nullptr;
     };
 
 } // namespace AzToolsFramework::Prefab

@@ -13,7 +13,9 @@
 #include <AzToolsFramework/Prefab/Instance/InstanceEntityMapperInterface.h>
 #include <AzToolsFramework/Prefab/PrefabDomUtils.h>
 #include <AzToolsFramework/Prefab/PrefabFocusPublicInterface.h>
+#include <AzToolsFramework/Prefab/DocumentPropertyEditor/PrefabPropertyEditorNodes.h>
 #include <QtCore/QTimer>
+
 namespace AZ::DocumentPropertyEditor
 {
     ComponentAdapter::ComponentAdapter()
@@ -103,6 +105,7 @@ namespace AZ::DocumentPropertyEditor
         AZ_Assert(entityAlias.has_value(), "Owning entity of component doesn't have a valid entity alias in the owning prefab.");
         m_entityAlias = entityAlias->get();
 
+
         AZ::Uuid instanceTypeId = azrtti_typeid(m_componentInstance);
         SetValue(m_componentInstance, instanceTypeId);
     }
@@ -166,19 +169,19 @@ namespace AZ::DocumentPropertyEditor
         return returnValue;
     }*/
 
-    void ComponentAdapter::OnBeginRow(AdapterBuilder* adapterBuilder, AZStd::string_view serializedPath)
+    void ComponentAdapter::CreateLabel(AdapterBuilder* adapterBuilder, AZStd::string_view labelText, AZStd::string_view serializedPath)
     {
-        if (!serializedPath.empty())
+        auto* prefabAdapterInterface = AZ::Interface<AzToolsFramework::Prefab::PrefabAdapterInterface>::Get();
+        if (prefabAdapterInterface)
         {
-            AZ::Dom::Path relativePathFromEntity(AzToolsFramework::Prefab::PrefabDomUtils::ComponentsName);
-            relativePathFromEntity /= m_componentAlias;
-            relativePathFromEntity /= AZ::Dom::Path(serializedPath);
-
-            auto* prefabAdapterInterface = AZ::Interface<AzToolsFramework::Prefab::PrefabAdapterInterface>::Get();
-            if (prefabAdapterInterface != nullptr)
+            AZ::Dom::Path relativePathFromEntity;
+            if (!serializedPath.empty())
             {
-                prefabAdapterInterface->AddPropertyHandlerIfOverridden(adapterBuilder, relativePathFromEntity, m_entityId);
+                relativePathFromEntity /= AzToolsFramework::Prefab::PrefabDomUtils::ComponentsName;
+                relativePathFromEntity /= m_componentAlias;
+                relativePathFromEntity /= AZ::Dom::Path(serializedPath);
             }
+            prefabAdapterInterface->AddPropertyLabelNode(adapterBuilder, labelText, relativePathFromEntity, m_entityId);
         }
     }
 
@@ -189,16 +192,27 @@ namespace AZ::DocumentPropertyEditor
             auto* prefabAdapterInterface = AZ::Interface<AzToolsFramework::Prefab::PrefabAdapterInterface>::Get();
             if (prefabAdapterInterface != nullptr)
             {
-                AZ::Dom::Value domValue = GetContents();
+                //AZ::Dom::Value domValue = GetContents();
                 AZ::Dom::Path serializedPath = propertyChangeInfo.path / AZ::Reflection::DescriptorAttributes::SerializedPath;
 
                 AZ::Dom::Path relativePathFromOwningPrefab(AzToolsFramework::Prefab::PrefabDomUtils::EntitiesName);
                 relativePathFromOwningPrefab /= m_entityAlias;
                 relativePathFromOwningPrefab /= AzToolsFramework::Prefab::PrefabDomUtils::ComponentsName;
                 relativePathFromOwningPrefab /= m_componentAlias;
-                relativePathFromOwningPrefab /= AZ::Dom::Path(domValue[serializedPath].GetString());
+                relativePathFromOwningPrefab /= AZ::Dom::Path(GetContents()[serializedPath].GetString());
 
                 prefabAdapterInterface->GeneratePropertyEditPatch(propertyChangeInfo, m_entityId, relativePathFromOwningPrefab);
+
+                AZ::Dom::Path propertyEditorPath = propertyChangeInfo.path;
+                propertyEditorPath.Pop();
+                AZ::Dom::Value& propertyRowValue = GetContents()[propertyEditorPath];
+                if (propertyRowValue[0].IsNode())
+                {
+                    propertyRowValue[0][AzToolsFramework::Prefab::PrefabPropertyEditorNodes::PrefabOverrideLabel::IsOverridden.GetName()] =
+                        true;
+                    AZ::Dom::Value domValue1 = GetContents();
+                    AZ_Warning("Prefab", domValue1.IsNull() == false, "domvalue is null");
+                }
             }
         }
     } 
