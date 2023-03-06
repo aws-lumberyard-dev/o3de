@@ -26,7 +26,7 @@ namespace AZ::DocumentPropertyEditor
     {
     public:
         //! Creates an uninitialized (empty) ComponentAdapter.
-        ComponentAdapter();
+        ComponentAdapter() = default;
         //! Creates a ComponentAdapter with a specific component instance, see SetComponent
         ComponentAdapter(AZ::Component* componentInstance);
         ~ComponentAdapter();
@@ -55,12 +55,9 @@ namespace AZ::DocumentPropertyEditor
         //! @param serializedPath The serialized path to use to check whether an override is present corresponding to it.
         void CreateLabel(AdapterBuilder* adapterBuilder, AZStd::string_view labelText, AZStd::string_view serializedPath) override;
 
-        void UpdateDomContents(AZ::Dom::Path pathToProperty, AZ::Dom::Value propertyValue, Nodes::ValueChangeType valueChangeType) override;
+        void UpdateDomContents(const PropertyChangeInfo& propertyChangeInfo) override;
 
     protected:
-        void GeneratePropertyEditPatch(const ReflectionAdapter::PropertyChangeInfo& propertyChangeInfo);
-
-        ReflectionAdapter::PropertyChangeEvent::Handler m_propertyChangeHandler;
 
         AZStd::string m_entityAlias;
 

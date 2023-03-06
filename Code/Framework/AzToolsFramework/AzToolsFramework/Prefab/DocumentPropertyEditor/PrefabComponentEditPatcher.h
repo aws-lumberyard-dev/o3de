@@ -16,12 +16,12 @@ namespace AzToolsFramework::Prefab
     {
     public:
         PrefabComponentEditPatcher() = default;
-        void CreateAndApplyComponentEditPatch(
+        bool CreateAndApplyComponentEditPatch(
             AZStd::string_view relativePathFromOwningPrefab,
             const AZ::DocumentPropertyEditor::ReflectionAdapter::PropertyChangeInfo& propertyChangeInfo,
             AZ::EntityId entityId);
 
-        void CreateAndApplyComponentOverridePatch(
+        bool CreateAndApplyComponentOverridePatch(
             AZ::Dom::Path relativePathFromOwningPrefab,
             const AZ::DocumentPropertyEditor::ReflectionAdapter::PropertyChangeInfo& propertyChangeInfo,
             AZ::EntityId entityId);

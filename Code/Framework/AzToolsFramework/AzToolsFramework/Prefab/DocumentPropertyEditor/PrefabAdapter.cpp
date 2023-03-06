@@ -81,10 +81,22 @@ namespace AzToolsFramework::Prefab
         if (prefabFocusPublicInterface->IsOwningPrefabBeingFocused(entityId))
         {
             m_prefabComponentEditPatcher.CreateAndApplyComponentEditPatch(pathToComponentProperty.ToString(), propertyChangeInfo, entityId);
+            AZ::Dom::Patch patches(
+                { AZ::Dom::PatchOperation::ReplaceOperation(propertyChangeInfo.path / "Value", propertyChangeInfo.newValue) });
+            NotifyContentsChanged(patches);
+
         }
         else if (prefabFocusPublicInterface->IsOwningPrefabInFocusHierarchy(entityId))
         {
-            m_prefabComponentEditPatcher.CreateAndApplyComponentOverridePatch(pathToComponentProperty, propertyChangeInfo, entityId);
+            if (m_prefabComponentEditPatcher.CreateAndApplyComponentOverridePatch(pathToComponentProperty, propertyChangeInfo, entityId))
+            {
+                AZ::Dom::Patch patches(
+                    { AZ::Dom::PatchOperation::ReplaceOperation(propertyChangeInfo.path / "Value", propertyChangeInfo.newValue) });
+                AZ::Dom::Path pathToProperty = propertyChangeInfo.path;
+                pathToProperty.Pop();
+                patches.PushBack(AZ::Dom::PatchOperation::ReplaceOperation(pathToProperty / 0 / "IsOverridden", AZ::Dom::Value(true)));
+                NotifyContentsChanged(patches);
+            }
         }
     }
 } // namespace AzToolsFramework::Prefab

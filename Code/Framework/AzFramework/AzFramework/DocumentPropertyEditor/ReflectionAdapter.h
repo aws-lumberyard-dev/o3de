@@ -69,7 +69,7 @@ namespace AZ::DocumentPropertyEditor
         //! @param serializedPath The serialized path fetched from AZ::Reflection::DescriptorAttributes.
         virtual void CreateLabel(AdapterBuilder* adapterBuilder, AZStd::string_view labelText, AZStd::string_view serializedPath);
 
-        virtual void UpdateDomContents(AZ::Dom::Path pathToProperty, AZ::Dom::Value propertyValue, Nodes::ValueChangeType valueChangeType);
+        virtual void UpdateDomContents(const PropertyChangeInfo& propertyChangeInfo);
 
         void* GetInstance() { return m_instance; }
         const void* GetInstance() const { return m_instance; }

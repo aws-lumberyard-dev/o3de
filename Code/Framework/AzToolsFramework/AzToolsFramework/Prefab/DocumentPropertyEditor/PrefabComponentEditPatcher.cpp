@@ -17,7 +17,7 @@
 
 namespace AzToolsFramework::Prefab
 {
-    void PrefabComponentEditPatcher::CreateAndApplyComponentEditPatch(
+    bool PrefabComponentEditPatcher::CreateAndApplyComponentEditPatch(
         AZStd::string_view relativePathFromOwningPrefab,
         const AZ::DocumentPropertyEditor::ReflectionAdapter::PropertyChangeInfo& propertyChangeInfo,
         AZ::EntityId entityId)
@@ -34,15 +34,26 @@ namespace AzToolsFramework::Prefab
             if (!convertToRapidJsonOutcome.IsSuccess())
             {
                 AZ_Assert(false, "PrefabDom value converted from AZ::Dom::Value.");
+                return false;
             }
             else
             {
 
                 auto owningInstance = AZ::Interface<InstanceEntityMapperInterface>::Get()->FindOwningInstance(entityId);
-                AZ_Assert(owningInstance.has_value(), "Entity owning the component doesn't have an owning prefab instance.");
+                if (!owningInstance.has_value())
+                {
+                    AZ_Assert(false, "Entity owning the component doesn't have an owning prefab instance.");
+                    return false;
+                }
 
                 auto prefabSystemComponentInterface = AZ::Interface<AzToolsFramework::Prefab::PrefabSystemComponentInterface>::Get();
-                AZ_Assert(prefabSystemComponentInterface, "PrefabSystemComponentInterface is not found.");
+
+                if (prefabSystemComponentInterface != nullptr)
+                {
+                    AZ_Assert(false, "PrefabSystemComponentInterface is not found.");
+                    return false;
+                }
+                
 
                 const PrefabDom& templateDom = prefabSystemComponentInterface->FindTemplateDom(owningInstance->get().GetTemplateId());
                 PrefabDomPath prefabDomPathToComponentProperty(relativePathFromOwningPrefab.data()); 
@@ -54,16 +65,19 @@ namespace AzToolsFramework::Prefab
                 state->SetParent(undoBatch.GetUndoBatch());
                 state->Capture(*beforeValueOfComponentProperty, afterValueOfComponentProperty, entityId, relativePathFromOwningPrefab);
                 state->Redo();
+
+                return true;
             }
         }
         else
         {
             AZ_Assert(
                 false, "Opaque property encountered in PrefabAdapter::GeneratePropertyEditPatch. It should have been a serialized value.");
+            return false;
         }
     }
 
-    void PrefabComponentEditPatcher::CreateAndApplyComponentOverridePatch(
+    bool PrefabComponentEditPatcher::CreateAndApplyComponentOverridePatch(
         AZ::Dom::Path relativePathFromOwningPrefab,
         const AZ::DocumentPropertyEditor::ReflectionAdapter::PropertyChangeInfo& propertyChangeInfo,
         AZ::EntityId entityId)
@@ -80,23 +94,31 @@ namespace AzToolsFramework::Prefab
             if (!convertToRapidJsonOutcome.IsSuccess())
             {
                 AZ_Assert(false, "PrefabDom value converted from AZ::Dom::Value.");
+                return false;
             }
             else
             {
                 auto owningInstance = AZ::Interface<InstanceEntityMapperInterface>::Get()->FindOwningInstance(entityId);
-                AZ_Assert(owningInstance.has_value(), "Entity owning the component doesn't have an owning prefab instance.");
+                if (!owningInstance.has_value())
+                {
+                    AZ_Assert(false, "Entity owning the component doesn't have an owning prefab instance.");
+                    return false;
+                }
 
                 AzToolsFramework::Prefab::PrefabDom afterValueOfComponentProperty = convertToRapidJsonOutcome.TakeValue();
                 ScopedUndoBatch undoBatch("override a component in a nested prefab template");
                 PrefabUndoComponentPropertyOverride* state = aznew PrefabUndoComponentPropertyOverride("Undo overriding Component");
                 state->SetParent(undoBatch.GetUndoBatch());
                 state->CaptureAndRedo(owningInstance->get(), relativePathFromOwningPrefab, afterValueOfComponentProperty);
+
+                return true;
             }
         }
         else
         {
             AZ_Assert(
                 false, "Opaque property encountered in PrefabAdapter::GeneratePropertyEditPatch. It should have been a serialized value.");
+            return false;
         }
     }
 }

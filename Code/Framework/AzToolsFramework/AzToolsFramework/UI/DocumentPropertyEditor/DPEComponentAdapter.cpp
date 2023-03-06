@@ -18,24 +18,8 @@
 
 namespace AZ::DocumentPropertyEditor
 {
-    ComponentAdapter::ComponentAdapter()
-    {
-        m_propertyChangeHandler = ReflectionAdapter::PropertyChangeEvent::Handler(
-            [this](const ReflectionAdapter::PropertyChangeInfo& changeInfo)
-            {
-                this->GeneratePropertyEditPatch(changeInfo);
-            });
-        ConnectPropertyChangeHandler(m_propertyChangeHandler);
-    }
-
     ComponentAdapter::ComponentAdapter(AZ::Component* componentInstace)
     {
-        m_propertyChangeHandler = ReflectionAdapter::PropertyChangeEvent::Handler(
-            [this](const ReflectionAdapter::PropertyChangeInfo& changeInfo)
-            {
-                this->GeneratePropertyEditPatch(changeInfo);
-            });
-        ConnectPropertyChangeHandler(m_propertyChangeHandler);
         SetComponent(componentInstace);
     }
 
@@ -185,26 +169,14 @@ namespace AZ::DocumentPropertyEditor
         }
     }
 
-    void ComponentAdapter::UpdateDomContents(
-        AZ::Dom::Path pathToProperty, AZ::Dom::Value propertyValue, Nodes::ValueChangeType valueChangeType)
-    {
-        if (valueChangeType == Nodes::ValueChangeType::FinishedEdit)
-        {
-            AZ::Dom::Patch patches({ Dom::PatchOperation::ReplaceOperation(pathToProperty / "Value", propertyValue) });
-            pathToProperty.Pop();
-            patches.PushBack(Dom::PatchOperation::ReplaceOperation(pathToProperty / 0 / "IsOverridden", AZ::Dom::Value(true)));
-            NotifyContentsChanged(patches);
-        }
-    }
-
-    void ComponentAdapter::GeneratePropertyEditPatch(const ReflectionAdapter::PropertyChangeInfo& propertyChangeInfo)
+    void ComponentAdapter::UpdateDomContents(const PropertyChangeInfo& propertyChangeInfo)
     {
         if (propertyChangeInfo.changeType == Nodes::ValueChangeType::FinishedEdit)
         {
             auto* prefabAdapterInterface = AZ::Interface<AzToolsFramework::Prefab::PrefabAdapterInterface>::Get();
             if (prefabAdapterInterface != nullptr)
             {
-                //AZ::Dom::Value domValue = GetContents();
+                // AZ::Dom::Value domValue = GetContents();
                 AZ::Dom::Path serializedPath = propertyChangeInfo.path / AZ::Reflection::DescriptorAttributes::SerializedPath;
 
                 AZ::Dom::Path relativePathFromOwningPrefab(AzToolsFramework::Prefab::PrefabDomUtils::EntitiesName);
@@ -214,19 +186,8 @@ namespace AZ::DocumentPropertyEditor
                 relativePathFromOwningPrefab /= AZ::Dom::Path(GetContents()[serializedPath].GetString());
 
                 prefabAdapterInterface->GeneratePropertyEditPatch(propertyChangeInfo, m_entityId, relativePathFromOwningPrefab);
-
-                AZ::Dom::Path propertyEditorPath = propertyChangeInfo.path;
-                propertyEditorPath.Pop();
-                AZ::Dom::Value& propertyRowValue = GetContents()[propertyEditorPath];
-                if (propertyRowValue[0].IsNode())
-                {
-                    propertyRowValue[0][AzToolsFramework::Prefab::PrefabPropertyEditorNodes::PrefabOverrideLabel::IsOverridden.GetName()] =
-                        true;
-                    AZ::Dom::Value domValue1 = GetContents();
-                    AZ_Warning("Prefab", domValue1.IsNull() == false, "domvalue is null");
-                }
             }
         }
-    } 
+    }
 } // namespace AZ::DocumentPropertyEditor
 #pragma optimize("", on)
