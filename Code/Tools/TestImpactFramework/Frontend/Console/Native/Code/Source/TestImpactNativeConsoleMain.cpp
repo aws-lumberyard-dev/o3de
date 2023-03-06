@@ -6,16 +6,25 @@
  *
  */
 
-#include <TestImpactFramework/TestImpactConsoleMain.h>
+#include <TestImpactFramework/TestImpactException.h>
 #include <TestImpactFramework/TestImpactChangeListException.h>
-#include <TestImpactFramework/TestImpactChangeListSerializer.h>
 #include <TestImpactFramework/TestImpactConfigurationException.h>
 #include <TestImpactFramework/TestImpactSequenceReportException.h>
-#include <TestImpactFramework/Python/TestImpactPythonRuntime.h>
-#include <TestImpactFramework/Python/TestImpactPythonRuntimeConfigurationFactory.h>
+#include <TestImpactFramework/TestImpactRuntimeException.h>
+#include <TestImpactFramework/TestImpactConsoleMain.h>
+#include <TestImpactFramework/TestImpactChangeListSerializer.h>
+#include <TestImpactFramework/TestImpactUtils.h>
+#include <TestImpactFramework/TestImpactClientTestSelection.h>
+#include <TestImpactFramework/TestImpactClientSequenceReportSerializer.h>
+#include <TestImpactFramework/Native/TestImpactNativeRuntime.h>
+#include <TestImpactFramework/Native/TestImpactNativeRuntimeConfigurationFactory.h>
 
 #include <TestImpactConsoleUtils.h>
-#include <TestImpactPythonCommandLineOptions.h>
+#include <TestImpactNativeCommandLineOptions.h>
+
+#include <AzCore/IO/SystemFile.h>
+#include <AzCore/std/containers/vector.h>
+#include <AzCore/std/string/string.h>
 
 namespace TestImpact::Console
 {
@@ -24,7 +33,7 @@ namespace TestImpact::Console
     {
         try
         {
-            const PythonCommandLineOptions options(argc, argv);
+            const NativeCommandLineOptions options(argc, argv);
             AZStd::optional<ChangeList> changeList;
 
             if (options.HasChangeListFilePath())
@@ -40,8 +49,8 @@ namespace TestImpact::Console
 
             std::cout << "Constructing in-memory model of source tree and test coverage for test suite ";
             std::cout << SuiteSetAsString(options.GetSuiteSet()).c_str() << ", this may take a moment...\n";
-            PythonRuntime runtime(
-                PythonRuntimeConfigurationFactory(ReadFileContents<CommandLineOptionsException>(options.GetConfigurationFilePath())),
+            NativeRuntime runtime(
+                NativeRuntimeConfigurationFactory(ReadFileContents<ConfigurationException>(options.GetConfigurationFilePath())),
                 options.GetDataFilePath(),
                 options.GetPreviousRunDataFilePath(),
                 options.GetExcludedTests(),
@@ -51,8 +60,9 @@ namespace TestImpact::Console
                 options.GetFailedTestCoveragePolicy(),
                 options.GetTestFailurePolicy(),
                 options.GetIntegrityFailurePolicy(),
+                options.GetTestShardingPolicy(),
                 options.GetTargetOutputCapture(),
-                options.GetTestRunnerPolicy());
+                options.GetMaxConcurrency());
 
             if (runtime.HasImpactAnalysisData())
             {
@@ -60,54 +70,50 @@ namespace TestImpact::Console
             }
             else
             {
-                std::cout
-                    << "Test impact analysis data for this repository was not found, seed or regular sequence fallbacks will be used.\n";
+                std::cout << "Test impact analysis data for this repository was not found, seed or regular sequence fallbacks will be used.\n";
             }
+
+            // Use buffered console output to avoid interlacing of concurrent test target output
+            const auto consoleOutputMode = ConsoleOutputMode::Buffered;
 
             switch (const auto type = options.GetTestSequenceType())
             {
             case TestSequenceType::Regular:
             {
+                RegularTestSequenceNotificationHandler handler(consoleOutputMode);
                 return ConsumeSequenceReportAndGetReturnCode(
                     runtime.RegularTestSequence(
                         options.GetTestTargetTimeout(),
-                        options.GetGlobalTimeout(),
-                        TestSequenceStartCallback,
-                        RegularTestSequenceCompleteCallback,
-                        TestRunCompleteCallback),
+                        options.GetGlobalTimeout()),
                     options);
             }
             case TestSequenceType::Seed:
             {
+                SeedTestSequenceNotificationHandler handler(consoleOutputMode);
                 return ConsumeSequenceReportAndGetReturnCode(
                     runtime.SeededTestSequence(
                         options.GetTestTargetTimeout(),
-                        options.GetGlobalTimeout(),
-                        TestSequenceStartCallback,
-                        SeedTestSequenceCompleteCallback,
-                        TestRunCompleteCallback),
+                        options.GetGlobalTimeout()),
                     options);
             }
             case TestSequenceType::ImpactAnalysisNoWrite:
             case TestSequenceType::ImpactAnalysis:
             {
-                return WrappedImpactAnalysisTestSequence(options, runtime, changeList);
+                return WrappedImpactAnalysisTestSequence(options, runtime, changeList, consoleOutputMode);
             }
             case TestSequenceType::ImpactAnalysisOrSeed:
             {
                 if (runtime.HasImpactAnalysisData())
                 {
-                    return WrappedImpactAnalysisTestSequence(options, runtime, changeList);
+                    return WrappedImpactAnalysisTestSequence(options, runtime, changeList, consoleOutputMode);
                 }
                 else
                 {
+                    SeedTestSequenceNotificationHandler handler(consoleOutputMode);
                     return ConsumeSequenceReportAndGetReturnCode(
                         runtime.SeededTestSequence(
                             options.GetTestTargetTimeout(),
-                            options.GetGlobalTimeout(),
-                            TestSequenceStartCallback,
-                            SeedTestSequenceCompleteCallback,
-                            TestRunCompleteCallback),
+                            options.GetGlobalTimeout()),
                         options);
                 }
             }
@@ -119,7 +125,7 @@ namespace TestImpact::Console
         catch (const CommandLineOptionsException& e)
         {
             std::cout << e.what() << std::endl;
-            std::cout << PythonCommandLineOptions::GetCommandLineUsageString().c_str() << std::endl;
+            std::cout << NativeCommandLineOptions::GetCommandLineUsageString().c_str() << std::endl;
             return ReturnCode::InvalidArgs;
         }
         catch (const ChangeListException& e)
