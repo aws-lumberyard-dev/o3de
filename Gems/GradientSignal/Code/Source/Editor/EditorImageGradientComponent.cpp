@@ -12,8 +12,13 @@
 
 namespace GradientSignal
 {
+    // Implements EditorImageGradientComponent RTTI functions
+    AZ_RTTI_NO_TYPE_INFO_IMPL(EditorImageGradientComponent, AzToolsFramework::Components::EditorComponentBase);
+
     void EditorImageGradientComponent::Reflect(AZ::ReflectContext* context)
     {
+        EditorImageGradientComponentMode::Reflect(context);
+
         if (auto serializeContext = azrtti_cast<AZ::SerializeContext*>(context))
         {
             serializeContext->Class<EditorImageGradientComponent, AzToolsFramework::Components::EditorComponentBase>()

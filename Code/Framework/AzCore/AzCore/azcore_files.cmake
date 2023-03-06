@@ -26,6 +26,7 @@ set(FILES
     Asset/AssetSerializer.cpp
     Asset/AssetSerializer.h
     Asset/AssetTypeInfoBus.h
+    Asset/AssetTypeInfoBus.cpp
     Asset/AssetInternal/WeakAsset.h
     base.h
     Casting/lossy_cast.h
@@ -97,6 +98,9 @@ set(FILES
     Debug/TraceMessageBus.h
     Debug/TraceReflection.cpp
     Debug/TraceReflection.h
+    Dependency/Dependency.h
+    Dependency/Dependency.inl
+    Dependency/Version.h
     Docs.h
     DOM/DomBackend.cpp
     DOM/DomBackend.h
@@ -412,8 +416,6 @@ set(FILES
     Memory/IAllocator.h
     Memory/Memory.cpp
     Memory/Memory.h
-    Memory/MemoryComponent.cpp
-    Memory/MemoryComponent.h
     Memory/nedmalloc.inl
     Memory/NewAndDelete.inl
     Memory/OSAllocator.cpp
@@ -470,18 +472,29 @@ set(FILES
     Preprocessor/Enum.h
     Preprocessor/EnumReflectUtils.h
     Preprocessor/Sequences.h
+    Process/ProcessInfo.h
     RTTI/AttributeReader.h
     RTTI/AzStdOnDemandPrettyName.inl
     RTTI/AzStdOnDemandReflection.inl
     RTTI/AzStdOnDemandReflectionSpecializations.cpp
     RTTI/AzStdOnDemandReflectionLuaFunctions.inl
+    RTTI/BehaviorClassBuilder.cpp
+    RTTI/BehaviorClassBuilder.inl
     RTTI/BehaviorContext.cpp
     RTTI/BehaviorContext.h
-    RTTI/BehaviorContextEBusEventRawSignature.inl
     RTTI/BehaviorContextUtilities.cpp
     RTTI/BehaviorContextUtilities.h
+    RTTI/BehaviorEBusBuilder.cpp
+    RTTI/BehaviorEBusBuilder.inl
+    RTTI/BehaviorEBusEvent.cpp
+    RTTI/BehaviorEBusEvent.inl
+    RTTI/BehaviorEBusHandler.cpp
+    RTTI/BehaviorEBusHandler.inl
     RTTI/BehaviorInterfaceProxy.h
+    RTTI/BehaviorMethodImpl.cpp
+    RTTI/BehaviorMethodImpl.inl
     RTTI/BehaviorObjectSignals.h
+    RTTI/BehaviorObjectSignals.cpp
     RTTI/ChronoReflection.cpp
     RTTI/ChronoReflection.h
     RTTI/ReflectContext.h
@@ -489,7 +502,10 @@ set(FILES
     RTTI/ReflectionManager.h
     RTTI/ReflectionManager.cpp
     RTTI/RTTI.h
+    RTTI/RTTIMacros.h
+    RTTI/TemplateInfo.h
     RTTI/TypeInfo.h
+    RTTI/TypeInfo.cpp
     RTTI/TypeInfoSimple.h
     RTTI/TypeSafeIntegral.h
     Script/lua/lua.h

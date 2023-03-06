@@ -32,6 +32,7 @@
 #include <AzToolsFramework/Entity/EditorEntityContextBus.h>
 #include <AzToolsFramework/Entity/ReadOnly/ReadOnlyEntityBus.h>
 #include <AzToolsFramework/FocusMode/FocusModeNotificationBus.h>
+#include <AzToolsFramework/Prefab/DocumentPropertyEditor/PrefabAdapter.h>
 #include <AzToolsFramework/ToolsComponents/ComponentMimeData.h>
 #include <AzToolsFramework/ToolsComponents/EditorInspectorComponentBus.h>
 #include <AzQtComponents/Components/O3DEStylesheet.h>
@@ -61,6 +62,7 @@ namespace AZ
 
 namespace AzToolsFramework
 {
+    class ActionManagerInterface;
     class ComponentEditor;
     class ComponentPaletteWidget;
     class ComponentModeCollectionInterface;
@@ -129,7 +131,7 @@ namespace AzToolsFramework
         Q_OBJECT;
     public:
 
-        AZ_CLASS_ALLOCATOR(EntityPropertyEditor, AZ::SystemAllocator, 0)
+        AZ_CLASS_ALLOCATOR(EntityPropertyEditor, AZ::SystemAllocator)
 
         enum class ReorderState
         {
@@ -260,6 +262,7 @@ namespace AzToolsFramework
         void GetSelectedAndPinnedEntities(EntityIdList& selectedEntityIds) override;
         void GetSelectedEntities(EntityIdList& selectedEntityIds) override;
         void SetNewComponentId(AZ::ComponentId componentId) override;
+        void VisitComponentEditors(const VisitComponentEditorsCallback& callback) const override;
 
         // TickBus overrides ...
         void OnTick(float deltaTime, AZ::ScriptTimePoint time) override;
@@ -402,6 +405,8 @@ namespace AzToolsFramework
         QAction* m_actionToMoveComponentsBottom = nullptr;
         QAction* m_resetToSliceAction = nullptr;
 
+        AzToolsFramework::ActionManagerInterface* m_actionManagerInterface = nullptr;
+
         void CreateActions();
         void UpdateActions();
 
@@ -489,6 +494,7 @@ namespace AzToolsFramework
         AZStd::unordered_map<AZ::ComponentId, ComponentEditorSaveState> m_componentEditorSaveStateTable;
 
         void UpdateOverlay();
+        void UpdateOverrideVisualization(ComponentEditor& componentEditor);
 
         friend class EntityPropertyEditorOverlay;
         class EntityPropertyEditorOverlay* m_overlay = nullptr;
@@ -637,6 +643,8 @@ namespace AzToolsFramework
         QStandardItem* m_comboItems[StatusItems];
         EntityIdSet m_overrideSelectedEntityIds;
 
+        // An adapter that works in conjuction with the DPE system as a manager for all prefab related operations in a DPE DOM.
+        AZStd::unique_ptr<Prefab::PrefabAdapter> m_prefabAdapter;
         Prefab::PrefabPublicInterface* m_prefabPublicInterface = nullptr;
         Prefab::InstanceUpdateExecutorInterface* m_instanceUpdateExecutorInterface = nullptr;
         bool m_prefabsAreEnabled = false;
@@ -683,6 +691,7 @@ namespace AzToolsFramework
         void OnStatusChanged(int index);
         void OnSearchContextMenu(const QPoint& pos);
         void BuildEntityIconMenu();
+        void OnComponentOverrideContextMenu(const QPoint& position);
 
         void OnSearchTextChanged();
         void ClearSearchFilter();

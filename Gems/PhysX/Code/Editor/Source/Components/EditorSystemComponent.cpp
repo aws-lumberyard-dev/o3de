@@ -21,8 +21,8 @@
 #include <Editor/EditorJointConfiguration.h>
 #include <Editor/EditorWindow.h>
 #include <Editor/PropertyTypes.h>
+#include <Editor/Source/ComponentModes/Joints/JointsComponentMode.h>
 #include <Editor/Source/Material/PhysXEditorMaterialAsset.h>
-#include <Editor/Source/Material/Conversion/LegacyPhysicsMaterialLibraryConversion.h>
 #include <System/PhysXSystem.h>
 
 namespace PhysX
@@ -36,9 +36,9 @@ namespace PhysX
         EditorJointLimitConeConfig::Reflect(context);
         EditorJointConfig::Reflect(context);
         JointMotorProperties::Reflect(context);
+        JointsComponentMode::Reflect(context);
 
         EditorMaterialAsset::Reflect(context);
-        ReflectLegacyMaterialClasses(context);
 
         if (auto serializeContext = azrtti_cast<AZ::SerializeContext*>(context))
         {
@@ -128,6 +128,14 @@ namespace PhysX
 
         m_materialAssetBuilder.BusDisconnect();
 
+        for (auto& assetHandler : m_assetHandlers)
+        {
+            if (auto editorMaterialAssetHandler = azrtti_cast<AzFramework::GenericAssetHandler<PhysX::EditorMaterialAsset>*>(assetHandler.get());
+                editorMaterialAssetHandler != nullptr)
+            {
+                editorMaterialAssetHandler->Unregister();
+            }
+        }
         m_assetHandlers.clear();
     }
 
@@ -139,16 +147,19 @@ namespace PhysX
     void EditorSystemComponent::OnActionRegistrationHook()
     {
         ColliderComponentMode::RegisterActions();
+        JointsComponentMode::RegisterActions();
     }
 
     void EditorSystemComponent::OnActionContextModeBindingHook()
     {
         ColliderComponentMode::BindActionsToModes();
+        JointsComponentMode::BindActionsToModes();
     }
 
     void EditorSystemComponent::OnMenuBindingHook()
     {
         ColliderComponentMode::BindActionsToMenus();
+        JointsComponentMode::BindActionsToMenus();
     }
 
     void EditorSystemComponent::OnStartPlayInEditorBegin()
