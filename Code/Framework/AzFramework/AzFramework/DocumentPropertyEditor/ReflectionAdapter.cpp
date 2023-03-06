@@ -716,6 +716,12 @@ namespace AZ::DocumentPropertyEditor
         adapterBuilder->Label(labelText);
     }
 
+    void ReflectionAdapter::UpdateDomContents(
+        AZ::Dom::Path pathToProperty, AZ::Dom::Value propertyValue, [[maybe_unused]] Nodes::ValueChangeType valueChangeType)
+    {
+        NotifyContentsChanged({ Dom::PatchOperation::ReplaceOperation(pathToProperty / "Value", propertyValue) });
+    }
+
     Dom::Value ReflectionAdapter::GenerateContents()
     {
         m_impl->m_builder.BeginAdapter();
@@ -741,11 +747,7 @@ namespace AZ::DocumentPropertyEditor
             if (changeHandler != nullptr)
             {
                 Dom::Value newValue = (*changeHandler)(valueFromEditor);
-                AZ::Dom::Patch patches({ Dom::PatchOperation::ReplaceOperation(message.m_messageOrigin / "Value", newValue) });
-                AZ::Dom::Path patchOriginPath = message.m_messageOrigin;
-                patchOriginPath.Pop();
-                patches.PushBack(Dom::PatchOperation::ReplaceOperation(patchOriginPath/0/"IsOverridden", AZ::Dom::Value(true)));
-                NotifyContentsChanged(patches);
+                UpdateDomContents(message.m_messageOrigin, newValue, changeType);
                 NotifyPropertyChanged({ message.m_messageOrigin, newValue, changeType });
             }
         };

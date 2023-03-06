@@ -55,6 +55,8 @@ namespace AZ::DocumentPropertyEditor
         //! @param serializedPath The serialized path to use to check whether an override is present corresponding to it.
         void CreateLabel(AdapterBuilder* adapterBuilder, AZStd::string_view labelText, AZStd::string_view serializedPath) override;
 
+        void UpdateDomContents(AZ::Dom::Path pathToProperty, AZ::Dom::Value propertyValue, Nodes::ValueChangeType valueChangeType) override;
+
     protected:
         void GeneratePropertyEditPatch(const ReflectionAdapter::PropertyChangeInfo& propertyChangeInfo);
 

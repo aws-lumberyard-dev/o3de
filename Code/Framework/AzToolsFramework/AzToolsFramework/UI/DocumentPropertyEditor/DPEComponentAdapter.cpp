@@ -185,6 +185,18 @@ namespace AZ::DocumentPropertyEditor
         }
     }
 
+    void ComponentAdapter::UpdateDomContents(
+        AZ::Dom::Path pathToProperty, AZ::Dom::Value propertyValue, Nodes::ValueChangeType valueChangeType)
+    {
+        if (valueChangeType == Nodes::ValueChangeType::FinishedEdit)
+        {
+            AZ::Dom::Patch patches({ Dom::PatchOperation::ReplaceOperation(pathToProperty / "Value", propertyValue) });
+            pathToProperty.Pop();
+            patches.PushBack(Dom::PatchOperation::ReplaceOperation(pathToProperty / 0 / "IsOverridden", AZ::Dom::Value(true)));
+            NotifyContentsChanged(patches);
+        }
+    }
+
     void ComponentAdapter::GeneratePropertyEditPatch(const ReflectionAdapter::PropertyChangeInfo& propertyChangeInfo)
     {
         if (propertyChangeInfo.changeType == Nodes::ValueChangeType::FinishedEdit)
