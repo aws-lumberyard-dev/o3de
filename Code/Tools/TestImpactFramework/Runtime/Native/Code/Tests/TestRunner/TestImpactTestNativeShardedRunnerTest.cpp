@@ -13,6 +13,7 @@
 #include <TestImpactFramework/TestImpactConfigurationException.h>
 #include <TestImpactFramework/Native/TestImpactNativeRuntimeConfigurationFactory.h>
 
+#include <BuildTarget/Common/TestImpactBuildGraph.h>
 #include <BuildTarget/Common/TestImpactBuildTarget.h>
 #include <TestRunner/Common/Enumeration/TestImpactTestEnumerationSerializer.h>
 #include <TestRunner/Native/TestImpactNativeShardedTestSystem.h>
@@ -24,6 +25,7 @@
 #include <TestImpactFramework/TestImpactUtils.h>
 #include <Artifact/Factory/TestImpactNativeTestTargetMetaMapFactory.h>
 #include <BuildTarget/Common/TestImpactBuildTarget.h>
+#include <BuildTarget/Common/TestImpactBuildTargetList.h>
 #include <Dependency/TestImpactDependencyException.h>
 #include <TestImpactRuntimeUtils.h>
 #include <Target/Native/TestImpactNativeProductionTarget.h>
@@ -142,8 +144,6 @@ namespace UnitTest
             TestImpact::StdOutputRouting::None,
             TestImpact::StdErrorRouting::None,
             AZStd::nullopt,
-            AZStd::nullopt,
-            AZStd::nullopt,
             AZStd::nullopt);
 
         const auto shardJob =
@@ -188,9 +188,7 @@ namespace UnitTest
             TestImpact::StdOutputRouting::ToParent,
             TestImpact::StdErrorRouting::ToParent,
             AZStd::nullopt,
-            AZStd::nullopt,
-            jobCallback,
-            stdCallback);
+            AZStd::nullopt);
         
         EXPECT_TRUE(true);
     }
