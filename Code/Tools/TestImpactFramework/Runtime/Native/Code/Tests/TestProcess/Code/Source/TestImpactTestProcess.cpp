@@ -24,23 +24,7 @@ namespace TestImpact
 {
     TestProcess::TestProcess(int argc, char* argv[])
     {
-        StartupEnvironment();
         ParseArgs(argc, argv);
-    }
-
-    TestProcess::~TestProcess()
-    {
-        TeardownEnvironment();
-    }
-
-    void TestProcess::StartupEnvironment()
-    {
-        AZ::AllocatorInstance<AZ::SystemAllocator>::Create();
-    }
-
-    void TestProcess::TeardownEnvironment()
-    {
-        AZ::AllocatorInstance<AZ::SystemAllocator>::Destroy();
     }
 
     void TestProcess::ParseArgs(int argc, char* argv[])

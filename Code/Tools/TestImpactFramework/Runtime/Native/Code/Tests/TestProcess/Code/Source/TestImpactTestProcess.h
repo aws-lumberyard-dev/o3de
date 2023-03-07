@@ -17,13 +17,11 @@ namespace TestImpact
     {
     public:
         TestProcess(int argc, char* argv[]);
-        ~TestProcess();
+        ~TestProcess() = default;
 
         int MainFunc();
 
     private:
-        void StartupEnvironment();
-        void TeardownEnvironment();
         void ParseArgs(int argc, char* argv[]);
 
         int m_id;

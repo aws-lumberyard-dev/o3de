@@ -655,7 +655,7 @@ TestEngineInstrumentedRunResult<PythonTestTarget, TestCoverage> DiscoverDependen
                 m_testFailurePolicy,
                 m_targetOutputCapture,
                 testTargetTimeout,
-                globalTimeout);
+                globalTimeout));
         };
 
         if (dynamicDependencyMapPolicy == Policy::DynamicDependencyMap::Update)
@@ -914,7 +914,7 @@ TestEngineInstrumentedRunResult<PythonTestTarget, TestCoverage> DiscoverDependen
             m_testFailurePolicy,
             m_targetOutputCapture,
             testTargetTimeout,
-            globalTimeout); // realtime std callback
+            globalTimeout)); // realtime std callback
         const auto testRunDuration = testRunTimer.GetElapsedMs();
 
         // Generate the sequence report for the client

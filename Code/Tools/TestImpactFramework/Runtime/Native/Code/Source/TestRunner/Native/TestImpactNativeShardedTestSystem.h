@@ -142,9 +142,7 @@ namespace TestImpact
             StdOutputRouting stdOutRouting,
             StdErrorRouting stdErrRouting,
             AZStd::optional<AZStd::chrono::milliseconds> runTimeout,
-            AZStd::optional<AZStd::chrono::milliseconds> runnerTimeout,
-            AZStd::optional<typename TestRunnerType::JobCallback> clientCallback,
-            AZStd::optional<typename TestRunnerType::StdContentCallback> stdContentCallback);
+            AZStd::optional<AZStd::chrono::milliseconds> runnerTimeout);
 
     private:
         TestRunnerType* m_testRunner = nullptr;
@@ -162,9 +160,7 @@ namespace TestImpact
         StdOutputRouting stdOutRouting,
         StdErrorRouting stdErrRouting,
         AZStd::optional<AZStd::chrono::milliseconds> runTimeout,
-        AZStd::optional<AZStd::chrono::milliseconds> runnerTimeout,
-        AZStd::optional<typename TestRunnerType::JobCallback> clientCallback,
-        AZStd::optional<typename TestRunnerType::StdContentCallback> stdContentCallback)
+        AZStd::optional<AZStd::chrono::milliseconds> runnerTimeout)
     {
         using JobInfo = typename TestRunnerType::JobInfo;
         using JobId = typename JobInfo::Id;
@@ -197,6 +193,8 @@ namespace TestImpact
             }
         }
 
+        // SET UP HANDLER FOR TEST RUNNER BUS!
+
         const auto testRunnerCallback =
             [&](const typename TestRunnerType::Job::Info& jobInfo,
                 const JobMeta& meta,
@@ -210,12 +208,13 @@ namespace TestImpact
             {
                 // condolidate job metas etc. and present to user callback...
 
-                if (clientCallback.has_value())
-                {
-                    auto& consolidatedJobData = *ShardedTestJob.GetConsolidatedJobData();
-                    return (*clientCallback)(
-                        consolidatedJobData.m_jobInfo, consolidatedJobData.m_meta, std::move(consolidatedJobData.m_std));
-                }
+                // REPLACE WITH BUS CALL!
+                //if (clientCallback.has_value())
+                //{
+                //    auto& consolidatedJobData = *ShardedTestJob.GetConsolidatedJobData();
+                //    return (*clientCallback)(
+                //        consolidatedJobData.m_jobInfo, consolidatedJobData.m_meta, std::move(consolidatedJobData.m_std));
+                //}
             }
 
             return ProcessCallbackResult::Continue;
@@ -226,9 +225,7 @@ namespace TestImpact
             stdOutRouting,
             stdErrRouting,
             runTimeout,
-            runnerTimeout,
-            testRunnerCallback,
-            stdContentCallback);
+            runnerTimeout);
 
         return {};
     }
