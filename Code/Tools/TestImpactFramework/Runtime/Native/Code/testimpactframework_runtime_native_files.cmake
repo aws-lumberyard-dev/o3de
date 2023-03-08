@@ -23,7 +23,9 @@ set(FILES
     Source/TestRunner/Native/TestImpactNativeInstrumentedTestRunner.h
     Source/TestRunner/Native/TestImpactNativeRegularTestRunner.h
     Source/TestRunner/Native/TestImpactNativeTestEnumerator.h
-    Source/TestRunner/Native/TestImpactNativeShardedTestSystem.h
+    Source/TestRunner/Native/Shard/TestImpactNativeShardedTestJob.h
+    Source/TestRunner/Native/Shard/TestImpactNativeShardedTestSystem.h
+    Source/TestRunner/Native/Shard/TestImpactNativeShardedTestSystemBus.h
     Source/TestRunner/Native/Job/TestImpactNativeTestJobInfoGenerator.cpp
     Source/TestRunner/Native/Job/TestImpactNativeTestJobInfoGenerator.h
     Source/TestRunner/Native/Job/TestImpactNativeTestJobInfoUtils.cpp

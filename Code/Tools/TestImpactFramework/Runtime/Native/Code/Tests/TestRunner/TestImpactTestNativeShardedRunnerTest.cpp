@@ -16,11 +16,11 @@
 #include <BuildTarget/Common/TestImpactBuildGraph.h>
 #include <BuildTarget/Common/TestImpactBuildTarget.h>
 #include <TestRunner/Common/Enumeration/TestImpactTestEnumerationSerializer.h>
-#include <TestRunner/Native/TestImpactNativeShardedTestSystem.h>
 #include <TestRunner/Native/TestImpactNativeTestEnumerator.h>
 #include <TestRunner/Native/TestImpactNativeInstrumentedTestRunner.h>
 #include <TestRunner/Native/Job/TestImpactNativeTestJobInfoGenerator.h>
 #include <TestRunner/Native/Job/TestImpactNativeShardedTestJobInfoGenerator.h>
+#include <TestRunner/Native/Shard/TestImpactNativeShardedTestSystem.h>
 #include <TestImpactFramework/TestImpactConfiguration.h>
 #include <TestImpactFramework/TestImpactUtils.h>
 #include <Artifact/Factory/TestImpactNativeTestTargetMetaMapFactory.h>
@@ -135,9 +135,54 @@ namespace UnitTest
             LY_TEST_IMPACT_TEST_TARGET_D_BIN, AZStd::string::format(enumPath.c_str(), LY_TEST_IMPACT_TEST_TARGET_D_BASE_NAME));
     }
 
+    template<typename TestRunnerType>
+    class TestRunnerHandler
+        : private TestImpact::NativeShardedTestSystemNotificationsBus<TestRunnerType>::Handler
+        , private TestRunnerType::NotificationsBus::Handler
+    {
+    public:
+        TestRunnerHandler()
+        {
+            TestImpact::NativeShardedTestSystemNotificationsBus<TestRunnerType>::Handler::BusConnect();
+            TestRunnerType::NotificationsBus::Handler::BusConnect();
+        }
+
+        ~TestRunnerHandler()
+        {
+            TestRunnerType::NotificationsBus::Handler::BusDisconnect();
+            TestImpact::NativeShardedTestSystemNotificationsBus<TestRunnerType>::Handler::BusDisconnect();
+        }
+    private:
+        TestImpact::ProcessCallbackResult OnShardedJobComplete(
+            [[maybe_unused]] const typename TestRunnerType::Job::Info& jobInfo,
+            [[maybe_unused]] const TestImpact::JobMeta& meta,
+            [[maybe_unused]] const TestImpact::StdContent& std) override
+        {
+            return TestImpact::ProcessCallbackResult::Continue;
+        }
+
+        TestImpact::ProcessCallbackResult OnShardedSubJobComplete(
+            [[maybe_unused]] typename TestRunnerType::JobInfo::Id jobId,
+            [[maybe_unused]] size_t subJobCount,
+            [[maybe_unused]] const typename TestRunnerType::Job::Info& subJobInfo,
+            [[maybe_unused]] const TestImpact::JobMeta& subJobMeta,
+            [[maybe_unused]] const TestImpact::StdContent& subJobStd) override
+        {
+            return TestImpact::ProcessCallbackResult::Continue;
+        }
+
+        TestImpact::ProcessCallbackResult OnJobComplete(
+            [[maybe_unused]] const typename TestRunnerType::Job::Info& jobInfo,
+            [[maybe_unused]] const TestImpact::JobMeta& meta,
+            [[maybe_unused]] const TestImpact::StdContent& std) override
+        {
+            return TestImpact::ProcessCallbackResult::Continue;
+        }
+    };
+
     TEST_F(TestEnumeratorFixture, FooBarBaz)
     {
-        const auto testTarget = m_buildTargets->GetTestTargetList().GetTarget("AzCore.Tests");
+        const auto testTarget = m_buildTargets->GetTestTargetList().GetTarget("NvCloth.Editor.Tests");
         const auto enumJob = m_enumerationTestJobInfoGenerator->GenerateJobInfo(testTarget, { 1 });
         const auto enumResult = m_testEnumerator.Enumerate(
             { enumJob },
@@ -183,6 +228,7 @@ namespace UnitTest
         //    jobCallback,
         //    stdCallback);
 
+        TestRunnerHandler<InstrumentedTestRunner> handler;
         const auto runResult = m_instrumentedShardedTestSystem.RunTests(
             { shardJob },
             TestImpact::StdOutputRouting::ToParent,
