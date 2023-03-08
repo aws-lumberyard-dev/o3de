@@ -2070,8 +2070,14 @@ void EditorActionsHandler::OnEndUndo([[maybe_unused]] const char* label, [[maybe
     QTimer::singleShot(
         0,
         nullptr,
-        [actionManagerInterface = m_actionManagerInterface]
+        [actionManagerInterface = m_actionManagerInterface,
+        actionManagerInternalInterface = m_actionManagerInternalInterface]
         {
+            // Refresh all actions in the Editor Main Window Action Context.
+            // This refreshes all actions whose state changed because of an operation that is then undone.
+            actionManagerInternalInterface->UpdateAllActionsInActionContext(EditorIdentifiers::MainWindowActionContextIdentifier);
+
+            // Trigger action updater for undo redo operations specifically.
             actionManagerInterface->TriggerActionUpdater(EditorIdentifiers::UndoRedoUpdaterIdentifier);
         }
     );
