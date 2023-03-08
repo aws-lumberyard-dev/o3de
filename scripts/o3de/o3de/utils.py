@@ -60,6 +60,16 @@ class VerbosityAction(argparse.Action):
         elif count == 1:
             log.setLevel(logging.INFO)
 
+class MetaSingleton(type):
+    _instances = {}
+    def __call__(cls, *args, **kwargs):
+        if cls not in cls._instances:
+            cls._instances[cls] = super(MetaSingleton, cls).__call__(*args, **kwargs)
+        return cls._instances[cls]
+
+class BaseSingleton(metaclass=MetaSingleton):
+    pass
+
 
 def add_verbosity_arg(parser: argparse.ArgumentParser) -> None:
     """

@@ -9,6 +9,7 @@
 This file validating o3de object json files
 """
 import json
+import os
 import pathlib
 import uuid
 from o3de import utils
@@ -123,4 +124,25 @@ def valid_o3de_restricted_json(file_name: str or pathlib.Path) -> bool:
             _ = json_data['restricted_name']
         except (json.JSONDecodeError, KeyError):
             return False
+    return True
+
+def valid_export_script(script_path: str or pathlib.Path) -> bool:
+    if not os.path.isfile(script_path):
+        logger.error(f"The export script '{script_path}' does not exist!")
+        return False
+
+    if script_path.suffix != '.py':
+        logger.error("A Python script with .py extension must be supplied for --export-script parameter!")
+        return False
+    return True
+
+
+def valid_o3de_project_path(project_path: str or pathlib.Path) -> bool:
+    if not os.path.isdir(project_path):
+        logger.error(f"Project path '{project_path}' is not a directory! This should be the directory containing the project you wish to export.")
+        return False
+
+    if not os.path.isfile(os.path.join(project_path, 'project.json')):
+        logger.error(f"Project path '{project_path}' is invalid: does not contain a project.json file!")
+        return False
     return True
