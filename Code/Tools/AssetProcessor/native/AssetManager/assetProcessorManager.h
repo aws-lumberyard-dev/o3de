@@ -285,7 +285,7 @@ namespace AssetProcessor
 
         void JobComplete(JobEntry jobEntry, AzToolsFramework::AssetSystem::JobStatus status);
         void JobProcessDurationChanged(JobEntry jobEntry, int durationMs);
-        void CreateJobsDurationChanged(QString sourceName);
+        void CreateJobsDurationChanged(QString sourceName, AZ::s64 scanFolderID);
 
         void IntermediateAssetCreated(QString newFileAbsolutePath);
 
