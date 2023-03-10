@@ -106,7 +106,7 @@ def process_command(args: list,
     :param args: A list of space separated strings which build up the entire command to run. Similar to the command list of subprocess.Popen
     :param cwd: The desired current working directory of the command. Useful for commands which require a differing starting environment.
     """
-    return utils.CLICommand(args, cwd, env, logger).run()
+    return utils.CLICommand(args, cwd, logger, env=env).run()
 
 
 def execute_python_script(target_script_path: pathlib.Path or str, o3de_context: O3DEScriptExportContext = None) -> int:
@@ -134,7 +134,7 @@ def _run_export_script(args: argparse, passthru_args: list) -> int:
     export_script_path = args.export_script
     try:
         validate_export_script(export_script_path)
-        project_path = utils.infer_project_path(export_script_path, args.project_path)
+        project_path = utils.get_project_path_from_file (export_script_path, args.project_path)
         
         #prepare O3DE arguments for script
         o3de_context = O3DEScriptExportContext(export_script_path= export_script_path,

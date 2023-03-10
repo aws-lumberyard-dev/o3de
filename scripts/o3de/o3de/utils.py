@@ -66,11 +66,18 @@ class VerbosityAction(argparse.Action):
             log.setLevel(logging.INFO)
 
 class CLICommand(object):
+    """
+    CLICommand is an interface for storing CLI commands as list of string arguments to run later in a script.
+    A current working directory, pre-existing OS environment, and desired logger can also be specified.
+    To execute a command, use the run() function.
+
+    This class is responsible for starting a new process, polling it for updates and logging, and safely terminating it.
+    """
     def __init__(self, 
                 args: list,
                 cwd: pathlib.Path,
-                env: os._Environ,
-                logger: logging.Logger) -> None:
+                logger: logging.Logger,
+                env: os._Environ=None) -> None:
         self.args = args
         self.cwd = cwd
         self.env = env
@@ -449,7 +456,7 @@ def find_ancestor_dir_containing_file(target_file_name: pathlib.PurePath, start_
     ancestor_file = find_ancestor_file(target_file_name, start_path, max_scan_up_range)
     return ancestor_file.parent if ancestor_file else None
 
-def infer_project_path(target_file_path: pathlib.Path, supplied_project_path: pathlib.Path = None) -> pathlib.Path:
+def get_project_path_from_file(target_file_path: pathlib.Path, supplied_project_path: pathlib.Path = None) -> pathlib.Path:
     """
     Based on a file supplied by the user, and optionally a differing project path, determine and validate a proper project path, if any.
     :param target_file_path: A user supplied file path
