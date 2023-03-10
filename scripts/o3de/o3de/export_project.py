@@ -6,7 +6,6 @@
 #
 #
 import argparse
-import importlib.util
 import logging
 import os
 import pathlib
@@ -15,73 +14,120 @@ from subprocess import Popen, PIPE
 import sys
 
 from o3de import manifest, utils
-from o3de.validation import *
-
-#grab process utilities from Tools/LyTestTools
-sys.path.insert(0, os.path.join(os.path.dirname(__file__),"..", "..","..","Tools","LyTestTools","ly_test_tools","environment"))
-import process_utils as putil
+from o3de.validation import validate_export_script
 
 logger = logging.getLogger(__name__)
 logging.basicConfig(format=utils.LOG_FORMAT)
 
-READ_ONLY_PARAMS = ["export_script", "project_path", "engine_path", "logger", "args"]
-LOGGER_PARAM = "logger"
+class O3DEScriptExportContext(object):
+    """
+    The context object is used to store parameter values and variables throughout the lifetime of an export script's execution.
+    It can also be passed onto nested scripts the export script may execute, which can in turn update the context as necessary.
+    """
+    
+    def __init__(self, export_script_path: pathlib.Path,
+                       project_path: pathlib.Path,
+                       engine_path: pathlib.Path,
+                       logger: logging.Logger,
+                       args: list = []):
+        object.__setattr__(self,"_read_only_names", set())
+        self._export_script_path = export_script_path
+        self._project_path = project_path
+        self._engine_path = engine_path
+        self._logger = logger
+        self._args = args
+        object.__setattr__(self, "_read_only_names", set(["_export_script_path",
+                                                          "_read_only_attribute_names",
+                                                          "_project_path",
+                                                          "_engine_path",
+                                                          "_logger",
+                                                          "_args"]))
 
-# a singleton which manages all parameters for the duration of the export process
-# the export script and any script it calls via execute_python_script have access to these params 
-class O3DEScriptExportParameters(utils.BaseSingleton):
-    _attributes = {}
-    _read_only_attribute_names = set()
+    @property
+    def export_script_path(self):
+        """The absolute path to the export script being run."""
+        return self._export_script_path
+    
+    @property
+    def project_path(self):
+        """The absolute path to the project being exported."""
+        return self._project_path
+    
+    @property
+    def engine_path(self):
+        """The absolute path to the engine that the project is built with."""
+        return self._engine_path
+    
+    @property
+    def logger(self):
+        """Instance of the logger for export_project.py that export scripts can use for consistent logging."""
+        return self._logger
+    
+    @property
+    def args(self):
+        """A list of the CLI arguments that were unparsed, and passed through for further processing, if necessary."""
+        return self._args
+    
 
     def __setattr__(self, attr, value):
-        if attr in O3DEScriptExportParameters._read_only_attribute_names:
+        if attr in self._read_only_names:
             logger.error(f"Cannot set '{attr}' to '{value}', it is a read-only parameter!")
         else:
-            O3DEScriptExportParameters._attributes[attr] = value
+            self.__dict__[attr] = value
     def __getattr__(self, attr):
-        if attr in O3DEScriptExportParameters._attributes: 
-            return O3DEScriptExportParameters._attributes[attr]
+        if attr in self.__dict__: 
+            return self.__dict__[attr]
         else:
             logger.error(f"Attribute '{attr}' does not exist in export parameters!")
             return None
-    def as_dict(self):
-        return O3DEScriptExportParameters._attributes
+
+    def mark_readonly(self, *params:str):
+        """Provide the string names of context parameters/variables that should be read only. """
+        for p in params:
+            self._read_only_names.add(p)
+
+    def mark_writeable(self, *params:str):
+        """Provide the string names of context parameters/variables that should be writeable. """
+        for p in params:
+            if p in self._read_only_names:
+                self._read_only_names.remove(p)
+    
+    def set_params(self, **kwargs):
+        for k, v in kwargs.items():
+            setattr(self, k, v)
+
+    def as_dict(self) -> dict:
+        return self.__dict__
 
 
 #Helper API
-def mark_readonly_params(*params:str):
-    for p in params:
-        O3DEScriptExportParameters._read_only_attribute_names.add(p)
-
-def mark_writeable_params(*params:str):
-    for p in params:
-        if p in O3DEScriptExportParameters._read_only_attribute_names:
-            O3DEScriptExportParameters._read_only_attribute_names.remove(p)
-
 def process_command(args: list,
                     cwd: pathlib.Path = None,
-                    env: os._Environ = None,
-                    show_logging: bool = True) -> int:
-    
-    logger = O3DEScriptExportParameters().logger
+                    env: os._Environ = None) -> int:
+    """
+    :param args: A list of space separated strings which build up the entire command to run. Similar to the command list of subprocess.Popen
+    :param cwd: The desired current working directory of the command. Useful for commands which require a differing starting environment.
+    """
     
     def poll_process(process):
-        #read any log lines coming from subprocess
+        #while process is not done, read any log lines coming from subprocess
         while process.poll() is None:
             line = process.stdout.readline()
             if not line: break
-            log_line = line.decode('utf-8')
+            log_line = line.decode('utf-8', 'ignore')
             logger.info(log_line)
     
     def cleanup_process(process) -> str:
         #flush remaining log lines
-        log_lines = process.stdout.read().decode('utf-8')
+        log_lines = process.stdout.read().decode('utf-8', 'ignore')
         logger.info(log_lines)
         stderr = process.stderr.read()
 
-        logger.info("Finishing current command...")
-        putil._safe_kill_processes([process])
+        exec_name = args[0] if len(args) > 0 else ""
+        logger.info(f"Finishing {exec_name}...")
         
+        utils.safe_kill_processes(process)
+
         return stderr
 
     try:
@@ -94,101 +140,52 @@ def process_command(args: list,
             if stderr:
                 # bool(ret) --> if the process returns a FAILURE code (>0)
                 logger_func = logger.error if bool(ret) else logger.warning
-                logger_func(stderr.decode('utf-8'))
+                logger_func(stderr.decode('utf-8', 'ignore'))
     except RuntimeError as re:
-        logger.error(re)
         raise re
-        
 
     return ret
 
 
-def execute_python_script(target_script_path: pathlib.Path or str, override_logger=False, **kwargs) -> int:
-    if type(target_script_path) == str:
+def execute_python_script(target_script_path: pathlib.Path or str, o3de_context: O3DEScriptExportContext = None) -> int:
+    if isinstance(target_script_path, str):
         target_script_path = pathlib.Path(target_script_path)
-
-    script_name = os.path.basename(target_script_path)
-    logger.info(f"Begin loading script '{script_name}'...")
 
     #Prepare import paths for export script ease of use
     #Allow for imports from calling script and the target script's local directory
+    utils.add_to_system_path(pathlib.Path(__file__))
+    utils.add_to_system_path(target_script_path)
+    
+    #load the target script as a module, set the context, and then execute
+    logger.info(f"Begin loading script '{target_script_path}'...")
 
-    current_folder_path = os.path.dirname(__file__)
-    if current_folder_path not in sys.path: 
-        sys.path.insert(0, current_folder_path)
-
-    target_folder_path = os.path.split(target_script_path)[0]    
-    if target_folder_path not in sys.path:
-        sys.path.insert(0, target_folder_path)
-
-
-    spec = importlib.util.spec_from_file_location(script_name, target_script_path)
-    script_module = importlib.util.module_from_spec(spec)
-    sys.modules[script_name] = script_module
-
-    o3de_export = O3DEScriptExportParameters()
-    for key,value in kwargs.items():
-        setattr(o3de_export, key, value)
-
-    if override_logger:
-        parent_logger = o3de_export.logger
-        mark_writeable_params(LOGGER_PARAM)
-        o3de_export.logger = parent_logger.getChild(script_name.replace(".py", ""))
-        mark_readonly_params(LOGGER_PARAM)
-
-    try:
-        spec.loader.exec_module(script_module)
-    except RuntimeError as re:
-        logger.error(f"Failed to run script '{target_script_path}': \nException: "+ str(re))
-        return 1
-    finally:
-        if override_logger:
-            mark_writeable_params(LOGGER_PARAM)
-            o3de_export.logger = parent_logger
-            mark_readonly_params(LOGGER_PARAM)
-
+    utils.load_and_execute_script(target_script_path, context_attribute_name="o3de_context", context = o3de_context)
     return 0
 
-#Export Script entry  point
+
+#Export Script entry point
 def _run_export_script(args: argparse, passthru_args: list) -> int:
-    def get_project_path(args):
-        project_path = args.project_path
-        if not project_path:
-            project_path = utils.find_ancestor_dir_containing_file(pathlib.PurePath('project.json'), export_script_path)
-            if not project_path:
-                logger.error("Unable to find project folder associated with export script. Please specify using --project-path, or select an export script inside a project folder.")
-                return None   
-        
-        if not valid_o3de_project_path(project_path):
-            logger.error(f"Specified Project Path '{project_path}' is not valid.")
-            return None
-        return project_path
-        
-   
     logger.setLevel(args.log_level)
 
     export_script_path = args.export_script
-    if not valid_export_script(export_script_path):
-        logger.error("Failed to process export script.")
+    isValid, reason = validate_export_script(export_script_path)
+    if not isValid:
+        logger.error(reason)
         return 1
  
-    project_path = get_project_path(args)
+    project_path = utils.infer_project_path(export_script_path, args.project_path)
     if not project_path:
         return 1
     
     #prepare O3DE arguments for script
-    o3de_export = O3DEScriptExportParameters()
-    
-    o3de_export.project_path = project_path
-    o3de_export.engine_path = manifest.get_project_engine_path(project_path)
-    o3de_export.logger = logger
-    o3de_export.args = passthru_args 
+    o3de_context = O3DEScriptExportContext(export_script_path= export_script_path,
+                                           project_path = project_path,
+                                          engine_path = manifest.get_project_engine_path(project_path),
+                                          logger= logger,
+                                          args = passthru_args)
 
-    mark_readonly_params(*READ_ONLY_PARAMS)
+    ret = execute_python_script(export_script_path, o3de_context)
 
-    ret = execute_python_script(export_script_path)
-
-    logger.info("Finished exporting")
     return ret
 
 

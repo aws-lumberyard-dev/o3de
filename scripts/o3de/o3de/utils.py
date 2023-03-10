@@ -9,19 +9,23 @@
 This file contains utility functions
 """
 import argparse
-import sys
-import uuid
+import importlib.util
+import logging
 import os
 import pathlib
-import shutil
-import urllib.request
-import logging
-import zipfile
+import psutil
 import re
+import shutil
+import sys
+import urllib.request
+import uuid
+import zipfile
 from packaging.version import Version
 from packaging.specifiers import SpecifierSet
 
-from o3de import gitproviderinterface, github_utils
+from o3de import gitproviderinterface, github_utils, validation as valid
+
+from typing import Tuple
 
 LOG_FORMAT = '[%(levelname)s] %(name)s: %(message)s'
 
@@ -60,16 +64,33 @@ class VerbosityAction(argparse.Action):
         elif count == 1:
             log.setLevel(logging.INFO)
 
-class MetaSingleton(type):
-    _instances = {}
-    def __call__(cls, *args, **kwargs):
-        if cls not in cls._instances:
-            cls._instances[cls] = super(MetaSingleton, cls).__call__(*args, **kwargs)
-        return cls._instances[cls]
+def add_to_system_path(path: pathlib.Path):
+    folder_path = path.parent
+    if folder_path not in sys.path:
+        sys.path.insert(0, folder_path)
 
-class BaseSingleton(metaclass=MetaSingleton):
-    pass
+def load_and_execute_script(script_path: pathlib.Path, context_attribute_name: str, context: object) -> int:
+    """
+    For a given python script, use importlib to load the script spec and module to execute it later
 
+    :param script_name: The string name of the script without the .py extension
+    :param context_attribute_name: This is the name by which the context of the script is accessed. It is setup as a module attribute, so it's accessible using '.' syntax.
+    :param context: The context object which stores all relevant values for the execution of the script
+    :return: return code indicating succes or failure of script
+    """
+    script_name = script_path.name
+    spec = importlib.util.spec_from_file_location(script_name, script_path)
+    script_module = importlib.util.module_from_spec(spec)
+    sys.modules[script_name] = script_module
+    setattr(script_module, context_attribute_name, context)
+
+    try:
+        spec.loader.exec_module(script_module)
+    except RuntimeError as re:
+        logger.error(f"Failed to run script '{script_path}': \nException: "+ str(re))
+        return 1
+
+    return 0
 
 def add_verbosity_arg(parser: argparse.ArgumentParser) -> None:
     """
@@ -359,6 +380,26 @@ def find_ancestor_dir_containing_file(target_file_name: pathlib.PurePath, start_
     return ancestor_file.parent if ancestor_file else None
 
 
+def infer_project_path(target_file_path: pathlib.Path, supplied_project_path: pathlib.Path = None) -> pathlib.Path or None:
+    """
+    Based on a file supplied by the user, and optionally a differing project path, determine and validate a proper project path, if any.
+    :param target_file_path: A user supplied file path
+    :param supplied_project_path: (Optional) If the target file is different from the project path, the user may also specify this path as well.
+    :return: A valid project path, or None
+    """
+    project_path = supplied_project_path
+    if not project_path:
+        project_path = find_ancestor_dir_containing_file(pathlib.PurePath('project.json'), target_file_path)
+        if not project_path:
+            logger.error(f"Unable to find project folder associated with file '{target_file_path}'. Please specify using --project-path, or ensure the file is inside a project folder.")
+            return None   
+    
+    isValid, reason = valid.valid_o3de_project_path(project_path)
+    if not isValid:
+        logger.error(reason)
+        return None
+    return project_path
+
 def get_gem_names_set(gems: list) -> set:
     """
     For working with the 'gem_names' lists in project.json
@@ -526,3 +567,38 @@ def replace_dict_keys_with_value_key(input:dict, value_key:str, replaced_key_nam
 
         # replace with an entry keyed on value_key's value
         input[value[value_key]] = value
+
+
+def safe_kill_processes(*processes):
+    """
+    Kills a given process without raising an error
+
+    :param processes: An iterable of processes to kill
+    """
+    for proc in processes:
+        try:
+            logger.info(f"Terminating process '{proc.name()}' with id '{proc.pid}'")
+            proc.kill()
+        except psutil.AccessDenied:
+            logger.warning("Termination failed, Access Denied with stacktrace:", exc_info=True)
+        except psutil.NoSuchProcess:
+            logger.debug("Termination request ignored, process was already terminated during iteration with stacktrace:", exc_info=True)
+        except Exception:  # purposefully broad
+            logger.debug("Unexpected exception ignored while terminating process, with stacktrace:", exc_info=True)
+
+    def on_terminate(proc):
+        try:
+            logger.info(f"process '{proc.name()}' with id '{proc.pid}' terminated with exit code {proc.returncode}")
+        except psutil.AccessDenied:
+            logger.warning("Termination failed, Access Denied with stacktrace:", exc_info=True)
+        except psutil.NoSuchProcess:
+            logger.debug("Termination request ignored, process was already terminated during iteration with stacktrace:", exc_info=True)
+
+    try:
+        psutil.wait_procs(processes, timeout=30, callback=on_terminate)
+    except psutil.AccessDenied:
+        logger.warning("Termination failed, Access Denied with stacktrace:", exc_info=True)
+    except psutil.NoSuchProcess:
+        logger.debug("Termination request ignored, process was already terminated during iteration with stacktrace:", exc_info=True)
+    except Exception:  # purposefully broad
+        logger.debug("Unexpected exception while waiting for processes to terminate, with stacktrace:", exc_info=True)

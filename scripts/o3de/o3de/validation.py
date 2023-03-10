@@ -14,6 +14,7 @@ import pathlib
 import uuid
 from o3de import utils
 
+from typing import Tuple
 
 def valid_o3de_json_dict(json_data: dict, key: str) -> bool:
     return key in json_data
@@ -126,23 +127,19 @@ def valid_o3de_restricted_json(file_name: str or pathlib.Path) -> bool:
             return False
     return True
 
-def valid_export_script(script_path: str or pathlib.Path) -> bool:
-    if not os.path.isfile(script_path):
-        logger.error(f"The export script '{script_path}' does not exist!")
-        return False
+def validate_export_script(script_path: pathlib.Path) -> Tuple[bool, str]:
+    if not pathlib.Path.is_file(script_path):
+        return False, f"The export script '{script_path}' does not exist."
 
     if script_path.suffix != '.py':
-        logger.error("A Python script with .py extension must be supplied for --export-script parameter!")
-        return False
-    return True
+        return False, f"The provided export script path '{script_path}' does not have a '.py' extension. A Python script with .py extension must be supplied."
+    return True, ""
 
 
-def valid_o3de_project_path(project_path: str or pathlib.Path) -> bool:
-    if not os.path.isdir(project_path):
-        logger.error(f"Project path '{project_path}' is not a directory! This should be the directory containing the project you wish to export.")
-        return False
+def valid_o3de_project_path(project_path: pathlib.Path) -> Tuple[bool, str]:
+    if not pathlib.Path.is_dir(project_path):
+        return False, f"Project path '{project_path}' is not a directory! This should be the directory containing the project you wish to export."
 
-    if not os.path.isfile(os.path.join(project_path, 'project.json')):
-        logger.error(f"Project path '{project_path}' is invalid: does not contain a project.json file!")
-        return False
-    return True
+    if not pathlib.Path.is_file(pathlib.Path.joinpath(project_path, 'project.json')):
+        return False, f"Project path '{project_path}' is invalid: does not contain a project.json file."
+    return True, ""
