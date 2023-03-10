@@ -134,7 +134,7 @@ def _run_export_script(args: argparse, passthru_args: list) -> int:
     export_script_path = args.export_script
     try:
         validate_export_script(export_script_path)
-        project_path = utils.get_project_path_from_file (export_script_path, args.project_path)
+        project_path = utils.get_project_path_from_file(export_script_path, args.project_path)
         
         #prepare O3DE arguments for script
         o3de_context = O3DEScriptExportContext(export_script_path= export_script_path,
