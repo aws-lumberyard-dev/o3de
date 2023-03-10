@@ -178,8 +178,9 @@ def _run_export_script(args: argparse, passthru_args: list) -> int:
         logger.error(reason)
         return 1
  
-    project_path = utils.infer_project_path(export_script_path, args.project_path)
+    project_path, reason = utils.infer_project_path(export_script_path, args.project_path)
     if not project_path:
+        logger.error(reason)
         return 1
     
     #prepare O3DE arguments for script

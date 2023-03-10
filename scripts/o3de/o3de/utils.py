@@ -385,7 +385,7 @@ def find_ancestor_dir_containing_file(target_file_name: pathlib.PurePath, start_
     return ancestor_file.parent if ancestor_file else None
 
 
-def infer_project_path(target_file_path: pathlib.Path, supplied_project_path: pathlib.Path = None) -> pathlib.Path or None:
+def infer_project_path(target_file_path: pathlib.Path, supplied_project_path: pathlib.Path = None) -> Tuple[pathlib.Path or None, str]:
     """
     Based on a file supplied by the user, and optionally a differing project path, determine and validate a proper project path, if any.
     :param target_file_path: A user supplied file path
@@ -396,14 +396,12 @@ def infer_project_path(target_file_path: pathlib.Path, supplied_project_path: pa
     if not project_path:
         project_path = find_ancestor_dir_containing_file(pathlib.PurePath('project.json'), target_file_path)
         if not project_path:
-            logger.error(f"Unable to find project folder associated with file '{target_file_path}'. Please specify using --project-path, or ensure the file is inside a project folder.")
-            return None   
+            return None, f"Unable to find project folder associated with file '{target_file_path}'. Please specify using --project-path, or ensure the file is inside a project folder." 
     
     isValid, reason = valid.valid_o3de_project_path(project_path)
     if not isValid:
-        logger.error(reason)
-        return None
-    return project_path
+        return None, reason
+    return project_path, ""
 
 def get_gem_names_set(gems: list) -> set:
     """
@@ -587,9 +585,9 @@ def safe_kill_processes(*processes):
         except psutil.AccessDenied:
             logger.warning("Termination failed, Access Denied with stacktrace:", exc_info=True)
         except psutil.NoSuchProcess:
-            logger.debug("Termination request ignored, process was already terminated during iteration with stacktrace:", exc_info=True)
+            logger.warning("Termination request ignored, process was already terminated during iteration with stacktrace:", exc_info=True)
         except Exception:  # purposefully broad
-            logger.debug("Unexpected exception ignored while terminating process, with stacktrace:", exc_info=True)
+            logger.error("Unexpected exception ignored while terminating process, with stacktrace:", exc_info=True)
 
     def on_terminate(proc):
         try:
@@ -597,13 +595,13 @@ def safe_kill_processes(*processes):
         except psutil.AccessDenied:
             logger.warning("Termination failed, Access Denied with stacktrace:", exc_info=True)
         except psutil.NoSuchProcess:
-            logger.debug("Termination request ignored, process was already terminated during iteration with stacktrace:", exc_info=True)
+            logger.warning("Termination request ignored, process was already terminated during iteration with stacktrace:", exc_info=True)
 
     try:
         psutil.wait_procs(processes, timeout=30, callback=on_terminate)
     except psutil.AccessDenied:
         logger.warning("Termination failed, Access Denied with stacktrace:", exc_info=True)
     except psutil.NoSuchProcess:
-        logger.debug("Termination request ignored, process was already terminated during iteration with stacktrace:", exc_info=True)
+        logger.warning("Termination request ignored, process was already terminated during iteration with stacktrace:", exc_info=True)
     except Exception:  # purposefully broad
-        logger.debug("Unexpected exception while waiting for processes to terminate, with stacktrace:", exc_info=True)
+        logger.error("Unexpected exception while waiting for processes to terminate, with stacktrace:", exc_info=True)
