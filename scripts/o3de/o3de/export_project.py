@@ -37,7 +37,6 @@ class O3DEScriptExportContext(object):
         self._logger = logger
         self._args = args
         object.__setattr__(self, "_read_only_names", set(["_export_script_path", "export_script_path",
-                                                          "_read_only_attribute_names",
                                                           "_project_path", "project_path",
                                                           "_engine_path", "engine_path",
                                                           "_logger", "logger",
