@@ -164,7 +164,6 @@ def execute_python_script(target_script_path: pathlib.Path or str, o3de_context:
     utils.add_to_system_path(pathlib.Path(__file__))
     utils.add_to_system_path(target_script_path)
     
-    #load the target script as a module, set the context, and then execute
     logger.info(f"Begin loading script '{target_script_path}'...")
 
     return utils.load_and_execute_script(target_script_path, o3de_context = o3de_context)

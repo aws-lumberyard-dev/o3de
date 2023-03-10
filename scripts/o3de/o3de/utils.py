@@ -77,6 +77,9 @@ def load_and_execute_script(script_path: pathlib.Path, **context_variables) -> i
     :param context_variables: A series of keyword arguments which specify the context for the script before it is run.
     :return: return code indicating succes or failure of script
     """
+
+    
+    #load the target script as a module, set the context, and then execute
     script_name = script_path.name
     spec = importlib.util.spec_from_file_location(script_name, script_path)
     script_module = importlib.util.module_from_spec(spec)
