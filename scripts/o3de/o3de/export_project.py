@@ -133,6 +133,7 @@ def process_command(args: list,
 
     try:
         with Popen(args, cwd=cwd, env=env, stdout=PIPE, stderr=PIPE) as process:
+            logger.info(f"Running command: {args}")
             poll_process(process)
             
             stderr = cleanup_process(process)
