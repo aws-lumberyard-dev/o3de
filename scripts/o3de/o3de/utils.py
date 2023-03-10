@@ -110,7 +110,7 @@ class CLICommand(object):
         ret = 1
         try:
             with Popen(self.args, cwd=self.cwd, env=self.env, stdout=PIPE, stderr=PIPE) as process:
-                self.logger.info(f"Running command: {self.args}")
+                self.logger.info(f"Running process '{self.args[0]}' with PID({process.pid}): {self.args}")
                 
                 self._poll_process(process)
                 stderr = self._cleanup_process(process)
@@ -650,7 +650,7 @@ def safe_kill_processes(*processes: List[Popen], process_logger: logging.Logger 
     """
     def on_terminate(proc) -> None:
         try:
-            process_logger.info(f"process '{proc.args[0]}' with id '{proc.pid}' terminated with exit code {proc.returncode}")
+            process_logger.info(f"process '{proc.args[0]}' with PID({proc.pid}) terminated with exit code {proc.returncode}")
         except psutil.AccessDenied:
             process_logger.warning("Termination failed, Access Denied with stacktrace:", exc_info=True)
         except psutil.NoSuchProcess:
@@ -661,7 +661,7 @@ def safe_kill_processes(*processes: List[Popen], process_logger: logging.Logger 
     
     for proc in processes:
         try:
-            process_logger.info(f"Terminating process '{proc.args[0]}' with id '{proc.pid}'")
+            process_logger.info(f"Terminating process '{proc.args[0]}' with PID({proc.pid})")
             proc.kill()
         except psutil.AccessDenied:
             process_logger.warning("Termination failed, Access Denied with stacktrace:", exc_info=True)
