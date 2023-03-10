@@ -50,6 +50,7 @@ namespace AZ
             void* m_data{ nullptr };
             const SerializeContext::ClassElement* m_info{ nullptr };
             bool m_found{ false };
+            const Serialize::ClassData* m_classData{ nullptr };
         };
 
         JsonDeserializer() = delete;

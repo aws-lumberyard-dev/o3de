@@ -225,6 +225,15 @@ namespace AZ
         return OperationFlags::None;
     }
 
+    JsonSerializationResult::Result BaseJsonSerializer::LoadField(void* object,
+        const Uuid& typeId, const rapidjson::Value& value, JsonDeserializerContext& context,
+        ContinuationFlags flags)
+    {
+        using ReportString = AZStd::fixed_string<512>;
+        return context.Report(ContinueLoading(object, typeId, value, context, flags),
+            ReportString::format("Cannot load field with type id %s from custom serializer", typeId.ToFixedString().c_str()));
+    }
+
     JsonSerializationResult::ResultCode BaseJsonSerializer::ContinueLoading(
         void* object, const Uuid& typeId, const rapidjson::Value& value, JsonDeserializerContext& context, ContinuationFlags flags)
     {

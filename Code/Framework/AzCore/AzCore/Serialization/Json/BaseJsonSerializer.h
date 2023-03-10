@@ -184,6 +184,9 @@ namespace AZ
         //! to modify the object after all default loading has occurred.
         virtual JsonSerializationResult::Result Load(void* outputValue, const Uuid& outputValueTypeId, const rapidjson::Value& inputValue,
             JsonDeserializerContext& context);
+
+        virtual JsonSerializationResult::Result LoadField(void* object, const Uuid& typeId, const rapidjson::Value& value, JsonDeserializerContext& context,
+            ContinuationFlags flags = ContinuationFlags::None);
         
         //! Write the input value to a rapidjson value if the default value is not null and doesn't match the input value, otherwise
         //! an error is returned and sets the rapidjson value to a null value.

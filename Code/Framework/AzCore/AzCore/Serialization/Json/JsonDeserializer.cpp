@@ -207,7 +207,25 @@ namespace AZ
             ScopedContextPath subPath(context, name);
             if (foundElementData.m_found)
             {
-                ResultCode result = LoadWithClassElement(foundElementData.m_data, val, *foundElementData.m_info, context);
+                ResultCode result{ Tasks::ReadField };
+                if (foundElementData.m_classData != &classData)
+                {
+                    // The field is from the Base Class
+                    // Therefore check if the base class has a custom JSON serializer
+                    if (BaseJsonSerializer* serializer = context.GetRegistrationContext()->GetSerializerForType(
+                        foundElementData.m_classData->m_typeId);
+                        serializer != nullptr)
+                    {
+
+                        result = serializer->LoadField(foundElementData.m_data, foundElementData.m_info->m_typeId,
+                            val, context);
+                    }
+                }
+                else
+                {
+                    result = LoadWithClassElement(foundElementData.m_data, val, *foundElementData.m_info, context);
+                }
+
                 retVal.Combine(result);
 
                 if (result.GetProcessing() == Processing::Halted)
@@ -894,6 +912,7 @@ namespace AZ
                 result.m_data = reinterpret_cast<void*>(reinterpret_cast<char*>(object) + elementData->m_offset);
                 result.m_info = &*elementData;
                 result.m_found = true;
+                result.m_classData = &classData;
                 return result;
             }
 
