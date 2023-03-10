@@ -36,12 +36,12 @@ class O3DEScriptExportContext(object):
         self._engine_path = engine_path
         self._logger = logger
         self._args = args
-        object.__setattr__(self, "_read_only_names", set(["_export_script_path",
+        object.__setattr__(self, "_read_only_names", set(["_export_script_path", "export_script_path",
                                                           "_read_only_attribute_names",
-                                                          "_project_path",
-                                                          "_engine_path",
-                                                          "_logger",
-                                                          "_args"]))
+                                                          "_project_path", "project_path",
+                                                          "_engine_path", "engine_path",
+                                                          "_logger", "logger",
+                                                          "_args", "args"]))
 
     @property
     def export_script_path(self):
@@ -159,7 +159,7 @@ def execute_python_script(target_script_path: pathlib.Path or str, o3de_context:
     #load the target script as a module, set the context, and then execute
     logger.info(f"Begin loading script '{target_script_path}'...")
 
-    return utils.load_and_execute_script(target_script_path, context_attribute_name="o3de_context", context = o3de_context)
+    return utils.load_and_execute_script(target_script_path, o3de_context = o3de_context)
 
 
 #Export Script entry point

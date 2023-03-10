@@ -69,20 +69,22 @@ def add_to_system_path(path: pathlib.Path):
     if folder_path not in sys.path:
         sys.path.insert(0, folder_path)
 
-def load_and_execute_script(script_path: pathlib.Path, context_attribute_name: str, context: object) -> int:
+def load_and_execute_script(script_path: pathlib.Path, **context_variables) -> int:
     """
     For a given python script, use importlib to load the script spec and module to execute it later
 
     :param script_name: The string name of the script without the .py extension
-    :param context_attribute_name: This is the name by which the context of the script is accessed. It is setup as a module attribute, so it's accessible using '.' syntax.
-    :param context: The context object which stores all relevant values for the execution of the script
+    :param context_variables: A series of keyword arguments which specify the context for the script before it is run.
     :return: return code indicating succes or failure of script
     """
     script_name = script_path.name
     spec = importlib.util.spec_from_file_location(script_name, script_path)
     script_module = importlib.util.module_from_spec(spec)
     sys.modules[script_name] = script_module
-    setattr(script_module, context_attribute_name, context)
+
+    #inject the script module with relevant context variables
+    for key, value in context_variables.items():
+        setattr(script_module, key, value)
 
     try:
         spec.loader.exec_module(script_module)
