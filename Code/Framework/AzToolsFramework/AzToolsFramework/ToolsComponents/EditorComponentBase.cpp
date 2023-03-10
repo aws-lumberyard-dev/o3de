@@ -10,8 +10,10 @@
 #include <AzCore/Math/Vector2.h>
 
 #include <AzCore/Serialization/SerializeContext.h>
+#include <AzCore/Serialization/Json/RegistrationContext.h>
 #include <AzToolsFramework/API/ToolsApplicationAPI.h>
 #include <AzToolsFramework/Entity/EditorEntityHelpers.h>
+#include <AzToolsFramework/ToolsComponents/EditorComponentSerializer.h>
 
 DECLARE_EBUS_INSTANTIATION_WITH_TRAITS(AzToolsFramework::Components::EditorComponentDescriptor, AZ::ComponentDescriptorBusTraits);
 
@@ -27,6 +29,12 @@ namespace AzToolsFramework
                 serializeContext->Class<EditorComponentBase, AZ::Component>()
                     ->Version(1)
                 ;
+            }
+
+            AZ::JsonRegistrationContext* jsonRegistration = azrtti_cast<AZ::JsonRegistrationContext*>(context);
+            if (jsonRegistration)
+            {
+                jsonRegistration->Serializer<EditorComponentSerializer>()->HandlesType<EditorComponentBase>();
             }
         }
 

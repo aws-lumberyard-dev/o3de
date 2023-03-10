@@ -55,6 +55,7 @@ namespace AzToolsFramework
             friend class EditorEntityActionComponent;
             friend class EditorDisabledCompositionComponent;
             friend class EditorPendingCompositionComponent;
+            friend class EditorComponentSerializer;
         public:
 
             /**

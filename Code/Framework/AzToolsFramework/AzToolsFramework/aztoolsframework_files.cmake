@@ -344,6 +344,8 @@ set(FILES
     ToolsComponents/EditorComponentAdapter.h
     ToolsComponents/EditorComponentBase.cpp
     ToolsComponents/EditorComponentBase.h
+    ToolsComponents/EditorComponentSerializer.cpp
+    ToolsComponents/EditorComponentSerializer.h
     ToolsComponents/EditorDisabledCompositionComponent.h
     ToolsComponents/EditorDisabledCompositionComponent.cpp
     ToolsComponents/EditorDisabledCompositionBus.h
