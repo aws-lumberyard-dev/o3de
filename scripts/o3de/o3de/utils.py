@@ -73,7 +73,7 @@ def load_and_execute_script(script_path: pathlib.Path, **context_variables) -> i
     """
     For a given python script, use importlib to load the script spec and module to execute it later
 
-    :param script_name: The string name of the script without the .py extension
+    :param script_path: The path to the python script to run
     :param context_variables: A series of keyword arguments which specify the context for the script before it is run.
     :return: return code indicating succes or failure of script
     """
