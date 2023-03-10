@@ -105,6 +105,7 @@ def process_command(args: list,
                     cwd: pathlib.Path = None,
                     env: os._Environ = None) -> int:
     """
+    Wrapper for subprocess.Popen, which handles polling the process for logs, reacting to failure, and cleaning up the process.
     :param args: A list of space separated strings which build up the entire command to run. Similar to the command list of subprocess.Popen
     :param cwd: The desired current working directory of the command. Useful for commands which require a differing starting environment.
     """
@@ -148,6 +149,12 @@ def process_command(args: list,
 
 
 def execute_python_script(target_script_path: pathlib.Path or str, o3de_context: O3DEScriptExportContext = None) -> int:
+    """
+    Execute a new python script, using new or existing O3DEScriptExportContexts to streamline communication between multiple scripts
+    :param target_script_path: The path to the python script to run.
+    :param o3de_context: An O3DEScriptExportContext object that contains necessary data to run the target script. The target script can also write to this context to pass back to its caller.
+    :return: return code upon success or failure
+    """
     if isinstance(target_script_path, str):
         target_script_path = pathlib.Path(target_script_path)
 
@@ -183,9 +190,7 @@ def _run_export_script(args: argparse, passthru_args: list) -> int:
                                           logger= logger,
                                           args = passthru_args)
 
-    ret = execute_python_script(export_script_path, o3de_context)
-
-    return ret
+    return execute_python_script(export_script_path, o3de_context)
 
 
 #Argument handling
