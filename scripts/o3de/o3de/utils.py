@@ -16,6 +16,7 @@ import pathlib
 import psutil
 import re
 import shutil
+import subprocess
 import sys
 import urllib.request
 import uuid
@@ -24,8 +25,8 @@ from packaging.version import Version
 from packaging.specifiers import SpecifierSet
 
 from o3de import gitproviderinterface, github_utils, validation as valid
-
-from typing import Tuple
+from subprocess import Popen, PIPE
+from typing import Tuple, List
 
 LOG_FORMAT = '[%(levelname)s] %(name)s: %(message)s'
 
@@ -64,12 +65,74 @@ class VerbosityAction(argparse.Action):
         elif count == 1:
             log.setLevel(logging.INFO)
 
-def add_to_system_path(path: pathlib.Path):
-    folder_path = path.parent
+class CLICommand(object):
+    def __init__(self, 
+                args: list,
+                cwd: pathlib.Path,
+                env: os._Environ,
+                logger: logging.Logger) -> None:
+        self.args = args
+        self.cwd = cwd
+        self.env = env
+        self.logger = logger
+    
+    def _poll_process(self, process) -> None:
+        #while process is not done, read any log lines coming from subprocess
+        while process.poll() is None:
+            line = process.stdout.readline()
+            if not line: break
+
+            log_line = line.decode('utf-8', 'ignore')
+            self.logger.info(log_line)
+    
+    def _cleanup_process(self, process) -> str:
+        #flush remaining log lines
+        log_lines = process.stdout.read().decode('utf-8', 'ignore')
+        self.logger.info(log_lines)
+        stderr = process.stderr.read()
+
+        safe_kill_processes(process, process_logger = self.logger)
+
+        return stderr
+    
+    def run(self) -> int:
+        """
+        Takes the arguments specified during CLICommand initialization, and opens a new subprocess to handle it.
+        This function automatically manages polling the process for logs, error reporting, and safely cleaning up the process afterwards.
+        """
+        ret = 1
+        try:
+            with Popen(self.args, cwd=self.cwd, env=self.env, stdout=PIPE, stderr=PIPE) as process:
+                self.logger.info(f"Running command: {self.args}")
+                
+                self._poll_process(process)
+                stderr = self._cleanup_process(process)
+
+                ret = process.returncode
+
+                #print out errors if there are any      
+                if stderr:
+                    # bool(ret) --> if the process returns a FAILURE code (>0)
+                    logger_func = self.logger.error if bool(ret) else self.logger.warning
+                    logger_func(stderr.decode('utf-8', 'ignore'))
+        except Exception as err:
+            raise err
+        return ret
+
+def add_to_system_path(file_path: pathlib.Path or str) -> None:
+    """
+    Adjust the running script's imported system module paths. Useful for loading scripts in a foreign directory
+    :param path: The file path of the desired script to load
+    :return: None
+    """
+    if isinstance(file_path, str):
+        file_path = pathlib.Path(file_path)
+
+    folder_path = file_path.parent
     if folder_path not in sys.path:
         sys.path.insert(0, folder_path)
 
-def load_and_execute_script(script_path: pathlib.Path, **context_variables) -> int:
+def load_and_execute_script(script_path: pathlib.Path or str, **context_variables) -> int:
     """
     For a given python script, use importlib to load the script spec and module to execute it later
 
@@ -77,7 +140,9 @@ def load_and_execute_script(script_path: pathlib.Path, **context_variables) -> i
     :param context_variables: A series of keyword arguments which specify the context for the script before it is run.
     :return: return code indicating succes or failure of script
     """
-
+    
+    if isinstance(script_path, str):
+        script_path = pathlib.Path(script_path)
     
     #load the target script as a module, set the context, and then execute
     script_name = script_path.name
@@ -92,7 +157,7 @@ def load_and_execute_script(script_path: pathlib.Path, **context_variables) -> i
     try:
         spec.loader.exec_module(script_module)
     except RuntimeError as re:
-        logger.error(f"Failed to run script '{script_path}': \nException: "+ str(re))
+        logger.error(f"Failed to run script '{script_path}'. Here is the stacktrace: ", exc_info=True)
         return 1
 
     return 0
@@ -384,8 +449,7 @@ def find_ancestor_dir_containing_file(target_file_name: pathlib.PurePath, start_
     ancestor_file = find_ancestor_file(target_file_name, start_path, max_scan_up_range)
     return ancestor_file.parent if ancestor_file else None
 
-
-def infer_project_path(target_file_path: pathlib.Path, supplied_project_path: pathlib.Path = None) -> Tuple[pathlib.Path or None, str]:
+def infer_project_path(target_file_path: pathlib.Path, supplied_project_path: pathlib.Path = None) -> pathlib.Path:
     """
     Based on a file supplied by the user, and optionally a differing project path, determine and validate a proper project path, if any.
     :param target_file_path: A user supplied file path
@@ -396,12 +460,11 @@ def infer_project_path(target_file_path: pathlib.Path, supplied_project_path: pa
     if not project_path:
         project_path = find_ancestor_dir_containing_file(pathlib.PurePath('project.json'), target_file_path)
         if not project_path:
-            return None, f"Unable to find project folder associated with file '{target_file_path}'. Please specify using --project-path, or ensure the file is inside a project folder." 
+            raise valid.InvalidProjectPathException(f"Unable to find project folder associated with file '{target_file_path}'. Please specify using --project-path, or ensure the file is inside a project folder.")
     
-    isValid, reason = valid.valid_o3de_project_path(project_path)
-    if not isValid:
-        return None, reason
-    return project_path, ""
+    valid.validate_o3de_project_path(project_path)
+    
+    return project_path
 
 def get_gem_names_set(gems: list) -> set:
     """
@@ -572,36 +635,38 @@ def replace_dict_keys_with_value_key(input:dict, value_key:str, replaced_key_nam
         input[value[value_key]] = value
 
 
-def safe_kill_processes(*processes):
+def safe_kill_processes(*processes: List[Popen], process_logger: logging.Logger = None) -> None:
     """
     Kills a given process without raising an error
 
     :param processes: An iterable of processes to kill
     """
+    def on_terminate(proc) -> None:
+        try:
+            process_logger.info(f"process '{proc.args[0]}' with id '{proc.pid}' terminated with exit code {proc.returncode}")
+        except psutil.AccessDenied:
+            process_logger.warning("Termination failed, Access Denied with stacktrace:", exc_info=True)
+        except psutil.NoSuchProcess:
+            process_logger.warning("Termination request ignored, process was already terminated during iteration with stacktrace:", exc_info=True)
+
+    if not process_logger:
+        process_logger = logger
+    
     for proc in processes:
         try:
-            logger.info(f"Terminating process '{proc.name()}' with id '{proc.pid}'")
+            process_logger.info(f"Terminating process '{proc.args[0]}' with id '{proc.pid}'")
             proc.kill()
         except psutil.AccessDenied:
-            logger.warning("Termination failed, Access Denied with stacktrace:", exc_info=True)
+            process_logger.warning("Termination failed, Access Denied with stacktrace:", exc_info=True)
         except psutil.NoSuchProcess:
-            logger.warning("Termination request ignored, process was already terminated during iteration with stacktrace:", exc_info=True)
+            process_logger.warning("Termination request ignored, process was already terminated during iteration with stacktrace:", exc_info=True)
         except Exception:  # purposefully broad
-            logger.error("Unexpected exception ignored while terminating process, with stacktrace:", exc_info=True)
-
-    def on_terminate(proc):
-        try:
-            logger.info(f"process '{proc.name()}' with id '{proc.pid}' terminated with exit code {proc.returncode}")
-        except psutil.AccessDenied:
-            logger.warning("Termination failed, Access Denied with stacktrace:", exc_info=True)
-        except psutil.NoSuchProcess:
-            logger.warning("Termination request ignored, process was already terminated during iteration with stacktrace:", exc_info=True)
-
+            process_logger.error("Unexpected exception ignored while terminating process, with stacktrace:", exc_info=True)
     try:
         psutil.wait_procs(processes, timeout=30, callback=on_terminate)
     except psutil.AccessDenied:
-        logger.warning("Termination failed, Access Denied with stacktrace:", exc_info=True)
+        process_logger.warning("Termination failed, Access Denied with stacktrace:", exc_info=True)
     except psutil.NoSuchProcess:
-        logger.warning("Termination request ignored, process was already terminated during iteration with stacktrace:", exc_info=True)
+        process_logger.warning("Termination request ignored, process was already terminated during iteration with stacktrace:", exc_info=True)
     except Exception:  # purposefully broad
-        logger.error("Unexpected exception while waiting for processes to terminate, with stacktrace:", exc_info=True)
+        process_logger.error("Unexpected exception while waiting for processes to terminate, with stacktrace:", exc_info=True)
