@@ -26,7 +26,7 @@ from packaging.specifiers import SpecifierSet
 
 from o3de import gitproviderinterface, github_utils, validation as valid
 from subprocess import Popen, PIPE
-from typing import Tuple, List
+from typing import List
 
 LOG_FORMAT = '[%(levelname)s] %(name)s: %(message)s'
 
