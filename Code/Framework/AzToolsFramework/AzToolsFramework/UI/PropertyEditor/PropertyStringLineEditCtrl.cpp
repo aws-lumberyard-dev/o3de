@@ -21,35 +21,29 @@ namespace AzToolsFramework
     {
         // create the gui, it consists of a layout, and in that layout, a text field for the value
         // and then a slider for the value.
-        QHBoxLayout* pLayout = new QHBoxLayout(this);
         m_pLineEdit = new AzQtComponents::StyledLineEdit(this);
-
-        pLayout->setSpacing(4);
-        pLayout->setContentsMargins(1, 0, 1, 0);
-
-        pLayout->addWidget(m_pLineEdit);
-
         m_pLineEdit->setSizePolicy(QSizePolicy::Ignored, QSizePolicy::Fixed);
         m_pLineEdit->setMinimumWidth(PropertyQTConstant_MinimumWidth);
         m_pLineEdit->setFixedHeight(PropertyQTConstant_DefaultHeight);
-
         m_pLineEdit->setFocusPolicy(Qt::StrongFocus);
 
-        setLayout(pLayout);
+        setLayout(new QHBoxLayout(this));
+        layout()->setSpacing(4);
+        layout()->setContentsMargins(1, 0, 1, 0);
+        layout()->addWidget(m_pLineEdit);
+
         setFocusProxy(m_pLineEdit);
         setFocusPolicy(m_pLineEdit->focusPolicy());
 
         ConnectWidgets();
     };
 
-    void PropertyStringLineEditCtrl::setValue(AZStd::string& value)
+    void PropertyStringLineEditCtrl::setValue(const AZStd::string& value)
     {
-        QString text = m_pLineEdit->text();
-        if (text.compare(value.data()) != 0)
+        QSignalBlocker blocker(m_pLineEdit);
+        if (m_pLineEdit->text().compare(QString::fromUtf8(value.data(), aznumeric_cast<int>(value.size()))) != 0)
         {
-            m_pLineEdit->blockSignals(true);
             m_pLineEdit->setText(value.c_str());
-            m_pLineEdit->blockSignals(false);
         }
     }
 
@@ -61,7 +55,7 @@ namespace AzToolsFramework
 
     AZStd::string PropertyStringLineEditCtrl::value() const
     {
-        return AZStd::string(m_pLineEdit->text().toUtf8().data());
+        return m_pLineEdit->text().toUtf8().constData();
     }
 
     QLineEdit* PropertyStringLineEditCtrl::GetLineEdit() const
@@ -71,26 +65,19 @@ namespace AzToolsFramework
 
     void PropertyStringLineEditCtrl::setMaxLen(int maxLen)
     {
-        m_pLineEdit->blockSignals(true);
+        QSignalBlocker blocker(m_pLineEdit);
         m_pLineEdit->setMaxLength(maxLen);
-        m_pLineEdit->blockSignals(false);
-    }
-
-    void PropertyStringLineEditCtrl::onChildLineEditValueChange(const QString& newValue)
-    {
-        AZStd::string changedVal(newValue.toUtf8().data());
-        emit valueChanged(changedVal);
     }
 
     PropertyStringLineEditCtrl::~PropertyStringLineEditCtrl()
     {
     }
 
-
     QWidget* PropertyStringLineEditCtrl::GetFirstInTabOrder()
     {
         return m_pLineEdit;
     }
+
     QWidget* PropertyStringLineEditCtrl::GetLastInTabOrder()
     {
         return m_pLineEdit;
@@ -103,28 +90,23 @@ namespace AzToolsFramework
 
     void PropertyStringLineEditCtrl::ConnectWidgets()
     {
-        connect(m_pLineEdit, SIGNAL(textChanged(const QString&)), this, SLOT(onChildLineEditValueChange(const QString&)));
-        connect(m_pLineEdit, &QLineEdit::editingFinished, this, [this]()
-        {
+        connect(m_pLineEdit, &QLineEdit::editingFinished, this, [this]() {
+            PropertyEditorGUIMessages::Bus::Broadcast(&PropertyEditorGUIMessages::Bus::Events::RequestWrite, this);
             PropertyEditorGUIMessages::Bus::Broadcast(&PropertyEditorGUIMessages::Bus::Handler::OnEditingFinished, this);
         });
     }
 
     QWidget* StringPropertyLineEditHandler::CreateGUI(QWidget* pParent)
     {
-        PropertyStringLineEditCtrl* newCtrl = aznew PropertyStringLineEditCtrl(pParent);
-        connect(newCtrl, &PropertyStringLineEditCtrl::valueChanged, this, [newCtrl]()
-            {
-                PropertyEditorGUIMessages::Bus::Broadcast(&PropertyEditorGUIMessages::Bus::Events::RequestWrite, newCtrl);
-            });
-        return newCtrl;
+        return aznew PropertyStringLineEditCtrl(pParent);
     }
 
-    void StringPropertyLineEditHandler::ConsumeAttribute(PropertyStringLineEditCtrl* GUI, AZ::u32 attrib, PropertyAttributeReader* attrValue, const char* debugName)
+    void StringPropertyLineEditHandler::ConsumeAttribute(
+        PropertyStringLineEditCtrl* GUI, AZ::u32 attrib, PropertyAttributeReader* attrValue, const char* debugName)
     {
-         Q_UNUSED(debugName);
+        Q_UNUSED(debugName);
 
-        GUI->blockSignals(true);
+        QSignalBlocker blocker(GUI);
         if (attrib == AZ::Edit::Attributes::MaxLength)
         {
             AZ::s64 value;
@@ -137,23 +119,22 @@ namespace AzToolsFramework
                 AZ_WarningOnce("AzToolsFramework", false, "Failed to read 'MaxLength' attribute from property '%s' into text field", debugName);
             }
         }
-        GUI->blockSignals(false);
     }
 
-    void StringPropertyLineEditHandler::WriteGUIValuesIntoProperty(size_t index, PropertyStringLineEditCtrl* GUI, property_t& instance, InstanceDataNode* node)
+    void StringPropertyLineEditHandler::WriteGUIValuesIntoProperty(
+        size_t index, PropertyStringLineEditCtrl* GUI, property_t& instance, InstanceDataNode* node)
     {
         AZ_UNUSED(index);
         AZ_UNUSED(node);
-        AZStd::string val = GUI->value();
-        instance = static_cast<property_t>(val);
+        instance = static_cast<property_t>(GUI->value());
     }
 
-    bool StringPropertyLineEditHandler::ReadValuesIntoGUI(size_t index, PropertyStringLineEditCtrl* GUI, const property_t& instance, InstanceDataNode* node)
+    bool StringPropertyLineEditHandler::ReadValuesIntoGUI(
+        size_t index, PropertyStringLineEditCtrl* GUI, const property_t& instance, InstanceDataNode* node)
     {
         AZ_UNUSED(index);
         AZ_UNUSED(node);
-        AZStd::string val = instance;
-        GUI->setValue(val);
+        GUI->setValue(instance);
         return false;
     }
 
@@ -163,6 +144,6 @@ namespace AzToolsFramework
             &PropertyTypeRegistrationMessages::Bus::Events::RegisterPropertyType, aznew StringPropertyLineEditHandler());
     }
 
-}
+} // namespace AzToolsFramework
 
 #include "UI/PropertyEditor/moc_PropertyStringLineEditCtrl.cpp"
