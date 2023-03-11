@@ -9,7 +9,6 @@
 This file validating o3de object json files
 """
 import json
-import os
 import pathlib
 import uuid
 from o3de import utils
