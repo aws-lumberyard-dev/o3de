@@ -57,7 +57,10 @@ def process_command(args: list,
     :param args: A list of space separated strings which build up the entire command to run. Similar to the command list of subprocess.Popen
     :param cwd: The desired current working directory of the command. Useful for commands which require a differing starting environment.
     """
-    return utils.CLICommand(args, cwd, logging.getLogger(__name__), env=env).run()
+    if len(args) == 0:
+        logging.error("function `process_command` must be supplied a non-empty list of arguments")
+        return 1
+    return utils.CLICommand(args, cwd, logging.getLogger(), env=env).run()
 
 
 def execute_python_script(target_script_path: pathlib.Path or str, o3de_context: O3DEScriptExportContext = None) -> int:
@@ -67,21 +70,20 @@ def execute_python_script(target_script_path: pathlib.Path or str, o3de_context:
     :param o3de_context: An O3DEScriptExportContext object that contains necessary data to run the target script. The target script can also write to this context to pass back to its caller.
     :return: return code upon success or failure
     """
-
-    #Prepare import paths for export script ease of use
+    #Prepare import paths for script ease of use
     #Allow for imports from calling script and the target script's local directory
     utils.add_to_system_path(pathlib.Path(__file__))
     utils.add_to_system_path(target_script_path)
-    
-    logging.info(f"Begin loading script '{target_script_path}'...")
 
-    return utils.load_and_execute_script(target_script_path, o3de_context = o3de_context, o3de_logger=logging.getLogger(__name__))
+    logging.info(f"Begin loading script '{target_script_path}'...")
+    
+    return utils.load_and_execute_script(target_script_path, o3de_context = o3de_context, o3de_logger=logging.getLogger())
 
 
 #Export Script entry point
 def _run_export_script(args: argparse, passthru_args: list) -> int:
-    logging.basicConfig(level = args.log_level, format=utils.LOG_FORMAT)
-    logging.getLogger(__name__).setLevel(args.log_level)
+    logging.basicConfig(format=utils.LOG_FORMAT)
+    logging.getLogger().setLevel(args.log_level)
     
     export_script_path = args.export_script
     
@@ -95,7 +97,7 @@ def _run_export_script(args: argparse, passthru_args: list) -> int:
         if args.project_path:
             logging.error(f"Project path '{project_path}' is invalid: does not contain a project.json file.")
         else:
-            logging.error(f"Unable to find project folder associated with file '{target_file_path}'. Please specify using --project-path, or ensure the file is inside a project folder.")
+            logging.error(f"Unable to find project folder associated with file '{export_script_path}'. Please specify using --project-path, or ensure the file is inside a project folder.")
         return 1
     
     #prepare O3DE arguments for script
@@ -103,6 +105,7 @@ def _run_export_script(args: argparse, passthru_args: list) -> int:
                                         project_path = project_path,
                                         engine_path = manifest.get_project_engine_path(project_path),
                                         args = passthru_args)
+
     return execute_python_script(export_script_path, o3de_context)
 
 
