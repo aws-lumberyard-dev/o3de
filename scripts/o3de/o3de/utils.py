@@ -163,7 +163,7 @@ def load_and_execute_script(script_path: pathlib.Path or str, **context_variable
 
     try:
         spec.loader.exec_module(script_module)
-    except RuntimeError as re:
+    except Exception as err:
         logger.error(f"Failed to run script '{script_path}'. Here is the stacktrace: ", exc_info=True)
         return 1
 
@@ -456,7 +456,7 @@ def find_ancestor_dir_containing_file(target_file_name: pathlib.PurePath, start_
     ancestor_file = find_ancestor_file(target_file_name, start_path, max_scan_up_range)
     return ancestor_file.parent if ancestor_file else None
 
-def get_project_path_from_file(target_file_path: pathlib.Path, supplied_project_path: pathlib.Path = None) -> pathlib.Path:
+def get_project_path_from_file(target_file_path: pathlib.Path, supplied_project_path: pathlib.Path = None) -> pathlib.Path or None:
     """
     Based on a file supplied by the user, and optionally a differing project path, determine and validate a proper project path, if any.
     :param target_file_path: A user supplied file path
@@ -466,11 +466,10 @@ def get_project_path_from_file(target_file_path: pathlib.Path, supplied_project_
     project_path = supplied_project_path
     if not project_path:
         project_path = find_ancestor_dir_containing_file(pathlib.PurePath('project.json'), target_file_path)
-        if not project_path:
-            raise valid.InvalidProjectPathException(f"Unable to find project folder associated with file '{target_file_path}'. Please specify using --project-path, or ensure the file is inside a project folder.")
     
-    valid.validate_o3de_project_path(project_path)
-    
+    if not valid.valid_o3de_project_json(project_path / 'project.json'):
+        return None
+
     return project_path
 
 def get_gem_names_set(gems: list) -> set:
