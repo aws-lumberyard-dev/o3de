@@ -25,6 +25,7 @@ set(FILES
     ActionManager/HotKey/HotKeyManager.cpp
     ActionManager/HotKey/HotKeyManager.h
     ActionManager/HotKey/HotKeyManagerInterface.h
+    ActionManager/HotKey/HotKeyManagerInternalInterface.h
     ActionManager/Menu/EditorMenu.cpp
     ActionManager/Menu/EditorMenu.h
     ActionManager/Menu/EditorMenuBar.cpp
@@ -720,6 +721,8 @@ set(FILES
     AssetBrowser/Views/AssetBrowserTableView.h
     AssetBrowser/Views/AssetBrowserThumbnailView.cpp
     AssetBrowser/Views/AssetBrowserThumbnailView.h
+    AssetBrowser/Views/AssetBrowserViewUtils.cpp
+    AssetBrowser/Views/AssetBrowserViewUtils.h
     AssetBrowser/Views/EntryDelegate.cpp
     AssetBrowser/Views/EntryDelegate.h
     AssetBrowser/Views/AssetBrowserFolderWidget.cpp
@@ -780,12 +783,12 @@ set(FILES
     UI/PropertyEditor/Model/AssetCompleterModel.cpp
     UI/PropertyEditor/View/AssetCompleterListView.h
     UI/PropertyEditor/View/AssetCompleterListView.cpp
-    Prefab/DocumentPropertyEditor/OverridePropertyHandler.h
-    Prefab/DocumentPropertyEditor/OverridePropertyHandler.cpp
-    Prefab/DocumentPropertyEditor/PrefabAdapter.h
-    Prefab/DocumentPropertyEditor/PrefabAdapter.cpp
-    Prefab/DocumentPropertyEditor/PrefabAdapterInterface.h
+    Prefab/DocumentPropertyEditor/PrefabOverrideLabelHandler.h
+    Prefab/DocumentPropertyEditor/PrefabOverrideLabelHandler.cpp
+    Prefab/DocumentPropertyEditor/PrefabComponentAdapter.h
+    Prefab/DocumentPropertyEditor/PrefabComponentAdapter.cpp
     Prefab/DocumentPropertyEditor/PrefabPropertyEditorNodes.h
+    Prefab/DocumentPropertyEditor/Resources/OverrideResources.qrc
     Prefab/EditorPrefabComponent.h
     Prefab/EditorPrefabComponent.cpp
     Prefab/PrefabEditorPreferences.h
@@ -906,6 +909,10 @@ set(FILES
     Prefab/Undo/PrefabUndoAddEntity.cpp
     Prefab/Undo/PrefabUndoAddEntityAsOverride.h
     Prefab/Undo/PrefabUndoAddEntityAsOverride.cpp
+    Prefab/Undo/PrefabUndoComponentPropertyEdit.h
+    Prefab/Undo/PrefabUndoComponentPropertyEdit.cpp
+    Prefab/Undo/PrefabUndoComponentPropertyOverride.h
+    Prefab/Undo/PrefabUndoComponentPropertyOverride.cpp
     Prefab/Undo/PrefabUndoDelete.h
     Prefab/Undo/PrefabUndoDelete.cpp
     Prefab/Undo/PrefabUndoDeleteAsOverride.h
@@ -930,6 +937,7 @@ set(FILES
     UI/Outliner/EntityOutlinerDragAndDropContext.h
     UI/Outliner/EntityOutlinerListModel.hxx
     UI/Outliner/EntityOutlinerListModel.cpp
+    UI/Outliner/EntityOutlinerRequestBus.h
     UI/Outliner/EntityOutlinerSearchWidget.h
     UI/Outliner/EntityOutlinerSearchWidget.cpp
     UI/Outliner/EntityOutlinerSortFilterProxyModel.hxx
@@ -944,6 +952,7 @@ set(FILES
     UI/EditorEntityUi/EditorEntityUiSystemComponent.cpp
     UI/Layer/LayerUiHandler.h
     UI/Layer/LayerUiHandler.cpp
+    UI/Prefab/ActionManagerIdentifiers/PrefabActionUpdaterIdentifiers.h
     UI/Prefab/LevelRootUiHandler.h
     UI/Prefab/LevelRootUiHandler.cpp
     UI/Prefab/PrefabIntegrationBus.h
