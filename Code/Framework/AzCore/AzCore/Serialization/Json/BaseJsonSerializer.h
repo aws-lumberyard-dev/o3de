@@ -184,6 +184,22 @@ namespace AZ
         //! to modify the object after all default loading has occurred.
         virtual JsonSerializationResult::Result Load(void* outputValue, const Uuid& outputValueTypeId, const rapidjson::Value& inputValue,
             JsonDeserializerContext& context);
+
+        virtual JsonSerializationResult::Result LoadField(
+            void* object,
+            const Uuid& typeId,
+            const rapidjson::Value& value,
+            JsonDeserializerContext& context,
+            ContinuationFlags flags = ContinuationFlags::None);
+
+        //! Helper function similar to ContinueLoading, but loads the data as a member of 'value' rather than 'value' itself, if it exists.
+        virtual JsonSerializationResult::ResultCode ContinueLoadingFromJsonObjectField(
+            void* object,
+            const Uuid& typeId,
+            const rapidjson::Value& value,
+            rapidjson::Value::StringRefType memberName,
+            JsonDeserializerContext& context,
+            ContinuationFlags flags = ContinuationFlags::None);
         
         //! Write the input value to a rapidjson value if the default value is not null and doesn't match the input value, otherwise
         //! an error is returned and sets the rapidjson value to a null value.
@@ -236,11 +252,6 @@ namespace AZ
         //! @param context The context used during serialization. Use the value passed in from Store.
         JsonSerializationResult::ResultCode StoreTypeId(rapidjson::Value& output,
             const Uuid& typeId, JsonSerializerContext& context);
-
-        //! Helper function similar to ContinueLoading, but loads the data as a member of 'value' rather than 'value' itself, if it exists.
-        JsonSerializationResult::ResultCode ContinueLoadingFromJsonObjectField(
-            void* object, const Uuid& typeId, const rapidjson::Value& value, rapidjson::Value::StringRefType memberName,
-            JsonDeserializerContext& context, ContinuationFlags flags = ContinuationFlags::None);
 
         //! Helper function similar to ContinueStoring, but stores the data as a member of 'output' rather than overwriting 'output'.
         JsonSerializationResult::ResultCode ContinueStoringToJsonObjectField(

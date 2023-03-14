@@ -42,6 +42,8 @@ set(FILES
     Component/ComponentBus.cpp
     Component/ComponentBus.h
     Component/ComponentExport.h
+    Component/ComponentSerializer.h
+    Component/ComponentSerializer.cpp
     Component/Entity.cpp
     Component/Entity.h
     Component/EntityBus.h

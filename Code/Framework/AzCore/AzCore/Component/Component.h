@@ -15,6 +15,7 @@
 #pragma once
 
 #include <AzCore/Component/ComponentBus.h>
+#include <AzCore/Component/ComponentSerializer.h>
 #include <AzCore/Component/NamedEntityId.h>
 
 #include <AzCore/RTTI/ReflectContext.h>
@@ -41,6 +42,7 @@ namespace AZ
     class Component
     {
         friend class Entity;
+        friend class ComponentSerializer;
     public:
 
         /**

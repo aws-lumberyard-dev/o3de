@@ -216,7 +216,16 @@ namespace AZ
         {
             // Base class information can be reconstructed so doesn't need to be written to the final json. StoreClass
             // will simply pick up where this left off and write to the same element.
-            return StoreClass(parentNode, object, defaultObject, *elementClassData, context);
+
+            BaseJsonSerializer* serializer = context.GetRegistrationContext()->GetSerializerForType(classElement.m_typeId);
+            if (serializer)
+            {
+                return serializer->Store(parentNode, object, defaultObject, classElement.m_typeId, context);
+            }
+            else
+            {
+                return StoreClass(parentNode, object, defaultObject, *elementClassData, context);
+            }
         }
         else
         {

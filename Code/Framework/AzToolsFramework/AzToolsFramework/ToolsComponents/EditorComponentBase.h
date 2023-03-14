@@ -26,6 +26,8 @@
 #include <AzCore/Component/Component.h>
 #include <AzCore/Component/Entity.h>
 
+#include <AzToolsFramework/ToolsComponents/EditorComponentSerializer.h>
+
 class QMenu;
 
 namespace AZ

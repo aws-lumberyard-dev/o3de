@@ -7,8 +7,10 @@
  */
 
 #include <AzCore/Component/Component.h>
+#include <AzCore/Component/ComponentSerializer.h>
 #include <AzCore/Component/Entity.h>
 #include <AzCore/Component/ComponentApplicationBus.h>
+#include <AzCore/Serialization/Json/RegistrationContext.h>
 #include <AzCore/Serialization/SerializeContext.h>
 #include <AzCore/Interface/Interface.h>
 #include <AzCore/Math/Sfmt.h>
@@ -183,6 +185,12 @@ namespace AZ
             serializeContext->Class<Component>()->
                 PersistentId([](const void* instance) -> u64 { return reinterpret_cast<const Component*>(instance)->GetId(); })->
                 Field("Id", &Component::m_id);
+        }
+
+        AZ::JsonRegistrationContext* jsonRegistration = azrtti_cast<AZ::JsonRegistrationContext*>(reflection);
+        if (jsonRegistration)
+        {
+            jsonRegistration->Serializer<ComponentSerializer>()->HandlesType<Component>();
         }
     }
 
