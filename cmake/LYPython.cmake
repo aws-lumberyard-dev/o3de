@@ -24,7 +24,7 @@ if (${CMAKE_HOST_SYSTEM_NAME} STREQUAL "Linux" )
     # Note: CMAKE_HOST_SYSTEM_PROCESSOR may not available in this script if it is not
     #       invoked from the base CMakeList.txt since project needs to be declared.
     #       We will extract the host architecture manually if this script is called externally
-    if (${CMAKE_SYSTEM_ARCHITECTURE} STREQUAL "")
+    if (${CMAKE_SYSTEM_ARCHITECTURE})
         set(LINUX_HOST_ARCHITECTURE ${CMAKE_SYSTEM_ARCHITECTURE})
     else()
         execute_process(COMMAND uname -m OUTPUT_STRIP_TRAILING_WHITESPACE OUTPUT_VARIABLE LINUX_HOST_ARCHITECTURE)
