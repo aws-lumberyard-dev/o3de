@@ -222,6 +222,17 @@ namespace Multiplayer
                         }
                         return 0.f;
                     })
+
+                ->Method(
+                    "GetNetworkEntityCount",
+                    []()
+                    {
+                        if (auto multiplayerInterface = GetMultiplayer())
+                        {
+                            return multiplayerInterface->GetNetworkEntityManager()->GetEntityCount();
+                        }
+                        return 0u;
+                    })
             ;
         }
 

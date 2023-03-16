@@ -142,7 +142,34 @@ namespace Multiplayer
                     }
 
                     AZ::Interface<IMultiplayer>::Get()->GetNetworkEntityManager()->MarkForRemoval(netBindComponent->GetEntityHandle());
-                });
+                })
+
+                ->Method(
+                    "GetNetworkEntityIdByEntityId",
+                    [](AZ::EntityId entityId)
+                    {
+                        if (auto multiplayerInterface = GetMultiplayer())
+                        {
+                            return multiplayerInterface->GetNetworkEntityManager()->GetNetEntityIdById(entityId);
+                        }
+                        return InvalidNetEntityId;
+                    })
+
+                ->Method(
+                    "GetEntityIdByNetworkEntityId",
+                    [](NetEntityId networkEntityId)
+                    {
+                        if (auto multiplayerInterface = GetMultiplayer())
+                        {
+                            auto entityHandle = multiplayerInterface->GetNetworkEntityManager()->GetEntity(networkEntityId);
+                            if (entityHandle.Exists())
+                            {
+                                return entityHandle.GetEntity()->GetId();
+                            }
+                        }
+                        return AZ::EntityId();
+                    })
+            ;
         }
     }
 
