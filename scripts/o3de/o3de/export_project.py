@@ -55,7 +55,8 @@ def process_command(args: list,
     """
     Wrapper for subprocess.Popen, which handles polling the process for logs, reacting to failure, and cleaning up the process.
     :param args: A list of space separated strings which build up the entire command to run. Similar to the command list of subprocess.Popen
-    :param cwd: The desired current working directory of the command. Useful for commands which require a differing starting environment.
+    :param cwd: (Optional) The desired current working directory of the command. Useful for commands which require a differing starting environment.
+    :param env: (Optional) Environment to use when processing this command.
     """
     if len(args) == 0:
         logging.error("function `process_command` must be supplied a non-empty list of arguments")

@@ -123,6 +123,7 @@ class CLICommand(object):
                     logger_func = self.logger.error if bool(ret) else self.logger.warning
                     logger_func(stderr.decode('utf-8', 'ignore'))
         except Exception as err:
+            self.logger.error(err)
             raise err
         return ret
 
@@ -646,6 +647,7 @@ def safe_kill_processes(*processes: List[Popen], process_logger: logging.Logger 
     Kills a given process without raising an error
 
     :param processes: An iterable of processes to kill
+    :param process_logger: (Optional) logger to use
     """
     def on_terminate(proc) -> None:
         try:
