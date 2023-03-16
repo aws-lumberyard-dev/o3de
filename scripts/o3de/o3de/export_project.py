@@ -116,9 +116,9 @@ def add_parser_args(parser) -> None:
     parser.add_argument('-pp', '--project-path', type=pathlib.Path, required=False,
                         help="Project to export. If not supplied, it will be inferred by the export script.")
     
-    parser.add_argument('-v', '--verbosity', dest='log_level', default='ERROR',
+    parser.add_argument('-ll', '--log-level', default='ERROR',
                         choices=['DEBUG', 'INFO', 'WARNING', 'ERROR', 'CRITICAL'],
-                        help="Set the log verbosity level")
+                        help="Set the log level")
     
     parser.set_defaults(func=_run_export_script, accepts_partial_args=True)
     
