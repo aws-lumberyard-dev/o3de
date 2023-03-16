@@ -177,4 +177,13 @@ namespace AZ::DocumentPropertyEditor
         }
     }
 
+    void ComponentAdapter::OnEntityDeactivated(const AZ::EntityId& entityId)
+    {
+        if (entityId == m_entityId)
+        {
+            m_entityId.SetInvalid();
+            AZ::EntitySystemBus::Handler::BusDisconnect();
+        }
+    }
+
 } // namespace AZ::DocumentPropertyEditor
