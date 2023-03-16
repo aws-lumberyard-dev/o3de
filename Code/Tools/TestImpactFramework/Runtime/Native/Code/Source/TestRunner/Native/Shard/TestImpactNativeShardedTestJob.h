@@ -156,7 +156,6 @@ namespace TestImpact
                         dest = dest.has_value() ? dest.value() + source.value() : source.value();
                     }
                 };
-
                 stdAccumulator(subJob.m_std.m_out, m_consolidatedJobData->m_std.m_out);
                 stdAccumulator(subJob.m_std.m_err, m_consolidatedJobData->m_std.m_err);
             }

@@ -41,6 +41,9 @@ namespace TestImpact
         //! Returns the total number of disabled tests across all test suites.
         size_t GetNumDisabledTests() const;
 
+        //! Operators for accumulating run data.
+        //TestSuiteContainer& operator+=(const TestSuiteContainer& rhs);
+
     private:
         void CalculateTestMetrics();
 

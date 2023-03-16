@@ -106,13 +106,13 @@ namespace UnitTest
         void SetUp() override;
 
     protected:
+        static constexpr size_t m_maxConcurrency = 32;
         TestEnumerator m_testEnumerator;
         InstrumentedTestRunner m_instrumentedTestRunner;
         InstrumentedShardedTestSystem m_instrumentedShardedTestSystem;
         AZStd::unique_ptr<EnumerationTestJobInfoGenerator> m_enumerationTestJobInfoGenerator;
         AZStd::unique_ptr<ShardedTestJobInfoGenerator> m_shardedTestJobInfoGenerator;
         AZStd::vector<AZStd::pair<TestImpact::RepoPath, TestImpact::RepoPath>> m_testTargetPaths;
-        const size_t m_maxConcurrency = 8;
         RuntimeConfig m_config;
         AZStd::unique_ptr<DynamicDependencyMap> m_dynamicDependencyMap;
         AZStd::unique_ptr<BuildTargetList> m_buildTargets;
@@ -176,13 +176,22 @@ namespace UnitTest
             [[maybe_unused]] const TestImpact::JobMeta& meta,
             [[maybe_unused]] const TestImpact::StdContent& std) override
         {
+            AZ_Printf("Test Target", "Complete!\n");
+            if (std.m_err.has_value())
+            {
+                std::cout << std.m_err->c_str() << "\n";
+            }
+            if (std.m_out.has_value())
+            {
+                std::cout << std.m_out->c_str() << "\n";
+            }
             return TestImpact::ProcessCallbackResult::Continue;
         }
     };
 
     TEST_F(TestEnumeratorFixture, FooBarBaz)
     {
-        const auto testTarget = m_buildTargets->GetTestTargetList().GetTarget("NvCloth.Editor.Tests");
+        const auto testTarget = m_buildTargets->GetTestTargetList().GetTarget("AzToolsFramework.Tests"); //("AzTestRunner.Tests");
         const auto enumJob = m_enumerationTestJobInfoGenerator->GenerateJobInfo(testTarget, { 1 });
         const auto enumResult = m_testEnumerator.Enumerate(
             { enumJob },
@@ -193,31 +202,6 @@ namespace UnitTest
 
         const auto shardJob =
             m_shardedTestJobInfoGenerator->GenerateJobInfo(testTarget, enumResult.second.front().GetPayload().value(), { 10 });
-
-        const auto jobCallback = [&]([[maybe_unused]] const typename InstrumentedTestRunner::Job::Info& jobInfo,
-                                  [[maybe_unused]] const TestImpact::JobMeta& meta,
-                                  [[maybe_unused]] TestImpact::StdContent&& std)
-        {
-            AZ_Printf("Test Target", "Complete!\n");
-            if (std.m_out.has_value())
-            {
-                std::cout << std.m_out->c_str() << "\n";
-            }
-            if (std.m_err.has_value())
-            {
-                std::cout << std.m_err->c_str() << "\n";
-            }
-            return TestImpact::ProcessCallbackResult::Continue;
-        };
-
-        const auto stdCallback = []([[maybe_unused]] const typename InstrumentedTestRunner::Job::Info& jobInfo,
-                                    [[maybe_unused]] const AZStd::string& stdOutput,
-                                    [[maybe_unused]] const AZStd::string& stdError,
-                                    [[maybe_unused]] AZStd::string&& stdOutDelta,
-                                    [[maybe_unused]] AZStd::string&& stdErrDelta)
-        {
-            return TestImpact::ProcessCallbackResult::Continue;
-        };
 
         //const auto runResult = m_instrumentedTestRunner.RunTests(
         //    shardJob.second,

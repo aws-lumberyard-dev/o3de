@@ -52,6 +52,9 @@ namespace TestImpact
         //! Returns the coverage level (empty if no coverage).
         AZStd::optional<CoverageLevel> GetCoverageLevel() const;
 
+        //! Operators for accumulating coverage data.
+        TestCoverage& operator+=(const TestCoverage& rhs);
+
     private:
         void CalculateTestMetrics();
 

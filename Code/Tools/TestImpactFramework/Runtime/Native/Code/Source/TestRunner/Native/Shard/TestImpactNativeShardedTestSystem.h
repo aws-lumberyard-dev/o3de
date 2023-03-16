@@ -38,9 +38,10 @@ namespace TestImpact
             AZStd::optional<AZStd::chrono::milliseconds> runnerTimeout);
 
     private:
+        //!
         class TestJobRunnerNotificationHandler;
 
-        TestRunnerType* m_testRunner = nullptr;
+        TestRunnerType* m_testRunner = nullptr; //!<
     };
 
     template<typename TestRunnerType>
@@ -176,7 +177,9 @@ namespace TestImpact
             runTimeout,
             runnerTimeout);
 
-        // consolidate into single jobs and serialize JUnit to output dir
+        AZStd::vector<typename TestRunnerType::Job> consilidatedJobs;
+        consilidatedJobs.reserve(shardedJobInfos.size());
+
 
         return {};
     }
