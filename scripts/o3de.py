@@ -13,12 +13,7 @@ import sys
 
 logger = logging.getLogger('o3de')
 
-scripts_using_partial_args = set()
-
 def add_args(parser: argparse.ArgumentParser) -> None:
-    def mark_using_partial_args(module):
-        scripts_using_partial_args.add(module.__name__.split('.')[-1])
-
     """
     add_args is called to add expected parser arguments and subparsers arguments to each command such that it can be
     invoked by o3de.py
@@ -81,8 +76,6 @@ def add_args(parser: argparse.ArgumentParser) -> None:
 
     #export_project
     export_project.add_args(subparsers)
-    mark_using_partial_args(export_project)
-
 
 if __name__ == "__main__":
     # parse the command line args
@@ -96,15 +89,21 @@ if __name__ == "__main__":
         the_parser.print_help(sys.stderr)
         sys.exit(1)
 
-    command_uses_partial_args = sys.argv[1] in scripts_using_partial_args
     # parse args
-    if command_uses_partial_args:
-        #argparse stores unknown arguments separately as a tuple, not packed in the same NameSpace as known arguments
-        known_args, unknown_args = the_parser.parse_known_args()
+    # argparse stores unknown arguments separately as a tuple,
+    # not packed in the same NameSpace as known arguments
+    known_args, unknown_args = the_parser.parse_known_args()
+    if hasattr(known_args, 'accepts_partial_args'):
         ret = known_args.func(known_args, unknown_args) if hasattr(known_args, 'func') else 1
+    
+    elif unknown_args:
+        # since we expect every command which doesn't accept partial args to process only known args,
+        # if we face unknown args in such cases, we should throw an error.
+        # parse_args() calls parse_known_args() and will issue an error 
+        # https://hg.python.org/cpython/file/bb9fc884a838/Lib/argparse.py#l1725
+        the_parser.parse_args()
     else:
-        the_args = the_parser.parse_args()
-        ret = the_args.func(the_args) if hasattr(the_args, 'func') else 1
+        ret = known_args.func(known_args) if hasattr(known_args, 'func') else 1
 
     # run
     logger.info('Success!' if ret == 0 else 'Completed with issues: result {}'.format(ret))
