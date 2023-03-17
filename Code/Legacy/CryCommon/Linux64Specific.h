@@ -15,11 +15,14 @@
 #pragma once
 
 
-
-//#define _CPU_X86
-#define _CPU_AMD64
-#define _CPU_SSE
-
+#if defined(__ARM_ARCH)
+    #if __ARM_NEON
+        #define __ARM_NEON__
+    #endif // __ARM_NEON
+#else
+    #define _CPU_AMD64
+    #define _CPU_SSE
+#endif // __ARM_NEON
 //////////////////////////////////////////////////////////////////////////
 // Standard includes.
 //////////////////////////////////////////////////////////////////////////
@@ -103,7 +106,7 @@ typedef uint8               byte;
 
 #define PLATFORM_64BIT
 
-#ifdef _RELEASE
+#ifdef _RELEASE || defined(__ARM_ARCH)
     #define __debugbreak()
 #else
     #define __debugbreak() asm("int3")

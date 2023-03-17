@@ -150,7 +150,7 @@ ILINE T Lerp(const T& a, const T& b, float s) { return T(a + (b - a) * s); }
 //-- the portability functions for CPU_X86
 //-------------------------------------------
 
-#if defined(_CPU_SSE)
+#if defined(_CPU_SSE) && !defined(__ARM_ARCH)
 #include <xmmintrin.h>
 #endif
 
