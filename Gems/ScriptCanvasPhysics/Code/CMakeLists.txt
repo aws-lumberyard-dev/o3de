@@ -67,6 +67,6 @@ if(PAL_TRAIT_BUILD_TESTS_SUPPORTED)
                 Gem::ScriptCanvasPhysics.Static
     )
     ly_add_googletest(
-        NAME Gem::ScriptCanvasPhysics.Tests
+        NAME Gem::ScriptCanvas.Editor.Tests
     )
 endif()
