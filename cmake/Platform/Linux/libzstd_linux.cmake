@@ -23,7 +23,7 @@ else()
    # include Install.cmake to get access to the ly_install function
    include(cmake/Install.cmake)
 
-   # Copies over the libunwind_linux.cmake to the same location in the SDK layout.
+   # Copies over the libzstd_linux.cmake to the same location in the SDK layout.
    cmake_path(RELATIVE_PATH CMAKE_CURRENT_LIST_DIR BASE_DIRECTORY ${LY_ROOT_FOLDER} OUTPUT_VARIABLE libzstd_linux_cmake_rel_directory)
    ly_install(FILES "${CMAKE_CURRENT_LIST_FILE}"
        DESTINATION "${libzstd_linux_cmake_rel_directory}"
