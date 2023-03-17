@@ -106,7 +106,7 @@ typedef uint8               byte;
 
 #define PLATFORM_64BIT
 
-#ifdef _RELEASE || defined(__ARM_ARCH)
+#if defined(_RELEASE) || defined(__ARM_ARCH)
     #define __debugbreak()
 #else
     #define __debugbreak() asm("int3")
