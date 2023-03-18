@@ -29,7 +29,10 @@
 #include <malloc.h>
 #include <stdint.h>
 #include <sys/dir.h>
+#if !defined(__ARM_ARCH)
 #include <sys/io.h>
+#endif // __ARM_ARCH
+
 #include <fcntl.h>
 #include <sys/types.h>
 #include <sys/stat.h>
