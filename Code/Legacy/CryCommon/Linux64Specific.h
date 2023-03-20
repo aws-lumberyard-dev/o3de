@@ -15,11 +15,7 @@
 #pragma once
 
 
-#if defined(__ARM_ARCH)
-    #if __ARM_NEON
-        #define __ARM_NEON__
-    #endif // __ARM_NEON
-#else
+#if !defined(__ARM_ARCH)
     #define _CPU_AMD64
     #define _CPU_SSE
 #endif // __ARM_NEON

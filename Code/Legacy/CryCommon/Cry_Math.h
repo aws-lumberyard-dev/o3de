@@ -260,7 +260,7 @@ ILINE f64 isqrt_safe_tpl(f64 value)
 {
     return isqrt_tpl(value + (std::numeric_limits<f64>::min)());
 }
-#elif defined (__ARM_NEON__)
+#elif defined(__ARM_NEON__) || defined(__ARM_NEON)
 #include "arm_neon.h"
 
 template <int n>
