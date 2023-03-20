@@ -27,3 +27,8 @@ ly_add_target(
             AZ::AzTestShared
             AZ::AzTest
 )
+
+ly_add_googletest(
+    NAME AZ::TestImpact.TestTargetD.Tests
+    LABELS REQUIRES_tiaf
+)

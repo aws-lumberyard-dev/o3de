@@ -158,6 +158,15 @@ namespace UnitTest
             [[maybe_unused]] const TestImpact::JobMeta& meta,
             [[maybe_unused]] const TestImpact::StdContent& std) override
         {
+            AZ_Printf("Test Target", "Complete!\n");
+            if (std.m_err.has_value())
+            {
+                std::cout << std.m_err->c_str() << "\n";
+            }
+            if (std.m_out.has_value())
+            {
+                std::cout << std.m_out->c_str() << "\n";
+            }
             return TestImpact::ProcessCallbackResult::Continue;
         }
 
@@ -176,22 +185,13 @@ namespace UnitTest
             [[maybe_unused]] const TestImpact::JobMeta& meta,
             [[maybe_unused]] const TestImpact::StdContent& std) override
         {
-            AZ_Printf("Test Target", "Complete!\n");
-            if (std.m_err.has_value())
-            {
-                std::cout << std.m_err->c_str() << "\n";
-            }
-            if (std.m_out.has_value())
-            {
-                std::cout << std.m_out->c_str() << "\n";
-            }
             return TestImpact::ProcessCallbackResult::Continue;
         }
     };
 
     TEST_F(TestEnumeratorFixture, FooBarBaz)
     {
-        const auto testTarget = m_buildTargets->GetTestTargetList().GetTarget("AzToolsFramework.Tests"); //("AzTestRunner.Tests");
+        const auto testTarget = m_buildTargets->GetTestTargetList().GetTarget("TestImpact.TestTargetD.Tests"); //("AzToolsFramework.Tests"); //("AzTestRunner.Tests");
         const auto enumJob = m_enumerationTestJobInfoGenerator->GenerateJobInfo(testTarget, { 1 });
         const auto enumResult = m_testEnumerator.Enumerate(
             { enumJob },
