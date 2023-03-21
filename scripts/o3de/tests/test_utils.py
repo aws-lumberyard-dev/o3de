@@ -7,7 +7,7 @@
 #
 
 import pytest
-
+import pathlib
 from o3de import utils
 
 
@@ -54,3 +54,24 @@ def test_validate_uuid4(value, expected_result):
 def test_remove_gem_duplicates(in_list, out_list):
     result = utils.remove_gem_duplicates(in_list)
     assert result == out_list
+
+
+#TODO: test CLICommand class
+
+#TODO: test load_and_execute_script
+
+def test_prepend_file_to_system_path():
+    import sys
+
+    #check that a file's folder is in the path, not the file
+    folder = pathlib.Path(__file__).parent
+    utils.prepend_file_to_system_path(__file__)
+    assert __file__ not in sys.path
+    assert folder in sys.path
+
+
+
+
+#TODO: test get_project_path_from_file
+
+#TODO: test safe_kill_processes
