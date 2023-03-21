@@ -44,3 +44,26 @@ namespace TestImpact
         AZStd::vector<SourceCoverage> m_sources; //!< Sources of this module that are covered.
     };
 } // namespace TestImpact
+
+namespace std
+{
+    //!
+    template<>
+    struct less<TestImpact::SourceCoverage>
+    {
+        bool operator()(const TestImpact::SourceCoverage& lhs, const TestImpact::SourceCoverage& rhs) const
+        {
+            return lhs.m_path < rhs.m_path;
+        }
+    };
+
+    //!
+    template<>
+    struct less<TestImpact::ModuleCoverage>
+    {
+        bool operator()(const TestImpact::ModuleCoverage& lhs, const TestImpact::ModuleCoverage& rhs) const
+        {
+            return lhs.m_path < rhs.m_path;
+        }
+    };
+} // namespace std

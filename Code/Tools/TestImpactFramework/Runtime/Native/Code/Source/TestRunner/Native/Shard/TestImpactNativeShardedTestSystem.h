@@ -8,7 +8,8 @@
 
 #pragma once
 
-#include <TestRunner/Common/TestImpactTestRunner.h>
+#include <TestRunner/Native/TestImpactNativeInstrumentedTestRunner.h>
+#include <TestRunner/Native/TestImpactNativeRegularTestRunner.h>
 #include <TestRunner/Native/Job/TestImpactNativeShardedTestJobInfoGenerator.h>
 #include <TestRunner/Native/Shard/TestImpactNativeShardedTestJob.h>
 #include <TestRunner/Native/Shard/TestImpactNativeShardedTestSystemBus.h>
@@ -24,6 +25,9 @@ namespace TestImpact
     class NativeShardedTestSystem
     {
     public:
+        using Job = typename TestRunnerType::Job;
+        using JobInfo = typename TestRunnerType::JobInfo;
+        using JobId = typename JobInfo::Id;
         using ShardedTestJobInfoType = ShardedTestJobInfo<TestRunnerType>;
 
         //! Constructs the sharded test system to wrap around the specified test runner.
@@ -39,6 +43,28 @@ namespace TestImpact
 
     private:
         //!
+        template<typename TestRunnerT>
+        using ShardToParentShardedJobMap = AZStd::unordered_map<typename TestRunnerT::JobInfo, const ShardedTestJobInfo<TestRunnerT>*>;
+
+        //!
+        template<typename TestRunnerT>
+        using CompletedShardMap = AZStd::unordered_map<const ShardedTestJobInfo<TestRunnerT>*, ShardedTestJob<TestRunnerT>>;
+
+        //!
+        static [[nodiscard]] typename NativeRegularTestRunner::ResultType ConsolidateSubJobs(
+            const AZStd::vector<ShardedTestJobInfo<NativeRegularTestRunner>>& shardedJobInfos,
+            const typename NativeRegularTestRunner::ResultType& result,
+            const ShardToParentShardedJobMap<NativeRegularTestRunner>& shardToParentShardedJobMap,
+            const CompletedShardMap<NativeRegularTestRunner>& completedShardMap);
+
+        //!
+        static [[nodiscard]] typename NativeInstrumentedTestRunner::ResultType ConsolidateSubJobs(
+            const AZStd::vector<ShardedTestJobInfo<NativeInstrumentedTestRunner>>& shardedJobInfos,
+            const typename NativeInstrumentedTestRunner::ResultType& result,
+            const ShardToParentShardedJobMap<NativeInstrumentedTestRunner>& shardToParentShardedJobMap,
+            const CompletedShardMap<NativeInstrumentedTestRunner>& completedShardMap);
+
+        //!
         class TestJobRunnerNotificationHandler;
 
         TestRunnerType* m_testRunner = nullptr; //!<
@@ -51,9 +77,7 @@ namespace TestImpact
     public:
         using JobInfo = typename TestRunnerType::JobInfo;
 
-        TestJobRunnerNotificationHandler(
-            AZStd::unordered_map<JobInfo, const ShardedTestJobInfoType*>& shardToParentShardedJobMap,
-            AZStd::unordered_map<const ShardedTestJobInfoType*, ShardedTestJob<TestRunnerType>>& completedShardMap);
+        TestJobRunnerNotificationHandler(ShardToParentShardedJobMap<TestRunnerType>& shardToParentShardedJobMap, CompletedShardMap<TestRunnerType>& completedShardMap);
         virtual ~TestJobRunnerNotificationHandler();
 
     private:
@@ -61,14 +85,13 @@ namespace TestImpact
         ProcessCallbackResult OnJobComplete(
             const typename TestRunnerType::Job::Info& jobInfo, const JobMeta& meta, const StdContent& std) override;
 
-        AZStd::unordered_map<JobInfo, const ShardedTestJobInfoType*>* m_shardToParentShardedJobMap = nullptr;
-        AZStd::unordered_map<const ShardedTestJobInfoType*, ShardedTestJob<TestRunnerType>>* m_completedShardMap = nullptr;
+        ShardToParentShardedJobMap<TestRunnerType>* m_shardToParentShardedJobMap = nullptr;
+        CompletedShardMap<TestRunnerType>* m_completedShardMap = nullptr;
     };
 
     template<typename TestRunnerType>
     NativeShardedTestSystem<TestRunnerType>::TestJobRunnerNotificationHandler::TestJobRunnerNotificationHandler(
-        AZStd::unordered_map<JobInfo, const ShardedTestJobInfoType*>& shardToParentShardedJobMap,
-        AZStd::unordered_map<const ShardedTestJobInfoType*, ShardedTestJob<TestRunnerType>>& completedShardMap)
+        ShardToParentShardedJobMap<TestRunnerType>& shardToParentShardedJobMap, CompletedShardMap<TestRunnerType>& completedShardMap)
         : m_shardToParentShardedJobMap(&shardToParentShardedJobMap)
         , m_completedShardMap(&completedShardMap)
     {
@@ -131,6 +154,44 @@ namespace TestImpact
     }
 
     template<typename TestRunnerType>
+    typename NativeRegularTestRunner::ResultType NativeShardedTestSystem<TestRunnerType>::ConsolidateSubJobs(
+        [[maybe_unused]] const AZStd::vector<ShardedTestJobInfo<NativeRegularTestRunner>>& shardedJobInfos,
+        [[maybe_unused]] const typename NativeRegularTestRunner::ResultType& result,
+        [[maybe_unused]] const ShardToParentShardedJobMap<NativeRegularTestRunner>& shardToParentShardedJobMap,
+        [[maybe_unused]] const CompletedShardMap<NativeRegularTestRunner>& completedShardMap)
+    {
+        return {};
+    }
+
+    template<typename TestRunnerType>
+    typename NativeInstrumentedTestRunner::ResultType NativeShardedTestSystem<TestRunnerType>::ConsolidateSubJobs(
+        [[maybe_unused]] const AZStd::vector<ShardedTestJobInfo<NativeInstrumentedTestRunner>>& shardedJobInfos,
+        [[maybe_unused]] const typename NativeInstrumentedTestRunner::ResultType& result,
+        [[maybe_unused]] const ShardToParentShardedJobMap<NativeInstrumentedTestRunner>& shardToParentShardedJobMap,
+        [[maybe_unused]] const CompletedShardMap<NativeInstrumentedTestRunner>& completedShardMap)
+    {
+        const auto& [returnCode, jobs] = result;
+        AZStd::unordered_map<typename JobId::IdType, std::pair<AZStd::unordered_set<TestRunSuite>, AZStd::unordered_set<ModuleCoverage>>>
+            consolidatedJobArtifacts;
+        for (const auto& job : jobs)
+        {
+            if (const auto payload = job.GetPayload();
+                payload.has_value())
+            {
+                const auto& [subTestResults, subTestCoverage] = payload.value();
+                const auto shardedTestJobInfo = shardToParentShardedJobMap.at(job.GetJobInfo());
+                const auto parentJobInfoId = shardedTestJobInfo->second.front().GetId();
+                auto& [testResults, testCoverage] = consolidatedJobArtifacts[parentJobInfoId.m_value];
+            }
+        }
+
+        //AZStd::vector<typename TestRunnerType::Job> consolidatedJobs;
+        //consolidatedJobs.reserve(shardedJobInfos.size());
+
+        return {};
+    }
+
+    template<typename TestRunnerType>
     AZStd::pair<ProcessSchedulerResult, AZStd::vector<typename TestRunnerType::Job>> NativeShardedTestSystem<TestRunnerType>::RunTests(
         const AZStd::vector<ShardedTestJobInfoType>& shardedJobInfos,
         StdOutputRouting stdOutRouting,
@@ -138,13 +199,10 @@ namespace TestImpact
         AZStd::optional<AZStd::chrono::milliseconds> runTimeout,
         AZStd::optional<AZStd::chrono::milliseconds> runnerTimeout)
     {
-        using JobInfo = typename TestRunnerType::JobInfo;
-        using JobId = typename JobInfo::Id;
-
         // Key: sub-job shard
         // Value: parent sharded job info
-        AZStd::unordered_map<JobInfo, const ShardedTestJobInfoType*> shardToParentShardedJobMap;
-        AZStd::unordered_map<const ShardedTestJobInfoType*, ShardedTestJob<TestRunnerType>> completedShardMap;
+        ShardToParentShardedJobMap<TestRunnerType> shardToParentShardedJobMap;
+        CompletedShardMap<TestRunnerType> completedShardMap;
 
         const auto totalJobShards = AZStd::accumulate(
             shardedJobInfos.begin(),
@@ -177,10 +235,6 @@ namespace TestImpact
             runTimeout,
             runnerTimeout);
 
-        AZStd::vector<typename TestRunnerType::Job> consilidatedJobs;
-        consilidatedJobs.reserve(shardedJobInfos.size());
-
-
-        return {};
+         return ConsolidateSubJobs(shardedJobInfos, result, shardToParentShardedJobMap, completedShardMap);
     }
 } // namespace TestImpact

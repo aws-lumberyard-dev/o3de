@@ -26,6 +26,7 @@ namespace TestImpact
         //! @note Ids of different job types are not interchangeable.
         struct Id
         {
+            using IdType = IdType;
             IdType m_value;
         };
 
@@ -134,12 +135,6 @@ namespace AZStd
     template<typename AdditionalInfo>
     struct hash<typename TestImpact::JobInfo<AdditionalInfo>>
     {
-        //! Hash of JobInfo's Id is the hash of the unterlying value.
-        size_t operator()(const typename TestImpact::JobInfo<AdditionalInfo>::Id& id) const noexcept
-        {
-            return hash<typename TestImpact::JobInfo<AdditionalInfo>::IdType>{}(id.m_value);
-        }
-
         //! Hash of JobInfo is the hash of the JobInfo's Id.
         size_t operator()(const typename TestImpact::JobInfo<AdditionalInfo>& jobInfo) const noexcept
         {
