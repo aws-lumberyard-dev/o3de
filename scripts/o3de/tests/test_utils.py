@@ -69,8 +69,12 @@ def test_prepend_file_to_system_path():
     assert __file__ not in sys.path
     assert folder in sys.path
 
+    sys.path.pop(0)
+    assert folder not in sys.path
 
-
+    #if a target folder is supplied instead of the file, that folder is prepended directly
+    utils.prepend_file_to_system_path(folder)
+    assert folder in sys.path
 
 #TODO: test get_project_path_from_file
 

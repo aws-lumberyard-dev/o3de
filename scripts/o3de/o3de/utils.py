@@ -136,9 +136,12 @@ def prepend_file_to_system_path(file_path: pathlib.Path or str) -> None:
     if isinstance(file_path, str):
         file_path = pathlib.Path(file_path)
 
-    folder_path = file_path.parent
-    if folder_path not in sys.path:
-        sys.path.insert(0, folder_path)
+    if file_path.is_dir():
+        sys.path.insert(0, file_path)
+    else:
+        folder_path = file_path.parent
+        if folder_path not in sys.path:
+            sys.path.insert(0, folder_path)
 
 def load_and_execute_script(script_path: pathlib.Path or str, **context_variables) -> int:
     """
