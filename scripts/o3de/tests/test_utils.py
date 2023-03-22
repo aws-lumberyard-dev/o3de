@@ -164,7 +164,9 @@ with open(folder / "test_output.txt", 'w') as test_file:
 
     assert not test_output.is_file()
 
-    utils.load_and_execute_script(test_script)
+    result = utils.load_and_execute_script(test_script)
+
+    assert result == 0
 
     assert test_output.is_file()
 
@@ -197,7 +199,9 @@ with open(folder / "test_output2.txt", 'w') as test_file:
 
     assert not test_output.is_file()
 
-    utils.load_and_execute_script(test_script, context_value=44)
+    result= utils.load_and_execute_script(test_script, context_value=44)
+
+    assert result == 0
 
     assert test_output.is_file()
 
@@ -206,6 +210,24 @@ with open(folder / "test_output2.txt", 'w') as test_file:
         
     assert text == "This is a test value: 44"
 
+def test_load_and_execute_script_raises_exception_internally(tmp_path):
+    TEST_ERR_PYTHON_SCRIPT = """
+import pathlib
+
+raise RuntimeError("Whoops")
+print("hi there")
+    """
+
+    test_folder = tmp_path / "test"
+    test_folder.mkdir()
+
+    test_script = test_folder / "test.py"
+
+    test_script.write_text(TEST_ERR_PYTHON_SCRIPT)
+
+    result = utils.load_and_execute_script(test_script)
+
+    assert result == 1
 
 
 #TODO: test safe_kill_processes
