@@ -143,7 +143,6 @@ def test_get_project_path_from_file(tmp_path):
     assert utils.get_project_path_from_file(invalid_test_file, invalid_test_folder) == None
 
 
-#TODO: test load_and_execute_script
 def test_load_and_execute_script(tmp_path):
     TEST_PYTHON_SCRIPT = """
 import pathlib
