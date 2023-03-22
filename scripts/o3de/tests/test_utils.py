@@ -76,6 +76,67 @@ def test_prepend_file_to_system_path():
     utils.prepend_file_to_system_path(folder)
     assert folder in sys.path
 
-#TODO: test get_project_path_from_file
+#Due to verifying project path setups, this is an integration test rather than a unit test
+def test_get_project_path_from_file(tmp_path):
+    
+    TEST_PROJECT_JSON_PAYLOAD = '''
+    {
+        "project_name": "TestProject",
+        "project_id": "{24114e69-306d-4de6-b3b4-4cb1a3eca58e}",
+        "version" : "0.0.0",
+        "compatible_engines" : [
+            "o3de-sdk==2205.01"
+        ],
+        "engine_api_dependencies" : [
+            "framework==1.2.3"
+        ],
+        "origin": "The primary repo for TestProject goes here: i.e. http://www.mydomain.com",
+        "license": "What license TestProject uses goes here: i.e. https://opensource.org/licenses/MIT",
+        "display_name": "TestProject",
+        "summary": "A short description of TestProject.",
+        "canonical_tags": [
+            "Project"
+        ],
+        "user_tags": [
+            "TestProject"
+        ],
+        "icon_path": "preview.png",
+        "engine": "o3de-install",
+        "restricted_name": "projects",
+        "external_subdirectories": [
+            "D:/TestGem"
+        ]
+    }
+    '''
+
+    #first we will check for a valid 
+    project_path = tmp_path /"project_path"
+    project_path.mkdir()
+
+    project_json = project_path / "project.json"
+    project_json.write_text(TEST_PROJECT_JSON_PAYLOAD)
+
+    test_folder = project_path / "nestedFolder"
+    test_folder.mkdir()
+
+    test_file = test_folder / "test.txt"
+    test_file.write_text("THIS IS A TEST!")
+    
+
+    assert utils.get_project_path_from_file(test_file) == project_path
+
+    assert utils.get_project_path_from_file(test_file, project_path) == project_path
+
+    invalid_test_folder = tmp_path / 'invalid'
+    invalid_test_folder.mkdir()
+
+    invalid_test_file = invalid_test_folder / "invalid.txt"
+    invalid_test_file.write_text("THIS IS INVALID!")
+
+    assert utils.get_project_path_from_file(invalid_test_file) == None 
+
+    assert utils.get_project_path_from_file(invalid_test_file, project_path) == project_path
+
+    assert utils.get_project_path_from_file(invalid_test_file, invalid_test_folder) == None
 
 #TODO: test safe_kill_processes

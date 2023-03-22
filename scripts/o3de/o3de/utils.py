@@ -471,7 +471,7 @@ def get_project_path_from_file(target_file_path: pathlib.Path, supplied_project_
     if not project_path:
         project_path = find_ancestor_dir_containing_file(pathlib.PurePath('project.json'), target_file_path)
     
-    if not valid.valid_o3de_project_json(project_path / 'project.json'):
+    if not project_path or not valid.valid_o3de_project_json(project_path / 'project.json'):
         return None
 
     return project_path
