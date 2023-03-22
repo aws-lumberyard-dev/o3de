@@ -26,7 +26,7 @@ from packaging.specifiers import SpecifierSet
 
 from o3de import gitproviderinterface, github_utils, validation as valid
 from subprocess import Popen, PIPE
-from typing import List
+from typing import List, Tuple
 
 LOG_FORMAT = '[%(levelname)s] %(name)s: %(message)s'
 
@@ -573,7 +573,7 @@ class InvalidObjectNameException(Exception):
     pass
 
 
-def get_object_name_and_version_specifier(input:str) -> (str, str) or None:
+def get_object_name_and_version_specifier(input:str) -> Tuple[str, str] or None:
     """
     Get the object name and version specifier from a string in the form <name><version specifier(s)>
     Valid input examples:

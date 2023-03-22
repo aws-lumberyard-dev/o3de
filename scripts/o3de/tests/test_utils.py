@@ -8,6 +8,10 @@
 
 import pytest
 import pathlib
+import subprocess
+import unittest
+import unittest.mock as mock
+
 from o3de import utils
 
 
@@ -58,7 +62,6 @@ def test_remove_gem_duplicates(in_list, out_list):
 
 #TODO: test CLICommand class
 
-#TODO: test load_and_execute_script
 
 def test_prepend_file_to_system_path():
     import sys
@@ -138,5 +141,71 @@ def test_get_project_path_from_file(tmp_path):
     assert utils.get_project_path_from_file(invalid_test_file, project_path) == project_path
 
     assert utils.get_project_path_from_file(invalid_test_file, invalid_test_folder) == None
+
+
+#TODO: test load_and_execute_script
+def test_load_and_execute_script(tmp_path):
+    TEST_PYTHON_SCRIPT = """
+import pathlib
+
+folder = pathlib.Path(__file__).parent
+
+with open(folder / "test_output.txt", 'w') as test_file:
+    test_file.write("This is a test")
+
+    """
+    test_folder = tmp_path / "test"
+    test_folder.mkdir()
+    test_script = test_folder / "test.py"
+
+    test_script.write_text(TEST_PYTHON_SCRIPT)
+
+    test_output = test_folder / "test_output.txt"
+
+    assert not test_output.is_file()
+
+    utils.load_and_execute_script(test_script)
+
+    assert test_output.is_file()
+
+    with open(test_output, 'r') as t_out:
+        text = t_out.read()
+
+    assert text == "This is a test"
+
+
+
+def test_load_and_execute_script_with_context(tmp_path):
+
+    TEST_CONTEXT_PYTHON_SCRIPT = """
+import pathlib
+
+folder = pathlib.Path(__file__).parent
+
+with open(folder / "test_output2.txt", 'w') as test_file:
+    test_file.write(f"This is a test value: {context_value}")
+    """
+
+    test_folder = tmp_path / "test"
+    test_folder.mkdir()
+
+    test_script = test_folder / "test.py"
+
+    test_script.write_text(TEST_CONTEXT_PYTHON_SCRIPT)
+
+    test_output = test_folder / "test_output2.txt"
+
+    assert not test_output.is_file()
+
+    utils.load_and_execute_script(test_script, context_value=44)
+
+    assert test_output.is_file()
+
+    with open(test_output, 'r') as t_out:
+        text = t_out.read()
+        
+    assert text == "This is a test value: 44"
+
+
 
 #TODO: test safe_kill_processes
