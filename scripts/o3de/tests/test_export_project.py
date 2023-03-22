@@ -2,7 +2,7 @@ import argparse
 import pytest
 import pathlib
 from o3de import utils, manifest
-from o3de.export_project import O3DEScriptExportContext, execute_python_script, add_args, _run_export_script
+from o3de.export_project import O3DEScriptExportContext, execute_python_script, add_args, _run_export_script, process_command
 
 TEST_PYTHON_SCRIPT = """
 import pathlib
@@ -44,7 +44,15 @@ TEST_PROJECT_JSON_PAYLOAD = '''
 }
 '''
 
-#TODO: test process_command
+#Note: the underlying command logic is found in CLICommand class object. That is tested in test_utils.py
+def test_process_command():
+    assert process_command(['cmake']) == 0
+
+def test_process_command_error():
+    assert process_command([]) == 1
+
+    assert process_command(['cmake', '-B']) == 1
+
 
 def test_execute_python_command(tmp_path):
     import sys

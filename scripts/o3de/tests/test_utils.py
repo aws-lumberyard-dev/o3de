@@ -9,6 +9,7 @@
 import pytest
 import pathlib
 import subprocess
+import logging
 import unittest
 import unittest.mock as mock
 
@@ -59,9 +60,35 @@ def test_remove_gem_duplicates(in_list, out_list):
     result = utils.remove_gem_duplicates(in_list)
     assert result == out_list
 
+def test_cli_command(tmp_path):
+    new_command = utils.CLICommand(['cmake', '--version'], tmp_path, logging.getLogger())
 
-#TODO: test CLICommand class
+    result = new_command.run()
 
+    assert result == 0
+
+    assert "cmake version 3" in new_command.stdout
+
+    assert "CMake suite" in new_command.stdout
+
+
+    new_command = utils.CLICommand(['cmake'], tmp_path, logging.getLogger())
+
+    result = new_command.run()
+
+    assert result == 0
+
+    assert "Run 'cmake --help' for more information" in new_command.stdout
+
+def test_cli_command_error(tmp_path):
+    new_command = utils.CLICommand(['cmake', '-B'], tmp_path, logging.getLogger())
+
+    result = new_command.run()
+
+    assert result == 1
+
+    assert 'CMake Error: No build directory specified for -B' in new_command.stderr
+    assert "CMake Error: Run 'cmake --help' for all supported options" in new_command.stderr
 
 def test_prepend_file_to_system_path():
     import sys
@@ -79,7 +106,7 @@ def test_prepend_file_to_system_path():
     utils.prepend_file_to_system_path(folder)
     assert folder in sys.path
 
-#Due to verifying project path setups, this is an integration test rather than a unit test
+
 def test_get_project_path_from_file(tmp_path):
     
     TEST_PROJECT_JSON_PAYLOAD = '''
@@ -209,7 +236,12 @@ with open(folder / "test_output2.txt", 'w') as test_file:
         
     assert text == "This is a test value: 44"
 
+
+
 def test_load_and_execute_script_raises_exception_internally(tmp_path):
+    #To verify behavior via logging, use:
+    #python\python.cmd -m pytest -o log_cli=True <o3de_install_path>\scripts\o3de\tests\test_utils.py  
+    
     TEST_ERR_PYTHON_SCRIPT = """
 import pathlib
 
@@ -230,3 +262,5 @@ print("hi there")
 
 
 #TODO: test safe_kill_processes
+def test_safe_kill_processes():
+    pass

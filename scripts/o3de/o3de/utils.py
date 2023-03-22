@@ -82,6 +82,29 @@ class CLICommand(object):
         self.cwd = cwd
         self.env = env
         self.logger = logger
+        self._stdout_lines = []
+        self._stderr_lines = []
+    
+    @property
+    def stdout_lines(self) -> List[str]:
+        """The result of stdout, separated by newlines."""
+        return self._stdout_lines
+
+    @property
+    def stdout(self) -> List[str]:
+        """The result of stdout, as a single string."""
+        return "\n".join(self._stdout_lines)
+
+    @property
+    def stderr_lines(self) -> List[str]:
+        """The result of stderr, separated by newlines."""
+        return self._stderr_lines
+
+    @property
+    def stderr(self) -> List[str]:
+        """The result of stderr, as a single string."""
+        return "\n".join(self._stderr_lines)
+
     
     def _poll_process(self, process) -> None:
         #while process is not done, read any log lines coming from subprocess
@@ -90,11 +113,13 @@ class CLICommand(object):
             if not line: break
 
             log_line = line.decode('utf-8', 'ignore')
+            self._stdout_lines.append(log_line)
             self.logger.info(log_line)
     
     def _cleanup_process(self, process) -> str:
         #flush remaining log lines
         log_lines = process.stdout.read().decode('utf-8', 'ignore')
+        self._stdout_lines += log_lines.split('\n')
         self.logger.info(log_lines)
         stderr = process.stderr.read()
 
@@ -121,7 +146,9 @@ class CLICommand(object):
                 if stderr:
                     # bool(ret) --> if the process returns a FAILURE code (>0)
                     logger_func = self.logger.error if bool(ret) else self.logger.warning
-                    logger_func(stderr.decode('utf-8', 'ignore'))
+                    err_txt = stderr.decode('utf-8', 'ignore')
+                    logger_func(err_txt)
+                    self._stderr_lines = err_txt.split("\n")
         except Exception as err:
             self.logger.error(err)
             raise err
