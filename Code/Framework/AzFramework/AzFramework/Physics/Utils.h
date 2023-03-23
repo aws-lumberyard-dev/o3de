@@ -50,6 +50,7 @@ namespace Physics
         //! Returns true if the tag matches the filter tag, or the filter tag is empty
         bool FilterTag(AZ::Crc32 tag, AZ::Crc32 filter);
 
+        //! Returns true if the scale is uniform.
         bool HasUniformScale(const AZ::Vector3& scale);
     }
 }
