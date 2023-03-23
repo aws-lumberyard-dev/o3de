@@ -132,14 +132,14 @@ def test_prepend_to_system_path(test_path):
     #successful cases
     pytest.param(pathlib.Path(__file__), None, pathlib.Path(__file__).parent, True,  pathlib.Path(__file__).parent),
     pytest.param(pathlib.Path(__file__), pathlib.Path(__file__).parent, None, True,  pathlib.Path(__file__).parent),
-    pytest.param(pathlib.Path(__file__), pathlib.Path(__file__).parent, pathlib.Path("/Somewhere/Else"), True,  pathlib.Path(__file__).parent),
-    pytest.param(pathlib.Path(__file__), pathlib.Path("/Somewhere/Else"), None, True,  pathlib.Path("/Somewhere/Else")),
+    pytest.param(pathlib.Path(__file__), pathlib.Path(__file__).parent, pathlib.PurePath("Somewhere/Else"), True,  pathlib.Path(__file__).parent),
+    pytest.param(pathlib.Path(__file__), pathlib.PurePath("Somewhere/Else"), None, True,  pathlib.PurePath("Somewhere/Else")),
     
     #failure cases
     pytest.param(pathlib.Path(__file__), None, pathlib.Path(__file__).parent, False,  None),
-    pytest.param(pathlib.Path(__file__), None, pathlib.Path("/Somewhere/Else"), False,  None),
+    pytest.param(pathlib.Path(__file__), None, pathlib.PurePath("Somewhere/Else"), False,  None),
     pytest.param(pathlib.Path(__file__), pathlib.Path(__file__).parent, None, False,  None),
-    pytest.param(pathlib.Path(__file__), pathlib.Path(__file__).parent, pathlib.Path("/Somewhere/Else"), False,  None),
+    pytest.param(pathlib.Path(__file__), pathlib.Path(__file__).parent, pathlib.PurePath("Somewhere/Else"), False,  None),
     pytest.param(pathlib.Path(__file__), None, None, True,  None),
     pytest.param(pathlib.Path(__file__), None, None, False,  None),
 ])
