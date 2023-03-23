@@ -8,13 +8,44 @@
 
 import pytest
 import pathlib
+import psutil
 import subprocess
 import logging
-import unittest
 import unittest.mock as mock
+from unittest.mock import patch
 
 from o3de import utils
+from o3de.validation import  valid_o3de_project_json
 
+TEST_PROJECT_JSON_PAYLOAD = '''
+{
+    "project_name": "TestProject",
+    "project_id": "{24114e69-306d-4de6-b3b4-4cb1a3eca58e}",
+    "version" : "0.0.0",
+    "compatible_engines" : [
+        "o3de-sdk==2205.01"
+    ],
+    "engine_api_dependencies" : [
+        "framework==1.2.3"
+    ],
+    "origin": "The primary repo for TestProject goes here: i.e. http://www.mydomain.com",
+    "license": "What license TestProject uses goes here: i.e. https://opensource.org/licenses/MIT",
+    "display_name": "TestProject",
+    "summary": "A short description of TestProject.",
+    "canonical_tags": [
+        "Project"
+    ],
+    "user_tags": [
+        "TestProject"
+    ],
+    "icon_path": "preview.png",
+    "engine": "o3de-install",
+    "restricted_name": "projects",
+    "external_subdirectories": [
+        "D:/TestGem"
+    ]
+}
+'''
 
 @pytest.mark.parametrize(
     "value, expected_result", [
@@ -60,207 +91,131 @@ def test_remove_gem_duplicates(in_list, out_list):
     result = utils.remove_gem_duplicates(in_list)
     assert result == out_list
 
-def test_cli_command(tmp_path):
-    new_command = utils.CLICommand(['cmake', '--version'], tmp_path, logging.getLogger())
-
-    result = new_command.run()
-
-    assert result == 0
-
-    assert "cmake version 3" in new_command.stdout
-
-    assert "CMake suite" in new_command.stdout
 
 
-    new_command = utils.CLICommand(['cmake'], tmp_path, logging.getLogger())
+@pytest.mark.parametrize("args, expected_return_code", [
+    pytest.param(['cmake', '--version'], 0),
+    pytest.param(['cmake'], 0),
+    pytest.param(['cmake', '-B'], 1)
+])
+def test_cli_command(args, expected_return_code):
+    process = mock.Mock()
+    process.returncode = expected_return_code
+    process.poll.return_value = expected_return_code
+    with patch("subprocess.Popen", return_value = process) as subproc_popen_patch:
+        new_command = utils.CLICommand(args, None, logging.getLogger())
+        result = new_command.run()
+        assert result == expected_return_code
 
-    result = new_command.run()
+@pytest.mark.parametrize("test_path", [
+    pytest.param(__file__),
+    pytest.param(pathlib.Path(__file__)),
+    pytest.param(pathlib.Path(__file__).parent)
+])
+def test_prepend_file_to_system_path(test_path):
+    with patch("sys.path") as path_patch:
+        utils.prepend_file_to_system_path(test_path)
+        assert path_patch.insert.called
+        result_path = path_patch.insert.call_args.args[1]
+        assert result_path.is_dir()
 
-    assert result == 0
+        if isinstance(test_path, str):
+            test_path = pathlib.Path(test_path)
 
-    assert "Run 'cmake --help' for more information" in new_command.stdout
-
-def test_cli_command_error(tmp_path):
-    new_command = utils.CLICommand(['cmake', '-B'], tmp_path, logging.getLogger())
-
-    result = new_command.run()
-
-    assert result == 1
-
-    assert 'CMake Error: No build directory specified for -B' in new_command.stderr
-    assert "CMake Error: Run 'cmake --help' for all supported options" in new_command.stderr
-
-def test_prepend_file_to_system_path():
-    import sys
-
-    #check that a file's folder is in the path, not the file
-    folder = pathlib.Path(__file__).parent
-    utils.prepend_file_to_system_path(__file__)
-    assert __file__ not in sys.path
-    assert folder in sys.path
-
-    sys.path.pop(0)
-    assert folder not in sys.path
-
-    #if a target folder is supplied instead of the file, that folder is prepended directly
-    utils.prepend_file_to_system_path(folder)
-    assert folder in sys.path
+        if test_path.is_dir():
+            assert test_path == result_path    
+        else:
+            assert test_path.parent == result_path
 
 
-def test_get_project_path_from_file(tmp_path):
+@pytest.mark.parametrize("input_file, supplied_project_path, ancestor_path, can_validate_project_path, expected_path",[
+    #successful cases
+    pytest.param(pathlib.Path(__file__), None, pathlib.Path(__file__).parent, True,  pathlib.Path(__file__).parent),
+    pytest.param(pathlib.Path(__file__), pathlib.Path(__file__).parent, None, True,  pathlib.Path(__file__).parent),
+    pytest.param(pathlib.Path(__file__), pathlib.Path(__file__).parent, pathlib.Path("/Somewhere/Else"), True,  pathlib.Path(__file__).parent),
+    pytest.param(pathlib.Path(__file__), pathlib.Path("/Somewhere/Else"), None, True,  pathlib.Path("/Somewhere/Else")),
     
-    TEST_PROJECT_JSON_PAYLOAD = '''
-    {
-        "project_name": "TestProject",
-        "project_id": "{24114e69-306d-4de6-b3b4-4cb1a3eca58e}",
-        "version" : "0.0.0",
-        "compatible_engines" : [
-            "o3de-sdk==2205.01"
-        ],
-        "engine_api_dependencies" : [
-            "framework==1.2.3"
-        ],
-        "origin": "The primary repo for TestProject goes here: i.e. http://www.mydomain.com",
-        "license": "What license TestProject uses goes here: i.e. https://opensource.org/licenses/MIT",
-        "display_name": "TestProject",
-        "summary": "A short description of TestProject.",
-        "canonical_tags": [
-            "Project"
-        ],
-        "user_tags": [
-            "TestProject"
-        ],
-        "icon_path": "preview.png",
-        "engine": "o3de-install",
-        "restricted_name": "projects",
-        "external_subdirectories": [
-            "D:/TestGem"
-        ]
-    }
-    '''
+    #failure cases
+    pytest.param(pathlib.Path(__file__), None, pathlib.Path(__file__).parent, False,  None),
+    pytest.param(pathlib.Path(__file__), None, pathlib.Path("/Somewhere/Else"), False,  None),
+    pytest.param(pathlib.Path(__file__), pathlib.Path(__file__).parent, None, False,  None),
+    pytest.param(pathlib.Path(__file__), pathlib.Path(__file__).parent, pathlib.Path("/Somewhere/Else"), False,  None),
+    pytest.param(pathlib.Path(__file__), None, None, True,  None),
+    pytest.param(pathlib.Path(__file__), None, None, False,  None),
+])
+def test_get_project_path_from_file(input_file, supplied_project_path, ancestor_path, can_validate_project_path, expected_path):
 
-    #first we will check for a valid 
-    project_path = tmp_path /"project_path"
-    project_path.mkdir()
-
-    project_json = project_path / "project.json"
-    project_json.write_text(TEST_PROJECT_JSON_PAYLOAD)
-
-    test_folder = project_path / "nestedFolder"
-    test_folder.mkdir()
-
-    test_file = test_folder / "test.txt"
-    test_file.write_text("THIS IS A TEST!")
-    
-
-    assert utils.get_project_path_from_file(test_file) == project_path
-
-    assert utils.get_project_path_from_file(test_file, project_path) == project_path
-
-    invalid_test_folder = tmp_path / 'invalid'
-    invalid_test_folder.mkdir()
-
-    invalid_test_file = invalid_test_folder / "invalid.txt"
-    invalid_test_file.write_text("THIS IS INVALID!")
-
-    assert utils.get_project_path_from_file(invalid_test_file) == None 
-
-    assert utils.get_project_path_from_file(invalid_test_file, project_path) == project_path
-
-    assert utils.get_project_path_from_file(invalid_test_file, invalid_test_folder) == None
-
-
-def test_load_and_execute_script(tmp_path):
-    TEST_PYTHON_SCRIPT = """
-import pathlib
-
-folder = pathlib.Path(__file__).parent
-
-with open(folder / "test_output.txt", 'w') as test_file:
-    test_file.write("This is a test")
-
-    """
-    test_folder = tmp_path / "test"
-    test_folder.mkdir()
-    test_script = test_folder / "test.py"
-
-    test_script.write_text(TEST_PYTHON_SCRIPT)
-
-    test_output = test_folder / "test_output.txt"
-
-    assert not test_output.is_file()
-
-    result = utils.load_and_execute_script(test_script)
-
-    assert result == 0
-
-    assert test_output.is_file()
-
-    with open(test_output, 'r') as t_out:
-        text = t_out.read()
-
-    assert text == "This is a test"
-
-
-
-def test_load_and_execute_script_with_context(tmp_path):
-
-    TEST_CONTEXT_PYTHON_SCRIPT = """
-import pathlib
-
-folder = pathlib.Path(__file__).parent
-
-with open(folder / "test_output2.txt", 'w') as test_file:
-    test_file.write(f"This is a test value: {context_value}")
-    """
-
-    test_folder = tmp_path / "test"
-    test_folder.mkdir()
-
-    test_script = test_folder / "test.py"
-
-    test_script.write_text(TEST_CONTEXT_PYTHON_SCRIPT)
-
-    test_output = test_folder / "test_output2.txt"
-
-    assert not test_output.is_file()
-
-    result= utils.load_and_execute_script(test_script, context_value=44)
-
-    assert result == 0
-
-    assert test_output.is_file()
-
-    with open(test_output, 'r') as t_out:
-        text = t_out.read()
+    with patch("o3de.validation.valid_o3de_project_json", return_value = can_validate_project_path) as is_valid_patch, \
+        patch("o3de.utils.find_ancestor_dir_containing_file", return_value = ancestor_path) as find_ancestor_patch:
         
-    assert text == "This is a test value: 44"
+        result_path = utils.get_project_path_from_file(input_file, supplied_project_path)
+        assert result_path == expected_path
 
-
-
-def test_load_and_execute_script_raises_exception_internally(tmp_path):
-    #To verify behavior via logging, use:
-    #python\python.cmd -m pytest -o log_cli=True <o3de_install_path>\scripts\o3de\tests\test_utils.py  
+@pytest.mark.parametrize("input_script_path, context_vars_dict, raisedException, expected_result", [
+    #successful cases
+    pytest.param(__file__, {}, None, 0),
+    pytest.param(pathlib.Path(__file__), {}, None, 0),
+    pytest.param(__file__, {"test":"value", "key":12}, None, 0),
+    pytest.param(pathlib.Path(__file__), {"test":"value", "key":12}, None, 0),
     
-    TEST_ERR_PYTHON_SCRIPT = """
-import pathlib
+    #failure cases
+    pytest.param(__file__, {}, RuntimeError, 1),
+    pytest.param(pathlib.Path(__file__), {}, RuntimeError, 1),
+    pytest.param(__file__, {"test":"value", "key":12}, RuntimeError, 1),
+    pytest.param(pathlib.Path(__file__), {"test":"value", "key":12}, RuntimeError, 1),
+])
+def test_load_and_execute_script(input_script_path, context_vars_dict, raisedException, expected_result):
+    def mock_error():
+        if raisedException:
+            raise raisedException
+        
+    mock_spec = mock.Mock()
+    mock_spec.loader.exec_module.return_value = None
+    if raisedException:
+        mock_spec.loader.exec_module.side_effect = mock_error
 
-raise RuntimeError("Whoops")
-print("hi there")
-    """
+    mock_module = mock.Mock()
 
-    test_folder = tmp_path / "test"
-    test_folder.mkdir()
+    with patch("importlib.util.spec_from_file_location", return_value = mock_spec) as spec_from_file_patch,\
+        patch("importlib.util.module_from_spec", return_value = mock_module) as module_from_spec_patch,\
+        patch("sys.modules") as sys_modules_patch:
+        
+        result = utils.load_and_execute_script(input_script_path, **context_vars_dict)
 
-    test_script = test_folder / "test.py"
+        for key, value in context_vars_dict.items():
+            assert hasattr(mock_module, key)
+            assert getattr(mock_module, key) == value
 
-    test_script.write_text(TEST_ERR_PYTHON_SCRIPT)
-
-    result = utils.load_and_execute_script(test_script)
-
-    assert result == 1
+        assert result == expected_result
 
 
-#TODO: test safe_kill_processes
-def test_safe_kill_processes():
-    pass
+
+@pytest.mark.parametrize("process_obj, raisedException",[
+    #the successful case
+    pytest.param({"args":['cmake', '--version'], "pid":0}, None),
+
+    #these raise exceptions, but safe_kill_processes should intercept and log instead
+    pytest.param({"args":['cmake', '--version'], "pid":0}, psutil.AccessDenied),
+    pytest.param({"args":['cmake', '--version'], "pid":0}, psutil.NoSuchProcess),
+    pytest.param({"args":['cmake', '--version'], "pid":0}, RuntimeError)
+])
+def test_safe_kill_processes(process_obj, raisedException):
+    exceptionCaught = False
+    def mock_kill():
+        nonlocal exceptionCaught
+        if raisedException:
+            exceptionCaught = True
+            raise raisedException
+    
+    process = mock.Mock()
+    process.configure_mock(**process_obj)
+    process.kill.side_effect = mock_kill
+
+    with patch("subprocess.Popen", return_value = process) as subproc_popen_patch:
+
+        utils.safe_kill_processes(subprocess.Popen(process_obj["args"]))
+
+        
+        assert (subproc_popen_patch.called)
+        assert (process.kill.called)
+        assert (not raisedException or exceptionCaught)

@@ -81,33 +81,35 @@ def execute_python_script(target_script_path: pathlib.Path or str, o3de_context:
     return utils.load_and_execute_script(target_script_path, o3de_context = o3de_context, o3de_logger=logging.getLogger())
 
 
-#Export Script entry point
-def _run_export_script(args: argparse, passthru_args: list) -> int:
-    logging.basicConfig(format=utils.LOG_FORMAT)
-    logging.getLogger().setLevel(args.log_level)
-    
-    export_script_path = args.export_script
-    
+def _export_script(export_script_path: pathlib.Path, project_path: pathlib.Path, passthru_args: list) -> int:
     if not export_script_path.is_file() or export_script_path.suffix != '.py':
         logging.error(f"Export script path unrecognized: '{export_script_path}'. Please provide a file path to an existing python script with '.py' extension.")
         return 1
 
-    project_path = utils.get_project_path_from_file(export_script_path, args.project_path)
+    computed_project_path = utils.get_project_path_from_file(export_script_path, project_path)
 
-    if not project_path:
-        if args.project_path:
+    if not computed_project_path:
+        if project_path:
             logging.error(f"Project path '{project_path}' is invalid: does not contain a project.json file.")
         else:
             logging.error(f"Unable to find project folder associated with file '{export_script_path}'. Please specify using --project-path, or ensure the file is inside a project folder.")
         return 1
     
-    #prepare O3DE arguments for script
     o3de_context = O3DEScriptExportContext(export_script_path= export_script_path,
-                                        project_path = project_path,
-                                        engine_path = manifest.get_project_engine_path(project_path),
+                                        project_path = computed_project_path,
+                                        engine_path = manifest.get_project_engine_path(computed_project_path),
                                         args = passthru_args)
 
     return execute_python_script(export_script_path, o3de_context)
+
+#Export Script entry point
+def _run_export_script(args: argparse, passthru_args: list) -> int:
+    logging.basicConfig(format=utils.LOG_FORMAT)
+    logging.getLogger().setLevel(args.log_level)
+    
+    
+    #prepare O3DE arguments for script
+    return _export_script(args.export_script, args.project_path, passthru_args)
 
 
 #Argument handling

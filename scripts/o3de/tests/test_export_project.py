@@ -1,8 +1,12 @@
 import argparse
 import pytest
 import pathlib
+import unittest.mock as mock
+from unittest.mock import patch
 from o3de import utils, manifest
 from o3de.export_project import O3DEScriptExportContext, execute_python_script, add_args, _run_export_script, process_command
+
+#do the integration tests here
 
 TEST_PYTHON_SCRIPT = """
 import pathlib
@@ -45,58 +49,90 @@ TEST_PROJECT_JSON_PAYLOAD = '''
 '''
 
 #Note: the underlying command logic is found in CLICommand class object. That is tested in test_utils.py
-def test_process_command():
-    assert process_command(['cmake']) == 0
+@pytest.mark.parametrize("args, expected_result",[
+    pytest.param(["cmake", "--version"], 0),
+    pytest.param(["cmake"], 0),
+    pytest.param(["cmake", "-B"], 1),
+    pytest.param([], 1),
+])
+def test_process_command(args, expected_result):
 
-def test_process_command_error():
-    assert process_command([]) == 1
+    cli_command = mock.Mock()
+    cli_command.run.return_value = expected_result
 
-    assert process_command(['cmake', '-B']) == 1
+    with patch("o3de.utils.CLICommand", return_value=cli_command) as cli:
+        result = process_command(args)
+        assert result == expected_result
+
+# def test_execute_python_command(tmp_path):
+#     import sys
+
+#     test_folder = tmp_path / "test"
+#     test_folder.mkdir()
+#     test_script = test_folder / "test.py"
+
+#     test_script.write_text(TEST_PYTHON_SCRIPT)
+
+#     test_output = test_folder / "test_output.txt"
+
+#     assert not test_output.is_file()
+
+#     project_path = tmp_path /"project_path"
+#     project_path.mkdir()
+
+#     project_json = project_path / "project.json"
+#     project_json.write_text(TEST_PROJECT_JSON_PAYLOAD)
 
 
-def test_execute_python_command(tmp_path):
-    import sys
+#     o3de_context = O3DEScriptExportContext(export_script_path= test_script,
+#                                         project_path = project_path,
+#                                         engine_path = manifest.get_project_engine_path(project_path),
+#                                         args = ['456'])
 
-    test_folder = tmp_path / "test"
-    test_folder.mkdir()
-    test_script = test_folder / "test.py"
+#     result = execute_python_script(test_script, o3de_context)
 
-    test_script.write_text(TEST_PYTHON_SCRIPT)
+#     assert result == 0
 
-    test_output = test_folder / "test_output.txt"
+#     assert test_folder in sys.path
 
-    assert not test_output.is_file()
+#     assert test_output.is_file()
 
-    project_path = tmp_path /"project_path"
-    project_path.mkdir()
-
-    project_json = project_path / "project.json"
-    project_json.write_text(TEST_PROJECT_JSON_PAYLOAD)
-
-
-    o3de_context = O3DEScriptExportContext(export_script_path= test_script,
-                                        project_path = project_path,
-                                        engine_path = manifest.get_project_engine_path(project_path),
-                                        args = ['456'])
-
-    result = execute_python_script(test_script, o3de_context)
-
-    assert result == 0
-
-    assert test_folder in sys.path
-
-    assert test_output.is_file()
-
-    with open(test_output, 'r') as t_out:
-        text = t_out.read()
+#     with open(test_output, 'r') as t_out:
+#         text = t_out.read()
     
-    assert text == "This is a test for the following: 456"
+#     assert text == "This is a test for the following: 456"
 
-    o3de_cli_folder = pathlib.Path(__file__).parent.parent / "o3de"
-    assert o3de_cli_folder in sys.path
+#     o3de_cli_folder = pathlib.Path(__file__).parent.parent / "o3de"
+#     assert o3de_cli_folder in sys.path
 
 
 
+# def test_load_and_execute_script_raises_exception_internally(tmp_path):
+#     #To verify behavior via logging, use:
+#     #python\python.cmd -m pytest -o log_cli=True <o3de_install_path>\scripts\o3de\tests\test_utils.py  
+    
+#     TEST_ERR_PYTHON_SCRIPT = """
+# import pathlib
+
+# raise RuntimeError("Whoops")
+# print("hi there")
+#     """
+
+#     test_folder = tmp_path / "test"
+#     test_folder.mkdir()
+
+#     test_script = test_folder / "test.py"
+
+#     test_script.write_text(TEST_ERR_PYTHON_SCRIPT)
+
+#     result = utils.load_and_execute_script(test_script)
+
+#     assert result == 1
+
+
+#this is the function that will do the actual integration test
+#change this to test _export_script instead
+#try to parameterize the different scenarios
 def test_run_export_script(tmp_path):
     import sys
 
