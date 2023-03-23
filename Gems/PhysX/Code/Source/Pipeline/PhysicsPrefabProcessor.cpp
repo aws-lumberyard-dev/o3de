@@ -33,7 +33,7 @@ namespace PhysX
         auto* transformComponent = entity->FindComponent<AzFramework::TransformComponent>();
         linkData->m_relativeTransform = transformComponent->GetLocalTM();
 
-        auto& components = entity->GetComponents();
+        const auto& components = entity->GetComponents();
         auto baseColliderComponentIt = AZStd::find_if(
             components.begin(),
             components.end(),
