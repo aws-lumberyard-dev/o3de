@@ -154,6 +154,9 @@ class CLICommand(object):
             raise err
         return ret
 
+
+#Per Python documentation, only strings should be inserted into sys.path
+#https://docs.python.org/3/library/sys.html#sys.path
 def prepend_to_system_path(file_path: pathlib.Path or str) -> None:
     """
     Prepend the running script's imported system module paths. Useful for loading scripts in a foreign directory
