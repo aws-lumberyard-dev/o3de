@@ -145,8 +145,8 @@ def test_prepend_to_system_path(test_path):
 ])
 def test_get_project_path_from_file(input_file, supplied_project_path, ancestor_path, can_validate_project_path, expected_path):
 
-    with patch("o3de.validation.valid_o3de_project_json", return_value = can_validate_project_path) as is_valid_patch, \
-        patch("o3de.utils.find_ancestor_dir_containing_file", return_value = ancestor_path) as find_ancestor_patch:
+    with patch("o3de.validation.valid_o3de_project_json", return_value = can_validate_project_path), \
+        patch("o3de.utils.find_ancestor_dir_containing_file", return_value = ancestor_path):
         
         result_path = utils.get_project_path_from_file(input_file, supplied_project_path)
         assert result_path == expected_path
