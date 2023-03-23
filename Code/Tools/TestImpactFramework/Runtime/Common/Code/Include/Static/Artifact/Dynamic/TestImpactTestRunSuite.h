@@ -46,18 +46,8 @@ namespace TestImpact
     };
 } // namespace TestImpact
 
-namespace std
+namespace AZStd
 {
-    //!
-    template<>
-    struct less<TestImpact::TestRunCase>
-    {
-        bool operator()(const TestImpact::TestRunCase& lhs, const TestImpact::TestRunCase& rhs) const
-        {
-            return lhs.m_name < rhs.m_name;
-        }
-    };
-
     //!
     template<>
     struct less<TestImpact::TestRunSuite>
@@ -67,4 +57,34 @@ namespace std
             return lhs.m_name < rhs.m_name;
         }
     };
-} // namespace std
+
+    //!
+    template<>
+    struct hash<TestImpact::TestRunCase>
+    {
+        bool operator()(const TestImpact::TestRunCase& key) const
+        {
+            return hash<string>()(key.m_name);
+        }
+    };
+
+    //!
+    template<>
+    struct hash<TestImpact::TestRunSuite>
+    {
+        bool operator()(const TestImpact::TestRunSuite& key) const
+        {
+            return hash<string>()(key.m_name);
+        }
+    };
+
+    //!
+    template<>
+    struct less<TestImpact::TestRunCase>
+    {
+        bool operator()(const TestImpact::TestRunCase& lhs, const TestImpact::TestRunCase& rhs) const
+        {
+            return lhs.m_name < rhs.m_name;
+        }
+    };
+} // namespace AZStd

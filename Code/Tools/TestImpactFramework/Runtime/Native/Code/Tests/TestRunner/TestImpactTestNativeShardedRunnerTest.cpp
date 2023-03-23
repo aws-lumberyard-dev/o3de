@@ -12,6 +12,7 @@
 
 #include <TestImpactFramework/TestImpactConfigurationException.h>
 #include <TestImpactFramework/Native/TestImpactNativeRuntimeConfigurationFactory.h>
+#include <TestImpactFramework/TestImpactUtils.h>
 
 #include <BuildTarget/Common/TestImpactBuildGraph.h>
 #include <BuildTarget/Common/TestImpactBuildTarget.h>
@@ -39,10 +40,131 @@
 
 namespace UnitTest
 {
+    namespace
+    {
+        bool operator==(const TestImpact::LineCoverage& lhs, const TestImpact::LineCoverage& rhs)
+        {
+            if (lhs.m_hitCount != rhs.m_hitCount)
+            {
+                AZ_Error("LineCoverage ==", false, "lhs.m_hitCount: %u, rhs.m_hitCount: %u", lhs.m_hitCount, rhs.m_hitCount);
+                return false;
+            }
+
+            if (lhs.m_lineNumber != rhs.m_lineNumber)
+            {
+                AZ_Error("LineCoverage ==", false, "lhs.m_lineNumber: %u, rhs.m_lineNumber: %u", lhs.m_lineNumber, rhs.m_lineNumber);
+                return false;
+            }
+
+            return true;
+        }
+
+        bool operator==(const TestImpact::SourceCoverage& lhs, const TestImpact::SourceCoverage& rhs)
+        {
+            if (lhs.m_path != rhs.m_path)
+            {
+                AZ_Error("LineCoverage ==", false, "lhs.m_path: %s, rhs.m_path: %s", lhs.m_path.c_str(), rhs.m_path.c_str());
+                return false;
+            }
+
+            if (lhs.m_coverage.empty() != rhs.m_coverage.empty())
+            {
+                AZ_Error(
+                    "LineCoverage ==",
+                    false,
+                    "lhs.m_coverage.empty(): %u, rhs.m_coverage.empty(): %u",
+                    lhs.m_coverage.empty(),
+                    rhs.m_coverage.empty());
+                return false;
+            }
+
+            if (!lhs.m_coverage.empty())
+            {
+                return AZStd::equal(
+                    lhs.m_coverage.begin(),
+                    lhs.m_coverage.end(),
+                    rhs.m_coverage.begin(),
+                    [](const TestImpact::LineCoverage& left, const TestImpact::LineCoverage& right)
+                    {
+                        return left == right;
+                    });
+            }
+
+            return true;
+        }
+
+        bool operator==(const TestImpact::ModuleCoverage& lhs, const TestImpact::ModuleCoverage& rhs)
+        {
+            if (lhs.m_path != rhs.m_path)
+            {
+                AZ_Error("ModuleCoverage ==", false, "lhs.m_path: %s, rhs.m_path: %s", lhs.m_path.c_str(), rhs.m_path.c_str());
+                return false;
+            }
+
+            return AZStd::equal(
+                lhs.m_sources.begin(),
+                lhs.m_sources.end(),
+                rhs.m_sources.begin(),
+                [](const TestImpact::SourceCoverage& left, const TestImpact::SourceCoverage& right)
+                {
+                    return left == right;
+                });
+        }
+
+        bool operator==(const AZStd::vector<TestImpact::ModuleCoverage>& lhs, const AZStd::vector<TestImpact::ModuleCoverage>& rhs)
+        {
+            if (lhs.size() != rhs.size())
+            {
+                AZ_Error("ModuleCoverage ==", false, "lhs.size(): %u, rhs.size(): %u", lhs.size(), rhs.size());
+                return false;
+            }
+
+            return AZStd::equal(
+                lhs.begin(),
+                lhs.end(),
+                rhs.begin(),
+                [](const TestImpact::ModuleCoverage& left, const TestImpact::ModuleCoverage& right)
+                {
+                    return left == right;
+                });
+        }
+
+        bool operator!=(const AZStd::vector<TestImpact::ModuleCoverage>& lhs, const AZStd::vector<TestImpact::ModuleCoverage>& rhs)
+        {
+            return !(lhs == rhs);
+        }
+
+        bool operator==(const TestImpact::TestCoverage& lhs, const TestImpact::TestCoverage& rhs)
+        {
+            if (lhs.GetNumModulesCovered() != rhs.GetNumModulesCovered())
+            {
+                return false;
+            }
+
+            if (lhs.GetNumSourcesCovered() != rhs.GetNumSourcesCovered())
+            {
+                return false;
+            }
+
+            if (lhs.GetModuleCoverages() != rhs.GetModuleCoverages())
+            {
+                return false;
+            }
+
+            if (lhs.GetSourcesCovered().size() != rhs.GetSourcesCovered().size())
+            {
+                return false;
+            }
+
+            return true;
+        }
+    }
+
     using TestEnumerator = TestImpact::NativeTestEnumerator;
     using InstrumentedTestRunner = TestImpact::NativeInstrumentedTestRunner;
     using EnumerationTestJobInfoGenerator = TestImpact::NativeTestEnumerationJobInfoGenerator;
-    using ShardedTestJobInfoGenerator = TestImpact::NativeShardedInstrumentedTestRunJobInfoGenerator;
+    using InstrumentedShardedTestJobInfoGenerator = TestImpact::NativeShardedInstrumentedTestRunJobInfoGenerator;
+    using InstrumentedTestJobInfoGenerator = TestImpact::NativeInstrumentedTestRunJobInfoGenerator;
     using InstrumentedShardedTestSystem = TestImpact::NativeShardedTestSystem<InstrumentedTestRunner>;
     using RepoPath =TestImpact::RepoPath;
     using RuntimeConfig = TestImpact::NativeRuntimeConfig;
@@ -82,8 +204,15 @@ namespace UnitTest
             m_enumerationTestJobInfoGenerator = AZStd::make_unique<EnumerationTestJobInfoGenerator>(
                 m_config.m_target.m_outputDirectory, m_config.m_workspace.m_temp, m_config.m_testEngine.m_testRunner.m_binary);
 
-            m_shardedTestJobInfoGenerator = AZStd::make_unique<ShardedTestJobInfoGenerator>(
+            m_shardedTestJobInfoGenerator = AZStd::make_unique<InstrumentedShardedTestJobInfoGenerator>(
                 m_maxConcurrency,
+                m_config.m_commonConfig.m_repo.m_root,
+                m_config.m_target.m_outputDirectory,
+                m_config.m_shardedArtifactDir,
+                m_config.m_testEngine.m_testRunner.m_binary,
+                m_config.m_testEngine.m_instrumentation.m_binary);
+
+            m_testJobInfoGenerator = AZStd::make_unique<InstrumentedTestJobInfoGenerator>(
                 m_config.m_commonConfig.m_repo.m_root,
                 m_config.m_target.m_outputDirectory,
                 m_config.m_workspace.m_temp,
@@ -111,7 +240,8 @@ namespace UnitTest
         InstrumentedTestRunner m_instrumentedTestRunner;
         InstrumentedShardedTestSystem m_instrumentedShardedTestSystem;
         AZStd::unique_ptr<EnumerationTestJobInfoGenerator> m_enumerationTestJobInfoGenerator;
-        AZStd::unique_ptr<ShardedTestJobInfoGenerator> m_shardedTestJobInfoGenerator;
+        AZStd::unique_ptr<InstrumentedShardedTestJobInfoGenerator> m_shardedTestJobInfoGenerator;
+        AZStd::unique_ptr<InstrumentedTestJobInfoGenerator> m_testJobInfoGenerator;
         AZStd::vector<AZStd::pair<TestImpact::RepoPath, TestImpact::RepoPath>> m_testTargetPaths;
         RuntimeConfig m_config;
         AZStd::unique_ptr<DynamicDependencyMap> m_dynamicDependencyMap;
@@ -158,15 +288,15 @@ namespace UnitTest
             [[maybe_unused]] const TestImpact::JobMeta& meta,
             [[maybe_unused]] const TestImpact::StdContent& std) override
         {
-            AZ_Printf("Test Target", "Complete!\n");
-            if (std.m_err.has_value())
-            {
-                std::cout << std.m_err->c_str() << "\n";
-            }
-            if (std.m_out.has_value())
-            {
-                std::cout << std.m_out->c_str() << "\n";
-            }
+            //AZ_Printf("Test Target", "Complete!\n");
+            //if (std.m_err.has_value())
+            //{
+            //    std::cout << std.m_err->c_str() << "\n";
+            //}
+            //if (std.m_out.has_value())
+            //{
+            //    std::cout << std.m_out->c_str() << "\n";
+            //}
             return TestImpact::ProcessCallbackResult::Continue;
         }
 
@@ -191,7 +321,11 @@ namespace UnitTest
 
     TEST_F(TestEnumeratorFixture, FooBarBaz)
     {
-        const auto testTarget = m_buildTargets->GetTestTargetList().GetTarget("TestImpact.TestTargetD.Tests"); //("AzToolsFramework.Tests"); //("AzTestRunner.Tests");
+        const auto testTarget = m_buildTargets->GetTestTargetList().GetTarget("TestImpact.TestTargetA.Tests");
+        //const auto testTarget = m_buildTargets->GetTestTargetList().GetTarget("TestImpact.TestTargetD.Tests");
+        //const auto testTarget = m_buildTargets->GetTestTargetList().GetTarget("AzCore.Tests");
+        //const auto testTarget = m_buildTargets->GetTestTargetList().GetTarget("AzToolsFramework.Tests");
+        //const auto testTarget = m_buildTargets->GetTestTargetList().GetTarget("AzTestRunner.Tests");
         const auto enumJob = m_enumerationTestJobInfoGenerator->GenerateJobInfo(testTarget, { 1 });
         const auto enumResult = m_testEnumerator.Enumerate(
             { enumJob },
@@ -200,26 +334,33 @@ namespace UnitTest
             AZStd::nullopt,
             AZStd::nullopt);
 
+        const auto job =
+            m_testJobInfoGenerator->GenerateJobInfo(testTarget, { 10 });
+
         const auto shardJob =
             m_shardedTestJobInfoGenerator->GenerateJobInfo(testTarget, enumResult.second.front().GetPayload().value(), { 10 });
 
-        //const auto runResult = m_instrumentedTestRunner.RunTests(
-        //    shardJob.second,
-        //    TestImpact::StdOutputRouting::ToParent,
-        //    TestImpact::StdErrorRouting::ToParent,
-        //    AZStd::nullopt,
-        //    AZStd::nullopt,
-        //    jobCallback,
-        //    stdCallback);
+        TestImpact::Timer timer;
+        const auto runResult1 = m_instrumentedTestRunner.RunTests(
+            { job },
+            TestImpact::StdOutputRouting::ToParent,
+            TestImpact::StdErrorRouting::ToParent,
+            AZStd::nullopt,
+            AZStd::nullopt);
+
+        std::cout << "Duration 1: " << timer.GetElapsedMs().count() << "\n";
+        timer.ResetStartTimePoint();
 
         TestRunnerHandler<InstrumentedTestRunner> handler;
-        const auto runResult = m_instrumentedShardedTestSystem.RunTests(
+        const auto runResult2 = m_instrumentedShardedTestSystem.RunTests(
             { shardJob },
             TestImpact::StdOutputRouting::ToParent,
             TestImpact::StdErrorRouting::ToParent,
             AZStd::nullopt,
             AZStd::nullopt);
+
+        std::cout << "Duration 2: " << timer.GetElapsedMs().count() << "\n";
         
-        EXPECT_TRUE(true);
+        EXPECT_TRUE(runResult1.second.front().GetPayload()->second.GetModuleCoverages() == runResult2.second.front().GetPayload()->second.GetModuleCoverages());
     }
 } // namespace UnitTest

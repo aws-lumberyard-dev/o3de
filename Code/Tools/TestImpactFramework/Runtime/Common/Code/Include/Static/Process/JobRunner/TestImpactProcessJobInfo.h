@@ -131,7 +131,18 @@ namespace TestImpact
 
 namespace AZStd
 {
-    //! Hash function for JobInfo types for use in maps and sets.
+    //! Less function for JobInfo types for use in maps and sets.
+    template<typename AdditionalInfo>
+    struct less<typename TestImpact::JobInfo<AdditionalInfo>>
+    {
+        //! Hash of JobInfo is the hash of the JobInfo's Id.
+        bool operator()(const typename TestImpact::JobInfo<AdditionalInfo>& lhs, const typename TestImpact::JobInfo<AdditionalInfo>& rhs) const
+        {
+            return lhs.GetId().m_value < rhs.GetId().m_value;
+        }
+    };
+
+    //! Hash function for JobInfo types for use in unordered maps and sets.
     template<typename AdditionalInfo>
     struct hash<typename TestImpact::JobInfo<AdditionalInfo>>
     {

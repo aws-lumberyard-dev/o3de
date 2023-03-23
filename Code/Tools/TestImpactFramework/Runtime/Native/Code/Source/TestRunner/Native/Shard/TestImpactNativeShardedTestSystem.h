@@ -44,7 +44,7 @@ namespace TestImpact
     private:
         //!
         template<typename TestRunnerT>
-        using ShardToParentShardedJobMap = AZStd::unordered_map<typename TestRunnerT::JobInfo, const ShardedTestJobInfo<TestRunnerT>*>;
+        using ShardToParentShardedJobMap = AZStd::unordered_map<typename JobId::IdType, const ShardedTestJobInfo<TestRunnerT>*>;
 
         //!
         template<typename TestRunnerT>
@@ -52,14 +52,12 @@ namespace TestImpact
 
         //!
         static [[nodiscard]] typename NativeRegularTestRunner::ResultType ConsolidateSubJobs(
-            const AZStd::vector<ShardedTestJobInfo<NativeRegularTestRunner>>& shardedJobInfos,
             const typename NativeRegularTestRunner::ResultType& result,
             const ShardToParentShardedJobMap<NativeRegularTestRunner>& shardToParentShardedJobMap,
             const CompletedShardMap<NativeRegularTestRunner>& completedShardMap);
 
         //!
         static [[nodiscard]] typename NativeInstrumentedTestRunner::ResultType ConsolidateSubJobs(
-            const AZStd::vector<ShardedTestJobInfo<NativeInstrumentedTestRunner>>& shardedJobInfos,
             const typename NativeInstrumentedTestRunner::ResultType& result,
             const ShardToParentShardedJobMap<NativeInstrumentedTestRunner>& shardToParentShardedJobMap,
             const CompletedShardMap<NativeInstrumentedTestRunner>& completedShardMap);
@@ -108,7 +106,7 @@ namespace TestImpact
     ProcessCallbackResult NativeShardedTestSystem<TestRunnerType>::TestJobRunnerNotificationHandler::OnJobComplete(
         const typename TestRunnerType::Job::Info& jobInfo, const JobMeta& meta, const StdContent& std)
     {
-        const auto& shardedJobInfo = m_shardToParentShardedJobMap->at(jobInfo);
+        const auto& shardedJobInfo = m_shardToParentShardedJobMap->at(jobInfo.GetId().m_value);
         auto& shardedTestJob = m_completedShardMap->at(shardedJobInfo);
         
         {
@@ -155,7 +153,6 @@ namespace TestImpact
 
     template<typename TestRunnerType>
     typename NativeRegularTestRunner::ResultType NativeShardedTestSystem<TestRunnerType>::ConsolidateSubJobs(
-        [[maybe_unused]] const AZStd::vector<ShardedTestJobInfo<NativeRegularTestRunner>>& shardedJobInfos,
         [[maybe_unused]] const typename NativeRegularTestRunner::ResultType& result,
         [[maybe_unused]] const ShardToParentShardedJobMap<NativeRegularTestRunner>& shardToParentShardedJobMap,
         [[maybe_unused]] const CompletedShardMap<NativeRegularTestRunner>& completedShardMap)
@@ -165,30 +162,94 @@ namespace TestImpact
 
     template<typename TestRunnerType>
     typename NativeInstrumentedTestRunner::ResultType NativeShardedTestSystem<TestRunnerType>::ConsolidateSubJobs(
-        [[maybe_unused]] const AZStd::vector<ShardedTestJobInfo<NativeInstrumentedTestRunner>>& shardedJobInfos,
-        [[maybe_unused]] const typename NativeInstrumentedTestRunner::ResultType& result,
-        [[maybe_unused]] const ShardToParentShardedJobMap<NativeInstrumentedTestRunner>& shardToParentShardedJobMap,
-        [[maybe_unused]] const CompletedShardMap<NativeInstrumentedTestRunner>& completedShardMap)
+        const typename NativeInstrumentedTestRunner::ResultType& result,
+        const ShardToParentShardedJobMap<NativeInstrumentedTestRunner>& shardToParentShardedJobMap,
+        const CompletedShardMap<NativeInstrumentedTestRunner>& completedShardMap)
     {
-        const auto& [returnCode, jobs] = result;
-        AZStd::unordered_map<typename JobId::IdType, std::pair<AZStd::unordered_set<TestRunSuite>, AZStd::unordered_set<ModuleCoverage>>>
+        const auto& [returnCode, subJobs] = result;
+        AZStd::unordered_map<typename JobId::IdType, std::pair<AZStd::unordered_map<AZStd::string, TestRunSuite>, AZStd::unordered_map<RepoPath, ModuleCoverage>>>
             consolidatedJobArtifacts;
-        for (const auto& job : jobs)
+
+        for (const auto& subJob : subJobs)
         {
-            if (const auto payload = job.GetPayload();
+            if (const auto payload = subJob.GetPayload();
                 payload.has_value())
             {
-                const auto& [subTestResults, subTestCoverage] = payload.value();
-                const auto shardedTestJobInfo = shardToParentShardedJobMap.at(job.GetJobInfo());
+                const auto& [subTestRun, subTestCoverage] = payload.value();
+                const auto shardedTestJobInfo = shardToParentShardedJobMap.at(subJob.GetJobInfo().GetId().m_value);
+
+                // The parent job info id of the sharded sub jobs is the id of the first sub job info
                 const auto parentJobInfoId = shardedTestJobInfo->second.front().GetId();
-                auto& [testResults, testCoverage] = consolidatedJobArtifacts[parentJobInfoId.m_value];
+                auto& [testSuites, testCoverage] = consolidatedJobArtifacts[parentJobInfoId.m_value];
+
+                // Accumulate test results
+                if (subTestRun.has_value())
+                {
+                    for (const auto& subTestSuite : subTestRun->GetTestSuites())
+                    {
+                        auto& testSuite = testSuites[subTestSuite.m_name];
+                        if (testSuite.m_name.empty())
+                        {
+                            testSuite.m_name = subTestSuite.m_name;
+                        }
+
+                        testSuite.m_enabled = subTestSuite.m_enabled;
+                        testSuite.m_duration += subTestSuite.m_duration;
+                        testSuite.m_tests.insert(testSuite.m_tests.end(), subTestSuite.m_tests.begin(), subTestSuite.m_tests.end());
+                    }
+                }
+
+                // Accumulate test coverage
+                for (const auto& subModuleCoverage : subTestCoverage.GetModuleCoverages())
+                {
+                    auto& moduleCoverage = testCoverage[subModuleCoverage.m_path];
+                    if (moduleCoverage.m_path.empty())
+                    {
+                        moduleCoverage.m_path = subModuleCoverage.m_path;
+                        moduleCoverage.m_sources.insert(
+                            moduleCoverage.m_sources.end(), subModuleCoverage.m_sources.begin(), subModuleCoverage.m_sources.end());
+                    }
+                }
             }
         }
 
-        //AZStd::vector<typename TestRunnerType::Job> consolidatedJobs;
-        //consolidatedJobs.reserve(shardedJobInfos.size());
+        AZStd::vector<typename TestRunnerType::Job> consolidatedJobs;
+        consolidatedJobs.reserve(consolidatedJobArtifacts.size());
 
-        return {};
+        for (auto&& [jobId, artifacts] : consolidatedJobArtifacts)
+        {
+            AZStd::optional<TestRun> run;
+            auto&& [testSuites, testCoverage] = artifacts;
+            const auto shardedTestJobInfo = shardToParentShardedJobMap.at(jobId);
+            const auto& shardedTestJob = completedShardMap.at(shardedTestJobInfo);
+            const auto& jobData = shardedTestJob.GetConsolidatedJobData();
+            if (testSuites.size())
+            {
+                AZStd::vector<TestRunSuite> suites;
+                suites.reserve(testSuites.size());
+                for (auto&& [suiteName, suite] : testSuites)
+                {
+                    suites.emplace_back(AZStd::move(suite));
+                }
+
+                if (jobData.has_value())
+                {
+                    run = TestRun(AZStd::move(suites), jobData->m_meta.m_duration.value_or(AZStd::chrono::milliseconds{ 0 }));
+                }
+            }
+
+            AZStd::vector<ModuleCoverage> moduleCoverages;
+            moduleCoverages.reserve(testCoverage.size());
+            for (auto&& [modulePath, moduleCoverage] : testCoverage)
+            {
+                moduleCoverages.emplace_back(AZStd::move(moduleCoverage));
+            }
+
+            auto payload = typename TestRunnerType::JobPayload{ run, TestCoverage(AZStd::move(moduleCoverages)) };
+            consolidatedJobs.emplace_back(jobData->m_jobInfo, JobMeta{ jobData->m_meta }, AZStd::move(payload));
+        }
+
+        return { result.first, consolidatedJobs };
     }
 
     template<typename TestRunnerType>
@@ -223,7 +284,7 @@ namespace TestImpact
             subJobInfos.insert(subJobInfos.end(), jobInfos.begin(), jobInfos.end());
             for (const auto& jobInfo : jobInfos)
             {
-                shardToParentShardedJobMap[jobInfo] = &shardedJobInfo;
+                shardToParentShardedJobMap[jobInfo.GetId().m_value] = &shardedJobInfo;
             }
         }
 
@@ -235,6 +296,6 @@ namespace TestImpact
             runTimeout,
             runnerTimeout);
 
-         return ConsolidateSubJobs(shardedJobInfos, result, shardToParentShardedJobMap, completedShardMap);
+         return ConsolidateSubJobs(result, shardToParentShardedJobMap, completedShardMap);
     }
 } // namespace TestImpact

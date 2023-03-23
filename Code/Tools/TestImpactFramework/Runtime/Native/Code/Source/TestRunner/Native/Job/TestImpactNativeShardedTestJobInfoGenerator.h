@@ -8,6 +8,8 @@
 
 #pragma once
 
+#include <TestImpactFramework/Native/TestImpactNativeConfiguration.h>
+
 #include <Target/Native/TestImpactNativeTestTarget.h>
 #include <TestEngine/Common/Enumeration/TestImpactTestEngineEnumeration.h>
 #include <TestRunner/Native/Job/TestImpactNativeTestJobInfoGenerator.h>
@@ -35,7 +37,7 @@ namespace TestImpact
             size_t maxConcurrency,
             const RepoPath& sourceDir,
             const RepoPath& targetBinaryDir,
-            const ArtifactDir& artifactDir,
+            const NativeShardedArtifactDir& artifactDir,
             const RepoPath& testRunnerBinary,
             const RepoPath& instrumentBinary,
             CoverageLevel coverageLevel = CoverageLevel::Source);
@@ -66,7 +68,7 @@ namespace TestImpact
         RepoPath m_sourceDir;
         RepoPath m_targetBinaryDir;
         RepoPath m_cacheDir;
-        ArtifactDir m_artifactDir;
+        NativeShardedArtifactDir m_artifactDir;
         RepoPath m_testRunnerBinary;
         RepoPath m_instrumentBinary;
         CoverageLevel m_coverageLevel;

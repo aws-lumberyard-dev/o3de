@@ -271,7 +271,7 @@ namespace TestImpact
         for (const auto& jobInfo : jobInfos)
         {
             const auto jobId = jobInfo.GetId().m_value;
-            jobs.emplace_back(Job(jobInfo, AZStd::move(metas.at(jobId).first), AZStd::move(payloadMap[jobId])));
+            jobs.emplace_back(jobInfo, AZStd::move(metas.at(jobId).first), AZStd::move(payloadMap[jobId]));
         }
 
         return { result, jobs };

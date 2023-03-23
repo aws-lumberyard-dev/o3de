@@ -14,6 +14,14 @@
 
 namespace TestImpact
 {
+    //! Temporary workspace configuration.
+    struct NativeShardedArtifactDir
+    {
+        RepoPath m_shardedTestRunArtifactDirectory; //!< Path to read and write sharded test run artifacts to and from.
+        RepoPath m_shardedCoverageArtifactDirectory; //!< Path to read and write coverage artifacts to and from.
+    };
+
+
     //! Test engine configuration.
     struct NativeTestEngineConfig
     {
@@ -51,7 +59,8 @@ namespace TestImpact
     struct NativeRuntimeConfig
     {
         RuntimeConfig m_commonConfig;
-        WorkspaceConfig m_workspace;    
+        WorkspaceConfig m_workspace;
+        NativeShardedArtifactDir m_shardedArtifactDir;
         NativeTestEngineConfig m_testEngine;
         NativeTargetConfig m_target;
     };

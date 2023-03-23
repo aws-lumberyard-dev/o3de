@@ -42,6 +42,38 @@ namespace TestImpact
         };
     } // namespace
 
+    //namespace GTest
+    //{
+    //     // Keys for pertinent JSON node and attribute names
+    //    constexpr const char* Keys[] =
+    //    {
+    //        "testsuites",
+    //        "failures",
+    //        "disabled",
+    //        "errors",
+    //        "timestamp",
+    //        "time",
+    //        "classname",
+    //    };
+    //
+    //    enum
+    //    {
+    //        TestSuitesKey,
+    //        FailuresKey,
+    //        DisabledKey,
+    //        ErrorsKey,
+    //        TimestampKey,
+    //        TimeKey,
+    //        ClassNameKey,
+    //
+    //    };
+    //    AZStd::string SerializeTestRun(const TestRun& testRun)
+    //    {
+    //        rapidjson::StringBuffer stringBuffer;
+    //        rapidjson::PrettyWriter<rapidjson::StringBuffer> writer(stringBuffer);
+    //    }
+    //} // namespace GTest
+
     AZStd::string SerializeTestRun(const TestRun& testRun)
     {
         rapidjson::StringBuffer stringBuffer;

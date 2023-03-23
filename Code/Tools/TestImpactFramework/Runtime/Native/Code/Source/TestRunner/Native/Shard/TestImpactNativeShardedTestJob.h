@@ -42,7 +42,7 @@ namespace TestImpact
         void RegisterCompletedSubJob(const JobInfo& jobInfo, const JobMeta& meta, const StdContent& std);
 
         //!
-        AZStd::optional<JobData>& GetConsolidatedJobData();
+        const AZStd::optional<JobData>& GetConsolidatedJobData() const;
 
     private:
         const ShardedTestJobInfoType* m_shardedTestJobInfo = nullptr;
@@ -165,7 +165,7 @@ namespace TestImpact
     }
 
     template<typename TestRunnerType>
-    auto ShardedTestJob<TestRunnerType>::GetConsolidatedJobData() -> AZStd::optional<JobData>&
+    auto ShardedTestJob<TestRunnerType>::GetConsolidatedJobData() const -> const AZStd::optional<JobData>&
     {
         return m_consolidatedJobData;
     }

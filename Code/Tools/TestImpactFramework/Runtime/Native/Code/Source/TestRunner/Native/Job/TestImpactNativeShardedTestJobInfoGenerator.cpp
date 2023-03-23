@@ -18,7 +18,7 @@ namespace TestImpact
         size_t maxConcurrency,
         const RepoPath& sourceDir,
         const RepoPath& targetBinaryDir,
-        const ArtifactDir& artifactDir,
+        const NativeShardedArtifactDir& artifactDir,
         const RepoPath& testRunnerBinary,
         const RepoPath& instrumentBinary,
         CoverageLevel coverageLevel)
@@ -113,12 +113,12 @@ namespace TestImpact
         for (size_t i = 0; i < testFilters.size(); i++)
         {
             const auto shardedRunArtifact = AZStd::string::format(
-                "%s.%zu", GenerateTargetRunArtifactFilePath(testTarget, m_artifactDir.m_testRunArtifactDirectory).c_str(), i);
+                "%s.%zu", GenerateTargetRunArtifactFilePath(testTarget, m_artifactDir.m_shardedTestRunArtifactDirectory).c_str(), i);
 
             const auto shardCoverageArtifact = AZStd::string::format(
-                "%s.%zu", GenerateTargetCoverageArtifactFilePath(testTarget, m_artifactDir.m_coverageArtifactDirectory).c_str(), i);
+                "%s.%zu", GenerateTargetCoverageArtifactFilePath(testTarget, m_artifactDir.m_shardedCoverageArtifactDirectory).c_str(), i);
 
-            const RepoPath shardAdditionalArgsFile = AZStd::string::format("%s.args.%zu", (m_artifactDir.m_testRunArtifactDirectory / RepoPath(testTarget->GetName())).c_str(), i);
+            const RepoPath shardAdditionalArgsFile = AZStd::string::format("%s.args.%zu", (m_artifactDir.m_shardedTestRunArtifactDirectory / RepoPath(testTarget->GetName())).c_str(), i);
 
             const auto shardLaunchCommand =
                 AZStd::string::format("%s --args_from_file \"%s\"", launchArgument.c_str(), shardAdditionalArgsFile.c_str());

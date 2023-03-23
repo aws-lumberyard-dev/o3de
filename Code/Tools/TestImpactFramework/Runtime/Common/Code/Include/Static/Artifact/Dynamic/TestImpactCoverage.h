@@ -45,7 +45,7 @@ namespace TestImpact
     };
 } // namespace TestImpact
 
-namespace std
+namespace AZStd
 {
     //!
     template<>
@@ -64,6 +64,26 @@ namespace std
         bool operator()(const TestImpact::ModuleCoverage& lhs, const TestImpact::ModuleCoverage& rhs) const
         {
             return lhs.m_path < rhs.m_path;
+        }
+    };
+
+    //!
+    template<>
+    struct hash<TestImpact::SourceCoverage>
+    {
+        bool operator()(const TestImpact::SourceCoverage& key) const
+        {
+            return hash<TestImpact::RepoPath>()(key.m_path);
+        }
+    };
+
+    //!
+    template<>
+    struct hash<TestImpact::ModuleCoverage>
+    {
+        bool operator()(const TestImpact::ModuleCoverage& key) const
+        {
+            return hash<TestImpact::RepoPath>()(key.m_path);
         }
     };
 } // namespace std

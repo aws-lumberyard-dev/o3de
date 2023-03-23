@@ -41,6 +41,9 @@ namespace TestImpact
             "target",
             "policy",
             "workspace",
+            "temp",
+            "sharded_run_artifact_dir",
+            "sharded_coverage_artifact_dir"
         };
 
         enum
@@ -64,6 +67,9 @@ namespace TestImpact
             TargetName,
             TestShardingPolicy,
             Workspace,
+            TempWorkspace,
+            ShardedRunArtifactDir,
+            ShardedCoverageArtifactDir
         };
     } // namespace Config
 
@@ -124,6 +130,14 @@ namespace TestImpact
         return targetConfig;
     }
 
+    NativeShardedArtifactDir ParseShardedArtifactConfig(const rapidjson::Value& tempWorkspace)
+    {
+        NativeShardedArtifactDir shardedWorkspaceConfig;
+        shardedWorkspaceConfig.m_shardedTestRunArtifactDirectory = tempWorkspace[Config::Keys[Config::ShardedRunArtifactDir]].GetString();
+        shardedWorkspaceConfig.m_shardedCoverageArtifactDirectory = tempWorkspace[Config::Keys[Config::ShardedCoverageArtifactDir]].GetString();
+        return shardedWorkspaceConfig;
+    }
+
     NativeRuntimeConfig NativeRuntimeConfigurationFactory(const AZStd::string& configurationData)
     {
         rapidjson::Document configurationFile;
@@ -136,6 +150,8 @@ namespace TestImpact
         NativeRuntimeConfig runtimeConfig;
         runtimeConfig.m_commonConfig = RuntimeConfigurationFactory(configurationData);
         runtimeConfig.m_workspace = ParseWorkspaceConfig(configurationFile[Config::Keys[Config::Native]][Config::Keys[Config::Workspace]]);
+        runtimeConfig.m_shardedArtifactDir = ParseShardedArtifactConfig(
+            configurationFile[Config::Keys[Config::Native]][Config::Keys[Config::Workspace]][Config::Keys[Config::TempWorkspace]]);
         runtimeConfig.m_testEngine = ParseTestEngineConfig(configurationFile[Config::Keys[Config::Native]][Config::Keys[Config::TestEngine]]);
         runtimeConfig.m_target = ParseTargetConfig(configurationFile[Config::Keys[Config::Native]][Config::Keys[Config::TargetConfig]]);
 
