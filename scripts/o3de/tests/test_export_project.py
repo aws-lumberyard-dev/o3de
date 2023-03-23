@@ -112,7 +112,7 @@ def test_export_script(tmp_path, args, should_pass_project_folder, project_folde
 
     #only check for these if we're simulating a successful case
     if result == 0:
-        assert script_folder in sys.path
+        assert str(script_folder) in sys.path
 
         assert test_output.is_file()
 
@@ -123,7 +123,7 @@ def test_export_script(tmp_path, args, should_pass_project_folder, project_folde
             assert text == f"This is a test for the following: {args[0]}"
 
         o3de_cli_folder = pathlib.Path(__file__).parent.parent / "o3de"
-        assert o3de_cli_folder in sys.path
+        assert str(o3de_cli_folder) in sys.path
     
 
 TEST_ERR_PYTHON_SCRIPT = """

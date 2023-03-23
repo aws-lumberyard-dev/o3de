@@ -116,7 +116,7 @@ def test_prepend_to_system_path(test_path):
     with patch("sys.path") as path_patch:
         utils.prepend_to_system_path(test_path)
         assert path_patch.insert.called
-        result_path = path_patch.insert.call_args.args[1]
+        result_path = pathlib.Path(path_patch.insert.call_args.args[1])
         assert result_path.is_dir()
 
         if isinstance(test_path, str):
