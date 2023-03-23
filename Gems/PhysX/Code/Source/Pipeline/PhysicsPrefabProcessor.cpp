@@ -33,30 +33,22 @@ namespace PhysX
         auto* transformComponent = entity->FindComponent<AzFramework::TransformComponent>();
         linkData->m_relativeTransform = transformComponent->GetLocalTM();
 
-        BaseColliderComponent* baseColliderComponent = entity->FindComponent<BaseColliderComponent>();
-        if (!baseColliderComponent)
-        {
-            baseColliderComponent = entity->FindComponent<MeshColliderComponent>();
-        }
+        auto& components = entity->GetComponents();
+        auto baseColliderComponentIt = AZStd::find_if(
+            components.begin(),
+            components.end(),
+            [](AZ::Component* component)
+            {
+                return azdynamic_cast<BaseColliderComponent*>(component) != nullptr;
+            });
 
-        if (!baseColliderComponent)
+        if (baseColliderComponentIt != components.end())
         {
-            baseColliderComponent = entity->FindComponent<CapsuleColliderComponent>();
-        }
+            auto* baseColliderComponent = azdynamic_cast<BaseColliderComponent*>(*baseColliderComponentIt);
+            AzPhysics::ShapeColliderPairList shapeColliderPairList = baseColliderComponent->GetShapeConfigurations();
+            AZ_Assert(!shapeColliderPairList.empty(), "Collider component with no shape configurations");
 
-        if (!baseColliderComponent)
-        {
-            baseColliderComponent = entity->FindComponent<BoxColliderComponent>();
-        }
-
-        if (!baseColliderComponent)
-        {
-            baseColliderComponent = entity->FindComponent<SphereColliderComponent>();
-        }
-
-        if (baseColliderComponent)
-        {
-            AzPhysics::ShapeColliderPair shapeColliderPair = baseColliderComponent->GetShapeConfigurations()[0];
+            AzPhysics::ShapeColliderPair& shapeColliderPair = shapeColliderPairList[0];
             linkData->m_colliderConfiguration = *(shapeColliderPair.first);
             linkData->m_shapeConfiguration = shapeColliderPair.second;
         }
