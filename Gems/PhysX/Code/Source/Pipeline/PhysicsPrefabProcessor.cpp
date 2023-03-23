@@ -88,54 +88,42 @@ namespace PhysX
     }
 
     void PhysicsPrefabProcessor::BuildArticulationLinksData(
-        ArticulationsGraph& graph,
-        AZStd::vector<AZStd::shared_ptr<ArticulationLinkData>>& links,
-        ArticulationNode* current)
+        ArticulationNode* currentNode,
+        AZStd::shared_ptr<ArticulationLinkData> parentLinkData)
     {
-        AZ::Entity* currentEntity = current->m_entity;
-        ArticulationLinkComponent* articulationComponent = current->m_articulationComponent;
-
         auto thisLinkData = AZStd::make_shared<ArticulationLinkData>();
 
         // Pack the data from this entity into ArticulationLinkData.
         // This includes the information about collision shapes, collider configuration, joints, debug data etc.
-        EntityDataToArticulationLinkData(currentEntity, thisLinkData.get());
+        EntityDataToArticulationLinkData(currentNode->m_entity, thisLinkData.get());
 
-        // If this is not the root entity, then insert the link data into the vector of child links.
-        if (graph.m_articulationRoots.count(thisLinkData->m_entityId) == 0)
+        if (parentLinkData)
         {
-            links.push_back(thisLinkData);
+            // When it is not the root node (parent link data is valid),
+            // insert this link data into the parent's child links.
+            parentLinkData->m_childLinks.push_back(thisLinkData);
         }
         else
         {
             // Root link data lives in the component itself since there can only be 1 root
-            articulationComponent->m_articulationLinkData = thisLinkData;
+            currentNode->m_articulationComponent->m_articulationLinkData = thisLinkData;
         }
 
         // Recursively call this data gathering routing for all children.
-        for (ArticulationNode* childNode : current->m_children)
+        for (ArticulationNode* childNode : currentNode->m_children)
         {
-            BuildArticulationLinksData(graph, thisLinkData->m_childLinks, childNode);
+            BuildArticulationLinksData(childNode, thisLinkData);
         }
-    }
-
-    void PhysicsPrefabProcessor::ProcessHierarchy(ArticulationsGraph& graph, AZ::EntityId rootId)
-    {
-        auto rootNodeIter = graph.m_nodes.find(rootId);
-        AZ_Assert(rootNodeIter != graph.m_nodes.end(), "Articulation root not found in the graph");
-
-        ArticulationNode* rootNode = rootNodeIter->second.get();
-        ArticulationLinkComponent* articulationComponent = rootNode->m_articulationComponent;
-        ArticulationLinkData* articulationLinkData = articulationComponent->m_articulationLinkData.get();
-
-        BuildArticulationLinksData(graph, articulationLinkData->m_childLinks, rootNode);
     }
 
     void PhysicsPrefabProcessor::ProcessArticulationHierarchies(ArticulationsGraph& graph)
     {
-        for (auto entityId : graph.m_articulationRoots)
+        for (auto rootEntityId : graph.m_articulationRoots)
         {
-            ProcessHierarchy(graph, entityId);
+            auto rootNodeIter = graph.m_nodes.find(rootEntityId);
+            AZ_Assert(rootNodeIter != graph.m_nodes.end(), "Articulation root not found in the graph");
+            AZ_Assert(rootNodeIter->second.get(), "Invalid Articulation root node in the graph");
+            BuildArticulationLinksData(rootNodeIter->second.get());
         }
     }
 
