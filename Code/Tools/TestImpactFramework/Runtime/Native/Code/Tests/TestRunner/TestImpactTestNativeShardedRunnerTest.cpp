@@ -32,6 +32,7 @@
 #include <Target/Native/TestImpactNativeProductionTarget.h>
 #include <Target/Native/TestImpactNativeTargetListCompiler.h>
 #include <Target/Native/TestImpactNativeTestTarget.h>
+#include <TestRunner/Common/Run/TestImpactTestRunSerializer.h>
 
 #include <AzCore/UnitTest/TestTypes.h>
 #include <AzTest/AzTest.h>
@@ -349,6 +350,9 @@ namespace UnitTest
             AZStd::nullopt);
 
         std::cout << "Duration 1: " << timer.GetElapsedMs().count() << "\n";
+
+        const auto testString = TestImpact::GTest::SerializeTestRun(runResult1.second.front().GetPayload()->first.value());
+
         timer.ResetStartTimePoint();
 
         TestRunnerHandler<InstrumentedTestRunner> handler;

@@ -127,7 +127,7 @@ namespace TestImpact
                     consolidatedMeta.m_startTime = subJob.m_meta.m_startTime;
                 }
 
-                // Accumulate the durations
+                // Accumulate the durations ////////////////////////////////////////// NO! CAPTURE THE JOB START AND JOB END IN THE JOB MGR...
                 if (subJob.m_meta.m_duration.has_value())
                 {
                     consolidatedMeta.m_duration = consolidatedMeta.m_duration.has_value()
