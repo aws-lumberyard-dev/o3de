@@ -154,7 +154,7 @@ class CLICommand(object):
             raise err
         return ret
 
-def prepend_file_to_system_path(file_path: pathlib.Path or str) -> None:
+def prepend_to_system_path(file_path: pathlib.Path or str) -> None:
     """
     Prepend the running script's imported system module paths. Useful for loading scripts in a foreign directory
     :param path: The file path of the desired script to load

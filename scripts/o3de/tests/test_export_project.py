@@ -75,26 +75,22 @@ with open(folder / "test_output.txt", 'w') as test_file:
 
 @pytest.mark.parametrize("args, should_pass_project_folder, project_folder_subpath, script_folder_subpath, output_filename, expected_result", [
     #successful cases
-    pytest.param(['456'], False, ["test_project"], ["test_project" , "ExportScripts"], "test_output.txt", 0),
-    pytest.param(['456'], True, ["test_project"], ["test_project" , "ExportScripts"], "test_output.txt", 0),
-    pytest.param(['456'], True, ["test_project"], ["export_scripts"], "test_output.txt", 0),
-    pytest.param([456], True, ["test_project"], ["export_scripts"], "test_output.txt", 0),
+    pytest.param(['456'], False, pathlib.PurePath("test_project"), pathlib.PurePath("test_project/ExportScripts"), pathlib.PurePath("test_output.txt"), 0),
+    pytest.param(['456'], True, pathlib.PurePath("test_project"), pathlib.PurePath("test_project/ExportScripts"), pathlib.PurePath("test_output.txt"), 0),
+    pytest.param(['456'], True, pathlib.PurePath("test_project"), pathlib.PurePath("export_scripts"), pathlib.PurePath("test_output.txt"), 0),
+    pytest.param([456], True, pathlib.PurePath("test_project"), pathlib.PurePath("export_scripts"), pathlib.PurePath("test_output.txt"), 0),
 
     #failure cases
-    pytest.param([], True, ["test_project"], ["export_scripts"], "test_output.txt", 1),
-    pytest.param([456], False, ["test_project"], ["export_scripts"], "test_output.txt", 1),
+    pytest.param([], True, pathlib.PurePath("test_project"), pathlib.PurePath("export_scripts"), pathlib.PurePath("test_output.txt"), 1),
+    pytest.param([456], False, pathlib.PurePath("test_project"), pathlib.PurePath("export_scripts"), pathlib.PurePath("test_output.txt"), 1),
 ])
 def test_export_script(tmp_path, args, should_pass_project_folder, project_folder_subpath, script_folder_subpath, output_filename, expected_result):
     import sys
 
-    project_folder = tmp_path 
-    for pf in project_folder_subpath:
-        project_folder = project_folder / pf
+    project_folder = tmp_path / project_folder_subpath
     project_folder.mkdir()
 
-    script_folder = tmp_path 
-    for sf in script_folder_subpath:
-        script_folder = script_folder / sf
+    script_folder = tmp_path / script_folder_subpath
     script_folder.mkdir()
 
 

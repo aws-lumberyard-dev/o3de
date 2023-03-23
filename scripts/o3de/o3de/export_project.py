@@ -73,8 +73,8 @@ def execute_python_script(target_script_path: pathlib.Path or str, o3de_context:
     """
     #Prepare import paths for script ease of use
     #Allow for imports from calling script and the target script's local directory
-    utils.prepend_file_to_system_path(pathlib.Path(__file__))
-    utils.prepend_file_to_system_path(target_script_path)
+    utils.prepend_to_system_path(pathlib.Path(__file__))
+    utils.prepend_to_system_path(target_script_path)
 
     logging.info(f"Begin loading script '{target_script_path}'...")
     

@@ -112,9 +112,9 @@ def test_cli_command(args, expected_return_code):
     pytest.param(pathlib.Path(__file__)),
     pytest.param(pathlib.Path(__file__).parent)
 ])
-def test_prepend_file_to_system_path(test_path):
+def test_prepend_to_system_path(test_path):
     with patch("sys.path") as path_patch:
-        utils.prepend_file_to_system_path(test_path)
+        utils.prepend_to_system_path(test_path)
         assert path_patch.insert.called
         result_path = path_patch.insert.call_args.args[1]
         assert result_path.is_dir()
