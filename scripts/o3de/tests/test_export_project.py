@@ -73,18 +73,42 @@ with open(folder / "test_output.txt", 'w') as test_file:
 
     """
 
-@pytest.mark.parametrize("args, should_pass_project_folder, project_folder_subpath, script_folder_subpath, output_filename, expected_result", [
+def check_for_o3de_context_arg(output_file_text, args):
+    if len(args) > 0:
+        assert output_file_text == f"This is a test for the following: {args[0]}"
+
+TEST_ERR_PYTHON_SCRIPT = """
+import pathlib
+
+raise RuntimeError("Test export RuntimeError")
+print("hi there")
+    """
+
+@pytest.mark.parametrize("input_script, args, should_pass_project_folder, project_folder_subpath, script_folder_subpath, output_filename, is_expecting_error, output_evaluation_func, expected_result", [
+    #SCRIPT 1
     #successful cases
-    pytest.param(['456'], False, pathlib.PurePath("test_project"), pathlib.PurePath("test_project/ExportScripts"), pathlib.PurePath("test_output.txt"), 0),
-    pytest.param(['456'], True, pathlib.PurePath("test_project"), pathlib.PurePath("test_project/ExportScripts"), pathlib.PurePath("test_output.txt"), 0),
-    pytest.param(['456'], True, pathlib.PurePath("test_project"), pathlib.PurePath("export_scripts"), pathlib.PurePath("test_output.txt"), 0),
-    pytest.param([456], True, pathlib.PurePath("test_project"), pathlib.PurePath("export_scripts"), pathlib.PurePath("test_output.txt"), 0),
+    pytest.param(TEST_PYTHON_SCRIPT, ['456'], False, pathlib.PurePath("test_project"), pathlib.PurePath("test_project/ExportScripts"), pathlib.PurePath("test_output.txt"), False, check_for_o3de_context_arg, 0),
+    pytest.param(TEST_PYTHON_SCRIPT, ['456'], True, pathlib.PurePath("test_project"), pathlib.PurePath("test_project/ExportScripts"), pathlib.PurePath("test_output.txt"), False, check_for_o3de_context_arg, 0),
+    pytest.param(TEST_PYTHON_SCRIPT, ['456'], True, pathlib.PurePath("test_project"), pathlib.PurePath("export_scripts"), pathlib.PurePath("test_output.txt"), False, check_for_o3de_context_arg, 0),
+    pytest.param(TEST_PYTHON_SCRIPT, [456], True, pathlib.PurePath("test_project"), pathlib.PurePath("export_scripts"), pathlib.PurePath("test_output.txt"), False, check_for_o3de_context_arg, 0),
 
     #failure cases
-    pytest.param([], True, pathlib.PurePath("test_project"), pathlib.PurePath("export_scripts"), pathlib.PurePath("test_output.txt"), 1),
-    pytest.param([456], False, pathlib.PurePath("test_project"), pathlib.PurePath("export_scripts"), pathlib.PurePath("test_output.txt"), 1),
+    pytest.param(TEST_PYTHON_SCRIPT, [], True, pathlib.PurePath("test_project"), pathlib.PurePath("export_scripts"), pathlib.PurePath("test_output.txt"), False, check_for_o3de_context_arg, 1),
+    pytest.param(TEST_PYTHON_SCRIPT, [456], False, pathlib.PurePath("test_project"), pathlib.PurePath("export_scripts"), pathlib.PurePath("test_output.txt"), False, check_for_o3de_context_arg, 1),
+
+    #SCRIPT 2
+    pytest.param(TEST_ERR_PYTHON_SCRIPT, [], True, pathlib.PurePath("test_project"), pathlib.PurePath("export_scripts"), None, True, None, 1)
 ])
-def test_export_script(tmp_path, args, should_pass_project_folder, project_folder_subpath, script_folder_subpath, output_filename, expected_result):
+def test_export_script(tmp_path,
+                       input_script, 
+                       args, 
+                       should_pass_project_folder, 
+                       project_folder_subpath, 
+                       script_folder_subpath, 
+                       output_filename, 
+                       is_expecting_error, 
+                       output_evaluation_func,
+                       expected_result):
     import sys
 
     project_folder = tmp_path / project_folder_subpath
@@ -99,11 +123,12 @@ def test_export_script(tmp_path, args, should_pass_project_folder, project_folde
 
 
     test_script = script_folder / "test.py"
-    test_script.write_text(TEST_PYTHON_SCRIPT)
+    test_script.write_text(input_script)
 
-    test_output = script_folder / output_filename
+    if output_filename:
+        test_output = script_folder / output_filename
 
-    assert not test_output.is_file()
+        assert not test_output.is_file()
     
     result = _export_script(test_script, project_folder if should_pass_project_folder else None, args)
 
@@ -111,43 +136,17 @@ def test_export_script(tmp_path, args, should_pass_project_folder, project_folde
 
 
     #only check for these if we're simulating a successful case
-    if result == 0:
+    if result == 0 and not is_expecting_error:
         assert str(script_folder) in sys.path
 
-        assert test_output.is_file()
+        if output_filename:
+            assert test_output.is_file()
 
-        with open(test_output, 'r') as t_out:
-            text = t_out.read()
+            with open(test_output, 'r') as t_out:
+                output_text = t_out.read()
         
-        if len(args) > 0:
-            assert text == f"This is a test for the following: {args[0]}"
+            if output_evaluation_func:
+                output_evaluation_func(output_text, args)
 
         o3de_cli_folder = pathlib.Path(__file__).parent.parent / "o3de"
-        assert str(o3de_cli_folder) in sys.path
-    
-
-TEST_ERR_PYTHON_SCRIPT = """
-import pathlib
-
-raise RuntimeError("Whoops")
-print("hi there")
-    """
-
-def test_export_script_runtime_error(tmp_path):
-    project_folder = tmp_path / "test_project"
-    project_folder.mkdir()
-
-    script_folder = project_folder / "export_scripts"
-    script_folder.mkdir()
-
-    project_json = project_folder / "project.json"
-    project_json.write_text(TEST_PROJECT_JSON_PAYLOAD)
-
-
-    test_script = script_folder / "test.py"
-    test_script.write_text(TEST_ERR_PYTHON_SCRIPT)
-    
-    result = _export_script(test_script, project_folder, [])
-
-    assert result == 1
-
+        assert str(o3de_cli_folder) in sys.path    
