@@ -15,30 +15,7 @@ namespace AzQtComponents
 {
     void ShowFileOnDesktop(const QString& path)
     {
-        const char* defaultNautilusPath = "/usr/bin/nautilus";
-        const char* defaultXdgOpenPath = "/usr/bin/xdg-open";
-
-        // Determine if Nautilus (for Gnome Desktops) is available because it supports opening the file manager 
-        // and selecting a specific file
-        bool nautilusAvailable = QFileInfo(defaultNautilusPath).exists();
-
-        QFileInfo pathInfo(path);
-        if (pathInfo.isDir())
-        {
-            QProcess::startDetached(defaultXdgOpenPath, { path });
-        }
-        else
-        {
-            if (nautilusAvailable)
-            {
-                QProcess::startDetached(defaultNautilusPath, { "--select", path });
-            }
-            else
-            {
-                QDir parentDir { pathInfo.dir() };
-                QProcess::startDetached(defaultXdgOpenPath, { parentDir.path() });
-            }
-        }
+        QDesktopServices::openUrl(QUrl::fromLocalFile(path));
     }
 
     QString fileBrowserActionName()

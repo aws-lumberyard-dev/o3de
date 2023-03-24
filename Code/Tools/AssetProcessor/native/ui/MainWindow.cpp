@@ -2073,12 +2073,12 @@ void MainWindow::ShowJobViewContextMenu(const QPoint& pos)
     });
     fileBrowserAction->setToolTip(tr("Opens a window in your operating system's file explorer to view the source asset for this job."));
 
-    menu.addAction(tr("Open"), this, [&]()
+    menu.addAction(tr("Open file"), this, [&]()
     {
         QDesktopServices::openUrl(QUrl::fromLocalFile(FindAbsoluteFilePath(item)));
     });
 
-    menu.addAction(tr("Copy"), this, [&]()
+    menu.addAction(tr("Copy full path"), this, [&]()
     {
         QGuiApplication::clipboard()->setText(QDir::toNativeSeparators(FindAbsoluteFilePath(item)));
     });
@@ -2103,18 +2103,10 @@ void MainWindow::ShowJobViewContextMenu(const QPoint& pos)
     auto logDir = fileInfo.absoluteDir();
     auto openLogFolder = menu.addAction(tr("Open folder with log file"), this, [&]()
     {
-        if (fileInfo.exists())
-        {
-            AzQtComponents::ShowFileOnDesktop(fileInfo.absoluteFilePath());
-        }
-        else
-        {
-            // If the file doesn't exist, but the directory does, just open the directory
-            AzQtComponents::ShowFileOnDesktop(logDir.absolutePath());
-        }
+        AzQtComponents::ShowFileOnDesktop(logDir.absolutePath());
     });
     // Only open and show the folder if the file actually exists, otherwise it's confusing
-    openLogFolder->setEnabled(fileInfo.exists());
+    openLogFolder->setEnabled(logDir.exists());
 
     menu.exec(ui->jobTreeView->viewport()->mapToGlobal(pos));
 }
