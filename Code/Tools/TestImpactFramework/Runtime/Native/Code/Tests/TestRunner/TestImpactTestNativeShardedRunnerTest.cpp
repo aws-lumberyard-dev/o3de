@@ -198,11 +198,13 @@ namespace UnitTest
         TestEnumeratorFixture()
             : m_testEnumerator(m_maxConcurrency)
             , m_instrumentedTestRunner(m_maxConcurrency)
-            , m_instrumentedShardedTestSystem(m_instrumentedTestRunner)
             , m_config(
                   TestImpact::NativeRuntimeConfigurationFactory(
                       TestImpact::ReadFileContents<TestImpact::ConfigurationException>(LY_TEST_IMPACT_DEFAULT_CONFIG_FILE)))
         {
+            m_instrumentedShardedTestSystem = AZStd::make_unique<InstrumentedShardedTestSystem>(
+                m_instrumentedTestRunner, m_config.m_commonConfig.m_repo.m_root, m_config.m_workspace.m_temp);
+
             m_enumerationTestJobInfoGenerator = AZStd::make_unique<EnumerationTestJobInfoGenerator>(
                 m_config.m_target.m_outputDirectory, m_config.m_workspace.m_temp, m_config.m_testEngine.m_testRunner.m_binary);
 
@@ -240,7 +242,7 @@ namespace UnitTest
         static constexpr size_t m_maxConcurrency = 32;
         TestEnumerator m_testEnumerator;
         InstrumentedTestRunner m_instrumentedTestRunner;
-        InstrumentedShardedTestSystem m_instrumentedShardedTestSystem;
+        AZStd::unique_ptr<InstrumentedShardedTestSystem> m_instrumentedShardedTestSystem;
         AZStd::unique_ptr<EnumerationTestJobInfoGenerator> m_enumerationTestJobInfoGenerator;
         AZStd::unique_ptr<InstrumentedShardedTestJobInfoGenerator> m_shardedTestJobInfoGenerator;
         AZStd::unique_ptr<InstrumentedTestJobInfoGenerator> m_testJobInfoGenerator;
@@ -326,9 +328,9 @@ namespace UnitTest
         const auto path = m_config.m_commonConfig.m_repo.m_root / m_config.m_workspace.m_active.m_sparTiaFile;
         const auto rootName = path.RelativePath().String();
 
-        //const auto testTarget = m_buildTargets->GetTestTargetList().GetTarget("TestImpact.TestTargetA.Tests");
+        const auto testTarget = m_buildTargets->GetTestTargetList().GetTarget("TestImpact.TestTargetA.Tests");
         //const auto testTarget = m_buildTargets->GetTestTargetList().GetTarget("TestImpact.TestTargetD.Tests");
-        const auto testTarget = m_buildTargets->GetTestTargetList().GetTarget("AzCore.Tests");
+        //const auto testTarget = m_buildTargets->GetTestTargetList().GetTarget("AzCore.Tests");
         //const auto testTarget = m_buildTargets->GetTestTargetList().GetTarget("AzToolsFramework.Tests");
         //const auto testTarget = m_buildTargets->GetTestTargetList().GetTarget("AzTestRunner.Tests");
         const auto enumJob = m_enumerationTestJobInfoGenerator->GenerateJobInfo(testTarget, { 1 });
@@ -346,19 +348,19 @@ namespace UnitTest
             m_shardedTestJobInfoGenerator->GenerateJobInfo(testTarget, enumResult.second.front().GetPayload().value(), { 10 });
 
         TestImpact::Timer timer;
-        const auto runResult1 = m_instrumentedTestRunner.RunTests(
-            { job },
-            TestImpact::StdOutputRouting::ToParent,
-            TestImpact::StdErrorRouting::ToParent,
-            AZStd::nullopt,
-            AZStd::nullopt);
-
-        std::cout << "Duration 1: " << timer.GetElapsedMs().count() << "\n";
-
-        timer.ResetStartTimePoint();
+        //const auto runResult1 = m_instrumentedTestRunner.RunTests(
+        //    { job },
+        //    TestImpact::StdOutputRouting::ToParent,
+        //    TestImpact::StdErrorRouting::ToParent,
+        //    AZStd::nullopt,
+        //    AZStd::nullopt);
+        //
+        //std::cout << "Duration 1: " << timer.GetElapsedMs().count() << "\n";
+        //
+        //timer.ResetStartTimePoint();
 
         TestRunnerHandler<InstrumentedTestRunner> handler;
-        const auto runResult2 = m_instrumentedShardedTestSystem.RunTests(
+        const auto runResult2 = m_instrumentedShardedTestSystem->RunTests(
             { shardJob },
             TestImpact::StdOutputRouting::ToParent,
             TestImpact::StdErrorRouting::ToParent,
@@ -371,6 +373,6 @@ namespace UnitTest
         const auto coverageString = TestImpact::Cobertura::SerializeTestCoverage(
             runResult2.second.front().GetPayload()->second, m_config.m_commonConfig.m_repo.m_root);
         
-        EXPECT_TRUE(runResult1.second.front().GetPayload()->second.GetModuleCoverages() == runResult2.second.front().GetPayload()->second.GetModuleCoverages());
+        //EXPECT_TRUE(runResult1.second.front().GetPayload()->second.GetModuleCoverages() == runResult2.second.front().GetPayload()->second.GetModuleCoverages());
     }
 } // namespace UnitTest

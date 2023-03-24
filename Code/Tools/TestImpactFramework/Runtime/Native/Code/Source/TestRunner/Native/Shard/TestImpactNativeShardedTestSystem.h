@@ -8,6 +8,8 @@
 
 #pragma once
 
+#include <TestRunner/Common/Run/TestImpactTestCoverageSerializer.h>
+#include <TestRunner/Common/Run/TestImpactTestRunSerializer.h>
 #include <TestRunner/Native/TestImpactNativeInstrumentedTestRunner.h>
 #include <TestRunner/Native/TestImpactNativeRegularTestRunner.h>
 #include <TestRunner/Native/Job/TestImpactNativeShardedTestJobInfoGenerator.h>
@@ -31,7 +33,7 @@ namespace TestImpact
         using ShardedTestJobInfoType = ShardedTestJobInfo<TestRunnerType>;
 
         //! Constructs the sharded test system to wrap around the specified test runner.
-        NativeShardedTestSystem(TestRunnerType& testRunner);
+        NativeShardedTestSystem(TestRunnerType& testRunner, const RepoPath& repoRoot, const ArtifactDir& artifactDir);
 
         //! Wrapper around the test runner's `RunTests` method to present the sharded test running interface to the user.
         [[nodiscard]] AZStd::pair<ProcessSchedulerResult, AZStd::vector<typename TestRunnerType::Job>> RunTests(
@@ -51,13 +53,13 @@ namespace TestImpact
         using CompletedShardMap = AZStd::unordered_map<const ShardedTestJobInfo<TestRunnerT>*, ShardedTestJob<TestRunnerT>>;
 
         //!
-        static [[nodiscard]] typename NativeRegularTestRunner::ResultType ConsolidateSubJobs(
+        [[nodiscard]] typename NativeRegularTestRunner::ResultType ConsolidateSubJobs(
             const typename NativeRegularTestRunner::ResultType& result,
             const ShardToParentShardedJobMap<NativeRegularTestRunner>& shardToParentShardedJobMap,
             const CompletedShardMap<NativeRegularTestRunner>& completedShardMap);
 
         //!
-        static [[nodiscard]] typename NativeInstrumentedTestRunner::ResultType ConsolidateSubJobs(
+        [[nodiscard]] typename NativeInstrumentedTestRunner::ResultType ConsolidateSubJobs(
             const typename NativeInstrumentedTestRunner::ResultType& result,
             const ShardToParentShardedJobMap<NativeInstrumentedTestRunner>& shardToParentShardedJobMap,
             const CompletedShardMap<NativeInstrumentedTestRunner>& completedShardMap);
@@ -66,6 +68,8 @@ namespace TestImpact
         class TestJobRunnerNotificationHandler;
 
         TestRunnerType* m_testRunner = nullptr; //!<
+        RepoPath m_repoRoot; //!<
+        ArtifactDir m_artifactDir; //!<
     };
 
     template<typename TestRunnerType>
@@ -146,8 +150,11 @@ namespace TestImpact
     }
 
     template<typename TestRunnerType>
-    NativeShardedTestSystem<TestRunnerType>::NativeShardedTestSystem(TestRunnerType& testRunner)
+    NativeShardedTestSystem<TestRunnerType>::NativeShardedTestSystem(
+        TestRunnerType& testRunner, const RepoPath& repoRoot, const ArtifactDir& artifactDir)
         : m_testRunner(&testRunner)
+        , m_repoRoot(repoRoot)
+        , m_artifactDir(artifactDir)
     {
     }
 
@@ -218,11 +225,13 @@ namespace TestImpact
 
         for (auto&& [jobId, artifacts] : consolidatedJobArtifacts)
         {
-            AZStd::optional<TestRun> run;
             auto&& [testSuites, testCoverage] = artifacts;
             const auto shardedTestJobInfo = shardToParentShardedJobMap.at(jobId);
             const auto& shardedTestJob = completedShardMap.at(shardedTestJobInfo);
             const auto& jobData = shardedTestJob.GetConsolidatedJobData();
+
+            // Consolidate test runs
+            AZStd::optional<TestRun> run;
             if (testSuites.size())
             {
                 AZStd::vector<TestRunSuite> suites;
@@ -238,6 +247,7 @@ namespace TestImpact
                 }
             }
 
+            // Consolidate test coverages
             AZStd::vector<ModuleCoverage> moduleCoverages;
             moduleCoverages.reserve(testCoverage.size());
             for (auto&& [modulePath, moduleCoverage] : testCoverage)
@@ -245,7 +255,18 @@ namespace TestImpact
                 moduleCoverages.emplace_back(AZStd::move(moduleCoverage));
             }
 
-            auto payload = typename TestRunnerType::JobPayload{ run, TestCoverage(AZStd::move(moduleCoverages)) };
+            auto payload = typename TestRunnerType::JobPayload{ AZStd::move(run), TestCoverage(AZStd::move(moduleCoverages)) };
+
+            // Serialize the consolidated run and coverage as artifacts in the canonical run and coverage directories
+            WriteFileContents<TestRunnerException>(
+                Cobertura::SerializeTestCoverage(payload.second, m_repoRoot), m_artifactDir.m_coverageArtifactDirectory / RepoPath(shardedTestJobInfo->first->GetName() + ".xml"));
+            if (payload.first.has_value())
+            {
+                WriteFileContents<TestRunnerException>(
+                    GTest::SerializeTestRun(payload.first.value()),
+                    m_artifactDir.m_testRunArtifactDirectory / RepoPath(shardedTestJobInfo->first->GetName() + ".xml"));
+            }
+
             consolidatedJobs.emplace_back(jobData->m_jobInfo, JobMeta{ jobData->m_meta }, AZStd::move(payload));
         }
 
