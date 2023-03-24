@@ -8,6 +8,8 @@
 
 #pragma once
 
+#include <TestImpactFramework/TestImpactUtils.h>
+
 #include <Process/JobRunner/TestImpactProcessJobInfo.h>
 #include <Process/JobRunner/TestImpactProcessJobMeta.h>
 #include <TestRunner/Native/Job/TestImpactNativeShardedTestJobInfoGenerator.h>
@@ -30,9 +32,6 @@ namespace TestImpact
         struct JobData;
 
         //!
-        static JobResult ResolveJobResult(const AZStd::optional<JobResult> jobResult, const JobResult subJobResult);
-
-        //!
         ShardedTestJob(const ShardedTestJobInfoType& shardedTestJobInfo);
 
         //!
@@ -44,10 +43,14 @@ namespace TestImpact
         //!
         const AZStd::optional<JobData>& GetConsolidatedJobData() const;
 
+        //!
+        static JobResult ResolveJobResult(const AZStd::optional<JobResult> jobResult, const JobResult subJobResult);
+
     private:
-        const ShardedTestJobInfoType* m_shardedTestJobInfo = nullptr;
-        AZStd::vector<JobData> m_subJobs;
-        AZStd::optional<JobData> m_consolidatedJobData;
+        const ShardedTestJobInfoType* m_shardedTestJobInfo = nullptr; //!<
+        AZStd::vector<JobData> m_subJobs; //!<
+        AZStd::optional<JobData> m_consolidatedJobData; //!<
+        Timer m_timer; //!<
     };
 
     template<typename TestRunnerType>
@@ -115,26 +118,15 @@ namespace TestImpact
             // doesn't make a great deal of sense to try and consolodate the jobs at this level anyway (the completed
             // jobs returned by the sharded test runner will present all shards as a single completed job)
             m_consolidatedJobData = JobData(m_shardedTestJobInfo->second.front());
-            JobMeta& consolidatedMeta = m_consolidatedJobData->m_meta;
+
             AZStd::optional<JobResult> consolidatedJobResult;
+            JobMeta& consolidatedMeta = m_consolidatedJobData->m_meta;
+
+            consolidatedMeta.m_startTime = m_timer.GetStartTimePoint();
+            consolidatedMeta.m_duration = m_timer.GetElapsedMs();
 
             for (const auto& subJob : m_subJobs)
             {
-                // Take the earliest start time of all the sub jobs
-                if (subJob.m_meta.m_startTime.has_value() &&
-                    (!consolidatedMeta.m_startTime.has_value() || consolidatedMeta.m_startTime.value() > subJob.m_meta.m_startTime.value()))
-                {
-                    consolidatedMeta.m_startTime = subJob.m_meta.m_startTime;
-                }
-
-                // Accumulate the durations ////////////////////////////////////////// NO! CAPTURE THE JOB START AND JOB END IN THE JOB MGR...
-                if (subJob.m_meta.m_duration.has_value())
-                {
-                    consolidatedMeta.m_duration = consolidatedMeta.m_duration.has_value()
-                        ? consolidatedMeta.m_duration.value() + subJob.m_meta.m_duration.value()
-                        : subJob.m_meta.m_duration.value();
-                }
-
                 // Resolve consolidated job result from existing sub job results
                 consolidatedJobResult = ResolveJobResult(consolidatedJobResult, subJob.m_meta.m_result);
 

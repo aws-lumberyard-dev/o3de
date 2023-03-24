@@ -9,15 +9,15 @@
 #include <TestRunner/Common/TestImpactTestRunnerException.h>
 #include <TestRunner/Common/Run/TestImpactTestRunSerializer.h>
 
+#include <AzCore/Date/DateFormat.h>
 #include <AzCore/JSON/document.h>
 #include <AzCore/JSON/prettywriter.h>
 #include <AzCore/JSON/rapidjson.h>
 #include <AzCore/JSON/stringbuffer.h>
+#include <AzCore/std/chrono/chrono.h>
+#include <AzCore/std/string/conversions.h>
 #include <AzCore/XML/rapidxml.h>
 #include <AzCore/XML/rapidxml_print.h>
-#include <AzCore/std/string/conversions.h>
-#include <AzCore/Date/DateFormat.h>
-#include <AzCore/std/chrono/chrono.h>
 
 namespace TestImpact
 {

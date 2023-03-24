@@ -26,7 +26,7 @@ namespace TestImpact
     struct SourceCoverage
     {
         RepoPath m_path; //!< Source file path.
-        AZStd::vector<LineCoverage> m_coverage; //!< Source file line coverage (empty if source level coverage only).
+        AZStd::vector<LineCoverage> m_lineCoverage; //!< Source file line coverage (empty if source level coverage only).
     };
 
     //! Coverage information about a particular module (executable, shared library).

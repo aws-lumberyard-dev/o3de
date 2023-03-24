@@ -32,6 +32,7 @@
 #include <Target/Native/TestImpactNativeProductionTarget.h>
 #include <Target/Native/TestImpactNativeTargetListCompiler.h>
 #include <Target/Native/TestImpactNativeTestTarget.h>
+#include <TestRunner/Common/Run/TestImpactTestCoverageSerializer.h>
 #include <TestRunner/Common/Run/TestImpactTestRunSerializer.h>
 
 #include <AzCore/UnitTest/TestTypes.h>
@@ -68,23 +69,23 @@ namespace UnitTest
                 return false;
             }
 
-            if (lhs.m_coverage.empty() != rhs.m_coverage.empty())
+            if (lhs.m_lineCoverage.empty() != rhs.m_lineCoverage.empty())
             {
                 AZ_Error(
                     "LineCoverage ==",
                     false,
                     "lhs.m_coverage.empty(): %u, rhs.m_coverage.empty(): %u",
-                    lhs.m_coverage.empty(),
-                    rhs.m_coverage.empty());
+                    lhs.m_lineCoverage.empty(),
+                    rhs.m_lineCoverage.empty());
                 return false;
             }
 
-            if (!lhs.m_coverage.empty())
+            if (!lhs.m_lineCoverage.empty())
             {
                 return AZStd::equal(
-                    lhs.m_coverage.begin(),
-                    lhs.m_coverage.end(),
-                    rhs.m_coverage.begin(),
+                    lhs.m_lineCoverage.begin(),
+                    lhs.m_lineCoverage.end(),
+                    rhs.m_lineCoverage.begin(),
                     [](const TestImpact::LineCoverage& left, const TestImpact::LineCoverage& right)
                     {
                         return left == right;
@@ -322,9 +323,12 @@ namespace UnitTest
 
     TEST_F(TestEnumeratorFixture, FooBarBaz)
     {
-        const auto testTarget = m_buildTargets->GetTestTargetList().GetTarget("TestImpact.TestTargetA.Tests");
+        const auto path = m_config.m_commonConfig.m_repo.m_root / m_config.m_workspace.m_active.m_sparTiaFile;
+        const auto rootName = path.RelativePath().String();
+
+        //const auto testTarget = m_buildTargets->GetTestTargetList().GetTarget("TestImpact.TestTargetA.Tests");
         //const auto testTarget = m_buildTargets->GetTestTargetList().GetTarget("TestImpact.TestTargetD.Tests");
-        //const auto testTarget = m_buildTargets->GetTestTargetList().GetTarget("AzCore.Tests");
+        const auto testTarget = m_buildTargets->GetTestTargetList().GetTarget("AzCore.Tests");
         //const auto testTarget = m_buildTargets->GetTestTargetList().GetTarget("AzToolsFramework.Tests");
         //const auto testTarget = m_buildTargets->GetTestTargetList().GetTarget("AzTestRunner.Tests");
         const auto enumJob = m_enumerationTestJobInfoGenerator->GenerateJobInfo(testTarget, { 1 });
@@ -351,8 +355,6 @@ namespace UnitTest
 
         std::cout << "Duration 1: " << timer.GetElapsedMs().count() << "\n";
 
-        const auto testString = TestImpact::GTest::SerializeTestRun(runResult1.second.front().GetPayload()->first.value());
-
         timer.ResetStartTimePoint();
 
         TestRunnerHandler<InstrumentedTestRunner> handler;
@@ -364,6 +366,10 @@ namespace UnitTest
             AZStd::nullopt);
 
         std::cout << "Duration 2: " << timer.GetElapsedMs().count() << "\n";
+
+        const auto testString = TestImpact::GTest::SerializeTestRun(runResult2.second.front().GetPayload()->first.value());
+        const auto coverageString = TestImpact::Cobertura::SerializeTestCoverage(
+            runResult2.second.front().GetPayload()->second, m_config.m_commonConfig.m_repo.m_root);
         
         EXPECT_TRUE(runResult1.second.front().GetPayload()->second.GetModuleCoverages() == runResult2.second.front().GetPayload()->second.GetModuleCoverages());
     }

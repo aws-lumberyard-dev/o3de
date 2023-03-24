@@ -113,7 +113,7 @@ namespace TestImpact
                                         const size_t number =
                                             AZStd::stol(AZStd::string(line_node->first_attribute(Keys[NumberKey])->value()));
                                         const size_t hits = AZStd::stol(AZStd::string(line_node->first_attribute(Keys[HitsKey])->value()));
-                                        sourceCoverage.m_coverage.emplace_back(LineCoverage{number, hits});
+                                        sourceCoverage.m_lineCoverage.emplace_back(LineCoverage{number, hits});
                                     }
                                 }
 
