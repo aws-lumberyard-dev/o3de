@@ -51,6 +51,8 @@ AZ_POP_DISABLE_WARNING
 #include <AzToolsFramework/ComponentMode/ComponentModeDelegate.h>
 #include <AzToolsFramework/Entity/EditorEntityHelpers.h>
 #include <AzToolsFramework/Entity/ReadOnly/ReadOnlyEntityInterface.h>
+#include <AzToolsFramework/Prefab/DocumentPropertyEditor/PrefabComponentAdapter.h>
+#include <AzToolsFramework/Prefab/DocumentPropertyEditor/PrefabOverrideLabelHandler.h>
 #include <AzToolsFramework/Prefab/Overrides/PrefabOverridePublicInterface.h>
 #include <AzToolsFramework/Prefab/PrefabFocusPublicInterface.h>
 #include <AzToolsFramework/Prefab/PrefabEditorPreferences.h>
@@ -504,12 +506,30 @@ namespace AzToolsFramework
         , m_autoScrollQueued(false)
         , m_isSystemEntityEditor(false)
         , m_isLevelEntityEditor(isLevelEntityEditor)
+        , m_commandInvokedHandler(
+              [this](AZStd::string_view command, const AZ::ConsoleCommandContainer&, AZ::ConsoleFunctorFlags, AZ::ConsoleInvokedFrom)
+              {
+                  if (command == AzToolsFramework::DocumentPropertyEditor::GetEnableDPECVarName())
+                  {
+                      ClearInstances();
+                      for (auto componentEditor : m_componentEditors)
+                      {
+                          componentEditor->deleteLater();
+                      }
+                      m_componentEditors.clear();
+                      UpdateContents();
+                  }
+              })
     {
+        m_commandInvokedHandler.Connect(AZ::Interface<AZ::IConsole>::Get()->GetConsoleCommandInvokedEvent());
         initEntityPropertyEditorResources();
 
         if (Prefab::IsInspectorOverrideManagementEnabled())
         {
-            m_prefabAdapter = AZStd::make_unique<Prefab::PrefabAdapter>();
+            auto* propertyEditorToolsSystemInterface = AZ::Interface<PropertyEditorToolsSystemInterface>::Get();
+            AZ_Assert(propertyEditorToolsSystemInterface != nullptr, "EntityPropertyEditor - "
+                "PropertyEditorToolsSystemInterface is not available for registering prefab override label handler.");
+            propertyEditorToolsSystemInterface->RegisterHandler<Prefab::PrefabOverrideLabelHandler>();
         }
 
         m_prefabPublicInterface = AZ::Interface<Prefab::PrefabPublicInterface>::Get();
@@ -1884,12 +1904,11 @@ namespace AzToolsFramework
         {
             //create a new component editor since cache has been exceeded
             bool replaceRPE = DocumentPropertyEditor::ShouldReplaceRPE();
-            AZStd::shared_ptr<AZ::DocumentPropertyEditor::ComponentAdapter> dpeComponentAdapter;
-            if (replaceRPE)
+            AZStd::shared_ptr<AZ::DocumentPropertyEditor::ComponentAdapter> dpeComponentAdapter = nullptr;
+            if (replaceRPE && Prefab::IsInspectorOverrideManagementEnabled())
             {
                 // Create a prefab specific component adapter
-                // Note: this is where a custom prefab adapter (PrefabComponentAdapter) can be created instead of the default
-                dpeComponentAdapter = AZStd::make_shared<AZ::DocumentPropertyEditor::ComponentAdapter>();
+                dpeComponentAdapter = AZStd::make_shared<Prefab::PrefabComponentAdapter>();
             }
             auto componentEditor = new ComponentEditor(m_serializeContext, this, this, replaceRPE, dpeComponentAdapter);
             componentEditor->setAcceptDrops(true);
@@ -2311,7 +2330,7 @@ namespace AzToolsFramework
 
             if (entityList.size())
             {
-                ScopedUndoBatch undoBatch("ModifyEntityName");
+                ScopedUndoBatch undoBatch("Modify Entity Name");
 
                 for (AZ::Entity* entity : entityList)
                 {
@@ -3705,7 +3724,7 @@ namespace AzToolsFramework
             // Need to queue an update for all inspectors in case multiples are viewing the same entity and the removal of a component internally triggers an invalidate call
             AzToolsFramework::ToolsApplicationEvents::Bus::Broadcast(&AzToolsFramework::ToolsApplicationEvents::InvalidatePropertyDisplay, AzToolsFramework::Refresh_EntireTree);
 
-            ScopedUndoBatch undoBatch("Removing components.");
+            ScopedUndoBatch undoBatch("Remove Component(s)");
 
             AzToolsFramework::RemoveComponents(components);
         }
@@ -3724,7 +3743,7 @@ namespace AzToolsFramework
             QueuePropertyRefresh();
 
             //intentionally not using EntityCompositionRequests::CutComponents because we only want to copy components from first selected entity
-            ScopedUndoBatch undoBatch("Cut components.");
+            ScopedUndoBatch undoBatch("Cut Component(s)");
             CopyComponents();
             DeleteComponents();
         }
@@ -3743,7 +3762,7 @@ namespace AzToolsFramework
     {
         if (!m_selectedEntityIds.empty() && CanPasteComponentsOnSelectedEntities())
         {
-            ScopedUndoBatch undoBatch("Paste components.");
+            ScopedUndoBatch undoBatch("Paste Component(s)");
 
             AZ::Entity::ComponentArrayType selectedComponents = GetSelectedComponents();
 
@@ -3821,7 +3840,7 @@ namespace AzToolsFramework
             return;
         }
 
-        ScopedUndoBatch undoBatch("Move components up.");
+        ScopedUndoBatch undoBatch("Move Component(s) Up");
 
         ComponentEditorVector componentEditors = m_componentEditors;
         for (size_t sourceComponentEditorIndex = 1; sourceComponentEditorIndex < componentEditors.size(); ++sourceComponentEditorIndex)
@@ -3849,7 +3868,7 @@ namespace AzToolsFramework
             return;
         }
 
-        ScopedUndoBatch undoBatch("Move components down.");
+        ScopedUndoBatch undoBatch("Move Component(s) Down");
 
         ComponentEditorVector componentEditors = m_componentEditors;
         for (size_t targetComponentEditorIndex = componentEditors.size() - 1; targetComponentEditorIndex > 0; --targetComponentEditorIndex)
@@ -3877,7 +3896,7 @@ namespace AzToolsFramework
             return;
         }
 
-        ScopedUndoBatch undoBatch("Move components to top.");
+        ScopedUndoBatch undoBatch("Move Component(s) to Top");
 
         AZ::Entity::ComponentArrayType componentsOnEntity;
 
@@ -3919,7 +3938,7 @@ namespace AzToolsFramework
             return;
         }
 
-        ScopedUndoBatch undoBatch("Move components to bottom.");
+        ScopedUndoBatch undoBatch("Move Component(s) to Bottom");
 
         AZ::Entity::ComponentArrayType componentsOnEntity;
 
@@ -5859,7 +5878,7 @@ namespace AzToolsFramework
         AzToolsFramework::EditorRequestBus::Broadcast(&AzToolsFramework::EditorRequests::OpenPinnedInspector, pinnedEntities);
     }
 
-    void EntityPropertyEditor::OnContextReset()
+    void EntityPropertyEditor::OnPrepareForContextReset()
     {
         if (IsLockedToSpecificEntities() && !m_isLevelEntityEditor)
         {

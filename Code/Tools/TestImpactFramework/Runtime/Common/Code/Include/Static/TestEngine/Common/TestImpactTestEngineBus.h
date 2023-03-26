@@ -6,11 +6,11 @@
  *
  */
 
+#pragma once
+
 #include <TestEngine/Common/Job/TestImpactTestEngineJob.h>
 
 #include <AzCore/EBus/EBus.h>
-
-#pragma once
 
 namespace TestImpact
 {
@@ -32,5 +32,5 @@ namespace TestImpact
     };
 
     template<typename TestTarget>
-    using TestEngineNotificationsBus = AZ::EBus<TestEngineNotifications<TestTarget>>;
+    using TestEngineNotificationBus = AZ::EBus<TestEngineNotifications<TestTarget>>;
 } // namespace TestImpact

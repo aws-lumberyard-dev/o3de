@@ -26,7 +26,7 @@ namespace TestImpact
         static constexpr AZ::EBusAddressPolicy AddressPolicy = AZ::EBusAddressPolicy::Single;
         static constexpr AZ::EBusHandlerPolicy HandlerPolicy = AZ::EBusHandlerPolicy::Multiple;
 
-        ~TestSequenceNotificationsBase() = default;
+        virtual ~TestSequenceNotificationsBase() = default;
 
         //! Callback for test runs that have completed for any reason.
         //! @param testRunMeta The test that has completed.
@@ -52,7 +52,7 @@ namespace TestImpact
         : public TestSequenceNotificationsBase
     {
     public:
-        ~NonImpactAnalysisTestSequenceNotificationsBase() = default;
+        virtual ~NonImpactAnalysisTestSequenceNotificationsBase() = default;
 
         //! Callback for a test sequence that isn't using test impact analysis to determine selected tests.
         //! @param suiteSet The test suites to select tests from.
@@ -153,8 +153,8 @@ namespace TestImpact
 
     using TestSequenceNotificationsBaseBus = AZ::EBus<TestSequenceNotificationsBase>;
     using NonImpactAnalysisTestSequenceNotificationsBaseBus = AZ::EBus<NonImpactAnalysisTestSequenceNotificationsBase>;
-    using RegularTestSequenceNotificationsBus = AZ::EBus<RegularTestSequenceNotifications>;
-    using SeedTestSequenceNotificationsBus = AZ::EBus<SeedTestSequenceNotifications>;
-    using ImpactAnalysisTestSequenceNotificationsBus = AZ::EBus<ImpactAnalysisTestSequenceNotifications>;
-    using SafeImpactAnalysisTestSequenceNotificationsBus = AZ::EBus<SafeImpactAnalysisTestSequenceNotifications>;
+    using RegularTestSequenceNotificationBus = AZ::EBus<RegularTestSequenceNotifications>;
+    using SeedTestSequenceNotificationBus = AZ::EBus<SeedTestSequenceNotifications>;
+    using ImpactAnalysisTestSequenceNotificationBus = AZ::EBus<ImpactAnalysisTestSequenceNotifications>;
+    using SafeImpactAnalysisTestSequenceNotificationBus = AZ::EBus<SafeImpactAnalysisTestSequenceNotifications>;
 } // namespace TestImpact

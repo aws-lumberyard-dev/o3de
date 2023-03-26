@@ -250,8 +250,8 @@ namespace TestImpact
         const Client::TestRunSelection selectedTests(ExtractTestTargetNames(includedTestTargets), ExtractTestTargetNames(excludedTestTargets));
 
         // Inform the client that the sequence is about to start
-        RegularTestSequenceNotificationsBus::Broadcast(
-            &RegularTestSequenceNotificationsBus::Events::OnTestSequenceStart, m_suiteSet, m_suiteLabelExcludeSet, selectedTests);
+        RegularTestSequenceNotificationBus::Broadcast(
+            &RegularTestSequenceNotificationBus::Events::OnTestSequenceStart, m_suiteSet, m_suiteLabelExcludeSet, selectedTests);
 
         // Run the test targets and collect the test run results
         TestEngineNotificationHandler<NativeTestTarget> handler(includedTestTargets.size());
@@ -277,8 +277,8 @@ namespace TestImpact
             GenerateTestRunReport(result, testRunTimer.GetStartTimePointRelative(sequenceTimer), testRunDuration, testJobs));
 
         // Inform the client that the sequence has ended
-        RegularTestSequenceNotificationsBus::Broadcast(
-            &RegularTestSequenceNotificationsBus::Events::OnTestSequenceComplete, sequenceReport);
+        RegularTestSequenceNotificationBus::Broadcast(
+            &RegularTestSequenceNotificationBus::Events::OnTestSequenceComplete, sequenceReport);
 
         return sequenceReport;
     }
@@ -433,8 +433,8 @@ namespace TestImpact
             const auto draftedTests = ExtractTestTargetNames(draftedTestTargets);
 
         // Inform the client that the sequence is about to start
-            SafeImpactAnalysisTestSequenceNotificationsBus::Broadcast(
-                &SafeImpactAnalysisTestSequenceNotificationsBus::Events::OnTestSequenceStart,
+            SafeImpactAnalysisTestSequenceNotificationBus::Broadcast(
+                &SafeImpactAnalysisTestSequenceNotificationBus::Events::OnTestSequenceStart,
                 m_suiteSet,
                 m_suiteLabelExcludeSet,
                 selectedTests,
@@ -546,8 +546,8 @@ namespace TestImpact
                 draftedTestRunData.m_jobs));
 
         // Inform the client that the sequence has ended
-        SafeImpactAnalysisTestSequenceNotificationsBus::Broadcast(
-            &SafeImpactAnalysisTestSequenceNotificationsBus::Events::OnTestSequenceComplete, sequenceReport);
+        SafeImpactAnalysisTestSequenceNotificationBus::Broadcast(
+            &SafeImpactAnalysisTestSequenceNotificationBus::Events::OnTestSequenceComplete, sequenceReport);
 
         m_hasImpactAnalysisData = UpdateAndSerializeDynamicDependencyMap(
                     *m_dynamicDependencyMap.get(),
@@ -585,8 +585,8 @@ namespace TestImpact
         Client::TestRunSelection selectedTests(ExtractTestTargetNames(includedTestTargets), ExtractTestTargetNames(excludedTestTargets));
 
         // Inform the client that the sequence is about to start
-        RegularTestSequenceNotificationsBus::Broadcast(
-            &RegularTestSequenceNotificationsBus::Events::OnTestSequenceStart, m_suiteSet, m_suiteLabelExcludeSet, selectedTests);
+        RegularTestSequenceNotificationBus::Broadcast(
+            &RegularTestSequenceNotificationBus::Events::OnTestSequenceStart, m_suiteSet, m_suiteLabelExcludeSet, selectedTests);
 
         // Run the test targets and collect the test run results
         TestEngineNotificationHandler<NativeTestTarget> handler(includedTestTargets.size());
@@ -613,7 +613,7 @@ namespace TestImpact
             GenerateTestRunReport(result, testRunTimer.GetStartTimePointRelative(sequenceTimer), testRunDuration, testJobs));
 
         // Inform the client that the sequence has ended
-        SeedTestSequenceNotificationsBus::Broadcast(&SeedTestSequenceNotificationsBus::Events::OnTestSequenceComplete, sequenceReport);
+        SeedTestSequenceNotificationBus::Broadcast(&SeedTestSequenceNotificationBus::Events::OnTestSequenceComplete, sequenceReport);
 
         ClearDynamicDependencyMapAndRemoveExistingFile();
 

@@ -12,6 +12,7 @@
 #include <AzFramework/DocumentPropertyEditor/ReflectionAdapter.h>
 #include <AzToolsFramework/API/ToolsApplicationAPI.h>
 #include <AzToolsFramework/UI/PropertyEditor/PropertyEditorAPI.h>
+#include <AzCore/Component/EntityBus.h>
 
 namespace AZ::DocumentPropertyEditor
 {
@@ -23,6 +24,7 @@ namespace AZ::DocumentPropertyEditor
         , private AzToolsFramework::PropertyEditorEntityChangeNotificationBus::MultiHandler
         , private AzToolsFramework::ToolsApplicationEvents::Bus::Handler
         , private AzToolsFramework::PropertyEditorGUIMessages::Bus::Handler
+        , private AZ::EntitySystemBus::Handler
     {
     public:
         //! Creates an uninitialized (empty) ComponentAdapter.
@@ -41,7 +43,7 @@ namespace AZ::DocumentPropertyEditor
         void RequestRefresh(AzToolsFramework::PropertyModificationRefreshLevel level) override;
 
         //! Sets the component, connects the appropriate Bus Handlers and sets the reflect data for this instance
-        void SetComponent(AZ::Component* componentInstance);
+        virtual void SetComponent(AZ::Component* componentInstance);
 
         //! Trigger a refresh based on messages from the listeners
         void DoRefresh();
@@ -55,11 +57,11 @@ namespace AZ::DocumentPropertyEditor
         //! @param serializedPath The serialized path to use to check whether an override is present corresponding to it.
         void CreateLabel(AdapterBuilder* adapterBuilder, AZStd::string_view labelText, AZStd::string_view serializedPath) override;
 
-    protected:
-        AZStd::string m_componentAlias;
-        AZ::EntityId m_entityId;
+        void OnEntityDestroyed(const AZ::EntityId&) override;
 
-        AZ::Component* m_componentInstance = nullptr;
+    protected:
+        AZ::EntityId m_entityId;
+        AZ::ComponentId m_componentId = AZ::InvalidComponentId;
 
         AzToolsFramework::UndoSystem::URSequencePoint* m_currentUndoNode = nullptr;
 
