@@ -176,7 +176,8 @@ namespace TestImpact
 
                     // Status of test case run
                     testCaseNode->append_attribute(doc.allocate_attribute(
-                        GTest::Keys[GTest::TimeKey], doc.allocate_string(testCase.m_status == TestRunStatus::Run ? "run" : "notrun")));
+                        TestRunFields::Keys[TestRunFields::StatusKey],
+                        doc.allocate_string(testCase.m_status == TestRunStatus::Run ? "run" : "notrun")));
 
                     // Total duration of test case run
                     testCaseNode->append_attribute(doc.allocate_attribute(

@@ -22,6 +22,10 @@ set(FILES
     Source/TestRunner/Native/TestImpactNativeErrorCodeChecker.h
     Source/TestRunner/Native/TestImpactNativeInstrumentedTestRunner.h
     Source/TestRunner/Native/TestImpactNativeRegularTestRunner.h
+    Source/TestRunner/Native/TestImpactNativeShardedInstrumentedTestRunner.cpp
+    Source/TestRunner/Native/TestImpactNativeShardedInstrumentedTestRunner.h
+    Source/TestRunner/Native/TestImpactNativeShardedRegularTestRunner.cpp
+    Source/TestRunner/Native/TestImpactNativeShardedRegularTestRunner.h
     Source/TestRunner/Native/TestImpactNativeTestEnumerator.h
     Source/TestRunner/Native/Shard/TestImpactNativeShardedTestJob.h
     Source/TestRunner/Native/Shard/TestImpactNativeShardedTestSystem.h
