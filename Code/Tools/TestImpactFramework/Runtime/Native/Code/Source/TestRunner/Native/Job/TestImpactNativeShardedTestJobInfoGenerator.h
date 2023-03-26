@@ -19,6 +19,9 @@
 
 namespace TestImpact
 {
+    //! The CTest label that test target suites need to have in order to be sharded.
+    inline constexpr auto TiafShardingLabel = "TIAF_sharding";
+
     //!
     template<typename TestJobRunner>
     using ShardedTestJobInfo = AZStd::pair<const NativeTestTarget*, AZStd::vector<typename TestJobRunner::JobInfo>>;
@@ -28,6 +31,8 @@ namespace TestImpact
 
     //!
     using ShardedRegularTestJobInfo = ShardedTestJobInfo<NativeRegularTestRunner>;
+
+    using TestTargetAndEnumeration = AZStd::pair<const NativeTestTarget*, const TestEnumeration*>;
 
     //!
     template<typename TestJobRunner>
@@ -44,9 +49,11 @@ namespace TestImpact
         virtual ~NativeShardedTestRunJobInfoGeneratorBase() = default;
 
         virtual ShardedTestJobInfo<TestJobRunner> GenerateJobInfo(
-            const NativeTestTarget* testTarget,
-            const TestEnumeration& enumeration,
-            typename TestJobRunner::JobInfo::Id startingId) = 0;
+            const TestTargetAndEnumeration& testTargetAndEnumeration,
+            typename TestJobRunner::JobInfo::Id startingId) const = 0;
+
+        AZStd::vector<ShardedTestJobInfo<TestJobRunner>> GenerateJobInfos(
+            const AZStd::vector<TestTargetAndEnumeration>& testTargetsAndEnumerations);
 
     protected:
         //!
@@ -55,11 +62,11 @@ namespace TestImpact
         //!
         using ShardedTestsFilter = AZStd::vector<AZStd::string>;
 
-        ShardedTestsList ShardFixtureContiguous(const TestEnumeration& enumeration);
-        ShardedTestsList ShardTestContiguous(const TestEnumeration& enumeration);
-        ShardedTestsList ShardFixtureInterleaved(const TestEnumeration& enumeration);
-        ShardedTestsList ShardTestInterleaved(const TestEnumeration& enumeration);
-        ShardedTestsFilter TestListsToTestFilters(const ShardedTestsList& shardedTestList);
+        //!
+        ShardedTestsList ShardTestInterleaved(const TestTargetAndEnumeration& testTargetAndEnumeration) const;
+
+        //!
+        ShardedTestsFilter TestListsToTestFilters(const ShardedTestsList& shardedTestList) const;
 
         size_t m_maxConcurrency;
         RepoPath m_sourceDir;
@@ -84,9 +91,8 @@ namespace TestImpact
 
         //!
         ShardedInstrumentedTestJobInfo GenerateJobInfo(
-            const NativeTestTarget* testTarget,
-            const TestEnumeration& enumeration,
-            typename NativeInstrumentedTestRunner::JobInfo::Id startingId) override;
+            const TestTargetAndEnumeration& testTargetAndEnumeration,
+            typename NativeInstrumentedTestRunner::JobInfo::Id startingId) const override;
 
     private:
         RepoPath m_cacheDir;
@@ -103,9 +109,8 @@ namespace TestImpact
 
         //!
         ShardedRegularTestJobInfo GenerateJobInfo(
-            const NativeTestTarget* testTarget,
-            const TestEnumeration& enumeration,
-            typename NativeRegularTestRunner::JobInfo::Id startingId) override;
+            const TestTargetAndEnumeration& testTargetAndEnumeration,
+            typename NativeRegularTestRunner::JobInfo::Id startingId) const override;
     };
 
     template<typename TestJobRunner>
@@ -124,57 +129,51 @@ namespace TestImpact
         AZ_TestImpact_Eval(maxConcurrency != 0, TestRunnerException, "Max Number of concurrent processes in flight cannot be 0");
     }
 
-    // InstrumentedShardedTestJobInfo NativeShardedInstrumentedTestRunJobInfoGenerator::ShardFixtureContiguous(const
-    // TestEngineEnumeration<NativeTestTarget>& enumeration)
-    //{
-    //
-    // }
-    //
-    // InstrumentedShardedTestJobInfo NativeShardedInstrumentedTestRunJobInfoGenerator::ShardTestContiguous(
-    //     const TestEngineEnumeration<NativeTestTarget>& enumeration)
-    //{
-    // }
-    //
-    // InstrumentedShardedTestJobInfo NativeShardedInstrumentedTestRunJobInfoGenerator::ShardFixtureInterleaved(
-    //     const TestEngineEnumeration<NativeTestTarget>& enumeration)
-    //{
-    // }
-    //
     template<typename TestJobRunner>
     typename NativeShardedTestRunJobInfoGeneratorBase<TestJobRunner>::ShardedTestsList NativeShardedTestRunJobInfoGeneratorBase<
-        TestJobRunner>::ShardTestInterleaved(const TestEnumeration& enumeration)
+        TestJobRunner>::ShardTestInterleaved(const TestTargetAndEnumeration& testTargetAndEnumeration) const
     {
-        const auto numTests = enumeration.GetNumEnabledTests();
-        const auto numShards = std::min(m_maxConcurrency, numTests);
-        ShardedTestsList shardTestList(numShards);
-        const auto testsPerShard = numTests / numShards;
-
-        size_t testIndex = 0;
-        for (const auto fixture : enumeration.GetTestSuites())
+        const auto [testTarget, testEnumeration] = testTargetAndEnumeration;
+        if (testTarget->GetSuiteLabelSet().contains(TiafShardingLabel) && testEnumeration)
         {
-            if (!fixture.m_enabled)
-            {
-                continue;
-            }
+            const auto numTests = testEnumeration->GetNumEnabledTests();
+            const auto numShards = std::min(m_maxConcurrency, numTests);
+            ShardedTestsList shardTestList(numShards);
+            const auto testsPerShard = numTests / numShards;
 
-            for (const auto test : fixture.m_tests)
+            size_t testIndex = 0;
+            for (const auto fixture : testEnumeration->GetTestSuites())
             {
-                if (!test.m_enabled)
+                if (!fixture.m_enabled)
                 {
                     continue;
                 }
 
-                shardTestList[testIndex++ % numShards].emplace_back(
-                    AZStd::string::format("%s.%s", fixture.m_name.c_str(), test.m_name.c_str()));
-            }
-        }
+                for (const auto test : fixture.m_tests)
+                {
+                    if (!test.m_enabled)
+                    {
+                        continue;
+                    }
 
-        return shardTestList;
+                    shardTestList[testIndex++ % numShards].emplace_back(
+                        AZStd::string::format("%s.%s", fixture.m_name.c_str(), test.m_name.c_str()));
+                }
+            }
+
+            return shardTestList;
+        }
+        else
+        {
+            ShardedTestsList shardTestList(1);
+            shardTestList[0].emplace_back("*.*");
+            return shardTestList;
+        }
     }
 
     template<typename TestJobRunner>
-    typename NativeShardedTestRunJobInfoGeneratorBase<TestJobRunner>::ShardedTestsFilter NativeShardedTestRunJobInfoGeneratorBase<
-        TestJobRunner>::TestListsToTestFilters(const ShardedTestsList& shardedTestList)
+    auto NativeShardedTestRunJobInfoGeneratorBase<TestJobRunner>::TestListsToTestFilters(const ShardedTestsList& shardedTestList) const
+        -> ShardedTestsFilter
     {
         ShardedTestsFilter shardedTestFilter;
         shardedTestFilter.reserve(shardedTestList.size());
@@ -192,5 +191,20 @@ namespace TestImpact
         }
 
         return shardedTestFilter;
+    }
+
+    template<typename TestJobRunner>
+    auto NativeShardedTestRunJobInfoGeneratorBase<TestJobRunner>::GenerateJobInfos(
+        const AZStd::vector<TestTargetAndEnumeration>& testTargetsAndEnumerations)
+        -> AZStd::vector<ShardedTestJobInfo<TestJobRunner>>
+    {
+        AZStd::vector<ShardedTestJobInfo<TestJobRunner>> jobInfos;
+        for (size_t testTargetIndex = 0, jobId = 0; testTargetIndex < testTargetsAndEnumerations.size(); testTargetIndex++)
+        {
+            jobInfos.push_back(GenerateJobInfo(testTargetsAndEnumerations[testTargetIndex], { jobId }));
+            jobId += jobInfos.back().second.size();
+        }
+
+        return jobInfos;
     }
 } // namespace TestImpact

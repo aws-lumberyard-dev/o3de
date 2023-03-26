@@ -34,12 +34,12 @@ namespace TestImpact
     }
 
     ShardedInstrumentedTestJobInfo NativeShardedInstrumentedTestRunJobInfoGenerator::GenerateJobInfo(
-        const NativeTestTarget* testTarget,
-        const TestEnumeration& enumeration,
-        typename NativeInstrumentedTestRunner::JobInfo::Id startingId)
+        const TestTargetAndEnumeration& testTargetAndEnumeration,
+        typename NativeInstrumentedTestRunner::JobInfo::Id startingId) const
     {
+        const auto [testTarget, testEnumeration] = testTargetAndEnumeration;
         const auto launchArgument = GenerateLaunchArgument(testTarget, m_targetBinaryDir, m_testRunnerBinary);
-        const auto testFilters = TestListsToTestFilters(ShardTestInterleaved(enumeration));
+        const auto testFilters = TestListsToTestFilters(ShardTestInterleaved(testTargetAndEnumeration));
         ShardedInstrumentedTestJobInfo shards(testTarget, typename ShardedInstrumentedTestJobInfo::second_type());
         shards.second.reserve(testFilters.size());
 
@@ -77,12 +77,12 @@ namespace TestImpact
     }
 
     ShardedRegularTestJobInfo NativeShardedRegularTestRunJobInfoGenerator::GenerateJobInfo(
-        const NativeTestTarget* testTarget,
-        const TestEnumeration& enumeration,
-        typename NativeRegularTestRunner::JobInfo::Id startingId)
+        const TestTargetAndEnumeration& testTargetAndEnumeration,
+        typename NativeRegularTestRunner::JobInfo::Id startingId) const
     {
+        const auto [testTarget, testEnumeration] = testTargetAndEnumeration;
         const auto launchArgument = GenerateLaunchArgument(testTarget, m_targetBinaryDir, m_testRunnerBinary);
-        const auto testFilters = TestListsToTestFilters(ShardTestInterleaved(enumeration));
+        const auto testFilters = TestListsToTestFilters(ShardTestInterleaved(testTargetAndEnumeration));
         ShardedRegularTestJobInfo shards(testTarget, typename ShardedRegularTestJobInfo::second_type());
         shards.second.reserve(testFilters.size());
 

@@ -17,6 +17,8 @@ namespace TestImpact
     class TestJobInfoGenerator
     {
     public:
+        using TestJobRunenrType = TestJobRunner;
+        using TestTargetType = TestTarget;
         using Command = typename TestJobRunner::Command;
         using JobInfo = typename TestJobRunner::JobInfo;
         using JobData = typename TestJobRunner::JobData;

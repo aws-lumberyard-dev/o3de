@@ -363,13 +363,13 @@ namespace UnitTest
         const auto path = m_config.m_commonConfig.m_repo.m_root / m_config.m_workspace.m_active.m_sparTiaFile;
         const auto rootName = path.RelativePath().String();
 
-        const auto testTarget = m_buildTargets->GetTestTargetList().GetTarget("AssetProcessor.Tests");
+        const auto testTarget = m_buildTargets->GetTestTargetList().GetTarget("Atom_RPI.Tests");
         //const auto testTarget = m_buildTargets->GetTestTargetList().GetTarget("TestImpact.TestTargetA.Tests");
         //const auto testTarget = m_buildTargets->GetTestTargetList().GetTarget("TestImpact.TestTargetD.Tests");
         //const auto testTarget = m_buildTargets->GetTestTargetList().GetTarget("AzCore.Tests");
         //const auto testTarget = m_buildTargets->GetTestTargetList().GetTarget("AzToolsFramework.Tests");
         //const auto testTarget = m_buildTargets->GetTestTargetList().GetTarget("AzTestRunner.Tests");
-        const auto enumJob = m_enumerationTestJobInfoGenerator->GenerateJobInfo(testTarget, { 1 });
+        const auto enumJob = m_enumerationTestJobInfoGenerator->GenerateJobInfos({ testTarget });
         const auto enumResult = m_testEnumerator.Enumerate(
             { enumJob },
             TestImpact::StdOutputRouting::None,
@@ -431,8 +431,8 @@ namespace UnitTest
         {
             const auto regularJob = m_regularTestJobInfoGenerator->GenerateJobInfo(testTarget, { 10 });
         
-            const auto shardedInsrumentedJob = m_shardedRegularTestJobInfoGenerator->GenerateJobInfo(
-                testTarget, enumResult.second.front().GetPayload().value(), { 10 });
+            const auto shardedInsrumentedJobs = m_shardedRegularTestJobInfoGenerator->GenerateJobInfos(
+                { TestImpact::TestTargetAndEnumeration{ testTarget, &enumResult.second.front().GetPayload().value() } });
         
             TestImpact::Timer timer;
             //const auto runResult1 = m_regularTestRunner.RunTests(
@@ -448,7 +448,7 @@ namespace UnitTest
         
             TestRunnerHandler<RegularTestRunner> handler;
             const auto runResult2 = m_regularShardedTestRunner->RunTests(
-                { shardedInsrumentedJob },
+                shardedInsrumentedJobs,
                 TestImpact::StdOutputRouting::ToParent,
                 TestImpact::StdErrorRouting::ToParent,
                 AZStd::nullopt,
