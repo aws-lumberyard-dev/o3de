@@ -363,7 +363,7 @@ namespace UnitTest
         const auto path = m_config.m_commonConfig.m_repo.m_root / m_config.m_workspace.m_active.m_sparTiaFile;
         const auto rootName = path.RelativePath().String();
 
-        const auto testTarget = m_buildTargets->GetTestTargetList().GetTarget("AzFramework.Tests");
+        const auto testTarget = m_buildTargets->GetTestTargetList().GetTarget("AssetProcessor.Tests");
         //const auto testTarget = m_buildTargets->GetTestTargetList().GetTarget("TestImpact.TestTargetA.Tests");
         //const auto testTarget = m_buildTargets->GetTestTargetList().GetTarget("TestImpact.TestTargetD.Tests");
         //const auto testTarget = m_buildTargets->GetTestTargetList().GetTarget("AzCore.Tests");

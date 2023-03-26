@@ -44,6 +44,9 @@ namespace TestImpact
         const AZStd::optional<JobData>& GetConsolidatedJobData() const;
 
         //!
+        const AZStd::vector<JobData>& GetSubJobs() const;
+
+        //!
         static JobResult ResolveJobResult(const AZStd::optional<JobResult> jobResult, const JobResult subJobResult);
 
     private:
@@ -160,5 +163,11 @@ namespace TestImpact
     auto ShardedTestJob<TestRunnerType>::GetConsolidatedJobData() const -> const AZStd::optional<JobData>&
     {
         return m_consolidatedJobData;
+    }
+
+    template<typename TestRunnerType>
+    auto ShardedTestJob<TestRunnerType>::GetSubJobs() const -> const AZStd::vector<JobData>&
+    {
+        return m_subJobs;
     }
 } // namespace TestImpact

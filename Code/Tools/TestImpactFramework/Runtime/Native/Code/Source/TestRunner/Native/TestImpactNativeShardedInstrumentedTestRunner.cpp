@@ -24,6 +24,8 @@ namespace TestImpact
             std::pair<AZStd::unordered_map<AZStd::string, TestRunSuite>, AZStd::unordered_map<RepoPath, ModuleCoverage>>>
             consolidatedJobArtifacts;
 
+        // DO LOGGING OF ANOMALOUS ARTIFACTS AND CHECK IF 1 OR MORE CRASHED TEST RUNS HAS NO COVERAGE IN WHICH CASE ABORT COVERAGE (NULL_OPT)
+
         for (const auto& subJob : subJobs)
         {
             if (const auto payload = subJob.GetPayload();
