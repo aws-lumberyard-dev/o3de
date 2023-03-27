@@ -18,8 +18,6 @@
 #include <AzFramework/Archive/Archive.h>
 #include <AzFramework/Archive/INestedArchive.h>
 
-#include <random>
-
 namespace UnitTest
 {
     using ArchiveCompressionParamInterface = ::testing::WithParamInterface<AZStd::tuple<
@@ -37,6 +35,8 @@ namespace UnitTest
             : m_application { AZStd::make_unique<AzFramework::Application>() }
         {}
 
+        // Creates a unique filename for the archive to make the tests atomic and prevent file race conditions when
+		// tests are run concurrently
         static AZStd::string CreateUniqueArchiveName()
         {
             auto uuid = AZ::Uuid::Create();

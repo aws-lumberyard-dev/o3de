@@ -150,9 +150,6 @@ namespace TestImpact
     //! User-friendly names for the dynamic dependency map policy types.
     AZStd::string DynamicDependencyMapPolicyAsString(Policy::DynamicDependencyMap dynamicDependencyMapPolicy);
 
-    //! User-friendly names for the test sharding policy types.
-    AZStd::string TestShardingPolicyAsString(Policy::TestSharding testShardingPolicy);
-
     //! User-friendly names for the target output capture policy types.
     AZStd::string TargetOutputCapturePolicyAsString(Policy::TargetOutputCapture targetOutputCapturePolicy);
 

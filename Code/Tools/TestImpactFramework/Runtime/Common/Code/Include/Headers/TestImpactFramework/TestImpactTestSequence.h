@@ -15,16 +15,6 @@
 
 namespace TestImpact
 {
-    //! Configuration for test targets that opt in to test sharding.
-    enum class ShardConfiguration
-    {
-        Never, //!< Never shard this test target.
-        FixtureContiguous, //!< Each shard contains contiguous fixtures of tests (safest but least optimal).
-        TestContiguous, //!< Each shard contains contiguous tests agnostic of fixtures.
-        FixtureInterleaved, //!< Fixtures of tests are interleaved across shards.
-        TestInterleaved //!< Tests are interlaced across shards agnostic of fixtures (fastest but prone to inter-test dependency problems).
-    };
-
     //! Set of test suites that tests can be drawn from.
     //! @note An ordered set is used so that the serialized string of the set order is always the same regardless of the order that the
     //! suites are specified.
@@ -53,7 +43,6 @@ namespace TestImpact
         Policy::FailedTestCoverage m_failedTestCoveragePolicy = Policy::FailedTestCoverage::Keep;
         Policy::TestFailure m_testFailurePolicy = Policy::TestFailure::Abort;
         Policy::IntegrityFailure m_integrityFailurePolicy = Policy::IntegrityFailure::Abort;
-        Policy::TestSharding m_testShardingPolicy = Policy::TestSharding::Never;
         Policy::TargetOutputCapture m_targetOutputCapture = Policy::TargetOutputCapture::None;
     };
 

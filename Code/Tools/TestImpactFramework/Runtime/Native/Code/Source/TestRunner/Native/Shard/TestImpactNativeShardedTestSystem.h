@@ -65,7 +65,7 @@ namespace TestImpact
 
     template<typename TestRunnerType>
     class NativeShardedTestSystem<TestRunnerType>::TestJobRunnerNotificationHandler
-        : private TestRunnerType::NotificationsBus::Handler
+        : private TestRunnerType::NotificationBus::Handler
     {
     public:
         using JobInfo = typename TestRunnerType::JobInfo;
@@ -88,13 +88,13 @@ namespace TestImpact
         : m_shardToParentShardedJobMap(&shardToParentShardedJobMap)
         , m_completedShardMap(&completedShardMap)
     {
-        TestRunnerType::NotificationsBus::Handler::BusConnect();
+        TestRunnerType::NotificationBus::Handler::BusConnect();
     }
 
     template<typename TestRunnerType>
     NativeShardedTestSystem<TestRunnerType>::TestJobRunnerNotificationHandler::~TestJobRunnerNotificationHandler()
     {
-        TestRunnerType::NotificationsBus::Handler::BusDisconnect();
+        TestRunnerType::NotificationBus::Handler::BusDisconnect();
     }
 
     template<typename TestRunnerType>

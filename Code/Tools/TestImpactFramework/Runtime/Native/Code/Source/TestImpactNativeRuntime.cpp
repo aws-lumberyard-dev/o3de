@@ -28,11 +28,10 @@ namespace TestImpact
     NativeTestTargetMetaMap ReadNativeTestTargetMetaMapFile(
         const SuiteSet& suiteSet,
         const SuiteLabelExcludeSet& suiteLabelExcludeSet,
-        const RepoPath& testTargetMetaConfigFile,
-        const NativeTargetConfig& targetConfig)
+        const RepoPath& testTargetMetaConfigFile)
     {
         const auto masterTestListData = ReadFileContents<RuntimeException>(testTargetMetaConfigFile);
-        return NativeTestTargetMetaMapFactory(masterTestListData, suiteSet, suiteLabelExcludeSet, targetConfig);
+        return NativeTestTargetMetaMapFactory(masterTestListData, suiteSet, suiteLabelExcludeSet);
     }
 
     NativeRuntime::NativeRuntime(
@@ -46,7 +45,6 @@ namespace TestImpact
         Policy::FailedTestCoverage failedTestCoveragePolicy,
         Policy::TestFailure testFailurePolicy,
         Policy::IntegrityFailure integrationFailurePolicy,
-        Policy::TestSharding testShardingPolicy,
         Policy::TargetOutputCapture targetOutputCapture,
         AZStd::optional<size_t> maxConcurrency)
         : m_config(AZStd::move(config))
@@ -56,7 +54,6 @@ namespace TestImpact
         , m_failedTestCoveragePolicy(failedTestCoveragePolicy)
         , m_testFailurePolicy(testFailurePolicy)
         , m_integrationFailurePolicy(integrationFailurePolicy)
-        , m_testShardingPolicy(testShardingPolicy)
         , m_targetOutputCapture(targetOutputCapture)
         , m_maxConcurrency(maxConcurrency.value_or(AZStd::thread::hardware_concurrency()))
     {
@@ -64,7 +61,7 @@ namespace TestImpact
         auto targetDescriptors = ReadTargetDescriptorFiles(m_config.m_commonConfig.m_buildTargetDescriptor);
         auto buildTargets = CompileNativeTargetLists(
             AZStd::move(targetDescriptors),
-            ReadNativeTestTargetMetaMapFile(m_suiteSet, m_suiteLabelExcludeSet, m_config.m_commonConfig.m_testTargetMeta.m_metaFile, m_config.m_target));
+            ReadNativeTestTargetMetaMapFile(m_suiteSet, m_suiteLabelExcludeSet, m_config.m_commonConfig.m_testTargetMeta.m_metaFile));
         auto&& [productionTargets, testTargets] = buildTargets;
         m_buildTargets = AZStd::make_unique<BuildTargetList<NativeProductionTarget, NativeTestTarget>>(
             AZStd::move(testTargets), AZStd::move(productionTargets));
@@ -203,7 +200,6 @@ namespace TestImpact
         policyState.m_integrityFailurePolicy = m_integrationFailurePolicy;
         policyState.m_targetOutputCapture = m_targetOutputCapture;
         policyState.m_testFailurePolicy = m_testFailurePolicy;
-        policyState.m_testShardingPolicy = m_testShardingPolicy;
 
         return policyState;
     }

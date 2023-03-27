@@ -60,7 +60,6 @@ namespace TestImpact::Console
                 options.GetFailedTestCoveragePolicy(),
                 options.GetTestFailurePolicy(),
                 options.GetIntegrityFailurePolicy(),
-                options.GetTestShardingPolicy(),
                 options.GetTargetOutputCapture(),
                 options.GetMaxConcurrency());
 

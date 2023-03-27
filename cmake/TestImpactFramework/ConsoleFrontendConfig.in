@@ -96,13 +96,7 @@
             ]
           }
         ]
-      },
-      "shard": [
-        {
-          "target": "AzCore.Tests",
-          "policy": "test_interleaved"
-        }
-      ]
+      }
     }
   },
   "python": {

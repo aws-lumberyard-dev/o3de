@@ -256,20 +256,6 @@ namespace TestImpact
         }
     }
 
-    AZStd::string TestShardingPolicyAsString(Policy::TestSharding testShardingPolicy)
-    {
-        switch (testShardingPolicy)
-        {
-        case Policy::TestSharding::Always:
-            return "always";
-        case Policy::TestSharding::Never:
-            return "never";
-        default:
-            throw(Exception(
-                AZStd::string::format("Unexpected test sharding policy: %u", aznumeric_cast<AZ::u32>(testShardingPolicy))));
-        }
-    }
-
     AZStd::string TargetOutputCapturePolicyAsString(Policy::TargetOutputCapture targetOutputCapturePolicy)
     {
         switch (targetOutputCapturePolicy)

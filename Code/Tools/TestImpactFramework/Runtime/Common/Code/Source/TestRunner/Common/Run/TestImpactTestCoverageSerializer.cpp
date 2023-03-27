@@ -51,7 +51,7 @@ namespace TestImpact
                 "source"
             };
 
-            enum
+            enum Fields
             {
                 LineRateKey,
                 BranchRateKey,
@@ -75,9 +75,12 @@ namespace TestImpact
                 NumberKey,
                 HitsKey,
                 SourcesKey,
-                SourceKey
+                SourceKey,
+                // Checksum
+                _CHECKSUM_
             };
 
+            static_assert(Fields::_CHECKSUM_ == AZStd::size(Keys));
             AZ::rapidxml::xml_document<> doc;
 
             AZ::rapidxml::xml_node<>* decl = doc.allocate_node(AZ::rapidxml::node_declaration);

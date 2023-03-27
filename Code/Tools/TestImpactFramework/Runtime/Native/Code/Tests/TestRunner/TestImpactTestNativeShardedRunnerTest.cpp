@@ -189,12 +189,11 @@ namespace UnitTest
     TestTargetMetaMap ReadNativeTestTargetMetaMapFile(
         const SuiteSet& suiteSet,
         const SuiteLabelExcludeSet& suiteLabelExcludeSet,
-        const RepoPath& testTargetMetaConfigFile,
-        const TargetConfig& targetConfig)
+        const RepoPath& testTargetMetaConfigFile)
     {
         // todo: replace with hand-written map with the tiaf test targets
         const auto masterTestListData = TestImpact::ReadFileContents<RuntimeException>(testTargetMetaConfigFile);
-        return NativeTestTargetMetaMapFactory(masterTestListData, suiteSet, suiteLabelExcludeSet, targetConfig);
+        return TestImpact::NativeTestTargetMetaMapFactory(masterTestListData, suiteSet, suiteLabelExcludeSet);
     }
 
     class TestEnumeratorFixture
@@ -254,7 +253,7 @@ namespace UnitTest
             auto targetDescriptors = ReadTargetDescriptorFiles(m_config.m_commonConfig.m_buildTargetDescriptor);
             auto buildTargets = TestImpact::CompileNativeTargetLists(
                 AZStd::move(targetDescriptors),
-                ReadNativeTestTargetMetaMapFile({ "main" }, {}, m_config.m_commonConfig.m_testTargetMeta.m_metaFile, m_config.m_target));
+                ReadNativeTestTargetMetaMapFile({ "main" }, {}, m_config.m_commonConfig.m_testTargetMeta.m_metaFile));
             auto&& [productionTargets, testTargets] = buildTargets;
             m_buildTargets =
                 AZStd::make_unique<BuildTargetList>(AZStd::move(testTargets), AZStd::move(productionTargets));
@@ -305,18 +304,18 @@ namespace UnitTest
     template<typename TestRunnerType>
     class TestRunnerHandler
         : private TestImpact::NativeShardedTestSystemNotificationsBus<TestRunnerType>::Handler
-        , private TestRunnerType::NotificationsBus::Handler
+        , private TestRunnerType::NotificationBus::Handler
     {
     public:
         TestRunnerHandler()
         {
             TestImpact::NativeShardedTestSystemNotificationsBus<TestRunnerType>::Handler::BusConnect();
-            TestRunnerType::NotificationsBus::Handler::BusConnect();
+            TestRunnerType::NotificationBus::Handler::BusConnect();
         }
 
         ~TestRunnerHandler()
         {
-            TestRunnerType::NotificationsBus::Handler::BusDisconnect();
+            TestRunnerType::NotificationBus::Handler::BusDisconnect();
             TestImpact::NativeShardedTestSystemNotificationsBus<TestRunnerType>::Handler::BusDisconnect();
         }
     private:

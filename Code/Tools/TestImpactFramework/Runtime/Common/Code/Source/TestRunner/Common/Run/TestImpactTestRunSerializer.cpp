@@ -21,7 +21,7 @@
 
 namespace TestImpact
 {
-    namespace TestRunFields
+    namespace TestRunSerializer
     {
         // Keys for pertinent JSON node and attribute names
         constexpr const char* Keys[] =
@@ -35,7 +35,7 @@ namespace TestImpact
             "result"
         };
 
-        enum
+        enum Fields
         {
             SuitesKey,
             NameKey,
@@ -43,9 +43,11 @@ namespace TestImpact
             TestsKey,
             DurationKey,
             StatusKey,
-            ResultKey
+            ResultKey,
+            // Checksum
+            _CHECKSUM_
         };
-    } // namespace
+    } // namespace TestRunSerializer
 
     namespace GTest
     {
@@ -66,7 +68,7 @@ namespace TestImpact
             "type"
         };
         
-        enum
+        enum Fields
         {
             TestSuitesKey,
             TestSuiteKey,
@@ -79,11 +81,14 @@ namespace TestImpact
             TimeKey,
             ClassNameKey,
             MessageKey,
-            FailureTypeKey
+            FailureTypeKey,
+             // Checksum
+            _CHECKSUM_
         };
         
         AZStd::string SerializeTestRun(const TestRun& testRun)
         {
+            static_assert(GTest::Fields::_CHECKSUM_ == AZStd::size(GTest::Keys));
             AZ::rapidxml::xml_document<> doc;
         
             AZ::rapidxml::xml_node<>* decl = doc.allocate_node(AZ::rapidxml::node_declaration);
@@ -94,46 +99,46 @@ namespace TestImpact
             AZ::Date::Iso8601TimestampString iso8601Timestamp;
             AZ::Date::GetIso8601ExtendedFormatNow(iso8601Timestamp);
         
-            AZ::rapidxml::xml_node<>* rootNode = doc.allocate_node(AZ::rapidxml::node_element, GTest::Keys[GTest::TestSuitesKey]);
+            AZ::rapidxml::xml_node<>* rootNode = doc.allocate_node(AZ::rapidxml::node_element, GTest::Keys[GTest::Fields::TestSuitesKey]);
 
             // Number of tests in all test suites
             rootNode->append_attribute(doc.allocate_attribute(
-                TestRunFields::Keys[TestRunFields::TestsKey], doc.allocate_string(AZStd::to_string(testRun.GetNumTests()).c_str())));
+                TestRunSerializer::Keys[TestRunSerializer::Fields::TestsKey], doc.allocate_string(AZStd::to_string(testRun.GetNumTests()).c_str())));
 
             // Number of failures in all test suites
             rootNode->append_attribute(doc.allocate_attribute(
-                GTest::Keys[GTest::FailuresKey], doc.allocate_string(AZStd::to_string(testRun.GetNumFailures()).c_str())));
+                GTest::Keys[GTest::Fields::FailuresKey], doc.allocate_string(AZStd::to_string(testRun.GetNumFailures()).c_str())));
 
             // Number of disabled tests in all test suites
             rootNode->append_attribute(doc.allocate_attribute(
-                GTest::Keys[GTest::DisabledKey], doc.allocate_string(AZStd::to_string(testRun.GetNumDisabledTests()).c_str())));
+                GTest::Keys[GTest::Fields::DisabledKey], doc.allocate_string(AZStd::to_string(testRun.GetNumDisabledTests()).c_str())));
 
             // Number of errors in all test suites (not supported in TestRun)
-            rootNode->append_attribute(doc.allocate_attribute(GTest::Keys[GTest::ErrorsKey], "0"));
+            rootNode->append_attribute(doc.allocate_attribute(GTest::Keys[GTest::Fields::ErrorsKey], "0"));
 
             // Timestamp of test completion (aka time of serialization)
-            rootNode->append_attribute(doc.allocate_attribute(GTest::Keys[GTest::TimestampKey], iso8601Timestamp.c_str()));
+            rootNode->append_attribute(doc.allocate_attribute(GTest::Keys[GTest::Fields::TimestampKey], iso8601Timestamp.c_str()));
 
             // Total duration of all test suites
             rootNode->append_attribute(doc.allocate_attribute(
-                GTest::Keys[GTest::TimeKey], doc.allocate_string(AZStd::to_string(testRun.GetDuration().count() / 1000.f).c_str())));
+                GTest::Keys[GTest::Fields::TimeKey], doc.allocate_string(AZStd::to_string(testRun.GetDuration().count() / 1000.f).c_str())));
 
             // Name (unclear, all seem to be AllTests)
-            rootNode->append_attribute(doc.allocate_attribute(TestRunFields::Keys[TestRunFields::NameKey], "AllTests"));
+            rootNode->append_attribute(doc.allocate_attribute(TestRunSerializer::Keys[TestRunSerializer::Fields::NameKey], "AllTests"));
             doc.append_node(rootNode);
 
             // Individual test suites
             for (const auto& testSuite : testRun.GetTestSuites())
             {
-                AZ::rapidxml::xml_node<>* testSuiteNode = doc.allocate_node(AZ::rapidxml::node_element, GTest::Keys[GTest::TestSuiteKey]);
+                AZ::rapidxml::xml_node<>* testSuiteNode = doc.allocate_node(AZ::rapidxml::node_element, GTest::Keys[GTest::Fields::TestSuiteKey]);
 
                 // Name of test suite
                 testSuiteNode->append_attribute(
-                    doc.allocate_attribute(TestRunFields::Keys[TestRunFields::NameKey], testSuite.m_name.c_str()));
+                    doc.allocate_attribute(TestRunSerializer::Keys[TestRunSerializer::Fields::NameKey], testSuite.m_name.c_str()));
 
                 // Number of tests in test suite
                 testSuiteNode->append_attribute(doc.allocate_attribute(
-                    TestRunFields::Keys[TestRunFields::TestsKey], doc.allocate_string(AZStd::to_string(testSuite.m_tests.size()).c_str())));
+                    TestRunSerializer::Keys[TestRunSerializer::Fields::TestsKey], doc.allocate_string(AZStd::to_string(testSuite.m_tests.size()).c_str())));
 
                 // Number of failures in test suite
                 const auto numFailingTests = AZStd::count_if(
@@ -144,7 +149,7 @@ namespace TestImpact
                         return test.m_result.has_value() && test.m_result.value() == TestRunResult::Failed;
                     });
                 testSuiteNode->append_attribute(doc.allocate_attribute(
-                    GTest::Keys[GTest::FailuresKey], doc.allocate_string(AZStd::to_string(numFailingTests).c_str())));
+                    GTest::Keys[GTest::Fields::FailuresKey], doc.allocate_string(AZStd::to_string(numFailingTests).c_str())));
 
                 // Number of disabled tests in test suite
                 const auto numDisabledTests = AZStd::count_if(
@@ -155,49 +160,49 @@ namespace TestImpact
                         return !test.m_enabled;
                     });
                 testSuiteNode->append_attribute(doc.allocate_attribute(
-                    GTest::Keys[GTest::DisabledKey], doc.allocate_string(AZStd::to_string(numDisabledTests).c_str())));
+                    GTest::Keys[GTest::Fields::DisabledKey], doc.allocate_string(AZStd::to_string(numDisabledTests).c_str())));
 
                 // Total duration of all tests in the suite
                 testSuiteNode->append_attribute(doc.allocate_attribute(
-                    GTest::Keys[GTest::TimeKey], doc.allocate_string(AZStd::to_string(testSuite.m_duration.count() / 1000.f).c_str())));
+                    GTest::Keys[GTest::Fields::TimeKey], doc.allocate_string(AZStd::to_string(testSuite.m_duration.count() / 1000.f).c_str())));
 
                 // Number of errors in test suite (not supported in TestRun)
-                testSuiteNode->append_attribute(doc.allocate_attribute(GTest::Keys[GTest::ErrorsKey], "0"));
+                testSuiteNode->append_attribute(doc.allocate_attribute(GTest::Keys[GTest::Fields::ErrorsKey], "0"));
 
                 // Individual tests in test suite
                 for (const auto& testCase : testSuite.m_tests)
                 {
                     AZ::rapidxml::xml_node<>* testCaseNode =
-                        doc.allocate_node(AZ::rapidxml::node_element, GTest::Keys[GTest::TestCaseKey]);
+                        doc.allocate_node(AZ::rapidxml::node_element, GTest::Keys[GTest::Fields::TestCaseKey]);
 
                     // Name of test case
                     testCaseNode->append_attribute(
-                        doc.allocate_attribute(TestRunFields::Keys[TestRunFields::NameKey], testCase.m_name.c_str()));
+                        doc.allocate_attribute(TestRunSerializer::Keys[TestRunSerializer::Fields::NameKey], testCase.m_name.c_str()));
 
                     // Status of test case run
                     testCaseNode->append_attribute(doc.allocate_attribute(
-                        TestRunFields::Keys[TestRunFields::StatusKey],
+                        TestRunSerializer::Keys[TestRunSerializer::Fields::StatusKey],
                         doc.allocate_string(testCase.m_status == TestRunStatus::Run ? "run" : "notrun")));
 
                     // Total duration of test case run
                     testCaseNode->append_attribute(doc.allocate_attribute(
-                        GTest::Keys[GTest::TimeKey], doc.allocate_string(AZStd::to_string(testCase.m_duration.count() / 1000.f).c_str())));
+                        GTest::Keys[GTest::Fields::TimeKey], doc.allocate_string(AZStd::to_string(testCase.m_duration.count() / 1000.f).c_str())));
 
                     // Name of parent test suite
                     testCaseNode->append_attribute(
-                        doc.allocate_attribute(GTest::Keys[GTest::ClassNameKey], testSuite.m_name.c_str()));
+                        doc.allocate_attribute(GTest::Keys[GTest::Fields::ClassNameKey], testSuite.m_name.c_str()));
 
                     // Test failure message (TestRun doesn't store this message string)
                     if (testCase.m_result.has_value() && testCase.m_result.value() == TestRunResult::Failed)
                     {
                         AZ::rapidxml::xml_node<>* testCaseFailureNode =
-                            doc.allocate_node(AZ::rapidxml::node_element, GTest::Keys[GTest::FailureKey]);
+                            doc.allocate_node(AZ::rapidxml::node_element, GTest::Keys[GTest::Fields::FailureKey]);
 
                         // Failure message
-                        testCaseFailureNode->append_attribute(doc.allocate_attribute(GTest::Keys[GTest::MessageKey], "Test failed (check log output for more details)"));
+                        testCaseFailureNode->append_attribute(doc.allocate_attribute(GTest::Keys[GTest::Fields::MessageKey], "Test failed (check log output for more details)"));
 
                         // Failure type (not supported by GTest)
-                        testCaseFailureNode->append_attribute(doc.allocate_attribute(GTest::Keys[GTest::FailureTypeKey], ""));
+                        testCaseFailureNode->append_attribute(doc.allocate_attribute(GTest::Keys[GTest::Fields::FailureTypeKey], ""));
 
                         testCaseNode->append_node(testCaseFailureNode);
                     }
@@ -218,6 +223,7 @@ namespace TestImpact
 
     AZStd::string SerializeTestRun(const TestRun& testRun)
     {
+        static_assert(TestRunSerializer::Fields::_CHECKSUM_ == AZStd::size(TestRunSerializer::Keys));
         rapidjson::StringBuffer stringBuffer;
         rapidjson::PrettyWriter<rapidjson::StringBuffer> writer(stringBuffer);
 
@@ -225,11 +231,11 @@ namespace TestImpact
         writer.StartObject();
 
         // Run duration
-        writer.Key(TestRunFields::Keys[TestRunFields::DurationKey]);
+        writer.Key(TestRunSerializer::Keys[TestRunSerializer::Fields::DurationKey]);
         writer.Uint(static_cast<unsigned int>(testRun.GetDuration().count()));
 
         // Suites
-        writer.Key(TestRunFields::Keys[TestRunFields::SuitesKey]);
+        writer.Key(TestRunSerializer::Keys[TestRunSerializer::Fields::SuitesKey]);
         writer.StartArray();
 
         for (const auto& suite : testRun.GetTestSuites())
@@ -238,19 +244,19 @@ namespace TestImpact
             writer.StartObject();
 
             // Suite name
-            writer.Key(TestRunFields::Keys[TestRunFields::NameKey]);
+            writer.Key(TestRunSerializer::Keys[TestRunSerializer::Fields::NameKey]);
             writer.String(suite.m_name.c_str());
 
             // Suite duration
-            writer.Key(TestRunFields::Keys[TestRunFields::DurationKey]);
+            writer.Key(TestRunSerializer::Keys[TestRunSerializer::Fields::DurationKey]);
             writer.Uint(static_cast<unsigned int>(suite.m_duration.count()));
 
             // Suite enabled
-            writer.Key(TestRunFields::Keys[TestRunFields::EnabledKey]);
+            writer.Key(TestRunSerializer::Keys[TestRunSerializer::Fields::EnabledKey]);
             writer.Bool(suite.m_enabled);
 
             // Suite tests
-            writer.Key(TestRunFields::Keys[TestRunFields::TestsKey]);
+            writer.Key(TestRunSerializer::Keys[TestRunSerializer::Fields::TestsKey]);
             writer.StartArray();
             for (const auto& test : suite.m_tests)
             {
@@ -258,30 +264,30 @@ namespace TestImpact
                 writer.StartObject();
 
                 // Test name
-                writer.Key(TestRunFields::Keys[TestRunFields::NameKey]);
+                writer.Key(TestRunSerializer::Keys[TestRunSerializer::Fields::NameKey]);
                 writer.String(test.m_name.c_str());
 
                 // Test enabled
-                writer.Key(TestRunFields::Keys[TestRunFields::EnabledKey]);
+                writer.Key(TestRunSerializer::Keys[TestRunSerializer::Fields::EnabledKey]);
                 writer.Bool(test.m_enabled);
 
                 // Test duration
-                writer.Key(TestRunFields::Keys[TestRunFields::DurationKey]);
+                writer.Key(TestRunSerializer::Keys[TestRunSerializer::Fields::DurationKey]);
                 writer.Uint(static_cast<unsigned int>(test.m_duration.count()));
 
                 // Test status
-                writer.Key(TestRunFields::Keys[TestRunFields::StatusKey]);
+                writer.Key(TestRunSerializer::Keys[TestRunSerializer::Fields::StatusKey]);
                 writer.Bool(static_cast<bool>(test.m_status));
 
                 // Test result
                 if (test.m_status == TestRunStatus::Run)
                 {
-                    writer.Key(TestRunFields::Keys[TestRunFields::ResultKey]);
+                    writer.Key(TestRunSerializer::Keys[TestRunSerializer::Fields::ResultKey]);
                     writer.Bool(static_cast<size_t>(test.m_result.value()));
                 }
                 else
                 {
-                    writer.Key(TestRunFields::Keys[TestRunFields::ResultKey]);
+                    writer.Key(TestRunSerializer::Keys[TestRunSerializer::Fields::ResultKey]);
                     writer.Null();
                 }
 
@@ -316,35 +322,35 @@ namespace TestImpact
         }
 
         // Run duration
-        const AZStd::chrono::milliseconds runDuration = AZStd::chrono::milliseconds{doc[TestRunFields::Keys[TestRunFields::DurationKey]].GetUint()};
+        const AZStd::chrono::milliseconds runDuration = AZStd::chrono::milliseconds{doc[TestRunSerializer::Keys[TestRunSerializer::Fields::DurationKey]].GetUint()};
 
         // Suites
-        for (const auto& suite : doc[TestRunFields::Keys[TestRunFields::SuitesKey]].GetArray())
+        for (const auto& suite : doc[TestRunSerializer::Keys[TestRunSerializer::Fields::SuitesKey]].GetArray())
         {
             // Suite enabled
             testSuites.emplace_back(TestRunSuite{
                 TestSuite<TestRunCase>{
-                    suite[TestRunFields::Keys[TestRunFields::NameKey]].GetString(),
-                    suite[TestRunFields::Keys[TestRunFields::EnabledKey]].GetBool()
+                    suite[TestRunSerializer::Keys[TestRunSerializer::Fields::NameKey]].GetString(),
+                    suite[TestRunSerializer::Keys[TestRunSerializer::Fields::EnabledKey]].GetBool()
                 },
-                AZStd::chrono::milliseconds{ suite[TestRunFields::Keys[TestRunFields::DurationKey]].GetUint() }
+                AZStd::chrono::milliseconds{ suite[TestRunSerializer::Keys[TestRunSerializer::Fields::DurationKey]].GetUint() }
             });
 
             // Suite tests
-            for (const auto& test : suite[TestRunFields::Keys[TestRunFields::TestsKey]].GetArray())
+            for (const auto& test : suite[TestRunSerializer::Keys[TestRunSerializer::Fields::TestsKey]].GetArray())
             {
                 AZStd::optional<TestRunResult> result;
-                TestRunStatus status = static_cast<TestRunStatus>(test[TestRunFields::Keys[TestRunFields::StatusKey]].GetBool());
+                TestRunStatus status = static_cast<TestRunStatus>(test[TestRunSerializer::Keys[TestRunSerializer::Fields::StatusKey]].GetBool());
                 if (status == TestRunStatus::Run)
                 {
-                    result = static_cast<TestRunResult>(test[TestRunFields::Keys[TestRunFields::ResultKey]].GetBool());
+                    result = static_cast<TestRunResult>(test[TestRunSerializer::Keys[TestRunSerializer::Fields::ResultKey]].GetBool());
                 }
-                const AZStd::chrono::milliseconds testDuration = AZStd::chrono::milliseconds{test[TestRunFields::Keys[TestRunFields::DurationKey]].GetUint()};
+                const AZStd::chrono::milliseconds testDuration = AZStd::chrono::milliseconds{test[TestRunSerializer::Keys[TestRunSerializer::Fields::DurationKey]].GetUint()};
                 testSuites.back().m_tests.emplace_back(
                     TestRunCase{
                         TestCase{
-                            test[TestRunFields::Keys[TestRunFields::NameKey]].GetString(),
-                            test[TestRunFields::Keys[TestRunFields::EnabledKey]].GetBool()
+                            test[TestRunSerializer::Keys[TestRunSerializer::Fields::NameKey]].GetString(),
+                            test[TestRunSerializer::Keys[TestRunSerializer::Fields::EnabledKey]].GetBool()
                         },
                          result, testDuration, status
                     });

@@ -35,7 +35,6 @@ namespace TestImpact
     {
         TestTargetMeta m_testTargetMeta;
         NativeTargetLaunchMeta m_launchMeta;
-        ShardConfiguration m_shardConfiguration = ShardConfiguration::Never;
     };
 
     //! Map between test target name and test target meta-data.

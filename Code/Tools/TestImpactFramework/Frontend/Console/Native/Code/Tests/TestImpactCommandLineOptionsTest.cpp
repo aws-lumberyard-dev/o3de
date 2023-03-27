@@ -52,7 +52,6 @@ namespace UnitTest
         EXPECT_EQ(m_options->GetIntegrityFailurePolicy(), TestImpact::Policy::IntegrityFailure::Abort);
         EXPECT_EQ(m_options->GetTestPrioritizationPolicy(), TestImpact::Policy::TestPrioritization::None);
         EXPECT_EQ(m_options->GetTestSequenceType(), TestImpact::TestSequenceType::None);
-        EXPECT_EQ(m_options->GetTestShardingPolicy(), TestImpact::Policy::TestSharding::Never);
         EXPECT_FALSE(m_options->HasTestImpactDataFile());
         EXPECT_FALSE(m_options->GetTestImpactDataFile().has_value());
         EXPECT_FALSE(m_options->HasPreviousRunDataFile());
@@ -939,95 +938,6 @@ namespace UnitTest
     {
         m_args.push_back("-ipolicy");
         m_args.push_back("abort,continue");
-
-        try
-        {
-            InitOptions();
-
-            // Do not expect the command line options construction to succeed
-            FAIL();
-        }
-        catch ([[maybe_unused]] const TestImpact::CommandLineOptionsException& e)
-        {
-            // Expect a command line options to be thrown
-            SUCCEED();
-        }
-        catch (...)
-        {
-            // Do not expect any other exceptions
-            FAIL();
-        }
-    }
-
-    //
-
-    TEST_F(CommandLineOptionsTestFixture, TestShardingHasEmptyOption_ExpectCommandLineOptionsException)
-    {
-        m_args.push_back("-shard");
-
-        try
-        {
-            InitOptions();
-
-            // Do not expect the command line options construction to succeed
-            FAIL();
-        }
-        catch ([[maybe_unused]] const TestImpact::CommandLineOptionsException& e)
-        {
-            // Expect a command line options to be thrown
-            SUCCEED();
-        }
-        catch (...)
-        {
-            // Do not expect any other exceptions
-            FAIL();
-        }
-    }
-
-    TEST_F(CommandLineOptionsTestFixture, TestShardingHasOnOption_ExpectOnTestSharding)
-    {
-        m_args.push_back("-shard");
-        m_args.push_back("on");
-        InitOptions();
-        EXPECT_EQ(m_options->GetTestShardingPolicy(), TestImpact::Policy::TestSharding::Always);
-    }
-
-    TEST_F(CommandLineOptionsTestFixture, TestShardingHasOffOption_ExpectOffTestSharding)
-    {
-        m_args.push_back("-shard");
-        m_args.push_back("off");
-        InitOptions();
-        EXPECT_EQ(m_options->GetTestShardingPolicy(), TestImpact::Policy::TestSharding::Never);
-    }
-
-    TEST_F(CommandLineOptionsTestFixture, TestShardingInvalidOption_ExpectCommandLineOptionsException)
-    {
-        m_args.push_back("-shard");
-        m_args.push_back("foo");
-
-        try
-        {
-            InitOptions();
-
-            // Do not expect the command line options construction to succeed
-            FAIL();
-        }
-        catch ([[maybe_unused]] const TestImpact::CommandLineOptionsException& e)
-        {
-            // Expect a command line options to be thrown
-            SUCCEED();
-        }
-        catch (...)
-        {
-            // Do not expect any other exceptions
-            FAIL();
-        }
-    }
-
-    TEST_F(CommandLineOptionsTestFixture, TestShardingHasMultipeValues_ExpectCommandLineOptionsException)
-    {
-        m_args.push_back("-shard");
-        m_args.push_back("on,off");
 
         try
         {

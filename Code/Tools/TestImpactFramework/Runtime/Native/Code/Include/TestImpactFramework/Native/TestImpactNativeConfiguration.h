@@ -52,7 +52,6 @@ namespace TestImpact
     {
         RepoPath m_outputDirectory; //!< Path to the test target binary directory.
         NativeExcludedTargets m_excludedTargets; //!< Test targets to exclude from regular and/or instrumented runs.
-        AZStd::unordered_map<AZStd::string, ShardConfiguration> m_shardedTestTargets; //!< Test target shard configurations (opt-in).
     };
 
     //! Native runtime configuration.

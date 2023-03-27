@@ -19,8 +19,7 @@ namespace TestImpact
     NativeTestTargetMetaMap NativeTestTargetMetaMapFactory(
         const AZStd::string& masterTestListData,
         const SuiteSet& suiteSet,
-        const SuiteLabelExcludeSet& suiteLabelExcludeSet,
-        const NativeTargetConfig& targetConfig)
+        const SuiteLabelExcludeSet& suiteLabelExcludeSet)
     {
         // Keys for pertinent JSON node and attribute names
         constexpr const char* Keys[] =
@@ -40,7 +39,7 @@ namespace TestImpact
             "labels"
         };
 
-        enum
+        enum Fields
         {
             GoogleKey,
             TestKey,
@@ -54,9 +53,12 @@ namespace TestImpact
             NameKey,
             CommandKey,
             TimeoutKey,
-            SuiteLabelsKey
+            SuiteLabelsKey,
+            // Checksum
+            _CHECKSUM_
         };
 
+        static_assert(Fields::_CHECKSUM_ == AZStd::size(Keys));
         AZ_TestImpact_Eval(!masterTestListData.empty(), ArtifactException, "Test meta-data cannot be empty");
 
         NativeTestTargetMetaMap testMetas;
@@ -99,11 +101,6 @@ namespace TestImpact
                     if (auto labelSet = ExtractTestSuiteLabelSet(suite[Keys[SuiteLabelsKey]].GetArray(), suiteLabelExcludeSet);
                         labelSet.has_value())
                     {
-                        if (const auto it = targetConfig.m_shardedTestTargets.find(name); it != targetConfig.m_shardedTestTargets.end())
-                        {
-                            testMeta.m_shardConfiguration = it->second;
-                        }
-
                         testMeta.m_testTargetMeta.m_suiteMeta.m_labelSet = AZStd::move(labelSet.value());
                         testMeta.m_testTargetMeta.m_suiteMeta.m_name = suiteName;
                         testMeta.m_testTargetMeta.m_suiteMeta.m_timeout = AZStd::chrono::seconds{ suite[Keys[TimeoutKey]].GetUint() };
