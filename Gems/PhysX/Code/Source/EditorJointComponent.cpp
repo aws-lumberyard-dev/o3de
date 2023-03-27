@@ -53,6 +53,9 @@ namespace PhysX
 
         m_config.m_followerEntity = GetEntityId();
 
+        m_cachedWorldTM = GetWorldTM();
+
+        AZ::TransformNotificationBus::Handler::BusConnect(m_config.m_followerEntity);
         AzToolsFramework::EditorComponentSelectionRequestsBus::Handler::BusConnect(m_config.m_followerEntity);
         AzToolsFramework::EditorComponentSelectionNotificationsBus::Handler::BusConnect(m_config.m_followerEntity);
         PhysX::EditorJointRequestBus::Handler::BusConnect(AZ::EntityComponentIdPair(m_config.m_followerEntity, GetId()));
@@ -69,6 +72,26 @@ namespace PhysX
         AzToolsFramework::EditorComponentSelectionNotificationsBus::Handler::BusDisconnect();
         AzToolsFramework::EditorComponentSelectionRequestsBus::Handler::BusDisconnect();
         AzToolsFramework::Components::EditorComponentBase::Deactivate();
+        AZ::TransformNotificationBus::Handler::BusDisconnect();
+    }
+
+    void EditorJointComponent::OnTransformChanged(
+        [[maybe_unused]] const AZ::Transform& localTM, const AZ::Transform& worldTM)
+    {
+        if (m_config.m_fixJointLocation)
+        {
+            const AZ::Transform jointWorldTM = m_cachedWorldTM * 
+                AZ::Transform::CreateFromQuaternionAndTranslation(
+                    AZ::Quaternion::CreateFromEulerAnglesDegrees(m_config.m_localRotation), m_config.m_localPosition);
+
+            const AZ::Transform newJointLocalTM = worldTM.GetInverse() * jointWorldTM;
+            m_config.m_localPosition = newJointLocalTM.GetTranslation();
+            m_config.m_localRotation = newJointLocalTM.GetEulerDegrees();
+
+            AzToolsFramework::ToolsApplicationEvents::Bus::Broadcast(
+                &AzToolsFramework::ToolsApplicationEvents::InvalidatePropertyDisplay, AzToolsFramework::Refresh_Values);
+        }
+        m_cachedWorldTM = worldTM;
     }
 
     AZ::Aabb EditorJointComponent::GetEditorSelectionBoundsViewport(
