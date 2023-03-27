@@ -12,10 +12,12 @@
 
 #include <Target/Native/TestImpactNativeTestTarget.h>
 #include <TestEngine/Common/Enumeration/TestImpactTestEngineEnumeration.h>
-#include <TestRunner/Native/Job/TestImpactNativeTestJobInfoGenerator.h>
+#include <TestRunner/Common/Job/TestImpactTestJobInfoUtils.h>
 #include <TestRunner/Native/TestImpactNativeRegularTestRunner.h>
 #include <TestRunner/Native/TestImpactNativeInstrumentedTestRunner.h>
 #include <TestRunner/Native/TestImpactNativeRegularTestRunner.h>
+#include <TestRunner/Native/Job/TestImpactNativeTestJobInfoGenerator.h>
+#include <TestRunner/Native/Job/TestImpactNativeTestJobInfoUtils.h>
 
 namespace TestImpact
 {
@@ -68,6 +70,16 @@ namespace TestImpact
         //!
         ShardedTestsFilter TestListsToTestFilters(const ShardedTestsList& shardedTestList) const;
 
+        //!
+        RepoPath GenerateShardedTargetRunArtifactFilePath(const NativeTestTarget* testTarget, size_t shardNumber) const;
+
+        //!
+        RepoPath GenerateShardedAdditionalArgsFilePath(const NativeTestTarget* testTarget, size_t shardNumber) const;
+
+        //!
+        AZStd::string GenerateShardedLaunchCommand(
+            const NativeTestTarget* testTarget, const RepoPath& shardAdditionalArgsFile) const;
+
         size_t m_maxConcurrency;
         RepoPath m_sourceDir;
         RepoPath m_targetBinaryDir;
@@ -95,6 +107,9 @@ namespace TestImpact
             typename NativeInstrumentedTestRunner::JobInfo::Id startingId) const override;
 
     private:
+        //!
+        RepoPath GenerateShardedTargetCoverageArtifactFilePath(const NativeTestTarget* testTarget, size_t shardNumber) const;
+
         RepoPath m_cacheDir;
         RepoPath m_instrumentBinary;
         CoverageLevel m_coverageLevel;
@@ -206,5 +221,31 @@ namespace TestImpact
         }
 
         return jobInfos;
+    }
+
+    template<typename TestJobRunner>
+    RepoPath NativeShardedTestRunJobInfoGeneratorBase<TestJobRunner>::GenerateShardedTargetRunArtifactFilePath(
+        const NativeTestTarget* testTarget, const size_t shardNumber) const
+    {
+        auto artifactFilePath = GenerateTargetRunArtifactFilePath(testTarget, m_artifactDir.m_shardedTestRunArtifactDirectory);
+        return artifactFilePath.ReplaceExtension(AZStd::string::format("%zu%s", shardNumber, artifactFilePath.Extension().String().c_str()).c_str());
+    }
+
+    template<typename TestJobRunner>
+    AZStd::string NativeShardedTestRunJobInfoGeneratorBase<TestJobRunner>::GenerateShardedLaunchCommand(
+        const NativeTestTarget* testTarget, const RepoPath& shardAdditionalArgsFile) const
+    {
+        return AZStd::string::format(
+            "%s --args_from_file \"%s\"",
+            GenerateLaunchArgument(testTarget, m_targetBinaryDir, m_testRunnerBinary).c_str(),
+            shardAdditionalArgsFile.c_str());
+    }
+
+    template<typename TestJobRunner>
+    RepoPath NativeShardedTestRunJobInfoGeneratorBase<TestJobRunner>::GenerateShardedAdditionalArgsFilePath(
+        const NativeTestTarget* testTarget, size_t shardNumber) const
+    {
+        return AZStd::string::format(
+            "%s.%zu.args", (m_artifactDir.m_shardedTestRunArtifactDirectory / RepoPath(testTarget->GetName())).c_str(), shardNumber);
     }
 } // namespace TestImpact

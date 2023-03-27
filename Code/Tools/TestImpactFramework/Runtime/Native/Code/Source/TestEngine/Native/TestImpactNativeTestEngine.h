@@ -28,13 +28,15 @@ namespace TestImpact
     class NativeTestEnumerator;
     class NativeInstrumentedTestRunner;
     class NativeRegularTestRunner;
+    class NativeShardedInstrumentedTestRunner;
+    class NativeShardedRegularTestRunner;
 
     //! Provides the front end for performing test enumerations and test runs.
     class NativeTestEngine
     {
     public:
         //! Configures the test engine with the necessary path information for launching test targets and managing the artifacts they produce.
-        //! @param sourceDir Root path where source files are found (including subfolders).
+        //! @param repoRootDir Root path where source files are found (including subfolders).
         //! @param targetBinaryDir Path to where the test target binaries are found.
         //! @param cacheDir Path to the persistent folder where test target enumerations are cached.
         //! @param artifactDir Path to the transient directory where test artifacts are produced.
@@ -42,7 +44,7 @@ namespace TestImpact
         //! @param instrumentBinary Path to the binary responsible for launching test targets with test coverage instrumentation.
         //! @param maxConcurrentRuns The maximum number of concurrent test targets that can be in flight at any given moment.
         NativeTestEngine(
-            const RepoPath& sourceDir,
+            const RepoPath& repoRootDir,
             const RepoPath& targetBinaryDir,
             const RepoPath& cacheDir,
             const ArtifactDir& artifactDir,
@@ -115,6 +117,8 @@ namespace TestImpact
         AZStd::unique_ptr<NativeTestEnumerator> m_testEnumerator;
         AZStd::unique_ptr<NativeInstrumentedTestRunner> m_instrumentedTestRunner;
         AZStd::unique_ptr<NativeRegularTestRunner> m_testRunner;
+        AZStd::unique_ptr<NativeShardedInstrumentedTestRunner> m_shardedInstrumentedTestRunner;
+        AZStd::unique_ptr<NativeShardedRegularTestRunner> m_shardedTestRunner;
         ArtifactDir m_artifactDir;
     };
 } // namespace TestImpact

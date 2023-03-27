@@ -13,8 +13,8 @@
 #include <TestEngine/Native/TestImpactNativeTestEngine.h>
 #include <TestRunner/Native/TestImpactNativeErrorCodeChecker.h>
 #include <TestRunner/Native/TestImpactNativeTestEnumerator.h>
-#include <TestRunner/Native/TestImpactNativeInstrumentedTestRunner.h>
-#include <TestRunner/Native/TestImpactNativeRegularTestRunner.h>
+#include <TestRunner/Native/TestImpactNativeShardedInstrumentedTestRunner.h>
+#include <TestRunner/Native/TestImpactNativeShardedRegularTestRunner.h>
 #include <TestRunner/Native/Job/TestImpactNativeTestJobInfoGenerator.h>
 
 namespace TestImpact
@@ -136,7 +136,7 @@ namespace TestImpact
     };
 
     NativeTestEngine::NativeTestEngine(
-        const RepoPath& sourceDir,
+        const RepoPath& repoRootDir,
         const RepoPath& targetBinaryDir,
         [[maybe_unused]]const RepoPath& cacheDir,
         const ArtifactDir& artifactDir,
@@ -144,12 +144,12 @@ namespace TestImpact
         const RepoPath& instrumentBinary,
         size_t maxConcurrentRuns)
         : m_regularTestJobInfoGenerator(AZStd::make_unique<NativeRegularTestRunJobInfoGenerator>(
-            sourceDir,
+            repoRootDir,
             targetBinaryDir,
             artifactDir,
             testRunnerBinary))
         , m_instrumentedTestJobInfoGenerator(AZStd::make_unique<NativeInstrumentedTestRunJobInfoGenerator>(
-            sourceDir,
+            repoRootDir,
             targetBinaryDir,
             artifactDir,
             testRunnerBinary,
@@ -157,6 +157,8 @@ namespace TestImpact
         , m_testEnumerator(AZStd::make_unique<NativeTestEnumerator>(maxConcurrentRuns))
         , m_instrumentedTestRunner(AZStd::make_unique<NativeInstrumentedTestRunner>(maxConcurrentRuns))
         , m_testRunner(AZStd::make_unique<NativeRegularTestRunner>(maxConcurrentRuns))
+        , m_shardedInstrumentedTestRunner(AZStd::make_unique<NativeShardedInstrumentedTestRunner>(*m_instrumentedTestRunner.get(), repoRootDir, artifactDir))
+        , m_shardedTestRunner(AZStd::make_unique<NativeShardedRegularTestRunner>(*m_testRunner.get(), repoRootDir, artifactDir))
         , m_artifactDir(artifactDir)
     {
     }

@@ -8,9 +8,7 @@
 
 #include <TestImpactFramework/TestImpactTestSequence.h>
 
-#include <TestRunner/Common/Job/TestImpactTestJobInfoUtils.h>
 #include <TestRunner/Native/Job/TestImpactNativeShardedTestJobInfoGenerator.h>
-#include <TestRunner/Native/Job/TestImpactNativeTestJobInfoUtils.h>
 
 namespace TestImpact
 {
@@ -33,29 +31,29 @@ namespace TestImpact
     {
     }
 
+    RepoPath NativeShardedInstrumentedTestRunJobInfoGenerator::GenerateShardedTargetCoverageArtifactFilePath(
+        const NativeTestTarget* testTarget, size_t shardNumber) const
+    {
+        auto artifactFilePath = GenerateTargetCoverageArtifactFilePath(testTarget, m_artifactDir.m_shardedCoverageArtifactDirectory);
+        return artifactFilePath.ReplaceExtension(
+            AZStd::string::format("%zu%s", shardNumber, artifactFilePath.Extension().String().c_str()).c_str());
+    }
+
     ShardedInstrumentedTestJobInfo NativeShardedInstrumentedTestRunJobInfoGenerator::GenerateJobInfo(
         const TestTargetAndEnumeration& testTargetAndEnumeration,
         typename NativeInstrumentedTestRunner::JobInfo::Id startingId) const
     {
         const auto [testTarget, testEnumeration] = testTargetAndEnumeration;
-        const auto launchArgument = GenerateLaunchArgument(testTarget, m_targetBinaryDir, m_testRunnerBinary);
         const auto testFilters = TestListsToTestFilters(ShardTestInterleaved(testTargetAndEnumeration));
         ShardedInstrumentedTestJobInfo shards(testTarget, typename ShardedInstrumentedTestJobInfo::second_type());
         shards.second.reserve(testFilters.size());
 
         for (size_t i = 0; i < testFilters.size(); i++)
         {
-            const auto shardedRunArtifact = AZStd::string::format(
-                "%s.%zu", GenerateTargetRunArtifactFilePath(testTarget, m_artifactDir.m_shardedTestRunArtifactDirectory).c_str(), i);
-
-            const auto shardCoverageArtifact = AZStd::string::format(
-                "%s.%zu", GenerateTargetCoverageArtifactFilePath(testTarget, m_artifactDir.m_shardedCoverageArtifactDirectory).c_str(), i);
-
-            const RepoPath shardAdditionalArgsFile = AZStd::string::format("%s.args.%zu", (m_artifactDir.m_shardedTestRunArtifactDirectory / RepoPath(testTarget->GetName())).c_str(), i);
-
-            const auto shardLaunchCommand =
-                AZStd::string::format("%s --args_from_file \"%s\"", launchArgument.c_str(), shardAdditionalArgsFile.c_str());
-
+            const auto shardedRunArtifact = GenerateShardedTargetRunArtifactFilePath(testTarget, i);
+            const auto shardCoverageArtifact = GenerateShardedTargetCoverageArtifactFilePath(testTarget, i);
+            const RepoPath shardAdditionalArgsFile = GenerateShardedAdditionalArgsFilePath(testTarget, i);
+            const auto shardLaunchCommand = GenerateShardedLaunchCommand(testTarget, shardAdditionalArgsFile);
             WriteFileContents<TestRunnerException>(testFilters[i], shardAdditionalArgsFile);
 
             const auto command = GenerateInstrumentedTestJobInfoCommand(
@@ -81,24 +79,16 @@ namespace TestImpact
         typename NativeRegularTestRunner::JobInfo::Id startingId) const
     {
         const auto [testTarget, testEnumeration] = testTargetAndEnumeration;
-        const auto launchArgument = GenerateLaunchArgument(testTarget, m_targetBinaryDir, m_testRunnerBinary);
         const auto testFilters = TestListsToTestFilters(ShardTestInterleaved(testTargetAndEnumeration));
         ShardedRegularTestJobInfo shards(testTarget, typename ShardedRegularTestJobInfo::second_type());
         shards.second.reserve(testFilters.size());
 
         for (size_t i = 0; i < testFilters.size(); i++)
         {
-            const auto shardedRunArtifact = AZStd::string::format(
-                "%s.%zu", GenerateTargetRunArtifactFilePath(testTarget, m_artifactDir.m_shardedTestRunArtifactDirectory).c_str(), i);
-
-            const RepoPath shardAdditionalArgsFile = AZStd::string::format(
-                "%s.args.%zu", (m_artifactDir.m_shardedTestRunArtifactDirectory / RepoPath(testTarget->GetName())).c_str(), i);
-
-            const auto shardLaunchCommand =
-                AZStd::string::format("%s --args_from_file \"%s\"", launchArgument.c_str(), shardAdditionalArgsFile.c_str());
-
+            const auto shardedRunArtifact = GenerateShardedTargetRunArtifactFilePath(testTarget,  i);
+            const RepoPath shardAdditionalArgsFile = GenerateShardedAdditionalArgsFilePath(testTarget, i);
+            const auto shardLaunchCommand = GenerateShardedLaunchCommand(testTarget, shardAdditionalArgsFile);
             WriteFileContents<TestRunnerException>(testFilters[i], shardAdditionalArgsFile);
-
             const auto command = GenerateRegularTestJobInfoCommand(shardLaunchCommand, shardedRunArtifact);
 
             shards.second.emplace_back(
