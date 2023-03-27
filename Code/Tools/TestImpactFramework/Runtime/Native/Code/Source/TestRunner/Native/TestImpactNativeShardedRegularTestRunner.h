@@ -8,21 +8,21 @@
 
 #pragma once
 
-#include <TestRunner/Native/Shard/TestImpactNativeShardedTestSystem.h>
 #include <TestRunner/Native/TestImpactNativeRegularTestRunner.h>
+#include <TestRunner/Native/Shard/TestImpactNativeShardedTestRunnerBase.h>
 
 namespace TestImpact
 {
     //!
-    using NativeShardedRegularTestSystemNotifications = NativeShardedTestSystemNotifications<NativeRegularTestRunner>;
+    using NativeShardedRegularTestSystemNotificationBus = NativeShardedTestRunnerBaseNotificationBus<NativeRegularTestRunner>;
 
     //!
     class NativeShardedRegularTestRunner
-        : public NativeShardedTestSystem<NativeRegularTestRunner>
+        : public NativeShardedTestRunnerBase<NativeRegularTestRunner>
     {
     public:
         //!
-        using NativeShardedTestSystem<NativeRegularTestRunner>::NativeShardedTestSystem;
+        using NativeShardedTestRunnerBase<NativeRegularTestRunner>::NativeShardedTestRunnerBase;
 
     private:
         // NativeShardedTestSystem overrides ...

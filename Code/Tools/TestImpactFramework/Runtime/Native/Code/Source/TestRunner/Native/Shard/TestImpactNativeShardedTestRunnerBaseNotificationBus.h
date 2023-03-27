@@ -17,7 +17,7 @@ namespace TestImpact
 {
     //! Bus for native sharded test system notifications.
     template<typename TestRunnerType>
-    class NativeShardedTestSystemNotifications
+    class NativeShardedTestRunnerBaseNotifications
         : public AZ::EBusTraits
     {
     public:
@@ -55,5 +55,5 @@ namespace TestImpact
     };
 
     template<typename TestRunnerType>
-    using NativeShardedTestSystemNotificationsBus = AZ::EBus<NativeShardedTestSystemNotifications<TestRunnerType>>;
+    using NativeShardedTestRunnerBaseNotificationBus = AZ::EBus<NativeShardedTestRunnerBaseNotifications<TestRunnerType>>;
 } // namespace TestImpact

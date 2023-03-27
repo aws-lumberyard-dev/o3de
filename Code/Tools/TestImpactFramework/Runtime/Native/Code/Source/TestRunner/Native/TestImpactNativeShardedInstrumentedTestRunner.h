@@ -9,20 +9,20 @@
 #pragma once
 
 #include <TestRunner/Native/TestImpactNativeInstrumentedTestRunner.h>
-#include <TestRunner/Native/Shard/TestImpactNativeShardedTestSystem.h>
+#include <TestRunner/Native/Shard/TestImpactNativeShardedTestRunnerBase.h>
 
 namespace TestImpact
 {
     //!
-    using NativeShardedInstrumentedTestSystemNotifications = NativeShardedTestSystemNotifications<NativeInstrumentedTestRunner>;
+    using NativeShardedInstrumentedTestSystemNotificationBus = NativeShardedTestRunnerBaseNotificationBus<NativeInstrumentedTestRunner>;
 
     //!
     class NativeShardedInstrumentedTestRunner
-        : public NativeShardedTestSystem<NativeInstrumentedTestRunner>
+        : public NativeShardedTestRunnerBase<NativeInstrumentedTestRunner>
     {
     public:
         //!
-        using NativeShardedTestSystem<NativeInstrumentedTestRunner>::NativeShardedTestSystem;
+        using NativeShardedTestRunnerBase<NativeInstrumentedTestRunner>::NativeShardedTestRunnerBase;
 
     private:
         // NativeShardedTestSystem overrides ...

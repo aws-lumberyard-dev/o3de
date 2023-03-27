@@ -303,20 +303,20 @@ namespace UnitTest
 
     template<typename TestRunnerType>
     class TestRunnerHandler
-        : private TestImpact::NativeShardedTestSystemNotificationsBus<TestRunnerType>::Handler
+        : private TestImpact::NativeShardedTestRunnerBaseNotificationBus<TestRunnerType>::Handler
         , private TestRunnerType::NotificationBus::Handler
     {
     public:
         TestRunnerHandler()
         {
-            TestImpact::NativeShardedTestSystemNotificationsBus<TestRunnerType>::Handler::BusConnect();
+            TestImpact::NativeShardedTestRunnerBaseNotificationBus<TestRunnerType>::Handler::BusConnect();
             TestRunnerType::NotificationBus::Handler::BusConnect();
         }
 
         ~TestRunnerHandler()
         {
             TestRunnerType::NotificationBus::Handler::BusDisconnect();
-            TestImpact::NativeShardedTestSystemNotificationsBus<TestRunnerType>::Handler::BusDisconnect();
+            TestImpact::NativeShardedTestRunnerBaseNotificationBus<TestRunnerType>::Handler::BusDisconnect();
         }
     private:
         TestImpact::ProcessCallbackResult OnShardedJobComplete(
@@ -466,8 +466,6 @@ namespace UnitTest
 
             const auto testString = TestImpact::GTest::SerializeTestRun(runResult2.second.front().GetPayload().value());
         }
-
-        
 
         return;
     }

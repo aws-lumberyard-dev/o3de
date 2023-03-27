@@ -12,7 +12,7 @@
 #include <TestRunner/Common/Run/TestImpactTestRunSerializer.h>
 #include <TestRunner/Native/Job/TestImpactNativeShardedTestJobInfoGenerator.h>
 #include <TestRunner/Native/Shard/TestImpactNativeShardedTestJob.h>
-#include <TestRunner/Native/Shard/TestImpactNativeShardedTestSystemBus.h>
+#include <TestRunner/Native/Shard/TestImpactNativeShardedTestRunnerBaseNotificationBus.h>
 
 #include <AzCore/std/numeric.h>
 
@@ -20,7 +20,7 @@ namespace TestImpact
 {
     //! 
     template<typename TestRunnerType>
-    class NativeShardedTestSystem
+    class NativeShardedTestRunnerBase
     {
     public:
         using Job = typename TestRunnerType::Job;
@@ -29,8 +29,8 @@ namespace TestImpact
         using ShardedTestJobInfoType = ShardedTestJobInfo<TestRunnerType>;
 
         //! Constructs the sharded test system to wrap around the specified test runner.
-        NativeShardedTestSystem(TestRunnerType& testRunner, const RepoPath& repoRoot, const ArtifactDir& artifactDir);
-        virtual ~NativeShardedTestSystem() = default;
+        NativeShardedTestRunnerBase(TestRunnerType& testRunner, const RepoPath& repoRoot, const ArtifactDir& artifactDir);
+        virtual ~NativeShardedTestRunnerBase() = default;
 
         //! Wrapper around the test runner's `RunTests` method to present the sharded test running interface to the user.
         [[nodiscard]] AZStd::pair<ProcessSchedulerResult, AZStd::vector<typename TestRunnerType::Job>> RunTests(
@@ -64,7 +64,7 @@ namespace TestImpact
     };
 
     template<typename TestRunnerType>
-    class NativeShardedTestSystem<TestRunnerType>::TestJobRunnerNotificationHandler
+    class NativeShardedTestRunnerBase<TestRunnerType>::TestJobRunnerNotificationHandler
         : private TestRunnerType::NotificationBus::Handler
     {
     public:
@@ -83,7 +83,7 @@ namespace TestImpact
     };
 
     template<typename TestRunnerType>
-    NativeShardedTestSystem<TestRunnerType>::TestJobRunnerNotificationHandler::TestJobRunnerNotificationHandler(
+    NativeShardedTestRunnerBase<TestRunnerType>::TestJobRunnerNotificationHandler::TestJobRunnerNotificationHandler(
         ShardToParentShardedJobMap& shardToParentShardedJobMap, CompletedShardMap& completedShardMap)
         : m_shardToParentShardedJobMap(&shardToParentShardedJobMap)
         , m_completedShardMap(&completedShardMap)
@@ -92,13 +92,13 @@ namespace TestImpact
     }
 
     template<typename TestRunnerType>
-    NativeShardedTestSystem<TestRunnerType>::TestJobRunnerNotificationHandler::~TestJobRunnerNotificationHandler()
+    NativeShardedTestRunnerBase<TestRunnerType>::TestJobRunnerNotificationHandler::~TestJobRunnerNotificationHandler()
     {
         TestRunnerType::NotificationBus::Handler::BusDisconnect();
     }
 
     template<typename TestRunnerType>
-    ProcessCallbackResult NativeShardedTestSystem<TestRunnerType>::TestJobRunnerNotificationHandler::OnJobComplete(
+    ProcessCallbackResult NativeShardedTestRunnerBase<TestRunnerType>::TestJobRunnerNotificationHandler::OnJobComplete(
         const typename TestRunnerType::Job::Info& jobInfo, const JobMeta& meta, const StdContent& std)
     {
         const auto& shardedJobInfo = m_shardToParentShardedJobMap->at(jobInfo.GetId().m_value);
@@ -106,9 +106,9 @@ namespace TestImpact
         
         {
             AZ::EBusAggregateResults<ProcessCallbackResult> results;
-            NativeShardedTestSystemNotificationsBus<TestRunnerType>::BroadcastResult(
+            NativeShardedTestRunnerBaseNotificationBus<TestRunnerType>::BroadcastResult(
                 results,
-                &NativeShardedTestSystemNotificationsBus<TestRunnerType>::Events::OnShardedSubJobComplete,
+                &NativeShardedTestRunnerBaseNotificationBus<TestRunnerType>::Events::OnShardedSubJobComplete,
                 shardedJobInfo->second.begin()->GetId(),
                 shardedJobInfo->second.size(),
                 jobInfo,
@@ -128,9 +128,9 @@ namespace TestImpact
         {
             auto& consolidatedJobData = *shardedTestJob.GetConsolidatedJobData();
             AZ::EBusAggregateResults<ProcessCallbackResult> results;
-            NativeShardedTestSystemNotificationsBus<TestRunnerType>::BroadcastResult(
+            NativeShardedTestRunnerBaseNotificationBus<TestRunnerType>::BroadcastResult(
                 results,
-                &NativeShardedTestSystemNotificationsBus<TestRunnerType>::Events::OnShardedJobComplete,
+                &NativeShardedTestRunnerBaseNotificationBus<TestRunnerType>::Events::OnShardedJobComplete,
                 consolidatedJobData.m_jobInfo,
                 consolidatedJobData.m_meta,
                 consolidatedJobData.m_std);
@@ -141,7 +141,7 @@ namespace TestImpact
     }
 
     template<typename TestRunnerType>
-    NativeShardedTestSystem<TestRunnerType>::NativeShardedTestSystem(
+    NativeShardedTestRunnerBase<TestRunnerType>::NativeShardedTestRunnerBase(
         TestRunnerType& testRunner, const RepoPath& repoRoot, const ArtifactDir& artifactDir)
         : m_testRunner(&testRunner)
         , m_repoRoot(repoRoot)
@@ -150,7 +150,7 @@ namespace TestImpact
     }
 
     template<typename TestRunnerType>
-    AZStd::pair<ProcessSchedulerResult, AZStd::vector<typename TestRunnerType::Job>> NativeShardedTestSystem<TestRunnerType>::RunTests(
+    AZStd::pair<ProcessSchedulerResult, AZStd::vector<typename TestRunnerType::Job>> NativeShardedTestRunnerBase<TestRunnerType>::RunTests(
         const AZStd::vector<ShardedTestJobInfoType>& shardedJobInfos,
         StdOutputRouting stdOutRouting,
         StdErrorRouting stdErrRouting,

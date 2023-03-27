@@ -13,7 +13,7 @@
 #include <Process/JobRunner/TestImpactProcessJobInfo.h>
 #include <Process/JobRunner/TestImpactProcessJobMeta.h>
 #include <TestRunner/Native/Job/TestImpactNativeShardedTestJobInfoGenerator.h>
-#include <TestRunner/Native/Shard/TestImpactNativeShardedTestSystemBus.h>
+#include <TestRunner/Native/Shard/TestImpactNativeShardedTestRunnerBaseNotificationBus.h>
 
 #include <AzCore/std/optional.h>
 #include <AzCore/std/utility/to_underlying.h>
