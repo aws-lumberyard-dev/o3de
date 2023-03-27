@@ -25,6 +25,8 @@ namespace TestImpact
     class NativeTestTarget;
     class NativeRegularTestRunJobInfoGenerator;
     class NativeInstrumentedTestRunJobInfoGenerator;
+    class NativeShardedRegularTestRunJobInfoGenerator;
+    class NativeShardedInstrumentedTestRunJobInfoGenerator;
     class NativeTestEnumerator;
     class NativeInstrumentedTestRunner;
     class NativeRegularTestRunner;
@@ -40,6 +42,7 @@ namespace TestImpact
         //! @param targetBinaryDir Path to where the test target binaries are found.
         //! @param cacheDir Path to the persistent folder where test target enumerations are cached.
         //! @param artifactDir Path to the transient directory where test artifacts are produced.
+        //! @param shardedArtifactDir Path to the transient directory where sharded test artifacts are produced.
         //! @param testRunnerBinary Path to the binary responsible for launching test targets that have the TestRunner launch method.
         //! @param instrumentBinary Path to the binary responsible for launching test targets with test coverage instrumentation.
         //! @param maxConcurrentRuns The maximum number of concurrent test targets that can be in flight at any given moment.
@@ -48,6 +51,7 @@ namespace TestImpact
             const RepoPath& targetBinaryDir,
             const RepoPath& cacheDir,
             const ArtifactDir& artifactDir,
+            const NativeShardedArtifactDir& shardedArtifactDir,
             const RepoPath& testRunnerBinary,
             const RepoPath& instrumentBinary,
             size_t maxConcurrentRuns);
@@ -114,11 +118,14 @@ namespace TestImpact
 
         AZStd::unique_ptr<NativeRegularTestRunJobInfoGenerator> m_regularTestJobInfoGenerator;
         AZStd::unique_ptr<NativeInstrumentedTestRunJobInfoGenerator> m_instrumentedTestJobInfoGenerator;
+        AZStd::unique_ptr<NativeShardedRegularTestRunJobInfoGenerator> m_shardedRegularTestJobInfoGenerator;
+        AZStd::unique_ptr<NativeShardedInstrumentedTestRunJobInfoGenerator> m_shardedInstrumentedTestJobInfoGenerator;
         AZStd::unique_ptr<NativeTestEnumerator> m_testEnumerator;
         AZStd::unique_ptr<NativeInstrumentedTestRunner> m_instrumentedTestRunner;
         AZStd::unique_ptr<NativeRegularTestRunner> m_testRunner;
         AZStd::unique_ptr<NativeShardedInstrumentedTestRunner> m_shardedInstrumentedTestRunner;
         AZStd::unique_ptr<NativeShardedRegularTestRunner> m_shardedTestRunner;
         ArtifactDir m_artifactDir;
+        NativeShardedArtifactDir m_shardedArtifactDir;
     };
 } // namespace TestImpact

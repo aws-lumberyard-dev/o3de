@@ -98,6 +98,7 @@ namespace TestImpact
             m_config.m_target.m_outputDirectory,
             m_config.m_workspace.m_temp.m_enumerationCacheDirectory,
             m_config.m_workspace.m_temp,
+            m_config.m_shardedArtifactDir,
             m_config.m_testEngine.m_testRunner.m_binary,
             m_config.m_testEngine.m_instrumentation.m_binary,
             m_maxConcurrency);

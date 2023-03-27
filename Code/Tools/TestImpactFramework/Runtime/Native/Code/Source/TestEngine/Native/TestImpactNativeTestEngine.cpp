@@ -16,6 +16,7 @@
 #include <TestRunner/Native/TestImpactNativeShardedInstrumentedTestRunner.h>
 #include <TestRunner/Native/TestImpactNativeShardedRegularTestRunner.h>
 #include <TestRunner/Native/Job/TestImpactNativeTestJobInfoGenerator.h>
+#include <TestRunner/Native/Job/TestImpactNativeShardedTestJobInfoGenerator.h>
 
 namespace TestImpact
 {
@@ -140,6 +141,7 @@ namespace TestImpact
         const RepoPath& targetBinaryDir,
         [[maybe_unused]]const RepoPath& cacheDir,
         const ArtifactDir& artifactDir,
+        const NativeShardedArtifactDir& shardedArtifactDir,
         const RepoPath& testRunnerBinary,
         const RepoPath& instrumentBinary,
         size_t maxConcurrentRuns)
@@ -154,12 +156,26 @@ namespace TestImpact
             artifactDir,
             testRunnerBinary,
             instrumentBinary))
+        , m_shardedRegularTestJobInfoGenerator(AZStd::make_unique<NativeShardedRegularTestRunJobInfoGenerator>(
+            maxConcurrentRuns,
+            repoRootDir,
+            targetBinaryDir,
+            shardedArtifactDir,
+            testRunnerBinary))
+        , m_shardedInstrumentedTestJobInfoGenerator(AZStd::make_unique<NativeShardedInstrumentedTestRunJobInfoGenerator>(
+            maxConcurrentRuns,
+            repoRootDir,
+            targetBinaryDir,
+            shardedArtifactDir,
+            testRunnerBinary,
+            instrumentBinary))
         , m_testEnumerator(AZStd::make_unique<NativeTestEnumerator>(maxConcurrentRuns))
         , m_instrumentedTestRunner(AZStd::make_unique<NativeInstrumentedTestRunner>(maxConcurrentRuns))
         , m_testRunner(AZStd::make_unique<NativeRegularTestRunner>(maxConcurrentRuns))
         , m_shardedInstrumentedTestRunner(AZStd::make_unique<NativeShardedInstrumentedTestRunner>(*m_instrumentedTestRunner.get(), repoRootDir, artifactDir))
         , m_shardedTestRunner(AZStd::make_unique<NativeShardedRegularTestRunner>(*m_testRunner.get(), repoRootDir, artifactDir))
         , m_artifactDir(artifactDir)
+        , m_shardedArtifactDir(shardedArtifactDir)
     {
     }
 
@@ -169,6 +185,8 @@ namespace TestImpact
     {
         DeleteFiles(m_artifactDir.m_testRunArtifactDirectory, "*.xml");
         DeleteFiles(m_artifactDir.m_coverageArtifactDirectory, "*.xml");
+        DeleteFiles(m_shardedArtifactDir.m_shardedTestRunArtifactDirectory, "*.xml");
+        DeleteFiles(m_shardedArtifactDir.m_shardedCoverageArtifactDirectory, "*.xml");
     }
 
     TestEngineRegularRunResult<NativeTestTarget> NativeTestEngine::RegularRun(
