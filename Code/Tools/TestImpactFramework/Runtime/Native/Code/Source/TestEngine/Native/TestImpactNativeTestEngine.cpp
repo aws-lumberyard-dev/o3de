@@ -157,12 +157,14 @@ namespace TestImpact
             testRunnerBinary,
             instrumentBinary))
         , m_shardedRegularTestJobInfoGenerator(AZStd::make_unique<NativeShardedRegularTestRunJobInfoGenerator>(
+            *m_regularTestJobInfoGenerator.get(),
             maxConcurrentRuns,
             repoRootDir,
             targetBinaryDir,
             shardedArtifactDir,
             testRunnerBinary))
         , m_shardedInstrumentedTestJobInfoGenerator(AZStd::make_unique<NativeShardedInstrumentedTestRunJobInfoGenerator>(
+            *m_instrumentedTestJobInfoGenerator.get(),
             maxConcurrentRuns,
             repoRootDir,
             targetBinaryDir,

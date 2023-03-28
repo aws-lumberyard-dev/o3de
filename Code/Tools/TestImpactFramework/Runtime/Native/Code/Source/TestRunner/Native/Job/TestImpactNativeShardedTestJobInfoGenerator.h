@@ -41,7 +41,11 @@ namespace TestImpact
     class NativeShardedTestRunJobInfoGeneratorBase
     {
     public:
+        //!
+        using JobInfoGenerator = typename TestJobRunner::JobInfoGenerator;
+
         NativeShardedTestRunJobInfoGeneratorBase(
+            const JobInfoGenerator& jobInfoGenerator,
             size_t maxConcurrency,
             const RepoPath& sourceDir,
             const RepoPath& targetBinaryDir,
@@ -50,9 +54,10 @@ namespace TestImpact
 
         virtual ~NativeShardedTestRunJobInfoGeneratorBase() = default;
 
-        virtual ShardedTestJobInfo<TestJobRunner> GenerateJobInfo(
+        //!
+        ShardedTestJobInfo<TestJobRunner> GenerateJobInfo(
             const TestTargetAndEnumeration& testTargetAndEnumeration,
-            typename TestJobRunner::JobInfo::Id startingId) const = 0;
+            typename TestJobRunner::JobInfo::Id startingId);
 
         AZStd::vector<ShardedTestJobInfo<TestJobRunner>> GenerateJobInfos(
             const AZStd::vector<TestTargetAndEnumeration>& testTargetsAndEnumerations);
@@ -63,6 +68,10 @@ namespace TestImpact
 
         //!
         using ShardedTestsFilter = AZStd::vector<AZStd::string>;
+
+        //!
+        virtual ShardedTestJobInfo<TestJobRunner> GenerateJobInfoImpl(
+            const TestTargetAndEnumeration& testTargetAndEnumeration, typename TestJobRunner::JobInfo::Id startingId) const = 0;
 
         //!
         ShardedTestsList ShardTestInterleaved(const TestTargetAndEnumeration& testTargetAndEnumeration) const;
@@ -80,6 +89,7 @@ namespace TestImpact
         AZStd::string GenerateShardedLaunchCommand(
             const NativeTestTarget* testTarget, const RepoPath& shardAdditionalArgsFile) const;
 
+        const JobInfoGenerator* m_jobInfoGenerator = nullptr;
         size_t m_maxConcurrency;
         RepoPath m_sourceDir;
         RepoPath m_targetBinaryDir;
@@ -93,6 +103,7 @@ namespace TestImpact
     {
     public:
         NativeShardedInstrumentedTestRunJobInfoGenerator(
+            const JobInfoGenerator& jobInfoGenerator,
             size_t maxConcurrency,
             const RepoPath& sourceDir,
             const RepoPath& targetBinaryDir,
@@ -101,8 +112,9 @@ namespace TestImpact
             const RepoPath& instrumentBinary,
             CoverageLevel coverageLevel = CoverageLevel::Source);
 
-        //!
-        ShardedInstrumentedTestJobInfo GenerateJobInfo(
+    protected:
+        // NativeShardedTestRunJobInfoGeneratorBase overrides ...
+        ShardedInstrumentedTestJobInfo GenerateJobInfoImpl(
             const TestTargetAndEnumeration& testTargetAndEnumeration,
             typename NativeInstrumentedTestRunner::JobInfo::Id startingId) const override;
 
@@ -122,20 +134,23 @@ namespace TestImpact
     public:
         using NativeShardedTestRunJobInfoGeneratorBase<NativeRegularTestRunner>::NativeShardedTestRunJobInfoGeneratorBase;
 
-        //!
-        ShardedRegularTestJobInfo GenerateJobInfo(
+    protected:
+        // NativeShardedTestRunJobInfoGeneratorBase overrides ...
+        ShardedRegularTestJobInfo GenerateJobInfoImpl(
             const TestTargetAndEnumeration& testTargetAndEnumeration,
             typename NativeRegularTestRunner::JobInfo::Id startingId) const override;
     };
 
     template<typename TestJobRunner>
     NativeShardedTestRunJobInfoGeneratorBase<TestJobRunner>::NativeShardedTestRunJobInfoGeneratorBase(
+        const JobInfoGenerator& jobInfoGenerator,
         size_t maxConcurrency,
         const RepoPath& sourceDir,
         const RepoPath& targetBinaryDir,
         const NativeShardedArtifactDir& artifactDir,
         const RepoPath& testRunnerBinary)
-        : m_maxConcurrency(maxConcurrency)
+        : m_jobInfoGenerator(&jobInfoGenerator)
+        , m_maxConcurrency(maxConcurrency)
         , m_sourceDir(sourceDir)
         , m_targetBinaryDir(targetBinaryDir)
         , m_artifactDir(artifactDir)
@@ -145,45 +160,52 @@ namespace TestImpact
     }
 
     template<typename TestJobRunner>
+    ShardedTestJobInfo<TestJobRunner> NativeShardedTestRunJobInfoGeneratorBase<TestJobRunner>::GenerateJobInfo(
+        const TestTargetAndEnumeration& testTargetAndEnumeration, typename TestJobRunner::JobInfo::Id startingId)
+    {
+        if (const auto [testTarget, testEnumeration] = testTargetAndEnumeration;
+            (testTarget->GetSuiteLabelSet().contains(TiafShardingLabel) && testEnumeration)
+            && testEnumeration->GetNumEnabledTests() > 1)
+        {
+            return GenerateJobInfoImpl(testTargetAndEnumeration, startingId);
+        }
+        else
+        {
+            return { testTarget, { m_jobInfoGenerator->GenerateJobInfo(testTarget, startingId) } };
+        }
+    }
+
+    template<typename TestJobRunner>
     typename NativeShardedTestRunJobInfoGeneratorBase<TestJobRunner>::ShardedTestsList NativeShardedTestRunJobInfoGeneratorBase<
         TestJobRunner>::ShardTestInterleaved(const TestTargetAndEnumeration& testTargetAndEnumeration) const
     {
         const auto [testTarget, testEnumeration] = testTargetAndEnumeration;
-        if (testTarget->GetSuiteLabelSet().contains(TiafShardingLabel) && testEnumeration)
-        {
-            const auto numTests = testEnumeration->GetNumEnabledTests();
-            const auto numShards = std::min(m_maxConcurrency, numTests);
-            ShardedTestsList shardTestList(numShards);
-            const auto testsPerShard = numTests / numShards;
+        const auto numTests = testEnumeration->GetNumEnabledTests();
+        const auto numShards = std::min(m_maxConcurrency, numTests);
+        ShardedTestsList shardTestList(numShards);
+        const auto testsPerShard = numTests / numShards;
 
-            size_t testIndex = 0;
-            for (const auto fixture : testEnumeration->GetTestSuites())
+        size_t testIndex = 0;
+        for (const auto fixture : testEnumeration->GetTestSuites())
+        {
+            if (!fixture.m_enabled)
             {
-                if (!fixture.m_enabled)
+                continue;
+            }
+
+            for (const auto test : fixture.m_tests)
+            {
+                if (!test.m_enabled)
                 {
                     continue;
                 }
 
-                for (const auto test : fixture.m_tests)
-                {
-                    if (!test.m_enabled)
-                    {
-                        continue;
-                    }
-
-                    shardTestList[testIndex++ % numShards].emplace_back(
-                        AZStd::string::format("%s.%s", fixture.m_name.c_str(), test.m_name.c_str()));
-                }
+                shardTestList[testIndex++ % numShards].emplace_back(
+                    AZStd::string::format("%s.%s", fixture.m_name.c_str(), test.m_name.c_str()));
             }
+        }
 
-            return shardTestList;
-        }
-        else
-        {
-            ShardedTestsList shardTestList(1);
-            shardTestList[0].emplace_back("*.*");
-            return shardTestList;
-        }
+        return shardTestList;
     }
 
     template<typename TestJobRunner>

@@ -107,18 +107,21 @@ namespace TestImpact
             auto payload =
                 typename NativeInstrumentedTestRunner::JobPayload{ AZStd::move(run), TestCoverage(AZStd::move(moduleCoverages)) };
 
-            // Serialize the consolidated run and coverage as artifacts in the canonical run and coverage directories
-            WriteFileContents<TestRunnerException>(
-                Cobertura::SerializeTestCoverage(payload.second, m_repoRoot),
-                m_artifactDir.m_coverageArtifactDirectory / RepoPath(shardedTestJobInfo->first->GetName() + ".xml"));
-            if (payload.first.has_value())
+            if (shardedTestJobInfo->second.size() > 1)
             {
+                // Serialize the consolidated run and coverage as artifacts in the canonical run and coverage directories
                 WriteFileContents<TestRunnerException>(
-                    GTest::SerializeTestRun(payload.first.value()),
-                    m_artifactDir.m_testRunArtifactDirectory /
-                        RepoPath(GenerateFullQualifiedTargetNameStem(shardedTestJobInfo->first).String() + ".xml"));
+                    Cobertura::SerializeTestCoverage(payload.second, m_repoRoot),
+                    m_artifactDir.m_coverageArtifactDirectory / RepoPath(shardedTestJobInfo->first->GetName() + ".xml"));
+                if (payload.first.has_value())
+                {
+                    WriteFileContents<TestRunnerException>(
+                        GTest::SerializeTestRun(payload.first.value()),
+                        m_artifactDir.m_testRunArtifactDirectory /
+                            RepoPath(GenerateFullQualifiedTargetNameStem(shardedTestJobInfo->first).String() + ".xml"));
+                }
             }
-            
+
             consolidatedJobs.emplace_back(jobData->m_jobInfo, JobMeta{ jobData->m_meta }, AZStd::move(payload));
         }
 

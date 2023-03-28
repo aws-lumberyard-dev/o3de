@@ -13,6 +13,7 @@
 namespace TestImpact
 {
     NativeShardedInstrumentedTestRunJobInfoGenerator::NativeShardedInstrumentedTestRunJobInfoGenerator(
+        const JobInfoGenerator& jobInfoGenerator,
         size_t maxConcurrency,
         const RepoPath& sourceDir,
         const RepoPath& targetBinaryDir,
@@ -21,6 +22,7 @@ namespace TestImpact
         const RepoPath& instrumentBinary,
         CoverageLevel coverageLevel)
         : NativeShardedTestRunJobInfoGeneratorBase<NativeInstrumentedTestRunner>(
+            jobInfoGenerator,
             maxConcurrency,
             sourceDir,
             targetBinaryDir,
@@ -39,7 +41,7 @@ namespace TestImpact
             AZStd::string::format("%zu%s", shardNumber, artifactFilePath.Extension().String().c_str()).c_str());
     }
 
-    ShardedInstrumentedTestJobInfo NativeShardedInstrumentedTestRunJobInfoGenerator::GenerateJobInfo(
+    ShardedInstrumentedTestJobInfo NativeShardedInstrumentedTestRunJobInfoGenerator::GenerateJobInfoImpl(
         const TestTargetAndEnumeration& testTargetAndEnumeration,
         typename NativeInstrumentedTestRunner::JobInfo::Id startingId) const
     {
@@ -74,7 +76,7 @@ namespace TestImpact
         return shards;
     }
 
-    ShardedRegularTestJobInfo NativeShardedRegularTestRunJobInfoGenerator::GenerateJobInfo(
+    ShardedRegularTestJobInfo NativeShardedRegularTestRunJobInfoGenerator::GenerateJobInfoImpl(
         const TestTargetAndEnumeration& testTargetAndEnumeration,
         typename NativeRegularTestRunner::JobInfo::Id startingId) const
     {

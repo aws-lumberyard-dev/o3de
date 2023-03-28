@@ -26,7 +26,7 @@ namespace TestImpact
 
     private:
         // NativeShardedTestSystem overrides ...
-        [[nodiscard]] virtual typename NativeRegularTestRunner::ResultType ConsolidateSubJobs(
+        [[nodiscard]] typename NativeRegularTestRunner::ResultType ConsolidateSubJobs(
             const typename NativeRegularTestRunner::ResultType& result,
             const ShardToParentShardedJobMap& shardToParentShardedJobMap,
             const CompletedShardMap& completedShardMap) override;

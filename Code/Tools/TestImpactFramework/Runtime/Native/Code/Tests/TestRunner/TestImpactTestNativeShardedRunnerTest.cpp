@@ -221,21 +221,6 @@ namespace UnitTest
             m_enumerationTestJobInfoGenerator = AZStd::make_unique<EnumerationTestJobInfoGenerator>(
                 m_config.m_target.m_outputDirectory, m_config.m_workspace.m_temp, m_config.m_testEngine.m_testRunner.m_binary);
 
-            m_shardedInstrumentedTestJobInfoGenerator = AZStd::make_unique<ShardedInstrumentedTestJobInfoGenerator>(
-                m_maxConcurrency,
-                m_config.m_commonConfig.m_repo.m_root,
-                m_config.m_target.m_outputDirectory,
-                m_config.m_shardedArtifactDir,
-                m_config.m_testEngine.m_testRunner.m_binary,
-                m_config.m_testEngine.m_instrumentation.m_binary);
-
-            m_shardedRegularTestJobInfoGenerator = AZStd::make_unique<ShardedRegularTestJobInfoGenerator>(
-                m_maxConcurrency,
-                m_config.m_commonConfig.m_repo.m_root,
-                m_config.m_target.m_outputDirectory,
-                m_config.m_shardedArtifactDir,
-                m_config.m_testEngine.m_testRunner.m_binary);
-
             m_instrumentedTestJobInfoGenerator = AZStd::make_unique<InstrumentedTestJobInfoGenerator>(
                 m_config.m_commonConfig.m_repo.m_root,
                 m_config.m_target.m_outputDirectory,
@@ -247,6 +232,23 @@ namespace UnitTest
                 m_config.m_commonConfig.m_repo.m_root,
                 m_config.m_target.m_outputDirectory,
                 m_config.m_workspace.m_temp,
+                m_config.m_testEngine.m_testRunner.m_binary);
+
+            m_shardedInstrumentedTestJobInfoGenerator = AZStd::make_unique<ShardedInstrumentedTestJobInfoGenerator>(
+                *m_instrumentedTestJobInfoGenerator.get(),
+                m_maxConcurrency,
+                m_config.m_commonConfig.m_repo.m_root,
+                m_config.m_target.m_outputDirectory,
+                m_config.m_shardedArtifactDir,
+                m_config.m_testEngine.m_testRunner.m_binary,
+                m_config.m_testEngine.m_instrumentation.m_binary);
+
+            m_shardedRegularTestJobInfoGenerator = AZStd::make_unique<ShardedRegularTestJobInfoGenerator>(
+                *m_regularTestJobInfoGenerator.get(),
+                m_maxConcurrency,
+                m_config.m_commonConfig.m_repo.m_root,
+                m_config.m_target.m_outputDirectory,
+                m_config.m_shardedArtifactDir,
                 m_config.m_testEngine.m_testRunner.m_binary);
 
             // Construct the build targets from the build target descriptors
@@ -362,7 +364,7 @@ namespace UnitTest
         const auto path = m_config.m_commonConfig.m_repo.m_root / m_config.m_workspace.m_active.m_sparTiaFile;
         const auto rootName = path.RelativePath().String();
 
-        const auto testTarget = m_buildTargets->GetTestTargetList().GetTarget("Atom_RPI.Tests");
+        const auto testTarget = m_buildTargets->GetTestTargetList().GetTarget("AzTestRunner.Tests");
         //const auto testTarget = m_buildTargets->GetTestTargetList().GetTarget("TestImpact.TestTargetA.Tests");
         //const auto testTarget = m_buildTargets->GetTestTargetList().GetTarget("TestImpact.TestTargetD.Tests");
         //const auto testTarget = m_buildTargets->GetTestTargetList().GetTarget("AzCore.Tests");
@@ -382,7 +384,7 @@ namespace UnitTest
             const auto shardedInstrumentedJobs = m_shardedInstrumentedTestJobInfoGenerator->GenerateJobInfos(
                 { TestImpact::TestTargetAndEnumeration{ testTarget, &enumResult.second.front().GetPayload().value() } });
         
-            //TestImpact::Timer timer;
+            TestImpact::Timer timer;
             //const auto runResult1 = m_instrumentedTestRunner.RunTests(
             //    { instrumentedJob },
             //    TestImpact::StdOutputRouting::ToParent,
@@ -400,28 +402,28 @@ namespace UnitTest
             //std::cout << "Duration 1: " << timer.GetElapsedMs().count() << "\n";
             //
             //timer.ResetStartTimePoint();
-            //
-            //TestRunnerHandler<InstrumentedTestRunner> handler;
-            //const auto runResult2 = m_instrumentedShardedTestRunner->RunTests(
-            //    shardedInstrumentedJobs,
-            //    TestImpact::StdOutputRouting::ToParent,
-            //    TestImpact::StdErrorRouting::ToParent,
-            //    AZStd::nullopt,
-            //    AZStd::nullopt);
-            //
-            ////{
-            ////    TestImpact::WriteFileContents<TestImpact::TestRunnerException>(
-            ////        TestImpact::Cobertura::SerializeTestCoverage(
-            ////            runResult2.second.front().GetPayload()->second, m_config.m_commonConfig.m_repo.m_root),
-            ////        m_config.m_workspace.m_temp.m_coverageArtifactDirectory / RepoPath(testTarget->GetName() + ".r2.xml"));
-            ////}
-            //
-            //std::cout << "Duration 2: " << timer.GetElapsedMs().count() << "\n";
-            //
-            //const auto testString = TestImpact::GTest::SerializeTestRun(runResult2.second.front().GetPayload()->first.value());
-            //const auto coverageString = TestImpact::Cobertura::SerializeTestCoverage(
-            //    runResult2.second.front().GetPayload()->second, m_config.m_commonConfig.m_repo.m_root);
-            //
+            
+            TestRunnerHandler<InstrumentedTestRunner> handler;
+            const auto runResult2 = m_instrumentedShardedTestRunner->RunTests(
+                shardedInstrumentedJobs,
+                TestImpact::StdOutputRouting::ToParent,
+                TestImpact::StdErrorRouting::ToParent,
+                AZStd::nullopt,
+                AZStd::nullopt);
+            
+            //{
+            //    TestImpact::WriteFileContents<TestImpact::TestRunnerException>(
+            //        TestImpact::Cobertura::SerializeTestCoverage(
+            //            runResult2.second.front().GetPayload()->second, m_config.m_commonConfig.m_repo.m_root),
+            //        m_config.m_workspace.m_temp.m_coverageArtifactDirectory / RepoPath(testTarget->GetName() + ".r2.xml"));
+            //}
+            
+            std::cout << "Duration 2: " << timer.GetElapsedMs().count() << "\n";
+            
+            const auto testString = TestImpact::GTest::SerializeTestRun(runResult2.second.front().GetPayload()->first.value());
+            const auto coverageString = TestImpact::Cobertura::SerializeTestCoverage(
+                runResult2.second.front().GetPayload()->second, m_config.m_commonConfig.m_repo.m_root);
+            
             //EXPECT_TRUE(
             //    runResult1.second.front().GetPayload()->second.GetModuleCoverages() ==
             //    runResult2.second.front().GetPayload()->second.GetModuleCoverages());
@@ -430,7 +432,7 @@ namespace UnitTest
         {
             const auto regularJob = m_regularTestJobInfoGenerator->GenerateJobInfo(testTarget, { 10 });
         
-            const auto shardedInsrumentedJobs = m_shardedRegularTestJobInfoGenerator->GenerateJobInfos(
+            const auto shardedRegularJobs = m_shardedRegularTestJobInfoGenerator->GenerateJobInfos(
                 { TestImpact::TestTargetAndEnumeration{ testTarget, &enumResult.second.front().GetPayload().value() } });
         
             TestImpact::Timer timer;
@@ -447,7 +449,7 @@ namespace UnitTest
         
             TestRunnerHandler<RegularTestRunner> handler;
             const auto runResult2 = m_regularShardedTestRunner->RunTests(
-                shardedInsrumentedJobs,
+                shardedRegularJobs,
                 TestImpact::StdOutputRouting::ToParent,
                 TestImpact::StdErrorRouting::ToParent,
                 AZStd::nullopt,

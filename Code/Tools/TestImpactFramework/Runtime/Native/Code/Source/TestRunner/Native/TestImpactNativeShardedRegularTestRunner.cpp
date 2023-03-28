@@ -125,7 +125,7 @@ namespace TestImpact
             }
 
             // Serialize the consolidated run as and artifact in the canonical run directory
-            if (run.has_value())
+            if (run.has_value() && shardedTestJobInfo->second.size() > 1)
             {
                 WriteFileContents<TestRunnerException>(
                     GTest::SerializeTestRun(run.value()),
