@@ -14,13 +14,10 @@
 namespace TestImpact
 {
     //!
-    using NativeShardedInstrumentedTestSystemNotificationBus = NativeShardedTestRunnerBaseNotificationBus<NativeInstrumentedTestRunner>;
-
-    //!
     class NativeShardedInstrumentedTestRunner
         : public NativeShardedTestRunnerBase<NativeInstrumentedTestRunner>
     {
-    public:
+    public:        
         //!
         using NativeShardedTestRunnerBase<NativeInstrumentedTestRunner>::NativeShardedTestRunnerBase;
 

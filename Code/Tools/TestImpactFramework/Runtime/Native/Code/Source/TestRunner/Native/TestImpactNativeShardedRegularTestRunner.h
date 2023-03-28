@@ -14,9 +14,6 @@
 namespace TestImpact
 {
     //!
-    using NativeShardedRegularTestSystemNotificationBus = NativeShardedTestRunnerBaseNotificationBus<NativeRegularTestRunner>;
-
-    //!
     class NativeShardedRegularTestRunner
         : public NativeShardedTestRunnerBase<NativeRegularTestRunner>
     {

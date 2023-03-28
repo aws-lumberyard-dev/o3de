@@ -303,26 +303,23 @@ namespace UnitTest
 
     TestImpact::StdContent stdContent;
 
-    template<typename TestRunnerType>
+    template<typename ShardedTestRunnerType>
     class TestRunnerHandler
-        : private TestImpact::NativeShardedTestRunnerBaseNotificationBus<TestRunnerType>::Handler
-        , private TestRunnerType::NotificationBus::Handler
+        : private ShardedTestRunnerType::NotificationBus::Handler
     {
     public:
         TestRunnerHandler()
         {
-            TestImpact::NativeShardedTestRunnerBaseNotificationBus<TestRunnerType>::Handler::BusConnect();
-            TestRunnerType::NotificationBus::Handler::BusConnect();
+            ShardedTestRunnerType::NotificationBus::Handler::BusConnect();
         }
 
         ~TestRunnerHandler()
         {
-            TestRunnerType::NotificationBus::Handler::BusDisconnect();
-            TestImpact::NativeShardedTestRunnerBaseNotificationBus<TestRunnerType>::Handler::BusDisconnect();
+            ShardedTestRunnerType::NotificationBus::Handler::BusDisconnect();
         }
     private:
-        TestImpact::ProcessCallbackResult OnShardedJobComplete(
-            [[maybe_unused]] const typename TestRunnerType::Job::Info& jobInfo,
+        TestImpact::ProcessCallbackResult OnJobComplete(
+            [[maybe_unused]] const typename ShardedTestRunnerType::JobInfo& jobInfo,
             [[maybe_unused]] const TestImpact::JobMeta& meta,
             [[maybe_unused]] const TestImpact::StdContent& std) override
         {
@@ -340,20 +337,12 @@ namespace UnitTest
             return TestImpact::ProcessCallbackResult::Continue;
         }
 
-        TestImpact::ProcessCallbackResult OnShardedSubJobComplete(
-            [[maybe_unused]] typename TestRunnerType::JobInfo::Id jobId,
+        TestImpact::ProcessCallbackResult OnShardedJobComplete(
+            [[maybe_unused]] typename ShardedTestRunnerType::JobInfo::Id jobId,
             [[maybe_unused]] size_t subJobCount,
-            [[maybe_unused]] const typename TestRunnerType::Job::Info& subJobInfo,
+            [[maybe_unused]] const typename ShardedTestRunnerType::JobInfo& subJobInfo,
             [[maybe_unused]] const TestImpact::JobMeta& subJobMeta,
             [[maybe_unused]] const TestImpact::StdContent& subJobStd) override
-        {
-            return TestImpact::ProcessCallbackResult::Continue;
-        }
-
-        TestImpact::ProcessCallbackResult OnJobComplete(
-            [[maybe_unused]] const typename TestRunnerType::Job::Info& jobInfo,
-            [[maybe_unused]] const TestImpact::JobMeta& meta,
-            [[maybe_unused]] const TestImpact::StdContent& std) override
         {
             return TestImpact::ProcessCallbackResult::Continue;
         }
@@ -403,7 +392,7 @@ namespace UnitTest
             //
             //timer.ResetStartTimePoint();
             
-            TestRunnerHandler<InstrumentedTestRunner> handler;
+            TestRunnerHandler<ShardedInstrumentedTestRunner> handler;
             const auto runResult2 = m_instrumentedShardedTestRunner->RunTests(
                 shardedInstrumentedJobs,
                 TestImpact::StdOutputRouting::ToParent,
@@ -447,7 +436,7 @@ namespace UnitTest
             //
             //timer.ResetStartTimePoint();
         
-            TestRunnerHandler<RegularTestRunner> handler;
+            TestRunnerHandler<ShardedRegularTestRunner> handler;
             const auto runResult2 = m_regularShardedTestRunner->RunTests(
                 shardedRegularJobs,
                 TestImpact::StdOutputRouting::ToParent,

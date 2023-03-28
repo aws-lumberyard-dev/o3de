@@ -12,7 +12,6 @@
 #include <TestRunner/Common/Run/TestImpactTestRunSerializer.h>
 #include <TestRunner/Native/Job/TestImpactNativeShardedTestJobInfoGenerator.h>
 #include <TestRunner/Native/Shard/TestImpactNativeShardedTestJob.h>
-#include <TestRunner/Native/Shard/TestImpactNativeShardedTestRunnerBaseNotificationBus.h>
 
 #include <AzCore/std/numeric.h>
 
@@ -39,6 +38,46 @@ namespace TestImpact
             StdErrorRouting stdErrRouting,
             AZStd::optional<AZStd::chrono::milliseconds> runTimeout,
             AZStd::optional<AZStd::chrono::milliseconds> runnerTimeout);
+
+        //! Bus for native sharded test system notifications.
+        class Notifications
+            : public AZ::EBusTraits
+        {
+        public:
+            // EBusTraits overrides ...
+            static constexpr AZ::EBusAddressPolicy AddressPolicy = AZ::EBusAddressPolicy::Single;
+            static constexpr AZ::EBusHandlerPolicy HandlerPolicy = AZ::EBusHandlerPolicy::Multiple;
+
+            //! Callback for sharded job completion/failure.
+            //! @param jobInfo The job information associated with this job.
+            //! @param meta The meta-data about the job run.
+            //! @param std The standard output and standard error of the process running the job.
+            virtual ProcessCallbackResult OnJobComplete(
+                [[maybe_unused]] const JobInfo& jobInfo,
+                [[maybe_unused]] const JobMeta& meta,
+                [[maybe_unused]] const StdContent& std)
+            {
+                return ProcessCallbackResult::Continue;
+            }
+
+            //! Callback for sharded sub-job completion/failure.
+            //! @param subJobCount The number of sub-jobs that make up this job.
+            //! @param jobId The id of the sharded job.
+            //! @param subJobInfo The job information associated with this sharded sub-job.
+            //! @param subJobMeta The meta-data about the sharded sub-job run.
+            //! @param subJobStd The standard output and standard error of the process running the sharded sub-job.
+            virtual ProcessCallbackResult OnShardedJobComplete(
+                [[maybe_unused]] JobId jobId,
+                [[maybe_unused]] size_t subJobCount,
+                [[maybe_unused]] const JobInfo& subJobInfo,
+                [[maybe_unused]] const JobMeta& subJobMeta,
+                [[maybe_unused]] const StdContent& subJobStd)
+            {
+                return ProcessCallbackResult::Continue;
+            }
+        };
+
+        using NotificationBus = AZ::EBus<Notifications>;
 
     protected:
         //!
@@ -106,9 +145,9 @@ namespace TestImpact
         
         {
             AZ::EBusAggregateResults<ProcessCallbackResult> results;
-            NativeShardedTestRunnerBaseNotificationBus<TestRunnerType>::BroadcastResult(
+            NotificationBus::BroadcastResult(
                 results,
-                &NativeShardedTestRunnerBaseNotificationBus<TestRunnerType>::Events::OnShardedSubJobComplete,
+                &NotificationBus::Events::OnShardedJobComplete,
                 shardedJobInfo->second.begin()->GetId(),
                 shardedJobInfo->second.size(),
                 jobInfo,
@@ -128,9 +167,9 @@ namespace TestImpact
         {
             auto& consolidatedJobData = *shardedTestJob.GetConsolidatedJobData();
             AZ::EBusAggregateResults<ProcessCallbackResult> results;
-            NativeShardedTestRunnerBaseNotificationBus<TestRunnerType>::BroadcastResult(
+            NotificationBus::BroadcastResult(
                 results,
-                &NativeShardedTestRunnerBaseNotificationBus<TestRunnerType>::Events::OnShardedJobComplete,
+                &NotificationBus::Events::OnJobComplete,
                 consolidatedJobData.m_jobInfo,
                 consolidatedJobData.m_meta,
                 consolidatedJobData.m_std);
