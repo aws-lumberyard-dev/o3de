@@ -21,9 +21,6 @@
 
 namespace TestImpact
 {
-    //! The CTest label that test target suites need to have in order to be sharded.
-    inline constexpr auto TiafShardingLabel = "TIAF_sharding";
-
     //!
     template<typename TestJobRunner>
     using ShardedTestJobInfo = AZStd::pair<const NativeTestTarget*, AZStd::vector<typename TestJobRunner::JobInfo>>;
@@ -164,8 +161,7 @@ namespace TestImpact
         const TestTargetAndEnumeration& testTargetAndEnumeration, typename TestJobRunner::JobInfo::Id startingId)
     {
         if (const auto [testTarget, testEnumeration] = testTargetAndEnumeration;
-            (testTarget->GetSuiteLabelSet().contains(TiafShardingLabel) && testEnumeration)
-            && testEnumeration->GetNumEnabledTests() > 1)
+            testEnumeration && testEnumeration->GetNumEnabledTests() > 1)
         {
             return GenerateJobInfoImpl(testTargetAndEnumeration, startingId);
         }
@@ -271,3 +267,26 @@ namespace TestImpact
             "%s.%zu.args", (m_artifactDir.m_shardedTestRunArtifactDirectory / RepoPath(testTarget->GetName())).c_str(), shardNumber);
     }
 } // namespace TestImpact
+
+namespace AZStd
+{
+    //!
+    template<>
+    struct less<TestImpact::TestTargetAndEnumeration>
+    {
+        bool operator()(const TestImpact::TestTargetAndEnumeration& lhs, const TestImpact::TestTargetAndEnumeration& rhs) const
+        {
+            return reinterpret_cast<size_t>(lhs.first) < reinterpret_cast<size_t>(rhs.first);
+        }
+    };
+
+    //!
+    template<>
+    struct hash<TestImpact::TestTargetAndEnumeration>
+    {
+        size_t operator()(const TestImpact::TestTargetAndEnumeration& testTargetAndEnumeration) const noexcept
+        {
+            return reinterpret_cast<size_t>(testTargetAndEnumeration.first);
+        }
+    };
+} // namespace AZStd

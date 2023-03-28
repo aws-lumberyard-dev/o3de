@@ -61,11 +61,35 @@ namespace TestImpact
         AZStd::optional<AZStd::chrono::milliseconds> enumerationTimeout,
         AZStd::optional<AZStd::chrono::milliseconds> enumeratorTimeout)
     {
-        AZStd::vector<typename TestJobRunner::Job> cachedJobs;
+        AZStd::vector<typename TestJobRunner::Job> cachedAndUnenumerableJobs;
         AZStd::vector<typename TestJobRunner::JobInfo> jobQueue;
 
         for (auto jobInfo = jobInfos.begin(); jobInfo != jobInfos.end(); ++jobInfo)
         {
+            // If this job doesn't support enumeratoration, add a blank enumeration
+            if (jobInfo->GetCommand().m_args.empty())
+            {
+                // Test target cannot enumerate, this job will not be placed in the job queue
+                const JobMeta JobMeta;
+                cachedAndUnenumerableJobs.emplace_back(typename TestJobRunner::Job(*jobInfo, {}, AZStd::nullopt));
+
+                AZ::EBusAggregateResults<ProcessCallbackResult> results;
+                NotificationBus::BroadcastResult(results, &NotificationBus::Events::OnJobComplete, *jobInfo, JobMeta, StdContent{});
+                if (GetAggregateProcessCallbackResult(results) == ProcessCallbackResult::Abort)
+                {
+                    // Client chose to abort so we will copy over the existing cache enumerations and fill the rest with blanks
+                    AZStd::vector<typename TestJobRunner::Job> jobs(cachedAndUnenumerableJobs);
+                    for (auto emptyJobInfo = ++jobInfo; emptyJobInfo != jobInfos.end(); ++emptyJobInfo)
+                    {
+                        jobs.emplace_back(typename TestJobRunner::Job(*emptyJobInfo, {}, AZStd::nullopt));
+                    }
+
+                    return { ProcessSchedulerResult::UserAborted, jobs };
+                }
+
+                continue;
+            }
+
             // If this job has a cache read policy attempt to read the cache
             if (jobInfo->GetCache().has_value())
             {
@@ -89,14 +113,15 @@ namespace TestImpact
                     if (enumeration.has_value())
                     {
                         // Cache read successfully, this job will not be placed in the job queue
-                        cachedJobs.emplace_back(typename TestJobRunner::Job(*jobInfo, AZStd::move(meta), AZStd::move(enumeration)));
+                        cachedAndUnenumerableJobs.emplace_back(
+                            typename TestJobRunner::Job(*jobInfo, AZStd::move(meta), AZStd::move(enumeration)));
 
                         AZ::EBusAggregateResults<ProcessCallbackResult> results;
                         NotificationBus::BroadcastResult(results, &NotificationBus::Events::OnJobComplete, *jobInfo, meta, StdContent{});
                         if (GetAggregateProcessCallbackResult(results) == ProcessCallbackResult::Abort)
                         {
                             // Client chose to abort so we will copy over the existing cache enumerations and fill the rest with blanks
-                            AZStd::vector<typename TestJobRunner::Job> jobs(cachedJobs);
+                            AZStd::vector<typename TestJobRunner::Job> jobs(cachedAndUnenumerableJobs);
                             for (auto emptyJobInfo = ++jobInfo; emptyJobInfo != jobInfos.end(); ++emptyJobInfo)
                             {
                                 jobs.emplace_back(typename TestJobRunner::Job(*emptyJobInfo, {}, AZStd::nullopt));
@@ -141,8 +166,8 @@ namespace TestImpact
             enumerationTimeout,
             enumeratorTimeout);
 
-        // We need to add the cached jobs to the completed job list even though they technically weren't executed
-        for (auto&& job : cachedJobs)
+        // We need to add the cached and unenumerable jobs to the completed job list even though they technically weren't executed
+        for (auto&& job : cachedAndUnenumerableJobs)
         {
             jobs.emplace_back(AZStd::move(job));
         }

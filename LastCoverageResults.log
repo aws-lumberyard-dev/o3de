@@ -1,4 +1,4 @@
-[2023-03-28 08:09:09] [info] Start Program:
+[2023-03-28 10:22:43] [info] Start Program:
 Path:"C:\\dev\\o3de-tiaf-feature-python\\build\\windows_vs2019\\bin\\debug\\AzTestRunner.exe"
 Arguments:C:\dev\o3de-tiaf-feature-python\build\windows_vs2019\bin\debug\AzTestRunner.Tests.dll AzRunUnitTests --gtest_output=xml:C:\dev\o3de-tiaf-feature-python\build\windows_vs2019\Testing\Gtest\AZ_AzTestRunner.Tests.xml 
 Working directory: not set.
@@ -14,9 +14,9 @@ Input coverage:
 Unified diff: 
 Excluded line regular expressions: 
 Substitute pdb source paths: 
-[2023-03-28 08:09:09] [info] Module: C:\dev\o3de-tiaf-feature-python\build\windows_vs2019\bin\debug\O3DEKernel.dll is selected because it matches selected pattern: C:\dev\o3de-tiaf-feature-python\build\windows_vs2019\bin\debug
-[2023-03-28 08:09:09] [info] Module: C:\dev\o3de-tiaf-feature-python\build\windows_vs2019\bin\debug\AzTestRunner.Tests.dll is selected because it matches selected pattern: C:\dev\o3de-tiaf-feature-python\build\windows_vs2019\bin\debug
-[2023-03-28 08:09:09] [info] ----------------------------------------------------
-[2023-03-28 08:09:09] [info] Cobertura report generated: C:\dev\o3de-tiaf-feature-python\build\windows_vs2019\bin\TestImpactFramework\debug\Temp\Native\Coverage\AzTestRunner.Tests.xml
-[2023-03-28 08:09:09] [info] ----------------------------------------------------
-[2023-03-28 08:09:09] [info] The code coverage report is not what you expect? See the FAQ https://github.com/OpenCppCoverage/OpenCppCoverage/wiki/FAQ.
+[2023-03-28 10:22:43] [info] Module: C:\dev\o3de-tiaf-feature-python\build\windows_vs2019\bin\debug\O3DEKernel.dll is selected because it matches selected pattern: C:\dev\o3de-tiaf-feature-python\build\windows_vs2019\bin\debug
+[2023-03-28 10:22:43] [info] Module: C:\dev\o3de-tiaf-feature-python\build\windows_vs2019\bin\debug\AzTestRunner.Tests.dll is selected because it matches selected pattern: C:\dev\o3de-tiaf-feature-python\build\windows_vs2019\bin\debug
+[2023-03-28 10:22:43] [info] ----------------------------------------------------
+[2023-03-28 10:22:43] [info] Cobertura report generated: C:\dev\o3de-tiaf-feature-python\build\windows_vs2019\bin\TestImpactFramework\debug\Temp\Native\Coverage\AzTestRunner.Tests.xml
+[2023-03-28 10:22:43] [info] ----------------------------------------------------
+[2023-03-28 10:22:43] [info] The code coverage report is not what you expect? See the FAQ https://github.com/OpenCppCoverage/OpenCppCoverage/wiki/FAQ.

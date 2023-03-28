@@ -28,6 +28,9 @@ namespace TestImpact
     //! The CTest label that test target suites need to have in order to be run as part of TIAF.
     inline constexpr auto RequiresTiafLabel = "REQUIRES_tiaf";
 
+    //! The CTest label that test target suites need to have in order to be sharded.
+    inline constexpr auto TiafShardingLabel = "TIAF_sharding";
+
     //! Result of a test sequence that was run.
     enum class TestSequenceResult
     {

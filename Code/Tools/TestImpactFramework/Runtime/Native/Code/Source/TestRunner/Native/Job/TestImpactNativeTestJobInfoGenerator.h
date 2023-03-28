@@ -20,40 +20,20 @@ namespace TestImpact
 {
     //! Generates job information for the different test job runner types.
     class NativeTestEnumerationJobInfoGenerator
-        : public TestJobInfoGenerator<NativeTestEnumerator, NativeTestTarget>
+        : public TestEnumerationJobInfoGeneratorBase<NativeTestEnumerator, NativeTestTarget>
     {
     public:
-        //! Configures the test job info generator with the necessary path information for launching test targets.
-        //! @param targetBinaryDir Path to where the test target binaries are found.
-        //! @param artifactDir Path to the transient directory where test artifacts are produced.
-        //! @param testRunnerBinary Path to the binary responsible for launching test targets that have the TestRunner launch method.
-        NativeTestEnumerationJobInfoGenerator(
-            const RepoPath& targetBinaryDir,
-            const ArtifactDir& artifactDir,
-            const RepoPath& testRunnerBinary);
+        using TestEnumerationJobInfoGeneratorBase<NativeTestEnumerator, NativeTestTarget>::TestEnumerationJobInfoGeneratorBase;
 
-        //!
-        //! @param cachePolicy The cache policy to use for job generation.
-        void SetCachePolicy(NativeTestEnumerator::JobInfo::CachePolicy cachePolicy);
-
-        //!
-        NativeTestEnumerator::JobInfo::CachePolicy GetCachePolicy() const;
-
-        // TestJobInfoGenerator overrides...
-        NativeTestEnumerator::JobInfo GenerateJobInfo(
+    protected:
+        // TestEnumerationJobInfoGenerator overrides...
+        NativeTestEnumerator::JobInfo GenerateJobInfoImpl(
             const NativeTestTarget* testTarget, NativeTestEnumerator::JobInfo::Id jobId) const override;
-
-    private:
-        RepoPath m_targetBinaryDir;
-        ArtifactDir m_artifactDir;
-        RepoPath m_testRunnerBinary;
-
-        NativeTestEnumerator::JobInfo::CachePolicy m_cachePolicy;
     };
 
     //! Generates job information for the different test job runner types.
     class NativeRegularTestRunJobInfoGenerator
-        : public TestJobInfoGenerator<NativeRegularTestRunner, NativeTestTarget>
+        : public TestJobInfoGeneratorBase<NativeRegularTestRunner, NativeTestTarget>
     {
     public:
         //! Configures the test job info generator with the necessary path information for launching test targets.
@@ -64,7 +44,7 @@ namespace TestImpact
         NativeRegularTestRunJobInfoGenerator(
             const RepoPath& sourceDir, const RepoPath& targetBinaryDir, const ArtifactDir& artifactDir, const RepoPath& testRunnerBinary);
 
-        // TestJobInfoGenerator overrides...
+        // TestJobInfoGeneratorBase overrides...
         NativeRegularTestRunner::JobInfo GenerateJobInfo(
             const NativeTestTarget* testTarget, NativeRegularTestRunner::JobInfo::Id jobId) const override;
 
@@ -77,7 +57,7 @@ namespace TestImpact
 
     //! Generates job information for the different test job runner types.
     class NativeInstrumentedTestRunJobInfoGenerator
-        : public TestJobInfoGenerator<NativeInstrumentedTestRunner, NativeTestTarget>
+        : public TestJobInfoGeneratorBase<NativeInstrumentedTestRunner, NativeTestTarget>
     {
     public:
         //! Configures the test job info generator with the necessary path information for launching test targets.
@@ -101,7 +81,7 @@ namespace TestImpact
         //!
         CoverageLevel GetCoverageLevel() const;
 
-        // TestJobInfoGenerator overrides...
+        // TestJobInfoGeneratorBase overrides...
         NativeInstrumentedTestRunner::JobInfo GenerateJobInfo(
             const NativeTestTarget* testTarget, NativeInstrumentedTestRunner::JobInfo::Id jobId) const override;
 

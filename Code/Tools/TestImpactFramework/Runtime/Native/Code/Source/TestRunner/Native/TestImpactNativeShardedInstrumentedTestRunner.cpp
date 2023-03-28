@@ -94,7 +94,7 @@ namespace TestImpact
                 {
                     run = TestRun(AZStd::move(suites), jobData->m_meta.m_duration.value_or(AZStd::chrono::milliseconds{ 0 }));
                 }
-            }
+            }          
 
             // Consolidate test coverages
             AZStd::vector<ModuleCoverage> moduleCoverages;

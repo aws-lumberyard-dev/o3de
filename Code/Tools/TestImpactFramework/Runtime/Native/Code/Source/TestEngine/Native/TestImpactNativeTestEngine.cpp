@@ -239,17 +239,17 @@ namespace TestImpact
                 testTargetTimeout,
                 globalTimeout);
 
-            if(const auto integrityErrors = GenerateIntegrityErrorString(result);
-                !integrityErrors.empty())
-            {
-                AZ_TestImpact_Eval(
-                        integrityFailurePolicy != Policy::IntegrityFailure::Abort,
-                        TestEngineException,
-                        integrityErrors);
+        if(const auto integrityErrors = GenerateIntegrityErrorString(result);
+            !integrityErrors.empty())
+        {
+            AZ_TestImpact_Eval(
+                    integrityFailurePolicy != Policy::IntegrityFailure::Abort,
+                    TestEngineException,
+                    integrityErrors);
 
-                AZ_Error("InstrumentedRun", false, integrityErrors.c_str());
-            }
+            AZ_Error("InstrumentedRun", false, integrityErrors.c_str());
+        }
 
-            return result;
+        return result;
     }
 } // namespace TestImpact

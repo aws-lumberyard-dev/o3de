@@ -14,26 +14,10 @@
 
 namespace TestImpact
 {
-    NativeTestEnumerationJobInfoGenerator::NativeTestEnumerationJobInfoGenerator(
-        const RepoPath& targetBinaryDir,
-        const ArtifactDir& artifactDir,
-        const RepoPath& testRunnerBinary)
-        : m_targetBinaryDir(targetBinaryDir)
-        , m_artifactDir(artifactDir)
-        , m_testRunnerBinary(testRunnerBinary)
-    {
-    }
-
-
-    NativeTestEnumerator::JobInfo NativeTestEnumerationJobInfoGenerator::GenerateJobInfo(
+    NativeTestEnumerator::JobInfo NativeTestEnumerationJobInfoGenerator::GenerateJobInfoImpl(
         const NativeTestTarget* testTarget, NativeTestEnumerator::JobInfo::Id jobId) const
     {
-        using Cache = NativeTestEnumerator::JobData::Cache;
-
         const auto enumerationArtifact = GenerateTargetEnumerationArtifactFilePath(testTarget, m_artifactDir.m_enumerationCacheDirectory);
-        //const Command args = { AZStd::string::format(
-        //    "%s --gtest_list_tests --gtest_output=xml:\"%s\"",
-        //    GenerateLaunchArgument(testTarget, m_targetBinaryDir, m_testRunnerBinary).c_str(), enumerationArtifact.c_str()) };
         const auto launchArgument = GenerateLaunchArgument(testTarget, m_targetBinaryDir, m_testRunnerBinary);
         const auto command = GenerateTestEnumeratorJobInfoCommand(launchArgument, enumerationArtifact);
 
@@ -42,17 +26,7 @@ namespace TestImpact
             command,
             JobData(
                 enumerationArtifact,
-                Cache{ m_cachePolicy, GenerateTargetEnumerationCacheFilePath(testTarget, m_artifactDir.m_enumerationCacheDirectory) }));
-    }
-
-    void NativeTestEnumerationJobInfoGenerator::SetCachePolicy(NativeTestEnumerator::JobInfo::CachePolicy cachePolicy)
-    {
-        m_cachePolicy = cachePolicy;
-    }
-
-    NativeTestEnumerator::JobInfo::CachePolicy NativeTestEnumerationJobInfoGenerator::GetCachePolicy() const
-    {
-        return m_cachePolicy;
+                Cache{ GetCachePolicy(), GenerateTargetEnumerationCacheFilePath(testTarget, m_artifactDir.m_enumerationCacheDirectory) }));
     }
 
     NativeRegularTestRunJobInfoGenerator::NativeRegularTestRunJobInfoGenerator(
