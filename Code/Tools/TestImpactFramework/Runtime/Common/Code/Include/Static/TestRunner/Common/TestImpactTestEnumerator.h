@@ -15,6 +15,7 @@
 #include <TestRunner/Common/Enumeration/TestImpactTestEnumeration.h>
 #include <TestRunner/Common/Job/TestImpactTestEnumerationJobData.h>
 #include <TestRunner/Common/Job/TestImpactTestJobRunner.h>
+#include <TestRunner/Common/Enumeration/TestImpactTestEnumerationSerializer.h>
 
 namespace TestImpact
 {

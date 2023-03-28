@@ -382,7 +382,7 @@ namespace UnitTest
             const auto instrumentedJob = m_instrumentedTestJobInfoGenerator->GenerateJobInfo(testTarget, { 10 });
         
             const auto shardedInstrumentedJobs = m_shardedInstrumentedTestJobInfoGenerator->GenerateJobInfos(
-                { TestImpact::TestTargetAndEnumeration{ testTarget, &enumResult.second.front().GetPayload().value() } });
+                { TestImpact::TestTargetAndEnumeration{ testTarget, enumResult.second.front().GetPayload() } });
         
             TestImpact::Timer timer;
             //const auto runResult1 = m_instrumentedTestRunner.RunTests(
@@ -433,7 +433,7 @@ namespace UnitTest
             const auto regularJob = m_regularTestJobInfoGenerator->GenerateJobInfo(testTarget, { 10 });
         
             const auto shardedRegularJobs = m_shardedRegularTestJobInfoGenerator->GenerateJobInfos(
-                { TestImpact::TestTargetAndEnumeration{ testTarget, &enumResult.second.front().GetPayload().value() } });
+                { TestImpact::TestTargetAndEnumeration{ testTarget, enumResult.second.front().GetPayload() } });
         
             TestImpact::Timer timer;
             //const auto runResult1 = m_regularTestRunner.RunTests(

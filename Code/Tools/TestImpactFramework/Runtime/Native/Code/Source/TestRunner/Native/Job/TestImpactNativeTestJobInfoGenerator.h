@@ -88,7 +88,6 @@ namespace TestImpact
     private:
         RepoPath m_sourceDir;
         RepoPath m_targetBinaryDir;
-        RepoPath m_cacheDir;
         ArtifactDir m_artifactDir;
         RepoPath m_testRunnerBinary;
         RepoPath m_instrumentBinary;

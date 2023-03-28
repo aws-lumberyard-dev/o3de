@@ -31,7 +31,7 @@ namespace TestImpact
     //!
     using ShardedRegularTestJobInfo = ShardedTestJobInfo<NativeRegularTestRunner>;
 
-    using TestTargetAndEnumeration = AZStd::pair<const NativeTestTarget*, const TestEnumeration*>;
+    using TestTargetAndEnumeration = AZStd::pair<const NativeTestTarget*, AZStd::optional<TestEnumeration>>;
 
     //!
     template<typename TestJobRunner>
@@ -161,7 +161,7 @@ namespace TestImpact
         const TestTargetAndEnumeration& testTargetAndEnumeration, typename TestJobRunner::JobInfo::Id startingId)
     {
         if (const auto [testTarget, testEnumeration] = testTargetAndEnumeration;
-            testEnumeration && testEnumeration->GetNumEnabledTests() > 1)
+            testEnumeration.has_value() && testEnumeration->GetNumEnabledTests() > 1)
         {
             return GenerateJobInfoImpl(testTargetAndEnumeration, startingId);
         }

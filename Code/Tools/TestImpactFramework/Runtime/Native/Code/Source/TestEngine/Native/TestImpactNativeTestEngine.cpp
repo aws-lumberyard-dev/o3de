@@ -122,7 +122,7 @@ namespace TestImpact
         using TestEngineJobType = TestEngineEnumeration<NativeTestTarget>;
     };
 
-    // Type trait for the test runner
+    // Type trait for the regular test runner
     template<>
     struct TestJobRunnerTrait<NativeRegularTestRunner>
     {
@@ -136,16 +136,34 @@ namespace TestImpact
         using TestEngineJobType = TestEngineInstrumentedRun<NativeTestTarget, TestCoverage>;
     };
 
+    // Type trait for the sharded regular test runner
+    template<>
+    struct TestJobRunnerTrait<NativeShardedRegularTestRunner>
+    {
+        using TestEngineJobType = TestEngineRegularRun<NativeTestTarget>;
+    };
+
+
+    // Type trait for the sharded instrumented test runner
+    template<>
+    struct TestJobRunnerTrait<NativeShardedInstrumentedTestRunner>
+    {
+        using TestEngineJobType = TestEngineInstrumentedRun<NativeTestTarget, TestCoverage>;
+    };
+
     NativeTestEngine::NativeTestEngine(
         const RepoPath& repoRootDir,
         const RepoPath& targetBinaryDir,
-        [[maybe_unused]]const RepoPath& cacheDir,
         const ArtifactDir& artifactDir,
         const NativeShardedArtifactDir& shardedArtifactDir,
         const RepoPath& testRunnerBinary,
         const RepoPath& instrumentBinary,
         size_t maxConcurrentRuns)
-        : m_regularTestJobInfoGenerator(AZStd::make_unique<NativeRegularTestRunJobInfoGenerator>(
+        : m_enumerationTestJobInfoGenerator(AZStd::make_unique<NativeTestEnumerationJobInfoGenerator>(
+            targetBinaryDir,
+            artifactDir,
+            testRunnerBinary))
+        , m_regularTestJobInfoGenerator(AZStd::make_unique<NativeRegularTestRunJobInfoGenerator>(
             repoRootDir,
             targetBinaryDir,
             artifactDir,
@@ -216,16 +234,16 @@ namespace TestImpact
     }
 
     TestEngineInstrumentedRunResult<NativeTestTarget, TestCoverage> NativeTestEngine::InstrumentedRun(
-        const AZStd::vector<const NativeTestTarget*>& testTargets,
-        Policy::ExecutionFailure executionFailurePolicy,
-        Policy::IntegrityFailure integrityFailurePolicy,
-        Policy::TestFailure testFailurePolicy,
-        Policy::TargetOutputCapture targetOutputCapture,
-        AZStd::optional<AZStd::chrono::milliseconds> testTargetTimeout,
-        AZStd::optional<AZStd::chrono::milliseconds> globalTimeout) const
+        [[maybe_unused]]const AZStd::vector<const NativeTestTarget*>& testTargets,
+        [[maybe_unused]]Policy::ExecutionFailure executionFailurePolicy,
+        [[maybe_unused]]Policy::IntegrityFailure integrityFailurePolicy,
+        [[maybe_unused]]Policy::TestFailure testFailurePolicy,
+        [[maybe_unused]]Policy::TargetOutputCapture targetOutputCapture,
+        [[maybe_unused]]AZStd::optional<AZStd::chrono::milliseconds> testTargetTimeout,
+        [[maybe_unused]]AZStd::optional<AZStd::chrono::milliseconds> globalTimeout) const
     {
         DeleteXmlArtifacts();
-
+        /*
         const auto jobInfos = m_instrumentedTestJobInfoGenerator->GenerateJobInfos(testTargets);
 
         const auto result = RunTests(
@@ -251,5 +269,58 @@ namespace TestImpact
         }
 
         return result;
+        */
+
+        const auto shardedJobInfos =
+            m_shardedInstrumentedTestJobInfoGenerator->GenerateJobInfos(GenerateTestTargetAndEnumerations(testTargets));
+
+        TestEngineJobMap<typename NativeShardedInstrumentedTestRunner::JobInfo::IdType, NativeTestTarget> engineJobs;
+
+        //TestJobRunnerNotificationHandler<NativeShardedInstrumentedTestRunner, NativeTestTarget> handler(
+        //    testTargets, &engineJobs, executionFailurePolicy, testFailurePolicy, NativeInstrumentedTestRunnerErrorCodeChecker);
+
+        auto [testRunResult, runnerJobs] = m_shardedInstrumentedTestRunner->RunTests(
+            shardedJobInfos,
+            targetOutputCapture == Policy::TargetOutputCapture::None ? StdOutputRouting::None : StdOutputRouting::ToParent,
+            targetOutputCapture == Policy::TargetOutputCapture::None ? StdErrorRouting::None : StdErrorRouting::ToParent,
+            testTargetTimeout,
+            globalTimeout);
+
+        auto engineRuns =
+            CompileTestEngineRuns<NativeShardedInstrumentedTestRunner, NativeTestTarget>(testTargets, runnerJobs, AZStd::move(engineJobs));
+
+        const auto result = AZStd::pair{ CalculateSequenceResult(testRunResult, engineRuns, executionFailurePolicy), AZStd::move(engineRuns) };
+
+        if (const auto integrityErrors = GenerateIntegrityErrorString(result); !integrityErrors.empty())
+        {
+            AZ_TestImpact_Eval(integrityFailurePolicy != Policy::IntegrityFailure::Abort, TestEngineException, integrityErrors);
+
+            AZ_Error("InstrumentedRun", false, integrityErrors.c_str());
+        }
+
+        return result;
+    }
+
+    AZStd::vector<TestTargetAndEnumeration> NativeTestEngine::GenerateTestTargetAndEnumerations(
+        const AZStd::vector<const NativeTestTarget*> testTargets) const
+    {
+        const auto enumerationJobInfos = m_enumerationTestJobInfoGenerator->GenerateJobInfos(testTargets);
+        auto [enumerationResult, enumerations] =
+            m_testEnumerator->Enumerate(enumerationJobInfos, StdOutputRouting::None, StdErrorRouting::None, AZStd::nullopt, AZStd::nullopt);
+
+        if (enumerationResult != ProcessSchedulerResult::Graceful)
+        {
+            return {};
+        }
+
+        AZStd::vector<TestTargetAndEnumeration> testTargetsAndEnumerations;
+        testTargetsAndEnumerations.reserve(enumerations.size());
+        for (auto&& enumeration : enumerations)
+        {
+            testTargetsAndEnumerations.emplace_back(
+                testTargets[enumeration.GetJobInfo().GetId().m_value], AZStd::move(enumeration.ReleasePayload()));
+        }
+
+        return testTargetsAndEnumerations;
     }
 } // namespace TestImpact

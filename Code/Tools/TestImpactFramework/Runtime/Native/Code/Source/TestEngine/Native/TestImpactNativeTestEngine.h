@@ -23,6 +23,7 @@
 namespace TestImpact
 {
     class NativeTestTarget;
+    class NativeTestEnumerationJobInfoGenerator;
     class NativeRegularTestRunJobInfoGenerator;
     class NativeInstrumentedTestRunJobInfoGenerator;
     class NativeShardedRegularTestRunJobInfoGenerator;
@@ -40,7 +41,6 @@ namespace TestImpact
         //! Configures the test engine with the necessary path information for launching test targets and managing the artifacts they produce.
         //! @param repoRootDir Root path where source files are found (including subfolders).
         //! @param targetBinaryDir Path to where the test target binaries are found.
-        //! @param cacheDir Path to the persistent folder where test target enumerations are cached.
         //! @param artifactDir Path to the transient directory where test artifacts are produced.
         //! @param shardedArtifactDir Path to the transient directory where sharded test artifacts are produced.
         //! @param testRunnerBinary Path to the binary responsible for launching test targets that have the TestRunner launch method.
@@ -49,7 +49,6 @@ namespace TestImpact
         NativeTestEngine(
             const RepoPath& repoRootDir,
             const RepoPath& targetBinaryDir,
-            const RepoPath& cacheDir,
             const ArtifactDir& artifactDir,
             const NativeShardedArtifactDir& shardedArtifactDir,
             const RepoPath& testRunnerBinary,
@@ -116,6 +115,10 @@ namespace TestImpact
         //! Cleans up the artifacts directory of any artifacts from previous runs.
         void DeleteXmlArtifacts() const;
 
+        //!
+        AZStd::vector<TestTargetAndEnumeration> GenerateTestTargetAndEnumerations(const AZStd::vector<const NativeTestTarget*> testTargets) const;
+
+        AZStd::unique_ptr<NativeTestEnumerationJobInfoGenerator> m_enumerationTestJobInfoGenerator;
         AZStd::unique_ptr<NativeRegularTestRunJobInfoGenerator> m_regularTestJobInfoGenerator;
         AZStd::unique_ptr<NativeInstrumentedTestRunJobInfoGenerator> m_instrumentedTestJobInfoGenerator;
         AZStd::unique_ptr<NativeShardedRegularTestRunJobInfoGenerator> m_shardedRegularTestJobInfoGenerator;
