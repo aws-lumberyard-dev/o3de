@@ -24,8 +24,6 @@ namespace TestImpact
             std::pair<AZStd::unordered_map<AZStd::string, TestRunSuite>, AZStd::unordered_map<RepoPath, ModuleCoverage>>>
             consolidatedJobArtifacts;
 
-        // DO LOGGING OF ANOMALOUS ARTIFACTS AND CHECK IF 1 OR MORE CRASHED TEST RUNS HAS NO COVERAGE IN WHICH CASE ABORT COVERAGE (NULL_OPT)
-
         for (const auto& subJob : subJobs)
         {
             if (const auto payload = subJob.GetPayload();
@@ -33,9 +31,7 @@ namespace TestImpact
             {
                 const auto& [subTestRun, subTestCoverage] = payload.value();
                 const auto shardedTestJobInfo = shardToParentShardedJobMap.at(subJob.GetJobInfo().GetId().m_value);
-
-                // The parent job info id of the sharded sub jobs is the id of the first sub job info
-                const auto parentJobInfoId = shardedTestJobInfo->m_jobInfos.front().GetId();
+                const auto parentJobInfoId = shardedTestJobInfo->GetId();
                 auto& [testSuites, testCoverage] = consolidatedJobArtifacts[parentJobInfoId.m_value];
 
                 // Accumulate test results
@@ -66,6 +62,10 @@ namespace TestImpact
                             moduleCoverage.m_sources.end(), subModuleCoverage.m_sources.begin(), subModuleCoverage.m_sources.end());
                     }
                 }
+            }
+            else
+            {
+                LogSuspectedShardFileRaceCondition(subJob, shardToParentShardedJobMap, completedShardMap);
             }
         }
 
@@ -107,18 +107,18 @@ namespace TestImpact
             auto payload =
                 typename NativeInstrumentedTestRunner::JobPayload{ AZStd::move(run), TestCoverage(AZStd::move(moduleCoverages)) };
 
-            if (shardedTestJobInfo->m_jobInfos.size() > 1)
+            if (shardedTestJobInfo->GetJobInfos().size() > 1)
             {
                 // Serialize the consolidated run and coverage as artifacts in the canonical run and coverage directories
                 WriteFileContents<TestRunnerException>(
                     Cobertura::SerializeTestCoverage(payload.second, m_repoRoot),
-                    m_artifactDir.m_coverageArtifactDirectory / RepoPath(shardedTestJobInfo->m_testTarget->GetName() + ".xml"));
+                    m_artifactDir.m_coverageArtifactDirectory / RepoPath(shardedTestJobInfo->GetTestTarget()->GetName() + ".xml"));
                 if (payload.first.has_value())
                 {
                     WriteFileContents<TestRunnerException>(
                         GTest::SerializeTestRun(payload.first.value()),
                         m_artifactDir.m_testRunArtifactDirectory /
-                            RepoPath(GenerateFullQualifiedTargetNameStem(shardedTestJobInfo->m_testTarget).String() + ".xml"));
+                            RepoPath(GenerateFullQualifiedTargetNameStem(shardedTestJobInfo->GetTestTarget()).String() + ".xml"));
                 }
             }
 

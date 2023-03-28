@@ -91,6 +91,10 @@ namespace TestImpact
         using CompletedShardMap = AZStd::unordered_map<const ShardedTestJobInfo<TestRunnerType>*, ShardedTestJob<TestRunnerType>>;
 
         //!
+        static void LogSuspectedShardFileRaceCondition(
+            const Job& subJob, const ShardToParentShardedJobMap& shardToParentShardedJobMap, const CompletedShardMap& completedShardMap);
+
+        //!
         [[nodiscard]] virtual typename TestRunnerType::ResultType ConsolidateSubJobs(
             const typename TestRunnerType::ResultType& result,
             const ShardToParentShardedJobMap& shardToParentShardedJobMap,
@@ -152,8 +156,8 @@ namespace TestImpact
             NotificationBus::BroadcastResult(
                 results,
                 &NotificationBus::Events::OnShardedJobComplete,
-                shardedJobInfo->m_jobInfos.begin()->GetId(),
-                shardedJobInfo->m_jobInfos.size(),
+                shardedJobInfo->GetJobInfos().begin()->GetId(),
+                shardedJobInfo->GetJobInfos().size(),
                 jobInfo,
                 meta,
                 std);
@@ -211,7 +215,7 @@ namespace TestImpact
             size_t{ 0 },
             [](size_t sum, const ShardedTestJobInfo<TestRunnerType>& shardedJobInfo)
             {
-                return sum + shardedJobInfo.m_jobInfos.size();
+                return sum + shardedJobInfo.GetJobInfos().size();
             });
 
         AZStd::vector<JobInfo> subJobInfos;
@@ -220,7 +224,7 @@ namespace TestImpact
         {
             completedShardMap.emplace(
                 AZStd::piecewise_construct, AZStd::forward_as_tuple(&shardedJobInfo), std::forward_as_tuple(shardedJobInfo));
-            const auto& [testTarget, jobInfos] = shardedJobInfo;
+            const auto& jobInfos = shardedJobInfo.GetJobInfos();
             subJobInfos.insert(subJobInfos.end(), jobInfos.begin(), jobInfos.end());
             for (const auto& jobInfo : jobInfos)
             {
@@ -237,5 +241,55 @@ namespace TestImpact
             runnerTimeout);
 
          return ConsolidateSubJobs(result, shardToParentShardedJobMap, completedShardMap);
+    }
+
+    template<typename TestRunnerType>
+    void NativeShardedTestRunnerBase<TestRunnerType>::LogSuspectedShardFileRaceCondition(
+        const Job& subJob, const ShardToParentShardedJobMap& shardToParentShardedJobMap, const CompletedShardMap& completedShardMap)
+    {
+         const auto jobId = subJob.GetJobInfo().GetId().m_value;
+         const auto shardedTestJobInfo = shardToParentShardedJobMap.at(jobId);
+         const auto& shardedTestJob = completedShardMap.at(shardedTestJobInfo);
+         const auto& shardedSubJobs = shardedTestJob.GetSubJobs();
+         auto jobData = AZStd::find_if(
+             shardedSubJobs.begin(),
+             shardedSubJobs.end(),
+             [&](const typename ShardedTestJob<TestRunnerType>::JobData& jobData)
+             {
+                 return jobData.m_jobInfo.GetId().m_value == jobId;
+             });
+
+         if (jobData != shardedSubJobs.end())
+         {
+            const size_t shardNumber = jobData->m_jobInfo.GetId().m_value - shardedTestJobInfo->GetJobInfos().front().GetId().m_value;
+
+            if (jobData->m_std.m_out.has_value())
+            {
+                const size_t subStringLength = AZStd::min(size_t{ 500 }, jobData->m_std.m_out->length());
+                const auto subString = jobData->m_std.m_out->substr(jobData->m_std.m_out->length() - subStringLength);
+                AZ_Warning(
+                    "Shard",
+                    false,
+                    AZStd::string::format(
+                        "Possible file race condition detected for test target '%s' on shard '%zu', backtrace of std out for last %zu "
+                        "characters (check for properly terminated test log output):\n%s",
+                        shardedTestJobInfo->GetTestTarget()->GetName().c_str(),
+                        shardNumber,
+                        subStringLength,
+                        subString.c_str())
+                        .c_str());
+            }
+            else
+            {
+                AZ_Warning(
+                    "Shard",
+                    false,
+                    AZStd::string::format(
+                        "Possible race condition detected for test target '%s' on shard '%zu', backtrace of std out unavailable",
+                        shardedTestJobInfo->GetTestTarget()->GetName().c_str(),
+                        shardNumber)
+                        .c_str());
+            }
+         }
     }
 } // namespace TestImpact

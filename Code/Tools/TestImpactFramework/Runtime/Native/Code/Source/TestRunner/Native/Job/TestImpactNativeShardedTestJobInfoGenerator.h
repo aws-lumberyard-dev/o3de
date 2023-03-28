@@ -23,11 +23,39 @@ namespace TestImpact
 {
     //!
     template<typename TestJobRunner>
-    struct ShardedTestJobInfo
+    class ShardedTestJobInfo
     {
+    public:
+        using Id = typename TestJobRunner::JobInfo::Id;
         using IdType = typename TestJobRunner::JobInfo::IdType;
+        using JobInfos = typename TestJobRunner::JobInfos;
+
+        ShardedTestJobInfo(const NativeTestTarget* testTarget, JobInfos&& jobInfos)
+            : m_testTarget(testTarget)
+            , m_jobInfos(AZStd::move(jobInfos))
+        {
+            AZ_TestImpact_Eval(!m_jobInfos.empty(), TestRunnerException, "Attepted to instantiate a sharded test job info no sub job infos");
+        }
+
+        //!
+        Id GetId() const
+        {
+            return m_jobInfos.front().GetId();
+        }
+
+        const NativeTestTarget* GetTestTarget() const
+        {
+            return m_testTarget;
+        }
+
+        const JobInfos& GetJobInfos() const
+        {
+            return m_jobInfos;
+        }
+
+    private:
         const NativeTestTarget* m_testTarget = nullptr;
-        typename TestJobRunner::JobInfos m_jobInfos;
+        JobInfos m_jobInfos;
     };
 
     //!
@@ -166,7 +194,7 @@ namespace TestImpact
         const TestTargetAndEnumeration& testTargetAndEnumeration, typename TestJobRunner::JobInfo::Id startingId)
     {
         if (const auto [testTarget, testEnumeration] = testTargetAndEnumeration;
-            testEnumeration.has_value() && testEnumeration->GetNumEnabledTests() > 1)
+            m_maxConcurrency > 1 && testEnumeration.has_value() && testEnumeration->GetNumEnabledTests() > 1)
         {
             return GenerateJobInfoImpl(testTargetAndEnumeration, startingId);
         }
@@ -240,7 +268,7 @@ namespace TestImpact
         for (size_t testTargetIndex = 0, jobId = 0; testTargetIndex < testTargetsAndEnumerations.size(); testTargetIndex++)
         {
             jobInfos.push_back(GenerateJobInfo(testTargetsAndEnumerations[testTargetIndex], { jobId }));
-            jobId += jobInfos.back().m_jobInfos.size();
+            jobId += jobInfos.back().GetJobInfos().size();
         }
 
         return jobInfos;

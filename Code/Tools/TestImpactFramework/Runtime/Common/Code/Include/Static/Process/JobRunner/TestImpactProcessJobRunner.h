@@ -31,7 +31,7 @@ namespace TestImpact
     public:
         using JobData = AdditionalInfo;
         using JobInfo = JobInfo<AdditionalInfo>;
-        using JobInfos = AZStd::vector<typename JobInfo>;
+        using JobInfos = AZStd::vector<typename JobInfo>; //!< @note job ids are not assumed to be correlated with their position in the array, nor contiguous.
         using Command = typename JobInfo::Command;
         using JobPayload = Payload;
         using Job = Job<JobInfo, Payload>;

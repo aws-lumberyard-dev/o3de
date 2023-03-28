@@ -47,8 +47,8 @@ namespace TestImpact
     {
         const auto [testTarget, testEnumeration] = testTargetAndEnumeration;
         const auto testFilters = TestListsToTestFilters(ShardTestInterleaved(testTargetAndEnumeration));
-        ShardedInstrumentedTestJobInfo shards{ testTarget, {} };
-        shards.m_jobInfos.reserve(testFilters.size());
+        typename ShardedInstrumentedTestJobInfo::JobInfos jobInfos;
+        jobInfos.reserve(testFilters.size());
 
         for (size_t i = 0; i < testFilters.size(); i++)
         {
@@ -67,13 +67,13 @@ namespace TestImpact
                 m_sourceDir,
                 GenerateRegularTestJobInfoCommand(shardLaunchCommand, shardedRunArtifact));
 
-            shards.m_jobInfos.emplace_back(
+            jobInfos.emplace_back(
                 NativeInstrumentedTestRunner::JobInfo::Id{ startingId.m_value + i },
                 command,
                 NativeInstrumentedTestRunner::JobData(testTarget->GetLaunchMethod(), shardedRunArtifact, shardCoverageArtifact));
         }
 
-        return shards;
+        return ShardedInstrumentedTestJobInfo(testTarget, AZStd::move(jobInfos));
     }
 
     ShardedRegularTestJobInfo NativeShardedRegularTestRunJobInfoGenerator::GenerateJobInfoImpl(
@@ -82,8 +82,8 @@ namespace TestImpact
     {
         const auto [testTarget, testEnumeration] = testTargetAndEnumeration;
         const auto testFilters = TestListsToTestFilters(ShardTestInterleaved(testTargetAndEnumeration));
-        ShardedRegularTestJobInfo shards{ testTarget, {} };
-        shards.m_jobInfos.reserve(testFilters.size());
+        typename ShardedRegularTestJobInfo::JobInfos jobInfos;
+        jobInfos.reserve(testFilters.size());
 
         for (size_t i = 0; i < testFilters.size(); i++)
         {
@@ -93,12 +93,12 @@ namespace TestImpact
             WriteFileContents<TestRunnerException>(testFilters[i], shardAdditionalArgsFile);
             const auto command = GenerateRegularTestJobInfoCommand(shardLaunchCommand, shardedRunArtifact);
 
-            shards.m_jobInfos.emplace_back(
+            jobInfos.emplace_back(
                 NativeRegularTestRunner::JobInfo::Id{ startingId.m_value + i },
                 command,
                 NativeRegularTestRunner::JobData(testTarget->GetLaunchMethod(), shardedRunArtifact));
         }
 
-        return shards;
+        return ShardedRegularTestJobInfo(testTarget, AZStd::move(jobInfos));
     }
 } // namespace TestImpact

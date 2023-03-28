@@ -95,8 +95,9 @@ namespace TestImpact
 
     public:
         TestJobRunnerNotificationHandler(
+            const typename TestJobRunner::JobInfos& jobInfos,
             const AZStd::vector<const TestTargetType*>& testTargets,
-            TestEngineJobMap<IdType, TestTargetType>* engineJobs,
+            TestEngineJobMap<IdType, TestTargetType>& engineJobs,
             Policy::ExecutionFailure executionFailurePolicy,
             Policy::TestFailure testFailurePolicy,
             const ErrorCodeCheckerCallback<TestJobRunner>& errorCodeCheckerCallback);
@@ -110,27 +111,31 @@ namespace TestImpact
         // Deduces the run result for a given test target based on how the process exited and known return values
         Client::TestRunResult GetClientTestRunResultForMeta(const JobInfo& jobInfo, const JobMeta& meta);
 
-        const AZStd::vector<const TestTargetType*>& m_testTargets;
-        TestEngineJobMap<IdType, TestTargetType>* m_engineJobs;
+        TestEngineJobMap<IdType, TestTargetType>* m_engineJobs = nullptr;
         Policy::ExecutionFailure m_executionFailurePolicy;
         Policy::TestFailure m_testFailurePolicy;
         const ErrorCodeCheckerCallback<TestJobRunner>* m_errorCodeCheckerCallback = nullptr;
+        AZStd::unordered_map<IdType, const TestTargetType*> m_jobInfoIdToTestTargetMap;
     };
 
     template<typename TestJobRunner, typename TestTargetType>
     TestJobRunnerNotificationHandler<TestJobRunner, TestTargetType>::TestJobRunnerNotificationHandler(
+        const typename TestJobRunner::JobInfos& jobInfos,
         const AZStd::vector<const TestTargetType*>& testTargets,
-        TestEngineJobMap<IdType, TestTargetType>* engineJobs,
+        TestEngineJobMap<IdType, TestTargetType>& engineJobs,
         Policy::ExecutionFailure executionFailurePolicy,
         Policy::TestFailure testFailurePolicy,
         const ErrorCodeCheckerCallback<TestJobRunner>& errorCodeCheckerCallback)
-        : m_testTargets(testTargets)
-        , m_engineJobs(engineJobs)
+        : m_engineJobs(&engineJobs)
         , m_executionFailurePolicy(executionFailurePolicy)
         , m_testFailurePolicy(testFailurePolicy)
         , m_errorCodeCheckerCallback(&errorCodeCheckerCallback)
     {
         TestJobRunner::NotificationBus::Handler::BusConnect();
+        for (size_t i = 0; i < jobInfos.size(); i++)
+        {
+            m_jobInfoIdToTestTargetMap[jobInfos[i].GetId().m_value] = testTargets[i];
+        }
     }
 
     template<typename TestJobRunner, typename TestTargetType>
@@ -145,7 +150,7 @@ namespace TestImpact
     {
         const auto id = jobInfo.GetId().m_value;
         const auto& args = jobInfo.GetCommand().m_args;
-        const auto* target = m_testTargets[id];
+        const auto* target = m_jobInfoIdToTestTargetMap.at(id);
         const auto result = GetClientTestRunResultForMeta(jobInfo, meta);
 
         // Place the test engine job associated with this test run into the map along with its client test run result so
@@ -265,7 +270,7 @@ namespace TestImpact
     {
         TestEngineJobMap<typename TestJobRunner::JobInfo::IdType, TestTargetType> engineJobs;
         TestJobRunnerNotificationHandler<TestJobRunner, TestTargetType> handler(
-            testTargets, &engineJobs, executionFailurePolicy, testFailurePolicy, errorCheckerCallback);
+            jobInfos, testTargets, engineJobs, executionFailurePolicy, testFailurePolicy, errorCheckerCallback);
         auto [result, runnerJobs] = testRunner->RunTests(
             jobInfos,
             targetOutputCapture == Policy::TargetOutputCapture::None ? StdOutputRouting::None : StdOutputRouting::ToParent,
