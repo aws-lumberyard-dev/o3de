@@ -13,7 +13,7 @@ namespace TestImpact
 {
     AZStd::pair<ProcessSchedulerResult, AZStd::vector<PythonRegularNullTestRunner::TestJobRunner::Job>>
     PythonRegularNullTestRunner::RunTests(
-        const AZStd::vector<TestJobRunner::JobInfo>& jobInfos,
+        const TestJobRunner::JobInfos& jobInfos,
         [[maybe_unused]] StdOutputRouting stdOutRouting,
         [[maybe_unused]] StdErrorRouting stdErrRouting,
         [[maybe_unused]] AZStd::optional<AZStd::chrono::milliseconds> runTimeout,

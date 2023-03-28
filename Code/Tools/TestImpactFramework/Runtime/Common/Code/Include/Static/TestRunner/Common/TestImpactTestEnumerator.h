@@ -37,7 +37,7 @@ namespace TestImpact
         //! @param enumeratorTimeout The maximum duration the enumerator may run before forcefully terminating all in-flight enumerations.
         //! @return The result of the run sequence and the enumeration jobs with their associated test enumeration payloads.
         [[nodiscard]] AZStd::pair<ProcessSchedulerResult, AZStd::vector<typename TestJobRunner::Job>> Enumerate(
-            const AZStd::vector<typename TestJobRunner::JobInfo>& jobInfos,
+            const typename TestJobRunner::JobInfos& jobInfos,
             StdOutputRouting stdOutRouting,
             StdErrorRouting stdErrRouting,
             AZStd::optional<AZStd::chrono::milliseconds> enumerationTimeout,
@@ -56,14 +56,14 @@ namespace TestImpact
     AZStd::pair<ProcessSchedulerResult, AZStd::vector<typename TestEnumerator<AdditionalInfo>::TestJobRunner::Job>> TestEnumerator<
         AdditionalInfo>::
         Enumerate(
-        const AZStd::vector<typename TestJobRunner::JobInfo>& jobInfos,
+        const typename TestJobRunner::JobInfos& jobInfos,
         StdOutputRouting stdOutRouting,
         StdErrorRouting stdErrRouting,
         AZStd::optional<AZStd::chrono::milliseconds> enumerationTimeout,
         AZStd::optional<AZStd::chrono::milliseconds> enumeratorTimeout)
     {
         AZStd::vector<typename TestJobRunner::Job> cachedAndUnenumerableJobs;
-        AZStd::vector<typename TestJobRunner::JobInfo> jobQueue;
+        typename TestJobRunner::JobInfos jobQueue;
 
         for (auto jobInfo = jobInfos.begin(); jobInfo != jobInfos.end(); ++jobInfo)
         {

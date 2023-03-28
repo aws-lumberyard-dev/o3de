@@ -273,30 +273,48 @@ namespace TestImpact
 
         const auto shardedJobInfos =
             m_shardedInstrumentedTestJobInfoGenerator->GenerateJobInfos(GenerateTestTargetAndEnumerations(testTargets));
-
-        TestEngineJobMap<typename NativeShardedInstrumentedTestRunner::JobInfo::IdType, NativeTestTarget> engineJobs;
-
-        //TestJobRunnerNotificationHandler<NativeShardedInstrumentedTestRunner, NativeTestTarget> handler(
-        //    testTargets, &engineJobs, executionFailurePolicy, testFailurePolicy, NativeInstrumentedTestRunnerErrorCodeChecker);
-
-        auto [testRunResult, runnerJobs] = m_shardedInstrumentedTestRunner->RunTests(
+        
+        const auto result = RunTests(
+            m_shardedInstrumentedTestRunner.get(),
             shardedJobInfos,
-            targetOutputCapture == Policy::TargetOutputCapture::None ? StdOutputRouting::None : StdOutputRouting::ToParent,
-            targetOutputCapture == Policy::TargetOutputCapture::None ? StdErrorRouting::None : StdErrorRouting::ToParent,
+            testTargets,
+            NativeInstrumentedTestRunnerErrorCodeChecker,
+            executionFailurePolicy,
+            testFailurePolicy,
+            targetOutputCapture,
             testTargetTimeout,
             globalTimeout);
-
-        auto engineRuns =
-            CompileTestEngineRuns<NativeShardedInstrumentedTestRunner, NativeTestTarget>(testTargets, runnerJobs, AZStd::move(engineJobs));
-
-        const auto result = AZStd::pair{ CalculateSequenceResult(testRunResult, engineRuns, executionFailurePolicy), AZStd::move(engineRuns) };
-
+        
         if (const auto integrityErrors = GenerateIntegrityErrorString(result); !integrityErrors.empty())
         {
             AZ_TestImpact_Eval(integrityFailurePolicy != Policy::IntegrityFailure::Abort, TestEngineException, integrityErrors);
-
+        
             AZ_Error("InstrumentedRun", false, integrityErrors.c_str());
         }
+
+        //TestEngineJobMap<typename NativeShardedInstrumentedTestRunner::JobInfo::IdType, NativeTestTarget> engineJobs;
+        //
+        //TestJobRunnerNotificationHandler<NativeShardedInstrumentedTestRunner, NativeTestTarget> handler(
+        //    testTargets, &engineJobs, executionFailurePolicy, testFailurePolicy, NativeInstrumentedTestRunnerErrorCodeChecker);
+        //
+        //auto [testRunResult, runnerJobs] = m_shardedInstrumentedTestRunner->RunTests(
+        //    shardedJobInfos,
+        //    targetOutputCapture == Policy::TargetOutputCapture::None ? StdOutputRouting::None : StdOutputRouting::ToParent,
+        //    targetOutputCapture == Policy::TargetOutputCapture::None ? StdErrorRouting::None : StdErrorRouting::ToParent,
+        //    testTargetTimeout,
+        //    globalTimeout);
+        //
+        //auto engineRuns =
+        //    CompileTestEngineRuns<NativeShardedInstrumentedTestRunner, NativeTestTarget>(testTargets, runnerJobs, AZStd::move(engineJobs));
+        //
+        //const auto result = AZStd::pair{ CalculateSequenceResult(testRunResult, engineRuns, executionFailurePolicy), AZStd::move(engineRuns) };
+        //
+        //if (const auto integrityErrors = GenerateIntegrityErrorString(result); !integrityErrors.empty())
+        //{
+        //    AZ_TestImpact_Eval(integrityFailurePolicy != Policy::IntegrityFailure::Abort, TestEngineException, integrityErrors);
+        //
+        //    AZ_Error("InstrumentedRun", false, integrityErrors.c_str());
+        //}
 
         return result;
     }

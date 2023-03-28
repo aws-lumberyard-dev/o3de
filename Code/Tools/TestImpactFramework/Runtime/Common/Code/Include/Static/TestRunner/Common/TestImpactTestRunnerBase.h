@@ -33,7 +33,7 @@ namespace TestImpact
         //! @param runnerTimeout The maximum duration the runner may run before forcefully terminating all in-flight runs.
         //! @return The result of the run sequence and the run jobs with their associated test run payloads.
         [[nodiscard]] virtual ResultType RunTests(
-            const AZStd::vector<typename TestJobRunner::JobInfo>& jobInfos,
+            const typename TestJobRunner::JobInfos& jobInfos,
             StdOutputRouting stdOutRouting,
             StdErrorRouting stdErrRouting,
             AZStd::optional<AZStd::chrono::milliseconds> runTimeout,
@@ -51,7 +51,7 @@ namespace TestImpact
     template<typename AdditionalInfo, typename Payload>
     typename TestRunnerBase<AdditionalInfo, Payload>::ResultType
     TestRunnerBase<AdditionalInfo, Payload>::RunTests(
-        const AZStd::vector<typename TestJobRunner::JobInfo>& jobInfos,
+        const typename TestJobRunner::JobInfos& jobInfos,
         StdOutputRouting stdOutRouting,
         StdErrorRouting stdErrRouting,
         AZStd::optional<AZStd::chrono::milliseconds> runTimeout,

@@ -35,7 +35,7 @@ namespace TestImpact
                 const auto shardedTestJobInfo = shardToParentShardedJobMap.at(subJob.GetJobInfo().GetId().m_value);
 
                 // The parent job info id of the sharded sub jobs is the id of the first sub job info
-                const auto parentJobInfoId = shardedTestJobInfo->second.front().GetId();
+                const auto parentJobInfoId = shardedTestJobInfo->m_jobInfos.front().GetId();
                 auto& [testSuites, testCoverage] = consolidatedJobArtifacts[parentJobInfoId.m_value];
 
                 // Accumulate test results
@@ -107,18 +107,18 @@ namespace TestImpact
             auto payload =
                 typename NativeInstrumentedTestRunner::JobPayload{ AZStd::move(run), TestCoverage(AZStd::move(moduleCoverages)) };
 
-            if (shardedTestJobInfo->second.size() > 1)
+            if (shardedTestJobInfo->m_jobInfos.size() > 1)
             {
                 // Serialize the consolidated run and coverage as artifacts in the canonical run and coverage directories
                 WriteFileContents<TestRunnerException>(
                     Cobertura::SerializeTestCoverage(payload.second, m_repoRoot),
-                    m_artifactDir.m_coverageArtifactDirectory / RepoPath(shardedTestJobInfo->first->GetName() + ".xml"));
+                    m_artifactDir.m_coverageArtifactDirectory / RepoPath(shardedTestJobInfo->m_testTarget->GetName() + ".xml"));
                 if (payload.first.has_value())
                 {
                     WriteFileContents<TestRunnerException>(
                         GTest::SerializeTestRun(payload.first.value()),
                         m_artifactDir.m_testRunArtifactDirectory /
-                            RepoPath(GenerateFullQualifiedTargetNameStem(shardedTestJobInfo->first).String() + ".xml"));
+                            RepoPath(GenerateFullQualifiedTargetNameStem(shardedTestJobInfo->m_testTarget).String() + ".xml"));
                 }
             }
 

@@ -31,6 +31,7 @@ namespace TestImpact
     public:
         using JobData = AdditionalInfo;
         using JobInfo = JobInfo<AdditionalInfo>;
+        using JobInfos = AZStd::vector<typename JobInfo>;
         using Command = typename JobInfo::Command;
         using JobPayload = Payload;
         using Job = Job<JobInfo, Payload>;
@@ -100,7 +101,7 @@ namespace TestImpact
         //! @param jobCallback The client callback to be called when each job changes state.
         //! @return The result of the run sequence and the jobs with their associated payloads.
         AZStd::pair<ProcessSchedulerResult, AZStd::vector<Job>> Execute(
-            const AZStd::vector<typename Job::Info>& jobs,
+            const JobInfos& jobs,
             PayloadMapProducer payloadMapProducer,
             StdOutputRouting stdOutRouting,
             StdErrorRouting stdErrRouting,
@@ -236,7 +237,7 @@ namespace TestImpact
     template<typename AdditionalInfo, typename Payload>
     AZStd::pair<ProcessSchedulerResult, AZStd::vector<typename JobRunner<AdditionalInfo, Payload>::Job>> JobRunner<AdditionalInfo, Payload>::
         Execute(
-        const AZStd::vector<typename Job::Info>& jobInfos,
+        const JobInfos& jobInfos,
         PayloadMapProducer payloadMapProducer,
         StdOutputRouting stdOutRouting,
         StdErrorRouting stdErrRouting,

@@ -33,7 +33,7 @@ namespace TestImpact
                 const auto shardedTestJobInfo = shardToParentShardedJobMap.at(subJob.GetJobInfo().GetId().m_value);
 
                 // The parent job info id of the sharded sub jobs is the id of the first sub job info
-                const auto parentJobInfoId = shardedTestJobInfo->second.front().GetId();
+                const auto parentJobInfoId = shardedTestJobInfo->m_jobInfos.front().GetId();
                 auto& [testSuites, testCoverage] = consolidatedJobArtifacts[parentJobInfoId.m_value];
 
                 // Accumulate test results
@@ -66,7 +66,7 @@ namespace TestImpact
 
                 if (jobData != shardedSubJobs.end())
                 {
-                    const size_t shardNumber = jobData->m_jobInfo.GetId().m_value - shardedTestJobInfo->second.front().GetId().m_value;
+                    const size_t shardNumber = jobData->m_jobInfo.GetId().m_value - shardedTestJobInfo->m_jobInfos.front().GetId().m_value;
 
                     if (jobData->m_std.m_out.has_value())
                     {
@@ -76,7 +76,7 @@ namespace TestImpact
                             "Shard",
                             false,
                             AZStd::string::format("Possible file race condition detected for test target '%s' on shard '%zu', backtrace of std out for last %zu characters (check for properly terminated test log output):\n%s",
-                                shardedTestJobInfo->first->GetName().c_str(),
+                                shardedTestJobInfo->m_testTarget->GetName().c_str(),
                                 shardNumber,
                                 subStringLength,
                                 subString.c_str()).c_str());
@@ -89,7 +89,7 @@ namespace TestImpact
                             false,
                             AZStd::string::format(
                                 "Possible race condition detected for test target '%s' on shard '%zu', backtrace of std out unavailable",
-                                shardedTestJobInfo->first->GetName().c_str(),
+                                shardedTestJobInfo->m_testTarget->GetName().c_str(),
                                 shardNumber)
                                 .c_str());
                     }
@@ -125,12 +125,12 @@ namespace TestImpact
             }
 
             // Serialize the consolidated run as and artifact in the canonical run directory
-            if (run.has_value() && shardedTestJobInfo->second.size() > 1)
+            if (run.has_value() && shardedTestJobInfo->m_jobInfos.size() > 1)
             {
                 WriteFileContents<TestRunnerException>(
                     GTest::SerializeTestRun(run.value()),
                     m_artifactDir.m_testRunArtifactDirectory /
-                        RepoPath(GenerateFullQualifiedTargetNameStem(shardedTestJobInfo->first).String() + ".xml"));
+                        RepoPath(GenerateFullQualifiedTargetNameStem(shardedTestJobInfo->m_testTarget).String() + ".xml"));
             }
 
             consolidatedJobs.emplace_back(jobData->m_jobInfo, JobMeta{ jobData->m_meta }, AZStd::move(run));

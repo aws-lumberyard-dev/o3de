@@ -22,18 +22,22 @@ namespace TestImpact
     class NativeShardedTestRunnerBase
     {
     public:
-        using Job = typename TestRunnerType::Job;
+        //! Public-facing `JobInfo` for interoperability with the various helper functions and event handlers.
         using JobInfo = typename TestRunnerType::JobInfo;
+
+        //! The actual collection of `JobInfo`s condumed by this runner.
+        using JobInfos = AZStd::vector<ShardedTestJobInfo<TestRunnerType>>;
+
         using JobId = typename JobInfo::Id;
-        using ShardedTestJobInfoType = ShardedTestJobInfo<TestRunnerType>;
+        using Job = typename TestRunnerType::Job;
 
         //! Constructs the sharded test system to wrap around the specified test runner.
         NativeShardedTestRunnerBase(TestRunnerType& testRunner, const RepoPath& repoRoot, const ArtifactDir& artifactDir);
         virtual ~NativeShardedTestRunnerBase() = default;
 
         //! Wrapper around the test runner's `RunTests` method to present the sharded test running interface to the user.
-        [[nodiscard]] AZStd::pair<ProcessSchedulerResult, AZStd::vector<typename TestRunnerType::Job>> RunTests(
-            const AZStd::vector<typename ShardedTestJobInfoType>& shardedJobInfos,
+        [[nodiscard]] AZStd::pair<ProcessSchedulerResult, AZStd::vector<Job>> RunTests(
+            const JobInfos& shardedJobInfos,
             StdOutputRouting stdOutRouting,
             StdErrorRouting stdErrRouting,
             AZStd::optional<AZStd::chrono::milliseconds> runTimeout,
@@ -148,8 +152,8 @@ namespace TestImpact
             NotificationBus::BroadcastResult(
                 results,
                 &NotificationBus::Events::OnShardedJobComplete,
-                shardedJobInfo->second.begin()->GetId(),
-                shardedJobInfo->second.size(),
+                shardedJobInfo->m_jobInfos.begin()->GetId(),
+                shardedJobInfo->m_jobInfos.size(),
                 jobInfo,
                 meta,
                 std);
@@ -190,7 +194,7 @@ namespace TestImpact
 
     template<typename TestRunnerType>
     AZStd::pair<ProcessSchedulerResult, AZStd::vector<typename TestRunnerType::Job>> NativeShardedTestRunnerBase<TestRunnerType>::RunTests(
-        const AZStd::vector<ShardedTestJobInfoType>& shardedJobInfos,
+        const JobInfos& shardedJobInfos,
         StdOutputRouting stdOutRouting,
         StdErrorRouting stdErrRouting,
         AZStd::optional<AZStd::chrono::milliseconds> runTimeout,
@@ -205,9 +209,9 @@ namespace TestImpact
             shardedJobInfos.begin(),
             shardedJobInfos.end(),
             size_t{ 0 },
-            [](size_t sum, const ShardedTestJobInfoType& shardedJobInfo)
+            [](size_t sum, const ShardedTestJobInfo<TestRunnerType>& shardedJobInfo)
             {
-                return sum + shardedJobInfo.second.size();
+                return sum + shardedJobInfo.m_jobInfos.size();
             });
 
         AZStd::vector<JobInfo> subJobInfos;

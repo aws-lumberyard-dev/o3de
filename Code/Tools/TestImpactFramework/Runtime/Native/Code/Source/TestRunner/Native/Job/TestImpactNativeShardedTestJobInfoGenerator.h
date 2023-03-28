@@ -23,7 +23,12 @@ namespace TestImpact
 {
     //!
     template<typename TestJobRunner>
-    using ShardedTestJobInfo = AZStd::pair<const NativeTestTarget*, AZStd::vector<typename TestJobRunner::JobInfo>>;
+    struct ShardedTestJobInfo
+    {
+        using IdType = typename TestJobRunner::JobInfo::IdType;
+        const NativeTestTarget* m_testTarget = nullptr;
+        typename TestJobRunner::JobInfos m_jobInfos;
+    };
 
     //!
     using ShardedInstrumentedTestJobInfo = ShardedTestJobInfo<NativeInstrumentedTestRunner>;
@@ -235,7 +240,7 @@ namespace TestImpact
         for (size_t testTargetIndex = 0, jobId = 0; testTargetIndex < testTargetsAndEnumerations.size(); testTargetIndex++)
         {
             jobInfos.push_back(GenerateJobInfo(testTargetsAndEnumerations[testTargetIndex], { jobId }));
-            jobId += jobInfos.back().second.size();
+            jobId += jobInfos.back().m_jobInfos.size();
         }
 
         return jobInfos;

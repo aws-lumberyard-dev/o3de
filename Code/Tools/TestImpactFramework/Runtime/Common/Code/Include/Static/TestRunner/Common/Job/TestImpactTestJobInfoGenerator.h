@@ -32,7 +32,7 @@ namespace TestImpact
             const TestTarget* testTarget, typename TestJobRunner::JobInfo::Id jobId) const = 0;
 
         //! Generates the information for the batch of test enumeration jobs.
-        AZStd::vector<typename TestJobRunner::JobInfo> GenerateJobInfos(const AZStd::vector<const TestTarget*>& testTargets) const;
+        typename TestJobRunner::JobInfos GenerateJobInfos(const AZStd::vector<const TestTarget*>& testTargets) const;
     };
 
     //! Helper class for generating test enumeration job infos.
@@ -84,11 +84,11 @@ namespace TestImpact
         typename CachePolicy m_cachePolicy = CachePolicy::Write;
     };
 
-     template<typename TestJobRunner, typename TestTarget>
-    AZStd::vector<typename TestJobRunner::JobInfo> TestJobInfoGeneratorBase<TestJobRunner, TestTarget>::GenerateJobInfos(
+    template<typename TestJobRunner, typename TestTarget>
+    typename TestJobRunner::JobInfos TestJobInfoGeneratorBase<TestJobRunner, TestTarget>::GenerateJobInfos(
         const AZStd::vector<const TestTarget*>& testTargets) const
     {
-        AZStd::vector<typename TestJobRunner::JobInfo> jobInfos;
+        typename TestJobRunner::JobInfos jobInfos;
         jobInfos.reserve(testTargets.size());
         for (size_t jobId = 0; jobId < testTargets.size(); jobId++)
         {

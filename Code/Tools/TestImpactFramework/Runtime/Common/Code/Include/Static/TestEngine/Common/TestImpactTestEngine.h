@@ -254,7 +254,7 @@ namespace TestImpact
     template<typename TestJobRunner, typename TestTargetType>
     auto RunTests(
         TestJobRunner* testRunner,
-        const AZStd::vector<typename TestJobRunner::JobInfo>& jobInfos,
+        const typename TestJobRunner::JobInfos& jobInfos,
         const AZStd::vector<const TestTargetType*>& testTargets,
         ErrorCodeCheckerCallback<TestJobRunner> errorCheckerCallback,
         Policy::ExecutionFailure executionFailurePolicy,
