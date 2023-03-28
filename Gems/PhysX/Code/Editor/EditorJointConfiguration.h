@@ -147,7 +147,7 @@ namespace PhysX
         AZ::Vector3 m_localPosition = AZ::Vector3::CreateZero();
         AZ::Vector3 m_localRotation = AZ::Vector3::CreateZero(); //!< Local rotation angles about X, Y, Z axes in degrees, relative to follower body.
 
-        bool m_fixJointLocation = false; //!< When moving entity the joint location and rotation will be recalculated to stay the same.
+        bool m_fixJointLocation = false; //!< When moving entity, the joint location and rotation will be recalculated to stay the same.
 
     private:
         bool IsInComponentMode() const; //!< This function is necessary for usage of m_inComponentMode as an attribute in the edit context. Using the variable directly instead of this function will result in the variable being saved.

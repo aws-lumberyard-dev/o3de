@@ -80,13 +80,13 @@ namespace PhysX
     {
         if (m_config.m_fixJointLocation)
         {
-            const AZ::Transform jointWorldTM = m_cachedWorldTM * 
-                AZ::Transform::CreateFromQuaternionAndTranslation(
-                    AZ::Quaternion::CreateFromEulerAnglesDegrees(m_config.m_localRotation), m_config.m_localPosition);
+            const AZ::Transform localJoint = GetTransformValue(JointsComponentModeCommon::ParameterNames::Transform);
+            const AZ::Transform worldJoint = m_cachedWorldTM * localJoint;
 
-            const AZ::Transform newJointLocalTM = worldTM.GetInverse() * jointWorldTM;
-            m_config.m_localPosition = newJointLocalTM.GetTranslation();
-            m_config.m_localRotation = newJointLocalTM.GetEulerDegrees();
+            const AZ::Transform localFromWorld = worldTM.GetInverse();
+            const AZ::Transform newLocalJoint = localFromWorld * worldJoint;
+            m_config.m_localPosition = newLocalJoint.GetTranslation();
+            m_config.m_localRotation = newLocalJoint.GetEulerDegrees();
 
             AzToolsFramework::ToolsApplicationEvents::Bus::Broadcast(
                 &AzToolsFramework::ToolsApplicationEvents::InvalidatePropertyDisplay, AzToolsFramework::Refresh_Values);
