@@ -122,7 +122,7 @@ namespace PhysX
                     ->DataElement(
                         AZ::Edit::UIHandlers::ComboBox,
                         &ArticulationLinkConfiguration::m_articulationJointType,
-                        "Articulation Link Joint Type",
+                        "Joint Type",
                         "Set the type of joint for this link")
                     ->EnumAttribute(ArticulationJointType::Fix, "Fix")
                     ->EnumAttribute(ArticulationJointType::Hinge, "Hinge")
@@ -171,7 +171,7 @@ namespace PhysX
                         0, &ArticulationLinkConfiguration::m_linearLimitLower, "Lower Linear Limit", "Lower limit of linear motion.")
                     ->Attribute(AZ::Edit::Attributes::Visibility, &ArticulationLinkConfiguration::HingePropertiesVisible)
                     ->DataElement(
-                        0, &ArticulationLinkConfiguration::m_linearLimitUpper, "Upper Linear Limi", "Upper limit for linear motion.")
+                        0, &ArticulationLinkConfiguration::m_linearLimitUpper, "Upper Linear Limit", "Upper limit for linear motion.")
                     ->Attribute(AZ::Edit::Attributes::Visibility, &ArticulationLinkConfiguration::HingePropertiesVisible)
                     ->DataElement(
                         0, &ArticulationLinkConfiguration::m_angularLimitNegative, "Lower Angular Limit", "Lower limit of angular motion..")
