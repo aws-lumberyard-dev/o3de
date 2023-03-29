@@ -12,13 +12,12 @@
 #include "aztestrunner.h"
 
 #include <fstream>
-#include <string>
 
 namespace AzTestRunner
 {
-    const int INCORRECT_USAGE = 101;
-    const int LIB_NOT_FOUND = 102;
-    const int SYMBOL_NOT_FOUND = 103;
+    constexpr int INCORRECT_USAGE = 101;
+    constexpr int LIB_NOT_FOUND = 102;
+    constexpr int SYMBOL_NOT_FOUND = 103;
     constexpr char argFromFileSeparator = '\n';
 
     //! display proper usage of the application
@@ -67,99 +66,68 @@ namespace AzTestRunner
             return INCORRECT_USAGE;
         }
 
-        std::vector<char*> args(argc);
-        for (size_t i = 0; i < argc; i++)
-        {
-            args[i] = argv[i];
-        }
+        std::vector<std::string> arguments(argv, argv + argc);
+
         // capture positional arguments
         // [0] is the program name
-        std::string lib = args[1];
-        std::string symbol = args[2];
+        std::string lib = arguments[1];
+        std::string symbol = arguments[2];
 
         // shift args parameters down as we don't need lib or symbol anymore
-        AZ::Test::RemoveParameters(argc, args.data(), 1, 2);
+        arguments.erase(std::next(arguments.begin(), 1), std::next(arguments.begin(), 3));
 
         // capture optional arguments
         bool waitForDebugger = false;
         bool pauseOnCompletion = false;
         bool quiet = false;
-        std::string argsFromFile;
-        std::vector<std::string> fileArgs;
-        for (int i = 0; i < argc; i++)
+        for (int i = 0; i < arguments.size(); i++)
         {
-            if (strcmp(args[i], "--wait-for-debugger") == 0)
+            if (arguments[i] == "--wait-for-debugger")
             {
                 waitForDebugger = true;
-                AZ::Test::RemoveParameters(argc, args.data(), i, i);
+                arguments.erase(arguments.begin() + i);
                 i--;
             }
-            else if (strcmp(args[i], "--pause-on-completion") == 0)
+            else if (arguments[i] == "--pause-on-completion")
             {
                 pauseOnCompletion = true;
-                AZ::Test::RemoveParameters(argc, args.data(), i, i);
+                arguments.erase(arguments.begin() + i);
                 i--;
             }
-            else if (strcmp(args[i], "--quiet") == 0)
+            else if (arguments[i] == "--quiet")
             {
                 quiet = true;
-                AZ::Test::RemoveParameters(argc, args.data(), i, i);
+                arguments.erase(arguments.begin() + i);
                 i--;
-            }            
-            else if (strcmp(args[i], "--args_from_file") == 0)
+            }
+            else if (arguments[i] == "--args_from_file")
             {
                 // Check that the arg file path has been passed
-                if (i + 1 >= argc)
+                if (i + 1 >= arguments.size())
                 {
                     std::cout << "Incorrect number of args_from_file arguments\n";
                     usage(platform);
                     return INCORRECT_USAGE;
                 }
 
-                std::ifstream infile(args[i + 1]);
+                // Attempt to read the contents of the file
+                std::ifstream infile(arguments[i + 1]);
                 if (!infile.is_open())
                 {
-                    std::cout << "Couldn't open " << args[i + 1] << " for args input, exiting" << std::endl;
+                    std::cout << "Couldn't open " << arguments[i + 1] << " for args input, exiting" << std::endl;
                     return INCORRECT_USAGE;
                 }
-
+            
                 // Remove the args_from_file argument and value from the arg list
-                AZ::Test::RemoveParameters(argc, args.data(), i, i + 1);
-                i--;
+                arguments.erase(std::next(arguments.begin(), i), std::next(arguments.begin(), i + 2));
 
-                // Find the first empty slot in the arg list
-                size_t backArg = 0;
-                for (; backArg < args.size(); backArg++)
-                {
-                    if (args[backArg] == nullptr)
-                    {
-                        break;
-                    }
-                }
-
-                // Construct a list of args from the args specified in the file
+                // Insert the args at the current position in the command line
                 std::string arg;
                 while (std::getline(infile, arg, argFromFileSeparator))
                 {
-                    fileArgs.emplace_back(arg);
-                    argc++;
+                    arguments.insert(arguments.begin() + i, arg);
                 }
-
-                // Place the args from the file in the arg list
-                for (int j = 0; j < fileArgs.size(); j++)
-                {
-                    if (backArg < args.size())
-                    {
-                        // If our placement position is that of an arg in the list that was deleted we can simply reuse the slot 
-                        args[backArg] = const_cast<char*>(fileArgs[j].c_str());
-                    }
-                    else
-                    {
-                        args.emplace_back(const_cast<char*>(fileArgs[j].c_str()));
-                    }
-
-                    backArg++;
-                }
+                i--;
             }
         }
         if (quiet)
@@ -229,7 +197,15 @@ namespace AzTestRunner
         // run the test main function.
         if (testMainFunction->IsValid())
         {
-            result = (*testMainFunction)(argc, args.data());
+            // Collapse the arguments vector into a C-style array of character pointers
+            std::vector<char*> cArguments;
+            cArguments.reserve(arguments.size());
+            for (const auto& argument : arguments)
+            {
+                cArguments.push_back(const_cast<char*>(argument.c_str()));
+            }
+
+            result = (*testMainFunction)(static_cast<int>(cArguments.size()), cArguments.data());
             std::cout << "OKAY " << symbol << "() returned " << result << std::endl;
             testMainFunction.reset();
         }
