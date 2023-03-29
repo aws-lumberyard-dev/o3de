@@ -36,6 +36,8 @@ namespace PhysX
                     ->Attribute(AZ::Edit::Attributes::Visibility, AZ::Edit::PropertyVisibility::ShowChildrenOnly)
                     ->UIElement(AZ::Edit::UIHandlers::Label, "<b>Root Link</b>")
                     ->Attribute(AZ::Edit::Attributes::Visibility, &ArticulationLinkConfiguration::m_isRootArticulation)
+                    ->UIElement(AZ::Edit::UIHandlers::Label, "<b>Child Link</b>")
+                    ->Attribute(AZ::Edit::Attributes::Visibility, &ArticulationLinkConfiguration::IsNotRootArticulation)
                     ->DataElement(
                         AZ::Edit::UIHandlers::Default,
                         &ArticulationLinkConfiguration::m_isFixedBase,
@@ -113,9 +115,20 @@ namespace PhysX
                         "Higher values can improve stability at the cost of performance.")
                     ->Attribute(AZ::Edit::Attributes::Min, 1)
                     ->Attribute(AZ::Edit::Attributes::Max, 255)
+                    ->EndGroup()
 
                     ->ClassElement(AZ::Edit::ClassElements::Group, "Joint configuration")
                     ->Attribute(AZ::Edit::Attributes::AutoExpand, true)
+                    ->DataElement(
+                        AZ::Edit::UIHandlers::ComboBox,
+                        &ArticulationLinkConfiguration::m_articulationJointType,
+                        "Articulation Link Joint Type",
+                        "Set the type of joint for this link")
+                    ->EnumAttribute(ArticulationJointType::Fix, "Fix")
+                    ->EnumAttribute(ArticulationJointType::Hinge, "Hinge")
+                    ->EnumAttribute(ArticulationJointType::Prismatic, "Prismatic")
+                    ->Attribute(AZ::Edit::Attributes::Visibility, &ArticulationLinkConfiguration::IsNotRootArticulation)
+                    ->Attribute(AZ::Edit::Attributes::ChangeNotify, AZ::Edit::PropertyRefreshLevels::EntireTree)
                     ->DataElement(
                         0,
                         &PhysX::ArticulationLinkConfiguration::m_localPosition,
@@ -129,15 +142,6 @@ namespace PhysX
                         "Local Rotation of joint, relative to its entity.")
                     ->Attribute(AZ::Edit::Attributes::Min, LocalRotationMin)
                     ->Attribute(AZ::Edit::Attributes::Max, LocalRotationMax)
-                    ->Attribute(AZ::Edit::Attributes::Visibility, &ArticulationLinkConfiguration::IsNotRootArticulation)
-                    ->DataElement(
-                        AZ::Edit::UIHandlers::ComboBox,
-                        &ArticulationLinkConfiguration::m_articulationJointType,
-                        "Articulation LinkJoint Type",
-                        "Set the type of joint for this link")
-                    ->EnumAttribute(physx::PxArticulationJointType::Enum::eFIX, "Fix")
-                    ->EnumAttribute(physx::PxArticulationJointType::Enum::eREVOLUTE, "Hinge")
-                    ->EnumAttribute(physx::PxArticulationJointType::Enum::ePRISMATIC, "Prismatic")
                     ->Attribute(AZ::Edit::Attributes::Visibility, &ArticulationLinkConfiguration::IsNotRootArticulation)
                     ->DataElement(
                         0,
@@ -156,7 +160,30 @@ namespace PhysX
                         &ArticulationLinkConfiguration::m_selectLeadOnSnap,
                         "Select Lead on Snap",
                         "Select lead entity on snap to position in component mode.")
-                    ->Attribute(AZ::Edit::Attributes::Visibility, &ArticulationLinkConfiguration::IsNotRootArticulation);
+                    ->Attribute(AZ::Edit::Attributes::Visibility, &ArticulationLinkConfiguration::IsNotRootArticulation)
+
+                    ->ClassElement(AZ::Edit::ClassElements::Group, "Joint limits")
+                    ->Attribute(AZ::Edit::Attributes::AutoExpand, true)
+                    ->DataElement(
+                        0, &ArticulationLinkConfiguration::m_isLimited, "Limit", "When active, the joint's degrees of freedom are limited.")
+                    ->Attribute(AZ::Edit::Attributes::Visibility, &ArticulationLinkConfiguration::IsSingleDOFJointType)
+                    ->DataElement(
+                        0, &ArticulationLinkConfiguration::m_linearLimitLower, "Lower Linear Limit", "Lower limit of linear motion.")
+                    ->Attribute(AZ::Edit::Attributes::Visibility, &ArticulationLinkConfiguration::HingePropertiesVisible)
+                    ->DataElement(
+                        0, &ArticulationLinkConfiguration::m_linearLimitUpper, "Upper Linear Limi", "Upper limit for linear motion.")
+                    ->Attribute(AZ::Edit::Attributes::Visibility, &ArticulationLinkConfiguration::HingePropertiesVisible)
+                    ->DataElement(
+                        0, &ArticulationLinkConfiguration::m_angularLimitNegative, "Lower Angular Limit", "Lower limit of angular motion..")
+                    ->Attribute(AZ::Edit::Attributes::Visibility, &ArticulationLinkConfiguration::PrismaticPropertiesVisible)
+                    ->DataElement(
+                        0, &ArticulationLinkConfiguration::m_angularLimitPositive, "Upper Angular Limit", "Lower limit of angular motion.")
+                    ->Attribute(AZ::Edit::Attributes::Visibility, &ArticulationLinkConfiguration::PrismaticPropertiesVisible)
+                    ->EndGroup()
+
+                    ->DataElement(
+                        0, &ArticulationLinkConfiguration::m_motorConfiguration, "Motor Configuration", "Joint's motor configuration.")
+                    ->Attribute(AZ::Edit::Attributes::Visibility, &ArticulationLinkConfiguration::IsSingleDOFJointType);
             }
         }
     }
