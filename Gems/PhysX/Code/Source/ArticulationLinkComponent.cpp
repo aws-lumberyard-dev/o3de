@@ -71,6 +71,7 @@ namespace PhysX
                 ->Field("ShapeConfiguration", &ArticulationLinkData::m_shapeConfiguration)
                 ->Field("ColliderConfiguration", &ArticulationLinkData::m_colliderConfiguration)
                 ->Field("EntityId", &ArticulationLinkData::m_entityId)
+                ->Field("LocalTransform", &ArticulationLinkData::m_localTransform)
                 ->Field("ChildLinks", &ArticulationLinkData::m_childLinks)
                 ->Field("PhysxSpecificConfig", &ArticulationLinkData::m_physxSpecificConfig)
                 ->Field("ArticulationJointData", &ArticulationLinkData::m_articulationJointData)
