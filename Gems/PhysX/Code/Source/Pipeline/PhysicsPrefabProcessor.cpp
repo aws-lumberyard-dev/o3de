@@ -54,7 +54,7 @@ namespace PhysX
             linkData->m_shapeConfiguration = shapeColliderPair.second;
         }
 
-        // If it's got a parent then it's not a root data and we fill the joint information.
+        // If the entity has a parent then it's not a root articulation and we fill the joint information.
         if (parentLinkData)
         {
             auto* articulationComponent = entity->FindComponent<ArticulationLinkComponent>();

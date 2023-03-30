@@ -46,7 +46,7 @@ namespace PhysX
 
     void ArticulationJointData::Reflect(AZ::ReflectContext* context)
     {
-        if (auto serializeContext = azrtti_cast<AZ::SerializeContext*>(context))
+        if (auto* serializeContext = azrtti_cast<AZ::SerializeContext*>(context))
         {
             serializeContext->Class<ArticulationJointData>()
                 ->Version(1)
@@ -64,7 +64,7 @@ namespace PhysX
     {
         ArticulationJointData::Reflect(context);
 
-        if (auto serializeContext = azrtti_cast<AZ::SerializeContext*>(context))
+        if (auto* serializeContext = azrtti_cast<AZ::SerializeContext*>(context))
         {
             serializeContext->Class<ArticulationLinkData>()
                 ->Version(1)
