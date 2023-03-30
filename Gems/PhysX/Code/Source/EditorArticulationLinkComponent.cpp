@@ -266,12 +266,14 @@ namespace PhysX
         AzToolsFramework::Components::EditorComponentBase::Activate();
         m_config.m_isRootArticulation = IsRootArticulation();
 
+        AZ::TransformNotificationBus::Handler::BusConnect(GetEntityId());
         AzFramework::EntityDebugDisplayEventBus::Handler::BusConnect(GetEntityId());
     }
 
     void EditorArticulationLinkComponent::Deactivate()
     {
         AzFramework::EntityDebugDisplayEventBus::Handler::BusDisconnect();
+        AZ::TransformNotificationBus::Handler::BusDisconnect();
 
         AzToolsFramework::Components::EditorComponentBase::Deactivate();
     }
@@ -279,6 +281,25 @@ namespace PhysX
     void EditorArticulationLinkComponent::BuildGameEntity(AZ::Entity* gameEntity)
     {
         gameEntity->CreateComponent<ArticulationLinkComponent>(m_config);
+    }
+
+    void EditorArticulationLinkComponent::OnTransformChanged([[maybe_unused]] const AZ::Transform& localTM, const AZ::Transform& worldTM)
+    {
+        if (m_config.m_fixJointLocation)
+        {
+            const AZ::Transform localJoint = AZ::Transform::CreateFromQuaternionAndTranslation(
+                AZ::Quaternion::CreateFromEulerAnglesDegrees(m_config.m_localRotation), m_config.m_localPosition);
+            const AZ::Transform worldJoint = m_cachedWorldTM * localJoint;
+
+            const AZ::Transform localFromWorld = worldTM.GetInverse();
+            const AZ::Transform newLocalJoint = localFromWorld * worldJoint;
+            m_config.m_localPosition = newLocalJoint.GetTranslation();
+            m_config.m_localRotation = newLocalJoint.GetEulerDegrees();
+
+            AzToolsFramework::ToolsApplicationEvents::Bus::Broadcast(
+                &AzToolsFramework::ToolsApplicationEvents::InvalidatePropertyDisplay, AzToolsFramework::Refresh_Values);
+        }
+        m_cachedWorldTM = worldTM;
     }
 
     void EditorArticulationLinkComponent::DisplayEntityViewport(

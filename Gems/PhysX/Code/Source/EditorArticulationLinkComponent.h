@@ -8,6 +8,7 @@
 
 #pragma once
 
+#include <AzCore/Component/TransformBus.h>
 #include <AzFramework/Entity/EntityDebugDisplayBus.h>
 #include <AzToolsFramework/ToolsComponents/EditorComponentBase.h>
 #include <Editor/EditorJointConfiguration.h>
@@ -34,6 +35,7 @@ namespace PhysX
     //! Class for in-editor PhysX Articulation Link Component.
     class EditorArticulationLinkComponent
         : public AzToolsFramework::Components::EditorComponentBase
+        , protected AZ::TransformNotificationBus::Handler
         , protected AzFramework::EntityDebugDisplayEventBus::Handler
     {
     public:
@@ -59,6 +61,9 @@ namespace PhysX
         bool IsRootArticulation() const;
 
     private:
+        // TransformNotificationBus overrides ...
+        void OnTransformChanged(const AZ::Transform& localTM, const AZ::Transform& worldTM) override;
+
         // AzFramework::EntityDebugDisplayEventBus overrides ...
         void DisplayEntityViewport(const AzFramework::ViewportInfo& viewportInfo, AzFramework::DebugDisplayRequests& debugDisplay) override;
 
@@ -68,5 +73,7 @@ namespace PhysX
         void ShowPrismaticJoint(const AzFramework::ViewportInfo& viewportInfo, AzFramework::DebugDisplayRequests& debugDisplay) const;
 
         EditorArticulationLinkConfiguration m_config;
+
+        AZ::Transform m_cachedWorldTM;
     };
 } // namespace PhysX
