@@ -40,7 +40,6 @@ namespace PhysX
                 ->Field("Local Rotation", &ArticulationLinkConfiguration::m_localRotation)
                 ->Field("Fix Joint Location", &ArticulationLinkConfiguration::m_fixJointLocation)
                 ->Field("Self Collide", &ArticulationLinkConfiguration::m_selfCollide)
-                ->Field("Select Lead on Snap", &ArticulationLinkConfiguration::m_selectLeadOnSnap)
                 ->Field("Leader Local Position", &ArticulationLinkConfiguration::m_leaderLocalPosition)
                 ->Field("Leader Local Rotation", &ArticulationLinkConfiguration::m_LeaderLocalRotation)
                 ->Field("Auto-calculate Leader frame", &ArticulationLinkConfiguration::m_autoCalculateLeaderFrame)
@@ -69,7 +68,7 @@ namespace PhysX
         return m_articulationJointType == ArticulationJointType::Prismatic && IsNotRootArticulation();
     }
 
-    bool ArticulationLinkConfiguration::IsSingleDOFJointType() const
+    bool ArticulationLinkConfiguration::IsSingleDofJointType() const
     {
         return HingePropertiesVisible() || PrismaticPropertiesVisible();
     }

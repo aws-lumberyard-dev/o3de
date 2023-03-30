@@ -68,11 +68,10 @@ namespace PhysX
         // Joint configuration
 
         ArticulationJointType m_articulationJointType = ArticulationJointType::Fix;
-        bool m_selectLeadOnSnap = true;
         bool m_selfCollide = false;
         bool m_fixJointLocation = false;
 
-        bool m_isLimited = true; ///< Indicates if this joint has limits, e.g. maximum swing angles.
+        bool m_isLimited = true; //!< Indicates if this joint has limits, e.g. maximum swing angles.
         float m_linearLimitLower = -1.0f;
         float m_linearLimitUpper = 1.0f;
         float m_angularLimitPositive = 45.0f;
@@ -96,6 +95,6 @@ namespace PhysX
         bool IsNotRootArticulation() const;
         bool HingePropertiesVisible() const;
         bool PrismaticPropertiesVisible() const;
-        bool IsSingleDOFJointType() const;
+        bool IsSingleDofJointType() const;
     };
 } // namespace PhysX
