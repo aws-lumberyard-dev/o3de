@@ -61,8 +61,6 @@ namespace PhysX
             auto* articulationComponent = entity->FindComponent<ArticulationLinkComponent>();
             AZ_Assert(articulationComponent, "Entity being proceessed for articulation has not articulation link component.");
 
-            linkData->m_articulationJointData.m_jointType = articulationComponent->m_config.m_articulationJointType;
-
             linkData->m_articulationJointData.m_jointFollowerLocalFrame = AZ::Transform::CreateFromQuaternionAndTranslation(
                 AZ::Quaternion::CreateFromEulerAnglesDegrees(articulationComponent->m_config.m_localRotation),
                 articulationComponent->m_config.m_localPosition);
@@ -78,8 +76,6 @@ namespace PhysX
                     AZ::Quaternion::CreateFromEulerAnglesDegrees(articulationComponent->m_config.m_leadLocalPosition),
                     articulationComponent->m_config.m_leadLocalPosition);
             }
-
-            // TODO: copy other joint's data from articulationComponent->m_config to linkData.
         }
     }
 

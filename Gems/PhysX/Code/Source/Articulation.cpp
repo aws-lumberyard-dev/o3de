@@ -24,12 +24,9 @@ namespace PhysX
         {
             serializeContext->Class<ArticulationJointData>()
                 ->Version(1)
-                ->Field("JointType", &ArticulationJointData::m_jointType)
                 ->Field("JointLeadLocalFrame", &ArticulationJointData::m_jointLeadLocalFrame)
                 ->Field("JointFollowerLocalFrame", &ArticulationJointData::m_jointFollowerLocalFrame)
-                ->Field("GenericProperties", &ArticulationJointData::m_genericProperties)
-                ->Field("Limits", &ArticulationJointData::m_limits)
-                ->Field("Motor", &ArticulationJointData::m_motor);
+            ;
         }
     }
 
@@ -123,7 +120,7 @@ namespace PhysX
         }
     }
 
-    AzPhysics::SceneQueryHit ArticulationLink::RayCast([[maybe_unused]] const AzPhysics::RayCastRequest& request)
+    AzPhysics::SceneQueryHit ArticulationLink::RayCast(const AzPhysics::RayCastRequest& request)
     {
         return PhysX::SceneQueryHelpers::ClosestRayHitAgainstPxRigidActor(request, m_pxLink);
     }

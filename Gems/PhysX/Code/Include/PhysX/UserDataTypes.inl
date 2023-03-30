@@ -109,7 +109,7 @@ namespace PhysX
         m_payload.m_ragdollNode = ragdollNode;
     }
 
-    inline AzPhysics::SimulatedBody* ActorData::GetArticulationLink() const
+    inline AzPhysics::SimulatedBody* ActorData::GetArticulationLink()
     {
         return m_payload.m_articulationLink;
     }

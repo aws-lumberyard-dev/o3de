@@ -35,7 +35,7 @@ namespace PhysX
     class PhysXScene;
 
     //! Maximum number of articulation links in a single articulation.
-    constexpr size_t MaxArticulationLinks = 16;
+    constexpr size_t MaxArticulationLinks = 64;
 
     //! Configuration data for an articulation joint.
     struct ArticulationJointData
@@ -44,12 +44,8 @@ namespace PhysX
         AZ_TYPE_INFO(ArticulationJointData, "{F7ADD440-07DA-437F-AF77-B747327B9336}");
         static void Reflect(AZ::ReflectContext* context);
 
-        ArticulationJointType m_jointType = ArticulationJointType::Fix;
         AZ::Transform m_jointLeadLocalFrame = AZ::Transform::CreateIdentity();
         AZ::Transform m_jointFollowerLocalFrame = AZ::Transform::CreateIdentity();
-        JointGenericProperties m_genericProperties;
-        JointLimitProperties m_limits;
-        JointMotorProperties m_motor;
     };
 
     //! Configuration data for an articulation link. Contains references to child links.
@@ -78,7 +74,7 @@ namespace PhysX
         AZStd::vector<AZStd::shared_ptr<ArticulationLinkData>> m_childLinks;
     };
 
-    /// Represents a single articulation link.
+    //! Represents a single articulation link.
     class ArticulationLink
         : public AzPhysics::SimulatedBody
     {
@@ -86,7 +82,7 @@ namespace PhysX
         AZ_CLASS_ALLOCATOR(ArticulationLink, AZ::SystemAllocator);
         AZ_RTTI(PhysX::ArticulationLink, "{48A87D2B-3F12-4411-BE24-6F7534C77287}", AzPhysics::SimulatedBody);
 
-        virtual ~ArticulationLink() = default;
+        ~ArticulationLink() override = default;
 
         void SetupFromLinkData(const ArticulationLinkData& thisLinkData);
         void SetPxArticulationLink(physx::PxArticulationLink* pxLink);
@@ -114,4 +110,5 @@ namespace PhysX
     };
 
     ArticulationLink* CreateArticulationLink(const ArticulationLinkConfiguration* articulationConfig);
-}
+
+} // namespace PhysX

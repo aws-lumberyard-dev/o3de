@@ -211,6 +211,8 @@ namespace PhysX
     void ArticulationLinkComponent::CreateChildArticulationLinks(
         physx::PxArticulationLink* parentLink, const ArticulationLinkData& thisLinkData)
     {
+        const ArticulationLinkConfiguration& articulationLinkConfiguration = thisLinkData.m_articulationLinkConfiguration;
+
         physx::PxTransform thisLinkTransform;
         if (parentLink)
         {
@@ -231,7 +233,7 @@ namespace PhysX
         }
 
         AzPhysics::SimulatedBodyHandle articulationLinkHandle =
-            AZ::Interface<AzPhysics::SceneInterface>::Get()->AddSimulatedBody(m_attachedSceneHandle, &thisLinkData.m_articulationLinkConfiguration);
+            AZ::Interface<AzPhysics::SceneInterface>::Get()->AddSimulatedBody(m_attachedSceneHandle, &articulationLinkConfiguration);
         if (articulationLinkHandle == AzPhysics::InvalidSimulatedBodyHandle)
         {
             AZ_Error("PhysX", false, "Failed to create a simulated body for the articulation link at root %s",
@@ -252,15 +254,15 @@ namespace PhysX
         {
             physx::PxArticulationJointReducedCoordinate* inboundJoint =
                 thisPxLink->getInboundJoint()->is<physx::PxArticulationJointReducedCoordinate>();
-            inboundJoint->setJointType(GetPxArticulationJointType(thisLinkData.m_articulationJointData.m_jointType));
+            inboundJoint->setJointType(GetPxArticulationJointType(articulationLinkConfiguration.m_articulationJointType));
             // Sets the joint pose in the lead link actor frame.
             inboundJoint->setParentPose(PxMathConvert(thisLinkData.m_articulationJointData.m_jointLeadLocalFrame));
             // Sets the joint pose in the follower link actor frame.
             inboundJoint->setChildPose(PxMathConvert(thisLinkData.m_articulationJointData.m_jointFollowerLocalFrame));
-            // TODO: Set other joint's properties from thisLinkData
+            // TODO: Set other joint's properties from articulationLinkConfiguration
         }
 
-        m_articulationLinksByEntityId.insert(EntityIdArticulationLinkPair{ thisLinkData.m_articulationLinkConfiguration.m_entityId, thisPxLink });
+        m_articulationLinksByEntityId.insert(EntityIdArticulationLinkPair{ articulationLinkConfiguration.m_entityId, thisPxLink });
 
         for (const auto& childLink : thisLinkData.m_childLinks)
         {

@@ -50,7 +50,7 @@ namespace PhysX
         Physics::RagdollNode* GetRagdollNode() const;
         void SetRagdollNode(Physics::RagdollNode* ragdollNode);
 
-        AzPhysics::SimulatedBody* GetArticulationLink() const;
+        AzPhysics::SimulatedBody* GetArticulationLink();
         void SetArticulationLink(AzPhysics::SimulatedBody* articulationLink);
 
         AzPhysics::SimulatedBody* GetSimulatedBody() const;
