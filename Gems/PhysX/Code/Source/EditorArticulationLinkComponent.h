@@ -8,6 +8,7 @@
 
 #pragma once
 
+#include <AzFramework/Entity/EntityDebugDisplayBus.h>
 #include <AzToolsFramework/ToolsComponents/EditorComponentBase.h>
 #include <Editor/EditorJointConfiguration.h>
 #include <Source/EditorRigidBodyComponent.h>
@@ -33,6 +34,7 @@ namespace PhysX
     //! Class for in-editor PhysX Articulation Link Component.
     class EditorArticulationLinkComponent
         : public AzToolsFramework::Components::EditorComponentBase
+        , protected AzFramework::EntityDebugDisplayEventBus::Handler
     {
     public:
         AZ_EDITOR_COMPONENT(
@@ -57,6 +59,14 @@ namespace PhysX
         bool IsRootArticulation() const;
 
     private:
+        // AzFramework::EntityDebugDisplayEventBus
+        void DisplayEntityViewport(const AzFramework::ViewportInfo& viewportInfo, AzFramework::DebugDisplayRequests& debugDisplay) override;
+
+        bool ShowSetupDisplay() const;
+        void ShowJointHierarchy(const AzFramework::ViewportInfo& viewportInfo, AzFramework::DebugDisplayRequests& debugDisplay) const;
+        void ShowHingeJoint(const AzFramework::ViewportInfo& viewportInfo, AzFramework::DebugDisplayRequests& debugDisplay) const;
+        void ShowPrismaticJoint(const AzFramework::ViewportInfo& viewportInfo, AzFramework::DebugDisplayRequests& debugDisplay) const;
+
         EditorArticulationLinkConfiguration m_config;
     };
 } // namespace PhysX
