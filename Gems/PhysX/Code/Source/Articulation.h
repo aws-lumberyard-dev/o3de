@@ -37,6 +37,21 @@ namespace PhysX
     //! Maximum number of articulation links in a single articulation.
     constexpr size_t MaxArticulationLinks = 16;
 
+    //! Configuration data for an articulation joint.
+    struct ArticulationJointData
+    {
+        AZ_CLASS_ALLOCATOR(ArticulationJointData, AZ::SystemAllocator);
+        AZ_TYPE_INFO(ArticulationJointData, "{F7ADD440-07DA-437F-AF77-B747327B9336}");
+        static void Reflect(AZ::ReflectContext* context);
+
+        ArticulationJointType m_jointType = ArticulationJointType::Fix;
+        AZ::Transform m_jointLeadLocalFrame = AZ::Transform::CreateIdentity();
+        AZ::Transform m_jointFollowerLocalFrame = AZ::Transform::CreateIdentity();
+        JointGenericProperties m_genericProperties;
+        JointLimitProperties m_limits;
+        JointMotorProperties m_motor;
+    };
+
     //! Configuration data for an articulation link. Contains references to child links.
     struct ArticulationLinkData 
     {
@@ -55,7 +70,9 @@ namespace PhysX
         //! This is needed because at the time of constructing the articulation
         //! child entities corresponding to the links won't be active yet,
         //! so there's no way to query their local transform.
-        AZ::Transform m_relativeTransform = AZ::Transform::CreateIdentity();
+        AZ::Transform m_localTransform = AZ::Transform::CreateIdentity();
+
+        ArticulationJointData m_articulationJointData;
 
         //! List of child links. Together this forms a tree-like data structure representing the entire articulation.
         AZStd::vector<AZStd::shared_ptr<ArticulationLinkData>> m_childLinks;

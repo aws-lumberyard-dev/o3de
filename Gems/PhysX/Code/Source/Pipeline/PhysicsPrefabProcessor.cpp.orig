@@ -50,11 +50,12 @@ namespace PhysX
             linkData->m_shapeColliderConfiguration = shapeColliderPairList[0];
         }
 
+<<<<<<< HEAD
         auto* articulationLinkComponent = entity->FindComponent<ArticulationLinkComponent>();
-        linkData->m_articulationLinkConfiguration = articulationLinkComponent->m_config;
+        linkData->m_articulationLinkConfiguration = articulationLinkComponent->GetConfiguration();
         linkData->m_articulationLinkConfiguration.m_entityId = entity->GetId();
         linkData->m_articulationLinkConfiguration.m_debugName = entity->GetName();
-
+=======
         // If the entity has a parent then it's not a root articulation and we fill the joint information.
         if (parentLinkData)
         {
@@ -81,6 +82,7 @@ namespace PhysX
 
             // TODO: copy other joint's data from articulationComponent->m_config to linkData.
         }
+>>>>>>> c5dc51bf3733c4d1c0159a11d8fc5a905bd3173f
     }
 
     PhysicsPrefabProcessor::PhysicsPrefabProcessor()

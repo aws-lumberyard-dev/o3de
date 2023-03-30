@@ -18,6 +18,37 @@
 
 namespace PhysX
 {
+    void ArticulationJointData::Reflect(AZ::ReflectContext* context)
+    {
+        if (auto* serializeContext = azrtti_cast<AZ::SerializeContext*>(context))
+        {
+            serializeContext->Class<ArticulationJointData>()
+                ->Version(1)
+                ->Field("JointType", &ArticulationJointData::m_jointType)
+                ->Field("JointLeadLocalFrame", &ArticulationJointData::m_jointLeadLocalFrame)
+                ->Field("JointFollowerLocalFrame", &ArticulationJointData::m_jointFollowerLocalFrame)
+                ->Field("GenericProperties", &ArticulationJointData::m_genericProperties)
+                ->Field("Limits", &ArticulationJointData::m_limits)
+                ->Field("Motor", &ArticulationJointData::m_motor);
+        }
+    }
+
+    void ArticulationLinkData::Reflect(AZ::ReflectContext* context)
+    {
+        ArticulationJointData::Reflect(context);
+
+        if (auto* serializeContext = azrtti_cast<AZ::SerializeContext*>(context))
+        {
+            serializeContext->Class<ArticulationLinkData>()
+                ->Version(1)
+                ->Field("LinkConfiguration", &ArticulationLinkData::m_articulationLinkConfiguration)
+                ->Field("ShapeColliderPair", &ArticulationLinkData::m_shapeColliderConfiguration)
+                ->Field("LocalTransform", &ArticulationLinkData::m_localTransform)
+                ->Field("ChildLinks", &ArticulationLinkData::m_childLinks)
+                ->Field("ArticulationJointData", &ArticulationLinkData::m_articulationJointData);
+        }
+    }
+
     void ArticulationLink::SetPxArticulationLink(physx::PxArticulationLink* pxLink)
     {
         m_pxLink = pxLink;

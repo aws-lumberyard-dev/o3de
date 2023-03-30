@@ -13,6 +13,7 @@
 #include <AzCore/RTTI/RTTI.h>
 #include <AzFramework/Physics/Common/PhysicsTypes.h>
 
+#include <PhysX/ArticulationTypes.h>
 #include <PhysX/Joint/Configuration/PhysXJointConfiguration.h>
 #include <Source/JointComponent.h>
 
@@ -23,13 +24,6 @@ namespace AZ
 
 namespace PhysX
 {
-    enum class ArticulationJointType
-    {
-        Fix,
-        Hinge,
-        Prismatic
-    };
-
     //! Configuration used to Add Articulations to a Scene.
     struct ArticulationLinkConfiguration : public AzPhysics::SimulatedBodyConfiguration
     {
@@ -84,10 +78,18 @@ namespace PhysX
             AZ::Vector3::CreateZero(); //!< Local rotation angles about X, Y, Z axes in degrees, relative to follower body.
 
         // These properties are not exposed to the edit context. They are used when creating editor Articulation components programmatically.
-        bool m_autoCalculateLeaderFrame = true;
-        AZ::Vector3 m_leaderLocalPosition = AZ::Vector3::CreateZero(); 
-        AZ::Vector3 m_LeaderLocalRotation =
+        bool m_autoCalculateLeadFrame = true;
+        AZ::Vector3 m_leadLocalPosition = AZ::Vector3::CreateZero(); 
+        AZ::Vector3 m_LeadLocalRotation =
             AZ::Vector3::CreateZero(); //!< Local rotation angles about X, Y, Z axes in degrees, relative to lead body.
+
+        enum class DisplaySetupState : AZ::u8
+        {
+            Never = 0,
+            Selected,
+            Always
+        };
+        DisplaySetupState m_displayJointSetup = DisplaySetupState::Selected;
 
         // This is only used to control the visibility attribute in the edit context. This is not part of the edit context.
         bool m_isRootArticulation = false;
