@@ -17,7 +17,7 @@
 #include <PhysX/ComponentTypeIds.h>
 #include <PhysX/Joint/Configuration/PhysXJointConfiguration.h>
 #include <PhysX/UserDataTypes.h>
-#include <Source/RigidBody.h>
+#include <Source/Articulation.h>
 #include <Source/Articulation/ArticulationLinkConfiguration.h>
 
 namespace physx
@@ -28,29 +28,6 @@ namespace physx
 
 namespace PhysX
 {
-    //! Maximum number of articulation links in a single articulation.
-    constexpr size_t MaxArticulationLinks = 16;
-
-    //! Configuration data for an articulation link. Contains references to child links.
-    struct ArticulationLinkData
-    {
-        AZ_CLASS_ALLOCATOR(ArticulationLinkData, AZ::SystemAllocator);
-        AZ_TYPE_INFO(ArticulationLinkData, "{C9862FF7-FFAC-4A49-A51D-A555C4303F74}");
-        static void Reflect(AZ::ReflectContext* context);
-
-        AZStd::shared_ptr<Physics::ShapeConfiguration> m_shapeConfiguration;
-        Physics::ColliderConfiguration m_colliderConfiguration;
-        AZ::EntityId m_entityId;
-        AZ::Transform m_relativeTransform = AZ::Transform::CreateIdentity();
-        AzPhysics::RigidBodyConfiguration m_config; //!< Generic properties from AzPhysics.
-        RigidBodyConfiguration
-            m_physxSpecificConfig; //!< Properties specific to PhysX which might not have exact equivalents in other physics engines.
-        JointGenericProperties m_genericProperties;
-        JointLimitProperties m_limits;
-        JointMotorProperties m_motor;
-
-        AZStd::vector<AZStd::shared_ptr<ArticulationLinkData>> m_childLinks;
-    };
 
     //! Component implementing articulation link logic.
     class ArticulationLinkComponent final
@@ -73,11 +50,19 @@ namespace PhysX
 
         AZStd::shared_ptr<ArticulationLinkData> m_articulationLinkData;
 
+        const ArticulationLinkConfiguration& GetConfiguration() const;
+
     private:
         bool IsRootArticulation() const;
 
         void CreateArticulation();
+
+        void SetRootSpecificProperties(const ArticulationLinkConfiguration& rootLinkConfiguration);
+
         void CreateChildArticulationLinks(physx::PxArticulationLink* parentLink, const ArticulationLinkData& thisLinkData);
+
+        void AddCollisionShape(const ArticulationLinkData& thisLinkData, ArticulationLink* articulationLink);
+
         void DestroyArticulation();
 
         void InitPhysicsTickHandler();
@@ -90,16 +75,12 @@ namespace PhysX
         // AZ::TransformNotificationsBus
         void OnTransformChanged(const AZ::Transform& local, const AZ::Transform& world) override;
         physx::PxArticulationReducedCoordinate* m_articulation = nullptr;
-        physx::PxArticulationJointReducedCoordinate* m_driveJoint = nullptr;
-        bool m_tempClosing = true;
+
         ArticulationLinkConfiguration m_config;
 
         AzPhysics::SceneHandle m_attachedSceneHandle = AzPhysics::InvalidSceneHandle;
+        AZStd::vector<AzPhysics::SimulatedBodyHandle> m_articulationLinks;
         AzPhysics::SceneEvents::OnSceneSimulationFinishHandler m_sceneFinishSimHandler;
-        AzPhysics::SimulatedBodyEvents::OnSyncTransform::Handler m_activeBodySyncTransformHandler;
-
-        AZStd::vector<AZStd::shared_ptr<Physics::Shape>> m_articulationShapes;
-        AZStd::vector<AZStd::shared_ptr<ActorData>> m_linksActorData; // TODO: Move to AzPhysics::ArticulationLink
     };
 
     //! Utility function for detecting if the current entity is the root of articulation

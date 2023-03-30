@@ -8,23 +8,10 @@
 
 #include <Source/ArticulationLinkComponent.h>
 
-#include <AzCore/Component/Entity.h>
-#include <AzCore/Component/NonUniformScaleBus.h>
-#include <AzCore/Serialization/SerializeContext.h>
-#include <AzCore/std/smart_ptr/make_shared.h>
-#include <AzFramework/Physics/Common/PhysicsSimulatedBody.h>
-#include <AzFramework/Physics/Material/PhysicsMaterialManager.h>
-#include <AzFramework/Physics/PhysicsScene.h>
 #include <AzFramework/Physics/SystemBus.h>
-#include <AzFramework/Physics/Utils.h>
-#include <PhysX/ColliderComponentBus.h>
-#include <PhysX/Material/PhysXMaterial.h>
 #include <PhysX/MathConversion.h>
 #include <PhysX/PhysXLocks.h>
 #include <PhysX/Utils.h>
-#include <Shape.h>
-#include <Source/RigidBodyStatic.h>
-#include <Source/Utils.h>
 #include <System/PhysXSystem.h>
 
 namespace PhysX
@@ -50,15 +37,10 @@ namespace PhysX
         {
             serializeContext->Class<ArticulationLinkData>()
                 ->Version(1)
-                ->Field("ShapeConfiguration", &ArticulationLinkData::m_shapeConfiguration)
-                ->Field("ColliderConfiguration", &ArticulationLinkData::m_colliderConfiguration)
-                ->Field("EntityId", &ArticulationLinkData::m_entityId)
+                ->Field("LinkConfiguration", &ArticulationLinkData::m_articulationLinkConfiguration)
+                ->Field("ShapeColliderPair", &ArticulationLinkData::m_shapeColliderConfiguration)
                 ->Field("RelativeTransform", &ArticulationLinkData::m_relativeTransform)
                 ->Field("ChildLinks", &ArticulationLinkData::m_childLinks)
-                ->Field("PhysxSpecificConfig", &ArticulationLinkData::m_physxSpecificConfig)
-                ->Field("GenericProperties", &ArticulationLinkData::m_genericProperties)
-                ->Field("Limits", &ArticulationLinkData::m_limits)
-                ->Field("Motor", &ArticulationLinkData::m_motor)
             ;
         }
     }
@@ -141,64 +123,58 @@ namespace PhysX
 #if (PX_PHYSICS_VERSION_MAJOR == 5)
     void ArticulationLinkComponent::CreateArticulation()
     {
+        AzPhysics::SceneInterface* sceneInterface = AZ::Interface<AzPhysics::SceneInterface>::Get();
+        if (!sceneInterface)
+        {
+            return;
+        }
+
         physx::PxPhysics* pxPhysics = GetPhysXSystem()->GetPxPhysics();
         m_articulation = pxPhysics->createArticulationReducedCoordinate();
+
+
+        const auto& rootLinkConfiguration = m_articulationLinkData->m_articulationLinkConfiguration;
+        SetRootSpecificProperties(rootLinkConfiguration);
 
         CreateChildArticulationLinks(nullptr, *m_articulationLinkData.get());
 
         // Add articulation to the scene
-        AzPhysics::Scene* scene = AZ::Interface<AzPhysics::SceneInterface>::Get()->GetScene(m_attachedSceneHandle);
+        AzPhysics::Scene* scene = sceneInterface->GetScene(m_attachedSceneHandle);
         physx::PxScene* pxScene = static_cast<physx::PxScene*>(scene->GetNativePointer());
 
         PHYSX_SCENE_WRITE_LOCK(pxScene);
         pxScene->addArticulation(*m_articulation);
     }
 
+    void ArticulationLinkComponent::SetRootSpecificProperties(const ArticulationLinkConfiguration& rootLinkConfiguration)
+    {
+        m_articulation->setSleepThreshold(rootLinkConfiguration.m_sleepMinEnergy);
+        if (rootLinkConfiguration.m_startAsleep)
+        {
+            m_articulation->putToSleep();
+        }
+
+        physx::PxArticulationFlags articulationFlags(0);
+        if (rootLinkConfiguration.m_isFixedBase)
+        {
+            articulationFlags.raise(physx::PxArticulationFlag::eFIX_BASE);
+        }
+
+        if (!rootLinkConfiguration.m_selfCollide)
+        {
+            // Disable collisions between the articulation's links (note that parent/child collisions
+            // are disabled internally in either case).
+            articulationFlags.raise(physx::PxArticulationFlag::eDISABLE_SELF_COLLISION);
+        }
+
+        // TODO: Expose these in the configuration
+        //      eDRIVE_LIMITS_ARE_FORCES //!< Limits for drive effort are forces and torques rather than impulses
+        //      eCOMPUTE_JOINT_FORCES //!< Enable in order to be able to query joint solver .
+    }
+
     void ArticulationLinkComponent::CreateChildArticulationLinks(
         physx::PxArticulationLink* parentLink, const ArticulationLinkData& thisLinkData)
     {
-        const Physics::ColliderConfiguration& colliderConfiguration = thisLinkData.m_colliderConfiguration;
-        const Physics::ShapeConfiguration* shapeConfiguration = thisLinkData.m_shapeConfiguration.get();
-
-        AZStd::shared_ptr<Physics::Shape> physicsShape;
-
-        if (shapeConfiguration)
-        {
-            if (shapeConfiguration->GetShapeType() == Physics::ShapeType::PhysicsAsset)
-            {
-                const auto* physicsAssetShapeConfiguration =
-                    static_cast<const Physics::PhysicsAssetShapeConfiguration*>(shapeConfiguration);
-                if (!physicsAssetShapeConfiguration->m_asset.IsReady())
-                {
-                    const_cast<Physics::PhysicsAssetShapeConfiguration*>(physicsAssetShapeConfiguration)->m_asset.BlockUntilLoadComplete();
-                }
-
-                const bool hasNonUniformScale = !Physics::Utils::HasUniformScale(physicsAssetShapeConfiguration->m_assetScale) ||
-                    (AZ::NonUniformScaleRequestBus::FindFirstHandler(GetEntityId()) != nullptr);
-                AZStd::vector<AZStd::shared_ptr<Physics::Shape>> assetShapes;
-                Utils::CreateShapesFromAsset(
-                    *physicsAssetShapeConfiguration,
-                    colliderConfiguration,
-                    hasNonUniformScale,
-                    physicsAssetShapeConfiguration->m_subdivisionLevel,
-                    assetShapes);
-
-                if (!assetShapes.empty())
-                {
-                    physicsShape = assetShapes[0];
-                    AZ_Warning("PhysX", assetShapes.size() == 1,
-                        "Articulation %s has a link with physics mesh with more than 1 shape", GetEntity()->GetName().c_str());
-                }
-            }
-            else
-            {
-                Physics::SystemRequestBus::BroadcastResult(
-                    physicsShape, &Physics::SystemRequests::CreateShape, colliderConfiguration, *shapeConfiguration);
-            }
-
-            m_articulationShapes.emplace_back(physicsShape);
-        }
-
         physx::PxTransform thisLinkTransform;
         if (parentLink)
         {
@@ -211,42 +187,54 @@ namespace PhysX
             thisLinkTransform = PxMathConvert(GetEntity()->GetTransform()->GetWorldTM());
         }
 
-        physx::PxArticulationLink* thisLink = m_articulation->createLink(parentLink, thisLinkTransform);
-        if (!thisLink)
+        physx::PxArticulationLink* thisPxLink = m_articulation->createLink(parentLink, thisLinkTransform);
+        if (!thisPxLink)
         {
             AZ_Error("PhysX", false, "Failed to create articulation link at root %s", GetEntity()->GetName().c_str());
             return;
         }
 
-        // Setup actor data
-        AZStd::shared_ptr<ActorData> thisLinkActorData = AZStd::make_shared<ActorData>(thisLink);
-        thisLinkActorData->SetEntityId(thisLinkData.m_entityId);
-        m_linksActorData.emplace_back(thisLinkActorData);
+        AzPhysics::SimulatedBodyHandle articulationLinkHandle =
+            AZ::Interface<AzPhysics::SceneInterface>::Get()->AddSimulatedBody(m_attachedSceneHandle, &thisLinkData.m_articulationLinkConfiguration);
+        if (articulationLinkHandle == AzPhysics::InvalidSimulatedBodyHandle)
+        {
+            AZ_Error("PhysX", false, "Failed to create a simulated body for the articulation link at root %s",
+                GetEntity()->GetName().c_str());
+            return;
+        }
+
+        m_articulationLinks.emplace_back(articulationLinkHandle);
+
+        AzPhysics::SimulatedBody* simulatedBody =
+            AZ::Interface<AzPhysics::SceneInterface>::Get()->GetSimulatedBodyFromHandle(m_attachedSceneHandle, articulationLinkHandle);
+
+        ArticulationLink* articulationLink = azrtti_cast<ArticulationLink*>(simulatedBody);
+        articulationLink->SetPxArticulationLink(thisPxLink);
+        articulationLink->SetupFromLinkData(thisLinkData);
 
         if (parentLink)
         {
             physx::PxArticulationJointReducedCoordinate* inboundJoint =
-                thisLink->getInboundJoint()->is<physx::PxArticulationJointReducedCoordinate>();
+                thisPxLink->getInboundJoint()->is<physx::PxArticulationJointReducedCoordinate>();
             // TODO: Set the values for joints from thisLinkData
             inboundJoint->setJointType(physx::PxArticulationJointType::eFIX);
             inboundJoint->setParentPose(PxMathConvert(thisLinkData.m_relativeTransform));
             inboundJoint->setChildPose(physx::PxTransform(physx::PxIdentity));
         }
 
-        if (physicsShape)
-        {
-            thisLink->attachShape(*static_cast<physx::PxShape*>(physicsShape->GetNativePointer()));
-        }
-
         for (const auto& childLink : thisLinkData.m_childLinks)
         {
-            CreateChildArticulationLinks(thisLink, *childLink);
+            CreateChildArticulationLinks(thisPxLink, *childLink);
         }
     }
+
 
     void ArticulationLinkComponent::DestroyArticulation()
     {
         AzPhysics::Scene* scene = AZ::Interface<AzPhysics::SceneInterface>::Get()->GetScene(m_attachedSceneHandle);
+        scene->RemoveSimulatedBodies(m_articulationLinks);
+        m_articulationLinks.clear();
+
         physx::PxScene* pxScene = static_cast<physx::PxScene*>(scene->GetNativePointer());
         PHYSX_SCENE_WRITE_LOCK(pxScene);
         m_articulation->release();
@@ -297,6 +285,12 @@ namespace PhysX
             }
         }
     }
+
+    const ArticulationLinkConfiguration& ArticulationLinkComponent::GetConfiguration() const
+    {
+        return m_config;
+    }
+
 #else
     void ArticulationLinkComponent::CreateArticulation(){}
     void ArticulationLinkComponent::CreateChildArticulationLinks(physx::PxArticulationLink*, const ArticulationLinkData&){}

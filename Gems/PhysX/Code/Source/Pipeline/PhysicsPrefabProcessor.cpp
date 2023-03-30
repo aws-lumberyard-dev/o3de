@@ -28,8 +28,6 @@ namespace PhysX
 {
     static void EntityDataToArticulationLinkData(AZ::Entity* entity, ArticulationLinkData* linkData)
     {
-        linkData->m_entityId = entity->GetId();
-
         auto* transformComponent = entity->FindComponent<AzFramework::TransformComponent>();
         linkData->m_relativeTransform = transformComponent->GetLocalTM();
 
@@ -48,12 +46,13 @@ namespace PhysX
             AzPhysics::ShapeColliderPairList shapeColliderPairList = baseColliderComponent->GetShapeConfigurations();
             AZ_Assert(!shapeColliderPairList.empty(), "Collider component with no shape configurations");
 
-            AzPhysics::ShapeColliderPair& shapeColliderPair = shapeColliderPairList[0];
-            linkData->m_colliderConfiguration = *(shapeColliderPair.first);
-            linkData->m_shapeConfiguration = shapeColliderPair.second;
+            linkData->m_shapeColliderConfiguration = shapeColliderPairList[0];
         }
 
-        // TODO: pack joints data here.
+        auto* articulationLinkComponent = entity->FindComponent<ArticulationLinkComponent>();
+        linkData->m_articulationLinkConfiguration = articulationLinkComponent->GetConfiguration();
+        linkData->m_articulationLinkConfiguration.m_entityId = entity->GetId();
+        linkData->m_articulationLinkConfiguration.m_debugName = entity->GetName();
     }
 
     PhysicsPrefabProcessor::PhysicsPrefabProcessor()
