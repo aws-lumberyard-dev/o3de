@@ -84,7 +84,7 @@ namespace TestImpact
 
 namespace AZStd
 {
-    //!
+    //! Less function for RepoPath types for use in maps and sets.
     template<>
     struct less<TestImpact::RepoPath>
     {
@@ -94,7 +94,7 @@ namespace AZStd
         }
     };
 
-    //!
+    //! Hash function for RepoPath types for use in unordered maps and sets.
     template<>
     struct hash<TestImpact::RepoPath>
     {

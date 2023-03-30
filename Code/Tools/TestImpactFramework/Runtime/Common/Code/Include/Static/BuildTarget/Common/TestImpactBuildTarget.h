@@ -130,6 +130,7 @@ namespace TestImpact
 
 namespace AZStd
 {
+    //! Less function for BuildTarget types for use in maps and sets.
     template<typename ProductionTarget, typename TestTarget>
     struct less<TestImpact::BuildTarget<ProductionTarget, TestTarget>>
     {

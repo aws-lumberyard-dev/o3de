@@ -10,8 +10,6 @@
 
 #include <TestImpactFramework/TestImpactConfiguration.h>
 
-#include <AzCore/std/containers/unordered_map.h>
-
 namespace TestImpact
 {
     //! Temporary workspace configuration.

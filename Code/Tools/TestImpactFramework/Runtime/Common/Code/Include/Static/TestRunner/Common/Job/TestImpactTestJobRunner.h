@@ -35,7 +35,6 @@ namespace TestImpact
         using JobData = typename JobRunner::JobData;
         using JobInfo = typename JobRunner::JobInfo;
         using JobInfos = typename JobRunner::JobInfos;
-        using JobInfos = typename JobRunner::JobInfos;
         using Command = typename JobRunner::Command;
         using JobPayload = typename JobRunner::JobPayload;;
         using Job = typename JobRunner::Job;

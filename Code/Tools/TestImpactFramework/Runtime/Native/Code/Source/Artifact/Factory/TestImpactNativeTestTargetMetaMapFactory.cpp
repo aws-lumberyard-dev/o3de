@@ -105,7 +105,6 @@ namespace TestImpact
                         testMeta.m_testTargetMeta.m_suiteMeta.m_name = suiteName;
                         testMeta.m_testTargetMeta.m_suiteMeta.m_timeout = AZStd::chrono::seconds{ suite[Keys[TimeoutKey]].GetUint() };
                         testMeta.m_launchMeta.m_customArgs = suite[Keys[CommandKey]].GetString();
-                        
                         testMetas.emplace(AZStd::move(name), AZStd::move(testMeta));
                     }
 

@@ -66,6 +66,7 @@ namespace AzTestRunner
             return INCORRECT_USAGE;
         }
 
+        // copy over the command line args to a vector so we can expand with any arguments from file
         std::vector<std::string> arguments(argv, argv + argc);
 
         // capture positional arguments
@@ -102,7 +103,7 @@ namespace AzTestRunner
             }
             else if (arguments[i] == "--args_from_file")
             {
-                // Check that the arg file path has been passed
+                // check that the arg file path has been passed
                 if (i + 1 >= arguments.size())
                 {
                     std::cout << "Incorrect number of args_from_file arguments\n";
@@ -110,7 +111,7 @@ namespace AzTestRunner
                     return INCORRECT_USAGE;
                 }
 
-                // Attempt to read the contents of the file
+                // attempt to read the contents of the file
                 std::ifstream infile(arguments[i + 1]);
                 if (!infile.is_open())
                 {
@@ -118,7 +119,7 @@ namespace AzTestRunner
                     return INCORRECT_USAGE;
                 }
             
-                // Remove the args_from_file argument and value from the arg list
+                // remove the args_from_file argument and value from the arg list
                 arguments.erase(std::next(arguments.begin(), i), std::next(arguments.begin(), i + 2));
 
                 // Insert the args at the current position in the command line
@@ -141,7 +142,7 @@ namespace AzTestRunner
             std::cout << "LIB: " << lib << std::endl;
         }
 
-        // Wait for debugger
+        // wait for debugger
         if (waitForDebugger)
         {
             if (platform.SupportsWaitForDebugger())
@@ -197,7 +198,7 @@ namespace AzTestRunner
         // run the test main function.
         if (testMainFunction->IsValid())
         {
-            // Collapse the arguments vector into a C-style array of character pointers
+            // collapse the arguments vector into a c-style array of character pointers
             std::vector<char*> cArguments;
             cArguments.reserve(arguments.size());
             for (const auto& argument : arguments)
@@ -210,7 +211,7 @@ namespace AzTestRunner
             testMainFunction.reset();
         }
 
-        // Construct a retry command if the test fails
+        // construct a retry command if the test fails
         if (result != 0)
         {
             std::cout << "Retry command: " << std::endl << argv[0] << " " << lib << " " << symbol << std::endl;
@@ -227,7 +228,6 @@ namespace AzTestRunner
 
         return result;
     }
-
 
     int wrapped_main(int argc/*=0*/, char** argv/*=nullptr*/)
     {

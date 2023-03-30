@@ -43,9 +43,6 @@ namespace TestImpact
         //! Returns the duration of the job that was executed to yield this run data.
         AZStd::chrono::milliseconds GetDuration() const;
 
-        //! Operators for accumulating run data.
-        //TestRun& operator+=(const TestRun& rhs);
-
     private:
         void CalculateTestMetrics();
 

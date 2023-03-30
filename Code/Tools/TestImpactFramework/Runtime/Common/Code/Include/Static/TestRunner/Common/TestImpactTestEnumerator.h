@@ -67,7 +67,7 @@ namespace TestImpact
 
         for (auto jobInfo = jobInfos.begin(); jobInfo != jobInfos.end(); ++jobInfo)
         {
-            // If this job doesn't support enumeratoration, add a blank enumeration
+            // If this job doesn't support enumeration, add an empty enumeration
             if (jobInfo->GetCommand().m_args.empty())
             {
                 // Test target cannot enumerate, this job will not be placed in the job queue
@@ -87,12 +87,9 @@ namespace TestImpact
 
                     return { ProcessSchedulerResult::UserAborted, jobs };
                 }
-
-                continue;
             }
-
             // If this job has a cache read policy attempt to read the cache
-            if (jobInfo->GetCache().has_value())
+            else if (jobInfo->GetCache().has_value())
             {
                 if (jobInfo->GetCache()->m_policy == TestEnumerationJobData::CachePolicy::Read)
                 {

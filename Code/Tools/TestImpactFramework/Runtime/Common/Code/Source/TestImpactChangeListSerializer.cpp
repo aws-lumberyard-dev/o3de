@@ -26,7 +26,7 @@ namespace TestImpact
             "deletedFiles"
         };
 
-        enum  Fields
+        enum Fields
         {
             CreateKey,
             UpdateKey,

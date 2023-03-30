@@ -58,11 +58,11 @@ namespace TestImpact
 
         virtual ~TestEnumerationJobInfoGeneratorBase() = default;
 
-        //!
+        //! Sets the cache policy to be used by this generator.
         //! @param cachePolicy The cache policy to use for job generation.
         void SetCachePolicy(CachePolicy cachePolicy);
 
-        //!
+        //! Gets the cache policy used by this generator.
         CachePolicy GetCachePolicy() const;
 
         // TestJobInfoGeneratorBase overrides ...
@@ -116,6 +116,7 @@ namespace TestImpact
             return GenerateJobInfoImpl(testTarget, jobId);
         }
 
+        // If enumeration is not supported, we cannot shard the tests, so add an empty job info instead
         return JobInfo(
             jobId,
             Command{ "" },

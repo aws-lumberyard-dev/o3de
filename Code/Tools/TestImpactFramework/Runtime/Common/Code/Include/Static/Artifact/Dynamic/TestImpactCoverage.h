@@ -47,7 +47,7 @@ namespace TestImpact
 
 namespace AZStd
 {
-    //!
+    //! Less function for SourceCoverage types for use in maps and sets.
     template<>
     struct less<TestImpact::SourceCoverage>
     {
@@ -57,7 +57,7 @@ namespace AZStd
         }
     };
 
-    //!
+    //! Less function for ModuleCoverage types for use in maps and sets.
     template<>
     struct less<TestImpact::ModuleCoverage>
     {
@@ -67,7 +67,7 @@ namespace AZStd
         }
     };
 
-    //!
+    //! Hash function for SourceCoverage types for use in unordered maps and sets.
     template<>
     struct hash<TestImpact::SourceCoverage>
     {
@@ -77,7 +77,7 @@ namespace AZStd
         }
     };
 
-    //!
+    //! Hash function for ModuleCoverage types for use in unordered maps and sets.
     template<>
     struct hash<TestImpact::ModuleCoverage>
     {

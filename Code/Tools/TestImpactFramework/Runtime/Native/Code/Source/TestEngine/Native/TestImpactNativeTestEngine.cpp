@@ -235,13 +235,13 @@ namespace TestImpact
     }
 
     TestEngineInstrumentedRunResult<NativeTestTarget, TestCoverage> NativeTestEngine::InstrumentedRun(
-        [[maybe_unused]]const AZStd::vector<const NativeTestTarget*>& testTargets,
-        [[maybe_unused]]Policy::ExecutionFailure executionFailurePolicy,
-        [[maybe_unused]]Policy::IntegrityFailure integrityFailurePolicy,
-        [[maybe_unused]]Policy::TestFailure testFailurePolicy,
-        [[maybe_unused]]Policy::TargetOutputCapture targetOutputCapture,
-        [[maybe_unused]]AZStd::optional<AZStd::chrono::milliseconds> testTargetTimeout,
-        [[maybe_unused]]AZStd::optional<AZStd::chrono::milliseconds> globalTimeout) const
+        const AZStd::vector<const NativeTestTarget*>& testTargets,
+        Policy::ExecutionFailure executionFailurePolicy,
+        Policy::IntegrityFailure integrityFailurePolicy,
+        Policy::TestFailure testFailurePolicy,
+        Policy::TargetOutputCapture targetOutputCapture,
+        AZStd::optional<AZStd::chrono::milliseconds> testTargetTimeout,
+        AZStd::optional<AZStd::chrono::milliseconds> globalTimeout) const
     {
         DeleteXmlArtifacts();
 

@@ -48,7 +48,17 @@ namespace TestImpact
 
 namespace AZStd
 {
-    //!
+    //! Less function for TestRunCase types for use in maps and sets.
+    template<>
+    struct less<TestImpact::TestRunCase>
+    {
+        bool operator()(const TestImpact::TestRunCase& lhs, const TestImpact::TestRunCase& rhs) const
+        {
+            return lhs.m_name < rhs.m_name;
+        }
+    };
+
+    //! Less function for TestRunSuite types for use in maps and sets.
     template<>
     struct less<TestImpact::TestRunSuite>
     {
@@ -58,7 +68,7 @@ namespace AZStd
         }
     };
 
-    //!
+    //! Hash function for TestRunCase types for use in unordered maps and sets.
     template<>
     struct hash<TestImpact::TestRunCase>
     {
@@ -68,23 +78,13 @@ namespace AZStd
         }
     };
 
-    //!
+    //! Hash function for TestRunSuite types for use in unordered maps and sets.
     template<>
     struct hash<TestImpact::TestRunSuite>
     {
         bool operator()(const TestImpact::TestRunSuite& key) const
         {
             return hash<string>()(key.m_name);
-        }
-    };
-
-    //!
-    template<>
-    struct less<TestImpact::TestRunCase>
-    {
-        bool operator()(const TestImpact::TestRunCase& lhs, const TestImpact::TestRunCase& rhs) const
-        {
-            return lhs.m_name < rhs.m_name;
         }
     };
 } // namespace AZStd
