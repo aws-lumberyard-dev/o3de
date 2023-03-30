@@ -281,10 +281,10 @@ namespace PhysX
         gameEntity->CreateComponent<ArticulationLinkComponent>(m_config);
     }
 
-    // AzFramework::EntityDebugDisplayEventBus
     void EditorArticulationLinkComponent::DisplayEntityViewport(
         const AzFramework::ViewportInfo& viewportInfo, AzFramework::DebugDisplayRequests& debugDisplay)
     {
+        // The root articulation doesn't have a joint.
         if (IsRootArticulation())
         {
             return;

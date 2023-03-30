@@ -59,7 +59,7 @@ namespace PhysX
         bool IsRootArticulation() const;
 
     private:
-        // AzFramework::EntityDebugDisplayEventBus
+        // AzFramework::EntityDebugDisplayEventBus overrides ...
         void DisplayEntityViewport(const AzFramework::ViewportInfo& viewportInfo, AzFramework::DebugDisplayRequests& debugDisplay) override;
 
         bool ShowSetupDisplay() const;
