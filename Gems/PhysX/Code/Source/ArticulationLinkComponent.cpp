@@ -167,7 +167,7 @@ namespace PhysX
         {
             m_link = nullptr;
             m_driveJoint = nullptr;
-            m_sensorIndices = nullptr;
+            m_sensorIndices.clear();
         }
 
         // set the behavior when the parent's transform changes back to default, since physics is no longer controlling the transform
