@@ -283,7 +283,8 @@ namespace PhysX
                 {
                     // The lower limit should be strictly smaller than the higher limit.
                     physx::PxArticulationLimit limits;
-                    limits.low = AZ::DegToRad(articulationLinkConfiguration.m_angularLimitNegative);
+                    limits.low = AZ::DegToRad(AZStd::min(
+                        articulationLinkConfiguration.m_angularLimitNegative, articulationLinkConfiguration.m_angularLimitPositive));
                     limits.high = AZ::DegToRad(AZStd::max(
                         articulationLinkConfiguration.m_angularLimitNegative, articulationLinkConfiguration.m_angularLimitPositive));
 
@@ -311,7 +312,8 @@ namespace PhysX
                 {
                     // The lower limit should be strictly smaller than the higher limit.
                     physx::PxArticulationLimit limits;
-                    limits.low = articulationLinkConfiguration.m_linearLimitLower;
+                    limits.low =
+                        AZStd::min(articulationLinkConfiguration.m_linearLimitLower, articulationLinkConfiguration.m_linearLimitUpper);
                     limits.high =
                         AZStd::max(articulationLinkConfiguration.m_linearLimitLower, articulationLinkConfiguration.m_linearLimitUpper);
 
