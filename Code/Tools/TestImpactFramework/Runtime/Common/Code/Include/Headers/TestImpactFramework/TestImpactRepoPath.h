@@ -48,8 +48,6 @@ namespace TestImpact
         [[nodiscard]] bool IsRelativeTo(const RepoPath& base) const;
         AZ::IO::PathView RootName() const;
         AZ::IO::PathView RelativePath() const;
-        //constexpr RepoPath& ReplaceFilename(const AZ::IO::PathView& replacementFilename);
-        //constexpr RepoPath& ReplaceExtension(const AZ::IO::PathView& replacementExtension = {});
 
         constexpr RepoPath& ReplaceFilename(const AZ::IO::PathView& replacementFilename)
         {

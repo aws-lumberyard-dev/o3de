@@ -356,8 +356,8 @@ namespace UnitTest
         //const auto testTarget = m_buildTargets->GetTestTargetList().GetTarget("AzTestRunner.Tests");
         //const auto testTarget = m_buildTargets->GetTestTargetList().GetTarget("TestImpact.TestTargetA.Tests");
         //const auto testTarget = m_buildTargets->GetTestTargetList().GetTarget("TestImpact.TestTargetD.Tests");
-        const auto testTarget = m_buildTargets->GetTestTargetList().GetTarget("AzCore.Tests");
-        //const auto testTarget = m_buildTargets->GetTestTargetList().GetTarget("AzToolsFramework.Tests");
+        //const auto testTarget = m_buildTargets->GetTestTargetList().GetTarget("AzCore.Tests");
+        const auto testTarget = m_buildTargets->GetTestTargetList().GetTarget("AzFramework.Tests");
         //const auto testTarget = m_buildTargets->GetTestTargetList().GetTarget("AzTestRunner.Tests");
         const auto enumJob = m_enumerationTestJobInfoGenerator->GenerateJobInfos({ testTarget });
         const auto enumResult = m_testEnumerator.Enumerate(
@@ -392,26 +392,26 @@ namespace UnitTest
             //
             //timer.ResetStartTimePoint();
             
-            TestRunnerHandler<ShardedInstrumentedTestRunner> handler;
-            const auto runResult2 = m_instrumentedShardedTestRunner->RunTests(
-                shardedInstrumentedJobs,
-                TestImpact::StdOutputRouting::ToParent,
-                TestImpact::StdErrorRouting::ToParent,
-                AZStd::nullopt,
-                AZStd::nullopt);
-            
-            //{
-            //    TestImpact::WriteFileContents<TestImpact::TestRunnerException>(
-            //        TestImpact::Cobertura::SerializeTestCoverage(
-            //            runResult2.second.front().GetPayload()->second, m_config.m_commonConfig.m_repo.m_root),
-            //        m_config.m_workspace.m_temp.m_coverageArtifactDirectory / RepoPath(testTarget->GetName() + ".r2.xml"));
-            //}
-            
-            std::cout << "Duration 2: " << timer.GetElapsedMs().count() << "\n";
-            
-            const auto testString = TestImpact::GTest::SerializeTestRun(runResult2.second.front().GetPayload()->first.value());
-            const auto coverageString = TestImpact::Cobertura::SerializeTestCoverage(
-                runResult2.second.front().GetPayload()->second, m_config.m_commonConfig.m_repo.m_root);
+           // TestRunnerHandler<ShardedInstrumentedTestRunner> handler;
+           // const auto runResult2 = m_instrumentedShardedTestRunner->RunTests(
+           //     shardedInstrumentedJobs,
+           //     TestImpact::StdOutputRouting::ToParent,
+           //     TestImpact::StdErrorRouting::ToParent,
+           //     AZStd::nullopt,
+           //     AZStd::nullopt);
+           // 
+           // //{
+           // //    TestImpact::WriteFileContents<TestImpact::TestRunnerException>(
+           // //        TestImpact::Cobertura::SerializeTestCoverage(
+           // //            runResult2.second.front().GetPayload()->second, m_config.m_commonConfig.m_repo.m_root),
+           // //        m_config.m_workspace.m_temp.m_coverageArtifactDirectory / RepoPath(testTarget->GetName() + ".r2.xml"));
+           // //}
+           // 
+           // std::cout << "Duration 2: " << timer.GetElapsedMs().count() << "\n";
+           // 
+           // const auto testString = TestImpact::GTest::SerializeTestRun(runResult2.second.front().GetPayload()->first.value());
+           // const auto coverageString = TestImpact::Cobertura::SerializeTestCoverage(
+           //     runResult2.second.front().GetPayload()->second, m_config.m_commonConfig.m_repo.m_root);
             
             //EXPECT_TRUE(
             //    runResult1.second.front().GetPayload()->second.GetModuleCoverages() ==

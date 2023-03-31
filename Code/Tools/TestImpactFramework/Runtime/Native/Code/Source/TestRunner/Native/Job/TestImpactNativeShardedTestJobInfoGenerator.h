@@ -216,7 +216,6 @@ namespace TestImpact
         const auto numTests = testEnumeration->GetNumEnabledTests();
         const auto numShards = std::min(m_maxConcurrency, numTests);
         ShardedTestsList shardTestList(numShards);
-        const auto testsPerShard = numTests / numShards;
 
         size_t testIndex = 0;
         for (const auto fixture : testEnumeration->GetTestSuites())
@@ -272,6 +271,9 @@ namespace TestImpact
         for (size_t testTargetIndex = 0, jobId = 0; testTargetIndex < testTargetsAndEnumerations.size(); testTargetIndex++)
         {
             jobInfos.push_back(GenerateJobInfo(testTargetsAndEnumerations[testTargetIndex], { jobId }));
+
+            // Increment the job id by the number of sharded job infos generated for the most recently added test target so that the next
+            // job id used is contiguous in seqeunce
             jobId += jobInfos.back().GetJobInfos().size();
         }
 
