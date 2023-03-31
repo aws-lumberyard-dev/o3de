@@ -101,20 +101,25 @@ namespace PhysX
 
     void ArticulationLinkComponent::Activate()
     {
+        // set the transform to not update when the parent's transform changes, to avoid conflict with physics transform updates
+        GetEntity()->GetTransform()->SetOnParentChangedBehavior(AZ::OnParentChangedBehavior::DoNotUpdate);
+
         if (IsRootArticulation())
         {
             AZ::TransformNotificationBus::Handler::BusConnect(GetEntityId());
 
             Physics::DefaultWorldBus::BroadcastResult(m_attachedSceneHandle, &Physics::DefaultWorldRequests::GetDefaultSceneHandle);
 
-            if (auto* sceneInterface = AZ::Interface<AzPhysics::SceneInterface>::Get())
+            if (m_attachedSceneHandle != AzPhysics::InvalidSceneHandle)
             {
-                sceneInterface->RegisterSceneSimulationFinishHandler(m_attachedSceneHandle, m_sceneFinishSimHandler);
+                if (auto* sceneInterface = AZ::Interface<AzPhysics::SceneInterface>::Get())
+                {
+                    sceneInterface->RegisterSceneSimulationFinishHandler(m_attachedSceneHandle, m_sceneFinishSimHandler);
+                }
+
+                CreateArticulation();
             }
-
-            CreateArticulation();
         }
-
         else
         {
             // the articulation is owned by the entity which has the root link
@@ -138,17 +143,23 @@ namespace PhysX
 
     void ArticulationLinkComponent::Deactivate()
     {
-        if (m_attachedSceneHandle == AzPhysics::InvalidSceneHandle)
+        if (IsRootArticulation())
         {
-            return;
+            if (m_articulation)
+            {
+                DestroyArticulation();
+            }
+
+            AZ::TransformNotificationBus::Handler::BusDisconnect();
+        }
+        else
+        {
+            m_link = nullptr;
+            m_driveJoint = nullptr;
         }
 
-        if (m_articulation)
-        {
-            DestroyArticulation();
-        }
-
-        AZ::TransformNotificationBus::Handler::BusDisconnect();
+        // set the behavior when the parent's transform changes back to default, since physics is no longer controlling the transform
+        GetEntity()->GetTransform()->SetOnParentChangedBehavior(AZ::OnParentChangedBehavior::Update);
     }
 
     void ArticulationLinkComponent::OnTransformChanged(
@@ -203,6 +214,8 @@ namespace PhysX
             articulationFlags.raise(physx::PxArticulationFlag::eDISABLE_SELF_COLLISION);
         }
 
+        m_articulation->setArticulationFlags(articulationFlags);
+
         // TODO: Expose these in the configuration
         //      eDRIVE_LIMITS_ARE_FORCES //!< Limits for drive effort are forces and torques rather than impulses
         //      eCOMPUTE_JOINT_FORCES //!< Enable in order to be able to query joint solver .
@@ -254,12 +267,76 @@ namespace PhysX
         {
             physx::PxArticulationJointReducedCoordinate* inboundJoint =
                 thisPxLink->getInboundJoint()->is<physx::PxArticulationJointReducedCoordinate>();
-            inboundJoint->setJointType(GetPxArticulationJointType(articulationLinkConfiguration.m_articulationJointType));
             // Sets the joint pose in the lead link actor frame.
             inboundJoint->setParentPose(PxMathConvert(thisLinkData.m_articulationJointData.m_jointLeadLocalFrame));
             // Sets the joint pose in the follower link actor frame.
             inboundJoint->setChildPose(PxMathConvert(thisLinkData.m_articulationJointData.m_jointFollowerLocalFrame));
-            // TODO: Set other joint's properties from articulationLinkConfiguration
+            // Sets the joint type and limits.
+            switch (articulationLinkConfiguration.m_articulationJointType)
+            {
+            case ArticulationJointType::Fix:
+                inboundJoint->setJointType(physx::PxArticulationJointType::eFIX);
+                break;
+            case ArticulationJointType::Hinge:
+                inboundJoint->setJointType(physx::PxArticulationJointType::eREVOLUTE);
+                if (articulationLinkConfiguration.m_isLimited)
+                {
+                    // The lower limit should be strictly smaller than the higher limit.
+                    physx::PxArticulationLimit limits;
+                    limits.low = AZ::DegToRad(articulationLinkConfiguration.m_angularLimitNegative);
+                    limits.high = AZ::DegToRad(AZStd::max(
+                        articulationLinkConfiguration.m_angularLimitNegative, articulationLinkConfiguration.m_angularLimitPositive));
+
+                    // From PhysX documentation: If the limits should be equal, use PxArticulationMotion::eLOCKED
+                    if (limits.low == limits.high)
+                    {
+                        inboundJoint->setMotion(physx::PxArticulationAxis::eTWIST, physx::PxArticulationMotion::eLOCKED);
+                    }
+                    else
+                    {
+                        inboundJoint->setMotion(
+                            physx::PxArticulationAxis::eTWIST, physx::PxArticulationMotion::eLIMITED); // limit the x rotation axis (eTWIST)
+                    }
+                    inboundJoint->setLimitParams(physx::PxArticulationAxis::eTWIST, limits);
+                }
+                else
+                {
+                    inboundJoint->setMotion(
+                        physx::PxArticulationAxis::eTWIST, physx::PxArticulationMotion::eFREE); // free on the x rotation axis (eTWIST)
+                }
+                break;
+            case ArticulationJointType::Prismatic:
+                inboundJoint->setJointType(physx::PxArticulationJointType::ePRISMATIC);
+                if (articulationLinkConfiguration.m_isLimited)
+                {
+                    // The lower limit should be strictly smaller than the higher limit.
+                    physx::PxArticulationLimit limits;
+                    limits.low = articulationLinkConfiguration.m_linearLimitLower;
+                    limits.high =
+                        AZStd::max(articulationLinkConfiguration.m_linearLimitLower, articulationLinkConfiguration.m_linearLimitUpper);
+
+                    // From PhysX documentation: If the limits should be equal, use PxArticulationMotion::eLOCKED
+                    if (limits.low == limits.high)
+                    {
+                        inboundJoint->setMotion(physx::PxArticulationAxis::eX, physx::PxArticulationMotion::eLOCKED);
+                    }
+                    else
+                    {
+                        inboundJoint->setMotion(
+                            physx::PxArticulationAxis::eX, physx::PxArticulationMotion::eLIMITED); // limit the x movement axis (eX)
+                    }
+                    inboundJoint->setLimitParams(physx::PxArticulationAxis::eX, limits);
+                }
+                else
+                {
+                    inboundJoint->setMotion(
+                        physx::PxArticulationAxis::eX, physx::PxArticulationMotion::eFREE); // free on the x movement axis (eX)
+                }
+                break;
+            default:
+                AZ_Error("ArticulationLinkComponent", false, "Unexpected articulation joint type.");
+                break;
+            }
         }
 
         m_articulationLinksByEntityId.insert(EntityIdArticulationLinkPair{ articulationLinkConfiguration.m_entityId, thisPxLink });
