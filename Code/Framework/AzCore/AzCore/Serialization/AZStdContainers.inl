@@ -664,6 +664,42 @@ namespace AZ
                 }
             };
 
+            bool IsSetType() const override
+            {
+                return AZStd::is_same_v<ValueType, KeyType>;
+            }
+
+            void* ExtractElement(void* instance, void* element) override
+            {
+                T* containerPtr = reinterpret_cast<T*>(instance);
+                // this container can be a multi container so key is NOT enough, but a good start
+                const auto& key = T::traits_type::key_from_value(*reinterpret_cast<const ValueType*>(element));
+                AZStd::pair<typename T::iterator, typename T::iterator> valueRange = containerPtr->equal_range(key);
+                while (valueRange.first !=
+                       valueRange.second) // in a case of multi key support iterate over all elements with that key until we find the one
+                {
+                    if (&(*valueRange.first) == element)
+                    {
+                        // Extracts the node from the associative container without deleting it
+                        // The T::node_type destructor takes care of cleaning up the memory of the extracted node
+                        typename T::node_type removeNode = containerPtr->extract(valueRange.first);
+
+                        if constexpr (AZStd::is_same_v<ValueType, KeyType>)
+                        {
+                            return new (containerPtr->get_allocator().allocate(sizeof(ValueType), AZStd::alignment_of<ValueType>::value))
+                                ValueType{ AZStd::move(removeNode.value()) };
+                        }
+                        else
+                        {
+                            return new (containerPtr->get_allocator().allocate(sizeof(ValueType), AZStd::alignment_of<ValueType>::value))
+                                ValueType{ AZStd::move(removeNode.key()), AZStd::move(removeNode.mapped()) };
+                        }
+                    }
+                    ++valueRange.first;
+                }
+                return nullptr;
+            }
+
             template <class T1, class T2>
             struct KeyHelper<AZStd::pair<T1, T2>, false>
             {

@@ -1091,6 +1091,8 @@ namespace AZ::Serialize
             virtual void    SetElementKey(void* element, void* key) = 0;
             /// Get the mapped value's address by its key. If there is no mapped value (like in a set<>) the value returned is the key itself
             virtual void* GetValueByKey(void* instance, const void* key) = 0;
+            virtual bool IsSetType() const = 0;
+            virtual void* ExtractElement(void* instance, void* element) = 0;
         };
 
         /// Return default element generic name (used by most containers).
