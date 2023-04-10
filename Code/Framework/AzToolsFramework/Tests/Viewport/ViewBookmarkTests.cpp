@@ -161,7 +161,7 @@ namespace UnitTest
         constexpr float cameraPositionTolerance = 0.0012f;
         EXPECT_THAT(lastKnownLocationBookmark->m_position, IsCloseTolerance(cameraPosition, cameraPositionTolerance));
         #else
-        EXPECT_THAT(lastKnownLocationBookmark->m_position, IsClose(cameraPosition, cameraPositionTolerance));
+        EXPECT_THAT(lastKnownLocationBookmark->m_position, IsClose(cameraPosition));
         #endif // AZ_TRAIT_USE_PLATFORM_SIMD_NEON
 
         #if AZ_TRAIT_USE_PLATFORM_SIMD_NEON
