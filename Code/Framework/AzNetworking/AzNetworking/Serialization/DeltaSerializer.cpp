@@ -89,12 +89,6 @@ namespace AzNetworking
         return SerializeHelper(value, 0, false, unused, name);
     }
 
-    bool DeltaSerializerCreate::Serialize(char& value, const char* name, [[maybe_unused]] char minValue, [[maybe_unused]] char maxValue)
-    {
-        uint32_t unused = 0;
-        return SerializeHelper(value, 0, false, unused, name);
-    }
-
     bool DeltaSerializerCreate::Serialize(int8_t& value, const char* name, [[maybe_unused]] int8_t minValue, [[maybe_unused]] int8_t maxValue)
     {
         uint32_t unused = 0;
@@ -273,11 +267,11 @@ namespace AzNetworking
         return SerializeHelper(value, 0, false, unused, name);
     }
 
-    bool DeltaSerializerApply::Serialize(char& value, const char* name, [[maybe_unused]] char minValue, [[maybe_unused]] char maxValue)
-    {
-        uint32_t unused = 0;
-        return SerializeHelper(value, 0, false, unused, name);
-    }
+    //bool DeltaSerializerApply::Serialize(char& value, const char* name, [[maybe_unused]] char minValue, [[maybe_unused]] char maxValue)
+    //{
+    //    uint32_t unused = 0;
+    //    return SerializeHelper(value, 0, false, unused, name);
+    //}
 
     bool DeltaSerializerApply::Serialize(int8_t& value, const char* name, [[maybe_unused]] int8_t minValue, [[maybe_unused]] int8_t maxValue)
     {
