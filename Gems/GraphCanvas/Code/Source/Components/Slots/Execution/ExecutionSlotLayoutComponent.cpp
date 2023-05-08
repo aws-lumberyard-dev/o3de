@@ -27,7 +27,11 @@ namespace GraphCanvas
         setOrientation(Qt::Horizontal);
 
         m_slotConnectionPin = aznew ExecutionSlotConnectionPin(owner.GetEntityId());
+
         m_slotText = aznew GraphCanvasLabel();
+        m_slotText->SetElide(true);
+        m_slotText->setMinimumWidth(75);
+        m_slotText->setMaximumWidth(75);
     }
 
     ExecutionSlotLayout::~ExecutionSlotLayout()

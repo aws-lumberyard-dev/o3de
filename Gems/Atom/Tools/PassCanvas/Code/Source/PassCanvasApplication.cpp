@@ -151,7 +151,7 @@ namespace PassCanvas
         });
 
         // Search the project and gems for dynamic node configurations and register them with the manager
-        m_dynamicNodeManager->LoadConfigFiles("passgraphnode");
+        m_dynamicNodeManager->LoadConfigFiles(".passgraphnode");
     }
 
     void PassCanvasApplication::InitDynamicNodeEditData()

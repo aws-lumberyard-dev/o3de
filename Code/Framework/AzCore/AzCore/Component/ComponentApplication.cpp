@@ -198,7 +198,7 @@ namespace AZ
         m_enableScriptReflection = true;
 
         m_memoryBlocksByteSize = 0;
-        m_recordingMode = Debug::AllocationRecords::RECORD_STACK_IF_NO_FILE_LINE;
+        m_recordingMode = Debug::AllocationRecords::RECORD_NO_RECORDS;
     }
 
     bool AppDescriptorConverter(SerializeContext& serialize, SerializeContext::DataElementNode& node)

@@ -167,7 +167,7 @@ namespace MaterialCanvas
         });
 
         // Search the project and gems for dynamic node configurations and register them with the manager
-        m_dynamicNodeManager->LoadConfigFiles("materialgraphnode");
+        m_dynamicNodeManager->LoadConfigFiles(".materialgraphnode");
     }
 
     void MaterialCanvasApplication::InitDynamicNodeEditData()

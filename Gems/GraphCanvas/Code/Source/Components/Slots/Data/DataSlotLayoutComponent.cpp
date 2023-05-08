@@ -276,7 +276,11 @@ namespace GraphCanvas
 
         m_nodePropertyDisplay = aznew NodePropertyDisplayWidget();
         m_slotConnectionPin = aznew DataSlotConnectionPin(owner.GetEntityId());
+
         m_slotText = aznew GraphCanvasLabel();
+        m_slotText->SetElide(true);
+        m_slotText->setMinimumWidth(75);
+        m_slotText->setMaximumWidth(75);
     }
 
     DataSlotLayout::~DataSlotLayout()

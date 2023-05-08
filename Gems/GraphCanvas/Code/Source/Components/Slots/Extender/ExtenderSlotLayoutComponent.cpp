@@ -88,7 +88,11 @@ namespace GraphCanvas
         m_slotLabelFilter = aznew ExtenderLabelEventFilter(owner.GetEntityId());
 
         m_slotConnectionPin = aznew ExtenderSlotConnectionPin(owner.GetEntityId());
+
         m_slotText = aznew GraphCanvasLabel();
+        m_slotText->SetElide(true);
+        m_slotText->setMinimumWidth(75);
+        m_slotText->setMaximumWidth(75);
         m_slotText->setAcceptHoverEvents(true);
         m_slotText->setAcceptedMouseButtons(Qt::MouseButton::LeftButton);
     }

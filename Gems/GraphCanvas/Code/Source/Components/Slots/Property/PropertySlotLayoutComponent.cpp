@@ -41,7 +41,11 @@ namespace GraphCanvas
         m_spacer->setMaximumHeight(0);
 
         m_nodePropertyDisplay = aznew NodePropertyDisplayWidget();
+
         m_slotText = aznew GraphCanvasLabel();        
+        m_slotText->SetElide(true);
+        m_slotText->setMinimumWidth(75);
+        m_slotText->setMaximumWidth(75);
     }
     
     PropertySlotLayout::~PropertySlotLayout()

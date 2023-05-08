@@ -748,12 +748,12 @@ namespace AtomToolsFramework
         return results;
     }
 
-    AZStd::vector<AZStd::string> GetPathsInSourceFoldersMatchingWildcard(const AZStd::string& wildcard)
+    AZStd::vector<AZStd::string> GetPathsInSourceFoldersMatchingExtension(const AZStd::string& extension)
     {
         return GetPathsInSourceFoldersMatchingFilter(
             [&](const AZStd::string& path)
             {
-                return AZ::IO::NameMatchesFilter(path, wildcard) && IsDocumentPathEditable(path);
+                return path.ends_with(extension) && IsDocumentPathEditable(path);
             });
     }
 
@@ -859,7 +859,7 @@ namespace AtomToolsFramework
             addUtilFunc(behaviorContext->Method("GetPathToExteralReference", GetPathToExteralReference, nullptr, ""));
             addUtilFunc(behaviorContext->Method("GetPathWithoutAlias", GetPathWithoutAlias, nullptr, ""));
             addUtilFunc(behaviorContext->Method("GetPathWithAlias", GetPathWithAlias, nullptr, ""));
-            addUtilFunc(behaviorContext->Method("GetPathsInSourceFoldersMatchingWildcard", GetPathsInSourceFoldersMatchingWildcard, nullptr, ""));
+            addUtilFunc(behaviorContext->Method("GetPathsInSourceFoldersMatchingExtension", GetPathsInSourceFoldersMatchingExtension, nullptr, ""));
             addUtilFunc(behaviorContext->Method("GetNonCacheSourceFolders", GetNonCacheSourceFolders, nullptr, ""));
             addUtilFunc(behaviorContext->Method("GetSettingsValue_bool", GetSettingsValue<bool>, nullptr, ""));
             addUtilFunc(behaviorContext->Method("SetSettingsValue_bool", SetSettingsValue<bool>, nullptr, ""));
