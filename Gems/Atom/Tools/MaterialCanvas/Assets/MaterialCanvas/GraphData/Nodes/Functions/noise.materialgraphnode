@@ -1,0 +1,48 @@
+{
+    "Type": "JsonSerialization",
+    "Version": 1,
+    "ClassName": "DynamicNodeConfig",
+    "ClassData": {
+        "id": "{A761FE61-29AF-42B1-8DBD-8F1237D0DD2B}",
+        "category": "Math Functions",
+        "title": "Perlin Noise",
+        "titlePaletteName": "MathNodeTitlePalette",
+        "description": "Generates a random value using the Perlin-noise algorithm",
+        "slotDataTypeGroups": [
+            "inValue|outValue"
+        ],
+        "settings": {
+            "functionDefinitions": [
+                "/* https://www.shadertoy.com/view/XsX3zB\n *\n * The MIT License\n * Copyright © 2013 Nikita Miropolskiy\n *\n * ( license has been changed from CCA-NC-SA 3.0 to MIT\n *\n *   but thanks for attributing your source code when deriving from this sample\n *   with a following link: https://www.shadertoy.com/view/XsX3zB )\n *\n * ~\n * ~ if you're looking for procedural noise implementation examples you might\n * ~ also want to look at the following shaders:\n * ~\n * ~ Noise Lab shader by candycat: https://www.shadertoy.com/view/4sc3z2\n * ~\n * ~ Noise shaders by iq:\n * ~     Value    Noise 2D, Derivatives: https://www.shadertoy.com/view/4dXBRH\n * ~     Gradient Noise 2D, Derivatives: https://www.shadertoy.com/view/XdXBRH\n * ~     Value    Noise 3D, Derivatives: https://www.shadertoy.com/view/XsXfRH\n * ~     Gradient Noise 3D, Derivatives: https://www.shadertoy.com/view/4dffRH\n * ~     Value    Noise 2D             : https://www.shadertoy.com/view/lsf3WH\n * ~     Value    Noise 3D             : https://www.shadertoy.com/view/4sfGzS\n * ~     Gradient Noise 2D             : https://www.shadertoy.com/view/XdXGW8\n * ~     Gradient Noise 3D             : https://www.shadertoy.com/view/Xsl3Dl\n * ~     Simplex  Noise 2D             : https://www.shadertoy.com/view/Msf3WH\n * ~     Voronoise: https://www.shadertoy.com/view/Xd23Dh\n * ~\n *\n */\n\n /* discontinuous pseudorandom uniformly distributed in [-0.5, +0.5]^3 */\nfloat3 random3(float3 c) {\n    float j = 4096.0 * sin(dot(c, float3(17.0, 59.4, 15.0)));\n    float3 r;\n    r.z = frac(512.0 * j);\n    j *= .125;\n    r.x = frac(512.0 * j);\n    j *= .125;\n    r.y = frac(512.0 * j);\n    return r - 0.5;\n}\n\n/* 3d simplex noise */\nfloat simplex3d(float3 p) {\n    /* skew constants for 3d simplex functions */\n    const float F3 = 0.3333333;\n    const float G3 = 0.1666667;\n\n    /* 1. find current tetrahedron T and it's four vertices */\n    /* s, s+i1, s+i2, s+1.0 - absolute skewed (integer) coordinates of T vertices */\n    /* x, x1, x2, x3 - unskewed coordinates of p relative to each of T vertices*/\n\n    /* calculate s and x */\n    float3 s = floor(p + dot((float3)p, (float3)F3));\n    float3 x = p - s + dot((float3)s, (float3)G3);\n\n    /* calculate i1 and i2 */\n    float3 e = step((float3)0.0, x - x.yzx);\n    float3 i1 = e * (1.0 - e.zxy);\n    float3 i2 = 1.0 - e.zxy * (1.0 - e);\n\n    /* x1, x2, x3 */\n    float3 x1 = x - i1 + G3;\n    float3 x2 = x - i2 + 2.0 * G3;\n    float3 x3 = x - 1.0 + 3.0 * G3;\n\n    /* 2. find four surflets and store them in d */\n    float4 w, d;\n\n    /* calculate surflet weights */\n    w.x = dot(x, x);\n    w.y = dot(x1, x1);\n    w.z = dot(x2, x2);\n    w.w = dot(x3, x3);\n\n    /* w fades from 0.6 at the center of the surflet to 0.0 at the margin */\n    w = max(0.6 - w, 0.0);\n\n    /* calculate surflet components */\n    d.x = dot(random3(s), x);\n    d.y = dot(random3(s + i1), x1);\n    d.z = dot(random3(s + i2), x2);\n    d.w = dot(random3(s + 1.0), x3);\n\n    /* multiply d by w^4 */\n    w *= w;\n    w *= w;\n    d *= w;\n\n    /* 3. return the sum of the four surflets */\n    return dot(d, (float4)52.0);\n}\n\n/* directional artifacts can be reduced by rotating each octave */\nfloat simplex3d_fracal(float3 m) {\n    /* const matrices for 3d rotation */\n    const float3x3 rot1 = { -0.37, 0.36, 0.85, -0.14, -0.93, 0.34, 0.92, 0.01, 0.4 };\n    const float3x3 rot2 = { -0.55, -0.39, 0.74, 0.33, -0.91, -0.24, 0.77, 0.12, 0.63 };\n    const float3x3 rot3 = { -0.71, 0.52, -0.47, -0.08, -0.72, -0.68, -0.7, -0.45, 0.56 };\n\n    return\n        simplex3d(mul(rot1, m)) * 0.5333333 +\n        simplex3d(mul(rot2, m) * 2.0) * 0.2666667 +\n        simplex3d(mul(rot3, m) * 4.0) * 0.1333333 +\n        simplex3d(m * 8.0) * 0.0666667;\n}"
+            ]
+        },
+        "inputSlots": [
+            {
+                "name": "inValue",
+                "displayName": "Value",
+                "description": "Value",
+                "supportedDataTypeRegex": "(color|bool|int|uint|float)([1-4])?",
+                "defaultDataType": "float4",
+                "settings": {
+                    "instructions": [
+                        "SLOTTYPE SLOTNAME = SLOTVALUE;"
+                    ]
+                }
+            }
+        ],
+        "outputSlots": [
+            {
+                "name": "outValue",
+                "displayName": "Value",
+                "description": "Value",
+                "supportedDataTypeRegex": "float",
+                "defaultDataType": "float",
+                "settings": {
+                    "instructions": [
+                        "SLOTTYPE SLOTNAME = simplex3d((float3)inValue);"
+                    ]
+                }
+            }
+        ]
+    }
+}

@@ -1,0 +1,96 @@
+{
+    "Type": "JsonSerialization",
+    "Version": 1,
+    "ClassName": "DynamicNodeConfig",
+    "ClassData": {
+        "id": "{25B59D41-0CCB-42C4-BFD4-C84845F8CCAE}",
+        "category": "Math Functions",
+        "title": "If",
+        "titlePaletteName": "MathNodeTitlePalette",
+        "description": "Selects and returns a value based on a comparison between two input values.",
+        "slotDataTypeGroups": [
+            "inValueA|inValueB|inResult1|inResult2|inResult3|outValue"
+        ],
+        "settings": {
+            "includePaths": [
+                "@gemroot:Atom_Feature_Common@/Assets/ShaderLib/Atom/Features/PBR/Microfacet/Fresnel.azsli"
+            ]
+        },
+        "inputSlots": [
+            {
+                "name": "inValueA",
+                "displayName": "ValueA",
+                "description": "ValueA",
+                "supportedDataTypeRegex": "(color|bool|int|uint|float)([1-4])?",
+                "defaultDataType": "float",
+                "settings": {
+                    "instructions": [
+                        "SLOTTYPE SLOTNAME = SLOTVALUE;"
+                    ]
+                }
+            },
+            {
+                "name": "inValueB",
+                "displayName": "ValueB",
+                "description": "ValueB",
+                "supportedDataTypeRegex": "(color|bool|int|uint|float)([1-4])?",
+                "defaultDataType": "float",
+                "settings": {
+                    "instructions": [
+                        "SLOTTYPE SLOTNAME = SLOTVALUE;"
+                    ]
+                }
+            },
+            {
+                "name": "inResult1",
+                "displayName": "Result A<B",
+                "description": "Result A<B",
+                "supportedDataTypeRegex": "(color|bool|int|uint|float)([1-4])?",
+                "defaultDataType": "float",
+                "settings": {
+                    "instructions": [
+                        "SLOTTYPE SLOTNAME = SLOTVALUE;"
+                    ]
+                }
+            },
+            {
+                "name": "inResult2",
+                "displayName": "Result A==B",
+                "description": "Result A==B",
+                "supportedDataTypeRegex": "(color|bool|int|uint|float)([1-4])?",
+                "defaultDataType": "float",
+                "settings": {
+                    "instructions": [
+                        "SLOTTYPE SLOTNAME = SLOTVALUE;"
+                    ]
+                }
+            },
+            {
+                "name": "inResult3",
+                "displayName": "Result A>B",
+                "description": "Result A>B",
+                "supportedDataTypeRegex": "(color|bool|int|uint|float)([1-4])?",
+                "defaultDataType": "float",
+                "settings": {
+                    "instructions": [
+                        "SLOTTYPE SLOTNAME = SLOTVALUE;"
+                    ]
+                }
+            }
+        ],
+        "outputSlots": [
+            {
+                "name": "outValue",
+                "displayName": "Value",
+                "description": "Value",
+                "supportedDataTypeRegex": "float",
+                "defaultDataType": "float",
+                "settings": {
+                    "instructions": [
+                        "SLOTTYPE SLOTNAME_options[3] = { inResult3, inResult2, inResult1 };\nint SLOTNAME_index = (int)sign((float)inValueB - (float)inValueA) + 1;\nSLOTTYPE SLOTNAME = SLOTNAME_options[SLOTNAME_index];"
+                    ]
+                }
+            }
+        ]
+    }
+}
