@@ -25,7 +25,7 @@ execute_process (COMMAND snapcraft clean
                  WORKING_DIRECTORY ${CPACK_TEMPORARY_DIRECTORY}
 )
 
-execute_process (COMMAND snapcraft --verbose
+execute_process (COMMAND snapcraft --verbose --provider=lxd
                  WORKING_DIRECTORY ${CPACK_TEMPORARY_DIRECTORY}
 )
 
