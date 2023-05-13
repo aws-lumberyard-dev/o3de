@@ -53,13 +53,13 @@ parts:
     build-packages: [patchelf]
     override-stage: |
       snapcraftctl stage
-      find $SNAPCRAFT_STAGE/usr/bin/ -type f -executable -exec patchelf --set-interpreter /snap/core22/current/lib64/ld-linux-x86-64.so.2 {} \;
-      find $SNAPCRAFT_STAGE/usr/lib/ -type f -executable -exec patchelf --set-interpreter /snap/core22/current/lib64/ld-linux-x86-64.so.2 {} \;
-      find $SNAPCRAFT_STAGE/usr/bin/ -type f -executable -exec patchelf --force-rpath --set-rpath $(patchelf --print-rpath {})':/snap/core22/current/lib/x86_64-linux-gnu:/snap/core22/current/usr/lib/x86_64-linux-gnu' {} \;
-      find $SNAPCRAFT_STAGE/usr/lib/ -type f -exec patchelf --force-rpath --set-rpath $(patchelf --print-rpath {})':/snap/core22/current/lib/x86_64-linux-gnu:/snap/core22/current/usr/lib/x86_64-linux-gnu' {} \;
-      find $SNAPCRAFT_STAGE/lib/ -type f -exec patchelf --force-rpath --set-rpath $(patchelf --print-rpath {} )':/snap/core22/current/lib/x86_64-linux-gnu:/snap/core22/current/usr/lib/x86_64-linux-gnu' {} \;
-      find $SNAPCRAFT_STAGE/lib32/ -type f -exec patchelf --force-rpath --set-rpath $(patchelf --print-rpath {} )':/snap/core22/current/lib/x86_64-linux-gnu:/snap/core22/current/usr/lib/x86_64-linux-gnu' {} \;
-      echo -e "/* GNU ld script\n   Use the shared library, but some functions are only in\n   the static library, so try that secondarily.  */\nOUTPUT_FORMAT(elf64-x86-64)\nGROUP ( /snap/core22/current/lib/x86_64-linux-gnu/libc.so.6 /snap/o3de/current/usr/lib/x86_64-linux-gnu/libc.a /usr/lib/x86_64-linux-gnu/libc_nonshared.a  AS_NEEDED ( /snap/core22/current/usr/lib64/ld-linux-x86-64.so.2 ) )\n" > $SNAPCRAFT_STAGE/usr/lib/x86_64-linux-gnu/libc.so
+      find $SNAPCRAFT_STAGE/usr/bin/ -type f -executable -exec patchelf --set-interpreter /snap/core20/current/lib64/ld-linux-x86-64.so.2 {} \;
+      find $SNAPCRAFT_STAGE/usr/lib/ -type f -executable -exec patchelf --set-interpreter /snap/core20/current/lib64/ld-linux-x86-64.so.2 {} \;
+      find $SNAPCRAFT_STAGE/usr/bin/ -type f -executable -exec patchelf --force-rpath --set-rpath $(patchelf --print-rpath {})':/snap/core20/current/lib/x86_64-linux-gnu:/snap/core20/current/usr/lib/x86_64-linux-gnu' {} \;
+      find $SNAPCRAFT_STAGE/usr/lib/ -type f -exec patchelf --force-rpath --set-rpath $(patchelf --print-rpath {})':/snap/core20/current/lib/x86_64-linux-gnu:/snap/core20/current/usr/lib/x86_64-linux-gnu' {} \;
+      find $SNAPCRAFT_STAGE/lib/ -type f -exec patchelf --force-rpath --set-rpath $(patchelf --print-rpath {} )':/snap/core20/current/lib/x86_64-linux-gnu:/snap/core20/current/usr/lib/x86_64-linux-gnu' {} \;
+      find $SNAPCRAFT_STAGE/lib32/ -type f -exec patchelf --force-rpath --set-rpath $(patchelf --print-rpath {} )':/snap/core20/current/lib/x86_64-linux-gnu:/snap/core20/current/usr/lib/x86_64-linux-gnu' {} \;
+      echo -e "/* GNU ld script\n   Use the shared library, but some functions are only in\n   the static library, so try that secondarily.  */\nOUTPUT_FORMAT(elf64-x86-64)\nGROUP ( /snap/core20/current/lib/x86_64-linux-gnu/libc.so.6 /snap/o3de/current/usr/lib/x86_64-linux-gnu/libc.a /usr/lib/x86_64-linux-gnu/libc_nonshared.a  AS_NEEDED ( /snap/core20/current/usr/lib64/ld-linux-x86-64.so.2 ) )\n" > $SNAPCRAFT_STAGE/usr/lib/x86_64-linux-gnu/libc.so
 
 apps:
   o3de:
