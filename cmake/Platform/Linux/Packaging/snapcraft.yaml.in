@@ -28,6 +28,8 @@ parts:
       - libsm6
       - libssl-dev
       - libstdc++-10-dev
+      - libtcl8.6
+      - libtk8.6
       - libunwind-dev
       - libxcb-icccm4
       - libxcb-image0
