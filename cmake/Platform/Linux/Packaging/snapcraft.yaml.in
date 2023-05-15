@@ -17,6 +17,8 @@ parts:
     stage-packages:
       - clang-12
       - cmake
+      - gcc-9
+      - g++-9
       - libc-dev
       - libcurl4-openssl-dev
       - libdbus-1-3
@@ -55,6 +57,7 @@ parts:
     build-packages: [patchelf]
     override-stage: |
       snapcraftctl stage
+      update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-9 100 --slave /usr/bin/g++ g++ /usr/bin/g++-9 --slave /usr/bin/gcov gcov /usr/bin/gcov-9
       find $SNAPCRAFT_STAGE/usr/bin/ -type f -executable -exec patchelf --set-interpreter /snap/core20/current/lib64/ld-linux-x86-64.so.2 {} \;
       find $SNAPCRAFT_STAGE/usr/lib/ -type f -executable -exec patchelf --set-interpreter /snap/core20/current/lib64/ld-linux-x86-64.so.2 {} \;
       find $SNAPCRAFT_STAGE/usr/bin/ -type f -executable -exec patchelf --force-rpath --set-rpath $(patchelf --print-rpath {})':/snap/core20/current/lib/x86_64-linux-gnu:/snap/core20/current/usr/lib/x86_64-linux-gnu' {} \;
