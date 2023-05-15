@@ -17,8 +17,6 @@ parts:
     stage-packages:
       - clang-12
       - cmake
-      - gcc-9
-      - g++-9
       - libc-dev
       - libcurl4-openssl-dev
       - libdbus-1-3
