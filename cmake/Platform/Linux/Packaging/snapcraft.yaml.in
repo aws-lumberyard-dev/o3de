@@ -6,6 +6,7 @@ description: |
 license: Apache-2.0
 confinement: classic
 base: core20
+compression: lzo
 
 parts:
   o3de:
@@ -70,17 +71,20 @@ apps:
       O3DE_SNAP: 1
       SNAP_BUILD: ${CPACK_PACKAGE_VERSION}
       PKG_CONFIG: $SNAP/usr/bin/pkg-config --define-variable=libdir=$SNAP/usr/lib/x86_64-linux-gnu
+      LD_LIBRARY_PATH: $LD_LIBRARY_PATH:$SNAP/usr/local/lib:$SNAP/${CPACK_PACKAGE_VERSION}/bin/Linux/profile/Default
       DISABLE_WAYLAND: 1
   editor:
     command: ${CPACK_PACKAGE_VERSION}/bin/Linux/profile/Default/Editor
     environment:
       O3DE_SNAP: 1
       SNAP_BUILD: ${CPACK_PACKAGE_VERSION}
+      LD_LIBRARY_PATH: $LD_LIBRARY_PATH:$SNAP/usr/local/lib:$SNAP/${CPACK_PACKAGE_VERSION}/bin/Linux/profile/Default
       DISABLE_WAYLAND: 1
   assetprocessor:
     command: ${CPACK_PACKAGE_VERSION}/bin/Linux/profile/Default/AssetProcessor
     environment:
       O3DE_SNAP: 1
       SNAP_BUILD: ${CPACK_PACKAGE_VERSION}
+      LD_LIBRARY_PATH: $LD_LIBRARY_PATH:$SNAP/usr/local/lib:$SNAP/${CPACK_PACKAGE_VERSION}/bin/Linux/profile/Default
       DISABLE_WAYLAND: 1
     
