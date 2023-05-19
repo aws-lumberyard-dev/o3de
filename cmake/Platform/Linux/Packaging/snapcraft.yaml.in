@@ -6,7 +6,6 @@ description: |
 license: Apache-2.0
 confinement: classic
 base: core20
-compression: lzo
 
 parts:
   o3de:
@@ -19,6 +18,7 @@ parts:
       - clang-12
       - cmake
       - libc-dev
+      - libclang-cpp12-dev
       - libcurl4-openssl-dev
       - libdbus-1-3
       - libffi7
@@ -45,6 +45,7 @@ parts:
       - libxkbcommon-dev
       - libxkbcommon-x11-dev
       - libzstd-dev
+      - llvm-12-dev
       - mesa-common-dev
       - ninja-build
       - pkg-config
@@ -71,20 +72,20 @@ apps:
       O3DE_SNAP: 1
       SNAP_BUILD: ${CPACK_PACKAGE_VERSION}
       PKG_CONFIG: $SNAP/usr/bin/pkg-config --define-variable=libdir=$SNAP/usr/lib/x86_64-linux-gnu
-      LD_LIBRARY_PATH: $LD_LIBRARY_PATH:$SNAP/usr/local/lib:$SNAP/${CPACK_PACKAGE_VERSION}/bin/Linux/profile/Default
+      LD_LIBRARY_PATH: $LD_LIBRARY_PATH:$SNAP/usr/local/lib
       DISABLE_WAYLAND: 1
   editor:
     command: ${CPACK_PACKAGE_VERSION}/bin/Linux/profile/Default/Editor
     environment:
       O3DE_SNAP: 1
       SNAP_BUILD: ${CPACK_PACKAGE_VERSION}
-      LD_LIBRARY_PATH: $LD_LIBRARY_PATH:$SNAP/usr/local/lib:$SNAP/${CPACK_PACKAGE_VERSION}/bin/Linux/profile/Default
+      LD_LIBRARY_PATH: $LD_LIBRARY_PATH:$SNAP/usr/local/lib
       DISABLE_WAYLAND: 1
   assetprocessor:
     command: ${CPACK_PACKAGE_VERSION}/bin/Linux/profile/Default/AssetProcessor
     environment:
       O3DE_SNAP: 1
       SNAP_BUILD: ${CPACK_PACKAGE_VERSION}
-      LD_LIBRARY_PATH: $LD_LIBRARY_PATH:$SNAP/usr/local/lib:$SNAP/${CPACK_PACKAGE_VERSION}/bin/Linux/profile/Default
+      LD_LIBRARY_PATH: $LD_LIBRARY_PATH:$SNAP/usr/local/lib
       DISABLE_WAYLAND: 1
     
