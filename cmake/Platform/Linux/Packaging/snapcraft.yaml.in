@@ -7,11 +7,6 @@ license: Apache-2.0
 confinement: classic
 base: core20
 
-environment:
-  LD_LIBRARY_PATH: $SNAP/lib:$SNAP/lib/$SNAPCRAFT_ARCH_TRIPLET:$SNAP/usr/lib:$SNAP/usr/lib/$SNAPCRAFT_ARCH_TRIPLET:$SNAP/${CPACK_PACKAGE_VERSION}/bin/Linux/profile/Default
-  PATH: $SNAP/usr/sbin:$SNAP/usr/bin:$SNAP/sbin:$SNAP/bin:$PATH
-  LC_ALL: C
-
 parts:
   o3de:
     plugin: dump
