@@ -54,14 +54,15 @@ parts:
   patch-o3de:
     plugin: nil
     after: [o3de]
-    build-packages: [patchelf]
+    build-packages: 
+      - patchelf
+      - file
     override-stage: |
       snapcraftctl stage
 
       interpreterpath="/snap/core20/current/usr/lib64/ld-linux-x86-64.so.2"
       newrpath="/snap/core20/current/lib/x86_64-linux-gnu:/snap/core20/current/usr/lib/x86_64-linux-gnu"
-      libpaths=("lib" "usr/lib" "usr/bin")
-      for path in "${libpaths[@]}"
+      for path in lib usr/lib usr/bin
       do
         find "$SNAPCRAFT_STAGE/$path" -type f -executable -exec sh -c 'file "{}" | grep -q ELF' \; -print | \
         while read -r lib 
