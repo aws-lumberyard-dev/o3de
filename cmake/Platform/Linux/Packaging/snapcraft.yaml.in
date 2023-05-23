@@ -57,20 +57,22 @@ parts:
     build-packages: [patchelf]
     override-stage: |
       snapcraftctl stage
-      find $SNAPCRAFT_STAGE/usr/bin/ -type f -executable -exec sh -c 'file -L "{}" | grep -q ELF' \; -print | while read -r lib; do echo $lib; \
-        patchelf --set-interpreter /snap/core20/current/usr/lib64/ld-linux-x86-64.so.2 $lib; done
-      find $SNAPCRAFT_STAGE/usr/lib/ -type f -executable -exec sh -c 'file -L "{}" | grep -q ELF' \; -print | while read -r lib; do echo $lib; \
-        patchelf --set-interpreter /snap/core20/current/usr/lib64/ld-linux-x86-64.so.2 $lib; done
-      find $SNAPCRAFT_STAGE/lib/ -type f -executable -exec sh -c 'file -L "{}" | grep -q ELF' \; -print | while read -r lib; do echo $lib; \
-        patchelf --set-interpreter /snap/core20/current/usr/lib64/ld-linux-x86-64.so.2 $lib; done
-      find $SNAPCRAFT_STAGE/usr/bin/ -type f -executable -exec sh -c 'file -L "{}" | grep -q ELF' \; -print | while read -r lib; do echo $lib; \
-        patchelf --force-rpath --set-rpath $(patchelf --print-rpath $lib)':/snap/core20/current/lib/x86_64-linux-gnu:/snap/core20/current/usr/lib/x86_64-linux-gnu' $lib; done
-      find $SNAPCRAFT_STAGE/usr/lib/ -type f -exec sh -c 'file -L "{}" | grep -q ELF' \; -print | while read -r lib; do echo $lib; \ 
-        patchelf --force-rpath --set-rpath $(patchelf --print-rpath $lib)':/snap/core20/current/lib/x86_64-linux-gnu:/snap/core20/current/usr/lib/x86_64-linux-gnu' $lib; done
-      find $SNAPCRAFT_STAGE/lib/ -type f -exec sh -c 'file -L "{}" | grep -q ELF' \; -print | while read -r lib; do echo $lib; \ 
-        patchelf --force-rpath --set-rpath $(patchelf --print-rpath $lib)':/snap/core20/current/lib/x86_64-linux-gnu:/snap/core20/current/usr/lib/x86_64-linux-gnu' $lib; done
-      find $SNAPCRAFT_STAGE/lib32/ -type f -exec sh -c 'file -L "{}" | grep -q ELF' \; -print | while read -r lib; do echo $lib; \ 
-        patchelf --force-rpath --set-rpath $(patchelf --print-rpath $lib)':/snap/core20/current/lib/x86_64-linux-gnu:/snap/core20/current/usr/lib/x86_64-linux-gnu' $lib; done
+
+      interpreterpath="/snap/core20/current/usr/lib64/ld-linux-x86-64.so.2"
+      newrpath="/snap/core20/current/lib/x86_64-linux-gnu:/snap/core20/current/usr/lib/x86_64-linux-gnu"
+      libpaths=("lib" "usr/lib" "usr/bin")
+      for path in "${libpaths[@]}"
+      do
+        find "$SNAPCRAFT_STAGE/$path" -type f -executable -exec sh -c 'file "{}" | grep -q ELF' \; -print | \
+        while read -r lib 
+        do 
+          echo "File: $lib"
+          echo "Original rpath: $(patchelf --print-rpath $lib)"
+          patchelf --set-interpreter "$interpreterpath" "$lib" 
+          patchelf --force-rpath --set-rpath "$(patchelf --print-rpath $lib):$newrpath" "$lib" 
+          echo "Modified rpath: $(patchelf --print-rpath $lib)"
+        done
+      done
         
       echo -e "/* GNU ld script\n\
          Use the shared library, but some functions are only in\n\
