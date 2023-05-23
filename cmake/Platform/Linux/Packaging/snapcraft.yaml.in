@@ -13,7 +13,7 @@ parts:
     source: ./${CPACK_PACKAGE_NAME}
     source-type: local
     build-attributes:
-      - enable-patchelf
+      - no-patchelf
     stage-packages:
       - clang-12
       - cmake
@@ -50,37 +50,6 @@ parts:
       - ninja-build
       - pkg-config
       - zlib1g-dev
-
-  patch-o3de:
-    plugin: nil
-    after: [o3de]
-    build-packages: 
-      - patchelf
-      - file
-    override-stage: |
-      snapcraftctl stage
-
-      interpreterpath="/snap/core20/current/usr/lib64/ld-linux-x86-64.so.2"
-      newrpath="/snap/core20/current/lib/x86_64-linux-gnu:/snap/core20/current/usr/lib/x86_64-linux-gnu"
-      for path in lib usr/lib usr/bin
-      do
-        find "$SNAPCRAFT_STAGE/$path" -type f -executable -exec sh -c 'file "{}" | grep -q ELF' \; -print | \
-        while read -r lib 
-        do 
-          echo "File: $lib"
-          echo "Original rpath: $(patchelf --print-rpath $lib)"
-          patchelf --set-interpreter "$interpreterpath" "$lib" 
-          patchelf --force-rpath --set-rpath "$(patchelf --print-rpath $lib):$newrpath" "$lib" 
-          echo "Modified rpath: $(patchelf --print-rpath $lib)"
-        done
-      done
-        
-      echo -e "/* GNU ld script\n\
-         Use the shared library, but some functions are only in\n\
-         the static library, so try that secondarily.  */\n\
-      OUTPUT_FORMAT(elf64-x86-64)\n\
-      GROUP ( /snap/core20/current/lib/x86_64-linux-gnu/libc.so.6 /snap/o3de/current/usr/lib/x86_64-linux-gnu/libc.a /usr/lib/x86_64-linux-gnu/libc_nonshared.a  AS_NEEDED ( /snap/core20/current/usr/lib64/ld-linux-x86-64.so.2 ) )\n"\
-      > $SNAPCRAFT_STAGE/usr/lib/x86_64-linux-gnu/libc.so
 
 apps:
   o3de:
