@@ -13,7 +13,7 @@ parts:
     source: ./${CPACK_PACKAGE_NAME}
     source-type: local
     build-attributes:
-      - no-patchelf
+      - enable-patchelf
     stage-packages:
       - clang-12
       - cmake
