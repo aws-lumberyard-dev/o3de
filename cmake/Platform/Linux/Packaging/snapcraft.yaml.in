@@ -51,7 +51,7 @@ parts:
       - pkg-config
       - zlib1g-dev
 
-patch-o3de:
+  patch-o3de:
     plugin: nil
     after: [o3de]
     build-packages: [patchelf]
