@@ -40,11 +40,10 @@ parts:
       - libxkbcommon-x11-0
       - libzstd1
       - mesa-common-dev
-      - mesa-vulkan-drivers
       - zlib1g
     stage:
       # The libraries in .../dri need no-patchelf, so they must come from the mesa-unpatched part
-      - -$SNAPCRAFT_STAGE/usr/lib/${SNAPCRAFT_ARCH_TRIPLET}/dri
+      - -$SNAPCRAFT_STAGE/usr/lib/x86_64-linux-gnu/dri
   
   mesa-no-patchelf:
     plugin: nil
@@ -53,9 +52,10 @@ parts:
       - no-patchelf # Otherwise snapcraft may strip the build ID and cause the driver to crash
     stage-packages:
       - libgl1-mesa-dri
+      - mesa-vulkan-drivers
     stage:
       # Only the libraries in .../dri need to not be patched, the rest come from the mesa part
-      - $SNAPCRAFT_STAGE/usr/lib/${SNAPCRAFT_ARCH_TRIPLET}/dri
+      - $SNAPCRAFT_STAGE/usr/lib/x86_64-linux-gnu/dri
     
 apps:
   o3de:
