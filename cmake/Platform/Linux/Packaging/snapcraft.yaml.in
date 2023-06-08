@@ -21,7 +21,7 @@ parts:
       - libfontconfig1
       - libglu1-mesa
       - libpng16-16
-      - libsdl2
+      - libsdl2-2.0-0
       - libsm6
       - libssl1.1
       - libtcl8.6
