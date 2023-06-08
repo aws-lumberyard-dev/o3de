@@ -43,7 +43,7 @@ parts:
       - zlib1g
     stage:
       # The libraries in .../dri need no-patchelf, so they must come from the mesa-unpatched part
-      - -$SNAPCRAFT_STAGE/usr/lib/x86_64-linux-gnu/dri
+      - -usr/lib/x86_64-linux-gnu/dri
   
   mesa-no-patchelf:
     plugin: nil
@@ -55,7 +55,7 @@ parts:
       - mesa-vulkan-drivers
     stage:
       # Only the libraries in .../dri need to not be patched, the rest come from the mesa part
-      - $SNAPCRAFT_STAGE/usr/lib/x86_64-linux-gnu/dri
+      - usr/lib/x86_64-linux-gnu/dri
     
 apps:
   o3de:
