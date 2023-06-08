@@ -16,7 +16,7 @@ parts:
       - enable-patchelf
     stage-packages:
       - clang-12
-      - ldd
+      - lld
       - libatomic1
       - libcurl4-openssl-dev
       - libdbus-1-3
