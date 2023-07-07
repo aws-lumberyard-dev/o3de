@@ -15,8 +15,6 @@ if(NOT CMAKE_C_COMPILER AND NOT CMAKE_CXX_COMPILER AND NOT "$ENV{CC}" AND NOT "$
         /usr/sbin
         /usr/local/sbin
     )
-
-    endif()
     list(TRANSFORM path_search APPEND "/clang-[0-9]*" OUTPUT_VARIABLE path_with_version_search)
     file(GLOB clang_versions ${path_with_version_search})
     unset(compiler_found)
