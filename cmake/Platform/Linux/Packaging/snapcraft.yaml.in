@@ -15,6 +15,7 @@ parts:
     build-attributes:
       - enable-patchelf
     stage-packages:
+      - clang-12
       - libatomic1
       - libcurl4-openssl-dev
       - libdbus-1-3
