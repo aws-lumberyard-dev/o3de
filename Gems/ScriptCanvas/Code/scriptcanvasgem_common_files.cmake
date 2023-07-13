@@ -96,6 +96,24 @@ set(FILES
     Include/ScriptCanvas/Internal/Nodes/ExpressionNodeBase.cpp
     Include/ScriptCanvas/Internal/Nodes/StringFormatted.cpp
     Include/ScriptCanvas/Libraries/Libraries.cpp
+    Include/ScriptCanvas/Libraries/Compact/CompactAddNodeable.cpp
+    Include/ScriptCanvas/Libraries/Compact/CompactArccosineNodeable.cpp
+    Include/ScriptCanvas/Libraries/Compact/CompactArcsineNodeable.cpp
+    Include/ScriptCanvas/Libraries/Compact/CompactArctangentNodeable.cpp
+    Include/ScriptCanvas/Libraries/Compact/CompactCielingNodeable.cpp
+    Include/ScriptCanvas/Libraries/Compact/CompactCosineNodeable.cpp
+    Include/ScriptCanvas/Libraries/Compact/CompactDivideNodeable.cpp
+    Include/ScriptCanvas/Libraries/Compact/CompactFloorNodeable.cpp
+    Include/ScriptCanvas/Libraries/Compact/CompactModuloNodeable.cpp
+    Include/ScriptCanvas/Libraries/Compact/CompactMultiplyNodeable.cpp
+    Include/ScriptCanvas/Libraries/Compact/CompactNegativeNodeable.cpp
+    Include/ScriptCanvas/Libraries/Compact/CompactPowerNodeable.cpp
+    Include/ScriptCanvas/Libraries/Compact/CompactRoundNodeable.cpp
+    Include/ScriptCanvas/Libraries/Compact/CompactSineNodeable.cpp
+    Include/ScriptCanvas/Libraries/Compact/CompactSquareNodeable.cpp
+    Include/ScriptCanvas/Libraries/Compact/CompactSquareRootNodeable.cpp
+    Include/ScriptCanvas/Libraries/Compact/CompactSubtractNodeable.cpp
+    Include/ScriptCanvas/Libraries/Compact/CompactTangentNodeable.cpp
     Include/ScriptCanvas/Libraries/Core/AzEventHandler.cpp
     Include/ScriptCanvas/Libraries/Core/BinaryOperator.cpp
     Include/ScriptCanvas/Libraries/Core/CoreLibrary.cpp

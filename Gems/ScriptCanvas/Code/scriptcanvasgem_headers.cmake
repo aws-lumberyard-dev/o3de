@@ -126,6 +126,42 @@ set(FILES
     Include/ScriptCanvas/Internal/Nodes/StringFormatted.h
     Include/ScriptCanvas/Internal/Nodes/StringFormatted.ScriptCanvasGrammar.xml
     Include/ScriptCanvas/Libraries/Libraries.h
+    Include/ScriptCanvas/Libraries/Compact/CompactAddNodeable.ScriptCanvasNodeable.xml
+    Include/ScriptCanvas/Libraries/Compact/CompactAddNodeable.h
+    Include/ScriptCanvas/Libraries/Compact/CompactArccosineNodeable.ScriptCanvasNodeable.xml
+    Include/ScriptCanvas/Libraries/Compact/CompactArccosineNodeable.h
+    Include/ScriptCanvas/Libraries/Compact/CompactArcsineNodeable.ScriptCanvasNodeable.xml
+    Include/ScriptCanvas/Libraries/Compact/CompactArcsineNodeable.h
+    Include/ScriptCanvas/Libraries/Compact/CompactArctangentNodeable.ScriptCanvasNodeable.xml
+    Include/ScriptCanvas/Libraries/Compact/CompactArctangentNodeable.h
+    Include/ScriptCanvas/Libraries/Compact/CompactCielingNodeable.ScriptCanvasNodeable.xml
+    Include/ScriptCanvas/Libraries/Compact/CompactCielingNodeable.h
+    Include/ScriptCanvas/Libraries/Compact/CompactCosineNodeable.ScriptCanvasNodeable.xml
+    Include/ScriptCanvas/Libraries/Compact/CompactCosineNodeable.h
+    Include/ScriptCanvas/Libraries/Compact/CompactDivideNodeable.ScriptCanvasNodeable.xml
+    Include/ScriptCanvas/Libraries/Compact/CompactDivideNodeable.h
+    Include/ScriptCanvas/Libraries/Compact/CompactFloorNodeable.ScriptCanvasNodeable.xml
+    Include/ScriptCanvas/Libraries/Compact/CompactFloorNodeable.h
+    Include/ScriptCanvas/Libraries/Compact/CompactModuloNodeable.ScriptCanvasNodeable.xml
+    Include/ScriptCanvas/Libraries/Compact/CompactModuloNodeable.h
+    Include/ScriptCanvas/Libraries/Compact/CompactMultiplyNodeable.ScriptCanvasNodeable.xml
+    Include/ScriptCanvas/Libraries/Compact/CompactMultiplyNodeable.h
+    Include/ScriptCanvas/Libraries/Compact/CompactNegativeNodeable.ScriptCanvasNodeable.xml
+    Include/ScriptCanvas/Libraries/Compact/CompactNegativeNodeable.h
+    Include/ScriptCanvas/Libraries/Compact/CompactPowerNodeable.ScriptCanvasNodeable.xml
+    Include/ScriptCanvas/Libraries/Compact/CompactPowerNodeable.h
+    Include/ScriptCanvas/Libraries/Compact/CompactRoundNodeable.ScriptCanvasNodeable.xml
+    Include/ScriptCanvas/Libraries/Compact/CompactRoundNodeable.h
+    Include/ScriptCanvas/Libraries/Compact/CompactSineNodeable.ScriptCanvasNodeable.xml
+    Include/ScriptCanvas/Libraries/Compact/CompactSineNodeable.h
+    Include/ScriptCanvas/Libraries/Compact/CompactSquareNodeable.ScriptCanvasNodeable.xml
+    Include/ScriptCanvas/Libraries/Compact/CompactSquareNodeable.h
+    Include/ScriptCanvas/Libraries/Compact/CompactSquareRootNodeable.ScriptCanvasNodeable.xml
+    Include/ScriptCanvas/Libraries/Compact/CompactSquareRootNodeable.h
+    Include/ScriptCanvas/Libraries/Compact/CompactSubtractNodeable.ScriptCanvasNodeable.xml
+    Include/ScriptCanvas/Libraries/Compact/CompactSubtractNodeable.h
+    Include/ScriptCanvas/Libraries/Compact/CompactTangentNodeable.ScriptCanvasNodeable.xml
+    Include/ScriptCanvas/Libraries/Compact/CompactTangentNodeable.h
     Include/ScriptCanvas/Libraries/Core/AzEventHandler.h
     Include/ScriptCanvas/Libraries/Core/AzEventHandler.ScriptCanvasGrammar.xml
     Include/ScriptCanvas/Libraries/Core/BinaryOperator.h
