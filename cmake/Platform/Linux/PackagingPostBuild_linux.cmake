@@ -65,7 +65,7 @@ if(CPACK_UPLOAD_URL)
     # to a special "Latest" folder under the branch in place of the commit date/hash
     if(CPACK_AUTO_GEN_TAG)
         if("$ENV{O3DE_PACKAGE_TYPE}" STREQUAL "SNAP")
-            set(latest_snap_file "${CPACK_UPLOAD_DIRECTORY}/${CPACK_PACKAGE_NAME}_amd64_latest.snap")
+            set(latest_snap_file "${CPACK_UPLOAD_DIRECTORY}/${CPACK_PACKAGE_NAME}_latest.snap")
             file(COPY_FILE
                 ${snap_file}
                 ${latest_snap_file}
