@@ -1014,6 +1014,20 @@ namespace AZ::Reflection
                     // 3) Class data attributes (the base attributes of a class)
                     if (nodeData.m_classElement)
                     {
+                        void* instanceToInvoke = nodeData.m_instanceToInvoke;
+
+                        /*
+                        for (auto iter = m_stack.rbegin(); iter != m_stack.rend(); ++iter)
+                        {
+                            // iter type should match the type of the owner of the attribute? Maybe?
+                            if (false)
+                            {
+                                instanceToInvoke = iter->m_instance;
+                                break;
+                            }
+                        }
+                        */
+
                         if (const AZ::Edit::ElementData* elementEditData = nodeData.m_classElement->m_editData; elementEditData != nullptr)
                         {
                             if (!isParentAttribute)
@@ -1031,7 +1045,7 @@ namespace AZ::Reflection
 
                             for (auto it = elementEditData->m_attributes.begin(); it != elementEditData->m_attributes.end(); ++it)
                             {
-                                checkAttribute(it, nodeData.m_instanceToInvoke, isParentAttribute);
+                                checkAttribute(it, instanceToInvoke, isParentAttribute);
                             }
                         }
 
@@ -1041,7 +1055,7 @@ namespace AZ::Reflection
                             AZ::AttributePair pair;
                             pair.first = it->first;
                             pair.second = it->second.get();
-                            checkAttribute(&pair, nodeData.m_instanceToInvoke, isParentAttribute);
+                            checkAttribute(&pair, instanceToInvoke, isParentAttribute);
                         }
                     }
 
