@@ -59,6 +59,14 @@ parts:
     stage:
       # Only the libraries in .../dri need to not be patched, the rest come from the mesa part
       - usr/lib/x86_64-linux-gnu/dri
+
+  pkg-config-prefix-override:
+    plugin: nil
+    after: [mesa-no-patchelf]
+    build-packages: [pkg-config]
+    override-stage: |
+      snapcraftctl stage
+      find $SNAPCRAFT_STAGE/usr/lib/pkgconfg -type f -name "*.pc" -exec sed -i {} -e "s/^prefix=.*$/prefix=$SNAPCRAFT_STAGE/"
     
 apps:
   o3de:
@@ -67,7 +75,6 @@ apps:
       O3DE_SNAP: 1
       SNAP_BUILD: ${CPACK_PACKAGE_VERSION}
       PKG_CONFIG: $SNAP/usr/bin/pkg-config --define-variable=libdir=$SNAP/usr/lib/x86_64-linux-gnu
-      PKG_CONFIG_PATH: $PKG_CONFIG_PATH:$SNAP/usr/lib/x86_64-linux-gnu/pkgconfig
       DISABLE_WAYLAND: 1
   editor:
     command: ${CPACK_PACKAGE_VERSION}/bin/Linux/profile/Default/Editor
