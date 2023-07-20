@@ -67,6 +67,7 @@ apps:
       O3DE_SNAP: 1
       SNAP_BUILD: ${CPACK_PACKAGE_VERSION}
       PKG_CONFIG: $SNAP/usr/bin/pkg-config --define-variable=libdir=$SNAP/usr/lib/x86_64-linux-gnu
+      PKG_CONFIG_PATH: $SNAP/usr/lib/x86_64-linux-gnu/pkgconfig
       DISABLE_WAYLAND: 1
   editor:
     command: ${CPACK_PACKAGE_VERSION}/bin/Linux/profile/Default/Editor
