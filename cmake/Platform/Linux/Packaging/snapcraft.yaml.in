@@ -40,7 +40,7 @@ parts:
       - libxcb-xinput0
       - libxcb-xkb1
       - libxkbcommon0
-      - libxkbcommon-x11-0
+      - libxkbcommon-x11-dev
       - libzstd1
       - pkg-config
       - zlib1g
