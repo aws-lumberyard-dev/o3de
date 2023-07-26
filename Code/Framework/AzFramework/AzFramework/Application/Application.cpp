@@ -49,6 +49,7 @@
 #include <AzFramework/Network/IRemoteTools.h>
 #include <AzFramework/Scene/SceneSystemComponent.h>
 #include <AzFramework/Components/AzFrameworkConfigurationSystemComponent.h>
+#include <AzFramework/Device/DeviceAttributesSystemComponent.h>
 #include <AzFramework/StringFunc/StringFunc.h>
 #include <AzFramework/IO/LocalFileIO.h>
 #include <AzFramework/IO/RemoteStorageDrive.h>
@@ -56,6 +57,7 @@
 #include <AzFramework/PaintBrush/PaintBrushSystemComponent.h>
 #include <AzFramework/Physics/Utils.h>
 #include <AzFramework/Physics/Material/PhysicsMaterialSystemComponent.h>
+#include <AzFramework/Quality/QualitySystemComponent.h>
 #include <AzFramework/Render/GameIntersectorComponent.h>
 #include <AzFramework/Platform/PlatformDefaults.h>
 #include <AzFramework/Archive/Archive.h>
@@ -369,6 +371,8 @@ namespace AzFramework
             azrtti_typeid<AzFramework::SpawnableSystemComponent>(),
             azrtti_typeid<Physics::MaterialSystemComponent>(),
             AZ::Uuid("{624a7be2-3c7e-4119-aee2-1db2bdb6cc89}"), // ScriptDebugAgent
+            azrtti_typeid<AzFramework::DeviceAttributesSystemComponent>(),
+            azrtti_typeid<AzFramework::QualitySystemComponent>(),
             });
 
         return components;

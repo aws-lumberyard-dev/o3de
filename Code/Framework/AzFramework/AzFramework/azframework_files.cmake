@@ -78,6 +78,10 @@ set(FILES
     Asset/Benchmark/BenchmarkSettingsAsset.h
     CommandLine/CommandLine.h
     CommandLine/CommandRegistrationBus.h
+    Device/DeviceAttributeInterface.cpp
+    Device/DeviceAttributeInterface.h
+    Device/DeviceAttributesSystemComponent.cpp
+    Device/DeviceAttributesSystemComponent.h
     Viewport/ViewportBus.h
     Viewport/ViewportBus.cpp
     Viewport/ViewportColors.h
@@ -328,6 +332,11 @@ set(FILES
     Process/ProcessUtils.h
     ProjectManager/ProjectManager.h
     ProjectManager/ProjectManager.cpp
+    Quality/QualityCVarGroup.cpp
+    Quality/QualityCVarGroup.h
+    Quality/QualitySystemComponent.cpp
+    Quality/QualitySystemComponent.h
+    Quality/QualitySystemBus.h
     Render/GameIntersectorComponent.h
     Render/GameIntersectorComponent.cpp
     Render/GeometryIntersectionBus.h
