@@ -246,6 +246,11 @@ namespace ScriptCanvas
                 InitializeInput(config);
                 {
                     ExecutionSlotConfiguration slotConfiguration("In", ConnectionType::Input);
+
+                    // Ensure that the execution input is invisible and that it creates implicit connections
+                    slotConfiguration.m_createsImplicitConnections = true;
+                    slotConfiguration.m_isVisible = false;
+
                     AddSlot(slotConfiguration);
                 }
                 InitializeOutput(config);

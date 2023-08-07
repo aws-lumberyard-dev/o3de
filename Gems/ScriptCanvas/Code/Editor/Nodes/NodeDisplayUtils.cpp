@@ -294,7 +294,10 @@ namespace ScriptCanvasEditor::Nodes
         AZ::EntityId graphCanvasNodeId;
 
         AZ::Entity* graphCanvasEntity = nullptr;
-        GraphCanvas::GraphCanvasRequestBus::BroadcastResult(graphCanvasEntity, &GraphCanvas::GraphCanvasRequests::CreateGeneralNode, ".method");
+
+        // Make it so method nodes are created using the compact substyle
+        GraphCanvas::GraphCanvasRequestBus::BroadcastResult(graphCanvasEntity, &GraphCanvas::GraphCanvasRequests::CreateGeneralNode, ".compact");
+
         AZ_Error("GraphCanvas", graphCanvasEntity, "Unable to create GraphCanvas Node");
 
         if (graphCanvasEntity)
@@ -395,11 +398,13 @@ namespace ScriptCanvasEditor::Nodes
         key << updatedMethodName << methodContext;
         GraphCanvas::TranslationRequestBus::BroadcastResult(methodDetails, &GraphCanvas::TranslationRequests::GetDetails, key + ".details", methodDetails);
 
-
         if (methodDetails.m_subtitle.empty())
         {
             methodDetails.m_subtitle = details.m_category.empty() ? details.m_name : details.m_category;
         }
+
+        // I temporarily remove the subtitle for the node here because it will not display correctly in the compact style. Ideally, this should be fixed in GraphCanvas
+        methodDetails.m_subtitle = "";
 
         // Add to the tooltip the C++ class for reference
         if (!methodDetails.m_tooltip.empty())

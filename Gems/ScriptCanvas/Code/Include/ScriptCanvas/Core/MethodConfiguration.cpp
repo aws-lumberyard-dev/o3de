@@ -130,6 +130,10 @@ namespace ScriptCanvas
                     slotConfiguration.m_name = outputConfig.outputNamePrefix + resultSlotName;
                     slotConfiguration.SetType(outputType);
                     slotConfiguration.SetConnectionType(ConnectionType::Output);
+
+                    // Make it so data out slots hide their names
+                    slotConfiguration.m_isNameHidden = true;
+
                     AZ::BranchOnResultInfo branchOnResultInfo;
                     if (AZ::ReadAttribute(branchOnResultInfo, AZ::ScriptCanvasAttributes::BranchOnResult, method.m_attributes))
                     {
@@ -188,7 +192,11 @@ namespace ScriptCanvas
             }
             else
             {
-                outputConfig.methodNode->AddSlot(CommonSlots::GeneralOutSlot());
+                // Set the execution out slot to be hidden
+                ExecutionSlotConfiguration outSlot = CommonSlots::GeneralOutSlot();
+                outSlot.m_isVisible = false;
+
+                outputConfig.methodNode->AddSlot(outSlot);
             }
 
             if (method.HasResult())
@@ -231,6 +239,10 @@ namespace ScriptCanvas
             slotConfiguration.m_name = nameAndToolTip.first;
             slotConfiguration.m_toolTip = nameAndToolTip.second;
             slotConfiguration.SetConnectionType(ConnectionType::Input);
+
+            // Make it so data input slots hide their input fields and names
+            slotConfiguration.m_canHaveInputField = false;
+            slotConfiguration.m_isNameHidden = true;
 
             AZ::ScriptCanvasAttributes::HiddenIndices hiddenIndices;
             AZ::ReadAttribute(hiddenIndices, AZ::ScriptCanvasAttributes::HiddenParameterIndex, config.m_method.m_attributes);
