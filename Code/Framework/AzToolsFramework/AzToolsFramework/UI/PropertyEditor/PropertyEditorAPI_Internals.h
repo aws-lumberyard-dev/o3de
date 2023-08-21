@@ -491,6 +491,9 @@ namespace AzToolsFramework
                 newValue = AZ::Dom::Utils::ValueFromType(m_proxyValue);
             }
 
+            // <apm> call this with the right parameters, see PropertyRowWidget::ValidatePropertyChange
+            auto changeValidate = PropertyEditor::ChangeValidate.InvokeOnDomNode(m_domNode);
+
             PropertyEditor::OnChanged.InvokeOnDomNode(m_domNode, newValue, changeType);
             OnRequestPropertyNotify();
         }
