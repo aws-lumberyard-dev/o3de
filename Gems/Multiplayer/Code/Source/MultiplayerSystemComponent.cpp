@@ -593,34 +593,35 @@ namespace Multiplayer
         // Send out the game state update to all connections
         UpdateConnections();
 
-        MultiplayerPackets::SyncConsole packet;
-        AZ::ThreadSafeDeque<AZStd::string>::DequeType cvarUpdates;
-        m_cvarCommands.Swap(cvarUpdates);
+        // Sync Console variables from host to clients
+        //MultiplayerPackets::SyncConsole syncConsolePacket;
+        //AZ::ThreadSafeDeque<AZStd::string>::DequeType cvarUpdates;
+        //m_cvarCommands.Swap(cvarUpdates);
 
-        auto visitor = [&packet](IConnection& connection)
-        {
-            if (connection.GetConnectionRole() == ConnectionRole::Acceptor)
-            {
-                connection.SendReliablePacket(packet);
-            }
-        };
+        //auto sendSyncConsolePackets = [&syncConsolePacket](IConnection& connection)
+        //{
+        //    if (connection.GetConnectionRole() == ConnectionRole::Acceptor)
+        //    {
+        //        connection.SendReliablePacket(syncConsolePacket);
+        //    }
+        //};
 
-        while (cvarUpdates.size() > 0)
-        {
-            packet.ModifyCommandSet().emplace_back(cvarUpdates.front());
-            if (packet.GetCommandSet().full())
-            {
-                m_networkInterface->GetConnectionSet().VisitConnections(visitor);
-                packet.ModifyCommandSet().clear();
-            }
-            cvarUpdates.pop_front();
-        }
+        //while (!cvarUpdates.empty())
+        //{
+        //    syncConsolePacket.ModifyCommandSet().emplace_back(cvarUpdates.front());
+        //    if (syncConsolePacket.GetCommandSet().full())
+        //    {
+        //        m_networkInterface->GetConnectionSet().VisitConnections(sendSyncConsolePackets);
+        //        syncConsolePacket.ModifyCommandSet().clear();
+        //    }
+        //    cvarUpdates.pop_front();
+        //}
 
-        if (!packet.GetCommandSet().empty())
-        {
-            AZ_PROFILE_SCOPE(MULTIPLAYER, "MultiplayerSystemComponent: OnTick - SendReliablePackets");
-            m_networkInterface->GetConnectionSet().VisitConnections(visitor);
-        }
+        //if (!syncConsolePacket.GetCommandSet().empty())
+        //{
+        //    AZ_PROFILE_SCOPE(MULTIPLAYER, "MultiplayerSystemComponent: OnTick - SendReliablePackets");
+        //    m_networkInterface->GetConnectionSet().VisitConnections(sendSyncConsolePackets);
+        //}
 
         const auto duration =
             AZStd::chrono::duration_cast<AZStd::chrono::microseconds>(AZStd::chrono::steady_clock::now() - startMultiplayerTickTime);
@@ -802,12 +803,12 @@ namespace Multiplayer
         {
             reinterpret_cast<ServerToClientConnectionData*>(connection->GetUserData())->SetDidHandshake(true);
 
-            if (packet.GetTemporaryUserId() == 0)
-            {
-                // Sync our console
-                ConsoleReplicator consoleReplicator(connection);
-                AZ::Interface<AZ::IConsole>::Get()->VisitRegisteredFunctors([&consoleReplicator](AZ::ConsoleFunctorBase* functor) { consoleReplicator.Visit(functor); });
-            }
+            //if (packet.GetTemporaryUserId() == 0)
+            //{
+            //    // Sync our console
+            //    ConsoleReplicator consoleReplicator(connection);
+            //    AZ::Interface<AZ::IConsole>::Get()->VisitRegisteredFunctors([&consoleReplicator](AZ::ConsoleFunctorBase* functor) { consoleReplicator.Visit(functor); });
+            //}
             return true;
         }
         return false;
@@ -920,7 +921,7 @@ namespace Multiplayer
         {
             return false;
         }
-        ExecuteConsoleCommandList(connection, packet.GetCommandSet());
+        //ExecuteConsoleCommandList(connection, packet.GetCommandSet());
         return true;
     }
 
