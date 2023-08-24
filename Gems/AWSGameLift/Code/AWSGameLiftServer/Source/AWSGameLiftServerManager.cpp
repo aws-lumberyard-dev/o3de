@@ -177,10 +177,12 @@ namespace AWSGameLift
         sessionConfig.m_port = static_cast<uint16_t>(gameSession.GetPort());
         sessionConfig.m_status = AWSGameLiftSessionStatusNames[(int)gameSession.GetStatus()];
 
-        AZ_TracePrintf(AWSGameLiftServerManagerName,
-            "Built SessionConfig with Name=%s, Id=%s, Status=%s, DnsName=%s, IpAddress=%s, Port=%d, MaxPlayer=%d and Properties=%s",
+        AZ_TracePrintf(
+            AWSGameLiftServerManagerName,
+            "Built SessionConfig with Name=%s, Id=%s, MatchId=%s, Status=%s, DnsName=%s, IpAddress=%s, Port=%d, MaxPlayer=%d and Properties=%s",
             sessionConfig.m_sessionName.c_str(),
             sessionConfig.m_sessionId.c_str(),
+            sessionConfig.m_matchmakingData.c_str(),
             sessionConfig.m_status.c_str(),
             sessionConfig.m_dnsName.c_str(),
             sessionConfig.m_ipAddress.c_str(),
