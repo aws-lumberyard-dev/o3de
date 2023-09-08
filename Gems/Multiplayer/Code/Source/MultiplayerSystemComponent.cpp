@@ -477,8 +477,19 @@ namespace Multiplayer
     }
 
 
-    bool MultiplayerSystemComponent::OnCreateSessionBegin(const SessionConfig& sessionConfig)
+    bool MultiplayerSystemComponent::OnCreateSessionBegin([[maybe_unused]]const SessionConfig& sessionConfig)
     {
+        /*
+         * @todo Disabling for PlayTest, the GameLift server will already be hosting a level.
+         * The server knows which port it's using (in fact it's the one which reports it to GameLift inside AWSGameLiftServerManager::BuildGameLiftServerProcessDesc.
+         * Having the server begin hosting and starting a level only when OnCreateSessionBegin occurs it's a bit dangerous because
+         * OnCreateSessionBegin is called once players start trying to join. The server will have to load a large level as new players are filling in.
+         * It's better for a server to already be warmed up with the level loaded.
+        */
+
+        return true;
+
+        /*
         // Check if session manager has a certificate for us and pass it along if so
         if (auto console = AZ::Interface<AZ::IConsole>::Get(); console != nullptr)
         {
@@ -501,6 +512,7 @@ namespace Multiplayer
         Multiplayer::MultiplayerAgentType serverType = sv_isDedicated ? MultiplayerAgentType::DedicatedServer : MultiplayerAgentType::ClientServer;
         InitializeMultiplayer(serverType);
         return m_networkInterface->Listen(sessionConfig.m_port);
+        */
     }
 
     void MultiplayerSystemComponent::OnCreateSessionEnd()
