@@ -1612,7 +1612,7 @@ class AndroidSDKResolver(object):
         if tools_path.exists():
             tools_path = tools_path / command_line_tools_version
             if not tools_path.exists():
-                raise common.LmbrCmdError(f"The desired version of the Android 'cmdline-tools' ({command_line_tools_version}) is not detected")
+                raise common.LmbrCmdError(f"The desired version of the Android 'cmdline-tools' ({tools_path}) is not detected")
         else:
             tools_path =  sdk_root / 'tools'
 
