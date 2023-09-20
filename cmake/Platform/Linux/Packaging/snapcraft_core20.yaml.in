@@ -68,7 +68,7 @@ parts:
     build-attributes:
       - no-patchelf # Leave Gems rpath set to the system
     stage:
-      - ${CPACK_PACKAGE_VERSION}/Gems
+      - ${CPACK_PACKAGE_NAME}/Gems
     
 apps:
   o3de:
