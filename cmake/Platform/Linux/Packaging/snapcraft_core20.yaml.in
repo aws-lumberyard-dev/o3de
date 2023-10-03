@@ -48,7 +48,7 @@ parts:
       # The libraries in .../dri need no-patchelf, so they must come from the mesa-unpatched part
       - -usr/lib/x86_64-linux-gnu/dri
       # Don't patchelf the Gems, they will be copied in through the gems-no-patchelf section
-      - -${SNAPCRAFT_STAGE}/${CPACK_PACKAGE_VERSION}/Gems
+      - -${CPACK_PACKAGE_VERSION}/Gems
   
   mesa-no-patchelf:
     plugin: nil
@@ -68,7 +68,7 @@ parts:
     build-attributes:
       - no-patchelf # Leave Gems rpath set to the system
     stage:
-      - ${SNAPCRAFT_STAGE}/${CPACK_PACKAGE_VERSION}/Gems
+      - ${CPACK_PACKAGE_VERSION}/Gems
     
 apps:
   o3de:
