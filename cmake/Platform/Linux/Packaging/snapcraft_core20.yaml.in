@@ -67,8 +67,9 @@ parts:
     after: [o3de]
     build-attributes:
       - no-patchelf # Leave Gems rpath set to the system
-    stage:
-      - ${CPACK_PACKAGE_VERSION}/Gems
+    override-stage: |
+      snapcraftctl stage
+      $$SNAPCRAFT_STAGE/${CPACK_PACKAGE_VERSION}/Gems
     
 apps:
   o3de:
