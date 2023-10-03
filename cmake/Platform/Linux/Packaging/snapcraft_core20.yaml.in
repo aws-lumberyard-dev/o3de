@@ -48,7 +48,7 @@ parts:
       # The libraries in .../dri need no-patchelf, so they must come from the mesa-unpatched part
       - -usr/lib/x86_64-linux-gnu/dri
       # Don't patchelf the Gems, they will be copied in through the gems-no-patchelf section
-      - -${CPACK_PACKAGE_NAME}/Gems
+      - -${SNAPCRAFT_STAGE}/${CPACK_PACKAGE_VERSION}/Gems
   
   mesa-no-patchelf:
     plugin: nil
@@ -68,12 +68,13 @@ parts:
     build-attributes:
       - no-patchelf # Leave Gems rpath set to the system
     stage:
-      - ${CPACK_PACKAGE_NAME}/Gems
+      - ${SNAPCRAFT_STAGE}/${CPACK_PACKAGE_VERSION}/Gems
     
 apps:
   o3de:
     command: ${CPACK_PACKAGE_VERSION}/bin/Linux/profile/Default/o3de
     environment:
+      LD_LIBRARY_PATH: $LD_LIBRARY_PATH:$SNAP/${CPACK_PACKAGE_VERSION}/bin/Linux/profile/Default
       O3DE_SNAP: 1
       SNAP_BUILD: ${CPACK_PACKAGE_VERSION}
       PKG_CONFIG: $SNAP/usr/bin/pkg-config --define-variable=libdir=$SNAP/usr/lib/x86_64-linux-gnu
@@ -81,12 +82,14 @@ apps:
   editor:
     command: ${CPACK_PACKAGE_VERSION}/bin/Linux/profile/Default/Editor
     environment:
+      LD_LIBRARY_PATH: $LD_LIBRARY_PATH:$SNAP/${CPACK_PACKAGE_VERSION}/bin/Linux/profile/Default
       O3DE_SNAP: 1
       SNAP_BUILD: ${CPACK_PACKAGE_VERSION}
       DISABLE_WAYLAND: 1
   assetprocessor:
     command: ${CPACK_PACKAGE_VERSION}/bin/Linux/profile/Default/AssetProcessor
     environment:
+      LD_LIBRARY_PATH: $LD_LIBRARY_PATH:$SNAP/${CPACK_PACKAGE_VERSION}/bin/Linux/profile/Default
       O3DE_SNAP: 1
       SNAP_BUILD: ${CPACK_PACKAGE_VERSION}
       DISABLE_WAYLAND: 1
