@@ -69,7 +69,7 @@ parts:
       - no-patchelf # Leave Gems rpath set to the system
     override-stage: |
       snapcraftctl stage
-      $$SNAPCRAFT_STAGE/${CPACK_PACKAGE_VERSION}/Gems
+      ${SNAPCRAFT_STAGE}/${CPACK_PACKAGE_VERSION}/Gems
     
 apps:
   o3de:
