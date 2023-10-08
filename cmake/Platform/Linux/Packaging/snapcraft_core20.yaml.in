@@ -47,8 +47,12 @@ parts:
     stage:
       # The libraries in .../dri need no-patchelf, so they must come from the mesa-unpatched part
       - -usr/lib/x86_64-linux-gnu/dri
-      # Don't patchelf the Gems, they will be copied in through the gems-no-patchelf section
-      - -${CPACK_PACKAGE_VERSION}/Gems
+      # Don't patchelf the Gems, they will be copied out then back in through the prime section
+    organize:
+      ${CPACK_PACKAGE_VERSION}/Gems: ${CPACK_PACKAGE_VERSION}/Gems-excluded
+    prime:
+      - -${CPACK_PACKAGE_VERSION}/Gems-excluded
+      - ${CPACK_PACKAGE_VERSION}/
   
   mesa-no-patchelf:
     plugin: nil
@@ -62,15 +66,6 @@ parts:
       # Only the libraries in .../dri need to not be patched, the rest come from the mesa part
       - usr/lib/x86_64-linux-gnu/dri
 
-  gems-no-patchelf:
-    plugin: nil
-    after: [o3de]
-    build-attributes:
-      - no-patchelf # Leave Gems rpath set to the system
-    override-stage: |
-      snapcraftctl stage
-      ${SNAPCRAFT_STAGE}/${CPACK_PACKAGE_VERSION}/Gems
-    
 apps:
   o3de:
     command: ${CPACK_PACKAGE_VERSION}/bin/Linux/profile/Default/o3de
