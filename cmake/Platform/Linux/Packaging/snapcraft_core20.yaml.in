@@ -51,10 +51,10 @@ parts:
       - -usr/lib/x86_64-linux-gnu/dri
       # Don't patchelf the Gems, they will be copied out then back in through the prime section
     organize:
-      ${CPACK_PACKAGE_VERSION}/Gems: ${CPACK_PACKAGE_VERSION}/Gems-excluded
+      Gems: Gems-excluded
     prime:
-      - -${CPACK_PACKAGE_VERSION}/Gems-excluded
-      - ${CPACK_PACKAGE_VERSION}/Gems
+      - -Gems-excluded
+      - Gems
   
   mesa-no-patchelf:
     plugin: nil
