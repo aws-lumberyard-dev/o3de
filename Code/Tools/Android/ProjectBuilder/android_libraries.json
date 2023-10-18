@@ -42,6 +42,11 @@
             "path": "AndroidManifest.xml",
             "changes": [
             {
+                "line": 2,
+                "old": ["package=\"com.android.vending.expansion.downloader\""],
+                "new": [""]
+            },
+            {
                 "line": 6,
                 "old": ["<uses-sdk android:minSdkVersion=\"4\" android:targetSdkVersion=\"15\"/>"],
                 "new": [""]
@@ -71,11 +76,17 @@
             "path": "AndroidManifest.xml",
             "changes": [
             {
+                "line": 16,
+                "old": ["package=\"com.google.android.vending.licensing\""],
+                "new": [""]
+            },
+            {
                 "line": 19,
                 "old": ["<!-- Devices >= 3 have version of Android Market that supports licensing. -->",
                         "<uses-sdk android:minSdkVersion=\"3\" android:targetSdkVersion=\"15\" />"],
                 "new": [""]
-            }]
+            }
+        ]
         }]
     }
 }

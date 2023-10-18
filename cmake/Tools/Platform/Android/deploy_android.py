@@ -94,6 +94,10 @@ def main(args):
                         help='Kills adb server at the end of deployment',
                         action='store_true')
 
+    parser.add_argument('--allow-unsigned',
+                        help='Option to allow unsigned apk deployment.',
+                        action='store_true')
+
     parsed_args = parser.parse_args(args)
 
     # Prepare the logging
@@ -114,7 +118,8 @@ def main(args):
                                                       android_sdk_path=android_sdk_path,
                                                       deployment_type=parsed_args.deployment_type,
                                                       is_unit_test=is_unit_test,
-                                                      kill_adb_server=parsed_args.kill_adb_server)
+                                                      kill_adb_server=parsed_args.kill_adb_server,
+                                                      allow_unsigned=parsed_args.allow_unsigned)
 
     deployment.execute()
 

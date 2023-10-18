@@ -33,7 +33,7 @@ from o3de import manifest
 
 GRADLE_ARGUMENT_NAME = '--gradle-install-path'
 GRADLE_MIN_VERSION = Version('6.5')
-GRADLE_MAX_VERSION = Version('7.5.1')
+GRADLE_MAX_VERSION = Version('8.4')
 GRADLE_VERSION_REGEX = re.compile(r"Gradle\s(\d+.\d+.?\d*)")
 GRADLE_EXECUTABLE = 'gradle.bat' if platform.system() == 'Windows' else 'gradle'
 
@@ -42,9 +42,19 @@ def verify_gradle(override_gradle_path=None):
     """
     Verify the installed gradle requirement.
     """
+    tool_filename = GRADLE_EXECUTABLE
+
+    if(override_gradle_path):
+        gradle_path = pathlib.Path(override_gradle_path)
+        # if the user provided the path of the executable
+        # use it in case the file extension is not .bat
+        if(gradle_path.is_file()):
+            override_gradle_path = gradle_path.parent
+            tool_filename = gradle_path.name
+
     return common.verify_tool(override_tool_path=override_gradle_path,
                               tool_name='gradle',
-                              tool_filename=GRADLE_EXECUTABLE,
+                              tool_filename=tool_filename,
                               argument_name=GRADLE_ARGUMENT_NAME,
                               tool_version_argument='-v',
                               tool_version_regex=GRADLE_VERSION_REGEX,

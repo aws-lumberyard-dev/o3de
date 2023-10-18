@@ -47,7 +47,7 @@ class AndroidDeployment(object):
     DEPLOY_ASSETS_ONLY = 'ASSETS'
     DEPLOY_BOTH = 'BOTH'
 
-    def __init__(self, dev_root, build_dir, configuration, android_device_filter, clean_deploy, android_sdk_path, deployment_type, game_name=None, asset_mode=None, asset_type=None, embedded_assets=True, is_unit_test=False, kill_adb_server=False):
+    def __init__(self, dev_root, build_dir, configuration, android_device_filter, clean_deploy, android_sdk_path, deployment_type, game_name=None, asset_mode=None, asset_type=None, embedded_assets=True, is_unit_test=False, kill_adb_server=False, allow_unsigned=True):
         """
         Initialize the Android Deployment Worker
 
@@ -62,6 +62,7 @@ class AndroidDeployment(object):
         :param embedded_assets:         Boolean to indicate if the assets are embedded in the APK or not
         :param is_unit_test:            Boolean to indicate if this is a unit test deployment
         :param kill_adb_server:         Boolean to indicate if it should kill adb server at the end of deployment
+        :param allow_unsigned:          Boolean to indicate if unsigned apk is allowed 
         """
 
         self.dev_root = pathlib.Path(dev_root)
@@ -125,6 +126,11 @@ class AndroidDeployment(object):
             self.files_in_asset_path = []
 
         self.apk_path = self.build_dir / 'app' / 'build' / 'outputs' / 'apk' / configuration / f'app-{configuration}.apk'
+        if not self.apk_path.is_file() and allow_unsigned:
+            unsigned_apk_path = self.build_dir / 'app' / 'build' / 'outputs' / 'apk' / configuration / f'app-{configuration}-unsigned.apk'
+            if unsigned_apk_path.is_file():
+                # use the unsigned apk if allowed
+                self.apk_path = unsigned_apk_path
 
         self.android_device_filter = [android_device.strip() for android_device in android_device_filter.split(',')] if android_device_filter else []
 

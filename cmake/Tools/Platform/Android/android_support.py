@@ -34,6 +34,12 @@ from cmake.Tools import common
 from cmake.Tools.layout_tool import remove_link
 
 
+# Check available versions in 
+# https://maven.google.com/web/index.html?q=gradle#com.android.tools.build:gradle
+# AND
+# https://developer.android.com/build/releases/gradle-plugin#updating-gradle
+
+
 ANDROID_GRADLE_PLUGIN_COMPATIBILITY_MAP = {
     '4.2.2': {'min_gradle_version': '6.7.1',
               'sdk_build': '30.0.3',
@@ -41,6 +47,14 @@ ANDROID_GRADLE_PLUGIN_COMPATIBILITY_MAP = {
               'min_cmake_version': '3.20'},
     '7.3.1': {'min_gradle_version': '7.5.1',
               'sdk_build': '33.0.0',
+              'default_ndk': '25.1.8937393',
+              'min_cmake_version': '3.24'},
+    '8.1.0': {'min_gradle_version': '8.1.0',
+              'sdk_build': '33.0.1',
+              'default_ndk': '25.1.8937393',
+              'min_cmake_version': '3.24'},
+    '8.1.2': {'min_gradle_version': '8.1.2',
+              'sdk_build': '33.0.1',
               'default_ndk': '25.1.8937393',
               'min_cmake_version': '3.24'},
 }
@@ -421,7 +435,7 @@ CUSTOM_APPLY_ASSET_LAYOUT_TASK_FORMAT_STR = """
         commandLine '{python_full_path}', 'layout_tool.py', '--project-path', '{project_path}', '-p', 'Android', '-a', '{asset_type}', '-m', '{asset_mode}', '--create-layout-root', '-l', '{asset_layout_folder}'
     }}
 
-    compile{config}Sources.dependsOn syncLYLayoutMode{config}
+    merge{config}Assets.dependsOn syncLYLayoutMode{config}
 
     syncLYLayoutMode{config}.mustRunAfter {{
         tasks.findAll {{ task->task.name.contains('externalNativeBuild{config}') }}
@@ -944,10 +958,6 @@ class AndroidProjectGenerator(object):
         else:
             gradle_build_env['SIGNING_CONFIGS'] = ""
 
-        az_android_gradle_file = az_android_dst_path / 'build.gradle'
-        self.create_file_from_project_template(src_template_file='build.gradle.in',
-                                               template_env=gradle_build_env,
-                                               dst_file=az_android_gradle_file)
 
         # Generate a AndroidManifest.xml and write to ${az_android_dst_path}/src/main/AndroidManifest.xml
         dest_src_main_path = az_android_dst_path / 'src/main'
@@ -960,6 +970,12 @@ class AndroidProjectGenerator(object):
         self.create_file_from_project_template(src_template_file=ANDROID_MANIFEST_FILE,
                                                template_env=az_android_package_env,
                                                dst_file=dest_src_main_path / ANDROID_MANIFEST_FILE)
+
+        gradle_build_env['NAMESPACE'] = f"namespace=\"{az_android_package_env['ANDROID_PACKAGE']}\""
+        az_android_gradle_file = az_android_dst_path / 'build.gradle'
+        self.create_file_from_project_template(src_template_file='build.gradle.in',
+                                               template_env=gradle_build_env,
+                                               dst_file=az_android_gradle_file)
 
         # Apply the 'android_builder.json' rules to copy over additional files to the target
         self.apply_android_builder_rules(az_android_dst_path=az_android_dst_path,
@@ -1293,6 +1309,17 @@ class AndroidProjectGenerator(object):
         def add_file_to_patch(self, file):
             self.patch_files.append(file)
 
+        def get_package_namespace(self):
+            manifest_file_path = pathlib.Path(self.path) / ANDROID_MANIFEST_FILE
+            with open(manifest_file_path) as f:
+                for line in f:
+                    match_result = re.match(r'\s*package="(.*)"', line)
+                    if match_result:
+                        return match_result.group(1)
+
+            logging.warning(f"failed to find package in {manifest_file_path}")
+            return "com.package.unknown"
+
         def process_patch_lib(self, android_project_builder_path, dest_root):
             """
             Perform the patch logic on the library node of 'android_libraries.json' (root level)
@@ -1324,8 +1351,13 @@ class AndroidProjectGenerator(object):
             else:
                 project_dependencies = ""
 
+            package_namespace = self.get_package_namespace()
+            logging.debug(f"found package namespace {package_namespace}")
+            package_namespace = f"namespace=\"{package_namespace}\""
+
             # Prepare an environment for a basic, no-native (cmake) gradle project (java only)
             build_gradle_env = {
+                'NAMESPACE': package_namespace ,
                 'PROJECT_DEPENDENCIES': project_dependencies,
                 'TARGET_TYPE': 'library',
                 'NATIVE_CMAKE_SECTION_DEFAULT_CONFIG': '',
