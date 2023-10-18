@@ -14,6 +14,8 @@ import platform
 import re
 import sys
 
+logging.basicConfig(format='%(levelname)s: %(message)s', level=logging.DEBUG)
+
 from packaging.version import Version
 
 ROOT_DEV_PATH = os.path.realpath(os.path.join(os.path.dirname(__file__), '..', '..', '..', '..'))

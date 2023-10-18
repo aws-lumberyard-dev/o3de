@@ -12,6 +12,8 @@ import os
 import pathlib
 import sys
 
+logging.basicConfig(format='%(levelname)s: %(message)s',
+                    level=logging.DEBUG)
 # Resolve the common python module
 ROOT_DEV_PATH = os.path.realpath(os.path.join(os.path.dirname(__file__), '..', '..', '..', '..'))
 if ROOT_DEV_PATH not in sys.path:

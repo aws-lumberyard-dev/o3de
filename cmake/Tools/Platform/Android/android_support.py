@@ -657,7 +657,8 @@ class AndroidProjectGenerator(object):
         else:
             gradle_wrapper_cmd = ['gradle']
 
-        gradle_wrapper_cmd.extend(['wrapper', '-p', str(self.build_dir.resolve())])
+        #gradle_wrapper_cmd.extend(['--stacktrace','--warning-mode','all','wrapper', '-p', str(self.build_dir.resolve())])
+        gradle_wrapper_cmd.extend(['--warning-mode','all','wrapper', '-p', str(self.build_dir.resolve())])
 
         proc_result = subprocess.run(gradle_wrapper_cmd,
                                      shell=(platform.system() == 'Windows'))
