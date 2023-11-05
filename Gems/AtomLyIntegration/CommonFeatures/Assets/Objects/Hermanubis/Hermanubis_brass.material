@@ -7,7 +7,6 @@
         "baseColor.textureBlendMode": "Lerp",
         "baseColor.textureMap": "Hermanubis_bronze_BaseColor.png",
         "baseColor.textureMapUv": "Unwrapped",
-        "general.applySpecularAA": true,
         "metallic.textureMap": "Hermanubis_bronze_Metallic.png",
         "metallic.textureMapUv": "Unwrapped",
         "normal.flipY": true,

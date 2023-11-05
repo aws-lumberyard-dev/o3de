@@ -1,3 +1,4 @@
 {
-    "materialType": "./MaterialGraphName.materialtype"
+    "materialType": "MaterialGraphName.materialtype",
+    "materialTypeVersion": 1
 }

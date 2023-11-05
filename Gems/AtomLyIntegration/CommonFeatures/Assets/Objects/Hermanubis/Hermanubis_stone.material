@@ -14,7 +14,6 @@
         "baseColor.textureMap": "Hermanubis_Stone_BaseColor.png",
         "baseColor.textureMapUv": "Unwrapped",
         "clearCoat.roughness": 0.10000000149011612,
-        "general.applySpecularAA": true,
         "irradiance.manualColor": [
             0.7304646372795105,
             0.6938735246658325,
