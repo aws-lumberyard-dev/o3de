@@ -393,10 +393,11 @@
       "nightly-installer"
     ],
     "steps": [
-      "installer"
+      "installer_profile_non_monolithic",
+      "installer_release_monolithic"
     ]
   },
-  "installer": {
+  "installer_profile_non_monolithic": {
     "TAGS": [],
     "PIPELINE_ENV": {
       "NODE_LABEL": "ubuntu-20-packaging"
@@ -412,40 +413,122 @@
       "CMAKE_TARGET": "all"
     }
   },
+  "installer_release_monolithic": {
+    "TAGS": [],
+    "PIPELINE_ENV": {
+      "NODE_LABEL": "ubuntu-20-packaging"
+    },
+    "COMMAND": "build_installer_linux.sh",
+    "PARAMETERS": {
+      "CONFIGURATION": "release",
+      "OUTPUT_DIRECTORY": "build/linux_mono",
+      "O3DE_PACKAGE_TYPE": "DEB",
+      "CMAKE_OPTIONS": "-G 'Ninja Multi-Config' -DLY_PARALLEL_LINK_JOBS=4 -DLY_DISABLE_TEST_MODULES=TRUE -DO3DE_INSTALL_ENGINE_NAME=o3de-sdk -DLY_STRIP_DEBUG_SYMBOLS=TRUE -DLY_MONOLITHIC_GAME=1",
+      "EXTRA_CMAKE_OPTIONS": "-DLY_INSTALLER_AUTO_GEN_TAG=TRUE -DLY_INSTALLER_DOWNLOAD_URL=${INSTALLER_DOWNLOAD_URL} -DLY_INSTALLER_LICENSE_URL=${INSTALLER_DOWNLOAD_URL}/license",
+      "CPACK_OPTIONS": "-D CPACK_UPLOAD_URL=${CPACK_UPLOAD_URL}",
+      "CMAKE_TARGET": "install"
+    }
+  },
   "snap_package": {
     "TAGS": [
       "periodic-clean-weekly-internal",
       "nightly-installer"
     ],
-    "PIPELINE_ENV": {
-      "NODE_LABEL": "ubuntu-22-packaging"
-    },
-    "COMMAND": "build_installer_linux.sh",
-    "PARAMETERS": {
-      "CONFIGURATION": "profile",
-      "OUTPUT_DIRECTORY": "build/linux",
-      "O3DE_PACKAGE_TYPE": "SNAP",
-      "CMAKE_OPTIONS": "-G 'Ninja Multi-Config' -DLY_PARALLEL_LINK_JOBS=4 -DLY_DISABLE_TEST_MODULES=TRUE -DO3DE_INSTALL_ENGINE_NAME=o3de-sdk -DLY_STRIP_DEBUG_SYMBOLS=TRUE",
-      "CPACK_OPTIONS": "-D CPACK_UPLOAD_URL=${CPACK_UPLOAD_URL}",
-      "CMAKE_TARGET": "all"
-    }
+    "steps": [
+      "snap_package_build_profile_non_monolithic",
+      "snap_package_build_release_monolithic",
+      "snap_package_cpack"
+    ]
   },
   "snap_core20_package": {
     "TAGS": [
       "periodic-clean-weekly-internal",
       "nightly-installer"
     ],
+    "steps": [
+      "snap_core20_package_build_profile_non_monolithic",
+      "snap_core20_package_build_release_monolithic",
+      "snap_core20_package_cpack"
+    ]
+  },
+  "snap_package_build_profile_non_monolithic": {
+    "TAGS": [],
     "PIPELINE_ENV": {
-      "NODE_LABEL": "ubuntu-20-packaging"
+      "NODE_LABEL": "ubuntu-22-packaging"
     },
-    "COMMAND": "build_installer_linux.sh",
+    "COMMAND": "build_linux.sh",
     "PARAMETERS": {
       "CONFIGURATION": "profile",
       "OUTPUT_DIRECTORY": "build/linux",
       "O3DE_PACKAGE_TYPE": "SNAP",
       "CMAKE_OPTIONS": "-G 'Ninja Multi-Config' -DLY_PARALLEL_LINK_JOBS=4 -DLY_DISABLE_TEST_MODULES=TRUE -DO3DE_INSTALL_ENGINE_NAME=o3de-sdk -DLY_STRIP_DEBUG_SYMBOLS=TRUE",
-      "CPACK_OPTIONS": "-D CPACK_UPLOAD_URL=${CPACK_UPLOAD_URL} -D CPACK_SNAP_DISTRO=core20",
       "CMAKE_TARGET": "all"
+    }
+  },
+  "snap_package_build_release_monolithic": {
+    "TAGS": [],
+    "PIPELINE_ENV": {
+      "NODE_LABEL": "ubuntu-22-packaging"
+    },
+    "COMMAND": "build_installer_linux.sh",
+    "PARAMETERS": {
+      "CONFIGURATION": "release",
+      "OUTPUT_DIRECTORY": "build/linux_mono",
+      "O3DE_PACKAGE_TYPE": "SNAP",
+      "CMAKE_OPTIONS": "-G 'Ninja Multi-Config' -DLY_PARALLEL_LINK_JOBS=4 -DLY_DISABLE_TEST_MODULES=TRUE -DO3DE_INSTALL_ENGINE_NAME=o3de-sdk -DLY_STRIP_DEBUG_SYMBOLS=TRUE -DLY_MONOLITHIC_GAME=1",
+      "CMAKE_TARGET": "all"
+    }
+  },
+  "snap_package_cpack": {
+    "TAGS": [],
+    "PIPELINE_ENV": {
+      "NODE_LABEL": "ubuntu-22-packaging"
+    },
+    "COMMAND": "installer_linux.sh",
+    "PARAMETERS": {
+      "CONFIGURATION": "profile;release",
+      "OUTPUT_DIRECTORY": "build/linux_mono",
+      "CPACK_OPTIONS": "-D CPACK_UPLOAD_URL=${CPACK_UPLOAD_URL}"
+    }
+  },
+  "snap_core20_package_build_profile_non_monolithic": {
+    "TAGS": [],
+    "PIPELINE_ENV": {
+      "NODE_LABEL": "ubuntu-20-packaging"
+    },
+    "COMMAND": "build_linux.sh",
+    "PARAMETERS": {
+      "CONFIGURATION": "profile",
+      "OUTPUT_DIRECTORY": "build/linux",
+      "O3DE_PACKAGE_TYPE": "SNAP",
+      "CMAKE_OPTIONS": "-G 'Ninja Multi-Config' -DLY_PARALLEL_LINK_JOBS=4 -DLY_DISABLE_TEST_MODULES=TRUE -DO3DE_INSTALL_ENGINE_NAME=o3de-sdk -DLY_STRIP_DEBUG_SYMBOLS=TRUE",
+      "CMAKE_TARGET": "all"
+    }
+  },
+  "snap_core20_package_build_release_monolithic": {
+    "TAGS": [],
+    "PIPELINE_ENV": {
+      "NODE_LABEL": "ubuntu-20-packaging"
+    },
+    "COMMAND": "build_linux.sh",
+    "PARAMETERS": {
+      "CONFIGURATION": "release",
+      "OUTPUT_DIRECTORY": "build/linux_mono",
+      "O3DE_PACKAGE_TYPE": "SNAP",
+      "CMAKE_OPTIONS": "-G 'Ninja Multi-Config' -DLY_PARALLEL_LINK_JOBS=4 -DLY_DISABLE_TEST_MODULES=TRUE -DO3DE_INSTALL_ENGINE_NAME=o3de-sdk -DLY_STRIP_DEBUG_SYMBOLS=TRUE -DLY_MONOLITHIC_GAME=1",
+      "CMAKE_TARGET": "install"
+    }
+  },
+  "snap_core20_package_cpack": {
+    "TAGS": [],
+    "PIPELINE_ENV": {
+      "NODE_LABEL": "ubuntu-20-packaging"
+    },
+    "COMMAND": "install_linux.sh",
+    "PARAMETERS": {
+      "CONFIGURATION": "release",
+      "OUTPUT_DIRECTORY": "build/linux_mono",
+      "CPACK_OPTIONS": "-D CPACK_UPLOAD_URL=${CPACK_UPLOAD_URL} -D CPACK_SNAP_DISTRO=core20"
     }
   },
   "install_profile_pipe": {

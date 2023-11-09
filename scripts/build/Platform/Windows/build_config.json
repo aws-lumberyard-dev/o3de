@@ -455,24 +455,65 @@
       "nightly-installer"
     ],
     "steps": [
-      "installer",
+      "installer_build_profile_non_monolithic",
+      "installer_build_release_monolithic",
+      "installer_cpack_profile",
+      "installer_cpack_release",
       "installer_test"
     ]
   },
-  "installer": {
+  "installer_build_profile_non_monolithic": {
     "TAGS": [],
     "PIPELINE_ENV":{
       "NODE_LABEL":"windows-packaging"
     },
-    "COMMAND": "build_installer_windows.cmd",
+    "COMMAND": "build_windows.cmd",
     "PARAMETERS": {
         "CONFIGURATION": "profile",
         "OUTPUT_DIRECTORY": "build\\windows",
         "CMAKE_OPTIONS": "-DCMAKE_SYSTEM_VERSION=10.0 -DLY_DISABLE_TEST_MODULES=TRUE -DO3DE_INSTALL_ENGINE_NAME=o3de-sdk -DLY_INSTALLER_WIX_ROOT=\"!WIX! \"",
         "EXTRA_CMAKE_OPTIONS": "-DLY_INSTALLER_AUTO_GEN_TAG=TRUE -DLY_INSTALLER_DOWNLOAD_URL=!INSTALLER_DOWNLOAD_URL! -DLY_INSTALLER_LICENSE_URL=!INSTALLER_DOWNLOAD_URL!/license",
         "CMAKE_TARGET": "ALL_BUILD",
-        "CPACK_OPTIONS": "-D CPACK_UPLOAD_URL=\"!CPACK_UPLOAD_URL!\"",
         "CMAKE_NATIVE_BUILD_ARGS": "/m /nologo"
+    }
+  },
+  "installer_build_release_monolithic": {
+    "TAGS": [],
+    "PIPELINE_ENV":{
+      "NODE_LABEL":"windows-packaging"
+    },
+    "COMMAND": "build_windows.cmd",
+    "PARAMETERS": {
+        "CONFIGURATION": "release",
+        "OUTPUT_DIRECTORY": "build\\windows_mono",
+        "CMAKE_OPTIONS": "-DCMAKE_SYSTEM_VERSION=10.0 -DLY_DISABLE_TEST_MODULES=TRUE -DO3DE_INSTALL_ENGINE_NAME=o3de-sdk -DLY_INSTALLER_WIX_ROOT=\"!WIX! \" -DLY_MONOLITHIC_GAME=1",
+        "EXTRA_CMAKE_OPTIONS": "-DLY_INSTALLER_AUTO_GEN_TAG=TRUE -DLY_INSTALLER_DOWNLOAD_URL=!INSTALLER_DOWNLOAD_URL! -DLY_INSTALLER_LICENSE_URL=!INSTALLER_DOWNLOAD_URL!/license",
+        "CMAKE_TARGET": "ALL_BUILD",
+        "CMAKE_NATIVE_BUILD_ARGS": "/m /nologo"
+    }
+  },
+  "installer_cpack_profile": {
+    "TAGS": [],
+    "PIPELINE_ENV":{
+      "NODE_LABEL":"windows-packaging"
+    },
+    "COMMAND": "installer_windows.cmd",
+    "PARAMETERS": {
+        "CONFIGURATION": "profile",
+        "OUTPUT_DIRECTORY": "build\\windows",
+        "CPACK_OPTIONS": "-D CPACK_UPLOAD_URL=\"!CPACK_UPLOAD_URL!\""
+    }
+  },
+  "installer_cpack_release": {
+    "TAGS": [],
+    "PIPELINE_ENV":{
+      "NODE_LABEL":"windows-packaging"
+    },
+    "COMMAND": "installer_windows.cmd",
+    "PARAMETERS": {
+        "CONFIGURATION": "release",
+        "OUTPUT_DIRECTORY": "build\\windows_mono",
+        "CPACK_OPTIONS": "-D CPACK_UPLOAD_URL=\"!CPACK_UPLOAD_URL!\""
     }
   },
   "installer_test": {
