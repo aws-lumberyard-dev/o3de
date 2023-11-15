@@ -83,7 +83,7 @@ namespace AZ
 
         using AllocationString = AZStd::fixed_string<1024>;
 
-        static constexpr const char* MemoryTag = "mem";
+        [[maybe_unused]] static constexpr const char* MemoryTag = "mem";
 
         size_t allocationCount{};
         size_t totalAllocations{};
@@ -252,7 +252,7 @@ namespace AZ
     static void DumpAllocationsForAllocatorToFile(const AZ::ConsoleCommandContainer& arguments)
     {
         using AllocationString = AZStd::fixed_string<1024>;
-        static constexpr const char* MemoryTag = "mem";
+        [[maybe_unused]] static constexpr const char* MemoryTag = "mem";
 
         constexpr size_t DumpToFileMinArgumentCount = 1;
 
@@ -313,7 +313,7 @@ namespace AZ
     static void DumpAllocationsForAllocatorToDevWriteStorage(const AZ::ConsoleCommandContainer& arguments)
     {
         using AllocationString = AZStd::fixed_string<1024>;
-        static constexpr const char* MemoryTag = "mem";
+        [[maybe_unused]] static constexpr const char* MemoryTag = "mem";
 
         // Dump allocation records to <dev-write-storage>/allocation_records/records.<iso8601-timestamp>.<process-id>.log
         // Use a ISO8601 timestamp + the process ID to provide uniqueness to the metrics json files
@@ -355,7 +355,7 @@ namespace AZ
     static void DumpAllocationsForAllocatorInRange(const AZ::ConsoleCommandContainer& arguments)
     {
         using AllocationString = AZStd::fixed_string<1024>;
-        static constexpr const char* MemoryTag = "mem";
+        [[maybe_unused]] static constexpr const char* MemoryTag = "mem";
 
         constexpr size_t rangeArgumentCount = 2;
 
