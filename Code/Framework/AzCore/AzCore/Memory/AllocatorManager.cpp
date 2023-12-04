@@ -81,8 +81,8 @@ namespace AZ
             }
         }
 
+        // Note that AllocationString and MemoryTag may be unused in release builds.
         using AllocationString [[maybe_unused]] = AZStd::fixed_string<1024>;
-
         [[maybe_unused]] static constexpr const char* MemoryTag = "mem";
 
         size_t allocationCount{};
@@ -251,6 +251,7 @@ namespace AZ
 
     static void DumpAllocationsForAllocatorToFile(const AZ::ConsoleCommandContainer& arguments)
     {
+        // Note that AllocationString and MemoryTag may be unused in release builds.
         using AllocationString [[maybe_unused]] = AZStd::fixed_string<1024>;
         [[maybe_unused]] static constexpr const char* MemoryTag = "mem";
 
@@ -312,6 +313,7 @@ namespace AZ
 
     static void DumpAllocationsForAllocatorToDevWriteStorage(const AZ::ConsoleCommandContainer& arguments)
     {
+        // Note that AllocationString and MemoryTag may be unused in release builds.
         using AllocationString [[maybe_unused]] = AZStd::fixed_string<1024>;
         [[maybe_unused]] static constexpr const char* MemoryTag = "mem";
 
@@ -354,6 +356,7 @@ namespace AZ
 
     static void DumpAllocationsForAllocatorInRange(const AZ::ConsoleCommandContainer& arguments)
     {
+        // Note that AllocationString and MemoryTag may be unused in release builds.
         using AllocationString [[maybe_unused]] = AZStd::fixed_string<1024>;
         [[maybe_unused]] static constexpr const char* MemoryTag = "mem";
 
