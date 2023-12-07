@@ -344,7 +344,7 @@ def _export_script(export_script_path: pathlib.Path, project_path: pathlib.Path,
 
     o3de_context = O3DEScriptExportContext(export_script_path=validated_export_script_path,
                                            project_path=computed_project_path,
-                                           engine_path=manifest.get_project_engine_path(computed_project_path),
+                                           engine_path=manifest.get_this_engine_path(),
                                            args=export_process_args,
                                            cmake_additional_configure_args=cmake_configure_args,
                                            cmake_additional_build_args=cmake_build_args)
@@ -427,7 +427,8 @@ def build_assets(ctx: O3DEScriptExportContext,
                  fail_on_ap_errors: bool,
                  using_installer_sdk: bool = False,
                  tool_config: str = PREREQUISITE_TOOL_BUILD_CONFIG,
-                 logger: logging.Logger = None) -> int:
+                 logger: logging.Logger = None,
+                 platform: str or None = None) -> int:
     """
     Build the assets for the project
     @param ctx:                 Export Context
@@ -449,6 +450,10 @@ def build_assets(ctx: O3DEScriptExportContext,
         logger.info(f"Processing assets for {ctx.project_name}")
 
     cmake_build_assets_command = [asset_processor_batch_path, "--project-path", ctx.project_path]
+    if platform is not None:
+        # The '=' below is important, using "--platforms <platform>" will not work
+        cmake_build_assets_command.extend([f"--platforms={platform}"])
+
     ret = process_command(cmake_build_assets_command,
                           cwd=ctx.engine_path if engine_centric else ctx.project_path)
     if ret != 0:

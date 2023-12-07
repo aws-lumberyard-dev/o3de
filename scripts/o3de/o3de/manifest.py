@@ -1124,6 +1124,11 @@ def get_most_compatible_object_path(object_name: str,
         else:
             path = pathlib.Path(object).resolve()
 
+        json_path  = get_json_file_path(object_typename, path)
+        if not json_path or not pathlib.Path(json_path).is_file():
+            logger.warning(f"Skipping missing manifest file: ${json_path}")
+            continue
+
         json_data = get_json_data(object_typename, path, object_validator)
         if json_data:
             candidate_name = json_data.get(name_key,'')

@@ -165,18 +165,15 @@ def list_android_config(android_config: command_utils.O3DEConfig) -> None:
         print(f"\n* Settings that are specific to {android_config.project_name}. Use the --global argument to see only the global settings.")
 
 
-def get_android_config_from_args(args: argparse) -> (command_utils.O3DEConfig, str):
+def get_android_config(is_global:bool, project:str ) -> (command_utils.O3DEConfig, str):
     """
     Resolve and create the appropriate O3DE config object based on whether operation is based on the global
     settings or a project specific setting
 
-    :param args:    The args object to parse
+    :param is_global:    Whether the settings are global or not
+    :param project:    Project name or path or None if is_global is True
     :return:  Tuple of the appropriate config manager object and the project name if this is not a global settings, otherwise None
     """
-
-    is_global = getattr(args, 'global', False)
-    project = getattr(args, 'project', None)
-
     if is_global:
         if project:
             logger.warning(f"Both --global and --project ({project}) arguments were provided. The --project argument will "
@@ -213,6 +210,21 @@ def get_android_config_from_args(args: argparse) -> (command_utils.O3DEConfig, s
         android_config = android_support.get_android_config(project_path=project_path)
 
     return android_config, project_name
+
+
+def get_android_config_from_args(args: argparse) -> (command_utils.O3DEConfig, str):
+    """
+    Resolve and create the appropriate O3DE config object based on whether operation is based on the global
+    settings or a project specific setting
+
+    :param args:    The args object to parse
+    :return:  Tuple of the appropriate config manager object and the project name if this is not a global settings, otherwise None
+    """
+
+    is_global = getattr(args, 'global', False)
+    project = getattr(args, 'project', None)
+
+    return get_android_config(is_global, project)
 
 
 def configure_android_options(args: argparse) -> int:
@@ -268,22 +280,28 @@ def prompt_validated_password(name: str) -> str:
     return enter_password
 
 
-def generate_android_project(args: argparse) -> int:
+def generate_android_project(is_global:bool, 
+                             build_folder:pathlib.Path,
+                             asset_mode:str,
+                             project:str or None,
+                             platform_sdk_api_level:str or None,
+                             ndk_version:str or None,
+                             extra_cmake_args:list or None,
+                             custom_jvm_args:list or None,
+                             signconfig_store_file:str or None,
+                             signconfig_key_alias:str or None,
+                             strip_debug:bool=True or None,
+                             is_oculus_project:bool=False or None,
+                             ) -> int:
     """
     Execute the android gradle project creation workflow from the input arguments
 
-    :param args:    The args from the arg parser to extract the necessary parameters for generating the project
     :return: The result code to return back
     """
 
-    if args.debug:
-        logger.setLevel(logging.DEBUG)
-    else:
-        logger.setLevel(logging.INFO)
-
     try:
         # Create the android configuration
-        android_config, project_name = get_android_config_from_args(args)
+        android_config, project_name = get_android_config(is_global, project)
 
         # Resolve the project path and get the project and android settings
         resolved_project_path = manifest.get_registered(project_name=project_name)
@@ -302,8 +320,8 @@ def generate_android_project(args: argparse) -> int:
                                                 package_description='Google Play Licensing Library')
 
         # Make sure the requested Platform SDK (defined by API Level) is installed
-        if args.platform_sdk_api_level:
-            android_platform_sdk_api_level = args.platform_sdk_api_level
+        if platform_sdk_api_level:
+            android_platform_sdk_api_level = platform_sdk_api_level
         else:
             android_platform_sdk_api_level = android_config.get_value(android_support.SETTINGS_PLATFORM_SDK_API.key)
             if not android_platform_sdk_api_level:
@@ -316,8 +334,8 @@ def generate_android_project(args: argparse) -> int:
         logger.info(f"Selected Android Platform API Level : {android_platform_sdk_api_level}")
 
         # Make sure the NDK is specified and installed
-        if args.ndk_version:
-            android_ndk_version = args.ndk_version
+        if ndk_version:
+            android_ndk_version = ndk_version
         else:
             android_ndk_version = android_config.get_value(android_support.SETTINGS_NDK_VERSION.key)
             if not android_ndk_version:
@@ -341,33 +359,18 @@ def generate_android_project(args: argparse) -> int:
         logger.info(f'Project Path : {project_path}')
 
         # Debug stripping option
-        if getattr(args, 'strip_debug', False):
-            strip_debug = True
-        elif getattr(args, 'no_strip_debug', False):
-            strip_debug = False
-        else:
+        if strip_debug is None:
             strip_debug = android_config.get_boolean_value(android_support.SETTINGS_STRIP_DEBUG.key)
 
         logger.info(f"Debug symbol stripping {'enabled' if strip_debug else 'disabled'}.")
 
-        # Optional additional cmake args for the native project generation
-        extra_cmake_args = args.extra_cmake_args
-
-        # Optional custom gradle JVM arguments
-        custom_jvm_args = args.custom_jvm_args
-
         # Oculus project options
-        if getattr(args, 'oculus_project', False):
-            is_oculus_project = True
-        elif getattr(args, 'no_oculus_project', False):
-            is_oculus_project = False
-        else:
+        if is_oculus_project is None:
             is_oculus_project = android_config.get_boolean_value(android_support.SETTINGS_OCULUS_PROJECT.key)
         if is_oculus_project:
             logger.info(f"Oculus flags enabled.")
 
         # Get the android build folder
-        build_folder = pathlib.Path(args.build_dir)
         logger.info(f'Project Android Build Folder : {build_folder}')
 
         # Get the bundled assets sub folder
@@ -375,8 +378,6 @@ def generate_android_project(args: argparse) -> int:
                                                             default='AssetBundling/Bundles')
 
         # Check if there is a signing config from the arguments
-        signconfig_store_file = getattr(args, 'signconfig_store_file', None)
-        signconfig_key_alias = getattr(args, 'signconfig_key_alias', None)
         if signconfig_store_file and signconfig_key_alias:
 
             signconfig_store_file_path = pathlib.Path(signconfig_store_file)
@@ -428,7 +429,7 @@ def generate_android_project(args: argparse) -> int:
                                                       gradle_custom_jvm_args=custom_jvm_args,
                                                       android_gradle_plugin_version=android_env.android_gradle_plugin_ver,
                                                       ninja_path=android_env.ninja_path,
-                                                      asset_mode=args.asset_mode,
+                                                      asset_mode=asset_mode,
                                                       signing_config=signing_config,
                                                       extra_cmake_configure_args=extra_cmake_args,
                                                       overwrite_existing=True,
@@ -443,6 +444,51 @@ def generate_android_project(args: argparse) -> int:
     else:
         return 0
 
+
+def generate_android_project_from_args(args: argparse) -> int:
+    """
+    Execute the android gradle project creation workflow from the input arguments
+
+    :param args:    The args from the arg parser to extract the necessary parameters for generating the project
+    :return: The result code to return back
+    """
+    if args.debug:
+        logger.setLevel(logging.DEBUG)
+    else:
+        logger.setLevel(logging.INFO)
+
+    is_global = getattr(args, 'global', False)
+    project = getattr(args, 'project', None)
+
+    signconfig_store_file = getattr(args, 'signconfig_store_file', None)
+    signconfig_key_alias = getattr(args, 'signconfig_key_alias', None)
+
+    if getattr(args, 'strip_debug', False):
+        strip_debug = True
+    elif getattr(args, 'no_strip_debug', False):
+        strip_debug = False
+    else:
+        strip_debug = None
+
+    if getattr(args, 'oculus_project', False):
+        is_oculus_project = True
+    elif getattr(args, 'no_oculus_project', False):
+        is_oculus_project = False
+    else:
+        is_oculus_project = None
+
+    return generate_android_project(is_global=is_global, 
+                             build_folder=pathlib.Path(args.build_dir),
+                             asset_mode=args.asset_mode,
+                             project=project,
+                             platform_sdk_api_level=args.platform_sdk_api_level,
+                             ndk_version=args.ndk_version,
+                             extra_cmake_args=args.extra_cmake_args,
+                             custom_jvm_args=args.custom_jvm_args,
+                             signconfig_store_file=signconfig_store_file,
+                             signconfig_key_alias=signconfig_key_alias,
+                             strip_debug=strip_debug,
+                             is_oculus_project=is_oculus_project)
 
 def add_args(subparsers) -> None:
     """
@@ -622,4 +668,4 @@ def add_args(subparsers) -> None:
                                             help=f"Enable debug level logging for this script.",
                                             action='store_true')
 
-    android_generate_subparser.set_defaults(func=generate_android_project)
+    android_generate_subparser.set_defaults(func=generate_android_project_from_args)
