@@ -752,40 +752,52 @@ namespace Multiplayer
         if (GetAgentType() == MultiplayerAgentType::ClientServer
             || GetAgentType() == MultiplayerAgentType::DedicatedServer)
         {
-            // We use a temporary userId over the clients address so we can maintain client lookups even in the event of wifi handoff
-            IMultiplayerSpawner* spawner = AZ::Interface<IMultiplayerSpawner>::Get();
-            NetworkEntityHandle controlledEntity;
+            MultiplayerAgentDatum datum;
+            datum.m_agentType = MultiplayerAgentType::Client;
+            datum.m_id = connection->GetConnectionId();
+            const uint64_t userId = packet.GetTemporaryUserId();
 
-            // Check rejoin data first
-            const auto node = m_playerRejoinData.find(packet.GetTemporaryUserId());
-            if (node != m_playerRejoinData.end())
+            if (m_levelActivated)
             {
-                controlledEntity = m_networkEntityManager.GetNetworkEntityTracker()->Get(node->second);
-            }
-            else if (spawner)
-            {
-                // Route to spawner implementation
-                MultiplayerAgentDatum datum;
-                datum.m_agentType = MultiplayerAgentType::Client;
-                datum.m_id = connection->GetConnectionId();
-                const uint64_t userId = packet.GetTemporaryUserId();
+                // We use a temporary userId over the clients address so we can maintain client lookups even in the event of wifi handoff
+                IMultiplayerSpawner* spawner = AZ::Interface<IMultiplayerSpawner>::Get();
+                NetworkEntityHandle controlledEntity;
 
-                controlledEntity = spawner->OnPlayerJoin(userId, datum);
-                if (controlledEntity.Exists())
+                // Check rejoin data first
+                const auto node = m_playerRejoinData.find(packet.GetTemporaryUserId());
+                if (node != m_playerRejoinData.end())
                 {
-                    EnableAutonomousControl(controlledEntity, connection->GetConnectionId());
-                    StartServerToClientReplication(userId, controlledEntity, connection);
+                    controlledEntity = m_networkEntityManager.GetNetworkEntityTracker()->Get(node->second);
+                }
+                else if (spawner)
+                {
+                    // Route to spawner implementation
+                    controlledEntity = spawner->OnPlayerJoin(userId, datum);
+                    if (controlledEntity.Exists())
+                    {
+                        EnableAutonomousControl(controlledEntity, connection->GetConnectionId());
+                        StartServerToClientReplication(userId, controlledEntity, connection);
+                    }
+                    else
+                    {
+                        AZLOG_ERROR("IMultiplayerSpawner didn't prove a controlled network player. Ensure a player can be created on PlayerJoin.");
+                    }
                 }
                 else
                 {
-                    // If there wasn't a player entity available, wait until a level loads and check again.
-                    // This can happen if IMultiplayerSpawn depends on a level being loaded, but the client connects to the server before the server has started a level.
-                    m_playersWaitingToBeSpawned.emplace_back(userId, datum, connection);
+                    AZLOG_ERROR("No IMultiplayerSpawner was available. Ensure that one is registered for usage on PlayerJoin.");
                 }
             }
             else
             {
-                AZLOG_ERROR("No IMultiplayerSpawner was available. Ensure that one is registered for usage on PlayerJoin.");
+                // The level is not finished activating.
+                // Wait until a level loads before spawning a player entity.
+                // This can happen if a server starts hosting, but the client connects to the server
+                // before the server has finished loading a level.
+                AZLOG_WARN("Player has connected before a level has finished activating. "
+                    "MultiplayerSystemComponent will attempt to spawn the player once level entities are activated.");
+
+                m_playersWaitingToBeSpawned.emplace_back(userId, datum, connection);
             }
         }
 
@@ -1717,6 +1729,11 @@ namespace Multiplayer
         }
     }
 
+    void MultiplayerSystemComponent::OnRootSpawnableAssigned([[maybe_unused]] AZ::Data::Asset<AzFramework::Spawnable> rootSpawnable, [[maybe_unused]]uint32_t generation)
+    {
+        m_levelActivated = false;
+    }
+
     void MultiplayerSystemComponent::OnRootSpawnableReady([[maybe_unused]] AZ::Data::Asset<AzFramework::Spawnable> rootSpawnable, [[maybe_unused]] uint32_t generation)
     {
         // Ignore level loads if not in multiplayer mode
@@ -1724,6 +1741,8 @@ namespace Multiplayer
         {
             return;
         }
+
+        m_levelActivated = true;
 
         // Spawn players waiting to be spawned. This can happen when a player connects before a level is loaded, so there isn't any player spawner components registered
         IMultiplayerSpawner* spawner = AZ::Interface<IMultiplayerSpawner>::Get();
@@ -1754,6 +1773,11 @@ namespace Multiplayer
         }
 
         m_playersWaitingToBeSpawned.clear();
+    }
+
+    void MultiplayerSystemComponent::OnRootSpawnableReleased([[maybe_unused]] uint32_t generation)
+    {
+        m_levelActivated = false;
     }
 
     bool MultiplayerSystemComponent::ShouldBlockLevelLoading(const char* levelName)

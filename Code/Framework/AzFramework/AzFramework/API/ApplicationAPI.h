@@ -209,10 +209,16 @@ namespace AzFramework
         //! Returns the name of the currently loaded level.
         //! Note: for spawnable level system, this is the cache folder path to the level asset. Example: levels/mylevel/mylevel.spawnable
         //! @return Level name or empty string if no level loaded.
+        //! Note: This will return a valid level name before entities are activated.
+        //!       Subscribe to AzFramework::RootSpawnableNotificationBus::OnRootSpawnableReady
+        //!       for a notification when the level finishes activating entities.
         virtual const char* GetCurrentLevelName() const = 0;
 
         //! Checks if a level is loaded
         //! @return true if a level is loaded; otherwise false.
+        //! Note: This will return true before level entities are activated.
+        //!       Subscribe to AzFramework::RootSpawnableNotificationBus::OnRootSpawnableReady
+        //!       for a notification when the level finishes activating entities.
         virtual bool IsLevelLoaded() const = 0;
     };
     using LevelSystemLifecycleInterface = AZ::Interface<ILevelSystemLifecycle>;
