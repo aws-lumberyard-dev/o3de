@@ -174,6 +174,10 @@ namespace AZ
             virtual void SetSortKey(const MeshHandle& meshHandle, RHI::DrawItemSortKey sortKey) = 0;
             //! Gets the sort key for a given mesh handle.
             virtual RHI::DrawItemSortKey GetSortKey(const MeshHandle& meshHandle) const = 0;
+            //! Sets the lighting channel mask for a given mesh handle.
+            virtual void SetLightingChannelMask(const MeshHandle& meshHandle, uint32_t lightingChannelMask) = 0;
+            //! Gets the lighting channel mask for a given mesh handle.
+            virtual uint32_t GetLightingChannelMask(const MeshHandle& meshHandle) const = 0;
             //! Sets LOD mesh configurations to be used in the Mesh Feature Processor
             virtual void SetMeshLodConfiguration(const MeshHandle& meshHandle, const RPI::Cullable::LodConfiguration& meshLodConfig) = 0;
             //! Gets the LOD mesh configurations being used in the Mesh Feature Processor
@@ -199,6 +203,8 @@ namespace AZ
             virtual void SetUseForwardPassIblSpecular(const MeshHandle& meshHandle, bool useForwardPassIblSpecular) = 0;
             //! Set a flag that the ray tracing data needs to be updated, usually after material changes. 
             virtual void SetRayTracingDirty(const MeshHandle& meshHandle) = 0;
+            //! Print out info about the mesh draw packet
+            virtual void PrintDrawPacketInfo(const MeshHandle& meshHandle) = 0;
         };
     } // namespace Render
 } // namespace AZ

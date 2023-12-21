@@ -170,6 +170,16 @@ namespace AzToolsFramework
             return m_name;
         }
 
+        const AZ::u32 AssetBrowserEntry::GetGroupNameCrc() const
+        {
+            return m_groupNameCrc;
+        }
+
+        const QString& AssetBrowserEntry::GetGroupName() const
+        {
+            return m_groupName;
+        }
+
         const QString& AssetBrowserEntry::GetDisplayName() const
         {
             return m_displayName;
@@ -314,6 +324,35 @@ namespace AzToolsFramework
             }
         }
 
+        void AssetBrowserEntry::VisitUp(const AZStd::function<bool(const AssetBrowserEntry*)>& visitorFn) const
+        {
+            if (!visitorFn)
+            {
+                return;
+            }
+
+            for (auto entry = this; entry && entry->GetEntryType() != AssetEntryType::Root; entry = entry->GetParent())
+            {
+                if (!visitorFn(entry))
+                {
+                    return;
+                }
+            }
+        }
+
+        void AssetBrowserEntry::VisitDown(const AZStd::function<bool(const AssetBrowserEntry*)>& visitorFn) const
+        {
+            if (!visitorFn || !visitorFn(this))
+            {
+                return;
+            }
+
+            for (auto child : m_children)
+            {
+                child->VisitDown(visitorFn);
+            }
+        }
+
         const AssetBrowserEntry* AssetBrowserEntry::GetChild(int index) const
         {
             if (index < m_children.size())
@@ -346,10 +385,10 @@ namespace AzToolsFramework
         {
             if (m_thumbnailKey)
             {
-                disconnect(m_thumbnailKey.data(), &ThumbnailKey::ThumbnailUpdatedSignal, this, &AssetBrowserEntry::ThumbnailUpdated);
+                disconnect(m_thumbnailKey.data(), nullptr, this, nullptr);
             }
             m_thumbnailKey = thumbnailKey;
-            connect(m_thumbnailKey.data(), &ThumbnailKey::ThumbnailUpdatedSignal, this, &AssetBrowserEntry::ThumbnailUpdated);
+            connect(m_thumbnailKey.data(), &ThumbnailKey::ThumbnailUpdated, this, &AssetBrowserEntry::SetThumbnailDirty);
         }
 
         SharedThumbnailKey AssetBrowserEntry::GetThumbnailKey() const
@@ -369,7 +408,7 @@ namespace AzToolsFramework
             SetThumbnailKey(CreateThumbnailKey());
         }
 
-        void AssetBrowserEntry::ThumbnailUpdated()
+        void AssetBrowserEntry::SetThumbnailDirty()
         {
             if (EntryCache* cache = EntryCache::GetInstance())
             {

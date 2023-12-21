@@ -62,6 +62,7 @@ set(FILES
     Source/RHI/DrawListContext.cpp
     Source/RHI/DrawPacket.cpp
     Source/RHI/DrawPacketBuilder.cpp
+    Source/RHI/MultiDeviceDrawItem.cpp
     Include/Atom/RHI/Device.h
     Include/Atom/RHI/DeviceBusTraits.h
     Include/Atom/RHI/DeviceObject.h
@@ -202,7 +203,7 @@ set(FILES
     Source/RHI/ImageScopeAttachment.cpp
     Source/RHI/ResolveScopeAttachment.cpp
     Source/RHI/ScopeAttachment.cpp
-    Include/Atom/RHI/ShaderResourceGroup.h    
+    Include/Atom/RHI/ShaderResourceGroup.h
     Include/Atom/RHI/MultiDeviceShaderResourceGroup.h
     Include/Atom/RHI/ShaderResourceGroupData.h
     Include/Atom/RHI/MultiDeviceShaderResourceGroupData.h
@@ -222,7 +223,9 @@ set(FILES
     Include/Atom/RHI/MemoryStatisticsBus.h
     Source/RHI/MemoryStatisticsBuilder.cpp
     Include/Atom/RHI/SwapChain.h
+    Include/Atom/RHI/MultiDeviceSwapChain.h
     Source/RHI/SwapChain.cpp
+    Source/RHI/MultiDeviceSwapChain.cpp
     Include/Atom/RHI/RHISystem.h
     Include/Atom/RHI/RHISystemInterface.h
     Source/RHI/RHISystem.cpp

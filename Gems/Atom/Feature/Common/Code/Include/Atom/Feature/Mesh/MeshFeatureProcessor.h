@@ -48,6 +48,8 @@ namespace AZ
 
             ObjectSrgCreatedEvent& GetObjectSrgCreatedEvent() { return m_objectSrgCreatedEvent; }
 
+            const uint32_t GetLightingChannelMask() { return m_lightingChannelMask; }
+
             using InstanceGroupHandle = StableDynamicArrayWeakHandle<MeshInstanceGroupData>;
 
             //! PostCullingInstanceData represents the data the MeshFeatureProcessor needs after culling
@@ -113,6 +115,7 @@ namespace AZ
                 RayTracingFeatureProcessor::Mesh::ReflectionProbe& reflectionProbe);
             void SetSortKey(MeshFeatureProcessor* meshFeatureProcessor, RHI::DrawItemSortKey sortKey);
             RHI::DrawItemSortKey GetSortKey() const;
+            void SetLightingChannelMask(uint32_t lightingChannelMask);
             void SetMeshLodConfiguration(RPI::Cullable::LodConfiguration meshLodConfig);
             RPI::Cullable::LodConfiguration GetMeshLodConfiguration() const;
             void UpdateDrawPackets(bool forceUpdate = false);
@@ -155,6 +158,7 @@ namespace AZ
             AZStd::shared_ptr<MeshLoader> m_meshLoader;
             RPI::Scene* m_scene = nullptr;
             RHI::DrawItemSortKey m_sortKey = 0;
+            uint32_t m_lightingChannelMask = 1;
 
             TransformServiceFeatureProcessorInterface::ObjectId m_objectId;
             AZ::Uuid m_rayTracingUuid;
@@ -215,6 +219,7 @@ namespace AZ
             bool ReleaseMesh(MeshHandle& meshHandle) override;
             MeshHandle CloneMesh(const MeshHandle& meshHandle) override;
 
+            void PrintDrawPacketInfo(const MeshHandle& meshHandle) override;
             void SetDrawItemEnabled(const MeshHandle& meshHandle, RHI::DrawListTag drawListTag, bool enabled) override;
             Data::Instance<RPI::Model> GetModel(const MeshHandle& meshHandle) const override;
             Data::Asset<RPI::ModelAsset> GetModelAsset(const MeshHandle& meshHandle) const override;
@@ -237,6 +242,9 @@ namespace AZ
 
             void SetSortKey(const MeshHandle& meshHandle, RHI::DrawItemSortKey sortKey) override;
             RHI::DrawItemSortKey GetSortKey(const MeshHandle& meshHandle) const override;
+
+            void SetLightingChannelMask(const MeshHandle& meshHandle, uint32_t lightingChannelMask) override;
+            uint32_t GetLightingChannelMask(const MeshHandle& meshHandle) const override;
 
             void SetMeshLodConfiguration(const MeshHandle& meshHandle, const RPI::Cullable::LodConfiguration& meshLodConfig) override;
             RPI::Cullable::LodConfiguration GetMeshLodConfiguration(const MeshHandle& meshHandle) const override;
