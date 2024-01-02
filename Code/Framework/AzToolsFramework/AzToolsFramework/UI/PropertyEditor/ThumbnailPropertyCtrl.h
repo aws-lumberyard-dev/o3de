@@ -11,6 +11,7 @@
 #if !defined(Q_MOC_RUN)
 #include <AzCore/PlatformDef.h>
 #include <AzToolsFramework/Thumbnails/Thumbnail.h>
+
 AZ_PUSH_DISABLE_WARNING(4251 4800, "-Wunknown-warning-option") // 4251: class '...' needs to have dll-interface to be used by clients of class '...'
                                                                // 4800: 'uint': forcing value to bool 'true' or 'false' (performance warning)
 #include <QWidget>
@@ -60,14 +61,14 @@ namespace AzToolsFramework
         void leaveEvent(QEvent* e) override;
 
         Thumbnailer::SharedThumbnailKey m_key;
-        Thumbnailer::ThumbnailWidget* m_thumbnail = nullptr;
-        Thumbnailer::ThumbnailWidget* m_thumbnailEnlarged = nullptr;
+        Thumbnailer::ThumbnailWidget* m_thumbnail{};
+        Thumbnailer::ThumbnailWidget* m_thumbnailEnlarged{};
 
-        QLabel* m_customThumbnail = nullptr;
-        QLabel* m_customThumbnailEnlarged = nullptr;
-        bool m_customThumbnailEnabled = false;
+        QLabel* m_customThumbnail{};
+        QLabel* m_customThumbnailEnlarged{};
+        bool m_customThumbnailEnabled{};
 
-        QLabel* m_emptyThumbnail = nullptr;
-        AspectRatioAwarePixmapWidget* m_dropDownArrow = nullptr;
+        QLabel* m_emptyThumbnail{};
+        AspectRatioAwarePixmapWidget* m_dropDownArrow{};
     };
 }

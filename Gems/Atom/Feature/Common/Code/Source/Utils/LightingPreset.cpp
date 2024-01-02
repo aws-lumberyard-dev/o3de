@@ -161,12 +161,14 @@ namespace AZ
 
             if (exposureControlSettingsInterface)
             {
+                exposureControlSettingsInterface->SetEnabled(true);
                 exposureControlSettingsInterface->SetExposureControlType(static_cast<ExposureControl::ExposureControlType>(m_exposure.m_exposureControlType));
                 exposureControlSettingsInterface->SetManualCompensation(m_exposure.m_manualCompensationValue);
                 exposureControlSettingsInterface->SetEyeAdaptationExposureMin(m_exposure.m_autoExposureMin);
                 exposureControlSettingsInterface->SetEyeAdaptationExposureMax(m_exposure.m_autoExposureMax);
                 exposureControlSettingsInterface->SetEyeAdaptationSpeedUp(m_exposure.m_autoExposureSpeedUp);
                 exposureControlSettingsInterface->SetEyeAdaptationSpeedDown(m_exposure.m_autoExposureSpeedDown);
+                exposureControlSettingsInterface->OnConfigChanged();
             }
 
             if (directionalLightFeatureProcessor)
