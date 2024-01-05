@@ -31,14 +31,20 @@ namespace AtomToolsFramework
     private:
         // EntityPreviewViewportSettingsNotificationBus::Handler overrides...
         void OnViewportSettingsChanged() override;
-        void OnModelPresetAdded(const AZStd::string& path) override;
-        void OnLightingPresetAdded(const AZStd::string& path) override;
-        void OnRenderPipelineAdded(const AZStd::string& path) override;
+
+        QAction* CreateThumbnailWidgetAction(
+            QWidget* parent,
+            const AZStd::string& title,
+            const AZStd::string& path,
+            bool checkable,
+            bool checked,
+            const AZStd::function<void()>& handler) const;
+        QMenu* CreateToneMappingMenu() const;
+        QMenu* CreateRenderPipelineMenu() const;
+        QMenu* CreateLightingPresetMenu() const;
+        QMenu* CreateModelPresetMenu() const;
 
         const AZ::Crc32 m_toolId{};
-        AssetSelectionComboBox* m_lightingPresetComboBox{};
-        AssetSelectionComboBox* m_modelPresetComboBox{};
-        AssetSelectionComboBox* m_renderPipelineComboBox{};
         QAction* m_showGrid{};
         QAction* m_showShadowCatcher{};
         QAction* m_showAlternateSkybox{};

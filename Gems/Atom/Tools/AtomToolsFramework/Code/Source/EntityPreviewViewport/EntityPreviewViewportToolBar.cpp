@@ -16,6 +16,8 @@
 #include <AzQtComponents/Components/Style.h>
 #include <AzQtComponents/Components/Widgets/ToolBar.h>
 #include <AzToolsFramework/API/EditorAssetSystemAPI.h>
+#include <AzToolsFramework/AssetBrowser/AssetBrowserBus.h>
+#include <AzToolsFramework/AssetBrowser/AssetSelectionModel.h>
 #include <AzToolsFramework/AssetBrowser/Thumbnails/SourceThumbnail.h>
 #include <AzToolsFramework/Thumbnails/Thumbnail.h>
 #include <AzToolsFramework/Thumbnails/ThumbnailWidget.h>
@@ -67,22 +69,8 @@ namespace AtomToolsFramework
 
         // Add mapping selection button
         auto displayMapperAction = addAction(QIcon(":/Icons/toneMapping.svg"), "Tone Mapping", this, [this]() {
-            AZ::Render::DisplayMapperOperationType currentOperationType = {};
-            EntityPreviewViewportSettingsRequestBus::EventResult(
-                currentOperationType, m_toolId, &EntityPreviewViewportSettingsRequestBus::Events::GetDisplayMapperOperationType);
-
-            QMenu menu;
-            for (const auto& operationEnumPair : AZ::AzEnumTraits<AZ::Render::DisplayMapperOperationType>::Members)
-            {
-                auto operationAction = menu.addAction(operationEnumPair.m_string.data(), [this, operationEnumPair]() {
-                    EntityPreviewViewportSettingsRequestBus::Event(
-                        m_toolId, &EntityPreviewViewportSettingsRequestBus::Events::SetDisplayMapperOperationType,
-                        operationEnumPair.m_value);
-                });
-                operationAction->setCheckable(true);
-                operationAction->setChecked(currentOperationType == operationEnumPair.m_value);
-            }
-            menu.exec(QCursor::pos());
+            QSharedPointer<QMenu> menu(CreateToneMappingMenu());
+            menu->exec(QCursor::pos());
         });
         displayMapperAction->setCheckable(false);
 
@@ -95,179 +83,16 @@ namespace AtomToolsFramework
         QMenu::connect(
             viewOptionsMenu,
             &QMenu::aboutToShow,
-            [this, viewOptionsMenu, toolId = m_toolId]()
+            [this, viewOptionsMenu]()
             {
                 viewOptionsMenu->clear();
-
-                EntityPreviewViewportSettingsRequestBus::Event(
-                    toolId,
-                    [this, viewOptionsMenu, toolId](EntityPreviewViewportSettingsRequests* viewportRequests)
-                    {
-                        auto createThumbnailWidgetAction =
-                            [](QWidget* parent, const AZStd::string& title, const AZStd::string& path, bool checkable, bool checked)
-                        {
-                            bool result = false;
-                            AZ::Data::AssetInfo assetInfo;
-                            AZStd::string watchFolder;
-                            AzToolsFramework::AssetSystemRequestBus::BroadcastResult(
-                                result,
-                                &AzToolsFramework::AssetSystemRequestBus::Events::GetSourceInfoBySourcePath,
-                                path.c_str(),
-                                assetInfo,
-                                watchFolder);
-
-                            auto thumbnailKey = MAKE_TKEY(AzToolsFramework::AssetBrowser::SourceThumbnailKey, assetInfo.m_assetId.m_guid);
-
-                            auto thumbnailParent = new QWidget(parent);
-
-                            QIcon checkMark(":/stylesheet/img/UI20/checkmark-menu.svg");
-                            auto thumbnailCheckBox = new QLabel(thumbnailParent);
-                            thumbnailCheckBox->setFixedSize(QSize(16, 16));
-                            thumbnailCheckBox->setPixmap(checkMark.pixmap(16));
-                            thumbnailCheckBox->setVisible(checkable && checked);
-                            QSizePolicy sp = thumbnailCheckBox->sizePolicy();
-                            sp.setRetainSizeWhenHidden(true);
-                            thumbnailCheckBox->setSizePolicy(sp);
-
-                            auto thumbnailWidget = new AzToolsFramework::Thumbnailer::ThumbnailWidget(thumbnailParent);
-                            thumbnailWidget->setFixedSize(QSize(32, 32));
-                            thumbnailWidget->SetThumbnailKey(thumbnailKey);
-
-                            auto thumbnailLabel = new QLabel(thumbnailParent);
-                            thumbnailLabel->setText(title.c_str());
-
-                            auto thumbnailLayout = new QHBoxLayout(thumbnailParent);
-                            thumbnailLayout->setContentsMargins(1, 1, 1, 1);
-                            thumbnailLayout->addWidget(thumbnailCheckBox);
-                            thumbnailLayout->addWidget(thumbnailWidget);
-                            thumbnailLayout->addWidget(thumbnailLabel);
-                            thumbnailParent->setLayout(thumbnailLayout);
-
-                            auto widgetAction = new QWidgetAction(parent);
-                            widgetAction->setDefaultWidget(thumbnailParent);
-
-                            AzQtComponents::Style::addClass(thumbnailParent, "WidgetAction");
-
-                            QObject::connect(
-                                widgetAction,
-                                &QAction::setChecked,
-                                thumbnailCheckBox,
-                                [thumbnailCheckBox, checkable](bool checked)
-                                {
-                                    thumbnailCheckBox->setVisible(checkable && checked);
-                                });
-                            return widgetAction;
-                        };
-
-                        viewOptionsMenu->addAction(m_showGrid);
-                        viewOptionsMenu->addAction(m_showShadowCatcher);
-                        viewOptionsMenu->addAction(m_showAlternateSkybox);
-
-                        auto selectToneMappingMenu = viewOptionsMenu->addMenu(QIcon(":/Icons/toneMapping.svg"), tr("Tone Mapping"));
-                        for (const auto& operationEnumPair : AZ::AzEnumTraits<AZ::Render::DisplayMapperOperationType>::Members)
-                        {
-                            auto operationAction = selectToneMappingMenu->addAction(
-                                operationEnumPair.m_string.data(),
-                                [toolId, operationEnumPair]()
-                                {
-                                    EntityPreviewViewportSettingsRequestBus::Event(
-                                        toolId,
-                                        &EntityPreviewViewportSettingsRequestBus::Events::SetDisplayMapperOperationType,
-                                        operationEnumPair.m_value);
-                                });
-                            operationAction->setCheckable(true);
-                            operationAction->setChecked(operationEnumPair.m_value == viewportRequests->GetDisplayMapperOperationType());
-                        }
-
-                        auto selectRenderPipelinesMenu = viewOptionsMenu->addMenu(tr("Render Pipeline"));
-                        AZStd::map<AZStd::string, AZStd::string> sortedRenderPipelinePaths;
-                        for (const auto& path : viewportRequests->GetRegisteredRenderPipelinePaths())
-                        {
-                            const auto& pathWithoutAlias = GetPathWithoutAlias(path);
-                            const auto& title = GetDisplayNameFromPath(pathWithoutAlias);
-                            sortedRenderPipelinePaths.emplace(title, pathWithoutAlias);
-                        }
-
-                        for (const auto& [title, pathWithoutAlias] : sortedRenderPipelinePaths)
-                        {
-                            if (QFileInfo::exists(pathWithoutAlias.c_str()))
-                            {
-                                auto action = selectRenderPipelinesMenu->addAction(
-                                    title.c_str(),
-                                    [toolId, pathWithoutAlias]()
-                                    {
-                                        EntityPreviewViewportSettingsRequestBus::Event(
-                                            toolId, &EntityPreviewViewportSettingsRequestBus::Events::LoadRenderPipeline, pathWithoutAlias);
-                                    });
-                                action->setCheckable(true);
-                                action->setChecked(pathWithoutAlias == viewportRequests->GetLastRenderPipelinePathWithoutAlias());
-                            }
-                        }
-
-                        auto selectLightingPresetsMenu = viewOptionsMenu->addMenu(tr("Lighting Preset"));
-                        AZStd::map<AZStd::string, AZStd::string> sortedLightingPresetPaths;
-                        for (const auto& path : viewportRequests->GetRegisteredLightingPresetPaths())
-                        {
-                            const auto& pathWithoutAlias = GetPathWithoutAlias(path);
-                            const auto& title = GetDisplayNameFromPath(pathWithoutAlias);
-                            sortedLightingPresetPaths.emplace(title, pathWithoutAlias);
-                        }
-
-                        for (const auto& [title, pathWithoutAlias] : sortedLightingPresetPaths)
-                        {
-                            if (QFileInfo::exists(pathWithoutAlias.c_str()))
-                            {
-                                auto action = createThumbnailWidgetAction(
-                                    selectLightingPresetsMenu,
-                                    title,
-                                    pathWithoutAlias,
-                                    true,
-                                    pathWithoutAlias == viewportRequests->GetLastLightingPresetPathWithoutAlias());
-                                QObject::connect(
-                                    action,
-                                    &QAction::triggered,
-                                    selectLightingPresetsMenu,
-                                    [toolId, pathWithoutAlias]()
-                                    {
-                                        EntityPreviewViewportSettingsRequestBus::Event(
-                                            toolId, &EntityPreviewViewportSettingsRequestBus::Events::LoadLightingPreset, pathWithoutAlias);
-                                    });
-                                selectLightingPresetsMenu->addAction(action);
-                            }
-                        }
-
-                        auto selectModelPresetsMenu = viewOptionsMenu->addMenu(tr("Model Preset"));
-                        AZStd::map<AZStd::string, AZStd::string> sortedModelPresetPaths;
-                        for (const auto& path : viewportRequests->GetRegisteredModelPresetPaths())
-                        {
-                            const auto& pathWithoutAlias = GetPathWithoutAlias(path);
-                            const auto& title = GetDisplayNameFromPath(pathWithoutAlias);
-                            sortedModelPresetPaths.emplace(title, pathWithoutAlias);
-                        }
-
-                        for (const auto& [title, pathWithoutAlias] : sortedModelPresetPaths)
-                        {
-                            if (QFileInfo::exists(pathWithoutAlias.c_str()))
-                            {
-                                auto action = createThumbnailWidgetAction(
-                                    selectModelPresetsMenu,
-                                    title,
-                                    pathWithoutAlias,
-                                    true,
-                                    pathWithoutAlias == viewportRequests->GetLastModelPresetPathWithoutAlias());
-                                QObject::connect(
-                                    action,
-                                    &QAction::triggered,
-                                    selectModelPresetsMenu,
-                                    [toolId, pathWithoutAlias]()
-                                    {
-                                        EntityPreviewViewportSettingsRequestBus::Event(
-                                            toolId, &EntityPreviewViewportSettingsRequestBus::Events::LoadModelPreset, pathWithoutAlias);
-                                    });
-                                selectModelPresetsMenu->addAction(action);
-                            }
-                        }
-                    });
+                viewOptionsMenu->addAction(m_showGrid);
+                viewOptionsMenu->addAction(m_showShadowCatcher);
+                viewOptionsMenu->addAction(m_showAlternateSkybox);
+                viewOptionsMenu->addMenu(CreateToneMappingMenu());
+                viewOptionsMenu->addMenu(CreateRenderPipelineMenu());
+                viewOptionsMenu->addMenu(CreateLightingPresetMenu());
+                viewOptionsMenu->addMenu(CreateModelPresetMenu());
             });
 
         auto viewOptionButton = new QToolButton(this);
@@ -277,73 +102,6 @@ namespace AtomToolsFramework
         viewOptionButton->setMenu(viewOptionsMenu);
         addWidget(viewOptionButton);
 
-        // Setting the minimum drop down with for all asset selection combo boxes to compensate for longer file names, like render
-        // pipelines.
-        const int minComboBoxDropdownWidth = 220;
-
-        // Add lighting preset combo box
-        m_lightingPresetComboBox = new AssetSelectionComboBox([](const AZStd::string& path) {
-            return path.ends_with(AZ::Render::LightingPreset::Extension);
-        }, this);
-        m_lightingPresetComboBox->view()->setMinimumWidth(minComboBoxDropdownWidth);
-        m_lightingPresetComboBox->setVisible(false);
-        addWidget(m_lightingPresetComboBox);
-
-        // Add model preset combo box
-        m_modelPresetComboBox = new AssetSelectionComboBox([](const AZStd::string& path) {
-            return path.ends_with(AZ::Render::ModelPreset::Extension);
-        }, this);
-        m_modelPresetComboBox->view()->setMinimumWidth(minComboBoxDropdownWidth);
-        m_modelPresetComboBox->setVisible(false);
-        addWidget(m_modelPresetComboBox);
-
-        // Add render pipeline combo box
-        m_renderPipelineComboBox = new AssetSelectionComboBox([](const AZStd::string& path) {
-            return path.ends_with(AZ::RPI::RenderPipelineDescriptor::Extension);
-        }, this);
-        m_renderPipelineComboBox->view()->setMinimumWidth(minComboBoxDropdownWidth);
-        m_renderPipelineComboBox->setVisible(false);
-        addWidget(m_renderPipelineComboBox);
-        
-        // Prepopulating preset selection widgets with previously registered presets.
-        EntityPreviewViewportSettingsRequestBus::Event(
-            m_toolId,
-            [this](EntityPreviewViewportSettingsRequests* viewportRequests)
-            {
-                m_lightingPresetComboBox->AddPath(viewportRequests->GetLastLightingPresetPath());
-                for (const auto& path : viewportRequests->GetRegisteredLightingPresetPaths())
-                {
-                    m_lightingPresetComboBox->AddPath(path);
-                }
-
-                m_modelPresetComboBox->AddPath(viewportRequests->GetLastModelPresetPath());
-                for (const auto& path : viewportRequests->GetRegisteredModelPresetPaths())
-                {
-                    m_modelPresetComboBox->AddPath(path);
-                }
-                
-                m_renderPipelineComboBox->AddPath(viewportRequests->GetLastRenderPipelinePath());
-                for (const auto& path : viewportRequests->GetRegisteredRenderPipelinePaths())
-                {
-                    m_renderPipelineComboBox->AddPath(path);
-                }
-            });
-
-        connect(m_lightingPresetComboBox, &AssetSelectionComboBox::PathSelected, this, [this](const AZStd::string& path) {
-            EntityPreviewViewportSettingsRequestBus::Event(
-                m_toolId, &EntityPreviewViewportSettingsRequestBus::Events::LoadLightingPreset, path);
-        });
-
-        connect(m_modelPresetComboBox, &AssetSelectionComboBox::PathSelected, this, [this](const AZStd::string& path) {
-            EntityPreviewViewportSettingsRequestBus::Event(
-                m_toolId, &EntityPreviewViewportSettingsRequestBus::Events::LoadModelPreset, path);
-        });
-
-        connect(m_renderPipelineComboBox, &AssetSelectionComboBox::PathSelected, this, [this](const AZStd::string& path) {
-            EntityPreviewViewportSettingsRequestBus::Event(
-                m_toolId, &EntityPreviewViewportSettingsRequestBus::Events::LoadRenderPipeline, path);
-        });
- 
         OnViewportSettingsChanged();
         EntityPreviewViewportSettingsNotificationBus::Handler::BusConnect(m_toolId);
     }
@@ -362,25 +120,247 @@ namespace AtomToolsFramework
                 m_showGrid->setChecked(viewportRequests->GetGridEnabled());
                 m_showShadowCatcher->setChecked(viewportRequests->GetShadowCatcherEnabled());
                 m_showAlternateSkybox->setChecked(viewportRequests->GetAlternateSkyboxEnabled());
-                m_lightingPresetComboBox->SelectPath(viewportRequests->GetLastLightingPresetPath());
-                m_modelPresetComboBox->SelectPath(viewportRequests->GetLastModelPresetPath());
-                m_renderPipelineComboBox->SelectPath(viewportRequests->GetLastRenderPipelinePath());
             });
     }
 
-    void EntityPreviewViewportToolBar::OnModelPresetAdded(const AZStd::string& path)
+    QAction* EntityPreviewViewportToolBar::CreateThumbnailWidgetAction(
+        QWidget* parent,
+        const AZStd::string& title,
+        const AZStd::string& path,
+        bool checkable,
+        bool checked,
+        const AZStd::function<void()>& handler) const
     {
-        m_modelPresetComboBox->AddPath(path);
+        bool result = false;
+        AZ::Data::AssetInfo assetInfo;
+        AZStd::string watchFolder;
+        AzToolsFramework::AssetSystemRequestBus::BroadcastResult(
+            result, &AzToolsFramework::AssetSystemRequestBus::Events::GetSourceInfoBySourcePath, path.c_str(), assetInfo, watchFolder);
+
+        auto thumbnailKey = MAKE_TKEY(AzToolsFramework::AssetBrowser::SourceThumbnailKey, assetInfo.m_assetId.m_guid);
+
+        auto thumbnailParent = new QWidget(parent);
+
+        QIcon checkMark(":/stylesheet/img/UI20/checkmark-menu.svg");
+        auto thumbnailCheckBox = new QLabel(thumbnailParent);
+        thumbnailCheckBox->setFixedSize(QSize(16, 16));
+        thumbnailCheckBox->setPixmap(checkMark.pixmap(16));
+        thumbnailCheckBox->setVisible(checkable && checked);
+        QSizePolicy sp = thumbnailCheckBox->sizePolicy();
+        sp.setRetainSizeWhenHidden(true);
+        thumbnailCheckBox->setSizePolicy(sp);
+
+        auto thumbnailWidget = new AzToolsFramework::Thumbnailer::ThumbnailWidget(thumbnailParent);
+        thumbnailWidget->setFixedSize(QSize(32, 32));
+        thumbnailWidget->SetThumbnailKey(thumbnailKey);
+
+        auto thumbnailLabel = new QLabel(thumbnailParent);
+        thumbnailLabel->setText(title.c_str());
+
+        auto thumbnailLayout = new QHBoxLayout(thumbnailParent);
+        thumbnailLayout->setContentsMargins(1, 1, 1, 1);
+        thumbnailLayout->addWidget(thumbnailCheckBox);
+        thumbnailLayout->addWidget(thumbnailWidget);
+        thumbnailLayout->addWidget(thumbnailLabel);
+        thumbnailParent->setLayout(thumbnailLayout);
+
+        auto widgetAction = new QWidgetAction(parent);
+        widgetAction->setDefaultWidget(thumbnailParent);
+
+        AzQtComponents::Style::addClass(thumbnailParent, "WidgetAction");
+
+        QObject::connect(
+            widgetAction,
+            &QAction::setChecked,
+            thumbnailCheckBox,
+            [thumbnailCheckBox, checkable](bool checked)
+            {
+                thumbnailCheckBox->setVisible(checkable && checked);
+            });
+
+        QObject::connect(widgetAction, &QAction::triggered, parent, handler);
+        return widgetAction;
     }
 
-    void EntityPreviewViewportToolBar::OnLightingPresetAdded(const AZStd::string& path)
+    QMenu* EntityPreviewViewportToolBar::CreateToneMappingMenu() const
     {
-        m_lightingPresetComboBox->AddPath(path);
+        auto menu = new QMenu(tr("Tone Mapping"));
+        menu->setIcon(QIcon(":/Icons/toneMapping.svg"));
+
+        EntityPreviewViewportSettingsRequestBus::Event(
+            m_toolId,
+            [this, menu](EntityPreviewViewportSettingsRequests* viewportRequests)
+            {
+                for (const auto& operationEnumPair : AZ::AzEnumTraits<AZ::Render::DisplayMapperOperationType>::Members)
+                {
+                    auto operationAction = menu->addAction(
+                        operationEnumPair.m_string.data(),
+                        [this, operationEnumPair]()
+                        {
+                            EntityPreviewViewportSettingsRequestBus::Event(
+                                m_toolId,
+                                &EntityPreviewViewportSettingsRequestBus::Events::SetDisplayMapperOperationType,
+                                operationEnumPair.m_value);
+                        });
+                    operationAction->setCheckable(true);
+                    operationAction->setChecked(operationEnumPair.m_value == viewportRequests->GetDisplayMapperOperationType());
+                }
+            });
+
+        return menu;
     }
 
-    void EntityPreviewViewportToolBar::OnRenderPipelineAdded(const AZStd::string& path)
+    QMenu* EntityPreviewViewportToolBar::CreateRenderPipelineMenu() const
     {
-        m_renderPipelineComboBox->AddPath(path);
+        auto menu = new QMenu(tr("Render Pipeline"));
+
+        EntityPreviewViewportSettingsRequestBus::Event(
+            m_toolId,
+            [this, menu](EntityPreviewViewportSettingsRequests* viewportRequests)
+            {
+                AZStd::map<AZStd::string, AZStd::string> sortedRenderPipelinePaths;
+                for (const auto& path : viewportRequests->GetRegisteredRenderPipelinePaths())
+                {
+                    const auto& pathWithoutAlias = GetPathWithoutAlias(path);
+                    const auto& title = GetDisplayNameFromPath(pathWithoutAlias);
+                    sortedRenderPipelinePaths.emplace(title, pathWithoutAlias);
+                }
+
+                for (const auto& [title, pathWithoutAlias] : sortedRenderPipelinePaths)
+                {
+                    if (QFileInfo::exists(pathWithoutAlias.c_str()))
+                    {
+                        auto action = menu->addAction(
+                            title.c_str(),
+                            [this, pathWithoutAlias]()
+                            {
+                                EntityPreviewViewportSettingsRequestBus::Event(
+                                    m_toolId, &EntityPreviewViewportSettingsRequestBus::Events::LoadRenderPipeline, pathWithoutAlias);
+                            });
+                        action->setCheckable(true);
+                        action->setChecked(pathWithoutAlias == viewportRequests->GetLastRenderPipelinePathWithoutAlias());
+                    }
+                }
+            });
+
+        return menu;
+    }
+
+    QMenu* EntityPreviewViewportToolBar::CreateLightingPresetMenu() const
+    {
+        auto menu = new QMenu(tr("Lighting Preset"));
+
+        EntityPreviewViewportSettingsRequestBus::Event(
+            m_toolId,
+            [this, menu](EntityPreviewViewportSettingsRequests* viewportRequests)
+            {
+                AZStd::map<AZStd::string, AZStd::string> sortedLightingPresetPaths;
+                for (const auto& path : viewportRequests->GetRegisteredLightingPresetPaths())
+                {
+                    const auto& pathWithoutAlias = GetPathWithoutAlias(path);
+                    const auto& title = GetDisplayNameFromPath(pathWithoutAlias);
+                    sortedLightingPresetPaths.emplace(title, pathWithoutAlias);
+                }
+
+                for (const auto& [title, pathWithoutAlias] : sortedLightingPresetPaths)
+                {
+                    if (QFileInfo::exists(pathWithoutAlias.c_str()))
+                    {
+                        auto action = CreateThumbnailWidgetAction(
+                            menu,
+                            title,
+                            pathWithoutAlias,
+                            true,
+                            pathWithoutAlias == viewportRequests->GetLastLightingPresetPathWithoutAlias(),
+                            [this, pathWithoutAlias]()
+                            {
+                                EntityPreviewViewportSettingsRequestBus::Event(
+                                    m_toolId, &EntityPreviewViewportSettingsRequestBus::Events::LoadLightingPreset, pathWithoutAlias);
+                            });
+                        menu->addAction(action);
+                    }
+                }
+            });
+
+        return menu;
+    }
+
+    QMenu* EntityPreviewViewportToolBar::CreateModelPresetMenu() const
+    {
+        auto menu = new QMenu(tr("Model Preset"));
+
+        EntityPreviewViewportSettingsRequestBus::Event(
+            m_toolId,
+            [this, menu](EntityPreviewViewportSettingsRequests* viewportRequests)
+            {
+                AZStd::map<AZStd::string, AZStd::string> sortedModelPresetPaths;
+                for (const auto& path : viewportRequests->GetRegisteredModelPresetPaths())
+                {
+                    const auto& pathWithoutAlias = GetPathWithoutAlias(path);
+                    const auto& title = GetDisplayNameFromPath(pathWithoutAlias);
+                    sortedModelPresetPaths.emplace(title, pathWithoutAlias);
+                }
+
+                for (const auto& [title, pathWithoutAlias] : sortedModelPresetPaths)
+                {
+                    if (QFileInfo::exists(pathWithoutAlias.c_str()))
+                    {
+                        auto action = CreateThumbnailWidgetAction(
+                            menu,
+                            title,
+                            pathWithoutAlias,
+                            true,
+                            pathWithoutAlias == viewportRequests->GetLastModelPresetPathWithoutAlias(),
+                            [this, pathWithoutAlias]()
+                            {
+                                EntityPreviewViewportSettingsRequestBus::Event(
+                                    m_toolId, &EntityPreviewViewportSettingsRequestBus::Events::LoadModelPreset, pathWithoutAlias);
+                            });
+                        menu->addAction(action);
+                    }
+                }
+
+                if (!menu->actions().empty())
+                {
+                    menu->addSeparator();
+                }
+
+                auto importModelAction = menu->addAction(
+                    tr("Import Model..."),
+                    [this]()
+                    {
+                        const bool multiselect = false;
+                        const bool supportSelectingSources = false;
+                        auto selectionModel = AssetSelectionModel::AssetTypeSelection(
+                            { AZ::RPI::ModelAsset::RTTI_Type() }, multiselect, supportSelectingSources);
+                        selectionModel.SetTitle("Select Model");
+
+                        AzToolsFramework::AssetBrowser::AssetBrowserComponentRequestBus::Broadcast(
+                            &AzToolsFramework::AssetBrowser::AssetBrowserComponentRequestBus::Events::PickAssets,
+                            selectionModel,
+                            GetToolMainWindow());
+
+                        if (selectionModel.IsValid())
+                        {
+                            const auto entry = selectionModel.GetResult();
+                            if (const auto product = azrtti_cast<const AzToolsFramework::AssetBrowser::ProductAssetBrowserEntry*>(entry))
+                            {
+                                AZ::Render::ModelPreset preset;
+                                preset.m_modelAsset.Create(product->GetAssetId());
+                                EntityPreviewViewportSettingsRequestBus::Event(
+                                    m_toolId, &EntityPreviewViewportSettingsRequestBus::Events::SetModelPreset, preset);
+
+                                AZStd::string outputPath = AZ::RPI::AssetUtils::GetSourcePathByAssetId(product->GetAssetId());
+                                AZ::StringFunc::Path::ReplaceExtension(outputPath, AZ::Render::ModelPreset::Extension);
+                                EntityPreviewViewportSettingsRequestBus::Event(
+                                    m_toolId, &EntityPreviewViewportSettingsRequestBus::Events::SaveModelPreset, outputPath);
+                            }
+                        }
+                    });
+                importModelAction->setCheckable(false);
+            });
+
+        return menu;
     }
 } // namespace AtomToolsFramework
 
