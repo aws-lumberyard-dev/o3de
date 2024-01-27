@@ -16,8 +16,6 @@ namespace AZ
 {
     namespace Render
     {
-        class ModelReloaderSystem;
-
         class CommonSystemComponent
             : public AZ::Component
         {
@@ -44,8 +42,6 @@ namespace AZ
             void LoadPassTemplateMappings();
 
             RPI::PassSystemInterface::OnReadyLoadTemplatesEvent::Handler m_loadTemplatesHandler;
-
-            AZStd::unique_ptr<ModelReloaderSystem> m_modelReloaderSystem;
         };
     } // namespace Render
 } // namespace AZ

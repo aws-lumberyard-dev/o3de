@@ -19,6 +19,8 @@ namespace AZ
         {
             BeginCommon(assetId);
 
+            m_asset.SetAutoLoadBehavior(AZ::Data::AssetLoadBehavior::PreLoad);
+
             m_modelAabb = Aabb::CreateNull();
         }
 
@@ -61,7 +63,8 @@ namespace AZ
         {
             if (ValidateIsReady())
             {
-                m_asset->m_lodAssets.push_back(AZStd::move(lodAsset));
+                m_asset->m_lodAssets.emplace_back(AZStd::move(lodAsset));
+                m_asset->m_lodAssets.back().SetAutoLoadBehavior(AZ::Data::AssetLoadBehavior::PreLoad);
                 m_modelAabb.AddAabb(m_asset->m_lodAssets.back()->GetAabb());
             }
         }

@@ -9,7 +9,6 @@
 #include <Atom/Feature/CoreLights/PhotometricValue.h>
 #include <Atom/Feature/Mesh/MeshCommon.h>
 #include <Atom/Feature/Mesh/MeshFeatureProcessor.h>
-#include <Atom/Feature/Mesh/ModelReloaderSystemInterface.h>
 #include <Atom/Feature/RenderCommon.h>
 #include <Atom/Feature/Utils/GpuBufferHandler.h>
 #include <Atom/RHI.Reflect/InputStreamLayoutBuilder.h>
@@ -1547,21 +1546,31 @@ namespace AZ
                 return;
             }
 
-            m_modelAsset.QueueLoad();
-            Data::AssetBus::Handler::BusConnect(m_modelAsset.GetId());
-            AzFramework::AssetCatalogEventBus::Handler::BusConnect();
+            // The mesh loader queues the model asset to be loaded then connects to the asset bus. If the asset is already loaded
+            // OnAssetReady will be called before returning from the acquire function. Many callers connect handlers for model change
+            // events. Some of the handlers attempt to access their stored mesh handle member, which will not be up to date if the acquire
+            // function hasn't returned. This postpones sending the event until the next tick, allowing the acquire function to return and
+            // update and he stored mesh handles.
+            SystemTickBus::Handler::BusConnect();
         }
 
         ModelDataInstance::MeshLoader::~MeshLoader()
         {
-            AzFramework::AssetCatalogEventBus::Handler::BusDisconnect();
             Data::AssetBus::Handler::BusDisconnect();
-            SystemTickBus::Handler::BusDisconnect();
         }
 
         void ModelDataInstance::MeshLoader::OnSystemTick()
         {
             SystemTickBus::Handler::BusDisconnect();
+            m_modelAsset.QueueLoad();
+            Data::AssetBus::Handler::BusConnect(m_modelAsset.GetId());
+        }
+
+        //! AssetBus::Handler overrides...
+        void ModelDataInstance::MeshLoader::OnAssetReady(Data::Asset<Data::AssetData> asset)
+        {
+            // Update our model asset reference to contain the latest loaded version.
+            m_modelAsset = asset;
 
             // Assign the fully loaded asset back to the mesh handle to not only hold asset id, but the actual data as well.
             m_parent->m_originalModelAsset = m_modelAsset;
@@ -1634,21 +1643,7 @@ namespace AZ
             }
         }
 
-        //! AssetBus::Handler overrides...
-        void ModelDataInstance::MeshLoader::OnAssetReady(Data::Asset<Data::AssetData> asset)
-        {
-            // Update our model asset reference to contain the latest loaded version.
-            m_modelAsset = asset;
-
-            // The mesh loader queues the model asset to be loaded then connects to the asset bus. If the asset is already loaded
-            // OnAssetReady will be called before returning from the acquire function. Many callers connect handlers for model change
-            // events. Some of the handlers attempt to access their stored mesh handle member, which will not be up to date if the acquire
-            // function hasn't returned. This postpones sending the event until the next tick, allowing the acquire function to return and
-            // update and he stored mesh handles.
-            SystemTickBus::Handler::BusConnect();
-        }
-
-        void ModelDataInstance::MeshLoader::OnModelReloaded(Data::Asset<Data::AssetData> asset)
+        void ModelDataInstance::MeshLoader::OnAssetReloaded(Data::Asset<Data::AssetData> asset)
         {
             OnAssetReady(asset);
         }
@@ -1662,40 +1657,6 @@ namespace AZ
 
             AzFramework::AssetSystemRequestBus::Broadcast(
                 &AzFramework::AssetSystem::AssetSystemRequests::EscalateAssetByUuid, m_modelAsset.GetId().m_guid);
-        }
-
-        void ModelDataInstance::MeshLoader::OnCatalogAssetRemoved(
-            const AZ::Data::AssetId& assetId, [[maybe_unused]] const AZ::Data::AssetInfo& assetInfo)
-        {
-            OnCatalogAssetChanged(assetId);
-        }
-
-        void ModelDataInstance::MeshLoader::OnCatalogAssetAdded(const AZ::Data::AssetId& assetId)
-        {
-            // If the asset didn't exist in the catalog when it first attempted to load, we need to try loading it again
-            OnCatalogAssetChanged(assetId);
-        }
-
-        void ModelDataInstance::MeshLoader::OnCatalogAssetChanged(const AZ::Data::AssetId& assetId)
-        {
-            if (assetId == m_modelAsset.GetId())
-            {
-                Data::Asset<RPI::ModelAsset> modelAssetReference = m_modelAsset;
-
-                // If the asset was modified, reload it. This will also cause a model to change back to the default missing
-                // asset if it was removed, and it will replace the default missing asset with the real asset if it was added.
-                AZ::SystemTickBus::QueueFunction(
-                    [=, meshLoader = m_parent->m_meshLoader]() mutable
-                    {
-                        // Only trigger the reload if the meshLoader is still being used by something other than the lambda.
-                        // If the lambda is the only owner, it will get destroyed after this queued call, so there's no point
-                        // in reloading the model.
-                        if (meshLoader.use_count() > 1)
-                        {
-                            ModelReloaderSystemInterface::Get()->ReloadModel(modelAssetReference, m_modelReloadedEventHandler);
-                        }
-                    });
-            }
         }
 
         ModelDataInstance::ModelDataInstance()

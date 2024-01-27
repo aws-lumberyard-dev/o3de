@@ -18,6 +18,8 @@ namespace AZ
         void ModelLodAssetCreator::Begin(const Data::AssetId& assetId)
         {
             BeginCommon(assetId);
+
+            m_asset.SetAutoLoadBehavior(AZ::Data::AssetLoadBehavior::PreLoad);
         }
 
         void ModelLodAssetCreator::SetLodIndexBuffer(const Data::Asset<BufferAsset>& bufferAsset)
@@ -25,6 +27,7 @@ namespace AZ
             if (ValidateIsReady())
             {
                 m_asset->m_indexBuffer = AZStd::move(bufferAsset);
+                m_asset->m_indexBuffer.SetAutoLoadBehavior(AZ::Data::AssetLoadBehavior::PreLoad);
             }
         }
 
@@ -32,7 +35,8 @@ namespace AZ
         {
             if (ValidateIsReady())
             {
-                m_asset->m_streamBuffers.push_back(AZStd::move(bufferAsset));
+                m_asset->m_streamBuffers.emplace_back(AZStd::move(bufferAsset));
+                m_asset->m_streamBuffers.back().SetAutoLoadBehavior(AZ::Data::AssetLoadBehavior::PreLoad);
             }
         }
 
@@ -117,8 +121,9 @@ namespace AZ
             streamBufferInfo.m_semantic = streamSemantic;
             streamBufferInfo.m_customName = customName;
             streamBufferInfo.m_bufferAssetView = AZStd::move(bufferAssetView);
+            streamBufferInfo.m_bufferAssetView = AZStd::move(bufferAssetView);
 
-            m_currentMesh.m_streamBufferInfo.push_back(AZStd::move(streamBufferInfo));
+            m_currentMesh.m_streamBufferInfo.emplace_back(AZStd::move(streamBufferInfo));
 
             return true;
         }
@@ -141,7 +146,7 @@ namespace AZ
                 }
             }
 
-            m_currentMesh.m_streamBufferInfo.push_back(AZStd::move(streamBufferInfo));
+            m_currentMesh.m_streamBufferInfo.emplace_back(AZStd::move(streamBufferInfo));
         }
 
         void ModelLodAssetCreator::EndMesh()

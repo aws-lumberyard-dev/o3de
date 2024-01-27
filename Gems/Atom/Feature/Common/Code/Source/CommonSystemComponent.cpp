@@ -107,7 +107,6 @@
 #include <ReflectionScreenSpace/ReflectionScreenSpaceCompositePass.h>
 #include <ReflectionScreenSpace/ReflectionCopyFrameBufferPass.h>
 #include <OcclusionCullingPlane/OcclusionCullingPlaneFeatureProcessor.h>
-#include <Mesh/ModelReloaderSystem.h>
 
 namespace AZ
 {
@@ -329,13 +328,10 @@ namespace AZ
             // setup handler for load pass template mappings
             m_loadTemplatesHandler = RPI::PassSystemInterface::OnReadyLoadTemplatesEvent::Handler([this]() { this->LoadPassTemplateMappings(); });
             RPI::PassSystemInterface::Get()->ConnectEvent(m_loadTemplatesHandler);
-            
-            m_modelReloaderSystem = AZStd::make_unique<ModelReloaderSystem>();
         }
 
         void CommonSystemComponent::Deactivate()
         {
-            m_modelReloaderSystem.reset();
             m_loadTemplatesHandler.Disconnect();
             AZ::RPI::FeatureProcessorFactory::Get()->UnregisterFeatureProcessor<RayTracingFeatureProcessor>();
             AZ::RPI::FeatureProcessorFactory::Get()->UnregisterFeatureProcessor<SMAAFeatureProcessor>();

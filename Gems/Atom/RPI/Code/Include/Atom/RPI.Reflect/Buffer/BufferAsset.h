@@ -60,17 +60,6 @@ namespace AZ
             const AZStd::string& GetName() const;
 
         private:
-            // AssetData overrides...
-            bool HandleAutoReload() override
-            {
-                // Automatic asset reloads via the AssetManager are disabled for Atom models and their dependent assets because reloads
-                // need to happen in a specific order to refresh correctly. They require more complex code than what the default
-                // AssetManager reloading provides. See ModelReloader() for the actual handling of asset reloads.
-                // Models need to be loaded via the MeshFeatureProcessor to reload correctly, and reloads can be listened
-                // to by using MeshFeatureProcessor::ConnectModelChangeEventHandler().
-                return false;
-            }
-
             // Called by asset creators to assign the asset to a ready state.
             void SetReady();
 

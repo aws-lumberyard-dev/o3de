@@ -83,7 +83,6 @@ namespace EMotionFX
             // AZ::Data::AssetBus overrides ...
             void OnAssetReady(AZ::Data::Asset<AZ::Data::AssetData> asset) override;
             void OnAssetReloaded(AZ::Data::Asset<AZ::Data::AssetData> asset) override;
-            void OnAssetUnloaded(AZ::Data::AssetId assetId, AZ::Data::AssetType assetType) override;
 
             // BoundsRequestBus overrides ...
             AZ::Aabb GetWorldBounds() const override;
@@ -194,9 +193,6 @@ namespace EMotionFX
 
             AZ::Render::LightingChannelConfiguration m_lightingChannelConfig;
 
-            AZ::Render::ModelReloadedEvent::Handler m_modelReloadedEventHandler;
-
-            bool m_reloading = false;
             bool m_processLoadedAsset = false;
         };
     } // namespace Integration
