@@ -22,8 +22,7 @@
 #include <AzCore/Component/TickBus.h>
 #include <AzCore/Console/IConsoleTypes.h>
 #include <AzCore/Asset/AssetCommon.h>
-#include <AzToolsFramework/UI/PropertyEditor/PropertyEditorAPI.h>
-#include <AzToolsFramework/Undo/UndoSystem.h>
+#include <AzToolsFramework/ActionManager/ActionManagerRegistrationNotificationBus.h>
 #include <AzToolsFramework/API/EditorWindowRequestBus.h>
 #include <AzToolsFramework/API/ToolsApplicationAPI.h>
 #include <AzToolsFramework/API/EntityPropertyEditorRequestsBus.h>
@@ -35,6 +34,8 @@
 #include <AzToolsFramework/FocusMode/FocusModeNotificationBus.h>
 #include <AzToolsFramework/ToolsComponents/ComponentMimeData.h>
 #include <AzToolsFramework/ToolsComponents/EditorInspectorComponentBus.h>
+#include <AzToolsFramework/UI/PropertyEditor/PropertyEditorAPI.h>
+#include <AzToolsFramework/Undo/UndoSystem.h>
 #include <AzQtComponents/Components/O3DEStylesheet.h>
 
 #include <QtWidgets/QWidget>
@@ -263,6 +264,7 @@ namespace AzToolsFramework
         void GetSelectedEntities(EntityIdList& selectedEntityIds) override;
         void SetNewComponentId(AZ::ComponentId componentId) override;
         void VisitComponentEditors(const VisitComponentEditorsCallback& callback) const override;
+        void GetActiveEntityPropertyEditor(const EntityPropertyEditor*& entityPropertyEditor) const override;
 
         // TickBus overrides ...
         void OnTick(float deltaTime, AZ::ScriptTimePoint time) override;
@@ -392,7 +394,6 @@ namespace AzToolsFramework
         AZ_PUSH_DISABLE_WARNING(4127, "-Wunknown-warning-option") // conditional expression is constant
         QVector<QAction*> m_entityComponentActions;
         AZ_POP_DISABLE_WARNING
-        QAction* m_actionToAddComponents = nullptr;
         QAction* m_actionToDeleteComponents = nullptr;
         QAction* m_actionToCutComponents = nullptr;
         QAction* m_actionToCopyComponents = nullptr;
@@ -681,7 +682,7 @@ namespace AzToolsFramework
 
         AZ::ConsoleCommandInvokedEvent::Handler m_commandInvokedHandler;
 
-    private slots:
+    public slots:
         void OnPropertyRefreshRequired(); // refresh is needed for a property.
         void UpdateContents();
         void OnAddComponent();

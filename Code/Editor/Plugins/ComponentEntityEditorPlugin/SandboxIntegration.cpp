@@ -1125,6 +1125,56 @@ void SandboxIntegrationManager::OnActionRegistrationHook()
         hotKeyManagerInterface->SetActionHotKey(actionIdentifier, "Ctrl+Alt+N");
     }
 
+    // Add Component
+    {
+        const AZStd::string_view actionIdentifier = "o3de.action.inspector.component.openAddComponentMenu";
+        AzToolsFramework::ActionProperties actionProperties;
+        actionProperties.m_name = "Add component";
+        actionProperties.m_description = "Add component";
+        actionProperties.m_category = "Component";
+        actionProperties.m_menuVisibility = AzToolsFramework::ActionVisibility::HideWhenDisabled;
+
+        actionManagerInterface->RegisterAction(
+            EditorIdentifiers::MainWindowActionContextIdentifier,
+            actionIdentifier,
+            actionProperties,
+            []()
+            {
+                /*
+                AzToolsFramework::EntityPropertyEditor* entityPropertyEditor = nullptr;
+                AzToolsFramework::EntityPropertyEditorRequestBus::Broadcast(
+                    &AzToolsFramework::EntityPropertyEditorRequests::GetActiveEntityPropertyEditor, entityPropertyEditor);
+
+                if(entityPropertyEditor)
+                {
+                    entityPropertyEditor->OnAddComponent();
+                }
+                */
+            }
+        );
+    }
+}
+
+void SandboxIntegrationManager::OnMenuRegistrationHook()
+{
+    auto menuManagerInterface = AZ::Interface<AzToolsFramework::MenuManagerInterface>::Get();
+
+    if (!menuManagerInterface)
+    {
+        return;
+    }
+
+    {
+        AzToolsFramework::MenuProperties menuProperties;
+        menuProperties.m_name = "Component Menu";
+        menuManagerInterface->RegisterMenu(EditorIdentifiers::InspectorComponentCardContextMenuIdentifier, menuProperties);
+    }
+
+    {
+        AzToolsFramework::MenuProperties menuProperties;
+        menuProperties.m_name = "Component Property Menu";
+        menuManagerInterface->RegisterMenu(EditorIdentifiers::InspectorComponentPropertyContextMenuIdentifier, menuProperties);
+    }
 }
 
 void SandboxIntegrationManager::OnMenuBindingHook()
@@ -1136,8 +1186,12 @@ void SandboxIntegrationManager::OnMenuBindingHook()
         return;
     }
 
+    // Entity Inspector Context Menu
+    menuManagerInterface->AddActionToMenu(
+        EditorIdentifiers::InspectorComponentCardContextMenuIdentifier, "o3de.action.inspector.component.openAddComponentMenu", 100);
+
     // Entity Outliner Context Menu
-    auto outcome = menuManagerInterface->AddActionToMenu(EditorIdentifiers::EntityOutlinerContextMenuIdentifier, "o3de.action.sandbox.createEntity", 100);
+    menuManagerInterface->AddActionToMenu(EditorIdentifiers::EntityOutlinerContextMenuIdentifier, "o3de.action.sandbox.createEntity", 100);
 
     // Viewport Context Menu
     menuManagerInterface->AddActionToMenu(EditorIdentifiers::ViewportContextMenuIdentifier, "o3de.action.sandbox.createEntity", 100);

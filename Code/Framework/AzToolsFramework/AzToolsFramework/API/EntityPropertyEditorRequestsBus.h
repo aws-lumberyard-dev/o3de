@@ -39,6 +39,8 @@ namespace AzToolsFramework
         //! Visits the component editors in an EntityPropertyEditor via a callback.
         //! @param callback The callback that iterates over all the component editors within an EntityPropertyEditor.
         virtual void VisitComponentEditors(const VisitComponentEditorsCallback& callback) const = 0;
+
+        virtual void GetActiveEntityPropertyEditor(const EntityPropertyEditor*& entityPropertyEditor) const = 0;
     };
 
     using EntityPropertyEditorRequestBus = AZ::EBus<EntityPropertyEditorRequests>;

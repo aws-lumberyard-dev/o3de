@@ -23,11 +23,11 @@
 #include <AzToolsFramework/API/EditorWindowRequestBus.h>
 #include <AzToolsFramework/API/ToolsApplicationAPI.h>
 #include <AzToolsFramework/Editor/EditorContextMenuBus.h>
+#include <AzToolsFramework/Entity/EditorEntityContextBus.h>
 #include <AzToolsFramework/UI/PropertyEditor/PropertyEditorAPI.h>
 #include <AzToolsFramework/UI/Prefab/PrefabIntegrationManager.h>
 #include <AzToolsFramework/UI/Slice/SliceOverridesNotificationWindowManager.hxx>
 #include <AzToolsFramework/UI/Slice/SliceOverridesNotificationWindow.hxx>
-#include <AzToolsFramework/Entity/EditorEntityContextBus.h>
 #include <AzToolsFramework/Viewport/ViewportMessages.h>
 
 // Sandbox imports.
@@ -180,6 +180,7 @@ private:
 
     // ActionManagerRegistrationNotificationBus overrides ...
     void OnActionRegistrationHook() override;
+    void OnMenuRegistrationHook() override;
     void OnMenuBindingHook() override;
 
     // Context menu handlers.

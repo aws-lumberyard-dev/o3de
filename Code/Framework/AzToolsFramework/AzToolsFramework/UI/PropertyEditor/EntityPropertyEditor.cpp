@@ -37,10 +37,12 @@ AZ_POP_DISABLE_WARNING
 #include <AzQtComponents/Components/Widgets/LineEdit.h>
 #include <AzToolsFramework/ActionManager/Action/ActionManagerInterface.h>
 #include <AzToolsFramework/ActionManager/HotKey/HotKeyManagerInterface.h>
+#include <AzToolsFramework/ActionManager/Menu/MenuManagerInterface.h>
 #include <AzToolsFramework/API/ComponentModeCollectionInterface.h>
 #include <AzToolsFramework/API/EntityCompositionRequestBus.h>
 #include <AzToolsFramework/API/ToolsApplicationAPI.h>
 #include <AzToolsFramework/Editor/ActionManagerIdentifiers/EditorContextIdentifiers.h>
+#include <AzToolsFramework/Editor/ActionManagerIdentifiers/EditorMenuIdentifiers.h>
 #include <AzToolsFramework/Editor/ActionManagerUtils.h>
 #include <AzToolsFramework/Entity/EditorEntityInfoBus.h>
 #include <AzToolsFramework/Entity/EditorEntityRuntimeActivationBus.h>
@@ -786,6 +788,14 @@ namespace AzToolsFramework
             {
                 return;
             }
+        }
+    }
+
+    void EntityPropertyEditor::GetActiveEntityPropertyEditor(const EntityPropertyEditor*& entityPropertyEditor) const
+    {
+        if (true)
+        {
+            entityPropertyEditor = this;
         }
     }
 
@@ -3483,11 +3493,7 @@ namespace AzToolsFramework
     {
         m_actionManagerInterface = AZ::Interface<AzToolsFramework::ActionManagerInterface>::Get();
 
-        m_actionToAddComponents = new QAction(tr("Add component"), this);
-        m_actionToAddComponents->setShortcutContext(Qt::WidgetWithChildrenShortcut);
-        connect(m_actionToAddComponents, &QAction::triggered, this, &EntityPropertyEditor::OnAddComponent);
-        addAction(m_actionToAddComponents);
-        m_entityComponentActions.push_back(m_actionToAddComponents);
+
 
         m_actionToDeleteComponents = new QAction(tr("Delete component"), this);
         m_actionToDeleteComponents->setShortcut(QKeySequence::Delete);
@@ -3622,7 +3628,7 @@ namespace AzToolsFramework
             AZ_PROFILE_SCOPE(AzToolsFramework, "EntityPropertyEditor::UpdateActions GetSelectionEntityTypeInfo");
             selectionTypeInfo = GetSelectionEntityTypeInfo(m_selectedEntityIds);
         }
-        m_actionToAddComponents->setEnabled(CanAddComponentsToSelection(selectionTypeInfo));
+        //m_actionToAddComponents->setEnabled(CanAddComponentsToSelection(selectionTypeInfo));
 
         //if any components remain in the selected set, assume they can be disabled
         allowDisable = !enabledComponents.empty();
@@ -4669,6 +4675,22 @@ namespace AzToolsFramework
 
     bool EntityPropertyEditor::HandleMenuEvent(QObject* /*object*/, QEvent* event)
     {
+        if (event->type() != QEvent::ContextMenu)
+        {
+            return false;
+        }
+
+        auto menuManagerInterface = AZ::Interface<AzToolsFramework::MenuManagerInterface>::Get();
+        if (!menuManagerInterface)
+        {
+            return false;
+        }
+
+        QMouseEvent* originalMouseEvent = static_cast<QMouseEvent*>(event);
+        menuManagerInterface->DisplayMenuAtScreenPosition(
+            EditorIdentifiers::InspectorComponentCardContextMenuIdentifier, originalMouseEvent->pos());
+
+        /*
         QMenu* menu = qobject_cast<QMenu*>(QApplication::activePopupWidget());
         if (!menu)
         {
@@ -4717,8 +4739,9 @@ namespace AzToolsFramework
             // Force a redraw as the menu is preventing automatic updates.
             repaint(0, 0, -1, -1);
         }
+        */
 
-        return false;
+        return true;
     }
 
     //overridden to intercept application level mouse events for component editor selection
