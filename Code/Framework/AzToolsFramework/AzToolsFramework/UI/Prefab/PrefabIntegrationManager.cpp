@@ -992,21 +992,6 @@ namespace AzToolsFramework
             }
         }
 
-        void PrefabIntegrationManager::OnMenuRegistrationHook()
-        {
-            {
-                AzToolsFramework::MenuProperties menuProperties;
-                menuProperties.m_name = "Inspector Entity Component Context Menu";
-                m_menuManagerInterface->RegisterMenu(EditorIdentifiers::InspectorEntityComponentContextMenuIdentifier, menuProperties);
-            }
-
-            {
-                AzToolsFramework::MenuProperties menuProperties;
-                menuProperties.m_name = "Inspector Entity Property Context Menu";
-                m_menuManagerInterface->RegisterMenu(EditorIdentifiers::InspectorEntityComponentContextMenuIdentifier, menuProperties);
-            }
-        }
-
         void PrefabIntegrationManager::OnMenuBindingHook()
         {
             // Entity Outliner Context Menu
@@ -1132,7 +1117,6 @@ namespace AzToolsFramework
             );
         }
 
-        
         void PrefabIntegrationManager::OnComponentSelectionChanged(EntityPropertyEditor*, const AZStd::unordered_set<AZ::EntityComponentIdPair>&)
         {
             if (m_actionManagerInterface)

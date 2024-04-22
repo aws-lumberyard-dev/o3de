@@ -37,19 +37,19 @@ AZ_POP_DISABLE_WARNING
 #include <AzToolsFramework/API/ComponentModeCollectionInterface.h>
 #include <AzToolsFramework/API/EntityCompositionRequestBus.h>
 #include <AzToolsFramework/API/ToolsApplicationAPI.h>
-#include <AzToolsFramework/Editor/ActionManagerIdentifiers/EditorContextIdentifiers.h>
-#include <AzToolsFramework/Editor/ActionManagerIdentifiers/EditorMenuIdentifiers.h>
-#include <AzToolsFramework/Editor/ActionManagerUtils.h>
-#include <AzToolsFramework/Entity/EditorEntityInfoBus.h>
-#include <AzToolsFramework/Entity/EditorEntityRuntimeActivationBus.h>
-#include <AzToolsFramework/FocusMode/FocusModeInterface.h>
 #include <AzToolsFramework/AssetBrowser/AssetBrowserBus.h>
 #include <AzToolsFramework/AssetBrowser/AssetBrowserEntry.h>
 #include <AzToolsFramework/AssetBrowser/AssetSelectionModel.h>
 #include <AzToolsFramework/AssetBrowser/EBusFindAssetTypeByName.h>
 #include <AzToolsFramework/ComponentMode/ComponentModeDelegate.h>
+#include <AzToolsFramework/Editor/ActionManagerIdentifiers/EditorContextIdentifiers.h>
+#include <AzToolsFramework/Editor/ActionManagerIdentifiers/EditorMenuIdentifiers.h>
+#include <AzToolsFramework/Editor/ActionManagerUtils.h>
 #include <AzToolsFramework/Entity/EditorEntityHelpers.h>
+#include <AzToolsFramework/Entity/EditorEntityInfoBus.h>
+#include <AzToolsFramework/Entity/EditorEntityRuntimeActivationBus.h>
 #include <AzToolsFramework/Entity/ReadOnly/ReadOnlyEntityInterface.h>
+#include <AzToolsFramework/FocusMode/FocusModeInterface.h>
 #include <AzToolsFramework/Prefab/DocumentPropertyEditor/PrefabComponentAdapter.h>
 #include <AzToolsFramework/Prefab/DocumentPropertyEditor/PrefabOverrideLabelHandler.h>
 #include <AzToolsFramework/Prefab/Overrides/PrefabOverridePublicInterface.h>
@@ -944,11 +944,6 @@ namespace AzToolsFramework
         }
     }
 
-    void EntityPropertyEditor::OnComponentOverrideContextMenu(const QPoint& position)
-    {
-        m_menuManagerInterface->DisplayMenuAtScreenPosition(EditorIdentifiers::InspectorEntityComponentContextMenuIdentifier, position);
-    }
-
     bool EntityPropertyEditor::IsEntitySelected(const AZ::EntityId& id) const
     {
         return AZStd::find(m_selectedEntityIds.begin(), m_selectedEntityIds.end(), id) != m_selectedEntityIds.end();
@@ -1825,13 +1820,6 @@ namespace AzToolsFramework
 
             if (ShouldUseDPE() && Prefab::IsInspectorOverrideManagementEnabled())
             {
-                // Connect to the component icon's click event to display override context menu
-                connect(
-                    componentEditor,
-                    &ComponentEditor::OnComponentIconClicked,
-                    this,
-                    &EntityPropertyEditor::OnComponentOverrideContextMenu);
-
                 // Subscribe to DPE property changes to keep the component icon updated based on override state
                 auto propertyChanged =
                     [this, componentEditor](const AZ::DocumentPropertyEditor::ReflectionAdapter::PropertyChangeInfo& changeInfo)

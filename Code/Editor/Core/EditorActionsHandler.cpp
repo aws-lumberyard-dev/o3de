@@ -14,13 +14,17 @@
 #include <AzToolsFramework/ActionManager/Menu/MenuManagerInterface.h>
 #include <AzToolsFramework/ActionManager/Menu/MenuManagerInternalInterface.h>
 #include <AzToolsFramework/ActionManager/ToolBar/ToolBarManagerInterface.h>
+#include <AzToolsFramework/API/EntityPropertyEditorRequestsBus.h>
 #include <AzToolsFramework/Editor/ActionManagerIdentifiers/EditorActionUpdaterIdentifiers.h>
 #include <AzToolsFramework/Editor/EditorSettingsAPIBus.h>
 #include <AzToolsFramework/Editor/ActionManagerIdentifiers/EditorContextIdentifiers.h>
 #include <AzToolsFramework/Editor/ActionManagerIdentifiers/EditorMenuIdentifiers.h>
 #include <AzToolsFramework/Editor/ActionManagerIdentifiers/EditorToolBarIdentifiers.h>
 #include <AzToolsFramework/Entity/EditorEntityContextBus.h>
+#include <AzToolsFramework/UI/DocumentPropertyEditor/IPropertyEditor.h>
 #include <AzToolsFramework/UI/Outliner/EntityOutlinerRequestBus.h>
+#include <AzToolsFramework/UI/PropertyEditor/ComponentEditor.hxx>
+#include <AzToolsFramework/UI/PropertyEditor/PropertyRowWidget.hxx>
 #include <AzToolsFramework/Viewport/LocalViewBookmarkLoader.h>
 #include <AzToolsFramework/Viewport/ViewportSettings.h>
 
@@ -1528,6 +1532,45 @@ void EditorActionsHandler::OnActionRegistrationHook()
         // This action is only accessible outside of Component Modes
         m_actionManagerInterface->AssignModeToAction(AzToolsFramework::DefaultActionContextModeIdentifier, actionIdentifier);
     }
+
+    // -- Inspector Components
+    // Move Up
+    {
+        const AZStd::string_view actionIdentifier = "o3de.action.inspector.components.moveUp";
+        AzToolsFramework::ActionProperties actionProperties;
+        actionProperties.m_name = "Move Up";
+        actionProperties.m_description = "Move the current component up.";
+        actionProperties.m_category = "Components";
+
+        m_actionManagerInterface->RegisterAction(
+            EditorIdentifiers::MainWindowActionContextIdentifier,
+            actionIdentifier,
+            actionProperties,
+            []()
+            {
+            }
+        );
+
+        m_actionManagerInterface->InstallEnabledStateCallback(
+            actionIdentifier,
+            []() -> bool
+            {
+            }
+        );
+
+        // Trigger update whenever entity selection changes.
+        //m_actionManagerInterface->AddActionToUpdater(EditorIdentifiers::EntitySelectionChangedUpdaterIdentifier, actionIdentifier);
+
+        // Trigger update whenever entity selection changes.
+        //m_actionManagerInterface->AddActionToUpdater(EditorIdentifiers::EntitySelectionChangedUpdaterIdentifier, actionIdentifier);
+    }
+
+
+
+    // Move Down
+
+
+    // -- Inspector Component Properties
 }
 
 void EditorActionsHandler::OnWidgetActionRegistrationHook()
@@ -1794,6 +1837,19 @@ void EditorActionsHandler::OnMenuRegistrationHook()
         menuProperties.m_name = "Entity Outliner Context Menu";
         m_menuManagerInterface->RegisterMenu(EditorIdentifiers::EntityOutlinerContextMenuIdentifier, menuProperties);
     }
+
+    {
+        AzToolsFramework::MenuProperties menuProperties;
+        menuProperties.m_name = "Inspector Entity Component Context Menu";
+        m_menuManagerInterface->RegisterMenu(EditorIdentifiers::InspectorEntityComponentContextMenuIdentifier, menuProperties);
+    }
+
+    {
+        AzToolsFramework::MenuProperties menuProperties;
+        menuProperties.m_name = "Inspector Entity Property Context Menu";
+        m_menuManagerInterface->RegisterMenu(EditorIdentifiers::InspectorEntityComponentContextMenuIdentifier, menuProperties);
+    }
+
     {
         AzToolsFramework::MenuProperties menuProperties;
         menuProperties.m_name = "Viewport Context Menu";
@@ -1804,13 +1860,13 @@ void EditorActionsHandler::OnMenuRegistrationHook()
         menuProperties.m_name = "Create";
         m_menuManagerInterface->RegisterMenu(EditorIdentifiers::EntityCreationMenuIdentifier, menuProperties);
     }
-
 }
 
 void EditorActionsHandler::OnMenuBindingHook()
 {
+    // NOTE: We space the sortkeys by 100 to allow external systems to add menus in-between.
+    
     // Add Menus to MenuBar
-    // We space the sortkeys by 100 to allow external systems to add menus in-between.
     m_menuManagerInterface->AddMenuToMenuBar(EditorIdentifiers::EditorMainWindowMenuBarIdentifier, EditorIdentifiers::FileMenuIdentifier, 100);
     m_menuManagerInterface->AddMenuToMenuBar(EditorIdentifiers::EditorMainWindowMenuBarIdentifier, EditorIdentifiers::EditMenuIdentifier, 200);
     m_menuManagerInterface->AddMenuToMenuBar(EditorIdentifiers::EditorMainWindowMenuBarIdentifier, EditorIdentifiers::GameMenuIdentifier, 300);
@@ -1987,6 +2043,10 @@ void EditorActionsHandler::OnMenuBindingHook()
     m_menuManagerInterface->AddActionToMenu(EditorIdentifiers::EntityOutlinerContextMenuIdentifier, "o3de.action.entity.rename", 70100);
     m_menuManagerInterface->AddSeparatorToMenu(EditorIdentifiers::EntityOutlinerContextMenuIdentifier, 80000);
     m_menuManagerInterface->AddActionToMenu(EditorIdentifiers::EntityOutlinerContextMenuIdentifier, "o3de.action.view.centerOnSelection", 80100);
+
+    // Inspector Entity Component Context Menu
+
+    // Inspector Entity Property Context Menu
 
     // Viewport Context Menu
     m_menuManagerInterface->AddSubMenuToMenu(
