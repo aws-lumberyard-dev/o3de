@@ -1534,20 +1534,22 @@ void EditorActionsHandler::OnActionRegistrationHook()
     }
 
     // -- Inspector Components
-    // Move Up
+    // Add Component
     {
-        const AZStd::string_view actionIdentifier = "o3de.action.inspector.components.moveUp";
+        const AZStd::string_view actionIdentifier = "o3de.action.inspector.components.add";
         AzToolsFramework::ActionProperties actionProperties;
-        actionProperties.m_name = "Move Up";
-        actionProperties.m_description = "Move the current component up.";
+        actionProperties.m_name = "Add component";
+        actionProperties.m_description = "Add a component to this entity.";
         actionProperties.m_category = "Components";
 
         m_actionManagerInterface->RegisterAction(
-            EditorIdentifiers::MainWindowActionContextIdentifier,
+            EditorIdentifiers::EditorEntityPropertyEditorActionContextIdentifier,
             actionIdentifier,
             actionProperties,
             []()
             {
+                AzToolsFramework::EntityPropertyEditorRequestBus::Broadcast(
+                    &AzToolsFramework::EntityPropertyEditorRequests::OpenAddComponentPanel);
             }
         );
 
@@ -1555,20 +1557,431 @@ void EditorActionsHandler::OnActionRegistrationHook()
             actionIdentifier,
             []() -> bool
             {
+                bool canAddComponents = false;
+
+                AzToolsFramework::EntityPropertyEditorRequestBus::Broadcast(
+                    &AzToolsFramework::EntityPropertyEditorRequests::CanAddComponents, canAddComponents);
+
+                return canAddComponents;
             }
         );
 
         // Trigger update whenever entity selection changes.
-        //m_actionManagerInterface->AddActionToUpdater(EditorIdentifiers::EntitySelectionChangedUpdaterIdentifier, actionIdentifier);
+        m_actionManagerInterface->AddActionToUpdater(EditorIdentifiers::EntitySelectionChangedUpdaterIdentifier, actionIdentifier);
 
-        // Trigger update whenever entity selection changes.
-        //m_actionManagerInterface->AddActionToUpdater(EditorIdentifiers::EntitySelectionChangedUpdaterIdentifier, actionIdentifier);
+        // Trigger update whenever component selection changes.
+        m_actionManagerInterface->AddActionToUpdater(EditorIdentifiers::ComponentSelectionChangedUpdaterIdentifier, actionIdentifier);
     }
 
+    // Delete Components
+    {
+        const AZStd::string_view actionIdentifier = "o3de.action.inspector.components.delete";
+        AzToolsFramework::ActionProperties actionProperties;
+        actionProperties.m_name = "Delete components";
+        actionProperties.m_description = "Delete selected components.";
+        actionProperties.m_category = "Components";
 
+        m_actionManagerInterface->RegisterAction(
+            EditorIdentifiers::EditorEntityPropertyEditorActionContextIdentifier,
+            actionIdentifier,
+            actionProperties,
+            []()
+            {
+                AzToolsFramework::EntityPropertyEditorRequestBus::Broadcast(
+                    &AzToolsFramework::EntityPropertyEditorRequests::DeleteSelectedComponents);
+            }
+        );
 
-    // Move Down
+        m_actionManagerInterface->InstallEnabledStateCallback(
+            actionIdentifier,
+            []() -> bool
+            {
+                bool canDeleteComponents = false;
 
+                AzToolsFramework::EntityPropertyEditorRequestBus::Broadcast(
+                    &AzToolsFramework::EntityPropertyEditorRequests::CanRemoveSelectedComponents, canDeleteComponents);
+
+                return canDeleteComponents;
+            }
+        );
+
+        // Trigger update whenever entity selection changes.
+        m_actionManagerInterface->AddActionToUpdater(EditorIdentifiers::EntitySelectionChangedUpdaterIdentifier, actionIdentifier);
+
+        // Trigger update whenever component selection changes.
+        m_actionManagerInterface->AddActionToUpdater(EditorIdentifiers::ComponentSelectionChangedUpdaterIdentifier, actionIdentifier);
+
+        m_hotKeyManagerInterface->SetActionHotKey(actionIdentifier, "Del");
+    }
+
+    // Cut Component
+    {
+        const AZStd::string_view actionIdentifier = "o3de.action.inspector.components.cut";
+        AzToolsFramework::ActionProperties actionProperties;
+        actionProperties.m_name = "Cut components";
+        actionProperties.m_description = "Cut selected components.";
+        actionProperties.m_category = "Components";
+
+        m_actionManagerInterface->RegisterAction(
+            EditorIdentifiers::EditorEntityPropertyEditorActionContextIdentifier,
+            actionIdentifier,
+            actionProperties,
+            []()
+            {
+                AzToolsFramework::EntityPropertyEditorRequestBus::Broadcast(
+                    &AzToolsFramework::EntityPropertyEditorRequests::CutSelectedComponents);
+            }
+        );
+
+        m_actionManagerInterface->InstallEnabledStateCallback(
+            actionIdentifier,
+            []() -> bool
+            {
+                bool canRemove = false;
+                bool canCopy = false;
+
+                AzToolsFramework::EntityPropertyEditorRequestBus::Broadcast(
+                    &AzToolsFramework::EntityPropertyEditorRequests::CanRemoveSelectedComponents, canRemove);
+
+                AzToolsFramework::EntityPropertyEditorRequestBus::Broadcast(
+                    &AzToolsFramework::EntityPropertyEditorRequests::CanCopySelectedComponents, canCopy);
+
+                return canRemove && canCopy;
+            }
+        );
+
+        // Trigger update whenever entity selection changes.
+        m_actionManagerInterface->AddActionToUpdater(EditorIdentifiers::EntitySelectionChangedUpdaterIdentifier, actionIdentifier);
+
+        // Trigger update whenever component selection changes.
+        m_actionManagerInterface->AddActionToUpdater(EditorIdentifiers::ComponentSelectionChangedUpdaterIdentifier, actionIdentifier);
+
+        m_hotKeyManagerInterface->SetActionHotKey(actionIdentifier, "Ctrl+X");
+    }
+
+    // Copy Component
+    {
+        const AZStd::string_view actionIdentifier = "o3de.action.inspector.components.copy";
+        AzToolsFramework::ActionProperties actionProperties;
+        actionProperties.m_name = "Copy components";
+        actionProperties.m_description = "Copy selected components.";
+        actionProperties.m_category = "Components";
+
+        m_actionManagerInterface->RegisterAction(
+            EditorIdentifiers::EditorEntityPropertyEditorActionContextIdentifier,
+            actionIdentifier,
+            actionProperties,
+            []()
+            {
+                AzToolsFramework::EntityPropertyEditorRequestBus::Broadcast(
+                    &AzToolsFramework::EntityPropertyEditorRequests::CopySelectedComponents);
+            }
+        );
+
+        m_actionManagerInterface->InstallEnabledStateCallback(
+            actionIdentifier,
+            []() -> bool
+            {
+                bool canCopy = false;
+
+                AzToolsFramework::EntityPropertyEditorRequestBus::Broadcast(
+                    &AzToolsFramework::EntityPropertyEditorRequests::CanCopySelectedComponents, canCopy);
+
+                return canCopy;
+            }
+        );
+
+        // Trigger update whenever entity selection changes.
+        m_actionManagerInterface->AddActionToUpdater(EditorIdentifiers::EntitySelectionChangedUpdaterIdentifier, actionIdentifier);
+
+        // Trigger update whenever component selection changes.
+        m_actionManagerInterface->AddActionToUpdater(EditorIdentifiers::ComponentSelectionChangedUpdaterIdentifier, actionIdentifier);
+
+        m_hotKeyManagerInterface->SetActionHotKey(actionIdentifier, "Ctrl+C");
+    }
+
+    // Paste Component
+    {
+        const AZStd::string_view actionIdentifier = "o3de.action.inspector.components.paste";
+        AzToolsFramework::ActionProperties actionProperties;
+        actionProperties.m_name = "Paste components";
+        actionProperties.m_description = "Paste selected components.";
+        actionProperties.m_category = "Components";
+
+        m_actionManagerInterface->RegisterAction(
+            EditorIdentifiers::EditorEntityPropertyEditorActionContextIdentifier,
+            actionIdentifier,
+            actionProperties,
+            []()
+            {
+                AzToolsFramework::EntityPropertyEditorRequestBus::Broadcast(
+                    &AzToolsFramework::EntityPropertyEditorRequests::PasteComponents);
+            }
+        );
+
+        m_actionManagerInterface->InstallEnabledStateCallback(
+            actionIdentifier,
+            []() -> bool
+            {
+                bool canPaste = false;
+
+                AzToolsFramework::EntityPropertyEditorRequestBus::Broadcast(
+                    &AzToolsFramework::EntityPropertyEditorRequests::CanPasteOnSelection, canPaste);
+
+                return canPaste;
+            }
+        );
+
+        // Trigger update whenever entity selection changes.
+        m_actionManagerInterface->AddActionToUpdater(EditorIdentifiers::EntitySelectionChangedUpdaterIdentifier, actionIdentifier);
+
+        // Trigger update whenever component selection changes.
+        m_actionManagerInterface->AddActionToUpdater(EditorIdentifiers::ComponentSelectionChangedUpdaterIdentifier, actionIdentifier);
+
+        m_hotKeyManagerInterface->SetActionHotKey(actionIdentifier, "Ctrl+V");
+    }
+
+    // Enable Components
+    {
+        const AZStd::string_view actionIdentifier = "o3de.action.inspector.components.enableSelected";
+        AzToolsFramework::ActionProperties actionProperties;
+        actionProperties.m_name = "Enable components";
+        actionProperties.m_description = "Enable selected components.";
+        actionProperties.m_category = "Components";
+
+        m_actionManagerInterface->RegisterAction(
+            EditorIdentifiers::EditorEntityPropertyEditorActionContextIdentifier,
+            actionIdentifier,
+            actionProperties,
+            []()
+            {
+                AzToolsFramework::EntityPropertyEditorRequestBus::Broadcast(
+                    &AzToolsFramework::EntityPropertyEditorRequests::EnableSelectedComponents);
+            }
+        );
+
+        m_actionManagerInterface->InstallEnabledStateCallback(
+            actionIdentifier,
+            []() -> bool
+            {
+                bool canEnable = false;
+
+                AzToolsFramework::EntityPropertyEditorRequestBus::Broadcast(
+                    &AzToolsFramework::EntityPropertyEditorRequests::CanEnabledSelectedComponents, canEnable);
+
+                return canEnable;
+            }
+        );
+
+        // Trigger update whenever entity selection changes.
+        m_actionManagerInterface->AddActionToUpdater(EditorIdentifiers::EntitySelectionChangedUpdaterIdentifier, actionIdentifier);
+
+        // Trigger update whenever component selection changes.
+        m_actionManagerInterface->AddActionToUpdater(EditorIdentifiers::ComponentSelectionChangedUpdaterIdentifier, actionIdentifier);
+    }
+
+    // Disable Components
+    {
+        const AZStd::string_view actionIdentifier = "o3de.action.inspector.components.disableSelected";
+        AzToolsFramework::ActionProperties actionProperties;
+        actionProperties.m_name = "Disable components";
+        actionProperties.m_description = "Disable selected components.";
+        actionProperties.m_category = "Components";
+
+        m_actionManagerInterface->RegisterAction(
+            EditorIdentifiers::EditorEntityPropertyEditorActionContextIdentifier,
+            actionIdentifier,
+            actionProperties,
+            []()
+            {
+                AzToolsFramework::EntityPropertyEditorRequestBus::Broadcast(
+                    &AzToolsFramework::EntityPropertyEditorRequests::DisableSelectedComponents);
+            }
+        );
+
+        m_actionManagerInterface->InstallEnabledStateCallback(
+            actionIdentifier,
+            []() -> bool
+            {
+                bool canDisable = false;
+
+                AzToolsFramework::EntityPropertyEditorRequestBus::Broadcast(
+                    &AzToolsFramework::EntityPropertyEditorRequests::CanDisableSelectedComponents, canDisable);
+
+                return canDisable;
+            }
+        );
+
+        // Trigger update whenever entity selection changes.
+        m_actionManagerInterface->AddActionToUpdater(EditorIdentifiers::EntitySelectionChangedUpdaterIdentifier, actionIdentifier);
+
+        // Trigger update whenever component selection changes.
+        m_actionManagerInterface->AddActionToUpdater(EditorIdentifiers::ComponentSelectionChangedUpdaterIdentifier, actionIdentifier);
+    }
+
+    // Move Selected Components Up
+    {
+        const AZStd::string_view actionIdentifier = "o3de.action.inspector.components.moveSelectedUp";
+        AzToolsFramework::ActionProperties actionProperties;
+        actionProperties.m_name = "Move components up";
+        actionProperties.m_description = "Move the selected components up.";
+        actionProperties.m_category = "Components";
+
+        m_actionManagerInterface->RegisterAction(
+            EditorIdentifiers::EditorEntityPropertyEditorActionContextIdentifier,
+            actionIdentifier,
+            actionProperties,
+            []()
+            {
+                AzToolsFramework::EntityPropertyEditorRequestBus::Broadcast(
+                    &AzToolsFramework::EntityPropertyEditorRequests::MoveUpSelectedComponents);
+            }
+        );
+
+        m_actionManagerInterface->InstallEnabledStateCallback(
+            actionIdentifier,
+            []() -> bool
+            {
+                bool canMoveUp = false;
+
+                AzToolsFramework::EntityPropertyEditorRequestBus::Broadcast(
+                    &AzToolsFramework::EntityPropertyEditorRequests::CanMoveComponentSelectionUp, canMoveUp);
+
+                return canMoveUp;
+            }
+        );
+
+        // Trigger update whenever entity selection changes.
+        m_actionManagerInterface->AddActionToUpdater(EditorIdentifiers::EntitySelectionChangedUpdaterIdentifier, actionIdentifier);
+
+        // Trigger update whenever component selection changes.
+        m_actionManagerInterface->AddActionToUpdater(EditorIdentifiers::ComponentSelectionChangedUpdaterIdentifier, actionIdentifier);
+
+        m_hotKeyManagerInterface->SetActionHotKey(actionIdentifier, "PgUp");
+    }
+
+    // Move Selected Components Down
+    {
+        const AZStd::string_view actionIdentifier = "o3de.action.inspector.components.moveSelectedDown";
+        AzToolsFramework::ActionProperties actionProperties;
+        actionProperties.m_name = "Move components down";
+        actionProperties.m_description = "Move the selected components down.";
+        actionProperties.m_category = "Components";
+
+        m_actionManagerInterface->RegisterAction(
+            EditorIdentifiers::EditorEntityPropertyEditorActionContextIdentifier,
+            actionIdentifier,
+            actionProperties,
+            []()
+            {
+                AzToolsFramework::EntityPropertyEditorRequestBus::Broadcast(
+                    &AzToolsFramework::EntityPropertyEditorRequests::MoveDownSelectedComponents);
+            }
+        );
+
+        m_actionManagerInterface->InstallEnabledStateCallback(
+            actionIdentifier,
+            []() -> bool
+            {
+                bool canMoveDown = false;
+
+                AzToolsFramework::EntityPropertyEditorRequestBus::Broadcast(
+                    &AzToolsFramework::EntityPropertyEditorRequests::CanMoveComponentSelectionDown, canMoveDown);
+
+                return canMoveDown;
+            }
+        );
+
+        // Trigger update whenever entity selection changes.
+        m_actionManagerInterface->AddActionToUpdater(EditorIdentifiers::EntitySelectionChangedUpdaterIdentifier, actionIdentifier);
+
+        // Trigger update whenever component selection changes.
+        m_actionManagerInterface->AddActionToUpdater(EditorIdentifiers::ComponentSelectionChangedUpdaterIdentifier, actionIdentifier);
+
+        m_hotKeyManagerInterface->SetActionHotKey(actionIdentifier, "PgDown");
+    }
+
+    // Move Selected Components to Top
+    {
+        const AZStd::string_view actionIdentifier = "o3de.action.inspector.components.moveSelectedToTop";
+        AzToolsFramework::ActionProperties actionProperties;
+        actionProperties.m_name = "Move components to top";
+        actionProperties.m_description = "Move the selected components to top.";
+        actionProperties.m_category = "Components";
+
+        m_actionManagerInterface->RegisterAction(
+            EditorIdentifiers::EditorEntityPropertyEditorActionContextIdentifier,
+            actionIdentifier,
+            actionProperties,
+            []()
+            {
+                AzToolsFramework::EntityPropertyEditorRequestBus::Broadcast(
+                    &AzToolsFramework::EntityPropertyEditorRequests::MoveSelectedComponentsToTop);
+            }
+        );
+
+        m_actionManagerInterface->InstallEnabledStateCallback(
+            actionIdentifier,
+            []() -> bool
+            {
+                bool canMoveUp = false;
+
+                AzToolsFramework::EntityPropertyEditorRequestBus::Broadcast(
+                    &AzToolsFramework::EntityPropertyEditorRequests::CanMoveComponentSelectionUp, canMoveUp);
+
+                return canMoveUp;
+            }
+        );
+
+        // Trigger update whenever entity selection changes.
+        m_actionManagerInterface->AddActionToUpdater(EditorIdentifiers::EntitySelectionChangedUpdaterIdentifier, actionIdentifier);
+
+        // Trigger update whenever component selection changes.
+        m_actionManagerInterface->AddActionToUpdater(EditorIdentifiers::ComponentSelectionChangedUpdaterIdentifier, actionIdentifier);
+
+        m_hotKeyManagerInterface->SetActionHotKey(actionIdentifier, "Home");
+    }
+
+    // Move Selected Components to Bottom
+    {
+        const AZStd::string_view actionIdentifier = "o3de.action.inspector.components.moveSelectedToBottom";
+        AzToolsFramework::ActionProperties actionProperties;
+        actionProperties.m_name = "Move components to bottom";
+        actionProperties.m_description = "Move the selected components to bottom.";
+        actionProperties.m_category = "Components";
+
+        m_actionManagerInterface->RegisterAction(
+            EditorIdentifiers::EditorEntityPropertyEditorActionContextIdentifier,
+            actionIdentifier,
+            actionProperties,
+            []()
+            {
+                AzToolsFramework::EntityPropertyEditorRequestBus::Broadcast(
+                    &AzToolsFramework::EntityPropertyEditorRequests::MoveSelectedComponentsToBottom);
+            }
+        );
+
+        m_actionManagerInterface->InstallEnabledStateCallback(
+            actionIdentifier,
+            []() -> bool
+            {
+                bool canMoveDown = false;
+
+                AzToolsFramework::EntityPropertyEditorRequestBus::Broadcast(
+                    &AzToolsFramework::EntityPropertyEditorRequests::CanMoveComponentSelectionDown, canMoveDown);
+
+                return canMoveDown;
+            }
+        );
+
+        // Trigger update whenever entity selection changes.
+        m_actionManagerInterface->AddActionToUpdater(EditorIdentifiers::EntitySelectionChangedUpdaterIdentifier, actionIdentifier);
+
+        // Trigger update whenever component selection changes.
+        m_actionManagerInterface->AddActionToUpdater(EditorIdentifiers::ComponentSelectionChangedUpdaterIdentifier, actionIdentifier);
+
+        m_hotKeyManagerInterface->SetActionHotKey(actionIdentifier, "End");
+    }
 
     // -- Inspector Component Properties
 }
@@ -2045,7 +2458,24 @@ void EditorActionsHandler::OnMenuBindingHook()
     m_menuManagerInterface->AddActionToMenu(EditorIdentifiers::EntityOutlinerContextMenuIdentifier, "o3de.action.view.centerOnSelection", 80100);
 
     // Inspector Entity Component Context Menu
+    m_menuManagerInterface->AddActionToMenu(EditorIdentifiers::InspectorEntityComponentContextMenuIdentifier, "o3de.action.inspector.components.add", 100);
+    m_menuManagerInterface->AddActionToMenu(EditorIdentifiers::InspectorEntityComponentContextMenuIdentifier, "o3de.action.inspector.components.delete", 200);
 
+    m_menuManagerInterface->AddSeparatorToMenu(EditorIdentifiers::InspectorEntityComponentContextMenuIdentifier, 10000);
+    
+    m_menuManagerInterface->AddActionToMenu(EditorIdentifiers::InspectorEntityComponentContextMenuIdentifier, "o3de.action.inspector.components.cut", 10100);
+    m_menuManagerInterface->AddActionToMenu(EditorIdentifiers::InspectorEntityComponentContextMenuIdentifier, "o3de.action.inspector.components.copy", 10200);
+    m_menuManagerInterface->AddActionToMenu(EditorIdentifiers::InspectorEntityComponentContextMenuIdentifier, "o3de.action.inspector.components.paste", 10300);
+
+    m_menuManagerInterface->AddSeparatorToMenu(EditorIdentifiers::InspectorEntityComponentContextMenuIdentifier, 20000);
+
+    m_menuManagerInterface->AddActionToMenu(EditorIdentifiers::InspectorEntityComponentContextMenuIdentifier, "o3de.action.inspector.components.enableSelected", 20100);
+    m_menuManagerInterface->AddActionToMenu(EditorIdentifiers::InspectorEntityComponentContextMenuIdentifier, "o3de.action.inspector.components.disableSelected", 20200);
+    m_menuManagerInterface->AddActionToMenu(EditorIdentifiers::InspectorEntityComponentContextMenuIdentifier, "o3de.action.inspector.components.moveSelectedUp", 20300);
+    m_menuManagerInterface->AddActionToMenu(EditorIdentifiers::InspectorEntityComponentContextMenuIdentifier, "o3de.action.inspector.components.moveSelectedDown", 20400);
+    m_menuManagerInterface->AddActionToMenu(EditorIdentifiers::InspectorEntityComponentContextMenuIdentifier, "o3de.action.inspector.components.moveSelectedToTop", 20500);
+    m_menuManagerInterface->AddActionToMenu(EditorIdentifiers::InspectorEntityComponentContextMenuIdentifier, "o3de.action.inspector.components.moveSelectedToBottom", 20600);
+    
     // Inspector Entity Property Context Menu
 
     // Viewport Context Menu

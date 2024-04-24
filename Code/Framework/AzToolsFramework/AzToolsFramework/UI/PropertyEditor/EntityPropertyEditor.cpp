@@ -384,35 +384,6 @@ namespace AzToolsFramework
             }
         };
 
-        void paintMovedRow(QPainter& painter, float alpha)
-        {
-            // After a move has been carried out, briefly highlight the moved row.
-            PropertyRowWidget* rowWidget = m_editor->GetRowToHighlight();
-
-            if (!rowWidget)
-            {
-                return;
-            }
-
-            QRect globalRect = m_editor->GetWidgetAndVisibleChildrenGlobalRect(rowWidget);
-            QRect currRect = QRect(
-                QPoint(mapFromGlobal(globalRect.topLeft()) + QPoint(LeftMargin, TopMargin)),
-                QPoint(mapFromGlobal(globalRect.bottomRight()) - QPoint(RightMargin, BottomMargin)));
-
-            currRect.setLeft(LeftMargin + 2);
-            currRect.setWidth(rowWidget->GetContainingEditorFrameWidth() - (RightMargin + LeftMargin));
-
-            painter.setOpacity(alpha);
-
-            QPen pen;
-            QColor drawColor = Qt::white;
-            drawColor.setAlphaF(alpha);
-            pen.setColor(drawColor);
-            pen.setWidth(1);
-            painter.setPen(pen);
-            painter.drawRect(currRect);
-        }
-
         void paintEvent(QPaintEvent* event) override
         {
             QWidget::paintEvent(event);
@@ -421,7 +392,7 @@ namespace AzToolsFramework
             painter.setCompositionMode(QPainter::CompositionMode_SourceOver);
 
             EntityPropertyEditor::ReorderState currentState = m_editor->GetReorderState();
-            float indicatorAlpha = m_editor->GetMoveIndicatorAlpha();
+            float indicatorAlpha = 1.0f;
 
             switch (currentState)
             {
@@ -438,7 +409,7 @@ namespace AzToolsFramework
                 paintDraggingComponent(painter);
                 break;
             case EntityPropertyEditor::ReorderState::HighlightMovedRow:
-                paintMovedRow(painter, indicatorAlpha);
+                //paintMovedRow(painter, indicatorAlpha);
                 break;
             default:
                 break;
@@ -656,7 +627,6 @@ namespace AzToolsFramework
             this,
             SLOT(OnStatusChanged(int)));
 
-        CreateActions();
         UpdateContents();
 
         EditorEntityContextNotificationBus::Handler::BusConnect();
@@ -2154,6 +2124,9 @@ namespace AzToolsFramework
     void EntityPropertyEditor::QueuePropertyRefresh()
     {
         AZ_PROFILE_FUNCTION(AzToolsFramework);
+
+        m_arePossibleActionsCached = false;
+
         if (!m_isAlreadyQueuedRefresh)
         {
             m_isAlreadyQueuedRefresh = true;
@@ -2213,10 +2186,7 @@ namespace AzToolsFramework
 
     void EntityPropertyEditor::OnAddComponent()
     {
-        AZ::ComponentDescriptor::DependencyArrayType serviceFilter;
-        AZ::ComponentDescriptor::DependencyArrayType incompatibleServiceFilter;
-        QRect globalRect = GetWidgetGlobalRect(m_gui->m_addComponentButton) | GetWidgetGlobalRect(m_gui->m_componentList);
-        ShowComponentPalette(m_componentPalette, globalRect.topLeft(), globalRect.size(), serviceFilter, incompatibleServiceFilter);
+        OpenAddComponentPanel();
     }
 
     void EntityPropertyEditor::GotSceneSourceControlStatus(SourceControlFileInfo& fileInfo)
@@ -2321,7 +2291,7 @@ namespace AzToolsFramework
                 QMenu menu;
 
                 // Populate and show the context menu.
-                AddMenuOptionsForComponents(menu, position);
+                //AddMenuOptionsForComponents(menu, position);
 
                 if (!menu.actions().empty())
                 {
@@ -2348,12 +2318,6 @@ namespace AzToolsFramework
                 }
             }
         }
-    }
-
-    void EntityPropertyEditor::AddMenuOptionsForComponents(QMenu& menu, const QPoint& /*position*/)
-    {
-        UpdateInternalState();
-        menu.addActions(actions());
     }
 
     void EntityPropertyEditor::AddMenuOptionsForFields(
@@ -2831,35 +2795,7 @@ namespace AzToolsFramework
 
     void EntityPropertyEditor::OnDisplayComponentEditorMenu(const QPoint& position)
     {
-        if (m_disabled)
-        {
-            return;
-        }
-
-        QMenu menu;
-
-        AddMenuOptionsForComponents(menu, position);
-
-        if (!menu.actions().empty())
-        {
-            menu.addSeparator();
-        }
-
-        const auto& componentsToEdit = GetSelectedComponents();
-        if (componentsToEdit.size() > 0)
-        {
-            AzToolsFramework::Components::EditorComponentBase* editorComponent = static_cast<AzToolsFramework::Components::EditorComponentBase*>(componentsToEdit.front());
-
-            if (editorComponent)
-            {
-                editorComponent->AddContextMenuActions(&menu);
-            }
-        }
-
-        if (!menu.actions().empty())
-        {
-            menu.exec(position);
-        }
+        m_menuManagerInterface->DisplayMenuAtScreenPosition(EditorIdentifiers::InspectorEntityComponentContextMenuIdentifier, position);
     }
 
     void EntityPropertyEditor::OnRequestRequiredComponents(
@@ -2900,164 +2836,6 @@ namespace AzToolsFramework
     {
         m_componentFilter = AZStd::move(componentFilter);
         m_customFilterSet = true;
-    }
-
-    void EntityPropertyEditor::CreateActions()
-    {
-        m_actionToAddComponents = new QAction(tr("Add component"), this);
-        m_actionToAddComponents->setShortcutContext(Qt::WidgetWithChildrenShortcut);
-        connect(m_actionToAddComponents, &QAction::triggered, this, &EntityPropertyEditor::OnAddComponent);
-        addAction(m_actionToAddComponents);
-        m_entityComponentActions.push_back(m_actionToAddComponents);
-
-        m_actionToDeleteComponents = new QAction(tr("Delete component"), this);
-        m_actionToDeleteComponents->setShortcut(QKeySequence::Delete);
-        m_actionToDeleteComponents->setShortcutContext(Qt::WidgetWithChildrenShortcut);
-        connect(m_actionToDeleteComponents, &QAction::triggered, this, [this]() { DeleteComponents(); });
-        addAction(m_actionToDeleteComponents);
-        m_entityComponentActions.push_back(m_actionToDeleteComponents);
-
-        QAction* seperator1 = new QAction(this);
-        seperator1->setSeparator(true);
-        addAction(seperator1);
-
-        m_actionToCutComponents = new QAction(tr("Cut component"), this);
-        m_actionToCutComponents->setShortcut(QKeySequence::Cut);
-        m_actionToCutComponents->setShortcutContext(Qt::WidgetWithChildrenShortcut);
-        connect(m_actionToCutComponents, &QAction::triggered, this, &EntityPropertyEditor::CutComponents);
-        addAction(m_actionToCutComponents);
-        m_entityComponentActions.push_back(m_actionToCutComponents);
-
-        m_actionToCopyComponents = new QAction(tr("Copy component"), this);
-        m_actionToCopyComponents->setShortcut(QKeySequence::Copy);
-        m_actionToCopyComponents->setShortcutContext(Qt::WidgetWithChildrenShortcut);
-        connect(m_actionToCopyComponents, &QAction::triggered, this, &EntityPropertyEditor::CopyComponents);
-        addAction(m_actionToCopyComponents);
-        m_entityComponentActions.push_back(m_actionToCopyComponents);
-
-        m_actionToPasteComponents = new QAction(tr("Paste component"), this);
-        m_actionToPasteComponents->setShortcut(QKeySequence::Paste);
-        m_actionToPasteComponents->setShortcutContext(Qt::WidgetWithChildrenShortcut);
-        connect(m_actionToPasteComponents, &QAction::triggered, this, &EntityPropertyEditor::PasteComponents);
-        addAction(m_actionToPasteComponents);
-        m_entityComponentActions.push_back(m_actionToPasteComponents);
-
-        QAction* seperator2 = new QAction(this);
-        seperator2->setSeparator(true);
-        addAction(seperator2);
-
-        m_actionToEnableComponents = new QAction(tr("Enable component"), this);
-        m_actionToEnableComponents->setShortcutContext(Qt::WidgetWithChildrenShortcut);
-        connect(m_actionToEnableComponents, &QAction::triggered, this, [this]() {EnableComponents(); });
-        addAction(m_actionToEnableComponents);
-        m_entityComponentActions.push_back(m_actionToEnableComponents);
-
-        m_actionToDisableComponents = new QAction(tr("Disable component"), this);
-        m_actionToDisableComponents->setShortcutContext(Qt::WidgetWithChildrenShortcut);
-        connect(m_actionToDisableComponents, &QAction::triggered, this, [this]() {DisableComponents(); });
-        addAction(m_actionToDisableComponents);
-        m_entityComponentActions.push_back(m_actionToDisableComponents);
-
-        m_actionToMoveComponentsUp = new QAction(tr("Move component up"), this);
-        m_actionToMoveComponentsUp->setShortcut(QKeySequence::MoveToPreviousPage);
-        m_actionToMoveComponentsUp->setShortcutContext(Qt::WidgetWithChildrenShortcut);
-        connect(m_actionToMoveComponentsUp, &QAction::triggered, this, &EntityPropertyEditor::MoveComponentsUp);
-        addAction(m_actionToMoveComponentsUp);
-        m_entityComponentActions.push_back(m_actionToMoveComponentsUp);
-
-        m_actionToMoveComponentsDown = new QAction(tr("Move component down"), this);
-        m_actionToMoveComponentsDown->setShortcut(QKeySequence::MoveToNextPage);
-        m_actionToMoveComponentsDown->setShortcutContext(Qt::WidgetWithChildrenShortcut);
-        connect(m_actionToMoveComponentsDown, &QAction::triggered, this, &EntityPropertyEditor::MoveComponentsDown);
-        addAction(m_actionToMoveComponentsDown);
-        m_entityComponentActions.push_back(m_actionToMoveComponentsDown);
-
-        m_actionToMoveComponentsTop = new QAction(tr("Move component to top"), this);
-        m_actionToMoveComponentsTop->setShortcut(Qt::Key_Home);
-        m_actionToMoveComponentsTop->setShortcutContext(Qt::WidgetWithChildrenShortcut);
-        connect(m_actionToMoveComponentsTop, &QAction::triggered, this, &EntityPropertyEditor::MoveComponentsTop);
-        addAction(m_actionToMoveComponentsTop);
-        m_entityComponentActions.push_back(m_actionToMoveComponentsTop);
-
-        m_actionToMoveComponentsBottom = new QAction(tr("Move component to bottom"), this);
-        m_actionToMoveComponentsBottom->setShortcut(Qt::Key_End);
-        m_actionToMoveComponentsBottom->setShortcutContext(Qt::WidgetWithChildrenShortcut);
-        connect(m_actionToMoveComponentsBottom, &QAction::triggered, this, &EntityPropertyEditor::MoveComponentsBottom);
-        addAction(m_actionToMoveComponentsBottom);
-        m_entityComponentActions.push_back(m_actionToMoveComponentsBottom);
-
-        UpdateInternalState();
-    }
-
-    void EntityPropertyEditor::UpdateActions()
-    {
-        AZ_PROFILE_FUNCTION(AzToolsFramework);
-
-        if (m_disabled)
-        {
-            return;
-        }
-
-        const auto& componentsToEdit = GetSelectedComponents();
-
-        // you can use this to veto any ability to modify components present:
-        const bool allowAnyComponentModification = AllowAnyComponentModification();
-
-        const bool hasComponents = !m_selectedEntityIds.empty() && !componentsToEdit.empty();
-        // Don't allow components to be removed/cut/enabled/disabled if read only
-        const bool allowRemove = allowAnyComponentModification && hasComponents && AreComponentsRemovable(componentsToEdit) && !m_selectionContainsReadOnlyEntity;
-        const bool allowCopy = allowAnyComponentModification && hasComponents && AreComponentsCopyable(componentsToEdit);
-
-        m_actionToDeleteComponents->setEnabled(allowRemove);
-        m_actionToCutComponents->setEnabled(allowRemove && allowCopy);
-        m_actionToCopyComponents->setEnabled(allowCopy);
-        m_actionToPasteComponents->setEnabled(allowAnyComponentModification && !m_selectedEntityIds.empty() && CanPasteComponentsOnSelectedEntities());
-        m_actionToMoveComponentsUp->setEnabled(allowRemove && IsMoveComponentsUpAllowed());
-        m_actionToMoveComponentsDown->setEnabled(allowRemove && IsMoveComponentsDownAllowed());
-        m_actionToMoveComponentsTop->setEnabled(allowRemove && IsMoveComponentsUpAllowed());
-        m_actionToMoveComponentsBottom->setEnabled(allowRemove && IsMoveComponentsDownAllowed());
-
-        bool allowEnable = false;
-        bool allowDisable = false;
-
-        AZ::Entity::ComponentArrayType disabledComponents;
-
-        //build a working set of all components selected for edit
-        AZStd::unordered_set<AZ::Component*> enabledComponents(componentsToEdit.begin(), componentsToEdit.end());
-        for (const auto& entityId : m_selectedEntityIds)
-        {
-            disabledComponents.clear();
-            EditorDisabledCompositionRequestBus::Event(entityId, &EditorDisabledCompositionRequests::GetDisabledComponents, disabledComponents);
-
-            //remove all disabled components from the set of enabled components
-            for (auto disabledComponent : disabledComponents)
-            {
-                if (enabledComponents.erase(disabledComponent) > 0)
-                {
-                    //if any disabled components were found/removed from the selected set, assume they can be enabled
-                    allowEnable = true;
-                }
-            }
-        }
-
-        // Even though this causes two loops on the selected entity list, calling GetSelectionEntityTypeInfo avoids duplicating code.
-        SelectionEntityTypeInfo selectionTypeInfo;
-        {
-            AZ_PROFILE_SCOPE(AzToolsFramework, "EntityPropertyEditor::UpdateActions GetSelectionEntityTypeInfo");
-            selectionTypeInfo = GetSelectionEntityTypeInfo(m_selectedEntityIds);
-        }
-        m_actionToAddComponents->setEnabled(CanAddComponentsToSelection(selectionTypeInfo));
-
-        //if any components remain in the selected set, assume they can be disabled
-        allowDisable = !enabledComponents.empty();
-
-        //disable actions when not allowed
-        m_actionToEnableComponents->setEnabled(allowRemove && allowEnable);
-        m_actionToDisableComponents->setEnabled(allowRemove && allowDisable);
-
-        //additional request to hide actions when not allowed so enable and disable aren't shown at the same time
-        m_actionToEnableComponents->setVisible(allowRemove && allowEnable);
-        m_actionToDisableComponents->setVisible(allowRemove && allowDisable);
     }
 
     bool EntityPropertyEditor::CanPasteComponentsOnSelectedEntities() const
@@ -3179,12 +2957,20 @@ namespace AzToolsFramework
         }
     }
 
-    void EntityPropertyEditor::DeleteComponents()
+    void EntityPropertyEditor::OpenAddComponentPanel()
+    {
+        AZ::ComponentDescriptor::DependencyArrayType serviceFilter;
+        AZ::ComponentDescriptor::DependencyArrayType incompatibleServiceFilter;
+        QRect globalRect = GetWidgetGlobalRect(m_gui->m_addComponentButton) | GetWidgetGlobalRect(m_gui->m_componentList);
+        ShowComponentPalette(m_componentPalette, globalRect.topLeft(), globalRect.size(), serviceFilter, incompatibleServiceFilter);
+    }
+
+    void EntityPropertyEditor::DeleteSelectedComponents()
     {
         DeleteComponents(GetSelectedComponents());
     }
 
-    void EntityPropertyEditor::CutComponents()
+    void EntityPropertyEditor::CutSelectedComponents()
     {
         if (!AllowAnyComponentModification())
         {
@@ -3198,12 +2984,12 @@ namespace AzToolsFramework
 
             //intentionally not using EntityCompositionRequests::CutComponents because we only want to copy components from first selected entity
             ScopedUndoBatch undoBatch("Cut Component(s)");
-            CopyComponents();
-            DeleteComponents();
+            CopySelectedComponents();
+            DeleteSelectedComponents();
         }
     }
 
-    void EntityPropertyEditor::CopyComponents()
+    void EntityPropertyEditor::CopySelectedComponents()
     {
         const auto& componentsToEdit = GetCopyableComponents();
         if (!componentsToEdit.empty() && AreComponentsCopyable(componentsToEdit))
@@ -3270,7 +3056,7 @@ namespace AzToolsFramework
         QueuePropertyRefresh();
     }
 
-    void EntityPropertyEditor::EnableComponents()
+    void EntityPropertyEditor::EnableSelectedComponents()
     {
         EnableComponents(GetSelectedComponents());
     }
@@ -3281,12 +3067,12 @@ namespace AzToolsFramework
         QueuePropertyRefresh();
     }
 
-    void EntityPropertyEditor::DisableComponents()
+    void EntityPropertyEditor::DisableSelectedComponents()
     {
         DisableComponents(GetSelectedComponents());
     }
 
-    void EntityPropertyEditor::MoveComponentsUp()
+    void EntityPropertyEditor::MoveUpSelectedComponents()
     {
         const auto& componentsToEdit = GetSelectedComponents();
         if (!AreComponentsRemovable(componentsToEdit))
@@ -3314,7 +3100,7 @@ namespace AzToolsFramework
         QueuePropertyRefresh();
     }
 
-    void EntityPropertyEditor::MoveComponentsDown()
+    void EntityPropertyEditor::MoveDownSelectedComponents()
     {
         const auto& componentsToEdit = GetSelectedComponents();
         if (!AreComponentsRemovable(componentsToEdit))
@@ -3341,8 +3127,8 @@ namespace AzToolsFramework
 
         QueuePropertyRefresh();
     }
-
-    void EntityPropertyEditor::MoveComponentsTop()
+    
+    void EntityPropertyEditor::MoveSelectedComponentsToTop()
     {
         const auto& componentsToEdit = GetSelectedComponents();
         if (!AreComponentsRemovable(componentsToEdit))
@@ -3384,7 +3170,7 @@ namespace AzToolsFramework
         QueuePropertyRefresh();
     }
 
-    void EntityPropertyEditor::MoveComponentsBottom()
+    void EntityPropertyEditor::MoveSelectedComponentsToBottom()
     {
         const auto& componentsToEdit = GetSelectedComponents();
         if (!AreComponentsRemovable(componentsToEdit))
@@ -3424,6 +3210,54 @@ namespace AzToolsFramework
         }
 
         QueuePropertyRefresh();
+    }
+
+    void EntityPropertyEditor::CanRemoveSelectedComponents(bool& result)
+    {
+        UpdatePossibleActionsCache();
+        result = result || m_canRemoveComponents;
+    }
+
+    void EntityPropertyEditor::CanCopySelectedComponents(bool& result)
+    {
+        UpdatePossibleActionsCache();
+        result = result || m_canCopyComponents;
+    }
+
+    void EntityPropertyEditor::CanPasteOnSelection(bool& result)
+    {
+        UpdatePossibleActionsCache();
+        result = result || m_canPaste;
+    }
+
+    void EntityPropertyEditor::CanMoveComponentSelectionUp(bool& result)
+    {
+        UpdatePossibleActionsCache();
+        result = result || m_canMoveUp;
+    }
+
+    void EntityPropertyEditor::CanMoveComponentSelectionDown(bool& result)
+    {
+        UpdatePossibleActionsCache();
+        result = result || m_canMoveDown;
+    }
+
+    void EntityPropertyEditor::CanEnabledSelectedComponents(bool& result)
+    {
+        UpdatePossibleActionsCache();
+        result = result || m_canEnableComponents;
+    }
+
+    void EntityPropertyEditor::CanDisableSelectedComponents(bool& result)
+    {
+        UpdatePossibleActionsCache();
+        result = result || m_canDisableComponents;
+    }
+
+    void EntityPropertyEditor::CanAddComponents(bool& result)
+    {
+        UpdatePossibleActionsCache();
+        result = result || m_canAddComponents;
     }
 
     void EntityPropertyEditor::MoveComponentBefore(const AZ::Component* sourceComponent, const AZ::Component* targetComponent, ScopedUndoBatch& undo)
@@ -3933,8 +3767,6 @@ namespace AzToolsFramework
         m_shouldScrollToNewComponents = false;
         m_shouldScrollToNewComponentsQueued = false;
         m_newComponentId.reset();
-
-        HighlightMovedRowWidget();
     }
 
     void EntityPropertyEditor::QueueScrollToNewComponent()
@@ -5288,8 +5120,72 @@ namespace AzToolsFramework
     void EntityPropertyEditor::UpdateInternalState()
     {
         UpdateSelectionCache();
-        UpdateActions();
         UpdateOverlay();
+
+        m_arePossibleActionsCached = false;
+    }
+
+    void EntityPropertyEditor::UpdatePossibleActionsCache()
+    {
+        AZ_PROFILE_FUNCTION(AzToolsFramework);
+
+        if (m_disabled || m_arePossibleActionsCached)
+        {
+            return;
+        }
+
+        const auto& componentsToEdit = GetSelectedComponents();
+
+        // you can use this to veto any ability to modify components present:
+        const bool allowAnyComponentModification = AllowAnyComponentModification();
+
+        const bool hasComponents = !m_selectedEntityIds.empty() && !componentsToEdit.empty();
+        // Don't allow components to be removed/cut/enabled/disabled if read only
+        m_canRemoveComponents = allowAnyComponentModification && hasComponents && AreComponentsRemovable(componentsToEdit) &&
+            !m_selectionContainsReadOnlyEntity;
+        m_canCopyComponents = allowAnyComponentModification && hasComponents && AreComponentsCopyable(componentsToEdit);
+        m_canPaste = allowAnyComponentModification && !m_selectedEntityIds.empty() && CanPasteComponentsOnSelectedEntities();
+        m_canMoveUp = m_canRemoveComponents && IsMoveComponentsUpAllowed();
+        m_canMoveDown = m_canRemoveComponents && IsMoveComponentsDownAllowed();
+
+        SelectionEntityTypeInfo selectionTypeInfo;
+        {
+            AZ_PROFILE_SCOPE(AzToolsFramework, "EntityPropertyEditor::UpdateActions GetSelectionEntityTypeInfo");
+            selectionTypeInfo = GetSelectionEntityTypeInfo(m_selectedEntityIds);
+        }
+        m_canAddComponents = CanAddComponentsToSelection(selectionTypeInfo);
+
+        m_canEnableComponents = false;
+        m_canDisableComponents = false;
+        
+        if (m_canRemoveComponents)
+        {
+            AZ::Entity::ComponentArrayType disabledComponents;
+
+            // build a working set of all components selected for edit
+            AZStd::unordered_set<AZ::Component*> enabledComponents(componentsToEdit.begin(), componentsToEdit.end());
+            for (const auto& entityId : m_selectedEntityIds)
+            {
+                disabledComponents.clear();
+                EditorDisabledCompositionRequestBus::Event(
+                    entityId, &EditorDisabledCompositionRequests::GetDisabledComponents, disabledComponents);
+
+                // remove all disabled components from the set of enabled components
+                for (auto disabledComponent : disabledComponents)
+                {
+                    if (enabledComponents.erase(disabledComponent) > 0)
+                    {
+                        // if any disabled components were found/removed from the selected set, assume they can be enabled
+                        m_canEnableComponents = true;
+                    }
+                }
+            }
+
+            // if any components remain in the selected set, assume they can be disabled
+            m_canDisableComponents = !enabledComponents.empty();
+        }
+
+        m_arePossibleActionsCached = true;
     }
 
     void EntityPropertyEditor::OnSearchTextChanged()
@@ -5595,39 +5491,6 @@ namespace AzToolsFramework
     QPixmap EntityPropertyEditor::GetReorderRowWidgetImage() const
     {
         return m_reorderRowImage;
-    }
-
-    float EntityPropertyEditor::GetMoveIndicatorAlpha() const
-    {
-        if (m_currentReorderState != ReorderState::MenuOperationInProgress)
-        {
-            return 1.0f;
-        }
-
-        return m_moveFadeSecondsRemaining / MoveFadeSeconds;
-    }
-
-    PropertyRowWidget* EntityPropertyEditor::GetRowToHighlight()
-    {
-        // Use the pregenerated map to find the RowWidget that's in the new position.
-        QSet<PropertyRowWidget*> rowWidgets = m_reorderRowWidgetEditor->GetPropertyEditor()->GetTopLevelWidgets();
-        if (rowWidgets.isEmpty())
-        {
-            return nullptr;
-        }
-
-        PropertyRowWidget* highlightRow = *rowWidgets.begin();
-
-        int mapIndex = static_cast<int>(m_indexMapOfMovedRow.size() - 1);
-
-        while (mapIndex >= 0)
-        {
-            int mapEntry = m_indexMapOfMovedRow[mapIndex];
-            highlightRow = highlightRow->GetChildrenRows()[mapEntry];
-            mapIndex--;
-        }
-
-        return highlightRow;
     }
 }
 

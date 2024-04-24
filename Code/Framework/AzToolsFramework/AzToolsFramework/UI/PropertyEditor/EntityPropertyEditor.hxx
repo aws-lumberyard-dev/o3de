@@ -108,9 +108,9 @@ namespace AzToolsFramework
 
     /**
      * the entity property editor shows all components for a given entity or set of entities.
-     * it displays their values and lets you edit them.  The editing actually happens through the sub editor parts, though.
-     * only components which the selected entities have in common are displayed (if theres more than one)
-     * if there are components that are not in common, there is a message indicating that this is the case.
+     * it displays their values and lets you edit them. The editing actually happens through the sub editor parts, though.
+     * only components which the selected entities have in common are displayed (if theres more than one).
+     * If there are components that are not in common, there is a message indicating that this is the case.
      * each component is shown as a heading which can be expanded into an actual component specific property editor.
      * so this widget is actually only interested in specifically what entities are selected, what their components are,
      * and what is in common.
@@ -267,6 +267,25 @@ namespace AzToolsFramework
         void GetSelectedComponents(AZStd::unordered_set<AZ::EntityComponentIdPair>& selectedComponentEntityIds) override;
         void SetNewComponentId(AZ::ComponentId componentId) override;
         void VisitComponentEditors(const VisitComponentEditorsCallback& callback) const override;
+        void OpenAddComponentPanel() override;
+        void DeleteSelectedComponents() override;
+        void CutSelectedComponents() override;
+        void CopySelectedComponents() override;
+        void PasteComponents() override;
+        void EnableSelectedComponents() override;
+        void DisableSelectedComponents() override;
+        void MoveUpSelectedComponents() override;
+        void MoveDownSelectedComponents() override;
+        void MoveSelectedComponentsToTop() override;
+        void MoveSelectedComponentsToBottom() override;
+        void CanRemoveSelectedComponents(bool& result) override;
+        void CanCopySelectedComponents(bool& result) override;
+        void CanPasteOnSelection(bool& result) override;
+        void CanMoveComponentSelectionUp(bool& result) override;
+        void CanMoveComponentSelectionDown(bool& result) override;
+        void CanEnabledSelectedComponents(bool& result) override;
+        void CanDisableSelectedComponents(bool& result) override;
+        void CanAddComponents(bool& result) override;
 
         // EntityPropertyEditorNotificationBus overrides ...
         void OnComponentSelectionChanged(
@@ -313,7 +332,6 @@ namespace AzToolsFramework
         bool AreComponentsDraggable(AZStd::span<AZ::Component* const> components) const;
         bool AreComponentsCopyable(AZStd::span<AZ::Component* const> components) const;
 
-        void AddMenuOptionsForComponents(QMenu& menu, const QPoint& position);
         void AddMenuOptionsForFields(InstanceDataNode* fieldNode, InstanceDataNode* componentNode, const AZ::SerializeContext::ClassData* componentClassData, QMenu& menu);
 
         bool HasAnyVisibleElements(const InstanceDataNode& node);
@@ -395,40 +413,16 @@ namespace AzToolsFramework
         AZ_PUSH_DISABLE_WARNING(4127, "-Wunknown-warning-option") // conditional expression is constant
         QVector<QAction*> m_entityComponentActions;
         AZ_POP_DISABLE_WARNING
-        QAction* m_actionToAddComponents = nullptr;
-        QAction* m_actionToDeleteComponents = nullptr;
-        QAction* m_actionToCutComponents = nullptr;
-        QAction* m_actionToCopyComponents = nullptr;
-        QAction* m_actionToPasteComponents = nullptr;
-        QAction* m_actionToEnableComponents = nullptr;
-        QAction* m_actionToDisableComponents = nullptr;
-        QAction* m_actionToMoveComponentsUp = nullptr;
-        QAction* m_actionToMoveComponentsDown = nullptr;
-        QAction* m_actionToMoveComponentsTop = nullptr;
-        QAction* m_actionToMoveComponentsBottom = nullptr;
 
         AzToolsFramework::MenuManagerInterface* m_menuManagerInterface = nullptr;
-
-        void CreateActions();
-        void UpdateActions();
 
         bool CanPasteComponentsOnSelectedEntities() const;
         bool CanPasteComponentsOnEntity(const ComponentTypeMimeData::ClassDataContainer& classDataForComponentsToPaste, const AZ::Entity* entity) const;
 
         AZ::Entity::ComponentArrayType GetCopyableComponents() const;
         void DeleteComponents(AZStd::span<AZ::Component* const> components);
-        void DeleteComponents();
-        void CutComponents();
-        void CopyComponents();
-        void PasteComponents();
         void EnableComponents(AZStd::span<AZ::Component* const> components);
-        void EnableComponents();
         void DisableComponents(AZStd::span<AZ::Component* const> components);
-        void DisableComponents();
-        void MoveComponentsUp();
-        void MoveComponentsDown();
-        void MoveComponentsTop();
-        void MoveComponentsBottom();
 
         //component reorder and drag drop helpers
 
@@ -680,6 +674,19 @@ namespace AzToolsFramework
         AZStd::optional<AZ::ComponentId> m_newComponentId;
 
         AZ::ConsoleCommandInvokedEvent::Handler m_commandInvokedHandler;
+
+        // Cache what actions can be executed on the current selection
+        bool m_canRemoveComponents = false;
+        bool m_canCopyComponents = false;
+        bool m_canPaste = false;
+        bool m_canMoveUp = false;
+        bool m_canMoveDown = false;
+        bool m_canEnableComponents = false;
+        bool m_canDisableComponents = false;
+        bool m_canAddComponents = false;
+
+        bool m_arePossibleActionsCached = false;
+        void UpdatePossibleActionsCache();
 
     private slots:
         void OnPropertyRefreshRequired(); // refresh is needed for a property.
