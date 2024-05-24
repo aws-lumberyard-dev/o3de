@@ -307,7 +307,7 @@ namespace AZ
             PassState GetPassState() const { return m_state; }
 
             // Update all bindings on this pass that are connected to bindings on other passes
-            void UpdateConnectedBindings();
+            virtual void UpdateConnectedBindings();
 
             // Update input and input/output bindings on this pass that are connected to bindings on other passes
             void UpdateConnectedInputBindings();

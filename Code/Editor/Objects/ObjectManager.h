@@ -106,10 +106,6 @@ public:
     // Gathers all resources used by all objects.
     void GatherUsedResources(CUsedResources& resources) override;
 
-    bool IsLightClass(CBaseObject* pObject) override;
-
-    int GetAxisHelperHitRadius() const override { return m_axisHelperHitRadius; }
-
 private:
     friend CObjectArchive;
     friend class CBaseObject;
@@ -162,8 +158,6 @@ private:
     bool m_isUpdateVisibilityList;
 
     uint64 m_currentHideCount;
-
-    int m_axisHelperHitRadius = 20;
 };
 
 namespace AzToolsFramework

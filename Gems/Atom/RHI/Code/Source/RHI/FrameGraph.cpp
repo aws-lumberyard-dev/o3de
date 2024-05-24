@@ -106,7 +106,7 @@ namespace AZ::RHI
                 if (attachment->GetFirstScopeAttachment() == nullptr)
                 {
                     //We allow the rendering to continue even if an attachment is not used.
-                    AZ_ErrorOnce(
+                    AZ_WarningOnce(
                         "FrameGraph", false,
                         "Invalid State: attachment '%s' was added but never used!",
                         attachment->GetId().GetCStr());
@@ -427,6 +427,11 @@ namespace AZ::RHI
     void FrameGraph::SignalFence(Fence& fence)
     {
         m_currentScope->m_fencesToSignal.push_back(&fence);
+    }
+
+    void FrameGraph::WaitFence(Fence& fence)
+    {
+        m_currentScope->m_fencesToWaitFor.push_back(&fence);
     }
 
     ResultCode FrameGraph::TopologicalSort()

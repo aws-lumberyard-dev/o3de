@@ -15,7 +15,6 @@
 
 // forward declarations.
 class CEntityObject;
-struct DisplayContext;
 class CTrackViewAnimNode;
 class CUsedResources;
 class CObjectClassDesc;
@@ -62,10 +61,6 @@ public:
     //! @param layer if 0 get objects for all layers, or layer to get objects from.
     virtual void GetObjects(CBaseObjectsArray& objects) const = 0;
 
-    //! Gets a radius to be used for hit tests on the axis helpers, like the transform gizmo.
-    //! @return the axis helper hit radius.
-    virtual int GetAxisHelperHitRadius() const = 0;
-
     //! Send event to all objects.
     //! Will cause OnEvent handler to be called on all objects.
     virtual void SendEvent(ObjectEvent event) = 0;
@@ -105,6 +100,4 @@ public:
     //////////////////////////////////////////////////////////////////////////
     // Gathers all resources used by all objects.
     virtual void GatherUsedResources(CUsedResources& resources) = 0;
-
-    virtual bool IsLightClass(CBaseObject* pObject) = 0;
 };

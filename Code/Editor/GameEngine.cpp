@@ -319,7 +319,7 @@ AZ::Outcome<void, AZStd::string> CGameEngine::Init(
     constexpr const char* crySystemLibraryName = AZ_TRAIT_OS_DYNAMIC_LIBRARY_PREFIX  "CrySystem" AZ_TRAIT_OS_DYNAMIC_LIBRARY_EXTENSION;
 
     m_hSystemHandle = AZ::DynamicModuleHandle::Create(crySystemLibraryName);
-    if (!m_hSystemHandle->Load(true))
+    if (!m_hSystemHandle->Load(AZ::DynamicModuleHandle::LoadFlags::InitFuncRequired))
     {
         auto errorMessage = AZStd::string::format("%s Loading Failed", crySystemLibraryName);
         Error(errorMessage.c_str());
@@ -465,25 +465,6 @@ bool CGameEngine::LoadLevel(
     // directory is wrong
     QDir::setCurrent(GetIEditor()->GetPrimaryCDFolder());
 
-
-    bool usePrefabSystemForLevels = false;
-    AzFramework::ApplicationRequests::Bus::BroadcastResult(
-        usePrefabSystemForLevels, &AzFramework::ApplicationRequests::IsPrefabSystemEnabled);
-
-    if (!usePrefabSystemForLevels)
-    {
-        QString pakFile = m_levelPath + "/level.pak";
-
-        // Open Pak file for this level.
-        if (!m_pISystem->GetIPak()->OpenPack(m_levelPath.toUtf8().data(), pakFile.toUtf8().data()))
-        {
-            CryWarning(VALIDATOR_MODULE_EDITOR, VALIDATOR_WARNING, "Level Pack File %s Not Found", pakFile.toUtf8().data());
-        }
-    }
-
-    // Audio: notify audio of level loading start?
-    GetIEditor()->GetObjectManager()->SendEvent(EVENT_REFRESH);
-
     m_bLevelLoaded = true;
 
     return true;
@@ -516,9 +497,6 @@ void CGameEngine::SwitchToInGame()
     m_pISystem->GetIMovieSystem()->EnablePhysicsEvents(true);
     m_bInGameMode = true;
 
-    //! Send event to switch into game.
-    GetIEditor()->GetObjectManager()->SendEvent(EVENT_INGAME);
-
     m_pISystem->GetIMovieSystem()->Reset(true, false);
 
     // Transition to runtime entity context.
@@ -550,10 +528,6 @@ void CGameEngine::SwitchToInEditor()
     CViewport* pGameViewport = GetIEditor()->GetViewManager()->GetGameViewport();
 
     m_pISystem->GetIMovieSystem()->EnablePhysicsEvents(m_bSimulationMode);
-
-    // [Anton] - order changed, see comments for CGameEngine::SetSimulationMode
-    //! Send event to switch out of game.
-    GetIEditor()->GetObjectManager()->SendEvent(EVENT_OUTOFGAME);
 
     m_bInGameMode = false;
 
@@ -636,8 +610,6 @@ void CGameEngine::SetGameMode(bool bInGame)
         SwitchToInEditor();
     }
 
-    GetIEditor()->GetObjectManager()->SendEvent(EVENT_PHYSICS_APPLYSTATE);
-
     // Enables engine to know about that.
     if (MainWindow::instance())
     {
@@ -674,19 +646,6 @@ void CGameEngine::SetSimulationMode(bool enabled, bool bOnlyPhysics)
 
     // Enables engine to know about simulation mode.
     gEnv->SetIsEditorSimulationMode(enabled);
-
-    if (m_bSimulationMode)
-    {
-        // [Anton] the order of the next 3 calls changed, since, EVENT_INGAME loads physics state (if any),
-        // and Reset should be called before it
-        GetIEditor()->GetObjectManager()->SendEvent(EVENT_INGAME);
-    }
-    else
-    {
-        GetIEditor()->GetObjectManager()->SendEvent(EVENT_OUTOFGAME);
-    }
-
-    GetIEditor()->GetObjectManager()->SendEvent(EVENT_PHYSICS_APPLYSTATE);
 
     // Execute all queued events before switching modes.
     ExecuteQueuedEvents();

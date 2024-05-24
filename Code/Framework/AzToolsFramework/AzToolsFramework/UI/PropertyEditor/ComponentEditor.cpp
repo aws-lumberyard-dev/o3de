@@ -433,8 +433,8 @@ namespace AzToolsFramework
 
     AzQtComponents::CardNotification* ComponentEditor::CreateNotificationForMissingComponents(
         const QString& message, 
-        AZStd::span<const AZ::ComponentServiceType> services,
-        AZStd::span<const AZ::ComponentServiceType> incompatibleServices)
+        const AZ::ComponentDescriptor::DependencyArrayType& services,
+        const AZ::ComponentDescriptor::DependencyArrayType& incompatibleServices)
     {
         auto notification = CreateNotification(message);
         auto featureButton = notification->addButtonFeature(tr("Add Required Component \342\226\276"));
@@ -601,6 +601,19 @@ namespace AzToolsFramework
     void ComponentEditor::QueuePropertyEditorInvalidation(PropertyModificationRefreshLevel refreshLevel)
     {
         GetPropertyEditor()->QueueInvalidation(refreshLevel);
+    }
+
+    void ComponentEditor::QueuePropertyEditorInvalidationForComponent(AZ::EntityComponentIdPair entityComponentIdPair, PropertyModificationRefreshLevel refreshLevel)
+    {
+        for (const auto component : m_components)
+        {
+            if ((component->GetId() == entityComponentIdPair.GetComponentId()) 
+             && (component->GetEntityId() == entityComponentIdPair.GetEntityId()))
+            {
+                GetPropertyEditor()->QueueInvalidation(refreshLevel);
+                break;
+            }
+        }
     }
 
     void ComponentEditor::CancelQueuedRefresh()

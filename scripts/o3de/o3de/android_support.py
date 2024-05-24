@@ -14,6 +14,7 @@ import json
 import logging
 import os
 import re
+import pathlib
 import platform
 import shutil
 import stat
@@ -21,7 +22,7 @@ import string
 import subprocess
 
 from enum import Enum
-from o3de import command_utils, manifest, utils
+from o3de import command_utils, manifest, utils, export_project as exp
 from packaging.version import Version
 from pathlib import Path
 from typing import Dict, List, Tuple
@@ -183,6 +184,19 @@ def get_android_config(project_path: Path or None) -> command_utils.O3DEConfig:
                                     settings_description_list=SUPPORTED_ANDROID_SETTINGS)
 
 
+
+def deloy_to_android_device(target_android_project_path: pathlib.Path,
+                            build_config:str,
+                            android_sdk_home:pathlib.Path,
+                            org_name,
+                            activity_name):
+    adb_exec_path = android_sdk_home / (f'platform-tools/adb{EXE_EXTENSION}')
+    apk_file = target_android_project_path / f'app/build/outputs/apk/{build_config}/app-{build_config}.apk'
+    
+    has_error = exp.process_command([adb_exec_path, 'install', '-t', '-r', apk_file])
+    if has_error:
+        raise AndroidToolError(f"Installing APK '{apk_file}' has failed for the android device.")
+    
 """
 Map to make troubleshooting java issues related to mismatched java versions when running the sdkmanager.
 """
@@ -1622,7 +1636,8 @@ class AndroidProjectGenerator(object):
                 cmake_argument_list.append(f'"-DLY_PROJECTS={template_project_path}"')
 
             if self._extra_cmake_configure_args:
-                extra_cmake_configure_arg_list = [f'"{arg}"' for arg in self._extra_cmake_configure_args.split()]
+                # Splits the arguments by white space but only if it's not in a quoted string (e.g. when specifiying a path with white spaces)
+                extra_cmake_configure_arg_list = [f'"{arg}"' for arg in re.split('''\s(?=(?:[^'"]|'[^']*'|"[^"]*")*$)''', self._extra_cmake_configure_args)]
                 cmake_argument_list.extend(extra_cmake_configure_arg_list)
 
             # Prepare the config-specific section to place the cmake argument list in the build.gradle for the app

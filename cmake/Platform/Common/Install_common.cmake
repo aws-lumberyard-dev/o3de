@@ -1131,9 +1131,18 @@ function(ly_setup_o3de_install)
         ${LY_ROOT_FOLDER}/pytest.ini
         ${LY_ROOT_FOLDER}/LICENSE.txt
         ${LY_ROOT_FOLDER}/README.md
+        ${LY_ROOT_FOLDER}/CMakePresets.json
         DESTINATION .
         COMPONENT ${CMAKE_INSTALL_DEFAULT_COMPONENT_NAME}
     )
+
+    if("$ENV{O3DE_PACKAGE_TYPE}" STREQUAL "DEB")
+        ly_install(FILES
+            ${LY_ROOT_FOLDER}/Code/Tools/ProjectManager/Resources/o3de.svg
+            DESTINATION .
+            COMPONENT ${CMAKE_INSTALL_DEFAULT_COMPONENT_NAME}
+        )
+    endif()
 
     # Inject other build directories
     foreach(external_dir ${LY_INSTALL_EXTERNAL_BUILD_DIRS})

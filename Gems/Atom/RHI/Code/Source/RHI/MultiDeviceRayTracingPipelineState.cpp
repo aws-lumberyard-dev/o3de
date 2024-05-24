@@ -21,7 +21,7 @@ namespace AZ::RHI
 
         if (m_mdPipelineState)
         {
-            descriptor.PipelineState(m_mdPipelineState->GetDevicePipelineState(deviceIndex).get());
+            descriptor.m_pipelineState = m_mdPipelineState->GetDevicePipelineState(deviceIndex).get();
         }
 
         return descriptor;
@@ -89,6 +89,13 @@ namespace AZ::RHI
         const AZ::Name& anyHitShaderName)
     {
         m_descriptor.AnyHitShaderName(anyHitShaderName);
+        return this;
+    }
+
+    MultiDeviceRayTracingPipelineStateDescriptor* MultiDeviceRayTracingPipelineStateDescriptor::IntersectionShaderName(
+        const Name& intersectionShaderName)
+    {
+        m_descriptor.IntersectionShaderName(intersectionShaderName);
         return this;
     }
 

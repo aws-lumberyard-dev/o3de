@@ -96,7 +96,15 @@ namespace AZ
             PassDescriptor desc;
             desc.m_passName = m_name;
             desc.m_passTemplate = m_template ? PassSystemInterface::Get()->GetPassTemplate(m_template->m_name) : nullptr;
-            desc.m_passRequest = m_flags.m_createdByPassRequest ? &m_request : nullptr;
+            if (m_flags.m_createdByPassRequest)
+            {
+                desc.m_passRequest = AZStd::make_shared<PassRequest>(m_request);
+            }
+            else
+            {
+                desc.m_passRequest.reset();
+            }
+            
             desc.m_passData = m_passData;
             return desc;
         }
@@ -1323,7 +1331,6 @@ namespace AZ
 
             if (earlyOut)
             {
-                UpdateConnectedBindings();
                 return;
             }
 
@@ -1333,7 +1340,6 @@ namespace AZ
 
             m_state = PassState::Rendering;
 
-            UpdateConnectedInputBindings();
             UpdateOwnedAttachments();
 
             CreateTransientAttachments(params.m_frameGraphBuilder->GetAttachmentDatabase());
@@ -1351,8 +1357,6 @@ namespace AZ
 
             // update attachment copy for preview
             UpdateAttachmentCopy(params);
-
-            UpdateConnectedOutputBindings();
         }
 
         void Pass::FrameEnd()
