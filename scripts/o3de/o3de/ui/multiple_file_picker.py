@@ -37,6 +37,8 @@ class Dialog(object):
         for item in self.items:
             self.file_list_box.insert(tk.END, item)
 
+        self.file_filters = file_filters
+
         button_frame = tk.Frame(self._main_frame, borderwidth=0)
         button_frame.columnconfigure(0, weight=0)
         button_frame.rowconfigure(0, weight=0)
@@ -52,7 +54,7 @@ class Dialog(object):
         root.grid()
 
     def _choose_file(self):
-        filename = filedialog.askopenfilename()
+        filename = filedialog.askopenfilename(filetypes=self.file_filters)
         if filename not in self.items:
             self.items.add(filename)
             self.file_list_box.insert(0,filename)
