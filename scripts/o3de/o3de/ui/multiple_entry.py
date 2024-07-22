@@ -11,6 +11,9 @@ from tkinter import filedialog
 
 
 class Dialog(object):
+    """
+    Dialog to handle the selection of names
+    """
 
     def __init__(self, parent, input_value):
 
@@ -78,22 +81,3 @@ class Dialog(object):
         self.root.grab_set()
         self.root.wait_window()
         return self.input_value
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

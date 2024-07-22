@@ -11,6 +11,9 @@ from tkinter import filedialog
 
 
 class Dialog(object):
+    """
+    Dialog to handle the selection of multiple files
+    """
 
     def __init__(self, parent, file_filters=None, initial_list=""):
 
@@ -76,22 +79,3 @@ class Dialog(object):
         cleaned_items = [item for item in self.items if len(item)>0]
         result_string = ";".join(cleaned_items)
         return result_string
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
