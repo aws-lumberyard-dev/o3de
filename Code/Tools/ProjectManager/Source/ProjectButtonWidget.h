@@ -143,6 +143,7 @@ namespace O3DE::ProjectManager
         void BuildProject(const ProjectInfo& projectInfo, bool skipDialogBox = false);
         void OpenCMakeGUI(const ProjectInfo& projectInfo);
         void OpenAndroidProjectGenerator(const QString& projectPath);
+        void OpenProjectExportSettings(const QString& projectPath);
 
     private:
         void enterEvent(QEvent* event) override;

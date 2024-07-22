@@ -232,8 +232,17 @@ def export_standalone_parse_args(o3de_context: exp.O3DEScriptExportContext, expo
                     add_help=False
         )
         eutil.create_common_export_params_and_config(parser, export_config)
-        
-        parser.add_argument('-out', '--output-path', type=pathlib.Path, required=True, help='Path that describes the final resulting Release Directory path location.')
+
+        default_output_path = pathlib.Path(export_config.get_value(key=exp.SETTINGS_DEFAULT_OUTPUT_PATH.key,
+                                                                   default=exp.SETTINGS_DEFAULT_OUTPUT_PATH.default))
+        if not default_output_path.is_absolute():
+            default_output_path = pathlib.Path(o3de_context.project_path) / default_output_path
+
+        parser.add_argument('-out', '--output-path',
+                            type=pathlib.Path,
+                            required=False,
+                            help='Path that describes the final resulting Release Directory path location.',
+                            default=default_output_path)
 
         # archive.output.format / SETTINGS_ARCHIVE_OUTPUT_FORMAT
         default_archive_output_format = export_config.get_value(key=exp.SETTINGS_ARCHIVE_OUTPUT_FORMAT.key,

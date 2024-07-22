@@ -1,6 +1,10 @@
-
-
-
+#
+# Copyright (c) Contributors to the Open 3D Engine Project.
+# For complete copyright and license terms please see the LICENSE at the root of this distribution.
+#
+# SPDX-License-Identifier: Apache-2.0 OR MIT
+#
+#
 
 import tkinter as tk
 from tkinter import filedialog
@@ -69,7 +73,8 @@ class Dialog(object):
     def get_result(self):
         self.root.grab_set()
         self.root.wait_window()
-        result_string = ";".join(self.items)
+        cleaned_items = [item for item in self.items if len(item)>0]
+        result_string = ";".join(cleaned_items)
         return result_string
 
 
