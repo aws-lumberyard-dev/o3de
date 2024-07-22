@@ -6,14 +6,18 @@
 #
 
 import tkinter as tk
-import tkinter.messagebox
 import tkinter.tix as tkp
-from tkinter import ttk
+from tkinter import ttk, filedialog, messagebox
 
+import os
+import pathlib
 import platform
 
 from . import multiple_file_picker
 from . import multiple_entry
+
+EXPORT_SCRIPTS_PATH = pathlib.Path(__file__).parent.parent.parent / 'ExportScripts'
+assert EXPORT_SCRIPTS_PATH.is_dir(), "Missing expected ExportScripts path"
 
 
 class MainWindow(tkp.Tk):
@@ -163,15 +167,16 @@ class MainWindow(tkp.Tk):
         self.config_key_entry_map[config_key] = (label_text, default_value, check_button_var, settings, button)
 
     def add_multi_file_entry(self, parent: tk.Frame or tk.LabelFrame, config_key: str, label_text: str,
-                             entry_read_only: bool = False, file_filters=None) -> None:
+                             multifile_file_select: bool = False, entry_read_only: bool = False, file_filters=None) -> None:
         """
         Add a labeled text box that represents a list of multiple files
 
-        :param parent:          The parent frame widget (using grid management)
-        :param config_key:      The settings config key to attach to this entry
-        :param label_text:      The text for the label of this entry
+        :param parent:                  The parent frame widget (using grid management)
+        :param config_key:              The settings config key to attach to this entry
+        :param label_text:              The text for the label of this entry
+        :param multifile_file_select:   Option to use the custom multi-file select (true) or the simple single file select
         :param entry_read_only: Is this a read-only entry text?
-        :param file_filters:    The file filters to pass to the open file dialog
+        :param file_filters:            The file filters to pass to the open file dialog
         """
 
         assert config_key not in self.config_key_entry_map.keys(), f'Duplicate config key {config_key}'
@@ -197,9 +202,12 @@ class MainWindow(tkp.Tk):
         self.tool_tip.bind_widget(entry, balloonmsg=tooltip_description)
         sub_row_line = entry.grid_info().get("row")
 
-        button_add = tk.Button(entry_and_button_frame, text="...", width=3,
-                               command=lambda: MainWindow.open_multi_file_dialog(parent=parent, str_var=entry_var,
-                                                                                 file_filters=file_filters))
+        if multifile_file_select:
+            button_add = tk.Button(entry_and_button_frame, text="...", width=3,
+                                   command=lambda: MainWindow.open_multi_file_dialog(parent=parent, str_var=entry_var, file_filters=file_filters))
+        else:
+            button_add = tk.Button(entry_and_button_frame, text="...", width=3,
+                                   command=lambda: MainWindow.open_single_file_dialog(parent=parent, str_var=entry_var, file_filters=file_filters, starting_dir=EXPORT_SCRIPTS_PATH))
         button_add.grid(row=sub_row_line, column=1, sticky=tk.E, padx=self.field_padding, pady=self.field_padding)
         self.tool_tip.bind_widget(button_add, balloonmsg=tooltip_description)
 
@@ -258,6 +266,12 @@ class MainWindow(tkp.Tk):
         str_var.set(result)
 
     @staticmethod
+    def open_single_file_dialog(parent, str_var: tk.StringVar, file_filters, starting_dir):
+        result = filedialog.askopenfilename(filetypes=file_filters, initialdir=starting_dir)
+        filename_only = os.path.basename(result)
+        str_var.set(filename_only)
+
+    @staticmethod
     def open_multi_text_dialog(parent, str_var: tk.StringVar):
         """
         Open the custom dialog to manage multiple text entries
@@ -298,9 +312,11 @@ class MainWindow(tkp.Tk):
                                    label_text='Max Size',
                                    config_key='max.size')
 
-        self.add_multi_text_entry(parent=general_settings_frame,
+        self.add_multi_file_entry(parent=general_settings_frame,
                                   label_text="Export Script",
-                                  config_key='option.default.export.script')
+                                  config_key='option.default.export.script',
+                                  multifile_file_select=False,
+                                  file_filters=[('Export Script', '*.py')])
 
         self.add_multi_text_entry(parent=general_settings_frame,
                                   label_text="Output Path",
@@ -435,11 +451,13 @@ class MainWindow(tkp.Tk):
         self.add_multi_file_entry(parent=project_asset_bundling_options_frame,
                                   label_text="Seed List File Paths",
                                   config_key='seedlist.paths',
+                                  multifile_file_select=True,
                                   file_filters=[("Seed List File", "*.seed")])
 
         self.add_multi_file_entry(parent=project_asset_bundling_options_frame,
                                   label_text="Seed (Asset) File Paths",
                                   config_key='seedfile.paths',
+                                  multifile_file_select=True,
                                   file_filters=[("All Files", "*.*")])
 
         self.add_multi_text_entry(parent=project_asset_bundling_options_frame,
@@ -489,7 +507,7 @@ class MainWindow(tkp.Tk):
                                                         validate_value=True,
                                                         show_log=False)
                 except Exception as e:
-                    tkinter.messagebox.showerror("Error", f"Input for {label_text} is not a valid value: {e}")
+                    messagebox.showerror("Error", f"Input for {label_text} is not a valid value: {e}")
                     widget.focus_set()
                     return
 
