@@ -28,6 +28,7 @@
 #include <SceneAPI/SceneData/Rules/UnmodifiableRule.h>
 #include <AzCore/Component/EntityId.h>
 
+#pragma optimize("", off)
 namespace AZ
 {
     AZ_TYPE_INFO_SPECIALIZE(AZ::SceneAPI::PrefabGroupRequests::ManifestUpdates, "{B84CBFB5-4630-4484-AE69-A4155A8B0D9B}");
@@ -445,6 +446,12 @@ namespace AZ::SceneAPI
                 return {};
             }
 
+            // Note: path = Car.Wheel_02.Wheel, name = "Wheel"
+            if (0 == strcmp(nodeNameForEntity.GetPath(), "Car.Wheel_02.Wheel"))
+            {
+                bool success = Hack_CreateNestedPrefabGroup(manifestUpdates, entityId);
+            }
+
             if (meshNodeIndex.IsValid())
             {
                 if (!CreateMeshGroupAndComponents(manifestUpdates,
@@ -536,6 +543,53 @@ namespace AZ::SceneAPI
         return entities;
     }
 
+    bool DefaultProceduralPrefabGroup::Hack_CreateNestedPrefabGroup(
+        ManifestUpdates& manifestUpdates,
+        const EntityId& parentEntityId) const
+    {
+        const AZStd::string prefabTemplateName = "Assets/wheel_usda.procprefab";
+
+        auto* prefabSystemComponentInterface = AZ::Interface<AzToolsFramework::Prefab::PrefabSystemComponentInterface>::Get();
+        AzToolsFramework::Prefab::TemplateId prefabTemplateId =
+            prefabSystemComponentInterface->GetTemplateIdFromFilePath({ prefabTemplateName.c_str() });
+        if (prefabTemplateId == AzToolsFramework::Prefab::InvalidTemplateId)
+        {
+            AZ_Warning("prefab", false, "%s doesn't have a prefabTemplateId. Update this hack to use a valid proc-prefab.", prefabTemplateName.c_str());
+        }
+
+        auto createPrefabOutcome = Interface<AzToolsFramework::Prefab::PrefabPublicInterface>::Get()->InstantiatePrefab(
+            prefabTemplateName, parentEntityId, AZ::Vector3::CreateZero());
+
+        if (!createPrefabOutcome.IsSuccess())
+        {
+            AZ_Warning("prefab", false, "Procedural Prefab Instantiation Error: %s.", createPrefabOutcome.GetError().c_str());
+        }
+
+
+        //// Convert the prefab to a JSON string
+        //AZ::Outcome<AZStd::string, void> outcome;
+        //AzToolsFramework::Prefab::PrefabLoaderScriptingBus::BroadcastResult(
+        //    outcome, &AzToolsFramework::Prefab::PrefabLoaderScriptingBus::Events::SaveTemplateToString, prefabTemplateId);
+
+        //if (outcome.IsSuccess() == false)
+        //{
+        //    AZ_Error("prefab", false, "Could not create JSON string for template; maybe NaN values in the template?");
+        //    return false;
+        //}
+
+        //AzToolsFramework::Prefab::PrefabDom prefabDom;
+        //prefabDom.Parse(outcome.GetValue().c_str());
+
+        //auto prefabGroup = AZStd::make_shared<AZ::SceneAPI::SceneData::PrefabGroup>();
+        //prefabGroup->SetName(prefabTemplateName);
+        //prefabGroup->SetPrefabDom(AZStd::move(prefabDom));
+        //prefabGroup->SetId(
+        //    DataTypes::Utilities::CreateStableUuid(scene, azrtti_typeid<AZ::SceneAPI::SceneData::PrefabGroup>(), prefabTemplateName));
+
+        //manifestUpdates.emplace_back(prefabGroup);
+        return true;
+    }
+
     bool DefaultProceduralPrefabGroup::CreatePrefabGroupManifestUpdates(
         ManifestUpdates& manifestUpdates,
         const Containers::Scene& scene,
@@ -597,4 +651,6 @@ namespace AZ::SceneAPI
         manifestUpdates.emplace_back(prefabGroup);
         return true;
     }
-}
+} // namespace AZ::SceneAPI
+
+#pragma optimize("", on)

@@ -99,6 +99,9 @@ namespace AZ::SceneAPI
             const EntityIdMap& entities,
             const AZStd::string& filenameOnly,
             const AZStd::string& relativeSourcePath) const;
+
+        bool Hack_CreateNestedPrefabGroup(
+            ManifestUpdates& manifestUpdates, const EntityId& parentEntityId) const;
     };
 }
 
