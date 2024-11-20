@@ -447,10 +447,10 @@ namespace AZ::SceneAPI
             }
 
             // Note: path = Car.Wheel_02.Wheel, name = "Wheel"
-            if (0 == strcmp(nodeNameForEntity.GetPath(), "Car.Wheel_02.Wheel"))
-            {
-                bool success = Hack_CreateNestedPrefabGroup(manifestUpdates, entityId);
-            }
+            //if (0 == strcmp(nodeNameForEntity.GetPath(), "Car.Wheel_02.Wheel"))
+            //{
+            //    bool success = Hack_CreateNestedPrefabGroup(manifestUpdates, entityId);
+            //}
 
             if (meshNodeIndex.IsValid())
             {
@@ -623,7 +623,6 @@ namespace AZ::SceneAPI
             AZ_Error("prefab", false, "Could not create a prefab template for entities.");
             return false;
         }
-
         // Convert the prefab to a JSON string
         AZ::Outcome<AZStd::string, void> outcome;
         AzToolsFramework::Prefab::PrefabLoaderScriptingBus::BroadcastResult(
@@ -639,6 +638,61 @@ namespace AZ::SceneAPI
 
         AzToolsFramework::Prefab::PrefabDom prefabDom;
         prefabDom.Parse(outcome.GetValue().c_str());
+
+        // Hack: add the wheel.usda procprefab to this prefab's JSON
+        // "Instances": {
+        //    "Instance_[762181114560]": {
+        //        "Source": "assets/wheel_usda.procprefab",
+        //        "Patches": [
+        //            {
+        //                "op": "replace",
+        //                "path": "/ContainerEntity/Components/TransformComponent/Parent Entity",
+        //                "value": "../Entity_[713700928849]"
+        //            }
+        //        ]
+        //    }
+        //}
+        {
+            AzToolsFramework::Prefab::PrefabDom childReference;
+            childReference.SetObject();
+            childReference.AddMember("Source", rapidjson::Value("assets/wheel_usda.procprefab"), childReference.GetAllocator());
+
+            AZ::EntityId wheelEntityId;
+            for (const auto& [entityId, entityName] : entities)
+            {
+                // grab the entity id of the first entity containing "wheel" in the name
+                if (entityName.find("Wheel_01") != AZStd::string::npos)
+                {
+                    wheelEntityId = entityId;
+                }
+            }
+
+            static constexpr const AZStd::string_view patches = R"(
+                [
+                    {
+                        "op": "replace",
+                        "path": "/ContainerEntity/Components/TransformComponent/Parent Entity",
+                        "value": "../Wheel_02"
+                    }
+                ])";
+
+            const AZStd::string patchesValue = AZStd::string::format(patches.data(), wheelEntityId.ToString().c_str());
+
+            AzToolsFramework::Prefab::PrefabDom patchesCopy;
+            patchesCopy.Parse(patchesValue.data());
+            childReference.AddMember(
+                rapidjson::StringRef(AzToolsFramework::Prefab::PrefabDomUtils::PatchesName),
+                AZStd::move(patchesCopy),
+                prefabDom.GetAllocator()
+            );
+
+            // Add the child reference to the parent's DOM structure
+            AzToolsFramework::Prefab::PrefabDomUtils::AddNestedInstance(
+                prefabDom, "Instance_[762181114560]", childReference);
+
+            AZ::Interface<AzToolsFramework::Prefab::PrefabSystemComponentInterface>::Get()->UpdatePrefabTemplate(
+                prefabTemplateId, prefabDom);
+        }
 
         auto prefabGroup = AZStd::make_shared<AZ::SceneAPI::SceneData::PrefabGroup>();
         prefabGroup->SetName(prefabTemplateName);
