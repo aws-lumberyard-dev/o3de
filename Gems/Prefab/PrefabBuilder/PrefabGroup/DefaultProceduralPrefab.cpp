@@ -103,20 +103,22 @@ namespace AZ::SceneAPI
         AZ::StringFunc::Path::ReplaceExtension(filenameOnly, "procprefab");
 
         ManifestUpdates manifestUpdates;
+        ParentEntityId_ReferenceProcprefabAssetPath_Map parentEntityId_ReferenceProcprefabAssetPath_Map;
 
-        auto nodeEntityMap = CreateNodeEntityMap(manifestUpdates, nodeDataMap, scene, relativeSourcePath);
+        auto nodeEntityMap = CreateNodeEntityMap(manifestUpdates, parentEntityId_ReferenceProcprefabAssetPath_Map, nodeDataMap, scene, relativeSourcePath);
         if (nodeEntityMap.empty())
         {
             return {};
         }
 
-        auto entities = FixUpEntityParenting(nodeEntityMap, scene.GetGraph(), nodeDataMap);
+        DefaultProceduralPrefabGroup::EntityIdMap entities = FixUpEntityParenting(nodeEntityMap, scene.GetGraph(), nodeDataMap);
         if (entities.empty())
         {
             return {};
         }
 
-        if (CreatePrefabGroupManifestUpdates(manifestUpdates, scene, entities, filenameOnly, relativeSourcePath) == false )
+        if (CreatePrefabGroupManifestUpdates(
+                manifestUpdates, parentEntityId_ReferenceProcprefabAssetPath_Map, scene, entities, filenameOnly, relativeSourcePath) == false)
         {
             return {};
         }
@@ -420,23 +422,23 @@ namespace AZ::SceneAPI
 
     DefaultProceduralPrefabGroup::NodeEntityMap DefaultProceduralPrefabGroup::CreateNodeEntityMap(
         ManifestUpdates& manifestUpdates,
+        ParentEntityId_ReferenceProcprefabAssetPath_Map& parentEntityId_ReferenceProcprefabAssetPath_Map,
         const NodeDataMap& nodeDataMap,
         const Containers::Scene& scene,
         const AZStd::string& relativeSourcePath) const
     {
         NodeEntityMap nodeEntityMap;
-        const auto& graph = scene.GetGraph();
+        const Containers::SceneGraph& graph = scene.GetGraph();
 
-        for (const auto& entry : nodeDataMap)
+        for (const AZStd::pair<Containers::SceneGraph::NodeIndex, NodeDataForEntity>& entry : nodeDataMap)
         {
-            const auto thisNodeIndex = entry.first;
-            const auto meshNodeIndex = entry.second.m_meshIndex;
+            const Containers::SceneGraph::NodeIndex& thisNodeIndex = entry.first;
+            const Containers::SceneGraph::NodeIndex& meshNodeIndex = entry.second.m_meshIndex;
 
             Containers::SceneGraph::NodeIndex nodeIndexForEntityName;
-            nodeIndexForEntityName = meshNodeIndex.IsValid() ? meshNodeIndex : thisNodeIndex;
-            const auto nodeNameForEntity = graph.GetNodeName(nodeIndexForEntityName);
-
+            
             // create an entity for each node data entry
+            const Containers::SceneGraph::Name& nodeNameForEntity = graph.GetNodeName(thisNodeIndex);
             AZ::EntityId entityId;
             AzToolsFramework::EntityUtilityBus::BroadcastResult(
                 entityId, &AzToolsFramework::EntityUtilityBus::Events::CreateEditorReadyEntity, nodeNameForEntity.GetName());
@@ -445,6 +447,36 @@ namespace AZ::SceneAPI
             {
                 return {};
             }
+
+            // Check if the node has a custom property data child
+            // If it does, then check if the custom property is a reference to another file, and create a nested prefab group
+            if (const Containers::SceneGraph::NodeIndex& childNodeIndex = graph.GetNodeChild(thisNodeIndex); childNodeIndex.IsValid())
+            {
+                if (const auto customPropertyData =
+                        azrtti_cast<const DataTypes::ICustomPropertyData*>(graph.GetNodeContent(childNodeIndex)))
+                {
+                    int referenceCount = 0;
+                    constexpr const char* refAssetPathKey = "RefAssetPath_%i";
+                    const auto& customProperties = customPropertyData->GetPropertyMap();
+                    while (true)
+                    {
+                        const AZStd::string key = AZStd::string::format(refAssetPathKey, referenceCount);
+                        const auto& referenceIter = customProperties.find(key);
+                        if (referenceIter == customProperties.end())
+                        {
+                            break;
+                        }
+
+                        // This entity should have a nested procedural prefab under it
+                        const auto& referenceAssetPath = AZStd::any_cast<AZStd::string>(referenceIter->second);
+                        parentEntityId_ReferenceProcprefabAssetPath_Map[entityId] = referenceAssetPath;
+
+
+                        referenceCount++;
+                    }
+                }
+            }
+
 
             // Note: path = Car.Wheel_02.Wheel, name = "Wheel"
             //if (0 == strcmp(nodeNameForEntity.GetPath(), "Car.Wheel_02.Wheel"))
@@ -543,55 +575,9 @@ namespace AZ::SceneAPI
         return entities;
     }
 
-    bool DefaultProceduralPrefabGroup::Hack_CreateNestedPrefabGroup(
-        ManifestUpdates& manifestUpdates,
-        const EntityId& parentEntityId) const
-    {
-        const AZStd::string prefabTemplateName = "Assets/wheel_usda.procprefab";
-
-        auto* prefabSystemComponentInterface = AZ::Interface<AzToolsFramework::Prefab::PrefabSystemComponentInterface>::Get();
-        AzToolsFramework::Prefab::TemplateId prefabTemplateId =
-            prefabSystemComponentInterface->GetTemplateIdFromFilePath({ prefabTemplateName.c_str() });
-        if (prefabTemplateId == AzToolsFramework::Prefab::InvalidTemplateId)
-        {
-            AZ_Warning("prefab", false, "%s doesn't have a prefabTemplateId. Update this hack to use a valid proc-prefab.", prefabTemplateName.c_str());
-        }
-
-        auto createPrefabOutcome = Interface<AzToolsFramework::Prefab::PrefabPublicInterface>::Get()->InstantiatePrefab(
-            prefabTemplateName, parentEntityId, AZ::Vector3::CreateZero());
-
-        if (!createPrefabOutcome.IsSuccess())
-        {
-            AZ_Warning("prefab", false, "Procedural Prefab Instantiation Error: %s.", createPrefabOutcome.GetError().c_str());
-        }
-
-
-        //// Convert the prefab to a JSON string
-        //AZ::Outcome<AZStd::string, void> outcome;
-        //AzToolsFramework::Prefab::PrefabLoaderScriptingBus::BroadcastResult(
-        //    outcome, &AzToolsFramework::Prefab::PrefabLoaderScriptingBus::Events::SaveTemplateToString, prefabTemplateId);
-
-        //if (outcome.IsSuccess() == false)
-        //{
-        //    AZ_Error("prefab", false, "Could not create JSON string for template; maybe NaN values in the template?");
-        //    return false;
-        //}
-
-        //AzToolsFramework::Prefab::PrefabDom prefabDom;
-        //prefabDom.Parse(outcome.GetValue().c_str());
-
-        //auto prefabGroup = AZStd::make_shared<AZ::SceneAPI::SceneData::PrefabGroup>();
-        //prefabGroup->SetName(prefabTemplateName);
-        //prefabGroup->SetPrefabDom(AZStd::move(prefabDom));
-        //prefabGroup->SetId(
-        //    DataTypes::Utilities::CreateStableUuid(scene, azrtti_typeid<AZ::SceneAPI::SceneData::PrefabGroup>(), prefabTemplateName));
-
-        //manifestUpdates.emplace_back(prefabGroup);
-        return true;
-    }
-
     bool DefaultProceduralPrefabGroup::CreatePrefabGroupManifestUpdates(
         ManifestUpdates& manifestUpdates,
+        ParentEntityId_ReferenceProcprefabAssetPath_Map& parentEntityId_ReferenceProcprefabAssetPath_Map,
         const Containers::Scene& scene,
         const EntityIdMap& entities,
         const AZStd::string& filenameOnly,
@@ -652,46 +638,40 @@ namespace AZ::SceneAPI
         //        ]
         //    }
         //}
+        
         {
-            AzToolsFramework::Prefab::PrefabDom childReference;
-            childReference.SetObject();
-            childReference.AddMember("Source", rapidjson::Value("assets/wheel_usda.procprefab"), childReference.GetAllocator());
 
-            AZ::EntityId wheelEntityId;
-            for (const auto& [entityId, entityName] : entities)
+            for (const auto& [entityId, referenceAssetPath] : parentEntityId_ReferenceProcprefabAssetPath_Map)
             {
-                // grab the entity id of the first entity containing "wheel" in the name
-                if (entityName.find("Wheel_01") != AZStd::string::npos)
-                {
-                    wheelEntityId = entityId;
-                }
+                AzToolsFramework::Prefab::PrefabDom childReference;
+                childReference.SetObject();
+                childReference.AddMember("Source", rapidjson::Value("assets/wheel_usda.procprefab"), childReference.GetAllocator());
+
+                AZStd::string parentEntityName = "../Wheel_02";
+                const AZStd::string patchNestedProcPrefabParent = AZStd::string::format(R"(
+                    [
+                        {
+                            "op": "replace",
+                            "path": "/ContainerEntity/Components/TransformComponent/Parent Entity",
+                            "value": "%s"
+                        }
+                    ])",
+                        parentEntityName.c_str());
+
+                AzToolsFramework::Prefab::PrefabDom patchesCopy;
+                patchesCopy.Parse(patchNestedProcPrefabParent.data());
+                childReference.AddMember(
+                    rapidjson::StringRef(AzToolsFramework::Prefab::PrefabDomUtils::PatchesName),
+                    AZStd::move(patchesCopy),
+                    prefabDom.GetAllocator());
+
+                // Add the child reference to the parent's DOM structure
+                AzToolsFramework::Prefab::PrefabDomUtils::AddNestedInstance(prefabDom, "Instance_[762181114560]", childReference);
+
+                //@ todo, can we call this function after the for-loop?
+                AZ::Interface<AzToolsFramework::Prefab::PrefabSystemComponentInterface>::Get()->UpdatePrefabTemplate(
+                    prefabTemplateId, prefabDom);
             }
-
-            static constexpr const AZStd::string_view patches = R"(
-                [
-                    {
-                        "op": "replace",
-                        "path": "/ContainerEntity/Components/TransformComponent/Parent Entity",
-                        "value": "../Wheel_02"
-                    }
-                ])";
-
-            const AZStd::string patchesValue = AZStd::string::format(patches.data(), wheelEntityId.ToString().c_str());
-
-            AzToolsFramework::Prefab::PrefabDom patchesCopy;
-            patchesCopy.Parse(patchesValue.data());
-            childReference.AddMember(
-                rapidjson::StringRef(AzToolsFramework::Prefab::PrefabDomUtils::PatchesName),
-                AZStd::move(patchesCopy),
-                prefabDom.GetAllocator()
-            );
-
-            // Add the child reference to the parent's DOM structure
-            AzToolsFramework::Prefab::PrefabDomUtils::AddNestedInstance(
-                prefabDom, "Instance_[762181114560]", childReference);
-
-            AZ::Interface<AzToolsFramework::Prefab::PrefabSystemComponentInterface>::Get()->UpdatePrefabTemplate(
-                prefabTemplateId, prefabDom);
         }
 
         auto prefabGroup = AZStd::make_shared<AZ::SceneAPI::SceneData::PrefabGroup>();

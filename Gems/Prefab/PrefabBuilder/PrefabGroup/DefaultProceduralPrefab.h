@@ -56,6 +56,8 @@ namespace AZ::SceneAPI
 
         using NodeEntityMap = AZStd::unordered_map<Containers::SceneGraph::NodeIndex, AZStd::pair<AZ::EntityId, AzToolsFramework::Prefab::EntityAlias>>;
         using EntityIdMap = AZStd::unordered_map<AZ::EntityId, AzToolsFramework::Prefab::EntityAlias>;
+        using ParentEntityId_ReferenceProcprefabAssetPath_Map = AZStd::unordered_map<AZ::EntityId, AZStd::string>; // @todo entity can be a list of references
+
 
         AZStd::shared_ptr<SceneData::MeshGroup> BuildMeshGroupForNode(
             const Scene& scene,
@@ -84,6 +86,7 @@ namespace AZ::SceneAPI
 
         NodeEntityMap CreateNodeEntityMap(
             ManifestUpdates& manifestUpdates,
+            ParentEntityId_ReferenceProcprefabAssetPath_Map& parentEntityId_ReferenceProcprefabAssetPath_Map,
             const NodeDataMap& nodeDataMap,
             const Containers::Scene& scene,
             const AZStd::string& relativeSourcePath) const;
@@ -95,13 +98,11 @@ namespace AZ::SceneAPI
 
         bool CreatePrefabGroupManifestUpdates(
             ManifestUpdates& manifestUpdates,
+            ParentEntityId_ReferenceProcprefabAssetPath_Map& parentEntityId_ReferenceProcprefabAssetPath_Map,
             const Containers::Scene& scene,
             const EntityIdMap& entities,
             const AZStd::string& filenameOnly,
             const AZStd::string& relativeSourcePath) const;
-
-        bool Hack_CreateNestedPrefabGroup(
-            ManifestUpdates& manifestUpdates, const EntityId& parentEntityId) const;
     };
 }
 
